@@ -1,1 +1,1 @@
-# -edgex-docs
+# Sources for docs.edgexfoundry.org
