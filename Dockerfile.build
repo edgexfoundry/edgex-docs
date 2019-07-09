@@ -1,33 +1,28 @@
-FROM ubuntu:16.04
-MAINTAINER EdgeX Foundry <edgex-devel@lists.edgexfoundry.org>
+FROM nexus3.edgexfoundry.org:10003/edgex-docs-builder:latest
 
-# Install software to build docs
+ARG STREAM=master
 
-RUN apt-get update
-RUN apt-get install -y git python-pip latexmk texlive-latex-recommended \
-  texlive-latex-extra texlive-fonts-recommended nodejs npm make linkchecker \
-  wget
-RUN apt-get install -y git python-pip latexmk nodejs npm make linkchecker curl
-RUN apt-get install -y --no-install-recommends texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
-RUN ln -s /usr/bin/nodejs /usr/bin/node
-RUN pip install sphinx==1.7.9 sphinxcontrib-googleanalytics==0.1
-RUN npm i -g raml2html@3.0.1
+ENV RAML_FILES="core-data.raml \
+  core-metadata.raml \
+  core-command.raml \
+  support-logging.raml \
+  support-scheduler.raml \
+  support-notifications.raml \
+  export-client.raml \
+  system-agent.raml"
+
+ENV RAML_URL="https://raw.githubusercontent.com/edgexfoundry/edgex-go/${STREAM}/api/raml"
+
 RUN mkdir docbuild
 WORKDIR /docbuild
 
-RUN mkdir ./_templates/
-COPY _templates ./_templates
+# Templates not ready yet.
+# RUN mkdir ./_templates/
+# COPY _templates ./_templates
 
 # Download service RAML files 
 
-RUN curl -s https://raw.githubusercontent.com/edgexfoundry/edgex-go/edinburgh/api/raml/core-data.raml -o ./core-data.raml
-RUN curl -s https://raw.githubusercontent.com/edgexfoundry/edgex-go/edinburgh/api/raml/core-metadata.raml -o ./core-metadata.raml
-RUN curl -s https://raw.githubusercontent.com/edgexfoundry/edgex-go/edinburgh/api/raml/core-command.raml -o ./core-command.raml
-RUN curl -s https://raw.githubusercontent.com/edgexfoundry/edgex-go/edinburgh/api/raml/support-logging.raml -o ./support-logging.raml
-RUN curl -s https://raw.githubusercontent.com/edgexfoundry/edgex-go/edinburgh/api/raml/support-scheduler.raml -o ./support-scheduler.raml
-RUN curl -s https://raw.githubusercontent.com/edgexfoundry/edgex-go/edinburgh/api/raml/support-notifications.raml -o ./support-notifications.raml
-RUN curl -s https://raw.githubusercontent.com/edgexfoundry/edgex-go/edinburgh/api/raml/export-client.raml -o ./export-client.raml
-RUN curl -s https://raw.githubusercontent.com/edgexfoundry/edgex-go/edinburgh/api/raml/system-agent.raml -o ./system-agent.raml
+RUN for file in ${RAML_FILES}; do echo "${RAML_URL}/${file}" && curl -s ${RAML_URL}/${file} -o ./${file}; done
 
 # Clone documentation sources in other repositories
 
@@ -62,7 +57,6 @@ COPY walk-through ./
 COPY quick-start ./
 COPY security/* ./
 COPY application/* ./
-
 
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
