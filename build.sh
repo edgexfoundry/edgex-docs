@@ -2,8 +2,10 @@
 set -e
 
 # Build image (copying in documentation sources)
+# default to master branch, can be overriden
+build_stream=${1:-edinburgh}
 
-docker build -t doc-builder:latest -f Dockerfile.build .
+docker build -t doc-builder:latest -f Dockerfile.build --build-arg STREAM=${build_stream} .
 rm -rf _build
 mkdir _build
 
