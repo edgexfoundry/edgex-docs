@@ -6,10 +6,10 @@ set -e
 build_stream=${1:-master}
 
 docker build -t doc-builder:latest -f Dockerfile.build --build-arg STREAM=${build_stream} .
-rm -rf _build
-mkdir _build
+rm -rf docs/_build
+mkdir -p docs/_build
 
 # Build documentation in container
-docker run --rm -v "$(pwd)"/_build:/docbuild/_build doc-builder:latest
+docker run --rm -v "$(pwd)"/docs/_build:/docbuild/_build doc-builder:latest
 
 
