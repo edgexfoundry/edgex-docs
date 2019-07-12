@@ -11,7 +11,7 @@ Adding your device
 
 See `APIs Core Services Metadata`_ 
 
-For the sake of this demonstration, the call to Core Metadata below will provision the human/dog counting monitor camera as if the Device Service discovered it (by some unknown means) and provisioned the Device as part of some startup process.  To create a Device, it must be associated to a `Device Profile <Ch-WalkthroughDeviceProfile.html>`_ (by name or id), a `Device Service <Ch-WalkthroughDeviceService.html>`_ (by name or id), and `Addressable <Ch-WalkthroughData.html#addressables>`_ (by name or id).  When calling each of the POST calls above, the ID was returned by the associated micro service and used in the call below.  In this example, the names of Device Profile, Device Service, and Addressable are used.
+For the sake of this demonstration, the call to Core Metadata below will provision the human/dog counting monitor camera as if the Device Service discovered it (by some unknown means) and provisioned the Device as part of some startup process.  To create a Device, it must be associated to a `Device Profile <Ch-WalkthroughDeviceProfile.html>`_ (by name or id), a `Device Service <Ch-WalkthroughDeviceService.html>`_ (by name or id), and contain one or more `Protocols <Ch-WalkthroughData.html#addressables>`_ defining its address.  When calling each of the POST calls above, the ID was returned by the associated micro service and used in the call below.  In this example, the names of Device Profile, Device Service, and Protocols are used.
 
 ::
 
@@ -19,8 +19,7 @@ For the sake of this demonstration, the call to Core Metadata below will provisi
 
 ::
 
-   BODY:  {"name":"countcamera1","description":"human and dog counting camera #1","adminState":"unlocked","operatingState":"enabled","addressable":{"name":"camera1 address"},"labels":
-   ["camera","counter"],"location":"","service":{"name":"camera control device service"},"profile":{"name":"camera monitor profile"}}
+   BODY:  {"name":"countcamera1","description":"human and dog counting camera #1","adminState":"unlocked","operatingState":"enabled","protocols":{"camera protocol":{"camera address":"camera 1"}},"labels": ["camera","counter"],"location":"","service":{"name":"camera control device service"},"profile":{"name":"camera monitor profile"}}
 
 Note that ``camera monitor profile`` was created by the :download:`CameraMonitorProfile.yml <EdgeX_CameraMonitorProfile.yml>` you uploaded in a previous step.
 
