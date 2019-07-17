@@ -13,7 +13,7 @@ KONG (https://konghq.com/) is the product underlying the API gateway.  The EdgeX
 Start the API Gateway
 ======================
 
-Start the API gateway with Docker Compose and a Docker Compose manifest file (the Docker Compose file named docker-compose-delhi-0.7.0.yml found at https://github.com/edgexfoundry/developer-scripts/tree/master/compose-files/security)).  This Compose file starts all of EdgeX including the security services. The command to start EdgeX inclusive of API gateway related services is:
+Start the API gateway with Docker Compose and a Docker Compose manifest file (the Docker Compose file named docker-compose-delhi-0.7.0.yml found at https://github.com/edgexfoundry/developer-scripts/tree/master/releases/delhi/compose-files/security)).  This Compose file starts all of EdgeX including the security services. The command to start EdgeX inclusive of API gateway related services is:
 ::
 
     docker-compose up -d
