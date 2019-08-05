@@ -322,7 +322,7 @@ Create the configuration file, named configuration.toml, as shown below replacin
 Add Device Service to docker-compose File (docker-compose.yml)
 --------------------------------------------------------------
 
-Download the docker-compose file from https://github.com/edgexfoundry/developer-scripts/blob/master/compose-files/docker-compose-edinburgh-1.0.0.yml.
+Download the docker-compose file from https://github.com/edgexfoundry/developer-scripts/blob/master/releases/edinburgh/compose-files/docker-compose-edinburgh-1.0.1.yml.
 
 Because we deploy EdgeX using docker-compose, we must add device-mqtt to the docker-compose file. If you have prepared configuration files, you can mount them using volumes and change the entrypoint for device-mqtt internal use.
 
