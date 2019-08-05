@@ -58,7 +58,7 @@ If you know Docker and understand the architecture of EdgeX Foundry and its micr
 
 Getting and running EdgeX Foundry microservices can also be accomplished more easily provided you have the Docker Compose file that specifies to Docker/Docker Compose which containers you want, and how you want to run those containers. The EdgeX Foundry development team provides you with Docker Compose files for each release through the EdgeX Foundry GitHub repository. To obtain and run EdgeX Foundry, visit the project GitHub and download (or copy the contents) of the EdgeX Foundry Docker Compose file suitable to the version you wish to use - to a local directory.
 
-The collection of the EdgeX Foundry Docker compose files are found here:  https://github.com/edgexfoundry/developer-scripts/tree/master/compose-files
+The collection of the EdgeX Foundry Docker compose files are found here:  https://github.com/edgexfoundry/developer-scripts/tree/master/releases
 
 Note that most of the Docker Compose files carry a specific version identifier (like california-0.6.0) in the file name.  These Compose files help obtain the specific version of EdgeX.  The docker-compose.yml file will pull the latest tagged EdgeX microservices from Docker Hub.  The docker-compose-nexus.yml will pull the latest microservice images from the developer's Nexus registry which contains the latest built artifacts.  These are typically work-in-progress microservice artifacts and should not be used by most end users.  It is recommended that you use the lastest version of EdgeX Foundry.  As of this writing, the latest version is: Delhi (version 0.7.1)
 
