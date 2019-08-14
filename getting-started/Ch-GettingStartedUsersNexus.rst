@@ -22,7 +22,7 @@ $ docker pull nexus3.edgexfoundry.org:10004/docker-core-config-seed
 
 **Replace the image(s) in docker-compose.yml**
 
-A Docker Compose file that pulls the latest EdgeX container images from Nexus is available here:  https://github.com/edgexfoundry/developer-scripts/blob/master/compose-files/docker-compose-nexus.yml.
+A Docker Compose file that pulls the latest EdgeX container images from Nexus is available here:  https://github.com/edgexfoundry/developer-scripts/blob/master/releases/nightly-build/compose-files/docker-compose-nexus.yml.
 If you are creating your own Docker Compose file or want to use and existing EdgeX Docker Compose file but selectively use Nexus images, replace the name/location of the Docker image in your docker-compose.yml file for the containers you want to get from Nexus versus Docker Hub.  For example, the config-seed item in docker-compose.yml might ordinarily look like this:
 
 ::

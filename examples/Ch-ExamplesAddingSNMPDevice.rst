@@ -46,7 +46,7 @@ Postman (Linux 64bit)
 
 EdgeX - barcelona-docker-compose.yaml
 
--- https://github.com/edgexfoundry/developer-scripts/blob/master/docker-compose.yml
+-- https://github.com/edgexfoundry/developer-scripts/blob/master/releases/barcelona/compose-files/docker-compose-barcelona-0.2.1.yml
 
 **SNMP - Device documentation**
 
