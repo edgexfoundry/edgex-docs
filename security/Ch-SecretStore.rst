@@ -1041,3 +1041,11 @@ Sample JSON returned:
 .. note:: Line 3: Vault is **unsealed** therefore available and ready for requests.
 
           Line 4 & 5: Vault Shamir Secret Sharing default configuration for EdgeX Foundry: 1 share with threshold 1 (no sharding).
+
+========
+See also
+========
+
+Some of the command used in implementing security services have man-style documentation:
+
+* `token-file-provider <token-file-provider.1.rst>`_  - Generate Vault tokens for EdgeX services
