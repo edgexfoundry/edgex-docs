@@ -1049,3 +1049,4 @@ See also
 Some of the command used in implementing security services have man-style documentation:
 
 * `token-file-provider <token-file-provider.1.html>`_  - Generate Vault tokens for EdgeX services
+* `security-secrets-setup <security-secrets-setup.1.html>`_  - Creates an on-device public-key infrastructure (PKI) to secure microservice secret management
