@@ -5,7 +5,7 @@ token-file-provider – Generate Vault tokens for EdgeX services
 
 SYNOPSIS
 ========
-token-file-provider [-h|-help] [-confdir confdir]
+token-file-provider [-h|-help] [-c|--confdir <confdir>] [-p|--profile <name>]
 
 
 DESCRIPTION
@@ -24,14 +24,14 @@ that will be used to prevent EdgeX services from reading each other’s tokens.
 
 OPTIONS
 =======
-  \-h
+  \-h, \--help
     Display help text
 
-  \-help
-    Display help text
-
-  \-confdir confdir
+  \-c, \--confdir <confdir>
     Look in this directory for configuration.toml instead.
+
+  \-p, \--profile <name>
+    Indicate configuration profile other than default
 
 
 FILES
@@ -72,6 +72,10 @@ token-config.json
 -----------------
 This configuration file tells token-file-provider which tokens to generate.
 
+In order to avoid a directory full of `.hcl` files,
+this configuration file uses the JSON serialization of HCL,
+documented at https://github.com/hashicorp/hcl/blob/master/README.md.
+
 ::
 
   {
@@ -92,7 +96,11 @@ This configuration file tells token-file-provider which tokens to generate.
 
 
 When edgex-use-default is true (the default),
-the following is appended to the policy array for the generated token:
+the following is added to the policy specification
+for the auto-generated policy.
+Thus, the final policy created for the token will be the union
+of the policy below (if using the default policy)
+plus the ``custom_policy`` defined above.
 
 ::
 
@@ -113,6 +121,9 @@ the following is inserted (if not overridden) to the token parameters for the ge
   "display_name": service-name
   "no_parent":    true
   "policies":     [ "edgex-service-service-name" ]
+
+Note that ``display_name`` may be used by ``go-mod-secrets``
+as a hint for locating service secrets.
 
 
 {OutputDir}/{service-name}/{OutputFilename}
