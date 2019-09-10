@@ -49,15 +49,16 @@ and parameters used for Vault token generation.
   Port = 8200 
 
   [TokenFileProvider]
-  PrivilegedTokenPath = /run/edgex/secrets/token-file-provider/vault-token.json
+  PrivilegedTokenPath = /run/edgex/secrets/token-file-provider/secrets-token.json
   ConfigFile = token-config.json
   OutputDir = /run/edgex/secrets/
-  OutputFilename = vault-token.json
+  OutputFilename = secrets-token.json
 
 
-vault-token.json
-----------------
-This file contains a token use to authenticate to Vault.
+secrets-token.json
+------------------
+This file contains a token used to authenticate to Vault.
+The filename is customizable via *OutputFilename*.
 
 ::
 
@@ -98,6 +99,8 @@ documented at https://github.com/hashicorp/hcl/blob/master/README.md.
 When edgex-use-default is true (the default),
 the following is added to the policy specification
 for the auto-generated policy.
+The auto-generated policy is named ``edgex-secrets-XYZ``
+where ``XYZ`` is ``service-name`` from the JSON key above.
 Thus, the final policy created for the token will be the union
 of the policy below (if using the default policy)
 plus the ``custom_policy`` defined above.
@@ -106,7 +109,7 @@ plus the ``custom_policy`` defined above.
 
   {
     "path": {
-      "secret/edgex/service-name/*": {
+      "secret/non/standard/location/*": {
         "capabilities": [ "create", "update", "delete", "list", "read" ]
       }
     }
@@ -128,13 +131,13 @@ as a hint for locating service secrets.
 
 {OutputDir}/{service-name}/{OutputFilename}
 -------------------------------------------
-For example: ``/run/edgex/secrets/edgex-kong/vault-token.json``
+For example: ``/run/edgex/secrets/edgex-security-proxy-setup/secrets-token.json``
 
 For each "service-name" in ``{ConfigFile}``,
 a matching directory is created under ``{OutputDir}``
-and the corresponding Vault token in stored as ``{OutputFilename}``.
-This file contains the Vault token generated
-to allow the indicated EdgeX service to retrieve its Vault secrets.
+and the corresponding Vault token is stored as ``{OutputFilename}``.
+This file contains the authorization token generated
+to allow the indicated EdgeX service to retrieve its secrets.
 
 
 PREREQUISITES
