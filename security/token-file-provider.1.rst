@@ -85,7 +85,7 @@ documented at https://github.com/hashicorp/hcl/blob/master/README.md.
       "custom_policy": [
         {
           "path": {
-            "secret/edgex/pki/tls/edgex-kong": {
+            "secret/non/standard/location/*": {
               "capabilities": [ "list", "read" ]
             }
           }
@@ -109,7 +109,7 @@ plus the ``custom_policy`` defined above.
 
   {
     "path": {
-      "secret/non/standard/location/*": {
+      "secret/edgex/service-name/*": {
         "capabilities": [ "create", "update", "delete", "list", "read" ]
       }
     }
