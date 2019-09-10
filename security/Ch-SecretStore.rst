@@ -1048,4 +1048,4 @@ See also
 
 Some of the command used in implementing security services have man-style documentation:
 
-* `token-file-provider <token-file-provider.1.rst>`_  - Generate Vault tokens for EdgeX services
+* `token-file-provider <token-file-provider.1.html>`_  - Generate Vault tokens for EdgeX services
