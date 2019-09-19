@@ -1,24 +1,24 @@
 NAME
 ====
-token-file-provider – Generate Vault tokens for EdgeX services
+security-file-token-provider – Generate Vault tokens for EdgeX services
 
 
 SYNOPSIS
 ========
-token-file-provider [-h|-help] [-c|--confdir <confdir>] [-p|--profile <name>]
+security-file-token-provider [-h|-help] [-c|--confdir <confdir>] [-p|--profile <name>]
 
 
 DESCRIPTION
 ===========
-token-file-provider generates per-service Vault tokens for EdgeX services
+security-file-token-provider generates per-service Vault tokens for EdgeX services
 so that they can make authenticated connections to Vault to retrieve
 application secrets.
-token-file-provider implements a generic secret seeding mechanism based
+security-file-token-provider implements a generic secret seeding mechanism based
 on pre-created files and is designed for maximum portability.
-token-file-provider takes a configuration file that specifies the services
+security-file-token-provider takes a configuration file that specifies the services
 for which tokens shall be generated and the Vault access policy
 that shall be applied to those tokens.
-token-file-provider assumes that there is some underlying protection mechanism
+security-file-token-provider assumes that there is some underlying protection mechanism
 that will be used to prevent EdgeX services from reading each other’s tokens.
 
 
@@ -45,11 +45,12 @@ and parameters used for Vault token generation.
 ::
 
   [SecretService]
+  Scheme = "https"
   Server = "localhost"
   Port = 8200 
 
   [TokenFileProvider]
-  PrivilegedTokenPath = /run/edgex/secrets/token-file-provider/secrets-token.json
+  PrivilegedTokenPath = /run/edgex/secrets/security-file-token-provider/secrets-token.json
   ConfigFile = token-config.json
   OutputDir = /run/edgex/secrets/
   OutputFilename = secrets-token.json
@@ -71,26 +72,26 @@ The filename is customizable via *OutputFilename*.
 
 token-config.json
 -----------------
-This configuration file tells token-file-provider which tokens to generate.
+This configuration file tells security-file-token-provider which tokens to generate.
 
 In order to avoid a directory full of `.hcl` files,
 this configuration file uses the JSON serialization of HCL,
 documented at https://github.com/hashicorp/hcl/blob/master/README.md.
 
+Note that all paths are keys under the "path" object.
+
 ::
 
   {
     "service-name": {
-      "edgex-use-defaults": true,
-      "custom_policy": [
-        {
-          "path": {
-            "secret/non/standard/location/*": {
-              "capabilities": [ "list", "read" ]
-            }
+      "edgex_use_defaults": true,
+      "custom_policy": {
+        "path": {
+          "secret/non/standard/location/*": {
+            "capabilities": [ "list", "read" ]
           }
         }
-      ],
+      },
       "custom_token_parameters": { }
     }
   }
@@ -121,12 +122,22 @@ the following is inserted (if not overridden) to the token parameters for the ge
 
 ::
 
-  "display_name": service-name
+  "display_name": token-service-name
   "no_parent":    true
   "policies":     [ "edgex-service-service-name" ]
 
-Note that ``display_name`` may be used by ``go-mod-secrets``
-as a hint for locating service secrets.
+Note that ``display_name`` is set by vault to be "token-" + the specified display name.
+This is hard-coded in Vault from versions 0.6 to 1.2.3 and cannot be changed.
+
+Additionally, a meta property, ``edgex-service-name`` is set to ``service-name``.
+The edgex-service-name property may be used by clients to infer the location in the
+secret store where service-specific secrets are held.
+
+::
+
+  "meta": {
+    "edgex-service-name": service-name
+  }
 
 
 {OutputDir}/{service-name}/{OutputFilename}
@@ -142,7 +153,7 @@ to allow the indicated EdgeX service to retrieve its secrets.
 
 PREREQUISITES
 =============
-``PrivilegedTokenPath`` points to a non-expired Vault token that the token-file-provider
+``PrivilegedTokenPath`` points to a non-expired Vault token that the security-file-token-provider
 will use to install policies and create per-service tokens.
 It will create policies with the naming convention ``"edgex-service-service-name"``
 where ``service-name`` comes from JSON keys in the configuration file and the Vault policy
