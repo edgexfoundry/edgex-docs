@@ -28,7 +28,9 @@ The key features of Vault are:
 Start the Secret Store
 ======================
 
-Start the Secret Store with Docker Compose and a Docker Compose manifest file. The Docker Compose file can be found at `https://github.com/edgexfoundry/developer-scripts/blob/master/compose-files/docker-compose-edinburgh-1.0.0.yml <https://github.com/edgexfoundry/developer-scripts/blob/master/compose-files/docker-compose-edinburgh-1.0.0.yml>`_. Save it as ``docker-compose.yml``
+Start the Secret Store with Docker Compose and a Docker Compose manifest file. The Docker Compose file can be found at:
+
+    * https://github.com/edgexfoundry/developer-scripts/blob/master/releases/edinburgh/compose-files/docker-compose-edinburgh-1.0.1.yml
 
 This Compose file starts the entire EdgeX Foundry platform including the security services. Save it as ``docker-compose.yml``
 
