@@ -22,11 +22,11 @@ You can install these on Ubuntu by running::
 Get the EdgeX Device SDK for C
 ===============================
 
-The next step is to download and build the EdgeX Device SDK for C. You always want to use the release of the SDK that matches the release of EdgeX you are targeting. As of this writing the `edinburgh` release is the current stable release of EdgeX, so we will be using the `edinburgh` branch of the C SDK.
+The next step is to download and build the EdgeX Device SDK for C. You always want to use the release of the SDK that matches the release of EdgeX you are targeting. As of this writing the `fuji` release is the current stable release of EdgeX, so we will be using the `fuji` branch of the C SDK.
 
-#. First, clone the edinburgh branch of device-sdk-c from Github::
+#. First, clone the fuji branch of device-sdk-c from Github::
 
-    git clone -b edinburgh https://github.com/edgexfoundry/device-sdk-c.git
+    git clone -b fuji https://github.com/edgexfoundry/device-sdk-c.git
     cd ./device-sdk-c
 
 #. Then, build the device-sdk-c::
