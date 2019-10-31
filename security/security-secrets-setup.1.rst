@@ -68,14 +68,11 @@ OPTIONS
 FILES
 =====
 
-edgex-vault.json, edgex-kong.json
+pkisetup-vault.json, pkisetup-kong.json
 ---------------------------------
 
 Configuration files for certificate parameters.
-The basename of this file creates a corresponding directory under *DeployDir*.
-For example, ``edgex-vault.json`` would create assets under
-``/run/edgex/secrets/pki/edgex-vault/``.
-This file conforms to the following schema:
+These files conform to the following schema:
 
 ::
 
@@ -110,9 +107,10 @@ This file conforms to the following schema:
 
 When generating or caching,
 the utility hard-codes the names of the configuration files
-and always processes ``edgex-vault.json`` first
-and ``edgex-kong.json`` second.
-This will be configurable in the future.
+and always processes ``pkisetup-vault.json`` first
+and ``pkisetup-kong.json`` second.
+This will be configurable in the future; at that time
+the basename of the file would correspond to a directory under *DeployDir*.
 
 
 configuration.toml
