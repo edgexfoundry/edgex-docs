@@ -18,7 +18,7 @@ The fastest way to start running EdgeX is by using our pre-built Docker images. 
 Running EdgeX
 =============
 
-Once you have Docker and Docker Compose installed, you need the configuration file for downloading and running the EdgeX Foundry docker containers. Download the `latest docker-compose file here <https://github.com/edgexfoundry/developer-scripts/raw/master/releases/delhi/compose-files/docker-compose-delhi-0.7.1.yml>`_ and save this as ``docker-compose.yml`` in your local directory. This file contains everything you need to deploy EdgeX with docker.
+Once you have Docker and Docker Compose installed, you need the configuration file for downloading and running the EdgeX Foundry docker containers. Download the `latest docker-compose file here <https://github.com/edgexfoundry/developer-scripts/raw/master/releases/fuji/compose-files/docker-compose-fuji-1.1.0.yml>`_ and save this as ``docker-compose.yml`` in your local directory. This file contains everything you need to deploy EdgeX with docker.
 
 First, use this command to download the EdgeX Foundry Docker images from Docker Hub::
 
@@ -43,7 +43,7 @@ Connecting a Device
 EdgeX Foundry provides a `Random Number Device Service <https://github.com/edgexfoundry/device-random>`_ which is useful to testing, it returns a random number within a configurable range. Configuration for running this service was included in the `docker-compose.yml` file you downloaded at the start of this guide, but it is disabled by default. To enable it, uncomment the following lines in your `docker-compose.yml`::
 
     device-random:
-      image: edgexfoundry/docker-device-random-go:0.7.1
+      image: edgexfoundry/docker-device-random-go:1.1.0
       ports:
         - "49988:49988"
       container_name: edgex-device-random
