@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE modbuspal_project SYSTEM "modbuspal.dtd">
+<modbuspal_project>
+<idgen  value="2"/>
+<links selected="TCP/IP" >
+<tcpip port="1502" />
+<serial com="null" baudrate="9600" parity="even" stops="1" >
+<flowcontrol xonxoff="false" rtscts="false" />
+</serial>
+</links>
+<automation name="Energy" step="1.0" loop="true" init="0.0">
+<generator class="LinearGenerator" duration="10.0">
+<start value="10.0" relative="false"/>
+<end value="1500.0" relative="false"/>
+</generator>
+</automation>
+<automation name="Power" step="1.0" loop="true" init="0.0">
+<generator class="LinearGenerator" duration="10.0">
+<start value="100.0" relative="false"/>
+<end value="300.0" relative="false"/>
+</generator>
+</automation>
+<slave id="1" enabled="true" name="Power meter" implementation="modbus">
+<holding_registers>
+<register address="8" value="0" name="current"/>
+<register address="4000" value="0" name="Energy">
+<binding automation="Energy" class="Binding_FLOAT32" order="1"/>
+</register>
+<register address="4001" value="0">
+<binding automation="Energy" class="Binding_FLOAT32" order="1"/>
+</register>
+<register address="4002" value="0" name="Power">
+<binding automation="Power" class="Binding_SINT16" order="0"/>
+</register>
+<register address="4003" value="0"/>
+<register address="4004" value="0"/>
+<register address="4005" value="0"/>
+<register address="4006" value="0"/>
+<register address="4007" value="0"/>
+<register address="4008" value="0"/>
+<register address="4009" value="0"/>
+<register address="4010" value="0"/>
+<register address="4011" value="0"/>
+<register address="4012" value="0"/>
+<register address="4013" value="0"/>
+<register address="4014" value="0"/>
+<register address="4015" value="0"/>
+<register address="4016" value="0" name="Voltage"/>
+<register address="4602" value="0" name="DemandWindowSize"/>
+<register address="4603" value="0"/>
+<register address="4604" value="0"/>
+<register address="4605" value="0"/>
+<register address="4606" value="0"/>
+<register address="4607" value="0"/>
+<register address="4608" value="0" name="LineFrequency"/>
+</holding_registers>
+<coils>
+</coils>
+<tuning>
+<reply_delay min="0" max="0" />
+<error_rates no_reply="0.0" />
+</tuning>
+</slave>
+<slave id="2" enabled="true" name="Power meter 2" implementation="modbus">
+<holding_registers>
+<register address="8" value="0" name="current"/>
+<register address="4000" value="0" name="Energy">
+<binding automation="Energy" class="Binding_FLOAT32" order="1"/>
+</register>
+<register address="4001" value="0">
+<binding automation="Energy" class="Binding_FLOAT32" order="1"/>
+</register>
+<register address="4002" value="0" name="Power">
+<binding automation="Power" class="Binding_SINT16" order="0"/>
+</register>
+<register address="4003" value="0"/>
+<register address="4004" value="0"/>
+<register address="4005" value="0"/>
+<register address="4006" value="0"/>
+<register address="4007" value="0"/>
+<register address="4008" value="0"/>
+<register address="4009" value="0"/>
+<register address="4010" value="0"/>
+<register address="4011" value="0"/>
+<register address="4012" value="0"/>
+<register address="4013" value="0"/>
+<register address="4014" value="0"/>
+<register address="4015" value="0"/>
+<register address="4016" value="0" name="Voltage"/>
+<register address="4602" value="0" name="DemandWindowSize"/>
+<register address="4603" value="0"/>
+<register address="4604" value="0"/>
+<register address="4605" value="0"/>
+<register address="4606" value="0"/>
+<register address="4607" value="0"/>
+<register address="4608" value="0" name="LineFrequency"/>
+</holding_registers>
+<coils>
+</coils>
+<tuning>
+<reply_delay min="0" max="0" />
+<error_rates no_reply="0.0" />
+</tuning>
+</slave>
+</modbuspal_project>

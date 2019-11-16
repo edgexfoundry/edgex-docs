@@ -3,7 +3,7 @@ name: "Network Power Meter"
 manufacturer: "Dent Instruments"
 model: "PS3037"
 description: "Power Scout Meter"
-labels: 
+labels:
   - "modbus"
   - "powerscout"
 deviceResources:
@@ -31,24 +31,24 @@ deviceCommands:
     -
         name: "Configuration"
         set:
-            - { index: "1", operation: "set", object: "DemandWindowSize", parameter: "DemandWindowSize" }
-            - { index: "2", operation: "set", object: "LineFrequency", parameter: "LineFrequency" }
+            - { index: "1", operation: "set", object: "DemandWindowSize" }
+            - { index: "2", operation: "set", object: "LineFrequency" }
         get:
-            - { index: "1", operation: "get", object: "DemandWindowSize", parameter: "DemandWindowSize" }
-            - { index: "2", operation: "get", object: "LineFrequency", parameter: "LineFrequency" }
+            - { index: "1", operation: "get", object: "DemandWindowSize" }
+            - { index: "2", operation: "get", object: "LineFrequency" }
 coreCommands:
     -
         name: "Configuration"
-        get: 
+        get:
             path: "/api/v1/device/{deviceId}/Configuration"
-            responses: 
-                - 
+            responses:
+                -
                     code: "200"
                     description: "Get the Configuration"
                     expectedValues: ["DemandWindowSize","LineFrequency"]
                 -
-                    code: "503"
-                    description: "service unavailable"
+                    code: "500"
+                    description: "internal server error"
                     expectedValues: []
         put:
             path: "/api/v1/device/{deviceId}/Configuration"
@@ -59,6 +59,6 @@ coreCommands:
                     description: "Set the Configuration"
                     expectedValues: []
                 -
-                    code: "503"
-                    description: "service unavailable"
+                    code: "500"
+                    description: "internal server error"
                     expectedValues: []
