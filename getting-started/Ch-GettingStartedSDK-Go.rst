@@ -63,7 +63,7 @@ Complete the following steps to create a folder on your file system, download th
 
 #. Copy VERSION to device-simple::
 
-    cp ./device-sdk-go/Version ./device-simple/
+    cp ./device-sdk-go/VERSION ./device-simple/
 
    .. image:: EdgeX_GettingStartedSDKClone7.png
 
@@ -115,7 +115,7 @@ The device-sdk-go comes with example code to create a new Device Service.  Compl
 
 #. Enter the following command to create the initial module definition and write it to the go.mod file::
 
-    GO111MODULE=on go mode init
+    GO111MODULE=on go mod init
 
 =========================
 Build your Device Service
