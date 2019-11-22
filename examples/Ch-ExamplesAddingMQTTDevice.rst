@@ -2,7 +2,7 @@
 MQTT - Adding a Device to EdgeX
 ###############################
 
-EdgeX - Edinburgh Release
+EdgeX - Fuji Release
 
 Overview
 --------
@@ -49,8 +49,8 @@ We created the following script to simulate the MQTT device::
     schedule('*/15 * * * * *', ()=>{
         let body = {
             "name": deviceName,
-	           "cmd": "randnum",
-            "randnum": getRandomFloat(25,29).toFixed(1)
+            "cmd": "randfloat32",
+            "randfloat32": getRandomFloat(25,29).toFixed(1)
         };
         publish( 'DataTopic', JSON.stringify(body));
     });
@@ -59,7 +59,7 @@ We created the following script to simulate the MQTT device::
     // 3. Receive the put request, then change the device value
     subscribe( "CommandTopic" , (topic, val) => {
         var data = val;
-            if (data.method == "set") {
+        if (data.method == "set") {
             message = data[data.cmd]
         }else{
             switch(data.cmd) {
@@ -69,8 +69,11 @@ We created the following script to simulate the MQTT device::
                 case "message":
                   data.message = message;
                   break;
-                case "randnum":
-                    data.randnum = 12.123;
+                case "randfloat32":
+                    data.randfloat32 = getRandomFloat(25,29).toFixed(1);
+                    break;
+            case "randfloat64":
+                    data.randfloat64 = getRandomFloat(10,1).toFixed(5);
                     break;
               }
         }
@@ -86,6 +89,29 @@ To run the device simulator, enter the commands shown below with the following c
     docker run -d --restart=always --name=mqtt-scripts \
       -v /path/to/mqtt-scripts:/scripts  \
       dersimn/mqtt-scripts --url mqtt://mqtt-broker-ip --dir /scripts
+
+
+Check your MQTT broker is work
+------------------------------
+
+Install the MQTT client tool from https://mosquitto.org/
+
+1. Subscribe All topics from MQTT broker::
+
+    ./mosquitto_sub -v -t '#'
+
+
+2. Send the command to MQTT broker::
+
+    ./mosquitto_pub -t 'CommandTopic' -m '{"name":"MQTT test device","method":"get","cmd":"ping"}'
+
+This is illustrated below:
+
+.. image:: EdgeX_ExamplesMQTT_CheckMQTTBrokerWork.png
+    :scale: 80%
+    :alt: Check MQTT Broker Work
+
+The async value keeps logging to the console via the **DataTopic**. The mqtt-scripts receive the request from the **CommandTopic** and send the response to the **ReponseTopic**.
 
 Setup
 =====
@@ -107,106 +133,119 @@ Create a device profile, named mqtt.test.device.profile.yml, with the following 
 
     # mqtt.test.device.profile.yml
     name: "Test.Device.MQTT.Profile"
-    manufacturer: "iot"
-    model: "MQTT-DEVICE"
-    description: "Test device profile"
+    manufacturer: "Dell"
+    model: "MQTT-2"
     labels:
-      - "mqtt"
-      - "test"
+    - "test"
+    description: "Test device profile"
     deviceResources:
-      -
-        name: randnum
-        description: "device random number"
-        properties:
-          value:
-            { type: "Float64", size: "4", readWrite: "R", floatEncoding: "eNotation"  }
-          units:
-            { type: "String", readWrite: "R", defaultValue: "" }
-      -
-        name: ping
-        description: "device awake"
-        properties:
-          value:
-            { type: "String", size: "0", readWrite: "R", defaultValue: "pong" }
-          units:
-            { type: "String", readWrite: "R", defaultValue: "" }
-      -
-        name: message
-        description: "device message"
-        properties:
-          value:
-            { type: "String", size: "0", readWrite: "W" ,scale: "", offset: "", base: ""  }
-          units:
-            { type: "String", readWrite: "R", defaultValue: "" }
+
+    - name: randfloat32
+      description: "device random number with Base64 encoding"
+      properties:
+        value:
+          { type: "Float32", size: "4", readWrite: "R", defaultValue: "0.00", minimum: "100.00", maximum: "0.00", floatEncoding: "Base64" }
+        units:
+          { type: "String", readWrite: "R", defaultValue: "" }
+    - name: randfloat64
+      description: "device random number with e notion"
+      properties:
+        value:
+          { type: "Float64", size: "4", readWrite: "R", defaultValue: "0.00", minimum: "100.00", maximum: "0.00", floatEncoding: "eNotation" }
+        units:
+          { type: "String", readWrite: "R", defaultValue: "" }
+    -
+      name: ping
+      description: "device awake"
+      properties:
+        value:
+          { type: "String", size: "0", readWrite: "R", defaultValue: "oops" }
+        units:
+          { type: "String", readWrite: "R", defaultValue: "" }
+    -
+      name: message
+      description: "device notification message"
+      properties:
+        value:
+          { type: "String", size: "0", readWrite: "W" ,scale: "", offset: "", base: ""  }
+        units:
+          { type: "String", readWrite: "R", defaultValue: "" }
 
     deviceCommands:
-      -
-        name: testrandnum
-        get:
-        - { index: "1", operation: "get", object: "randnum", parameter: "randnum" }
-      -
-        name: testping
-        get:
-        - { index: "1", operation: "get", object: "ping", parameter: "ping" }
-      -
-        name: testmessage
-        get:
-        - { index: "1", operation: "get", object: "message", parameter: "message" }
-        set:
-        - { index: "1", operation: "set", object: "message", parameter: "message" }
+    - name: testrandfloat32
+      get:
+        - { index: "1", operation: "get", deviceResource: "randfloat32"}
+    - name: testrandfloat64
+      get:
+        - { index: "1", operation: "get", deviceResource: "randfloat64"}
+    -
+      name: testping
+      get:
+        - { index: "1", operation: "get", deviceResource: "ping"}
+    -
+      name: testmessage
+      get:
+        - { index: "1", operation: "get", deviceResource: "message"}
+      set:
+        - { index: "1", operation: "set", deviceResource: "message"}
 
     coreCommands:
-      -
-        name: testrandnum
-        get:
-          path: "/api/v1/device/{deviceId}/testrandnum"
-          responses:
-          -
-            code: "200"
-            description: "get the random value"
-            expectedValues: ["randnum"]
-          -
-            code: "503"
-            description: "service unavailable"
+    - name: testrandfloat32
+      get:
+        path: "/api/v1/device/{deviceId}/testrandfloat32"
+        responses:
+        -
+          code: "200"
+          description: "get the random float32 value"
+          expectedValues: ["randfloat32"]
+        - code: "500"
+          description: "internal server error"
+          expectedValues: []
+    - name: testrandfloat64
+      get:
+        path: "/api/v1/device/{deviceId}/testrandfloat64"
+        responses:
+          - code: "200"
+            description: "get the random float64 value"
+            expectedValues: ["randfloat64"]
+          - code: "500"
+            description: "internal server error"
             expectedValues: []
-      -
-        name: testping
-        get:
-          path: "/api/v1/device/{deviceId}/testping"
-          responses:
-          -
-            code: "200"
-            description: "ping the device"
-            expectedValues: ["ping"]
-          -
-            code: "503"
-            description: "service unavailable"
-            expectedValues: []
-      -
-        name: testmessage
-        get:
-          path: "/api/v1/device/{deviceId}/testmessage"
-          responses:
-          -
-            code: "200"
-            description: "get the message"
-            expectedValues: ["message"]
-          -
-            code: "503"
-            description: "service unavailable"
-            expectedValues: []
-        put:
-          path: "/api/v1/device/{deviceId}/testmessage"
-          parameterNames: ["message"]
-          responses:
-          -
-            code: "204"
-            description: "set the message."
-            expectedValues: []
-          -
-            code: "503"
-            description: "service unavailable"
-            expectedValues: []
+    -
+      name: testping
+      get:
+        path: "/api/v1/device/{deviceId}/testping"
+        responses:
+        -
+          code: "200"
+          description: "ping the device"
+          expectedValues: ["ping"]
+        - code: "500"
+          description: "internal server error"
+          expectedValues: []
+    -
+      name: testmessage
+      get:
+        path: "/api/v1/device/{deviceId}/testmessage"
+        responses:
+        -
+          code: "200"
+          description: "get the message"
+          expectedValues: ["message"]
+        - code: "500"
+          description: "internal server error"
+          expectedValues: []
+      put:
+        path: "/api/v1/device/{deviceId}/testmessage"
+        parameterNames: ["message"]
+        responses:
+        -
+          code: "204"
+          description: "set the message."
+          expectedValues: []
+        - code: "500"
+          description: "internal server error"
+          expectedValues: []
 
 Device Service Configuration (configuration.toml)
 -------------------------------------------------
@@ -215,12 +254,12 @@ Use this configuration file to define devices and schedule jobs. device-mqtt gen
 
 MQTT is subscribe/publish pattern, so we must define the MQTT connection information in the [DeviceList.Protocols] section of the configuration file.
 
-Create the configuration file, named configuration.toml, as shown below replacing the host IP with your host address::
+Create the configuration file(`example <https://github.com/edgexfoundry/device-mqtt-go/blob/master/cmd/res/example/configuration.toml>`_), named configuration.toml, as shown below replacing the host IP with your host address::
 
     # configuration.toml
     [Writable]
     LogLevel = 'DEBUG'
-    
+
     [Service]
     Host = "edgex-device-mqtt"
     Port = 49982
@@ -283,21 +322,17 @@ Create the configuration file, named configuration.toml, as shown below replacin
       [DeviceList.Protocols]
         [DeviceList.Protocols.mqtt]
            Schema = "tcp"
-           Host = "192.168.16.68"
+           Host = "172.17.0.1"
            Port = "1883"
            ClientId = "CommandPublisher"
            User = ""
            Password = ""
            Topic = "CommandTopic"
-      [[DeviceList.AutoEvents]]
-        Frequency = "30s"
-        OnChange = false
-        Resource = "testrandnum"
 
     # Driver configs
     [Driver]
     IncomingSchema = "tcp"
-    IncomingHost = "192.168.16.68"
+    IncomingHost = "172.17.0.1"
     IncomingPort = "1883"
     IncomingUser = ""
     IncomingPassword = ""
@@ -306,7 +341,7 @@ Create the configuration file, named configuration.toml, as shown below replacin
     IncomingClientId = "IncomingDataSubscriber"
     IncomingTopic = "DataTopic"
     ResponseSchema = "tcp"
-    ResponseHost = "192.168.16.68"
+    ResponseHost = "172.17.0.1"
     ResponsePort = "1883"
     ResponseUser = ""
     ResponsePassword = ""
@@ -314,7 +349,8 @@ Create the configuration file, named configuration.toml, as shown below replacin
     ResponseKeepAlive = "3600"
     ResponseClientId = "CommandResponseSubscriber"
     ResponseTopic = "ResponseTopic"
-    In the Driver configs section:
+
+In the Driver configs section:
 
 * IncomingXxx defines the DataTopic for receiving an async value from the device
 * ResponseXxx defines  the ResponseTopic for receiving a command response from the device
@@ -329,7 +365,7 @@ Because we deploy EdgeX using docker-compose, we must add device-mqtt to the doc
 This is illustrated in the following docker-compose file snippet::
 
     device-mqtt:
-      image: edgexfoundry/docker-device-mqtt-go:1.0.0
+      image: edgexfoundry/docker-device-mqtt-go:1.1.0
       ports:
         - "49982:49982"
       container_name: edgex-device-mqtt
@@ -404,8 +440,8 @@ Use the following query to find executable commands::
                 "get" : {
                    "responses" : [
                       {
-                         "code" : "503",
-                         "description" : "service unavailable"
+                         "code" : "500",
+                         "description" : "internal server error"
                       }
                    ],
                    "path" : "/api/v1/device/{deviceId}/testmessage",
@@ -424,10 +460,8 @@ Use the following query to find executable commands::
                 "id" : "0c257a37-2f72-4d23-b2b1-2c08e895060a"
              }
           ],
-          "lastReported" : 0,
           "operatingState" : "ENABLED",
           "name" : "MQ_DEVICE",
-          "lastConnected" : 0,
           "id" : "ddb2f5cf-eec2-4345-86ee-f0d87e6f77ff",
           "labels" : [
              "MQTT"
@@ -462,20 +496,21 @@ Execute a get command as follows::
     {
        "readings" : [
           {
-             "name" : "message",
              "device" : "MQ_DEVICE",
+             "origin" : 1573636646252261200,
              "value" : "Hello!",
-             "origin" : 1559196276732
+             "name" : "message"
           }
        ],
+       "EncodedEvent" : null,
        "device" : "MQ_DEVICE",
-       "origin" : 1559196276738
+       "origin" : 1573636646256247000
     }
 
 Schedule Job
 -------------
 
-The schedule job is defined in the [[DeviceList.AutoEvents]] section of the TOML configuration file::
+The schedule job is defined in the [[DeviceList.AutoEvents]] section of the TOML configuration file(`auto event example <https://github.com/edgexfoundry/device-mqtt-go/blob/master/cmd/res/example/configuration-autoevents.toml#L72>`_)::
 
     # Pre-define Devices
     [[DeviceList]]
@@ -486,7 +521,7 @@ The schedule job is defined in the [[DeviceList.AutoEvents]] section of the TOML
       [DeviceList.Protocols]
         [DeviceList.Protocols.mqtt]
            Schema = "tcp"
-           Host = "192.168.16.68"
+           Host = "172.17.0.1"
            Port = "1883"
            ClientId = "CommandPublisher"
            User = ""
@@ -495,7 +530,7 @@ The schedule job is defined in the [[DeviceList.AutoEvents]] section of the TOML
       [[DeviceList.AutoEvents]]
         Frequency = "30s"
         OnChange = false
-        Resource = "testrandnum"
+        Resource = "testrandfloat32"
 
 After the service starts, query core-data's reading API. The results show that the service auto-executes the command every 30 secs, as shown below::
 
@@ -506,23 +541,23 @@ After the service starts, query core-data's reading API. The results show that t
     [
        {
           "value" : "1.212300e+01",
-          "origin" : 1559197206092,
+          "origin" : 1559197206092246000,
           "modified" : 1559197206104,
           "id" : "59f2a768-ad72-49a1-9df9-700d8599a890",
           "created" : 1559197206104,
           "device" : "MQ_DEVICE",
-          "name" : "randnum"
+          "name" : "randfloat32"
        },
        {
           ...
        },
        {
-          "name" : "randnum",
+          "name" : "randfloat32",
           "device" : "MQ_DEVICE",
           "modified" : 1559197175109,
           "created" : 1559197175109,
           "id" : "f9dc39e0-5326-45d0-831d-fd0cd106fe2f",
-          "origin" : 1559197175098,
+          "origin" : 1559197175098315000,
           "value" : "1.212300e+01"
        },
     ]
@@ -547,7 +582,7 @@ You must define this connection information in the driver configuration file, as
 
     [Driver]
     IncomingSchema = "tcp"
-    IncomingHost = "192.168.16.68"
+    IncomingHost = "172.17.0.1"
     IncomingPort = "1883"
     IncomingUser = ""
     IncomingPassword = ""
@@ -567,22 +602,22 @@ The following results show that the mock device sent the reading every 15 secs::
           ...
        },
        {
-          "name" : "randnum",
-          "created" : 1559197140013,
-          "origin" : 1559197140006,
-          "modified" : 1559197140013,
-          "id" : "286cc305-42f6-4bca-ad41-3af52301c9f7",
-          "value" : "2.830000e+01",
+          "value" : "1.212300e+01",
+          "modified" : 1573636161072,
+          "name" : "randfloat32",
+          "origin" : 1573636161064629600,
+          "created" : 1573636161072,
+          "id" : "b5147fed-ef0c-487b-a8f9-8e9b69b62de1",
           "device" : "MQ_DEVICE"
        },
        {
-          "modified" : 1559197125011,
-          "name" : "randnum",
-          "created" : 1559197125011,
-          "origin" : 1559197125004,
+          "id" : "99ae3685-c575-44ab-833d-cccd42178d69",
           "device" : "MQ_DEVICE",
-          "value" : "2.690000e+01",
-          "id" : "c243e8c6-a904-4102-baff-8a5e4829c4f6"
+          "origin" : 1573636158767070600,
+          "created" : 1573636158777,
+          "name" : "randfloat32",
+          "modified" : 1573636158777,
+          "value" : "1.212300e+01"
        }
     ]
 
