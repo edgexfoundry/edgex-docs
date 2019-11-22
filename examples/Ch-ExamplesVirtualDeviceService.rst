@@ -43,42 +43,64 @@ The Virtual Device Service currently contains four pre-defined devices (see the 
   :header: "Device Name", "Device Profile"
   :widths: 20, 20
 
-  "Random-Boolean-Generator01", "`device.virtual.bool.yaml <https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/device.virtual.bool.yaml>`_"
-  "Random-Float-Generator01", "`device.virtual.float.yaml <https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/device.virtual.float.yaml>`_"
-  "Random-Integer-Generator01", "`device.virtual.int.yaml <https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/device.virtual.int.yaml>`_"
-  "Random-UnsignedInteger-Generator01", "`device.virtual.uint.yaml <https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/device.virtual.uint.yaml>`_"
+  "Random-Boolean-Device", "`device.virtual.bool.yaml <https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/device.virtual.bool.yaml>`_"
+  "Random-Float-Device", "`device.virtual.float.yaml <https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/device.virtual.float.yaml>`_"
+  "Random-Integer-Device", "`device.virtual.int.yaml <https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/device.virtual.int.yaml>`_"
+  "Random-UnsignedInteger-Device", "`device.virtual.uint.yaml <https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/device.virtual.uint.yaml>`_"
 
-**Restricted:** Resource names are currently hard coded, if you need to use your own device profile, you must update the deviceResource field in the default device profiles. For example if your device profile needs a boolean resource, the deviceResource field must define the "EnableRandomization_Bool" and "RandomValue_Bool" resources. This restriction will be removed in the next dot release.
+**Restricted:** To control the randomization of device resource values, it has to add additional device resources with the prefix
+"EnableRandomization\_" for each device resource. (Need to do the same for device commands and core commands)
+Please find the above default device profiles for example.
 
 Acquire the executable commands information by inquiring the Core Command API:
 
-* http://[host]:48082/api/v1/device/name/Random-Boolean-Generator01
-* http://[host]:48082/api/v1/device/name/Random-Integer-Generator01
-* http://[host]:48082/api/v1/device/name/Random-UnsignedInteger-Generator01
-* http://[host]:48082/api/v1/device/name/Random-Float-Generator01
+* http://[host]:48082/api/v1/device/name/Random-Boolean-Device
+* http://[host]:48082/api/v1/device/name/Random-Integer-Device
+* http://[host]:48082/api/v1/device/name/Random-UnsignedInteger-Device
+* http://[host]:48082/api/v1/device/name/Random-Float-Device
 
 GET command example
 -------------------
 
-.. image:: VirtualGET.png
-   :scale: 60%
-   :alt: GET command
+``$curl -X GET localhost:48082/api/v1/device/1bd5d4c3-9d43-42f2-8c4a-f32f5999edf7/command/e5d7c2b8-eab7-4da4-9d41-388da05979a4``
+
+::
+
+    {
+      "device": "Random-Integer-Device",
+      "origin": 1574325994604494491,
+      "readings": [
+        {
+          "origin": 1574325994572380549,
+          "device": "Random-Integer-Device",
+          "name": "Int8",
+          "value": "42"
+        }
+      ],
+      "EncodedEvent": null
+    }
 
 PUT command example - Assign a value to a resource
 --------------------------------------------------
 
-The value must be a valid value for the data type. For example, the minimum value of RandomValue_Int8 cannot be less than -128 and the maximum value cannot be greater than 127.
+The value must be a valid value for the data type. For example, the minimum value of Int8 cannot be less than -128 and the maximum value cannot be greater than 127.
 
-.. image:: VirtualPUT_1.png
-   :scale: 60%
-   :alt: PUT command: Assign a value to a resource
+::
+
+    $curl -X PUT -d \
+    '{
+      "Int8": "123"
+    }' localhost:48082/api/v1/device/1bd5d4c3-9d43-42f2-8c4a-f32f5999edf7/command/e5d7c2b8-eab7-4da4-9d41-388da05979a4
 
 PUT command example - Enable/Disable the randomization of the resource
 ----------------------------------------------------------------------
 
-.. image:: VirtualPUT_2.png
-   :scale: 60%
-   :alt: PUT command: Enable/Disable the randomization of the resource
+::
+
+    $curl -X PUT -d \
+    '{
+      "EnableRandomization_Int8": "false"
+    }' localhost:48082/api/v1/device/1bd5d4c3-9d43-42f2-8c4a-f32f5999edf7/command/e5d7c2b8-eab7-4da4-9d41-388da05979a4
 
 .. NOTE::
 
@@ -87,7 +109,7 @@ PUT command example - Enable/Disable the randomization of the resource
 
       deviceResources:
        -
-         name: "RandomValue_Int8"
+         name: "Int8"
          description: "Generate random int8 value"
          properties:
            value:
@@ -102,7 +124,7 @@ Manipulate Virtual Resources Using the command ql Tool
 2. If the Virtual Device Service runs in a Docker container, it must mount the directory (/db) that contains the ql database in the container. For example::
 
       device-virtual:
-      image: edgexfoundry/docker-device-virtual-go:1.0.0
+      image: edgexfoundry/docker-device-virtual-go:1.1.0
       ports:
         - "49990:49990"
       container_name: device-virtual
@@ -129,8 +151,8 @@ Command examples:
 
 * Update Enable_Randomization::
 
-    ql -db /path-to-the-ql-db-folder/deviceVirtual.db "update VIRTUAL_RESOURCE set ENABLE_RANDOMIZATION=false where DEVICE_NAME=\"Random-Integer-Generator01\" and DEVICE_RESOURCE_NAME=\"RandomValue_Int8\" "
+    ql -db /path-to-the-ql-db-folder/deviceVirtual.db "update VIRTUAL_RESOURCE set ENABLE_RANDOMIZATION=false where DEVICE_NAME=\"Random-Integer-Device\" and DEVICE_RESOURCE_NAME=\"Int8\" "
 
 * Update Value::
 
-    $ ql -db /path-to-the-ql-db-folder/deviceVirtual.db "update VIRTUAL_RESOURCE set VALUE=\"26\" where DEVICE_NAME=\"Random-Integer-Generator01\" and DEVICE_RESOURCE_NAME=\"RandomValue_Int8\" "
+    $ ql -db /path-to-the-ql-db-folder/deviceVirtual.db "update VIRTUAL_RESOURCE set VALUE=\"26\" where DEVICE_NAME=\"Random-Integer-Device\" and DEVICE_RESOURCE_NAME=\"Int8\" "
