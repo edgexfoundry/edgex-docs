@@ -3,8 +3,8 @@ This folder contains EdgeX Foundry decision records (ADR) and legacy design / re
 
     /design
         /adr (architecture decision Records)
-	/legacy-design (legacy design documents)
-	/legacy-requirements (legacy requirement documents)
+        /legacy-design (legacy design documents)
+        /legacy-requirements (legacy requirement documents)
 
 At the root of the ADR folder (/design/adr) are decisions that are relevant to multiple parts of the project (aka – *cross cutting concerns*).  Sub folders under the ADR folder contain decisions relevant to the specific area of the project and essentially set up along working group lines (security, core, application, etc.).
 
