@@ -18,8 +18,6 @@ In additional to the hardware and software listed in the Developers page, you wi
 
 It is suggested that you create a set of directories for your Go work (including a /bin and /src folder) and set the GOPATH env variable to that directory. This will assist in getting your environment setup and makes it easier to understand how to find code, tools and 3rd party packages.
 
-**0MQ libraries** - Zero MQ is used between core-data, export-distro and the rules engine.  You will need to get and compile 0MQ on your development system.  The easiet way to do this is to follow the instructions in this script:  https://gist.github.com/katopz/8b766a5cb0ca96c816658e9407e83d00. *Note* that installation/build of Zero MQ libraries is currently not supported on Windows platform.  Therefore the build of core-data and export-distro cannot be done on Windows boxes currently.
-
 **An IDE** - There are many options for writing Go Lang code and one could use a simple text editor.  This guide demonstrates how to get started with JetBrains Go Land.
 
 *Go Land* -   Go Land is a popular although subscription-fee based IDE. Learn how to purchase and download Go Land here:  https://www.jetbrains.com/go/.

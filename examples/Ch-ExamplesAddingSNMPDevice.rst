@@ -189,10 +189,6 @@ Start Edgex by using the following commands
 +------------------------------------+-------------------------------------------------------------------------------------+------------------------------------------------+
 | docker-compose up -d scheduler     |  Start the scheduling microservice -used by many of the microservices               | 1 minute                                       |
 +------------------------------------+-------------------------------------------------------------------------------------+------------------------------------------------+
-| docker-compose up -d export-client |  Start the Export Client registration microservice                                  | 1 minute                                       |
-+------------------------------------+-------------------------------------------------------------------------------------+------------------------------------------------+
-| docker-compose up -d export-distro |  Start the Export Distribution microservice                                         | 1 minute                                       |
-+------------------------------------+-------------------------------------------------------------------------------------+------------------------------------------------+
 | docker-compose up -d rulesengine   |  Start the Rules Engine microservice                                                | 1 minute                                       |
 +------------------------------------+-------------------------------------------------------------------------------------+------------------------------------------------+
 | docker-compose up -d device-virtual|  Start the virtual device service                                                   | 1 minute                                       |

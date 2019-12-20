@@ -8,7 +8,6 @@ ENV RAML_FILES="core-data.raml \
   support-logging.raml \
   support-scheduler.raml \
   support-notifications.raml \
-  export-client.raml \
   system-agent.raml"
 
 ENV RAML_URL="https://raw.githubusercontent.com/edgexfoundry/edgex-go/${STREAM}/api/raml"
@@ -31,9 +30,6 @@ RUN git clone https://github.com/edgexfoundry/device-virtual
 
 # Copy in local documentation sources
 
-COPY export/* ./
-COPY export/client/* ./
-COPY export/distro/* ./
 COPY configuration ./
 COPY api ./
 COPY core/* ./
