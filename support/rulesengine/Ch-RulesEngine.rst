@@ -34,7 +34,6 @@ The rules engine has been programmed for this option.  By default, the rules eng
 
   export.client=true    # this is normally false by default and is the indication to the Rules Engine micro service to register itself with the Export Services  
   export.zeromq.port=5563    # this port is set to 5566 when connecting to the ZeroMQ pipe out of Export Services.
-  export.zeromq.host=tcp://[core data host]    # this is set to the export distro host when connecting to the ZeroMQ pipe out of Export Services
 
 ===============================================
 Rules Client and High Level Interaction Diagram

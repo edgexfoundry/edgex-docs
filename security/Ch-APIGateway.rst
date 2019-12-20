@@ -145,10 +145,6 @@ Comparing these two curl commands you may notice several differences.
 +-------------------------+-------------+----------------+
 | supportlogging          | 48061       | supportlogging |
 +-------------------------+-------------+----------------+
-| exportdistro            | 48070       | exportdistro   |
-+-------------------------+-------------+----------------+
-| exportclient            | 48071       | exportclient   |
-+-------------------------+-------------+----------------+
 
 ````
 

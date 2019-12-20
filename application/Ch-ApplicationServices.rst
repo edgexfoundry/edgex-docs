@@ -4,20 +4,11 @@ Application Services
 
 Application Services are a means to get data from EdgeX Foundry to external systems and process (be it analytics package, enterprise or on-prem application, cloud systems like Azure IoT, AWS IoT, or Google IoT Core, etc.).  Application Services provide the means for data to be prepared (transformed, enriched, filtered, etc.) and groomed (formatted, compressed, encrypted, etc.) before being sent to an endpoint of choice.  Endpoints supported out of the box today include HTTP and MQTT endpoints, but will include additional offerings in the future and could include a custom endpoints.
 
-The intention of Application Services are to address scalability concerns of the existing EdgeX Export Client and Distribution Services (Export Services) as well as provide a flexible solution for exporting data outside of EdgeX without encumbering the EdgeX development community itself with trying to support all major cloud providers and export solutions. For the Edinburgh release cycle, the existing Client and Export Service remain supported and are still considered the primary way to export data out of EdgeX. However, it is encouraged for new development efforts adopting EdgeX that the App Functions SDK and resulting Application Services be leveraged moving forward with the intention that by the Fuji release, the SDK will be moved into release status and become the primary method of exporting data from EdgeX.
-
 Application Services are based on the idea of a "Functions Pipeline". A functions pipeline is a collection of functions that process messages (in this case EdgeX event/reading messages) in the order that you've specified.  The first function in a pipeline is a trigger.  A trigger begins the functions pipeline execution.  A trigger is something like a message landing in a watched message queue.
 
 .. image:: TriggersFunctions.png
 
 An Applications Functions Software Development Kit (or App Functions SDK) is a available to help create Application Services. Currently the only SDK supported language is Golang, with the intention that community developed and supported SDKs will come in the future for other languages. It is currently available as a Golang module to remain operating system (OS) agnostic and to comply with the latest EdgeX guidelines on dependency management.
-
-
-Export Service Deficiencies
----------------------------
-
-With the current export services, developers register their endpoints or MQTT clients with the provided client registration service and as events are consumed from Core Data, the export service would then relay that information to the registered endpoints in a sequential fashion. Requiring the individual export service to rebroadcast data to all registered endpoints overtime creates a bottleneck and leaves applications with a potential delay in receiving events. Furthermore, the overhead and complexity of managing all registered endpoints becomes an added burden to EdgeX services. Finally, the Export services have also begun to address a bit more than is sustainable in regard to supporting all the major cloud provider endpoints. Providing an SDK and removing cloud specific exports is one way to remain agnostic to cloud providers and enables 3rd parties to support their use of any given cloud solution and eliminates the dependency
-on EdgeX to support the ever-changing cloud environment.
 
 Application Service Improvements
 ---------------------------------
