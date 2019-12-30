@@ -66,10 +66,6 @@ Run the following commands to start the core, supporting and export micro servic
 +------------------------------------+-------------------------------------------------------------------------------------+------------------------------------------------+
 | docker-compose up -d scheduler     |  Start the scheduling microservice -used by many of the microservices               | A couple of seconds                            |
 +------------------------------------+-------------------------------------------------------------------------------------+------------------------------------------------+
-| docker-compose up -d export-client |  Start the Export Client registration microservice                                  | A couple of seconds                            |
-+------------------------------------+-------------------------------------------------------------------------------------+------------------------------------------------+
-| docker-compose up -d export-distro |  Start the Export Distribution microservice                                         | A couple of seconds                            |
-+------------------------------------+-------------------------------------------------------------------------------------+------------------------------------------------+
 | docker-compose up -d rulesengine   |  Start the Rules Engine microservice                                                | 1 minute                                       |
 |                                    |  Note: this service is still implemented in Java and takes more time to start       |                                                |
 +------------------------------------+-------------------------------------------------------------------------------------+------------------------------------------------+

@@ -18,19 +18,10 @@ Set up a project on IoT Core
 * **privateKeyFile** use rsa_private_pkcs8
 * **encryptionType** use RS256 or ES256
 
-4) Save the **rsa_private_pkcs8** file in export-distro/src/main/resources
-
-5) Verify that **export-distro/src/main/resources/applications.properties** end with the correct privateKeyFile and encryptionType
-
 #-----------------IoT Core Config
 
 outbound.iotcore.privatekeyfile=**rsa_private_pkcs8**
 outbound.iotcore.algorithm=**RS256**
-
-Set up and register IoT Core as an Export Services client
-
-.. _`Client API Registration Examples`: Ch-APIExportServicesClientRegistrationExamples.html
-..
 
 1) Follow the instructions under Setup only at `Client API Registration Examples`_.
 
