@@ -17,7 +17,6 @@ raml2html support-scheduler.raml -o _build/html/support-scheduler.html
 raml2html support-notifications.raml -o _build/html/support-notifications.html
 raml2html device-virtual/raml/device-virtual.raml -o _build/html/device-virtual.html
 raml2html support-rulesengine/raml/support-rulesengine.raml -o _build/html/support-rulesengine.html
-raml2html export-client.raml -o _build/html/export-client.html
 raml2html system-agent.raml -o _build/html/system-agent.html
 
 # Check for broken links in HTML

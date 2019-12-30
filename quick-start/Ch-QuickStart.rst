@@ -76,27 +76,6 @@ Connecting an Application
 
 EdgeX provides exporters for a variety of cloud services and application. To keep this guide simple, we're going to use a public MQTT broker hosted by HiveMQ, then watch for our EdgeX readings to be pushed to it automatically.
 
-To register the application as an export client, run::
-
-    curl -X POST -d '{
-        "name":"QuickStartExport",
-        "addressable":{
-            "name":"HiveMQBroker",
-            "protocol":"tcp",
-            "address":"broker.hivemq.com",
-            "port":1883,
-            "publisher":"EdgeXExportPublisher",
-            "topic":"EdgeXQuickStartGuide"
-        },
-        "format":"JSON",
-        "filter":{
-            "deviceIdentifiers":["Random-Integer-Generator01"]
-        },
-        "enable":true,
-        "destination":"MQTT_TOPIC"
-    }' http://localhost:48071/api/v1/registration
-    
-
 You can connect to this broker with any MQTT client to watch the data being sent. HiveMQ provides a `web-based client <http://www.hivemq.com/demos/websocket-client/>`_ that you can use, simply subscribe to the "EdgeXQuickStartGuide" topic and you will begin seeing your random number readings.
 
 .. image:: EdgeX_HiveMQTTWebClient.png

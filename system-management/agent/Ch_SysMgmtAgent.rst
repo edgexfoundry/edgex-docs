@@ -152,7 +152,6 @@ Example (POST) body accompanying the "start" request:
        "action":"start",
        "services":[
           "edgex-core-data",
-          "edgex-export-distro"
        ],
        "params":[
        	"graceful"
@@ -208,8 +207,6 @@ Example (POST) body accompanying the "restart" request:
        "services":[
           "edgex-support-notifications",
           "edgex-core-data",
-          "edgex-export-distro"
-
        ],
        "params":[
        	"graceful"

@@ -93,28 +93,6 @@ The Supporting Services (SS) Layer encompass a wide range of microservices that 
 
 The rules engines, and alerting and notification microservices are within the SS Layer because they operate on top of the Core Services Layer. The local analytics capability (implemented today as a simple rules engine) is also located in this layer.
 
-
-=====================
-Export Services Layer
-=====================
-
-.. image:: EdgeX_ExportServicesLayer.png
-
-EdgeX Foundry operates independently of other systems when necessary. Gateways often operate in isolated and sometimes disconnected environments and monitor and manage a collection of sensors and devices that have little or no outside monitoring or control. Therefore, EdgeX Foundry is able to operate and sustain itself over long periods of time without connection to the "north side" systems. The data and intelligence that is created at the edge, should be collected often and transported to enterprise (cloud) systems.  The transporting is performed by the Export Services (ES) Layer.
-
-The ES Layer provides a set of microservices that performs the following activities:
-
-* Enables off-gateway clients to register for data that interests them, coming from the south side objects
-* Informs where and when the data is to be delivered
-* Informs the format and shape in which that data is to be delivered
-
-For example, the "where and when" could be sending temperature data to a REST address every hour, and the format and shape could be to supply JSON data in compressed form.
-
-The Export Services Layer at this time, includes the following microservices:
-
-* Client Registration
-* Distribution
-
 =====================
 Device Services Layer
 =====================
