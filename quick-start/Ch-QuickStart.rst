@@ -36,6 +36,73 @@ Finally, verify that the EdgeX containers have all been started::
 
 .. image:: EdgeX_GettingStartedUsrActiveContainers.png
 
+The following table captured the port definition
+
+.. csv-table:: Port Number
+   :file: Port1.csv
+   :widths: 30, 20
+   :header-rows: 1
+   
+.. csv-table:: The contents of my xlsx sheet exported to mytable.csv
+   :widths: 15 40 20
+   :header: "Header 1", "Header 2", "Header 3"
+   :file: Port1.csv
+   
+.. list-table:: Services Port Definition
+   :widths: 30 20 50
+   :header-rows: 1
+
+   * - Services Name
+     - Port Definition
+     - Note
+   * - consul
+     - 8400
+     - defined port in docoker-compose.yml file
+   * - 
+     - 8500
+     - 
+   * - 
+     - 8600
+     -     
+   * - vault
+     - 8200
+     -  
+   * - kong-db
+     - 5432
+     -  
+   * - kong
+     - 8000
+     -  
+   * - 
+     - 8001
+     -   
+   * - 
+     - 8443
+     -   
+   * - 
+     - 8444
+     -   
+   * - mongo
+     - 27017
+     -   
+   * - logging
+     - 48061
+     -   
+   * - system
+     - 48090
+     -   
+   * - notifications
+     - 48060
+     -   
+   * - metadata
+     - 48001
+     -   
+   * - data
+     - 48080
+     -   
+     
+     
+     
 ===================
 Connecting a Device
 ===================
