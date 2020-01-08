@@ -36,6 +36,14 @@ Finally, verify that the EdgeX containers have all been started::
 
 .. image:: EdgeX_GettingStartedUsrActiveContainers.png
 
+The following table captured the port definition
+
+.. csv-table:: Port Number
+   :file: Port1.csv
+   :widths: 80, 70
+   :header-rows: 1
+
+
 ===================
 Connecting a Device
 ===================
