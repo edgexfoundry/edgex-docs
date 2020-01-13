@@ -81,9 +81,9 @@ The following table captured the Default Service Ports. This table provides the 
      - 48090
    * - notifications
      - 48060
-   * - metadata
+   * - core metadata
      - 48001
-   * - data
+   * - core data
      - 48080
    * -
      - 5563
@@ -91,12 +91,6 @@ The following table captured the Default Service Ports. This table provides the 
      - 48082
    * - scheduler
      - 48085
-   * - export-client
-     - 48071
-   * - export-distro
-     - 48070
-   * -
-     - 5566
    * - rulesengine
      - 48075
    * - device-virtual
@@ -111,10 +105,6 @@ The following table captured the Default Service Ports. This table provides the 
      - 49993
    * - UI
      - 4000
-   * - Tooling
-     - 9000
-   * - MessageQueue
-     - 5563
 
 
 ===================
