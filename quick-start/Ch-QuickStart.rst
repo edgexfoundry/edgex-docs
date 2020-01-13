@@ -40,14 +40,14 @@ The following table captured the Default Service Ports. This table provides the 
 
 
 .. csv-table:: Port Number
-   :file: DefaultPort.csv
-   :widths: 60, 40
+   :file: DefaultPortE.csv
+   :widths: 30, 20
    :header-rows: 1
 
 .. csv-table:: The contents of my xlsx sheet exported to mytable.csv
-   :widths: 60 40
+   :widths: 15 40 20
    :header: "Header 1", "Header 2", "Header 3"
-   :file: DefaultPort.csv
+   :file: DefaultPortE.csv
 
 .. list-table:: Default Services Port Definition
    :widths: 60 60
@@ -75,24 +75,22 @@ The following table captured the Default Service Ports. This table provides the 
      - 8444
    * - mongo
      - 27017
-   * - logging
+   * - support-logging
      - 48061
    * - system
      - 48090
-   * - notifications
+   * - support-notifications
      - 48060
-   * - core metadata
+   * - core-metadata
      - 48001
-   * - core data
+   * - core-data
      - 48080
    * -
      - 5563
-   * - command
+   * - core-command
      - 48082
-   * - scheduler
+   * - support-scheduler
      - 48085
-   * - rulesengine
-     - 48075
    * - device-virtual
      - 49990
    * - device-random
