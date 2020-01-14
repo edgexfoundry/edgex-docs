@@ -19,23 +19,25 @@ the EdgeX system
 
 ### Triggering Discovery
 
-A boolean configuration value `Device/Discovery` defaults to false. If this
+A boolean configuration value `Device/Discovery/Enabled` defaults to false. If this
 value is set true, and the DS implementation supports discovery, discovery is
 enabled.
 
-The SDK will respond to POST requests on the the /discovery endpoint. This call
-will return one of the following codes:
+The SDK will respond to POST requests on the the /discovery endpoint. No content
+is required in the request. This call will return one of the following codes:
 
-* 200: discovery has been triggered or is already running
+* 202: discovery has been triggered or is already running. The response should indicate which, and contain the correlation id that will be used by any resulting requests for device addition
 * 423: the service is locked (admin state) or disabled (operating state)
 * 500: unknown or unanticipated issues exist
-* 501: discovery is not supported in this implementation
+* 501: discovery is not supported by this protocol implementation
 * 503: discovery is disabled by configuration
+
+In each of the failure cases a meaningful error message should be returned.
 
 In the case where discovery is triggered, the discovery process will run in a
 new thread or goroutine, so that the REST call may return immediately.
 
-An integer configuration value `Device/DiscoveryInterval` defaults to zero. If
+An integer configuration value `Device/Discovery/Interval` defaults to zero. If
 this value is set to a positive value, and discovery is enabled, the discovery
 process will be triggered at the specified interval (in seconds).
 
@@ -43,8 +45,10 @@ process will be triggered at the specified interval (in seconds).
 
 When discovery is triggered, the SDK calls the implementation function provided
 by the Device Service. This should perform whatever protocol-specific procedure
-is necessary to find devices, and for each device found, call the filtered
-device addition function provided by the SDK.
+is necessary to find devices, and pass these devices into the SDK by calling the SDK's
+filtered device addition function.
+
+Note: The implementation should call back for every device found. The SDK is to take responsibility for filtering out devices which have already been added.
 
 The information required for a found device is as follows:
 
@@ -53,13 +57,17 @@ The information required for a found device is as follows:
 * Optionally, a description string
 * Optionally, a list of label strings
 
+The filtered device addition function will take as an argument a collection of structs
+containing the above data. An implementation may choose to make one call per discovered
+device, but implementors are encouraged to batch the devices if practical, as in future
+EdgeX versions it will be possible for the SDK to create all required new devices in a
+single call to core-metadata.
+
 **Rationale:** *An alternative design would have the implementation function return
-a collection of discovered devices to the SDK. Using a callback mechanism instead has the following advantages:*
+the collection of discovered devices to the SDK. Using a callback mechanism instead has the following advantages:*
 
-* *Avoids collection processing in languages without builtin support for such, eg C*
-* *Allows for asynchronous operation, where the DS implementation initiates discovery and returns immediately, then when results come back (eg, from a network), handler functions in the implementation call the filtered device addition function themselves*
+* *Allows for asynchronous operation. In this mode the DS implementation will intiate discovery and return immediately. For example discovery may be initiated by sending a broadcast packet. Devices will then send return packets indicating their existence. The thread handling inbound network traffic can on receipt of such packets call the filtered device addition function directly.*
 * *Allows DS implementations where devices self-announce to call the filtered device addition function independent of the discovery process*
-
 
 ### Filtered Device Addition
 
@@ -72,7 +80,7 @@ The filter criteria for discovered devices are represented by Provision Watchers
 
 A candidate new device passes a ProvisionWatcher if all of the `Identifiers` match, and none of the `BlockingIdentifiers`.
 
-The values specified in `Identifiers` may be regular expressions.
+The values specified in `Identifiers` are regular expressions.
 
 **Note:** *the above is a whitelist+blacklist scheme. If a discovered Device is manually removed from EdgeX, it will be necessary to adjust the ProvisionWatcher via which it was added, either by making the `Identifiers` more specific or by adding `BlockingIdentifiers`, otherwise the Device will be re-added the next time Discovery is initiated.*
 
