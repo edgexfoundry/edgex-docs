@@ -18,7 +18,7 @@ In additional to the hardware and software listed in the Developers page, you wi
 
 The open sourced microservices of EdgeX Foundry are written in Go 1.12. See https://golang.org/dl/ for download and installation instructions.  Newer versions of Go are available and may work (as of this writing - although Go version 1.13 will work as well), but the project has not thorougly built and tested to these newer versions of the language.  Older versions of Go, especially 1.10 or older, are likely to cause issues (EdgeX now uses Go Modules which were introduced with Go Lang 1.11).
 
-It is suggested that you create a set of directories for your Go work (including a /bin and /src folder) and set the GOPATH env variable to that directory. This will assist in getting your environment setup and makes it easier to understand how to find code, tools and 3rd party packages.  Specifically, and as shown below, create a 'go' folder with /src/github.com/edgexfoundry sub-folders.  When you pull (see below) EdgeX code in from its repositories, add the repository folder under /edgexfoundry (in this example, edgex-go has been downloaded and its repository contents would comprise a new subfolder under /src/github.com/edgexfoundry).
+For the purposes of this guide, create a set of directories for your Go work (including a /bin and /src folder) and set the GOPATH env variable to that directory. This will assist in getting your environment setup and makes it easier to understand how to find code, tools and packages.  Specifically, and as shown below, create a 'go' folder with /src/github.com/edgexfoundry sub-folders.  When you pull (see below) EdgeX code in from its repositories, add the repository folder under /edgexfoundry (in this example, edgex-go has been downloaded and its repository contents would comprise a new subfolder under /src/github.com/edgexfoundry).
 
 ::
 
@@ -30,6 +30,9 @@ It is suggested that you create a set of directories for your Go work (including
                         /edgex-go
 
 In this case, your $GOPATH environment variable should be set to ~/go.
+
+**Note** - with the advent of modules (Go 1.11 or later), you can setup your environment differently - and specifically placing code outside of your GOPATH to avoid conflicts with solutions that are not using go modules.  See https://medium.com/mindorks/create-projects-independent-of-gopath-using-go-modules-802260cdfb51 for more details.  For simplicity, this guide adheres to the folders and GOPATH approach.
+#TODO - refactor this section or add info on how to setup independent of GOPATH
 
 EdgeX relies on many modules (some external and some EdgeX created).  This directory structure allows the modules to be automatically pulled and deposited into the appropriate place in this directory tree - thereby supporting the build processes.
 
@@ -116,7 +119,7 @@ No sensor data will be collected as this just gets the core services up and runn
 ========================
 EdgeX Foundry in Go Land
 ========================
-IDEs offer many code editing conveniences. Go Land was specifically built to edit and work with Go code.  So if you are doing any significant code work with the EdgeX Go microservices, you will likely find it conveniet to edit, build, run, test, etc. from GoLand.
+IDEs offer many code editing conveniences. Go Land was specifically built to edit and work with Go code.  So if you are doing any significant code work with the EdgeX Go microservices, you will likely find it convenient to edit, build, run, test, etc. from GoLand.
 
 **Import the Project**
 
