@@ -36,6 +36,75 @@ Finally, verify that the EdgeX containers have all been started::
 
 .. image:: EdgeX_GettingStartedUsrActiveContainers.png
 
+The following table captured the Default Service Ports. This table provides the default ports used by each of the EdgeX micro services (per its default configuration and the EdgeX provided docker-compose files).  These default ports are also used in the EdgeX provided service routes defined in the Kong API Gateway for access control.
+
+
+.. csv-table:: Port Number
+   :file: DefaultPort.csv
+   :widths: 30, 20
+   :header-rows: 1
+
+.. csv-table:: The contents of DefaultPort spreadsheet exported to DefaultPort.csv
+   :widths: 60 60
+   :header: "Header 1", "Header 2"
+   :file: DefaultPort.csv
+
+.. list-table:: Default Services Port Definition
+   :widths: 60 60
+   :header-rows: 1
+
+   * - Services Name
+     - Port Definition
+   * - consul
+     - 8400
+   * -
+     - 8500
+   * -
+     - 8600
+   * - vault
+     - 8200
+   * - kong-db
+     - 5432
+   * - kong
+     - 8000
+   * -
+     - 8001
+   * -
+     - 8443
+   * -
+     - 8444
+   * - mongo
+     - 27017
+   * - system
+     - 48090
+   * - core-data
+     - 48080
+   * -
+     - 5563
+   * - core-metadata
+     - 48001
+   * - core-command
+     - 48082
+   * - support-notifications
+     - 48060
+   * - support-logging
+     - 48061
+   * - support-scheduler
+     - 48085
+   * - device-virtual
+     - 49990
+   * - device-random
+     - 49988
+   * - device-mqtt
+     - 49982
+   * - device-modbus
+     - 49991
+   * - device-snmp
+     - 49993
+   * - UI
+     - 4000
+
+
 ===================
 Connecting a Device
 ===================
