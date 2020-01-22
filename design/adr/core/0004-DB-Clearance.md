@@ -27,8 +27,6 @@ This functionality will directly erase the data from the database, without makin
 In the future we could have "mixed database solution" - different micro-services could use different type of databases that best suit their need.
 If such use case rise, we could add a wrapper endpoint in `system-management` micro-service that will encapsulate the `purge` functionality throughout all the different database providers available, and thus the client will not care what are the underling databases.
 
-In the future another endpoints for other database needs (`migration`, `validation` and others) could be added.
-
 ### MONGO
 [docker-edgex-mongo](https://github.com/edgexfoundry/docker-edgex-mongo) has been developed to replace the old way of initializing mongo database (using [init_mongo.js](https://github.com/edgexfoundry/developer-scripts/blob/master/init_mongo.js)) and to introduce security features.  <br />
 Currently, docker-edgex-mongo is single purpose application, because it is responsible only for `initializing` all the data inside mongo. <br />
