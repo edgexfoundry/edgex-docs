@@ -27,7 +27,7 @@ An aspect of using the current `Registry Client` is "*Where do the services get 
 
 There have been concerns voiced by some in the EdgeX community that storing this `Configuration Provider` connection information in the configuration which ultimately is provided by that provider is not the right design.
 
-This design proposes that all services will use the command line option approach with the ability to override with an environment variable. The  `Configuration Provider` information will **<u>not</u>** be stored in each service's local configuration file. The `edgex_registry` environment variable will be deprecated. The `Registry Provider` connection information will continue to be stored in each service's configuration either locally or from the`Configuration Provider` same as all other Edgex Client and Database connection information. An additional property will be added the the Registry Provider information to indicate if it is `Enabled`.
+This design proposes that all services will use the command line option approach with the ability to override with an environment variable. The  `Configuration Provider` information will **<u>not</u>** be stored in each service's local configuration file. The `edgex_registry` environment variable will be deprecated. The `Registry Provider` connection information will continue to be stored in each service's configuration either locally or from the`Configuration Provider` same as all other Edgex Client and Database connection information.
 
 ### Command line option changes
 
@@ -39,7 +39,7 @@ if `-cp/-configProvider` **not used** and no environment variable override is sp
 
 All services will log the `Configuration Provider` connection information that is used.
 
-The existing `-r/-registry` command line option will be removed from all services. 
+The existing `-r/-registry` command line option will be retained as a Boolean flag to indicate to use the Registry. 
 
 ### Bootstrap Changes
 
