@@ -174,6 +174,8 @@ The current `Consul` implementation of the `Registry Client` will be split up in
 
 It was decided to move forward with the above design
 
+After initial ADR was approved, it was decided to retain the `-r/--registry` command-line flag and not add the `Enabled` field in the Registry provider configuration.
+
 ## Consequences
 
 Once the refactoring of go-mod-registry and go-mod-configuration are complete, they will need to be integrated into the new go-mod-bootstrap. Part of this integration will be the [Command line option changes](#command-line-option-changes) above. At this point the edgex-go services will be integrated with the new `Registry` and `Configuration` providers. The `App Services SDK` and `Device Services SDK` will then need to integrate go-mod-bootstrap to take advantage of these new providers.
