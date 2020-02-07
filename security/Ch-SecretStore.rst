@@ -28,10 +28,10 @@ The key features of Vault are:
 Start the Secret Store
 ======================
 
-Start the Secret Store with Docker Compose and a Docker Compose manifest file. The Docker Compose file named docker-compose-delhi-0.7.0.yml can be found at these two locations:
+Start the Secret Store with Docker Compose and a Docker Compose manifest file. The Docker Compose file named docker-compose-fuji.yml can be found at these two locations:
 
-    * https://github.com/edgexfoundry/security-secret-store/blob/delhi/docker-compose-delhi-0.7.0.yml
-    * https://github.com/edgexfoundry/developer-scripts/blob/master/releases/delhi/compose-files/security/docker-compose-delhi-0.7.0.yml
+    * https://github.com/edgexfoundry/security-secret-store/blob/fuji/docker-compose-fuji.yml
+    * https://github.com/edgexfoundry/developer-scripts/blob/master/releases/fuji/compose-files/security/docker-compose-fuji.yml
 
 This Compose file starts the entire EdgeX Foundry platform including the security services.
 
