@@ -1,0 +1,128 @@
+site_name: EdgeX Foundry Documentation
+docs_dir: ./docs_src
+site_dir: ./docs/2.0
+site_description: 'Documentation for use of EdgeX Foundry'
+site_author: 'Michael Johanson'
+site_url: 'https://edgexfoundry.github.io/edgex-docs/'
+repo_url: 'https://github.com/edgexfoundry/edgex-go'
+repo_name: 'edgex/edgex-go'
+copyright: 'Copyright &copy; 2020 EdgeX Foundry'
+# google_analytics:
+#   - 'UA-82811140-6'
+#   - 'auto'
+theme:
+  name: 'material'
+  logo: 'assets/logo_edgex.png'
+  favicon: 'assets/logo_edgex.png'
+  feature:
+    tabs: true
+  palette:
+    primary: 'deep purple'
+    accent: 'red'
+nav:
+  - 'index.md'
+  - Getting Started:
+      - './getting-started/index.md'
+      - Quick Start: 'getting-started\quick-start\index.md'
+      - Users:
+        - './getting-started/Ch-GettingStartedUsers.md'
+      - Developers:
+        - './getting-started/Ch-GettingStartedDevelopers.md'
+        - './getting-started/Ch-GettingStartedGoDevelopers.md'
+        - './getting-started/Ch-GettingStartedHybrid.md'
+        - Device Services:
+          - './getting-started/Ch-GettingStartedSDK.md'
+          - './getting-started/Ch-GettingStartedSDK-C.md'
+          - './getting-started/Ch-GettingStartedSDK-Go.md'
+        - './getting-started/Ch-GettingStartedUsersNexus.md'
+  - Microservices:
+      - Core Services:
+        - './microservices/core/data/Ch-CoreData.md'
+        - './microservices/core/metadata/Ch-Metadata.md'
+        - './microservices/core/command/Ch-Command.md'
+      - Supporting Services:
+        - './microservices/support/Ch-SupportingServices.md'
+        - './microservices/support/logging/Ch-Logging.md'
+        - './microservices/support/notifications/Ch-AlertsNotifications.md'
+        - './microservices/support/rulesengine/Ch-RulesEngine.md'
+        - './microservices/support/scheduler/Ch-Scheduling.md'
+      - System Management:
+        - './microservices/system-management/agent/Ch_SysMgmtAgent.md'
+      - Security:
+        - './microservices/security/Ch-Security.md'
+        - './microservices/security/Ch-SecretStore.md'
+        - './microservices/security/Ch-APIGateway.md'
+        - './microservices/security/Ch-AccessEdgeXRESTResources.md'
+        - './microservices/security/Ch-StartingSecurity.md'
+        - './microservices/security/Ch-SecurityIssues.md'
+      - Devices Services:
+        - './microservices/device/Ch-DeviceServices.md'
+        - './microservices/device/profile/Ch-DeviceProfile.md'
+        - './microservices/device/sdk/Ch-DeviceSDK.md'
+        - './microservices/device/virtual/Ch-VirtualDevice.md'
+      - App Services:
+        - './microservices/application/Ch-ApplServices.md'
+        - './microservices/application/Ch-AppServiceConfigurable.md'
+        - './microservices/application/Ch-ApplicationServices.md'
+        - './microservices/application/Ch-ApplicationFunctionsSDK.md'
+        - './microservices/application/Ch-HTTPTrigger.md'
+        - './microservices/application/Ch-MessageBusTrigger.md'
+      - './microservices/configuration/Ch-Configuration.md'
+  - Examples and Tutorials:
+    - './examples/Ch-ExamplesProvisionDevice.md'
+    - './examples/Ch-ExamplesModbusdatatypeconversion.md'
+    - './examples/Ch-ExamplesVirtualDeviceService.md'
+    - './examples/Ch-ExamplesRandomDeviceService.md'
+    - './examples/Ch-ExamplesSendingAndConsumingBinary.md'
+    - Adding a Device:
+      - './examples/Ch-ExamplesAddingModbusDevice.md'
+      - './examples/Ch-ExamplesAddingSNMPDevice.md'
+      - './examples/Ch-ExamplesAddingMQTTDevice.md'
+    - Walkthrough:
+      - 'walk-through/Ch-Walkthrough.md'
+      - 'walk-through/Ch-WalkthroughSetup.md'
+      - 'walk-through/Ch-WalkthroughRunning.md'
+      - 'walk-through/Ch-WalkthroughUseCase.md'
+      - 'walk-through/Ch-WalkthroughData.md'
+      - 'walk-through/Ch-WalkthroughDeviceProfile.md'
+      - 'walk-through/Ch-WalkthroughDeviceService.md'
+      - 'walk-through/Ch-WalkthroughProvision.md'
+      - 'walk-through/Ch-WalkthroughCommands.md'
+      - 'walk-through/Ch-WalkthroughReading.md'
+      - 'walk-through/Ch-WalkthroughExporting.md'
+  - API Reference: 
+    - Core:
+      - './api/core/Ch-APICoreCommand.md'
+      - './api/core/Ch-APICoreData.md'
+      - './api/core/Ch-APICoreMetadata.md'
+      - './api/core/Ch-APICoreServiceConfiguration.md'
+    - Supporting Services:
+      - './api/supporting/Ch-APISupportingServicesAlerts.md'
+      - './api/supporting/Ch-APISupportingServicesLogging.md'
+      - './api/supporting/Ch-APISupportingServicesRulesEngine.md'
+      - './api/supporting/Ch-APISupportingServicesScheduling.md'
+    - './api/Ch-APIDeviceServicesVirtual.md'
+    - './api/Ch-APISystemManagement.md'
+  - Architectural Decision Records:
+    - './design/README.md'
+    - Current Design:
+      - './design/adr/README.md'
+    - Legacy:
+      - './design/legacy-design/README.md'
+      - './design/legacy-requirements/README.md'
+markdown_extensions:
+  - codehilite
+  - admonition
+  # - mdx_truly_sane_lists
+extra:
+  social:
+    - type: 'github'
+      link: 'https://github.com/edgexfoundry'
+    - type: 'twitter'
+      link: 'https://twitter.com/edgexfoundry'
+    - type: 'linkedin'
+      link: 'https://www.linkedin.com/company/edgexfoundry'
+extra_css:
+- assets\stylesheets\version-select.css
+extra_javascript:
+- assets\javascripts\version-select.js
