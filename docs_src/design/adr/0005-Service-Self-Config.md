@@ -46,7 +46,7 @@ Details of the proposed process are as follows:
   1) call on Consul and check the root in Consul to see if it is already populated with configuration information provided by the service.  If so, the service will load and use the Consul provided configuration for that service.
   2) If the root in Consul is not populated with configuration information provided by the service, the service will read the local configuration file and populate Consul with the configuration contents in that file.
 
-NOTE:  As the services now self seed and the profile allows for the appropriate seeding to occur in the service itself, it will no longer be necessary to have a Docker configuration file in each of the service directories (example:  https://github.com/edgexfoundry/edgex-go/blob/master/cmd/core-data/res/docker/configuration.toml).  See Consequences below.
+NOTE:  As the services now self seed and deployment specific changes can be made via environment overrides, it will no longer be necessary to have a Docker configuration file in each of the service directories (example:  https://github.com/edgexfoundry/edgex-go/blob/master/cmd/core-data/res/docker/configuration.toml).  See Consequences below.
 
 ### Overrides
 Environmental variables override configuration or op param values in the following ways
@@ -57,11 +57,12 @@ NOTES:
 - Environmental variables do not override any local configuration; that is when configuration for a service is obtained from the local config file but not from the configuration service, the environmental variables are ignored.
 - Environmental variable overrides remove the need to change the "docker" profile in the res/docker/configuration.toml files - Allowing removal of 50% of the existing configuration.toml files.
 
+
 All values overriden get logged (indicating which configuration value or op param and the new value).  
 
 ## Decision 
 
-This features has been implemented (with some minor changes to be done) for consideration here:  https://github.com/edgexfoundry/go-mod-bootstrap/compare/master...lenny-intel:SelfSeed2
+These features have been implemented (with some minor changes to be done) for consideration here:  https://github.com/edgexfoundry/go-mod-bootstrap/compare/master...lenny-intel:SelfSeed2
 
 The implementation for self-seeding services and environmental overrides is already implemented (for Fuji) per this document in the application services and device services (and instituted in the SDKs of each).
  
