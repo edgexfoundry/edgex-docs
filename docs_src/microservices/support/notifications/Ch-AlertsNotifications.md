@@ -35,19 +35,12 @@ channels include SMS message, e-mail, REST callback, AMQP, MQTT, and so
 on. Currently in EdgeX Foundry, e-mail and REST callback channels are
 provided.
 
-When Alerts and Notifications receive notifications from any interface,
-the notifications are passed to the Notifications Handler internally.
-The Notifications Handler persists the receiving notification first, and
-passes them to the Distribution Coordinator immediately if the
-notifications are critical (severity = "CRITICAL"). For normal
-notifications (severity = "NORMAL"), they wait for the Message Scheduler
-to process in batch.
-
-The Alerts and Notifications is scalable, can be expanded to add more
-severities and set up corresponding Message Schedulers to process them.
-For example, the Message Scheduler of normal severity notifications is
-triggered every two hours, and the minor severity notifications is
-triggered every 24 hours, at midnight each night.
+When Alerts and Notifications receive notifications from any interface, 
+the notifications are passed to the Notifications Handler internally. 
+The Notifications Handler persists the received notifications first, 
+and passes them to the Distribution Coordinator immediately when a 
+given notification is either critical (severity = “CRITICAL”) or when 
+it is normal (severity = “NORMAL”).
 
 When the Distribution Coordinator receives a notification, it first
 queries the subscription to acquire receivers who need to obtain this

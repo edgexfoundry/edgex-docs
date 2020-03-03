@@ -13,7 +13,7 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/design/adr/core/0003-V2-API-Principles/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/design/adr/0005-Service-Self-Config/">
       
       
         <meta name="author" content="Michael Johanson">
@@ -37,18 +37,18 @@
       
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
-      <link rel="shortcut icon" href="../../../../assets/logo_edgex.png">
+      <link rel="shortcut icon" href="../../../assets/logo_edgex.png">
       <meta name="generator" content="mkdocs-1.1, mkdocs-material-4.6.3">
     
     
       
-        <title>Geneva API Guiding Principles - EdgeX Foundry Documentation</title>
+        <title>Service Self Config Init & Config Seed Removal - EdgeX Foundry Documentation</title>
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/application.adb8469c.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.adb8469c.css">
       
-        <link rel="stylesheet" href="../../../../assets/stylesheets/application-palette.a8b3c06d.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.a8b3c06d.css">
       
       
         
@@ -57,7 +57,7 @@
       
     
     
-      <script src="../../../../assets/javascripts/modernizr.86422ebf.js"></script>
+      <script src="../../../assets/javascripts/modernizr.86422ebf.js"></script>
     
     
       
@@ -66,10 +66,10 @@
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
     
-    <link rel="stylesheet" href="../../../../assets/fonts/material-icons.css">
+    <link rel="stylesheet" href="../../../assets/fonts/material-icons.css">
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/version-select.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/version-select.css">
     
     
       
@@ -93,7 +93,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#geneva-api-guiding-principles" tabindex="0" class="md-skip">
+      <a href="#service-self-config-init-config-seed-removal" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -104,7 +104,7 @@
       <div class="md-flex__cell md-flex__cell--shrink">
         <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" aria-label="EdgeX Foundry Documentation" class="md-header-nav__button md-logo">
           
-            <img alt="logo" src="../../../../assets/logo_edgex.png" width="24" height="24">
+            <img alt="logo" src="../../../assets/logo_edgex.png" width="24" height="24">
           
         </a>
       </div>
@@ -119,7 +119,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Geneva API Guiding Principles
+                Service Self Config Init & Config Seed Removal
               
             </span>
           
@@ -194,7 +194,7 @@
         
   <li class="md-tabs__item">
     
-      <a href="../../../.." class="md-tabs__link md-tabs__link--active">
+      <a href="../../.." class="md-tabs__link md-tabs__link--active">
         Introduction
       </a>
     
@@ -206,7 +206,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="../../../../getting-started/" class="md-tabs__link">
+        <a href="../../../getting-started/" class="md-tabs__link">
           Getting Started
         </a>
       
@@ -223,7 +223,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="../../../../microservices/core/data/Ch-CoreData/" class="md-tabs__link">
+        <a href="../../../microservices/core/data/Ch-CoreData/" class="md-tabs__link">
           Microservices
         </a>
       
@@ -238,7 +238,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="../../../../examples/Ch-ExamplesProvisionDevice/" class="md-tabs__link">
+        <a href="../../../examples/Ch-ExamplesProvisionDevice/" class="md-tabs__link">
           Examples and Tutorials
         </a>
       
@@ -255,7 +255,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="../../../../api/core/Ch-APICoreCommand/" class="md-tabs__link">
+        <a href="../../../api/core/Ch-APICoreCommand/" class="md-tabs__link">
           API Reference
         </a>
       
@@ -270,7 +270,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="../../../" class="md-tabs__link">
+        <a href="../../" class="md-tabs__link">
           Architectural Decision Records
         </a>
       
@@ -293,7 +293,7 @@
   <label class="md-nav__title md-nav__title--site" for="__drawer">
     <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo">
       
-        <img alt="logo" src="../../../../assets/logo_edgex.png" width="48" height="48">
+        <img alt="logo" src="../../../assets/logo_edgex.png" width="48" height="48">
       
     </a>
     EdgeX Foundry Documentation
@@ -327,7 +327,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../.." title="Introduction" class="md-nav__link">
+    <a href="../../.." title="Introduction" class="md-nav__link">
       Introduction
     </a>
   </li>
@@ -358,7 +358,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../getting-started/" title="Getting Started" class="md-nav__link">
+    <a href="../../../getting-started/" title="Getting Started" class="md-nav__link">
       Getting Started
     </a>
   </li>
@@ -370,7 +370,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../getting-started/quick-start/" title="Quick Start" class="md-nav__link">
+    <a href="../../../getting-started/quick-start/" title="Quick Start" class="md-nav__link">
       Quick Start
     </a>
   </li>
@@ -401,7 +401,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../getting-started/Ch-GettingStartedUsers/" title="Getting Started - Users" class="md-nav__link">
+    <a href="../../../getting-started/Ch-GettingStartedUsers/" title="Getting Started - Users" class="md-nav__link">
       Getting Started - Users
     </a>
   </li>
@@ -437,7 +437,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../getting-started/Ch-GettingStartedDevelopers/" title="Getting Started - Developers" class="md-nav__link">
+    <a href="../../../getting-started/Ch-GettingStartedDevelopers/" title="Getting Started - Developers" class="md-nav__link">
       Getting Started - Developers
     </a>
   </li>
@@ -449,7 +449,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../getting-started/Ch-GettingStartedGoDevelopers/" title="Get EdgeX Foundry - Go Developers" class="md-nav__link">
+    <a href="../../../getting-started/Ch-GettingStartedGoDevelopers/" title="Get EdgeX Foundry - Go Developers" class="md-nav__link">
       Get EdgeX Foundry - Go Developers
     </a>
   </li>
@@ -461,7 +461,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../getting-started/Ch-GettingStartedHybrid/" title="Working in a Hybrid Environment" class="md-nav__link">
+    <a href="../../../getting-started/Ch-GettingStartedHybrid/" title="Working in a Hybrid Environment" class="md-nav__link">
       Working in a Hybrid Environment
     </a>
   </li>
@@ -492,7 +492,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../getting-started/Ch-GettingStartedSDK/" title="Device Service SDK" class="md-nav__link">
+    <a href="../../../getting-started/Ch-GettingStartedSDK/" title="Device Service SDK" class="md-nav__link">
       Device Service SDK
     </a>
   </li>
@@ -504,7 +504,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../getting-started/Ch-GettingStartedSDK-C/" title="C SDK" class="md-nav__link">
+    <a href="../../../getting-started/Ch-GettingStartedSDK-C/" title="C SDK" class="md-nav__link">
       C SDK
     </a>
   </li>
@@ -516,7 +516,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../getting-started/Ch-GettingStartedSDK-Go/" title="Golang SDK" class="md-nav__link">
+    <a href="../../../getting-started/Ch-GettingStartedSDK-Go/" title="Golang SDK" class="md-nav__link">
       Golang SDK
     </a>
   </li>
@@ -533,7 +533,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../getting-started/Ch-GettingStartedUsersNexus/" title="Getting Docker Images from EdgeX Nexus Repository" class="md-nav__link">
+    <a href="../../../getting-started/Ch-GettingStartedUsersNexus/" title="Getting Docker Images from EdgeX Nexus Repository" class="md-nav__link">
       Getting Docker Images from EdgeX Nexus Repository
     </a>
   </li>
@@ -593,7 +593,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../microservices/core/data/Ch-CoreData/" title="Core Data" class="md-nav__link">
+    <a href="../../../microservices/core/data/Ch-CoreData/" title="Core Data" class="md-nav__link">
       Core Data
     </a>
   </li>
@@ -605,7 +605,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../microservices/core/metadata/Ch-Metadata/" title="Metadata" class="md-nav__link">
+    <a href="../../../microservices/core/metadata/Ch-Metadata/" title="Metadata" class="md-nav__link">
       Metadata
     </a>
   </li>
@@ -617,7 +617,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../microservices/core/command/Ch-Command/" title="Command" class="md-nav__link">
+    <a href="../../../microservices/core/command/Ch-Command/" title="Command" class="md-nav__link">
       Command
     </a>
   </li>
@@ -653,7 +653,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../microservices/support/Ch-SupportingServices/" title="Supporting Services Microservices" class="md-nav__link">
+    <a href="../../../microservices/support/Ch-SupportingServices/" title="Supporting Services Microservices" class="md-nav__link">
       Supporting Services Microservices
     </a>
   </li>
@@ -665,7 +665,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../microservices/support/logging/Ch-Logging/" title="Logging" class="md-nav__link">
+    <a href="../../../microservices/support/logging/Ch-Logging/" title="Logging" class="md-nav__link">
       Logging
     </a>
   </li>
@@ -677,7 +677,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../microservices/support/notifications/Ch-AlertsNotifications/" title="Alerts & Notifications" class="md-nav__link">
+    <a href="../../../microservices/support/notifications/Ch-AlertsNotifications/" title="Alerts & Notifications" class="md-nav__link">
       Alerts & Notifications
     </a>
   </li>
@@ -689,7 +689,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../microservices/support/rulesengine/Ch-RulesEngine/" title="Rules Engine" class="md-nav__link">
+    <a href="../../../microservices/support/rulesengine/Ch-RulesEngine/" title="Rules Engine" class="md-nav__link">
       Rules Engine
     </a>
   </li>
@@ -701,7 +701,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../microservices/support/scheduler/Ch-Scheduling/" title="Scheduling" class="md-nav__link">
+    <a href="../../../microservices/support/scheduler/Ch-Scheduling/" title="Scheduling" class="md-nav__link">
       Scheduling
     </a>
   </li>
@@ -737,7 +737,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../microservices/system-management/agent/Ch_SysMgmtAgent/" title="System Management Agent (SMA)" class="md-nav__link">
+    <a href="../../../microservices/system-management/agent/Ch_SysMgmtAgent/" title="System Management Agent (SMA)" class="md-nav__link">
       System Management Agent (SMA)
     </a>
   </li>
@@ -773,7 +773,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../microservices/security/Ch-Security/" title="Security" class="md-nav__link">
+    <a href="../../../microservices/security/Ch-Security/" title="Security" class="md-nav__link">
       Security
     </a>
   </li>
@@ -785,7 +785,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../microservices/security/Ch-SecretStore/" title="Secret Store" class="md-nav__link">
+    <a href="../../../microservices/security/Ch-SecretStore/" title="Secret Store" class="md-nav__link">
       Secret Store
     </a>
   </li>
@@ -797,7 +797,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../microservices/security/Ch-APIGateway/" title="API Gateway" class="md-nav__link">
+    <a href="../../../microservices/security/Ch-APIGateway/" title="API Gateway" class="md-nav__link">
       API Gateway
     </a>
   </li>
@@ -809,7 +809,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../microservices/security/Ch-AccessEdgeXRESTResources/" title="Access EdgeX REST resources" class="md-nav__link">
+    <a href="../../../microservices/security/Ch-AccessEdgeXRESTResources/" title="Access EdgeX REST resources" class="md-nav__link">
       Access EdgeX REST resources
     </a>
   </li>
@@ -821,7 +821,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../microservices/security/Ch-StartingSecurity/" title="Starting security services within EdgeX" class="md-nav__link">
+    <a href="../../../microservices/security/Ch-StartingSecurity/" title="Starting security services within EdgeX" class="md-nav__link">
       Starting security services within EdgeX
     </a>
   </li>
@@ -833,7 +833,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../microservices/security/Ch-SecurityIssues/" title="Security Issues" class="md-nav__link">
+    <a href="../../../microservices/security/Ch-SecurityIssues/" title="Security Issues" class="md-nav__link">
       Security Issues
     </a>
   </li>
@@ -869,7 +869,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../microservices/device/Ch-DeviceServices/" title="Device Services Microservices" class="md-nav__link">
+    <a href="../../../microservices/device/Ch-DeviceServices/" title="Device Services Microservices" class="md-nav__link">
       Device Services Microservices
     </a>
   </li>
@@ -881,7 +881,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../microservices/device/profile/Ch-DeviceProfile/" title="Device Profile" class="md-nav__link">
+    <a href="../../../microservices/device/profile/Ch-DeviceProfile/" title="Device Profile" class="md-nav__link">
       Device Profile
     </a>
   </li>
@@ -893,7 +893,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../microservices/device/sdk/Ch-DeviceSDK/" title="Device Services SDK" class="md-nav__link">
+    <a href="../../../microservices/device/sdk/Ch-DeviceSDK/" title="Device Services SDK" class="md-nav__link">
       Device Services SDK
     </a>
   </li>
@@ -905,7 +905,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../microservices/device/virtual/Ch-VirtualDevice/" title="Virtual Device" class="md-nav__link">
+    <a href="../../../microservices/device/virtual/Ch-VirtualDevice/" title="Virtual Device" class="md-nav__link">
       Virtual Device
     </a>
   </li>
@@ -941,7 +941,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../microservices/application/Ch-ApplServices/" title="Application Services Microservices" class="md-nav__link">
+    <a href="../../../microservices/application/Ch-ApplServices/" title="Application Services Microservices" class="md-nav__link">
       Application Services Microservices
     </a>
   </li>
@@ -953,7 +953,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../microservices/application/Ch-AppServiceConfigurable/" title="App Service Configurable" class="md-nav__link">
+    <a href="../../../microservices/application/Ch-AppServiceConfigurable/" title="App Service Configurable" class="md-nav__link">
       App Service Configurable
     </a>
   </li>
@@ -965,7 +965,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../microservices/application/Ch-ApplicationServices/" title="Application Services" class="md-nav__link">
+    <a href="../../../microservices/application/Ch-ApplicationServices/" title="Application Services" class="md-nav__link">
       Application Services
     </a>
   </li>
@@ -977,7 +977,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../microservices/application/Ch-ApplicationFunctionsSDK/" title="App Functions SDK (Golang) - Beta" class="md-nav__link">
+    <a href="../../../microservices/application/Ch-ApplicationFunctionsSDK/" title="App Functions SDK (Golang) - Beta" class="md-nav__link">
       App Functions SDK (Golang) - Beta
     </a>
   </li>
@@ -989,7 +989,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../microservices/application/Ch-HTTPTrigger/" title="HTTP Trigger" class="md-nav__link">
+    <a href="../../../microservices/application/Ch-HTTPTrigger/" title="HTTP Trigger" class="md-nav__link">
       HTTP Trigger
     </a>
   </li>
@@ -1001,7 +1001,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../microservices/application/Ch-MessageBusTrigger/" title="Message Bus Trigger" class="md-nav__link">
+    <a href="../../../microservices/application/Ch-MessageBusTrigger/" title="Message Bus Trigger" class="md-nav__link">
       Message Bus Trigger
     </a>
   </li>
@@ -1018,7 +1018,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../microservices/configuration/Ch-Configuration/" title="Configuration and Registry" class="md-nav__link">
+    <a href="../../../microservices/configuration/Ch-Configuration/" title="Configuration and Registry" class="md-nav__link">
       Configuration and Registry
     </a>
   </li>
@@ -1054,7 +1054,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../examples/Ch-ExamplesProvisionDevice/" title="Provison a Device - Modbus Example" class="md-nav__link">
+    <a href="../../../examples/Ch-ExamplesProvisionDevice/" title="Provison a Device - Modbus Example" class="md-nav__link">
       Provison a Device - Modbus Example
     </a>
   </li>
@@ -1066,7 +1066,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../examples/Ch-ExamplesModbusdatatypeconversion/" title="Modbus - Data Type Conversion" class="md-nav__link">
+    <a href="../../../examples/Ch-ExamplesModbusdatatypeconversion/" title="Modbus - Data Type Conversion" class="md-nav__link">
       Modbus - Data Type Conversion
     </a>
   </li>
@@ -1078,7 +1078,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../examples/Ch-ExamplesVirtualDeviceService/" title="Using the Virtual Device Service" class="md-nav__link">
+    <a href="../../../examples/Ch-ExamplesVirtualDeviceService/" title="Using the Virtual Device Service" class="md-nav__link">
       Using the Virtual Device Service
     </a>
   </li>
@@ -1090,7 +1090,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../examples/Ch-ExamplesRandomDeviceService/" title="Random Integer Device Service Example" class="md-nav__link">
+    <a href="../../../examples/Ch-ExamplesRandomDeviceService/" title="Random Integer Device Service Example" class="md-nav__link">
       Random Integer Device Service Example
     </a>
   </li>
@@ -1102,7 +1102,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../examples/Ch-ExamplesSendingAndConsumingBinary/" title="Sending and Consuming Binary Data From EdgeX Device Services" class="md-nav__link">
+    <a href="../../../examples/Ch-ExamplesSendingAndConsumingBinary/" title="Sending and Consuming Binary Data From EdgeX Device Services" class="md-nav__link">
       Sending and Consuming Binary Data From EdgeX Device Services
     </a>
   </li>
@@ -1133,7 +1133,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../examples/Ch-ExamplesAddingModbusDevice/" title="Modbus" class="md-nav__link">
+    <a href="../../../examples/Ch-ExamplesAddingModbusDevice/" title="Modbus" class="md-nav__link">
       Modbus
     </a>
   </li>
@@ -1145,7 +1145,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../examples/Ch-ExamplesAddingSNMPDevice/" title="SNMP" class="md-nav__link">
+    <a href="../../../examples/Ch-ExamplesAddingSNMPDevice/" title="SNMP" class="md-nav__link">
       SNMP
     </a>
   </li>
@@ -1157,7 +1157,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../examples/Ch-ExamplesAddingMQTTDevice/" title="MQTT" class="md-nav__link">
+    <a href="../../../examples/Ch-ExamplesAddingMQTTDevice/" title="MQTT" class="md-nav__link">
       MQTT
     </a>
   </li>
@@ -1193,7 +1193,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../walk-through/Ch-Walkthrough/" title="EdgeX Demonstration API Walk Through" class="md-nav__link">
+    <a href="../../../walk-through/Ch-Walkthrough/" title="EdgeX Demonstration API Walk Through" class="md-nav__link">
       EdgeX Demonstration API Walk Through
     </a>
   </li>
@@ -1205,7 +1205,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../walk-through/Ch-WalkthroughSetup/" title="Setup up your environment" class="md-nav__link">
+    <a href="../../../walk-through/Ch-WalkthroughSetup/" title="Setup up your environment" class="md-nav__link">
       Setup up your environment
     </a>
   </li>
@@ -1217,7 +1217,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../walk-through/Ch-WalkthroughRunning/" title="Running EdgeX" class="md-nav__link">
+    <a href="../../../walk-through/Ch-WalkthroughRunning/" title="Running EdgeX" class="md-nav__link">
       Running EdgeX
     </a>
   </li>
@@ -1229,7 +1229,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../walk-through/Ch-WalkthroughUseCase/" title="Example Use Case" class="md-nav__link">
+    <a href="../../../walk-through/Ch-WalkthroughUseCase/" title="Example Use Case" class="md-nav__link">
       Example Use Case
     </a>
   </li>
@@ -1241,7 +1241,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../walk-through/Ch-WalkthroughData/" title="Defining your data" class="md-nav__link">
+    <a href="../../../walk-through/Ch-WalkthroughData/" title="Defining your data" class="md-nav__link">
       Defining your data
     </a>
   </li>
@@ -1253,7 +1253,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../walk-through/Ch-WalkthroughDeviceProfile/" title="Defining your device" class="md-nav__link">
+    <a href="../../../walk-through/Ch-WalkthroughDeviceProfile/" title="Defining your device" class="md-nav__link">
       Defining your device
     </a>
   </li>
@@ -1265,7 +1265,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../walk-through/Ch-WalkthroughDeviceService/" title="Register your Device Service" class="md-nav__link">
+    <a href="../../../walk-through/Ch-WalkthroughDeviceService/" title="Register your Device Service" class="md-nav__link">
       Register your Device Service
     </a>
   </li>
@@ -1277,7 +1277,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../walk-through/Ch-WalkthroughProvision/" title="Provision a Device" class="md-nav__link">
+    <a href="../../../walk-through/Ch-WalkthroughProvision/" title="Provision a Device" class="md-nav__link">
       Provision a Device
     </a>
   </li>
@@ -1289,7 +1289,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../walk-through/Ch-WalkthroughCommands/" title="Calling commands" class="md-nav__link">
+    <a href="../../../walk-through/Ch-WalkthroughCommands/" title="Calling commands" class="md-nav__link">
       Calling commands
     </a>
   </li>
@@ -1301,7 +1301,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../walk-through/Ch-WalkthroughReading/" title="Sending events and reading data" class="md-nav__link">
+    <a href="../../../walk-through/Ch-WalkthroughReading/" title="Sending events and reading data" class="md-nav__link">
       Sending events and reading data
     </a>
   </li>
@@ -1313,7 +1313,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../walk-through/Ch-WalkthroughExporting/" title="Exporting your device data" class="md-nav__link">
+    <a href="../../../walk-through/Ch-WalkthroughExporting/" title="Exporting your device data" class="md-nav__link">
       Exporting your device data
     </a>
   </li>
@@ -1373,7 +1373,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../api/core/Ch-APICoreCommand/" title="Core Command" class="md-nav__link">
+    <a href="../../../api/core/Ch-APICoreCommand/" title="Core Command" class="md-nav__link">
       Core Command
     </a>
   </li>
@@ -1385,7 +1385,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../api/core/Ch-APICoreData/" title="Core Data" class="md-nav__link">
+    <a href="../../../api/core/Ch-APICoreData/" title="Core Data" class="md-nav__link">
       Core Data
     </a>
   </li>
@@ -1397,7 +1397,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../api/core/Ch-APICoreMetadata/" title="Core Metadata" class="md-nav__link">
+    <a href="../../../api/core/Ch-APICoreMetadata/" title="Core Metadata" class="md-nav__link">
       Core Metadata
     </a>
   </li>
@@ -1409,7 +1409,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../api/core/Ch-APICoreServiceConfiguration/" title="Configuration and Registry" class="md-nav__link">
+    <a href="../../../api/core/Ch-APICoreServiceConfiguration/" title="Configuration and Registry" class="md-nav__link">
       Configuration and Registry
     </a>
   </li>
@@ -1445,7 +1445,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../api/supporting/Ch-APISupportingServicesAlerts/" title="Alerts & Notifications" class="md-nav__link">
+    <a href="../../../api/supporting/Ch-APISupportingServicesAlerts/" title="Alerts & Notifications" class="md-nav__link">
       Alerts & Notifications
     </a>
   </li>
@@ -1457,7 +1457,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../api/supporting/Ch-APISupportingServicesLogging/" title="Logging" class="md-nav__link">
+    <a href="../../../api/supporting/Ch-APISupportingServicesLogging/" title="Logging" class="md-nav__link">
       Logging
     </a>
   </li>
@@ -1469,7 +1469,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../api/supporting/Ch-APISupportingServicesRulesEngine/" title="Rules Engine" class="md-nav__link">
+    <a href="../../../api/supporting/Ch-APISupportingServicesRulesEngine/" title="Rules Engine" class="md-nav__link">
       Rules Engine
     </a>
   </li>
@@ -1481,7 +1481,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../api/supporting/Ch-APISupportingServicesScheduling/" title="Scheduling" class="md-nav__link">
+    <a href="../../../api/supporting/Ch-APISupportingServicesScheduling/" title="Scheduling" class="md-nav__link">
       Scheduling
     </a>
   </li>
@@ -1498,7 +1498,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../api/Ch-APIDeviceServicesVirtual/" title="APIs - Device Services - Virtual Device Service" class="md-nav__link">
+    <a href="../../../api/Ch-APIDeviceServicesVirtual/" title="APIs - Device Services - Virtual Device Service" class="md-nav__link">
       APIs - Device Services - Virtual Device Service
     </a>
   </li>
@@ -1510,7 +1510,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../api/Ch-APISystemManagement/" title="APIs - System Management - Agent" class="md-nav__link">
+    <a href="../../../api/Ch-APISystemManagement/" title="APIs - System Management - Agent" class="md-nav__link">
       APIs - System Management - Agent
     </a>
   </li>
@@ -1546,7 +1546,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../" title="Architecture Decision Records Folder" class="md-nav__link">
+    <a href="../../" title="Architecture Decision Records Folder" class="md-nav__link">
       Architecture Decision Records Folder
     </a>
   </li>
@@ -1577,7 +1577,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../" title="ADR Table of Contents" class="md-nav__link">
+    <a href="../" title="ADR Table of Contents" class="md-nav__link">
       ADR Table of Contents
     </a>
   </li>
@@ -1613,7 +1613,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../legacy-design/" title="Legacy Design Documents" class="md-nav__link">
+    <a href="../../legacy-design/" title="Legacy Design Documents" class="md-nav__link">
       Legacy Design Documents
     </a>
   </li>
@@ -1625,7 +1625,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../legacy-requirements/" title="Legacy Requirements" class="md-nav__link">
+    <a href="../../legacy-requirements/" title="Legacy Requirements" class="md-nav__link">
       Legacy Requirements
     </a>
   </li>
@@ -1673,6 +1673,33 @@
     Context
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#operational-parameters" class="md-nav__link">
+    Operational parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-initialization" class="md-nav__link">
+    Configuration Initialization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overrides" class="md-nav__link">
+    Overrides
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1705,40 +1732,78 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/design/adr/core/0003-V2-API-Principles.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/design/adr/0005-Service-Self-Config.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="geneva-api-guiding-principles">Geneva API Guiding Principles</h1>
+                <h1 id="service-self-config-init-config-seed-removal">Service Self Config Init &amp; Config Seed Removal</h1>
 <h2 id="status">Status</h2>
-<p>Accepted by EdgeX Foundry working groups as of Core Working Group meeting 16-Jan-2020</p>
+<p>under review - for Geneva release</p>
 <h2 id="context">Context</h2>
-<p>A redesign of the EdgeX Foundry API is proposed for the Geneva release. This is understood by the community to warrant a 2.0 release that will not be backward compatible. The goal is to rework the API using solid principles that will allow for extension over the course of several release cycles, avoiding the necessity of yet another major release version in a short period of time.</p>
-<p>Briefly, this effort grew from the acknowledgement that the current models used to facilitate requests and responses via the EdgeX Foundry API were legacy definitions that were once used as internal representations of state within the EdgeX services themselves. Thus if you want to add or update a device, you populate a full device model rather than a specific Add/UpdateDeviceRequest. Currently, your request model has the same definition, and thus validation constraints, as the response model because they are one and the same! It is desirable to separate and be specific about what is required for a given request, as well as its state validity, and the bare minimum that must be returned within a response.</p>
-<p>Following from that central need, other considerations have been used when designing this proposed API. These will be enumerated and briefly explained below.</p>
-<p><strong>1.) Transport-agnostic</strong>
-Define the request/response data transfer objects (DTO) in a manner whereby they can be used independent of transport. For example, although an OpenAPI doc is implicitly coupled to HTTP/REST, define the DTOs in such a way that they could also be used if the platform were to evolve to a pub/sub architecture.</p>
-<p><strong>2.) Support partial updates via PATCH</strong>
-Given a request to, for example, update a device the user should be able to update only some properties of the device. Previously this would require an endpoint for each individual property to be updated since the "update device" endpoint, facilitated by a PUT, would perform a complete replacement of the device's data. If you only wanted to update the LastConnected timestamp, then a separate endpoint for that property was required. We will leverage PATCH in order to update an entity and only those properties populated on the request will be considered. Properties that are missing or left blank will not be touched. </p>
-<p><strong>3.) Support multiple requests at once</strong>
-Endpoints for the addition or updating of data (POST/PATCH) should accept multiple requests at once. If it were desirable to add or update multiple devices with one request, for example, the API should facilitate this.</p>
-<p><strong>4.) Support multiple correlated responses at once</strong>
-Following from #3 above, each request sent to the endpoint must result in a corresponding response. In the case of HTTP/REST, this means if four requests are sent to a POST operation, the return payload will have four responses. Each response must expose a "code" property containing a numeric result for what occurred. These could be equivalent to HTTP status codes, for example. So while the overall call might succeed, one or more of the child requests may not have. It is up to the caller to examine each response and handle accordingly.</p>
-<p>In order to correlate each response to its original request, each request must be assigned its own ID (in GUID format). The caller can then tie a response to an individual request and handle the result accordingly, or otherwise track that a response to a given request was not received. </p>
-<p><strong>5.) Use of 207 HTTP Status (Multi-Result)</strong>
-In the case where an endpoint can support multiple responses, the returned HTTP code from a REST API will be 207 (Multi-status)</p>
-<p><strong>6.) Each service should provide a "batch" request endpoint</strong>
-In addition to use-case specific endpoints that you'd find in any REST API, each service should provide a "batch" endpoint that can take any kind of request. This is a generic endpoint that allows you to group requests of different types within a single call. For example, instead of having to call two endpoints to get two jobs done, you can call a single endpoint passing the specific requests and have them routed appropriately within the service. Also, when considering agnostic transport, the batch endpoint would allow for the definition and handling of "GET" equivalent DTOs which are now implicit in the format of a URL.</p>
-<p><strong>7.) GET endpoints returning a list of items must support pagination</strong>
-URL parameters must be supported for every GET endpoint to support pagination. These parameters should indicate the current page of results and the number of results on a page.</p>
+<p>Since its debut, EdgeX has had a configuration seed service (config-seed) that, on start of EdgeX, deposits configuration for all the services into Consul (our configuration/registry service).  For development purposes, or for those resource cosntrained platforms, Consul would not be running, the config-seed would not run or if it did run would obviously not deposit configuration, and services would use a configuration file in proximity to the service in order to get their needed configuration.</p>
+<p>While this process has nominally worked for several releases of EdgeX, there has always been some issues with this extra initialization process (config-seed), not least of which are:
+- race conditions on the part of the services, as they bootstrap, coming up before the config-seed completes its deposit of configuration into Consul
+- how to deal with "overrides" such as environmental variable provided configuration overrides. As the override is often specific to a service but has to be in place for config-seed in order to take effect.
+- need for an additional service that is only there for init and then dies (confusing to users)</p>
+<p>The design/architectural proposal, therefore, is:
+- removal of the config-seed service (putting the current config-seed repositories in archive)
+- have each EdgeX micro service "self seed" - that is seed Consul with their own required configuration on bootstrap of the service.  Details of that bootstrapping process are below.</p>
+<h3 id="operational-parameters">Operational parameters</h3>
+<p>Operational parameters (op params for the rest of this document) are properties set by a service's command line arguements.  These include profile, configuration filename, configuration file directory, configuration provider URL, and overwrite flag.  The operational parameters are not set by any configuration (local file or Consul).  Op params include:</p>
+<ul>
+<li>--configProvider or -cp (the configuration provider location URL)</li>
+<li>--overwrite or -o (overwrite the configuration in the configuration provider)</li>
+<li>--file or -f (the configuration filename)</li>
+<li>--profile or -p (the profile name of configuration)</li>
+<li>--confidir (the directory where the configuration file is found)</li>
+<li>--registry or -r (use the registry)</li>
+</ul>
+<p>The distinction of op params versus configuration will be important later in this ADR.</p>
+<p>Two op params (-o for overwrite and -r for registry) are not overridable by environmental variables.</p>
+<h3 id="configuration-initialization">Configuration Initialization</h3>
+<p>Going forward, each service would have a local configuration file.  On intialization of the service (aka bootstrap of the service), the service would use the configuration to populate the configuration service (Consul) with data read from the configuration file.  In this way, each service self-seeds the configuration service.</p>
+<p>Details of the proposed process are as follows:
+- Service initializes and determines whether it should get its configuration from a local configuration file or from a configuration service by way of </p>
+<p>a) the -cp / --configProvider op param</p>
+<p>b) the edgex_configuration_provider environmental variable which overrides the op param above</p>
+<ul>
+<li>If the service is to use the local file, it reads the file associated with the profile, config filename and config file directory op params or environmental variables) and does not contact the configuration service (Consul) for any configuration information.</li>
+<li>If the service is to use the configuration service, then the service will:</li>
+</ul>
+<p>1) call on Consul and check the root in Consul to see if it is already populated with configuration information provided by the service.  If so, the service will load and use the Consul provided configuration for that service.
+  2) If the root in Consul is not populated with configuration information provided by the service, the service will read the local configuration file and populate Consul with the configuration contents in that file.</p>
+<p>NOTE:  As the services now self seed and deployment specific changes can be made via environment overrides, it will no longer be necessary to have a Docker configuration file in each of the service directories (example:  https://github.com/edgexfoundry/edgex-go/blob/master/cmd/core-data/res/docker/configuration.toml).  See Consequences below.</p>
+<h3 id="overrides">Overrides</h3>
+<p>Environmental variables override configuration or op param values in the following ways
+- Environmental variables override configuration values as they are pushed (self seeded) into the configuration service (Consul).  This override only occurs once (as the values are pushed / seeded into Consul from the service).  Once pushed, configuration values are used from Consul and any environmental value is ignored unless the -o/--overwrite flag is on.  The name of the environmental variable must match the path names in Consul.
+- Environmental variables can override op params (except the -o overwrite and -r registry op params).  Op params specify operation of the service and are configuration that is not ever in Consul. </p>
+<p>NOTES:
+- Environmental variables do not override any local configuration; that is when configuration for a service is obtained from the local config file but not from the configuration service, the environmental variables are ignored.
+- Environmental variable overrides remove the need to change the "docker" profile in the res/docker/configuration.toml files - Allowing removal of 50% of the existing configuration.toml files.</p>
+<p>All values overriden get logged (indicating which configuration value or op param and the new value).  </p>
 <h2 id="decision">Decision</h2>
-<p>Commnunity has accepted the reasoning for the new API and the design principles outlined above. The approach will be to gradually implement the V2 API side-by-side with the current V1 APIs. We believe it will take more than a single release cycle to implement the new specification. Releases of that occur prior to the V2 API implementation completion will continue to be major versioned as 1.x. Subsequent to completion, releases will be major versioned as 2.x.</p>
+<p>These features have been implemented (with some minor changes to be done) for consideration here:  https://github.com/edgexfoundry/go-mod-bootstrap/compare/master...lenny-intel:SelfSeed2</p>
+<p>The implementation for self-seeding services and environmental overrides is already implemented (for Fuji) per this document in the application services and device services (and instituted in the SDKs of each).</p>
 <h2 id="consequences">Consequences</h2>
 <ul>
-<li>Backward incompatibility with EdgeX Foundry's V1 API requires a major version increment (e.g. v2.x).</li>
-<li>Service-level testing (e.g. blackbox tests) needs to be rewritten.</li>
-<li>Specification-first development allows for different implementations of EdgeX services to be certified as "EdgeX Compliant" in reference to an objective standard.</li>
-<li>Transport-agnostic focus enables different architectural patterns (pub/sub versus REST) using the same data representation.</li>
+<li>Docker compose files will need to be changed to remove config seed.  </li>
+<li>Config seed repo(s) all to be archived</li>
+<li>Any service specific environmental overrides currently on config seed need to be moved to the specific service(s)</li>
+<li>The Docker configuration files and directory (example:  https://github.com/edgexfoundry/edgex-go/blob/master/cmd/core-data/res/docker/configuration.toml) that are used to populate the config seed for Docker containers can be eliminated from all the services.</li>
+<li>Documentation would need to reflect removal of config seed and "self seeding" process.</li>
+<li>Removes any potential issue with race conditions as each service is now responsible for its own configuration.</li>
+<li>Removes some confusion on the part of users as to why a service (config-seed) starts and immediately exits.</li>
+<li>Minimal impact to development cycles and release schedule </li>
+<li>Docker files will need to be modified to remove setting profile=docker</li>
+<li>Docker compose files will need to be changed to add environmental overrides for removal of docker profiles. These should go in the global environment section of the compose files for those overrides that apply to all services.  Example:</li>
 </ul>
+<div class="codehilite"><pre><span></span><code><span class="err"># all common shared environment variables defined here:</span>
+<span class="c">x-common-env-variables: &amp;common-variables</span>
+<span class="c">  EDGEX_SECURITY_SECRET_STORE: &quot;false&quot;</span>
+<span class="c">  edgex_configuration_provider: consul.http://edgex-core-consul:8500</span>
+<span class="c">  Clients_CoreData_Host: edgex-core-data</span>
+<span class="c">  Clients_Logging_Host: edgex-support-logging</span>
+<span class="c">  Logging_EnableRemote: &quot;true&quot;</span>
+</code></pre></div>
                 
                   
                 
@@ -1773,7 +1838,7 @@ URL parameters must be supported for every GET endpoint to support pagination. T
       </div>
       
   <div class="md-footer-social">
-    <link rel="stylesheet" href="../../../../assets/fonts/font-awesome.css">
+    <link rel="stylesheet" href="../../../assets/fonts/font-awesome.css">
     
       <a href="https://github.com/edgexfoundry" target="_blank" rel="noopener" title="github" class="md-footer-social__link fa fa-github"></a>
     
@@ -1789,11 +1854,11 @@ URL parameters must be supported for every GET endpoint to support pagination. T
       
     </div>
     
-      <script src="../../../../assets/javascripts/application.c33a9706.js"></script>
+      <script src="../../../assets/javascripts/application.c33a9706.js"></script>
       
-      <script>app.initialize({version:"1.1",url:{base:"../../../.."}})</script>
+      <script>app.initialize({version:"1.1",url:{base:"../../.."}})</script>
       
-        <script src="../../../../assets/javascripts/version-select.js"></script>
+        <script src="../../../assets/javascripts/version-select.js"></script>
       
     
   </body>
