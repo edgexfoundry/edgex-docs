@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.6.2">
+      <meta name="generator" content="mkdocs-1.1, mkdocs-material-4.6.3">
     
     
       
@@ -1870,18 +1870,12 @@ through defined receiving channels when events occur. The receiving
 channels include SMS message, e-mail, REST callback, AMQP, MQTT, and so
 on. Currently in EdgeX Foundry, e-mail and REST callback channels are
 provided.</p>
-<p>When Alerts and Notifications receive notifications from any interface,
-the notifications are passed to the Notifications Handler internally.
-The Notifications Handler persists the receiving notification first, and
-passes them to the Distribution Coordinator immediately if the
-notifications are critical (severity = "CRITICAL"). For normal
-notifications (severity = "NORMAL"), they wait for the Message Scheduler
-to process in batch.</p>
-<p>The Alerts and Notifications is scalable, can be expanded to add more
-severities and set up corresponding Message Schedulers to process them.
-For example, the Message Scheduler of normal severity notifications is
-triggered every two hours, and the minor severity notifications is
-triggered every 24 hours, at midnight each night.</p>
+<p>When Alerts and Notifications receive notifications from any interface, 
+the notifications are passed to the Notifications Handler internally. 
+The Notifications Handler persists the received notifications first, 
+and passes them to the Distribution Coordinator immediately when a 
+given notification is either critical (severity = “CRITICAL”) or when 
+it is normal (severity = “NORMAL”).</p>
 <p>When the Distribution Coordinator receives a notification, it first
 queries the subscription to acquire receivers who need to obtain this
 notification and their receiving channel information. According to the
@@ -2252,7 +2246,7 @@ Smtp Password=<span class="cp">${</span><span class="n">Yahoo</span> <span class
     
       <script src="../../../../assets/javascripts/application.c33a9706.js"></script>
       
-      <script>app.initialize({version:"1.0.4",url:{base:"../../../.."}})</script>
+      <script>app.initialize({version:"1.1",url:{base:"../../../.."}})</script>
       
         <script src="../../../../assets/javascripts/version-select.js"></script>
       

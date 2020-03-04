@@ -13,4 +13,5 @@ the property file or remote consul configuration service.
 
 <https://github.com/edgexfoundry/edgex-go/blob/master/api/raml/support-logging.raml>
 
+[Logging V1 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-logging/1.1.0)
 <!-- [Logging API HTML Documentation](support-logging.html) -->
