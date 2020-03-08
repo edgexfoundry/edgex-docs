@@ -25,7 +25,7 @@ window.addEventListener("DOMContentLoaded", function() {
     // Lightbus note: The base_url js variable wasn't immediately obviously
     //                available on the mkdocs-material theme. So we were
     //                simply assume the first part of the URL is the version.
-    var CURRENT_VERSION = window.location.pathname.split("/")[2];
+    var CURRENT_VERSION = window.location.pathname.split("/")[1];
   
     function makeSelect(options, selected) {
       var select = document.createElement("select");
@@ -41,7 +41,7 @@ window.addEventListener("DOMContentLoaded", function() {
   
     var xhr = new XMLHttpRequest();
     // Lightbus note: Again, we make assumptions about the path
-    xhr.open("GET", "/edgex-docs/versions.json");
+    xhr.open("GET", "/versions.json");
     xhr.onload = function() {
       var versions = JSON.parse(this.responseText);
       
@@ -54,7 +54,7 @@ window.addEventListener("DOMContentLoaded", function() {
         return {text: i.title, value: i.version};
       }), realVersion);
       select.addEventListener("change", function(event) {
-        window.location.href = "/edgex-docs/" + this.value;
+        window.location.href = "/" + this.value;
       });
   
       var selectInLi = document.createElement('li');
