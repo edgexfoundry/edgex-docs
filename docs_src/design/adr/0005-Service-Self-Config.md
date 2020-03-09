@@ -76,6 +76,22 @@ All values overriden get logged (indicating which configuration value or op para
 These features have been implemented (with some minor changes to be done) for consideration here:  https://github.com/edgexfoundry/go-mod-bootstrap/compare/master...lenny-intel:SelfSeed2
 
 The implementation for self-seeding services and environmental overrides is already implemented (for Fuji) per this document in the application services and device services (and instituted in the SDKs of each).
+
+## Backward compatibility
+Several aspects of this ADR contain backward compatibility issues for the device service and application service SDKs.  Therefore, for the upcoming minor release, the following guidelines and expections are added to provide for backward compatibility.
+
+- --registry=<url> for Device SDK
+        
+If used with URL , assume previous version and use URL for --configProvider option and default to http as DS SDK does today. Also use URL for registry connection.
+
+- --registry (no ‘=’) and w/o --configProvider for both SDKs
+
+Assume for this release that one would never use registry w/o config provider.
+Use registry configuration from file for config provider as is done in Fuji. 
+
+- Env Var: edgex_registry=<url> for all services (currently has been removed)
+
+Add it back and use value as if it was edgex_configuration_provider and enable use of registry with same settings in URL. Default to http as it is in Fuji.
  
 ## Consequences 
 
