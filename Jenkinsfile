@@ -17,6 +17,11 @@ pipeline {
                 sh 'pip install mkdocs'
                 sh 'pip install mkdocs-material'
                 sh 'mkdocs build'
+                sshagent (credentials: ['edgex-jenkins-ssh']) {
+                    sh 'git add .'
+                    sh 'git commit -s -m "ci: render site"'
+                    sh 'git push origin master'
+                }
             }
         }
     }
