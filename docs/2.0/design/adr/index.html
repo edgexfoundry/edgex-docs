@@ -73,6 +73,31 @@
     
     
       
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-82811140-6", "auto")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
     
     
   </head>
@@ -1710,10 +1735,6 @@
 <tr>
 <td><a href="0004-Feature-Flags/">0004 Feature Flags</a></td>
 <td>Feature Flag Implementation</td>
-</tr>
-<tr>
-<td><a href="0005-Service-Self-Config/">0005 Service Self Config Init</a></td>
-<td>Service Self Config Init &amp; Config Seed Removal</td>
 </tr>
 <tr>
 <td></td>
