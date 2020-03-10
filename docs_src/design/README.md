@@ -30,4 +30,4 @@ A separate folder (/design/legacy-requirements) is used for legacy requirements 
 WG chairman take the responsibility for posting legacy material in to the applicable folders.
 
 ## Table of Contents
-A READMe with a table of contents is provide in the the /adr, /legacy-design, and /legacy-requirements sub folders.  Document authors are asked to keep the TOC updated with each new document entry.
+A README with a table of contents for current documents is located [here](./TOC.md). Legacy Design and Requirements have their own Table of Contents as well and are located in their respective directories at [/legacy-design](./legacy-design/README.md) and [/legacy-requirements](./legacy-requirements/README.md). Document authors are asked to keep the TOC updated with each new document entry.
