@@ -1,0 +1,2372 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Documentation for use of EdgeX Foundry">
+      
+      
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/examples/Ch-ExamplesAddingSNMPDevice/">
+      
+      
+        <meta name="author" content="Michael Johanson">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/logo_edgex.png">
+      <meta name="generator" content="mkdocs-1.1, mkdocs-material-4.6.3">
+    
+    
+      
+        <title>SNMP - EdgeX Foundry Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.adb8469c.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.a8b3c06d.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#7e57c2">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.86422ebf.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/version-select.css">
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-82811140-6", "auto")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="deep-purple" data-md-color-accent="red">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#snmp" tabindex="0" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" aria-label="EdgeX Foundry Documentation" class="md-header-nav__button md-logo">
+          
+            <img alt="logo" src="../../assets/logo_edgex.png" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              EdgeX Foundry Documentation
+            </span>
+            <span class="md-header-nav__topic">
+              
+                SNMP
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" aria-label="search" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    edgex/edgex-go
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." class="md-tabs__link">
+        Introduction
+      </a>
+    
+  </li>
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../getting-started/" class="md-tabs__link">
+          Getting Started
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../microservices/core/data/Ch-CoreData/" class="md-tabs__link">
+          Microservices
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../Ch-ExamplesProvisionDevice/" class="md-tabs__link md-tabs__link--active">
+          Examples and Tutorials
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../api/core/Ch-APICoreCommand/" class="md-tabs__link">
+          API Reference
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../design/" class="md-tabs__link">
+          Architectural Decision Records
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo">
+      
+        <img alt="logo" src="../../assets/logo_edgex.png" width="48" height="48">
+      
+    </a>
+    EdgeX Foundry Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    edgex/edgex-go
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Getting Started
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Getting Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/" title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/quick-start/" title="Quick Start" class="md-nav__link">
+      Quick Start
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-3" type="checkbox" id="nav-2-3">
+    
+    <label class="md-nav__link" for="nav-2-3">
+      Users
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-3">
+        Users
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/Ch-GettingStartedUsers/" title="Getting Started - Users" class="md-nav__link">
+      Getting Started - Users
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-4" type="checkbox" id="nav-2-4">
+    
+    <label class="md-nav__link" for="nav-2-4">
+      Developers
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-4">
+        Developers
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/Ch-GettingStartedDevelopers/" title="Getting Started - Developers" class="md-nav__link">
+      Getting Started - Developers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/Ch-GettingStartedGoDevelopers/" title="Get EdgeX Foundry - Go Developers" class="md-nav__link">
+      Get EdgeX Foundry - Go Developers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/Ch-GettingStartedHybrid/" title="Working in a Hybrid Environment" class="md-nav__link">
+      Working in a Hybrid Environment
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-4-4" type="checkbox" id="nav-2-4-4">
+    
+    <label class="md-nav__link" for="nav-2-4-4">
+      Device Services
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-2-4-4">
+        Device Services
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/Ch-GettingStartedSDK/" title="Device Service SDK" class="md-nav__link">
+      Device Service SDK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/Ch-GettingStartedSDK-C/" title="C SDK" class="md-nav__link">
+      C SDK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/Ch-GettingStartedSDK-Go/" title="Golang SDK" class="md-nav__link">
+      Golang SDK
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/Ch-GettingStartedUsersNexus/" title="Getting Docker Images from EdgeX Nexus Repository" class="md-nav__link">
+      Getting Docker Images from EdgeX Nexus Repository
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Microservices
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Microservices
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1">
+    
+    <label class="md-nav__link" for="nav-3-1">
+      Core Services
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-1">
+        Core Services
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/core/data/Ch-CoreData/" title="Core Data" class="md-nav__link">
+      Core Data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/core/metadata/Ch-Metadata/" title="Metadata" class="md-nav__link">
+      Metadata
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/core/command/Ch-Command/" title="Command" class="md-nav__link">
+      Command
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
+    
+    <label class="md-nav__link" for="nav-3-2">
+      Supporting Services
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-2">
+        Supporting Services
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/support/Ch-SupportingServices/" title="Supporting Services Microservices" class="md-nav__link">
+      Supporting Services Microservices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/support/logging/Ch-Logging/" title="Logging" class="md-nav__link">
+      Logging
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/support/notifications/Ch-AlertsNotifications/" title="Alerts & Notifications" class="md-nav__link">
+      Alerts & Notifications
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/support/rulesengine/Ch-RulesEngine/" title="Rules Engine" class="md-nav__link">
+      Rules Engine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/support/scheduler/Ch-Scheduling/" title="Scheduling" class="md-nav__link">
+      Scheduling
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3">
+      System Management
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        System Management
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/system-management/agent/Ch_SysMgmtAgent/" title="System Management Agent (SMA)" class="md-nav__link">
+      System Management Agent (SMA)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      Security
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-4">
+        Security
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/security/Ch-Security/" title="Security" class="md-nav__link">
+      Security
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/security/Ch-SecretStore/" title="Secret Store" class="md-nav__link">
+      Secret Store
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/security/Ch-APIGateway/" title="API Gateway" class="md-nav__link">
+      API Gateway
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/security/Ch-AccessEdgeXRESTResources/" title="Access EdgeX REST resources" class="md-nav__link">
+      Access EdgeX REST resources
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/security/Ch-StartingSecurity/" title="Starting security services within EdgeX" class="md-nav__link">
+      Starting security services within EdgeX
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/security/Ch-SecurityIssues/" title="Security Issues" class="md-nav__link">
+      Security Issues
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-5" type="checkbox" id="nav-3-5">
+    
+    <label class="md-nav__link" for="nav-3-5">
+      Devices Services
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-5">
+        Devices Services
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/device/Ch-DeviceServices/" title="Device Services Microservices" class="md-nav__link">
+      Device Services Microservices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/device/profile/Ch-DeviceProfile/" title="Device Profile" class="md-nav__link">
+      Device Profile
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/device/sdk/Ch-DeviceSDK/" title="Device Services SDK" class="md-nav__link">
+      Device Services SDK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/device/virtual/Ch-VirtualDevice/" title="Virtual Device" class="md-nav__link">
+      Virtual Device
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6">
+    
+    <label class="md-nav__link" for="nav-3-6">
+      App Services
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-6">
+        App Services
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/application/Ch-ApplServices/" title="Application Services Microservices" class="md-nav__link">
+      Application Services Microservices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/application/Ch-AppServiceConfigurable/" title="App Service Configurable" class="md-nav__link">
+      App Service Configurable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/application/Ch-ApplicationServices/" title="Application Services" class="md-nav__link">
+      Application Services
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/application/Ch-ApplicationFunctionsSDK/" title="App Functions SDK (Golang) - Beta" class="md-nav__link">
+      App Functions SDK (Golang) - Beta
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/application/Ch-HTTPTrigger/" title="HTTP Trigger" class="md-nav__link">
+      HTTP Trigger
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/application/Ch-MessageBusTrigger/" title="Message Bus Trigger" class="md-nav__link">
+      Message Bus Trigger
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/configuration/Ch-Configuration/" title="Configuration and Registry" class="md-nav__link">
+      Configuration and Registry
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      Examples and Tutorials
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Examples and Tutorials
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Ch-ExamplesProvisionDevice/" title="Provison a Device - Modbus Example" class="md-nav__link">
+      Provison a Device - Modbus Example
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Ch-ExamplesModbusdatatypeconversion/" title="Modbus - Data Type Conversion" class="md-nav__link">
+      Modbus - Data Type Conversion
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Ch-ExamplesVirtualDeviceService/" title="Using the Virtual Device Service" class="md-nav__link">
+      Using the Virtual Device Service
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Ch-ExamplesRandomDeviceService/" title="Random Integer Device Service Example" class="md-nav__link">
+      Random Integer Device Service Example
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Ch-ExamplesSendingAndConsumingBinary/" title="Sending and Consuming Binary Data From EdgeX Device Services" class="md-nav__link">
+      Sending and Consuming Binary Data From EdgeX Device Services
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-6" type="checkbox" id="nav-4-6" checked>
+    
+    <label class="md-nav__link" for="nav-4-6">
+      Adding a Device
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-6">
+        Adding a Device
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Ch-ExamplesAddingModbusDevice/" title="Modbus" class="md-nav__link">
+      Modbus
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        SNMP
+      </label>
+    
+    <a href="./" title="SNMP" class="md-nav__link md-nav__link--active">
+      SNMP
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#project-components-needed" class="md-nav__link">
+    Project Components Needed
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Ch-ExamplesAddingMQTTDevice/" title="MQTT" class="md-nav__link">
+      MQTT
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-7" type="checkbox" id="nav-4-7">
+    
+    <label class="md-nav__link" for="nav-4-7">
+      Walkthrough
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-7">
+        Walkthrough
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../walk-through/Ch-Walkthrough/" title="EdgeX Demonstration API Walk Through" class="md-nav__link">
+      EdgeX Demonstration API Walk Through
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../walk-through/Ch-WalkthroughSetup/" title="Setup up your environment" class="md-nav__link">
+      Setup up your environment
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../walk-through/Ch-WalkthroughRunning/" title="Running EdgeX" class="md-nav__link">
+      Running EdgeX
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../walk-through/Ch-WalkthroughUseCase/" title="Example Use Case" class="md-nav__link">
+      Example Use Case
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../walk-through/Ch-WalkthroughData/" title="Defining your data" class="md-nav__link">
+      Defining your data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../walk-through/Ch-WalkthroughDeviceProfile/" title="Defining your device" class="md-nav__link">
+      Defining your device
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../walk-through/Ch-WalkthroughDeviceService/" title="Register your Device Service" class="md-nav__link">
+      Register your Device Service
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../walk-through/Ch-WalkthroughProvision/" title="Provision a Device" class="md-nav__link">
+      Provision a Device
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../walk-through/Ch-WalkthroughCommands/" title="Calling commands" class="md-nav__link">
+      Calling commands
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../walk-through/Ch-WalkthroughReading/" title="Sending events and reading data" class="md-nav__link">
+      Sending events and reading data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../walk-through/Ch-WalkthroughExporting/" title="Exporting your device data" class="md-nav__link">
+      Exporting your device data
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      API Reference
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        API Reference
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-1" type="checkbox" id="nav-5-1">
+    
+    <label class="md-nav__link" for="nav-5-1">
+      Core
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-1">
+        Core
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/core/Ch-APICoreCommand/" title="Core Command" class="md-nav__link">
+      Core Command
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/core/Ch-APICoreData/" title="Core Data" class="md-nav__link">
+      Core Data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/core/Ch-APICoreMetadata/" title="Core Metadata" class="md-nav__link">
+      Core Metadata
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/core/Ch-APICoreServiceConfiguration/" title="Configuration and Registry" class="md-nav__link">
+      Configuration and Registry
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-2" type="checkbox" id="nav-5-2">
+    
+    <label class="md-nav__link" for="nav-5-2">
+      Supporting Services
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-2">
+        Supporting Services
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/supporting/Ch-APISupportingServicesAlerts/" title="Alerts & Notifications" class="md-nav__link">
+      Alerts & Notifications
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/supporting/Ch-APISupportingServicesLogging/" title="Logging" class="md-nav__link">
+      Logging
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/supporting/Ch-APISupportingServicesRulesEngine/" title="Rules Engine" class="md-nav__link">
+      Rules Engine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/supporting/Ch-APISupportingServicesScheduling/" title="Scheduling" class="md-nav__link">
+      Scheduling
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/Ch-APIDeviceServicesVirtual/" title="APIs - Device Services - Virtual Device Service" class="md-nav__link">
+      APIs - Device Services - Virtual Device Service
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/Ch-APISystemManagement/" title="APIs - System Management - Agent" class="md-nav__link">
+      APIs - System Management - Agent
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Architectural Decision Records
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Architectural Decision Records
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../design/" title="Architecture Decision Records Folder" class="md-nav__link">
+      Architecture Decision Records Folder
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../design/TOC/" title="ADR Table of Contents" class="md-nav__link">
+      ADR Table of Contents
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6-3" type="checkbox" id="nav-6-3">
+    
+    <label class="md-nav__link" for="nav-6-3">
+      Legacy
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-3">
+        Legacy
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../design/legacy-design/" title="Legacy Design Documents" class="md-nav__link">
+      Legacy Design Documents
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../design/legacy-requirements/" title="Legacy Requirements" class="md-nav__link">
+      Legacy Requirements
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#project-components-needed" class="md-nav__link">
+    Project Components Needed
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/examples/Ch-ExamplesAddingSNMPDevice.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="snmp">SNMP</h1>
+<p>EdgeX - Barcelona Release</p>
+<p>Ubuntu Desktop 16.04 with Docker/Docker-Compose</p>
+<p>Adding a new SNMP Device</p>
+<p><img alt="image" src="../EdgeX_ExamplesMoxaIO.JPG" /></p>
+<p>Moxa ioLogik E2210 Smart Ethernet Remote I/O with 12 DIs, 8 Dos</p>
+<h2 id="project-components-needed">Project Components Needed</h2>
+<p><strong>Hardware needed</strong></p>
+<p>X86 computer with native RS485 communication device or RS485 adapter</p>
+<p>Moxa E2210 Ethernet IO</p>
+<p>-- <a href="https://www.moxa.com/product/ioLogik-E2210.htm">https://www.moxa.com/product/ioLogik-E2210.htm</a></p>
+<p><strong>Software needed</strong></p>
+<p>Ubuntu Desktop 16.04 - new installation</p>
+<p>The following software was installed via the "apt-get install" command
+(ubuntu default)</p>
+<ul>
+<li>git</li>
+<li>curl</li>
+<li>vim (or your favorite editor)</li>
+<li>java (I used openjdk-8-jdk - 1.8.0_131)</li>
+<li>maven</li>
+<li>docker</li>
+<li>docker-compose</li>
+</ul>
+<p>The following software was installed from 3rd parties</p>
+<p>Postman (Linux 64bit)</p>
+<p>-- <a href="https://www.getpostman.com/">https://www.getpostman.com/</a></p>
+<p>EdgeX - barcelona-docker-compose.yaml</p>
+<p>--
+<a href="https://github.com/edgexfoundry/developer-scripts/blob/master/releases/barcelona/compose-files/docker-compose-barcelona-0.2.1.yml">https://github.com/edgexfoundry/developer-scripts/blob/master/releases/barcelona/compose-files/docker-compose-barcelona-0.2.1.yml</a></p>
+<p><strong>SNMP - Device documentation</strong></p>
+<p>Device: Moxa E2210 (Smart Ethernet Remote I/O with 12 DIs, 8 DOs)</p>
+<p><a href="https://www.moxa.com/product/ioLogik-E2210.htm">https://www.moxa.com/product/ioLogik-E2210.htm</a></p>
+<p><strong>Ensuring success</strong></p>
+<p>Verify the following, prior to following the instruction on the
+following pages</p>
+<p>Do you know the IP address of the E2210?</p>
+<p>Do you know what port number of the E2210 is using?</p>
+<p>Does the E2210 power on?</p>
+<p>With a separate utility, can you read(from)/write(to) the E2210?</p>
+<p><strong>Creating the Modbus yaml file</strong></p>
+<p>An example SNMP device yaml file can be found here: <a href="https://github.com/edgexfoundry/device-snmp/blob/master/src/main/resources/patlite.NHL-FBL.profile.yaml">SNMP device
+yaml</a>.</p>
+<p>The SNMP device yaml file used in this example can be found here: <a href="https://github.com/chadbyoung/edgexfoundry-snmp-profiles/blob/master/moxa.e2210.profile.yaml">this
+example SNMP device
+yaml</a>.</p>
+<p>When you are creating your yaml file you will need to know what command
+options are available to use, they can be found here:</p>
+<p><a href="https://github.com/edgexfoundry/core-domain/blob/master/src/main/java/org/edgexfoundry/domain/meta/PropertyValue.java">https://github.com/edgexfoundry/core-domain/blob/master/src/main/java/org/edgexfoundry/domain/meta/PropertyValue.java</a></p>
+<p>With your favorite file editor, open the file</p>
+<p>Modify the following fields</p>
+<ul>
+<li>name \&lt;-- A/a \~Z/z and 0 \~ 9 &amp;&amp; this will be needed in the future</li>
+<li>manufacturer \&lt;-- A/a \~Z/z and 0 \~ 9</li>
+<li>model \&lt;-- A/a \~Z/z and 0 \~ 9</li>
+<li>description \&lt;-- A/a \~Z/z and 0 \~ 9</li>
+<li>labels \&lt;-- A/a \~Z/z and 0 \~ 9</li>
+</ul>
+<p>deviceResources</p>
+<ul>
+<li>name: \&lt;-- A/a \~Z/z and 0 \~ 9</li>
+<li>description: \&lt;-- A/a \~Z/z and 0 \~ 9</li>
+<li>attributes: only edit the text inside the parenthesis</li>
+<li>value: only edit the text inside the parenthesis</li>
+<li>units: only edit the text inside the parenthesis</li>
+</ul>
+<p>resources</p>
+<ul>
+<li>name: \&lt;-- A/a \~Z/z and 0 \~ 9</li>
+<li>get : only edit the text inside the parenthesis</li>
+<li>set: only edit the text inside the parenthesis</li>
+</ul>
+<p>commands</p>
+<ul>
+<li>name: \&lt;-- A/a \~Z/z and 0 \~ 9</li>
+<li>path: "/api/v1/device/{deviceId}/OnlyEditThisWord" \&lt;-- A/a \~Z/z
+    and 0 \~ 9</li>
+<li>Code "200"<ul>
+<li>expectedvalues: [make same as OnlyEditThisWord]</li>
+</ul>
+</li>
+<li>Code "500"<ul>
+<li>Do not edit this section</li>
+</ul>
+</li>
+</ul>
+<p><strong>Bringing up EdgeX via Docker</strong></p>
+<p>Starting with following system configuration:</p>
+<ul>
+<li>A fresh installation of Ubuntu Desktop 16.04 with all the available
+    system updates.</li>
+<li>A working directory > /home/tester/Development/edgex</li>
+</ul>
+<p><strong>Verify your Docker installation</strong></p>
+<p>Verify that Docker is installed and working as expected.</p>
+<p>>\$ sudo docker run hello-world</p>
+<p>Verify that the image is on the system</p>
+<p>>\$ sudo docker ps -a</p>
+<p><strong>Download docker-compose file</strong></p>
+<ul>
+<li>Download the barcelona-docker-compose.yaml file from the EdgeX Wiki</li>
+<li>Go to "<a href="https://wiki.edgexfoundry.org/display/FA/Barcelona">https://wiki.edgexfoundry.org/display/FA/Barcelona</a>"</li>
+<li>Scroll to the bottom a look for the "barcelona-docker-compose.yml"
+    file. Once downloaded, rename the file to "docker-compose.yml"</li>
+<li>Once the file is download, move the file into your desired working
+    directory.</li>
+<li>Create a copy of the file and rename the copy "docker-compose.yml"</li>
+</ul>
+<p><strong>Verify the version of dockerized EdgeX that you will be running</strong></p>
+<ul>
+<li>With your favorite file editor, open the docker-compose.yml file</li>
+<li>Within the first couple of lines you will see the word "Version",
+    next to that you will see a number - it should be "2".</li>
+<li>Version 2 refers to the Barcelona release</li>
+</ul>
+<p><strong>Enable SNMP in the Docker Compose file</strong></p>
+<p>With your favorite file editor, open the docker-compose file</p>
+<p>Find the section "device-snmp" section, which will be commented out with
+"#" symbols.</p>
+<p>Uncomment the entire section</p>
+<p>Save your changes and exit out of the editor Starting EdgeX Docker
+components</p>
+<p>Start EdgeX by using the following commands</p>
+<table>
+<thead>
+<tr>
+<th>Docker Command</th>
+<th>Description</th>
+<th>Suggested Wait Time After Completing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>docker-compose pull</td>
+<td>Pull down, but don’t start, all the EdgeX Foundry microservices Docker Compose will indicate when all the containers have</td>
+<td>been pulled successfully</td>
+</tr>
+<tr>
+<td>docker-compose up -d volume</td>
+<td>Start the EdgeX Foundry file volume–must be done before the other services are started</td>
+<td>A couple of seconds</td>
+</tr>
+<tr>
+<td>docker-compose up -d config-seed</td>
+<td>Start and populate the configuration/registry microservice which all services must register with and get their configuration from</td>
+<td>60 seconds</td>
+</tr>
+<tr>
+<td>docker-compose up -d mongo</td>
+<td>Start the NoSQL MongoDB container</td>
+<td>10 seconds</td>
+</tr>
+<tr>
+<td>docker-compose up -d logging</td>
+<td>Start the logging microservice - used by all micro services that make log entries</td>
+<td>1 minute</td>
+</tr>
+<tr>
+<td>docker-compose up -d notifications</td>
+<td>Start the notifications and alerts microservice–used by many of the microservices</td>
+<td>30 seconds</td>
+</tr>
+<tr>
+<td>docker-compose up -d metadata</td>
+<td>Start the Core Metadata microservice</td>
+<td>1 minute</td>
+</tr>
+<tr>
+<td>docker-compose up -d data</td>
+<td>Start the Core Data microservice</td>
+<td>1 minute</td>
+</tr>
+<tr>
+<td>docker-compose up -d command</td>
+<td>Start the Core Command microservice</td>
+<td>1 minute</td>
+</tr>
+<tr>
+<td>docker-compose up -d scheduler</td>
+<td>Start the scheduling microservice -used by many of the microservices</td>
+<td>1 minute</td>
+</tr>
+<tr>
+<td>docker-compose up -d export</td>
+<td>-client   Start the Export Client registration microservice</td>
+<td>1 minute</td>
+</tr>
+<tr>
+<td>docker-compose up -d export</td>
+<td>-distro   Start the Export Distribution microservice</td>
+<td>1 minute</td>
+</tr>
+<tr>
+<td>docker-compose up -d rulesengine</td>
+<td>Start the Rules Engine microservice</td>
+<td>1 minute</td>
+</tr>
+<tr>
+<td>docker-compose up -d device</td>
+<td>-virtual  Start the virtual device service</td>
+<td>1 minute</td>
+</tr>
+<tr>
+<td>docker-compose up -d device</td>
+<td>-snmp Start the SNMP device service</td>
+<td>1 minute</td>
+</tr>
+</tbody>
+</table>
+<p>Check the containers status</p>
+<p>Run a "docker ps -a" command to confirm that all the containers have
+been downloaded and started</p>
+<p>Show containers</p>
+<p>To get a list of all the EdgeX containers, you can use "docker-compose
+config --services"</p>
+<p>Stop Containers</p>
+<p>To stop (but not remove) all containers, issue "docker-compose stop".</p>
+<p>To stop an individual container, you can use "docker-compose stop
+[compose-container-name]".</p>
+<p>Start Containers</p>
+<p>To start all the containers (after a stop) issue "docker-compose
+start" to re-start</p>
+<p>To start an individual container, you can use "docker-compose start
+[compose-container-name]" (after that container has been stopped).</p>
+<p>Delete Containers <strong>* DANGER</strong>*</p>
+<p>To stop all the containers running and DELETE them, you can use
+"docker-compose down"</p>
+<p><strong>EdgeX Foundry Container Logs</strong></p>
+<p>To view the log of any container, use the command:</p>
+<p>"docker-compose logs -f compose-container-name"</p>
+<p>(ex. docker-compose logs -f edgex-device-snmp)</p>
+<p>At this point the Dockerized version of EdgeX is running.</p>
+<p><strong>Adding the Device to EdgeX</strong></p>
+<p><strong>Importing APIs</strong></p>
+<p>In this section you will be using the program Postman to interact with
+EdgeX. You will also need to have the file "core-metadata.raml"
+available to load into the Postman application. The file
+"core-metadata.raml" can be found here:
+"edgex/core-metadata..../src/test/resources/raml/core-metadata.raml"</p>
+<p><strong>Viewing available APIs</strong></p>
+<ul>
+<li>Open Postman</li>
+<li>Click on the Import button</li>
+<li>Add the file to the import dialog box - the application will take a
+    about 30 seconds to digest the file you added.</li>
+<li>If a list of API commands do not show up on the left hand side of
+    the application then click on the "Collections" tab to the right of
+    the "History" tab.</li>
+</ul>
+<p><strong>Create an addressable</strong></p>
+<ul>
+<li>In the "Collections" tab, select the option "POST /addressable
+    action</li>
+<li>Open the body tab</li>
+<li>Modify its contents<ul>
+<li>name: moxa-e2210-address</li>
+<li>protocol: HTTP (needs to be in ALL CAPS)</li>
+<li>address: 192.168.1.103 (IPV4 address)</li>
+<li>port: 161 (port # of snmp)</li>
+<li>path: empty (remove all text between parentheses)</li>
+<li>publisher, user, password, topic - do not need to be modified</li>
+</ul>
+</li>
+<li>Press the "Send" button when you are finished</li>
+<li>Note the addressable id</li>
+</ul>
+<p><strong>Upload the profile</strong></p>
+<ul>
+<li>In the "Collections" tab select the option "POST
+    /deviceprofile/uploadfile</li>
+<li>Open the body tab<ul>
+<li>Under "Key", look for the drop down menu for "text". Be sure to
+    write "file" in the open box.</li>
+<li>Under "Value" click "Choose Files", locate your profile file.</li>
+</ul>
+</li>
+<li>Press Upload</li>
+<li>Press the "Send" button when you are finished</li>
+<li>Note the profile id</li>
+</ul>
+<p><strong>Post the device</strong></p>
+<ul>
+<li>In the "Collections" tab select the option "POST /device</li>
+<li>Click on the "Body" tab</li>
+<li>Modify its contents<ul>
+<li>There are three components that are required to be modified.
+    They are:<ul>
+<li>"Service"</li>
+<li>"Profile"</li>
+<li>"Addressable"</li>
+<li>The others can be modified, however they are not required
+    for operation</li>
+</ul>
+</li>
+<li>name: moxa-e2210-device</li>
+<li>description: snmp smart ethernet io</li>
+<li>addressable:<ul>
+<li>name: moxa-e2210-address (same as used in addressable)</li>
+<li>labels: labels: "snmp", "rtu","io" (same as used in snmp
+    device profile)</li>
+</ul>
+</li>
+<li>service:<ul>
+<li>name: edgex-device-snmp</li>
+</ul>
+</li>
+<li>profile:<ul>
+<li>name: name: moxa-iologik-e2210 (same as used in snmp device
+    profile)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Press the "Send" button when you are finished</li>
+<li>Note the addressable id</li>
+</ul>
+<p><strong>What if a Mistake is Made</strong></p>
+<ul>
+<li>Get device id</li>
+<li>Delete device id</li>
+<li>Get device profile id</li>
+<li>Delete device profile id</li>
+<li>Get addressable id</li>
+<li>Delete addressable id</li>
+</ul>
+<p><strong>Verify Device Added</strong></p>
+<p>Check the edgex-device-snmp logs to see if the device was added without
+issue</p>
+<p>"sudo docker logs -f --tail 100 edgex-device-snmp"</p>
+<p><strong>Verify device is sending data</strong></p>
+<p>In the "Collections" tab select the option "GET /device</p>
+<p>Change the port number form "48081"
+<a href="http://localhost:48081/api/v1/device">http://localhost:48081/api/v1/device</a> to port number "48082"
+<a href="http://localhost:48082/api/v1/device">http://localhost:48082/api/v1/device</a></p>
+<p>Press Send</p>
+<p>You should see something similar to</p>
+<div class="codehilite"><pre><span></span><code><span class="err">{</span>
+
+            <span class="ss">&quot;id&quot;</span><span class="p">:</span> <span class="ss">&quot;5a1d6f8ae4b0c3936013120f&quot;</span><span class="p">,</span>
+
+            <span class="ss">&quot;name&quot;</span><span class="p">:</span> <span class="ss">&quot;diStatus0&quot;</span><span class="p">,</span>
+
+            <span class="ss">&quot;get&quot;</span><span class="p">:</span> <span class="err">{</span>
+
+                <span class="ss">&quot;url&quot;</span><span class="p">:</span> <span class="ss">&quot;http://localhost:48082/api/v1/device/5a1d7134e4b0c39360131212/command/5a1d6f8ae4b0c3936013120f&quot;</span><span class="p">,</span> <span class="o">&lt;</span><span class="c1">-- This</span>
+
+                <span class="ss">&quot;responses&quot;</span><span class="p">:</span> <span class="p">[</span>
+
+                    <span class="err">{</span>
+
+                        <span class="ss">&quot;code&quot;</span><span class="p">:</span> <span class="ss">&quot;200&quot;</span><span class="p">,</span>
+
+                        <span class="ss">&quot;description&quot;</span><span class="p">:</span> <span class="ss">&quot;Get di 0 Status.&quot;</span><span class="p">,</span>
+
+                        <span class="ss">&quot;expectedValues&quot;</span><span class="p">:</span> <span class="p">[</span>
+
+                            <span class="ss">&quot;diStatus0&quot;</span>
+
+                        <span class="p">]</span>
+
+                    <span class="err">}</span><span class="p">,</span>
+
+                    <span class="err">{</span>
+
+                        <span class="ss">&quot;code&quot;</span><span class="p">:</span> <span class="ss">&quot;503&quot;</span><span class="p">,</span>
+
+                        <span class="ss">&quot;description&quot;</span><span class="p">:</span> <span class="ss">&quot;service unavailable&quot;</span><span class="p">,</span>
+
+                        <span class="ss">&quot;expectedValues&quot;</span><span class="p">:</span> <span class="p">[]</span>
+
+                    <span class="err">}</span>
+
+                <span class="p">]</span>
+
+            <span class="err">}</span><span class="p">,</span>
+
+            <span class="ss">&quot;put&quot;</span><span class="p">:</span> <span class="k">null</span>
+
+ <span class="err">}</span><span class="p">,</span>
+</code></pre></div>
+
+
+<p>Double click on the "url" and a new tab within Postman should open,
+Press Send</p>
+<p>If all went well you should see something similar to the following:</p>
+<p>{"diStatus0":"0"}</p>
+<p>If all did not go well the you will see an error or may "{ }" then you
+will need check the information you entered. If the data/result
+displayed was as expected, go ahead and proceed to creating a scheduled
+event</p>
+<p><strong>Creating a Scheduled Event</strong></p>
+<p>This is used to regularly get &amp; push data to another service or for
+regularly viewing data.</p>
+<p>Gathering information for the addressable</p>
+<p>Got to <a href="http://localhost:48082/api/v1/device">http://localhost:48082/api/v1/device</a></p>
+<p>Look for the id or the device that you want to schedule an event for</p>
+<div class="codehilite"><pre><span></span><code><span class="p">[</span>
+
+   <span class="err">{</span>
+
+       <span class="ss">&quot;name&quot;</span><span class="p">:</span> <span class="ss">&quot;moxa-e2210-device&quot;</span><span class="p">,</span>
+
+       <span class="ss">&quot;id&quot;</span><span class="p">:</span> <span class="ss">&quot;5a280a0be4b0c39393ec7780&quot;</span><span class="p">,</span>  <span class="o">&lt;</span><span class="c1">--- This</span>
+
+       <span class="ss">&quot;description&quot;</span><span class="p">:</span> <span class="ss">&quot;snmp smart ethernet io&quot;</span><span class="p">,</span>
+
+       <span class="ss">&quot;labels&quot;</span><span class="p">:</span> <span class="p">[</span>
+
+           <span class="ss">&quot;snmp&quot;</span><span class="p">,</span>
+
+           <span class="ss">&quot;rtu&quot;</span><span class="p">,</span>
+
+           <span class="ss">&quot;io&quot;</span>
+
+       <span class="p">],</span>
+
+       <span class="ss">&quot;adminState&quot;</span><span class="p">:</span> <span class="ss">&quot;unlocked&quot;</span><span class="p">,</span>
+</code></pre></div>
+
+
+<p>In this case the id is "5a280a0be4b0c39393ec7780"</p>
+<p>Next you want to get the "name" of the command you want to schedule an
+event for</p>
+<div class="codehilite"><pre><span></span><code><span class="ss">&quot;commands&quot;</span><span class="p">:</span> <span class="p">[</span>
+
+           <span class="err">{</span>
+
+               <span class="ss">&quot;id&quot;</span><span class="p">:</span> <span class="ss">&quot;5a2808e6e4b0c39393ec777c&quot;</span><span class="p">,</span>
+
+               <span class="ss">&quot;name&quot;</span><span class="p">:</span> <span class="ss">&quot;serverModel&quot;</span><span class="p">,</span>
+
+               <span class="ss">&quot;get&quot;</span><span class="p">:</span> <span class="err">{</span>
+
+                   <span class="ss">&quot;url&quot;</span><span class="p">:</span> <span class="ss">&quot;http://localhost:48082/api/v1/device/5a280a0be4b0c39393ec7780/command/5a2808e6e4b0c39393ec777c&quot;</span><span class="p">,</span>
+
+                   <span class="ss">&quot;responses&quot;</span><span class="p">:</span> <span class="p">[</span>
+
+                       <span class="err">{</span>
+
+                           <span class="ss">&quot;code&quot;</span><span class="p">:</span> <span class="ss">&quot;200&quot;</span><span class="p">,</span>
+
+                           <span class="ss">&quot;description&quot;</span><span class="p">:</span> <span class="ss">&quot;Get server model number.&quot;</span><span class="p">,</span>
+
+                           <span class="ss">&quot;expectedValues&quot;</span><span class="p">:</span> <span class="p">[</span>
+
+                               <span class="ss">&quot;serverModel&quot;</span>
+
+                           <span class="p">]</span>
+
+                       <span class="err">}</span><span class="p">,</span>
+
+                       <span class="err">{</span>
+
+                           <span class="ss">&quot;code&quot;</span><span class="p">:</span> <span class="ss">&quot;503&quot;</span><span class="p">,</span>
+
+                           <span class="ss">&quot;description&quot;</span><span class="p">:</span> <span class="ss">&quot;service unavailable&quot;</span><span class="p">,</span>
+
+                           <span class="ss">&quot;expectedValues&quot;</span><span class="p">:</span> <span class="p">[]</span>
+
+                       <span class="err">}</span>
+
+                   <span class="p">]</span>
+
+               <span class="err">}</span><span class="p">,</span>
+
+               <span class="ss">&quot;put&quot;</span><span class="p">:</span> <span class="k">null</span>
+
+           <span class="err">}</span><span class="p">,</span>
+
+           <span class="err">{</span>
+
+               <span class="ss">&quot;id&quot;</span><span class="p">:</span> <span class="ss">&quot;5a2808e6e4b0c39393ec777d&quot;</span><span class="p">,</span>
+
+               <span class="ss">&quot;name&quot;</span><span class="p">:</span> <span class="ss">&quot;diStatus0&quot;</span><span class="p">,</span>  <span class="o">&lt;</span><span class="c1">--- This</span>
+
+               <span class="ss">&quot;get&quot;</span><span class="p">:</span> <span class="err">{</span>
+
+                   <span class="ss">&quot;url&quot;</span><span class="p">:</span> <span class="ss">&quot;http://localhost:48082/api/v1/device/5a280a0be4b0c39393ec7780/command/5a2808e6e4b0c39393ec777d&quot;</span><span class="p">,</span>
+
+                   <span class="ss">&quot;responses&quot;</span><span class="p">:</span> <span class="p">[</span>
+
+                       <span class="err">{</span>
+
+                           <span class="ss">&quot;code&quot;</span><span class="p">:</span> <span class="ss">&quot;200&quot;</span><span class="p">,</span>
+
+                           <span class="ss">&quot;description&quot;</span><span class="p">:</span> <span class="ss">&quot;Get di 0 Status.&quot;</span><span class="p">,</span>
+
+                           <span class="ss">&quot;expectedValues&quot;</span><span class="p">:</span> <span class="p">[</span>
+
+                               <span class="ss">&quot;diStatus0&quot;</span>
+
+                           <span class="p">]</span>
+</code></pre></div>
+
+
+<p>In this example the name is "diStatus0".</p>
+<p><strong>Create addressable</strong></p>
+<p>In this section you will need to supply a path the the item you want to
+schedule.</p>
+<p>The path outline is:</p>
+<p>/api/v1/device/{device id}/{command name}</p>
+<p>In this case, the address would be</p>
+<div class="codehilite"><pre><span></span><code><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">device</span><span class="o">/</span><span class="n">XXXX</span><span class="o">/</span><span class="n">diStatus0</span>
+
+<span class="o">/</span><span class="n">POST</span> <span class="n">addressable</span>
+
+    <span class="err">“</span><span class="n">name</span><span class="err">”</span><span class="p">:</span> <span class="err">”</span><span class="n">schedule</span><span class="o">-</span><span class="n">moxa</span><span class="o">-</span><span class="n">di</span><span class="err">”</span>
+
+    <span class="err">“</span><span class="n">protocol</span><span class="err">”</span><span class="p">:</span> <span class="err">“</span><span class="n">HTTP</span><span class="err">”</span>
+
+    <span class="err">“</span><span class="n">address</span><span class="err">”</span><span class="p">:</span> <span class="err">“</span><span class="n">edgex</span><span class="o">-</span><span class="n">device</span><span class="o">-</span><span class="n">snmp</span><span class="err">”</span>
+
+    <span class="err">“</span><span class="n">port</span><span class="err">”</span><span class="p">:</span> <span class="err">“</span><span class="n">xxxxx</span><span class="err">”</span>
+
+    <span class="err">“</span><span class="n">path</span><span class="err">”</span><span class="p">:</span> <span class="err">”</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">device</span><span class="o">/</span><span class="err">{</span><span class="n">device</span> <span class="n">id</span><span class="err">}</span><span class="o">/</span><span class="err">{</span><span class="n">command</span> <span class="n">name</span><span class="err">}”</span>
+
+    <span class="err">“</span><span class="k">method</span><span class="err">”</span><span class="p">:</span> <span class="err">“</span><span class="k">GET</span><span class="err">”</span>  <span class="o">***</span> <span class="n">This</span> <span class="n">will</span> <span class="n">need</span> <span class="k">to</span> <span class="n">be</span> <span class="n">added</span> <span class="o">***</span>
+</code></pre></div>
+
+
+<p><strong>Create a schedule</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="o">/</span><span class="n">POST</span> <span class="n">schedule</span>
+
+    <span class="err">“</span><span class="n">name</span><span class="err">”</span><span class="p">:</span> <span class="err">”</span><span class="nb">interval</span><span class="o">-</span><span class="n">moxa</span><span class="o">-</span><span class="n">di0</span><span class="err">”</span>
+
+    <span class="err">“</span><span class="k">start</span><span class="err">”</span><span class="p">:</span> <span class="k">null</span> <span class="p">(</span><span class="n">remove</span> <span class="n">parenthesis</span> <span class="k">and</span> <span class="k">replace</span><span class="p">)</span>
+
+    <span class="err">“</span><span class="k">end</span><span class="err">”</span><span class="p">:</span> <span class="k">null</span> <span class="p">(</span><span class="n">remove</span> <span class="n">parenthesis</span> <span class="k">and</span> <span class="k">replace</span><span class="p">)</span>
+
+    <span class="err">“</span><span class="n">frequency</span><span class="err">”</span><span class="p">:</span> <span class="err">“</span><span class="n">PT5S</span><span class="err">”</span>
+</code></pre></div>
+
+
+<p><strong>Create an event that will use the schedule</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="o">/</span><span class="n">POST</span> <span class="n">scheduleevent</span>
+
+    <span class="err">“</span><span class="n">name</span><span class="err">”</span><span class="p">:</span> <span class="err">“</span><span class="n">device</span><span class="o">-</span><span class="n">moxa</span><span class="o">-</span><span class="n">di0</span><span class="err">”</span>
+
+    <span class="err">“</span><span class="n">addressable</span><span class="err">”</span><span class="p">:</span><span class="err">{“</span><span class="n">name</span><span class="err">”</span><span class="p">:</span><span class="err">”</span><span class="n">schedule</span><span class="o">-</span><span class="n">moxa</span><span class="o">-</span><span class="n">di</span><span class="err">”}</span>
+
+    <span class="err">“</span><span class="n">schedule</span><span class="err">”</span><span class="p">:</span> <span class="err">”</span><span class="nb">interval</span><span class="o">-</span><span class="n">moxa</span><span class="o">-</span><span class="n">di0</span><span class="err">”</span>
+
+    <span class="err">“</span><span class="n">service</span><span class="err">”</span><span class="p">:</span> <span class="err">“</span><span class="n">edgex</span><span class="o">-</span><span class="n">device</span><span class="o">-</span><span class="n">snmp</span><span class="err">”</span> <span class="o">***</span> <span class="n">This</span> <span class="n">will</span> <span class="n">need</span> <span class="k">to</span> <span class="n">be</span> <span class="n">added</span> <span class="o">***</span>
+</code></pre></div>
+                
+                  
+                
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../Ch-ExamplesAddingModbusDevice/" title="Modbus" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Modbus
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../Ch-ExamplesAddingMQTTDevice/" title="MQTT" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                MQTT
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 EdgeX Foundry
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org" target="_blank" rel="noopener">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/edgexfoundry" target="_blank" rel="noopener" title="github" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://twitter.com/edgexfoundry" target="_blank" rel="noopener" title="twitter" class="md-footer-social__link fa fa-twitter"></a>
+    
+      <a href="https://www.linkedin.com/company/edgexfoundry" target="_blank" rel="noopener" title="linkedin" class="md-footer-social__link fa fa-linkedin"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.c33a9706.js"></script>
+      
+      <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="../../assets/javascripts/version-select.js"></script>
+      
+    
+  </body>
+</html>
