@@ -17,7 +17,7 @@ While this process has nominally worked for several releases of EdgeX, there has
 NOTE - for historical purposes, it should be noted that config-seed only writes configuration into the configuration/registry service (Consul) once on the first start of EdgeX.  On subsequent starts of EdgeX, config-seed checks to see if it has already populated the configuration/registry service and will not rewrite configuration again (unless the --overwrite flag is used).
 
 The design/architectural proposal, therefore, is:
-- removal of the config-seed service (putting the current config-seed repositories in archive)
+- removal of the config-seed service (removing cmd/config-seed from the edgex-go repository)
 - have each EdgeX micro service "self seed" - that is seed Consul with their own required configuration on bootstrap of the service.  Details of that bootstrapping process are below.
 
 ### Command Line Options
@@ -25,13 +25,10 @@ All EdgeX services support a common set of command-line options, some combinatio
 
 - --configProvider or -cp (the configuration provider location URL)
 - --overwrite or -o (overwrite the configuration in the configuration provider)
-  > There is a recommendation under consideration to rename overwrite to updateConfig.
 - --file or -f (the configuration filename - configuration.toml is used by default if the configuration filename is not provided)
 - --profile or -p (the name of a sub directory in which the profile-specific configuration file is found.  This is either the sub directory of ./res directory by default or the sub directory of the confdir directory when specified )
-- --confdir (the directory where the configuration file is found - ./res is used by default if the confdir is not specified, where "." is the convention on Linux/Unix/MacOS which means current directory) 
-  > There is currently no short form of confdir.  Should there be?
+- --confdir or -c (the directory where the configuration file is found - ./res is used by default if the confdir is not specified, where "." is the convention on Linux/Unix/MacOS which means current directory) 
 - --registry or -r (boolean indicating use of the registry)
-  > There is a recommendation under consideration to rename --registry to --useRegistry
 
 The distinction of command line options versus configuration will be important later in this ADR.
 
@@ -50,7 +47,7 @@ If the service finds the top-level (root) namespace is already populated with co
 
 If the service finds the top-level (root) namespace is not populated with configuration information, it will read its local configuration file and populate the configuration provider (under the namespace for the service) with configuration read from the local configuration file.
 
-Note:  a configuration provider can be specified with a command line argument (the -cp / --configProvider) or environment variable (the edgex_configuration_provider environmental variable which overrides the command line argument).
+A configuration provider can be specified with a command line argument (the -cp / --configProvider) or environment variable (the edgex_configuration_provider environmental variable which overrides the command line argument).
 > NOTE:  the environmental variables are typically uppercase but there have been inconsistencies in environmental variable casing and changing it would involve non-backward compatible change.  This should be considered and made consistent in a future major release.
 
 **Using the local configuration file**
@@ -66,28 +63,40 @@ Environmental variables override configuration or command line option values in 
 - Environmental variables can override command line options (except the -o overwrite and -r registry command line options). 
 
 NOTES:
-- Environmental variables do not override any local configuration; that is when configuration for a service is obtained from the local config file but not from the configuration service, the environmental variables are ignored.
 - Environmental variable overrides remove the need to change the "docker" profile in the res/docker/configuration.toml files - Allowing removal of 50% of the existing configuration.toml files.
+- Environmental variables are considered the record of truth when specified for configuration.  The configuration service (Consul) is the record of truth for all other configuration.
+- The override rules in EdgeX between environmental variables and command line options may be counter intuitive compared to other systems.  There appears to be no standard practice.  Indeed, web searching "Reddit & Starting Fights Env Variables vs Command Line Args" will layout the prevailing differences.
+- Environment variables are named for the configuration element pre-appended with configuration section inclusive of sub-path.  Sub-path "." are replaced with underscores.  Environment variables are in upper camel case.  Here are two examples:
+~~~~~
+Registry_Host  for
+[Registry]
+Host = 'localhost'
+
+Clients_CoreData_Host for
+[Clients]
+  [Clients.CoreData]
+  Host = 'localhost'
+~~~~~
+- Going forward, environmental variables that override command line options should be all uppercase.
 
 All values overriden get logged (indicating which configuration value or op param and the new value).  
 
 ## Decision 
 
-These features have been implemented (with some minor changes to be done) for consideration here:  https://github.com/edgexfoundry/go-mod-bootstrap/compare/master...lenny-intel:SelfSeed2
+These features have been implemented (with some minor changes to be done) for consideration here:  https://github.com/edgexfoundry/go-mod-bootstrap/compare/master...lenny-intel:SelfSeed2.  This code branch will be removed once this ADR is approved and implemented on master.
 
 The implementation for self-seeding services and environmental overrides is already implemented (for Fuji) per this document in the application services and device services (and instituted in the SDKs of each).
 
 ## Backward compatibility
 Several aspects of this ADR contain backward compatibility issues for the device service and application service SDKs.  Therefore, for the upcoming minor release, the following guidelines and expections are added to provide for backward compatibility.
 
-- --registry=<url> for Device SDK
+- --registry=<url> for Device SDKs
         
-If used with URL , assume previous version and use URL for --configProvider option and default to http as DS SDK does today. Also use URL for registry connection.
+As earlier versions of the device service SDKs accepted a URI for --registry, if specified on the command line, use the given URI as the address of the configuration provider.  If both --configProvider and --registry specify URIs, then the service should log an error and exit.
 
 - --registry (no ‘=’) and w/o --configProvider for both SDKs
 
-Assume for this release that one would never use registry w/o config provider.
-Use registry configuration from file for config provider as is done in Fuji. 
+If a configProvider URI isn't specified, but --registry (w/out a URI) is specified, then the service will use the Registry provider information from its local configuration file for both configuration and registry providers.
 
 - Env Var: edgex_registry=<url> for all services (currently has been removed)
 
@@ -99,19 +108,21 @@ Add it back and use value as if it was edgex_configuration_provider and enable u
 - The main Snap will need to be changed to remove config seed. 
 - Config seed code (currently in edgex-go repo) is to be removed.
 - Any service specific environmental overrides currently on config seed need to be moved to the specific service(s).
-- The Docker configuration files and directory (example:  https://github.com/edgexfoundry/edgex-go/blob/master/cmd/core-data/res/docker/configuration.toml) that are used to populate the config seed for Docker containers can be eliminated from all the services.
+- The Docker configuration files and directory (example:  https://github.com/edgexfoundry/edgex-go/blob/master/cmd/core-data/res/docker/configuration.toml) that are used to populate the config seed for Docker containers can be eliminated from all the services.  
+- In cmd/security-secretstore-setup, there is only a docker configuration.toml.  This file will be moved rather than deleted.
 - Documentation would need to reflect removal of config seed and "self seeding" process.
 - Removes any potential issue with past race conditions (as experienced with the Edinburgh release) as each service is now responsible for its own configuration.
   > There are still high availability concerns that need to be considered and not covered in this ADR at this time.
 - Removes some confusion on the part of users as to why a service (config-seed) starts and immediately exits.
-- Minimal impact to development cycles and release schedule 
+- Minimal impact to development cycles and release schedule
+- Configuration endpoints in all services need to ensure the environmental variables are reflected in the configuration data returned (this is a system management impact).
 - Docker files will need to be modified to remove setting profile=docker
 - Docker compose files will need to be changed to add environmental overrides for removal of docker profiles. These should go in the global environment section of the compose files for those overrides that apply to all services.  Example:
 ~~~~~
 # all common shared environment variables defined here:
 x-common-env-variables: &common-variables
   EDGEX_SECURITY_SECRET_STORE: "false"
-  edgex_configuration_provider: consul.http://edgex-core-consul:8500
+  EDGEX_CONFIGURATION_PROVIDER: consul.http://edgex-core-consul:8500
   Clients_CoreData_Host: edgex-core-data
   Clients_Logging_Host: edgex-support-logging
   Logging_EnableRemote: "true"
