@@ -57,10 +57,11 @@ When a configuration provider _isn't_ specified, the service just uses the confi
 NOTE:  As the services now self seed and deployment specific changes can be made via environment overrides, it will no longer be necessary to have a Docker profile configuration file in each of the service directories (example:  https://github.com/edgexfoundry/edgex-go/blob/master/cmd/core-data/res/docker/configuration.toml).  See Consequences below.  It will still be possible for users to use the profile mechanism to specify a Docker configuration, but it will no longer be required and not the recommended approach to providing Docker container specific configuration.
 
 ### Overrides
-Environmental variables override configuration or command line option values in the following ways
-- Environmental variables override local configuration; that is when configuration for a service is obtained from the local config file
-- Environmental variables override configuration values as they are pushed (self seeded) into the configuration service (Consul).  This override only occurs once (as the values are pushed / seeded into Consul from the service).  Once pushed, configuration values are used from Consul and any environmental value is ignored unless the -o/--overwrite flag is on.  In other words, environmental variables are considered the record of truth when specified for configuration.  The configuration service (Consul) is the record of truth for all other configuration.  The name of the environmental variable must match the path names in Consul.
-- Environmental variables can override command line options (except the -o overwrite and -r registry command line options). 
+Environment variables used to override configuration always take precedence whether configuration is being sourced locally or read from the config provider/Consul.
+
+Note - this means that a configuration value that is being overridden by an environment variable will always be the source of truth, even if the same configuration is changed directly in Consul.
+
+The name of the environmental variable must match the path names in Consul.
 
 NOTES:
 - Environmental variables overrides remove the need to change the "docker" profile in the res/docker/configuration.toml files - Allowing removal of 50% of the existing configuration.toml files.
