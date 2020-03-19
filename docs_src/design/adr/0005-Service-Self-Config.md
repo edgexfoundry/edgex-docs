@@ -7,7 +7,7 @@
 > NOTE:  this ADR does not address high availability considerations and concerns.  EdgeX, in general, has a number of unanswered questions with regard to HA architecture and this design adds to those considerations.
 
 ## Context 
-Since its debut, EdgeX has had a configuration seed service (config-seed) that, on start of EdgeX, deposits configuration for all the services into Consul (our configuration/registry service).  For development purposes, or on  resource constrained platforms, EdgeX can be run without Consul with services simply reading configuration from the filesystem..
+Since its debut, EdgeX has had a configuration seed service (config-seed) that, on start of EdgeX, deposits configuration for all the services into Consul (our configuration/registry service).  For development purposes, or on  resource constrained platforms, EdgeX can be run without Consul with services simply reading configuration from the filesystem.
 
 While this process has nominally worked for several releases of EdgeX, there has always been some issues with this extra initialization process (config-seed), not least of which are:
 - race conditions on the part of the services, as they bootstrap, coming up before the config-seed completes its deposit of configuration into Consul
@@ -26,7 +26,7 @@ All EdgeX services support a common set of command-line options, some combinatio
 - --configProvider or -cp (the configuration provider location URL)
 - --overwrite or -o (overwrite the configuration in the configuration provider)
 - --file or -f (the configuration filename - configuration.toml is used by default if the configuration filename is not provided)
-- --profile or -p (the name of a sub directory in which the profile-specific configuration file is found.  This is either the sub directory of ./res directory by default or the sub directory of the confdir directory when specified )
+- --profile or -p (the name of a sub directory in the configuration directory in which a profile-specific configuration file is found. This has no default. If not specified, the configuration file is read from the configuration directory)
 - --confdir or -c (the directory where the configuration file is found - ./res is used by default if the confdir is not specified, where "." is the convention on Linux/Unix/MacOS which means current directory) 
 - --registry or -r (string indicating use of the registry)
 
@@ -34,9 +34,7 @@ The distinction of command line options versus configuration will be important l
 
 Two command line options (-o for overwrite and -r for registry) are not overridable by environmental variables.
 
-NOTES:
-- For backwards compatibility, there is an edgex_registry environment variable that will override the  --configProvider / -cp and --registry / -r command line options.
-- Use of the --overwrite command line option should be used sparingly and with expert knowledge of EdgeX; in particular knowledge of how it operates and where/how it gets its configuration on restarts, etc.  Ordinarily, --overwrite is provided as a means to support development needs.  Use of --overwrite permanently in production enviroments is highly discouraged.
+NOTES: Use of the --overwrite command line option should be used sparingly and with expert knowledge of EdgeX; in particular knowledge of how it operates and where/how it gets its configuration on restarts, etc.  Ordinarily, --overwrite is provided as a means to support development needs.  Use of --overwrite permanently in production enviroments is highly discouraged.
 
 ### Configuration Initialization
 Each service has (or shall have if not providing it already) a local configuration file.  The service may use the local configuration file on initialization of the service (aka bootstrap of the service) depending on command line options and environmental variables (see below) provided at startup.
@@ -50,7 +48,7 @@ If the service finds the top-level (root) namespace is already populated with co
 If the service finds the top-level (root) namespace is not populated with configuration information, it will read its local configuration file and populate the configuration provider (under the namespace for the service) with configuration read from the local configuration file.
 
 A configuration provider can be specified with a command line argument (the -cp / --configProvider) or environment variable (the EDGEX_CONFIGURATION_PROVIDER environmental variable which overrides the command line argument).
-> NOTE:  the environmental variables are typically uppercase but there have been inconsistencies in environmental variable casing and changing it would involve non-backward compatible change.  This should be considered and made consistent in a future major release.
+> NOTE:  the environmental variables are typically uppercase but there have been inconsistencies in environmental variable casing (example:  edgex_registry).  This should be considered and made consistent in a future major release.
 
 **Using the local configuration file**
 
@@ -61,14 +59,13 @@ NOTE:  As the services now self seed and deployment specific changes can be made
 ### Overrides
 Environmental variables override configuration or command line option values in the following ways
 - Environmental variables override local configuration; that is when configuration for a service is obtained from the local config file
-- Environmental variables override configuration values as they are pushed (self seeded) into the configuration service (Consul).  This override only occurs once (as the values are pushed / seeded into Consul from the service).  Once pushed, configuration values are used from Consul and any environmental value is ignored unless the -o/--overwrite flag is on.  The name of the environmental variable must match the path names in Consul.
+- Environmental variables override configuration values as they are pushed (self seeded) into the configuration service (Consul).  This override only occurs once (as the values are pushed / seeded into Consul from the service).  Once pushed, configuration values are used from Consul and any environmental value is ignored unless the -o/--overwrite flag is on.  In other words, environmental variables are considered the record of truth when specified for configuration.  The configuration service (Consul) is the record of truth for all other configuration.  The name of the environmental variable must match the path names in Consul.
 - Environmental variables can override command line options (except the -o overwrite and -r registry command line options). 
 
 NOTES:
-- Environmental variable overrides remove the need to change the "docker" profile in the res/docker/configuration.toml files - Allowing removal of 50% of the existing configuration.toml files.
-- Environmental variables are considered the record of truth when specified for configuration.  The configuration service (Consul) is the record of truth for all other configuration.
+- Environmental variables overrides remove the need to change the "docker" profile in the res/docker/configuration.toml files - Allowing removal of 50% of the existing configuration.toml files.
 - The override rules in EdgeX between environmental variables and command line options may be counter intuitive compared to other systems.  There appears to be no standard practice.  Indeed, web searching "Reddit & Starting Fights Env Variables vs Command Line Args" will layout the prevailing differences.
-- Environment variables are named for the configuration element pre-appended with configuration section inclusive of sub-path.  Sub-path "." are replaced with underscores.  Environment variables are in upper camel case.  Here are two examples:
+- Environment variables used for configuration overrides are named by prepending the the configuration element with the configuration section inclusive of sub-path, where sub-path's "."s are replaced with underscores. These configuration environment variable overrides must be specified using camel case.  Here are two examples:
 ~~~~~
 Registry_Host  for
 [Registry]
