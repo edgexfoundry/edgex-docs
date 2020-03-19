@@ -28,13 +28,15 @@ All EdgeX services support a common set of command-line options, some combinatio
 - --file or -f (the configuration filename - configuration.toml is used by default if the configuration filename is not provided)
 - --profile or -p (the name of a sub directory in which the profile-specific configuration file is found.  This is either the sub directory of ./res directory by default or the sub directory of the confdir directory when specified )
 - --confdir or -c (the directory where the configuration file is found - ./res is used by default if the confdir is not specified, where "." is the convention on Linux/Unix/MacOS which means current directory) 
-- --registry or -r (boolean indicating use of the registry)
+- --registry or -r (string indicating use of the registry)
 
 The distinction of command line options versus configuration will be important later in this ADR.
 
 Two command line options (-o for overwrite and -r for registry) are not overridable by environmental variables.
 
-NOTE:  use of the --overwrite command line option should be used sparingly and with expert knowledge of EdgeX; in particular knowledge of how it operates and where/how it gets its configuration on restarts, etc.  Ordinarily, --overwrite is provided as a means to support development needs.  Use of --overwrite permanently in production enviroments is highly discouraged.
+NOTES:
+- For backwards compatibility, there is an edgex_registry environment variable that will override the  --configProvider / -cp and --registry / -r command line options.
+- Use of the --overwrite command line option should be used sparingly and with expert knowledge of EdgeX; in particular knowledge of how it operates and where/how it gets its configuration on restarts, etc.  Ordinarily, --overwrite is provided as a means to support development needs.  Use of --overwrite permanently in production enviroments is highly discouraged.
 
 ### Configuration Initialization
 Each service has (or shall have if not providing it already) a local configuration file.  The service may use the local configuration file on initialization of the service (aka bootstrap of the service) depending on command line options and environmental variables (see below) provided at startup.
@@ -47,7 +49,7 @@ If the service finds the top-level (root) namespace is already populated with co
 
 If the service finds the top-level (root) namespace is not populated with configuration information, it will read its local configuration file and populate the configuration provider (under the namespace for the service) with configuration read from the local configuration file.
 
-A configuration provider can be specified with a command line argument (the -cp / --configProvider) or environment variable (the edgex_configuration_provider environmental variable which overrides the command line argument).
+A configuration provider can be specified with a command line argument (the -cp / --configProvider) or environment variable (the EDGEX_CONFIGURATION_PROVIDER environmental variable which overrides the command line argument).
 > NOTE:  the environmental variables are typically uppercase but there have been inconsistencies in environmental variable casing and changing it would involve non-backward compatible change.  This should be considered and made consistent in a future major release.
 
 **Using the local configuration file**
@@ -100,7 +102,7 @@ If a configProvider URI isn't specified, but --registry (w/out a URI) is specifi
 
 - Env Var: edgex_registry=<url> for all services (currently has been removed)
 
-Add it back and use value as if it was edgex_configuration_provider and enable use of registry with same settings in URL. Default to http as it is in Fuji.
+Add it back and use value as if it was EDGEX_CONFIGURATION_PROVIDER and enable use of registry with same settings in URL. Default to http as it is in Fuji.
  
 ## Consequences 
 
