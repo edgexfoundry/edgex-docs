@@ -22,3 +22,7 @@ https://github.com/edgexfoundry/support-notifications/blob/master/raml/support-n
 
 `Alerts and Notifications API HTML Documentation`_
 
+.. _`Alerts and Notifications API Swagger Documentation`: https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-notifications/1.1.0
+..
+
+`Alerts and Notifications API Swagger Documentation`_
