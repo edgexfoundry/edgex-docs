@@ -20,3 +20,8 @@ https://github.com/edgexfoundry/edgex-go/blob/master/api/raml/core-metadata.raml
 ..
 
 `Core Metadata API HTML Documentation`_
+
+.. _`Core Metadata API Swagger Documentation`: https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/1.1.0
+..
+
+`Core Metadata API Swagger Documentation`_

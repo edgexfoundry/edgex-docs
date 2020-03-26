@@ -22,7 +22,8 @@ https://github.com/edgexfoundry/edgex-go/blob/master/api/raml/system-agent.raml
 
 `System Management API HTML Documentation`_
 
+.. _`System Management API Swagger Documentation`: https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/system-agent/1.1.0
+..
 
-
-
+`System Management API Swagger Documentation`_
 

@@ -22,8 +22,8 @@ https://github.com/edgexfoundry/edgex-go/blob/master/api/raml/core-data.raml
 `Core Data API HTML Documentation`_
 
 
+.. _`Core Data API Swagger Documentation`: https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-data/1.1.0
+..
 
-
-
-
+`Core Data API Swagger Documentation`_
 

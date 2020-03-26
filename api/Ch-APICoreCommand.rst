@@ -23,3 +23,9 @@ https://github.com/edgexfoundry/edgex-go/blob/master/api/raml/core-command.raml
 ..
 
 `Core Command API HTML Documentation`_
+
+
+.. _`Core Command API Swagger Documentation`: https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-command/1.1.0
+..
+
+`Core Command API Swagger Documentation`_

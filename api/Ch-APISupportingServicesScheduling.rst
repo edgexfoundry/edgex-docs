@@ -21,6 +21,11 @@ https://github.com/edgexfoundry/edgex-go/blob/master/api/raml/support-scheduling
 
 `Scheduling API HTML Documentation`_
 
+.. _`Scheduling API Swagger Documentation`: https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-scheduler/1.1.0
+..
+
+`Scheduling API Swagger Documentation`_
+
 
 ===========
 Description

@@ -22,3 +22,7 @@ https://github.com/edgexfoundry/edgex-go/blob/master/api/raml/support-logging.ra
 
 `Logging API HTML Documentation`_
 
+.. _`Logging API Swagger Documentation`: https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-logging/1.1.0
+..
+
+`Logging API Swagger Documentation`_
