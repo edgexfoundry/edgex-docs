@@ -2,7 +2,7 @@
 
 ## Status 
 
-**proposed** - for Geneva release
+**approved** - TSC vote on 3/25/20 for Geneva release
 
 > NOTE:  this ADR does not address high availability considerations and concerns.  EdgeX, in general, has a number of unanswered questions with regard to HA architecture and this design adds to those considerations.
 
