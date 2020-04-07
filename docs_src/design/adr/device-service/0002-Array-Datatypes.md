@@ -24,7 +24,7 @@ This design adds arrays of primitives to the range of supported types in EdgeX. 
 ### DeviceProfile extension
 
 The permitted values of the `Type` field in `PropertyValue` are extended to include:
-  "BoolArray", "StringArray", "Uint8Array", "Uint16Array", "Uint32Array", "Uint64Array", "Int8Array", Int16Array", "Int32Array", "Int64Array", "Float32Array", "Float64Array"
+  "BoolArray", "Uint8Array", "Uint16Array", "Uint32Array", "Uint64Array", "Int8Array", Int16Array", "Int32Array", "Int64Array", "Float32Array", "Float64Array"
 
 ### Readings
 
@@ -43,3 +43,5 @@ Any service which processes Readings will need to be reworked to account for the
 ### Device Service considerations
 
 The API used for interfacing between device SDKs and devices service implementations contains a local representation of reading values. This will need to be updated in line with the changes outlined here. For C, this will involve an extension of the existing union type. For Go, additional fields may be added to the `CommandValue` structure.
+
+Processing of numeric data in the device service, ie `offset`, `scale` etc will not be applied to the values in an array.
