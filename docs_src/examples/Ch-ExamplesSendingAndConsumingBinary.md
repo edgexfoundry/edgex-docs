@@ -185,3 +185,94 @@ data inside the EdgeX Reading's `BinaryValue` field.
 Using this approach, an Event can be sent containing data containing an
 arbitrary, flexible structure. Use cases could be a Reading containing
 multiple images, a variable length list of integer read-outs, etc.
+
+### Creating a CBOR Payload for use with PUT Commands
+
+To create a CBOR payload that, for example, can be used with `PUT` commands,
+we first need to set up some content which will be used to create the CBOR data.
+Then we encode that content and finally write the CBOR-encoded data to a file,
+followed by using that file with an example `PUT` command.
+
+The relevant data structures are as follows, containing details of the key
+and the corresponding value, where you should note in particular the `Put`
+field in the `Command` struct, and below the `Command` struct is the `Put`
+struct itself. More details available at
+https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/models/put.go:
+``` golang
+type Command struct {
+	Timestamps  `yaml:",inline"`
+	Id          string `json:"id" yaml:"id,omitempty"`     // Id is a unique identifier, such as a UUID
+	Name        string `json:"name" yaml:"name,omitempty"` // Command name (unique on the profile)
+	Get         Get    `json:"get" yaml:"get,omitempty"`   // Get Command
+	Put         Put    `json:"put" yaml:"put,omitempty"`   // Put Command
+	isValidated bool   // internal member used for validation check
+}
+
+type Put struct {
+	Action         `yaml:",inline"`
+	ParameterNames []string `json:"parameterNames,omitempty" yaml:"parameterNames,omitempty"`
+}
+```
+What follows below is the accompanying `golang` code that accomplishes the steps above:
+
+``` golang
+package main
+
+import (
+	"io/ioutil"
+
+	"github.com/ugorji/go/codec"
+)
+
+const (
+  fileLocation = "/Users/johnpoe/Desktop/CBOR_Binary"
+)
+
+const (
+	enableRandomizationBinary = "EnableRandomization_Binary"
+	path                      = "Path"
+	url                       = "Url"
+)
+
+func main() {
+	// Set up some records which will be used to create the CBOR data
+	cborContents := make(map[string]string)
+
+	// The user should put values in the cborContents variable above, which will
+	// be converted to CBOR. Please refer to the earlier note containing details
+	// of the key and the corresponding value each keys represent. What follows
+	// below is an example of populating the "ParameterNames" (aka "Put")
+	cborContents[enableRandomizationBinary] = "true"
+	cborContents[path] = "/api/v1/device/9f872d68/Binary"
+	cborContents[url] = "http://localhost:48082/api/v1/device/9f872d68/command/7ff8d51ea50d"
+
+
+	// Encode the contents that were set up above.
+	input := make([]byte, 0)
+	check(codec.NewEncoderBytes(&input, &codec.CborHandle{}).Encode(cborContents))
+
+	// Write the CBOR-encoded data to a file.
+	ioutil.WriteFile(fileLocation, input, 0644)
+}
+
+func check(e error) {
+	if e != nil {
+		panic(e)
+	}
+}
+```
+
+In the code above, as a final step, the CBOR payload has been written to the filesystem,
+into a file that we are calling `CBOR_Binary`.
+
+Here is how to use the `PUT` command: Via the `--data-binary` flag in `cURL`, supply as
+follows the CBOR-encoded file created above. You will want to replace the fileLocation
+(i.e. `'@/Users/johnpoe/Desktop/CBOR_Binary'` by a suitably-located local file on your
+filesystem:
+```
+curl --location --request PUT 'http://localhost:48082/api/v1/device/9f872d68-2281-4af4-959d-29e4d51c2192/command/b349df4a-6c3d-4218-b8bc-7ff8d51ea50d' \
+--header 'Content-Type: application/cbor' \
+--data-binary '@/Users/johnpoe/Desktop/CBOR_Binary'
+```
+
+
