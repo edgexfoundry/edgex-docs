@@ -1213,6 +1213,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#creating-a-cbor-payload-for-use-with-put-commands" class="md-nav__link">
+    Creating a CBOR Payload for use with PUT Commands
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1814,6 +1821,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#creating-a-cbor-payload-for-use-with-put-commands" class="md-nav__link">
+    Creating a CBOR Payload for use with PUT Commands
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2004,6 +2018,90 @@ data inside the EdgeX Reading's <code>BinaryValue</code> field.</p>
 <p>Using this approach, an Event can be sent containing data containing an
 arbitrary, flexible structure. Use cases could be a Reading containing
 multiple images, a variable length list of integer read-outs, etc.</p>
+<h3 id="creating-a-cbor-payload-for-use-with-put-commands">Creating a CBOR Payload for use with PUT Commands</h3>
+<p>To create a CBOR payload that, for example, can be used with <code>PUT</code> commands,
+we first need to set up some content which will be used to create the CBOR data.
+Then we encode that content and finally write the CBOR-encoded data to a file,
+followed by using that file with an example <code>PUT</code> command.</p>
+<p>The relevant data structures are as follows, containing details of the key
+and the corresponding value, where you should note in particular the <code>Put</code>
+field in the <code>Command</code> struct, and below the <code>Command</code> struct is the <code>Put</code>
+struct itself. More details available at
+https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/models/put.go:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">type</span> <span class="n">Command</span> <span class="n">struct</span> <span class="err">{</span>
+    <span class="n">Timestamps</span>  <span class="o">`</span><span class="n">yaml</span><span class="p">:</span><span class="ss">&quot;,inline&quot;</span><span class="o">`</span>
+    <span class="n">Id</span>          <span class="n">string</span> <span class="o">`</span><span class="n">json</span><span class="p">:</span><span class="ss">&quot;id&quot;</span> <span class="n">yaml</span><span class="p">:</span><span class="ss">&quot;id,omitempty&quot;</span><span class="o">`</span>     <span class="o">//</span> <span class="n">Id</span> <span class="k">is</span> <span class="n">a</span> <span class="k">unique</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">such</span> <span class="k">as</span> <span class="n">a</span> <span class="n">UUID</span>
+    <span class="n">Name</span>        <span class="n">string</span> <span class="o">`</span><span class="n">json</span><span class="p">:</span><span class="ss">&quot;name&quot;</span> <span class="n">yaml</span><span class="p">:</span><span class="ss">&quot;name,omitempty&quot;</span><span class="o">`</span> <span class="o">//</span> <span class="n">Command</span> <span class="n">name</span> <span class="p">(</span><span class="k">unique</span> <span class="k">on</span> <span class="n">the</span> <span class="n">profile</span><span class="p">)</span>
+    <span class="k">Get</span>         <span class="k">Get</span>    <span class="o">`</span><span class="n">json</span><span class="p">:</span><span class="ss">&quot;get&quot;</span> <span class="n">yaml</span><span class="p">:</span><span class="ss">&quot;get,omitempty&quot;</span><span class="o">`</span>   <span class="o">//</span> <span class="k">Get</span> <span class="n">Command</span>
+    <span class="n">Put</span>         <span class="n">Put</span>    <span class="o">`</span><span class="n">json</span><span class="p">:</span><span class="ss">&quot;put&quot;</span> <span class="n">yaml</span><span class="p">:</span><span class="ss">&quot;put,omitempty&quot;</span><span class="o">`</span>   <span class="o">//</span> <span class="n">Put</span> <span class="n">Command</span>
+    <span class="n">isValidated</span> <span class="n">bool</span>   <span class="o">//</span> <span class="n">internal</span> <span class="n">member</span> <span class="n">used</span> <span class="k">for</span> <span class="n">validation</span> <span class="k">check</span>
+<span class="err">}</span>
+
+<span class="k">type</span> <span class="n">Put</span> <span class="n">struct</span> <span class="err">{</span>
+    <span class="n">Action</span>         <span class="o">`</span><span class="n">yaml</span><span class="p">:</span><span class="ss">&quot;,inline&quot;</span><span class="o">`</span>
+    <span class="n">ParameterNames</span> <span class="p">[]</span><span class="n">string</span> <span class="o">`</span><span class="n">json</span><span class="p">:</span><span class="ss">&quot;parameterNames,omitempty&quot;</span> <span class="n">yaml</span><span class="p">:</span><span class="ss">&quot;parameterNames,omitempty&quot;</span><span class="o">`</span>
+<span class="err">}</span>
+</code></pre></div>
+
+
+<p>What follows below is the accompanying <code>golang</code> code that accomplishes the steps above:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s2">&quot;io/ioutil&quot;</span>
+
+    <span class="s2">&quot;github.com/ugorji/go/codec&quot;</span>
+<span class="p">)</span>
+
+<span class="n">const</span> <span class="p">(</span>
+  <span class="n">fileLocation</span> <span class="o">=</span> <span class="s2">&quot;/Users/johnpoe/Desktop/CBOR_Binary&quot;</span>
+<span class="p">)</span>
+
+<span class="n">const</span> <span class="p">(</span>
+    <span class="n">enableRandomizationBinary</span> <span class="o">=</span> <span class="s2">&quot;EnableRandomization_Binary&quot;</span>
+    <span class="n">path</span>                      <span class="o">=</span> <span class="s2">&quot;Path&quot;</span>
+    <span class="n">url</span>                       <span class="o">=</span> <span class="s2">&quot;Url&quot;</span>
+<span class="p">)</span>
+
+<span class="n">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="o">//</span> <span class="n">Set</span> <span class="n">up</span> <span class="n">some</span> <span class="n">records</span> <span class="n">which</span> <span class="n">will</span> <span class="n">be</span> <span class="n">used</span> <span class="n">to</span> <span class="n">create</span> <span class="n">the</span> <span class="n">CBOR</span> <span class="n">data</span>
+    <span class="n">cborContents</span> <span class="p">:</span><span class="o">=</span> <span class="n">make</span><span class="p">(</span><span class="nb">map</span><span class="p">[</span><span class="n">string</span><span class="p">]</span><span class="n">string</span><span class="p">)</span>
+
+    <span class="o">//</span> <span class="n">The</span> <span class="n">user</span> <span class="n">should</span> <span class="n">put</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">cborContents</span> <span class="n">variable</span> <span class="n">above</span><span class="p">,</span> <span class="n">which</span> <span class="n">will</span>
+    <span class="o">//</span> <span class="n">be</span> <span class="n">converted</span> <span class="n">to</span> <span class="n">CBOR</span><span class="o">.</span> <span class="n">Please</span> <span class="n">refer</span> <span class="n">to</span> <span class="n">the</span> <span class="n">earlier</span> <span class="n">note</span> <span class="n">containing</span> <span class="n">details</span>
+    <span class="o">//</span> <span class="n">of</span> <span class="n">the</span> <span class="n">key</span> <span class="ow">and</span> <span class="n">the</span> <span class="n">corresponding</span> <span class="n">value</span> <span class="n">each</span> <span class="n">keys</span> <span class="n">represent</span><span class="o">.</span> <span class="n">What</span> <span class="n">follows</span>
+    <span class="o">//</span> <span class="n">below</span> <span class="ow">is</span> <span class="n">an</span> <span class="n">example</span> <span class="n">of</span> <span class="n">populating</span> <span class="n">the</span> <span class="s2">&quot;ParameterNames&quot;</span> <span class="p">(</span><span class="n">aka</span> <span class="s2">&quot;Put&quot;</span><span class="p">)</span>
+    <span class="n">cborContents</span><span class="p">[</span><span class="n">enableRandomizationBinary</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;true&quot;</span>
+    <span class="n">cborContents</span><span class="p">[</span><span class="n">path</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;/api/v1/device/9f872d68/Binary&quot;</span>
+    <span class="n">cborContents</span><span class="p">[</span><span class="n">url</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;http://localhost:48082/api/v1/device/9f872d68/command/7ff8d51ea50d&quot;</span>
+
+
+    <span class="o">//</span> <span class="n">Encode</span> <span class="n">the</span> <span class="n">contents</span> <span class="n">that</span> <span class="n">were</span> <span class="nb">set</span> <span class="n">up</span> <span class="n">above</span><span class="o">.</span>
+    <span class="nb">input</span> <span class="p">:</span><span class="o">=</span> <span class="n">make</span><span class="p">([]</span><span class="n">byte</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">check</span><span class="p">(</span><span class="n">codec</span><span class="o">.</span><span class="n">NewEncoderBytes</span><span class="p">(</span><span class="o">&amp;</span><span class="nb">input</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">codec</span><span class="o">.</span><span class="n">CborHandle</span><span class="p">{})</span><span class="o">.</span><span class="n">Encode</span><span class="p">(</span><span class="n">cborContents</span><span class="p">))</span>
+
+    <span class="o">//</span> <span class="n">Write</span> <span class="n">the</span> <span class="n">CBOR</span><span class="o">-</span><span class="n">encoded</span> <span class="n">data</span> <span class="n">to</span> <span class="n">a</span> <span class="nb">file</span><span class="o">.</span>
+    <span class="n">ioutil</span><span class="o">.</span><span class="n">WriteFile</span><span class="p">(</span><span class="n">fileLocation</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="mo">0644</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">func</span> <span class="n">check</span><span class="p">(</span><span class="n">e</span> <span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="n">e</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
+        <span class="n">panic</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>In the code above, as a final step, the CBOR payload has been written to the filesystem,
+into a file that we are calling <code>CBOR_Binary</code>.</p>
+<p>Here is how to use the <code>PUT</code> command: Via the <code>--data-binary</code> flag in <code>cURL</code>, supply as
+follows the CBOR-encoded file created above. You will want to replace the fileLocation
+(i.e. <code>'@/Users/johnpoe/Desktop/CBOR_Binary'</code> by a suitably-located local file on your
+filesystem:</p>
+<div class="codehilite"><pre><span></span><code><span class="err">curl --location --request PUT &#39;http://localhost:48082/api/v1/device/9f872d68-2281-4af4-959d-29e4d51c2192/command/b349df4a-6c3d-4218-b8bc-7ff8d51ea50d&#39; \</span>
+<span class="err">--header &#39;Content-Type: application/cbor&#39; \</span>
+<span class="err">--data-binary &#39;@/Users/johnpoe/Desktop/CBOR_Binary&#39;</span>
+</code></pre></div>
                 
                   
                 
