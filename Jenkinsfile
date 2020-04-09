@@ -7,6 +7,9 @@ pipeline {
         quietPeriod(5) // wait a few seconds before starting to aggregate multiple commits into a single build
         durabilityHint 'PERFORMANCE_OPTIMIZED'
     }
+    triggers {
+        issueCommentTrigger('.*^recheck$.*')
+    }
     stages {
         stage('Build Docs') {
             agent {
@@ -18,7 +21,7 @@ pipeline {
             }
             steps {
                 sh 'pip install mkdocs'
-                sh 'pip install mkdocs-material'
+                sh 'pip install mkdocs-material==4.6.3'
                 sh 'mkdocs build'
 
                 // stash the site contents generated from mkdocs build
