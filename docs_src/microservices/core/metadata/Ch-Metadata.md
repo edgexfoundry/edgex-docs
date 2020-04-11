@@ -132,3 +132,20 @@ Metadata Add a New Device Profile (Step 1 to provisioning a new device)
 ![image](EdgeX_MetadataAddDeviceProfileStep2.png)
 
 ![image](EdgeX_MetadataDeviceStartup.png)
+
+## Configuration Properties
+
+The following are extra configuration parameters specific to the Core-Metadata service. Please refer to the general Configuration [documentation](https://docs.edgexfoundry.org/1.2/microservices/configuration/Ch-Configuration/#configuration) for configuration properties common across all services.
+
+|Configuration  |     Default Value     |             Dependencies|
+| --- | --- | -- |
+| **The following are additional entries in Writable section applicable to the Core-Metadata service.** |
+|Writable EnableValueDescriptorManagement | false | A flag that indicates whether value descriptors should be atomically managed when device profiles are added or updated.|
+| **The following keys define default behavior and content for interaction with the support-notifications service.** |
+|Notifications PostDeviceChanges | true | Indicates whether a notification should be sent when a device's definition is changed.|
+|Notifications Slug | device-change- | The stem of the "topic" assigned to the notification|
+|Notifications Content | Device update:  | The stem of the message sent to the support-notifications service.  |
+|Notifications Sender | core-metadata | Identifies the sender of the notification |
+|Notifications Description | Metadata device notice | A short description of the notification being sent.|
+|Notifications Label | metadata | A descriptive label for the notification. |
+ | | | |

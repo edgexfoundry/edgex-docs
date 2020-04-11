@@ -119,48 +119,21 @@ Cleanup service removes old notification and transmission records.
 
 ## Configuration Properties
 
+Please refer to the general Configuration [documentation](https://docs.edgexfoundry.org/1.2/microservices/configuration/Ch-Configuration/#configuration) for configuration properties common across all services.
+
+Configuration specific to the Support-Notifications service is as follows. Changes made to any of these properties while the service is running will not be reflected until the service is restarted.
 
 |Configuration|	Default Value	|Dependencies|
 | --- | --- | --- |
-|Service MaxResultCount |	50000 *	|Read data limit per invocation|
-|Service BootTimeout |	300000 *	|Heart beat time in milliseconds|
-|Service StartupMsg |	This is the Support Notifications Microservice *  Heart beat message|
-|Service Port |	48060 **	|Micro service port number|
-|Service Host |	localhost **	|Micro service host name|
-|Service Protocol |	http **	|Micro service host protocol|
-|Service ClientMonitor |	15000 **	 |
-|Service CheckInterval |	10s **	 |
-|Service Timeout |	5000 **	 |
-|ResendLimit	|2 *	|Number of attempts to resend a notification|
-|**Following config only take effect when logging.persistence=file**|
-|Logging File	/logs/edgex-support-notifications.log| File path to save logging entries|
-|Logging EnableRemote	false	Indicate whether to use the logging service (vs local log file)|
-|**Following config only take effect when logging.persistence=database**|
-|Databases Database Primary Username	|[empty string] **	|DB user name|
-|Databases Database Password	|[empty string] *	|DB password|
-|Databases Database Host	|localhost **	|DB host name|
-|Databases Database Port	|27017 **	|DB port number|
-|Databases Database Database	|logging *	|database or document store name|
-|Databases Database Timeout	|5000 *	|DB connection timeout|
-|Databases Database Type	|mongodb **	|DB type|
-|**Following config only take effect when connecting to the registry for configuraiton info**|
-|Registry Host	|localhost **	|Registry host name|
-|Registry Port	|8500 **	|Registry port number|
-|Registry Type	|consul **	|Registry implementation type|
-|**Following config only take effect when connecting to the remote logging service**|
-|Clients Clients.Logging Host	|localhost **	|Remote logging service host name|
-|Clients Clients.Logging Port	|48061 **	|Remote logging service port number|
-|Clients Clients.Logging Protocol	|http **	|Remote logging service host protocl|
 |**Following config apply to using the SMTP service**|
-|Smtp Host	|smtp.gmail.com **	|SMTP service host name|
-|Smtp Port	|25 ** |	SMTP service port number|
-|Smtp Password	|mypassword **	|SMTP service host access password|
-|Smtp Sender	|jdoe@gmail.com **	|SMTP service sendor/username|
-|Smtp Subject	|EdgeX Notification **	|SMTP alert message subject|
-
-\*means the configuration value can be changed if necessary.
-
-\*\*means the configuration value has to be replaced.
+|Smtp Host	|smtp.gmail.com |SMTP service host name|
+|Smtp Port	|587 | SMTP service port number|
+|Smtp EnableSelfSignedCert | false | Indicates whether a self-signed cert can be used for secure connectivity. |
+|Smtp Username | username@mail.example.com | A username for authentications with the Smtp server, if requied. |
+|Smtp Password	|mypassword |SMTP service host access password|
+|Smtp Sender	|jdoe@gmail.com |SMTP service sendor/username|
+|Smtp Subject	|EdgeX Notification	|SMTP alert message subject|
+| | | |
 
 ## Configure Mail Server
 

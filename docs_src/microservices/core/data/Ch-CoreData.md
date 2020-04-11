@@ -77,3 +77,26 @@ The two following High Level Interaction Diagrams show:
 **Core Data Request Event Reading or Data for a Device**
 
 ![image](EdgeX_CoreDataEventReading.png)
+
+## Configuration Properties
+
+Please refer to the general [Configuration documentation](https://docs.edgexfoundry.org/1.2/microservices/configuration/Ch-Configuration/#configuration) for configuration properties common across all services.
+
+In order to support publishing events via message bus, Core-Data has the following additional configuration section. Changes made to any of these properties while the service is running will not be reflected until the service is restarted.
+
+|Configuration  |     Default Value     |             Dependencies|
+| --- | --- | -- |
+| **Entries in the MessageQueue section of the configuration allow for publication of events to a message bus** |
+|MessageQueue Protocol | tcp | Indicates the connectivity protocol to use to use the bus.|
+|MessageQueue Host | * | Indicates the host of the messaging broker, if applicable.|
+|MessageQueue Port | 5563 | Indicates the port to use when publishing a message.|
+|MessageQueue Type | zero | Indicates the type of messaging library to use. Currently this is ZeroMQ by default. Refer to the [go-mod-messaging](https://github.com/edgexfoundry/go-mod-messaging) module for more information. |
+|MessageQueue Topic | events | Indicates the topic to which messages should be published.|
+| **The following are additional entries in Writable section applicable to the Core-Data service.** |
+|Writable DeviceUpdateLastConnected | false | Indicates whether the "Device Last Connected" timestamp should be updated with each event received from a given device.|
+|Writable MetaDataCheck | false | Indicates whether a call to Core-Metadata should be made to check the validity of the device associated with the incoming event.|
+|Writable PersistData | true | Indicates whether sensor event data should be persisted to the database. If set to "false", then Core-Data is nothing but a pass-through.|
+|Writable ServiceUpdateLastConnected | false | Indicates whether the "Device Service Last Connected" timestamp should be updated with each event received from a given device.|
+|Writable ValidateCheck | false | Indicates whether a call to Core-Metadata should be made for validation of value descriptors assigned to each reading in an event.|
+|Writable ChecksumAlgo | xxHash | Identifies the algorithm to use when calculating an event's checksum. |
+ | | | |
