@@ -1,24 +1,21 @@
-# Sources for docs.edgexfoundry.org
+# Documentation for developing with EdgeX-Docs
 
-## Setup 
 
-In order to render and preview the site you will need a few things to get started. 
+
+## Local Development (native)
+
+In order to render and preview the site locally (without docker) you will need a few things to get started. 
 1) You will need to install python and pip
 2) After python is installed, you'll need the following python dependencies:
 `pip install mkdocs`
-`pip install mkdocs-material`
-3) You're ready to go!
+`pip install mkdocs-material==5.1.0`
+3) Once you have all the pre-reqs installed. You can simply run `mkdocs serve` and view the rendered content locally and makes changes to your documentation and preview them in realtime with a browser open. 
 
-## Local Development
+## Local Development (docker):
 
-Once you have all the pre-reqs installed. You can simply run `mkdocs serve` and view the rendered content locally and makes changes to your documentation and preview them in realtime with a browser open. By default typically the site is hosted at http://127.0.0.1:8080
-
-running in docker coming soon...
+`docker run --rm -it -p 8000:8000 -v ${PWD}:/docs squidfunk/mkdocs-material`
 
 ## "Publishing" your changes
 
-Until publishing of the docs is done by Jenkins, this will be a manual process. You'll just need to run
-`mkdocs build`
-This will re-generate the site and overwrite what is in the docs folder. Once this is merged into master, the changes will be available immediately on github pages.
-
-
+Publishing is now done by the jenkins pipeline. Once a PR is merged to master, the changes will be reflected on the documentation site. 
+ 
