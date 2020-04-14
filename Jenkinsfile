@@ -21,7 +21,7 @@ pipeline {
             }
             steps {
                 sh 'pip install mkdocs'
-                sh 'pip install mkdocs-material==4.6.3'
+                sh 'pip install mkdocs-material==5.1.0'
                 sh 'mkdocs build'
 
                 // stash the site contents generated from mkdocs build
