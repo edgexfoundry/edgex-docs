@@ -21,8 +21,8 @@ OAuth2 authentication and ACL.
 ## Start the API Gateway
 
 Start the API gateway with Docker Compose and a Docker Compose manifest
-file (the Docker Compose file named docker-compose-fuji.yml found at
-<https://github.com/edgexfoundry/developer-scripts/tree/master/releases/fuji/compose-files/security>)).
+file (the Docker Compose file named docker-compose-nexus-{redis,mongo}.yml (or -arm64 variabnts) found at
+<https://github.com/edgexfoundry/developer-scripts/tree/master/releases/geneva/compose-files>)).
 This Compose file starts all of EdgeX including the security services.
 The command to start EdgeX inclusive of API gateway related services is:
 :
@@ -213,7 +213,7 @@ user that is associated with the client as well as a group that the user
 belongs to needs to be added into the API gateway. The command to add a
 user and the group is: :
 
-    docker run –network=edgex-network edgexfoundry/docker-edgex-proxy-go --useradd=<user> --group=<groupname> 
+    docker-compose -f docker-compose-nexus-mongo.yml run --rm --entrypoint /edgex/security-proxy-setup edgex-proxy --init=false --useradd=<user> --group=<groupname>
 
 The command above will return an access token that can then be used by
 the client to access the EdgeX REST API resources. Depending on the
@@ -245,7 +245,7 @@ Core Data microservice using curl: :
 With the security service and JWT authentication is enabled, the command
 changes to: :
 
-    curl –H “host: edgex” https://<api-gateway-service-ip>:8443/coredata/v1/ping?  -H "Authorization: Bearer <access-token>”
+    curl –H “host: edgex” https://<api-gateway-service-ip>:8443/coredata/api/v1/ping?  -H "Authorization: Bearer <access-token>”
 
 In summary the difference between the two commands are listed below:
 
@@ -265,4 +265,4 @@ The format for OAuth2 authentication is similar. For OAuth2 use the
 bearer token from OAuth2 authentication instead of the JWT token. Here
 is an example of the curl command using OAuth2: :
 
-    curl –H "host: edgex" https://<api-gateway-service-ip>:8443/coredata/v1/ping -H "Authorization:bearer <access-token>"
+    curl –H "host: edgex" https://<api-gateway-service-ip>:8443/coredata/api/v1/ping -H "Authorization:bearer <access-token>"
