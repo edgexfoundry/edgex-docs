@@ -7,4 +7,4 @@
 | [0003 V2 API Principles](./adr/core/0003-V2-API-Principles.md)       | Principles and Goals of V2 API Design           |
 | [0004 Feature Flags](./adr/0004-Feature-Flags.md)                    | Feature Flag Implementation                     |
 | [0005 Service Self Config Init](./adr/0005-Service-Self-Config.md)   | Service Self Config Init & Config Seed Removal  |
-|                                                                |                                                 |
+| [0007 Release Automation](./adr/devops/0007-Release-Automation.md)   | Overview of Release Automation Flow for EdgeX   |

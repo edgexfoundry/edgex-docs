@@ -80,38 +80,6 @@ calling `.complete()` on the context. If the trigger is HTTP, then it will
 be an HTTP Response. If the trigger is MessageBus, then it will be
 published to the configured host and topic.
 
-## Examples
-
-There are three example Application Services provided in the
-app-functions-sdk-go repository in the /examples directory that attempt
-to show basic structure of building an application with the app
-functions sdk. They also focus on how to leverage various built in
-provided functions as mentioned above as well as how to write your own
-in the case that the SDK does not provide what is needed.
-
-
-
-  - [Simple Filter XML](https://github.com/edgexfoundry/app-functions-sdk-go/tree/master/examples/simple-filter-xml)
-    Demonstrates Filter of data by device ID and transforming data
-    to XML
-
- -  [Simple Filter XML Post](https://github.com/edgexfoundry/app-functions-sdk-go/tree/master/examples/simple-filter-xml-post)
-    Same example as #1, but result published to HTTP Endpoint
-
--   [Simple Filter XML MQTT](https://github.com/edgexfoundry/app-functions-sdk-go/tree/master/examples/simple-filter-xml-mqtt)
-    Same example as #1, but result published to MQTT Broker
-
-The features in the initial implementation of the App Functions SDK
-should be sufficient to provide the foundation for basic filtering and
-export needs. There are some functions in the existing export services
-that are not yet available in application functions and are intended to
-be included in a later release. This includes the Encryption
-Transformer, the Compressor Transformer, and Valid Event Check. See
-[Unsupported existing export service
-functions](#unsupported-existing-export-service-functions). The primary
-purpose for leaving this out was to address core pieces of functionality
-that would set up the ease of adding additional functions in the future.
-
 ### Unsupported existing export service functions
 
 **Valid Event Check**--The first component in the pipe and filter,

@@ -13,13 +13,10 @@ google_analytics:
 strict: true
 theme:
   name: 'material'
-  logo: 'assets/logo_edgex.png'
+  logo: 'assets/logo_edgex_white.png'
   favicon: 'assets/logo_edgex.png'
-  feature:
-    tabs: true
-  palette:
-    primary: 'deep purple'
-    accent: 'red'
+  features:
+    - tabs
 nav:
   - 'index.md'
   - Getting Started:
@@ -31,6 +28,7 @@ nav:
         - './getting-started/Ch-GettingStartedDevelopers.md'
         - './getting-started/Ch-GettingStartedGoDevelopers.md'
         - './getting-started/Ch-GettingStartedHybrid.md'
+        - Application Functions SDK: './getting-started/ApplicationFunctionsSDK.md'
         - Device Services:
           - './getting-started/Ch-GettingStartedSDK.md'
           - './getting-started/Ch-GettingStartedSDK-C.md'
@@ -62,12 +60,11 @@ nav:
         - './microservices/device/sdk/Ch-DeviceSDK.md'
         - './microservices/device/virtual/Ch-VirtualDevice.md'
       - App Services:
-        - './microservices/application/Ch-ApplServices.md'
-        - './microservices/application/Ch-AppServiceConfigurable.md'
-        - './microservices/application/Ch-ApplicationServices.md'
-        - './microservices/application/Ch-ApplicationFunctionsSDK.md'
-        - './microservices/application/Ch-HTTPTrigger.md'
-        - './microservices/application/Ch-MessageBusTrigger.md'
+        - Introduction: './microservices/application/ApplServices.md'
+        - './microservices/application/ApplicationServices.md'
+        - Triggers: './microservices/application/Triggers.md'
+        - './microservices/application/AppServiceConfigurable.md'
+        - './microservices/application/ApplicationFunctionsSDK.md'
       - './microservices/configuration/Ch-Configuration.md'
   - Examples and Tutorials:
     - './examples/Ch-ExamplesProvisionDevice.md'
@@ -75,6 +72,7 @@ nav:
     - './examples/Ch-ExamplesVirtualDeviceService.md'
     - './examples/Ch-ExamplesRandomDeviceService.md'
     - './examples/Ch-ExamplesSendingAndConsumingBinary.md'
+    - './examples/AppServiceExamples.md'
     - Adding a Device:
       - './examples/Ch-ExamplesAddingModbusDevice.md'
       - './examples/Ch-ExamplesAddingSNMPDevice.md'
@@ -116,13 +114,14 @@ markdown_extensions:
   # - mdx_truly_sane_lists
 extra:
   social:
-    - type: 'github'
+    - icon: 'fontawesome/brands/github-alt'
       link: 'https://github.com/edgexfoundry'
-    - type: 'twitter'
+    - icon: 'fontawesome/brands/twitter'
       link: 'https://twitter.com/edgexfoundry'
-    - type: 'linkedin'
+    - icon: 'fontawesome/brands/linkedin'
       link: 'https://www.linkedin.com/company/edgexfoundry'
 extra_css:
 - assets\stylesheets\version-select.css
+- assets\stylesheets\branding.css
 extra_javascript:
 - assets\javascripts\version-select.js

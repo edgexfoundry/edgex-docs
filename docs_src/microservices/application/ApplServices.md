@@ -1,4 +1,4 @@
-# Application Services Microservices
+# Application Services
 
 ![image](ApplicationServices.png)
 
@@ -13,10 +13,10 @@ specified. The first function in a pipeline is a trigger. A trigger
 begins the functions pipeline execution. A trigger is something like a
 message landing in a watched message queue.
 
-An SDK is provided (the Application Functions SDK) to help build
-Application Services by assembling triggers, pre-existing functions and
-custom functions of your making into a pipeline.
+Any application built on top of the Application Functions SDK is considered an App Service. 
+This SDK is provided to help build Application Services by assembling triggers, pre-existing 
+functions and custom functions of your making into a pipeline.
 
 
-**Note** Application Services will replace Export Services in a future
+**Note** Application Services has replaced Export Services in this
 EdgeX release.
