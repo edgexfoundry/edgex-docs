@@ -1847,7 +1847,7 @@
 <h2 id="decision">Decision</h2>
 <h3 id="deviceprofile-extension">DeviceProfile extension</h3>
 <p>The permitted values of the <code>Type</code> field in <code>PropertyValue</code> are extended to include:
-  "BoolArray", "StringArray", "Uint8Array", "Uint16Array", "Uint32Array", "Uint64Array", "Int8Array", Int16Array", "Int32Array", "Int64Array", "Float32Array", "Float64Array"</p>
+  "BoolArray", "Uint8Array", "Uint16Array", "Uint32Array", "Uint64Array", "Int8Array", Int16Array", "Int32Array", "Int64Array", "Float32Array", "Float64Array"</p>
 <h3 id="readings">Readings</h3>
 <h4 id="implementation-in-v2-api">Implementation in v2 API</h4>
 <p>The <code>value</code> field of <code>SimpleReading</code> becomes an array of strings. For non-array types, an array of length 1 is created.</p>
@@ -1857,6 +1857,7 @@
 <p>Any service which processes Readings will need to be reworked to account for the new Reading type.</p>
 <h3 id="device-service-considerations">Device Service considerations</h3>
 <p>The API used for interfacing between device SDKs and devices service implementations contains a local representation of reading values. This will need to be updated in line with the changes outlined here. For C, this will involve an extension of the existing union type. For Go, additional fields may be added to the <code>CommandValue</code> structure.</p>
+<p>Processing of numeric data in the device service, ie <code>offset</code>, <code>scale</code> etc will not be applied to the values in an array.</p>
                 
               
               
