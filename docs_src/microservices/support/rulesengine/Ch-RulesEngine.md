@@ -2,16 +2,27 @@
 
 ![image](EdgeX_SupportingServicesRules.png)
 
-## Reference Implementation
+---
+**Deprecation Notice**
 
-The Rules Engine microservice provides a reference implementation,
-edge-event triggering mechanism. The rules engine service monitors
-incoming sensor or device data for readings within target ranges and
-triggers immediate device actuation. Therefore, the rules engine
-provides "intelligence" at, or near, the network edge for faster
+Please note that the Support Rules Engine service has been deprecated with the Geneva release (v1.2). 
+
+With the Geneva release, EdgeX has formed a partnership with the EMQ X Kuiper open source project and offers the [Kuiper Rule Engine](../Kuiper/Ch-Kuiper.md) as the reference implementation rules engine.
+
+The EdgeX Rules Engine was Java-based and wrapped the open source Drools engine.  This was the last of the EdgeX Java services to be replaced.
+
+Starting with the Geneva release, by default, the EdgeX reference implementations (provided through the EdgeX Docker Compose files) will use Kuiper with a dedicated applicatoin service providing the data feed to the Kuiper engine.  The Support Rules Engine is still available but users must find and uncomment the Support Rules Engine in the Docker Compose file.
+
+The Support Rules Engine will removed in a future release of EdgeX Foundry.
+
+---
+
+## Java Drools Rule Engine Implementation
+
+This rules engine service monitors incoming sensor or device data for readings within target ranges and triggers immediate device actuation. Therefore, the rules engine provides "intelligence" at, or near, the network edge for faster
 response times.
 
-The implementation uses a Drools (<https://www.drools.org/>) rules
+This rules egine uses a Drools (<https://www.drools.org/>) rules
 engine at its core. Drools is an open source rules engine provided by
 the JBoss community. This microservice is able to be replaced or
 augmented by many other edge-analytic capabilities provided by 3rd
@@ -19,13 +30,13 @@ parties.
 
 ## Rules Engine as Export Service Client
 
-The reference implementation rules engine is an automatic export service
+This rules engine is an automatic export service
 client. When the service initiates, it automatically calls on the Export
 Client Registration microservice to register itself as a client of all
 device and sensor readings coming out of Core Data. As an Export Service
-client, the reference implementation rules engine receives all events
+client, this rules engine receives all events
 and readings through the Export Distribution microservice. Based on
-data, the reference implementation rules engine is instructed to monitor
+data, this rules engine is instructed to monitor
 each event and reading received through the Export Distribution
 microservice, and the rules engine triggers any actuation to a device
 through the Core Command microservice (which subsequently communicates
