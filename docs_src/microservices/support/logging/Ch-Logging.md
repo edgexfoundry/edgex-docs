@@ -9,7 +9,7 @@ Please note that the logging service has been deprecated with the Geneva release
 
 Starting with the Geneva release, logging service will no longer be started as part of the reference implementations provided through the EdgeX Docker Compose files (the service is still available but commented out in those files).
 
-By default, all services now log to standard out (EnableRemote is set to false and File is set to '').  If users wish to still using the central logging service, they must configure each service to use it (set EnableRemote=true).  Users can still alternately choose to have the services log to a file with additional configuration changes (set File to the appropriate file location).
+By default, all services now log to standard out (EnableRemote is set to false and File is set to '').  If users wish to still use the central logging service, they must configure each service to use it (set EnableRemote=true).  Users can still alternately choose to have the services log to a file with additional configuration changes (set File to the appropriate file location).
 
 The Support Logging Service will removed in a future release of EdgeX Foundry.
 
