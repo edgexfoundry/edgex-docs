@@ -11,7 +11,7 @@ With the Geneva release, EdgeX has formed a partnership with the EMQ X Kuiper op
 
 The EdgeX Rules Engine was Java-based and wrapped the open source Drools engine.  This was the last of the EdgeX Java services to be replaced.
 
-Starting with the Geneva release, by default, the EdgeX reference implementations (provided through the EdgeX Docker Compose files) will use Kuiper with a dedicated applicatoin service providing the data feed to the Kuiper engine.  The Support Rules Engine is still available but users must find and uncomment the Support Rules Engine in the Docker Compose file.
+Starting with the Geneva release, by default, the EdgeX reference implementations (provided through the EdgeX Docker Compose files) will use Kuiper with a dedicated application service providing the data feed to the Kuiper engine.  The Support Rules Engine is still available but users must find and uncomment the Support Rules Engine in the Docker Compose file.
 
 The Support Rules Engine will removed in a future release of EdgeX Foundry.
 
@@ -22,7 +22,7 @@ The Support Rules Engine will removed in a future release of EdgeX Foundry.
 This rules engine service monitors incoming sensor or device data for readings within target ranges and triggers immediate device actuation. Therefore, the rules engine provides "intelligence" at, or near, the network edge for faster
 response times.
 
-This rules egine uses a Drools (<https://www.drools.org/>) rules
+This rules engine uses a Drools (<https://www.drools.org/>) rules
 engine at its core. Drools is an open source rules engine provided by
 the JBoss community. This microservice is able to be replaced or
 augmented by many other edge-analytic capabilities provided by 3rd
