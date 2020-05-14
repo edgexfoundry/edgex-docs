@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.1, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.1.0">
     
     
       
@@ -1998,6 +1998,8 @@ by a scheduler.</p>
 <p>Cleanup service removes old notification and transmission records.</p>
 <p><img alt="image" src="../EdgeX_SupportingServicesCleanup.png" /></p>
 <h2 id="configuration-properties">Configuration Properties</h2>
+<p>Please refer to the general Configuration <a href="https://docs.edgexfoundry.org/1.2/microservices/configuration/Ch-Configuration/#configuration">documentation</a> for configuration properties common across all services.</p>
+<p>Configuration specific to the Support-Notifications service is as follows. Changes made to any of these properties while the service is running will not be reflected until the service is restarted.</p>
 <table>
 <thead>
 <tr>
@@ -2008,184 +2010,52 @@ by a scheduler.</p>
 </thead>
 <tbody>
 <tr>
-<td>Service MaxResultCount</td>
-<td>50000 *</td>
-<td>Read data limit per invocation</td>
-</tr>
-<tr>
-<td>Service BootTimeout</td>
-<td>300000 *</td>
-<td>Heart beat time in milliseconds</td>
-</tr>
-<tr>
-<td>Service StartupMsg</td>
-<td>This is the Support Notifications Microservice *  Heart beat message</td>
-<td></td>
-</tr>
-<tr>
-<td>Service Port</td>
-<td>48060 **</td>
-<td>Micro service port number</td>
-</tr>
-<tr>
-<td>Service Host</td>
-<td>localhost **</td>
-<td>Micro service host name</td>
-</tr>
-<tr>
-<td>Service Protocol</td>
-<td>http **</td>
-<td>Micro service host protocol</td>
-</tr>
-<tr>
-<td>Service ClientMonitor</td>
-<td>15000 **</td>
-<td></td>
-</tr>
-<tr>
-<td>Service CheckInterval</td>
-<td>10s **</td>
-<td></td>
-</tr>
-<tr>
-<td>Service Timeout</td>
-<td>5000 **</td>
-<td></td>
-</tr>
-<tr>
-<td>ResendLimit</td>
-<td>2 *</td>
-<td>Number of attempts to resend a notification</td>
-</tr>
-<tr>
-<td><strong>Following config only take effect when logging.persistence=file</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Logging File   /logs/edgex-support-notifications.log</td>
-<td>File path to save logging entries</td>
-<td></td>
-</tr>
-<tr>
-<td>Logging EnableRemote   false   Indicate whether to use the logging service (vs local log file)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>Following config only take effect when logging.persistence=database</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Databases Database Primary Username</td>
-<td>[empty string] **</td>
-<td>DB user name</td>
-</tr>
-<tr>
-<td>Databases Database Password</td>
-<td>[empty string] *</td>
-<td>DB password</td>
-</tr>
-<tr>
-<td>Databases Database Host</td>
-<td>localhost **</td>
-<td>DB host name</td>
-</tr>
-<tr>
-<td>Databases Database Port</td>
-<td>27017 **</td>
-<td>DB port number</td>
-</tr>
-<tr>
-<td>Databases Database Database</td>
-<td>logging *</td>
-<td>database or document store name</td>
-</tr>
-<tr>
-<td>Databases Database Timeout</td>
-<td>5000 *</td>
-<td>DB connection timeout</td>
-</tr>
-<tr>
-<td>Databases Database Type</td>
-<td>mongodb **</td>
-<td>DB type</td>
-</tr>
-<tr>
-<td><strong>Following config only take effect when connecting to the registry for configuraiton info</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Registry Host</td>
-<td>localhost **</td>
-<td>Registry host name</td>
-</tr>
-<tr>
-<td>Registry Port</td>
-<td>8500 **</td>
-<td>Registry port number</td>
-</tr>
-<tr>
-<td>Registry Type</td>
-<td>consul **</td>
-<td>Registry implementation type</td>
-</tr>
-<tr>
-<td><strong>Following config only take effect when connecting to the remote logging service</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Clients Clients.Logging Host</td>
-<td>localhost **</td>
-<td>Remote logging service host name</td>
-</tr>
-<tr>
-<td>Clients Clients.Logging Port</td>
-<td>48061 **</td>
-<td>Remote logging service port number</td>
-</tr>
-<tr>
-<td>Clients Clients.Logging Protocol</td>
-<td>http **</td>
-<td>Remote logging service host protocl</td>
-</tr>
-<tr>
 <td><strong>Following config apply to using the SMTP service</strong></td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td>Smtp Host</td>
-<td>smtp.gmail.com **</td>
+<td>smtp.gmail.com</td>
 <td>SMTP service host name</td>
 </tr>
 <tr>
 <td>Smtp Port</td>
-<td>25 **</td>
+<td>587</td>
 <td>SMTP service port number</td>
 </tr>
 <tr>
+<td>Smtp EnableSelfSignedCert</td>
+<td>false</td>
+<td>Indicates whether a self-signed cert can be used for secure connectivity.</td>
+</tr>
+<tr>
+<td>Smtp Username</td>
+<td>username@mail.example.com</td>
+<td>A username for authentications with the Smtp server, if requied.</td>
+</tr>
+<tr>
 <td>Smtp Password</td>
-<td>mypassword **</td>
+<td>mypassword</td>
 <td>SMTP service host access password</td>
 </tr>
 <tr>
 <td>Smtp Sender</td>
-<td>jdoe@gmail.com **</td>
+<td>jdoe@gmail.com</td>
 <td>SMTP service sendor/username</td>
 </tr>
 <tr>
 <td>Smtp Subject</td>
-<td>EdgeX Notification **</td>
+<td>EdgeX Notification</td>
 <td>SMTP alert message subject</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<p>*means the configuration value can be changed if necessary.</p>
-<p>**means the configuration value has to be replaced.</p>
 <h2 id="configure-mail-server">Configure Mail Server</h2>
 <p>All the properties with prefix "smtp" are for mail server
 configuration. Configure the mail server appropriately to send Alerts

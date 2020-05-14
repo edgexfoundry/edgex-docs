@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.1, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.1.0">
     
     
       
@@ -764,6 +764,13 @@
         <li class="md-nav__item">
   <a href="#data-dictionary" class="md-nav__link">
     Data Dictionary
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-properties" class="md-nav__link">
+    Configuration Properties
   </a>
   
 </li>
@@ -1796,6 +1803,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#configuration-properties" class="md-nav__link">
+    Configuration Properties
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1819,25 +1833,12 @@
                 <h1 id="scheduling">Scheduling</h1>
 <p><img alt="image" src="../EdgeX_SupportingServicesScheduling.png" /></p>
 <h2 id="introduction">Introduction</h2>
-<p>The Scheduling microservice includes the Scrubber microservice which
-cleans up the event and reading data (for Core Data) that has already
-been exported to the gateway. Optionally, the Scrubber microservice can
-also be configured to remove stale event/reading data that has not been
-exported. The removing of stale event/reading data enables the gateway
-to continue to operate with a static amount of storage, while the system
-continues to collect new data from devices and sensors in cases where
-the export facility is not operational or not operating fast enough to
-keep up with data collection.</p>
+<p>The Support-scheduler service executes operations on a configured interval or schedule. Two default scheduled operations are:</p>
+<p>1 - Clean up Core-data events/readings that have been moved ("pushed") to external applications/systems like a cloud provider. This is the "Scrubbed Pushed" operation. Scheduler parameters around this operation determine how often and where to call into core data to invoke this clean up of unneeded data operation.</p>
+<p>2 - Clean up of Core-data events/readings that have been persisted for an extended period. In order to prevent the edge node from running out of space, these old events/readings are removed. This is the "ScrubAged" operation. Scheduler parameters around this operation determine how often and where to call into Core-data to invoke this operation to expunge of old data.</p>
 <p>The removal of both exported records and stale records occurs on a
-configurable schedule. By default, Scrubber cleans up the data every 30
-minutes.</p>
-<p>The Scrubber microservice does not directly remove the data from EdgeX
-Foundry's persistent storage itself, rather it calls on Core Data to
-remove the records. Core Data serves as the single point of access to
-the persistent event/reading data. The Scrubber microservice is an
-independent service without any clients. That is, there is no API to
-call Scrubber. Scrubber operates on time triggers.</p>
-<p>Scheduler uses a data store to persist the Interval(s) and
+configurable schedule. By default, both of the default actions above are invoked once a day at midnight.</p>
+<p>Support-scheduler uses a data store to persist the Interval(s) and
 IntervalAction(s). Persistence is accomplished the Scheduler DB located
 in your current configured database for EdgeX.</p>
 <h2 id="data-dictionary">Data Dictionary</h2>
@@ -1856,6 +1857,129 @@ in your current configured database for EdgeX.</p>
 <tr>
 <td>IntervalAction</td>
 <td>The action taken by a Service when the Interval occurs.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="configuration-properties">Configuration Properties</h2>
+<p>The following are extra configuration parameters specific to the Support-Scheduler service. Please refer to the general Configuration <a href="https://docs.edgexfoundry.org/1.2/microservices/configuration/Ch-Configuration/#configuration">documentation</a> for configuration properties common across all services.</p>
+<table>
+<thead>
+<tr>
+<th>Configuration</th>
+<th>Default Value</th>
+<th>Dependencies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Intervals govern the timing of operations in the support-scheduler service. By default, only one interval is created to run a job at midnight. However you could follow the example to add as many as desired.</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Intervals Midnight Name</td>
+<td>midnight</td>
+<td>The name of the given interval.</td>
+</tr>
+<tr>
+<td>Intervals Midnight Start</td>
+<td>20180101T000000</td>
+<td>The start time of the given interval in ISO 8601 format.</td>
+</tr>
+<tr>
+<td>Intervals Midnight Frequency</td>
+<td>24h</td>
+<td>Periodicity of the interval.</td>
+</tr>
+<tr>
+<td><strong>IntervalActions govern the actions taken by the scheduler when a tick triggers an interval.</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>IntervalActions ScrubPushed Name</td>
+<td>scrub-pushed-events</td>
+<td>The name of the given action.</td>
+</tr>
+<tr>
+<td>IntervalActions ScrubPushed Host</td>
+<td>localhost</td>
+<td>The host targeted by the action when it activates.</td>
+</tr>
+<tr>
+<td>IntervalActions ScrubPushed Port</td>
+<td>48080</td>
+<td>The port on the targeted host</td>
+</tr>
+<tr>
+<td>IntervalActions ScrubPushed Protocol</td>
+<td>http</td>
+<td>The protocol used when interacting with the targeted host.</td>
+</tr>
+<tr>
+<td>IntervalActions ScrubPushed Method</td>
+<td>DELETE</td>
+<td>Assuming a RESTful operation, the HTTP method to be invoked by the action.</td>
+</tr>
+<tr>
+<td>IntervalActions ScrubPushed Target</td>
+<td>core-data</td>
+<td>The name of the targeted application</td>
+</tr>
+<tr>
+<td>IntervalActions ScrubPushed Path</td>
+<td>/api/v1/event/scrub</td>
+<td>In the case of a RESTful operation, the path to be invoked in combination with the Method.</td>
+</tr>
+<tr>
+<td>IntervalActions ScrubPushed Interval</td>
+<td>midnight</td>
+<td>The interval to which the action is associated. When the interval is activated, all associated actions will be invoked.</td>
+</tr>
+<tr>
+<td>IntervalActions ScrubAged Name</td>
+<td>scrub-aged-events</td>
+<td>The name of the given action.</td>
+</tr>
+<tr>
+<td>IntervalActions ScrubAged Host</td>
+<td>localhost</td>
+<td>The host targeted by the action when it activates.</td>
+</tr>
+<tr>
+<td>IntervalActions ScrubAged Port</td>
+<td>48080</td>
+<td>The port on the targeted host</td>
+</tr>
+<tr>
+<td>IntervalActions ScrubAged Protocol</td>
+<td>http</td>
+<td>The protocol used when interacting with the targeted host.</td>
+</tr>
+<tr>
+<td>IntervalActions ScrubAged Method</td>
+<td>DELETE</td>
+<td>Assuming a RESTful operation, the HTTP method to be invoked by the action.</td>
+</tr>
+<tr>
+<td>IntervalActions ScrubAged Target</td>
+<td>core-data</td>
+<td>The name of the targeted application</td>
+</tr>
+<tr>
+<td>IntervalActions ScrubAged Path</td>
+<td>/api/v1/event/removeold/age/604800000</td>
+<td>In the case of a RESTful operation, the path to be invoked in combination with the Method.</td>
+</tr>
+<tr>
+<td>IntervalActions ScrubAged Interval</td>
+<td>midnight</td>
+<td>The interval to which the action is associated. When the interval is activated, all associated actions will be invoked.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>

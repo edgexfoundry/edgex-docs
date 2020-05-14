@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.1, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.1.0">
     
     
       
@@ -692,77 +692,9 @@
       
     
     
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Logging
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z" /></svg>
-        </span>
-      </label>
-    
     <a href="./" title="Logging" class="md-nav__link md-nav__link--active">
       Logging
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
-      </span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
-    Introduction
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#minimum-product-feature-set" class="md-nav__link">
-    Minimum Product Feature Set
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#high-level-design-architecture" class="md-nav__link">
-    High Level Design Architecture
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configuration-properties" class="md-nav__link">
-    Configuration Properties
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#logging-service-client-library-for-go" class="md-nav__link">
-    Logging Service Client Library for Go
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#edgex-logging-keys" class="md-nav__link">
-    EdgeX Logging Keys
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
     
   </li>
 
@@ -1802,58 +1734,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
-      </span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
-    Introduction
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#minimum-product-feature-set" class="md-nav__link">
-    Minimum Product Feature Set
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#high-level-design-architecture" class="md-nav__link">
-    High Level Design Architecture
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configuration-properties" class="md-nav__link">
-    Configuration Properties
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#logging-service-client-library-for-go" class="md-nav__link">
-    Logging Service Client Library for Go
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#edgex-logging-keys" class="md-nav__link">
-    EdgeX Logging Keys
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -1873,6 +1753,7 @@
                 
                 
                 <h1 id="logging">Logging</h1>
+<h1 id="deprecated-in-geneva-release">(Deprecated in Geneva Release)</h1>
 <p><img alt="image" src="../EdgeX_SupportingServicesLogging.png" /></p>
 <h2 id="introduction">Introduction</h2>
 <p>Logging is critical for all modern software applications. Proper logging
@@ -1936,6 +1817,7 @@ logger</a> as its internal
 logging framework. Two configurable persistence options exist supported
 by EdgeX Foundry Logging Service: file or MongoDB.</p>
 <h2 id="configuration-properties">Configuration Properties</h2>
+<p>The following configuration properties are specific to the support-logging service. Please refer to the general Configuration <a href="https://docs.edgexfoundry.org/1.2/microservices/configuration/Ch-Configuration/#configuration">documentation</a> for configuration properties common across all services.</p>
 <table>
 <thead>
 <tr>
@@ -1946,145 +1828,22 @@ by EdgeX Foundry Logging Service: file or MongoDB.</p>
 </thead>
 <tbody>
 <tr>
-<td><strong>Entries in the Writable section of the configuration can be changed on the fly while the service is running if the service is running with the <code>–registry / -r</code> flag</strong></td>
+<td><strong>Entries in the Writable section of the configuration can be changed on the fly while the service is running if the service is running with the <code>–configProvider/ -cp=&lt;url&gt;</code> flag</strong></td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td>Writable Persistence</td>
-<td>database *</td>
+<td>database</td>
 <td>"file" to save logging in file; "database" to save logging in MongoDB</td>
 </tr>
 <tr>
-<td>Writable LogLevel</td>
-<td>INFO *</td>
-<td>Logs messages set to a level of "INFO" or higher</td>
-</tr>
-<tr>
-<td><strong>The following keys represent the core service-level configuration settings</strong></td>
 <td></td>
 <td></td>
-</tr>
-<tr>
-<td>Service MaxResultCount</td>
-<td>50000 **</td>
-<td>Read data limit per invocation</td>
-</tr>
-<tr>
-<td>Service BootTimeout</td>
-<td>300000 **</td>
-<td>Heart beat time in milliseconds</td>
-</tr>
-<tr>
-<td>Service StartupMsg</td>
-<td>Logging Service heart beat **</td>
-<td>Heart beat message</td>
-</tr>
-<tr>
-<td>Service Port</td>
-<td>48061 **</td>
-<td>Micro service port number</td>
-</tr>
-<tr>
-<td>Service Host</td>
-<td>localhost **</td>
-<td>Micro service host name</td>
-</tr>
-<tr>
-<td>Service Protocol</td>
-<td>http **</td>
-<td>Micro service host protocol</td>
-</tr>
-<tr>
-<td>Service ClientMonitor</td>
-<td>15000 **</td>
-<td>The interval in milliseconds at which any service clients will refresh their endpoint information from the service registry (Consul)</td>
-</tr>
-<tr>
-<td>Service CheckInterval</td>
-<td>10s **</td>
-<td>The interval in seconds at which the service registry(Consul) will conduct a health check of this service.</td>
-</tr>
-<tr>
-<td>Service Timeout</td>
-<td>5000 **</td>
-<td>Specifies a timeout (in milliseconds) for handling requests</td>
-</tr>
-<tr>
-<td><strong>Following config only take effect when Writable.Persistence=file</strong></td>
 <td></td>
-<td></td>
-</tr>
-<tr>
-<td>Logging File</td>
-<td>./logs/edgex-support-logging.log</td>
-<td>File path to save logging entries</td>
-</tr>
-<tr>
-<td><strong>Following config only take effect when logging.persistence=database</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Databases Database Primary Username</td>
-<td>[empty string] **</td>
-<td>DB user name</td>
-</tr>
-<tr>
-<td>Databases Database Password</td>
-<td>[empty string] **</td>
-<td>DB password</td>
-</tr>
-<tr>
-<td>Databases Database Host</td>
-<td>localhost **</td>
-<td>DB host name</td>
-</tr>
-<tr>
-<td>Databases Database Port</td>
-<td>27017 **</td>
-<td>DB port number</td>
-</tr>
-<tr>
-<td>Databases Database Database</td>
-<td>logging **</td>
-<td>Database or document store name</td>
-</tr>
-<tr>
-<td>Databases Database Timeout</td>
-<td>5000 **</td>
-<td>DB connection timeout</td>
-</tr>
-<tr>
-<td>Databases Database Type</td>
-<td>mongodb **</td>
-<td>DB type</td>
-</tr>
-<tr>
-<td><strong>Following config only take effect when connecting to the registry for configuration info</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Registry Host</td>
-<td>localhost **</td>
-<td>Registry host name</td>
-</tr>
-<tr>
-<td>Registry Port</td>
-<td>8500 **</td>
-<td>Registry port number</td>
-</tr>
-<tr>
-<td>Registry Type</td>
-<td>consul **</td>
-<td>Registry implementation type</td>
 </tr>
 </tbody>
 </table>
-<p>*means the configuration value can be changed on the fly if using a configuration registry (like Consul).</p>
-<p>**means the configuration value can be changed but the service must be restarted.</p>
-<p>***means the configuration value should NOT be changed.</p>
 <h2 id="logging-service-client-library-for-go">Logging Service Client Library for Go</h2>
 <p>As the reference implementation of EdgeX Foundry microservices is
 written in Go, we provide a Client Library for Go so that Go-based

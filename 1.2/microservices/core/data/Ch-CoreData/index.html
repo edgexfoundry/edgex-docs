@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.1, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.1.0">
     
     
       
@@ -671,6 +671,13 @@
         <li class="md-nav__item">
   <a href="#high-level-interaction-diagrams" class="md-nav__link">
     High Level Interaction Diagrams
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-properties" class="md-nav__link">
+    Configuration Properties
   </a>
   
 </li>
@@ -1838,6 +1845,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#configuration-properties" class="md-nav__link">
+    Configuration Properties
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1934,6 +1948,90 @@ Core Data request event reading or data for a device</p>
 <p><img alt="image" src="../EdgeX_CoreDataAddDevice.png" /></p>
 <p><strong>Core Data Request Event Reading or Data for a Device</strong></p>
 <p><img alt="image" src="../EdgeX_CoreDataEventReading.png" /></p>
+<h2 id="configuration-properties">Configuration Properties</h2>
+<p>Please refer to the general <a href="https://docs.edgexfoundry.org/1.2/microservices/configuration/Ch-Configuration/#configuration">Configuration documentation</a> for configuration properties common across all services.</p>
+<p>In order to support publishing events via message bus, Core-Data has the following additional configuration section. Changes made to any of these properties while the service is running will not be reflected until the service is restarted.</p>
+<table>
+<thead>
+<tr>
+<th>Configuration</th>
+<th>Default Value</th>
+<th>Dependencies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Entries in the MessageQueue section of the configuration allow for publication of events to a message bus</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>MessageQueue Protocol</td>
+<td>tcp</td>
+<td>Indicates the connectivity protocol to use to use the bus.</td>
+</tr>
+<tr>
+<td>MessageQueue Host</td>
+<td>*</td>
+<td>Indicates the host of the messaging broker, if applicable.</td>
+</tr>
+<tr>
+<td>MessageQueue Port</td>
+<td>5563</td>
+<td>Indicates the port to use when publishing a message.</td>
+</tr>
+<tr>
+<td>MessageQueue Type</td>
+<td>zero</td>
+<td>Indicates the type of messaging library to use. Currently this is ZeroMQ by default. Refer to the <a href="https://github.com/edgexfoundry/go-mod-messaging">go-mod-messaging</a> module for more information.</td>
+</tr>
+<tr>
+<td>MessageQueue Topic</td>
+<td>events</td>
+<td>Indicates the topic to which messages should be published.</td>
+</tr>
+<tr>
+<td><strong>The following are additional entries in Writable section applicable to the Core-Data service.</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Writable DeviceUpdateLastConnected</td>
+<td>false</td>
+<td>Indicates whether the "Device Last Connected" timestamp should be updated with each event received from a given device.</td>
+</tr>
+<tr>
+<td>Writable MetaDataCheck</td>
+<td>false</td>
+<td>Indicates whether a call to Core-Metadata should be made to check the validity of the device associated with the incoming event.</td>
+</tr>
+<tr>
+<td>Writable PersistData</td>
+<td>true</td>
+<td>Indicates whether sensor event data should be persisted to the database. If set to "false", then Core-Data is nothing but a pass-through.</td>
+</tr>
+<tr>
+<td>Writable ServiceUpdateLastConnected</td>
+<td>false</td>
+<td>Indicates whether the "Device Service Last Connected" timestamp should be updated with each event received from a given device.</td>
+</tr>
+<tr>
+<td>Writable ValidateCheck</td>
+<td>false</td>
+<td>Indicates whether a call to Core-Metadata should be made for validation of value descriptors assigned to each reading in an event.</td>
+</tr>
+<tr>
+<td>Writable ChecksumAlgo</td>
+<td>xxHash</td>
+<td>Identifies the algorithm to use when calculating an event's checksum.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
                 
               
               

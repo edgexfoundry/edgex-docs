@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.1, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.1.0">
     
     
       
@@ -682,6 +682,13 @@
         <li class="md-nav__item">
   <a href="#high-level-interaction-diagrams" class="md-nav__link">
     High Level Interaction Diagrams
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-properties" class="md-nav__link">
+    Configuration Properties
   </a>
   
 </li>
@@ -1836,6 +1843,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#configuration-properties" class="md-nav__link">
+    Configuration Properties
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2062,6 +2076,69 @@ regarding Metadata.</p>
 <p><img alt="image" src="../EdgeX_MetadataAddDeviceProfileStep1.png" /></p>
 <p><img alt="image" src="../EdgeX_MetadataAddDeviceProfileStep2.png" /></p>
 <p><img alt="image" src="../EdgeX_MetadataDeviceStartup.png" /></p>
+<h2 id="configuration-properties">Configuration Properties</h2>
+<p>The following are extra configuration parameters specific to the Core-Metadata service. Please refer to the general Configuration <a href="https://docs.edgexfoundry.org/1.2/microservices/configuration/Ch-Configuration/#configuration">documentation</a> for configuration properties common across all services.</p>
+<table>
+<thead>
+<tr>
+<th>Configuration</th>
+<th>Default Value</th>
+<th>Dependencies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>The following are additional entries in Writable section applicable to the Core-Metadata service.</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Writable EnableValueDescriptorManagement</td>
+<td>false</td>
+<td>A flag that indicates whether value descriptors should be atomically managed when device profiles are added or updated.</td>
+</tr>
+<tr>
+<td><strong>The following keys define default behavior and content for interaction with the support-notifications service.</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Notifications PostDeviceChanges</td>
+<td>true</td>
+<td>Indicates whether a notification should be sent when a device's definition is changed.</td>
+</tr>
+<tr>
+<td>Notifications Slug</td>
+<td>device-change-</td>
+<td>The stem of the "topic" assigned to the notification</td>
+</tr>
+<tr>
+<td>Notifications Content</td>
+<td>Device update:</td>
+<td>The stem of the message sent to the support-notifications service.</td>
+</tr>
+<tr>
+<td>Notifications Sender</td>
+<td>core-metadata</td>
+<td>Identifies the sender of the notification</td>
+</tr>
+<tr>
+<td>Notifications Description</td>
+<td>Metadata device notice</td>
+<td>A short description of the notification being sent.</td>
+</tr>
+<tr>
+<td>Notifications Label</td>
+<td>metadata</td>
+<td>A descriptive label for the notification.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
                 
               
               

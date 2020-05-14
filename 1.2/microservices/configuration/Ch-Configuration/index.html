@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.1, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.1.0">
     
     
       
@@ -1125,13 +1125,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#readable-vs-writable-settings" class="md-nav__link">
-    Readable vs Writable Settings
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -1143,11 +1136,38 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#registry" class="md-nav__link">
-    Registry
+  <a href="#configuration-properties" class="md-nav__link">
+    Configuration Properties
   </a>
   
-    <nav class="md-nav" aria-label="Registry">
+    <nav class="md-nav" aria-label="Configuration Properties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#readable-vs-writable-settings" class="md-nav__link">
+    Readable vs Writable Settings
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-provider" class="md-nav__link">
+    Configuration Provider
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#registry-provider" class="md-nav__link">
+    Registry Provider
+  </a>
+  
+    <nav class="md-nav" aria-label="Registry Provider">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1912,13 +1932,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#readable-vs-writable-settings" class="md-nav__link">
-    Readable vs Writable Settings
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -1930,11 +1943,38 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#registry" class="md-nav__link">
-    Registry
+  <a href="#configuration-properties" class="md-nav__link">
+    Configuration Properties
   </a>
   
-    <nav class="md-nav" aria-label="Registry">
+    <nav class="md-nav" aria-label="Configuration Properties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#readable-vs-writable-settings" class="md-nav__link">
+    Readable vs Writable Settings
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-provider" class="md-nav__link">
+    Configuration Provider
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#registry-provider" class="md-nav__link">
+    Registry Provider
+  </a>
+  
+    <nav class="md-nav" aria-label="Registry Provider">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1998,6 +2038,8 @@ unless otherwise specified, the examples provided are based on the
 reference architecture built using the <a href="https://golang.org/">Go programming
 language</a> .</p>
 <h3 id="configuration">Configuration</h3>
+<p>An overview of the architectural decisions made with regard to how 
+configuration works in EdgeX Foundry can be found <a href="https://github.com/edgexfoundry/edgex-docs/blob/master/docs_src/design/adr/0005-Service-Self-Config.md">here</a>.</p>
 <h4 id="local-configuration">Local Configuration</h4>
 <p>Because EdgeX Foundry may be deployed and run in several different ways,
 it is important to understand how configuration is loaded and from where
@@ -2011,42 +2053,37 @@ configuration profiles, such as a "docker" profile. In this case, the
 configuration file located directly in the <code>res</code> directory should be
 considered the default configuration profile. Sub-directories will
 contain configurations appropriate to the respective profile.</p>
-<p>With the exception of the <code>config-seed</code> service, which will be discussed
-in a moment, a service's configuration profile can be indicated using
-one of the following command line flags:</p>
+<p>As of the Geneva release, it is recommended to utilize environment variable
+overrides rather than creating profiles to override some subset of config
+values. You can see examples of this in the related docker-compose <a href="https://github.com/edgexfoundry/developer-scripts/tree/master/releases/nightly-build/compose-files">files</a>.</p>
+<p>If you choose to utilize profiles as described above, the config profile
+can be indicated using one of the following command line flags:</p>
 <p><code>--profile / -p</code></p>
 <p>Taking the <code>core-data</code> service as an example:</p>
 <ul>
 <li><code>./core-data</code> starts the service using the default profile found
     locally</li>
-<li><code>./core-data --profile=docker</code> starts the service using the docker
-    profile found locally</li>
+<li>
+<p><code>./core-data --profile=&lt;your profile&gt;</code> starts the service using the docker
+    profile found locally</p>
+</li>
+<li>
+<p>Again, utilizing environment variables for configuration overrides is
+the recommended path. Config profiles have been deprecated and removed as of the Geneva release. *</p>
+</li>
 </ul>
 <h4 id="seeding-configuration">Seeding Configuration</h4>
 <p>When utilizing the registry to provide centralized configuration
 management for the EdgeX Foundry microservices, it is necessary to seed
-the required configuration before starting the services. This is the
-responsibility of the <code>config-seed</code> service. The <code>config-seed</code> service
-will assume that a service registry is being used and that the necessary
-endpoint is included in the local configuration file. The use of
-profiles is supported by the <code>config-seed</code> service in the same manner
-described above.</p>
-<p>So for example, if we wanted to seed the registry with docker-related
-configuration information, we could execute the following after starting
-the registry:</p>
-<p><code>./config-seed --profile=docker</code></p>
-<p>Assuming a successful run, the <code>config-seed</code> will populate the necessary
-values and then exit. In order for a service to now load the
-configuration from the registry, we must use one of the following flags:</p>
-<p><code>--registry / -r</code></p>
+the required configuration before starting the services. Each service
+has the built-in capability to perform this seeding operation. A service
+will use its local configuration file to initialize the structure and
+relevant values, and then overlay any environment variable override values as specified. The end result will be seeded into the configuration provider if such is being used.</p>
+<p>In order for a service to now load the
+configuration from the configuration provider, we must use one of the following flags:</p>
+<p><code>--configProvider / -cp</code></p>
 <p>Again, taking the <code>core-data</code> service as an example:</p>
-<p><code>./core-data --registry --profile=docker</code> will start the service using
-configuration values found in the registry</p>
-<p>Note that when utilizing the registry, it is optional to also specify
-the <code>--profile / -p</code> flag if you are using a profile other than the
-default. This is because the location of the registry must still be
-obtained from the local config file. At this time, use of multiple
-profiles at once is not supported.</p>
+<p><code>./core-data -cp=http://localhost:8500</code> will start the service using configuration values found in the provider</p>
 <h4 id="configuration-structure">Configuration Structure</h4>
 <p>Configuration information is organized into a hierarchical structure
 allowing for a logical grouping of services, as well as versioning,
@@ -2058,52 +2095,49 @@ core services, security services, etc. As an example, the top-level
 nodes shown when one views the configuration registry might be as
 follows:</p>
 <ul>
-<li>
-<p>edgex <em>(root namespace)</em></p>
-<p>:   -   core <em>(edgex core services)</em>
-    -   devices <em>(device services)</em>
-    -   security <em>(security services)</em></p>
+<li>edgex <em>(root namespace)</em><ul>
+<li>core <em>(edgex core services)</em></li>
+<li>devices <em>(device services)</em></li>
+</ul>
 </li>
 </ul>
 <h4 id="versioning">Versioning</h4>
 <p>Incorporating versioning into the configuration hierarchy looks like
 this.</p>
 <ul>
-<li>
-<p>edgex <em>(root namespace)</em></p>
-<p>:   -   </p>
-<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="n">core</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="n">edgex</span><span class="w"> </span><span class="n">core</span><span class="w"> </span><span class="n">services</span><span class="p">)</span><span class="o">*</span><span class="w"></span>
-
-<span class="w">    </span><span class="err">:</span><span class="w">   </span><span class="o">-</span><span class="w"></span>
-
-<span class="w">            </span><span class="mf">1.0</span><span class="w"></span>
-
-<span class="w">            </span><span class="err">:</span><span class="w">   </span><span class="o">-</span><span class="w">   </span><span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">command</span><span class="w"></span>
-<span class="w">                </span><span class="o">-</span><span class="w">   </span><span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="k">data</span><span class="w"></span>
-<span class="w">                </span><span class="o">-</span><span class="w">   </span><span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">metadata</span><span class="w"></span>
-
-<span class="w">        </span><span class="o">-</span><span class="w">   </span><span class="mf">2.0</span><span class="w"></span>
-
-<span class="o">-</span><span class="w"></span>
-
-<span class="w">    </span><span class="n">devices</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="n">device</span><span class="w"> </span><span class="n">services</span><span class="p">)</span><span class="o">*</span><span class="w"></span>
-
-<span class="w">    </span><span class="err">:</span><span class="w">   </span><span class="o">-</span><span class="w"></span>
-
-<span class="w">            </span><span class="mf">1.0</span><span class="w"></span>
-
-<span class="w">            </span><span class="err">:</span><span class="w">   </span><span class="o">-</span><span class="w">   </span><span class="n">mqtt</span><span class="o">-</span><span class="n">c</span><span class="w"></span>
-<span class="w">                </span><span class="o">-</span><span class="w">   </span><span class="n">mqtt</span><span class="o">-</span><span class="k">go</span><span class="w"></span>
-<span class="w">                </span><span class="o">-</span><span class="w">   </span><span class="n">modbus</span><span class="o">-</span><span class="k">go</span><span class="w"></span>
-
-<span class="w">        </span><span class="o">-</span><span class="w">   </span><span class="mf">2.0</span><span class="w"></span>
-</code></pre></div>
-
-
+<li>edgex <em>(root namespace)</em><ul>
+<li>core <em>(edgex core services)</em><ul>
+<li>1.0<ul>
+<li>edgex-core-command</li>
+<li>edgex-core-data</li>
+<li>edgex-core-metadata</li>
+</ul>
+</li>
+<li>2.0</li>
+</ul>
+</li>
+<li>devices <em>(device services)</em><ul>
+<li>1.0<ul>
+<li>mqtt-c</li>
+<li>mqtt-go</li>
+<li>modbus-go</li>
+</ul>
+</li>
+<li>2.0</li>
+</ul>
+</li>
+<li>appservices <em>(application services)</em><ul>
+<li>1.0<ul>
+<li>AppService-rules-engine</li>
+</ul>
+</li>
+<li>2.0</li>
+</ul>
+</li>
+</ul>
 </li>
 </ul>
 <p>The versions shown correspond to major versions of the given services.
-These are not necessarily equated with long term support (LTS) releases.
 For all minor/patch versions associated with a major version, the
 respective service keys live under the major version in configuration
 (such as 1.0). Changes to the configuration structure that may be
@@ -2114,11 +2148,253 @@ from one place to another. In this way backward compatibility for the
 lifetime of the major version is maintained.</p>
 <p>An advantage of grouping all minor/patch versions under a major version
 involves end-user configuration changes that need to be persisted during
-an upgrade. The <code>config-seed</code> will not overwrite existing keys when it
-runs unless explicitly told to do so. Therefore if a user leaves their
-configuration registry running during an EdgeX Foundry upgrade, only the
-new keys required to support the point release will be added to their
-configuration, leaving any customizations in place.</p>
+an upgrade. A service on startup will not overwrite existing configuration when it runs unless explicitly told to do so via the <code>--overwrite / -o</code> command line flag. Therefore if a user leaves their
+configuration provider running during an EdgeX Foundry upgrade any customizations will be left in place. Environment variable overrides such as those supplied in the docker-compose for a given release will always override existing content in Consul.</p>
+<h2 id="configuration-properties">Configuration Properties</h2>
+<p>The following table documents configuration properties that are common to all services in the EdgeX Foundry platform. Service-specific properties can be found on the respective documentation page for each service.</p>
+<table>
+<thead>
+<tr>
+<th>Configuration</th>
+<th>Default Value</th>
+<th>Dependencies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Entries in the Writable section of the configuration can be changed on the fly while the service is running if the service is running with the <code>-cp/--configProvider=&lt;url&gt;</code> flag</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Writable LogLevel</td>
+<td>INFO *</td>
+<td>Logs messages set to a level of "INFO" or higher</td>
+</tr>
+<tr>
+<td><strong>The following keys represent the core service-level configuration settings</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Service MaxResultCount</td>
+<td>50000 **</td>
+<td>Read data limit per invocation</td>
+</tr>
+<tr>
+<td>Service BootTimeout</td>
+<td>300000 **</td>
+<td>Heart beat time in milliseconds</td>
+</tr>
+<tr>
+<td>Service StartupMsg</td>
+<td>Logging Service heart beat **</td>
+<td>Heart beat message</td>
+</tr>
+<tr>
+<td>Service Port</td>
+<td>48061 **</td>
+<td>Micro service port number</td>
+</tr>
+<tr>
+<td>Service Host</td>
+<td>localhost **</td>
+<td>Micro service host name</td>
+</tr>
+<tr>
+<td>Service Protocol</td>
+<td>http **</td>
+<td>Micro service host protocol</td>
+</tr>
+<tr>
+<td>Service ClientMonitor</td>
+<td>15000 **</td>
+<td>The interval in milliseconds at which any service clients will refresh their endpoint information from the service registry (Consul)</td>
+</tr>
+<tr>
+<td>Service CheckInterval</td>
+<td>10s **</td>
+<td>The interval in seconds at which the service registry(Consul) will conduct a health check of this service.</td>
+</tr>
+<tr>
+<td>Service Timeout</td>
+<td>5000 **</td>
+<td>Specifies a timeout (in milliseconds) for handling requests</td>
+</tr>
+<tr>
+<td><strong>The following keys govern logging behavior. With the default values below, all logging will simply be written to StdOut.</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Logging EnableRemote</td>
+<td>false **</td>
+<td>Facilitates delegation of logging via REST to the support-logging service</td>
+</tr>
+<tr>
+<td>Logging File</td>
+<td>[empty string] **</td>
+<td>File path to save logging entries. Empty by default.</td>
+</tr>
+<tr>
+<td><strong>The following keys govern database connectivity and the type of database to use. While not all services require DB connectivity, most do and so this has been included in the common configuration docs.</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Databases Primary Username</td>
+<td>[empty string] **</td>
+<td>DB user name</td>
+</tr>
+<tr>
+<td>Databases Primary Password</td>
+<td>[empty string] **</td>
+<td>DB password</td>
+</tr>
+<tr>
+<td>Databases Primary Host</td>
+<td>localhost **</td>
+<td>DB host name</td>
+</tr>
+<tr>
+<td>Databases Primary Port</td>
+<td>6379 **</td>
+<td>DB port number</td>
+</tr>
+<tr>
+<td>Databases Primary Name</td>
+<td>coredata **</td>
+<td>Database or document store name</td>
+</tr>
+<tr>
+<td>Databases Primary Timeout</td>
+<td>5000 **</td>
+<td>DB connection timeout</td>
+</tr>
+<tr>
+<td>Databases Primary Type</td>
+<td>redisdb **</td>
+<td>DB type</td>
+</tr>
+<tr>
+<td><strong>Following config only take effect when connecting to the registry for configuration info</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Registry Host</td>
+<td>localhost **</td>
+<td>Registry host name</td>
+</tr>
+<tr>
+<td>Registry Port</td>
+<td>8500 **</td>
+<td>Registry port number</td>
+</tr>
+<tr>
+<td>Registry Type</td>
+<td>consul **</td>
+<td>Registry implementation type</td>
+</tr>
+<tr>
+<td><strong>Following config is an example of how service clients are configured. These will of necessity be different in each config because each service has a different set of dependencies, each of which requires a client.</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Clients Metadata Protocol</td>
+<td>http **</td>
+<td>The protocol to use when building a URI to local the service endpoint</td>
+</tr>
+<tr>
+<td>Clients Metadata Host</td>
+<td>localhost **</td>
+<td>The host name or IP address where the service is hosted</td>
+</tr>
+<tr>
+<td>Clients Metadata Port</td>
+<td>48081 **</td>
+<td>The port exposed by the target service</td>
+</tr>
+<tr>
+<td><strong>Following config values govern the StartupTimer created at boot for ensuring the service starts in a timely fashion</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Startup Duration</td>
+<td>30 **</td>
+<td>The maximum amount of time (in seconds) the service is given to complete the bootstrap phase.</td>
+</tr>
+<tr>
+<td>Startup Interval</td>
+<td>1 **</td>
+<td>The amount of time (in seconds) to sleep between retries on a failed dependency such as DB connection</td>
+</tr>
+<tr>
+<td><strong>Following config values are used when security is enabled and Vault access is required for obtaining secrets, such as database credentials</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>SecretStore Host</td>
+<td>localhost **</td>
+<td>The host name or IP address associated with Vault</td>
+</tr>
+<tr>
+<td>SecretStore Port</td>
+<td>8200 **</td>
+<td>The configured port on which Vault is listening</td>
+</tr>
+<tr>
+<td>SecretStore Path</td>
+<td>/v1/secret/edgex/coredata/ **</td>
+<td>The service-specific path where the secrets are kept. This path will differ according to the given service</td>
+</tr>
+<tr>
+<td>SecretStore Protocol</td>
+<td>https **</td>
+<td>The protocol to be used when communicating with Vault</td>
+</tr>
+<tr>
+<td>SecretStore RootCaCertPath</td>
+<td>/vault/config/pki/EdgeXFoundryCA/ EdgeXFoundryCA.pem **</td>
+<td>The default location of the certificate used to communicate with Vault over a secure channel</td>
+</tr>
+<tr>
+<td>SecretStore ServerName</td>
+<td>localhost **</td>
+<td>The name of the server where Vault is located.</td>
+</tr>
+<tr>
+<td>SecretStore TokenFile</td>
+<td>/vault/config/assets/resp-init.json **</td>
+<td>Fully-qualified path to the location of the Vault root token.</td>
+</tr>
+<tr>
+<td>SecretStore AdditionalRetryAttempts</td>
+<td>10 **</td>
+<td>Number of attemtps to retry retrieving secrets before failing to start the service</td>
+</tr>
+<tr>
+<td>SecretStore RetryWaitPeriod</td>
+<td>1s **</td>
+<td>Amount of time to wait before attempting another connection to Vault</td>
+</tr>
+<tr>
+<td>SecretStore Authentication AuthType</td>
+<td>X-Vault-Token **</td>
+<td>A header used to indicate how the given service will authenticate with Vault</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>*means the configuration value can be changed on the fly if using a configuration provider (like Consul).</p>
+<p>**means the configuration value can be changed but the service must be restarted.</p>
 <h4 id="readable-vs-writable-settings">Readable vs Writable Settings</h4>
 <p>Within a given service's configuration, there are keys whose values can
 be edited and change the behavior of the service while it is running
@@ -2128,21 +2404,29 @@ for edgex-core-data are:</p>
 <ul>
 <li>/edgex/core/1.0/edgex-core-data/Clients</li>
 <li>/edgex/core/1.0/edgex-core-data/Databases</li>
-<li>/edgex/core /1.0/edgex-core-data/Logging</li>
+<li>/edgex/core/1.0/edgex-core-data/Logging</li>
 <li>/edgex/core/1.0/edgex-core-data/MessageQueue</li>
 <li>/edgex/core/1.0/edgex-core-data/Registry</li>
+<li>/edgex/core/1.0/edgex-core-data/SecretStore</li>
 <li>/edgex/core/1.0/edgex-core-data/Service</li>
 <li>/edgex/core/1.0/edgex-core-data/Writable</li>
 </ul>
 <p>Any configuration settings found in the <code>Writable</code> section shown above
 may be changed and affect a service's behavior without a restart. Any
 modifications to the other settings would require a restart.</p>
-<h2 id="registry">Registry</h2>
-<p>The registry refers to any platform you may use for service discovery
-and centralized configuration management. For the EdgeX Foundry
-reference implementation, the default provider for both of these
-responsibilities is HashiCorp's <a href="https://www.consul.io/">Consul</a> .
-Integration with the registry is handled through the
+<p><em>NOTE: As of the Geneva release, the support-logging service is deprecated. In the Readable section of each service's configuration there is currently a Logging section shown below. The recommendation is that you not change the default values in this section unless you have a specific reason for doing so.</em></p>
+<div class="codehilite"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="n">Remote</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="k">file</span><span class="w"> </span><span class="n">logging</span><span class="w"> </span><span class="n">disabled</span><span class="w"> </span><span class="n">so</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="n">stdout</span><span class="w"> </span><span class="n">logging</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">used</span><span class="w"></span>
+<span class="o">[</span><span class="n">Logging</span><span class="o">]</span><span class="w">  </span>
+<span class="n">EnableRemote</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">false</span><span class="w">  </span>
+<span class="k">File</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w"></span>
+</code></pre></div>
+
+
+<h2 id="configuration-provider">Configuration Provider</h2>
+<p>You can supply and manage configuration in a centralized manner by utilizing the <code>-cp/--configProvider=&lt;url&gt;</code> flag when starting a service. If the flag is provided and pointed to an application such as HashiCorp's <a href="https://www.consul.io/">Consul</a>, the service will bootstrap its configuration into Consul if it doesn't exist. If configuration does already exist, it will load the content from the given location applying any environment variables overrides of which the service is aware. Integration with the configuration provider is handled through the
+<a href="https://github.com/edgexfoundry/go-mod-configuration">go-mod-configuration</a> module referenced by all services.</p>
+<h2 id="registry-provider">Registry Provider</h2>
+<p>The registry refers to any platform you may use for service discovery. For the EdgeX Foundry reference implementation, the default provider for this responsibility is Consul. Integration with the registry is handled through the
 <a href="https://github.com/edgexfoundry/go-mod-registry">go-mod-registry</a>
 module referenced by all services.</p>
 <p><img alt="image" src="../EdgeX_RegistryHighlighted.png" /></p>
