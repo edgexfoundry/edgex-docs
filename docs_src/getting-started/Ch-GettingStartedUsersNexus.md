@@ -32,10 +32,11 @@ from Nexus. Note the host name (nexus3.edgexfoundry.org) and port
 
 **Replace the image(s) in docker-compose.yml**
 
-A Docker Compose file that pulls the latest EdgeX container images from
-Nexus is available here:
-<https://github.com/edgexfoundry/developer-scripts/blob/master/releases/nightly-build/compose-files/docker-compose-nexus.yml>.
-If you are creating your own Docker Compose file or want to use and
+Docker Compose files that pull the latest EdgeX container images from
+Nexus are available here:
+<https://github.com/edgexfoundry/developer-scripts/tree/master/releases/nightly-build/compose-files>.
+
+If you are creating your own Docker Compose file or want to use an
 existing EdgeX Docker Compose file but selectively use Nexus images,
 replace the name/location of the Docker image in your docker-compose.yml
 file for the containers you want to get from Nexus versus Docker Hub.

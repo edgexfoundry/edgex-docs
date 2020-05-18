@@ -30,7 +30,7 @@ contain configurations appropriate to the respective profile.
 
 As of the Geneva release, it is recommended to utilize environment variable
 overrides rather than creating profiles to override some subset of config
-values. You can see examples of this in the related docker-compose [files](https://github.com/edgexfoundry/developer-scripts/tree/master/releases/nightly-build/compose-files).
+values. You can see examples of this in the related docker-compose [files](https://github.com/edgexfoundry/developer-scripts/tree/master/releases/geneva/compose-files).
 
 If you choose to utilize profiles as described above, the config profile
 can be indicated using one of the following command line flags:
