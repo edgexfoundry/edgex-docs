@@ -17,5 +17,5 @@ usually detected by system management services.
 
 <https://github.com/edgexfoundry/support-notifications/blob/master/raml/support-notifications.raml>
 
-[Alerts and Notifications V1 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-notifications/1.1.0)
+[Alerts and Notifications V1 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-notifications)
 <!-- [Alerts and Notifications API HTML Documentation](support-notifications.html) -->
