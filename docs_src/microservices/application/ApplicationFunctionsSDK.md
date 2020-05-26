@@ -250,7 +250,7 @@ What `AuthMode` you choose depends on what values are used. For example, if "non
 !!! note
     The `GO` complier will default these to `0`, `false` and `""`, so you only need to set the fields that your usage requires that differ from the default.
 
-- `MQTTSend` - This function receives either a `string`,`[]byte`, or `json.Marshaler` type from the previous function in the pipeline and sends it to the specified MQTT broker. If no previous function exists, then the event that triggered the pipeline, marshaled to json, will be used. If the send fails and `persistOnError`is `true` and `Store and Forward` is enabled, the data will be stored for later retry. See [Store and Forward](#store-and-forward) for more details.
+    - `MQTTSend` - This function receives either a `string`,`[]byte`, or `json.Marshaler` type from the previous function in the pipeline and sends it to the specified MQTT broker. If no previous function exists, then the event that triggered the pipeline, marshaled to json, will be used. If the send fails and `persistOnError`is `true` and `Store and Forward` is enabled, the data will be stored for later retry. See [Store and Forward](#store-and-forward) for more details.
 
     
 
@@ -258,7 +258,7 @@ What `AuthMode` you choose depends on what values are used. For example, if "non
 
 There is one output function included in the SDK that can be added to your pipeline. 
 
-- NewOutput() - This function returns a `Output` instance that is used to access the following output function: 
+- `NewOutput()` - This function returns a `Output` instance that is used to access the following output function: 
   
     - `SetOutput` - This function receives either a `string`,`[]byte`, or `json.Marshaler` type from the previous function in the pipeline and sets it as the output data for the pipeline to return to the configured trigger. If configured to use message bus, the data will be published to the message bus as determined by the `MessageBus` and `Binding` configuration. If configured to use HTTP trigger the data is returned as the HTTP response. 
 
@@ -288,11 +288,13 @@ Similar to other EdgeX services, configuration is first determined by the `confi
 
 ## Error Handling
 
-- Each transform returns a `true` or `false` as part of the return signature. This is called the `continuePipeline` flag and indicates whether the SDK should continue calling successive transforms in the pipeline.
+Each transform returns a `true` or `false` as part of the return signature. This is called the `continuePipeline` flag and indicates whether the SDK should continue calling successive transforms in the pipeline.
+
 - `return false, nil` will stop the pipeline and stop processing the event. This is useful for example when filtering on values and nothing matches the criteria you've filtered on. 
 - `return false, error`, will stop the pipeline as well and the SDK will log the error you have returned.
 - `return true, nil` tells the SDK to continue, and will call the next function in the pipeline with your result.
-- The SDK will return control back to main when receiving a SIGTERM/SIGINT event to allow for custom clean up.
+
+The SDK will return control back to main when receiving a SIGTERM/SIGINT event to allow for custom clean up.
 
 ## Advanced Topics
 
@@ -305,16 +307,12 @@ This SDK provides the capability to define the functions pipeline via configurat
 ### Using The Webserver
 
 It is not uncommon to require your own API endpoints when building an app service. Rather than spin up your own webserver inside of your app (alongside the already existing running webserver), we've exposed a method that allows you add your own routes to the existing webserver. A few routes are reserved and cannot be used:
+
 - /api/version
-
 - /api/v1/ping
-
 - /api/v1/metrics
-
 - /api/v1/config
-
 - /api/v1/trigger
-
 - /api/v1/secrets
 
 To add your own route, use the `AddRoute(route string, handler func(nethttp.ResponseWriter, *nethttp.Request), methods ...string) error` function provided on the sdk. Here's an example:
@@ -341,7 +339,7 @@ For usages where the incoming data is not `events`, the `TargetType` of the exce
 
 Example:
 
-```
+``` go
 type Person struct {
     FirstName string `json:"first_name"`
     LastName  string `json:"last_name"`
@@ -355,7 +353,7 @@ edgexSdk := &appsdk.AppFunctionsSDK {
 
 `TargetType` must be set to a pointer to an instance of your target type such as `&Person{}` . The first function in your function pipeline will be passed an instance of your target type, not a pointer to it. In the example above the first function in the pipeline would start something like:
 
-```
+``` go
 func MyPersonFunction(edgexcontext *appcontext.Context, params ...interface{}) (bool, interface{}) {
 
 	edgexcontext.LoggingClient.Debug("MyPersonFunction")
@@ -370,7 +368,7 @@ func MyPersonFunction(edgexcontext *appcontext.Context, params ...interface{}) (
         return false, errors.New("type received is not a Person")
 	}
 	
-	....
+	// ....
 ```
 
 The SDK supports un-marshaling JSON or CBOR encoded data into an instance of the target type. If your incoming data is not JSON or CBOR encoded, you then need to set the `TargetType` to  `&[]byte`.
@@ -419,13 +417,13 @@ The following command line options are available
 
 Examples:
 
-```
+``` bash
 simple-filter-xml -c=./res -p=http-export
 ```
 
 or
 
-```
+``` bash
 simple-filter-xml --confdir=./res -p=http-export -cp=consul.http://localhost:8500 --registry
 ```
 
@@ -465,15 +463,9 @@ This environment variable overrides the service key used with the Configuration 
 !!! note
     If the name provided contains the text `<profile>`, this text will be replaced with the name of the profile used.
 
-Example:
+!!! example
+    `EDGEX_SERVICE_KEY: AppService-<profile>-mycloud` and if `profile: http-export` then service key will be "AppService-http-export-mycloud"
 
-```yaml
-EDGEX_SERVICE_KEY: AppService-<profile>-mycloud
-and 
-profile: http-export 
-then
-service key will be AppService-http-export-mycloud
-```
 
 ### EDGEX_CONFIGURATION_PROVIDER
 
@@ -589,13 +581,7 @@ Two sections of configuration have been added for Store and Forward.
 ```
 
 !!! note
-    RetryInterval should be at least 1 second (eg. '1s') or greater. If a value less than 1 second is specified, 1 second will be used.
-
-!!! note
-    Endless retries will occur when MaxRetryCount is set to 0.
-
-!!! note
-    If MaxRetryCount is set to less than 0, a default of 1 retry will be used.
+    RetryInterval should be at least 1 second (eg. '1s') or greater. If a value less than 1 second is specified, 1 second will be used. Endless retries will occur when MaxRetryCount is set to 0. If MaxRetryCount is set to less than 0, a default of 1 retry will be used.
 
 Database describes which database type to use, `mongodb` (DEPRECATED) or `redisdb`, and the information required to connect to the database. This section is required if Store and Forward is enabled, otherwise it is currently optional.
 

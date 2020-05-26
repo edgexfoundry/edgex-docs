@@ -89,29 +89,38 @@ The following profiles and their purposes are provided with App Service Configur
 - **blackbox-tests** - Profile used for black box testing the SDK 
 - **http-export** - Starter profile used for exporting data via HTTP.  Requires further configuration which can easily be accomplished using environment variable overrides
     - Required:
-        - `Writable_Pipeline_Functions_HTTPPostJSON_Parameters_url:[Your URL]`
+        - `Writable_Pipeline_Functions_HTTPPostJSON_Parameters_url: [Your URL]`
+
     - Optional: 
-        - `Writable_Pipeline_Functions_HTTPPostJSON_Parameters_persistOnError:["true"/"false"]`
-        - `Writable_Pipeline_Functions_FilterByDeviceName_Parameters_DeviceNames:"[comma separated list]"`
-        - `Writable_Pipeline_Functions_FilterByValueDescriptor_Parameters_ValueDescriptors: "[comma separated list]"`
+``` yaml
+environment:
+    - Writable_Pipeline_Functions_HTTPPostJSON_Parameters_persistOnError: ["true"/"false"]
+    - Writable_Pipeline_Functions_FilterByDeviceName_Parameters_DeviceNames: "[comma separated list]"
+    - Writable_Pipeline_Functions_FilterByValueDescriptor_Parameters_ValueDescriptors: "[comma separated list]"
+```
 - **mqtt-export** - Starter profile used for exporting data via MQTT. Requires further configuration which can easily be accomplished using environment variable overrides
     - Required:
-        - `Writable_Pipeline_Functions_MQTTSend_Addressable_Address:[Your Address]`
+        - `Writable_Pipeline_Functions_MQTTSend_Addressable_Address: [Your Address]`
+
     - Optional: 
-        - `Writable_Pipeline_Functions_MQTTSend_Addressable`
-            - `_Port:["your port"]`
-            - `_Protocol:[tcp or tcps]`
-            - `_Publisher:[your name]`
-            - `_User:[your username]`
-            - `_Password:[your passowrd`
-            - `_Topic:[your topic]`
-        - `Writable_Pipeline_Functions_MQTTSend_Parameters`
-            - `_qos:["your quality or service"]`
-            - `_key:[your Key]`  
-            - `_cert:[your Certificate]`
-            - `_autoreconnect:["true" or "false"]`
-            - `_retain:["true" or "false"]`
-            - `_persistOnError:["true" or "false"]`
+
+``` yaml
+environment:
+  - Writable_Pipeline_Functions_MQTTSend_Addressable_Port: ["your port"]
+  - Writable_Pipeline_Functions_MQTTSend_Addressable_Protocol: [tcp or tcps]
+  - Writable_Pipeline_Functions_MQTTSend_Addressable_Publisher: [your name]
+  - Writable_Pipeline_Functions_MQTTSend_Addressable_User: [your username]
+  - Writable_Pipeline_Functions_MQTTSend_Addressable_Password: [your password]
+  - Writable_Pipeline_Functions_MQTTSend_Addressable_Topic: [your topic]
+
+  - Writable_Pipeline_Functions_MQTTSend_Parameters_qos: ["your quality or service"]
+  - Writable_Pipeline_Functions_MQTTSend_Parameters_key: [your Key]  
+  - Writable_Pipeline_Functions_MQTTSend_Parameters_cert: [your Certificate]
+  - Writable_Pipeline_Functions_MQTTSend_Parameters_autoreconnect: ["true" or "false"]
+  - Writable_Pipeline_Functions_MQTTSend_Parameters_retain: ["true" or "false"]
+  - Writable_Pipeline_Functions_MQTTSend_Parameters_persistOnError: ["true" or "false"]
+```
+            
 - **rules-engine** - Profile used to push Event messages to the Rules Engine via **ZMQ** Message Bus.
 - **rules-engine-mqtt** - Profile used to push Event messages to the Rules Engine via **MQTT** Message Bus.
 - **rules-engine-redis** Profile used to push Event messages to the Rules Engine via **RedisStreams** Message Bus.
@@ -120,9 +129,7 @@ The following profiles and their purposes are provided with App Service Configur
 !!! note
     Functions can be declared in a profile but not used in the pipeline `ExecutionOrder`  allowing them to be added to the pipeline `ExecutionOrder` later at runtime if needed.
 
-## Input Data Not An EdgeX Event
-
-What if my input data isn't an EdgeX Event ?
+## What if my input data isn't an EdgeX Event ?
 
 The default `TargetType` for data flowing into the functions pipeline is an EdgeX event. There are cases when this incoming data might not be an EdgeX event. In these cases the `Pipeline` can be configured using `UseTargetTypeOfByteArray=true` to set the `TargetType` to be a byte array, i.e. `byte[]`. The first function in the pipeline must then be one that can handle the `byte[]`data. The **compression**,  **encryption** and **export** functions are examples of pipeline functions that will take input data that is `byte[]`. Here is an example of how to configure the functions pipeline to **compress**, **encrypt** and then **export** the  `byte[]` data via HTTP.
 
@@ -144,7 +151,7 @@ The default `TargetType` for data flowing into the functions pipeline is an Edge
 
 If along with this pipeline configuration, you also configured the `Binding` to be `http` trigger,  you could then send any data to the app-service-configurable' s `/api/v1/trigger` endpoint and have it compressed, encrypted and sent to your configured URL above.
 
-```
+``` toml
 [Binding]
 Type="http"
 ```
