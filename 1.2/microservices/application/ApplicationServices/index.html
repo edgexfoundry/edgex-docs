@@ -21,7 +21,7 @@
     
     
       
-        <title>Application Services - EdgeX Foundry Documentation</title>
+        <title>Introduction - EdgeX Foundry Documentation</title>
       
     
     
@@ -90,7 +90,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Application Services
+              Introduction
             
           </span>
         </div>
@@ -963,32 +963,20 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6" checked>
     
     <label class="md-nav__link" for="nav-3-6">
-      App Services
+      Application Services
       <span class="md-nav__icon md-icon">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
       </span>
     </label>
-    <nav class="md-nav" aria-label="App Services" data-md-level="2">
+    <nav class="md-nav" aria-label="Application Services" data-md-level="2">
       <label class="md-nav__title" for="nav-3-6">
         <span class="md-nav__icon md-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
         </span>
-        App Services
+        Application Services
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../ApplServices/" title="Introduction" class="md-nav__link">
-      Introduction
-    </a>
-  </li>
-
         
           
           
@@ -1005,14 +993,14 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Application Services
+        Introduction
         <span class="md-nav__icon md-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z" /></svg>
         </span>
       </label>
     
-    <a href="./" title="Application Services" class="md-nav__link md-nav__link--active">
-      Application Services
+    <a href="./" title="Introduction" class="md-nav__link md-nav__link--active">
+      Introduction
     </a>
     
       
@@ -1082,8 +1070,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../AppServiceConfigurable/" title="App Service Configurable" class="md-nav__link">
-      App Service Configurable
+    <a href="../ApplicationFunctionsSDK/" title="App Functions SDK" class="md-nav__link">
+      App Functions SDK
     </a>
   </li>
 
@@ -1094,8 +1082,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../ApplicationFunctionsSDK/" title="App Functions SDK" class="md-nav__link">
-      App Functions SDK
+    <a href="../AppServiceConfigurable/" title="App Service Configurable" class="md-nav__link">
+      App Service Configurable
     </a>
   </li>
 
@@ -1843,6 +1831,7 @@
                 
                 
                 <h1 id="application-services">Application Services</h1>
+<p><img alt="image" src="../ApplicationServices.png" /></p>
 <p>Application Services are a means to get data from EdgeX Foundry to
 external systems and process (be it analytics package, enterprise or
 on-prem application, cloud systems like Azure IoT, AWS IoT, or Google
@@ -1852,6 +1841,10 @@ compressed, encrypted, etc.) before being sent to an endpoint of choice.
 Endpoints supported out of the box today include HTTP and MQTT
 endpoints, but will include additional offerings in the future and could
 include a custom endpoints.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Application Services has replaced Export Services</p>
+</div>
 <p>Application Services are based on the idea of a "Functions Pipeline".
 A functions pipeline is a collection of functions that process messages
 (in this case EdgeX event/reading messages) in the order that you've
@@ -1860,12 +1853,13 @@ begins the functions pipeline execution. A trigger is something like a
 message landing in a watched message queue.</p>
 <p><img alt="image" src="../TriggersFunctions.png" /></p>
 <p>An Applications Functions Software Development Kit (or App Functions
-SDK) is a available to help create Application Services. Currently the
+SDK) is available to help create Application Services. Currently the
 only SDK supported language is Golang, with the intention that community
 developed and supported SDKs will come in the future for other
 languages. It is currently available as a Golang module to remain
 operating system (OS) agnostic and to comply with the latest EdgeX
 guidelines on dependency management.</p>
+<p>Any application built on top of the Application Functions SDK is considered an App Service. This SDK is provided to help build Application Services by assembling triggers, pre-existing functions and custom functions of your making into a pipeline.</p>
 <h2 id="application-service-improvements">Application Service Improvements</h2>
 <p>Providing an SDK that connects directly to a message bus by which Core
 Data events are published eliminates performance issues as well as allow
@@ -1878,11 +1872,11 @@ client registration.</p>
 <p>As mentioned, an Application Service is a function pipeline. The SDK
 provides some standard functions that can be used in a functions
 pipeline. In the future, additional functions will be provided
-"standard" or in other words provided with the SDK. Additinally,
-developers can implement their own custom functions and add those to the
+"standard" or in other words provided with the SDK. Additionally,
+developers can implement their own custom functions and add those to their
 Application Service functions pipeline.</p>
 <p><img alt="image" src="../SDKFunctions.png" /></p>
-<p>One of the most common use cases for working with data that come from
+<p>One of the most common use cases for working with data that comes from
 Core Data is to filter data down to what is relevant for a given
 application and to format it. To help facilitate this, four primary
 functions ported over from the existing services today are included in
@@ -1890,20 +1884,19 @@ the SDK. The first is the <code>DeviceNameFilter</code> function which
 will remove events that do not match the specified IDs and will cease
 execution of the pipeline if no event matches. The second is the
 <code>ValueDescriptorFilter</code> which exhibits the same behavior as
-<code>DeviceNameFilter</code> except filtering on Value Descriptor
+<code>DeviceNameFilter</code> except filtering event readings on Value Descriptor
 instead of DeviceID. The third and fourth provided functions in the SDK
 transform the data received to either XML or JSON by calling
 <code>XMLTransform</code> or <code>JSONTransform</code>.</p>
 <p>Typically, after filtering and transforming the data as needed,
 exporting is the last step in a pipeline to ship the data where it needs
 to go. There are two primary functions included in the SDK to help
-facilitate this. The first is <code>HTTPPost(string url)</code>
-function that will POST the provided data to a specified endpoint, and
-the second is an <code>MQTTPublish()</code> function that will publish
+facilitate this. The first is the<code>HTTPPost</code> function that will POST the provided data 
+to a specified endpoint, and the second is an <code>MQTTSecretSend()</code> function that will publish
 the provided data to an MQTT Broker as specified in the configuration.</p>
 <p>There are two primary triggers that have been included in the SDK that
 initiate the start of the function pipeline. First is via a POST HTTP
-Endpoint <code>/trigger</code> with the EdgeX event data as the body.
+Endpoint <code>/api/v1/trigger</code> with the EdgeX event data as the body.
 Second is the MessageBus subscription with connection details as
 specified in the configuration.</p>
 <p>Finally, data may be sent back to the message bus or HTTP response by
@@ -1918,14 +1911,7 @@ general purpose data checking filter which assesses the device- or
 sensor-provided Event, with associated Readings, and ensures the data
 conforms to the ValueDescriptor associated with the Readings.</p>
 <ul>
-<li>For example, if the data from a sensor is described by its metadata
-    profile as adhering to a "Temperature" value descriptor of floating
-    number type, with the value between -100° F and 200° F, but the data
-    seen in the Event and Readings is not a floating point number, for
-    example if the data in the reading is a word such as "cold," instead
-    of a number, then the Event is rejected (no client receives the
-    data) and no further processing is accomplished on the Event by the
-    Export Distro service.</li>
+<li>For example, if the data from a sensor is described by its metadata profile as adhering to a "Temperature" value descriptor of floating number type, with the value between -100° F and 200° F, but the data seen in the Event and Readings is not a floating point number, for example if the data in the reading is a word such as "cold," instead of a number, then the Event is rejected (no client receives the data) and no further processing is accomplished on the Event by the Export Distro service.</li>
 </ul>
                 
               
@@ -1945,7 +1931,7 @@ conforms to the ValueDescriptor associated with the Readings.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../ApplServices/" title="Introduction" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../../device/virtual/Ch-VirtualDevice/" title="Virtual Device" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
             </div>
@@ -1954,7 +1940,7 @@ conforms to the ValueDescriptor associated with the Readings.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Introduction
+                Virtual Device
               </div>
             </div>
           </a>
