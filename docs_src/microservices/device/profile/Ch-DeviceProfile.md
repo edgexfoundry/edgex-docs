@@ -44,6 +44,9 @@ as eg. `float32array`, `boolarray` etc.
 * readWrite - `R`, `RW`, or `W` indicating whether the value is readable or
 writable.
 * defaultValue - a value used for PUT requests which do not specify one.
+* assertion - a string value to which a reading (after processing) is compared.
+ If the reading is not the same as the assertion value, the device's operating
+state will be set to disbled. This can be useful for health checks.
 * base - a value to be raised to the power of the raw reading before it is returned.
 * scale - a factor by which to multiply a reading before it is returned.
 * offset - a value to be added to a reading before it is returned.
@@ -70,16 +73,16 @@ with a 3-axis accelerometer it is helpful to read all axes together.
 A resourceOperation consists of the following properties:
 
 * index - a number, used to define an order in which the resource is processed.
-* operation - `get` or `set`. Ignored in this implementation, mixing of get
 and set operations is not supported.
 * deviceResource - the name of the deviceResource to access.
 * parameter - optional, a value that will be used if a PUT request does not
 specify one.
 * mappings - optional, allows readings of String type to be re-mapped.
 
-The device service allows access to deviceCommands via the `device` REST
-endpoint. If a deviceCommand and deviceResource have the same name, it will be
-the deviceCommand which is available.
+The device service allows access to deviceCommands via the same `device` REST
+endpoint as is used to access deviceResources. If a deviceCommand and
+deviceResource have the same name, it will be the deviceCommand which is
+available.
 
 CoreCommands
 ------------

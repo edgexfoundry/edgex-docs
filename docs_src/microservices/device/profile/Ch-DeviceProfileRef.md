@@ -22,7 +22,8 @@ DeviceResource
 Field Name | Type | Required? | Notes
 :--- | :--- | :--- | :---
 Name | String | Y | Must be unique in the EdgeX deployment
-Tag | String | N
+Description | String | N |
+Tag | String | N |
 Attributes | String-String Map | Y | Each Device Service should define required and optional keys
 Properties | ProfileProperty | Y |
 
@@ -61,7 +62,7 @@ DefaultValue | String | Y |
 DeviceCommand
 -------------
 
-(NB represented in Go by `ProfileResource`)
+(Note: represented in Go by `ProfileResource`)
 
 Field Name | Type | Required? | Notes
 :--- | :--- | :--- | :---
@@ -82,7 +83,7 @@ Mappings | String-String Map | N | Only valid where the Type of the named Device
 CoreCommand
 -----------
 
-(NB represented in Go by `Command`)
+(Note: represented in Go by `Command`)
 
 Field Name | Type | Required? | Notes
 :--- | :--- | :--- | :---
