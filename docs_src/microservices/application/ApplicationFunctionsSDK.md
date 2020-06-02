@@ -131,9 +131,10 @@ E.G. NewFilter([] {"Device1", "Device2"}).FilterByDeviceName
 
 ### Filtering
 
-There are two basic types of filtering included in the SDK to add to your pipeline. Theses provided Filter functions return a type of events.Model. If filtering results in no remaining data, the pipeline execution for that pass is terminated. If no values are provided for filtering, then data flows through unfiltered.
+There are two basic types of filtering included in the SDK to add to your pipeline. There is also an option to `Filter Out` specific items. Theses provided Filter functions return a type of events.Model. If filtering results in no remaining data, the pipeline execution for that pass is terminated. If no values are provided for filtering, then data flows through unfiltered.
 
 - `NewFilter([]string filterValues)` - This function returns a `Filter` instance initialized with the passed in filter values. This `Filter` instance is used to access the following filter functions that will operate using the specified filter values.
+    - `filterout` - This parameter will determine how the filter will filter out the items. If set to true all items found in the filter will be removed. If set to false all items found in the filter will be returned. If filterValues is empty then all items will be returned.
     - `FilterByDeviceName` - This function will filter the event data down to the specified device names and return the filtered data to the pipeline.
     - `FilterByValueDescriptor` - This function will filter the event data down to the specified device value descriptor and return the filtered data to the pipeline.
 
