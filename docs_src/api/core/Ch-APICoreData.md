@@ -15,5 +15,5 @@ provides the REST API to create and register a new device.
 
 <https://github.com/edgexfoundry/edgex-go/blob/master/api/raml/core-data.raml>
 
-[Core Data V1 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-data/1.1.0)
+[Core Data V1 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-data)
 <!-- [Core Data API HTML Documentation](core-data.html) -->

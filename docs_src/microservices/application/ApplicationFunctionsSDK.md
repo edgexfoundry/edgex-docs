@@ -143,8 +143,10 @@ There are two basic types of filtering included in the SDK to add to your pipeli
     - `Evaluate` - This is the function that will be used in the pipeline to apply the JSON rule to data coming in on the pipeline. If the condition of your rule is met, then the pipeline will continue and the data will continue to flow to the next function in the pipeline. If the condition of your rule is NOT met, then pipeline execution stops. 
 
 !!! note
-    Only simple logic/filtering operators are supported. Manipulation of data via JSONLogic rules are not yet supported. For more advanced scenarios checkout [EMQ X Kuiper](https://github.com/emqx/kuiper).
+    Only  operators that return true or false are supported. See http://jsonlogic.com/operations.html# for the complete list paying attention to return values. Any operator that returns manipulated data is currently not supported. For more advanced scenarios checkout [EMQ X Kuiper](https://github.com/emqx/kuiper).
 
+!!! tip
+    Leverage http://jsonlogic.com/play.html to get your rule right before implementing in code. JSON can be a bit tricky to get right in code with all the escaped double quotes.
 
 ### Encryption
 There is one encryption transform included in the SDK that can be added to your pipeline. 
