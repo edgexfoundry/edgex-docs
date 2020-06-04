@@ -23,7 +23,7 @@ architectures in the industrial IoT market while still enabling the
 ecosystem to provide significant value-added differentiation.
 
 If you don't need further description and want to immediately use EdgeX
-Foundry use this link: Getting Started Guide
+Foundry use this link: [Getting Started Guide](./getting-started/index.md)
 
 ## Definitions: "South Side" and "North Side"
 
