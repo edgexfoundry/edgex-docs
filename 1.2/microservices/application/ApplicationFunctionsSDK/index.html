@@ -2688,9 +2688,10 @@
 
 
 <h3 id="filtering">Filtering</h3>
-<p>There are two basic types of filtering included in the SDK to add to your pipeline. Theses provided Filter functions return a type of events.Model. If filtering results in no remaining data, the pipeline execution for that pass is terminated. If no values are provided for filtering, then data flows through unfiltered.</p>
+<p>There are two basic types of filtering included in the SDK to add to your pipeline. There is also an option to <code>Filter Out</code> specific items. Theses provided Filter functions return a type of events.Model. If filtering results in no remaining data, the pipeline execution for that pass is terminated. If no values are provided for filtering, then data flows through unfiltered.</p>
 <ul>
 <li><code>NewFilter([]string filterValues)</code> - This function returns a <code>Filter</code> instance initialized with the passed in filter values. This <code>Filter</code> instance is used to access the following filter functions that will operate using the specified filter values.<ul>
+<li><code>filterout</code> - This parameter will determine how the filter will filter out the items. If set to true all items found in the filter will be removed. If set to false all items found in the filter will be returned. If filterValues is empty then all items will be returned.</li>
 <li><code>FilterByDeviceName</code> - This function will filter the event data down to the specified device names and return the filtered data to the pipeline.</li>
 <li><code>FilterByValueDescriptor</code> - This function will filter the event data down to the specified device value descriptor and return the filtered data to the pipeline.</li>
 </ul>
