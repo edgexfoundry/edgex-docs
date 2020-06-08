@@ -97,6 +97,7 @@ environment:
     - Writable_Pipeline_Functions_HTTPPostJSON_Parameters_persistOnError: ["true"/"false"]
     - Writable_Pipeline_Functions_FilterByDeviceName_Parameters_DeviceNames: "[comma separated list]"
     - Writable_Pipeline_Functions_FilterByValueDescriptor_Parameters_ValueDescriptors: "[comma separated list]"
+    - Writable_Pipeline_Functions_FilterByValueDescriptor_Parameters_FilterOut: ["true"/"false"]
 ```
 - **mqtt-export** - Starter profile used for exporting data via MQTT. Requires further configuration which can easily be accomplished using environment variable overrides
     - Required:
