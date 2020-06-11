@@ -743,8 +743,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#reference-implementation" class="md-nav__link">
-    Reference Implementation
+  <a href="#java-drools-rule-engine-implementation" class="md-nav__link">
+    Java Drools Rule Engine Implementation
   </a>
   
 </li>
@@ -795,6 +795,18 @@
   
 </nav>
     
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Kuiper/Ch-Kuiper/" title="Kuiper Rules Engine" class="md-nav__link">
+      Kuiper Rules Engine
+    </a>
   </li>
 
         
@@ -1830,8 +1842,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#reference-implementation" class="md-nav__link">
-    Reference Implementation
+  <a href="#java-drools-rule-engine-implementation" class="md-nav__link">
+    Java Drools Rule Engine Implementation
   </a>
   
 </li>
@@ -1900,26 +1912,30 @@
                 
                 <h1 id="rules-engine">Rules Engine</h1>
 <p><img alt="image" src="../EdgeX_SupportingServicesRules.png" /></p>
-<h2 id="reference-implementation">Reference Implementation</h2>
-<p>The Rules Engine microservice provides a reference implementation,
-edge-event triggering mechanism. The rules engine service monitors
-incoming sensor or device data for readings within target ranges and
-triggers immediate device actuation. Therefore, the rules engine
-provides "intelligence" at, or near, the network edge for faster
+<hr />
+<p><strong>Deprecation Notice</strong></p>
+<p>Please note that the Support Rules Engine service has been deprecated with the Geneva release (v1.2). </p>
+<p>With the Geneva release, EdgeX has formed a partnership with the EMQ X Kuiper open source project and offers the <a href="../../Kuiper/Ch-Kuiper/">Kuiper Rules Engine</a> as the reference implementation rules engine.</p>
+<p>The EdgeX Rules Engine was Java-based and wrapped the open source Drools engine.  This was the last of the EdgeX Java services to be replaced.</p>
+<p>Starting with the Geneva release, by default, the EdgeX reference implementations (provided through the EdgeX Docker Compose files) will use Kuiper with a dedicated application service providing the data feed to the Kuiper engine.  The Support Rules Engine is still available but users must find and uncomment the Support Rules Engine in the Docker Compose file.</p>
+<p>The Support Rules Engine will removed in a future release of EdgeX Foundry.</p>
+<hr />
+<h2 id="java-drools-rule-engine-implementation">Java Drools Rule Engine Implementation</h2>
+<p>This rules engine service monitors incoming sensor or device data for readings within target ranges and triggers immediate device actuation. Therefore, the rules engine provides "intelligence" at, or near, the network edge for faster
 response times.</p>
-<p>The implementation uses a Drools (<a href="https://www.drools.org/">https://www.drools.org/</a>) rules
+<p>This rules engine uses a Drools (<a href="https://www.drools.org/">https://www.drools.org/</a>) rules
 engine at its core. Drools is an open source rules engine provided by
 the JBoss community. This microservice is able to be replaced or
 augmented by many other edge-analytic capabilities provided by 3rd
 parties.</p>
 <h2 id="rules-engine-as-export-service-client">Rules Engine as Export Service Client</h2>
-<p>The reference implementation rules engine is an automatic export service
+<p>This rules engine is an automatic export service
 client. When the service initiates, it automatically calls on the Export
 Client Registration microservice to register itself as a client of all
 device and sensor readings coming out of Core Data. As an Export Service
-client, the reference implementation rules engine receives all events
+client, this rules engine receives all events
 and readings through the Export Distribution microservice. Based on
-data, the reference implementation rules engine is instructed to monitor
+data, this rules engine is instructed to monitor
 each event and reading received through the Export Distribution
 microservice, and the rules engine triggers any actuation to a device
 through the Core Command microservice (which subsequently communicates
@@ -2199,13 +2215,13 @@ file changes per environment.</p>
           </a>
         
         
-          <a href="../../scheduler/Ch-Scheduling/" title="Scheduling" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../../Kuiper/Ch-Kuiper/" title="Kuiper Rules Engine" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Scheduling
+                Kuiper Rules Engine
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">

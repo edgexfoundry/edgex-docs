@@ -729,6 +729,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Kuiper/Ch-Kuiper/" title="Kuiper Rules Engine" class="md-nav__link">
+      Kuiper Rules Engine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../scheduler/Ch-Scheduling/" title="Scheduling" class="md-nav__link">
       Scheduling
     </a>
@@ -1767,6 +1779,13 @@
                 <h1 id="logging">Logging</h1>
 <h1 id="deprecated-in-geneva-release">(Deprecated in Geneva Release)</h1>
 <p><img alt="image" src="../EdgeX_SupportingServicesLogging.png" /></p>
+<hr />
+<p><strong>Deprecation Notice</strong></p>
+<p>Please note that the logging service has been deprecated with the Geneva release (v1.2).  The EdgeX community feels that there are better log aggregation services available in the open source community or by deployment/orchestration tools.</p>
+<p>Starting with the Geneva release, logging service will no longer be started as part of the reference implementations provided through the EdgeX Docker Compose files (the service is still available but commented out in those files).</p>
+<p>By default, all services now log to standard out (EnableRemote is set to false and File is set to '').  If users wish to still use the central logging service, they must configure each service to use it (set EnableRemote=true).  Users can still alternately choose to have the services log to a file with additional configuration changes (set File to the appropriate file location).</p>
+<p>The Support Logging Service will removed in a future release of EdgeX Foundry.</p>
+<hr />
 <h2 id="introduction">Introduction</h2>
 <p>Logging is critical for all modern software applications. Proper logging
 provides the users with the following benefits:</p>
