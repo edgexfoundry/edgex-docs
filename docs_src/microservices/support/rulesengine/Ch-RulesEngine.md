@@ -7,7 +7,7 @@
 
 Please note that the Support Rules Engine service has been deprecated with the Geneva release (v1.2). 
 
-With the Geneva release, EdgeX has formed a partnership with the EMQ X Kuiper open source project and offers the [Kuiper Rule Engine](../Kuiper/Ch-Kuiper.md) as the reference implementation rules engine.
+With the Geneva release, EdgeX has formed a partnership with the EMQ X Kuiper open source project and offers the [Kuiper Rules Engine](../Kuiper/Ch-Kuiper.md) as the reference implementation rules engine.
 
 The EdgeX Rules Engine was Java-based and wrapped the open source Drools engine.  This was the last of the EdgeX Java services to be replaced.
 
