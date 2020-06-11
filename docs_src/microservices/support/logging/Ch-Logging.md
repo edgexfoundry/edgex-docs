@@ -1,4 +1,5 @@
 # Logging
+# (Deprecated in Geneva Release)
 
 ![image](EdgeX_SupportingServicesLogging.png)
 
@@ -73,43 +74,14 @@ by EdgeX Foundry Logging Service: file or MongoDB.
 
 ## Configuration Properties
 
+The following configuration properties are specific to the support-logging service. Please refer to the general Configuration [documentation](https://docs.edgexfoundry.org/1.2/microservices/configuration/Ch-Configuration/#configuration) for configuration properties common across all services.
   
   |Configuration  |     Default Value     |             Dependencies|
   | --- | --- | -- |
-| **Entries in the Writable section of the configuration can be changed on the fly while the service is running if the service is running with the `–registry / -r` flag** |
-  |Writable Persistence    |database \*                        |"file" to save logging in file; "database" to save logging in MongoDB
-  |Writable LogLevel       |INFO \*                            |Logs messages set to a level of "INFO" or higher
-  |**The following keys represent the core service-level configuration settings**|
-  |Service MaxResultCount  |50000 \*\*                        |Read data limit per invocation|
-  |Service BootTimeout     |300000 \*\*                       |Heart beat time in milliseconds|
-  |Service StartupMsg      |Logging Service heart beat \*\*   |Heart beat message|
-  |Service Port            |48061 \*\*                        |Micro service port number|
-  |Service Host            |localhost \*\*                    |Micro service host name|
-  |Service Protocol        |http \*\*                         |Micro service host protocol|
-  |Service ClientMonitor   |15000 \*\*                        |The interval in milliseconds at which any service clients will refresh their endpoint information from the service registry (Consul)|
-  |Service CheckInterval   |10s \*\*                          | The interval in seconds at which the service registry(Consul) will conduct a health check of this service.|
-  |Service Timeout         |5000 \*\*                         | Specifies a timeout (in milliseconds) for handling requests|
-  |**Following config only take effect when Writable.Persistence=file**|
-  |Logging File     |       ./logs/edgex-support-logging.log   |File path to save logging entries|
-  |**Following config only take effect when logging.persistence=database**|
-  |Databases Database Primary Username      |\[empty string\] \*\*              |DB user name                                           |
-  |Databases Database Password       |\[empty string\] \*\*              |DB password|
-  |Databases Database Host |localhost \*\*                     |DB host name|
-  |Databases Database Port |27017 \*\*                        |DB port number|
-  |Databases Database Database      |logging \*\*                      |Database or document store name            |
-  |Databases Database Timeout      |5000 \*\*                          |DB connection timeout                                              |
-  |Databases Database Type |mongodb \*\*                       |DB type|
-  |**Following config only take effect when connecting to the registry for configuration info**|
-  |Registry Host           |localhost \*\*                     |Registry host name|
-  |Registry Port           |8500 \*\*                          |Registry port number|
-  |Registry Type           |consul \*\*                        |Registry implementation type|
+| **Entries in the Writable section of the configuration can be changed on the fly while the service is running if the service is running with the `–configProvider/ -cp=<url>` flag** |
+  |Writable Persistence  |database  |"file" to save logging in file; "database" to save logging in MongoDB
+  | | | |
   
-
-\*means the configuration value can be changed on the fly if using a configuration registry (like Consul).
-
-\*\*means the configuration value can be changed but the service must be restarted.
-
-\*\*\*means the configuration value should NOT be changed.
 
 ## Logging Service Client Library for Go
 

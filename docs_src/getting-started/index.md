@@ -66,4 +66,4 @@ scaffolding code for a new EdgeX Foundry application service; allowing
 you to focus on the details of data transformation, filtering, and
 otherwise prepare the sensor data for the external endpoint. Learn more
 about Application Services and the Application Functions SDK at
-[Application Services](../microservices/application/ApplServices.md).
+[Application Services](../microservices/application/ApplicationServices.md).

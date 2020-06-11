@@ -214,7 +214,7 @@ that the source code contains an application.properties file in the
 environments (typically) versus the application.properties in the
 docker-files folder of the source that provides the standard default for
 the Dockerized version of the microservice. The examples shown below are
-those from the /src/main/resources defaults.
+those from the [/src/main/resources](https://github.com/edgexfoundry/support-rulesengine/tree/master/src/main/resources) defaults.
 
 **Automatic Rules Engine as an Export Distro client**
 

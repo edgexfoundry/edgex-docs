@@ -14,5 +14,5 @@ management/control system protocols like LWM2M, OMA DM, etc.
 
 <https://github.com/edgexfoundry/edgex-go/blob/master/api/raml/system-agent.raml>
 
-[System Management V1 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/system-agent/1.1.0)
+[System Management V1 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/system-agent/)
 <!-- [System Management API HTML Documentation](system-agent.html) -->
