@@ -19,5 +19,5 @@ implementation.
 
 <https://github.com/edgexfoundry/edgex-go/blob/master/api/raml/core-metadata.raml>
 
-[Core Metadata V1 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/1.1.0)
+[Core Metadata V1 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata)
 <!-- [Core Metadata API HTML Documentation](core-metadata.html) -->
