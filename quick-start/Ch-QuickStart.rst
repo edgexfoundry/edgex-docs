@@ -18,7 +18,7 @@ The fastest way to start running EdgeX is by using our pre-built Docker images. 
 Running EdgeX
 =============
 
-Once you have Docker and Docker Compose installed, you need the configuration file for downloading and running the EdgeX Foundry docker containers. Download the `latest docker-compose file here <https://github.com/edgexfoundry/developer-scripts/raw/master/releases/fuji/compose-files/docker-compose-fuji-1.1.0.yml>`_ and save this as ``docker-compose.yml`` in your local directory. This file contains everything you need to deploy EdgeX with docker.
+Once you have Docker and Docker Compose installed, you need the configuration file for downloading and running the EdgeX Foundry docker containers. Download the `latest docker-compose file here <https://github.com/edgexfoundry/developer-scripts/raw/master/releases/fuji/compose-files/docker-compose-fuji.yml>`_ and save this as ``docker-compose.yml`` in your local directory. This file contains everything you need to deploy EdgeX with docker.
 
 First, use this command to download the EdgeX Foundry Docker images from Docker Hub::
 
