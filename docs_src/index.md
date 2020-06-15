@@ -1,7 +1,7 @@
 # Introduction
 
 EdgeX Foundry is an open source, vendor neutral, flexible, interoperable, software platform at the
-edge of the network, that interacts with the physical world of [devices](./general/Definitions#device), sensors, actuators, and other IoT objects. In simple terms, EdgeX is edge middleware - serving  between physical sensing and actuating "things" and our information technology (IT) systems.
+edge of the network, that interacts with the physical world of [devices](./general/Definitions.md#Device), sensors, actuators, and other IoT objects. In simple terms, EdgeX is edge middleware - serving  between physical sensing and actuating "things" and our information technology (IT) systems.
 ![image](./general/EdgeX_middleware.png)
 
 The EdgeX platform enables and encourages the rapidly growing community of
@@ -43,13 +43,13 @@ overall architecture:
     - Distribution
  (allowing for the distribution of functionality through microservices at the edge, on a gateway, in the fog, on cloud, etc.)
     - Deployment/orchestration (Docker, Snaps, K8s, roll-your-own, ... )
-    - Protocols ([north or south](./general/Definitions#southnorth) side protocols)
+    - Protocols ([north or south](./general/Definitions.md#South-and-North-Side) side protocols)
 
 - **EdgeX Foundry must be extremely flexible**
-    - Any part of the platform may be upgraded, replaced or augmented by other [micro services](./general/Definitions#microservice) or software components
+    - Any part of the platform may be upgraded, replaced or augmented by other [micro services](./general/Definitions.md#Micro-service) or software components
     - Allow services to scale up and down based on device capability and use case 
 
-- **EdgeX Foundry should provide "[reference implementation](./general/Definitions#referimpl)" services but encourages best of breed solutions**
+- **EdgeX Foundry should provide "[reference implementation](./general/Definitions.md#Reference-Implementation)" services but encourages best of breed solutions**
 
 - **EdgeX Foundry must provide for store and forward capability**
     - To support disconnected/remote edge systems
@@ -60,12 +60,12 @@ overall architecture:
     - Bandwidth and storage concerns 
     - Operating remotely concerns
 
-- **EdgeX Foundry must support [brown and green]((./general/Definitions#browngreenfield)) device/sensor field deployments**
+- **EdgeX Foundry must support [brown and green](./general/Definitions.md#Brownfield-and-Greenfield) device/sensor field deployments**
 
 - **EdgeX Foundry must be secure and easily managed**
 
 ## Deployments
-EdgeX was originally built by Dell to run on its IoT [gateways](./general/Definitions#gateway). While EdgeX can and does run on gateways, its platform agnostic nature and micro service architecture enables tiered distributed deployments.  In other words, a single instance of EdgeX’s micro services can be distributed across several host platforms.  The host platform for one or many EdgeX micro services is called a node.  This allows EdgeX to leverage compute, storage, and network resources wherever they live on the edge.
+EdgeX was originally built by Dell to run on its IoT [gateways](./general/Definitions.md#Gateway). While EdgeX can and does run on gateways, its platform agnostic nature and micro service architecture enables tiered distributed deployments.  In other words, a single instance of EdgeX’s micro services can be distributed across several host platforms.  The host platform for one or many EdgeX micro services is called a node.  This allows EdgeX to leverage compute, storage, and network resources wherever they live on the edge.
 
 Its loosely-coupled architecture enables distribution across nodes to enable tiered edge computing.  For example, thing communicating services could run on a programmable logic controller (PLC), a gateway, or be embedded in smarter sensors while other EdgeX services are deployed on networked servers or even in the cloud.   The scope of a deployment could therefore include embedded sensors, controllers, edge gateways, servers and cloud systems.
 
@@ -190,14 +190,14 @@ The application service transforms the data as needed and pushes the data to an 
 
 ![image](./general/EdgeX_step3.png)
 
-### [Edge Analytics](./general/Definitions/#edgeanalytics) and Actuation
+### Edge Analytics and Actuation
 In edge computing, simply collecting sensor data is only part of the job of an edge platform like EdgeX.  Another important job of an edge platform is to be able to:
 
 - Analyze the incoming sensor data locally
 - Act quickly on that analysis
 Edge or local analytics is the processing that performs an assessment of the sensor data collected at the edge (“locally”) and triggers actuations or actions based on what it sees.
 
-Why edge analytics?  Local analytics are important for two reasons:
+Why [edge analytics](./general/Definitions.md#Edge-Analytics)?  Local analytics are important for two reasons:
 
 - Some decisions cannot afford to wait for sensor collected data to be fed back to an enterprise or cloud system and have a response returned.
 - Additionally, some edge systems are not always connected to the enterprise or cloud – they have intermittent periods of connectivity.
@@ -210,7 +210,7 @@ Just as application services prepare data for consumption by north side cloud sy
 
 ![image](./general/EdgeX_step4.png)
 
-The analytic package can explore the sensor event data and make a decision to trigger actuation of a device.  For example, it could check that the pressure reading of an engine is greater than 60 PSI.  When such a rule is determined to be true, the analytic package calls on the core command service to trigger some action, like “open a valve” on some actuatable device (see step 5).
+The analytic package can explore the sensor event data and make a decision to trigger actuation of a device.  For example, it could check that the pressure reading of an engine is greater than 60 PSI.  When such a rule is determined to be true, the analytic package calls on the core command service to trigger some action, like “open a valve” on some actuateable device (see step 5).
 
 ![image](./general/EdgeX_step5.png)
 
@@ -254,8 +254,8 @@ The name ‘foundry’ was used to draw parallels to [Cloud Foundry](https://www
 
 ![image](./general/EdgeX_X.png)
 
-The EdgeX Foundry Logo represents the nature of its role as transformation engine between the physical OT world and the digitial IT world.
+The EdgeX Foundry Logo represents the nature of its role as transformation engine between the physical OT world and the digital IT world.
 
-The EdgeX community selected the octopus as the mascot or “spirit animal” of the project at its inception.  Its eight arms and the suckers on the arms represent the sensors.  The sensors bring the data into the octopus.  Actually, the octopus has nine brains in a way.  It has millions of neurons running down each arm; functioning as mini-brains in each of those arms.  The arms of the octopus serve as “local analytics” like that offered by EdgeX.  The mascot is affectionally called “Edgey” by the community.
+The EdgeX community selected the octopus as the mascot or “spirit animal” of the project at its inception.  Its eight arms and the suckers on the arms represent the sensors.  The sensors bring the data into the octopus.  Actually, the octopus has nine brains in a way.  It has millions of neurons running down each arm; functioning as mini-brains in each of those arms.  The arms of the octopus serve as “local analytics” like that offered by EdgeX.  The mascot is affectionately called “Edgey” by the community.
 
 ![image](./general/EdgeX_octopus.png)
