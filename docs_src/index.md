@@ -210,7 +210,7 @@ Just as application services prepare data for consumption by north side cloud sy
 
 ![image](./general/EdgeX_step4.png)
 
-The analytic package can explore the sensor event data and make a decision to trigger actuation of a device.  For example, it could check that the pressure reading of an engine is greater than 60 PSI.  When such a rule is determined to be true, the analytic package calls on the core command service to trigger some action, like “open a valve” on some actuateable device (see step 5).
+The analytic package can explore the sensor event data and make a decision to trigger actuation of a device.  For example, it could check that the pressure reading of an engine is greater than 60 PSI.  When such a rule is determined to be true, the analytic package calls on the core command service to trigger some action, like “open a valve” on some controllable device (see step 5).
 
 ![image](./general/EdgeX_step5.png)
 
