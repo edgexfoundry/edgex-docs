@@ -1229,10 +1229,88 @@
           
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6-3" type="checkbox" id="nav-3-6-3">
+    
+    <label class="md-nav__link" for="nav-3-6-3">
+      Application Functions SDK
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Application Functions SDK" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-6-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Application Functions SDK
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
     <a href="../../application/ApplicationFunctionsSDK/" title="App Functions SDK" class="md-nav__link">
       App Functions SDK
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../application/ContextAPI/" title="Context API" class="md-nav__link">
+      Context API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../application/BuiltIn/" title="Built-In Transforms/Functions" class="md-nav__link">
+      Built-In Transforms/Functions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../application/ErrorHandling/" title="Error Handling" class="md-nav__link">
+      Error Handling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../application/AdvancedTopics/" title="Advanced Topics" class="md-nav__link">
+      Advanced Topics
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -2189,19 +2267,17 @@ at these two locations:</p>
 security services.</p>
 <p>The command to start EdgeX Foundry platform including the Secret Store
 and API gateway related services is:</p>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker-compose up -d
+<div class="highlight"><pre><span></span><code>sh&gt; docker-compose up -d
 </code></pre></div>
-
 
 <p>For a pristine run, it is strongly recommended to thoroughly clean up
 any Docker artifacts remaining from the current run.</p>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker-compose down -v
+<div class="highlight"><pre><span></span><code>sh&gt; docker-compose down -v
 </code></pre></div>
-
 
 <p>The "down" operation will remove containers, network and adding the -v
 option it will also remove persistent volumes:</p>
-<div class="codehilite"><pre><span></span><code>Stopping edgex-vault       ... <span class="k">done</span>
+<div class="highlight"><pre><span></span><code>Stopping edgex-vault       ... <span class="k">done</span>
 Stopping edgex-core-consul ... <span class="k">done</span>
 Stopping edgex-files       ... <span class="k">done</span>
 Removing edgex-vault-worker ... <span class="k">done</span>
@@ -2219,7 +2295,6 @@ Removing volume security-secret-store_vault-file
 Removing volume security-secret-store_vault-logs
 </code></pre></div>
 
-
 <h3 id="troubleshooting-steps">Troubleshooting steps</h3>
 <p>For debugging purpose, the Secret Store services can be started
 individually with these commands. A pre-requisite being to carefully
@@ -2227,7 +2302,7 @@ follow the invocation sequence in order to avoid any dependency failure.
 Lines starting with # (hashtag) are contextual comments to explicit the
 purpose of the above corresponding command:</p>
 <h4 id="clean-up">Clean-up</h4>
-<div class="codehilite"><pre><span></span><code>sh&gt; <span class="nb">cd</span> &lt;path-to-EdgeX-Foundry-Secret-Store&gt;
+<div class="highlight"><pre><span></span><code>sh&gt; <span class="nb">cd</span> &lt;path-to-EdgeX-Foundry-Secret-Store&gt;
 <span class="c1"># &lt;...&gt;/security-secret-store/</span>
 
 sh&gt; docker-compose down -v
@@ -2245,14 +2320,12 @@ sh&gt; docker network ls
 sh&gt; docker network rm edgex-network
 </code></pre></div>
 
-
 <h4 id="start-the-first-service-volume-platform-volume-initializations">Start the first service: volume (platform volume initializations)</h4>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker-compose up -d volume
+<div class="highlight"><pre><span></span><code>sh&gt; docker-compose up -d volume
 </code></pre></div>
 
-
 <p>Sample output:</p>
-<div class="codehilite"><pre><span></span><code>Creating network <span class="s2">&quot;security-secret-store_edgex-network&quot;</span> with driver <span class="s2">&quot;bridge&quot;</span>
+<div class="highlight"><pre><span></span><code>Creating network <span class="s2">&quot;security-secret-store_edgex-network&quot;</span> with driver <span class="s2">&quot;bridge&quot;</span>
 Creating volume <span class="s2">&quot;security-secret-store_db-data&quot;</span> with default driver
 Creating volume <span class="s2">&quot;security-secret-store_log-data&quot;</span> with default driver
 Creating volume <span class="s2">&quot;security-secret-store_consul-config&quot;</span> with default driver
@@ -2263,81 +2336,72 @@ Creating volume <span class="s2">&quot;security-secret-store_vault-logs&quot;</s
 Creating edgex-files ... <span class="k">done</span>
 </code></pre></div>
 
-
 <h4 id="start-the-second-service-consul-consul-is-vault-store-backend">Start the second service: consul (Consul is Vault store backend)</h4>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker-compose up -d consul
+<div class="highlight"><pre><span></span><code>sh&gt; docker-compose up -d consul
 </code></pre></div>
 
-
 <p>Sample output:</p>
-<div class="codehilite"><pre><span></span><code>edgex-files is up-to-date
+<div class="highlight"><pre><span></span><code>edgex-files is up-to-date
 Creating edgex-core-consul ... <span class="k">done</span>
 </code></pre></div>
 
-
 <p>Display and inspect consul service logs: important lines are highlighted</p>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker-compose logs consul
+<div class="highlight"><pre><span></span><code>sh&gt; docker-compose logs consul
 </code></pre></div>
-
 
 <p>Sample output:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">Attaching</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="o">==&gt;</span><span class="w"> </span><span class="n">Starting</span><span class="w"> </span><span class="n">Consul</span><span class="w"> </span><span class="n">agent</span><span class="p">...</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="o">==&gt;</span><span class="w"> </span><span class="n">Consul</span><span class="w"> </span><span class="n">agent</span><span class="w"> </span><span class="n">running</span><span class="err">!</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">            </span><span class="nl">Version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;v1.1.0&#39;</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">            </span><span class="n">Node</span><span class="w"> </span><span class="nl">ID</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;371cbce6-02a8-65f6-ddea-6df5c40a4c50&#39;</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">          </span><span class="n">Node</span><span class="w"> </span><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;edgex-core-consul&#39;</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">         </span><span class="nl">Datacenter</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;dc1&#39;</span><span class="w"> </span><span class="p">(</span><span class="nl">Segment</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&lt;all&gt;&#39;</span><span class="p">)</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">             </span><span class="nl">Server</span><span class="p">:</span><span class="w"> </span><span class="k">true</span><span class="w"> </span><span class="p">(</span><span class="nl">Bootstrap</span><span class="p">:</span><span class="w"> </span><span class="k">false</span><span class="p">)</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">        </span><span class="n">Client</span><span class="w"> </span><span class="nl">Addr</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="n">0.0.0.0</span><span class="o">]</span><span class="w"> </span><span class="p">(</span><span class="nl">HTTP</span><span class="p">:</span><span class="w"> </span><span class="mi">8500</span><span class="p">,</span><span class="w"> </span><span class="nl">HTTPS</span><span class="p">:</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nl">DNS</span><span class="p">:</span><span class="w"> </span><span class="mi">8600</span><span class="p">)</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">       </span><span class="n">Cluster</span><span class="w"> </span><span class="nl">Addr</span><span class="p">:</span><span class="w"> </span><span class="mf">127.0.0.1</span><span class="w"> </span><span class="p">(</span><span class="nl">LAN</span><span class="p">:</span><span class="w"> </span><span class="mi">8301</span><span class="p">,</span><span class="w"> </span><span class="nl">WAN</span><span class="p">:</span><span class="w"> </span><span class="mi">8302</span><span class="p">)</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">            </span><span class="nl">Encrypt</span><span class="p">:</span><span class="w"> </span><span class="nl">Gossip</span><span class="p">:</span><span class="w"> </span><span class="k">false</span><span class="p">,</span><span class="w"> </span><span class="n">TLS</span><span class="o">-</span><span class="nl">Outgoing</span><span class="p">:</span><span class="w"> </span><span class="k">false</span><span class="p">,</span><span class="w"> </span><span class="n">TLS</span><span class="o">-</span><span class="nl">Incoming</span><span class="p">:</span><span class="w"> </span><span class="k">false</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="o">==&gt;</span><span class="w"> </span><span class="nf">Log</span><span class="w"> </span><span class="k">data</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="n">stream</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="nl">occurs</span><span class="p">:</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">DEBUG</span><span class="o">]</span><span class="w"> </span><span class="nl">agent</span><span class="p">:</span><span class="w"> </span><span class="k">Using</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="ss">&quot;371cbce6-02a8-65f6-ddea-6df5c40a4c50&quot;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="n">ID</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="nl">raft</span><span class="p">:</span><span class="w"> </span><span class="n">Initial</span><span class="w"> </span><span class="n">configuration</span><span class="w"> </span><span class="p">(</span><span class="k">index</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="err">:</span><span class="w"> </span><span class="o">[</span><span class="n">{Suffrage:Voter ID:371cbce6-02a8-65f6-ddea-6df5c40a4c50 Address:127.0.0.1:8300}</span><span class="o">]</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="nl">raft</span><span class="p">:</span><span class="w"> </span><span class="n">Node</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="mf">127.0.0.1</span><span class="err">:</span><span class="mi">8300</span><span class="w"> </span><span class="o">[</span><span class="n">Follower</span><span class="o">]</span><span class="w"> </span><span class="n">entering</span><span class="w"> </span><span class="n">Follower</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="p">(</span><span class="nl">Leader</span><span class="p">:</span><span class="w"> </span><span class="ss">&quot;&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="nl">serf</span><span class="p">:</span><span class="w"> </span><span class="nl">EventMemberJoin</span><span class="p">:</span><span class="w"> </span><span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="p">.</span><span class="n">dc1</span><span class="w"> </span><span class="mf">127.0.0.1</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="nl">serf</span><span class="p">:</span><span class="w"> </span><span class="nl">EventMemberJoin</span><span class="p">:</span><span class="w"> </span><span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w"> </span><span class="mf">127.0.0.1</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="nl">consul</span><span class="p">:</span><span class="w"> </span><span class="n">Adding</span><span class="w"> </span><span class="n">LAN</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w"> </span><span class="p">(</span><span class="nl">Addr</span><span class="p">:</span><span class="w"> </span><span class="n">tcp</span><span class="o">/</span><span class="mf">127.0.0.1</span><span class="err">:</span><span class="mi">8300</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nl">DC</span><span class="p">:</span><span class="w"> </span><span class="n">dc1</span><span class="p">)</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="nl">consul</span><span class="p">:</span><span class="w"> </span><span class="n">Handled</span><span class="w"> </span><span class="k">member</span><span class="o">-</span><span class="k">join</span><span class="w"> </span><span class="n">event</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="ss">&quot;edgex-core-consul.dc1&quot;</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">area</span><span class="w"> </span><span class="ss">&quot;wan&quot;</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="nl">agent</span><span class="p">:</span><span class="w"> </span><span class="n">Started</span><span class="w"> </span><span class="n">DNS</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="mf">0.0.0.0</span><span class="err">:</span><span class="mi">8600</span><span class="w"> </span><span class="p">(</span><span class="n">tcp</span><span class="p">)</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="nl">agent</span><span class="p">:</span><span class="w"> </span><span class="n">Started</span><span class="w"> </span><span class="n">DNS</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="mf">0.0.0.0</span><span class="err">:</span><span class="mi">8600</span><span class="w"> </span><span class="p">(</span><span class="n">udp</span><span class="p">)</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="nl">agent</span><span class="p">:</span><span class="w"> </span><span class="n">Started</span><span class="w"> </span><span class="n">HTTP</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="o">[</span><span class="n">::</span><span class="o">]</span><span class="err">:</span><span class="mi">8500</span><span class="w"> </span><span class="p">(</span><span class="n">tcp</span><span class="p">)</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="nl">agent</span><span class="p">:</span><span class="w"> </span><span class="n">started</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">syncer</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">WARN</span><span class="o">]</span><span class="w"> </span><span class="nl">raft</span><span class="p">:</span><span class="w"> </span><span class="n">Heartbeat</span><span class="w"> </span><span class="n">timeout</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="ss">&quot;&quot;</span><span class="w"> </span><span class="n">reached</span><span class="p">,</span><span class="w"> </span><span class="n">starting</span><span class="w"> </span><span class="n">election</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="nl">raft</span><span class="p">:</span><span class="w"> </span><span class="n">Node</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="mf">127.0.0.1</span><span class="err">:</span><span class="mi">8300</span><span class="w"> </span><span class="o">[</span><span class="n">Candidate</span><span class="o">]</span><span class="w"> </span><span class="n">entering</span><span class="w"> </span><span class="n">Candidate</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">term</span><span class="w"> </span><span class="mi">2</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">DEBUG</span><span class="o">]</span><span class="w"> </span><span class="nl">raft</span><span class="p">:</span><span class="w"> </span><span class="n">Votes</span><span class="w"> </span><span class="nl">needed</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">DEBUG</span><span class="o">]</span><span class="w"> </span><span class="nl">raft</span><span class="p">:</span><span class="w"> </span><span class="n">Vote</span><span class="w"> </span><span class="n">granted</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="mi">371</span><span class="n">cbce6</span><span class="o">-</span><span class="mi">02</span><span class="n">a8</span><span class="o">-</span><span class="mi">65</span><span class="n">f6</span><span class="o">-</span><span class="n">ddea</span><span class="o">-</span><span class="mi">6</span><span class="n">df5c40a4c50</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">term</span><span class="w"> </span><span class="mf">2.</span><span class="w"> </span><span class="nl">Tally</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="nl">raft</span><span class="p">:</span><span class="w"> </span><span class="n">Election</span><span class="w"> </span><span class="n">won</span><span class="p">.</span><span class="w"> </span><span class="nl">Tally</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="nl">raft</span><span class="p">:</span><span class="w"> </span><span class="n">Node</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="mf">127.0.0.1</span><span class="err">:</span><span class="mi">8300</span><span class="w"> </span><span class="o">[</span><span class="n">Leader</span><span class="o">]</span><span class="w"> </span><span class="n">entering</span><span class="w"> </span><span class="n">Leader</span><span class="w"> </span><span class="k">state</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="nl">consul</span><span class="p">:</span><span class="w"> </span><span class="n">cluster</span><span class="w"> </span><span class="n">leadership</span><span class="w"> </span><span class="n">acquired</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code>Attaching to edgex-core-consul
+edgex-core-consul  | ==&gt; Starting Consul agent...
+edgex-core-consul  | ==&gt; Consul agent running!
+edgex-core-consul  |            Version: &#39;v1.1.0&#39;
+edgex-core-consul  |            Node ID: &#39;371cbce6-02a8-65f6-ddea-6df5c40a4c50&#39;
+edgex-core-consul  |          Node name: &#39;edgex-core-consul&#39;
+edgex-core-consul  |         Datacenter: &#39;dc1&#39; (Segment: &#39;&lt;all&gt;&#39;)
+edgex-core-consul  |             Server: true (Bootstrap: false)
+edgex-core-consul  |        Client Addr: [0.0.0.0] (HTTP: 8500, HTTPS: -1, DNS: 8600)
+edgex-core-consul  |       Cluster Addr: 127.0.0.1 (LAN: 8301, WAN: 8302)
+edgex-core-consul  |            Encrypt: Gossip: false, TLS-Outgoing: false, TLS-Incoming: false
+edgex-core-consul  |
+edgex-core-consul  | ==&gt; Log data will now stream in as it occurs:
+edgex-core-consul  |
+edgex-core-consul  |     2019/01/13 13:25:06 [DEBUG] agent: Using random ID &quot;371cbce6-02a8-65f6-ddea-6df5c40a4c50&quot; as node ID
+edgex-core-consul  |     2019/01/13 13:25:06 [INFO] raft: Initial configuration (index=1): [{Suffrage:Voter ID:371cbce6-02a8-65f6-ddea-6df5c40a4c50 Address:127.0.0.1:8300}]
+edgex-core-consul  |     2019/01/13 13:25:06 [INFO] raft: Node at 127.0.0.1:8300 [Follower] entering Follower state (Leader: &quot;&quot;)
+edgex-core-consul  |     2019/01/13 13:25:06 [INFO] serf: EventMemberJoin: edgex-core-consul.dc1 127.0.0.1
+edgex-core-consul  |     2019/01/13 13:25:06 [INFO] serf: EventMemberJoin: edgex-core-consul 127.0.0.1
+edgex-core-consul  |     2019/01/13 13:25:06 [INFO] consul: Adding LAN server edgex-core-consul (Addr: tcp/127.0.0.1:8300) (DC: dc1)
+edgex-core-consul  |     2019/01/13 13:25:06 [INFO] consul: Handled member-join event for server &quot;edgex-core-consul.dc1&quot; in area &quot;wan&quot;
+edgex-core-consul  |     2019/01/13 13:25:06 [INFO] agent: Started DNS server 0.0.0.0:8600 (tcp)
+edgex-core-consul  |     2019/01/13 13:25:06 [INFO] agent: Started DNS server 0.0.0.0:8600 (udp)
+edgex-core-consul  |     2019/01/13 13:25:06 [INFO] agent: Started HTTP server on [::]:8500 (tcp)
+edgex-core-consul  |     2019/01/13 13:25:06 [INFO] agent: started state syncer
+edgex-core-consul  |     2019/01/13 13:25:06 [WARN] raft: Heartbeat timeout from &quot;&quot; reached, starting election
+edgex-core-consul  |     2019/01/13 13:25:06 [INFO] raft: Node at 127.0.0.1:8300 [Candidate] entering Candidate state in term 2
+edgex-core-consul  |     2019/01/13 13:25:06 [DEBUG] raft: Votes needed: 1
+edgex-core-consul  |     2019/01/13 13:25:06 [DEBUG] raft: Vote granted from 371cbce6-02a8-65f6-ddea-6df5c40a4c50 in term 2. Tally: 1
+edgex-core-consul  |     2019/01/13 13:25:06 [INFO] raft: Election won. Tally: 1
+edgex-core-consul  |     2019/01/13 13:25:06 [INFO] raft: Node at 127.0.0.1:8300 [Leader] entering Leader state
+edgex-core-consul  |     2019/01/13 13:25:06 [INFO] consul: cluster leadership acquired
 </code></pre></div>
-
 
 <h4 id="start-the-third-service-config-seed-platform-configuration-initializations">Start the third service: config-seed (platform configuration initializations)</h4>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker-compose up -d config-seed
+<div class="highlight"><pre><span></span><code>sh&gt; docker-compose up -d config-seed
 </code></pre></div>
 
-
 <p>Sample output:</p>
-<div class="codehilite"><pre><span></span><code>edgex-files is up-to-date
+<div class="highlight"><pre><span></span><code>edgex-files is up-to-date
 edgex-core-consul is up-to-date
 Creating edgex-config-seed ... <span class="k">done</span>
 </code></pre></div>
 
-
 <p>Display and inspect the created container states: important lines are
 highlighted</p>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker-compose ps
+<div class="highlight"><pre><span></span><code>sh&gt; docker-compose ps
 </code></pre></div>
-
 
 <p>Sample output:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">Name                     Command               State                                      Ports</span>
+<div class="highlight"><pre><span></span><code>Name                     Command               State                                      Ports
 </code></pre></div>
-
 
 <blockquote>
 <p>---------------------------------------------------------------------------------------------------------------------------------------edgex-config-seed
@@ -2359,41 +2423,37 @@ processing (exit code 0)</p>
 <code>vault-worker</code> service will process the initialization and unsealing
 tasks.</p>
 </div>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker-compose up -d vault
+<div class="highlight"><pre><span></span><code>sh&gt; docker-compose up -d vault
 </code></pre></div>
 
-
 <p>Sample output:</p>
-<div class="codehilite"><pre><span></span><code>edgex-files is up-to-date
+<div class="highlight"><pre><span></span><code>edgex-files is up-to-date
 edgex-core-consul is up-to-date
 Creating edgex-vault ... <span class="k">done</span>
 </code></pre></div>
 
-
 <p>Display and inspect "vault" service logs: important lines are
 highlighted</p>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker-compose logs vault
+<div class="highlight"><pre><span></span><code>sh&gt; docker-compose logs vault
 </code></pre></div>
-
 
 <p>Sample output:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">Attaching to edgex-vault</span>
-<span class="err">edgex-vault        | ==&gt; Vault server configuration:</span>
-<span class="err">edgex-vault        |</span>
-<span class="err">edgex-vault        |              Api Address: https://edgex-vault:8200</span>
-<span class="err">edgex-vault        |                      Cgo: disabled</span>
-<span class="err">edgex-vault        |          Cluster Address: https://edgex-vault:8201</span>
-<span class="err">edgex-vault        |               Listener 1: tcp (addr: &quot;edgex-vault:8200&quot;, cluster address: &quot;edgex-vault:8201&quot;, tls: &quot;enabled&quot;)</span>
-<span class="err">edgex-vault        |                Log Level: info</span>
-<span class="err">edgex-vault        |                    Mlock: supported: true, enabled: true</span>
-<span class="err">edgex-vault        |                  Storage: consul (HA available)</span>
-<span class="err">edgex-vault        |                  Version: Vault v0.10.2</span>
-<span class="err">edgex-vault        |              Version Sha: 3ee0802ed08cb7f4046c2151ec4671a076b76166</span>
-<span class="err">edgex-vault        |</span>
-<span class="err">edgex-vault        | ==&gt; Vault server started! Log data will stream in below:</span>
-<span class="err">edgex-vault        |</span>
+<div class="highlight"><pre><span></span><code>Attaching to edgex-vault
+edgex-vault        | ==&gt; Vault server configuration:
+edgex-vault        |
+edgex-vault        |              Api Address: https://edgex-vault:8200
+edgex-vault        |                      Cgo: disabled
+edgex-vault        |          Cluster Address: https://edgex-vault:8201
+edgex-vault        |               Listener 1: tcp (addr: &quot;edgex-vault:8200&quot;, cluster address: &quot;edgex-vault:8201&quot;, tls: &quot;enabled&quot;)
+edgex-vault        |                Log Level: info
+edgex-vault        |                    Mlock: supported: true, enabled: true
+edgex-vault        |                  Storage: consul (HA available)
+edgex-vault        |                  Version: Vault v0.10.2
+edgex-vault        |              Version Sha: 3ee0802ed08cb7f4046c2151ec4671a076b76166
+edgex-vault        |
+edgex-vault        | ==&gt; Vault server started! Log data will stream in below:
+edgex-vault        |
 </code></pre></div>
-
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2402,121 +2462,115 @@ highlighted</p>
 <p>Line 10: Vault backend storage is <strong>Consul</strong>.</p>
 </div>
 <h4 id="start-the-fifth-service-vault-worker-vault-initunseal-process-and-setups">Start the fifth service: vault-worker (Vault init/unseal process and setups)</h4>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker-compose up -d vault-worker
+<div class="highlight"><pre><span></span><code>sh&gt; docker-compose up -d vault-worker
 </code></pre></div>
 
-
 <p>Sample output:</p>
-<div class="codehilite"><pre><span></span><code>edgex-files is up-to-date
+<div class="highlight"><pre><span></span><code>edgex-files is up-to-date
 edgex-core-consul is up-to-date
 edgex-vault is up-to-date
 Creating edgex-vault-worker ... <span class="k">done</span>
 </code></pre></div>
 
-
 <p>Display and inspect "vault-worker" service logs: important lines are
 highlighted</p>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker-compose logs vault-worker
+<div class="highlight"><pre><span></span><code>sh&gt; docker-compose logs vault-worker
 </code></pre></div>
-
 
 <p>Sample output:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">Attaching to edgex-vault-worker</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:42 successful loading the rootCA cert.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:43 {&quot;keys&quot;:[&quot;564b9444eebe28b393c21a4dca1e32835b7dc27f5da03b73d22b666cb20224a9&quot;],&quot;keys_base64&quot;:[&quot;VkuURO6+KLOTwhpNyh4yg1t9wn9doDtz0itmbLICJKk=&quot;],&quot;recovery_keys&quot;:null,&quot;recovery_keys_base64&quot;:null,&quot;root_token&quot;:&quot;01dbbae4-353a-8cdf-8189-4d50e5535a6f&quot;}</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:43 Vault has been initialized successfully.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:43 Vault has been unsealed successfully.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Vault Health Check HTTP Status: 200 OK (StatusCode: 200)</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Verifying Admin policy file hash (SHA256).</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Vault policy file checksum (SHA256): 5ce8d58cf7d931735f6532742f677c109a91a263bcefe9aef73ab2a69f4b43d3</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Reading Admin policy file.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Importing Vault Admin policy.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Import Policy Successfull.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Reading Kong policy file.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Importing Vault Kong policy.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Import Policy Successfull.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Creating Vault Admin token.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Create Token Successfull.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Creating Vault Kong token.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Create Token Successfull.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Successful on reading certificate from v1/secret/edgex/pki/tls/edgex-kong.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Cert&amp;key are not in the secret store yet, will need to upload them.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Load cert&amp;key pair from volume successfully, now will upload to secret store.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Trying to upload cert&amp;key to secret store.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Successful to add certificate to the secret store.</span>
+<div class="highlight"><pre><span></span><code>Attaching to edgex-vault-worker
+edgex-vault-worker | INFO: 2019/01/13 13:35:42 successful loading the rootCA cert.
+edgex-vault-worker | INFO: 2019/01/13 13:35:43 {&quot;keys&quot;:[&quot;564b9444eebe28b393c21a4dca1e32835b7dc27f5da03b73d22b666cb20224a9&quot;],&quot;keys_base64&quot;:[&quot;VkuURO6+KLOTwhpNyh4yg1t9wn9doDtz0itmbLICJKk=&quot;],&quot;recovery_keys&quot;:null,&quot;recovery_keys_base64&quot;:null,&quot;root_token&quot;:&quot;01dbbae4-353a-8cdf-8189-4d50e5535a6f&quot;}
+edgex-vault-worker | INFO: 2019/01/13 13:35:43 Vault has been initialized successfully.
+edgex-vault-worker | INFO: 2019/01/13 13:35:43 Vault has been unsealed successfully.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Vault Health Check HTTP Status: 200 OK (StatusCode: 200)
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Verifying Admin policy file hash (SHA256).
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Vault policy file checksum (SHA256): 5ce8d58cf7d931735f6532742f677c109a91a263bcefe9aef73ab2a69f4b43d3
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Reading Admin policy file.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Importing Vault Admin policy.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Import Policy Successfull.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Reading Kong policy file.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Importing Vault Kong policy.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Import Policy Successfull.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Creating Vault Admin token.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Create Token Successfull.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Creating Vault Kong token.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Create Token Successfull.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Successful on reading certificate from v1/secret/edgex/pki/tls/edgex-kong.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Cert&amp;key are not in the secret store yet, will need to upload them.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Load cert&amp;key pair from volume successfully, now will upload to secret store.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Trying to upload cert&amp;key to secret store.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Successful to add certificate to the secret store.
 </code></pre></div>
-
 
 <p>Display and inspect "vault" service logs: important lines are
 highlighted</p>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker-compose logs vault
+<div class="highlight"><pre><span></span><code>sh&gt; docker-compose logs vault
 </code></pre></div>
-
 
 <p>Sample output:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">Attaching to edgex-vault</span>
-<span class="err">edgex-vault        | ==&gt; Vault server configuration:</span>
-<span class="err">edgex-vault        |</span>
-<span class="err">edgex-vault        |              Api Address: https://edgex-vault:8200</span>
-<span class="err">edgex-vault        |                      Cgo: disabled</span>
-<span class="err">edgex-vault        |          Cluster Address: https://edgex-vault:8201</span>
-<span class="err">edgex-vault        |               Listener 1: tcp (addr: &quot;edgex-vault:8200&quot;, cluster address: &quot;edgex-vault:8201&quot;, tls: enabled&quot;)</span>
-<span class="err">edgex-vault        |                Log Level: info</span>
-<span class="err">edgex-vault        |                    Mlock: supported: true, enabled: true</span>
-<span class="err">edgex-vault        |                  Storage: consul (HA available)</span>
-<span class="err">edgex-vault        |                  Version: Vault v0.10.2</span>
-<span class="err">edgex-vault        |              Version Sha: 3ee0802ed08cb7f4046c2151ec4671a076b76166</span>
-<span class="err">edgex-vault        |</span>
-<span class="err">edgex-vault        | ==&gt; Vault server started! Log data will stream in below:</span>
-<span class="err">edgex-vault        |</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.549Z [INFO ] core: security barrier not initialized</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.551Z [INFO ] core: security barrier not initialized</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.554Z [INFO ] core: security barrier initialized: shares=1 threshold=1</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.575Z [INFO ] core: post-unseal setup starting</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.583Z [INFO ] core: loaded wrapping token key</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.583Z [INFO ] core: successfully setup plugin catalog: plugin-directory=</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.584Z [INFO ] core: no mounts; adding default mount table</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.585Z [INFO ] core: successfully mounted backend: type=kv path=secret/</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.586Z [INFO ] core: successfully mounted backend: type=cubbyhole path=cubbyhole/</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.586Z [INFO ] core: successfully mounted backend: type=system path=sys/</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.586Z [INFO ] core: successfully mounted backend: type=identity path=identity/</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.593Z [INFO ] core: restoring leases</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.593Z [INFO ] rollback: starting rollback manager</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.594Z [INFO ] expiration: lease restore complete</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.596Z [INFO ] identity: entities restored</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.597Z [INFO ] identity: groups restored</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.597Z [INFO ] core: post-unseal setup complete</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.597Z [INFO ] core: core/startClusterListener: starting listener: listener_address=172.19.0.4:8201</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.597Z [INFO ] core: core/startClusterListener: serving cluster requests: cluster_listen_address=172.19.0.4:8201</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.600Z [INFO ] core: root token generated</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.600Z [INFO ] core: pre-seal teardown starting</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.600Z [INFO ] core: stopping cluster listeners</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.600Z [INFO ] core: shutting down forwarding rpc listeners</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.600Z [INFO ] core: forwarding rpc listeners stopped</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.099Z [INFO ] core: rpc listeners successfully shut down</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.099Z [INFO ] core: cluster listeners successfully shut down</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.100Z [INFO ] rollback: stopping rollback manager</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.100Z [INFO ] core: pre-seal teardown complete</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.105Z [INFO ] core: vault is unsealed</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.105Z [INFO ] core: entering standby mode</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.109Z [INFO ] core: acquired lock, enabling active operation</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.134Z [INFO ] core: post-unseal setup starting</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.135Z [INFO ] core: loaded wrapping token key</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.135Z [INFO ] core: successfully setup plugin catalog: plugin-directory=</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.137Z [INFO ] core: successfully mounted backend: type=kv path=secret/</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.137Z [INFO ] core: successfully mounted backend: type=system path=sys/</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.137Z [INFO ] core: successfully mounted backend: type=identity path=identity/</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.137Z [INFO ] core: successfully mounted backend: type=cubbyhole path=cubbyhole/</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.141Z [INFO ] core: restoring leases</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.142Z [INFO ] rollback: starting rollback manager</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.142Z [INFO ] expiration: lease restore complete</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.143Z [INFO ] identity: entities restored</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.143Z [INFO ] identity: groups restored</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.144Z [INFO ] core: post-unseal setup complete</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.144Z [INFO ] core: core/startClusterListener: starting listener: listener_address=172.19.0.4:8201</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.144Z [INFO ] core: core/startClusterListener: serving cluster requests: cluster_listen_address=172.19.0.4:8201</span>
+<div class="highlight"><pre><span></span><code>Attaching to edgex-vault
+edgex-vault        | ==&gt; Vault server configuration:
+edgex-vault        |
+edgex-vault        |              Api Address: https://edgex-vault:8200
+edgex-vault        |                      Cgo: disabled
+edgex-vault        |          Cluster Address: https://edgex-vault:8201
+edgex-vault        |               Listener 1: tcp (addr: &quot;edgex-vault:8200&quot;, cluster address: &quot;edgex-vault:8201&quot;, tls: enabled&quot;)
+edgex-vault        |                Log Level: info
+edgex-vault        |                    Mlock: supported: true, enabled: true
+edgex-vault        |                  Storage: consul (HA available)
+edgex-vault        |                  Version: Vault v0.10.2
+edgex-vault        |              Version Sha: 3ee0802ed08cb7f4046c2151ec4671a076b76166
+edgex-vault        |
+edgex-vault        | ==&gt; Vault server started! Log data will stream in below:
+edgex-vault        |
+edgex-vault        | 2019-01-13T13:35:42.549Z [INFO ] core: security barrier not initialized
+edgex-vault        | 2019-01-13T13:35:42.551Z [INFO ] core: security barrier not initialized
+edgex-vault        | 2019-01-13T13:35:42.554Z [INFO ] core: security barrier initialized: shares=1 threshold=1
+edgex-vault        | 2019-01-13T13:35:42.575Z [INFO ] core: post-unseal setup starting
+edgex-vault        | 2019-01-13T13:35:42.583Z [INFO ] core: loaded wrapping token key
+edgex-vault        | 2019-01-13T13:35:42.583Z [INFO ] core: successfully setup plugin catalog: plugin-directory=
+edgex-vault        | 2019-01-13T13:35:42.584Z [INFO ] core: no mounts; adding default mount table
+edgex-vault        | 2019-01-13T13:35:42.585Z [INFO ] core: successfully mounted backend: type=kv path=secret/
+edgex-vault        | 2019-01-13T13:35:42.586Z [INFO ] core: successfully mounted backend: type=cubbyhole path=cubbyhole/
+edgex-vault        | 2019-01-13T13:35:42.586Z [INFO ] core: successfully mounted backend: type=system path=sys/
+edgex-vault        | 2019-01-13T13:35:42.586Z [INFO ] core: successfully mounted backend: type=identity path=identity/
+edgex-vault        | 2019-01-13T13:35:42.593Z [INFO ] core: restoring leases
+edgex-vault        | 2019-01-13T13:35:42.593Z [INFO ] rollback: starting rollback manager
+edgex-vault        | 2019-01-13T13:35:42.594Z [INFO ] expiration: lease restore complete
+edgex-vault        | 2019-01-13T13:35:42.596Z [INFO ] identity: entities restored
+edgex-vault        | 2019-01-13T13:35:42.597Z [INFO ] identity: groups restored
+edgex-vault        | 2019-01-13T13:35:42.597Z [INFO ] core: post-unseal setup complete
+edgex-vault        | 2019-01-13T13:35:42.597Z [INFO ] core: core/startClusterListener: starting listener: listener_address=172.19.0.4:8201
+edgex-vault        | 2019-01-13T13:35:42.597Z [INFO ] core: core/startClusterListener: serving cluster requests: cluster_listen_address=172.19.0.4:8201
+edgex-vault        | 2019-01-13T13:35:42.600Z [INFO ] core: root token generated
+edgex-vault        | 2019-01-13T13:35:42.600Z [INFO ] core: pre-seal teardown starting
+edgex-vault        | 2019-01-13T13:35:42.600Z [INFO ] core: stopping cluster listeners
+edgex-vault        | 2019-01-13T13:35:42.600Z [INFO ] core: shutting down forwarding rpc listeners
+edgex-vault        | 2019-01-13T13:35:42.600Z [INFO ] core: forwarding rpc listeners stopped
+edgex-vault        | 2019-01-13T13:35:43.099Z [INFO ] core: rpc listeners successfully shut down
+edgex-vault        | 2019-01-13T13:35:43.099Z [INFO ] core: cluster listeners successfully shut down
+edgex-vault        | 2019-01-13T13:35:43.100Z [INFO ] rollback: stopping rollback manager
+edgex-vault        | 2019-01-13T13:35:43.100Z [INFO ] core: pre-seal teardown complete
+edgex-vault        | 2019-01-13T13:35:43.105Z [INFO ] core: vault is unsealed
+edgex-vault        | 2019-01-13T13:35:43.105Z [INFO ] core: entering standby mode
+edgex-vault        | 2019-01-13T13:35:43.109Z [INFO ] core: acquired lock, enabling active operation
+edgex-vault        | 2019-01-13T13:35:43.134Z [INFO ] core: post-unseal setup starting
+edgex-vault        | 2019-01-13T13:35:43.135Z [INFO ] core: loaded wrapping token key
+edgex-vault        | 2019-01-13T13:35:43.135Z [INFO ] core: successfully setup plugin catalog: plugin-directory=
+edgex-vault        | 2019-01-13T13:35:43.137Z [INFO ] core: successfully mounted backend: type=kv path=secret/
+edgex-vault        | 2019-01-13T13:35:43.137Z [INFO ] core: successfully mounted backend: type=system path=sys/
+edgex-vault        | 2019-01-13T13:35:43.137Z [INFO ] core: successfully mounted backend: type=identity path=identity/
+edgex-vault        | 2019-01-13T13:35:43.137Z [INFO ] core: successfully mounted backend: type=cubbyhole path=cubbyhole/
+edgex-vault        | 2019-01-13T13:35:43.141Z [INFO ] core: restoring leases
+edgex-vault        | 2019-01-13T13:35:43.142Z [INFO ] rollback: starting rollback manager
+edgex-vault        | 2019-01-13T13:35:43.142Z [INFO ] expiration: lease restore complete
+edgex-vault        | 2019-01-13T13:35:43.143Z [INFO ] identity: entities restored
+edgex-vault        | 2019-01-13T13:35:43.143Z [INFO ] identity: groups restored
+edgex-vault        | 2019-01-13T13:35:43.144Z [INFO ] core: post-unseal setup complete
+edgex-vault        | 2019-01-13T13:35:43.144Z [INFO ] core: core/startClusterListener: starting listener: listener_address=172.19.0.4:8201
+edgex-vault        | 2019-01-13T13:35:43.144Z [INFO ] core: core/startClusterListener: serving cluster requests: cluster_listen_address=172.19.0.4:8201
 </code></pre></div>
-
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2528,14 +2582,12 @@ highlighted</p>
 </div>
 <p>Display and inspect the created container states: important lines are
 highlighted</p>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker-compose ps
+<div class="highlight"><pre><span></span><code>sh&gt; docker-compose ps
 </code></pre></div>
-
 
 <p>Sample output:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">Name                     Command               State                                     Ports</span>
+<div class="highlight"><pre><span></span><code>Name                     Command               State                                     Ports
 </code></pre></div>
-
 
 <blockquote>
 <p>---------------------------------------------------------------------------------------------------------------------------------------edgex-config-seed
@@ -2554,7 +2606,7 @@ processing (exit code 0)</p>
 </div>
 <p>Display and inspect the created container volumes: important lines are
 highlighted</p>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker volume ls
+<div class="highlight"><pre><span></span><code>sh&gt; docker volume ls
 DRIVER              VOLUME NAME
 <span class="nb">local</span>               security-secret-store_consul-config
 <span class="nb">local</span>               security-secret-store_consul-data
@@ -2565,17 +2617,15 @@ DRIVER              VOLUME NAME
 <span class="nb">local</span>               security-secret-store_vault-logs
 </code></pre></div>
 
-
 <p>Display and inspect the container network
 (<code>security-secret-store_edgex-network</code>): important lines are highlighted</p>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker network ls
+<div class="highlight"><pre><span></span><code>sh&gt; docker network ls
 NETWORK ID          NAME                                  DRIVER              SCOPE
 63227826fbc7        bridge                                bridge              <span class="nb">local</span>
 60763abffde3        host                                  host                <span class="nb">local</span>
 1d236ab1dbbd        none                                  null                <span class="nb">local</span>
 0a7f7266d102        security-secret-store_edgex-network   bridge              <span class="nb">local</span>
 </code></pre></div>
-
 
 <h3 id="using-consul-web-ui">Using Consul Web UI</h3>
 <p>For learning and verification purposes one might use the Consul Web UI
@@ -2632,7 +2682,7 @@ Each Vault secret is encrypted before being transmitted to Consul
 node(s).</p>
 <p><img alt="image" src="../EdgeX-UI-Consul-09.png" /></p>
 <h3 id="shell-access-to-consul-container-and-using-consul-cli">Shell Access to Consul Container and Using Consul CLI</h3>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker <span class="nb">exec</span> -it -e <span class="nv">PS1</span><span class="o">=</span><span class="s1">&#39;\u@\h:\w \$ &#39;</span> edgex-core-consul sh
+<div class="highlight"><pre><span></span><code>sh&gt; docker <span class="nb">exec</span> -it -e <span class="nv">PS1</span><span class="o">=</span><span class="s1">&#39;\u@\h:\w \$ &#39;</span> edgex-core-consul sh
 
 root@edgex-core-consul:/ <span class="c1"># consul members</span>
 Node               Address         Status  Type    Build  Protocol  DC   Segment
@@ -2647,7 +2697,6 @@ consul
 edgex-mongo
 vault
 </code></pre></div>
-
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2664,35 +2713,34 @@ container should be accessed to then modify the JSON file. The absolute
 path being <code>/vault/config/local.json</code>. To reload the new configuration
 simply send Vault PID a HUP signal to trigger a configuration reload.</p>
 <p>Sample Vault server configuration file:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">listener</span> <span class="ss">&quot;tcp&quot;</span> <span class="err">{</span>
-<span class="n">address</span> <span class="o">=</span> <span class="ss">&quot;edgex-vault:8200&quot;</span>
-<span class="n">tls_disable</span> <span class="o">=</span> <span class="ss">&quot;0&quot;</span>
-<span class="n">cluster_address</span> <span class="o">=</span> <span class="ss">&quot;edgex-vault:8201&quot;</span>
-<span class="n">tls_min_version</span> <span class="o">=</span> <span class="ss">&quot;tls12&quot;</span>
-<span class="n">tls_client_ca_file</span> <span class="o">=</span><span class="ss">&quot;/vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem&quot;</span>
-<span class="n">tls_cert_file</span> <span class="o">=</span><span class="ss">&quot;/vault/config/pki/EdgeXFoundryCA/edgex-vault.pem&quot;</span>
-<span class="n">tls_key_file</span> <span class="o">=</span> <span class="ss">&quot;/vault/config/pki/EdgeXFoundryCA/edgex-vault.priv.key&quot;</span>
-<span class="err">}</span>
+<div class="highlight"><pre><span></span><code>listener &quot;tcp&quot; {
+address = &quot;edgex-vault:8200&quot;
+tls_disable = &quot;0&quot;
+cluster_address = &quot;edgex-vault:8201&quot;
+tls_min_version = &quot;tls12&quot;
+tls_client_ca_file =&quot;/vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem&quot;
+tls_cert_file =&quot;/vault/config/pki/EdgeXFoundryCA/edgex-vault.pem&quot;
+tls_key_file = &quot;/vault/config/pki/EdgeXFoundryCA/edgex-vault.priv.key&quot;
+}
 
-<span class="n">backend</span> <span class="ss">&quot;consul&quot;</span> <span class="err">{</span>
-<span class="n">path</span> <span class="o">=</span> <span class="ss">&quot;vault/&quot;</span>
-<span class="n">address</span> <span class="o">=</span> <span class="ss">&quot;edgex-core-consul:8500&quot;</span>
-<span class="n">scheme</span> <span class="o">=</span> <span class="ss">&quot;http&quot;</span>
-<span class="n">redirect_addr</span> <span class="o">=</span> <span class="ss">&quot;https://edgex-vault:8200&quot;</span>
-<span class="n">cluster_addr</span> <span class="o">=</span> <span class="ss">&quot;https://edgex-vault:8201&quot;</span>
-<span class="err">}</span>
+backend &quot;consul&quot; {
+path = &quot;vault/&quot;
+address = &quot;edgex-core-consul:8500&quot;
+scheme = &quot;http&quot;
+redirect_addr = &quot;https://edgex-vault:8200&quot;
+cluster_addr = &quot;https://edgex-vault:8201&quot;
+}
 
-<span class="n">default_lease_ttl</span> <span class="o">=</span> <span class="ss">&quot;168h&quot;</span>
-<span class="n">max_lease_ttl</span> <span class="o">=</span> <span class="ss">&quot;720h&quot;</span>
+default_lease_ttl = &quot;168h&quot;
+max_lease_ttl = &quot;720h&quot;
 </code></pre></div>
-
 
 <p>The <code>listener</code> clause refers to Vault server process (port, TLS and
 server name), the <code>backend</code> clause refers to the storage backend (i.e.
 Consul).</p>
 <p>To modify this configuration file, execute a shell session in the
 running Vault container:</p>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker <span class="nb">exec</span> -it -e <span class="nv">PS1</span><span class="o">=</span><span class="s1">&#39;\u@\h:\w \$ &#39;</span> -e <span class="nv">VAULT_CAPATH</span><span class="o">=</span><span class="s1">&#39;/vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem&#39;</span> edgex-vault sh
+<div class="highlight"><pre><span></span><code>sh&gt; docker <span class="nb">exec</span> -it -e <span class="nv">PS1</span><span class="o">=</span><span class="s1">&#39;\u@\h:\w \$ &#39;</span> -e <span class="nv">VAULT_CAPATH</span><span class="o">=</span><span class="s1">&#39;/vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem&#39;</span> edgex-vault sh
 
 root@edgex-vault:/vault <span class="c1"># ls -l</span>
 total <span class="m">12</span>
@@ -2700,7 +2748,6 @@ drwxr-xr-x    <span class="m">4</span> vault    vault         <span class="m">40
 drwxr-xr-x    <span class="m">2</span> vault    vault         <span class="m">4096</span> Jun  <span class="m">7</span>  <span class="m">2018</span> file
 drwxr-xr-x    <span class="m">2</span> vault    vault         <span class="m">4096</span> Jun  <span class="m">7</span>  <span class="m">2018</span> logs
 </code></pre></div>
-
 
 <p>Pay attention to the <code>VAULT_CAPATH</code> environment variable passed to the
 session. This is necessary in order to run succesful Vault CLI command.
@@ -2718,32 +2765,31 @@ configuration file (see above local.json), with parameter
 <code>tls_client_ca_file ="/vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem"</code>.</p>
 <p>The <code>local.json</code> configuration file can be read and modified within the
 running container:</p>
-<div class="codehilite"><pre><span></span><code><span class="o">&lt;</span><span class="n">root</span><span class="nv">@edgex</span><span class="o">-</span><span class="n">vault</span><span class="o">&gt;</span><span class="err">:</span><span class="o">/</span><span class="n">vault</span><span class="w"> </span><span class="err">\#</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="n">config</span><span class="o">/</span><span class="k">local</span><span class="p">.</span><span class="n">json</span><span class="w"> </span>
-<span class="n">listener</span><span class="w"> </span><span class="ss">&quot;tcp&quot;</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;edgex-vault:8200&quot;</span><span class="w"> </span>
-<span class="w">    </span><span class="n">tls</span><span class="err">\</span><span class="n">_disable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;0&quot;</span><span class="w"> </span>
-<span class="w">    </span><span class="n">cluster</span><span class="err">\</span><span class="n">_address</span><span class="w"> </span><span class="o">=</span><span class="ss">&quot;edgex-vault:8201&quot;</span><span class="w"> </span>
-<span class="w">    </span><span class="n">tls</span><span class="err">\</span><span class="n">_min</span><span class="err">\</span><span class="n">_version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;tls12&quot;</span><span class="w"> </span>
-<span class="w">    </span><span class="n">tls</span><span class="err">\</span><span class="n">_client</span><span class="err">\</span><span class="n">_ca</span><span class="err">\</span><span class="n">_file</span><span class="o">=</span><span class="ss">&quot;/vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem&quot;</span><span class="w"> </span>
-<span class="w">    </span><span class="n">tls</span><span class="err">\</span><span class="n">_cert</span><span class="err">\</span><span class="n">_file</span><span class="o">=</span><span class="ss">&quot;/vault/config/pki/EdgeXFoundryCA/edgex-vault.pem&quot;</span><span class="w"> </span>
-<span class="w">    </span><span class="n">tls</span><span class="err">\</span><span class="n">_key</span><span class="err">\</span><span class="n">_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;/vault/config/pki/EdgeXFoundryCA/edgex-vault.priv.key&quot;</span><span class="w"> </span>
-<span class="err">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code>&lt;root@edgex-vault&gt;:/vault \# cat config/local.json 
+listener &quot;tcp&quot; {
+    address = &quot;edgex-vault:8200&quot; 
+    tls\_disable = &quot;0&quot; 
+    cluster\_address =&quot;edgex-vault:8201&quot; 
+    tls\_min\_version = &quot;tls12&quot; 
+    tls\_client\_ca\_file=&quot;/vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem&quot; 
+    tls\_cert\_file=&quot;/vault/config/pki/EdgeXFoundryCA/edgex-vault.pem&quot; 
+    tls\_key\_file = &quot;/vault/config/pki/EdgeXFoundryCA/edgex-vault.priv.key&quot; 
+}
 
-<span class="n">backend</span><span class="w"> </span><span class="ss">&quot;consul&quot;</span><span class="w"> </span><span class="err">{</span><span class="w"> </span>
-<span class="k">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;vault/&quot;</span><span class="w"> </span>
-<span class="n">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;edgex-core-consul:8500&quot;</span><span class="w"> </span>
-<span class="n">scheme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;http&quot;</span><span class="w"> </span>
-<span class="n">redirect</span><span class="err">\</span><span class="n">_addr</span><span class="w"> </span><span class="o">=</span><span class="ss">&quot;&lt;https://edgex-vault:8200&gt;&quot;</span><span class="w"> </span>
-<span class="n">cluster</span><span class="err">\</span><span class="n">_addr</span><span class="w"> </span><span class="o">=</span><span class="ss">&quot;&lt;https://edgex-vault:8201&gt;&quot;</span><span class="w"> </span>
-<span class="err">}</span><span class="w"></span>
+backend &quot;consul&quot; { 
+path = &quot;vault/&quot; 
+address = &quot;edgex-core-consul:8500&quot; 
+scheme = &quot;http&quot; 
+redirect\_addr =&quot;&lt;https://edgex-vault:8200&gt;&quot; 
+cluster\_addr =&quot;&lt;https://edgex-vault:8201&gt;&quot; 
+}
 
-<span class="k">default</span><span class="err">\</span><span class="n">_lease</span><span class="err">\</span><span class="n">_ttl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;168h&quot;</span><span class="w"> </span>
-<span class="nf">max</span><span class="err">\</span><span class="n">_lease</span><span class="err">\</span><span class="n">_ttl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;720h&quot;</span><span class="w"></span>
+default\_lease\_ttl = &quot;168h&quot; 
+max\_lease\_ttl = &quot;720h&quot;
 </code></pre></div>
 
-
 <p>A sample Vault CLI command to check Vault status:</p>
-<div class="codehilite"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault status</span>
+<div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault status</span>
 Key             Value
 ---             -----
 Seal Type       shamir
@@ -2758,10 +2804,9 @@ HA Cluster      https://edgex-vault:8201
 HA Mode         active
 </code></pre></div>
 
-
 <p>All the X.509 PKI materials including the self-signing CA are located
 under <code>/vault/config/pki/EdgeXFoundryCA</code>.</p>
-<div class="codehilite"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># ls -l config/pki/EdgeXFoundryCA/</span>
+<div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># ls -l config/pki/EdgeXFoundryCA/</span>
 total <span class="m">24</span>
 -rw-r--r--    <span class="m">1</span> vault    vault          <span class="m">956</span> Dec  <span class="m">5</span> <span class="m">14</span>:05 EdgeXFoundryCA.pem
 -r--------    <span class="m">1</span> vault    vault          <span class="m">306</span> Dec  <span class="m">5</span> <span class="m">14</span>:05 EdgeXFoundryCA.priv.key
@@ -2770,7 +2815,6 @@ total <span class="m">24</span>
 -rw-r--r--    <span class="m">1</span> vault    vault         <span class="m">1001</span> Dec  <span class="m">5</span> <span class="m">14</span>:05 edgex-vault.pem
 -rw-------    <span class="m">1</span> vault    vault          <span class="m">306</span> Dec  <span class="m">5</span> <span class="m">14</span>:05 edgex-vault.priv.key
 </code></pre></div>
-
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2800,7 +2844,7 @@ have to be built.</p>
 <a href="https://github.com/edgexfoundry/security-secret-store/blob/master/Dockerfile.vault">Dockerfile</a>
 contains the <code>pkisetup</code> executions, see below for a corresponding
 excerpt (highlighted lines):</p>
-<div class="codehilite"><pre><span></span><code><span class="c"># Create assets folder (needed for unseal key/s, root token and tmp)</span>
+<div class="highlight"><pre><span></span><code><span class="c"># Create assets folder (needed for unseal key/s, root token and tmp)</span>
 <span class="c"># Run CA/Vault and Kong PKI/TLS setups and peform housekeeping tasks</span>
 <span class="k">RUN</span> mkdir /vault/config/assets <span class="o">&amp;&amp;</span> <span class="se">\</span>
     chown -R vault:vault /vault <span class="o">&amp;&amp;</span> <span class="se">\</span>
@@ -2812,7 +2856,6 @@ excerpt (highlighted lines):</p>
     chown -R vault:vault /vault/config/pki <span class="o">&amp;&amp;</span> <span class="se">\</span>
 rm -f /vault/pkisetup /vault/pkisetup-vault.json /vault/pkisetup-kong.json
 </code></pre></div>
-
 
 <p>EdgeX Foundry Docker environment implements a basic Vault/Consul
 architecture that does not provide high availability guaranties. Only
@@ -2836,21 +2879,19 @@ the <code>VAULT_CAPATH</code> environment variable.</p>
 <p>See HashiCorp Vault API documentation for further details on syntax and
 usage (<a href="https://www.vaultproject.io/api/">https://www.vaultproject.io/api/</a>).</p>
 <p>Execute a shell session in the running Vault container:</p>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker <span class="nb">exec</span> -it -e <span class="nv">PS1</span><span class="o">=</span><span class="s1">&#39;\u@\h:\w \$ &#39;</span> -e <span class="nv">VAULT_CAPATH</span><span class="o">=</span><span class="s1">&#39;/vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem&#39;</span> edgex-vault sh
+<div class="highlight"><pre><span></span><code>sh&gt; docker <span class="nb">exec</span> -it -e <span class="nv">PS1</span><span class="o">=</span><span class="s1">&#39;\u@\h:\w \$ &#39;</span> -e <span class="nv">VAULT_CAPATH</span><span class="o">=</span><span class="s1">&#39;/vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem&#39;</span> edgex-vault sh
 </code></pre></div>
 
-
 <p>Locate the <code>assets</code> folder, and the <code>resp-init.json</code> file:</p>
-<div class="codehilite"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># ls -l config/assets/</span>
+<div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># ls -l config/assets/</span>
 total <span class="m">12</span>
 -rw-r--r--    <span class="m">1</span> root     root           <span class="m">366</span> Jan <span class="m">13</span> <span class="m">13</span>:35 admin-token.json
 -rw-r--r--    <span class="m">1</span> root     root           <span class="m">365</span> Jan <span class="m">13</span> <span class="m">13</span>:35 kong-token.json
 -rw-r--r--    <span class="m">1</span> root     root           <span class="m">241</span> Jan <span class="m">13</span> <span class="m">13</span>:35 resp-init.json
 </code></pre></div>
 
-
 <p>Inspect the <code>resp-init.json</code> file to grab the Vault Root Token:</p>
-<div class="codehilite"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># cat config/assets/resp-init.json</span>
+<div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># cat config/assets/resp-init.json</span>
 <span class="o">{</span>
 <span class="s2">&quot;keys&quot;</span>:<span class="o">[</span><span class="s2">&quot;564b9444eebe28b393c21a4dca1e32835b7dc27f5da03b73d22b666cb20224a9&quot;</span><span class="o">]</span>,
 <span class="s2">&quot;keys_base64&quot;</span>:<span class="o">[</span><span class="s2">&quot;VkuURO6+KLOTwhpNyh4yg1t9wn9doDtz0itmbLICJKk=&quot;</span><span class="o">]</span>,
@@ -2860,9 +2901,8 @@ total <span class="m">12</span>
 <span class="o">}</span>
 </code></pre></div>
 
-
 <p>Login to Vault using Vault CLI and the gathered Root Token:</p>
-<div class="codehilite"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault login 01dbbae4-353a-8cdf-8189-4d50e5535a6f</span>
+<div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault login 01dbbae4-353a-8cdf-8189-4d50e5535a6f</span>
 Success! You are now authenticated. The token information displayed below
 is already stored in the token helper. You <span class="k">do</span> NOT need to run <span class="s2">&quot;vault login&quot;</span>
 again. Future Vault requests will automatically use this token.
@@ -2876,9 +2916,8 @@ token_renewable    <span class="nb">false</span>
 token_policies     <span class="o">[</span>root<span class="o">]</span>
 </code></pre></div>
 
-
 <p>Perform an introspection <code>lookup</code> on the current token login:</p>
-<div class="codehilite"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault token lookup</span>
+<div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault token lookup</span>
 Key                 Value
 ---                 -----
 accessor            4d5eabf7-8710-81b1-b6a4-9ba17fdfdeb7
@@ -2897,7 +2936,6 @@ policies            <span class="o">[</span>root<span class="o">]</span>
 ttl                 <span class="m">0</span>
 </code></pre></div>
 
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Lines 9 &amp; 10: the Root Token is the only token that has no expiration
@@ -2905,14 +2943,13 @@ enforcement rules (Time to Live TTL counter).</p>
 </div>
 <p>Perform a check on the current token login to display the corresponding
 capabilities (policies):</p>
-<div class="codehilite"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault token capabilities 01dbbae4-353a-8cdf-8189-4d50e5535a6f</span>
+<div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault token capabilities 01dbbae4-353a-8cdf-8189-4d50e5535a6f</span>
 root
 </code></pre></div>
 
-
 <p>Perform a <code>list</code> request to display the currently mounted secret
 backends:</p>
-<div class="codehilite"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault secrets list</span>
+<div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault secrets list</span>
 Path          Type         Accessor              Description
 ----          ----         --------              -----------
 cubbyhole/    cubbyhole    cubbyhole_ad070930    per-token private secret storage
@@ -2920,7 +2957,6 @@ identity/     identity     identity_5397dc2f     identity store
 secret/       kv           kv_2362c227           key/value secret storage
 sys/          system       system_410e4276       system endpoints used <span class="k">for</span> control, policy and debugging
 </code></pre></div>
-
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2937,7 +2973,7 @@ service is storing each service materials into Vault using arbitrary
 paths, setting up access policies accordingly.</p>
 </div>
 <p>For example, the API Gateway (Kong) service X.509 TLS materials:</p>
-<div class="codehilite"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault list secret</span>
+<div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault list secret</span>
 Keys
 ----
 edgex/
@@ -2958,10 +2994,9 @@ Keys
 edgex-kong
 </code></pre></div>
 
-
 <p>Displaying the API gateway (Kong) service X.509 TLS materials (TLS
 certificate <code>cert</code> &amp; corresponding private key <code>key</code>):</p>
-<div class="codehilite"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault read secret/edgex/pki/tls/edgex-kong</span>
+<div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault read secret/edgex/pki/tls/edgex-kong</span>
 Key                 Value
 ---                 -----
 refresh_interval    168h
@@ -2989,7 +3024,6 @@ PVOPOZYoW/cDTCSXA1uz230ktPR5ylCvrhrbvtSdMBCGAK/Z7b/H0Q/h61qBKXPk
 8Kp0DKRZbRREgQ9LBQpabHjHUMHDJQPagM4+wWvLAhUQLcOWpAAvqG4<span class="o">=</span>
 -----END PRIVATE KEY-----
 </code></pre></div>
-
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3024,13 +3058,12 @@ gathering the Vault Root Token (ref:
 usage (<a href="https://www.vaultproject.io/api/">https://www.vaultproject.io/api/</a>).</p>
 <p>Displaying (GET) the API gateway (Kong) service X.509 TLS materials (TLS
 certificate cert &amp; corresponding private key key):</p>
-<div class="codehilite"><pre><span></span><code>curl -s --cacert /vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem <span class="se">\</span>
+<div class="highlight"><pre><span></span><code>curl -s --cacert /vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem <span class="se">\</span>
     --location <span class="se">\</span>
     --header <span class="s2">&quot;X-Vault-Token: 01dbbae4-353a-8cdf-8189-4d50e5535a6f&quot;</span> <span class="se">\</span>
     --request GET <span class="se">\</span>
     https://edgex-vault:8200/v1/secret/edgex/pki/tls/edgex-kong <span class="p">|</span> jq
 </code></pre></div>
-
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3043,7 +3076,7 @@ processor (<a href="https://stedolan.github.io/jq/">https://stedolan.github.io/j
 printing in the terminal.</p>
 </div>
 <p>Sample JSON returned:</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="nt">&quot;request_id&quot;</span><span class="p">:</span> <span class="s2">&quot;eaa80a1b-0d31-8d11-6ce1-8d9aa3ac6a19&quot;</span><span class="p">,</span>
 <span class="nt">&quot;lease_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
 <span class="nt">&quot;renewable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
@@ -3058,7 +3091,6 @@ printing in the terminal.</p>
 <span class="p">}</span>
 </code></pre></div>
 
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Lines 7 &amp; 8: the two key values (TLS certificate <code>cert</code> &amp; corresponding
@@ -3067,16 +3099,15 @@ private key <code>key</code>) are in PEM format
 </div>
 <p>Displaying (LIST) the root key path in the Vault <code>secret</code> backend for
 the EdgeX Foudry platform (<code>edgex</code>):</p>
-<div class="codehilite"><pre><span></span><code>curl -s --cacert /vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem <span class="se">\</span>
+<div class="highlight"><pre><span></span><code>curl -s --cacert /vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem <span class="se">\</span>
     --location <span class="se">\</span>
     --header <span class="s2">&quot;X-Vault-Token: 01dbbae4-353a-8cdf-8189-4d50e5535a6f&quot;</span> <span class="se">\</span>
     --request LIST <span class="se">\</span>
     https://edgex-vault:8200/v1/secret <span class="p">|</span> jq
 </code></pre></div>
 
-
 <p>Sample JSON returned:</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
     <span class="nt">&quot;request_id&quot;</span><span class="p">:</span> <span class="s2">&quot;0e0ea024-176d-21b3-73cb-99f17729b230&quot;</span><span class="p">,</span>
     <span class="nt">&quot;lease_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
     <span class="nt">&quot;renewable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
@@ -3092,19 +3123,17 @@ the EdgeX Foudry platform (<code>edgex</code>):</p>
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>Displaying (GET) the Vault seal status
 (<code>API path: /v1/sys/seal-status</code>):</p>
-<div class="codehilite"><pre><span></span><code>curl -s --cacert /vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem <span class="se">\</span>
+<div class="highlight"><pre><span></span><code>curl -s --cacert /vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem <span class="se">\</span>
     --location <span class="se">\</span>
     --header <span class="s2">&quot;X-Vault-Token: 01dbbae4-353a-8cdf-8189-4d50e5535a6f&quot;</span> <span class="se">\</span>
     --request GET <span class="se">\</span>
     https://edgex-vault:8200/v1/sys/seal-status <span class="p">|</span> jq
 </code></pre></div>
 
-
 <p>Sample JSON returned:</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
     <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;shamir&quot;</span><span class="p">,</span>
     <span class="nt">&quot;sealed&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
     <span class="nt">&quot;t&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
@@ -3116,7 +3145,6 @@ the EdgeX Foudry platform (<code>edgex</code>):</p>
     <span class="nt">&quot;cluster_id&quot;</span><span class="p">:</span> <span class="s2">&quot;fe6d18bf-fa9c-0d52-3278-bca0390af023&quot;</span>
 <span class="p">}</span>
 </code></pre></div>
-
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>

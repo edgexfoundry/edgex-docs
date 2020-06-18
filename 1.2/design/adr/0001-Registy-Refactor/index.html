@@ -1058,10 +1058,88 @@
           
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6-3" type="checkbox" id="nav-3-6-3">
+    
+    <label class="md-nav__link" for="nav-3-6-3">
+      Application Functions SDK
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Application Functions SDK" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-6-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Application Functions SDK
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
     <a href="../../../microservices/application/ApplicationFunctionsSDK/" title="App Functions SDK" class="md-nav__link">
       App Functions SDK
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../microservices/application/ContextAPI/" title="Context API" class="md-nav__link">
+      Context API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../microservices/application/BuiltIn/" title="Built-In Transforms/Functions" class="md-nav__link">
+      Built-In Transforms/Functions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../microservices/application/ErrorHandling/" title="Error Handling" class="md-nav__link">
+      Error Handling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../microservices/application/AdvancedTopics/" title="Advanced Topics" class="md-nav__link">
+      Advanced Topics
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -2011,7 +2089,7 @@
 <h3 id="client-interfaces-changes">Client Interfaces changes</h3>
 <h5 id="current-registry-client">Current Registry Client</h5>
 <p>This following is the current <code>Registry Client</code> Interface</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">type</span> <span class="nx">Client</span> <span class="kd">interface</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">Client</span> <span class="kd">interface</span> <span class="p">{</span>
     <span class="nx">Register</span><span class="p">()</span> <span class="kt">error</span>
     <span class="nx">HasConfiguration</span><span class="p">()</span> <span class="p">(</span><span class="kt">bool</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
     <span class="nx">PutConfigurationToml</span><span class="p">(</span><span class="nx">configuration</span> <span class="o">*</span><span class="nx">toml</span><span class="p">.</span><span class="nx">Tree</span><span class="p">,</span> <span class="nx">overwrite</span> <span class="kt">bool</span><span class="p">)</span> <span class="kt">error</span>
@@ -2028,10 +2106,9 @@
 <span class="p">}</span>
 </code></pre></div>
 
-
 <h5 id="new-configuration-client">New Configuration Client</h5>
 <p>This following is the new <code>Configuration Client</code> Interface which contains the  <strong>Service Configuration</strong> specific portion from the above current <code>Registry Client</code>.</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">type</span> <span class="nx">Client</span> <span class="kd">interface</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">Client</span> <span class="kd">interface</span> <span class="p">{</span>
     <span class="nx">HasConfiguration</span><span class="p">()</span> <span class="p">(</span><span class="kt">bool</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
     <span class="nx">PutConfigurationFromToml</span><span class="p">(</span><span class="nx">configuration</span> <span class="o">*</span><span class="nx">toml</span><span class="p">.</span><span class="nx">Tree</span><span class="p">,</span> <span class="nx">overwrite</span> <span class="kt">bool</span><span class="p">)</span> <span class="kt">error</span>
     <span class="nx">PutConfiguration</span><span class="p">(</span><span class="nx">configStruct</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">overwrite</span> <span class="kt">bool</span><span class="p">)</span> <span class="kt">error</span>
@@ -2045,10 +2122,9 @@
 <span class="p">}</span>
 </code></pre></div>
 
-
 <h5 id="revised-registry-client">Revised Registry Client</h5>
 <p>This following is the revised <code>Registry Client</code> Interface, which contains the <strong>Service Registry</strong> specific portion from the above current <code>Registry Client</code>. The <code>UnRegister()</code> API has been added per issue <a href="https://github.com/edgexfoundry/go-mod-registry/issues/20">#20</a></p>
-<div class="codehilite"><pre><span></span><code><span class="kd">type</span> <span class="nx">Client</span> <span class="kd">interface</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">Client</span> <span class="kd">interface</span> <span class="p">{</span>
     <span class="nx">Register</span><span class="p">()</span> <span class="kt">error</span>
     <span class="nx">UnRegister</span><span class="p">()</span> <span class="kt">error</span>
     <span class="nx">IsAlive</span><span class="p">()</span> <span class="kt">bool</span>
@@ -2057,11 +2133,10 @@
 <span class="p">}</span>
 </code></pre></div>
 
-
 <h3 id="client-configuration-structs">Client Configuration Structs</h3>
 <h5 id="current-registry-client-config">Current Registry Client Config</h5>
 <p>The following is the current <code>struct</code> used to configure the current <code>Registry Client</code></p>
-<div class="codehilite"><pre><span></span><code><span class="kd">type</span> <span class="nx">Config</span> <span class="kd">struct</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">Config</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Protocol</span> <span class="kt">string</span>
     <span class="nx">Host</span> <span class="kt">string</span>
     <span class="nx">Port</span> <span class="kt">int</span>
@@ -2076,10 +2151,9 @@
 <span class="p">}</span>
 </code></pre></div>
 
-
 <h5 id="new-configuration-client-config">New Configuration Client Config</h5>
 <p>The following is the new <code>struct</code> the will be used to configure the new <code>Configuration Client</code> from the command line option or environment variable values. The Service Registry portion has been removed from the above existing <code>Registry Client Config</code></p>
-<div class="codehilite"><pre><span></span><code><span class="kd">type</span> <span class="nx">Config</span> <span class="kd">struct</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">Config</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Protocol</span> <span class="kt">string</span>
     <span class="nx">Host</span> <span class="kt">string</span>
     <span class="nx">Port</span> <span class="kt">int</span>
@@ -2089,10 +2163,9 @@
 <span class="p">}</span>
 </code></pre></div>
 
-
 <h5 id="new-registry-client-config">New Registry Client Config</h5>
 <p>The following is the revised <code>struct</code> the will be used to configure the new <code>Registry Client</code> from the  information in the service's configuration. This is mostly unchanged from the existing <code>Registry Client Config</code>, except that the <code>Stem</code> for configuration has been removed</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">type</span> <span class="nx">Config</span> <span class="kd">struct</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">Config</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Protocol</span> <span class="kt">string</span>
     <span class="nx">Host</span> <span class="kt">string</span>
     <span class="nx">Port</span> <span class="kt">int</span>
@@ -2105,7 +2178,6 @@
     <span class="nx">CheckInterval</span> <span class="kt">string</span>
 <span class="p">}</span>
 </code></pre></div>
-
 
 <h3 id="provider-implementations">Provider Implementations</h3>
 <p>The current <code>Consul</code> implementation of the <code>Registry Client</code> will be split up into implementations for the new <code>Configuration Client</code> in the new <code>go-mod-configuration</code> module and the revised <code>Registry Client</code> in the existing <code>go-mod-registry</code> module.</p>

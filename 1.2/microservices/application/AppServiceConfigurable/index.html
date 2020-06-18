@@ -1064,10 +1064,88 @@
           
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6-3" type="checkbox" id="nav-3-6-3">
+    
+    <label class="md-nav__link" for="nav-3-6-3">
+      Application Functions SDK
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Application Functions SDK" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-6-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Application Functions SDK
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
     <a href="../ApplicationFunctionsSDK/" title="App Functions SDK" class="md-nav__link">
       App Functions SDK
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ContextAPI/" title="Context API" class="md-nav__link">
+      Context API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../BuiltIn/" title="Built-In Transforms/Functions" class="md-nav__link">
+      Built-In Transforms/Functions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ErrorHandling/" title="Error Handling" class="md-nav__link">
+      Error Handling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../AdvancedTopics/" title="Advanced Topics" class="md-nav__link">
+      Advanced Topics
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -2208,7 +2286,7 @@
                 <h1 id="app-service-configurable">App Service Configurable</h1>
 <h2 id="getting-started">Getting Started</h2>
 <p>App-Service-Configurable is provided as an easy way to get started with processing data flowing through EdgeX. This service leverages the <a href="https://github.com/edgexfoundry/app-functions-sdk-go">App Functions SDK</a> and provides a way for developers to use configuration instead of having to compile standalone services to utilize built in functions in the SDK. Please refer to <a href="#available-configurable-pipeline-functions">Available Configurable Pipeline Functions</a>  section below for full list of built in functions that can be used in the configurable pipeline. </p>
-<p>To get started with the configurable app service, you'll want to start by determining which functions are required in your pipeline. Using a simple example, let's assume you wish to use the following functions from the SDK:</p>
+<p>To get started with the App-Service-Configurable, you'll want to start by determining which functions are required in your pipeline. Using a simple example, let's assume you wish to use the following functions from the SDK:</p>
 <ol>
 <li><a href="../ApplicationFunctionsSDK/#filtering">FilterByDeviceName</a> -  to filter events for a specific device.</li>
 <li><a href="../ApplicationFunctionsSDK/#conversion">TransformToXML</a> - to transform the data to XML</li>
@@ -2216,7 +2294,7 @@
 <li><a href="../ApplicationFunctionsSDK/#CoreData-Functions">MarkAsPushed</a> - to call Core Data API to mark the event as having been pushed</li>
 </ol>
 <p>Once the functions have been identified, we'll go ahead and build out the configuration in the <code>configuration.toml</code> file under the <code>[Writable.Pipeline]</code> section:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">[Writable]</span>
+<div class="highlight"><pre><span></span><code><span class="k">[Writable]</span>
   <span class="n">LogLevel</span> <span class="o">=</span> <span class="s">&#39;DEBUG&#39;</span>
   <span class="k">[Writable.Pipeline]</span>
     <span class="n">ExecutionOrder</span> <span class="o">=</span> <span class="s">&quot;FilterByDeviceName, TransformToXML, HTTPPost, MarkAsPushed&quot;</span>
@@ -2231,7 +2309,6 @@
         <span class="n">mimeType</span> <span class="o">=</span> <span class="s">&quot;&quot;</span> <span class="c1">#OPTIONAL - default application/json</span>
 </code></pre></div>
 
-
 <p>The first line of note is <code>ExecutionOrder = "FilterByDeviceName, TransformToXML, HTTPPost,MarkAsPushed"</code>. This specifies the order in which to execute your functions. Each function specified here must also be placed in the <code>[Writeable.Pipeline.Functions]</code> section. </p>
 <p>Next, each function and its required information is listed. Each function typically has associated Parameters that must be configured to properly execute the function as designated by <code>[Writable.Pipeline.Functions.{FunctionName}.Parameters]</code>. Knowing which parameters are required for each function, can be referenced by taking a look at  the <a href="#available-configurable-pipeline-functions">Available Configurable Pipeline Functions</a> section below. In a few cases, such as <code>TransformToXML</code>, <code>TransformToJSON</code>, SetOutputData`, etc. there are no parameters required.</p>
 <div class="admonition note">
@@ -2241,16 +2318,15 @@
 <p>That's it! Now we can run/deploy this service and the functions pipeline will process the data with functions we've defined.</p>
 <h2 id="environment-variable-overrides-for-docker">Environment Variable Overrides For Docker</h2>
 <p>EdgeX services no longer have docker specific profiles. They now rely on environment variable overrides in the docker compose files for the docker specific differences. The following environment settings are required in the compose files when using App Service Configurable.</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">EDGEX_PROFILE </span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">target profile</span><span class="p p-Indicator">]</span>
+<div class="highlight"><pre><span></span><code><span class="nt">EDGEX_PROFILE </span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">target profile</span><span class="p p-Indicator">]</span>
 <span class="nt">SERVICE_HOST </span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">service name</span><span class="p p-Indicator">]</span>
 <span class="nt">SERVICE_PORT </span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">service port</span><span class="p p-Indicator">]</span>
 <span class="nt">MESSAGEBUS_SUBSCRIBEHOST_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-core-data</span>
 <span class="nt">CLIENTS_COREDATA_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-core-data</span>
 </code></pre></div>
 
-
 <p>The following is an example docker compose entry for <strong>App Service Configurable</strong>:</p>
-<div class="codehilite"><pre><span></span><code>  <span class="nt">app-service-configurable-rules</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code>  <span class="nt">app-service-configurable-rules</span><span class="p">:</span>
     <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgexfoundry/docker-app-service-configurable:1.1.0</span>
     <span class="nt">environment</span><span class="p">:</span>
       <span class="nt">EDGEX_PROFILE</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rules-engine</span>
@@ -2267,7 +2343,6 @@
     <span class="nt">depends_on</span><span class="p">:</span>
       <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">data</span>
 </code></pre></div>
-
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2292,23 +2367,15 @@
 </ul>
 </li>
 <li>
-<p>Optional: </p>
-</li>
-</ul>
-</li>
-</ul>
-<div class="codehilite"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span>
+<p>Optional: 
+<div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span>
     <span class="p p-Indicator">-</span> <span class="nt">WRITABLE_PIPELINE_FUNCTIONS_HTTPPOSTJSON_PARAMETERS_PERSISTONERROR</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;true&quot;</span><span class="nv">/&quot;false&quot;</span><span class="p p-Indicator">]</span>
     <span class="p p-Indicator">-</span> <span class="nt">WRITABLE_PIPELINE_FUNCTIONS_FILTERBYDEVICENAME_PARAMETERS_DEVICENAMES</span><span class="p">:</span> <span class="s">&quot;[comma</span><span class="nv"> </span><span class="s">separated</span><span class="nv"> </span><span class="s">list]&quot;</span>
     <span class="p p-Indicator">-</span> <span class="nt">WRITABLE_PIPELINE_FUNCTIONS_FILTERBYVALUEDESCRIPTOR_PARAMETERS_VALUEDESCRIPTORS</span><span class="p">:</span> <span class="s">&quot;[comma</span><span class="nv"> </span><span class="s">separated</span><span class="nv"> </span><span class="s">list]&quot;</span>
     <span class="p p-Indicator">-</span> <span class="nt">WRITABLE_PIPELINE_FUNCTIONS_FILTERBYVALUEDESCRIPTOR_PARAMETERS_FILTEROUT</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;true&quot;</span><span class="nv">/&quot;false&quot;</span><span class="p p-Indicator">]</span>
-</code></pre></div>
-
-
-<ul>
-<li>
-<p><strong>mqtt-export</strong> - Starter profile used for exporting data via MQTT. Requires further configuration which can easily be accomplished using environment variable overrides</p>
-<ul>
+</code></pre></div></p>
+</li>
+<li><strong>mqtt-export</strong> - Starter profile used for exporting data via MQTT. Requires further configuration which can easily be accomplished using environment variable overrides</li>
 <li>
 <p>Required:</p>
 <ul>
@@ -2321,7 +2388,7 @@
 </ul>
 </li>
 </ul>
-<div class="codehilite"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span>
   <span class="p p-Indicator">-</span> <span class="nt">WRITABLE_PIPELINE_FUNCTIONS_MQTTSEND_ADDRESSABLE_PORT</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;your</span><span class="nv"> </span><span class="s">port&quot;</span><span class="p p-Indicator">]</span>
   <span class="p p-Indicator">-</span> <span class="nt">WRITABLE_PIPELINE_FUNCTIONS_MQTTSEND_ADDRESSABLE_PROTOCOL</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">tcp or tcps</span><span class="p p-Indicator">]</span>
   <span class="p p-Indicator">-</span> <span class="nt">WRITABLE_PIPELINE_FUNCTIONS_MQTTSEND_ADDRESSABLE_PUBLISHER</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">your name</span><span class="p p-Indicator">]</span>
@@ -2336,7 +2403,6 @@
   <span class="p p-Indicator">-</span> <span class="nt">WRITABLE_PIPELINE_FUNCTIONS_MQTTSEND_PARAMETERS_PERSISTONERROR</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;true&quot;</span> <span class="nv">or &quot;false&quot;</span><span class="p p-Indicator">]</span>
 </code></pre></div>
 
-
 <ul>
 <li><strong>rules-engine</strong> - Profile used to push Event messages to the Rules Engine via <strong>ZMQ</strong> Message Bus.</li>
 <li><strong>rules-engine-mqtt</strong> - Profile used to push Event messages to the Rules Engine via <strong>MQTT</strong> Message Bus.</li>
@@ -2349,7 +2415,7 @@
 </div>
 <h2 id="what-if-my-input-data-isnt-an-edgex-event">What if my input data isn't an EdgeX Event ?</h2>
 <p>The default <code>TargetType</code> for data flowing into the functions pipeline is an EdgeX event. There are cases when this incoming data might not be an EdgeX event. In these cases the <code>Pipeline</code> can be configured using <code>UseTargetTypeOfByteArray=true</code> to set the <code>TargetType</code> to be a byte array, i.e. <code>byte[]</code>. The first function in the pipeline must then be one that can handle the <code>byte[]</code>data. The <strong>compression</strong>,  <strong>encryption</strong> and <strong>export</strong> functions are examples of pipeline functions that will take input data that is <code>byte[]</code>. Here is an example of how to configure the functions pipeline to <strong>compress</strong>, <strong>encrypt</strong> and then <strong>export</strong> the  <code>byte[]</code> data via HTTP.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">[Writable]</span>
+<div class="highlight"><pre><span></span><code><span class="k">[Writable]</span>
   <span class="n">LogLevel</span> <span class="o">=</span> <span class="s">&#39;DEBUG&#39;</span>
   <span class="k">[Writable.Pipeline]</span>
     <span class="n">UseTargetTypeOfByteArray</span> <span class="o">=</span> <span class="kc">true</span>
@@ -2364,12 +2430,10 @@
         <span class="n">url</span> <span class="o">=</span> <span class="s">&quot;http://my.api.net/edgexdata&quot;</span>
 </code></pre></div>
 
-
 <p>If along with this pipeline configuration, you also configured the <code>Binding</code> to be <code>http</code> trigger,  you could then send any data to the app-service-configurable' s <code>/api/v1/trigger</code> endpoint and have it compressed, encrypted and sent to your configured URL above.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">[Binding]</span>
+<div class="highlight"><pre><span></span><code><span class="k">[Binding]</span>
 <span class="n">Type</span><span class="o">=</span><span class="s">&quot;http&quot;</span>
 </code></pre></div>
-
 
 <h2 id="available-configurable-pipeline-functions">Available Configurable Pipeline Functions</h2>
 <p>Below are the functions that are available to use in the configurable functions pipeline (<code>[Writable.Pipeline]</code>) section of the configuration. The function names below can be added to the <code>Writable.Pipeline.ExecutionOrder</code> setting (comma separated list) and must also be present or added to the <code>[Writable.Pipeline.Functions]</code> section as <code>[Writable.Pipeline.Functions.{FunctionName}]</code>. Certain functions will also have the <code>[Writable.Pipeline.Functions.{FunctionName}.Parameters]</code> section where the function's parameters are configured. Please refer to the <a href="#getting-started">Getting Started</a> section above for an example.</p>
@@ -2384,11 +2448,10 @@
 <li><code>BatchThreshold</code> - Number of items to batch before sending batched items to the next function in the pipeline.</li>
 </ul>
 <p><strong>Example</strong></p>
-<div class="codehilite"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.BatchByCount]</span>
+<div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.BatchByCount]</span>
       <span class="k">[Writable.Pipeline.Functions.BatchByCount.Parameters]</span>
       <span class="n">BatchThreshold</span> <span class="o">=</span> <span class="s">&quot;30&quot;</span>
 </code></pre></div>
-
 
 <h3 id="batchbytime"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">BatchByTime</a></h3>
 <p><strong>Parameters</strong></p>
@@ -2396,11 +2459,10 @@
 <li><code>TimeInterval</code> - Time duration to batch before sending batched items to the next function in the pipeline.</li>
 </ul>
 <p><strong>Example</strong></p>
-<div class="codehilite"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.BatchByTime]</span>
+<div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.BatchByTime]</span>
       <span class="k">[Writable.Pipeline.Functions.BatchByTime.Parameters]</span>
       <span class="n">TimeInterval</span> <span class="o">=</span> <span class="s">&quot;60s&quot;</span>
 </code></pre></div>
-
 
 <h3 id="batchbytimeandcount"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">BatchByTimeAndCount</a></h3>
 <p><strong>Parameters</strong></p>
@@ -2409,28 +2471,25 @@
 <li><code>TimeInterval</code> - Time duration to batch before sending batched items to the next function in the pipeline.</li>
 </ul>
 <p><strong>Example</strong></p>
-<div class="codehilite"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.BatchByTimeAndCount]</span>
+<div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.BatchByTimeAndCount]</span>
       <span class="k">[Writable.Pipeline.Functions.BatchByTimeAndCount.Parameters]</span>
       <span class="n">BatchThreshold</span> <span class="o">=</span> <span class="s">&quot;30&quot;</span>
       <span class="n">TimeInterval</span> <span class="o">=</span> <span class="s">&quot;60s&quot;</span>
 </code></pre></div>
 
-
 <h3 id="compresswithgzip"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">CompressWithGZIP</a></h3>
 <p><strong>Parameters</strong></p>
 <p>none</p>
 <p><strong>Example</strong></p>
-<div class="codehilite"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.CompressWithGZIP]</span>
+<div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.CompressWithGZIP]</span>
 </code></pre></div>
-
 
 <h3 id="compresswithzlib"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">CompressWithZLIB</a></h3>
 <p><strong>Parameters</strong></p>
 <p>none</p>
 <p><strong>Example</strong></p>
-<div class="codehilite"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.CompressWithZLIB]</span>
+<div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.CompressWithZLIB]</span>
 </code></pre></div>
-
 
 <h3 id="encryptwithaes"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">EncryptWithAES</a></h3>
 <p><strong>Parameters</strong></p>
@@ -2439,12 +2498,11 @@
 <li><code>InitVector</code> - Initialization vector used for the AES encryption.</li>
 </ul>
 <p><strong>Example</strong></p>
-<div class="codehilite"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.EncryptWithAES]</span>
+<div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.EncryptWithAES]</span>
       <span class="k">[Writable.Pipeline.Functions.EncryptWithAES.Parameters]</span>
         <span class="n">Key</span> <span class="o">=</span> <span class="s">&quot;aquqweoruqwpeoruqwpoeruqwpoierupqoweiurpoqwiuerpqowieurqpowieurpoqiweuroipwqure&quot;</span>
         <span class="n">InitVector</span> <span class="o">=</span> <span class="s">&quot;123456789012345678901234567890&quot;</span>
 </code></pre></div>
-
 
 <h3 id="filterbydevicename"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">FilterByDeviceName</a></h3>
 <p><strong>Parameters</strong></p>
@@ -2453,12 +2511,11 @@
 <li><code>FilterOut</code>- Boolean indicating if the data matching the device names should be filtered out or filtered for.</li>
 </ul>
 <p><strong>Example</strong></p>
-<div class="codehilite"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.FilterByDeviceName]</span>
+<div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.FilterByDeviceName]</span>
       <span class="k">[Writable.Pipeline.Functions.FilterByDeviceName.Parameters]</span>
         <span class="n">DeviceNames</span> <span class="o">=</span> <span class="s">&quot;Random-Float-Device,Random-Integer-Device&quot;</span>
         <span class="n">FilterOut</span> <span class="o">=</span> <span class="s">&quot;false&quot;</span>
 </code></pre></div>
-
 
 <h3 id="filterbyvaluedescriptor"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">FilterByValueDescriptor</a></h3>
 <p><strong>Parameters</strong></p>
@@ -2467,12 +2524,11 @@
 <li><code>FilterOut</code>- Boolean indicating if the data matching the value descriptor (reading) names should be filtered out or filtered for.</li>
 </ul>
 <p><strong>Example</strong></p>
-<div class="codehilite"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.FilterByValueDescriptor]</span>
+<div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.FilterByValueDescriptor]</span>
       <span class="k">[Writable.Pipeline.Functions.FilterByValueDescriptor.Parameters]</span>
         <span class="n">ValueDescriptors</span> <span class="o">=</span> <span class="s">&quot;RandomValue_Int8, RandomValue_Int64&quot;</span>
         <span class="n">FilterOut</span> <span class="o">=</span> <span class="s">&quot;true&quot;</span>
 </code></pre></div>
-
 
 <h3 id="httppost"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">HTTPPost</a></h3>
 <p><strong>Parameters</strong></p>
@@ -2484,7 +2540,7 @@
 <li><code>SecretPath</code> - Optional path in the secret store where to token is stored.</li>
 </ul>
 <p><strong>Example</strong></p>
-<div class="codehilite"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.HTTPPost]</span>
+<div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.HTTPPost]</span>
       <span class="k">[Writable.Pipeline.Functions.HTTPPost.Parameters]</span>
         <span class="n">Url</span> <span class="o">=</span> <span class="s">&quot;http://my.api.net/edgexdata&quot;</span>
         <span class="n">MimeType</span> <span class="o">=</span> <span class="s">&quot;&quot;</span> <span class="c1">#OPTIONAL - default application/json</span>
@@ -2492,7 +2548,6 @@
         <span class="n">SecretHeaderName</span> <span class="o">=</span> <span class="s">&quot;&quot;</span> <span class="c1"># This is the name used in the HTTP header and also used as the secret key</span>
         <span class="n">SecretPath</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
 </code></pre></div>
-
 
 <h3 id="httppostjson"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">HTTPPostJSON</a></h3>
 <p><strong>Parameters</strong></p>
@@ -2503,14 +2558,13 @@
 <li><code>SecretPath</code> - Optional  path in the secret store where to token is stored. </li>
 </ul>
 <p><strong>Example</strong></p>
-<div class="codehilite"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.HTTPPostJSON]</span>
+<div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.HTTPPostJSON]</span>
       <span class="k">[Writable.Pipeline.Functions.HTTPPostJSON.Parameters]</span>
         <span class="n">Url</span> <span class="o">=</span> <span class="s">&quot;https://my.api.net/edgexdata&quot;</span>
         <span class="n">PersistOnError</span> <span class="o">=</span> <span class="s">&quot;true&quot;</span>
         <span class="n">SecretHeaderName</span> <span class="o">=</span> <span class="s">&quot;Authorization&quot;</span> <span class="c1"># This is the name used in the HTTP header and also used as the secret key</span>
         <span class="n">SecretPath</span> <span class="o">=</span> <span class="s">&quot;http&quot;</span>
 </code></pre></div>
-
 
 <h3 id="httppostxml"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">HTTPPostXML</a></h3>
 <p><strong>Parameters</strong></p>
@@ -2521,7 +2575,7 @@
 <li><code>SecretPath</code> - Optional path in the secret store where to token is stored.</li>
 </ul>
 <p><strong>Example</strong></p>
-<div class="codehilite"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.HTTPPostXML]</span>
+<div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.HTTPPostXML]</span>
       <span class="k">[Writable.Pipeline.Functions.HTTPPostXML.Parameters]</span>
         <span class="n">Url</span> <span class="o">=</span> <span class="s">&quot;http://my.api.net/edgexdata&quot;</span>
         <span class="n">PersistOnError</span> <span class="o">=</span> <span class="s">&quot;false&quot;</span>
@@ -2529,26 +2583,23 @@
         <span class="n">SecretPath</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
 </code></pre></div>
 
-
 <h3 id="jsonlogic"><a href="../ApplicationFunctionsSDK/#jsonlogic">JSONLogic</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>Rule</code> - The JSON formatted rule that with be executed on the data by JSONLogic </li>
 </ul>
 <p><strong>Example</strong></p>
-<div class="codehilite"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.JSONLogic]</span>
+<div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.JSONLogic]</span>
       <span class="k">[Writable.Pipeline.Functions.JSONLogic.Parameters]</span>
         <span class="n">Rule</span> <span class="o">=</span> <span class="s">&quot;{ \&quot;and\&quot; : [{\&quot;&lt;\&quot; : [{ \&quot;var\&quot; : \&quot;temp\&quot; }, 110 ]}, {\&quot;==\&quot; : [{ \&quot;var\&quot; : \&quot;sensor.type\&quot; }, \&quot;temperature\&quot; ]} ] }&quot;</span>
 </code></pre></div>
-
 
 <h3 id="markaspushed"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">MarkAsPushed</a></h3>
 <p><strong>Parameters</strong></p>
 <p>none</p>
 <p><strong>Example</strong></p>
-<div class="codehilite"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.MarkAsPushed]</span>
+<div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.MarkAsPushed]</span>
 </code></pre></div>
-
 
 <h3 id="mqttsecretsend"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">MQTTSecretSend</a></h3>
 <p><strong>Parameters</strong></p>
@@ -2571,7 +2622,7 @@
 <li><code>SecretPath</code> - Path in the secret store where to authorization secrets are stored. </li>
 </ul>
 <p><strong>Examples</strong></p>
-<div class="codehilite"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.MQTTSecretSend]</span>
+<p><div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.MQTTSecretSend]</span>
       <span class="k">[Writable.Pipeline.Functions.MQTTSecretSend.Parameters]</span>
         <span class="n">BrokerAddress</span> <span class="o">=</span> <span class="s">&quot;tcps://localhost:8883&quot;</span>
         <span class="n">Topic</span> <span class="o">=</span> <span class="s">&quot;mytopic&quot;</span>
@@ -2584,9 +2635,7 @@
         <span class="n">AuthMode</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
         <span class="n">SecretPath</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
 </code></pre></div>
-
-
-<div class="codehilite"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.MQTTSecretSend]</span>
+<div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.MQTTSecretSend]</span>
       <span class="k">[Writable.Pipeline.Functions.MQTTSecretSend.Parameters]</span>
         <span class="n">BrokerAddress</span> <span class="o">=</span> <span class="s">&quot;tcps://my-broker-host.com:8883&quot;</span>
         <span class="n">Topic</span> <span class="o">=</span> <span class="s">&quot;mytopic&quot;</span>
@@ -2598,40 +2647,35 @@
         <span class="n">PersistOnError</span> <span class="o">=</span> <span class="s">&quot;true&quot;</span>
         <span class="n">AuthMode</span> <span class="o">=</span> <span class="s">&quot;usernamepassword&quot;</span>
         <span class="n">SecretPath</span> <span class="o">=</span> <span class="s">&quot;mqtt&quot;</span>
-</code></pre></div>
-
-
+</code></pre></div></p>
 <h3 id="mqttsend"><a href="http://localhost:8000/microservices/application/ApplicationFunctionsSDK/#built-in-transformsfunctions">MQTTSend</a></h3>
 <p>MQTTSend has been deprecated. Please use <a href="#mqttsecretsend">MQTTSecretSend</a>.</p>
 <h3 id="pushtocore"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">PushToCore</a></h3>
 <p><strong>Parameters</strong></p>
 <p>none</p>
 <p><strong>Example</strong></p>
-<div class="codehilite"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.PushToCore]</span>
+<div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.PushToCore]</span>
 </code></pre></div>
-
 
 <h3 id="setoutputdata"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">SetOutputData</a></h3>
 <p><strong>Parameters</strong></p>
 <p>none</p>
 <p><strong>Example</strong></p>
-<div class="codehilite"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.SetOutputData]</span>
+<div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.SetOutputData]</span>
 </code></pre></div>
-
 
 <h3 id="transformtojson"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">TransformToJSON</a></h3>
 <p><strong>Parameters</strong></p>
 <p>none</p>
 <p><strong>Example</strong></p>
-<div class="codehilite"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.TransformToJSON]</span>
+<div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.TransformToJSON]</span>
 </code></pre></div>
-
 
 <h3 id="transformtoxml"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">TransformToXML</a></h3>
 <p><strong>Parameters</strong></p>
 <p>none</p>
 <p><strong>Example</strong></p>
-<div class="codehilite"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.TransformToXML]</span>
+<div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.TransformToXML]</span>
 </code></pre></div>
                 
               
@@ -2651,7 +2695,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../ApplicationFunctionsSDK/" title="App Functions SDK" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../AdvancedTopics/" title="Advanced Topics" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
             </div>
@@ -2660,7 +2704,7 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                App Functions SDK
+                Advanced Topics
               </div>
             </div>
           </a>

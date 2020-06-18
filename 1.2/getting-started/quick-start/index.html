@@ -1135,10 +1135,88 @@
           
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6-3" type="checkbox" id="nav-3-6-3">
+    
+    <label class="md-nav__link" for="nav-3-6-3">
+      Application Functions SDK
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Application Functions SDK" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-6-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Application Functions SDK
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
     <a href="../../microservices/application/ApplicationFunctionsSDK/" title="App Functions SDK" class="md-nav__link">
       App Functions SDK
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/application/ContextAPI/" title="Context API" class="md-nav__link">
+      Context API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/application/BuiltIn/" title="Built-In Transforms/Functions" class="md-nav__link">
+      Built-In Transforms/Functions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/application/ErrorHandling/" title="Error Handling" class="md-nav__link">
+      Error Handling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/application/AdvancedTopics/" title="Advanced Topics" class="md-nav__link">
+      Advanced Topics
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -1944,21 +2022,6 @@
 </ul>
 <h2 id="running-edgex">Running EdgeX</h2>
 <p>Once you have Docker and Docker Compose installed, you need the configuration file for downloading and running the EdgeX Foundry docker containers. Download the latest <code>docker-compose</code> file here <a href="https://github.com/edgexfoundry/developer-scripts/raw/master/releases/fuji/compose-files/docker-compose-fuji.yml">https://github.com/edgexfoundry/developer-scripts/raw/master/releases/fuji/compose-files/docker-compose-fuji.yml</a> and save this as <code>docker-compose.yml</code> in your local directory. This file contains everything you need to deploy EdgeX with docker.</p>
-<p>First, use this command to download the EdgeX Foundry Docker images from Docker Hub:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker-compose pull</span>
-</code></pre></div>
-
-
-<p>Then start up all of the EdgeX Foundry microservices:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker-compose up -d</span>
-</code></pre></div>
-
-
-<p>Finally, verify that the EdgeX containers have all been started:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker-compose ps </span>
-</code></pre></div>
-
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Initialization or seed containers, like config-seed, will have exited as their job is just to initialize the associated service and then exit.</p>
@@ -2076,8 +2139,8 @@
 </tbody>
 </table>
 <h2 id="connecting-a-device">Connecting a Device</h2>
-<p>EdgeX Foundry provides a <a href="https://github.com/edgexfoundry/device-random">Random Number Device Service</a> which is useful to testing, it returns a random number within a configurable range. Configuration for running this service was included in the <code>docker-compose.yml</code> file you downloaded at the start of this guide, but it is disabled by default. To enable it, uncomment the following lines in your <code>docker-compose.yml</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">device-random</span><span class="p">:</span>
+<p>EdgeX Foundry provides a <a href="https://github.com/edgexfoundry/device-random">Random Number Device Service</a> which is useful to testing, it returns a random number within a configurable range. Configuration for running this service was included in the <code>docker-compose.yml</code> file you downloaded at the start of this guide, but it is disabled by default. To enable it, uncomment the following lines in your <code>docker-compose.yml</code>:
+<div class="highlight"><pre><span></span><code><span class="nt">device-random</span><span class="p">:</span>
     <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgexfoundry/docker-device-random-go:1.1.0</span>
     <span class="nt">ports</span><span class="p">:</span>
     <span class="p p-Indicator">-</span> <span class="s">&quot;49988:49988&quot;</span>
@@ -2094,38 +2157,28 @@
     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">data</span>
     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">command</span>
 </code></pre></div>
-
-
-<p>Then you can start the Random Device Service with:</p>
-<div class="codehilite"><pre><span></span><code>docker-compose up -d device-random
+Then you can start the Random Device Service with:
+<div class="highlight"><pre><span></span><code>docker-compose up -d device-random
 </code></pre></div>
-
-
-<p>The Device Service will automatically register a device named <code>Random-Integer-Generator01</code>, which will start sending its random number readings into EdgeX.</p>
-<p>You can verify that those readings are being sent by querying the EdgeX Logging service:</p>
-<div class="codehilite"><pre><span></span><code>curl http://localhost:48080/api/v1/event/device/Random-Integer-Generator01/10
-</code></pre></div>
-
-
+The Device Service will automatically register a device named <code>Random-Integer-Generator01</code>, which will start sending its random number readings into EdgeX.</p>
+<p>You can verify that those readings are being sent by querying the EdgeX Logging service:
+<div class="highlight"><pre><span></span><code>curl http://localhost:48080/api/v1/event/device/Random-Integer-Generator01/10
+</code></pre></div></p>
 <h2 id="connecting-an-application">Connecting an Application</h2>
 <p>EdgeX provides exporters for a variety of cloud services and application. To keep this guide simple, we're going to use a public MQTT broker hosted by HiveMQ, then watch for our EdgeX readings to be pushed to it automatically.</p>
 <p>You can connect to this broker with any MQTT client to watch the data being sent. HiveMQ provides a <a href="http://www.hivemq.com/demos/websocket-client/">web-based client</a> that you can use, simply subscribe to the "EdgeXQuickStartGuide" topic and you will begin seeing your random number readings.</p>
 <p><img alt="image" src="EdgeX_HiveMQTTWebClient.png" /></p>
-<p>You can also use the <code>Mosquitto CLI &lt;https://mosquitto.org/download/&gt;</code>_ tool to verify that readings are being sent by running:</p>
-<div class="codehilite"><pre><span></span><code>mosquitto_sub -h broker.hivemq.com -p <span class="m">1883</span> -t EdgeXQuickStartGuide
-</code></pre></div>
-
-
+<p>You can also use the <code>Mosquitto CLI &lt;https://mosquitto.org/download/&gt;</code>_ tool to verify that readings are being sent by running:
+<div class="highlight"><pre><span></span><code>mosquitto_sub -h broker.hivemq.com -p <span class="m">1883</span> -t EdgeXQuickStartGuide
+</code></pre></div></p>
 <h2 id="controlling-the-device">Controlling the Device</h2>
 <p>Reading data from devices is only part of what EdgeX is capable of, you can also use it to control your devices. When a device is registered with the EdgeX services, it provides a <a href="../../microservices/device/profile/Ch-DeviceProfile/">Device Profile</a> that describes both the data readings available from that device, and also the commands that can be called to control it. </p>
 <p>When our Random Number Device Service registered the device <code>Random-Integer-Generator01</code>, it used a <a href="https://github.com/edgexfoundry/device-random/blob/master/cmd/res/device.random.yaml">profile</a> which defines commands for changing the minimum and maximum values for the random numbers it will generate.</p>
-<p>You won't call commands on devices directly, instead you use the EdgeX Foundry <a href="../../microservices/core/command/Ch-Command/">Command Service</a> to do that. The first step is to check what commands are available to be called by asking the Command service about your device:</p>
-<div class="codehilite"><pre><span></span><code>curl http://localhost:48082/api/v1/device/name/Random-Integer-Generator01
+<p>You won't call commands on devices directly, instead you use the EdgeX Foundry <a href="../../microservices/core/command/Ch-Command/">Command Service</a> to do that. The first step is to check what commands are available to be called by asking the Command service about your device:
+<div class="highlight"><pre><span></span><code>curl http://localhost:48082/api/v1/device/name/Random-Integer-Generator01
 </code></pre></div>
-
-
-<p>This will return a lot of JSON, because there are a number of commands you can call on this device, but the one we're going to try in this guide in will look something like this:</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+This will return a lot of JSON, because there are a number of commands you can call on this device, but the one we're going to try in this guide in will look something like this:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
     <span class="nt">&quot;created&quot;</span><span class="p">:</span><span class="mi">1544456741615</span><span class="p">,</span>
     <span class="nt">&quot;modified&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
     <span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
@@ -2172,52 +2225,15 @@
         <span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="s2">&quot;http://edgex-core-command:48082/api/v1/device/5c0e8a259f8fc20001a5d230/command/5c0e8a259f8fc20001a5d22b&quot;</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div>
-
-
+</code></pre></div></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The URLs won't be exactly the same for you, as the generated unique IDs for both the Device and the Command will be different. So be sure to use your values for the following steps.</p>
 </div>
-<p>You'll notice that this one command has both a <strong>get</strong> and a <strong>put</strong> option. The <strong>get</strong> call will return a random number, and is what is being called automatically to send data into the rest of EdgeX. You can also call it manually using the <strong>get</strong> URL provided:</p>
-<div class="codehilite"><pre><span></span><code>curl http://localhost:48082/api/v1/device/5c0e8a259f8fc20001a5d230/command/5c0e8a259f8fc20001a5d22b
+<p>You'll notice that this one command has both a <strong>get</strong> and a <strong>put</strong> option. The <strong>get</strong> call will return a random number, and is what is being called automatically to send data into the rest of EdgeX. You can also call it manually using the <strong>get</strong> URL provided:
+<div class="highlight"><pre><span></span><code>curl http://localhost:48082/api/v1/device/5c0e8a259f8fc20001a5d230/command/5c0e8a259f8fc20001a5d22b
 </code></pre></div>
-
-
-<p>Notice that I replaced <strong>edgex-core-command</strong> with <strong>localhost</strong> here. That's because the EdgeX Foundry services are running in docker, which recognizes the internal hostname <strong>edgex-core-command</strong>, but I'm calling it from outside of docker, so I have to use <strong>localhost</strong> to reach it.</p>
-<p>This command will return a JSON result that looks like this:</p>
-<div class="codehilite"><pre><span></span><code>    <span class="p">{</span>
-        <span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;pushed&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
-        <span class="nt">&quot;device&quot;</span><span class="p">:</span><span class="s2">&quot;Random-Integer-Generator01&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;created&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
-        <span class="nt">&quot;modified&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
-        <span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="mi">1544457033233</span><span class="p">,</span>
-        <span class="nt">&quot;schedule&quot;</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
-        <span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
-        <span class="nt">&quot;readings&quot;</span><span class="p">:[</span>
-            <span class="p">{</span>
-                <span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;pushed&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
-                <span class="nt">&quot;created&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
-                <span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="mi">1544457033233</span><span class="p">,</span>
-                <span class="nt">&quot;modified&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
-                <span class="nt">&quot;device&quot;</span><span class="p">:</span><span class="s2">&quot;Random-Integer-Generator01&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;RandomValue_Int8&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="s2">&quot;-92&quot;</span>
-            <span class="p">}</span>
-        <span class="p">]</span>
-    <span class="p">}</span>
-</code></pre></div>
-
-
-<p>The default range for this reading is -128 to 127. We can limit that to only positive values between 0 and 100 by calling the command as a <strong>put</strong> method with new minimum and maximum values:</p>
-<div class="codehilite"><pre><span></span><code>curl -X PUT -d <span class="s1">&#39;[</span>
-<span class="s1">    {&quot;Min_Int8&quot;: &quot;0&quot;, &quot;Max_Int8&quot;: &quot;100&quot;}</span>
-<span class="s1">]&#39;</span> http://localhost:48082/api/v1/device/5c0e8a259f8fc20001a5d230/command/5c0e8a259f8fc20001a5d22b
-</code></pre></div>
-
-
+Notice that I replaced <strong>edgex-core-command</strong> with <strong>localhost</strong> here. That's because the EdgeX Foundry services are running in docker, which recognizes the internal hostname <strong>edgex-core-command</strong>, but I'm calling it from outside of docker, so I have to use <strong>localhost</strong> to reach it.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>You can make multiple requests to a Command with a single call, so your parameters need to be in an array (surrounded by [ ] ) as shown above. The parameter names were given in the <strong>PUT</strong> section of the Command definition we queried at the start of this section.*</p>

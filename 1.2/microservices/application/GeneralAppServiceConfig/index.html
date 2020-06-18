@@ -1064,10 +1064,88 @@
           
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6-3" type="checkbox" id="nav-3-6-3">
+    
+    <label class="md-nav__link" for="nav-3-6-3">
+      Application Functions SDK
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Application Functions SDK" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-6-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Application Functions SDK
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
     <a href="../ApplicationFunctionsSDK/" title="App Functions SDK" class="md-nav__link">
       App Functions SDK
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ContextAPI/" title="Context API" class="md-nav__link">
+      Context API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../BuiltIn/" title="Built-In Transforms/Functions" class="md-nav__link">
+      Built-In Transforms/Functions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ErrorHandling/" title="Error Handling" class="md-nav__link">
+      Error Handling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../AdvancedTopics/" title="Advanced Topics" class="md-nav__link">
+      Advanced Topics
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -1196,6 +1274,13 @@
           <li class="md-nav__item">
   <a href="#messagebus" class="md-nav__link">
     MessageBus
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#application-settings" class="md-nav__link">
+    Application Settings
   </a>
   
 </li>
@@ -1996,6 +2081,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#application-settings" class="md-nav__link">
+    Application Settings
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2022,6 +2114,7 @@
                 
                 
                 <h1 id="general-app-service-configuration">General App Service Configuration</h1>
+<p>Similar to other EdgeX services, configuration is first determined by the <code>configuration.toml</code> file in the <code>/res</code> folder. If <code>-cp</code> is passed to the application on startup, the SDK will leverage the specific configuration provider (i.e Consul) to push configuration from the file into the registry and monitor configuration from there. You will find the configuration under the <code>edgex/appservices/1.0/</code> key. </p>
 <p>This section describes the configuration elements that are unique to Application Services</p>
 <p>Please refer to the general <a href="../../configuration/Ch-Configuration/#configuration">Configuration documentation</a> for configuration properties common across all services.</p>
 <div class="admonition note">
@@ -2356,6 +2449,11 @@ Only used for <code>messagebus</code> binding type</p>
 </tr>
 </tbody>
 </table>
+<h3 id="application-settings">Application Settings</h3>
+<p><code>[ApplicationSettings]</code> - Is used for custom application settings and is accessed via the ApplicationSettings() API. The ApplicationSettings API returns a <code>map[string] string</code> containing the contents on the ApplicationSetting section of the <code>configuration.toml</code> file.</p>
+<div class="highlight"><pre><span></span><code> <span class="k">[ApplicationSettings]</span>
+ <span class="n">ApplicationName</span> <span class="o">=</span> <span class="s">&quot;My Application Service&quot;</span>
+</code></pre></div>
                 
               
               

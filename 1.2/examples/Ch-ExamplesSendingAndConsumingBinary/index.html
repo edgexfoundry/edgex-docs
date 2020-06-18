@@ -1060,10 +1060,88 @@
           
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6-3" type="checkbox" id="nav-3-6-3">
+    
+    <label class="md-nav__link" for="nav-3-6-3">
+      Application Functions SDK
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Application Functions SDK" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-6-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Application Functions SDK
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
     <a href="../../microservices/application/ApplicationFunctionsSDK/" title="App Functions SDK" class="md-nav__link">
       App Functions SDK
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/application/ContextAPI/" title="Context API" class="md-nav__link">
+      Context API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/application/BuiltIn/" title="Built-In Transforms/Functions" class="md-nav__link">
+      Built-In Transforms/Functions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/application/ErrorHandling/" title="Error Handling" class="md-nav__link">
+      Error Handling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/application/AdvancedTopics/" title="Advanced Topics" class="md-nav__link">
+      Advanced Topics
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -2000,7 +2078,7 @@ Readings that contain arbitrary binary data.</p>
 <h3 id="device-profile">Device Profile</h3>
 <p>To indicate that a deviceResource represents a Binary type, the
 following format is used:</p>
-<div class="codehilite"><pre><span></span><code><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;camera_snapshot&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;camera_snapshot&quot;</span>
   <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;snapshot</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">camera&quot;</span>
   <span class="nt">properties</span><span class="p">:</span>
   <span class="nt">value</span><span class="p">:</span>
@@ -2009,22 +2087,20 @@ following format is used:</p>
       <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;Binary&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;CameraSnapshot&quot;</span> <span class="p p-Indicator">}</span>
 </code></pre></div>
 
-
 <h3 id="device-service">Device Service</h3>
 <p>Here is a snippet from a hypothetical Device Service's
 <code>HandleReadCommands()</code> method that produces an event that
 represents a JPEG image captured from a camera:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="n">DeviceResourceName</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;camera_snapshot&quot;</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">data</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="err">:</span><span class="o">=</span><span class="w"> </span><span class="n">cameraClient</span><span class="p">.</span><span class="n">GetSnapshot</span><span class="p">()</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="p">(</span><span class="err">[]</span><span class="n">byte</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="p">)</span><span class="w"></span>
-<span class="w">  </span><span class="k">check</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code>if req.DeviceResourceName == &quot;camera_snapshot&quot; {
+  data, err := cameraClient.GetSnapshot() // returns ([]byte, error)
+  check(err)
 
-<span class="w">  </span><span class="n">cv</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="err">:</span><span class="o">=</span><span class="w"> </span><span class="n">sdkModel</span><span class="p">.</span><span class="n">NewBinaryValue</span><span class="p">(</span><span class="n">reqs</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">.</span><span class="n">DeviceResourceName</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">data</span><span class="p">)</span><span class="w"></span>
-<span class="w">  </span><span class="k">check</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="w"></span>
+  cv, err := sdkModel.NewBinaryValue(reqs[i].DeviceResourceName, 0, data)
+  check(err)
 
-<span class="w">  </span><span class="n">responses</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cv</span><span class="w"></span>
-<span class="err">}</span><span class="w"></span>
+  responses[i] = cv
+}
 </code></pre></div>
-
 
 <h2 id="calling-device-service-command">Calling Device Service Command</h2>
 <p>Querying core-metadata for the Device's Commands and DeviceID provides
@@ -2040,41 +2116,40 @@ first need to be decoded from CBOR. The following is a simple Go program
 that reads in the CBOR response from a file containing the response from
 the previous HTTP request. The Go library recommended for parsing these
 events can be found at <a href="https://github.com/ugorji/go">https://github.com/ugorji/go</a></p>
-<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">main</span>
+<div class="highlight"><pre><span></span><code>package main
 
-<span class="kn">import</span> <span class="p">(</span>
-  <span class="err">“</span><span class="n">io</span><span class="o">/</span><span class="n">ioutil</span><span class="err">”</span>
+import (
+  “io/ioutil”
 
-  <span class="n">contracts</span> <span class="err">“</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">edgexfoundry</span><span class="o">/</span><span class="n">go</span><span class="o">-</span><span class="n">mod</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">contracts</span><span class="o">/</span><span class="n">models</span><span class="err">”</span>
-  <span class="err">“</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">ugorji</span><span class="o">/</span><span class="n">go</span><span class="o">/</span><span class="n">codec</span><span class="err">”</span>
-<span class="p">)</span>
+  contracts “github.com/edgexfoundry/go-mod-core-contracts/models”
+  “github.com/ugorji/go/codec”
+)
 
-<span class="n">func</span> <span class="n">check</span><span class="p">(</span><span class="n">e</span> <span class="n">error</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="n">e</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
-      <span class="n">panic</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+func check(e error) {
+  if e != nil {
+      panic(e)
+  }
+}
 
-<span class="n">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-  <span class="o">//</span> <span class="n">Read</span> <span class="ow">in</span> <span class="n">our</span> <span class="n">cbor</span> <span class="n">data</span>
-  <span class="n">fileBytes</span><span class="p">,</span> <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">ioutil</span><span class="o">.</span><span class="n">ReadFile</span><span class="p">(</span><span class="err">“</span><span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">johndoe</span><span class="o">/</span><span class="n">Desktop</span><span class="o">/</span><span class="n">image</span><span class="o">.</span><span class="n">cbor</span><span class="err">”</span><span class="p">)</span>
-  <span class="n">check</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+func main() {
+  // Read in our cbor data
+  fileBytes, err := ioutil.ReadFile(“/Users/johndoe/Desktop/image.cbor”)
+  check(err)
 
-  <span class="o">//</span> <span class="n">Create</span> <span class="n">a</span> <span class="n">cbor</span> <span class="n">decoder</span> <span class="kn">from</span> <span class="nn">the</span> <span class="nn">cbor</span> <span class="nn">bytes</span> <span class="nn">and</span> <span class="nn">a</span> <span class="nn">cbor</span> <span class="nn">code</span> <span class="nn">handle</span>
-  <span class="n">var</span> <span class="n">h</span> <span class="n">codec</span><span class="o">.</span><span class="n">Handle</span> <span class="o">=</span> <span class="n">new</span><span class="p">(</span><span class="n">codec</span><span class="o">.</span><span class="n">CborHandle</span><span class="p">)</span>
-  <span class="n">var</span> <span class="n">dec</span> <span class="o">*</span><span class="n">codec</span><span class="o">.</span><span class="n">Decoder</span> <span class="o">=</span> <span class="n">codec</span><span class="o">.</span><span class="n">NewDecoderBytes</span><span class="p">(</span><span class="n">fileBytes</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+  // Create a cbor decoder from the cbor bytes and a cbor code handle
+  var h codec.Handle = new(codec.CborHandle)
+  var dec *codec.Decoder = codec.NewDecoderBytes(fileBytes, h)
 
-  <span class="o">//</span> <span class="n">Decode</span> <span class="n">into</span> <span class="n">an</span> <span class="n">EdgeX</span> <span class="n">Event</span>
-  <span class="n">var</span> <span class="n">event</span> <span class="n">contracts</span><span class="o">.</span><span class="n">Event</span>
-  <span class="n">err</span> <span class="o">=</span> <span class="n">dec</span><span class="o">.</span><span class="n">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="n">event</span><span class="p">)</span>
-  <span class="n">check</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+  // Decode into an EdgeX Event
+  var event contracts.Event
+  err = dec.Decode(&amp;event)
+  check(err)
 
-  <span class="o">//</span> <span class="n">Grab</span> <span class="n">binary</span> <span class="n">data</span> <span class="ow">and</span> <span class="n">write</span> <span class="n">to</span> <span class="n">a</span> <span class="nb">file</span>
-  <span class="n">imgBytes</span> <span class="p">:</span><span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">Readings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">BinaryValue</span>
-  <span class="n">ioutil</span><span class="o">.</span><span class="n">WriteFile</span><span class="p">(</span><span class="err">“</span><span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">johndoe</span><span class="o">/</span><span class="n">Desktop</span><span class="o">/</span><span class="n">image</span><span class="o">.</span><span class="n">jpeg</span><span class="err">”</span><span class="p">,</span> <span class="n">imgBytes</span><span class="p">,</span> <span class="mo">0644</span><span class="p">)</span>
-<span class="p">}</span>
+  // Grab binary data and write to a file
+  imgBytes := event.Readings[0].BinaryValue
+  ioutil.WriteFile(“/Users/johndoe/Desktop/image.jpeg”, imgBytes, 0644)
+}
 </code></pre></div>
-
 
 <p>In the code above, the CBOR data is read into a buffer, a
 <code>code.Decoder</code> is created to decode the CBOR data, an EdgeX
@@ -2089,30 +2164,29 @@ bus.</p>
 accepts a byte slice as binary data. Any arbitrary Go structure can be
 encoded in a binary reading by first encoding the structure into a byte
 slice using CBOR. The following illustrates this method:</p>
-<div class="codehilite"><pre><span></span><code><span class="o">//</span><span class="w"> </span><span class="n">DeviceService</span><span class="w"> </span><span class="n">HandleReadCommands</span><span class="p">()</span><span class="w"> </span><span class="nl">code</span><span class="p">:</span><span class="w"></span>
-<span class="n">foo</span><span class="w"> </span><span class="err">:</span><span class="o">=</span><span class="w"> </span><span class="n">struct</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
-<span class="w">  </span><span class="n">X</span><span class="w"> </span><span class="nc">int</span><span class="w"></span>
-<span class="w">  </span><span class="n">Y</span><span class="w"> </span><span class="nc">int</span><span class="w"></span>
-<span class="w">  </span><span class="n">Z</span><span class="w"> </span><span class="nc">int</span><span class="w"></span>
-<span class="w">  </span><span class="n">Bar</span><span class="w"> </span><span class="n">string</span><span class="w"></span>
-<span class="err">}</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
-<span class="w">  </span><span class="nl">X</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="nl">Y</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="nl">Z</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="nl">Bar</span><span class="p">:</span><span class="w"> </span><span class="ss">&quot;Hello world!&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="err">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code>// DeviceService HandleReadCommands() code:
+foo := struct {
+  X int
+  Y int
+  Z int
+  Bar string
+} {
+  X: 7,
+  Y: 3,
+  Z: 100,
+  Bar: &quot;Hello world!&quot;,
+}
 
-<span class="n">buffer</span><span class="w"> </span><span class="err">:</span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="p">(</span><span class="n">bytes</span><span class="p">.</span><span class="n">Buffer</span><span class="p">)</span><span class="w"></span>
-<span class="n">ch</span><span class="w"> </span><span class="err">:</span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="p">(</span><span class="n">codec</span><span class="p">.</span><span class="n">CborHandle</span><span class="p">)</span><span class="w"></span>
-<span class="n">encoder</span><span class="w"> </span><span class="err">:</span><span class="o">=</span><span class="w"> </span><span class="n">codec</span><span class="p">.</span><span class="n">NewEncoder</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="n">ch</span><span class="p">)</span><span class="w"></span>
+buffer := new(bytes.Buffer)
+ch := new(codec.CborHandle)
+encoder := codec.NewEncoder(buffer, ch)
 
-<span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">encoder</span><span class="p">.</span><span class="n">Encode</span><span class="p">(</span><span class="o">&amp;</span><span class="n">foo</span><span class="p">)</span><span class="w"></span>
-<span class="k">check</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="w"></span>
+err = encoder.Encode(&amp;foo)
+check(err)
 
-<span class="n">cv</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="err">:</span><span class="o">=</span><span class="w"> </span><span class="n">sdkModel</span><span class="p">.</span><span class="n">NewBinaryValue</span><span class="p">(</span><span class="n">reqs</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">.</span><span class="n">DeviceResourceName</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">.</span><span class="n">Bytes</span><span class="p">())</span><span class="w"></span>
-<span class="n">responses</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cv</span><span class="w"></span>
+cv, err := sdkModel.NewBinaryValue(reqs[i].DeviceResourceName, 0, buffer.Bytes())
+responses[i] = cv
 </code></pre></div>
-
 
 <p>This code takes the anonymous struct with fields X, Y, Z, and Bar (of
 different types) and serializes it into a byte slice using the same
@@ -2120,36 +2194,35 @@ different types) and serializes it into a byte slice using the same
 <code>NewBinaryValue()</code>.</p>
 <p>When consuming these events, another level of decoding will need to take
 place to get the structure out of the binary payload.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">func</span> <span class="n">main</span><span class="p">()</span> <span class="err">{</span>
-  <span class="o">//</span> <span class="k">Read</span> <span class="k">in</span> <span class="n">our</span> <span class="n">cbor</span> <span class="k">data</span>
-  <span class="n">fileBytes</span><span class="p">,</span> <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">ioutil</span><span class="p">.</span><span class="n">ReadFile</span><span class="p">(</span><span class="err">“</span><span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">johndoe</span><span class="o">/</span><span class="n">Desktop</span><span class="o">/</span><span class="n">image</span><span class="p">.</span><span class="n">cbor</span><span class="err">”</span><span class="p">)</span>
-  <span class="k">check</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code>func main() {
+  // Read in our cbor data
+  fileBytes, err := ioutil.ReadFile(“/Users/johndoe/Desktop/image.cbor”)
+  check(err)
 
-  <span class="o">//</span> <span class="k">Create</span> <span class="n">a</span> <span class="n">cbor</span> <span class="n">decoder</span> <span class="k">from</span> <span class="n">the</span> <span class="n">cbor</span> <span class="n">bytes</span> <span class="k">and</span> <span class="n">a</span> <span class="n">cbor</span> <span class="n">code</span> <span class="n">handle</span>
-  <span class="n">var</span> <span class="n">h</span> <span class="n">codec</span><span class="p">.</span><span class="n">Handle</span> <span class="o">=</span> <span class="k">new</span><span class="p">(</span><span class="n">codec</span><span class="p">.</span><span class="n">CborHandle</span><span class="p">)</span>
-  <span class="n">var</span> <span class="nb">dec</span> <span class="o">*</span><span class="n">codec</span><span class="p">.</span><span class="n">Decoder</span> <span class="o">=</span> <span class="n">codec</span><span class="p">.</span><span class="n">NewDecoderBytes</span><span class="p">(</span><span class="n">fileBytes</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+  // Create a cbor decoder from the cbor bytes and a cbor code handle
+  var h codec.Handle = new(codec.CborHandle)
+  var dec *codec.Decoder = codec.NewDecoderBytes(fileBytes, h)
 
-  <span class="o">//</span> <span class="n">Decode</span> <span class="k">into</span> <span class="n">an</span> <span class="n">EdgeX</span> <span class="n">Event</span>
-  <span class="n">var</span> <span class="n">event</span> <span class="n">contracts</span><span class="p">.</span><span class="n">Event</span>
-  <span class="n">err</span> <span class="o">=</span> <span class="nb">dec</span><span class="p">.</span><span class="n">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="n">event</span><span class="p">)</span>
-  <span class="k">check</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+  // Decode into an EdgeX Event
+  var event contracts.Event
+  err = dec.Decode(&amp;event)
+  check(err)
 
-  <span class="o">//</span> <span class="n">Decode</span> <span class="k">into</span> <span class="n">arbitrary</span> <span class="k">type</span>
-  <span class="n">foo</span> <span class="p">:</span><span class="o">=</span> <span class="n">struct</span> <span class="err">{</span>
-  <span class="n">X</span>   <span class="nb">int</span>
-  <span class="n">Y</span>   <span class="nb">int</span>
-  <span class="n">Z</span>   <span class="nb">int</span>
-  <span class="n">Bar</span> <span class="n">string</span>
-  <span class="err">}{}</span>
+  // Decode into arbitrary type
+  foo := struct {
+  X   int
+  Y   int
+  Z   int
+  Bar string
+  }{}
 
-  <span class="nb">dec</span> <span class="o">=</span> <span class="n">codec</span><span class="p">.</span><span class="n">NewDecoderBytes</span><span class="p">(</span><span class="n">event</span><span class="p">.</span><span class="n">Readings</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">BinaryValue</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
-  <span class="n">err</span> <span class="o">=</span> <span class="nb">dec</span><span class="p">.</span><span class="n">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="n">foo</span><span class="p">)</span>
-  <span class="k">check</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+  dec = codec.NewDecoderBytes(event.Readings[0].BinaryValue, h)
+  err = dec.Decode(&amp;foo)
+  check(err)
 
-  <span class="n">fmt</span><span class="p">.</span><span class="n">Println</span><span class="p">(</span><span class="n">foo</span><span class="p">)</span>
-<span class="err">}</span>
+  fmt.Println(foo)
+}
 </code></pre></div>
-
 
 <p>This code takes a command response in the same format as the previous
 example, but uses the <code>codec</code> library to decode the CBOR
@@ -2166,81 +2239,78 @@ followed by using that file with an example <code>PUT</code> command.</p>
 and the corresponding value, where you should note in particular the <code>Put</code>
 field in the <code>Command</code> struct, and below the <code>Command</code> struct is the <code>Put</code>
 struct itself. More details available at
-https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/models/put.go:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">type</span> <span class="n">Command</span> <span class="n">struct</span> <span class="err">{</span>
-    <span class="n">Timestamps</span>  <span class="o">`</span><span class="n">yaml</span><span class="p">:</span><span class="ss">&quot;,inline&quot;</span><span class="o">`</span>
-    <span class="n">Id</span>          <span class="n">string</span> <span class="o">`</span><span class="n">json</span><span class="p">:</span><span class="ss">&quot;id&quot;</span> <span class="n">yaml</span><span class="p">:</span><span class="ss">&quot;id,omitempty&quot;</span><span class="o">`</span>     <span class="o">//</span> <span class="n">Id</span> <span class="k">is</span> <span class="n">a</span> <span class="k">unique</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">such</span> <span class="k">as</span> <span class="n">a</span> <span class="n">UUID</span>
-    <span class="n">Name</span>        <span class="n">string</span> <span class="o">`</span><span class="n">json</span><span class="p">:</span><span class="ss">&quot;name&quot;</span> <span class="n">yaml</span><span class="p">:</span><span class="ss">&quot;name,omitempty&quot;</span><span class="o">`</span> <span class="o">//</span> <span class="n">Command</span> <span class="n">name</span> <span class="p">(</span><span class="k">unique</span> <span class="k">on</span> <span class="n">the</span> <span class="n">profile</span><span class="p">)</span>
-    <span class="k">Get</span>         <span class="k">Get</span>    <span class="o">`</span><span class="n">json</span><span class="p">:</span><span class="ss">&quot;get&quot;</span> <span class="n">yaml</span><span class="p">:</span><span class="ss">&quot;get,omitempty&quot;</span><span class="o">`</span>   <span class="o">//</span> <span class="k">Get</span> <span class="n">Command</span>
-    <span class="n">Put</span>         <span class="n">Put</span>    <span class="o">`</span><span class="n">json</span><span class="p">:</span><span class="ss">&quot;put&quot;</span> <span class="n">yaml</span><span class="p">:</span><span class="ss">&quot;put,omitempty&quot;</span><span class="o">`</span>   <span class="o">//</span> <span class="n">Put</span> <span class="n">Command</span>
-    <span class="n">isValidated</span> <span class="n">bool</span>   <span class="o">//</span> <span class="n">internal</span> <span class="n">member</span> <span class="n">used</span> <span class="k">for</span> <span class="n">validation</span> <span class="k">check</span>
-<span class="err">}</span>
+https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/models/put.go:
+<div class="highlight"><pre><span></span><code>type Command struct {
+    Timestamps  `yaml:&quot;,inline&quot;`
+    Id          string `json:&quot;id&quot; yaml:&quot;id,omitempty&quot;`     // Id is a unique identifier, such as a UUID
+    Name        string `json:&quot;name&quot; yaml:&quot;name,omitempty&quot;` // Command name (unique on the profile)
+    Get         Get    `json:&quot;get&quot; yaml:&quot;get,omitempty&quot;`   // Get Command
+    Put         Put    `json:&quot;put&quot; yaml:&quot;put,omitempty&quot;`   // Put Command
+    isValidated bool   // internal member used for validation check
+}
 
-<span class="k">type</span> <span class="n">Put</span> <span class="n">struct</span> <span class="err">{</span>
-    <span class="n">Action</span>         <span class="o">`</span><span class="n">yaml</span><span class="p">:</span><span class="ss">&quot;,inline&quot;</span><span class="o">`</span>
-    <span class="n">ParameterNames</span> <span class="p">[]</span><span class="n">string</span> <span class="o">`</span><span class="n">json</span><span class="p">:</span><span class="ss">&quot;parameterNames,omitempty&quot;</span> <span class="n">yaml</span><span class="p">:</span><span class="ss">&quot;parameterNames,omitempty&quot;</span><span class="o">`</span>
-<span class="err">}</span>
+type Put struct {
+    Action         `yaml:&quot;,inline&quot;`
+    ParameterNames []string `json:&quot;parameterNames,omitempty&quot; yaml:&quot;parameterNames,omitempty&quot;`
+}
 </code></pre></div>
+What follows below is the accompanying <code>golang</code> code that accomplishes the steps above:</p>
+<div class="highlight"><pre><span></span><code>package main
+
+import (
+    &quot;io/ioutil&quot;
+
+    &quot;github.com/ugorji/go/codec&quot;
+)
+
+const (
+  fileLocation = &quot;/Users/johnpoe/Desktop/CBOR_Binary&quot;
+)
+
+const (
+    enableRandomizationBinary = &quot;EnableRandomization_Binary&quot;
+    path                      = &quot;Path&quot;
+    url                       = &quot;Url&quot;
+)
+
+func main() {
+    // Set up some records which will be used to create the CBOR data
+    cborContents := make(map[string]string)
+
+    // The user should put values in the cborContents variable above, which will
+    // be converted to CBOR. Please refer to the earlier note containing details
+    // of the key and the corresponding value each keys represent. What follows
+    // below is an example of populating the &quot;ParameterNames&quot; (aka &quot;Put&quot;)
+    cborContents[enableRandomizationBinary] = &quot;true&quot;
+    cborContents[path] = &quot;/api/v1/device/9f872d68/Binary&quot;
+    cborContents[url] = &quot;http://localhost:48082/api/v1/device/9f872d68/command/7ff8d51ea50d&quot;
 
 
-<p>What follows below is the accompanying <code>golang</code> code that accomplishes the steps above:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">main</span>
+    // Encode the contents that were set up above.
+    input := make([]byte, 0)
+    check(codec.NewEncoderBytes(&amp;input, &amp;codec.CborHandle{}).Encode(cborContents))
 
-<span class="kn">import</span> <span class="p">(</span>
-    <span class="s2">&quot;io/ioutil&quot;</span>
+    // Write the CBOR-encoded data to a file.
+    ioutil.WriteFile(fileLocation, input, 0644)
+}
 
-    <span class="s2">&quot;github.com/ugorji/go/codec&quot;</span>
-<span class="p">)</span>
-
-<span class="n">const</span> <span class="p">(</span>
-  <span class="n">fileLocation</span> <span class="o">=</span> <span class="s2">&quot;/Users/johnpoe/Desktop/CBOR_Binary&quot;</span>
-<span class="p">)</span>
-
-<span class="n">const</span> <span class="p">(</span>
-    <span class="n">enableRandomizationBinary</span> <span class="o">=</span> <span class="s2">&quot;EnableRandomization_Binary&quot;</span>
-    <span class="n">path</span>                      <span class="o">=</span> <span class="s2">&quot;Path&quot;</span>
-    <span class="n">url</span>                       <span class="o">=</span> <span class="s2">&quot;Url&quot;</span>
-<span class="p">)</span>
-
-<span class="n">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="o">//</span> <span class="n">Set</span> <span class="n">up</span> <span class="n">some</span> <span class="n">records</span> <span class="n">which</span> <span class="n">will</span> <span class="n">be</span> <span class="n">used</span> <span class="n">to</span> <span class="n">create</span> <span class="n">the</span> <span class="n">CBOR</span> <span class="n">data</span>
-    <span class="n">cborContents</span> <span class="p">:</span><span class="o">=</span> <span class="n">make</span><span class="p">(</span><span class="nb">map</span><span class="p">[</span><span class="n">string</span><span class="p">]</span><span class="n">string</span><span class="p">)</span>
-
-    <span class="o">//</span> <span class="n">The</span> <span class="n">user</span> <span class="n">should</span> <span class="n">put</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">cborContents</span> <span class="n">variable</span> <span class="n">above</span><span class="p">,</span> <span class="n">which</span> <span class="n">will</span>
-    <span class="o">//</span> <span class="n">be</span> <span class="n">converted</span> <span class="n">to</span> <span class="n">CBOR</span><span class="o">.</span> <span class="n">Please</span> <span class="n">refer</span> <span class="n">to</span> <span class="n">the</span> <span class="n">earlier</span> <span class="n">note</span> <span class="n">containing</span> <span class="n">details</span>
-    <span class="o">//</span> <span class="n">of</span> <span class="n">the</span> <span class="n">key</span> <span class="ow">and</span> <span class="n">the</span> <span class="n">corresponding</span> <span class="n">value</span> <span class="n">each</span> <span class="n">keys</span> <span class="n">represent</span><span class="o">.</span> <span class="n">What</span> <span class="n">follows</span>
-    <span class="o">//</span> <span class="n">below</span> <span class="ow">is</span> <span class="n">an</span> <span class="n">example</span> <span class="n">of</span> <span class="n">populating</span> <span class="n">the</span> <span class="s2">&quot;ParameterNames&quot;</span> <span class="p">(</span><span class="n">aka</span> <span class="s2">&quot;Put&quot;</span><span class="p">)</span>
-    <span class="n">cborContents</span><span class="p">[</span><span class="n">enableRandomizationBinary</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;true&quot;</span>
-    <span class="n">cborContents</span><span class="p">[</span><span class="n">path</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;/api/v1/device/9f872d68/Binary&quot;</span>
-    <span class="n">cborContents</span><span class="p">[</span><span class="n">url</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;http://localhost:48082/api/v1/device/9f872d68/command/7ff8d51ea50d&quot;</span>
-
-
-    <span class="o">//</span> <span class="n">Encode</span> <span class="n">the</span> <span class="n">contents</span> <span class="n">that</span> <span class="n">were</span> <span class="nb">set</span> <span class="n">up</span> <span class="n">above</span><span class="o">.</span>
-    <span class="nb">input</span> <span class="p">:</span><span class="o">=</span> <span class="n">make</span><span class="p">([]</span><span class="n">byte</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="n">check</span><span class="p">(</span><span class="n">codec</span><span class="o">.</span><span class="n">NewEncoderBytes</span><span class="p">(</span><span class="o">&amp;</span><span class="nb">input</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">codec</span><span class="o">.</span><span class="n">CborHandle</span><span class="p">{})</span><span class="o">.</span><span class="n">Encode</span><span class="p">(</span><span class="n">cborContents</span><span class="p">))</span>
-
-    <span class="o">//</span> <span class="n">Write</span> <span class="n">the</span> <span class="n">CBOR</span><span class="o">-</span><span class="n">encoded</span> <span class="n">data</span> <span class="n">to</span> <span class="n">a</span> <span class="nb">file</span><span class="o">.</span>
-    <span class="n">ioutil</span><span class="o">.</span><span class="n">WriteFile</span><span class="p">(</span><span class="n">fileLocation</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="mo">0644</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="n">func</span> <span class="n">check</span><span class="p">(</span><span class="n">e</span> <span class="n">error</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="n">e</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
-        <span class="n">panic</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+func check(e error) {
+    if e != nil {
+        panic(e)
+    }
+}
 </code></pre></div>
-
 
 <p>In the code above, as a final step, the CBOR payload has been written to the filesystem,
 into a file that we are calling <code>CBOR_Binary</code>.</p>
 <p>Here is how to use the <code>PUT</code> command: Via the <code>--data-binary</code> flag in <code>cURL</code>, supply as
 follows the CBOR-encoded file created above. You will want to replace the fileLocation
 (i.e. <code>'@/Users/johnpoe/Desktop/CBOR_Binary'</code> by a suitably-located local file on your
-filesystem:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">curl --location --request PUT &#39;http://localhost:48082/api/v1/device/9f872d68-2281-4af4-959d-29e4d51c2192/command/b349df4a-6c3d-4218-b8bc-7ff8d51ea50d&#39; \</span>
-<span class="err">--header &#39;Content-Type: application/cbor&#39; \</span>
-<span class="err">--data-binary &#39;@/Users/johnpoe/Desktop/CBOR_Binary&#39;</span>
-</code></pre></div>
+filesystem:
+<div class="highlight"><pre><span></span><code>curl --location --request PUT &#39;http://localhost:48082/api/v1/device/9f872d68-2281-4af4-959d-29e4d51c2192/command/b349df4a-6c3d-4218-b8bc-7ff8d51ea50d&#39; \
+--header &#39;Content-Type: application/cbor&#39; \
+--data-binary &#39;@/Users/johnpoe/Desktop/CBOR_Binary&#39;
+</code></pre></div></p>
                 
               
               

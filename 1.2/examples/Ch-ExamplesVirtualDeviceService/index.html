@@ -1060,10 +1060,88 @@
           
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6-3" type="checkbox" id="nav-3-6-3">
+    
+    <label class="md-nav__link" for="nav-3-6-3">
+      Application Functions SDK
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Application Functions SDK" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-6-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Application Functions SDK
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
     <a href="../../microservices/application/ApplicationFunctionsSDK/" title="App Functions SDK" class="md-nav__link">
       App Functions SDK
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/application/ContextAPI/" title="Context API" class="md-nav__link">
+      Context API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/application/BuiltIn/" title="Built-In Transforms/Functions" class="md-nav__link">
+      Built-In Transforms/Functions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/application/ErrorHandling/" title="Error Handling" class="md-nav__link">
+      Error Handling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/application/AdvancedTopics/" title="Advanced Topics" class="md-nav__link">
+      Advanced Topics
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -1249,13 +1327,6 @@
           <li class="md-nav__item">
   <a href="#put-command-example-assign-a-value-to-a-resource" class="md-nav__link">
     PUT command example - Assign a value to a resource
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#put-command-example-enabledisable-the-randomization-of-the-resource" class="md-nav__link">
-    PUT command example - Enable/Disable the randomization of the resource
   </a>
   
 </li>
@@ -1952,13 +2023,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#put-command-example-enabledisable-the-randomization-of-the-resource" class="md-nav__link">
-    PUT command example - Enable/Disable the randomization of the resource
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -2091,11 +2155,9 @@ Command API:</p>
 <li><a href="http://[host]:48082/api/v1/device/name/Random-Float-Device">http://[host]:48082/api/v1/device/name/Random-Float-Device</a></li>
 </ul>
 <h3 id="get-command-example">GET command example</h3>
-<div class="codehilite"><pre><span></span><code>curl -X GET localhost:48082/api/v1/device/1bd5d4c3-9d43-42f2-8c4a-f32f5999edf7/command/e5d7c2b8-eab7-4da4-9d41-388da05979a4<span class="sb">`</span>
+<p><div class="highlight"><pre><span></span><code>curl -X GET localhost:48082/api/v1/device/1bd5d4c3-9d43-42f2-8c4a-f32f5999edf7/command/e5d7c2b8-eab7-4da4-9d41-388da05979a4<span class="sb">`</span>
 </code></pre></div>
-
-
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
   <span class="nt">&quot;device&quot;</span><span class="p">:</span> <span class="s2">&quot;Random-Integer-Device&quot;</span><span class="p">,</span>
   <span class="nt">&quot;origin&quot;</span><span class="p">:</span> <span class="mi">1574325994604494491</span><span class="p">,</span>
   <span class="nt">&quot;readings&quot;</span><span class="p">:</span> <span class="p">[</span>
@@ -2108,24 +2170,8 @@ Command API:</p>
   <span class="p">],</span>
   <span class="nt">&quot;EncodedEvent&quot;</span><span class="p">:</span> <span class="kc">null</span>
 <span class="p">}</span>
-</code></pre></div>
-
-
+</code></pre></div></p>
 <h3 id="put-command-example-assign-a-value-to-a-resource">PUT command example - Assign a value to a resource</h3>
-<p>The value must be a valid value for the data type. For example, the
-minimum value of Int8 cannot be less than -128 and the maximum value
-cannot be greater than 127.</p>
-<div class="codehilite"><pre><span></span><code>curl -X PUT -d <span class="s1">&#39;{&quot;Int8&quot;: &quot;123&quot;}&#39;</span> <span class="se">\</span>
-localhost:48082/api/v1/device/1bd5d4c3-9d43-42f2-8c4a-f32f5999edf7/command/e5d7c2b8-eab7-4da4-9d41-388da05979a4
-</code></pre></div>
-
-
-<h3 id="put-command-example-enabledisable-the-randomization-of-the-resource">PUT command example - Enable/Disable the randomization of the resource</h3>
-<div class="codehilite"><pre><span></span><code>curl -X PUT -d <span class="s1">&#39;{&quot;EnableRandomization_Int8&quot;: &quot;false&quot;}&#39;</span> <span class="se">\</span>
-localhost:48082/api/v1/device/1bd5d4c3-9d43-42f2-8c4a-f32f5999edf7/command/e5d7c2b8-eab7-4da4-9d41-388da05979a4
-</code></pre></div>
-
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul>
@@ -2159,10 +2205,8 @@ localhost:48082/api/v1/device/1bd5d4c3-9d43-42f2-8c4a-f32f5999edf7/command/e5d7c
 <li>
 <p>If the Virtual Device Service runs in a Docker container, it must
     mount the directory (/db) that contains the ql database in the
-    container. For example:</p>
-</li>
-</ol>
-<div class="codehilite"><pre><span></span><code><span class="nt">device-virtual</span><span class="p">:</span>
+    container. For example:
+<div class="highlight"><pre><span></span><code><span class="nt">device-virtual</span><span class="p">:</span>
   <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgexfoundry/docker-device-virtual-go:1.1.0</span>
   <span class="nt">ports</span><span class="p">:</span>
     <span class="p p-Indicator">-</span> <span class="s">&quot;49990:49990&quot;</span>
@@ -2179,33 +2223,27 @@ localhost:48082/api/v1/device/1bd5d4c3-9d43-42f2-8c4a-f32f5999edf7/command/e5d7c
   <span class="nt">depends_on</span><span class="p">:</span>
     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">data</span>
     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">command</span>
-</code></pre></div>
-
-
-<ol>
+</code></pre></div></p>
+</li>
 <li>If the Virtual Device Service runs in dev mode, the ql database
     directory is under the driver directory</li>
 </ol>
 <p>Command examples:</p>
 <ul>
-<li>Query all data:</li>
+<li>Query all data:
+<div class="highlight"><pre><span></span><code>ql -db /path-to-the-ql-db-folder/deviceVirtual.db -fld <span class="s2">&quot;select * from VIRTUAL_RESOURCE&quot;</span>
+</code></pre></div></li>
+<li>
+<p>Update Enable_Randomization:
+<div class="highlight"><pre><span></span><code>ql -db /path-to-the-ql-db-folder/deviceVirtual.db <span class="s2">&quot;update VIRTUAL_RESOURCE set ENABLE_RANDOMIZATION=false where DEVICE_NAME=&quot;</span>Random-Integer-Device<span class="s2">&quot; and DEVICE_RESOURCE_NAME=&quot;</span>Int8<span class="s2">&quot; &quot;</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Update Value:
+<div class="highlight"><pre><span></span><code>ql -db /path-to-the-ql-db-folder/deviceVirtual.db <span class="s2">&quot;update VIRTUAL_RESOURCE set VALUE=&quot;</span><span class="m">26</span><span class="s2">&quot; where DEVICE_NAME=&quot;</span>Random-Integer-Device<span class="s2">&quot; and DEVICE_RESOURCE_NAME=&quot;</span>Int8<span class="s2">&quot; &quot;</span>
+</code></pre></div></p>
+</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>ql -db /path-to-the-ql-db-folder/deviceVirtual.db -fld <span class="s2">&quot;select * from VIRTUAL_RESOURCE&quot;</span>
-</code></pre></div>
-
-
-<ul>
-<li>Update Enable_Randomization:</li>
-</ul>
-<div class="codehilite"><pre><span></span><code>ql -db /path-to-the-ql-db-folder/deviceVirtual.db <span class="s2">&quot;update VIRTUAL_RESOURCE set ENABLE_RANDOMIZATION=false where DEVICE_NAME=&quot;</span>Random-Integer-Device<span class="s2">&quot; and DEVICE_RESOURCE_NAME=&quot;</span>Int8<span class="s2">&quot; &quot;</span>
-</code></pre></div>
-
-
-<ul>
-<li>Update Value:</li>
-</ul>
-<div class="codehilite"><pre><span></span><code>ql -db /path-to-the-ql-db-folder/deviceVirtual.db <span class="s2">&quot;update VIRTUAL_RESOURCE set VALUE=&quot;</span><span class="m">26</span><span class="s2">&quot; where DEVICE_NAME=&quot;</span>Random-Integer-Device<span class="s2">&quot; and DEVICE_RESOURCE_NAME=&quot;</span>Int8<span class="s2">&quot; &quot;</span>
-</code></pre></div>
                 
               
               

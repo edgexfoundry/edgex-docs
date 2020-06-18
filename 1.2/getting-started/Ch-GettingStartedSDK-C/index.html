@@ -1164,10 +1164,88 @@
           
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6-3" type="checkbox" id="nav-3-6-3">
+    
+    <label class="md-nav__link" for="nav-3-6-3">
+      Application Functions SDK
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Application Functions SDK" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-6-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Application Functions SDK
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
     <a href="../../microservices/application/ApplicationFunctionsSDK/" title="App Functions SDK" class="md-nav__link">
       App Functions SDK
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/application/ContextAPI/" title="Context API" class="md-nav__link">
+      Context API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/application/BuiltIn/" title="Built-In Transforms/Functions" class="md-nav__link">
+      Built-In Transforms/Functions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/application/ErrorHandling/" title="Error Handling" class="md-nav__link">
+      Error Handling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/application/AdvancedTopics/" title="Advanced Topics" class="md-nav__link">
+      Advanced Topics
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -1996,11 +2074,9 @@ complete a device service without actually having a device to talk to.</p>
 -   libcurl
 -   libyaml
 -   libcbor</p>
-<p>You can install these on Ubuntu by running:</p>
-<div class="codehilite"><pre><span></span><code>sudo apt install libcurl4-openssl-dev libmicrohttpd-dev libyaml-dev libcbor-dev
-</code></pre></div>
-
-
+<p>You can install these on Ubuntu by running:
+<div class="highlight"><pre><span></span><code>sudo apt install libcurl4-openssl-dev libmicrohttpd-dev libyaml-dev libcbor-dev
+</code></pre></div></p>
 <h2 id="get-the-edgex-device-sdk-for-c">Get the EdgeX Device SDK for C</h2>
 <p>The next step is to download and build the EdgeX Device SDK for C. You
 always want to use the release of the SDK that matches the release of
@@ -2030,14 +2106,12 @@ C SDK as a starting point, and will modify it to generate random integer
 values.</p>
 <ol>
 <li>Begin by copying the template example source into a new directory
-    named <code>example-device-c</code>:</li>
-</ol>
-<div class="codehilite"><pre><span></span><code>mkdir -p ../example-device-c/res
+    named <code>example-device-c</code>:
+<div class="highlight"><pre><span></span><code>mkdir -p ../example-device-c/res
 cp ./src/c/examples/template.c ../example-device-c
 <span class="nb">cd</span> ../example-device-c
-</code></pre></div>
-
-
+</code></pre></div></li>
+</ol>
 <h2 id="build-your-device-service">Build your Device Service</h2>
 <p>Now you are ready to build your new device service using the C SDK you
 compiled in an earlier step.</p>
@@ -2065,7 +2139,7 @@ tagged version number on the SDK</p>
 the C SDK. In order to change it to a device service that generates
 random numbers, you need to modify your <code>template.c</code> method
 <strong>template_get_handler</strong> so that it reads as follows:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="p">(</span><span class="kt">uint32_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nreadings</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="p">(</span><span class="kt">uint32_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nreadings</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="k">const</span> <span class="n">edgex_nvpairs</span> <span class="o">*</span> <span class="n">current</span> <span class="o">=</span> <span class="n">requests</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">attributes</span><span class="p">;</span>
   <span class="k">while</span> <span class="p">(</span><span class="n">current</span><span class="o">!=</span><span class="nb">NULL</span><span class="p">)</span>
@@ -2086,7 +2160,6 @@ random numbers, you need to modify your <code>template.c</code> method
 <span class="p">}</span>
 <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
 </code></pre></div>
-
 
 <h2 id="creating-your-device-profile">Creating your Device Profile</h2>
 <p>A Device Profile is a YAML file that describes a class of device to
@@ -2139,11 +2212,10 @@ at the bottom of this guide) you need to tell your new Device Service to
 listen on the Docker host IP address (172.17.0.1) instead of
 <strong>localhost</strong>. To do that, modify the configuration.toml file so that
 the top section looks like this:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">[Service]</span>
+<div class="highlight"><pre><span></span><code><span class="k">[Service]</span>
 <span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;172.17.0.1&quot;</span>
 <span class="n">Port</span> <span class="o">=</span> <span class="mi">49992</span>
 </code></pre></div>
-
 
 <h2 id="rebuild-your-device-service">Rebuild your Device Service</h2>
 <p>Now you have your new Device Service, modified to return a random
@@ -2210,9 +2282,9 @@ called.</p>
 </li>
 </ol>
 <p>Note that the value of the "randomnumber" reading is an integer
-between 0 and 100:</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;device&quot;</span><span class="p">:</span><span class="s2">&quot;RandNum-Device01&quot;</span><span class="p">,</span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="mi">1559317102457</span><span class="p">,</span><span class="nt">&quot;readings&quot;</span><span class="p">:[{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;randomnumber&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="s2">&quot;63&quot;</span><span class="p">}]}</span>
-</code></pre></div>
+between 0 and 100:
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;device&quot;</span><span class="p">:</span><span class="s2">&quot;RandNum-Device01&quot;</span><span class="p">,</span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="mi">1559317102457</span><span class="p">,</span><span class="nt">&quot;readings&quot;</span><span class="p">:[{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;randomnumber&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="s2">&quot;63&quot;</span><span class="p">}]}</span>
+</code></pre></div></p>
                 
               
               

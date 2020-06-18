@@ -1161,10 +1161,88 @@
           
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6-3" type="checkbox" id="nav-3-6-3">
+    
+    <label class="md-nav__link" for="nav-3-6-3">
+      Application Functions SDK
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Application Functions SDK" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-6-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Application Functions SDK
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
     <a href="../../../application/ApplicationFunctionsSDK/" title="App Functions SDK" class="md-nav__link">
       App Functions SDK
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../application/ContextAPI/" title="Context API" class="md-nav__link">
+      Context API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../application/BuiltIn/" title="Built-In Transforms/Functions" class="md-nav__link">
+      Built-In Transforms/Functions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../application/ErrorHandling/" title="Error Handling" class="md-nav__link">
+      Error Handling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../application/AdvancedTopics/" title="Advanced Topics" class="md-nav__link">
+      Advanced Topics
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -2006,7 +2084,7 @@ following sections.</p>
 <h3 id="metrics-of-a-service">Metrics of a service</h3>
 <p>Example request: /api/v1/metrics/edgex-core-command,edgex-core-data</p>
 <p>Corresponding response, in JSON format:</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
    <span class="nt">&quot;Metrics&quot;</span><span class="p">:{</span>
       <span class="nt">&quot;edgex-core-command&quot;</span><span class="p">:{</span>
          <span class="nt">&quot;CpuBusyAvg&quot;</span><span class="p">:</span><span class="mf">2.224995150836366</span><span class="p">,</span>
@@ -2034,11 +2112,10 @@ following sections.</p>
 <span class="p">}</span>
 </code></pre></div>
 
-
 <h3 id="configuration-of-a-service">Configuration of a service</h3>
 <p>Example request: /api/v1/config/device-simple,edgex-core-data</p>
 <p>Corresponding response, in JSON format:</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
     <span class="nt">&quot;Configuration&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="nt">&quot;device-simple&quot;</span><span class="p">:</span> <span class="s2">&quot;device-simple service is not registered. Might not have started... &quot;</span><span class="p">,</span>
         <span class="nt">&quot;edgex-core-data&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -2104,11 +2181,10 @@ following sections.</p>
 <span class="p">}</span>
 </code></pre></div>
 
-
 <h3 id="start-a-service">Start a service</h3>
 <p>Example request: /api/v1/operation</p>
 <p>Example (POST) body accompanying the "start" request:</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
    <span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="s2">&quot;start&quot;</span><span class="p">,</span>
    <span class="nt">&quot;services&quot;</span><span class="p">:[</span>
       <span class="s2">&quot;edgex-core-data&quot;</span><span class="p">,</span>
@@ -2119,7 +2195,6 @@ following sections.</p>
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>Corresponding response, in JSON format, on success: "Done. Started the
 requested services."</p>
 <p>Corresponding response, in JSON format, on failure: "HTTP 500 -
@@ -2127,7 +2202,7 @@ Internal Server Error"</p>
 <h3 id="stop-a-service">Stop a service</h3>
 <p>Example request: /api/v1/operation</p>
 <p>Example (POST) body accompanying the "stop" request:</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
    <span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="s2">&quot;stop&quot;</span><span class="p">,</span>
    <span class="nt">&quot;services&quot;</span><span class="p">:[</span>
       <span class="s2">&quot;edgex-support-notifications&quot;</span>
@@ -2138,7 +2213,6 @@ Internal Server Error"</p>
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>Corresponding response, in JSON format, on success: "Done. Stopped the
 requested service."</p>
 <p>Corresponding response, in JSON format, on failure: "HTTP 500 -
@@ -2146,7 +2220,7 @@ Internal Server Error"</p>
 <h3 id="restart-a-service">Restart a service</h3>
 <p>Example request: /api/v1/operation</p>
 <p>Example (POST) body accompanying the "restart" request:</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
    <span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="s2">&quot;restart&quot;</span><span class="p">,</span>
    <span class="nt">&quot;services&quot;</span><span class="p">:[</span>
       <span class="s2">&quot;edgex-support-notifications&quot;</span><span class="p">,</span>
@@ -2158,7 +2232,6 @@ Internal Server Error"</p>
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>Corresponding response, in JSON format, on success: "Done. Restarted
 the requested services."</p>
 <p>Corresponding response, in JSON format, on failure: "HTTP 500 -
@@ -2167,7 +2240,7 @@ Internal Server Error"</p>
 <p>Example request:
 /api/v1/health/device-simple,edgex-core-data,support-notifications</p>
 <p>Corresponding response, in JSON format:</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
     <span class="nt">&quot;device-simple&quot;</span><span class="p">:</span> <span class="s2">&quot;device-simple service is not registered. Might not have started... &quot;</span><span class="p">,</span>
     <span class="nt">&quot;edgex-core-data&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
     <span class="nt">&quot;support-notifications&quot;</span><span class="p">:</span> <span class="kc">true</span>

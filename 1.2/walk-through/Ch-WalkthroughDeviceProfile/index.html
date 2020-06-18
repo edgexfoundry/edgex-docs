@@ -1060,10 +1060,88 @@
           
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6-3" type="checkbox" id="nav-3-6-3">
+    
+    <label class="md-nav__link" for="nav-3-6-3">
+      Application Functions SDK
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Application Functions SDK" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-6-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Application Functions SDK
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
     <a href="../../microservices/application/ApplicationFunctionsSDK/" title="App Functions SDK" class="md-nav__link">
       App Functions SDK
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/application/ContextAPI/" title="Context API" class="md-nav__link">
+      Context API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/application/BuiltIn/" title="Built-In Transforms/Functions" class="md-nav__link">
+      Built-In Transforms/Functions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/application/ErrorHandling/" title="Error Handling" class="md-nav__link">
+      Error Handling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/application/AdvancedTopics/" title="Advanced Topics" class="md-nav__link">
+      Advanced Topics
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -1992,30 +2070,26 @@ return a value for each of the expected values in a map where the Value
 Descriptor names are used as keys. Again, using the human and dog counts
 as an example, if the expected values were [humancount, caninecount]
 then the body of a good response from the service would contain a map
-that looks something like this:</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+that looks something like this:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
     <span class="nt">&quot;humancount&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
     <span class="nt">&quot;caninecount&quot;</span><span class="p">:</span> <span class="mi">2</span>
 <span class="p">}</span>
 </code></pre></div>
-
-
-<p>Here is an example set of responses that might be used for a get Command
+Here is an example set of responses that might be used for a get Command
 in the camera example. Note that one response is coded as the "good"
 response (code 200) while the other is for "error" response (code
 404). The expected values for the good response are the Value Descriptor
 names for the camera's count data. The expected values for the
-"error" response is the Value Descriptor name for an error message.</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+"error" response is the Value Descriptor name for an error message.
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
   <span class="nt">&quot;responses&quot;</span><span class="p">:[</span>
       <span class="p">{</span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="s2">&quot;200&quot;</span><span class="p">,</span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;ok&quot;</span><span class="p">,</span><span class="nt">&quot;expectedValues&quot;</span><span class="p">:[</span><span class="s2">&quot;humancount&quot;</span><span class="p">,</span> <span class="s2">&quot;caninecount&quot;</span><span class="p">]},</span>
       <span class="p">{</span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="s2">&quot;404&quot;</span><span class="p">,</span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;bad request&quot;</span><span class="p">,</span><span class="nt">&quot;expectedValues&quot;</span><span class="p">:[</span><span class="s2">&quot;cameraerror&quot;</span><span class="p">]}</span>
     <span class="p">]</span>
   <span class="p">}</span>
 <span class="err">}</span>
-</code></pre></div>
-
-
+</code></pre></div></p>
 <h2 id="understanding-command-parameters">Understanding Command Parameters</h2>
 <p>Commands are used to send data to Devices (via Device Services) as much
 as they are used to get data from Devices. Therefore, any Command may
@@ -2032,15 +2106,13 @@ Descriptors.</p>
 response body, the parameter names are used as keys in a map to pass
 parameter values in a Command call that has parameters. Here might be
 what is populated in the body of the Command call when the
-<code>parameterNames</code> are <code>[depth, duration]</code>.</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<code>parameterNames</code> are <code>[depth, duration]</code>.
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
   <span class="nt">&quot;depth&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
   <span class="nt">&quot;duration&quot;</span><span class="p">:</span> <span class="mi">10</span>
 <span class="p">}</span>
 </code></pre></div>
-
-
-<p>If you open the
+If you open the
 <code>CameraMonitorProfile.yml &lt;EdgeX_CameraMonitorProfile.yml&gt;</code>{.interpreted-text
 role="download"} file, see that there are Commands to get people and dog
 counts (and a command called Counts, which provides both values). There

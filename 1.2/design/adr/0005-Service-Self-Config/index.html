@@ -1058,10 +1058,88 @@
           
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6-3" type="checkbox" id="nav-3-6-3">
+    
+    <label class="md-nav__link" for="nav-3-6-3">
+      Application Functions SDK
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Application Functions SDK" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-6-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Application Functions SDK
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
     <a href="../../../microservices/application/ApplicationFunctionsSDK/" title="App Functions SDK" class="md-nav__link">
       App Functions SDK
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../microservices/application/ContextAPI/" title="Context API" class="md-nav__link">
+      Context API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../microservices/application/BuiltIn/" title="Built-In Transforms/Functions" class="md-nav__link">
+      Built-In Transforms/Functions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../microservices/application/ErrorHandling/" title="Error Handling" class="md-nav__link">
+      Error Handling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../microservices/application/AdvancedTopics/" title="Advanced Topics" class="md-nav__link">
+      Advanced Topics
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -1927,21 +2005,17 @@
 <p>NOTES:
 - Environmental variables overrides remove the need to change the "docker" profile in the res/docker/configuration.toml files - Allowing removal of 50% of the existing configuration.toml files.
 - The override rules in EdgeX between environmental variables and command line options may be counter intuitive compared to other systems.  There appears to be no standard practice.  Indeed, web searching "Reddit &amp; Starting Fights Env Variables vs Command Line Args" will layout the prevailing differences.
-- Environment variables used for configuration overrides are named by prepending the the configuration element with the configuration section inclusive of sub-path, where sub-path's "."s are replaced with underscores. These configuration environment variable overrides must be specified using camel case.  Here are two examples:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">Registry_Host</span><span class="w">  </span><span class="k">for</span><span class="w"></span>
-<span class="o">[</span><span class="n">Registry</span><span class="o">]</span><span class="w"></span>
-<span class="k">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;localhost&#39;</span><span class="w"></span>
+- Environment variables used for configuration overrides are named by prepending the the configuration element with the configuration section inclusive of sub-path, where sub-path's "."s are replaced with underscores. These configuration environment variable overrides must be specified using camel case.  Here are two examples:
+<div class="highlight"><pre><span></span><code>Registry_Host  for
+[Registry]
+Host = &#39;localhost&#39;
 
-<span class="n">Clients_CoreData_Host</span><span class="w"> </span><span class="k">for</span><span class="w"></span>
-<span class="o">[</span><span class="n">Clients</span><span class="o">]</span><span class="w"></span>
-<span class="w">  </span><span class="o">[</span><span class="n">Clients.CoreData</span><span class="o">]</span><span class="w"></span>
-<span class="w">  </span><span class="k">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;localhost&#39;</span><span class="w"></span>
+Clients_CoreData_Host for
+[Clients]
+  [Clients.CoreData]
+  Host = &#39;localhost&#39;
 </code></pre></div>
-
-
-<ul>
-<li>Going forward, environmental variables that override command line options should be all uppercase.</li>
-</ul>
+- Going forward, environmental variables that override command line options should be all uppercase.</p>
 <p>All values overriden get logged (indicating which configuration value or op param and the new value).  </p>
 <h2 id="decision">Decision</h2>
 <p>These features have been implemented (with some minor changes to be done) for consideration here:  https://github.com/edgexfoundry/go-mod-bootstrap/compare/master...lenny-intel:SelfSeed2.  This code branch will be removed once this ADR is approved and implemented on master.</p>
@@ -1977,16 +2051,16 @@
 <li>Minimal impact to development cycles and release schedule</li>
 <li>Configuration endpoints in all services need to ensure the environmental variables are reflected in the configuration data returned (this is a system management impact).</li>
 <li>Docker files will need to be modified to remove setting profile=docker</li>
-<li>Docker compose files will need to be changed to add environmental overrides for removal of docker profiles. These should go in the global environment section of the compose files for those overrides that apply to all services.  Example:</li>
+<li>Docker compose files will need to be changed to add environmental overrides for removal of docker profiles. These should go in the global environment section of the compose files for those overrides that apply to all services.  Example:
+<div class="highlight"><pre><span></span><code># all common shared environment variables defined here:
+x-common-env-variables: &amp;common-variables
+  EDGEX_SECURITY_SECRET_STORE: &quot;false&quot;
+  EDGEX_CONFIGURATION_PROVIDER: consul.http://edgex-core-consul:8500
+  Clients_CoreData_Host: edgex-core-data
+  Clients_Logging_Host: edgex-support-logging
+  Logging_EnableRemote: &quot;true&quot;
+</code></pre></div></li>
 </ul>
-<div class="codehilite"><pre><span></span><code><span class="err"># all common shared environment variables defined here:</span>
-<span class="c">x-common-env-variables: &amp;common-variables</span>
-<span class="c">  EDGEX_SECURITY_SECRET_STORE: &quot;false&quot;</span>
-<span class="c">  EDGEX_CONFIGURATION_PROVIDER: consul.http://edgex-core-consul:8500</span>
-<span class="c">  Clients_CoreData_Host: edgex-core-data</span>
-<span class="c">  Clients_Logging_Host: edgex-support-logging</span>
-<span class="c">  Logging_EnableRemote: &quot;true&quot;</span>
-</code></pre></div>
                 
               
               

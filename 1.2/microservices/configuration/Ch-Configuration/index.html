@@ -1062,10 +1062,88 @@
           
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6-3" type="checkbox" id="nav-3-6-3">
+    
+    <label class="md-nav__link" for="nav-3-6-3">
+      Application Functions SDK
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Application Functions SDK" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-6-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Application Functions SDK
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
     <a href="../../application/ApplicationFunctionsSDK/" title="App Functions SDK" class="md-nav__link">
       App Functions SDK
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../application/ContextAPI/" title="Context API" class="md-nav__link">
+      Context API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../application/BuiltIn/" title="Built-In Transforms/Functions" class="md-nav__link">
+      Built-In Transforms/Functions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../application/ErrorHandling/" title="Error Handling" class="md-nav__link">
+      Error Handling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../application/AdvancedTopics/" title="Advanced Topics" class="md-nav__link">
+      Advanced Topics
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -2484,12 +2562,11 @@ for edgex-core-data are:</p>
 may be changed and affect a service's behavior without a restart. Any
 modifications to the other settings would require a restart.</p>
 <p><em>NOTE: As of the Geneva release, the support-logging service is deprecated. In the Readable section of each service's configuration there is currently a Logging section shown below. The recommendation is that you not change the default values in this section unless you have a specific reason for doing so.</em></p>
-<div class="codehilite"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="n">Remote</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="k">file</span><span class="w"> </span><span class="n">logging</span><span class="w"> </span><span class="n">disabled</span><span class="w"> </span><span class="n">so</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="n">stdout</span><span class="w"> </span><span class="n">logging</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">used</span><span class="w"></span>
-<span class="o">[</span><span class="n">Logging</span><span class="o">]</span><span class="w">  </span>
-<span class="n">EnableRemote</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">false</span><span class="w">  </span>
-<span class="k">File</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code># Remote and file logging disabled so only stdout logging is used
+[Logging]  
+EnableRemote = false  
+File = &#39;&#39;
 </code></pre></div>
-
 
 <h2 id="configuration-provider">Configuration Provider</h2>
 <p>You can supply and manage configuration in a centralized manner by utilizing the <code>-cp/--configProvider=&lt;url&gt;</code> flag when starting a service. If the flag is provided and pointed to an application such as HashiCorp's <a href="https://www.consul.io/">Consul</a>, the service will bootstrap its configuration into Consul if it doesn't exist. If configuration does already exist, it will load the content from the given location applying any environment variables overrides of which the service is aware. Integration with the configuration provider is handled through the
