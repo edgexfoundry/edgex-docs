@@ -27,26 +27,6 @@ docker-compose ps
 ![image](EdgeX_GettingStartedUsrActiveContainers.png)
 *If all EdgeX containers pulled and started correctly and without error, you should see a process status (ps) that looks similar to the image above.*
 
-## Default Service Ports
-The following table captured the default service ports. This table provides the default ports used by each of the EdgeX micro services (per its default configuration and the EdgeX provided docker-compose files).  These default ports are also used in the EdgeX provided service routes defined in the Kong API Gateway for access control.
-
-|Services Name|	Port Definition|Services Name|Port Definition|
-|---|---|---|---|
-|consul	|8400|core-data|	48080|
-| 	|8500| 	|5563|
-| 	|8600|core-metadata	|48001|
-|vault	|8200|core-command	|48082|
-|kong-db	|5432|support-notifications	|48060|
-|kong	|8000|support-logging	|48061|
-| 	|8001|support-scheduler|	48085|
-| 	|8443|app-service-rules|48095|
-| 	|8444|rules engine/Kuiper|48075|
-|mongo|27017|   |20498|
-|redis|6379|device-virtual	|49990|
-|system	management|48090|device-random	|49988|
-|device-mqtt	|49982|device-rest    |49986|
-|device-modbus	|49991|device-snmp	|49993|
-
 ## Connecting a Device
 EdgeX Foundry provides a [Random Number device service](https://github.com/edgexfoundry/device-random) which is useful to testing, it returns a random number within a configurable range. Configuration for running this service is in the `docker-compose.yml` file you downloaded at the start of this guide, but it is disabled by default. To enable it, uncomment the following lines in your `docker-compose.yml`:
 ``` yaml
@@ -238,3 +218,23 @@ You will begin seeing your random number readings appear in the Messages area on
 Congratulations! You now have a full EdgeX deployment reading data from a (virtual) device and publishing it to an MQTT broker in the cloud, and you were able to control your device through commands into EdgeX. 
 
 It's time to continue your journey by reading the [Introduction](../../index.md) to EdgeX Foundry, what it is and how it's built. From there you can take the [Walkthrough](../../walk-through/Ch-Walkthrough.md) to learn how the microservices work together to control devices and read data from them as you just did.
+
+## REFERENCE - Default Service Ports
+The following table captured the default service ports. This table provides the default ports used by each of the EdgeX micro services (per its default configuration and the EdgeX provided docker-compose files).  These default ports are also used in the EdgeX provided service routes defined in the Kong API Gateway for access control.
+
+|Services Name|	Port Definition|Services Name|Port Definition|
+|---|---|---|---|
+|consul	|8400|core-data|	48080|
+| 	|8500| 	|5563|
+| 	|8600|core-metadata	|48001|
+|vault	|8200|core-command	|48082|
+|kong-db	|5432|support-notifications	|48060|
+|kong	|8000|support-logging	|48061|
+| 	|8001|support-scheduler|	48085|
+| 	|8443|app-service-rules|48095|
+| 	|8444|rules engine/Kuiper|48075|
+|mongo|27017|   |20498|
+|redis|6379|device-virtual	|49990|
+|system	management|48090|device-random	|49988|
+|device-mqtt	|49982|device-rest    |49986|
+|device-modbus	|49991|device-snmp	|49993|
