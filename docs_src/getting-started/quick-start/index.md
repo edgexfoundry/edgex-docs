@@ -12,15 +12,14 @@ Once you have Docker and Docker Compose installed, you need the file for downloa
 !!! Note
     The above is the Geneva release of EdgeX for use on **Intel x86** platforms.  If you are running on ARM, use this [docker-compose file instead](https://github.com/edgexfoundry/developer-scripts/blob/master/releases/geneva/compose-files/docker-compose-geneva-redis-no-secty-arm64.yml).
 
-First, use this command to download the EdgeX Foundry Docker images from Docker Hub.  From a terminal window, change directory to your local directory containing the docker-compose.yml and execute the following Docker Compose command:
-```
-docker-compose pull
-```
-This fetches all the referenced EdgeX containers.  Then start up all of the EdgeX Foundry microservices:
+From a terminal window, change directory to your local directory containing the docker-compose.yml, and use this command to download and run the EdgeX Foundry Docker images from Docker Hub.
 ```
 docker-compose up -d
 ```
-The -d option on docker-compose up is to start the containers in detached mode which allows the containers to run independently from the terminal window.  Finally, verify that the EdgeX containers have started:
+!!! Info
+    The -d option on docker-compose up is to start the containers in detached mode which allows the containers to run independently from the terminal window.  
+  
+Verify that the EdgeX containers have started:
 ```
 docker-compose ps 
 ```
