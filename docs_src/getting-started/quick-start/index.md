@@ -156,7 +156,7 @@ There is no visible result of calling **PUT** if the call is successful.
 
 Now every time we call **GET** on this command, the returned value will be between 0 and 100.
 
-## Connecting an Application
+## Exporting Data
 
 EdgeX provides exporters (called application services) for a variety of cloud services and applications. To keep this guide simple, we're going to use the community provided configurable application service to send the EdgeX data to a public MQTT broker hosted by HiveMQ.  You can then watch for the EdgeX event data via HiveMQ provided MQTT browser client.
 
