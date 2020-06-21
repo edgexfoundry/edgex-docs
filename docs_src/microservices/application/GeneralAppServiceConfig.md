@@ -1,6 +1,7 @@
 
-
 # General App Service Configuration
+
+Similar to other EdgeX services, configuration is first determined by the `configuration.toml` file in the `/res` folder. If `-cp` is passed to the application on startup, the SDK will leverage the specific configuration provider (i.e Consul) to push configuration from the file into the registry and monitor configuration from there. You will find the configuration under the `edgex/appservices/1.0/` key. 
 
 This section describes the configuration elements that are unique to Application Services
 
@@ -106,3 +107,12 @@ Only used for `messagebus` binding type
 | MessageBus SubscribeHost `Port` | 5565** | Indicates the port number for publishing to the Message Bus |
 | MessageBus SubscribeHost `Protocol` | tcp** | Indicates the protocol number for publishing to the Message Bus |
 | **MessageBus Optional** | ... | This section is used for optional configuration specific to the Message Bus type used. Please refer to [go-mod-messaging](https://github.com/edgexfoundry/go-mod-messaging/blob/master/README.md) for more details |
+
+### Application Settings 
+
+`[ApplicationSettings]` - Is used for custom application settings and is accessed via the ApplicationSettings() API. The ApplicationSettings API returns a `map[string] string` containing the contents on the ApplicationSetting section of the `configuration.toml` file.
+
+```toml
+ [ApplicationSettings]
+ ApplicationName = "My Application Service"
+```

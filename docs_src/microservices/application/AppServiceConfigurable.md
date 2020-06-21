@@ -4,7 +4,7 @@
 
 App-Service-Configurable is provided as an easy way to get started with processing data flowing through EdgeX. This service leverages the [App Functions SDK](https://github.com/edgexfoundry/app-functions-sdk-go) and provides a way for developers to use configuration instead of having to compile standalone services to utilize built in functions in the SDK. Please refer to [Available Configurable Pipeline Functions](#available-configurable-pipeline-functions)  section below for full list of built in functions that can be used in the configurable pipeline. 
 
-To get started with the configurable app service, you'll want to start by determining which functions are required in your pipeline. Using a simple example, let's assume you wish to use the following functions from the SDK:
+To get started with the App-Service-Configurable, you'll want to start by determining which functions are required in your pipeline. Using a simple example, let's assume you wish to use the following functions from the SDK:
 
 1. [FilterByDeviceName](./ApplicationFunctionsSDK.md#filtering) -  to filter events for a specific device.
 2. [TransformToXML](./ApplicationFunctionsSDK.md#conversion) - to transform the data to XML
