@@ -1,4 +1,7 @@
-This guide will get EdgeX up and running on your development machine in as little as 5 minutes. We will skip over lengthy descriptions for now, you can read up on those later. The goal here is to get you a working IoT Edge stack, from device to cloud, as simply as possible.
+# Quick Start
+This guide will get EdgeX up and running on your machine in as little as 5 minutes. We will skip over lengthy descriptions for now. The goal here is to get you a working IoT Edge stack, from device to cloud, as simply as possible.  
+
+When you need more detailed instructions or a breakdown of some of the commands you see in this quick start, see either the [Getting Started- Users](../Ch-GettingStartedUsers) or [Getting Started - Developers](../Ch-GettingStartedDevelopers) guides.
 
 ## Setup
 The fastest way to start running EdgeX is by using our pre-built Docker images. To use them you'll need to install the following:
@@ -7,18 +10,24 @@ The fastest way to start running EdgeX is by using our pre-built Docker images. 
 * Docker Compose <https://docs.docker.com/compose/install/>
 
 ## Running EdgeX
-Once you have Docker and Docker Compose installed, you need the file for downloading and running the EdgeX Foundry docker containers. Download the latest [`docker-compose` file](https://github.com/edgexfoundry/developer-scripts/blob/master/releases/geneva/compose-files/docker-compose-geneva-redis-no-secty.yml) and save this as `docker-compose.yml` in your local directory. This file contains everything you need to deploy EdgeX with docker.  
+Once you have Docker and Docker Compose installed, you need to:
 
-!!! Note
-    The above is the Geneva release of EdgeX for use on **Intel x86** platforms.  If you are running on ARM, use this [docker-compose file instead](https://github.com/edgexfoundry/developer-scripts/blob/master/releases/geneva/compose-files/docker-compose-geneva-redis-no-secty-arm64.yml).
+* download / save the latest [`docker-compose` file](https://github.com/edgexfoundry/developer-scripts/blob/master/releases/geneva/compose-files/docker-compose-geneva-redis-no-secty.yml)
+* issue command to download and run the EdgeX Foundry Docker images from Docker Hub
 
-From a terminal window, change directory to your local directory containing the docker-compose.yml, and use this command to download and run the EdgeX Foundry Docker images from Docker Hub.
-```
-docker-compose up -d
-```
-!!! Info
-    The -d option on docker-compose up is to start the containers in detached mode which allows the containers to run independently from the terminal window.  
-  
+This can be accomplished with a single command as shown below (please note the tabs for x86 vs ARM architectures).
+
+=== "x86"
+    ```
+    docker-compose up -d
+    wget https://github.com/edgexfoundry/developer-scripts/blob/master/releases/geneva/compose-files/docker-compose-geneva-redis-no-secty.yml -o docker-compose.yml; docker-compose up
+    ```
+=== "ARM"
+    ```
+    docker-compose up -d
+    wget https://github.com/edgexfoundry/developer-scripts/blob/master/releases/geneva/compose-files/docker-compose-geneva-redis-no-secty-arm64.yml -o docker-compose.yml; docker-compose up
+    ```
+
 Verify that the EdgeX containers have started:
 ```
 docker-compose ps 
@@ -30,15 +39,13 @@ docker-compose ps
 EdgeX Foundry provides a [Random Number device service](https://github.com/edgexfoundry/device-random) which is useful to testing, it returns a random number within a configurable range. Configuration for running this service is in the `docker-compose.yml` file you downloaded at the start of this guide, but it is disabled by default. To enable it, uncomment the following lines in your `docker-compose.yml`:
 ``` yaml
   device-random:
-    image: edgexfoundry/docker-device-random-go:1.2.0
+    image: edgexfoundry/docker-device-random-go:1.2.1
     ports:
       - "127.0.0.1:49988:49988"
     container_name: edgex-device-random
     hostname: edgex-device-random
     networks:
-      edgex-network:
-        aliases:
-          - edgex-device-random
+      - edgex-network
     environment:
       <<: *common-variables
       Service_Host: edgex-device-random
@@ -47,13 +54,13 @@ EdgeX Foundry provides a [Random Number device service](https://github.com/edgex
       - command
 ```
 Then you can start the Random device service with:
-``` bash
+```
 docker-compose up -d device-random
 ```
 The device service will register a device named `Random-Integer-Generator01`, which will start sending its random number readings into EdgeX.
 
 You can verify that those readings are being sent by querying the EdgeX core data service for the last 10 event records sent for Random-Integer-Generator01:
-``` bash
+```
 curl http://localhost:48080/api/v1/event/device/Random-Integer-Generator01/10
 ```
 ![image](EdgeX_GettingStartedRandomIntegerData.png)
@@ -114,11 +121,12 @@ This will return a lot of JSON, because there are a number of commands you can c
 !!! Note
     The URLs won't be exactly the same for you, as the generated unique IDs for both the Device and the Command will be different. So be sure to use your values for the following steps.
 
-You'll notice that this one command has both a **get** and a **put** option. The **get** call will return a random number, and is what is being called automatically to send data into the rest of EdgeX (specifically core data). You can also call **get** manually using the URL provided:
+You'll notice that this one command has both a **GET** and a **PUT** option. The **GET** call will return a random number, and is what is being called automatically to send data into the rest of EdgeX (specifically core data). You can also call **GET** manually using the URL provided:
 ``` bash
 curl http://localhost:48082/api/v1/device/4a602dc3-afd5-4c76-9d72-de02407e80f8/command/5353248d-8006-4b01-8250-a07cb436aeb1
 ```
-Notice that **localhost** replaces **edgex-core-command** here. That's because the EdgeX Foundry services are running in Docker.  Docker recognizes the internal hostname **edgex-core-command**, but when calling the service from outside of Docker, you have to use **localhost** to reach it.
+!!! Warning
+  Notice that **localhost** replaces **edgex-core-command** here. That's because the EdgeX Foundry services are running in Docker.  Docker recognizes the internal hostname **edgex-core-command**, but when calling the service from outside of Docker, you have to use **localhost** to reach it.
 
 This command will return a JSON result that looks like this:
 ``` json
@@ -141,11 +149,11 @@ This command will return a JSON result that looks like this:
 ![image](EdgeX_GettingStartedCommandGet.png)
 *A call to GET of the Random-Integer-Generator01 device's GenerateRandomValue_Int8 operation through the command service results in the next random value produced by the device in JSON format.*
 
-The default range for this reading is -128 to 127. We can limit that to only positive values between 0 and 100 by calling the **put** command with new minimum and maximum values:
+The default range for this reading is -128 to 127. We can limit that to only positive values between 0 and 100 by calling the **PUT** command with new minimum and maximum values:
 ``` bash
 curl -X PUT -d '{"Min_Int8": "0", "Max_Int8": "100"}' http://localhost:48082/api/v1/device/4a602dc3-afd5-4c76-9d72-de02407e80f8/command/5353248d-8006-4b01-8250-a07cb436aeb1
 ```
-!!! Note
+!!! Warning
     Again, also notice that **localhost** replaces **edgex-core-command**.
 
 There is no visible result of calling **PUT** if the call is successful.
@@ -157,9 +165,9 @@ Now every time we call **GET** on this command, the returned value will be betwe
 
 ## Exporting Data
 
-EdgeX provides exporters (called application services) for a variety of cloud services and applications. To keep this guide simple, we're going to use the community provided configurable application service to send the EdgeX data to a public MQTT broker hosted by HiveMQ.  You can then watch for the EdgeX event data via HiveMQ provided MQTT browser client.
+EdgeX provides exporters (called application services) for a variety of cloud services and applications. To keep this guide simple, we're going to use the community provided 'application service configurable' to send the EdgeX data to a public MQTT broker hosted by HiveMQ.  You can then watch for the EdgeX event data via HiveMQ provided MQTT browser client.
 
-First add the following application service to your docker-compose.yml file right after the 'rulesengine' service (around line 260).  Spacing is important in YAML, so make sure to copy and paste it correctly.
+First add the following application service to your docker-compose.yml file right after the 'rulesengine' service (around line 255).  Spacing is important in YAML, so make sure to copy and paste it correctly.
 
 ``` yaml
   app-service-mqtt:
@@ -169,9 +177,7 @@ First add the following application service to your docker-compose.yml file righ
     container_name: edgex-app-service-configurable-mqtt
     hostname: edgex-app-service-configurable-mqtt
     networks:
-      edgex-network:
-        aliases:
-          - edgex-app-service-configurable-mqtt
+      - edgex-network
     environment:
       <<: *common-variables
       edgex_profile: mqtt-export
@@ -190,7 +196,7 @@ First add the following application service to your docker-compose.yml file righ
 ```
 
 !!! Note
-    This adds the configurable application service to your EdgeX system.  The configurable application service allows you to configure (versus program) new exports - in this case exporting the EdgeX sensor data to the HiveMQ broker at broker.mqttdashboard.com port 1883.  You will be publishing to EdgeXEvents topic.
+    This adds the application service configurable to your EdgeX system.  The application service configurable allows you to configure (versus program) new exports - in this case exporting the EdgeX sensor data to the HiveMQ broker at broker.mqttdashboard.com port 1883.  You will be publishing to EdgeXEvents topic.
 
 Save the compose file and then execute another compose up command to have Docker Compose pull and start the configurable application service.
 
@@ -222,33 +228,68 @@ It's time to continue your journey by reading the [Introduction](../../index.md)
 
 EdgeX Foundry is an operating system (OS)-agnostic and hardware (HW)-agnostic IoT edge platform. At this time the following platform minimums are recommended:
 
+=== "Memory"
     Memory: minimum of 1 GB
+=== "Storage"
     Hard drive space: minimum of 3 GB of space to run the EdgeX Foundry containers, but you may want more depending on how long sensor and device data is to be retained.  Approximately 32GB of storage is minimumally recommended to start.
-    OS: EdgeX Foundry has been run successfully on many systems, including, but not limited to the following systems
-        Windows (ver 7 - 10)
-        Ubuntu Desktop (ver 14-20)
-        Ubuntu Server (ver 14-20)
-        Ubuntu Core (ver 16-18)
-        Mac OS X 10
+=== "Operating Systems"
+    EdgeX Foundry has been run successfully on many systems, including, but not limited to the following systems
 
-EdgeX is agnostic with regards to hardware (x86 and ARM), but only release artifacts for x86 and ARM 64 systems.  EdgeX has been successfuly run on ARM 32 platforms but has required users to build their own executables from source.  EdgeX does not officially support ARM 32.
+    * Windows (ver 7 - 10)
+    * Ubuntu Desktop (ver 14-20)
+    * Ubuntu Server (ver 14-20)
+    * Ubuntu Core (ver 16-18)
+    * Mac OS X 10
+
+!!! Info
+    EdgeX is agnostic with regards to hardware (x86 and ARM), but only release artifacts for x86 and ARM 64 systems.  EdgeX has been successfuly run on ARM 32 platforms but has required users to build their own executables from source.  EdgeX does not officially support ARM 32.
 
 ## REFERENCE - Default Service Ports
-The following table captured the default service ports. This table provides the default ports used by each of the EdgeX micro services (per its default configuration and the EdgeX provided docker-compose files).  These default ports are also used in the EdgeX provided service routes defined in the Kong API Gateway for access control.
+The following tables (organized by type of service) capture the default service ports.  These default ports are also used in the EdgeX provided service routes defined in the Kong API Gateway for access control.
 
-|Services Name|	Port Definition|Services Name|Port Definition|
-|---|---|---|---|
-|consul	|8400|core-data|	48080|
-| 	|8500| 	|5563|
-| 	|8600|core-metadata	|48001|
-|vault	|8200|core-command	|48082|
-|kong-db	|5432|support-notifications	|48060|
-|kong	|8000|support-logging	|48061|
-| 	|8001|support-scheduler|	48085|
-| 	|8443|app-service-rules|48095|
-| 	|8444|rules engine/Kuiper|48075|
-|mongo|27017|   |20498|
-|redis|6379|device-virtual	|49990|
-|system	management|48090|device-random	|49988|
-|device-mqtt	|49982|device-rest    |49986|
-|device-modbus	|49991|device-snmp	|49993|
+=== "Core"
+    |Services Name|	Port Definition|
+    |---|---|
+    |core-data|	48080|
+    | 	|5563|
+    |core-metadata	|48001|
+    |core-command	|48082|
+=== "Supporting"
+    |Services Name|	Port Definition|
+    |---|---|
+    |support-notifications	|48060|
+    |support-logging	|48061|
+    |support-scheduler|	48085|
+=== "Application & Analytics"
+    |Services Name|	Port Definition|
+    |---|---|
+    |app-service-rules|48095|
+    |rules engine/Kuiper|48075|
+    |   |20498|
+=== "Device"
+    |Services Name|	Port Definition|
+    |---|---|
+    |device-virtual	|49990|
+    |device-random	|49988|
+    |device-mqtt	|49982|
+    |device-rest    |49986|
+    |device-modbus	|49991|
+    |device-snmp	|49993|
+=== "Security"
+    |Services Name|	Port Definition|
+    |---|---|
+    |vault	|8200|
+    |kong-db	|5432|
+    |kong	|8000|
+    | 	|8001|
+    | 	|8443|
+    | 	|8444|
+=== "Miscellaneous"
+    |Services Name|	Port Definition|
+    |---|---|
+    |consul	|8400|
+    | 	|8500|
+    | 	|8600|
+    |mongo|27017|
+    |redis|6379|
+    |system	management|48090|
