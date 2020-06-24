@@ -57,14 +57,14 @@ When an object is created or updated, the Metadata service makes a `POST` or `PU
 | *{name}* | the name of the device
 | *{command}* | the command name
 
-The command specified must match a resourceCommand or deviceResource name in the device's profile
+The command specified must match a deviceCommand or deviceResource name in the device's profile
 
 **body** (for `PUT`): An `application/json` SettingRequest, which is a set of key/value pairs where the keys are valid deviceResource names, and the values provide the command argument for that resource. Example: `{"AHU-TargetTemperature": "28.5", "AHU-TargetBand": "4.0"}`
 
 | Return code | Meaning
 | --- | ---
 | **200** | the command was successful
-| **404** | the specified device does not exist, or the command is unknown
+| **404** | the specified device does not exist, or the command/resource is unknown
 | **405** | attempted write to a read-only resource
 | **423** | the specified device is locked (admin state) or disabled (operating state)
 | **500** | the device driver is unable to process the request
@@ -124,7 +124,7 @@ Calls to the device endpoints may include a Query String in the URL. This may be
 
 #### Device States
 
-A Device in EdgeX has two states associated with it: the Administrative state and the Operational state. The Administrative state may be set to `LOCKED` (normally `UNLOCKED`) to block access to the device for administrative reasons. The Operational state may be set to `DISABLED` (normally `ENABLED`) to indicate that the device is not currently working. In either case access to the device via this endpoint will be denied and HTTP 403 ("Forbidden") will be returned.
+A Device in EdgeX has two states associated with it: the Administrative state and the Operational state. The Administrative state may be set to `LOCKED` (normally `UNLOCKED`) to block access to the device for administrative reasons. The Operational state may be set to `DISABLED` (normally `ENABLED`) to indicate that the device is not currently working. In either case access to the device via this endpoint will be denied and HTTP 423 ("Locked") will be returned.
 
 #### Data Transformations
 
@@ -149,6 +149,14 @@ The combination of mask and shift can therefore be used to access data contained
 Assertions are another attribute in a device resource's PropertyValue which specify a string value which the result is compared against. If the comparison fails, then the result is set to a string of the form *"Assertion failed for device resource: \<name>, with value: \<result>"*, this also has a side-effect of setting the device operatingstate to `DISABLED`. A 500 status code is also returned.
 
 Mappings may be defined in a deviceCommand. These allow Readings of string type to be remapped. Mappings are applied after assertions are checked, and are the final transformation before Readings are created. Mappings are also applied, but in reverse, to settings (`PUT` request data).
+
+#### lastConnected timestamp
+
+Each Device has as part of its metadata a timestamp named `lastConnected`, this
+indicates the most recent occasion when the device was successfully interacted
+with. The device service should update this timestamp every time a GET or PUT
+operation succeeds, unless it has been configured not to do so (eg for
+performance reasons).
 
 ### Discovery
 
