@@ -1,14 +1,7 @@
-# Getting Started - Snap Users
+# Getting Started with Snap
 
 ## Introduction
-Just like Docker containers, the EdgeX project creates and publishes a snap for each release to the [snap store](https://snapcraft.io/edgexfoundry).  The snap currently supports running on both amd64 and arm64 platforms.
-
-## Installing snapd
-
-The snap can be installed on any system that supports snaps. You can see how to install snaps on your system from the [snap documents](https://snapcraft.io/docs/installing-snapd).
-
-!!! Warning
-    For full security confinement, the snap should be installed on an Ubuntu 16.04 LTS or later Desktop or Server, or a system running Ubuntu Core 16 or later.
+Just like Docker containers, the EdgeX project creates and publishes a snap for each release to the [snap store](https://snapcraft.io/edgexfoundry).  The snap currently supports running on both amd64 and arm64 platforms.  See [snap documents](https://snapcraft.io/docs/installing-snapd) for help on using or installing snap.
 
 ## Installing EdgeX Foundry as a snap
 

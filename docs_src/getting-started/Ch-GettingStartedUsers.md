@@ -1,4 +1,4 @@
-# Getting Started - Users
+# Getting Started with Docker
 
 ## Introduction
 
