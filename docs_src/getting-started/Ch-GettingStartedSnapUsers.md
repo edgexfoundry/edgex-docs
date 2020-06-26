@@ -26,7 +26,7 @@ Lastly, on a system supporting it, the snap may be installed using GNOME (or Ubu
     The snap has only been tested on Ubuntu Desktop/Server versions 18.04 and 16.04, as well as Ubuntu Core versions 16 and 18.
 
 !!! Warning
-    Don't install the EdgeX snap on a system which is already running one of the included services (e.g. Consul, Redis, Vault, ...).
+    Running the EdgeX snap on a machine setup for EdgeX development can create conflicts and result in the platform errors/issues.
 
 ## Using the EdgeX snap
 
@@ -66,9 +66,6 @@ All services which are installed on the system as systemd units, which if enable
 ## Configuring individual services
 
 All default configuration files are shipped with the snap inside $SNAP/config, however because $SNAP isn't writable, all of the config files are copied during snap installation (specifically during the install hook, see snap/hooks/install in this repository) to $SNAP_DATA/config.
-
-!!! Note
-    As the core-config-seed was removed as part of the Geneva release, services self-seed their configuration on startup. This means that if a service is started by default in the snap, the only way to change configuration is to use the Consul UI or kv REST API. Services that aren't started by default (see above) will pickup any changes made to their config files when enabled.
 
 ```
 $ sudo snap restart edgexfoundry
