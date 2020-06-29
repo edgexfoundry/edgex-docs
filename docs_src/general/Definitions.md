@@ -4,6 +4,9 @@ The following glossary provides terms used in EdgeX Foundry.  The definition are
 ## Brownfield and Greenfield
 Brownfield refers to older legacy equipment (nodes, devices, sensors) in an edge/IoT deployment, which typically uses older protocols.  Greenfield refers to, typically, new equipment with modern protocols.
 
+## Containerized
+EdgeX micro services and infrastrucutre (i.e. databases, registry, etc.) are built as executable programs, put into Docker images, and made available via Docker Hub (and Nexus repository for nightly builds).  A service (or infrastructure element) that is available in Docker Hub (or Nexus) is said to be containerized.  Docker images can be quickly downloaded and new Docker containers created from the images.
+
 ## Device
 In EdgeX parlance, "device" is used to refer to a sensor, actuator, or IoT "thing".  A sensor generally collects information from the physical world - like a temperature or vibration sensor.  Actuators are machines that can be told to do something.  Actuators move or otherwise control a mechanism or system - like a value on a pump.  While there may be some technical differences, for the purposes of EdgeX documentation, device will refer to a sensor, actuator or "thing".
 
