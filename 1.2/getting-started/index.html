@@ -380,9 +380,83 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Getting Started
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z" /></svg>
+        </span>
+      </label>
+    
     <a href="./" title="Getting Started" class="md-nav__link md-nav__link--active">
       Getting Started
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#user" class="md-nav__link">
+    User
+  </a>
+  
+    <nav class="md-nav" aria-label="User">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#snap-user" class="md-nav__link">
+    Snap User
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#developer-and-contributor" class="md-nav__link">
+    Developer and Contributor
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hybrid" class="md-nav__link">
+    Hybrid
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#device-service-developer" class="md-nav__link">
+    Device Service Developer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#application-service-developer" class="md-nav__link">
+    Application Service Developer
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -430,8 +504,20 @@
 
 
   <li class="md-nav__item">
-    <a href="Ch-GettingStartedUsers/" title="Getting Started - Users" class="md-nav__link">
-      Getting Started - Users
+    <a href="Ch-GettingStartedUsers/" title="Getting Started with Docker" class="md-nav__link">
+      Getting Started with Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="Ch-GettingStartedSnapUsers/" title="Getting Started with Snap" class="md-nav__link">
+      Getting Started with Snap
     </a>
   </li>
 
@@ -1879,6 +1965,64 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#user" class="md-nav__link">
+    User
+  </a>
+  
+    <nav class="md-nav" aria-label="User">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#snap-user" class="md-nav__link">
+    Snap User
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#developer-and-contributor" class="md-nav__link">
+    Developer and Contributor
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hybrid" class="md-nav__link">
+    Hybrid
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#device-service-developer" class="md-nav__link">
+    Device Service Developer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#application-service-developer" class="md-nav__link">
+    Application Service Developer
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1898,14 +2042,14 @@
                 
                 
                 <h1 id="getting-started">Getting Started</h1>
-<p>To get started you need to obtain EdgeX Foundry either as a User or as a
+<p>To get started you need to get EdgeX Foundry either as a User or as a
 Developer/Contributor.</p>
-<p><strong>User</strong></p>
-<p>If you simply want to obtain the EdgeX platform and run it (but do not
-intend to modify or add to the existing code base at this time) then you
+<h2 id="user">User</h2>
+<p>If you want to get the EdgeX platform and run it (but do not
+intend to change or add to the existing code base now) then you
 are considered a "User". You will want to follow the
 <a href="Ch-GettingStartedUsers/">Getting Started Users</a> guide. The
-Getting Started Users guide will take you through the process of getting
+Getting Started Users guide takes you through the process of getting
 the latest release EdgeX Docker Containers from Docker Hub. If you wish
 to get the latest EdgeX containers (those built from the current ongoing
 development efforts prior to release), then see
@@ -1916,13 +2060,15 @@ development efforts prior to release), then see
 that these containers will function properly or function properly with
 other containers from the current release.</p>
 </div>
-<p><strong>Contributor/Developer</strong></p>
-<p>If you want to modify, add to or at least build the existing EdgeX code
-base, then you are considered a "Developer". "Contributors" are
+<h3 id="snap-user">Snap User</h3>
+<p>As an alternative to Docker containers, users may wish to use Canonical's EdgeX Foundry 'snap'.  Snap is a software deployment and package management system developed by Canonical for the Linux operating system. The packages, called snaps, and the tool for using them, snapd, work across a range of Linux distributions allowing distribution-agnostic upstream software packaging. The EdgeX snap is published by EdgeX Foundry and made available through the <a href="https://snapcraft.io/edgexfoundry">snap store</a>. If you wish to get the latest EdgeX release snap, follow the <a href="Ch-GettingStartedSnapUsers/">Getting Started Snap Users</a> guide.</p>
+<h2 id="developer-and-contributor">Developer and Contributor</h2>
+<p>If you want to change, add to or at least build the existing EdgeX code
+base, then you are a "Developer". "Contributors" are
 developers that further wish to contribute their code back into the
 EdgeX open source effort. You will want to follow the
 <a href="Ch-GettingStartedDevelopers/">Getting Started for Developers</a> guide.</p>
-<p><strong>Hybrid</strong></p>
+<h2 id="hybrid">Hybrid</h2>
 <p>See <a href="Ch-GettingStartedHybrid/">Getting Started Hybrid</a> if you
 are developing or working on a particular micro service, but want to run
 the other micro services via Docker Containers. When working on
@@ -1933,8 +2079,8 @@ need to communicate with other services while you test your new service.
 Unless you want to get and build all the services, developers will often
 get and run the containers for the other EdgeX micro services and run
 only their service natively in a development environment. The EdgeX
-community refers to this as Hybrid development.</p>
-<p><strong>Device Service Developer</strong></p>
+community refers to this as "Hybrid" development.</p>
+<h2 id="device-service-developer">Device Service Developer</h2>
 <p>As a developer, if you intend to connect IoT objects (device, sensor or
 other "thing") that are not currently connected to EdgeX Foundry, you
 may also want to obtain the Device Service Software Development Kit (DS
@@ -1945,7 +2091,7 @@ protocol. See <a href="Ch-GettingStartedSDK/">Getting Started with Device SDK</a
 for help on using the DS SDK to create a new device service. Learn more
 about Device Services and the Device Service SDK at
 <a href="../microservices/device/Ch-DeviceServices/">Device Services</a>.</p>
-<p><strong>Application Service Developer</strong></p>
+<h2 id="application-service-developer">Application Service Developer</h2>
 <p>As a developer, if you intend to get EdgeX sensor data to external
 systems (be that an enterprise application, on-prem server or Cloud
 platform like Azure IoT Hub, AWS IoT, Google Cloud IOT, etc.), you will

@@ -11,7 +11,7 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/getting-started/Ch-GettingStartedSDK-C/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/getting-started/Ch-GettingStartedSnapUsers/">
       
       
         <meta name="author" content="Michael Johanson">
@@ -21,7 +21,7 @@
     
     
       
-        <title>C SDK - EdgeX Foundry Documentation</title>
+        <title>Getting Started with Snap - EdgeX Foundry Documentation</title>
       
     
     
@@ -63,7 +63,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#c-sdk" class="md-skip">
+        <a href="#getting-started-with-snap" class="md-skip">
           Skip to content
         </a>
       
@@ -90,7 +90,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              C SDK
+              Getting Started with Snap
             
           </span>
         </div>
@@ -394,10 +394,12 @@
           
           
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-3" type="checkbox" id="nav-2-3">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-3" type="checkbox" id="nav-2-3" checked>
     
     <label class="md-nav__link" for="nav-2-3">
       Users
@@ -431,11 +433,88 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../Ch-GettingStartedSnapUsers/" title="Getting Started with Snap" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Getting Started with Snap
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z" /></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Getting Started with Snap" class="md-nav__link md-nav__link--active">
       Getting Started with Snap
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-edgex-foundry-as-a-snap" class="md-nav__link">
+    Installing EdgeX Foundry as a snap
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-the-edgex-snap" class="md-nav__link">
+    Using the EdgeX snap
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-individual-services" class="md-nav__link">
+    Configuring individual services
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#viewing-logs" class="md-nav__link">
+    Viewing logs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-services" class="md-nav__link">
+    Security services
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -448,12 +527,10 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-4" type="checkbox" id="nav-2-4" checked>
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-4" type="checkbox" id="nav-2-4">
     
     <label class="md-nav__link" for="nav-2-4">
       Developers
@@ -523,12 +600,10 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-4-5" type="checkbox" id="nav-2-4-5" checked>
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-4-5" type="checkbox" id="nav-2-4-5">
     
     <label class="md-nav__link" for="nav-2-4-5">
       Device Services
@@ -562,109 +637,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        C SDK
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z" /></svg>
-        </span>
-      </label>
-    
-    <a href="./" title="C SDK" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../Ch-GettingStartedSDK-C/" title="C SDK" class="md-nav__link">
       C SDK
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
-      </span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#install-dependencies" class="md-nav__link">
-    Install dependencies
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#get-the-edgex-device-sdk-for-c" class="md-nav__link">
-    Get the EdgeX Device SDK for C
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#starting-a-new-device-service-project" class="md-nav__link">
-    Starting a new Device Service project
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#build-your-device-service" class="md-nav__link">
-    Build your Device Service
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#customize-your-device-service" class="md-nav__link">
-    Customize your Device Service
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#creating-your-device-profile" class="md-nav__link">
-    Creating your Device Profile
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configuring-your-device-service" class="md-nav__link">
-    Configuring your Device Service
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#rebuild-your-device-service" class="md-nav__link">
-    Rebuild your Device Service
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#run-your-device-service" class="md-nav__link">
-    Run your Device Service
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -1993,64 +1970,43 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install-dependencies" class="md-nav__link">
-    Install dependencies
+  <a href="#introduction" class="md-nav__link">
+    Introduction
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#get-the-edgex-device-sdk-for-c" class="md-nav__link">
-    Get the EdgeX Device SDK for C
+  <a href="#installing-edgex-foundry-as-a-snap" class="md-nav__link">
+    Installing EdgeX Foundry as a snap
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#starting-a-new-device-service-project" class="md-nav__link">
-    Starting a new Device Service project
+  <a href="#using-the-edgex-snap" class="md-nav__link">
+    Using the EdgeX snap
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#build-your-device-service" class="md-nav__link">
-    Build your Device Service
+  <a href="#configuring-individual-services" class="md-nav__link">
+    Configuring individual services
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#customize-your-device-service" class="md-nav__link">
-    Customize your Device Service
+  <a href="#viewing-logs" class="md-nav__link">
+    Viewing logs
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#creating-your-device-profile" class="md-nav__link">
-    Creating your Device Profile
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configuring-your-device-service" class="md-nav__link">
-    Configuring your Device Service
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#rebuild-your-device-service" class="md-nav__link">
-    Rebuild your Device Service
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#run-your-device-service" class="md-nav__link">
-    Run your Device Service
+  <a href="#security-services" class="md-nav__link">
+    Security services
   </a>
   
 </li>
@@ -2067,7 +2023,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/getting-started/Ch-GettingStartedSDK-C.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/getting-started/Ch-GettingStartedSnapUsers.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg>
                   </a>
                 
@@ -2075,228 +2031,97 @@
                   
                 
                 
-                <h1 id="c-sdk">C SDK</h1>
-<p>In this guide, you create a simple device service in C that generates a
-random number in place of getting data from an actual sensor. In this
-way, you get to explore some of the scaffolding and work necessary to
-complete a device service without actually having a device to talk to.</p>
-<h2 id="install-dependencies">Install dependencies</h2>
-<p>To build a device service using the EdgeX C SDK you'll need the following:
--   libmicrohttpd
--   libcurl
--   libyaml
--   libcbor</p>
-<p>You can install these on Ubuntu by running:
-<div class="highlight"><pre><span></span><code>sudo apt install libcurl4-openssl-dev libmicrohttpd-dev libyaml-dev libcbor-dev
-</code></pre></div></p>
-<h2 id="get-the-edgex-device-sdk-for-c">Get the EdgeX Device SDK for C</h2>
-<p>The next step is to download and build the EdgeX Device SDK for C. You
-always want to use the release of the SDK that matches the release of
-EdgeX you are targeting. As of this writing the <strong>fuji</strong>
-release is the current stable release of EdgeX, so we will be using the
-<strong>fuji</strong> branch of the C SDK.</p>
-<ol>
-<li>
-<p>First, clone the fuji branch of device-sdk-c from Github:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">git clone -b fuji https://github.com/edgexfoundry/device-sdk-c.git</span>
-<span class="err">cd ./device-sdk-c</span>
+                <h1 id="getting-started-with-snap">Getting Started with Snap</h1>
+<h2 id="introduction">Introduction</h2>
+<p>Just like Docker containers, the EdgeX project creates and publishes a snap for each release to the <a href="https://snapcraft.io/edgexfoundry">snap store</a>.  The snap currently supports running on both amd64 and arm64 platforms.  See <a href="https://snapcraft.io/docs/installing-snapd">snap documents</a> for help on using or installing snap.</p>
+<h2 id="installing-edgex-foundry-as-a-snap">Installing EdgeX Foundry as a snap</h2>
+<p>The snap is published in the snap store at https://snapcraft.io/edgexfoundry. You can see the current revisions available for your machine's architecture by running the command:</p>
+<p><div class="highlight"><pre><span></span><code>$ snap info edgexfoundry
 </code></pre></div>
-
-
-</li>
-<li>
-<p>Then, build the device-sdk-c:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">./scripts/build.sh</span>
+The snap can be installed using snap install. To install the snap from the edge channel:</p>
+<p><div class="highlight"><pre><span></span><code>$ sudo snap install edgexfoundry --edge
 </code></pre></div>
-
-
-</li>
-</ol>
-<h2 id="starting-a-new-device-service-project">Starting a new Device Service project</h2>
-<p>For this guide we're going to use the example template provided by the
-C SDK as a starting point, and will modify it to generate random integer
-values.</p>
-<ol>
-<li>Begin by copying the template example source into a new directory
-    named <code>example-device-c</code>:
-<div class="highlight"><pre><span></span><code>mkdir -p ../example-device-c/res
-cp ./src/c/examples/template.c ../example-device-c
-<span class="nb">cd</span> ../example-device-c
-</code></pre></div></li>
-</ol>
-<h2 id="build-your-device-service">Build your Device Service</h2>
-<p>Now you are ready to build your new device service using the C SDK you
-compiled in an earlier step.</p>
-<ol>
-<li>Tell the compiler where to find the C SDK files:<div class="codehilite"><pre><span></span><code><span class="err">export CSDK_DIR=../device-sdk-c/build/release/_CPack_Packages/Linux/TGZ/csdk-1.0.0</span>
+You can install a specific release using the --channel option. For example to install the Fuji release of the snap:</p>
+<p><div class="highlight"><pre><span></span><code>$ sudo snap install edgexfoundry --channel=fuji
 </code></pre></div>
-
-
-</li>
-</ol>
+Lastly, on a system supporting it, the snap may be installed using GNOME (or Ubuntu) Software Center by searching for edgexfoundry.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The exact path to your compiled CSDK_DIR may differ, depending on the
-tagged version number on the SDK</p>
+<p>The snap has only been tested on Ubuntu Desktop/Server versions 18.04 and 16.04, as well as Ubuntu Core versions 16 and 18.</p>
 </div>
-<ol>
-<li>Now you can build your device service executable:<div class="codehilite"><pre><span></span><code><span class="err">gcc -I$CSDK_DIR/include -L$CSDK_DIR/lib -o device-example-c template.c -lcsdk</span>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Running the EdgeX snap on a machine setup for EdgeX development can create conflicts and result in the platform errors/issues.</p>
+</div>
+<h2 id="using-the-edgex-snap">Using the EdgeX snap</h2>
+<p>Upon installation, the following EdgeX services are automatically and immediately started:</p>
+<div class="codehilite"><pre><span></span><code><span class="err">- consul</span>
+<span class="err">- redis</span>
+<span class="err">- core-data</span>
+<span class="err">- core-command</span>
+<span class="err">- core-metadata</span>
+<span class="err">- security-services (see note below)</span>
 </code></pre></div>
 
 
-</li>
-</ol>
-<h2 id="customize-your-device-service">Customize your Device Service</h2>
-<p>Up to now you've been building the example device service provided by
-the C SDK. In order to change it to a device service that generates
-random numbers, you need to modify your <code>template.c</code> method
-<strong>template_get_handler</strong> so that it reads as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="p">(</span><span class="kt">uint32_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nreadings</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="k">const</span> <span class="n">edgex_nvpairs</span> <span class="o">*</span> <span class="n">current</span> <span class="o">=</span> <span class="n">requests</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">attributes</span><span class="p">;</span>
-  <span class="k">while</span> <span class="p">(</span><span class="n">current</span><span class="o">!=</span><span class="nb">NULL</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">)</span> <span class="o">==</span><span class="mi">0</span> <span class="p">)</span>
-    <span class="p">{</span>
-      <span class="cm">/* Set the resulting reading type as Uint64 */</span>
-      <span class="n">readings</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">type</span> <span class="o">=</span> <span class="n">Uint64</span><span class="p">;</span>
-
-      <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">,</span> <span class="s">&quot;random&quot;</span><span class="p">)</span> <span class="o">==</span><span class="mi">0</span> <span class="p">)</span>
-      <span class="p">{</span>
-        <span class="cm">/* Set the reading as a random value between 0 and 100 */</span>
-        <span class="n">readings</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">value</span><span class="p">.</span><span class="n">ui64_result</span> <span class="o">=</span> <span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">100</span><span class="p">;</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-<span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
-</code></pre></div>
-
-<h2 id="creating-your-device-profile">Creating your Device Profile</h2>
-<p>A Device Profile is a YAML file that describes a class of device to
-EdgeX. General characteristics about the type of device, the data these
-devices provide, and how to command the device is all provided in a
-Device Profile. Device Services use the Device Profile to understand
-what data is being collected from the Device (in some cases providing
-information used by the Device Service to know how to communicate with
-the device and get the desired sensor readings). A Device Profile is
-needed to describe the data that will be collected from the simple
-random number generating Device Service.</p>
-<ol>
-<li>Explore the files in the src/c/examples/res folder. Take note of the
-    example Device Profile YAML file that is already there
-    (TemplateProfile.yaml). You can explore the contents of this file to
-    see how devices are represented by YAML. In particular, note how
-    fields or properties of a sensor are represented by
-    "deviceResources". Commands to be issued to the device are
-    represented by "coreCommands".</li>
-<li>Download this
-    <code>random-generator-device.yaml &lt;random-generator-device.yaml&gt;</code>{.interpreted-text
-    role="download"} into the ./res folder.</li>
-</ol>
-<p>You can open random-generator-device.yaml in a text editor. In this
-Device Profile, you are suggesting that the device you are describing to
-EdgeX has a single property (or deviceResource) which EdgeX should know
-about - in this case, the property is the "randomnumber". Note how the
-deviceResource is typed.</p>
-<blockquote>
-<p>In more real world IoT situations, this deviceResource list could be
-extensive and could be filled with all different types of data.</p>
-<p>Note also how the Device Profile describes REST commands that can be
-used by others to call on (or "get") the random number from the Device
-Service.</p>
-</blockquote>
-<h2 id="configuring-your-device-service">Configuring your Device Service</h2>
-<p>You will now update the configuration for your new Device Service --
-changing the port it operates on (so as not to conflict with other
-Device Services), altering the scheduled times of when the data is
-collected from the Device Service (every 10 seconds), and setting up the
-initial provisioning of the random number generating device when the
-service starts.</p>
-<ul>
-<li>Download this
-    <code>configuration.toml &lt;configuration.toml&gt;</code>{.interpreted-text
-    role="download"} to the ./res folder.</li>
-</ul>
-<p>If you will be running EdgeX inside of Docker containers (which you will
-at the bottom of this guide) you need to tell your new Device Service to
-listen on the Docker host IP address (172.17.0.1) instead of
-<strong>localhost</strong>. To do that, modify the configuration.toml file so that
-the top section looks like this:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Service]</span>
-<span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;172.17.0.1&quot;</span>
-<span class="n">Port</span> <span class="o">=</span> <span class="mi">49992</span>
-</code></pre></div>
-
-<h2 id="rebuild-your-device-service">Rebuild your Device Service</h2>
-<p>Now you have your new Device Service, modified to return a random
-number, a Device Profile that will tell EdgeX how to read that random
-number, as well as a configuration file that will let your Device
-Service register itself and it's Device Profile with EdgeX, and begin
-taking readings every 10 seconds.</p>
-<ol>
-<li>Rebuild your Device Service to reflect the changes that you have
-    made:<div class="codehilite"><pre><span></span><code><span class="err">gcc -I$CSDK_DIR/include -L$CSDK_DIR/lib -o device-example-c template.c -lcsdk</span>
+<p>The following services are disabled by default:</p>
+<div class="codehilite"><pre><span></span><code><span class="err">- app-service-configurable (required for Kuiper and support-rulesengine)</span>
+<span class="err">- device-virtual</span>
+<span class="err">- kuiper</span>
+<span class="err">- support-logging</span>
+<span class="err">- support-notifications</span>
+<span class="err">- support-rulesengine (deprecated)</span>
+<span class="err">- support-scheduler</span>
+<span class="err">- sys-mgmt-agent</span>
 </code></pre></div>
 
 
-</li>
-</ol>
-<h2 id="run-your-device-service">Run your Device Service</h2>
-<p>Allow your newly created Device Service, which was formed out of the
-Device Service C SDK, to create sensor mimicking data which it then
-sends to EdgeX.</p>
-<ol>
-<li>
-<p>Follow the <a href="../Ch-GettingStartedUsers/">Getting Started Users</a>
-    guide to start all of the EdgeX services in Docker. From the folder
-    containing the docker-compose file, start EdgeX with a call to:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker-compose up -d</span>
+<p>Any disabled services can be enabled and started up using snap set:</p>
+<p><div class="highlight"><pre><span></span><code>$ sudo snap set edgexfoundry support-notifications=on
+</code></pre></div>
+To turn a service off (thereby disabling and immediately stopping it) set the service to off:</p>
+<div class="highlight"><pre><span></span><code>$ sudo snap set edgexfoundry support-notifications=off
+</code></pre></div>
+
+<p>All services which are installed on the system as systemd units, which if enabled will automatically start running when the system boots or reboots.</p>
+<h2 id="configuring-individual-services">Configuring individual services</h2>
+<p>All default configuration files are shipped with the snap inside $SNAP/config, however because $SNAP isn't writable, all of the config files are copied during snap installation (specifically during the install hook, see snap/hooks/install in this repository) to $SNAP_DATA/config.</p>
+<div class="highlight"><pre><span></span><code>$ sudo snap restart edgexfoundry
+</code></pre></div>
+
+<h2 id="viewing-logs">Viewing logs</h2>
+<p>Currently, all log files for the snap's can be found inside $SNAP_COMMON, which is usually /var/snap/edgexfoundry/common. Once all the services are supported as daemons, you can also use sudo snap logs edgexfoundry to view logs.</p>
+<p>Additionally, logs can be viewed using the system journal or snap logs. To view the logs for all services in the edgexfoundry snap use:</p>
+<p><div class="highlight"><pre><span></span><code>$ sudo snap logs edgexfoundry
+</code></pre></div>
+Individual service logs may be viewed by specifying the service name:</p>
+<p><div class="highlight"><pre><span></span><code>$ sudo snap logs edgexfoundry.consul
+</code></pre></div>
+Or by using the systemd unit name and journalctl:</p>
+<div class="highlight"><pre><span></span><code>$ journalctl -u snap.edgexfoundry.consul
+</code></pre></div>
+
+<h2 id="security-services">Security services</h2>
+<p>Currently, the security services are enabled by default. The security services consitute the following components:</p>
+<div class="codehilite"><pre><span></span><code><span class="err">- Kong</span>
+<span class="err">- PostgreSQL</span>
+<span class="err">- Vault</span>
+<span class="err">- security-secrets-setup</span>
+<span class="err">- security-secretstore-setup</span>
+<span class="err">- security-proxy-setup</span>
 </code></pre></div>
 
 
-</li>
-<li>
-<p>Back in your custom Device Service directory, tell your device
-    service where to find the <code>libcsdk.so</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">export LD_LIBRARY_PATH=$CSDK_DIR/lib</span>
+<p>Vault is used for secret management, and Kong is used as an HTTPS proxy for all the services.</p>
+<p>Kong can be disabled by using the following command:</p>
+<div class="highlight"><pre><span></span><code>$ sudo snap set edgexfoundry security-proxy=off
 </code></pre></div>
 
-
-</li>
-<li>
-<p>Run your device service:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">./device-example-c</span>
-</code></pre></div>
-
-
-</li>
-<li>
-<p>You should now see your Device Service having it's /Random command
-    called every 10 seconds. You can verify that it is sending data into
-    EdgeX by watching the logs of the <code>edgex-core-data</code>
-    service:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker logs -f edgex-core-data</span>
-</code></pre></div>
-
-
-</li>
-</ol>
-<p>Which would print an Event record every time your Device Service is
-called.</p>
-<ol>
-<li>You can manually generate an event using curl to query the device
-    service directly:<div class="codehilite"><pre><span></span><code><span class="err">curl 0:49992/api/v1/device/name/RandNum-Device01/Random</span>
-</code></pre></div>
-
-
-</li>
-</ol>
-<p>Note that the value of the "randomnumber" reading is an integer
-between 0 and 100:
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;device&quot;</span><span class="p">:</span><span class="s2">&quot;RandNum-Device01&quot;</span><span class="p">,</span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="mi">1559317102457</span><span class="p">,</span><span class="nt">&quot;readings&quot;</span><span class="p">:[{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;randomnumber&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="s2">&quot;63&quot;</span><span class="p">}]}</span>
-</code></pre></div></p>
+<p>Vault can be also be disabled, but doing so will also disable Kong, as it depends on Vault. Thus the following command will disable both:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Kong is currently not supported in the snap when installed on an arm64-based device, so it will be disabled on install.</p>
+</div>
                 
               
               
@@ -2315,7 +2140,7 @@ between 0 and 100:
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../Ch-GettingStartedSDK/" title="Device Service SDK" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../Ch-GettingStartedUsers/" title="Getting Started with Docker" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
             </div>
@@ -2324,19 +2149,19 @@ between 0 and 100:
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Device Service SDK
+                Getting Started with Docker
               </div>
             </div>
           </a>
         
         
-          <a href="../Ch-GettingStartedSDK-Go/" title="Golang SDK" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../Ch-GettingStartedDevelopers/" title="Getting Started - Developers" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Golang SDK
+                Getting Started - Developers
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
