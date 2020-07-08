@@ -128,6 +128,40 @@ will be denied when trying to access resources through the API Gateway.
     name = "acl"
     whitelist = "admin,user"
 
+**Configuration of Adding Microservices Routes for API Gateway**
+
+For the current pre-existing Kong routes, they are configured and initialized statically through configuration TOML file specified in `security-proxy-setup` application. This is not sufficient for some other new additional microservices like application services, for example.  Thus, adding new proxy Kong routes are now possibly achieved via the environment variable, `ADD_PROXY_ROUTE`, of service `edgex-proxy` in the docker-compose file.  Here is an example:
+
+```yaml
+edgex-proxy:
+      ...
+    environment:
+      ...
+      ADD_PROXY_ROUTE: "myApp.http://my-app:56789"
+      ...
+
+...
+
+my-app:
+   ...
+   container_name: myApp
+   hostname: myApp
+   ...
+  
+```
+
+The value of `ADD_PROXY_ROUTE` takes a comma-separated list of one or more (at least one) paired additional service name and URL for which to create proxy Kong routes.   The paired specification is given as the following:
+
+**\<RoutePrefix\>.\<TargetRouteURL\>**
+
+where **RoutePrefix** is the name of service which requests to create proxy Kong route and it is case insensitive; it is the docker network hostname of the service that want to add the proxy Kong route in the docker-compose file if running from docker-compose, for example, `myApp` in this case.
+
+**TargetRouteURL** is the full qualified URL for the target service, like `http://my-app:56789`
+
+So as an example, for a single service, the value of `ADD_PROXY_ROUTE` would be:  "`myApp.http://my-app:56789`".
+
+Once `ADD_PROXY_ROUTE` is configured and composed-up successfully, the proxy route then can be accessed the app's REST API via Kong as `http://localhost:8000/myApp/api/v1/...` in the same way you would access the edgex service in which you will also need an access token and it is using default access role if not specified in the TOML configuration file as well.
+
 ## Using API Gateway
 
 **Resource Mapping between EdgeX Microservice and API gateway**
