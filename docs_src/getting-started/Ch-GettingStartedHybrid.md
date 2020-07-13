@@ -30,7 +30,7 @@ EdgeX environment up and running via Docker containers. How would you set up thi
     !!! Note
         These notes assme you are working with the EdgeX Genva release.  Some versions of EdgeX may require other or additional containers to run.
     
-3.  Run **docker-compose ps"** to confirm that all the
+3.  Run **docker-compose ps** to confirm that all the
 containers have started.
 
 ## Get, Build and Run the Service
@@ -70,11 +70,11 @@ With the EdgeX containers running, you can now download, build and run natively 
     is working properly, open a browser and point your browser to Core Data
     to check that events are being deposited. You can do this by calling on
     the Core Data API that checks the count of events in Core Data
-    (<http://[host].48080/api/v1/event/count>).
+    http://[host].48080/api/v1/event/count.
 
     ![image](EdgeX_GettingStartedHybridResults.png)
 
 !!! Note
-    If you choose, you can also import the service into GoLand and then code and run the service from GoLand.  Follow the instructions in the [Getting Started - Go Developers ](Ch-GettingStartedGoDevelopers#EdgeX-Foundry-in-GoLand) to learn how to import, build and run a service in GoLand.
+    If you choose, you can also import the service into GoLand and then code and run the service from GoLand.  Follow the instructions in the [Getting Started - Go Developers ](Ch-GettingStartedGoDevelopers#edgex-foundry-in-goland) to learn how to import, build and run a service in GoLand.
 
     ![image](EdgeX_GettingStartedHybridGoLand.png)
