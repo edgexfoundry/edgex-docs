@@ -462,14 +462,21 @@
       
         <li class="md-nav__item">
   <a href="#reference-platform-requirements" class="md-nav__link">
-    REFERENCE - Platform Requirements
+    REFERENCE Platform Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference-edgex-container-names" class="md-nav__link">
+    REFERENCE EdgeX Container Names
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#reference-default-service-ports" class="md-nav__link">
-    REFERENCE - Default Service Ports
+    REFERENCE Default Service Ports
   </a>
   
 </li>
@@ -2037,14 +2044,21 @@
       
         <li class="md-nav__item">
   <a href="#reference-platform-requirements" class="md-nav__link">
-    REFERENCE - Platform Requirements
+    REFERENCE Platform Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference-edgex-container-names" class="md-nav__link">
+    REFERENCE EdgeX Container Names
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#reference-default-service-ports" class="md-nav__link">
-    REFERENCE - Default Service Ports
+    REFERENCE Default Service Ports
   </a>
   
 </li>
@@ -2136,8 +2150,8 @@ The device service will register a device named <code>Random-Integer-Generator01
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-</div>
 <p>Notice that <strong>localhost</strong> replaces <strong>edgex-core-command</strong> here. That's because the EdgeX Foundry services are running in Docker.  Docker recognizes the internal hostname <strong>edgex-core-command</strong>, but when calling the service from outside of Docker, you have to use <strong>localhost</strong> to reach it.</p>
+</div>
 <p>This command will return a JSON result that looks like this:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
   <span class="nt">&quot;device&quot;</span><span class="p">:</span> <span class="s2">&quot;Random-Integer-Generator01&quot;</span><span class="p">,</span>
@@ -2211,7 +2225,7 @@ You can connect to this broker with any MQTT client to watch the sent data. Hive
 <h2 id="next-steps">Next Steps</h2>
 <p>Congratulations! You now have a full EdgeX deployment reading data from a (virtual) device and publishing it to an MQTT broker in the cloud, and you were able to control your device through commands into EdgeX. </p>
 <p>It's time to continue your journey by reading the <a href="../..">Introduction</a> to EdgeX Foundry, what it is and how it's built. From there you can take the <a href="../../walk-through/Ch-Walkthrough/">Walkthrough</a> to learn how the microservices work together to control devices and read data from them as you just did.</p>
-<h2 id="reference-platform-requirements">REFERENCE - Platform Requirements</h2>
+<h2 id="reference-platform-requirements">REFERENCE Platform Requirements</h2>
 <p>EdgeX Foundry is an operating system (OS)-agnostic and hardware (HW)-agnostic IoT edge platform. At this time the following platform minimums are recommended:</p>
 <div class="tabbed-set" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Memory</label><div class="tabbed-content">
 <p>Memory: minimum of 1 GB</p>
@@ -2234,9 +2248,200 @@ You can connect to this broker with any MQTT client to watch the sent data. Hive
 <p class="admonition-title">Info</p>
 <p>EdgeX is agnostic with regards to hardware (x86 and ARM), but only release artifacts for x86 and ARM 64 systems.  EdgeX has been successfuly run on ARM 32 platforms but has required users to build their own executables from source.  EdgeX does not officially support ARM 32.</p>
 </div>
-<h2 id="reference-default-service-ports">REFERENCE - Default Service Ports</h2>
-<p>The following tables (organized by type of service) capture the default service ports.  These default ports are also used in the EdgeX provided service routes defined in the Kong API Gateway for access control.</p>
+<h2 id="reference-edgex-container-names">REFERENCE EdgeX Container Names</h2>
+<p>The following table provies the list of the default EdgeX Docker image names to the Docker container name and Docker Compose names.</p>
 <div class="tabbed-set" data-tabs="3:6"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">Core</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Docker image name</th>
+<th>Docker container name</th>
+<th>Docker Compose service name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>docker-core-data-go</td>
+<td>edgex-core-data</td>
+<td>data</td>
+</tr>
+<tr>
+<td>docker-core-metadata-go</td>
+<td>edgex-core-metadata</td>
+<td>metadata</td>
+</tr>
+<tr>
+<td>docker-core-command-go</td>
+<td>edgex-core-command</td>
+<td>command</td>
+</tr>
+</tbody>
+</table>
+</div>
+<input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><label for="__tabbed_3_2">Supporting</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Docker image name</th>
+<th>Docker container name</th>
+<th>Docker Compose service name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>docker-support-notifications-go</td>
+<td>edgex-support-notifications</td>
+<td>notifications</td>
+</tr>
+<tr>
+<td>docker-support-logging-go</td>
+<td>edgex-support-logging</td>
+<td>logging</td>
+</tr>
+<tr>
+<td>docker-support-scheduler-go</td>
+<td>edgex-support-scheduler</td>
+<td>scheduler</td>
+</tr>
+</tbody>
+</table>
+</div>
+<input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><label for="__tabbed_3_3">Application &amp; Analytics</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Docker image name</th>
+<th>Docker container name</th>
+<th>Docker Compose service name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>docker-app-service-configurable</td>
+<td>edgex-app-service-configurable-rules</td>
+<td>app-service-rules</td>
+</tr>
+<tr>
+<td>emqx/kuiper</td>
+<td>edgex-kuiper</td>
+<td>rulesengine</td>
+</tr>
+</tbody>
+</table>
+</div>
+<input id="__tabbed_3_4" name="__tabbed_3" type="radio" /><label for="__tabbed_3_4">Device</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Docker image name</th>
+<th>Docker container name</th>
+<th>Docker Compose service name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>docker-device-virtual-go</td>
+<td>edgex-device-virtual</td>
+<td>device-virtual</td>
+</tr>
+<tr>
+<td>docker-device-random-go</td>
+<td>edgex-device-random</td>
+<td>device-random</td>
+</tr>
+<tr>
+<td>docker-device-mqtt-go</td>
+<td>edgex-device-mqtt</td>
+<td>device-mqtt</td>
+</tr>
+<tr>
+<td>docker-device-rest-go</td>
+<td>edgex-device-rest</td>
+<td>device-rest</td>
+</tr>
+<tr>
+<td>docker-device-modbus-go</td>
+<td>edgex-device-modbus</td>
+<td>device-modbus</td>
+</tr>
+<tr>
+<td>docker-device-snmp-go</td>
+<td>edgex-device-snmp</td>
+<td>device-snmp</td>
+</tr>
+</tbody>
+</table>
+</div>
+<input id="__tabbed_3_5" name="__tabbed_3" type="radio" /><label for="__tabbed_3_5">Security</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Docker image name</th>
+<th>Docker container name</th>
+<th>Docker Compose service name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vault</td>
+<td>edgex-vault</td>
+<td>vault</td>
+</tr>
+<tr>
+<td>postgress</td>
+<td>kong-db</td>
+<td>kong-db</td>
+</tr>
+<tr>
+<td>kong</td>
+<td>kong</td>
+<td>kong</td>
+</tr>
+<tr>
+<td>docker-edgex-security-proxy-setup-go</td>
+<td>edgex-proxy</td>
+<td>edgex-proxy</td>
+</tr>
+</tbody>
+</table>
+</div>
+<input id="__tabbed_3_6" name="__tabbed_3" type="radio" /><label for="__tabbed_3_6">Miscellaneous</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Docker image name</th>
+<th>Docker container name</th>
+<th>Docker Compose service name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>docker-edgex-consul</td>
+<td>edgex-core-consul</td>
+<td>consul</td>
+</tr>
+<tr>
+<td>mongo</td>
+<td>edgex-mongo</td>
+<td>mongo</td>
+</tr>
+<tr>
+<td>redis</td>
+<td>edgex-redis</td>
+<td>redis</td>
+</tr>
+<tr>
+<td>docker-sys-mgmt-agent-go</td>
+<td>edgex-sys-mgmt-agent</td>
+<td>system</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<h2 id="reference-default-service-ports">REFERENCE Default Service Ports</h2>
+<p>The following tables (organized by type of service) capture the default service ports.  These default ports are also used in the EdgeX provided service routes defined in the Kong API Gateway for access control.</p>
+<div class="tabbed-set" data-tabs="4:6"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><label for="__tabbed_4_1">Core</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2264,7 +2469,7 @@ You can connect to this broker with any MQTT client to watch the sent data. Hive
 </tbody>
 </table>
 </div>
-<input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><label for="__tabbed_3_2">Supporting</label><div class="tabbed-content">
+<input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><label for="__tabbed_4_2">Supporting</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2288,7 +2493,7 @@ You can connect to this broker with any MQTT client to watch the sent data. Hive
 </tbody>
 </table>
 </div>
-<input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><label for="__tabbed_3_3">Application &amp; Analytics</label><div class="tabbed-content">
+<input id="__tabbed_4_3" name="__tabbed_4" type="radio" /><label for="__tabbed_4_3">Application &amp; Analytics</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2312,7 +2517,7 @@ You can connect to this broker with any MQTT client to watch the sent data. Hive
 </tbody>
 </table>
 </div>
-<input id="__tabbed_3_4" name="__tabbed_3" type="radio" /><label for="__tabbed_3_4">Device</label><div class="tabbed-content">
+<input id="__tabbed_4_4" name="__tabbed_4" type="radio" /><label for="__tabbed_4_4">Device</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2348,7 +2553,7 @@ You can connect to this broker with any MQTT client to watch the sent data. Hive
 </tbody>
 </table>
 </div>
-<input id="__tabbed_3_5" name="__tabbed_3" type="radio" /><label for="__tabbed_3_5">Security</label><div class="tabbed-content">
+<input id="__tabbed_4_5" name="__tabbed_4" type="radio" /><label for="__tabbed_4_5">Security</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2384,7 +2589,7 @@ You can connect to this broker with any MQTT client to watch the sent data. Hive
 </tbody>
 </table>
 </div>
-<input id="__tabbed_3_6" name="__tabbed_3" type="radio" /><label for="__tabbed_3_6">Miscellaneous</label><div class="tabbed-content">
+<input id="__tabbed_4_6" name="__tabbed_4" type="radio" /><label for="__tabbed_4_6">Miscellaneous</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
