@@ -4,6 +4,12 @@ The following glossary provides terms used in EdgeX Foundry.  The definition are
 ## Brownfield and Greenfield
 Brownfield refers to older legacy equipment (nodes, devices, sensors) in an edge/IoT deployment, which typically uses older protocols.  Greenfield refers to, typically, new equipment with modern protocols.
 
+## Containerized
+Executables, services, or infrastructure (like the database) that have been put into Docker container images for use in creating Docker containers are said to be containerized.  These images are often put into a container registry like Docker Hub.  From the registry, a system can get (also known as pull) the image down and create and run the service in a container in the Docker Engine. 
+
+## Contributor/Developer
+If you want to change, add to or at least build the existing EdgeX code base, then you are a "Developer". "Contributors" are developers that further wish to contribute their code back into the EdgeX open source effort.
+
 ## Device
 In EdgeX parlance, "device" is used to refer to a sensor, actuator, or IoT "thing".  A sensor generally collects information from the physical world - like a temperature or vibration sensor.  Actuators are machines that can be told to do something.  Actuators move or otherwise control a mechanism or system - like a value on a pump.  While there may be some technical differences, for the purposes of EdgeX documentation, device will refer to a sensor, actuator or "thing".
 
@@ -52,3 +58,6 @@ of the network that communicates with the cloud, is referred to as the
 
 EdgeX enables data to be sent "north, " "south, " or laterally as
 needed and as directed.
+
+## User
+If you want to get the EdgeX platform and run it (but do not intend to change or add to the existing code base now) then you are considered a "User".

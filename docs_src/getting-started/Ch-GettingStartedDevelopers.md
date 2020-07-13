@@ -2,82 +2,92 @@
 
 ## Introduction
 
-These instructions are for Developers and Contributors to obtain and run
-EdgeX Foundry. (Users should read:
+These instructions are for Developers and Contributors to get and run
+EdgeX Foundry. If you want to get the EdgeX platform and run it (but do not intend to change or add to the existing code base now) then you are considered a "User". Users should read:
 [Getting Started Users](./Ch-GettingStartedUsers.md))
 
-EdgeX Foundry is a collection of more than a dozen microservices that
-can be deployed to provide a minimal edge platform capability. EdgeX
-Foundry consists of a collection of microservices and SDK tools. The
-microservices and SDKs are mostly written in Go or C with some legacy
-services written in Java (EdgeX was originally written in Java). These
-documentation pages provide a developer with the information and
+EdgeX is a collection of more than a dozen micro services that are deployed to provide a minimal edge platform capability. 
+EdgeX consists of a collection of reference implementation services and SDK tools. The micro services and SDKs are written in Go or C. 
+These documentation pages provide a developer with the information and
 instructions to get and run EdgeX Foundry in development mode - that is
 running natively outside of containers and with the intent of adding to
 or changing the existing code base.
 
 ## What You Need
 
-**Hardware**
+### Hardware
 
-EdgeX Foundry is an operating system (OS)-agnostic and hardware
-(HW)-agnostic edge software platform. Minimum platform requirements are
-being established. At this time use the following recommended
-characteristics:
+EdgeX Foundry is an operating system (OS) and hardware (HW)-agnostic edge software platform. 
+See the reference page for [platform requirements](./quick-start/index.md#reference-platform-requirements). These provide guidance on a minimal platform to run the EdgeX platform.  However, as a developer, you may find that additional memory, disk space, and improved CPU are essential to building and debugging.
 
--   Memory: minimum of 1 GB
--   Hard drive space: minimum of 3 GB of space to run the EdgeX Foundry
-    containers, but you may want more depending on how long sensor and
-    device data is retained
--   OS: EdgeX Foundry has been run successfully on many systems including, but not limited to the following systems
-    -   Windows (ver 7 - 10)
-    -   Ubuntu Desktop (ver 14-16)
-    -   Ubuntu Server (ver 14)
-    -   Ubuntu Core (ver 16)
-    -   Mac OS X 10
+### Software
 
-**Software**
+Developers need to install the following software to get,
+run and develop EdgeX Foundry micro services:
 
-Developers will need to install the following software in order to get,
-run and develop EdgeX Foundry microservices:
-
-**git** - a free and open source version control (SVC) system used to
+#### Git
+Use this free and open source version control (SVC) system to
 download (and upload) the EdgeX Foundry source code from the project's
-GitHub repository. See <https://git-scm.com/downloads> for download and
+GitHub repositories. See <https://git-scm.com/downloads> for download and
 install instructions. Alternative tools (Easy Git for example) could be
 used, but this document assumes use of git and leaves how to use
 alternative SVC tools to the reader.
 
-**MongoDB** - by default, EdgeX Foundry uses MongoDB (version 4.2 as of
-this writing) as the persistence mechanism for sensor data as well as
-metadata about the devices/sensors that are connected. See
+#### Redis
+By default, EdgeX Foundry uses Redis (version 5 starting with the Geneva release)
+as the persistence mechanism for sensor data as well as metadata about the devices/sensors that are 
+connected. See <https://redis.io/> for download and installation
+instructions.
+
+#### MongoDB
+As an alternative, EdgeX Foundry allows use of MongoDB (version 4.2 as of
+Geneva) as the alternative persistence mechanism in place of Redis for sensor data as well as
+metadata about the connected devices/sensors. See
 <https://www.mongodb.com/download-center?jmp=nav#community> for download
 and installation instructions.
 
-**Redis** - is an alternate open source (BSD Licensed) database that can
-be used with EdgeX in place of MongoDB for many services. Starting with
-the Geneva release, Redis will be the default EdgeX persistence
-mechanism for sensor, metadata, etc. EdgeX works with Redis 5.0 as of
-this writing. See <https://redis.io/> for download and installation
-instructions.
+!!! Warning
+    Use of MongoDB is deprecated with the Geneva release.  EdgeX will remove MongoDB support in a future
+    release.  Developers should start to migrate to Redis in all development efforts targeting
+    future EdgeX releases. 
 
-**ZeroMQ** ZeroMQ - several EdgeX Foundry services depend on ZeroMQ for
-communications by default. The easiest way to get and install ZeroMQ on
-Linux is to use this setup script:
-<https://gist.github.com/katopz/8b766a5cb0ca96c816658e9407e83d00>. Do
-note that the script assumes bash is available on your system and the
-bash executable is located in /usr/bin. Before running the script at the
-link, run
-``` bash
-which bash
-```
-at your Linux terminal to insure that bash is located in /usr/bin. If
-not, change the first line of the script so that it points to the
-correct location of bash. For macOS, use brew to install ZeroMQ.
-``` bash
-brew install zeromq
-```
-For directions installing ZeroMQ on Windows, please see the Windows
-documentation:
-<https://github.com/edgexfoundry/edgex-go/blob/master/ZMQWindows.md>
+#### ZeroMQ
+Several EdgeX Foundry services depend on ZeroMQ for
+communications by default.  See the installation for your OS.
 
+=== "Linux/Unix"
+    The easiest way to get and install ZeroMQ on
+    Linux is to use this setup script:
+    <https://gist.github.com/katopz/8b766a5cb0ca96c816658e9407e83d00>. 
+
+    !!! Note
+        The 0MQ install script above assumes bash is available on your system and the
+        bash executable is in /usr/bin. Before running the script at the
+        link, run
+        ``` bash
+        which bash
+        ```
+        at your Linux terminal to insure that bash is in /usr/bin. If
+        not, change the first line of the script so that it points to the
+        correct location of bash. 
+
+=== "MacOS"
+    For MacOS, use brew to install ZeroMQ.
+    ``` bash
+    brew install zeromq
+    ```
+
+=== "Windows"
+    For directions installing ZeroMQ on Windows, please see the Windows
+    documentation:
+    <https://github.com/edgexfoundry/edgex-go/blob/master/ZMQWindows.md>
+
+#### Docker (Optional)
+If you intend to create Docker images for your updated or newly created EdgeX services, you need to install Docker. See https://docs.docker.com/install/ to learn how to install Docker. If you are new to Docker, the same web site provides you educational information.
+
+### Additional Programming Tools and Next Steps
+Depending on which part of EdgeX you work on, you need to install one or more programming languages (Go Lang, Gnu C, etc.) and associated tooling.
+These tools are covered under the documentation specific to each type of development.
+
+- [Go Lang](./Ch-GettingStartedGoDevelopers.md)
+- [C](./Ch-GettingStartedCDevelopers.md)
