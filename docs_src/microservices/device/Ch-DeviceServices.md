@@ -29,7 +29,7 @@ following microservice:
 
 > APIs\--Device Services\--Virtual Device Service
 
-**Device Service Requirements**
+**Device Service Functional Requirements**
 
 Requirements for the device service are provided below. These
 requirements are being used to define what functionality needs to be
@@ -38,13 +38,4 @@ scaffolding code. They may also help the reader understand the duties
 and role of a device service.
 
 [DS-SDK
-Requirements](https://wiki.edgexfoundry.org/display/FA/Architecture--Device+Services+Microservices?preview=/328052/4587926/DS-SDK-Requirements-v3.xlsx)
-
-**Device Service Design**
-
-Sequence Diagrams that outline the objects and process of each of the
-requirements.
-
-[Design for Requirements
-\#1-4](https://wiki.edgexfoundry.org/display/FA/Architecture--Device+Services+Microservices?preview=/328052/4588068/DS-SDK-Design-SequenceDiagrams.vsdx)
-
+Functional Requirements](https://wiki.edgexfoundry.org/download/attachments/329488/edgex-device-service-requirements-v11.pdf)
