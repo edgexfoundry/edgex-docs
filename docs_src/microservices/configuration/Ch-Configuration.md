@@ -1,5 +1,7 @@
 # Configuration and Registry
 
+![image](EdgeX_CoreRegConfig.png)
+
 ## Introduction
 
 The purpose of this section is to describe the configuration and service
