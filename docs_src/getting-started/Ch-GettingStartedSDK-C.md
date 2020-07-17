@@ -1,40 +1,30 @@
 # C SDK
 
-In this guide, you create a simple device service in C that generates a
-random number in place of getting data from an actual sensor. In this
-way, you get to explore some of the scaffolding and work necessary to
-complete a device service without actually having a device to talk to.
+# Golang SDK
+
+In this guide, you create a simple device service that generates a
+random number as a means to simulate getting getting data from an actual device. In this way, you explore some the SDK framework and work necessary to complete a device service without actually having a device to talk to.
 
 ## Install dependencies
 
-To build a device service using the EdgeX C SDK you'll need the following:
--   libmicrohttpd
--   libcurl
--   libyaml
--   libcbor
+See the [Getting Started - C Developers](Ch-GettingStartedCDevelopers) guide to install the necessary tools and infrastructure needed to develop a GoLang service.
 
-You can install these on Ubuntu by running:
-```bash
-sudo apt install libcurl4-openssl-dev libmicrohttpd-dev libyaml-dev libcbor-dev
-```
 ## Get the EdgeX Device SDK for C
 
-The next step is to download and build the EdgeX Device SDK for C. You
-always want to use the release of the SDK that matches the release of
-EdgeX you are targeting. As of this writing the **fuji**
-release is the current stable release of EdgeX, so we will be using the
-**fuji** branch of the C SDK.
+The next step is to download and build the EdgeX device service SDK for C.
 
-1.  First, clone the fuji branch of device-sdk-c from Github:
-
-        git clone -b fuji https://github.com/edgexfoundry/device-sdk-c.git
-        cd ./device-sdk-c
+1.  First, clone the device-sdk-c from Github:
+    ``` bash
+    git clone https://github.com/edgexfoundry/device-sdk-c.git
+    cd ./device-sdk-c
+    ```
 
 2.  Then, build the device-sdk-c:
+    ``` bash
+    make
+    ```
 
-        ./scripts/build.sh
-
-## Starting a new Device Service project
+## Starting a new Device Service
 
 For this guide we're going to use the example template provided by the
 C SDK as a starting point, and will modify it to generate random integer
@@ -42,11 +32,11 @@ values.
 
 1.  Begin by copying the template example source into a new directory
     named `example-device-c`:
-``` bash
-mkdir -p ../example-device-c/res
-cp ./src/c/examples/template.c ../example-device-c
-cd ../example-device-c
-```
+    ``` bash
+    mkdir -p ../example-device-c/res
+    cp ./src/c/examples/template.c ../example-device-c
+    cd ../example-device-c
+    ```
 
 ## Build your Device Service
 
@@ -54,13 +44,12 @@ Now you are ready to build your new device service using the C SDK you
 compiled in an earlier step.
 
 1.  Tell the compiler where to find the C SDK files:
-
-        export CSDK_DIR=../device-sdk-c/build/release/_CPack_Packages/Linux/TGZ/csdk-1.0.0
+    ``` bash
+    export CSDK_DIR=../device-sdk-c/build/release/_CPack_Packages/Linux/TGZ/csdk-1.3.0
+    ```
 
 !!! Note
-    The exact path to your compiled CSDK_DIR may differ, depending on the
-    tagged version number on the SDK
-
+    The exact path to your compiled CSDK_DIR may differ, depending on the tagged version number on the SDK.  The version of the SDK can be found in the VERSION file located in the ./device-sdk-c/VERSION file.
 
 2.  Now you can build your device service executable:
 
@@ -71,29 +60,43 @@ compiled in an earlier step.
 Up to now you've been building the example device service provided by
 the C SDK. In order to change it to a device service that generates
 random numbers, you need to modify your `template.c` method
-**template\_get\_handler** so that it reads as follows:
+**template\_get\_handler**.  Replace the following code:
 
 ``` c
-for (uint32_t i = 0; i < nreadings; i++)
-{
-  const edgex_nvpairs * current = requests[i].attributes;
-  while (current!=NULL)
+  for (uint32_t i = 0; i < nreadings; i++)
   {
-    if (strcmp (current->name, "type") ==0 )
-    {
-      /* Set the resulting reading type as Uint64 */
-      readings[i].type = Uint64;
-
-      if (strcmp (current->value, "random") ==0 )
-      {
-        /* Set the reading as a random value between 0 and 100 */
-        readings[i].value.ui64_result = rand() % 100;
-      }
-    }
-    current = current->next;
+    /* Log the attributes for each requested resource */
+    iot_log_debug (driver->lc, "  Requested reading %u:", i);
+    dump_attributes (driver->lc, requests[i].attributes);
+    /* Fill in a result regardless */
+    readings[i].value = iot_data_alloc_string ("Template result", IOT_DATA_REF);
   }
-}
-return true;
+  return true;
+```
+
+so that it reads as follows:
+
+``` c
+    for (uint32_t i = 0; i < nreadings; i++)
+    {
+        const edgex_nvpairs * current = requests[i].attributes;
+        while (current!=NULL)
+        {
+            if (strcmp (current->name, "type") ==0 )
+            {
+                /* Set the resulting reading type as Uint64 */
+                readings[i].type = Uint64;
+
+                if (strcmp (current->value, "random") ==0 )
+                {
+                    /* Set the reading as a random value between 0 and 100 */
+                    readings[i].value.ui64_result = rand() % 100;
+                }
+            }
+            current = current->next;
+        }
+    }
+    return true;
 ```
 
 ## Creating your Device Profile
