@@ -1,108 +1,51 @@
 # Golang SDK
 
-The EdgeX Device Service SDK helps developers quickly create new device
-connectors for EdgeX by providing the common framework that each Device
-Service needs. The framework provides a pattern for provisioning
-devices. It provides common template code to receive and react to
-command (a.k.a. actuation) requests. Finally, the framework provides the
-common code to help get the data coming from the sensor into EdgeX Core
-Data (often referred to as data ingestion). With the SDK, developers are
-left to focus on the code that is specific to the communications with
-the device via the protocol of the device.
-
-In this guide, you create a simple Device Service that generates a
-random number in place of getting data from an actual sensor. In this
-way, you get to explore some of the framework and work necessary to
-complete a Device Service without actually having a device to talk to.
+In this guide, you create a simple device service that generates a
+random number as a means to simulate getting getting data from an actual device. In this way, you explore some the SDK framework and work necessary to complete a device service without actually having a device to talk to.
 
 ## Install dependencies
 
-Creating a Device Service requires a little programming in Go. Go Lang
-(version 1.11 or better) must be installed on your system to complete
-this lab. Follow the instructions in the link below to install Go if it
-is not already installed on your platform:
-
-> <https://golang.org/doc/install>
-
-You need a Git tool to pull the Device Service Go SDK code from the
-EdgeX Foundry Git repository. Follow the instructions in the link below
-to install Git for your platform:
-
-> <https://git-scm.com/book/en/v2/Getting-Started-Installing-Git>
-
-You will also need a "make" program. On Ubuntu Linux environments, this
-can be accomplished with the following command:
-
-    sudo apt install build-essential
-
-Finally, you need a simple text editor (or Go Lang IDE).
+See the [Getting Started - Go Developers](Ch-GettingStartedGoDevelopers.md) guide to install the necessary tools and infrastructure needed to develop a GoLang service.
 
 ## Get the EdgeX Device SDK for Go
 
-Complete the following steps to create a folder on your file system,
-download the [Device SDK](../../microservices/device/sdk/Ch-DeviceSDK), then you
-pull the SDK to your system, and finally create the new EdgeX Device
-Service from the SDK templating code.
+Follow these steps to create a folder on your file system,
+download the [Device SDK](../../microservices/device/sdk/Ch-DeviceSDK), and get the GoLang device service SDK to your system.
 
-1.  Create a collection of nested folders,
-    ~/go/src/github.com/edgexfoundry on your file system. This folder
-    will eventually hold your new Device Service. In Linux, this can be
-    done with a single mkdir (with -p switch) command:
+1.  Create a collection of nested folders, ~/go/src/github.com/edgexfoundry on your file system. This folder will eventually hold your new Device Service. In Linux, this can be done with a single mkdir command
+    ``` bash
+    mkdir -p ~/go/src/github.com/edgexfoundry
+    ```
 
-        mkdir -p ~/go/src/github.com/edgexfoundry
+2. In a terminal window, change directories to the folder just created and pull down the SDK in Go with the commands as shown.
+    ``` bash
+    cd ~/go/src/github.com/edgexfoundry
+    git clone https://github.com/edgexfoundry/device-sdk-go.git
+    ```
+    
+3.  Create a folder that will hold the new device service.  Name the folder is also the name you want to give your new device service. Standard practice in EdgeX is to prefix the name of a device service with `device-`.
+    ``` bash
+    mkdir ~/go/src/github.com/edgexfoundry/device-simple
+    ```
+4.  Copy the example code from **device-sdk-go** to **device-simple**:
+    ``` bash
+    cd ~/go/src/github.com/edgexfoundry
+    cp -rf ./device-sdk-go/example/* ./device-simple/
+    ```
 
-2.  In a terminal window, change directories to the folder you created:
+5.  Copy Makefile to device-simple:
+    ``` bash
+    cp ./device-sdk-go/Makefile ./device-simple
+    ```
 
-        cd ~/go/src/github.com/edgexfoundry
+## Start a new Device Service
 
-3.  Enter the following command to pull down the EdgeX Device Service
-    SDK in Go (there is also a Device Service SDK in C):
-
-        git clone https://github.com/edgexfoundry/device-sdk-go.git
-
-    ![image](EdgeX_GettingStartedSDKClone3.png)
-
-4.  Create a folder for the Device Service that we are going to develop.
-    In this step, you are naming the folder to the name you want to give
-    your new Device Service. Standard practice in EdgeX is to prefix the
-    name of a Device Service with `device-`:
-
-        mkdir device-simple
-
-5.  Copy the example code from **device-sdk-go** to **device-simple**:
-
-        cp -rf ./device-sdk-go/example/* ./device-simple/
-
-    ![image](EdgeX_GettingStartedSDKClone5.png)
-
-6.  Copy Makefile to device-simple:
-
-        cp ./device-sdk-go/Makefile ./device-simple
-
-    ![image](EdgeX_GettingStartedSDKClone6.png)
-
-7.  Copy VERSION to device-simple:
-
-        cp ./device-sdk-go/VERSION ./device-simple/
-
-    ![image](EdgeX_GettingStartedSDKClone7.png)
-
-8.  Copy version.go to device-simple:
-
-        cp ./device-sdk-go/version.go ./device-simple/
-
-## Starting a new Device Service project
-
-The device-sdk-go comes with example code to create a new Device
-Service. Complete the following steps to modify the copy of the example
-code to use in your new service.
+With the device service application structure in place, time now to program the service to act like a sensor data fetching service.
 
 1.  Edit the main.go file in the cmd/device-simple folder. Modify the
     import statements to replace "device-sdk-go/example/driver" to
     "device-simple/driver" from the paths in the import statements. Save
     the file when you have finished editing.
-
-    ![image](EdgeX_GettingStartedSDKProject6.png)
 
 2.  Open Makefile in your favorite text editor and make the following
     changes
@@ -134,8 +77,6 @@ code to use in your new service.
               $(GO) build $(GOFLAGS) -o $@ ./cmd/device-simple
 
 3.  Save the file.
-
-    ![image](EdgeX_GettingStartedSDKProject7.png)
 
 4.  Enter the following command to create the initial module definition
     and write it to the go.mod file:
@@ -174,16 +115,12 @@ the current Device Service.
 
         make build
 
-    ![image](EdgeX_GettingStartedSDKBuild1.png)
-
 3.  If there are no errors, your service is ready for you to add
     customizations to generate data values as if there was a sensor
     attached. If there are errors, retrace your steps to correct the
     error and try to build again. Ask you instructor for help in finding
     the issue if you are unable to locate it given the error messages
     you receive from the build process.
-
-    ![image](EdgeX_GettingStartedSDKBuild2.png)
 
 ## Customize your Device Service
 
@@ -197,26 +134,18 @@ provide EdgeX with its sensor readings:
 1.  Locate the simpledriver.go file in the /driver folder and open it
     with your favorite editor.
 
-    ![image](EdgeX_GettingStartedSDKCode1.png)
-
 2.  In the import() area at the top of the file, add "math/rand" under
     "time".
-
-    ![image](EdgeX_GettingStartedSDKCode2.png)
 
 3.  Locate the HandleReadCommands() function in this file. Notice the
     following line of code in this file:
 
         cv, _ := dsModels.NewBoolValue(reqs[0].DeviceResourceName, now, s.switchButton)
 
-    ![image](EdgeX_GettingStartedSDKCode3.png)
-
 4.  Replace the two lines of code with the following:
 
         if reqs[0].DeviceResourceName == "randomnumber" {
             cv, _ := dsModels.NewInt32Value(reqs[0].DeviceResourceName, now, int32(rand.Intn(100)))
-
-    ![image](EdgeX_GettingStartedSDKCode4.png)
 
     The first line of code to confirmed request is for the customized
     resource "randomnumber". Also, the second line of code generates
@@ -294,8 +223,6 @@ Just as you did before, you are ready to build the device-simple service
 
         make build
 
-    ![image](EdgeX_GettingStartedSDKRebuild1.png)
-
 3.  If there are no errors, your service has now been created and is
     available in the cmd/device-simple folder (look for the
     device-simple file).
@@ -317,12 +244,8 @@ sends to EdgeX:
     cmd/device-simple folder. The executable device-simple is located
     there.
 
-    ![image](EdgeX_GettingStartedSDKRun1.png)
-
 3.  Execute the Device Service with the ./device-simple command, as
     shown below:
-
-    ![image](EdgeX_GettingStartedSDKRun2.png)
 
     This starts the service and immediately displays log entries in the
     terminal.
@@ -331,8 +254,6 @@ sends to EdgeX:
     data that the service is generating and sending to EdgeX:
 
     <http://localhost:48080/api/v1/event/device/RandNum-Device-01/100>
-
-    ![image](EdgeX_GettingStartedSDKRun3.png)
 
     This request asks for the last 100 Events/Readings from Core Data
     associated to the RandNum-Device-01.
