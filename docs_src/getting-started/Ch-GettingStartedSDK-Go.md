@@ -22,11 +22,14 @@ download the [Device SDK](../../microservices/device/sdk/Ch-DeviceSDK), and get 
     cd ~/go/src/github.com/edgexfoundry
     git clone https://github.com/edgexfoundry/device-sdk-go.git
     ```
-    
-3.  Create a folder that will hold the new device service.  Name the folder is also the name you want to give your new device service. Standard practice in EdgeX is to prefix the name of a device service with `device-`.
+
+    ![image](EdgeX_GettingStartedSDKClone.png)
+
+3.  Create a folder that will hold the new device service.  The name of the folder is also the name you want to give your new device service. Standard practice in EdgeX is to prefix the name of a device service with `device-`.  In this example, the name 'device-simple` is used.
     ``` bash
     mkdir ~/go/src/github.com/edgexfoundry/device-simple
     ```
+
 4.  Copy the example code from **device-sdk-go** to **device-simple**:
     ``` bash
     cd ~/go/src/github.com/edgexfoundry
@@ -37,36 +40,44 @@ download the [Device SDK](../../microservices/device/sdk/Ch-DeviceSDK), and get 
     ``` bash
     cp ./device-sdk-go/Makefile ./device-simple
     ```
+6. Copy version.go to device-simple:
+    ``` bash
+    cp ./device-sdk-go/version.go ./device-simple/
+    ```
+
+After completing these steps, your device-simple folder should look like the listing below.
+
+![image](EdgeX_GettingStartedSDKCopyFiles.png)
 
 ## Start a new Device Service
 
 With the device service application structure in place, time now to program the service to act like a sensor data fetching service.
 
-1.  Edit the main.go file in the cmd/device-simple folder. Modify the
-    import statements to replace "device-sdk-go/example/driver" to
-    "device-simple/driver" from the paths in the import statements. Save
-    the file when you have finished editing.
+1.  Open main.go file in the cmd/device-simple folder with your favorite text editor. Modify the
+    import statements.  Replace `github.com/edgexfoundry/device-sdk-go/example/driver` with `github.com/edgexfoundry/device-simple/driver` in the import statements. Also replace `github.com/edgexfoundry/device-sdk-go` with `github.com/edgexfoundry/device-simple`. Save the file when you have finished editing.
 
-2.  Open Makefile in your favorite text editor and make the following
+    ![image](EdgeX_GettingStartedSDKReplaceImports.png)
+
+2.  Open Makefile found in the base folder (~/go/src/github.com/edgexfoundry/device-simple) in your favorite text editor and make the following
     changes
 
-    -   Replace `MICROSERVICES` :
+    -   Replace:
 
             MICROSERVICES=example/cmd/device-simple/device-simple
 
-        with :
+        with:
 
             MICROSERVICES=cmd/device-simple/device-simple
 
-    -   Modify `GOFLAGS`:
+    -   Modify:
 
             GOFLAGS=-ldflags "-X github.com/edgexfoundry/device-sdk-go.Version=$(VERSION)"
 
-        line to refer to the new service with:
+        to refer to the new service with:
 
             GOFLAGS=-ldflags "-X github.com/edgexfoundry/device-simple.Version=$(VERSION)"
 
-    -   Modify `build`:
+    -   Modify:
 
             example/cmd/device-simple/device-simple:
               $(GO) build $(GOFLAGS) -o $@ ./example/cmd/device-simple
@@ -82,6 +93,8 @@ With the device service application structure in place, time now to program the 
     and write it to the go.mod file:
 
         GO111MODULE=on go mod init
+
+    ![image](EdgeX_GettingStartedGoModInit.png)
 
 ## Build your Device Service
 

@@ -2,6 +2,8 @@
 
 The EdgeX device service [software development kits](../general/Definitions.md#Software-Development-Kit) (SDKs) help developers create new [device](..general/../../general/Definitions.md#Device) connectors for EdgeX.  An SDK provides the common scaffolding that each device service needs.  This allows developers to create new device/sensor connectors more quickly.
 
+![image](EdgeX_DeviceServiceSDK.png)
+
 The EdgeX community already provides many device services.  However, there is no way the community can provide for every protocol and every sensor.
 Even if the EdgeX community provided a device service for every protocol, your use case, sensor, or security infrastructure might require customization.  Thus, the device service SDKs provide the means to extend or customize EdgeX’s device connectivity.
 
