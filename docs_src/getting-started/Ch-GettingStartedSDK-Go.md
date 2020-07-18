@@ -99,30 +99,10 @@ With the device service application structure in place, time now to program the 
 ## Build your Device Service
 
 To ensure that the code you have moved and updated still works, build
-the current Device Service.
+the device service.
 
 1.  In a terminal window, change directories to the device-simple folder
-    (the folder containing the Makefile):
-
-        device-simple
-        ├── cmd
-        │   └── device-simple
-        │       ├── Dockerfile
-        │       ├── main.go
-        │       └── res
-        │           ├── Simple-Driver.yaml
-        │           ├── configuration.toml
-        │           ├── docker
-        │           │   └── configuration.toml
-        │           ├── off.jpg
-        │           └── on.png
-        ├── driver
-        │   └── simpledriver.go
-        ├── Makefile
-        ├── Version
-        ├── version.go
-        ├── go.mod
-        └── go.sum
+    (the folder containing the Makefile).
 
 2.  Build the service by issuing the following command:
 
