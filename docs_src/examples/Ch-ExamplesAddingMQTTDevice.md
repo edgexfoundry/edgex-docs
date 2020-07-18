@@ -324,8 +324,8 @@ replacing the host IP with your host address:
 
 ## Add Device Service to docker-compose File (docker-compose.yml)
 
-Download the docker-compose file from
-<https://github.com/edgexfoundry/developer-scripts/blob/master/releases/fuji/compose-files/docker-compose-fuji.yml>.
+Download the `Geneva` release docker-compose file from
+<https://github.com/edgexfoundry/developer-scripts/blob/master/releases/geneva/compose-files/docker-compose-geneva-redis.yml>.
 
 Because we deploy EdgeX using docker-compose, we must add device-mqtt to
 the docker-compose file. If you have prepared configuration files, you
