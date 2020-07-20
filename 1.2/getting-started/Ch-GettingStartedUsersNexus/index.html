@@ -611,9 +611,56 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Getting Docker Images from EdgeX Nexus Repository
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z" /></svg>
+        </span>
+      </label>
+    
     <a href="./" title="Getting Docker Images from EdgeX Nexus Repository" class="md-nav__link md-nav__link--active">
       Getting Docker Images from EdgeX Nexus Repository
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rationale-to-use-nexus-images" class="md-nav__link">
+    Rationale To Use Nexus Images
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-nexus-images" class="md-nav__link">
+    Using Nexus Images
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-a-single-nexus-image" class="md-nav__link">
+    Using a Single Nexus Image
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -1905,6 +1952,37 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rationale-to-use-nexus-images" class="md-nav__link">
+    Rationale To Use Nexus Images
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-nexus-images" class="md-nav__link">
+    Using Nexus Images
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-a-single-nexus-image" class="md-nav__link">
+    Using a Single Nexus Image
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1924,89 +2002,43 @@
                 
                 
                 <h1 id="getting-docker-images-from-edgex-nexus-repository">Getting Docker Images from EdgeX Nexus Repository</h1>
-<p>In some cases, it may be necessary to get your EdgeX container images
-from the Nexus Repository (managed by the Linux Foundation) as opposed
-to the Docker Hub repository. Nexus is a repository that contains all
-the staging and development containers and images for the EdgeX Foundry
-project. Containers destined for Docker Hub actually move through the
-Nexus Repository on their way to Docker Hub.</p>
-<p>Some reasons why you might want to use container images from the Nexus
-Repos might include when:</p>
-<p>a)  the container is not available from Docker Hub (or Docker Hub is
-    down temporarily)
-b)  you need the latest development build container.
-c)  you are working in a Windows or non-Linux environment and you are
-    unable to build a container without some issues (Docker shell
-    scripts may not work in Docker For Windows due to CR-LF on Git in
-    Windows).</p>
-<p>In order to get containers from the Nexus Repository, follow these
-steps:</p>
-<p><strong>Pull the container(s)</strong></p>
-<p>Pull the container(s) from Nexus into your local environment. In the
-example below, the docker-core-config-seed container image is pulled
-from Nexus. Note the host name (nexus3.edgexfoundry.org) and port
-(10004) for pulling</p>
-<p>\$ docker pull nexus3.edgexfoundry.org:10004/docker-core-config-seed</p>
-<p><strong>Replace the image(s) in docker-compose.yml</strong></p>
-<p>Docker Compose files that pull the latest EdgeX container images from
-Nexus are available here:
-<a href="https://github.com/edgexfoundry/developer-scripts/tree/master/releases/nightly-build/compose-files">https://github.com/edgexfoundry/developer-scripts/tree/master/releases/nightly-build/compose-files</a>.</p>
-<p>If you are creating your own Docker Compose file or want to use an
-existing EdgeX Docker Compose file but selectively use Nexus images,
-replace the name/location of the Docker image in your docker-compose.yml
-file for the containers you want to get from Nexus versus Docker Hub.
-For example, the config-seed item in docker-compose.yml might ordinarily
-look like this:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">config</span><span class="o">-</span><span class="n">seed</span><span class="p">:</span>
-  <span class="o">**</span><span class="n">image</span><span class="p">:</span> <span class="n">edgexfoundry</span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">config</span><span class="o">-</span><span class="n">seed</span><span class="o">**</span>
-
-  <span class="n">ports</span><span class="p">:</span>
-      <span class="err">\</span><span class="o">-</span> <span class="ss">&quot;8400:8400&quot;</span><span class="err">\</span>
-      <span class="err">\</span><span class="o">-</span> <span class="ss">&quot;8500:8500&quot;</span><span class="err">\</span>
-      <span class="err">\</span><span class="o">-</span> <span class="ss">&quot;8600:8600&quot;</span><span class="err">\</span>
-
-  <span class="n">container_name</span><span class="p">:</span> <span class="n">edgex</span><span class="o">-</span><span class="n">config</span><span class="o">-</span><span class="n">seed</span>
-
-  <span class="n">hostname</span><span class="p">:</span> <span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">config</span><span class="o">-</span><span class="n">seed</span>
-
-  <span class="n">networks</span><span class="p">:</span>
-    <span class="n">edgex</span><span class="o">-</span><span class="n">network</span><span class="p">:</span>
-      <span class="n">aliases</span><span class="p">:</span>
-          <span class="err">\</span><span class="o">-</span> <span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="err">\</span>
-  <span class="n">volumes_from</span><span class="p">:</span>
-    <span class="err">\</span><span class="o">-</span> <span class="n">volume</span><span class="err">\</span>
-  <span class="n">depends_on</span><span class="p">:</span>
-    <span class="err">\</span><span class="o">-</span> <span class="n">volume</span><span class="err">\</span>
+<p>Released EdgeX Docker container images are available from <a href="https://hub.docker.com/search?q=edgexfoundry&amp;type=image">Docker Hub</a>.  In some cases, it may be necessary to get your EdgeX container images from the Nexus repository.  The Linux Foundation manages the Nexus repository for the project.</p>
+<p>Nexus contains the EdgeX project staging and development container images. In other words, Nexus contains work-in-progress or pre-release images.  These, pre-release/work-in-progress Docker images are built nightly and made available at the following Nexus location:</p>
+<div class="highlight"><pre><span></span><code>nexus3.edgexfoundry.org:10004
 </code></pre></div>
 
-
-<p>Change the "image" field to point to the Nexus Repos</p>
-<div class="codehilite"><pre><span></span><code><span class="n">config</span><span class="o">-</span><span class="n">seed</span><span class="p">:</span>
-  <span class="o">**</span><span class="n">image</span><span class="p">:</span> <span class="n">nexus3</span><span class="p">.</span><span class="n">edgexfoundry</span><span class="p">.</span><span class="n">org</span><span class="p">:</span><span class="mi">10004</span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">config</span><span class="o">-</span><span class="n">seed</span><span class="o">**</span>
-   <span class="n">ports</span><span class="p">:</span>
-      <span class="err">\</span><span class="o">-</span> <span class="ss">&quot;8400:8400&quot;</span><span class="err">\</span>
-      <span class="err">\</span><span class="o">-</span> <span class="ss">&quot;8500:8500&quot;</span><span class="err">\</span>
-      <span class="err">\</span><span class="o">-</span> <span class="ss">&quot;8600:8600&quot;</span><span class="err">\</span>
-
-  <span class="n">container_name</span><span class="p">:</span> <span class="n">edgex</span><span class="o">-</span><span class="n">config</span><span class="o">-</span><span class="n">seed</span>
-
-  <span class="n">hostname</span><span class="p">:</span> <span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">config</span><span class="o">-</span><span class="n">seed</span>
-
-  <span class="n">networks</span><span class="p">:</span>
-    <span class="n">edgex</span><span class="o">-</span><span class="n">network</span><span class="p">:</span>
-      <span class="n">aliases</span><span class="p">:</span>
-          <span class="err">\</span><span class="o">-</span> <span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="err">\</span>
-  <span class="n">volumes_from</span><span class="p">:</span>
-    <span class="err">\</span><span class="o">-</span> <span class="n">volume</span><span class="err">\</span>
-  <span class="n">depends_on</span><span class="p">:</span>
-    <span class="err">\</span><span class="o">-</span> <span class="n">volume</span><span class="err">\</span>
+<h2 id="rationale-to-use-nexus-images">Rationale To Use Nexus Images</h2>
+<p>Reasons you might want to use container images from Nexus include:</p>
+<ol>
+<li>The container is not available from Docker Hub (or Docker Hub is down temporarily)</li>
+<li>You need the latest development container image (the work in progress)</li>
+<li>You are working in a Windows or non-Linux environment and you are unable to build a container without some issues.</li>
+</ol>
+<p>A set of Docker Compose files have been created to allow you to get and use the latest EdgeX service images from Nexus.  Find these <a href="https://github.com/edgexfoundry/developer-scripts/tree/master/releases/nightly-build/compose-files">Nexus "Nightly Build" Compose files</a> in GitHub.  The EdgeX development team provides these Docker Compose files.  As with the EdgeX release Compose files, you will find several different Docker Compose files that allow you to get the type of EdgeX instance setup based on: </p>
+<ul>
+<li>your hardware (x86 or ARM)</li>
+<li>the database you want to use (Mongo or Redis)</li>
+<li>your desire to have security services on or off</li>
+</ul>
+<p><img alt="image" src="../EdgeX_GettingStartedNexusCompose.png" /></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The "Nightly Build" images are provided as is and may not always function properly or with other EdgeX services.  Use with caution and typically only if you are a developer/contributor to EdgeX. These images represent the latest development work and may not have been thoroughly tested or integrated.</p>
+</div>
+<h2 id="using-nexus-images">Using Nexus Images</h2>
+<p>The operations to pull the images and run the Nexus Repository is the same as when using EdgeX images from Docker Hub (see <a href="../Ch-GettingStartedUsers/#run-edgex-foundry">Getting Started with Docker</a>).</p>
+<p>To get containers from the Nexus Repository, in a command terminal, change directories to the location of your downloaded Nexus Docker Compose yaml.  Rename the file to docker-compose.yml.  Then run the following command in the terminal to pull (fetch) and then start the EdgeX Nexus-image containers.</p>
+<div class="highlight"><pre><span></span><code>docker-compose up -d
 </code></pre></div>
 
-
-<p>Save the Docker Compose YAML file after you make any changes.</p>
-<p><strong>Use the image(s)</strong></p>
-<p>Now start your container(s) as you would normally with Docker Compose</p>
-<p>\$ docker-compose up -d [container_name]</p>
+<h2 id="using-a-single-nexus-image">Using a Single Nexus Image</h2>
+<p>In some cases, you may only need to use a single image from Nexus while other EdgeX services are created from the Docker Hub images.  In this case, you can simply replace the image location for the selected image in your original Docker Compose file.  The address of Nexus is <strong>nexus3.edgexfoundry.org</strong> at port <strong>10004</strong>.  So, if you wished to use the EdgeX core data image from Nexus, you would replace the name and location of the core data image "edgexfoundry/docker-core-data-go:1.2.1" with "nexus3.edgexfoundry.org:10004/docker-core-data-go:master" in the Compose file.</p>
+<p><img alt="image" src="../EdgeX_GettingStartedChangeToNexus.png" />
+<img alt="image" src="../EdgeX_GettingStartedNexusComposeNew.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The example above replaces the Geneva core data service from Docker Hub with the latest core data image in Nexus. </p>
+</div>
                 
               
               
