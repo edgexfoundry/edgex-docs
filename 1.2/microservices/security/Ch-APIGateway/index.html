@@ -2128,6 +2128,30 @@ will be denied when trying to access resources through the API Gateway.
 </code></pre></div>
 
 
+<p><strong>Configuration of Adding Microservices Routes for API Gateway</strong></p>
+<p>For the current pre-existing Kong routes, they are configured and initialized statically through configuration TOML file specified in <code>security-proxy-setup</code> application. This is not sufficient for some other new additional microservices like application services, for example.  Thus, adding new proxy Kong routes are now possibly achieved via the environment variable, <code>ADD_PROXY_ROUTE</code>, of service <code>edgex-proxy</code> in the docker-compose file.  Here is an example:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">edgex-proxy</span><span class="p">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">...</span>
+    <span class="l l-Scalar l-Scalar-Plain">environment</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">...</span>
+      <span class="nt">ADD_PROXY_ROUTE</span><span class="p">:</span> <span class="s">&quot;myApp.http://my-app:56789&quot;</span>
+      <span class="l l-Scalar l-Scalar-Plain">...</span>
+
+<span class="nn">...</span>
+
+<span class="nt">my-app</span><span class="p">:</span>
+   <span class="l l-Scalar l-Scalar-Plain">...</span>
+   <span class="l l-Scalar l-Scalar-Plain">container_name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">myApp</span>
+   <span class="nt">hostname</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">myApp</span>
+   <span class="l l-Scalar l-Scalar-Plain">...</span>
+</code></pre></div>
+
+<p>The value of <code>ADD_PROXY_ROUTE</code> takes a comma-separated list of one or more (at least one) paired additional service name and URL for which to create proxy Kong routes.   The paired specification is given as the following:</p>
+<p><strong>\&lt;RoutePrefix>.\&lt;TargetRouteURL></strong></p>
+<p>where <strong>RoutePrefix</strong> is the name of service which requests to create proxy Kong route and it is case insensitive; it is the docker network hostname of the service that want to add the proxy Kong route in the docker-compose file if running from docker-compose, for example, <code>myApp</code> in this case.</p>
+<p><strong>TargetRouteURL</strong> is the full qualified URL for the target service, like <code>http://my-app:56789</code></p>
+<p>So as an example, for a single service, the value of <code>ADD_PROXY_ROUTE</code> would be:  "<code>myApp.http://my-app:56789</code>".</p>
+<p>Once <code>ADD_PROXY_ROUTE</code> is configured and composed-up successfully, the proxy route then can be accessed the app's REST API via Kong as <code>http://localhost:8000/myApp/api/v1/...</code> in the same way you would access the edgex service in which you will also need an access token and it is using default access role if not specified in the TOML configuration file as well.</p>
 <h2 id="using-api-gateway">Using API Gateway</h2>
 <p><strong>Resource Mapping between EdgeX Microservice and API gateway</strong></p>
 <p>If the EdgeX API gateway is not in use, a client can access and use any
