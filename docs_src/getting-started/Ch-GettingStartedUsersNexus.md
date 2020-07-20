@@ -1,95 +1,46 @@
 # Getting Docker Images from EdgeX Nexus Repository
 
-In some cases, it may be necessary to get your EdgeX container images
-from the Nexus Repository (managed by the Linux Foundation) as opposed
-to the Docker Hub repository. Nexus is a repository that contains all
-the staging and development containers and images for the EdgeX Foundry
-project. Containers destined for Docker Hub actually move through the
-Nexus Repository on their way to Docker Hub.
+Released EdgeX Docker container images are available from [Docker Hub](https://hub.docker.com/search?q=edgexfoundry&type=image).  In some cases, it may be necessary to get your EdgeX container images from the Nexus repository.  The Linux Foundation manages the Nexus repository for the project.
 
-Some reasons why you might want to use container images from the Nexus
-Repos might include when:
+Nexus contains the EdgeX project staging and development container images. In other words, Nexus contains work-in-progress or pre-release images.  These, pre-release/work-in-progress Docker images are built nightly and made available at the following Nexus location:
 
-a)  the container is not available from Docker Hub (or Docker Hub is
-    down temporarily)
-b)  you need the latest development build container.
-c)  you are working in a Windows or non-Linux environment and you are
-    unable to build a container without some issues (Docker shell
-    scripts may not work in Docker For Windows due to CR-LF on Git in
-    Windows).
+```
+nexus3.edgexfoundry.org:10004
+```
 
-In order to get containers from the Nexus Repository, follow these
-steps:
+## Rationale To Use Nexus Images
 
-**Pull the container(s)**
+Reasons you might want to use container images from Nexus include:
 
-Pull the container(s) from Nexus into your local environment. In the
-example below, the docker-core-config-seed container image is pulled
-from Nexus. Note the host name (nexus3.edgexfoundry.org) and port
-(10004) for pulling
+1.  The container is not available from Docker Hub (or Docker Hub is down temporarily)
+2.  You need the latest development container image (the work in progress)
+3.  You are working in a Windows or non-Linux environment and you are unable to build a container without some issues.
 
-\$ docker pull nexus3.edgexfoundry.org:10004/docker-core-config-seed
+A set of Docker Compose files have been created to allow you to get and use the latest EdgeX service images from Nexus.  Find these [Nexus "Nightly Build" Compose files](https://github.com/edgexfoundry/developer-scripts/tree/master/releases/nightly-build/compose-files) in GitHub.  The EdgeX development team provides these Docker Compose files.  As with the EdgeX release Compose files, you will find several different Docker Compose files that allow you to get the type of EdgeX instance setup based on: 
 
-**Replace the image(s) in docker-compose.yml**
+- your hardware (x86 or ARM)
+- the database you want to use (Mongo or Redis)
+- your desire to have security services on or off
 
-Docker Compose files that pull the latest EdgeX container images from
-Nexus are available here:
-<https://github.com/edgexfoundry/developer-scripts/tree/master/releases/nightly-build/compose-files>.
+![image](EdgeX_GettingStartedNexusCompose.png)
 
-If you are creating your own Docker Compose file or want to use an
-existing EdgeX Docker Compose file but selectively use Nexus images,
-replace the name/location of the Docker image in your docker-compose.yml
-file for the containers you want to get from Nexus versus Docker Hub.
-For example, the config-seed item in docker-compose.yml might ordinarily
-look like this:
+!!! Warning
+    The "Nightly Build" images are provided as is and may not always function properly or with other EdgeX services.  Use with caution and typically only if you are a developer/contributor to EdgeX. These images represent the latest development work and may not have been thoroughly tested or integrated.
 
-    config-seed:
-      **image: edgexfoundry/docker-core-config-seed**
+## Using Nexus Images
+The operations to pull the images and run the Nexus Repository is the same as when using EdgeX images from Docker Hub (see [Getting Started with Docker](./Ch-GettingStartedUsers.md#run-edgex-foundry)).
 
-      ports:
-          \- "8400:8400"\
-          \- "8500:8500"\
-          \- "8600:8600"\
+To get containers from the Nexus Repository, in a command terminal, change directories to the location of your downloaded Nexus Docker Compose yaml.  Rename the file to docker-compose.yml.  Then run the following command in the terminal to pull (fetch) and then start the EdgeX Nexus-image containers.
 
-      container_name: edgex-config-seed
+``` bash
+docker-compose up -d
+```
 
-      hostname: edgex-core-config-seed
+## Using a Single Nexus Image
+In some cases, you may only need to use a single image from Nexus while other EdgeX services are created from the Docker Hub images.  In this case, you can simply replace the image location for the selected image in your original Docker Compose file.  The address of Nexus is **nexus3.edgexfoundry.org** at port **10004**.  So, if you wished to use the EdgeX core data image from Nexus, you would replace the name and location of the core data image "edgexfoundry/docker-core-data-go:1.2.1" with "nexus3.edgexfoundry.org:10004/docker-core-data-go:master" in the Compose file.
 
-      networks:
-        edgex-network:
-          aliases:
-              \- edgex-core-consul\
-      volumes_from:
-        \- volume\
-      depends_on:
-        \- volume\
+![image](EdgeX_GettingStartedChangeToNexus.png)
+![image](EdgeX_GettingStartedNexusComposeNew.png)
 
-Change the "image" field to point to the Nexus Repos
-
-    config-seed:
-      **image: nexus3.edgexfoundry.org:10004/docker-core-config-seed**
-       ports:
-          \- "8400:8400"\
-          \- "8500:8500"\
-          \- "8600:8600"\
-
-      container_name: edgex-config-seed
-
-      hostname: edgex-core-config-seed
-
-      networks:
-        edgex-network:
-          aliases:
-              \- edgex-core-consul\
-      volumes_from:
-        \- volume\
-      depends_on:
-        \- volume\
-
-Save the Docker Compose YAML file after you make any changes.
-
-**Use the image(s)**
-
-Now start your container(s) as you would normally with Docker Compose
-
-\$ docker-compose up -d \[container\_name\]
+!!! Note
+    The example above replaces the Geneva core data service from Docker Hub with the latest core data image in Nexus. 
