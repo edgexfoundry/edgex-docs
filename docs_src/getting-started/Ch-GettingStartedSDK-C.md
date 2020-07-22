@@ -1,7 +1,7 @@
 # C SDK
 
 In this guide, you create a simple device service that generates a
-random number as a means to simulate getting getting data from an actual device. In this way, you explore some the SDK framework and work necessary to complete a device service without actually having a device to talk to.
+random number as a means to simulate getting getting data from an actual device. In this way, you explore some of the SDK framework and work necessary to complete a device service without actually having a device to talk to.
 
 ## Install dependencies
 
@@ -30,7 +30,7 @@ The next step is to download and build the EdgeX device service SDK for C.
 ## Starting a new Device Service
 
 For this guide, you use the example template provided by the
-C SDK as a starting point for a new device service.  You modify the device service it to generate random integer
+C SDK as a starting point for a new device service.  You modify the device service to generate random integer
 values.
 
 Begin by copying the template example source into a new directory
@@ -124,7 +124,7 @@ EdgeX. General characteristics about the type of device, the data these devices 
 
 Follow these steps to create a device profile for the simple random number generating device service.
 
-1.  Explore the files in the device-sdk-c/src/c/examples/res folder.   Note the example TemplateProfile.yaml device provide that is already in this folder.  Open the file with your favorite editor and explore its contents.  Note how `deviceResources` in the file represent properties of a device (properties like SensorOne, SensorTwo and Switch).  Similarly, `coreCommands` specify commands that get issued to the device.
+1.  Explore the files in the device-sdk-c/src/c/examples/res folder.   Note the example TemplateProfile.yaml device profile that is already in this folder.  Open the file with your favorite editor and explore its contents.  Note how `deviceResources` in the file represent properties of a device (properties like SensorOne, SensorTwo and Switch).  Similarly, `coreCommands` specify commands that get issued to the device.
 
     ![image](EdgeX_SampleDeviceProfile_DeviceResourcesC.png)
 
@@ -146,7 +146,7 @@ Download  **[configuration.toml](configuration.toml)** and save the file to the 
 Now you have your new device service, modified to return a random
 number, a device profile that will tell EdgeX how to read that random
 number, as well as a configuration file that will let your device
-service register itself and it's device profile with EdgeX, and begin
+service register itself and its device profile with EdgeX, and begin
 taking readings every 10 seconds.
 
 Rebuild your Device Service to reflect the changes that you have made:
@@ -182,7 +182,7 @@ sends to EdgeX.
     ./device-example-c
     ```
 
-4.  You should now see your device service having it's /Random command
+4.  You should now see your device service having its /Random command
     called every 10 seconds. You can verify that it is sending data into
     EdgeX by watching the logs of the `edgex-core-data`
     service:

@@ -46,7 +46,7 @@ Benefits of micro service architectures include:
 Default and example implementation(s) offered by the EdgeX community.  Other implementations may be offered by 3rd parties or for specialization.
 
 ## Software Development Kit
-In EdgeX, a software development kit (or SDK) is a library or module to be incorporated into a new micro service.  It provides a lot of the boilerplate code and scafolding associated with the type of service being created.  The SDK allows the developer to focus on the details of the service functionality and not have to worry about the mundane tasks associated with EdgeX services.
+In EdgeX, a software development kit (or SDK) is a library or module to be incorporated into a new micro service.  It provides a lot of the boilerplate code and scaffolding associated with the type of service being created.  The SDK allows the developer to focus on the details of the service functionality and not have to worry about the mundane tasks associated with EdgeX services.
 
 ## South and North Side
 South Side: All IoT objects, within the physical realm, and the edge of
