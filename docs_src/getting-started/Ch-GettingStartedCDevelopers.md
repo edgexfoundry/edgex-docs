@@ -27,7 +27,7 @@ CMake is required to build the SDKs.  Version 3 or better is required.  You can 
 sudo apt install cmake
 ```
 
-Check that you C development environment includes the following:
+Check that your C development environment includes the following:
 - a version of GCC supporting C11
 - CMake version 3 or greater
 - Development libraries and headers for:

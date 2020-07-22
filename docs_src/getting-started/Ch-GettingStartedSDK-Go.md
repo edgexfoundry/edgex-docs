@@ -182,7 +182,7 @@ EdgeX. General characteristics about the type of device, the data these devices 
 
 Follow these steps to create a device profile for the simple random number generating device service.
 
-1.  Explore the files in the cmd/device-simple/res folder.   Note the example Simple-Driver.yaml device provide that is already in this folder.  Open the file with your favorite editor and explore its contents.  Note how `deviceResources` in the file represent properties of a device (properties like SwitchButton, X, Y and Z rotation).  Similarly, `coreCommands` specify commands that get issued to the device.
+1.  Explore the files in the cmd/device-simple/res folder.   Note the example Simple-Driver.yaml device profile that is already in this folder.  Open the file with your favorite editor and explore its contents.  Note how `deviceResources` in the file represent properties of a device (properties like SwitchButton, X, Y and Z rotation).  Similarly, `coreCommands` specify commands that get issued to the device.
 
     ![image](EdgeX_SampleDeviceProfile_DeviceResources.png)
 
