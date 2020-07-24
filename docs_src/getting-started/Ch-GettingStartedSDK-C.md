@@ -20,7 +20,7 @@ The next step is to download and build the EdgeX device service SDK for C.
     ![image](EdgeX_GettingStartedSDKCloneC.png)
 
     !!! Note
-        The clone command above has you pull v1.2.1 of the C SDK which is the version associated to the Geneva release.
+        The clone command above has you pull v1.2.1 of the C SDK which is the version compatible with the Geneva release.
 
 2.  Then, build the device-sdk-c:
     ``` bash
@@ -128,7 +128,7 @@ Follow these steps to create a device profile for the simple random number gener
 
     ![image](EdgeX_SampleDeviceProfile_DeviceResourcesC.png)
 
-2.  A pre-created device profile for the random number device is provided in this documentation.  Download **[random-generator-device.yaml](random-generator-device.yaml)** and save the file to the ./res folder.
+2.  A pre-created device profile for the random number device is provided in this documentation.  Download **[random-generator-device.yaml](random-generator-device.yaml)** and save the file to the `./res` folder.
 
 3.  Open the random-generator-device.yaml file in a text editor. In this device profile, the device described has a deviceResource:  `randomnuber`.  Note how the association of a type to the deviceResource.  In this case, the device profile informs EdgeX that randomnumber will be a INT32.  In real world IoT situations, this deviceResource list could be extensive and filled with many deviceResources all different types of data.  Note also how the device profile describes a REST command (GET Random) to call to get the random number from the device service.
 
