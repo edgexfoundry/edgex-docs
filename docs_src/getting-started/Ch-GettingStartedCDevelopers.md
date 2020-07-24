@@ -28,6 +28,7 @@ sudo apt install cmake
 ```
 
 Check that your C development environment includes the following:
+
 - a version of GCC supporting C11
 - CMake version 3 or greater
 - Development libraries and headers for:

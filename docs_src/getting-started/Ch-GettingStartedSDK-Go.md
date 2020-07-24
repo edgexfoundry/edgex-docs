@@ -12,7 +12,7 @@ See the [Getting Started - Go Developers](Ch-GettingStartedGoDevelopers.md) guid
 Follow these steps to create a folder on your file system,
 download the [Device SDK](../../microservices/device/sdk/Ch-DeviceSDK), and get the GoLang device service SDK on your system.
 
-1.  Create a collection of nested folders, ~/go/src/github.com/edgexfoundry on your file system. This folder will hold your new Device Service. In Linux, create a directory with a single mkdir command
+1.  Create a collection of nested folders, `~/go/src/github.com/edgexfoundry` on your file system. This folder will hold your new Device Service. In Linux, create a directory with a single mkdir command
     ``` bash
     mkdir -p ~/go/src/github.com/edgexfoundry
     ```
@@ -186,18 +186,19 @@ Follow these steps to create a device profile for the simple random number gener
 
     ![image](EdgeX_SampleDeviceProfile_DeviceResources.png)
 
-2.  A pre-created device profile for the random number device is provided in this documentation.  Download **[random-generator-device.yaml](random-generator-device.yaml)** and save the file to the ~/go/src/github.com/edgexfoundry/device-simple/cmd/device-simple/res folder.
+2.  A pre-created device profile for the random number device is provided in this documentation.  Download **[random-generator-device.yaml](random-generator-device.yaml)** and save the file to the `~/go/src/github.com/edgexfoundry/device-simple/cmd/device-simple/res` folder.
 
 3.  Open the random-generator-device.yaml file in a text editor. In this device profile, the device described has a deviceResource:  `randomnuber`.  Note how the association of a type to the deviceResource.  In this case, the device profile informs EdgeX that randomnumber will be a INT32.  In real world IoT situations, this deviceResource list could be extensive and filled with many deviceResources all different types of data.  Note also how the device profile describes a REST command (GET Random) to call to get the random number from the device service.
 
 ## Configuring your Device Service
 
 Now update the configuration for the new device service.    This documentation provides a new configuration.toml file.  This configuration file:
+
 - changes the port the service operates on so as not to conflict with other device services
 - alters the the auto event frequency, which determines when the device service collects data from the simulated device (every 10 seconds)
 - sets up the initial provisioning of the random number generating device when the service starts
 
-Download  **[configuration.toml](configuration.toml)** and save the file to the ~/go/src/github.com/edgexfoundry/device-simple/cmd/device-simple/res folder (overwrite the existing configuration file).
+Download  **[configuration.toml](configuration.toml)** and save the file to the `~/go/src/github.com/edgexfoundry/device-simple/cmd/device-simple/res` folder (overwrite the existing configuration file).
 
 ## Rebuild your Device Service
 
@@ -210,7 +211,7 @@ make build
 ![image](EdgeX_GettingStartedSDKBuild.png)
 
 If there are no errors, your service is create and put in the 
-~/go/src/github.com/edgexfoundry/device-simple/cmd/device-simple folder.  Look for the `device-simple` executable in the folder.
+`~/go/src/github.com/edgexfoundry/device-simple/cmd/device-simple` folder.  Look for the `device-simple` executable in the folder.
 
 ## Run your Device Service
 
