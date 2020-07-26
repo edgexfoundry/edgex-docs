@@ -23,6 +23,8 @@ way to simplify communications with the devices. There are two types of commands
 - a GET command requests data from the device.  This is often used to request the latest sensor reading from the device.  
 - PUT commands request to take action or [actuate](../../../general/Definitions.md#actuate) the device or to set some configuration on the device.
 
+In most cases, GET commands are simple requests for the latest sensor reading from the device.  Therefore, the request is often parameter-less (requiring no parameters or body in the request).  As of the Geneva release, GET requests do allow query parameters to be added to the GET command requests (i.e. `/api/v1/device/{deviceID}/command/{commandID}?param1=value&param2=value`).  PUT commands often require a request body where the body provides a key/value pair array of values used as parameters in the request (i.e. `{"additionalProp1": "string", "additionalProp2": "string"}`).
+
 The command micro service gets its knowledge about the devices from the metadata service. The command service always relays
 commands (GET or PUT) to the devices through the device service.  The command service never communicates directly to a device.
 Therefore, the command micro service is a proxy service for command or action
