@@ -188,7 +188,7 @@ Follow these steps to create a device profile for the simple random number gener
 
 2.  A pre-created device profile for the random number device is provided in this documentation.  Download **[random-generator-device.yaml](random-generator-device.yaml)** and save the file to the `~/go/src/github.com/edgexfoundry/device-simple/cmd/device-simple/res` folder.
 
-3.  Open the random-generator-device.yaml file in a text editor. In this device profile, the device described has a deviceResource:  `randomnuber`.  Note how the association of a type to the deviceResource.  In this case, the device profile informs EdgeX that randomnumber will be a INT32.  In real world IoT situations, this deviceResource list could be extensive and filled with many deviceResources all different types of data.  Note also how the device profile describes a REST command (GET Random) to call to get the random number from the device service.
+3.  Open the random-generator-device.yaml file in a text editor. In this device profile, the device described has a deviceResource:  `randomnumber`.  Note how the association of a type to the deviceResource.  In this case, the device profile informs EdgeX that randomnumber will be a INT32.  In real world IoT situations, this deviceResource list could be extensive.  Rather than a single deviceResource, you might find this section filled with many deviceResources and each deviceResource associated to a different type.  Note also how the device profile describes a REST command (GET Random) to call to get the random number from the device service.
 
 ## Configuring your Device Service
 
@@ -210,7 +210,7 @@ make build
 ```
 ![image](EdgeX_GettingStartedSDKBuild.png)
 
-If there are no errors, your service is create and put in the 
+If there are no errors, your service is created and put in the 
 `~/go/src/github.com/edgexfoundry/device-simple/cmd/device-simple` folder.  Look for the `device-simple` executable in the folder.
 
 ## Run your Device Service
