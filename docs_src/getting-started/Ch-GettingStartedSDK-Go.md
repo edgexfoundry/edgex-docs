@@ -1,7 +1,7 @@
 # Golang SDK
 
 In this guide, you create a simple device service that generates a
-random number as a means to simulate getting getting data from an actual device. In this way, you explore some the SDK framework and work necessary to complete a device service without actually having a device to talk to.
+random number as a means to simulate getting data from an actual device. In this way, you explore some the SDK framework and work necessary to complete a device service without actually having a device to talk to.
 
 ## Install dependencies
 
@@ -26,7 +26,7 @@ download the [Device SDK](../../microservices/device/sdk/Ch-DeviceSDK), and get 
     ![image](EdgeX_GettingStartedSDKClone.png)
 
     !!! Note
-        The clone command above has you pull v1.2.2 of the Go SDK which is the version associated to Geneva.
+        The clone command above has you pull v1.2.2 of the Go SDK which is the version associated to Geneva.  You may want to check for the latest released version by going to https://github.com/edgexfoundry/device-sdk-go and look for the lastest release tag.
 
 3.  Create a folder that will hold the new device service.  The name of the folder is also the name you want to give your new device service. Standard practice in EdgeX is to prefix the name of a device service with `device-`.  In this example, the name 'device-simple` is used.
     ``` bash
@@ -114,6 +114,9 @@ With the device service application structure in place, time now to program the 
     )
     ```
     ![image](EdgeX_GettingStartedSDKGoMod.png)
+
+    !!! Note
+        You should always check the **[go.mod](https://github.com/edgexfoundry/device-sdk-go/blob/master/go.mod)** file in the latest released version SDK for the correct versions of the Go SDK and go-mod-contracts to use in your go.mod.
 
 ## Build your Device Service
 

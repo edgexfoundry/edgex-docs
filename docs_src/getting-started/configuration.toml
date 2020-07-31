@@ -16,7 +16,7 @@ EnableAsyncReadings = true
 AsyncBufferSize = 16
 
 [Registry]
-Host = "localhost"
+Host = 'localhost'
 Port = 8500
 Type = 'consul'
 
@@ -58,15 +58,15 @@ File = ''
 
 # Pre-define Devices
 [[DeviceList]]
-  Name = "RandNum-Device01"
-  Profile = "RandNum-Device"
-  Description = "Random Number Generator Device"
+  Name = 'RandNum-Device01'
+  Profile = 'RandNum-Device'
+  Description = 'Random Number Generator Device'
   Labels = [ "random", "test" ]
   [DeviceList.Protocols]
     [DeviceList.Protocols.Other]
-      Address = "random"
-      Port = "300"
+      Address = 'random'
+      Port = '300'
   [[DeviceList.AutoEvents]]
-    Resource = "Random"
+    Resource = 'randomnumber'
     OnChange = false
-    Frequency = "10s"
+    Frequency = '10s'
