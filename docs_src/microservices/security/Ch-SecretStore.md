@@ -63,13 +63,11 @@ The key features of Vault are:
 ## Start the Secret Store
 
 Start the Secret Store with Docker Compose and a Docker Compose manifest
-file. The Docker Compose file named docker-compose-fuji.yml can be found
-here:
+file. The whole set of Docker Compose files for Geneva release can be found here:
 
-> -   <https://github.com/edgexfoundry/developer-scripts/blob/master/releases/fuji/compose-files/docker-compose-fuji.yml>
+> -   <https://github.com/edgexfoundry/developer-scripts/blob/master/releases/geneva/compose-files>
 
-This Compose file starts the entire EdgeX Foundry platform including the
-security services.
+[The Compose file](https://github.com/edgexfoundry/developer-scripts/blob/master/releases/geneva/compose-files/docker-compose-geneva-redis.yml) starts the entire EdgeX Foundry platform with Redis including the security services.
 
 The command to start EdgeX Foundry platform including the Secret Store
 and API gateway related services is:
