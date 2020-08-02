@@ -4,240 +4,164 @@
 
 ## Introduction
 
-The Virtual Device Service simulates different kinds of devices to
-generate Events and Readings to the Core Data Microservice, and Users
-send commands and get responses through the Command and Control
-Microservice. These features of the Virtual Device Services are useful
-when executing functional or performance tests without having any real
-devices.
+The virtual device service simulates different kinds of [devices](../../../general/Definitions.md#device) to
+generate events and readings to the [core data](../../core/data/Ch-CoreData.md) micro service, and users
+send commands and get responses through the [command and control](../../core/command/Ch-Command.md) micro service. These features of the virtual device services are useful
+when executing functional or performance tests without having any real devices.
 
-**Virtual Device Service Overall Flow**
+The virtual device service, built in Go and based on the device service Go SDK, can simulate sensors by generating data of the following data types:
 
-![image](EdgeX_VirtualDeviceFlow.png)
+- Bool
+- Int8, Int16, Int32, Int64
+- Uint8, Uint16, Uint32, Uint64
+- Float32, Float64
+- Binary
 
-Virtual Device Service has dependencies on Core Data and Meta Data
-Microservices, since the initialization process needs to check or
-register profiles, devices, and value descriptors. Therefore, Core Data
-and Metadata Microservices have to fully start up before Virtual Device
-Service initialization. At the beginning of the Virtual Device Service
-initialization process, the process sends a ping request to Core Data
-and Metadata Microservices to verify their status until they both fully
-start up. The fixed time out limit is 600 seconds. After 600 seconds, if
-Core Data and Metadata Microservices have not fully started up, the
-initialization process fails.
+The virtual device services leverages [ql(an embedded SQL database engine)](https://godoc.org/github.com/cznic/ql) to simulate virtual resources.
 
-When the Virtual Device Service starts up, the initialization process
-loads the definitions of ValueDescriptor, DeviceService, and
-DeviceProfile from YAML files and creates them in the Metadata
-Microservice. Some default YAML files exist, and Users can create their
-own. Please see Device Profile Definition section (on this page) for
-more detail. In addition, the Virtual Device Service provides callback
-APIs for the Metadata Microservice to manage the Device instances.
-According to the GET Commands in the DeviceProfile definitions, there is
-an H2 database (in-memory) storing resource in Virtual Devices, called
-"Virtual Resources."
+By default, the virtual device service is included and configured to run with all EdgeX Docker Compose files.  This allows users to have a complete EdgeX system up and running - with simulated data from the virtual device service - in minutes.
 
-## Virtual Resources Example
+## Using the Virtual Device Service
 
-![image](EdgeX_VirtualDeviceExample.png)
+The virtual device service contains 4 pre-defined devices as random value generators:
 
-After starting up, the Virtual Device Service reads the H2 database and
-periodically sends the current value as an Event to the Core Data
-Microservice. The default frequency is 15 seconds, and that can be
-modified from the configuration file. The current value of virtual
-resources is re-generated at a random value before each collection
-cycle, so the Reading should be different in each Event.
+- [Random-Boolean-Device](https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/device.virtual.bool.yaml)
+- [Random-Integer-Device](https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/device.virtual.int.yaml)
+- [Random-UnsignedInteger-Device](https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/device.virtual.uint.yaml)
+- [Random-Float-Device](https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/device.virtual.float.yaml)
+- [Random-Binary-Device](https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/device.virtual.binary.yaml)
 
-The Virtual Device Service provides APIs for Command and Control
-Microservice, reads the H2 database, and returns the current value for
-GET Commands. At this time, the Virtual Device Service supports two
-special PUT Commands: "enableRandomization" and "collectionFrequency."
-These Commands modify the "ENABLE\_RANDOMIZATION" and
-"COLLECTION\_FREQUENCY" column of a specific virtual resource in the H2
-database.
+These devices are created by the virtual device service in core metadata when the service first initializes.  These devices are defined by device profiles that ship with the virtual device service.  Each virtual device causes the generation of one to many values of the type specified by the device name.  For example, Random-Integer-Device generates integer values:  Int8, Int16, Int32 and Int64.  As with all devices, the deviceResources in the associated device profile of the device defind what values are produced by the device service. In the case of Random-Integer-Device, the Int8, Int16, Int32 and Int64 values are defined as deviceResources.
 
-    For example, sending an HTTP PUT method to http://localhost:48082/device/56b1acf1d66f9c9762581ea4/command/56b1acedd66f9c9762581e9d/put/0 with the sample payload:
+``` yaml
+-
+  name: "Int8"
+  description: "Generate random int8 value"
+  properties:
+    value:
+      { type: "Int8", readWrite: "R", defaultValue: "0" }
+    units:
+      { type: "String", readWrite: "R", defaultValue: "random int8 value" }
+-
+  name: "Int16"
+  description: "Generate random int16 value"
+  properties:
+    value:
+      { type: "Int16", readWrite: "R", defaultValue: "0" }
+    units:
+      { type: "String", readWrite: "R", defaultValue: "random int16 value" }
+-
+  name: "Int32"
+  description: "Generate random int32 value"
+  properties:
+    value:
+      { type: "Int32", readWrite: "R", defaultValue: "0" }
+    units:
+      { type: "String", readWrite: "R", defaultValue: "random int32 value" }
+-
+  name: "Int64"
+  description: "Generate random int64 value"
+  properties:
+    value:
+      { type: "Int64", readWrite: "R", defaultValue: "0" }
+    units:
+      { type: "String", readWrite: "R", defaultValue: "random int64 value" }
+```
 
-    {
+Additionally, there is an accompanying deviceResource for each of the generated value deviceResource. Each deviceResources has an associated EnableRandomization_X deviceResource.  In the case of the integer deviceResources above, there are the associated EnableRandomization_IntX deviceResources below.  The EnableRandomization deviceResources are boolean values, and when set to true, the associated simulated sensor value is generated by the device service.  When the EnableRandomization_IntX value is set to false, then the associated simulator sensor value is fixed.
 
-      "enableRandomization": false,
-      "collectionFrequency": 6
+``` yaml
+-
+  name: "EnableRandomization_Int8"
+  description: "used to decide whether to re-generate a random value"
+  properties:
+    value:
+      { type: "Bool", readWrite: "W", defaultValue: "true" }
+    units:
+      { type: "String", readWrite: "R", defaultValue: "Random" }
+-
+  name: "EnableRandomization_Int16"
+  description: "used to decide whether to re-generate a random value"
+  properties:
+    value:
+      { type: "Bool", readWrite: "W", defaultValue: "true" }
+    units:
+      { type: "String", readWrite: "R", defaultValue: "Random" }
+-
+  name: "EnableRandomization_Int32"
+  description: "used to decide whether to re-generate a random value"
+  properties:
+    value:
+      { type: "Bool", readWrite: "W", defaultValue: "true" }
+    units:
+      { type: "String", readWrite: "R", defaultValue: "Random" }
+-
+  name: "EnableRandomization_Int64"
+  description: "used to decide whether to re-generate a random value"
+  properties:
+    value:
+      { type: "Bool", readWrite: "W", defaultValue: "true" }
+    units:
+      { type: "String", readWrite: "R", defaultValue: "Random" }
+```
 
-    }
+!!! Info
+    The Enable_Randomization attribute of resource is automatically set to false when you use a `PUT` command to set a specified generated value.  Furtehr, the minimum and maximum values of generated value deviceResource can be specified in the device profile. Below, Int8 is set to be between -100 and 100.
 
-modifies a virtual resource record whose command ID is
-"56b1acedd66f9c9762581e9d " and device ID is
-"56b1acf1d66f9c9762581ea4." By modifying the "ENABLE\_RANDOMIZATION"
-column to FALSE, the value of the virtual resource will not re-generate
-a random value anymore. By modifying the "COLLECTION\_FREQUENCY" column,
-the collecting frequency will be changed after next collection cycle.
+    ``` yaml
+    deviceResources:
+      -
+        name: "Int8"
+        description: "Generate random int8 value"
+        properties:
+          value:
+            { type: "Int8", readWrite: "R", minimum: "-100", maximum: "100", defaultValue: "0" }
+          units:
+            { type: "String", readWrite: "R", defaultValue: "random int8 value" }
+    ```
 
-    They both can be modified manually through H2 Console: http://localhost:49990/console Modify the “JDBC URL” to jdbc:h2:mem:testdb, and click on “Connect.”
+For the binary deviceResources, values are generated by the function rand.Read(p []byte) in Golang math package. The []byte size is fixed to half MaxBinaryBytes limitation that defined in device-sdk-go.
 
-## Special Configuration
+## Core Command and the Virtual Device Service
 
-The virtual device micro service does contain some unique configuration
-properties and these often change between development (for example when
-run from Eclipse) and the containerized version (i.e. Docker container)
-of the same service. Here are the list of unique properties you should
-investigate before running the virtual device service to better
-understand how it works in your environment:
+Use the following core command service APIs to execute commands against the virtual device service for the specified devices.  Both `GET` and `PUT` commands can be issued with these APIs.  `GET` command request the next generated value while `PUT` commands will allow you to disable randomization (EnableRandomization) and set the fixed values to be returned by the device.
 
-The path used to locate the Device Profile YAML files used to define the
-virtual devices managed by the device service (see Device Profile
-Definition section below).
+- http://[host]:48082/api/v1/device/name/Random-Boolean-Device
+- http://[host]:48082/api/v1/device/name/Random-Integer-Device
+- http://[host]:48082/api/v1/device/name/Random-UnsignedInteger-Device
+- http://[host]:48082/api/v1/device/name/Random-Float-Device
+- http://[host]:48082/api/v1/device/name/Random-Binary-Device
 
-> **application.device-profile-paths=./bacnet\_sample\_profiles,./modbus\_sample\_profiles**
+!!! Note
+    Port 48082 is the default port for the virtual device service.
 
-Indicator to the virtual device service to provisioning devices from the
-YAML profiles in the above directory, creating one device for each
-profile automatically when set to true.
+## Configuration Properties
 
-application.auto-create-device=true When developing, it is often
-advantageous to have the virtual device service start afresh and with a
-clean Meta data database each time the service starts. The property
-below indicates whether the device service should clean out any existing
-virtual devices in the database when it shuts down so a clean
-environment is available when the service starts backup. Typically set
-to true for development and false for runtime/demonstration
-environments.
+Please refer to the general [Configuration documentation](https://docs.edgexfoundry.org/1.2/microservices/configuration/Ch-Configuration/#configuration) for configuration properties common to all services.
 
-> **application.auto-cleanup=true**
+For each device, the virual device service will contain a DeviceList with associated Protocols and AutoEvents as shown by the example below.
+=== "DeviceList"   
+    |Property|Example Value|Description|
+    |---|---|---|
+    |||properties used in defining the static provisioning of each of the virtual devices|
+    |Name|'Random-Integer-Device'|name of the virtual device|
+    |Profile|'Random-Integer-Device'|device profile that defines the resources and commands of the virtual device|
+    |Description|'Example of Device Virtual'|description of the virtual device|
+    |Labels|['device-virtual-example']|labels array used for searching for virtual devices|
+=== "DeviceList/DeviceList.Protocols/DeviceList.Protocols.other"
+    |Property|Example Value|Description|
+    |---|---|---|
+    |Address|'device-virtual-int-01'|address for the virtual device|
+    |Protocol|'300'||
+=== "DeviceList/DeviceList.AutoEvents"
+    |Property|Default Value|Description|
+    |---|---|---|
+    |||properties used to define how often an event/reading is schedule for collection to send to core data from the virtual device|
+    |Frequency|'15s'|every 15 seconds|
+    |OnChange|false|collect data regardless of change|
+    |Resource|'Int8'|deviceResource to collect - in this case the Int8 resource|
 
-How often, in seconds, the virtual device service's scheduler should
-collect data from the virtual device.
+## API Reference
+[Device Service - SDK- API Reference](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/1.2.1)
 
-> **application.collection-frequency=15**
-
-**Service Name and Host Name**
-
-In EdgeX device services the service name (which is represented by
-service.name key in the application.properties file or Consul
-configuration) is the identity of the Device Service object. The name is
-used by EdgeX to attribute all the information about the service (in
-particular schedules, device ownership, etc.) to this name. However, the
-service.host parameter is used to describe how to interact with the
-service. Depending on your operating mode, the following guidelines for
-configuring the service host apply.
-
-**Deployment Mode (running everything containerized in Docker):** The
-Service host (which is represented by the service.host key in the
-application.properties file or Consul configuration) is the DNS or IP
-address networking entry of the entity that the service is bound to
-(container, machine, etc) and reachable from the other microservices.
-This allows a full location URL for the service to be determined. In
-Docker environments, the host name is the name of the Docker container
-running the microservice (such as edgex-device-virtual).
-
-Use service.host=\${service.name} and the docker-compose file for all
-services (default).
-
-**Important Note:** be sure to use Docker Compose and docker-compose
-file (found in the developer-scripts repos) to bring up the containers
-for all services. Docker Compose establishes the networking and
-container naming for you, which can otherwise be difficult to do and
-prone to errors if bringing up containers manually.
-
-**Developer Mode** (running everything natively): When running a service
-natively, the service names will not resolve to a DNS entry as they will
-in a Docker environment.
-
-Use service.host=localhost for all services (default).
-
-**Hybrid Mode** (running some services natively with the rest deployed
-with Docker): Use service.host=\<Host Machine IP Address\> for the
-native services (manual configuration) and the docker-compose file to
-bring up the containerized services (default). Ensure that Addressable
-objects for the native services are not accidentally created by bringing
-them up with the docker-compose file, otherwise conflicts may arise.
-This issue is being addressed in future versions.
-
-## System Architecture
-
-The Virtual Device Service adopts a normal MVC design pattern,
-separating logic into different layers.
-
-**System Architecture Graphic**
-
-![image](EdgeX_VirtualDeviceArchitecture.png)
-
-**Interface Layer**\--interacting with other microservices. Controllers
-provide the RESTful API. The implementation is located in
-org.edgexfoundry.device.virtual.controller package. Scheduled Collection
-Tasks is a set of async tasks which is executed periodically, and they
-are created for each virtual resource (GET Command). See
-org.edgexfoundry.device.virtual.scheduling package for the detailed
-implementation. Also,
-org.edgexfoundry.device.virtual.scheduling.Scheduler reads Schedule and
-ScheduleEvent from Meta Data Microservice and arranges the collection
-tasks.
-
-Tasks execution logic is located in
-org.edgexfoundry.device.virtual.service.impl.CollectionTaskExecutorImpl,
-and the tasks creation behavior is located in
-org.edgexfoundry.device.virtual.service.impl.VirtualResourceManagerImpl.createDefaultRecords().
-
-**Service Layer**\--processing business logic, such as, executing
-collection tasks and commands, managing profiles and devices, and so
-forth. See org.edgexfoundry.device.virtual.service.impl package for more
-details.
-
-**DAO Layer**\--processing protocol access. For Virtual Device Services,
-a Spring Data JPA interface in org.edgexfoundry.device.virtual.dao
-package. Spring framework will process the communication effort to
-access H2 DB.
-
-**Data Layer**\--an H2 DB to simulate device resources.
-
-## Device Profile Definition
-
-Users can define any virtual device profile in YAML format, if the
-structure is in accordance with the "Device and Device Profile Model"
-(in the graphic 3 paragraphs below). By assigning the file path to
-application property **"application.device-profile-paths"**, Virtual
-Device Service loads all the YAML files under this folder, and this
-property accepts multiple values separated by comma (,). For instance,
-the following setting causes Virtual Device Service to load all YAML
-files under **./bacnet\_sample\_profiles** and
-**./modbus\_sample\_profiles** folders.
-
-![image](EdgeX_VirtualDeviceProfile.png)
-
-In addition to Profile Definition, ValueDescriptors are defined in the
-"deviceResources.properties" part of the profile definition. The
-structure needs to conform with the ProfileProperty in "Device
-Profile" (in the graphic below the "Device and Device Profile
-Model"), and the ValueDescriptors will be created and send to the Core
-Data Microservice during the Device creation callback process.
-
-By assigning the application property "application.auto-create-device"
-= true (the default value is true), the Virtual Device Service creates
-Device instances for each profile automatically during starting up, and
-the Device instances start sending events and readings to Core Data
-Microservice.
-
-## Data Model
-
-Virtual Device Service Data Model\--Device and Device Profile Model
-
-![image](EdgeX_VirtualDeviceDataModel.png)
-
-**Virtual Device Service Data Model\--Command Model**
-
-![image](EdgeX_VirtualDeviceDataModelCommand.png)
-
-**VirtualResource**
-
-VirtualResource is the data object generated from Device instances and
-persisted in H2 database.
-
-![image](EdgeX_VirtualDeviceVirtualResource.png)
-
-## Data Dictionary
-
-  
-  |Class Name|Description|
-  |------------- |---------------------------------------------------------|
-  |ScanList      |The object containing a protocol discovery method query.|
-  |Transaction   |The asynchronous helper object used for gathering sets of device responses.|
   
