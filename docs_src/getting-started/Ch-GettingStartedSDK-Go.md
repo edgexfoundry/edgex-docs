@@ -201,7 +201,10 @@ Now update the configuration for the new device service.    This documentation p
 - alters the the auto event frequency, which determines when the device service collects data from the simulated device (every 10 seconds)
 - sets up the initial provisioning of the random number generating device when the service starts
 
-Download  **[configuration.toml](configuration.toml)** and save the file to the `~/go/src/github.com/edgexfoundry/device-simple/cmd/device-simple/res` folder (overwrite the existing configuration file).
+Download  **[configuration.toml](configuration.toml)** and save the file to the `~/go/src/github.com/edgexfoundry/device-simple/cmd/device-simple/res` folder (overwrite the existing configuration file).  Change the host address of the device service to your system's IP address.
+
+!!! Warning
+    In the configuration.toml, change the host address (around line 7) to the IP address of the system host.  This allows core metadata to callback to your new device service when a new device is created.  Because the rest of EdgeX, to include core metadata, will be running in Docker, the IP address of the host system must be provide to allow metadata in Docker to call out from Docker to the new device service running on your host system.
 
 ## Rebuild your Device Service
 
