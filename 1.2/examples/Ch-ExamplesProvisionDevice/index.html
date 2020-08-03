@@ -1951,41 +1951,22 @@ example can be tweaked for use with the other Device Services.</p>
 <li>Upload the device profile above to metadata with a POST to
     <a href="http://localhost:48081/api/v1/deviceprofile/uploadfile">http://localhost:48081/api/v1/deviceprofile/uploadfile</a> and add the
     file as key "file" to the body</li>
-<li>
-<p>Add the addressable containing reachability information for the
-    device with a POST to <a href="http://localhost:48081/api/v1/addressable">http://localhost:48081/api/v1/addressable</a>:</p>
-<ol>
-<li>
-<p>If IP connected, the body will look something like: </p>
-<div class="codehilite"><pre><span></span><code><span class="err">{ &quot;name&quot;:&quot;Motor&quot;, &quot;method&quot;: &quot;GET&quot;, &quot;protocol&quot;: &quot;HTTP&quot;,&quot;address&quot;: &quot;10.0.1.29&quot;, &quot;port&quot;: 502 }</span>
-</code></pre></div>
-
-
-</li>
-<li>
-<p>If serially connected, the body will look something like: </p>
-<div class="codehilite"><pre><span></span><code><span class="err">{&quot;name&quot;: &quot;Motor&quot;, &quot;method&quot;: &quot;GET&quot;, &quot;protocol&quot;: &quot;OTHER&quot;, &quot;address&quot;: &quot;/dev/ttyS5,9600,8,1,1&quot;, &quot;port&quot;: 0 }</span>
-</code></pre></div>
-
-
-</li>
-</ol>
-<p>(address field contains port, baud rate, number of data bits, stop bits, and parity bits in CSV form)</p>
-</li>
-<li>
-<p>Ensure the Modbus device service is running, adjust the service name
-    below to match if necessary or if using other device services</p>
-</li>
+<li>Ensure the Modbus device service is running, adjust the service name
+    below to match if necessary or if using other device services</li>
 <li>Add the device with a POST to
     <a href="http://localhost:48081/api/v1/device">http://localhost:48081/api/v1/device</a>, the body will look something
     like:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;MicroMax Variable Speed Motor&quot;</span><span class="p">,</span>
   <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Variable Speed motor&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;MicroMax Variable Speed Motor&quot;</span><span class="p">,</span>
   <span class="nt">&quot;adminState&quot;</span><span class="p">:</span> <span class="s2">&quot;unlocked&quot;</span><span class="p">,</span>
   <span class="nt">&quot;operatingState&quot;</span><span class="p">:</span> <span class="s2">&quot;enabled&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;addressable&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Motor&quot;</span>
+  <span class="nt">&quot;protocols&quot;</span><span class="p">:{</span>
+    <span class="nt">&quot;modbus-tcp&quot;</span><span class="p">:{</span>
+       <span class="nt">&quot;host&quot;</span><span class="p">:</span><span class="s2">&quot;10.0.1.29&quot;</span><span class="p">,</span>
+       <span class="nt">&quot;port&quot;</span><span class="p">:</span><span class="s2">&quot;502&quot;</span><span class="p">,</span>
+       <span class="nt">&quot;unitID&quot;</span><span class="p">:</span><span class="s2">&quot;1&quot;</span>
+    <span class="p">}</span>
   <span class="p">},</span>
   <span class="nt">&quot;labels&quot;</span><span class="p">:</span> <span class="p">[],</span>
   <span class="nt">&quot;location&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
@@ -1997,8 +1978,7 @@ example can be tweaked for use with the other Device Services.</p>
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-The addressable name must match/refer to the addressable added in Step
-2, the service name must match/refer to the target device service, and
+The service name must match/refer to the target device service, and
 the profile name must match the device profile name from Step 1.</li>
 </ol>
 <p>Further deep dives on the different microservices and layers can be

@@ -1420,26 +1420,6 @@
     Set Up Device Profile
   </a>
   
-    <nav class="md-nav" aria-label="Set Up Device Profile">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    |
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    |
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
@@ -1491,15 +1471,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#execute-get-command" class="md-nav__link">
-    Execute GET command
+  <a href="#execute-put-command" class="md-nav__link">
+    Execute PUT command
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#execute-put-command" class="md-nav__link">
-    Execute PUT command
+  <a href="#execute-get-command" class="md-nav__link">
+    Execute GET command
   </a>
   
 </li>
@@ -1510,8 +1490,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#schedule-job" class="md-nav__link">
-    Schedule Job
+  <a href="#autoevent" class="md-nav__link">
+    AutoEvent
   </a>
   
 </li>
@@ -2101,26 +2081,6 @@
     Set Up Device Profile
   </a>
   
-    <nav class="md-nav" aria-label="Set Up Device Profile">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    |
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    |
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
@@ -2172,15 +2132,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#execute-get-command" class="md-nav__link">
-    Execute GET command
+  <a href="#execute-put-command" class="md-nav__link">
+    Execute PUT command
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#execute-put-command" class="md-nav__link">
-    Execute PUT command
+  <a href="#execute-get-command" class="md-nav__link">
+    Execute GET command
   </a>
   
 </li>
@@ -2191,8 +2151,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#schedule-job" class="md-nav__link">
-    Schedule Job
+  <a href="#autoevent" class="md-nav__link">
+    AutoEvent
   </a>
   
 </li>
@@ -2242,21 +2202,15 @@ docker. The system requirements can be found at
 </ol>
 <p><img alt="Add Mock Devices" src="../addmockdevices.png" /></p>
 <ol>
-<li>
-<p>Add registers according to the device manual:</p>
-<blockquote>
+<li>Add registers according to the device manual:</li>
+</ol>
 <p><img alt="Add Registers" src="../addregisters.png" /></p>
-</blockquote>
-</li>
-<li>
-<p>Add the ModbusPal support value auto-generator, which can bind to
-    registers:</p>
-<blockquote>
+<ol>
+<li>Add the ModbusPal support value auto-generator, which can bind to
+    registers:</li>
+</ol>
 <p><img alt="Add Device Value Generators" src="../addvaluegen.png" /></p>
 <p><img alt="Bind Value Generator" src="../bindvalue.png" /></p>
-</blockquote>
-</li>
-</ol>
 <h2 id="set-up-before-starting-services">Set Up Before Starting Services</h2>
 <p>The following sections describe how to complete the set up before
 starting the services. If you prefer to start the services and then add
@@ -2265,8 +2219,6 @@ Services</a></p>
 <h3 id="set-up-device-profile">Set Up Device Profile</h3>
 <p>The DeviceProfile defines the device's values and operation method,
 which can be Read or Write.</p>
-<p>You can download and use the provided <code>modbus.test.device.profile.yml
-&lt;modbus.test.device.profile.yml&gt;</code>{.interpreted-text role="download"}.</p>
 <p>In the Modbus protocol, we must define attributes:</p>
 <ul>
 <li>
@@ -2275,11 +2227,9 @@ which can be Read or Write.</p>
 </li>
 <li>
 <p><code>startingAddress</code> specifies the address in Modbus device</p>
-<blockquote>
-<p><img alt="DeviceProfile Attributes" src="../attributes.png" /></p>
-</blockquote>
 </li>
 </ul>
+<p><img alt="DeviceProfile Attributes" src="../attributes.png" /></p>
 <p>The Property value type decides how many registers will be read. Like
 Holding registers, a register has 16 bits. If the device manual
 specifies that a value has two registers, define it as FLOAT32 or INT32
@@ -2287,22 +2237,153 @@ or UINT32 in the deviceProfile.</p>
 <p>Once we execute a command, device-modbus knows its value type and
 register type, startingAddress, and register length. So it can read or
 write value using the modbus protocol.</p>
-<blockquote>
 <p><img alt="Properties" src="../properties.png" /></p>
-</blockquote>
-<h4 id="_1">|</h4>
-<blockquote>
 <p><img alt="Holding Registers" src="../holdingregisters.png" /></p>
-</blockquote>
-<h4 id="_2">|</h4>
-<blockquote>
-<p><img alt="Profile YAML" src="../profileyaml.png" /></p>
-</blockquote>
+<p>Create the device profile, as shown below:
+<div class="highlight"><pre><span></span><code>name: &quot;Network Power Meter&quot;
+manufacturer: &quot;Dent Instruments&quot;
+model: &quot;PS3037&quot;
+description: &quot;Power Scout Meter&quot;
+labels:
+  - &quot;modbus&quot;
+  - &quot;powerscout&quot;
+deviceResources:
+  -
+    name: &quot;Current&quot;
+    description: &quot;Average current of all phases&quot;
+    attributes:
+      { primaryTable: &quot;HOLDING_REGISTERS&quot;, startingAddress: &quot;9&quot; }
+    properties:
+      value:
+        { type: &quot;UINT16&quot;, scale: &quot;1&quot;}
+      units:
+        { type: &quot;String&quot;, readWrite: &quot;R&quot;, defaultValue: &quot;min&quot;}
+  -
+    name: &quot;Energy&quot;
+    description: &quot;System Total True Energy&quot;
+    attributes:
+      { primaryTable: &quot;HOLDING_REGISTERS&quot;, startingAddress: &quot;4001&quot; }
+    properties:
+      value:
+        { type: &quot;FLOAT32&quot;, scale: &quot;1&quot;}
+      units:
+        { type: &quot;String&quot;, readWrite: &quot;R&quot;, defaultValue: &quot;min&quot;}
+  -
+    name: &quot;Power&quot;
+    description: &quot;System Total True Power &quot;
+    attributes:
+      { primaryTable: &quot;HOLDING_REGISTERS&quot;, startingAddress: &quot;4003&quot; }
+    properties:
+      value:
+        { type: &quot;UINT16&quot;, scale: &quot;1&quot;}
+      units:
+        { type: &quot;String&quot;, readWrite: &quot;R&quot;, defaultValue: &quot;min&quot;}
+  -
+    name: &quot;Voltage&quot;
+    description: &quot;Voltage Line to line (Volts) Average&quot;
+    attributes:
+      { primaryTable: &quot;HOLDING_REGISTERS&quot;, startingAddress: &quot;4017&quot; }
+    properties:
+      value:
+        { type: &quot;UINT16&quot;, scale: &quot;1&quot;}
+      units:
+        { type: &quot;String&quot;, readWrite: &quot;R&quot;, defaultValue: &quot;min&quot;}
+  -
+    name: &quot;DemandWindowSize&quot;
+    description: &quot;Demand window size in minutes; default is 15 min&quot;
+    attributes:
+      { primaryTable: &quot;HOLDING_REGISTERS&quot;, startingAddress: &quot;4603&quot; }
+    properties:
+      value:
+        { type: &quot;UINT16&quot;, readWrite: &quot;R&quot;, scale: &quot;1&quot;}
+      units:
+        { type: &quot;String&quot;, readWrite: &quot;R&quot;, defaultValue: &quot;min&quot;}
+  -
+    name: &quot;LineFrequency&quot;
+    description: &quot;Line frequency setting for metering: 50=50 Hz, 60=60Hz&quot;
+    attributes:
+      { primaryTable: &quot;HOLDING_REGISTERS&quot;, startingAddress: &quot;4609&quot; }
+    properties:
+      value:
+        { type: &quot;UINT16&quot;, readWrite: &quot;R&quot;, scale: &quot;1&quot;}
+      units:
+        { type: &quot;String&quot;, readWrite: &quot;R&quot;, defaultValue: &quot;Hz&quot;}
+deviceCommands:
+  -
+    name: &quot;Current&quot;
+    get:
+      - { index: &quot;1&quot;, operation: &quot;get&quot;, deviceResource: &quot;Current&quot; }
+  -
+    name: &quot;Values&quot;
+    get:
+      - { index: &quot;1&quot;, operation: &quot;get&quot;, deviceResource: &quot;Energy&quot; }
+      - { index: &quot;2&quot;, operation: &quot;get&quot;, deviceResource: &quot;Power&quot; }
+      - { index: &quot;3&quot;, operation: &quot;get&quot;, deviceResource: &quot;Voltage&quot; }
+  -
+    name: &quot;Configuration&quot;
+    set:
+      - { index: &quot;1&quot;, operation: &quot;set&quot;, deviceResource: &quot;DemandWindowSize&quot; }
+      - { index: &quot;2&quot;, operation: &quot;set&quot;, deviceResource: &quot;LineFrequency&quot; }
+    get:
+      - { index: &quot;1&quot;, operation: &quot;get&quot;, deviceResource: &quot;DemandWindowSize&quot; }
+      - { index: &quot;2&quot;, operation: &quot;get&quot;, deviceResource: &quot;LineFrequency&quot; }
+coreCommands:
+  -
+    name: &quot;Current&quot;
+    get:
+      path: &quot;/api/v1/device/{deviceId}/Current&quot;
+      responses:
+        -
+          code: &quot;200&quot;
+          description: &quot;Get the Current&quot;
+          expectedValues: [&quot;Current&quot;]
+        -
+          code: &quot;500&quot;
+          description: &quot;internal server error&quot;
+          expectedValues: []
+  -
+    name: &quot;Values&quot;
+    get:
+      path: &quot;/api/v1/device/{deviceId}/Values&quot;
+      responses:
+        -
+          code: &quot;200&quot;
+          description: &quot;Get the Values&quot;
+          expectedValues: [&quot;Energy&quot;,&quot;Power&quot;,&quot;Voltage&quot;]
+        -
+          code: &quot;500&quot;
+          description: &quot;internal server error&quot;
+          expectedValues: []
+  -
+    name: &quot;Configuration&quot;
+    get:
+      path: &quot;/api/v1/device/{deviceId}/Configuration&quot;
+      responses:
+        -
+          code: &quot;200&quot;
+          description: &quot;Get the Configuration&quot;
+          expectedValues: [&quot;DemandWindowSize&quot;,&quot;LineFrequency&quot;]
+        -
+          code: &quot;500&quot;
+          description: &quot;internal server error&quot;
+          expectedValues: []
+    put:
+      path: &quot;/api/v1/device/{deviceId}/Configuration&quot;
+      parameterNames: [&quot;DemandWindowSize&quot;,&quot;LineFrequency&quot;]
+      responses:
+        -
+          code: &quot;204&quot;
+          description: &quot;Set the Configuration&quot;
+          expectedValues: []
+        -
+          code: &quot;500&quot;
+          description: &quot;internal server error&quot;
+          expectedValues: []
+</code></pre></div></p>
 <h3 id="set-up-device-service-configuration">Set Up Device Service Configuration</h3>
-<p>Use this configuration file to define devices and schedule jobs. The
+<p>Use this configuration file to define devices and AutoEvent. The
 device-modbus generates a relative instance on startup.</p>
-<p>device-modbus offers two types of protocol, Modbus TCP and Modbus RTU.
-An addressable can be defined as shown below:</p>
+<p>device-modbus offers two types of protocol, Modbus TCP and Modbus RTU, which can be defined as shown below:</p>
 <table>
 <thead>
 <tr>
@@ -2311,7 +2392,11 @@ An addressable can be defined as shown below:</p>
 <th>Protocol</th>
 <th>Address</th>
 <th>Port</th>
-<th>Path</th>
+<th>UnitID</th>
+<th>BaudRate</th>
+<th>DataBits</th>
+<th>StopBits</th>
+<th>Parity</th>
 </tr>
 </thead>
 <tbody>
@@ -2321,101 +2406,125 @@ An addressable can be defined as shown below:</p>
 <td>TCP</td>
 <td>10.211.55.6</td>
 <td>502</td>
-<td>1 1</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td>Modbus RTU</td>
 <td>Gateway address</td>
 <td>RTU</td>
-<td>/tmp/slave,19200,8,1,0</td>
+<td>/tmp/slave</td>
 <td>502</td>
-<td>2 2</td>
+<td>2</td>
+<td>19200</td>
+<td>8</td>
+<td>1</td>
+<td>N</td>
 </tr>
 </tbody>
 </table>
-<p>Path defines the Modbus device's unit ID (or slave ID).</p>
-<p>In the RTU protocol, address is defined in five comma-separated parts:</p>
-<ul>
-<li>serial port</li>
-<li>baud rate</li>
-<li>data bits</li>
-<li>stop bits</li>
-<li>parity (N - None is 0, O - Odd is 1, E - Even is 2, default is E).</li>
-</ul>
-<!-- -->
+<p>In the RTU protocol, Parity can be:
+* N - None is 0
+* O - Odd is 1 
+* E - Even is 2, default is E</p>
+<p>Create the configuration.toml file, as shown below:
+<div class="highlight"><pre><span></span><code>[Writable]
+LogLevel = &#39;DEBUG&#39;
 
-<div class="codehilite"><pre><span></span><code><span class="k">[Logging]</span>
-<span class="na">EnableRemote</span> <span class="o">=</span> <span class="s">false</span>
-<span class="na">File</span> <span class="o">=</span> <span class="s">&quot;./device-Modbus.log&quot;</span>
-<span class="na">Level</span> <span class="o">=</span> <span class="s">&quot;DEBUG&quot;</span>
+[Service]
+BootTimeout = 30000
+CheckInterval = &#39;10s&#39;
+Host = &#39;localhost&#39;
+ServerBindAddr = &#39;&#39;  # blank value defaults to Service.Host value
+Port = 49991
+Protocol = &#39;http&#39;
+StartupMsg = &#39;device modbus started&#39;
+Timeout = 5000
+ConnectRetries = 10
+Labels = []
+EnableAsyncReadings = true
+AsyncBufferSize = 16
 
-<span class="k">[Device]</span>
-  <span class="na">DataTransform</span> <span class="o">=</span> <span class="s">true</span>
-<span class="s">  InitCmd = &quot;&quot;</span>
-<span class="s">  InitCmdArgs = &quot;&quot;</span>
-<span class="s">  MaxCmdOps = 128</span>
-<span class="s">  MaxCmdValueLen = 256</span>
-<span class="s">  RemoveCmd = &quot;&quot;</span>
-<span class="s">  RemoveCmdArgs = &quot;&quot;</span>
-<span class="s">  ProfilesDir = &quot;/custom-config&quot;</span>
+[Registry]
+Host = &#39;localhost&#39;
+Port = 8500
+Type = &#39;consul&#39;
 
-<span class="c1"># Pre-define Devices</span>
-<span class="k">[[DeviceList]]</span>
-  <span class="na">Name</span> <span class="o">=</span> <span class="s">&quot;Modbus TCP test device&quot;</span>
-<span class="s">  Profile = &quot;Network Power Meter&quot;</span>
-<span class="s">  Description = &quot;This device is a product for monitoring and controlling digital inputs and outputs over a LAN.&quot;</span>
-<span class="s">  labels = [ &quot;Air conditioner&quot;,&quot;modbus TCP&quot; ]</span>
-<span class="s">  [DeviceList.Addressable]</span>
-<span class="s">    name = &quot;Gateway address 1&quot;</span>
-<span class="s">    Protocol = &quot;TCP&quot;</span>
-<span class="s">    Address = &quot;10.211.55.6&quot;</span>
-<span class="s">    Port = 502</span>
-<span class="s">    Path = &quot;1&quot;</span>
+[Logging]
+EnableRemote = false
+File = &#39;&#39;
 
-<span class="k">[[DeviceList]]</span>
-  <span class="na">Name</span> <span class="o">=</span> <span class="s">&quot;Modbus TCP test device 2&quot;</span>
-<span class="s">  Profile = &quot;Network Power Meter&quot;</span>
-<span class="s">  Description = &quot;This device is a product for monitoring and controlling digital inputs and outputs over a LAN.&quot;</span>
-<span class="s">  labels = [ &quot;Air conditioner&quot;,&quot;modbus TCP&quot; ]</span>
-<span class="s">  [DeviceList.Addressable]</span>
-<span class="s">    name = &quot;Gateway address 1&quot;</span>
-<span class="s">    Protocol = &quot;TCP&quot;</span>
-<span class="s">    Address = &quot;10.211.55.6&quot;</span>
-<span class="s">    Port = 502</span>
-<span class="s">    Path = &quot;2&quot;</span>
-</code></pre></div>
+[Clients]
+  [Clients.Data]
+  Protocol = &#39;http&#39;
+  Host = &#39;localhost&#39;
+  Port = 48080
 
+  [Clients.Metadata]
+  Protocol = &#39;http&#39;
+  Host = &#39;localhost&#39;
+  Port = 48081
 
-<blockquote>
-<p># Pre-define Schedule Configuration</p>
-<p>:   [[Schedules]] Name = "20sec-schedule" Frequency = "PT20S"</p>
-<div class="codehilite"><pre><span></span><code><span class="err">\</span><span class="p">[</span><span class="err">\</span><span class="p">[</span><span class="n">ScheduleEvents</span><span class="err">\</span><span class="p">]</span><span class="err">\</span><span class="p">]</span> <span class="n">Name</span> <span class="o">=</span> <span class="ss">&quot;Read Switch status&quot;</span> <span class="n">Schedule</span> <span class="o">=</span>
-<span class="ss">&quot;20sec-schedule&quot;</span> <span class="err">\</span><span class="p">[</span><span class="n">ScheduleEvents</span><span class="p">.</span><span class="n">Addressable</span><span class="err">\</span><span class="p">]</span> <span class="n">HTTPMethod</span> <span class="o">=</span>
-<span class="ss">&quot;GET&quot;</span> <span class="n">Path</span> <span class="o">=</span> <span class="ss">&quot;/api/v1/device/name/Modbus TCP test device</span>
-<span class="ss">1/Configuration&quot;</span>
+  [Clients.Logging]
+  Protocol = &#39;http&#39;
+  Host = &#39;localhost&#39;
+  Port = 48061
 
-<span class="err">\</span><span class="p">[</span><span class="err">\</span><span class="p">[</span><span class="n">ScheduleEvents</span><span class="err">\</span><span class="p">]</span><span class="err">\</span><span class="p">]</span> <span class="n">Name</span> <span class="o">=</span> <span class="ss">&quot;Put Configuration&quot;</span> <span class="k">Parameters</span> <span class="o">=</span>
-<span class="ss">&quot;\[{&quot;</span><span class="n">DemandWindowSize</span><span class="ss">&quot;: &quot;</span><span class="mi">110</span><span class="ss">&quot;},{&quot;</span><span class="n">LineFrequency</span><span class="ss">&quot;:</span>
-<span class="ss">&quot;</span><span class="mi">50</span><span class="ss">&quot;}\]&quot;</span> <span class="n">Schedule</span> <span class="o">=</span> <span class="ss">&quot;20sec-schedule&quot;</span>
-<span class="err">\</span><span class="p">[</span><span class="n">ScheduleEvents</span><span class="p">.</span><span class="n">Addressable</span><span class="err">\</span><span class="p">]</span> <span class="n">HTTPMethod</span> <span class="o">=</span> <span class="ss">&quot;Put&quot;</span> <span class="n">Path</span> <span class="o">=</span>
-<span class="ss">&quot;/api/v1/device/name/Modbus TCP test device 1/Configuration&quot;</span>
-</code></pre></div>
+[Device]
+  DataTransform = true
+  InitCmd = &#39;&#39;
+  InitCmdArgs = &#39;&#39;
+  MaxCmdOps = 128
+  MaxCmdValueLen = 256
+  RemoveCmd = &#39;&#39;
+  RemoveCmdArgs = &#39;&#39;
+  ProfilesDir = &#39;./res/example&#39;
+  UpdateLastConnected = false
 
+# Pre-define Devices
+[[DeviceList]]
+  Name = &#39;Modbus TCP test device&#39;
+  Profile = &#39;Test.Device.Modbus.Profile&#39;
+  Description = &#39;This device is a product for monitoring and controlling digital inputs and outputs over a LAN.&#39;
+  labels = [ &#39;Air conditioner&#39;,&#39;modbus TCP&#39; ]
+  [DeviceList.Protocols]
+    [DeviceList.Protocols.modbus-tcp]
+       Address = &#39;0.0.0.0&#39;
+       Port = &#39;1502&#39;
+       UnitID = &#39;1&#39;
+  [[DeviceList.AutoEvents]]
+    Frequency = &#39;20s&#39;
+    OnChange = false
+    Resource = &#39;Configuration&#39;
+  [[DeviceList.AutoEvents]]
+    Frequency = &#39;20s&#39;
+    OnChange = true
+    Resource = &#39;Values&#39;
 
-<p>You can download and use the provided
-<code>EdgeX_ExampleModbus_configuration.toml
-&lt;EdgeX_ExampleModbus_configuration.toml&gt;</code>{.interpreted-text
-role="download"}.</p>
-</blockquote>
+[[DeviceList]]
+  Name = &#39;Modbus RTU test device&#39;
+  Profile = &#39;Test.Device.Modbus.Profile&#39;
+  Description = &#39;This device is a product for monitoring and controlling digital inputs and outputs over a LAN.&#39;
+  labels = [ &#39;Air conditioner&#39;,&#39;modbus RTU&#39; ]
+  [DeviceList.Protocols]
+    [DeviceList.Protocols.modbus-rtu]
+       Address = &#39;/tmp/slave&#39;
+       BaudRate = &#39;19200&#39;
+       DataBits = &#39;8&#39;
+       StopBits = &#39;1&#39;
+       Parity = &#39;N&#39;
+       UnitID = &#39;1&#39;
+</code></pre></div></p>
 <h3 id="add-device-service-to-docker-compose-file">Add Device Service to docker-compose File</h3>
 <p>Because we deploy EdgeX using docker-compose, we must add the
 device-modbus to the docker-compose file (
 <a href="https://github.com/edgexfoundry/developer-scripts/blob/master/releases/geneva/compose-files/docker-compose-geneva-redis.yml">https://github.com/edgexfoundry/developer-scripts/blob/master/releases/geneva/compose-files/docker-compose-geneva-redis.yml</a>
 ). If you have prepared configuration files, you can mount them using
 volumes and change the entrypoint for device-modbus internal use.</p>
-<blockquote>
 <p><img alt="configuration.toml Updates" src="../config_changes.png" /></p>
-</blockquote>
 <h2 id="start-edgex-foundry-on-docker">Start EdgeX Foundry on Docker</h2>
 <p>Finally, we can deploy EdgeX in the Photon OS.</p>
 <ol>
@@ -2431,17 +2540,11 @@ volumes and change the entrypoint for device-modbus internal use.</p>
 
 </li>
 </ol>
-<blockquote>
 <p><img alt="Start EdgeX" src="../startEdgeX.png" /></p>
-</blockquote>
 <ol>
-<li>
-<p>Check the consul dashboard</p>
-<blockquote>
-<p><img alt="Consul Dashboard" src="../consul.png" /></p>
-</blockquote>
-</li>
+<li>Check the consul dashboard</li>
 </ol>
+<p><img alt="Consul Dashboard" src="../consul.png" /></p>
 <h2 id="set-up-after-starting-services">Set Up After Starting Services</h2>
 <p>If the services are already running and you want to add a device, you
 can use the Core Metadata API as outlined in this section. If you set up
@@ -2454,25 +2557,11 @@ steps:</p>
 <p>Upload the device profile above to metadata with a POST to
     <a href="http://localhost:48081/api/v1/deviceprofile/uploadfile">http://localhost:48081/api/v1/deviceprofile/uploadfile</a> and add the
     file as key "file" to the body in form-data format, and the created
-    ID will be returned. The following figure is an example if you use
-    Postman to send the request</p>
-<blockquote>
-<p><img alt="Uploading the Profile" src="../upload_profile.png" /></p>
-</blockquote>
-</li>
-<li>
-<p>Add the addressable containing reachability information for the
-    device with a POST to <a href="http://localhost:48081/api/v1/addressable">http://localhost:48081/api/v1/addressable</a>:</p>
-<blockquote>
-<p>a.  If IP connected, the body will look something like: { "name":
-    "Motor", "method": "GET", "protocol": "HTTP", "address":
-    "10.0.1.29", "port": 502 }
-b.  If serially connected, the body will look something like: {
-    "name": "Motor", "method": "GET", "protocol": "OTHER",
-    "address": "/dev/ttyS5,9600,8,1,1", "port": 0 } (address field
-    contains port, baud rate, number of data bits, stop bits, and
-    parity bits in CSV form)</p>
-</blockquote>
+    ID will be returned. The following example command uses curl to send the request:</p>
+<div class="highlight"><pre><span></span><code>$ curl http://your-edgex-server-ip:48081/api/v1/deviceprofile/uploadfile \
+  -F &quot;file=@DENT.Mod.PS6037.profile.yaml&quot;
+</code></pre></div>
+
 </li>
 <li>
 <p>Ensure the Modbus device service is running, adjust the service name
@@ -2481,34 +2570,41 @@ b.  If serially connected, the body will look something like: {
 <li>
 <p>Add the device with a POST to
     <a href="http://localhost:48081/api/v1/device">http://localhost:48081/api/v1/device</a>, the body will look something
-    like:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">{</span>
-  <span class="ss">&quot;description&quot;</span><span class="p">:</span> <span class="ss">&quot;MicroMax Variable Speed Motor&quot;</span><span class="p">,</span>
-  <span class="ss">&quot;name&quot;</span><span class="p">:</span> <span class="ss">&quot;Variable Speed motor&quot;</span><span class="p">,</span>
-  <span class="ss">&quot;adminState&quot;</span><span class="p">:</span> <span class="ss">&quot;unlocked&quot;</span><span class="p">,</span>
-  <span class="ss">&quot;operatingState&quot;</span><span class="p">:</span> <span class="ss">&quot;enabled&quot;</span><span class="p">,</span>
-  <span class="ss">&quot;addressable&quot;</span><span class="p">:</span> <span class="err">{</span>
-    <span class="ss">&quot;name&quot;</span><span class="p">:</span> <span class="ss">&quot;Motor&quot;</span>
-
-  <span class="err">}</span><span class="p">,</span>
-  <span class="ss">&quot;labels&quot;</span><span class="p">:</span> <span class="p">[</span>
-
-  <span class="p">],</span>
-  <span class="ss">&quot;location&quot;</span><span class="p">:</span> <span class="k">null</span><span class="p">,</span>
-  <span class="ss">&quot;service&quot;</span><span class="p">:</span> <span class="err">{</span>
-    <span class="ss">&quot;name&quot;</span><span class="p">:</span> <span class="ss">&quot;edgex-device-modbus&quot;</span>
-
-  <span class="err">}</span><span class="p">,</span>
-  <span class="ss">&quot;profile&quot;</span><span class="p">:</span> <span class="err">{</span>
-    <span class="ss">&quot;name&quot;</span><span class="p">:</span> <span class="ss">&quot;GS1-VariableSpeedMotor&quot;</span>
-
-  <span class="err">}</span>
-<span class="err">}</span>
-</code></pre></div>
-
-
-<p>The addressable name must match/refer to the addressable added in
-Step 2, the service name must match/refer to the target device
+    like:
+    <div class="highlight"><pre><span></span><code>$ curl http://your-edgex-server-ip:48081/api/v1/device -H &quot;Content-Type:application/json&quot; -X POST \
+  -d &#39;{ 
+   &quot;name&quot; :&quot;Modbus-TCP-Device-2&quot;,
+   &quot;description&quot;:&quot;Power Submeter device.&quot;,
+   &quot;adminState&quot;:&quot;UNLOCKED&quot;,
+   &quot;operatingState&quot;:&quot;ENABLED&quot;,
+   &quot;protocols&quot;:{
+      &quot;modbus-tcp&quot;:{
+         &quot;Address&quot; : &quot;your-device-ip&quot;,
+         &quot;Port&quot; : &quot;1502&quot;,
+         &quot;UnitID&quot; : &quot;2&quot;
+      }
+   },
+   &quot;labels&quot;:[ 
+      &quot;power submeter&quot;,
+      &quot;modbus TCP&quot;
+   ],
+   &quot;service&quot;:{&quot;name&quot;:&quot;edgex-device-modbus&quot;},
+   &quot;profile&quot;:{&quot;name&quot;:&quot;Network Power Meter&quot;},
+   &quot;autoEvents&quot;:[ 
+      { 
+         &quot;frequency&quot;:&quot;50s&quot;,
+         &quot;onChange&quot;:false,
+         &quot;resource&quot;:&quot;Configuration&quot;
+      },
+      { 
+         &quot;frequency&quot;:&quot;5s&quot;,
+         &quot;onChange&quot;:true,
+         &quot;resource&quot;:&quot;Values&quot;
+      }
+   ]
+}&#39;
+</code></pre></div></p>
+<p>The service name must match/refer to the target device
 service, and the profile name must match the device profile name
 from Step 1.</p>
 </li>
@@ -2516,26 +2612,135 @@ from Step 1.</p>
 <h2 id="execute-commands">Execute Commands</h2>
 <p>Now we're ready to run some commands.</p>
 <h3 id="find-executable-commands">Find Executable Commands</h3>
-<p>Use the following query to find executable commands:</p>
-<div class="codehilite"><pre><span></span><code><span class="c">photon-ip:48082/api/v1/device</span>
+<p>Use the following query to find executable commands:
+<div class="highlight"><pre><span></span><code>$ curl http://your-edgex-server-ip:48082/api/v1/device | json_pp
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  1718  100  1718    0     0  14081      0 --:--:-- --:--:-- --:--:-- 14081
+[
+   {
+      &quot;id&quot; : &quot;56dcf3ad-52d8-4d12-a2d0-ae53c177ae3d&quot;,
+      &quot;commands&quot; : [
+         {
+            &quot;put&quot; : {
+               &quot;url&quot; : &quot;http://edgex-core-command:48082/api/v1/device/56dcf3ad-52d8-4d12-a2d0-ae53c177ae3d/command/67b35f63-8f94-427b-a60c-188bf9e0633a&quot;,
+               &quot;parameterNames&quot; : [
+                  &quot;DemandWindowSize&quot;,
+                  &quot;LineFrequency&quot;
+               ],
+               &quot;path&quot; : &quot;/api/v1/device/{deviceId}/Configuration&quot;
+            },
+            &quot;id&quot; : &quot;67b35f63-8f94-427b-a60c-188bf9e0633a&quot;,
+            &quot;get&quot; : {
+               &quot;url&quot; : &quot;http://edgex-core-command:48082/api/v1/device/56dcf3ad-52d8-4d12-a2d0-ae53c177ae3d/command/67b35f63-8f94-427b-a60c-188bf9e0633a&quot;,
+               &quot;responses&quot; : [
+                  {
+                     &quot;description&quot; : &quot;service unavailable&quot;,
+                     &quot;code&quot; : &quot;503&quot;
+                  }
+               ],
+               &quot;path&quot; : &quot;/api/v1/device/{deviceId}/Configuration&quot;
+            },
+            ...
+            &quot;name&quot; : &quot;Configuration&quot;
+         }
+      ],
+      ...
+   },
+   {
+      ....
+   }
+]
+</code></pre></div></p>
+<h3 id="execute-put-command">Execute PUT command</h3>
+<p>Execute PUT command according to <code>url</code> and <code>parameterNames</code>, replacing [host] with the server IP when running the edgex-core-command. This can be done in either of the following ways:</p>
+<div class="highlight"><pre><span></span><code>$ curl http://your-edgex-server-ip:48082/api/v1/device/56dcf3ad-52d8-4d12-a2d0-ae53c177ae3d/command/67b35f63-8f94-427b-a60c-188bf9e0633a \
+    -H &quot;Content-Type:application/json&quot; -X PUT  \
+    -d &#39;{&quot;DemandWindowSize&quot;:&quot;1122&quot;,&quot;LineFrequency&quot;:&quot;1012&quot;}&#39;
 </code></pre></div>
 
-
-<p>| </p>
-<p><img alt="Executable Commands" src="../commands.png" /></p>
+<p>Aside from using device id and command id in the URL, use the following API with device name and command is another approach.
+Refer to <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-command/1.2.0#/default/put_v1_device_name__name__command__commandname_">Core Command API</a> for more details.
+<div class="highlight"><pre><span></span><code>$ curl &quot;http://your-edgex-server-ip:48082/api/v1/device/name/Modbus-TCP-Device/command/Configuration&quot; \
+    -H &quot;Content-Type:application/json&quot; -X PUT  \
+    -d &#39;{&quot;DemandWindowSize&quot;:&quot;1122&quot;,&quot;LineFrequency&quot;:&quot;1012&quot;}&#39;
+</code></pre></div></p>
+<p>Check the result from Modbus simulator:
+<img alt="PUT ModbusPal" src="../putModbusPal.png" /></p>
 <h3 id="execute-get-command">Execute GET command</h3>
 <p>Replace <em>\&lt;host></em> with the server IP when running the
 edgex-core-command.</p>
-<p><img alt="GET Command" src="../AddingModbusDevice-getcommand.png" /></p>
-<h3 id="execute-put-command">Execute PUT command</h3>
-<p>Execute PUT command according to <code>url</code> and <code>parameterNames</code>.</p>
-<p><img alt="PUT Command" src="../AddingModbusDevice-putcommand.png" /></p>
-<p><img alt="PUT ModbusPal" src="../putModbusPal.png" /></p>
-<h2 id="schedule-job">Schedule Job</h2>
-<p>After service startup, query core-data's reading API. The results show
+<div class="highlight"><pre><span></span><code>$ curl &quot;http://your-edgex-server-ip:48082/api/v1/device/name/Modbus-TCP-Device/command/Configuration&quot; | json_pp
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   320  100   320    0     0  12800      0 --:--:-- --:--:-- --:--:-- 12307
+{
+   &quot;device&quot; : &quot;Modbus-TCP-Device&quot;,
+   &quot;EncodedEvent&quot; : null,
+   &quot;readings&quot; : [
+      {
+         &quot;device&quot; : &quot;Modbus-TCP-Device&quot;,
+         &quot;origin&quot; : 1574314180435573491,
+         &quot;name&quot; : &quot;DemandWindowSize&quot;,
+         &quot;value&quot; : &quot;1122&quot;
+      },
+      {
+         &quot;origin&quot; : 1574314180435578175,
+         &quot;device&quot; : &quot;Modbus-TCP-Device&quot;,
+         &quot;value&quot; : &quot;1012&quot;,
+         &quot;name&quot; : &quot;LineFrequency&quot;
+      }
+   ],
+   &quot;origin&quot; : 1574314180435629113
+}
+</code></pre></div>
+
+<h2 id="autoevent">AutoEvent</h2>
+<p>The AutoEvent is defined in the [[DeviceList.AutoEvents]] section of the TOML configuration file:
+<div class="highlight"><pre><span></span><code># Pre-define Devices
+[[DeviceList]]
+  Name = &#39;Modbus TCP test device&#39;
+  Profile = &#39;Test.Device.Modbus.Profile&#39;
+  Description = &#39;This device is a product for monitoring and controlling digital inputs and outputs over a LAN.&#39;
+  labels = [ &#39;Air conditioner&#39;,&#39;modbus TCP&#39; ]
+  [DeviceList.Protocols]
+    [DeviceList.Protocols.modbus-tcp]
+       Address = &#39;0.0.0.0&#39;
+       Port = &#39;1502&#39;
+       UnitID = &#39;1&#39;
+  [[DeviceList.AutoEvents]]
+    Frequency = &#39;20s&#39;
+    OnChange = false
+    Resource = &#39;HVACValues&#39;
+</code></pre></div>
+After service startup, query core-data's reading API. The results show
 that the service auto-executes the command every 20 seconds.</p>
-<p><img alt="Schedule Configuration" src="../scheduleconfig.png" /></p>
-<p><img alt="GET Readings" src="../getreading.png" /></p>
+<div class="highlight"><pre><span></span><code>$ curl &quot;http://your-edgex-server-ip:48080/api/v1/event/device/Modbus-TCP-Device/10&quot; | json_pp
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  1997  100  1997    0     0   216k      0 --:--:-- --:--:-- --:--:--  216k
+[
+   {
+      &quot;origin&quot; : 1574313452749054661,
+      &quot;id&quot; : &quot;a066d154-fe44-4572-9870-8790017b9c59&quot;,
+      &quot;created&quot; : 1574313452750,
+      &quot;device&quot; : &quot;Modbus-TCP-Device&quot;,
+      &quot;readings&quot; : [
+         ...
+      ]
+   },
+   {
+      &quot;device&quot; : &quot;Modbus-TCP-Device&quot;,
+      &quot;readings&quot; : [
+         ...
+      ],
+      &quot;created&quot; : 1574313457759,
+      &quot;id&quot; : &quot;25314175-d6f5-461e-8be4-94129fbf94c6&quot;,
+      &quot;origin&quot; : 1574313457757445677
+   },
+   ...
+]
+</code></pre></div>
                 
               
               
