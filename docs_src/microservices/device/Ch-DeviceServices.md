@@ -72,6 +72,9 @@ EdgeX comes with a number of existing device services for communicating with dev
 
 Device profiles describe a specific device to a device service.  Each device managed by a device service has an association device profile, which defines that device in terms of the data it reports and operations that it supports. General characteristics about the type of device, the data the device provides, and how to command the device is all provided in a device profile. A device profile is described in YAML which is a human-readable data serialization language (similar to a markup language like XML).  See the [page on device profiles](./profile/Ch-DeviceProfile.md) to learn more about how they provide the detail EdgeX device services need to communicate with a device.
 
+!!! Info
+    Device profiles, while normally provided to EdgeX in a YAML file, can also be specified to EdgeX in JSON.  See the metadata API for [upload via JSON](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/1.2.0#/default/post_v1_deviceprofile) versus [upload YAML file](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/1.2.0#/default/post_v1_deviceprofile_uploadfile).
+
 ## Device Discovery and Provision Watchers
 
 Device Services may contain logic to automatically provision new devices.  This can be done **statically** or **dynamically**.  
@@ -84,7 +87,7 @@ In static device configuration (also known as static provisioning) the device se
 
 In dynamic discovery (also known as automatic provisioning), a device service is given some general information about where to look and general parameters for a device (or devices).  For example, the device service may be given a range of BLE address space and told to look for devices of a certain nature in this range.  However, the device service does not know that the device is physically there – and the device may not be there at start up.  It must continually scan during its operations (typically on some sort of schedule) for new devices within the guides of the location and device parameters provided by configuration. 
 
-Not all device services support dynamic discovery.  If it does support dynamic discovery, the configuration about what and where to look (in other words, where to scan) for new devices is specified by a provision watcher.  A provision watcher, is specific configuration information provided to a device service (usually at startup) that gets stored in metadata.  In addition to providing details about what devices to look for during a scan, a provision watcher may also contain “blocking” indicators, which define parameters about devices that are not to be automatically provisioned.  This allows the scope of a device scan to be narrowed or allow specific devices to be avoided.  
+Not all device services support dynamic discovery.  If it does support dynamic discovery, the configuration about what and where to look (in other words, where to scan) for new devices is specified by a provision watcher.  A provision watcher is created via a call to the [core metadata provision watcher API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/1.2.0#/default/post_v1_provisionwatcher) (and is stored in the metadata database).  In addition to providing details about what devices to look for during a scan, a provision watcher may also contain “blocking” indicators, which define parameters about devices that are not to be automatically provisioned.  This allows the scope of a device scan to be narrowed or allow specific devices to be avoided.  
 
 ## Operating State and Admin State
 

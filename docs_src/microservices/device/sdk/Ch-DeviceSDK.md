@@ -27,22 +27,6 @@ The Device Service SDK supports:
 -   Support for sets of actions triggered by a command
 -   Cached responses to queries
 
-## Device Service Workflow
-
-![image](EdgeX_DeviceServiceSDKFlowDiagram.png)
-
-Key to diagram
-
-|Color of Box |	Description|
-| --- | --- |
-|Orange	|Everything is part of a Base Service.|
-|Light Green	|Initialization. Gets its own configuration and registers itself.|
-|Yellow|	Update Controller. receives, processes, and publishes the update.|
-|Dark Blue	|Initializing and setting up of schedules.|
-|Gray	|Scaffolding code to be receivers into Device Service. Processes commands.|
-|Purple	|**Initializes itself.** Set up in metadata. Registers its Device Service discovery process and registration, and sets up Device Services. **Gets Device Watchers**. When a Device Service first comes up it has its initial set of devices. The Device Watcher waits to receive information that a new device has occurred.!Then a Device Watcher sends metadata messages out about the new device.|
-|Dark Green	|Send data to Core Data. How to communicate with the devices, and on what schedule, and to receive information back from the devices.|
-
 ## Writing a Device Service
 
 - [Writing a new Device Service in Go](../../../getting-started/Ch-GettingStartedSDK-Go.md)
