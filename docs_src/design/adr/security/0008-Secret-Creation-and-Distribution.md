@@ -316,7 +316,7 @@ List of needed improvements:
   * No changes required.
 
 - Redis authentication password
-  * All: Move server password to configuration file at _SECRETSLOC_.
+  * All: Implement process-to-process injection: start Redis unauthenticated, with a post-start hook to read the secret out of Vault and set the Redis password. (Short race condition between Redis starting, password being set, and dependent services starting.)
   * No changes on client side.
 
 - Kong authentication tokens
