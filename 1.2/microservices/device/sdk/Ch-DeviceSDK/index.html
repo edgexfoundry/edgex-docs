@@ -1046,15 +1046,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction-to-the-sdk" class="md-nav__link">
-    Introduction to the SDK
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#device-service-workflow" class="md-nav__link">
-    Device Service Workflow
+  <a href="#introduction-to-the-sdks" class="md-nav__link">
+    Introduction to the SDKs
   </a>
   
 </li>
@@ -1973,15 +1966,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction-to-the-sdk" class="md-nav__link">
-    Introduction to the SDK
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#device-service-workflow" class="md-nav__link">
-    Device Service Workflow
+  <a href="#introduction-to-the-sdks" class="md-nav__link">
+    Introduction to the SDKs
   </a>
   
 </li>
@@ -2014,16 +2000,20 @@
                 
                 
                 <h1 id="device-services-sdk">Device Services SDK</h1>
-<h2 id="introduction-to-the-sdk">Introduction to the SDK</h2>
+<p><img alt="image" src="../EdgeX_SDKs.png" /></p>
+<h2 id="introduction-to-the-sdks">Introduction to the SDKs</h2>
+<p>EdgeX provides two software development kits (SDKs) to help developers create new device services.  While the EdgeX community and the larger EdgeX ecosystem provide a number of open source and commercially available device services for use with EdgeX, there is no way that every protocol and every sensor can be accommodated and connected to EdgeX with a pre-existing device service.  Even if all the device service connectivity were provided, your use case, sensor or security infrastructure may require customization.  Therefore, the device service SDKs provide the means to extend or customize EdgeX’s device connectivity.</p>
+<p>EdgeX is mostly written in Go and C.  There is a device service SDK written in both Go and C to support the more popular languages used in EdgeX today.  In the future, alternate language SDKs may be provided by the community or made available by the larger ecosystem.</p>
+<p>The SDKs are really libraries to be incorporated into a new micro service.  They make writing a new device service much easier.  By importing the SDK library of choice into your new device service project, you can focus on the details associated with getting and manipulating sensor data from your device via the specific protocol of your device.  Other details, such as initialization of the device service, getting the service configured, sending sensor data to core data, managing communications with core metadata, and much more are handled by the code in the SDK library.  The code in the SDK also helps to ensure your device service adheres to rules and standards of EdgeX – such as making sure the service registers with the EdgeX registry service when it starts up.</p>
 <p>The EdgeX Foundry Device Service Software Development Kit (SDK) takes
-the Developer through the step-by-step process to create an EdgeX
-Foundry Device Service microservice. Then setup the SDK and execute the
-code to generate the Device Service scaffolding to get you started using
+the developer through the step-by-step process to create an EdgeX
+Foundry device service micro service. Then setup the SDK and execute the
+code to generate the device service scaffolding to get you started using
 EdgeX.</p>
 <p>The Device Service SDK supports:</p>
 <ul>
 <li>Synchronous read and write operations</li>
-<li>Asynchronous Device data</li>
+<li>Asynchronous device data collection</li>
 <li>Initialization and deconstruction of Driver Interface</li>
 <li>Initialization and destruction of Device Connection</li>
 <li>Framework for automated Provisioning Mechanism</li>
@@ -2031,49 +2021,11 @@ EdgeX.</p>
 <li>Support for sets of actions triggered by a command</li>
 <li>Cached responses to queries</li>
 </ul>
-<h2 id="device-service-workflow">Device Service Workflow</h2>
-<p><img alt="image" src="../EdgeX_DeviceServiceSDKFlowDiagram.png" /></p>
-<p>Key to diagram</p>
-<table>
-<thead>
-<tr>
-<th>Colour of Box</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Orange</td>
-<td>Everything is part of a Base Service.</td>
-</tr>
-<tr>
-<td>Light Green</td>
-<td>Initialization. Gets its own configuration and registers itself.</td>
-</tr>
-<tr>
-<td>Yellow</td>
-<td>Update Controller. receives, processes, and publishes the update.</td>
-</tr>
-<tr>
-<td>Dark Blue</td>
-<td>UInitializing and setting up of schedules.</td>
-</tr>
-<tr>
-<td>Gray</td>
-<td>Scaffolding code to be receivers into Device Service. Processes commands.</td>
-</tr>
-<tr>
-<td>Purple</td>
-<td><strong>Initializes itself.</strong> Set up in metadata. Registers its Device Service discovery process and registration, and sets up Device Services. <strong>Gets Device Watchers</strong>. When a Device Service first comes up it has its initial set of devices. The Device Watcher waits to receive information that a new device has occurred.!Then a Device Watcher sends metadata messages out about the new device.</td>
-</tr>
-<tr>
-<td>Dark Green</td>
-<td>Send data to Core Data. How to communicate with the devices, and on what schedule, and to receive information back from the devices.</td>
-</tr>
-</tbody>
-</table>
 <h2 id="writing-a-device-service">Writing a Device Service</h2>
-<p><a href="../../../../getting-started/Ch-GettingStartedSDK/">Writing a new Device Service in Go 〉</a></p>
+<ul>
+<li><a href="../../../../getting-started/Ch-GettingStartedSDK-Go/">Writing a new Device Service in Go</a></li>
+<li><a href="../../../../getting-started/Ch-GettingStartedSDK-C/">Writing a new Device Service in C</a></li>
+</ul>
                 
               
               

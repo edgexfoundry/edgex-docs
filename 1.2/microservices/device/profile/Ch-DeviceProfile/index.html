@@ -2028,10 +2028,11 @@
                 
                 
                 <h1 id="device-profile">Device Profile</h1>
-<p>The device profile describes a type of device within the EdgeX system. Each
+<p>The device profile describes a type of <a href="../../../../general/Definitions/#device">device</a> within the EdgeX system. Each
 device managed by a device service has an association with a device profile,
 which defines that device type in terms of the operations which it supports.</p>
-<p>For a full list of device profile fields and their required values see the <a href="../Ch-DeviceProfileRef/">Device Profile Reference</a></p>
+<p>For a full list of device profile fields and their required values see the <a href="../Ch-DeviceProfileRef/">device profile reference</a>.</p>
+<p>For a detailed look at the device profile model and all its properties, see the <a href="../../../core/metadata/Ch-Metadata/#data-models">metadata device profile data model</a>.</p>
 <h2 id="identification">Identification</h2>
 <p>The profile contains various identification fields. The <code>Name</code> field is required and must be unique in an EdgeX deployment. Other fields are optional - they are not used by device services but may be populated for informational purposes:</p>
 <ul>
@@ -2098,7 +2099,7 @@ deviceResource have the same name, it will be the deviceCommand which is
 available.</p>
 <h2 id="corecommands">CoreCommands</h2>
 <p>CoreCommands specify the commands which are available via the core-command
-microservice, for reading and writing to the device. Both deviceResources and
+micro service, for reading and writing to the device. Both deviceResources and
 deviceCommands may be represented by coreCommands (the name of the coreCommand
 refers to the name of the deviceCommand or deviceResource).</p>
 <p>Commands may allow get or put methods (or both). For a get type, the returned

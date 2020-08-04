@@ -1065,43 +1065,29 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#virtual-resources-example" class="md-nav__link">
-    Virtual Resources Example
+  <a href="#using-the-virtual-device-service" class="md-nav__link">
+    Using the Virtual Device Service
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#special-configuration" class="md-nav__link">
-    Special Configuration
+  <a href="#core-command-and-the-virtual-device-service" class="md-nav__link">
+    Core Command and the Virtual Device Service
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#system-architecture" class="md-nav__link">
-    System Architecture
+  <a href="#configuration-properties" class="md-nav__link">
+    Configuration Properties
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#device-profile-definition" class="md-nav__link">
-    Device Profile Definition
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#data-model" class="md-nav__link">
-    Data Model
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#data-dictionary" class="md-nav__link">
-    Data Dictionary
+  <a href="#api-reference" class="md-nav__link">
+    API Reference
   </a>
   
 </li>
@@ -2008,43 +1994,29 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#virtual-resources-example" class="md-nav__link">
-    Virtual Resources Example
+  <a href="#using-the-virtual-device-service" class="md-nav__link">
+    Using the Virtual Device Service
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#special-configuration" class="md-nav__link">
-    Special Configuration
+  <a href="#core-command-and-the-virtual-device-service" class="md-nav__link">
+    Core Command and the Virtual Device Service
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#system-architecture" class="md-nav__link">
-    System Architecture
+  <a href="#configuration-properties" class="md-nav__link">
+    Configuration Properties
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#device-profile-definition" class="md-nav__link">
-    Device Profile Definition
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#data-model" class="md-nav__link">
-    Data Model
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#data-dictionary" class="md-nav__link">
-    Data Dictionary
+  <a href="#api-reference" class="md-nav__link">
+    API Reference
   </a>
   
 </li>
@@ -2072,215 +2044,227 @@
                 <h1 id="virtual-device">Virtual Device</h1>
 <p><img alt="image" src="../EdgeX_VirtualDevice.png" /></p>
 <h2 id="introduction">Introduction</h2>
-<p>The Virtual Device Service simulates different kinds of devices to
-generate Events and Readings to the Core Data Microservice, and Users
-send commands and get responses through the Command and Control
-Microservice. These features of the Virtual Device Services are useful
-when executing functional or performance tests without having any real
-devices.</p>
-<p><strong>Virtual Device Service Overall Flow</strong></p>
-<p><img alt="image" src="../EdgeX_VirtualDeviceFlow.png" /></p>
-<p>Virtual Device Service has dependencies on Core Data and Meta Data
-Microservices, since the initialization process needs to check or
-register profiles, devices, and value descriptors. Therefore, Core Data
-and Metadata Microservices have to fully start up before Virtual Device
-Service initialization. At the beginning of the Virtual Device Service
-initialization process, the process sends a ping request to Core Data
-and Metadata Microservices to verify their status until they both fully
-start up. The fixed time out limit is 600 seconds. After 600 seconds, if
-Core Data and Metadata Microservices have not fully started up, the
-initialization process fails.</p>
-<p>When the Virtual Device Service starts up, the initialization process
-loads the definitions of ValueDescriptor, DeviceService, and
-DeviceProfile from YAML files and creates them in the Metadata
-Microservice. Some default YAML files exist, and Users can create their
-own. Please see Device Profile Definition section (on this page) for
-more detail. In addition, the Virtual Device Service provides callback
-APIs for the Metadata Microservice to manage the Device instances.
-According to the GET Commands in the DeviceProfile definitions, there is
-an H2 database (in-memory) storing resource in Virtual Devices, called
-"Virtual Resources."</p>
-<h2 id="virtual-resources-example">Virtual Resources Example</h2>
-<p><img alt="image" src="../EdgeX_VirtualDeviceExample.png" /></p>
-<p>After starting up, the Virtual Device Service reads the H2 database and
-periodically sends the current value as an Event to the Core Data
-Microservice. The default frequency is 15 seconds, and that can be
-modified from the configuration file. The current value of virtual
-resources is re-generated at a random value before each collection
-cycle, so the Reading should be different in each Event.</p>
-<p>The Virtual Device Service provides APIs for Command and Control
-Microservice, reads the H2 database, and returns the current value for
-GET Commands. At this time, the Virtual Device Service supports two
-special PUT Commands: "enableRandomization" and "collectionFrequency."
-These Commands modify the "ENABLE_RANDOMIZATION" and
-"COLLECTION_FREQUENCY" column of a specific virtual resource in the H2
-database.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">For</span> <span class="n">example</span><span class="p">,</span> <span class="n">sending</span> <span class="n">an</span> <span class="n">HTTP</span> <span class="n">PUT</span> <span class="k">method</span> <span class="k">to</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">48082</span><span class="o">/</span><span class="n">device</span><span class="o">/</span><span class="mi">56</span><span class="n">b1acf1d66f9c9762581ea4</span><span class="o">/</span><span class="n">command</span><span class="o">/</span><span class="mi">56</span><span class="n">b1acedd66f9c9762581e9d</span><span class="o">/</span><span class="n">put</span><span class="o">/</span><span class="mi">0</span> <span class="k">with</span> <span class="n">the</span> <span class="n">sample</span> <span class="n">payload</span><span class="p">:</span>
-
-<span class="err">{</span>
-
-  <span class="ss">&quot;enableRandomization&quot;</span><span class="p">:</span> <span class="k">false</span><span class="p">,</span>
-  <span class="ss">&quot;collectionFrequency&quot;</span><span class="p">:</span> <span class="mi">6</span>
-
-<span class="err">}</span>
+<p>The virtual device service simulates different kinds of <a href="../../../../general/Definitions/#device">devices</a> to
+generate events and readings to the <a href="../../../core/data/Ch-CoreData/">core data</a> micro service, and users
+send commands and get responses through the <a href="../../../core/command/Ch-Command/">command and control</a> micro service. These features of the virtual device services are useful
+when executing functional or performance tests without having any real devices.</p>
+<p>The virtual device service, built in Go and based on the device service Go SDK, can simulate sensors by generating data of the following data types:</p>
+<ul>
+<li>Bool</li>
+<li>Int8, Int16, Int32, Int64</li>
+<li>Uint8, Uint16, Uint32, Uint64</li>
+<li>Float32, Float64</li>
+<li>Binary</li>
+</ul>
+<p>The virtual device services leverages <a href="https://godoc.org/github.com/cznic/ql">ql(an embedded SQL database engine)</a> to simulate virtual resources.</p>
+<p>By default, the virtual device service is included and configured to run with all EdgeX Docker Compose files.  This allows users to have a complete EdgeX system up and running - with simulated data from the virtual device service - in minutes.</p>
+<h2 id="using-the-virtual-device-service">Using the Virtual Device Service</h2>
+<p>The virtual device service contains 4 pre-defined devices as random value generators:</p>
+<ul>
+<li><a href="https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/device.virtual.bool.yaml">Random-Boolean-Device</a></li>
+<li><a href="https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/device.virtual.int.yaml">Random-Integer-Device</a></li>
+<li><a href="https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/device.virtual.uint.yaml">Random-UnsignedInteger-Device</a></li>
+<li><a href="https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/device.virtual.float.yaml">Random-Float-Device</a></li>
+<li><a href="https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/device.virtual.binary.yaml">Random-Binary-Device</a></li>
+</ul>
+<p>These devices are created by the virtual device service in core metadata when the service first initializes.  These devices are defined by device profiles that ship with the virtual device service.  Each virtual device causes the generation of one to many values of the type specified by the device name.  For example, Random-Integer-Device generates integer values:  Int8, Int16, Int32 and Int64.  As with all devices, the deviceResources in the associated device profile of the device defind what values are produced by the device service. In the case of Random-Integer-Device, the Int8, Int16, Int32 and Int64 values are defined as deviceResources.</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;Int8&quot;</span>
+  <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Generate</span><span class="nv"> </span><span class="s">random</span><span class="nv"> </span><span class="s">int8</span><span class="nv"> </span><span class="s">value&quot;</span>
+  <span class="nt">properties</span><span class="p">:</span>
+    <span class="nt">value</span><span class="p">:</span>
+      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;Int8&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;0&quot;</span> <span class="p p-Indicator">}</span>
+    <span class="nt">units</span><span class="p">:</span>
+      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;String&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;random</span><span class="nv"> </span><span class="s">int8</span><span class="nv"> </span><span class="s">value&quot;</span> <span class="p p-Indicator">}</span>
+<span class="p p-Indicator">-</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;Int16&quot;</span>
+  <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Generate</span><span class="nv"> </span><span class="s">random</span><span class="nv"> </span><span class="s">int16</span><span class="nv"> </span><span class="s">value&quot;</span>
+  <span class="nt">properties</span><span class="p">:</span>
+    <span class="nt">value</span><span class="p">:</span>
+      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;Int16&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;0&quot;</span> <span class="p p-Indicator">}</span>
+    <span class="nt">units</span><span class="p">:</span>
+      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;String&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;random</span><span class="nv"> </span><span class="s">int16</span><span class="nv"> </span><span class="s">value&quot;</span> <span class="p p-Indicator">}</span>
+<span class="p p-Indicator">-</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;Int32&quot;</span>
+  <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Generate</span><span class="nv"> </span><span class="s">random</span><span class="nv"> </span><span class="s">int32</span><span class="nv"> </span><span class="s">value&quot;</span>
+  <span class="nt">properties</span><span class="p">:</span>
+    <span class="nt">value</span><span class="p">:</span>
+      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;Int32&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;0&quot;</span> <span class="p p-Indicator">}</span>
+    <span class="nt">units</span><span class="p">:</span>
+      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;String&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;random</span><span class="nv"> </span><span class="s">int32</span><span class="nv"> </span><span class="s">value&quot;</span> <span class="p p-Indicator">}</span>
+<span class="p p-Indicator">-</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;Int64&quot;</span>
+  <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Generate</span><span class="nv"> </span><span class="s">random</span><span class="nv"> </span><span class="s">int64</span><span class="nv"> </span><span class="s">value&quot;</span>
+  <span class="nt">properties</span><span class="p">:</span>
+    <span class="nt">value</span><span class="p">:</span>
+      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;Int64&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;0&quot;</span> <span class="p p-Indicator">}</span>
+    <span class="nt">units</span><span class="p">:</span>
+      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;String&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;random</span><span class="nv"> </span><span class="s">int64</span><span class="nv"> </span><span class="s">value&quot;</span> <span class="p p-Indicator">}</span>
 </code></pre></div>
 
-
-<p>modifies a virtual resource record whose command ID is
-"56b1acedd66f9c9762581e9d " and device ID is
-"56b1acf1d66f9c9762581ea4." By modifying the "ENABLE_RANDOMIZATION"
-column to FALSE, the value of the virtual resource will not re-generate
-a random value anymore. By modifying the "COLLECTION_FREQUENCY" column,
-the collecting frequency will be changed after next collection cycle.</p>
-<div class="codehilite"><pre><span></span><code><span class="err">They both can be modified manually through H2 Console: http://localhost:49990/console Modify the “JDBC URL” to jdbc:h2:mem:testdb, and click on “Connect.”</span>
+<p>Additionally, there is an accompanying deviceResource for each of the generated value deviceResource. Each deviceResources has an associated EnableRandomization_X deviceResource.  In the case of the integer deviceResources above, there are the associated EnableRandomization_IntX deviceResources below.  The EnableRandomization deviceResources are boolean values, and when set to true, the associated simulated sensor value is generated by the device service.  When the EnableRandomization_IntX value is set to false, then the associated simulator sensor value is fixed.</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;EnableRandomization_Int8&quot;</span>
+  <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;used</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">decide</span><span class="nv"> </span><span class="s">whether</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">re-generate</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">random</span><span class="nv"> </span><span class="s">value&quot;</span>
+  <span class="nt">properties</span><span class="p">:</span>
+    <span class="nt">value</span><span class="p">:</span>
+      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;Bool&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;W&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;true&quot;</span> <span class="p p-Indicator">}</span>
+    <span class="nt">units</span><span class="p">:</span>
+      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;String&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;Random&quot;</span> <span class="p p-Indicator">}</span>
+<span class="p p-Indicator">-</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;EnableRandomization_Int16&quot;</span>
+  <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;used</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">decide</span><span class="nv"> </span><span class="s">whether</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">re-generate</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">random</span><span class="nv"> </span><span class="s">value&quot;</span>
+  <span class="nt">properties</span><span class="p">:</span>
+    <span class="nt">value</span><span class="p">:</span>
+      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;Bool&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;W&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;true&quot;</span> <span class="p p-Indicator">}</span>
+    <span class="nt">units</span><span class="p">:</span>
+      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;String&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;Random&quot;</span> <span class="p p-Indicator">}</span>
+<span class="p p-Indicator">-</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;EnableRandomization_Int32&quot;</span>
+  <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;used</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">decide</span><span class="nv"> </span><span class="s">whether</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">re-generate</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">random</span><span class="nv"> </span><span class="s">value&quot;</span>
+  <span class="nt">properties</span><span class="p">:</span>
+    <span class="nt">value</span><span class="p">:</span>
+      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;Bool&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;W&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;true&quot;</span> <span class="p p-Indicator">}</span>
+    <span class="nt">units</span><span class="p">:</span>
+      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;String&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;Random&quot;</span> <span class="p p-Indicator">}</span>
+<span class="p p-Indicator">-</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;EnableRandomization_Int64&quot;</span>
+  <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;used</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">decide</span><span class="nv"> </span><span class="s">whether</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">re-generate</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">random</span><span class="nv"> </span><span class="s">value&quot;</span>
+  <span class="nt">properties</span><span class="p">:</span>
+    <span class="nt">value</span><span class="p">:</span>
+      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;Bool&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;W&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;true&quot;</span> <span class="p p-Indicator">}</span>
+    <span class="nt">units</span><span class="p">:</span>
+      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;String&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;Random&quot;</span> <span class="p p-Indicator">}</span>
 </code></pre></div>
 
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The Enable_Randomization attribute of resource is automatically set to false when you use a <code>PUT</code> command to set a specified generated value.  Furtehr, the minimum and maximum values of generated value deviceResource can be specified in the device profile. Below, Int8 is set to be between -100 and 100.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">deviceResources</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;Int8&quot;</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Generate</span><span class="nv"> </span><span class="s">random</span><span class="nv"> </span><span class="s">int8</span><span class="nv"> </span><span class="s">value&quot;</span>
+    <span class="nt">properties</span><span class="p">:</span>
+      <span class="nt">value</span><span class="p">:</span>
+        <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;Int8&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> minimum</span><span class="p">:</span> <span class="s">&quot;-100&quot;</span><span class="p p-Indicator">,</span><span class="nt"> maximum</span><span class="p">:</span> <span class="s">&quot;100&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;0&quot;</span> <span class="p p-Indicator">}</span>
+      <span class="nt">units</span><span class="p">:</span>
+        <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;String&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;random</span><span class="nv"> </span><span class="s">int8</span><span class="nv"> </span><span class="s">value&quot;</span> <span class="p p-Indicator">}</span>
+</code></pre></div>
 
-<h2 id="special-configuration">Special Configuration</h2>
-<p>The virtual device micro service does contain some unique configuration
-properties and these often change between development (for example when
-run from Eclipse) and the containerized version (i.e. Docker container)
-of the same service. Here are the list of unique properties you should
-investigate before running the virtual device service to better
-understand how it works in your environment:</p>
-<p>The path used to locate the Device Profile YAML files used to define the
-virtual devices managed by the device service (see Device Profile
-Definition section below).</p>
-<blockquote>
-<p><strong>application.device-profile-paths=./bacnet_sample_profiles,./modbus_sample_profiles</strong></p>
-</blockquote>
-<p>Indicator to the virtual device service to provisioning devices from the
-YAML profiles in the above directory, creating one device for each
-profile automatically when set to true.</p>
-<p>application.auto-create-device=true When developing, it is often
-advantageous to have the virtual device service start afresh and with a
-clean Meta data database each time the service starts. The property
-below indicates whether the device service should clean out any existing
-virtual devices in the database when it shuts down so a clean
-environment is available when the service starts backup. Typically set
-to true for development and false for runtime/demonstration
-environments.</p>
-<blockquote>
-<p><strong>application.auto-cleanup=true</strong></p>
-</blockquote>
-<p>How often, in seconds, the virtual device service's scheduler should
-collect data from the virtual device.</p>
-<blockquote>
-<p><strong>application.collection-frequency=15</strong></p>
-</blockquote>
-<p><strong>Service Name and Host Name</strong></p>
-<p>In EdgeX device services the service name (which is represented by
-service.name key in the application.properties file or Consul
-configuration) is the identity of the Device Service object. The name is
-used by EdgeX to attribute all the information about the service (in
-particular schedules, device ownership, etc.) to this name. However, the
-service.host parameter is used to describe how to interact with the
-service. Depending on your operating mode, the following guidelines for
-configuring the service host apply.</p>
-<p><strong>Deployment Mode (running everything containerized in Docker):</strong> The
-Service host (which is represented by the service.host key in the
-application.properties file or Consul configuration) is the DNS or IP
-address networking entry of the entity that the service is bound to
-(container, machine, etc) and reachable from the other microservices.
-This allows a full location URL for the service to be determined. In
-Docker environments, the host name is the name of the Docker container
-running the microservice (such as edgex-device-virtual).</p>
-<p>Use service.host=\${service.name} and the docker-compose file for all
-services (default).</p>
-<p><strong>Important Note:</strong> be sure to use Docker Compose and docker-compose
-file (found in the developer-scripts repos) to bring up the containers
-for all services. Docker Compose establishes the networking and
-container naming for you, which can otherwise be difficult to do and
-prone to errors if bringing up containers manually.</p>
-<p><strong>Developer Mode</strong> (running everything natively): When running a service
-natively, the service names will not resolve to a DNS entry as they will
-in a Docker environment.</p>
-<p>Use service.host=localhost for all services (default).</p>
-<p><strong>Hybrid Mode</strong> (running some services natively with the rest deployed
-with Docker): Use service.host=\&lt;Host Machine IP Address> for the
-native services (manual configuration) and the docker-compose file to
-bring up the containerized services (default). Ensure that Addressable
-objects for the native services are not accidentally created by bringing
-them up with the docker-compose file, otherwise conflicts may arise.
-This issue is being addressed in future versions.</p>
-<h2 id="system-architecture">System Architecture</h2>
-<p>The Virtual Device Service adopts a normal MVC design pattern,
-separating logic into different layers.</p>
-<p><strong>System Architecture Graphic</strong></p>
-<p><img alt="image" src="../EdgeX_VirtualDeviceArchitecture.png" /></p>
-<p><strong>Interface Layer</strong>--interacting with other microservices. Controllers
-provide the RESTful API. The implementation is located in
-org.edgexfoundry.device.virtual.controller package. Scheduled Collection
-Tasks is a set of async tasks which is executed periodically, and they
-are created for each virtual resource (GET Command). See
-org.edgexfoundry.device.virtual.scheduling package for the detailed
-implementation. Also,
-org.edgexfoundry.device.virtual.scheduling.Scheduler reads Schedule and
-ScheduleEvent from Meta Data Microservice and arranges the collection
-tasks.</p>
-<p>Tasks execution logic is located in
-org.edgexfoundry.device.virtual.service.impl.CollectionTaskExecutorImpl,
-and the tasks creation behavior is located in
-org.edgexfoundry.device.virtual.service.impl.VirtualResourceManagerImpl.createDefaultRecords().</p>
-<p><strong>Service Layer</strong>--processing business logic, such as, executing
-collection tasks and commands, managing profiles and devices, and so
-forth. See org.edgexfoundry.device.virtual.service.impl package for more
-details.</p>
-<p><strong>DAO Layer</strong>--processing protocol access. For Virtual Device Services,
-a Spring Data JPA interface in org.edgexfoundry.device.virtual.dao
-package. Spring framework will process the communication effort to
-access H2 DB.</p>
-<p><strong>Data Layer</strong>--an H2 DB to simulate device resources.</p>
-<h2 id="device-profile-definition">Device Profile Definition</h2>
-<p>Users can define any virtual device profile in YAML format, if the
-structure is in accordance with the "Device and Device Profile Model"
-(in the graphic 3 paragraphs below). By assigning the file path to
-application property <strong>"application.device-profile-paths"</strong>, Virtual
-Device Service loads all the YAML files under this folder, and this
-property accepts multiple values separated by comma (,). For instance,
-the following setting causes Virtual Device Service to load all YAML
-files under <strong>./bacnet_sample_profiles</strong> and
-<strong>./modbus_sample_profiles</strong> folders.</p>
-<p><img alt="image" src="../EdgeX_VirtualDeviceProfile.png" /></p>
-<p>In addition to Profile Definition, ValueDescriptors are defined in the
-"deviceResources.properties" part of the profile definition. The
-structure needs to conform with the ProfileProperty in "Device
-Profile" (in the graphic below the "Device and Device Profile
-Model"), and the ValueDescriptors will be created and send to the Core
-Data Microservice during the Device creation callback process.</p>
-<p>By assigning the application property "application.auto-create-device"
-= true (the default value is true), the Virtual Device Service creates
-Device instances for each profile automatically during starting up, and
-the Device instances start sending events and readings to Core Data
-Microservice.</p>
-<h2 id="data-model">Data Model</h2>
-<p>Virtual Device Service Data Model--Device and Device Profile Model</p>
-<p><img alt="image" src="../EdgeX_VirtualDeviceDataModel.png" /></p>
-<p><strong>Virtual Device Service Data Model--Command Model</strong></p>
-<p><img alt="image" src="../EdgeX_VirtualDeviceDataModelCommand.png" /></p>
-<p><strong>VirtualResource</strong></p>
-<p>VirtualResource is the data object generated from Device instances and
-persisted in H2 database.</p>
-<p><img alt="image" src="../EdgeX_VirtualDeviceVirtualResource.png" /></p>
-<h2 id="data-dictionary">Data Dictionary</h2>
+</div>
+<p>For the binary deviceResources, values are generated by the function rand.Read(p []byte) in Golang math package. The []byte size is fixed to MaxBinaryBytes/1000.</p>
+<h2 id="core-command-and-the-virtual-device-service">Core Command and the Virtual Device Service</h2>
+<p>Use the following core command service APIs to execute commands against the virtual device service for the specified devices.  Both <code>GET</code> and <code>PUT</code> commands can be issued with these APIs.  <code>GET</code> command request the next generated value while <code>PUT</code> commands will allow you to disable randomization (EnableRandomization) and set the fixed values to be returned by the device.</p>
+<ul>
+<li>http://[host]:48082/api/v1/device/name/Random-Boolean-Device</li>
+<li>http://[host]:48082/api/v1/device/name/Random-Integer-Device</li>
+<li>http://[host]:48082/api/v1/device/name/Random-UnsignedInteger-Device</li>
+<li>http://[host]:48082/api/v1/device/name/Random-Float-Device</li>
+<li>http://[host]:48082/api/v1/device/name/Random-Binary-Device</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Port 48082 is the default port for the core command service.</p>
+</div>
+<h2 id="configuration-properties">Configuration Properties</h2>
+<p>Please refer to the general <a href="https://docs.edgexfoundry.org/1.2/microservices/configuration/Ch-Configuration/#configuration">Configuration documentation</a> for configuration properties common to all services.</p>
+<div class="tabbed-set" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">DeviceList</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
-<th>Class Name</th>
+<th>Property</th>
+<th>Example Value</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>ScanList</td>
-<td>The object containing a protocol discovery method query.</td>
+<td></td>
+<td></td>
+<td>properties used in defining the static provisioning of each of the virtual devices</td>
 </tr>
 <tr>
-<td>Transaction</td>
-<td>The asynchronous helper object used for gathering sets of device responses.</td>
+<td>Name</td>
+<td>'Random-Integer-Device'</td>
+<td>name of the virtual device</td>
+</tr>
+<tr>
+<td>Profile</td>
+<td>'Random-Integer-Device'</td>
+<td>device profile that defines the resources and commands of the virtual device</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>'Example of Device Virtual'</td>
+<td>description of the virtual device</td>
+</tr>
+<tr>
+<td>Labels</td>
+<td>['device-virtual-example']</td>
+<td>labels array used for searching for virtual devices</td>
 </tr>
 </tbody>
 </table>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">DeviceList/DeviceList.Protocols/DeviceList.Protocols.other</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Example Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Address</td>
+<td>'device-virtual-int-01'</td>
+<td>address for the virtual device</td>
+</tr>
+<tr>
+<td>Protocol</td>
+<td>'300'</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">DeviceList/DeviceList.AutoEvents</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td>properties used to define how often an event/reading is schedule for collection to send to core data from the virtual device</td>
+</tr>
+<tr>
+<td>Frequency</td>
+<td>'15s'</td>
+<td>every 15 seconds</td>
+</tr>
+<tr>
+<td>OnChange</td>
+<td>false</td>
+<td>collect data regardless of change</td>
+</tr>
+<tr>
+<td>Resource</td>
+<td>'Int8'</td>
+<td>deviceResource to collect - in this case the Int8 resource</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<h2 id="api-reference">API Reference</h2>
+<p><a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/1.2.1">Device Service - SDK- API Reference</a></p>
                 
               
               
