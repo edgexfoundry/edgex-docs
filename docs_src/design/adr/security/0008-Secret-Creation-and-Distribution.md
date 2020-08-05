@@ -100,6 +100,10 @@ to bring the implementation into conformance with the recommended practices.
   * Docker: System of reference is unencrypted Postgres database. (Non-compliant.)
   * Snaps: System of reference is unencrypted Postgres database. (Non-compliant.)
 
+Note: in the current implementation,
+Consul is being operated as a public service.
+Consul will be a subject of a future "bootstrapping ADR"
+due to its role in serivce location.
 
 #### User-managed secrets
 
