@@ -28,7 +28,19 @@ and all services running in a single snap share a trust boundary.
 
 The following terms will be helpful for understading the subsequent discussion:
 
-- _SECRETSLOC_ is a protected file system path where transient secrets are stored.
+- _SECRETSLOC_ is a protected file system path where bootstrapping secrets are stored.
+
+  While EdgeX implements a sophisticated secret handling mechanism,
+  that mechanism itself requires secrets.
+  For example, every microservice that talks to Vault
+  must have its own unique secret to authenticate:
+  Vault itself cannot be used to distribute these secrets.
+  _SECRETSLOC_ fulfills the role that the non-routable
+  instance data IP address, 169.254.169.254,
+  fulfills in the public cloud:
+  delivery of bootstrapping secrets.
+  As EdgeX does not have a hypervisor nor virtual machines for this purpose,
+  a protected file system path is used instead.
 
   _SECRETSLOC_ is implementation-dependent. 
   A desirable feature of _SECRETSLOC_ would be that data written here
@@ -302,6 +314,16 @@ List of needed improvements:
   * All: Investigate hardware protection of cached Consul and Vault PKI secret keys.  (Vault cannot unseal its own TLS certificate.)
   * Snaps: Relocate PKI into _SECRETSLOC_ instead of its own folder.
 
+- Special case: Bring-your-own external Kong certificate and key
+  * The Kong external certificate and key is already stored in Vault,
+    however, additional metadata is needed
+    to signal whether these are auto-generated or manually-installed.
+    A manually-suppinstalledlied certificate and key
+    would not be overwritten by the framework bringup logic.
+    Installing a custom certificate and key can then be implemented by
+    overwriting the system-generated ones and setting a flag
+    indicating that they were manually-installed.
+
 - Secret store master password
   * All: Enable hooks for [hardware protection](https://github.com/edgexfoundry/edgex-go/issues/1919) of secret store master password.
 
@@ -315,12 +337,18 @@ List of needed improvements:
 - MongoDB service account passwords
   * No changes required.
 
-- Redis authentication password
+- Redis(5) authentication password
   * All: Implement process-to-process injection: start Redis unauthenticated, with a post-start hook to read the secret out of Vault and set the Redis password. (Short race condition between Redis starting, password being set, and dependent services starting.)
   * No changes on client side.
 
+- Redis(6) passwords
+  * Interim solution: handle like MongoDB service account passwords.
+    Future ADR to propose use of a Vault database secrets engine.
+  * No changes on client side (each service accesses its own credential)
+
 - Kong authentication tokens
   * All: Implement in-transit authentication with TLS-protected Postgres interface.
+    (Subject to change if it is decided not to enable a Postgres backend out of the box.)
   * Additional research needed as PostgreSQL does not support transparent data encryption.
 
 ## References
