@@ -1,6 +1,6 @@
 # Modbus - Data Type Conversion
 
-In use cases where the Device Resource uses an integer data type with a
+In use cases where the device resource uses an integer data type with a
 float scale, precision can be lost following transformation.
 
 For example, a Modbus device stores the temperature and humidity in an
@@ -14,13 +14,13 @@ the value descriptor data type. This is achieved using the optional
 from the Modbus device, and a `value type` to indicate what data type
 the user wants to receive.
 
-If the `rawType` attribute exists, the Device Service parses the binary
+If the `rawType` attribute exists, the device service parses the binary
 data according to the defined `rawType`, then casts the value according
-to the `value type` defined in the `properties` of the Device Resources
-.
+to the `value type` defined in the `properties` of the device resources.
 
 The following extract from a device profile defines the `rawType` as
 INT16 and the `value type` as FLOAT32:
+
 ``` yaml
 deviceResources:
   - name: "humidity"
@@ -47,7 +47,7 @@ deviceResources:
 
 A Read command is executed as follows:
 
-1.  The Device Service executes the Read command to read binary data
+1.  The device service executes the Read command to read binary data
 2.  The binary reading data is parsed as an INT16 data type
 3.  The integer value is cast to a FLOAT32 value
 
@@ -57,10 +57,10 @@ A Read command is executed as follows:
 
 A Write command is executed as follows:
 
-1.  The Device Service cast the requested FLOAT32 value to an integer
+1.  The device service cast the requested FLOAT32 value to an integer
     value
 2.  The integer value is converted to binary data
-3.  The Device Service executes the Write command
+3.  The device service executes the Write command
 
 ![Modbus Write Command](ModbusWriteConversion.png)
 
@@ -71,18 +71,17 @@ You generally need to transform data when scaling readings between a
 
 The following limitations apply:
 
--   `rawType` supports only INT16 and UINT16 data types
--   The corresponding `value type` must be FLOAT32 or FLOAT64
+-  `rawType` supports only INT16 and UINT16 data types
+-  The corresponding `value type` must be FLOAT32 or FLOAT64
 
 If an unsupported data type is defined for the `rawType` attribute, the
-Device Service throws an exception similar to the following:
+device service throws an exception similar to the following:
 
-    Handler - execReadCmd: error for Device: Modbus-TCP-Device cmd: readAll, the raw type INT32 is not supported /api/v1/device/91f6430d-9268-43e3-88a6-19dbe7f98dad/readAll
+    Handler - execReadCmd: error for device: Modbus-TCP-Device cmd: readAll, the raw type INT32 is not supported /api/v1/device/91f6430d-9268-43e3-88a6-19dbe7f98dad/readAll
 
-### Supported Transformations
+## Supported Transformations
 
 The supported transformations are as follows:
-
   
   |From `rawType`               |To `value type`|
   |---------------------------- |------------------------------------------|

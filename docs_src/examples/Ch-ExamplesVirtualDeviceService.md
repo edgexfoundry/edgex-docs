@@ -14,65 +14,33 @@ GO](https://github.com/edgexfoundry/device-sdk-go), and uses
 [ql](https://godoc.org/modernc.org/ql) (an embedded SQL database engine)
 to simulate virtual resources.
 
-![Virtual Device Service](Virtual_DS.png)
 
-### Sequence Diagram
 
-![Sequence Diagram](VirtualSequence.png)
+## Introduction
 
-## Virtual Resource Table Schema
+For information on the virtual device service see [virtual device](../microservices/device/virtual/Ch-VirtualDevice.md#) under the Microservices tab.
 
-  
-  |Column                                          |Type|
-  | --- | --- |
-  |DEVICE\_NAME                                    |STRING|
-  |COMMAND\_NAME                                   |STRING|
-  |DEVICE\_RESOURCE\_NAME                          |STRING|
-  |ENABLE\_RANDOMIZATION                           |BOOL|
-  |DATA\_TYPE                                      |STRING|
-  |VALUE                                           |STRING|
-  
+## Working with the Virtual Device Service
 
-## How to Use
+### Running the Virtual Device Service Container
 
-The Virtual Device Service depends on the EdgeX Core Services. If
-you're going to download the source code and run the Virtual Device
-Service in dev mode, make sure that the EdgeX Core Services are up
-before starting the Virtual Device Service.
+The virtual device service depends on the EdgeX core services. By default, the virtual device service is part of the EdgeX community provided Docker Compose files.  If you use one of the [community provide Compose files](https://github.com/edgexfoundry/developer-scripts/tree/master/releases), you can pull and run EdgeX inclusive of the virtual device service without having to make any changes.
 
-The Virtual Device Service currently contains four pre-defined devices
-(see the
-[configuration.toml](https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/configuration.toml))
-as random value generators:
+### Running the Virtual Device Service Natively (in development mode)
 
-  
-  |Device Name |                        Device Profile|
-  | --- | --- |
-  |Random-Boolean-Device   |            [device.virtual.bool.yaml](https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/device.virtual.bool.yaml) |
-  |Random-Float-Device   |              [device.virtual.float.yaml](https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/device.virtual.float.yaml) |
-  |Random-Integer-Device  |             [device.virtual.int.yaml](https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/device.virtual.int.yaml) |
-  |Random-UnsignedInteger-Device  |     [device.virtual.uint.yaml](https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/device.virtual.uint.yaml) |
-  
-
-**Restricted:** To control the randomization of device resource values,
-it has to add additional device resources with the prefix
-"EnableRandomization\_" for each device resource. (Need to do the same
-for device commands and core commands) Please find the above default
-device profiles for example.
-
-Acquire the executable commands information by inquiring the Core
-Command API:
-
--   <http://[host]:48082/api/v1/device/name/Random-Boolean-Device>
--   <http://[host]:48082/api/v1/device/name/Random-Integer-Device>
--   <http://[host]:48082/api/v1/device/name/Random-UnsignedInteger-Device>
--   <http://[host]:48082/api/v1/device/name/Random-Float-Device>
+If you're going to download the source code and run the virtual device service in development mode, make sure that the EdgeX core service containers are up before starting the virtual device service.  See how to work with EdgeX in a [hybrid environment](../getting-started/Ch-GettingStartedHybrid.md) in order to run the virtual device service outside of containers.  This same file will instruct you on how to get and [run the virtual device service code](../getting-started/Ch-GettingStartedHybrid.md#get-the-service-code).
 
 ### GET command example
+The virtual device service is configured to send simulated data to core data every few seconds (from 10-30 seconds depending on device - see the [configuration file](https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/configuration.toml) for AutoEvent details).  You can excersice the `GET` request on the command service to see the generated value produced by any of the virtual device's simulated devices.  Use the curl command below to exercise the virtual device service API (via core command service).
 
 ``` bash
 curl -X GET localhost:48082/api/v1/device/1bd5d4c3-9d43-42f2-8c4a-f32f5999edf7/command/e5d7c2b8-eab7-4da4-9d41-388da05979a4`
 ```
+
+!!! Warning
+  The example above assumes your core command service is available on `localhost` at the default service port of 48082.  Also, you must replace your device ID and command ID in the example above with your virtual device service's identifiers.  If you are not sure of the identifiers to use, query the command service for the full list of commands and devices at `http://localhost:48082/api/v1/device`.
+
+The virtual device should respond (via the core command service) with event/reading JSON similar to that below.
 ``` json
 {
   "device": "Random-Integer-Device",
@@ -88,79 +56,99 @@ curl -X GET localhost:48082/api/v1/device/1bd5d4c3-9d43-42f2-8c4a-f32f5999edf7/c
   "EncodedEvent": null
 }
 ```
+
 ### PUT command example - Assign a value to a resource
+The virtual devices managed by the virtual device can also be actuated.  The virtual device can be told to enable or disable random number generation.  When disabled, the virtual device services can be told what value to respond with for all `GET` operations.  When setting the fixed value, the value must be valid for the data type of the virtual device. For example, the minimum value of Int8 cannot be less than -128 and the maximum value cannot be greater than 127.
 
-The value must be a valid value for the data type. For example, the
-minimum value of Int8 cannot be less than -128 and the maximum value
-cannot be greater than 127.
+Below is example actuation of one of the virtual devices.  In this example, it sets the fixed 'GET` return value to 123 and turns of random generation.
+
 ``` bash
-curl -X PUT -d '{"Int8": "123"}' \
-localhost:48082/api/v1/device/1bd5d4c3-9d43-42f2-8c4a-f32f5999edf7/command/e5d7c2b8-eab7-4da4-9d41-388da05979a4
+curl -X PUT -d '{"Int8": "123", "EnableRandomization_Int8": "false"}' localhost:48082/api/v1/device/1bd5d4c3-9d43-42f2-8c4a-f32f5999edf7/command/e5d7c2b8-eab7-4da4-9d41-388da05979a4
 ```
-### PUT command example - Enable/Disable the randomization of the resource
-``` bash
-curl -X PUT -d '{"EnableRandomization_Int8": "false"}' \
-localhost:48082/api/v1/device/1bd5d4c3-9d43-42f2-8c4a-f32f5999edf7/command/e5d7c2b8-eab7-4da4-9d41-388da05979a4
-```
+
 !!! Note
-    -   The value of the resource's EnableRandomization property is
-        simultaneously updated to false when sending a put command to assign
-        a specified value to the resource
+    The value of the resource's EnableRandomization property is simultaneously updated to false when sending a put command to assign a specified value to the resource.  Therefore, the need to set EnableRandomization_Int8 to false is not actually required in the call above 
 
-    -   The minimum and maximum values of the resource can be defined in the
-        property value field of the Device Resource model, for example:
+Return the virtual device to randomly generating numbers with another `PUT` call.
 
-            deviceResources:
-            - name: "Int8"
-              description: "Generate random int8 value"
-              properties:
-                value:
-                  { type: "Int8", readWrite: "R", minimum: "-100", maximum: "100", defaultValue: "0" }
-                units:
-                  { type: "String", readWrite: "R", defaultValue: "random int8 value" }
-
+``` bash
+curl -X PUT -d '{"EnableRandomization_Int8": "true"}' 48082/api/v1/device/1bd5d4c3-9d43-42f2-8c4a-f32f5999edf7/command/e5d7c2b8-eab7-4da4-9d41-388da05979a4
+```
 
 ## Manipulate Virtual Resources Using the command ql Tool
 
-1.  Install [command ql](https://godoc.org/modernc.org/ql/ql)
+The virtual device service utilizes the ql database under he covers to store parameters for virtual device operations.  The values a virtual device generates can be controlled by changing these parameters in the embedded database (versus calling on the API).
 
-2.  If the Virtual Device Service runs in a Docker container, it must
-    mount the directory (/db) that contains the ql database in the
-    container. For example:
-``` yaml
-device-virtual:
-  image: edgexfoundry/docker-device-virtual-go:1.1.0
-  ports:
-    - "49990:49990"
-  container_name: device-virtual
-  hostname: device-virtual
-  networks:
-    - edgex-network
-  volumes:
-    - db-data:/data/db
-    - log-data:/edgex/logs
-    - consul-config:/consul/config
-    - consul-data:/consul/data
-    - /mnt/hgfs/EdgeX/DeviceVirtualDB:/db # Mount ql database directory
-  depends_on:
-    - data
-    - command
-```
-3.  If the Virtual Device Service runs in dev mode, the ql database
-    directory is under the driver directory
+1.  You will need a command line tool to interact with the ql database.  Install [command ql](https://godoc.org/modernc.org/ql/ql).
 
-Command examples:
+2. Depending on whether you are running the virtual device service in a Docker container or in development mode ("natively"), you will need access to the ql database directory (see the tabs below).
 
--   Query all data:
-``` bash
-ql -db /path-to-the-ql-db-folder/deviceVirtual.db -fld "select * from VIRTUAL_RESOURCE"
-```
--   Update Enable\_Randomization:
-``` bash
-ql -db /path-to-the-ql-db-folder/deviceVirtual.db "update VIRTUAL_RESOURCE set ENABLE_RANDOMIZATION=false where DEVICE_NAME="Random-Integer-Device" and DEVICE_RESOURCE_NAME="Int8" "
-```
+3. Execute ql commands to execute SQL commands to see the virtual device configuration in the database or change the values returned.
 
--   Update Value:
-``` bash
-ql -db /path-to-the-ql-db-folder/deviceVirtual.db "update VIRTUAL_RESOURCE set VALUE="26" where DEVICE_NAME="Random-Integer-Device" and DEVICE_RESOURCE_NAME="Int8" "
-```
+      -   Query all data:
+      ``` bash
+      ql -db /path-to-the-ql-db-folder/deviceVirtual.db -fld "select * from VIRTUAL_RESOURCE"
+      ```
+      -   Update Enable\_Randomization:
+      ``` bash
+      ql -db /path-to-the-ql-db-folder/deviceVirtual.db "update VIRTUAL_RESOURCE set ENABLE_RANDOMIZATION=false where DEVICE_NAME="Random-Integer-Device" and DEVICE_RESOURCE_NAME="Int8" "
+      ```
+
+      -   Update Value:
+      ``` bash
+      ql -db /path-to-the-ql-db-folder/deviceVirtual.db "update VIRTUAL_RESOURCE set VALUE="26" where DEVICE_NAME="Random-Integer-Device" and DEVICE_RESOURCE_NAME="Int8" "
+      ```
+    !!! Note
+        When running the virtual device service in a container, make sure to run these commands as `root` using sudo.
+
+=== "Running Containerized"
+
+    If the virtual device service runs in a Docker container, it must mount the directory (/db) that contains the ql database in the
+        container. For example:
+
+    ``` yaml
+    device-virtual:
+      image: edgexfoundry/docker-device-virtual-go:1.2.1
+      ports:
+      - "127.0.0.1:49990:49990"
+      container_name: edgex-device-virtual
+      hostname: edgex-device-virtual
+      networks:
+        - edgex-network
+      environment:
+        <<: *common-variables
+        Service_Host: edgex-device-virtual
+      depends_on:
+        - consul
+      # - logging  # uncomment if re-enabled remote logging
+        - data
+        - metadata
+      volumes:
+        - /mnt/hgfs/EdgeX/DeviceVirtualDB:/db # Mount ql database directory
+    ```
+
+
+=== "Running in Development Mode"
+
+    If the virtual device service runs in development mode, the ql database is under the `device-virtual-go/cmd/db` directory.
+
+## Reference
+
+### Architectural Diagram
+
+![Virtual Device Service](Virtual_DS.png)
+
+### Sequence Diagram
+
+![Sequence Diagram](VirtualSequence.png)
+
+### Virtual Resource Table Schema
+  
+|Column                                          |Type|
+| --- | --- |
+|DEVICE\_NAME                                    |STRING|
+|COMMAND\_NAME                                   |STRING|
+|DEVICE\_RESOURCE\_NAME                          |STRING|
+|ENABLE\_RANDOMIZATION                           |BOOL|
+|DATA\_TYPE                                      |STRING|
+|VALUE                                           |STRING|
