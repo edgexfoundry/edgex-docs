@@ -60,7 +60,7 @@ The virtual device should respond (via the core command service) with event/read
 ### PUT command example - Assign a value to a resource
 The virtual devices managed by the virtual device can also be actuated.  The virtual device can be told to enable or disable random number generation.  When disabled, the virtual device services can be told what value to respond with for all `GET` operations.  When setting the fixed value, the value must be valid for the data type of the virtual device. For example, the minimum value of Int8 cannot be less than -128 and the maximum value cannot be greater than 127.
 
-Below is example actuation of one of the virtual devices.  In this example, it sets the fixed 'GET` return value to 123 and turns of random generation.
+Below is example actuation of one of the virtual devices.  In this example, it sets the fixed `GET` return value to 123 and turns off random generation.
 
 ``` bash
 curl -X PUT -d '{"Int8": "123", "EnableRandomization_Int8": "false"}' localhost:48082/api/v1/device/1bd5d4c3-9d43-42f2-8c4a-f32f5999edf7/command/e5d7c2b8-eab7-4da4-9d41-388da05979a4
