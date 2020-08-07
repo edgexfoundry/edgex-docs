@@ -1,104 +1,80 @@
 # Defining your device
 
-A Device Profile can be thought of as a template or as a type or
-classification of Device. General characteristics about the type of
-Device, the data theses Devices provide, and how to command them is all
-provided in a Device Profile. Other pages within these docs provide more
-details about a Device Profile and its purpose (see
-[Core-Metadata](../microservices/core/metadata/Ch-Metadata.md)
- to start). It is typical
-that as part of the reference information setup sequence, the Device
-Service provides the Device Profiles for the types of Devices it
+A [device profile](../microservices/device/profile/Ch-DeviceProfile.md) can be thought of as a template or as a type or
+classification of device. General characteristics about the type of
+device, the data theses devices provide, and how to command them is all
+provided in a device profile. Other pages within this document set provide more
+details about a device profile and its purpose (see
+[core metadata](../microservices/core/metadata/Ch-Metadata.md)
+ to start). It is typical that as part of the reference information setup sequence, the device
+service provides the device profiles for the types of devices it
 manages.
 
-## Adding a Device Profile
+## Device Profile
 
-See Core Metadata API RAML at [APIs Core Services
-Metadata](https://github.com/edgexfoundry/edgex-go/blob/master/api/raml/core-metadata.raml)
+See [core metadata API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/1.2.0) for more details.
 
-Our fictitious Device Service will manage only the human/dog counting
-camera, so it only needs to make one POST request to create the
-monitoring camera Device Profile. Since Device Profiles are often
-represented in YAML, make a muti-part form-data POST with the Device
-Profile file below to create the Camera Monitor profile.
-
-    POST to http://localhost:48081/api/v1/deviceprofile/uploadfile
-
-No headers
-
-FORM-DATA:
-
-> key: "file"
->
-> value:
-> `EdgeX_CameraMonitorProfile.yml <EdgeX_CameraMonitorProfile.yml>`{.interpreted-text
-> role="download"}
-
-**Walk Through alert!**
-
-In this step you will want to use the `form-data` POST
-format in Postman, with a key named "file" of type "File". Download
-and use the provided
-`EdgeX_CameraMonitorProfile.yml <EdgeX_CameraMonitorProfile.yml>`{.interpreted-text
-role="download"} for this.
-
-![image](EdgeX_WalkthroughPostmanFile.png)
+Our fictitious device service will manage only the human/dog counting
+camera, so it only needs to make one `POST` request to create the
+monitoring camera device profile. Since device profiles are often
+represented in YAML, you make a multi-part form-data `POST` with the device
+profile file below to create the Camera Monitor profile.
 
 Each profile has a unique name along with a description, manufacturer,
 model and collection of labels to assist in queries for particular
 profiles. These are relatively straightforward attributes of a profile.
 
-## Understanding Commands
+### Understanding Commands
 
-The Device Profile defines how to communicate with any Device that
-abides by the profile. In particular, it defines the Commands that can
-be sent to the Device (via the Device Service). Commands are named and
-have either a get (for retrieving data from the Device) or put (to send
-data to the Device) or both. Each Command can have a single get and
-single put. Both get and put are optional, but it would not make sense
-to have a Command without at least one get or at least one put. The
-Command name must be unique for that profile (the Command name does not
+The device profile defines how to communicate with any device that
+abides by the profile. In particular, it defines the `deviceResources`, `deviceCommands` and `coreCommands` used to send requests to the device (via the device service).  See the [Device Profile documentation](../microservices/device/profile/Ch-DeviceProfile.md) for more background on each of these.
+
+`coreCommands` specify the commands which are available via the core command micro service, for reading and writing to the device. `coreCommands` are named and have either a `get` (for retrieving data from the device) or `put` (to send data to the device) or both. Each command can have a single `get` and
+single `put`. Both `get` and `put` are optional, but it would not make sense
+to have a command without at least one `get` or at least one `put`. The
+command name must be unique for that profile (the `coreCommand` name does not
 have to be unique across all of EdgeX - for example, many profiles may
-contain a "status" Command).
+contain a "status" `coreCommand`).
 
-## Understanding Command Gets and Puts
+#### Understanding Get Command
 
-The get and put each have a path which is used by EdgeX to call on the
-specific Command get or put at the URL address provided for the service.
-Hypothetically, if the address to a Device Service was
-"<http://abc:9999>" and the get Command had a path of "foo", then
-internally, EdgeX would know to use "<http://abc:9999/foo>" to call on
-the get Command.
+The `get` and `put` each have a path which is used by EdgeX to call on the
+specific command `get` or `put` at the URL address provided for the service.
+Hypothetically, if the address to a device service was
+`<http://abc:9999>` and the `get` command had a path of `foo`, then
+internally, EdgeX would know to use `<http://abc:9999/foo>` to call on
+the `get` Command.
 
-Get and puts then have response objects (an array of response objects).
-A get must have at least one response object. A put is not required to
+`get`s and `put`s have response objects (or an array of response objects).
+A `get` must have at least one response object. A `put` is not required to
 have a response. Responses might be "good" or "error" responses.
-Each get should have at least one "good" response, but it may have
-several error responses depending on what problems or issues the Device
-Service may need to reply with. Each response is made up of a code
+Each `get` should have at least one "good" response, but it may have
+several error responses depending on what problems or issues the device
+service may need to reply with. Each response is made up of a code
 (which suggests if it is a good or error response), a description (human
 readable information about what is in the response), and an array of
 expected values. For practical purposes, the code is usually an HTTP
-status code like 200 (for good responses), 404 or 503 (examples of bad
+status code like `200` (for good responses), `404` or `503` (examples of bad
 responses).
 
-The expected values in a response are an array of Value Descriptor
-names. If a call to an get Command is expected to return back the human
-and dog count data, then the response's expected values would be:
-\[humancount, caninecount\]. When the actual call to the Device Service
+The expected values in a response are an array of `deviceResource` or `deviceCommand`
+names. Per the walkthrough profile, if a call to an `get` command is expected to return back the human
+and dog count data, then the response's expected values would be the `deviceResources`
+`["HumanCount","CanineCount"]`. When the actual call to the device service
 is made, the body of the return response from the service is expected to
-return a value for each of the expected values in a map where the Value
-Descriptor names are used as keys. Again, using the human and dog counts
-as an example, if the expected values were \[humancount, caninecount\]
+return a value for each of the expected values in a map where the `deviceResource` names are used as keys. Again, using the human and dog counts
+as an example, if the expected values were \[HumanCount, CanineCount\]
 then the body of a good response from the service would contain a map
 that looks something like this:
+
 ``` json
 {
-    "humancount": 5,
-    "caninecount": 2
+    "HumanCount": 5,
+    "CanineCount": 2
 }
 ```
-Here is an example set of responses that might be used for a get Command
+
+Here is an example set of responses that might be used for a `get` command
 in the camera example. Note that one response is coded as the "good"
 response (code 200) while the other is for "error" response (code
 404). The expected values for the good response are the Value Descriptor
@@ -107,51 +83,82 @@ names for the camera's count data. The expected values for the
 ```json
 {
   "responses":[
-      {"code":"200","description":"ok","expectedValues":["humancount", "caninecount"]},
-      {"code":"404","description":"bad request","expectedValues":["cameraerror"]}
+    {"description" : "Get the people and dog counts","expectedValues" : ["HumanCount", "CanineCount"],"code" : "200"}
+    {"description" : "bad request","expectedValues" : ["CameraError"],"code" : "404"}
     ]
   }
 }
 ```
-## Understanding Command Parameters
 
-Commands are used to send data to Devices (via Device Services) as much
-as they are used to get data from Devices. Therefore, any Command may
+#### Understanding Set Command Parameters
+
+`coreCommand`s are also used to send data to Devices (via device services) as much
+as they are used to get data from devices. Therefore, any `coreCommand` may
 have a set of parameters associated with its call. Parameter data is
-added to the body of the Command request. Parameters are defined via an
-array of `parameterNames` on a Command.
+added to the body of the command request. Parameters are defined via an
+array of `parameterNames` on a command.
 
-Here again, this array is just an array of Value Descriptor names. Each
-Value Descriptor defines the name and type of information to be supplied
-as a parameter to the Command call. For example, if a Command had a
-parameterNames array of `[depth, duration]`, then the receiving command
-is expecting values that match the `depth` and `duration` Value
-Descriptors.
+Here again, this array is just an array of `deviceResource` names. Each
+`deviceResource` defines the name and type of information to be supplied
+as a parameter to the command call. For example, if a command had a
+`parameterNames` array of `[ScanDepth, SnapshotDuration]`, then the receiving command
+is expecting values that match these `deviceResource`s.
 
 Similar to the way expected values are used to set the keys of the
 response body, the parameter names are used as keys in a map to pass
-parameter values in a Command call that has parameters. Here might be
-what is populated in the body of the Command call when the
-`parameterNames` are `[depth, duration]`.
+parameter values in a command call that has parameters. Here might be
+what is populated in the body of the command call when the
+`parameterNames` are `[ScanDepth, SnapshotDuration]`.
+
 ``` json
 {
-  "depth": 1,
-  "duration": 10
+  "ScanDepth": 1,
+  "SnapshotDuration": 10
 }
 ```
-If you open the
-`CameraMonitorProfile.yml <EdgeX_CameraMonitorProfile.yml>`{.interpreted-text
-role="download"} file, see that there are Commands to get people and dog
+
+If you open the [Camera Monitor Profile YAML file](EdgeX_CameraMonitorProfile.yml), see that there are commands to get people and dog
 counts (and a command called Counts, which provides both values). There
-are also commands to get/put the snapshot duration and scan depth. Also
-note the expected values for the Commands. The expected values should
-match the name of the Value Descriptors from above that give context to
-the returned values. In real implementations, the Device Profile may
-contain many more details (like device resource and resource elements)
-to assist the Device Service in its communications with Devices.
+are also commands to `get` and `put` the snapshot duration and scan depth.
 
-**Expected Values Alert!**
+### Walkthrough - Device Profile
 
--   Metadata does not currently check that the expected values match an
-    existing Value Descriptor by name. Therefore, make sure you provide
-    the expected values array carefully when creating Device Profiles.
+Use either the Postman or Curl tab below to walkthrough uploading the device profile.
+
+#### Download the Device Profile
+
+Click on the link below to download and save the device profile (YAML) to your system.
+
+  [EdgeX_CameraMonitorProfile.yml](EdgeX_CameraMonitorProfile.yml)
+
+!!! Note
+    Device profiles are stored in core metadata.  Therefore, note that the calls in the walkthrough are to the metadata service, which defaults to port 48081.
+
+#### Upload the Device Profile to EdgeX
+
+=== "Postman"
+
+    Make a POST request to `http://localhost:48081/api/v1/deviceprofile/uploadfile`.  The request should not include any additional headers (leave the defaults).  In the Body, make sure "form-data" is selected and set the Key to `file` and then select the device profile file where you saved it (as shown below).
+
+    ![image](EdgeX_WalkthroughPostmanFile.png)
+
+    If your API call is successful, you will get a generated ID (a UUID) for your new `DeviceProfile` in the response area.
+
+=== "Curl"
+
+    Make a curl POST request as shown below.
+
+    ``` shell
+    curl -F 'file=@/path/to/your/profile/here/EdgeX_CameraMonitorProfile.yml' localhost:48081/api/v1/deviceprofile/uploadfile
+    ```
+
+    If your API call is successful, you will get a generated ID (a UUID) for your new `DeviceProfile`.
+
+    !!! Warning
+        Note that the file location in the curl command above needs to be replaced with your actual file location path.  Also, if you do not save the device profile file to `EdgeX_CameraMonitorProfile.yml`, then you will need to replace the file name as well.
+
+#### Test the GET API
+If you make a GET call to the `http://localhost:48081/api/v1/deviceprofile` URL (with Postman or curl) you will get a listing (in JSON) of all the device profiles (and all of its associated `deviceResource`, `deviceCommand` and `coreCommand`) currently defined
+in your instance of EdgeX, including the one you just added.
+
+[<Back](Ch-WalkthroughData.md){: .md-button } [Next>](Ch-WalkthroughDeviceService.md){: .md-button }
