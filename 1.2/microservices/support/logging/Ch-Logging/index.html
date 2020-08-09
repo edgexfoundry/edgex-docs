@@ -761,9 +761,49 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Logging
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z" /></svg>
+        </span>
+      </label>
+    
     <a href="./" title="Logging" class="md-nav__link md-nav__link--active">
       Logging
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#deprecation-notice" class="md-nav__link">
+    Deprecation Notice
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logging-service-documentation" class="md-nav__link">
+    Logging Service Documentation
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -1917,6 +1957,30 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#deprecation-notice" class="md-nav__link">
+    Deprecation Notice
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logging-service-documentation" class="md-nav__link">
+    Logging Service Documentation
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1936,221 +2000,14 @@
                 
                 
                 <h1 id="logging">Logging</h1>
-<h1 id="deprecated-in-geneva-release">(Deprecated in Geneva Release)</h1>
 <p><img alt="image" src="../EdgeX_SupportingServicesLogging.png" /></p>
-<hr />
-<p><strong>Deprecation Notice</strong></p>
-<p>Please note that the logging service has been deprecated with the Geneva release (v1.2).  The EdgeX community feels that there are better log aggregation services available in the open source community or by deployment/orchestration tools.</p>
+<h2 id="deprecation-notice">Deprecation Notice</h2>
+<p>Please note that the logging service has been <strong>deprecated with the Geneva release (v1.2)</strong>.  The EdgeX community feels that there are better log aggregation services available in the open source community or by deployment/orchestration tools.</p>
 <p>Starting with the Geneva release, logging service will no longer be started as part of the reference implementations provided through the EdgeX Docker Compose files (the service is still available but commented out in those files).</p>
 <p>By default, all services now log to standard out (EnableRemote is set to false and File is set to '').  If users wish to still use the central logging service, they must configure each service to use it (set EnableRemote=true).  Users can still alternately choose to have the services log to a file with additional configuration changes (set File to the appropriate file location).</p>
 <p>The Support Logging Service will removed in a future release of EdgeX Foundry.</p>
-<hr />
-<h2 id="introduction">Introduction</h2>
-<p>Logging is critical for all modern software applications. Proper logging
-provides the users with the following benefits:</p>
-<ul>
-<li>Ability to monitor and understand what systems are doing</li>
-<li>Ability to understand how services interact with each other</li>
-<li>Problems are detected and fixed quickly</li>
-<li>Monitoring to foster performance improvements</li>
-</ul>
-<p>The graphic shows the high-level design architecture of EdgeX Foundry
-including the Logging Service.</p>
-<h2 id="minimum-product-feature-set">Minimum Product Feature Set</h2>
-<ol>
-<li>
-<p>Provides a RESTful API for other microservices to request log
-    entries with the following characteristics:</p>
-</li>
-<li>
-<p>The RESTful calls should be non-blocking, meaning calling services
-    should fire logging requests without waiting for any response from
-    the log service to achieve minimal impact to the speed and
-    performance to the services.</p>
-</li>
-<li>Support multiple logging levels, for example trace, debug, info,
-    warn, error, fatal, and so forth.</li>
-<li>
-<p>Each log entry should be associated with its originating service.</p>
-</li>
-<li>
-<p>Provide RESTful APIs to query, clear, or prune log entries based on
-    any combination of following parameters:</p>
-</li>
-<li>
-<p>Timestamp from</p>
-</li>
-<li>Timestamp to</li>
-<li>Log level</li>
-<li>
-<p>Originating service</p>
-</li>
-<li>
-<p>Log entries should be persisted in either file or database, and the
-    persistence storage should be managed at configurable levels.
-    Querying via the REST API is only supported for deployments using
-    database storage.</p>
-</li>
-<li>Take advantage of an existing logging framework internally and
-    provide the "wrapper" for use by EdgeX Foundry</li>
-<li>Follow applicable standards for logging where possible and not
-    onerous to use on the gateway</li>
-</ol>
-<h2 id="high-level-design-architecture">High Level Design Architecture</h2>
-<p><img alt="image" src="../EdgeX_SupportingServicesLoggingArchitecture.png" /></p>
-<p>The above diagram shows the high-level architecture for EdgeX Foundry
-Logging Service. Other microservices interact with EdgeX Foundry Logging
-Service through RESTful APIs to submit their logging requests, query
-historical logging, and remove historical logging. Internally, EdgeX
-Foundry's Logging Service utilizes the <a href="https://github.com/go-kit/kit/tree/master/log">GoKit
-logger</a> as its internal
-logging framework. Two configurable persistence options exist supported
-by EdgeX Foundry Logging Service: file or MongoDB.</p>
-<h2 id="configuration-properties">Configuration Properties</h2>
-<p>The following configuration properties are specific to the support-logging service. Please refer to the general Configuration <a href="https://docs.edgexfoundry.org/1.2/microservices/configuration/Ch-Configuration/#configuration">documentation</a> for configuration properties common across all services.</p>
-<table>
-<thead>
-<tr>
-<th>Configuration</th>
-<th>Default Value</th>
-<th>Dependencies</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Entries in the Writable section of the configuration can be changed on the fly while the service is running if the service is running with the <code>–configProvider/ -cp=&lt;url&gt;</code> flag</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Writable Persistence</td>
-<td>database</td>
-<td>"file" to save logging in file; "database" to save logging in MongoDB</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h2 id="logging-service-client-library-for-go">Logging Service Client Library for Go</h2>
-<p>As the reference implementation of EdgeX Foundry microservices is
-written in Go, we provide a Client Library for Go so that Go-based
-microservices could directly switch their Loggers to use the EdgeX
-Foundry Logging Service.</p>
-<p>The Go LoggingClient is part of the <a href="https://github.com/edgexfoundry/go-mod-core-contracts">go-mod-core-contracts
-module</a>. This
-module can be imported into your project by including a reference in
-your go.mod. You can either do this manually or by executing "go get
-github.com/edgexfoundry/go-mod-core-contracts" from your project
-directory will add a reference to the latest tagged version of the
-module.</p>
-<p>After that, simply import
-"github.com/edgexfoundry/go-mod-core-contracts/clients/logger" into a
-given package where your functionality will be implemented. Declare a
-variable or type member as logger.LoggingClient and it's ready for use.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">main</span>
-
-<span class="kn">import</span> <span class="s2">&quot;github.com/edgexfoundry/go-mod-core-contracts/clients/logger&quot;</span>
-
-<span class="n">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">client</span> <span class="p">:</span><span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">LoggingClient</span>
-
-    <span class="o">//</span><span class="n">LoggingClient</span> <span class="ow">is</span> <span class="n">now</span> <span class="n">ready</span> <span class="k">for</span> <span class="n">use</span><span class="o">.</span> <span class="n">A</span> <span class="n">method</span> <span class="ow">is</span> <span class="n">exposed</span> <span class="k">for</span> <span class="n">each</span> <span class="n">LogLevel</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">Trace</span><span class="p">(</span><span class="s2">&quot;some info&quot;</span><span class="p">)</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">Debug</span><span class="p">(</span><span class="s2">&quot;some info&quot;</span><span class="p">)</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">Info</span><span class="p">(</span><span class="s2">&quot;some info&quot;</span><span class="p">)</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">Warn</span><span class="p">(</span><span class="s2">&quot;some info&quot;</span><span class="p">)</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">Error</span><span class="p">(</span><span class="s2">&quot;some info&quot;</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div>
-
-
-<p>Log statements will only be written to the log if they match or exceed
-the minimum LogLevel set in the configuration (described above). This
-setting can be changed on the fly without restarting the service to help
-with real-time troubleshooting.</p>
-<p>Log statements are currently output in a simple key/value format. For
-example:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">level=INFO ts=2019-05-16T22:23:44.424176Z app=edgex-support-notifications source=cleanup.go:32 msg=&quot;Cleaning up of notifications and transmissions&quot;</span>
-</code></pre></div>
-
-
-<p>Everything up to the "msg" key is handled by the logging
-infrastructure. You get the log level, timestamp, service name and the
-location in the source code of the logging statement for free with every
-method invocation on the LoggingClient. The "msg" key's value is the
-first parameter passed to one of the Logging Client methods shown above.
-So to extend the usage example a bit, the above calls would result in
-something like:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">level=INFO ts=2019-05-16T22:23:44.424176Z app=logging-demo source=main.go:11 msg=&quot;some info&quot;</span>
-</code></pre></div>
-
-
-<p>You can add as many custom key/value pairs as you like by simply adding
-them to the method call:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">client.Info(&quot;some info&quot;,&quot;key1&quot;,&quot;abc&quot;,&quot;key2&quot;,&quot;def&quot;)</span>
-</code></pre></div>
-
-
-<p>This would result in:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">level=INFO ts=2019-05-16T22:23:44.424176Z app=logging-demo source=main.go:11 msg=&quot;some info&quot; key1=abc key2=def</span>
-</code></pre></div>
-
-
-<p>Quotes are only put around values that contain spaces.</p>
-<h2 id="edgex-logging-keys">EdgeX Logging Keys</h2>
-<p>Within the EdgeX Go reference implementation, log entries are currently
-written as a set of key/value pairs. We may change this later to be more
-of a struct type than can be formatted according to the user's
-requirements (JSON, XML, system, etc). In that case, the targeted struct
-should contain properties that support the keys utilized by the system
-and described below.</p>
-<table>
-<thead>
-<tr>
-<th>Key</th>
-<th>Intent</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>level</td>
-<td>Indicates the log level of the individual log entry (INFO, DEBUG, ERROR, etc)</td>
-</tr>
-<tr>
-<td>ts</td>
-<td>The timestamp of the log entry, recorded in UTC</td>
-</tr>
-<tr>
-<td>app</td>
-<td>This should contain the service key of the service writing the log entry</td>
-</tr>
-<tr>
-<td>source</td>
-<td>The file and line number where the log entry was written</td>
-</tr>
-<tr>
-<td>msg</td>
-<td>A field for custom information accompanying the log entry. You do not need to specify this explicitly as it is the first parameter when calling one of the LoggingClient's functions.</td>
-</tr>
-<tr>
-<td>correlation-id</td>
-<td>Records the correlation-id header value that is scoped to a given request. It has two sub-ordinate, associated fields (see below).</td>
-</tr>
-<tr>
-<td>correlation-id path</td>
-<td>This field records the API route being requested and is utilized when the service begins handling a request. * Example: path=/api/v1/event When beginning the request handling, by convention set "msg" to "Begin request".</td>
-</tr>
-<tr>
-<td>correlation-id duration</td>
-<td>This field records the amount of time taken to handle a given request. When completing the request handling, by convention set "msg" to "Response complete".</td>
-</tr>
-</tbody>
-</table>
-<p>Additional keys can be added as need warrants. This document should be
-kept updated to reflect their inclusion and purpose.</p>
+<h2 id="logging-service-documentation">Logging Service Documentation</h2>
+<p>For information on the logging service, see the Fuji release <a href="https://fuji-docs.edgexfoundry.org/Ch-Logging.html">logging service documentation</a>.</p>
                 
               
               
