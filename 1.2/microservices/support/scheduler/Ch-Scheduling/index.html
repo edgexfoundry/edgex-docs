@@ -840,6 +840,40 @@
     Introduction
   </a>
   
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-interval-actions" class="md-nav__link">
+    Default Interval Actions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scheduler-persistence" class="md-nav__link">
+    Scheduler Persistence
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iso-8601-standard" class="md-nav__link">
+    ISO 8601 Standard
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-model" class="md-nav__link">
+    Data Model
+  </a>
+  
 </li>
       
         <li class="md-nav__item">
@@ -850,8 +884,22 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#high-level-interaction-diagrams" class="md-nav__link">
+    High Level Interaction Diagrams
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configuration-properties" class="md-nav__link">
     Configuration Properties
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-reference" class="md-nav__link">
+    API Reference
   </a>
   
 </li>
@@ -1977,6 +2025,40 @@
     Introduction
   </a>
   
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-interval-actions" class="md-nav__link">
+    Default Interval Actions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scheduler-persistence" class="md-nav__link">
+    Scheduler Persistence
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iso-8601-standard" class="md-nav__link">
+    ISO 8601 Standard
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-model" class="md-nav__link">
+    Data Model
+  </a>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1987,8 +2069,22 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#high-level-interaction-diagrams" class="md-nav__link">
+    High Level Interaction Diagrams
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configuration-properties" class="md-nav__link">
     Configuration Properties
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-reference" class="md-nav__link">
+    API Reference
   </a>
   
 </li>
@@ -2016,156 +2112,429 @@
                 <h1 id="scheduling">Scheduling</h1>
 <p><img alt="image" src="../EdgeX_SupportingServicesScheduling.png" /></p>
 <h2 id="introduction">Introduction</h2>
-<p>The Support-scheduler service executes operations on a configured interval or schedule. Two default scheduled operations are:</p>
-<p>1 - Clean up Core-data events/readings that have been moved ("pushed") to external applications/systems like a cloud provider. This is the "Scrubbed Pushed" operation. Scheduler parameters around this operation determine how often and where to call into core data to invoke this clean up of unneeded data operation.</p>
-<p>2 - Clean up of Core-data events/readings that have been persisted for an extended period. In order to prevent the edge node from running out of space, these old events/readings are removed. This is the "ScrubAged" operation. Scheduler parameters around this operation determine how often and where to call into Core-data to invoke this operation to expunge of old data.</p>
-<p>The removal of both exported records and stale records occurs on a
-configurable schedule. By default, both of the default actions above are invoked once a day at midnight.</p>
-<p>Support-scheduler uses a data store to persist the Interval(s) and
-IntervalAction(s). Persistence is accomplished the Scheduler DB located
+<p>The support scheduler micro service provide an internal EdgeX “clock” that can kick off operations in any EdgeX service.  At a configuration specified time (called an <strong>interval</strong>), the service calls on any EdgeX service API URL via REST to trigger an operation (called an <strong>interval action</strong>).  For example, the scheduling service periodically calls on core data APIs to clean up old sensed events that have been successfully exported out of EdgeX.</p>
+<h3 id="default-interval-actions">Default Interval Actions</h3>
+<p>Scheduled interval actions configured by default with the reference implementation of the service include:</p>
+<ul>
+<li>
+<p>Clean up Core-data events/readings that have been moved ("pushed") to external applications/systems like a cloud provider. This is the "Scrubbed Pushed" operation. Scheduler parameters around this operation determine how often and where to call into core data to invoke this clean up of unneeded data operation.</p>
+</li>
+<li>
+<p>Clean up of Core-data events/readings that have been persisted for an extended period. In order to prevent the edge node from running out of space, these old events/readings are removed. This is the "ScrubAged" operation. Scheduler parameters around this operation determine how often and where to call into Core-data to invoke this operation to expunge of old data.</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The removal of both exported records and stale records occurs on a configurable schedule. By default, both of the default actions above are invoked once a day at midnight.</p>
+</div>
+<h3 id="scheduler-persistence">Scheduler Persistence</h3>
+<p>Support scheduler uses a data store to persist the Interval(s) and IntervalAction(s). Persistence is accomplished the Scheduler DB located
 in your current configured database for EdgeX.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Redis DB is used by default to persist all scheduler service information to include intervals and interval actions.</p>
+</div>
+<h3 id="iso-8601-standard">ISO 8601 Standard</h3>
+<p>The times and frequencies defined in the scheduler service's intervals are specified using the <a href="https://en.wikipedia.org/wiki/ISO_8601">international date/time standard - ISO 8601</a>.  So, for example, the start of an interval would be represented in YYYYMMDD'T'HHmmss format.  20180101T000000 represents January 1, 2018 at midnight.  Frequencies are represented with ISO 8601 durations. </p>
+<h2 id="data-model">Data Model</h2>
+<p><img alt="image" src="../EdgeX_SupportSchedulerModel.png" /></p>
 <h2 id="data-dictionary">Data Dictionary</h2>
+<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Interval</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
-<th>Class Name</th>
+<th>Property</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Interval</td>
-<td>An object defining a specific "period" in time.</td>
+<td></td>
+<td>An object defining a specific "period" in time</td>
 </tr>
 <tr>
-<td>IntervalAction</td>
-<td>The action taken by a Service when the Interval occurs.</td>
+<td>ID</td>
+<td>Uniquely identifies an interval, for example a UUID</td>
+</tr>
+<tr>
+<td>Created</td>
+<td>A timestamp indicating when the interval was created in the database</td>
+</tr>
+<tr>
+<td>Modified</td>
+<td>A timestamp indicating when the interval was last modified</td>
+</tr>
+<tr>
+<td>Origin</td>
+<td>A timestamp indicating when the original interval was created</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>the name of the given interval</td>
+</tr>
+<tr>
+<td>start</td>
+<td>The start time of the given interval in ISO 8601 format</td>
+</tr>
+<tr>
+<td>end</td>
+<td>The end time of the given interval in ISO 8601 format</td>
+</tr>
+<tr>
+<td>frequency</td>
+<td>Periodicity of the interval according to ISO 8601</td>
+</tr>
+<tr>
+<td>cron</td>
+<td>cron styled regular expression indicating how often the action under interval should occur.  Use either runOnce, frequency or cron and not all</td>
+</tr>
+<tr>
+<td>runOnce</td>
+<td>boolean indicating that this interval runs one time - at the time indicated by the start</td>
 </tr>
 </tbody>
 </table>
-<h2 id="configuration-properties">Configuration Properties</h2>
-<p>The following are extra configuration parameters specific to the Support-Scheduler service. Please refer to the general Configuration <a href="https://docs.edgexfoundry.org/1.2/microservices/configuration/Ch-Configuration/#configuration">documentation</a> for configuration properties common across all services.</p>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">IntervalAction</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
-<th>Configuration</th>
-<th>Default Value</th>
-<th>Dependencies</th>
+<th>Property</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Intervals govern the timing of operations in the support-scheduler service. By default, only one interval is created to run a job at midnight. However you could follow the example to add as many as desired.</strong></td>
 <td></td>
-<td></td>
+<td>The action triggered by the service when the associated interval occurs</td>
 </tr>
 <tr>
-<td>Intervals Midnight Name</td>
-<td>midnight</td>
-<td>The name of the given interval.</td>
+<td>ID</td>
+<td>Uniquely identifies an interval action, for example a UUID</td>
 </tr>
 <tr>
-<td>Intervals Midnight Start</td>
-<td>20180101T000000</td>
-<td>The start time of the given interval in ISO 8601 format.</td>
+<td>Created</td>
+<td>A timestamp indicating when the interval action was created in the database</td>
 </tr>
 <tr>
-<td>Intervals Midnight Frequency</td>
-<td>24h</td>
-<td>Periodicity of the interval.</td>
+<td>Modified</td>
+<td>A timestamp indicating when the interval action was last modified</td>
 </tr>
 <tr>
-<td><strong>IntervalActions govern the actions taken by the scheduler when a tick triggers an interval.</strong></td>
-<td></td>
-<td></td>
+<td>Origin</td>
+<td>A timestamp indicating when the original interval action was created</td>
 </tr>
 <tr>
-<td>IntervalActions ScrubPushed Name</td>
-<td>scrub-pushed-events</td>
-<td>The name of the given action.</td>
+<td>Name</td>
+<td>the name of the interval action</td>
 </tr>
 <tr>
-<td>IntervalActions ScrubPushed Host</td>
-<td>localhost</td>
-<td>The host targeted by the action when it activates.</td>
+<td>Interval</td>
+<td>associated interval that defines when the action occurs</td>
 </tr>
 <tr>
-<td>IntervalActions ScrubPushed Port</td>
-<td>48080</td>
-<td>The port on the targeted host</td>
+<td>Host</td>
+<td>The host targeted by the action when it activates</td>
 </tr>
 <tr>
-<td>IntervalActions ScrubPushed Protocol</td>
-<td>http</td>
-<td>The protocol used when interacting with the targeted host.</td>
+<td>Parameters</td>
+<td>paremeters sent in the body of the action call request</td>
 </tr>
 <tr>
-<td>IntervalActions ScrubPushed Method</td>
-<td>DELETE</td>
-<td>Assuming a RESTful operation, the HTTP method to be invoked by the action.</td>
-</tr>
-<tr>
-<td>IntervalActions ScrubPushed Target</td>
-<td>core-data</td>
+<td>Target</td>
 <td>The name of the targeted application</td>
 </tr>
 <tr>
-<td>IntervalActions ScrubPushed Path</td>
-<td>/api/v1/event/scrub</td>
-<td>In the case of a RESTful operation, the path to be invoked in combination with the Method.</td>
+<td>Protocol</td>
+<td>protocol used when interacting with the targeted host</td>
 </tr>
 <tr>
-<td>IntervalActions ScrubPushed Interval</td>
-<td>midnight</td>
-<td>The interval to which the action is associated. When the interval is activated, all associated actions will be invoked.</td>
+<td>HTTPMethod</td>
+<td>assuming a RESTful operation, the HTTP method to be invoked by the action</td>
 </tr>
 <tr>
-<td>IntervalActions ScrubAged Name</td>
-<td>scrub-aged-events</td>
-<td>The name of the given action.</td>
+<td>Address</td>
+<td>assuming a RESTful operation, the HTTP address to be invoked by the action</td>
 </tr>
 <tr>
-<td>IntervalActions ScrubAged Host</td>
-<td>localhost</td>
-<td>The host targeted by the action when it activates.</td>
-</tr>
-<tr>
-<td>IntervalActions ScrubAged Port</td>
-<td>48080</td>
+<td>Port</td>
 <td>The port on the targeted host</td>
 </tr>
 <tr>
-<td>IntervalActions ScrubAged Protocol</td>
-<td>http</td>
-<td>The protocol used when interacting with the targeted host.</td>
+<td>Path</td>
+<td>assuming a RESTful operation, the path to be invoked in combination with the Method and Address</td>
 </tr>
 <tr>
-<td>IntervalActions ScrubAged Method</td>
-<td>DELETE</td>
-<td>Assuming a RESTful operation, the HTTP method to be invoked by the action.</td>
+<td>Publisher</td>
+<td>assuming a message bus operation, the publisher to be used in invoking the operation via message (future use)</td>
 </tr>
 <tr>
-<td>IntervalActions ScrubAged Target</td>
-<td>core-data</td>
-<td>The name of the targeted application</td>
+<td>User</td>
+<td>username used when the action must be invoked using user based authentication (future use)</td>
 </tr>
 <tr>
-<td>IntervalActions ScrubAged Path</td>
-<td>/api/v1/event/removeold/age/604800000</td>
-<td>In the case of a RESTful operation, the path to be invoked in combination with the Method.</td>
+<td>Password</td>
+<td>password used when the action must be invoked using user based authentication (future use)</td>
 </tr>
 <tr>
-<td>IntervalActions ScrubAged Interval</td>
-<td>midnight</td>
-<td>The interval to which the action is associated. When the interval is activated, all associated actions will be invoked.</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
+<td>Topic</td>
+<td>assuming a message bus operation, the topic to push the invoking operation message into</td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<h2 id="high-level-interaction-diagrams">High Level Interaction Diagrams</h2>
+<p><strong>Scheduler interval actions to expunge old and exported (pushed) records from Core Data</strong></p>
+<p><img alt="image" src="../EdgeX_CoreDataCleanUp.png" /></p>
+<h2 id="configuration-properties">Configuration Properties</h2>
+<p>Please refer to the general <a href="https://docs.edgexfoundry.org/1.2/microservices/configuration/Ch-Configuration/#configuration">Configuration documentation</a> for configuration properties common to all services.</p>
+<div class="tabbed-set" data-tabs="2:6"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Writable</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td>Writable properties can be set and will dynamically take effect without service restart</td>
+</tr>
+<tr>
+<td>ScheduleIntervalTime</td>
+<td>500</td>
+<td>the time, in milliseconds, to trigger any applicable interval actions</td>
+</tr>
+</tbody>
+</table>
+</div>
+<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Service</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MaxResultCount</td>
+<td>50000</td>
+<td>Maximum number of objects (example: intervals) that are to be returned on any query of core data via its API</td>
+</tr>
+</tbody>
+</table>
+</div>
+<input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><label for="__tabbed_2_3">Databases/Databases.Primary</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td>Properties used by the service to access the database</td>
+</tr>
+<tr>
+<td>Host</td>
+<td>'localhost'</td>
+<td>Host running the scheduler persistence database</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>'scheduler'</td>
+<td>Document store or database name</td>
+</tr>
+<tr>
+<td>Password</td>
+<td>'password'</td>
+<td>Password used to access the database</td>
+</tr>
+<tr>
+<td>Username</td>
+<td>'scheduler'</td>
+<td>Username used to access the database</td>
+</tr>
+<tr>
+<td>Port</td>
+<td>6379</td>
+<td>Port for accessing the database service - the Redis port by default</td>
+</tr>
+<tr>
+<td>Timeout</td>
+<td>5000</td>
+<td>Database connection timeout in milliseconds</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>'redisdb'</td>
+<td>Database to use - either redisdb or mongodb</td>
+</tr>
+</tbody>
+</table>
+</div>
+<input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><label for="__tabbed_2_4">Intervals/Intervals.Midnight</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td>Default intervals for use with default interval actions</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>midnight</td>
+<td>Name of the every day at midnight interval</td>
+</tr>
+<tr>
+<td>Start</td>
+<td>20180101T000000</td>
+<td>Indicates the start time for the midnight interval which is a midnight, Jan 1, 2018 which effectively sets the start time as of right now since this is in the past</td>
+</tr>
+<tr>
+<td>Frequency</td>
+<td>24</td>
+<td>defines a frequency of every 24 hours</td>
+</tr>
+</tbody>
+</table>
+</div>
+<input id="__tabbed_2_5" name="__tabbed_2" type="radio" /><label for="__tabbed_2_5">IntervalActions.IntervalActions.ScrubPushed</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td>Configuration of the core data scrub operation which is to kick off every midnight</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>'scrub-pushed-events'</td>
+<td>name of the interval action</td>
+</tr>
+<tr>
+<td>Host</td>
+<td>'localhost'</td>
+<td>run the request on core data assumed to be on the localhost</td>
+</tr>
+<tr>
+<td>Port</td>
+<td>48080</td>
+<td>run the request against the default core data port</td>
+</tr>
+<tr>
+<td>Protocol</td>
+<td>'http'</td>
+<td>Make a RESTful request to core data</td>
+</tr>
+<tr>
+<td>Method</td>
+<td>'DELETE'</td>
+<td>Make a RESTful delete operation request to core data</td>
+</tr>
+<tr>
+<td>Target</td>
+<td>'core-data'</td>
+<td>target core data</td>
+</tr>
+<tr>
+<td>Path</td>
+<td>'/api/v1/event/scrub'</td>
+<td>request core data's scrub API</td>
+</tr>
+<tr>
+<td>Interval</td>
+<td>'midnight'</td>
+<td>run the operation every midnight as specified by the configuration defined interval</td>
+</tr>
+</tbody>
+</table>
+</div>
+<input id="__tabbed_2_6" name="__tabbed_2" type="radio" /><label for="__tabbed_2_6">IntervalActions.IntervalActions.ScrubAged</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td>Configuration of the core data clean old events operation which is to kick off every midnight</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>'scrub-aged-events'</td>
+<td>name of the interval action</td>
+</tr>
+<tr>
+<td>Host</td>
+<td>'localhost'</td>
+<td>run the request on core data assumed to be on the localhost</td>
+</tr>
+<tr>
+<td>Port</td>
+<td>48080</td>
+<td>run the request against the default core data port</td>
+</tr>
+<tr>
+<td>Protocol</td>
+<td>'http'</td>
+<td>Make a RESTful request to core data</td>
+</tr>
+<tr>
+<td>Method</td>
+<td>'DELETE'</td>
+<td>Make a RESTful delete operation request to core data</td>
+</tr>
+<tr>
+<td>Target</td>
+<td>'core-data'</td>
+<td>target core data</td>
+</tr>
+<tr>
+<td>Path</td>
+<td>'/api/v1/event/removeold/age/604800000'</td>
+<td>request core data's remove old events API with parameter of 7 days in milliseconds</td>
+</tr>
+<tr>
+<td>Interval</td>
+<td>'midnight'</td>
+<td>run the operation every midnight as specified by the configuration defined interval</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<h2 id="api-reference">API Reference</h2>
+<p><a href="../../../../api/supporting/Ch-APISupportingServicesScheduling/">Support Scheduler API Reference</a></p>
                 
               
               
