@@ -51,7 +51,7 @@ The following terms will be helpful for understading the subsequent discussion:
 
   * `/run/edgex/secrets` (a `tmpfs` volume on a Linux host)
   * `/tmp/edgex/secrets` (a temporary file area on Linux and MacOS hosts)
-  * A persistent docker volume (use when host bind mountds are not available)
+  * A persistent docker volume (use when host bind mounts are not available)
 
   For snaps, a list of suggested paths-in preference order--is:
   * `/run/user/`_id_`/snap.`_$SNAP_NAME_`/` (`$XDG_RUNTIME_DIR`, a `tmpfs` volume on a Linux host; currently not available due to a snap [limitation](https://bugs.launchpad.net/snap-confine/+bug/1620442)).
