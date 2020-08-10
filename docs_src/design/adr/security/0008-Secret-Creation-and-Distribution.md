@@ -54,7 +54,7 @@ The following terms will be helpful for understading the subsequent discussion:
   * A persistent docker volume (use when host bind mounts are not available)
 
   For snaps, a list of suggested paths-in preference order--is:
-  * `/run/user/`_id_`/snap.`_$SNAP_NAME_`/` (`$XDG_RUNTIME_DIR`, a `tmpfs` volume on a Linux host; currently not available due to a snap [limitation](https://bugs.launchpad.net/snap-confine/+bug/1620442)).
+  * `/run/snap.`_$SNAP_NAME_`/` (a `tmpfs` volume on a Linux host)
   * _$SNAP_DATA_`/secrets` (a snap-specific persistent data area)
   * _TBD_ (a content interface that allows for sharing of secrets from the core snap)
 
@@ -316,13 +316,12 @@ List of needed improvements:
   * All: Move to using Vault as system of origin for the PKI instead of the standalone `security-secrets-setup` utility.
   * All: Cache the PKI for Consul and Vault on persistent disk; rotate occasionally.
   * All: Investigate hardware protection of cached Consul and Vault PKI secret keys.  (Vault cannot unseal its own TLS certificate.)
-  * Snaps: Relocate PKI into _SECRETSLOC_ instead of its own folder.
-
+  
 - Special case: Bring-your-own external Kong certificate and key
   * The Kong external certificate and key is already stored in Vault,
     however, additional metadata is needed
     to signal whether these are auto-generated or manually-installed.
-    A manually-suppinstalledlied certificate and key
+    A manually-installed certificate and key
     would not be overwritten by the framework bringup logic.
     Installing a custom certificate and key can then be implemented by
     overwriting the system-generated ones and setting a flag
@@ -341,11 +340,11 @@ List of needed improvements:
 - MongoDB service account passwords
   * No changes required.
 
-- Redis(5) authentication password
+- Redis(v5) authentication password
   * All: Implement process-to-process injection: start Redis unauthenticated, with a post-start hook to read the secret out of Vault and set the Redis password. (Short race condition between Redis starting, password being set, and dependent services starting.)
   * No changes on client side.
 
-- Redis(6) passwords
+- Redis(v6) passwords (v6 adds multiple user support)
   * Interim solution: handle like MongoDB service account passwords.
     Future ADR to propose use of a Vault database secrets engine.
   * No changes on client side (each service accesses its own credential)
