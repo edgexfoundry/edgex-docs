@@ -2100,17 +2100,17 @@ mentioned earlier for fine control among the groups. The authentication
 and ACL need to be specified in the API gateway's configuration file.
 Setup of authentication and access control occurs automatically as part
 of API gateway initialization. The configuration file can be found at
-<a href="https://github.com/edgexfoundry/security-api-gateway/blob/master/core/res/configuration-docker.toml">https://github.com/edgexfoundry/security-api-gateway/blob/master/core/res/configuration-docker.toml</a></p>
+<a href="https://github.com/edgexfoundry/edgex-go/blob/master/cmd/security-proxy-setup/res/configuration.toml">https://github.com/edgexfoundry/edgex-go/blob/master/cmd/security-proxy-setup/res/configuration.toml</a></p>
 <p><strong>Configuration of JWT Authentication for API Gateway</strong></p>
-<p>When using JWT Authentication, the [kongauth] section needs to be
+<p>When using JWT Authentication, the [KongAuth] section needs to be
 specified in the configuration file as shown below. :</p>
-<div class="codehilite"><pre><span></span><code><span class="k">[kongauth]</span>
-<span class="na">name</span> <span class="o">=</span> <span class="s">&quot;jwt&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="k">[KongAuth]</span>
+<span class="na">Name</span> <span class="o">=</span> <span class="s">&quot;jwt&quot;</span>
 </code></pre></div>
 
 
 <p><strong>Configuration of OAuth2 Authentication for API Gateway</strong></p>
-<p>When using OAuth2 Authentication, the [kongauth] section needs to
+<p>When using OAuth2 Authentication, the [KongAuth] section needs to
 specify oauth2 in the configuration file as shown below. Note, today
 EdgeX only supports "client credential" authentication (specified in
 "granttype") currently for OAuth.</p>
