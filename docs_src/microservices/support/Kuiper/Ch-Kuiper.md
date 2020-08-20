@@ -1,8 +1,10 @@
 # Kuiper Rules Engine
 
+![image](EdgeX_KuiperRulesEngine.png)
+
 ## Overview
 
-EMQ X Kuiper is the new EdgeX reference implementation rules engine implementation (replacing the Support Rules Engine - which wrapped the Java Drools engine).
+EMQ X Kuiper is the new EdgeX reference implementation rules engine (or [edge analytcs](../../../general/Definitions.md#edge-analytics)) implementation (replacing the Support Rules Engine - which wrapped the Java Drools engine).
 
 ## What is EMQ X Kuiper?
 

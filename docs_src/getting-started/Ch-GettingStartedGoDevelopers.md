@@ -1,112 +1,67 @@
-# Get EdgeX Foundry - Go Developers
+# Getting Started - Go Developers
 
-## Introduction
+## Introduction ![image](golang-vector-6.png)
 
-These instructions are for Go Lang Developers and Contributors to
-obtain, run and otherwise work with Go-based EdgeX Foundry
-microservices. (Users should read:
+These instructions are for Go Lang Developers and Contributors to get, run and otherwise work with Go-based EdgeX Foundry
+micro services. Before reading this guide, review the general [developer requirements](./Ch-GettingStartedDevelopers.md#what-you-need).
+
+If you want to get the EdgeX platform and run it (but do not intend to change or add to the existing code base now) then you are considered a "User". Users should read:
 [Getting Started Users](./Ch-GettingStartedUsers.md))
 
 ## What You Need For Go Development
 
-In additional to the hardware and software listed in the Developers
-page, you will need the following to work with the EdgeX Go-based
-microservices.
+In additional to the hardware and software listed in the [Developers
+guide](./Ch-GettingStartedDevelopers.md), you will need the following to work with the EdgeX Go-based
+micro services.
 
-**Go**
+### Go
 
-The open sourced microservices of EdgeX Foundry are written in Go 1.12.
+The open sourced micro services of EdgeX Foundry are written in Go 1.13.
 See <https://golang.org/dl/> for download and installation instructions.
-Newer versions of Go are available and may work (as of this writing -
-although Go version 1.13 will work as well), but the project has not
-thoroughly built and tested to these newer versions of the language.
+Newer versions of Go are available and may work, but the project has not
+built and tested to these newer versions of the language.
 Older versions of Go, especially 1.10 or older, are likely to cause
 issues (EdgeX now uses Go Modules which were introduced with Go Lang
 1.11).
 
-For the purposes of this guide, create a set of directories for your Go
-work (including a /bin and /src folder) and set the GOPATH env variable
-to that directory. This will assist in getting your environment setup
-and makes it easier to understand how to find code, tools and packages.
-Specifically, and as shown below, create a 'go' folder with
-/src/github.com/edgexfoundry sub-folders. When you pull (see below)
-EdgeX code in from its repositories, add the repository folder under
-/edgexfoundry (in this example, edgex-go has been downloaded and its
-repository contents would comprise a new subfolder under
-/src/github.com/edgexfoundry).
+### Build Essentials
 
-    ~/go
-        /bin
-            /src
-                /github.com
-                    /edgexfoundry
-                        /edgex-go
+In order to compile and build some elements of EdgeX, Gnu C compiler, utilities (like make), and associated librarires need to be installed.  Some [IDEs](#IDE) may already come with these tools.  Some OS environments may already come with these tools.  Others environments may require you install them.  For Ubuntu environments, you can install a convenience package called [Build Essentials](https://packages.ubuntu.com/bionic/build-essential).
 
-In this case, your $GOPATH environment variable should be set to ~/go.
+!!! Note
+    If you are installing Build Essentials, note that there is a build-essential pacakge for each Ubuntu release.  Search for 'build-essential' associated to your Ubuntu version via [Ubuntu Packages Search](https://packages.ubuntu.com/).
 
-**Note** - with the advent of modules (Go 1.11 or later), you can setup
-your environment differently - and specifically placing code outside of
-your GOPATH to avoid conflicts with solutions that are not using go
-modules. See
-<https://medium.com/mindorks/create-projects-independent-of-gopath-using-go-modules-802260cdfb51>
-for more details. For simplicity, this guide adheres to the folders and
-GOPATH approach. \#TODO - refactor this section or add info on how to
-setup independent of GOPATH
+### IDE (Optional)
 
-EdgeX relies on many modules (some external and some EdgeX created).
-This directory structure allows the modules to be automatically pulled
-and deposited into the appropriate place in this directory tree -
-thereby supporting the build processes.
+There are many tool options for writing and editing Go Lang code.  You could use a simple text editor. For more convenience, you may choose to use an integrated development environment (IDE).  The list below highlights IDEs used by some of the EdgeX community (without any project endorsement).
 
-**An IDE**
-
-There are many options for writing Go Lang code and one could use a
-simple text editor. This guide demonstrates how to get started with
-JetBrains Go Land.
-
-*Go Land* - Go Land is a popular although subscription-fee based IDE.
+#### GoLand
+GoLand is a popular, although subscription-fee based,  Go specific IDE.
 Learn how to purchase and download Go Land here:
 <https://www.jetbrains.com/go/>.
 
-*Visual Studio Code (Optional)* - As an alternative to Go Land, Visual
-Studio Code is a free, open source IDE developed by Microsoft. Find and
-download Visual Studio Code here: <https://code.visualstudio.com/>. This
-guide does not demonstrate how to use Visual Studio Code but the steps
-would be very similar.
+#### Visual Studio Code
 
-*Atom IDE (Optional)* - As another alternative to Go Land, Atom is a
-free, open source IDE used with many languages. Find and download Atom
-here: <https://ide.atom.io/>. This guide does not demonstrate how to use
-Atom but the steps would be very similar.
+Visual Studio Code is a free, open source IDE developed by Microsoft. Find and
+download Visual Studio Code here: <https://code.visualstudio.com/>.
+
+#### Atom
+
+Atom is also a free, open source IDE used with many languages. Find and download Atom
+here: <https://ide.atom.io/>.
 
 ## Get the code
 
-This portion of the documentation assumes you wish to get and work with
-many **"core"** or widely used EdgeX Foundry Go-based services. This
-includes but is not limited to Core, Supporting, Export (archived as of
-the Geneva release), some security, and system management services. To
-work with other Go-based security services, device services, application
-services, SDKs, user interface, or other service you may need to pull in
-the other repository code. See other getting started guides for working
-with other Go-based services. As you will see below, you do not need to
-explicitly pull in dependency modules (whether EdgeX or 3rd party
-provided). Dependencies will automatically be pulled through the
-building process.
+This part of the documentation assumes you wish to get and work with the key EdgeX services. This includes but is not limited to Core, Supporting, some security, and system management services. To
+work with other Go-based security services, device services, application services, SDKs, user interface, or other service you may need to pull in other EdgeX repository code. See other getting started guides for working with other Go-based services. As you will see below, you do not need to explicitly pull in dependency modules (whether EdgeX or 3rd party provided). Dependencies will automatically be pulled through the building process.
 
-To work with the core services, you will need to download the source
-code from the EdgeX Go repository. The EdgeX Go-based microservices are
-all available in a single GitHub repository download (note: the Go-based
-services do use a number of modules but again these dependencies will be
-pulled automatically for you as part of the build process). Once the
-code is pulled, the Go lang microservices are built and packaged as
-platform dependent executables and then also containerized for end user
-deployment/use.
+To work with the key services, you will need to download the source code from the EdgeX Go repository. The EdgeX Go-based micro services are
+all available in a single GitHub repository download.  Once the code is pulled, the Go micro services are built and packaged as
+platform dependent executables.  If Docker is installed, the executable can also be [containerized](../general/Definitions.md#Containerized) for end user deployment/use.
 
-The EdgeX Foundry Go lang microservice code is hosted at
-<https://github.com/edgexfoundry/edgex-go>.
+The EdgeX Foundry Go Lang micro service code is hosted at <https://github.com/edgexfoundry/edgex-go>.
 
-To download or "pull" the EdgeX Go code, first change directories to
-the location where you want to download the code, and then use your git
+To download the EdgeX Go code, first change directories to the location where you want to download the code (to edgex in the image below).  Then use your **git**
 tool and request to clone this repository with the following command:
 
 ``` bash
@@ -114,63 +69,69 @@ git clone <https://github.com/edgexfoundry/edgex-go.git>
 ```
 ![image](EdgeX_GettingStartedClone.png)
 
-Again, it is recommended that you clone the edgex-go mono repo to the
-\$GOPATH/src/github.com/edgexfoundry folder. You will find that the
-project tools and configuration provided by the EdgeX community will
-work much better when applied to this structure.
+!!! Note
+    If you plan to contribute code back to the EdgeX project (as a
+    Contributor), you are going to want to fork the repositories you plan to
+    work with and then pull your fork versus the EdgeX repositories
+    directly. This documentation does not address the process and procedures
+    for working with an EdgeX fork, committing changes and submitting
+    contribution pull requests (PRs). See some of the links below in the
+    EdgeX Wiki for help on how to fork and contribute EdgeX code.
 
-**Note**, if you plan to contribute code back to the EdgeX project (as a
-Contributor), you are going to want to fork the repositories you plan to
-work with and then pull your fork versus the EdgeX repositories
-directly. This documentation does not address the process and procedures
-for working with an EdgeX fork, committing changes and submitting
-contribution pull requests (PRs). See some of the links below in the
-EdgeX Wiki for assistance on how to fork and contribute EdgeX code.
-
--   <https://wiki.edgexfoundry.org/display/FA/Contributor%27s+Guide>
--   <https://wiki.edgexfoundry.org/display/FA/Contributor%27s+Guide+-+Go+Lang>
--   <https://wiki.edgexfoundry.org/display/FA/Contributor+Process?searchId=AW768BAW7>
+    -   <https://wiki.edgexfoundry.org/display/FA/Contributor%27s+Guide>
+    -   <https://wiki.edgexfoundry.org/display/FA/Contributor%27s+Guide+-+Go+Lang>
+    -   <https://wiki.edgexfoundry.org/display/FA/Contributor+Process?searchId=AW768BAW7>
 
 ## Build EdgeX Foundry
 
-To build the existing services found in edgex-go, first change
+To build the Go Lang services found in edgex-go, first change
 directories to the root of the edgex-go code
 
 ``` bash
-cd \$GOPATH/src/github.com/edgexfoundry/edgex-go
+cd edgex-go
 ```
-Second, use the provided Makefile to build all the services in a single
+Second, use the community provided Makefile to build all the services in a single
 call
 
 ``` bash
 make build
 ```
-
 ![image](EdgeX_GettingStartedBuild.png)
 
-The first time EdgeX builds, it will take longer than subsequent builds
-as it has to download all dependencies. Depending on the size of your
-host, an initial build can take several minutes. Make sure the build
-completes successfully and has no errors. If it does build successfully,
-you should find new service executables in each of the service folders
-under \$GOPATH/src/github.com/edgexfoundry/edgex-go/cmd/.
+!!! Info
+    The first time EdgeX builds, it will take longer than other builds
+    as it has to download all dependencies. Depending on the size of your
+    host machine, an initial build can take several minutes. Make sure the build
+    completes and has no errors. If it does build, you should find new service executables in each of the service folders
+    under the service directories found in the /edgex-go/cmd folder.
 
 ## Run EdgeX Foundry
 
-**Run the Database**
+### Run the Database
 
-Several of the EdgeX Foundry microservices utilize the MongoDB instance.
-This includes core-data, core-metadata, support-rulesengine,
-supporting-logging (in some situations), among others. Therefore, when
+Several of the EdgeX Foundry micro services use a database.
+This includes core-data, core-metadata, support-scheduler, among others. Therefore, when
 working with EdgeX Foundry its a good idea to have the database up and
-running as a general rule. See
-<https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/#run-mongodb-community-edition>
-for how to run Mongo in a Linux environment (or find similar
-documentation for other environments).
+running as a general rule. See the [Redis Quick Start Guide](https://redis.io/topics/quickstart)
+for how to run Redis in a Linux environment (or find similar documentation for other environments).
 
-**Run the core Go services**
+!!! Note
+    MongoDB can run in place of Redis with the Geneva release or earlier.  MongoDB is deprecated and developers should transition to Redis.  See the [Run MongoDB documenation](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/#run-mongodb-community-edition) for how to run Mongo in a Linux environment (or find similar documentation for other environments).
 
-With the services built successfully, and the database up and running,
+    Running MongoDB in place of Redis will also require that you alter the configuration **for all services** that need the database to use MongoDB instead of Redis.  As an example, the configuration of core-data is located in the file edgex-go/cmd/core-data/res/configuration.toml.  In the configuration.toml file of the affected services, find the **[Databases]** section and change the "Type" to 'mongodb' along with any associated connection information similar to that shown below
+    ```
+      Host = 'localhost'
+      Name = 'coredata'
+      Password = 'password'
+      Port = 27017
+      Username = 'core'
+      Timeout = 5000
+      Type = 'mongodb'
+    ```
+
+### Run EdgeX Services
+
+With the services built, and the database up and running,
 you can now run all the services via second make command. Simply call
 
 ``` bash
@@ -179,99 +140,99 @@ make run
 
 ![image](EdgeX_GettingStartedRun.png)
 
-This will start all of the EdgeX go services and leave them running
+This will start the EdgeX go services and leave them running
 until you terminate the process (with Ctrl-C). The log entries from each
 service will start to display in the terminal. Watch the log entries for
 any **ERROR** indicators. While the EdgeX services are running you can
 make EdgeX API calls to `localhost`.
 
-**Verify that EdgeX is working**
+!!! Note
+    Use the ampersand ('&') sign at the end of make run if you wish to run the services in the background in detached mode.  In so doing, Ctrl-C will not stop the services.  You will have to kill the services by other means.
 
-You can check that the microservices are working properly by calling
-their `ping` API endpoint:
+!!! Info
+    No sensor data will flow yet as this just gets the key services up
+    and running. To get sensor data flowing into EdgeX, you
+    will need to get, build and run an EdgeX device service in a similar
+    fashion. The community provides a virtual device service to test and
+    experiment with (<https://github.com/edgexfoundry/device-virtual-go>).
 
-``` bash
-curl <http://localhost:48080/api/v1/ping>
+### Verify EdgeX is Working
+
+Each EdgeX micro service has a built-in respond to a "ping" HTTP request. In networking environments, use a [ping request](https://techterms.com/definition/ping) to check the reach-ability of a network resource.  EdgeX uses the same concept to check the availability or reach-ability of a micro service. After the EdgeX micro services are running, you can "ping" any one of the micro services to check that it is running. Open a browser or HTTP REST client tool and use the service's ping address (outlined below) to check that is available.
+
+```
+http://localhost:[port]/api/v1/ping
 ```
 
-You should receive a `pong` message in response.
+See [EdgeX Default Service Ports](./quick-start/index.md#reference-default-service-ports) for a list of the EdgeX default service ports.
 
-To stop all the services, hit **Control-C** in the terminal.
+![image](EdgeX_GettingStartedUsrPing.png)
+*"Pinging" an EdgeX micro service allows you to check on its availability.  If the service does not respond to ping, the service is down or having issues.*
 
-No sensor data will be collected as this just gets the core services up
-and running. To get sensor data flowing into EdgeX core services, you
-will need to get, build and run an EdgeX device service in a similar
-fashion. A virtual device service has been provided to test and
-experiment with (<https://github.com/edgexfoundry/device-virtual-go>).
+## Next Steps
+Application services and some device services are also built in Go.  To explore how to create and build EdgeX application and devices services in Go, head to SDK documentation covering these EdgeX elements.
 
-## EdgeX Foundry in Go Land
+- [Application Services and the Application Functions SDK](./ApplicationFunctionsSDK.md)
+- [Device Services in Go](./Ch-GettingStartedSDK-Go.md)
+
+## EdgeX Foundry in GoLand
 
 IDEs offer many code editing conveniences. Go Land was specifically
 built to edit and work with Go code. So if you are doing any significant
-code work with the EdgeX Go microservices, you will likely find it
-convenient to edit, build, run, test, etc. from GoLand.
+code work with the EdgeX Go micro services, you will likely find it
+convenient to edit, build, run, test, etc. from GoLand or other IDE.
 
-**Import the Project**
+### Import EdgeX
 
-The EdgeX Foundry Go mono repo contains the Go Lang source code (and
-many additional files such as configuration and Docker files) for all
-the Go-based microservices and supporting packages. As its name implies,
-it is the single (or mono) repository for all EdgeX Go source. To bring
-in the mono repo into Go Land, use the File → Open\... menu option in Go
+To bring in the EdgeX repository code into Go Land, use the File → Open\... menu option in Go
 Land to open the Open File or Project Window.
 
 ![image](EdgeX_GoLandOpenProject.png)
 
 In the "Open File or Project" popup, select the location of the folder
-containing your cloned edgex-go repo. If you are following the EdgeX
-recommended standards, the edgex-go folder should be located under
-\$GOPATH/src/github.com/edgexfoundry/edgex-go.
+containing your cloned edgex-go repo.
 
 ![image](EdgeX_GoLandSelectProject.png)
 
-**Open the Terminal**
+### Open the Terminal
 
 From the View menu in Go Land, select the Terminal menu option. This
 will open a command terminal from which you can issue commands to
-install the dependencies, build the microservices, run the
-microservices, etc.
+install the dependencies, build the micro services, run the
+micro services, etc.
 
 ![image](EdgeX_GoLandViewTerminal.png)
 
-**Build the EdgeX Microservices**
+### Build the EdgeX Micro Services
 
-With all the dependencies now loaded, you can build the EdgeX Foundry
-microservices. Run **"make build"** in the Terminal view (as shown
+Run **"make build"** in the Terminal view (as shown
 below) to build the services. This can take a few minutes to build all
 the services.
 
 ![image](EdgeX_GoLandMakeBuild.png)
 
-**NOTE** - in some cases, Go Land IDE may encounter an error (go:
-parsing \$GOFLAGS: non-flag ""-X") when building as shown below.
+!!! Warning
+    In some cases, Go Land IDE may encounter an error (go:
+    parsing \$GOFLAGS: non-flag ""-X") when building as shown below.
 
-![image](EdgeX_GoLandBuildError.png)
+    ![image](EdgeX_GoLandBuildError.png)
 
-If you encounter this issue, unset the GOFLAGS env var in GoLand. Make a
-call to unset GOFLAGS as shown below and then call make build again.
+    If you encounter this issue, unset the GOFLAGS env var in GoLand. Make a
+    call to unset GOFLAGS as shown below and then call make build again.
 
-![image](EdgeX_GoLandBuildFix.png)
+    ![image](EdgeX_GoLandBuildFix.png)
 
 Just as when running make build from the command line in a terminal, the
-microservice executables that get built in Go Land's terminal will be
-created under the
-`$GOPATH/src/github.com/edgexfoundry/edgex-go/cmd/[microservice
-folder]/[microservice name]`. So, for example, core-data would get
-created as the
-`$GOPATH/src/github.com/edgexfoundry/edgex-go/cmd/core-data/core-data`.
+micro service executables that get built in Go Land's terminal will be
+created in each of the service folders under the service directories found in the /edgex-go/cmd folder..
 
 ![image](EdgeX_GoLandBuildEdgeXMicroservices.png)
 
-**Run EdgeX**
+### Run EdgeX
 
-With all the microservices built, you can now run EdgeX. You may first
+With all the micro services built, you can now run EdgeX. You may first
 want to make sure the database is running. Then issue the command
-`make run` as shown below.
+`make run` in the terminal.
 
 ![image](EdgeX_GoLandMakeRun.png)
 

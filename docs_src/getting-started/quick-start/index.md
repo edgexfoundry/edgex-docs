@@ -19,11 +19,11 @@ This can be accomplished with a single command as shown below (please note the t
 
 === "x86"
     ```
-    wget https://raw.githubusercontent.com/edgexfoundry/developer-scripts/master/releases/geneva/compose-files/docker-compose-geneva-redis-no-secty.yml -o docker-compose.yml; docker-compose up
+    curl https://raw.githubusercontent.com/edgexfoundry/developer-scripts/master/releases/geneva/compose-files/docker-compose-geneva-redis-no-secty.yml -o docker-compose.yml; docker-compose up
     ```
 === "ARM"
     ```
-    wget https://raw.githubusercontent.com/edgexfoundry/developer-scripts/master/releases/geneva/compose-files/docker-compose-geneva-redis-no-secty-arm64.yml -o docker-compose.yml; docker-compose up
+    curl https://raw.githubusercontent.com/edgexfoundry/developer-scripts/master/releases/geneva/compose-files/docker-compose-geneva-redis-no-secty-arm64.yml -o docker-compose.yml; docker-compose up
     ```
 
 Verify that the EdgeX containers have started:
@@ -124,7 +124,7 @@ You'll notice that this one command has both a **GET** and a **PUT** option. The
 curl http://localhost:48082/api/v1/device/4a602dc3-afd5-4c76-9d72-de02407e80f8/command/5353248d-8006-4b01-8250-a07cb436aeb1
 ```
 !!! Warning
-  Notice that **localhost** replaces **edgex-core-command** here. That's because the EdgeX Foundry services are running in Docker.  Docker recognizes the internal hostname **edgex-core-command**, but when calling the service from outside of Docker, you have to use **localhost** to reach it.
+    Notice that **localhost** replaces **edgex-core-command** here. That's because the EdgeX Foundry services are running in Docker.  Docker recognizes the internal hostname **edgex-core-command**, but when calling the service from outside of Docker, you have to use **localhost** to reach it.
 
 This command will return a JSON result that looks like this:
 ``` json
@@ -222,7 +222,7 @@ Congratulations! You now have a full EdgeX deployment reading data from a (virtu
 
 It's time to continue your journey by reading the [Introduction](../../index.md) to EdgeX Foundry, what it is and how it's built. From there you can take the [Walkthrough](../../walk-through/Ch-Walkthrough.md) to learn how the microservices work together to control devices and read data from them as you just did.
 
-## REFERENCE - Platform Requirements
+## REFERENCE Platform Requirements
 
 EdgeX Foundry is an operating system (OS)-agnostic and hardware (HW)-agnostic IoT edge platform. At this time the following platform minimums are recommended:
 
@@ -242,7 +242,51 @@ EdgeX Foundry is an operating system (OS)-agnostic and hardware (HW)-agnostic Io
 !!! Info
     EdgeX is agnostic with regards to hardware (x86 and ARM), but only release artifacts for x86 and ARM 64 systems.  EdgeX has been successfuly run on ARM 32 platforms but has required users to build their own executables from source.  EdgeX does not officially support ARM 32.
 
-## REFERENCE - Default Service Ports
+## REFERENCE EdgeX Container Names
+The following table provies the list of the default EdgeX Docker image names to the Docker container name and Docker Compose names.
+
+=== "Core"
+    |Docker image name|Docker container name|Docker Compose service name|
+    |---|---|---|
+    |docker-core-data-go|edgex-core-data|data|
+    |docker-core-metadata-go|edgex-core-metadata|metadata|
+    |docker-core-command-go|edgex-core-command|command|
+=== "Supporting"
+    |Docker image name|Docker container name|Docker Compose service name|
+    |---|---|---|
+    |docker-support-notifications-go|edgex-support-notifications|notifications|
+    |docker-support-logging-go|edgex-support-logging|logging|
+    |docker-support-scheduler-go|edgex-support-scheduler|scheduler|
+=== "Application & Analytics"
+    |Docker image name|Docker container name|Docker Compose service name|
+    |---|---|---|
+    |docker-app-service-configurable|edgex-app-service-configurable-rules|app-service-rules|
+    |emqx/kuiper|edgex-kuiper|rulesengine|
+=== "Device"
+    |Docker image name|Docker container name|Docker Compose service name|
+    |---|---|---|
+    |docker-device-virtual-go|edgex-device-virtual|device-virtual|
+    |docker-device-random-go|edgex-device-random|device-random|
+    |docker-device-mqtt-go|edgex-device-mqtt|device-mqtt|
+    |docker-device-rest-go|edgex-device-rest|device-rest|
+    |docker-device-modbus-go|edgex-device-modbus|device-modbus|
+    |docker-device-snmp-go|edgex-device-snmp|device-snmp|
+=== "Security"
+    |Docker image name|Docker container name|Docker Compose service name|
+    |---|---|---|
+    |vault|edgex-vault|vault|
+    |postgress|kong-db|kong-db|
+    |kong|kong|kong|
+    |docker-edgex-security-proxy-setup-go|edgex-proxy|edgex-proxy|
+=== "Miscellaneous"
+    |Docker image name|Docker container name|Docker Compose service name|
+    |---|---|---|
+    |docker-edgex-consul|edgex-core-consul|consul|
+    |mongo|edgex-mongo|mongo|
+    |redis|edgex-redis|redis|
+    |docker-sys-mgmt-agent-go|edgex-sys-mgmt-agent|system|
+
+## REFERENCE Default Service Ports
 The following tables (organized by type of service) capture the default service ports.  These default ports are also used in the EdgeX provided service routes defined in the Kong API Gateway for access control.
 
 === "Core"
