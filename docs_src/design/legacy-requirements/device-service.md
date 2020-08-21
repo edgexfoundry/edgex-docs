@@ -15,14 +15,15 @@ event generation.
 When the device service is started, in addition to any actions required to
 support functionality defined elsewhere, the SDK must:
 
-* Register the device service in metadata
-* Provide initialization information to the service implementation
+* Manage the device service's registration in metadata
+* Provide initialization information to the protocol-specific implementation
 
 ### Registration
 
 The core-metadata service maintains an extent of device service registrations
 so that it may route requests relating to particular devices to the correct
-device service. The SDK should create or update its record appropriately.
+device service. The SDK should create (on first run) or update its record
+appropriately.
 Device service registrations contain the following fields:
 
 * `Name` - the name of the device service
@@ -32,7 +33,9 @@ Device service registrations contain the following fields:
 
 The default device service `Name` is to be hardcoded into every device service
 implementation. A suffix may be added to this name at runtime by means of
-commandline option or environment variable.
+commandline option or environment variable. Service names must be unique in a
+particular EdgeX instance; the suffix mechanism allows for running multiple
+instances of a given device service.
 
 The `Description` and `Labels` are configured in the `[Service]` section of the
 device service configuration.
@@ -48,13 +51,14 @@ configuration is held in the `Driver` section of the configuration file or
 registry.
 
 The SDK must also supply a logging facility at this stage. This facility should
-by default emit logs locally but instead should use the optional logging
-service if the configuration element `Logging/EnableRemote` is set `true`.
+by default emit logs locally (configurable to file or to stdout) but instead
+should use the optional logging service if the configuration element
+`Logging/EnableRemote` is set `true`. *Note: the logging service is deprecated
+and support for it will be removed in EdgeX v2.0*
 
 The implementation on receipt of its configuration should perform any
 necessary initialization of its own. It may return an error in the event of
-unrecoverable problems, this should cause the service startup to be
-abandoned.
+unrecoverable problems, this should cause the service startup itself to fail.
 
 ## Configuration
 
@@ -84,13 +88,13 @@ The configuration parameters to be supported are:
 
 Option | Type | Notes
 :--- | :--- | :---
-Host | String | This is the hostname to use when the service generates URLs pointing to itself. It must be resolvable by other services in the EdgeX deployment.
+Host | String | This is the hostname to use when registering the service in core-metadata. As such it is used by other services to connect to the device service, and therefore must be resolvable by other services in the EdgeX deployment.
 Port | Int | Port on which to accept the device service's REST API. The assigned port for experimental / in-development device services is 49999.
 Timeout | Int | Time (in milliseconds) to wait between attempts to contact core-data and core-metadata when starting up.
 ConnectRetries | Int | Number of times to attempt to contact core-data and core-metadata when starting up.
 StartupMsg | String | Message to log on successful startup.
-CheckInterval | String | The checking interval to request if registering with Consul
-ServerBindAddr | String | The interface on which the service's REST server should listen. By default the server listens on all available interfaces.
+CheckInterval | String | The checking interval to request if registering with Consul. Consul will ping the service at this interval to monitor its liveliness.
+ServerBindAddr | String | The interface on which the service's REST server should listen. By default the server is to listen on the interface to which the `Host` option resolves. A value of `0.0.0.0` means listen on all available interfaces.
 
 #### Clients section
 
@@ -119,7 +123,7 @@ Discovery/Enabled | Bool | For enabling/disabling device discovery. Defaults to 
 Discovery/Interval | Int | Time between automatic discovery runs, in seconds. Defaults to zero (do not run discovery automatically).
 MaxCmdOps | Int | Defines the maximum number of resource operations that can be sent to the driver in a single command.
 MaxCmdResultLen | Int | Maximum string length for command results returned from the driver.
-UpdateLastConnected | Bool | If true, update the LastConnected attribute of a device whenever it is successfully accessed. Defaults to false.
+UpdateLastConnected | Bool | If true, update the LastConnected attribute of a device whenever it is successfully accessed (read or write). Defaults to false.
 
 #### Logging section
 
@@ -129,7 +133,7 @@ LogLevel | String | Sets the logging level. Available settings in order of incre
 
 #### Driver section
 
-This section is for driver-specific options. Any configuration specified here will be passed to the driver implementation during initialization.
+This section is for options specific to the protocol driver. Any configuration specified here will be passed to the driver implementation during initialization.
 
 ## Push Events
 
@@ -143,7 +147,7 @@ according to implementation-specific logic.
 
 Each device may have as part of its definition in Metadata a number of `AutoEvents` associated with it. An `AutoEvent` has the following fields:
 
-* **resource**: the name of a deviceresource or devicecommand indicating what to read.
+* **resource**: the name of a deviceResource or deviceCommand indicating what to read.
 * **frequency**: a string indicating the time to wait between reading events, expressed
 as an integer followed by units of ms, s, m or h.
 * **onchange**: a boolean: if set to true, only generate new events if one or more of the
