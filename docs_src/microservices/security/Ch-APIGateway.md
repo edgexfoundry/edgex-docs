@@ -87,19 +87,19 @@ mentioned earlier for fine control among the groups. The authentication
 and ACL need to be specified in the API gateway's configuration file.
 Setup of authentication and access control occurs automatically as part
 of API gateway initialization. The configuration file can be found at
-<https://github.com/edgexfoundry/security-api-gateway/blob/master/core/res/configuration-docker.toml>
+<https://github.com/edgexfoundry/edgex-go/blob/master/cmd/security-proxy-setup/res/configuration.toml>
 
 **Configuration of JWT Authentication for API Gateway**
 
-When using JWT Authentication, the \[kongauth\] section needs to be
+When using JWT Authentication, the \[KongAuth\] section needs to be
 specified in the configuration file as shown below. :
 
-    [kongauth]
-    name = "jwt"
+    [KongAuth]
+    Name = "jwt"
 
 **Configuration of OAuth2 Authentication for API Gateway**
 
-When using OAuth2 Authentication, the \[kongauth\] section needs to
+When using OAuth2 Authentication, the \[KongAuth\] section needs to
 specify oauth2 in the configuration file as shown below. Note, today
 EdgeX only supports "client credential" authentication (specified in
 "granttype") currently for OAuth.
