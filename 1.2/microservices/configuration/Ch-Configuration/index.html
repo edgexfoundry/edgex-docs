@@ -1245,10 +1245,9 @@
     Introduction
   </a>
   
-    <nav class="md-nav" aria-label="Introduction">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configuration" class="md-nav__link">
     Configuration
   </a>
@@ -1281,11 +1280,6 @@
   <a href="#versioning" class="md-nav__link">
     Versioning
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -2076,10 +2070,9 @@
     Introduction
   </a>
   
-    <nav class="md-nav" aria-label="Introduction">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configuration" class="md-nav__link">
     Configuration
   </a>
@@ -2112,11 +2105,6 @@
   <a href="#versioning" class="md-nav__link">
     Versioning
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -2214,20 +2202,15 @@
                 
                 
                 <h1 id="configuration-and-registry">Configuration and Registry</h1>
+<p><img alt="image" src="../EdgeX_RegistryHighlighted.png" /></p>
 <h2 id="introduction">Introduction</h2>
-<p>The purpose of this section is to describe the configuration and service
-registration capabilities of the EdgeX Foundry platform. In all cases
-unless otherwise specified, the examples provided are based on the
-reference architecture built using the <a href="https://golang.org/">Go programming
-language</a> .</p>
-<h3 id="configuration">Configuration</h3>
-<p>An overview of the architectural decisions made with regard to how 
-configuration works in EdgeX Foundry can be found <a href="https://github.com/edgexfoundry/edgex-docs/blob/master/docs_src/design/adr/0005-Service-Self-Config.md">here</a>.</p>
-<h4 id="local-configuration">Local Configuration</h4>
+<p>The EdgeX registry and configuration service provides other EdgeX Foundry micro services with information about associated services within EdgeX Foundry (such as location and status) and  configuration properties (i.e. - a repository of initialization and operating values).  Today, EdgeX Foundry uses <a href="https://www.consul.io/">Consul by Hashicorp</a> as its reference implementation configuration and registry service.  However, abstractions are in place so that these functions could be provided by an alternate implementation.  In fact, registration and configuration could be provided by different services under the covers.  For more, see the <a href="./#configuration-provider">Configuration Provider</a> and <a href="./#registry-provider">Registry Provider</a> sections in this page.</p>
+<h2 id="configuration">Configuration</h2>
+<p>Please refer to the EdgeX Foundry <a href="https://github.com/edgexfoundry/edgex-docs/blob/master/docs_src/design/adr/0005-Service-Self-Config.md">architectural decision record</a> for details (and design decisions) behind the configuration in EdgeX.</p>
+<h3 id="local-configuration">Local Configuration</h3>
 <p>Because EdgeX Foundry may be deployed and run in several different ways,
 it is important to understand how configuration is loaded and from where
-it is sourced. Referring to the cmd directory within the <a href="https://github.com/edgexfoundry/edgex-go">edgex-go
-repository</a> , each service has
+it is sourced. Referring to the cmd directory within the <a href="https://github.com/edgexfoundry/edgex-go">edgex-go repository</a> , each service has
 its own folder. Inside each service folder there is a <code>res</code> directory
 (short for "resource"). There you will find the configuration files in
 <a href="https://github.com/toml-lang/toml">TOML format</a> that defines each
@@ -2236,38 +2219,34 @@ configuration profiles, such as a "docker" profile. In this case, the
 configuration file located directly in the <code>res</code> directory should be
 considered the default configuration profile. Sub-directories will
 contain configurations appropriate to the respective profile.</p>
-<p>As of the Geneva release, it is recommended to utilize environment variable
-overrides rather than creating profiles to override some subset of config
-values. You can see examples of this in the related docker-compose <a href="https://github.com/edgexfoundry/developer-scripts/tree/master/releases/geneva/compose-files">files</a>.</p>
-<p>If you choose to utilize profiles as described above, the config profile
+<p>As of the Geneva release, EdgeX recommends using environment variable
+overrides instead of creating profiles to override some subset of config
+values. You can see examples of this in the related <a href="https://github.com/edgexfoundry/developer-scripts/tree/master/releases/geneva/compose-files">docker-compose files</a>.</p>
+<p>If you choose to use profiles as described above, the config profile
 can be indicated using one of the following command line flags:</p>
 <p><code>--profile / -p</code></p>
 <p>Taking the <code>core-data</code> service as an example:</p>
 <ul>
-<li><code>./core-data</code> starts the service using the default profile found
-    locally</li>
-<li>
-<p><code>./core-data --profile=&lt;your profile&gt;</code> starts the service using the docker
-    profile found locally</p>
-</li>
-<li>
-<p>Again, utilizing environment variables for configuration overrides is
-the recommended path. Config profiles have been deprecated and removed as of the Geneva release. *</p>
-</li>
+<li><code>./core-data</code> starts the service using the default profile found locally</li>
+<li><code>./core-data --profile=docker</code> starts the service using the docker profile found locally</li>
 </ul>
-<h4 id="seeding-configuration">Seeding Configuration</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Again, utilizing environment variables for configuration overrides is the recommended path. Config profiles have been deprecated and will be removed in a future release.</p>
+</div>
+<h3 id="seeding-configuration">Seeding Configuration</h3>
 <p>When utilizing the registry to provide centralized configuration
-management for the EdgeX Foundry microservices, it is necessary to seed
+management for the EdgeX Foundry micro services, it is necessary to seed
 the required configuration before starting the services. Each service
 has the built-in capability to perform this seeding operation. A service
 will use its local configuration file to initialize the structure and
 relevant values, and then overlay any environment variable override values as specified. The end result will be seeded into the configuration provider if such is being used.</p>
 <p>In order for a service to now load the
-configuration from the configuration provider, we must use one of the following flags:</p>
+configuration from the configuration provider, use one of the following flags:</p>
 <p><code>--configProvider / -cp</code></p>
 <p>Again, taking the <code>core-data</code> service as an example:</p>
 <p><code>./core-data -cp=http://localhost:8500</code> will start the service using configuration values found in the provider</p>
-<h4 id="configuration-structure">Configuration Structure</h4>
+<h3 id="configuration-structure">Configuration Structure</h3>
 <p>Configuration information is organized into a hierarchical structure
 allowing for a logical grouping of services, as well as versioning,
 beneath an "edgex" namespace at root level of the configuration tree.
@@ -2284,7 +2263,7 @@ follows:</p>
 </ul>
 </li>
 </ul>
-<h4 id="versioning">Versioning</h4>
+<h3 id="versioning">Versioning</h3>
 <p>Incorporating versioning into the configuration hierarchy looks like
 this.</p>
 <ul>
@@ -2326,259 +2305,283 @@ respective service keys live under the major version in configuration
 (such as 1.0). Changes to the configuration structure that may be
 required during the associated minor version development cycles can only
 be additive. That is, key names will not be removed or changed once set
-in a major version, nor will sections of the configuration tree be moved
-from one place to another. In this way backward compatibility for the
+in a major version.  Futhermore, sections of the configuration tree cannot be moved
+from one place to another. In this way, backward compatibility for the
 lifetime of the major version is maintained.</p>
 <p>An advantage of grouping all minor/patch versions under a major version
 involves end-user configuration changes that need to be persisted during
 an upgrade. A service on startup will not overwrite existing configuration when it runs unless explicitly told to do so via the <code>--overwrite / -o</code> command line flag. Therefore if a user leaves their
-configuration provider running during an EdgeX Foundry upgrade any customizations will be left in place. Environment variable overrides such as those supplied in the docker-compose for a given release will always override existing content in Consul.</p>
+configuration provider running during an EdgeX Foundry upgrade any customization will be left in place. Environment variable overrides such as those supplied in the docker-compose for a given release will always override existing content in the configuration provider.</p>
 <h2 id="configuration-properties">Configuration Properties</h2>
-<p>The following table documents configuration properties that are common to all services in the EdgeX Foundry platform. Service-specific properties can be found on the respective documentation page for each service.</p>
+<p>The following tables document configuration properties that are common to all services in the EdgeX Foundry platform. Service-specific properties can be found on the respective documentation page for each service.</p>
+<div class="tabbed-set" data-tabs="1:7"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Writable</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
-<th>Configuration</th>
+<th>Property</th>
 <th>Default Value</th>
-<th>Dependencies</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Entries in the Writable section of the configuration can be changed on the fly while the service is running if the service is running with the <code>-cp/--configProvider=&lt;url&gt;</code> flag</strong></td>
 <td></td>
 <td></td>
+<td>entries in the Writable section of the configuration can be changed on the fly while the service is running if the service is running with the <code>-cp/--configProvider=&lt;url&gt;</code> flag</td>
 </tr>
 <tr>
-<td>Writable LogLevel</td>
-<td>INFO *</td>
-<td>Logs messages set to a level of "INFO" or higher</td>
-</tr>
-<tr>
-<td><strong>The following keys represent the core service-level configuration settings</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Service MaxResultCount</td>
-<td>50000 **</td>
-<td>Read data limit per invocation</td>
-</tr>
-<tr>
-<td>Service BootTimeout</td>
-<td>300000 **</td>
-<td>Heart beat time in milliseconds</td>
-</tr>
-<tr>
-<td>Service StartupMsg</td>
-<td>Logging Service heart beat **</td>
-<td>Heart beat message</td>
-</tr>
-<tr>
-<td>Service Port</td>
-<td>48061 **</td>
-<td>Micro service port number</td>
-</tr>
-<tr>
-<td>Service Host</td>
-<td>localhost **</td>
-<td>Micro service host name</td>
-</tr>
-<tr>
-<td>Service Protocol</td>
-<td>http **</td>
-<td>Micro service host protocol</td>
-</tr>
-<tr>
-<td>Service ClientMonitor</td>
-<td>15000 **</td>
-<td>The interval in milliseconds at which any service clients will refresh their endpoint information from the service registry (Consul)</td>
-</tr>
-<tr>
-<td>Service CheckInterval</td>
-<td>10s **</td>
-<td>The interval in seconds at which the service registry(Consul) will conduct a health check of this service.</td>
-</tr>
-<tr>
-<td>Service Timeout</td>
-<td>5000 **</td>
-<td>Specifies a timeout (in milliseconds) for handling requests</td>
-</tr>
-<tr>
-<td><strong>The following keys govern logging behavior. With the default values below, all logging will simply be written to StdOut.</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Logging EnableRemote</td>
-<td>false **</td>
-<td>Facilitates delegation of logging via REST to the support-logging service</td>
-</tr>
-<tr>
-<td>Logging File</td>
-<td>[empty string] **</td>
-<td>File path to save logging entries. Empty by default.</td>
-</tr>
-<tr>
-<td><strong>The following keys govern database connectivity and the type of database to use. While not all services require DB connectivity, most do and so this has been included in the common configuration docs.</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Databases Primary Username</td>
-<td>[empty string] **</td>
-<td>DB user name</td>
-</tr>
-<tr>
-<td>Databases Primary Password</td>
-<td>[empty string] **</td>
-<td>DB password</td>
-</tr>
-<tr>
-<td>Databases Primary Host</td>
-<td>localhost **</td>
-<td>DB host name</td>
-</tr>
-<tr>
-<td>Databases Primary Port</td>
-<td>6379 **</td>
-<td>DB port number</td>
-</tr>
-<tr>
-<td>Databases Primary Name</td>
-<td>coredata **</td>
-<td>Database or document store name</td>
-</tr>
-<tr>
-<td>Databases Primary Timeout</td>
-<td>5000 **</td>
-<td>DB connection timeout</td>
-</tr>
-<tr>
-<td>Databases Primary Type</td>
-<td>redisdb **</td>
-<td>DB type</td>
-</tr>
-<tr>
-<td><strong>Following config only take effect when connecting to the registry for configuration info</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Registry Host</td>
-<td>localhost **</td>
-<td>Registry host name</td>
-</tr>
-<tr>
-<td>Registry Port</td>
-<td>8500 **</td>
-<td>Registry port number</td>
-</tr>
-<tr>
-<td>Registry Type</td>
-<td>consul **</td>
-<td>Registry implementation type</td>
-</tr>
-<tr>
-<td><strong>Following config is an example of how service clients are configured. These will of necessity be different in each config because each service has a different set of dependencies, each of which requires a client.</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Clients Metadata Protocol</td>
-<td>http **</td>
-<td>The protocol to use when building a URI to local the service endpoint</td>
-</tr>
-<tr>
-<td>Clients Metadata Host</td>
-<td>localhost **</td>
-<td>The host name or IP address where the service is hosted</td>
-</tr>
-<tr>
-<td>Clients Metadata Port</td>
-<td>48081 **</td>
-<td>The port exposed by the target service</td>
-</tr>
-<tr>
-<td><strong>Following config values govern the StartupTimer created at boot for ensuring the service starts in a timely fashion</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Startup Duration</td>
-<td>30 **</td>
-<td>The maximum amount of time (in seconds) the service is given to complete the bootstrap phase.</td>
-</tr>
-<tr>
-<td>Startup Interval</td>
-<td>1 **</td>
-<td>The amount of time (in seconds) to sleep between retries on a failed dependency such as DB connection</td>
-</tr>
-<tr>
-<td><strong>Following config values are used when security is enabled and Vault access is required for obtaining secrets, such as database credentials</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>SecretStore Host</td>
-<td>localhost **</td>
-<td>The host name or IP address associated with Vault</td>
-</tr>
-<tr>
-<td>SecretStore Port</td>
-<td>8200 **</td>
-<td>The configured port on which Vault is listening</td>
-</tr>
-<tr>
-<td>SecretStore Path</td>
-<td>/v1/secret/edgex/coredata/ **</td>
-<td>The service-specific path where the secrets are kept. This path will differ according to the given service</td>
-</tr>
-<tr>
-<td>SecretStore Protocol</td>
-<td>https **</td>
-<td>The protocol to be used when communicating with Vault</td>
-</tr>
-<tr>
-<td>SecretStore RootCaCertPath</td>
-<td>/vault/config/pki/EdgeXFoundryCA/ EdgeXFoundryCA.pem **</td>
-<td>The default location of the certificate used to communicate with Vault over a secure channel</td>
-</tr>
-<tr>
-<td>SecretStore ServerName</td>
-<td>localhost **</td>
-<td>The name of the server where Vault is located.</td>
-</tr>
-<tr>
-<td>SecretStore TokenFile</td>
-<td>/vault/config/assets/resp-init.json **</td>
-<td>Fully-qualified path to the location of the Vault root token.</td>
-</tr>
-<tr>
-<td>SecretStore AdditionalRetryAttempts</td>
-<td>10 **</td>
-<td>Number of attemtps to retry retrieving secrets before failing to start the service</td>
-</tr>
-<tr>
-<td>SecretStore RetryWaitPeriod</td>
-<td>1s **</td>
-<td>Amount of time to wait before attempting another connection to Vault</td>
-</tr>
-<tr>
-<td>SecretStore Authentication AuthType</td>
-<td>X-Vault-Token **</td>
-<td>A header used to indicate how the given service will authenticate with Vault</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
+<td>LogLevel</td>
+<td>INFO</td>
+<td>log entry <a href="https://en.wikipedia.org/wiki/Syslog#Severity_level">severity level</a>.  Log entries not of the default level or higher are ignored.</td>
 </tr>
 </tbody>
 </table>
-<p>*means the configuration value can be changed on the fly if using a configuration provider (like Consul).</p>
-<p>**means the configuration value can be changed but the service must be restarted.</p>
-<h4 id="readable-vs-writable-settings">Readable vs Writable Settings</h4>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Logging</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td>configuration governing logging behavior. With the default values below, all logging will be written to StdOut.</td>
+</tr>
+<tr>
+<td>EnableRemote</td>
+<td>false</td>
+<td>Facilitates delegation of logging via REST to the support-logging service</td>
+</tr>
+<tr>
+<td>File</td>
+<td>[empty string]</td>
+<td>File path to save logging entries. Empty by default.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">Databases/Databases.Primary</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td>configuration that govern database connectivity and the type of database to use. While not all services require DB connectivity, most do and so this has been included in the common configuration docs.</td>
+</tr>
+<tr>
+<td>Username</td>
+<td>[empty string]</td>
+<td>DB user name</td>
+</tr>
+<tr>
+<td>Password</td>
+<td>[empty string]</td>
+<td>DB password</td>
+</tr>
+<tr>
+<td>Host</td>
+<td>localhost</td>
+<td>DB host name</td>
+</tr>
+<tr>
+<td>Port</td>
+<td>6379</td>
+<td>DB port number</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>coredata</td>
+<td>Database or document store name</td>
+</tr>
+<tr>
+<td>Timeout</td>
+<td>5000</td>
+<td>DB connection timeout</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>redisdb</td>
+<td>DB type.  Alternate is mongodb which is being deprecated</td>
+</tr>
+</tbody>
+</table>
+</div>
+<input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><label for="__tabbed_1_4">Registry</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td>this configuration only takes effect when connecting to the registry for configuration info</td>
+</tr>
+<tr>
+<td>Host</td>
+<td>localhost</td>
+<td>Registry host name</td>
+</tr>
+<tr>
+<td>Port</td>
+<td>8500</td>
+<td>Registry port number</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>consul</td>
+<td>Registry implementation type</td>
+</tr>
+</tbody>
+</table>
+</div>
+<input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><label for="__tabbed_1_5">Clients/[Service name like Metadata]</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Protocol</td>
+<td>http</td>
+<td>The protocol to use when building a URI to local the service endpoint</td>
+</tr>
+<tr>
+<td>Host</td>
+<td>localhost</td>
+<td>The host name or IP address where the service is hosted</td>
+</tr>
+<tr>
+<td>Port</td>
+<td>48081</td>
+<td>The port exposed by the target service</td>
+</tr>
+</tbody>
+</table>
+</div>
+<input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><label for="__tabbed_1_6">Startup</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Duration</td>
+<td>30</td>
+<td>The maximum amount of time (in seconds) the service is given to complete the bootstrap phase.</td>
+</tr>
+<tr>
+<td>Interval</td>
+<td>1</td>
+<td>The amount of time (in seconds) to sleep between retries on a failed dependency such as DB connection</td>
+</tr>
+</tbody>
+</table>
+</div>
+<input id="__tabbed_1_7" name="__tabbed_1" type="radio" /><label for="__tabbed_1_7">SecretStore</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td>these config values are used when security is enabled and Vault access is required for obtaining secrets, such as database credentials</td>
+</tr>
+<tr>
+<td>Host</td>
+<td>localhost</td>
+<td>The host name or IP address associated with Vault</td>
+</tr>
+<tr>
+<td>Port</td>
+<td>8200</td>
+<td>The configured port on which Vault is listening</td>
+</tr>
+<tr>
+<td>Path</td>
+<td>/v1/secret/edgex/coredata/</td>
+<td>The service-specific path where the secrets are kept. This path will differ according to the given service</td>
+</tr>
+<tr>
+<td>Protocol</td>
+<td>https</td>
+<td>The protocol to be used when communicating with Vault</td>
+</tr>
+<tr>
+<td>RootCaCertPath</td>
+<td>/vault/config/pki/EdgeXFoundryCA/ EdgeXFoundryCA.pem</td>
+<td>The default location of the certificate used to communicate with Vault over a secure channel</td>
+</tr>
+<tr>
+<td>ServerName</td>
+<td>localhost</td>
+<td>The name of the server where Vault is located.</td>
+</tr>
+<tr>
+<td>TokenFile</td>
+<td>/vault/config/assets/resp-init.json</td>
+<td>Fully-qualified path to the location of the Vault root token.</td>
+</tr>
+<tr>
+<td>AdditionalRetryAttempts</td>
+<td>10</td>
+<td>Number of attemtps to retry retrieving secrets before failing to start the service</td>
+</tr>
+<tr>
+<td>RetryWaitPeriod</td>
+<td>1s</td>
+<td>Amount of time to wait before attempting another connection to Vault</td>
+</tr>
+<tr>
+<td>Authentication AuthType</td>
+<td>X-Vault-Token</td>
+<td>A header used to indicate how the given service will authenticate with Vault</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<h3 id="readable-vs-writable-settings">Readable vs Writable Settings</h3>
 <p>Within a given service's configuration, there are keys whose values can
 be edited and change the behavior of the service while it is running
 versus those that are effectively read-only. These writable settings are
@@ -2592,34 +2595,34 @@ for edgex-core-data are:</p>
 <li>/edgex/core/1.0/edgex-core-data/Registry</li>
 <li>/edgex/core/1.0/edgex-core-data/SecretStore</li>
 <li>/edgex/core/1.0/edgex-core-data/Service</li>
-<li>/edgex/core/1.0/edgex-core-data/Writable</li>
+<li><strong>/edgex/core/1.0/edgex-core-data/Writable</strong></li>
 </ul>
 <p>Any configuration settings found in the <code>Writable</code> section shown above
 may be changed and affect a service's behavior without a restart. Any
-modifications to the other settings would require a restart.</p>
-<p><em>NOTE: As of the Geneva release, the support-logging service is deprecated. In the Readable section of each service's configuration there is currently a Logging section shown below. The recommendation is that you not change the default values in this section unless you have a specific reason for doing so.</em></p>
-<div class="highlight"><pre><span></span><code># Remote and file logging disabled so only stdout logging is used
-[Logging]  
-EnableRemote = false  
-File = &#39;&#39;
+modifications to the other settings (read-only configuration) would require a restart.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As of the Geneva release, the support-logging service is deprecated. In the Readable section of each service's configuration there is currently a Logging section shown below. The recommendation is that you not change the default values in this section unless you have a specific reason for doing so.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Remote and file logging disabled so only stdout logging is used</span>
+<span class="p p-Indicator">[</span><span class="nv">Logging</span><span class="p p-Indicator">]</span>  
+<span class="l l-Scalar l-Scalar-Plain">EnableRemote = false</span>  
+<span class="l l-Scalar l-Scalar-Plain">File = &#39;&#39;</span>
 </code></pre></div>
 
 <h2 id="configuration-provider">Configuration Provider</h2>
-<p>You can supply and manage configuration in a centralized manner by utilizing the <code>-cp/--configProvider=&lt;url&gt;</code> flag when starting a service. If the flag is provided and pointed to an application such as HashiCorp's <a href="https://www.consul.io/">Consul</a>, the service will bootstrap its configuration into Consul if it doesn't exist. If configuration does already exist, it will load the content from the given location applying any environment variables overrides of which the service is aware. Integration with the configuration provider is handled through the
+<p>You can supply and manage configuration in a centralized manner by utilizing the <code>-cp/--configProvider=&lt;url&gt;</code> flag when starting a service. If the flag is provided and pointed to an application such as <a href="https://www.consul.io/">HashiCorp's Consul</a>, the service will bootstrap its configuration into Consul if it doesn't exist. If configuration does already exist, it will load the content from the given location applying any environment variables overrides of which the service is aware. Integration with the configuration provider is handled through the
 <a href="https://github.com/edgexfoundry/go-mod-configuration">go-mod-configuration</a> module referenced by all services.</p>
 <h2 id="registry-provider">Registry Provider</h2>
-<p>The registry refers to any platform you may use for service discovery. For the EdgeX Foundry reference implementation, the default provider for this responsibility is Consul. Integration with the registry is handled through the
-<a href="https://github.com/edgexfoundry/go-mod-registry">go-mod-registry</a>
-module referenced by all services.</p>
-<p><img alt="image" src="../EdgeX_RegistryHighlighted.png" /></p>
+<p>The registry refers to any platform you may use for service discovery. For the EdgeX Foundry reference implementation, the default provider for this responsibility is Consul. Integration with the registry is handled through the <a href="https://github.com/edgexfoundry/go-mod-registry">go-mod-registry</a> module referenced by all services.</p>
 <h3 id="introduction-to-registry">Introduction to Registry</h3>
-<p>The objective of the registry is to enable microservices to find and to
-communicate with each other. When each microservice starts up, it
+<p>The objective of the registry is to enable micro services to find and to
+communicate with each other. When each micro service starts up, it
 registers itself with the registry, and the registry continues checking
 its availability periodically via a specified health check endpoint.
-When one microservice needs to connect to another one, it connects to
+When one micro service needs to connect to another one, it connects to
 the registry to retrieve the available host name and port number of the
-target microservice and then invokes the target microservice. The
+target micro service and then invokes the target micro service. The
 following figure shows the basic flow.</p>
 <p><img alt="image" src="../EdgeX_ConfigurationRegistry.png" /></p>
 <p>Consul is the default registry implementation and provides native
@@ -2632,7 +2635,7 @@ information:</p>
 <p>Physically, the "registry" and "configuration" management services
 are combined and running on the same Consul server node.</p>
 <h3 id="web-user-interface">Web User Interface</h3>
-<p>A web user interface is also provided by Consul natively. Users can view
+<p>A web user interface is also provided by Consul. Users can view
 the available service list and their health status through the web user
 interface. The web user interface is available at the /ui path on the
 same port as the HTTP API. By default this is
@@ -2641,76 +2644,73 @@ same port as the HTTP API. By default this is
 <p><a href="https://www.consul.io/intro/getting-started/ui.html">https://www.consul.io/intro/getting-started/ui.html</a></p>
 </blockquote>
 <h3 id="running-on-docker">Running on Docker</h3>
-<p>For ease of use to install and update, the microservices of EdgeX
-Foundry are also published as Docker images onto Docker Hub, including
+<p>For ease of use to install and update, the micro services of EdgeX
+Foundry are published as Docker images onto Docker Hub, including
 Registry:</p>
 <blockquote>
 <p><a href="https://hub.docker.com/r/edgexfoundry/docker-core-consul/">https://hub.docker.com/r/edgexfoundry/docker-core-consul/</a></p>
 </blockquote>
 <p>After the Docker engine is ready, users can download the latest Consul
 image by the docker pull command:</p>
-<blockquote>
-<p>docker pull edgexfoundry/docker-core-consul</p>
-</blockquote>
+<div class="highlight"><pre><span></span><code>docker pull edgexfoundry/docker-core-consul
+</code></pre></div>
+
 <p>Then, startup Consul using Docker container by the Docker run command:</p>
-<blockquote>
-<p>docker run -p 8400:8400 -p 8500:8500 -p 8600:8600 --name
-edgex-core-consul --hostname edgex-core-consul -d
-edgexfoundry/docker-core-consul</p>
-</blockquote>
+<div class="highlight"><pre><span></span><code>docker run -p <span class="m">8400</span>:8400 -p <span class="m">8500</span>:8500 -p <span class="m">8600</span>:8600 <span class="se">\-</span>-name edgex-core-consul <span class="se">\-</span>-hostname edgex-core-consul -d edgexfoundry/docker-core-consul
+</code></pre></div>
+
 <p>These are the command steps to start up Consul and import the default
 configuration data:</p>
 <ol>
-<li>login to Docker Hub:</li>
-</ol>
-<blockquote>
-<p>\$ docker login</p>
-</blockquote>
-<ol>
-<li>A Docker network is needed to enable one Docker container to
+<li>
+<p>login to Docker Hub:</p>
+<div class="highlight"><pre><span></span><code>docker login
+</code></pre></div>
+
+</li>
+<li>
+<p>A Docker network is needed to enable one Docker container to
     communicate with another. This is preferred over use of --links
-    that establishes a client-server relationship:</li>
-</ol>
-<blockquote>
-<p>\$ docker network create edgex-network</p>
-</blockquote>
-<ol>
-<li>Create a Docker volume container for EdgeX Foundry:</li>
-</ol>
-<blockquote>
-<p>\$ docker run -it --name edgex-files --net=edgex-network -v /data/db
--v /edgex/logs -v /consul/config -v /consul/data -d
-edgexfoundry/docker-edgex-volume</p>
-</blockquote>
-<ol>
-<li>Create the Consul container:</li>
-</ol>
-<blockquote>
-<p>\$ docker run -p 8400:8400 -p 8500:8500 -p 8600:8600 --name
-edgex-core-consul --hostname edgex-core-consul --net=edgex-network
---volumes-from edgex-files -d edgexfoundry/docker-core-consul</p>
-</blockquote>
-<ol>
-<li>Verify the result: <a href="http://localhost:8500/ui">http://localhost:8500/ui</a></li>
+    that establishes a client-server relationship:</p>
+<div class="highlight"><pre><span></span><code>docker network create edgex-network
+</code></pre></div>
+
+</li>
+<li>
+<p>Create a Docker volume container for EdgeX Foundry:</p>
+<div class="highlight"><pre><span></span><code>docker run -it --name edgex-files --net<span class="o">=</span>edgex-network -v /data/db -v /edgex/logs -v /consul/config -v /consul/data -d edgexfoundry/docker-edgex-volume
+</code></pre></div>
+
+</li>
+<li>
+<p>Create the Consul container:</p>
+<div class="highlight"><pre><span></span><code>docker run -p <span class="m">8400</span>:8400 -p <span class="m">8500</span>:8500 -p <span class="m">8600</span>:8600 --name edgex-core-consul --hostname edgex-core-consul --net<span class="o">=</span>edgex-network --volumes-from edgex-files -d edgexfoundry/docker-core-consul
+</code></pre></div>
+
+</li>
+<li>
+<p>Verify the result: <a href="http://localhost:8500/ui">http://localhost:8500/ui</a></p>
+</li>
 </ol>
 <h3 id="running-on-local-machine">Running on Local Machine</h3>
-<p>To run Consul on the local machine, requires the following steps:</p>
+<p>To run Consul on the local machine, following these steps:</p>
 <ol>
 <li>Download the binary from Consul official website:
     <a href="https://www.consul.io/downloads.html">https://www.consul.io/downloads.html</a>. Please choose the correct
     binary file according to the operation system.</li>
 <li>Set up the environment variable. Please refer to
     <a href="https://www.consul.io/intro/getting-started/install.html">https://www.consul.io/intro/getting-started/install.html</a>.</li>
-<li>Execute the following command:</li>
-</ol>
-<blockquote>
-<p>\$ consul agent -data-dir \${DATA_FOLDER} -ui -advertise 127.0.0.1
--server -bootstrap-expect 1</p>
-<p>\${DATA_FOLDER} could be any folder to put the data files of Consul,
-and it needs the read/write permission.</p>
-</blockquote>
-<ol>
-<li>Verify the result: <a href="http://localhost:8500/ui">http://localhost:8500/ui</a></li>
+<li>
+<p>Execute the following command:</p>
+<div class="highlight"><pre><span></span><code>consul agent -data-dir <span class="se">\$</span><span class="o">{</span>DATA_FOLDER<span class="o">}</span> -ui -advertise <span class="m">127</span>.0.0.1 -server -bootstrap-expect <span class="m">1</span>
+
+<span class="c1"># ${DATA_FOLDER} could be any folder to put the data files of Consul and it needs the read/write permission.</span>
+</code></pre></div>
+
+</li>
+<li>
+<p>Verify the result: <a href="http://localhost:8500/ui">http://localhost:8500/ui</a></p>
+</li>
 </ol>
                 
               
