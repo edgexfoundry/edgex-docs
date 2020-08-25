@@ -1,7 +1,7 @@
 # C SDK
 
 In this guide, you create a simple device service that generates a
-random number as a means to simulate getting getting data from an actual device. In this way, you explore some of the SDK framework and work necessary to complete a device service without actually having a device to talk to.
+random number as a means to simulate getting data from an actual device. In this way, you explore some of the SDK framework and work necessary to complete a device service without actually having a device to talk to.
 
 ## Install dependencies
 
@@ -197,7 +197,7 @@ sends to EdgeX.
     service directly:
 
     ``` bash
-    curl 0:49992/api/v1/device/name/RandNum-Device01/Random
+    curl 0:49992/api/v1/device/name/RandNum-Device01/randomnumber
     ```
 
 6.  Using a browser, enter the following URL to see the event/reading

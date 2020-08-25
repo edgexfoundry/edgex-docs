@@ -39,4 +39,4 @@ Check that your C development environment includes the following:
     - libuuid (from util-linux v2.x)
 
 ## Next Steps
-To explore how to create and build EdgeX device services in C, head to the [Device Services, C SDK guide](./Ch-GettingStartedSDK-C).
+To explore how to create and build EdgeX device services in C, head to the [Device Services, C SDK guide](Ch-GettingStartedSDK-C.md).
