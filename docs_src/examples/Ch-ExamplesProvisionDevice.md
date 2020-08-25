@@ -17,33 +17,23 @@ example can be tweaked for use with the other Device Services.
 1.  Upload the device profile above to metadata with a POST to
     <http://localhost:48081/api/v1/deviceprofile/uploadfile> and add the
     file as key "file" to the body
-2.  Add the addressable containing reachability information for the
-    device with a POST to <http://localhost:48081/api/v1/addressable>:
-    
-    1.  If IP connected, the body will look something like: 
-            
-            { "name":"Motor", "method": "GET", "protocol": "HTTP","address": "10.0.1.29", "port": 502 }
-
-    2.  If serially connected, the body will look something like: 
-    
-            {"name": "Motor", "method": "GET", "protocol": "OTHER", "address": "/dev/ttyS5,9600,8,1,1", "port": 0 }      
-
-    (address field contains port, baud rate, number of data bits, stop bits, and parity bits in CSV form)
-      
-
-3.  Ensure the Modbus device service is running, adjust the service name
+2.  Ensure the Modbus device service is running, adjust the service name
     below to match if necessary or if using other device services
-4.  Add the device with a POST to
+3.  Add the device with a POST to
     <http://localhost:48081/api/v1/device>, the body will look something
     like:
 ``` json
 {
-  "description": "MicroMax Variable Speed Motor",
   "name": "Variable Speed motor",
+  "description": "MicroMax Variable Speed Motor",
   "adminState": "unlocked",
   "operatingState": "enabled",
-  "addressable": {
-    "name": "Motor"
+  "protocols":{
+    "modbus-tcp":{
+       "host":"10.0.1.29",
+       "port":"502",
+       "unitID":"1"
+    }
   },
   "labels": [],
   "location": null,
@@ -55,8 +45,7 @@ example can be tweaked for use with the other Device Services.
   }
 }
 ```
-The addressable name must match/refer to the addressable added in Step
-2, the service name must match/refer to the target device service, and
+The service name must match/refer to the target device service, and
 the profile name must match the device profile name from Step 1.
 
 Further deep dives on the different microservices and layers can be
