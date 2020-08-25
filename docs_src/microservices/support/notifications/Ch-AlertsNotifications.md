@@ -23,7 +23,7 @@ On the left side, the APIs are provided for other
 micro services, on-box applications, and off-box applications to use.  The APIs could be in REST, AMQP, MQTT, or any standard application
 protocols. 
 
-!!! Note
+!!! Warning
     Currently in EdgeX Foundry, only the RESTful interface is provided.
 
 On the right side, the notification receiver could be a person or an
@@ -34,7 +34,7 @@ through defined receiving channels when events occur. The receiving
 channels include SMS message, e-mail, REST callback, AMQP, MQTT, and so
 on. 
 
-!!! Note
+!!! Warning
     Currently in EdgeX Foundry, e-mail and REST callback channels ar provided.
 
 When the notification service receives notifications from any interface, 
@@ -57,7 +57,7 @@ senders send out the notifications to the subscribed receivers.
 ### Workflow
 
 #### Normal Notifications
-When a client requests a notification to be sent with "NORMAL" status, the notification is queued up (batched with other normal notifications).  The Messsage Scheduler, under a configurable interval, calls on the Distribution Coordinator to send all normal notifications to their receivers.  When a normal notification fails to be sent, it is retried a configurable number of times (resend limit).  After exceeding the resent tries, the notification is elevated to "CRITICAL" status and then sent through the critical notifications workflow below.
+When a client requests a notification to be sent with "NORMAL" status, the notification is queued up (batched with other normal notifications).  The Message Scheduler, under a configurable interval, calls on the Distribution Coordinator to send all normal notifications to their receivers.  When a normal notification fails to be sent, it is retried a configurable number of times (resend limit).  After exceeding the resent tries, the notification is elevated to "CRITICAL" status and then sent through the critical notifications workflow below.
 
 #### Critical Notifications
 Notifications that are sent with "CRITICAL" status, or notifications that have failed to send via the NORMAL workflow are immediately sent to their receivers via the Distribution Coordinator.  If a critical notification fails to send for a specified number of retries, the service escalates the notification in order to notify an escalation subscriber of the failure to notify the receiver.
