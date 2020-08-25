@@ -32,8 +32,8 @@ requests from the north side of EdgeX (such as analytic or application services)
 
 While not current part of its duties, the command service could provide a layer of protection around device.  Additional security could be added that would not allow unwarranted interaction with the devices (via device service).  The command service could also regulate the number of requests on a device do not overwhelm the device - perhaps even caching responses so as to avoid waking a device unless necessary.
 
-## Data Mode
-![image](../metadata/EdgeX_MetadataCommandModel.png)
+## Data Model
+![image](EdgeX_MetadataCommandModel.png)
 
 ## Data Dictionary
 
