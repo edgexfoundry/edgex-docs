@@ -19,8 +19,7 @@ only through the core data service. Core data
 could also provide a degree of security and protection of the data collected while the data is at the edge.
 
 Core data has a REST API for moving data into and out of the local
-storage. In the future, core data could be expandable to send or access sensor data via other protocols such as MQTT, AMQP, etc. Core data moves data to the application service (and [edge analytcs](../../../general/Definitions.md#edge-analytics)) via ZeroMQ by default. 
-A message bus abstraction allows core data to use an alternate message bus technology, like MQTT, to send data to the application services.  Use of MQTT requires the installation of a broker such as ActiveMQ.
+storage. In the future, core data could be expandable to send or access sensor data via other protocols such as MQTT, AMQP, etc. Core data moves data to the application service (and [edge analytcs](../../../general/Definitions.md#edge-analytics)) via ZeroMQ by default. EdgeX provides a message bus abstraction that supports ZeroMQ (default) and MQTT.  Use of MQTT requires the installation of a broker such as ActiveMQ.  You can also add your own implementation of the message bus abstraction as needed.
 
 ## Core Data "Streaming"
 
@@ -32,6 +31,9 @@ send data to the application services without
 persisting the data. This option has the advantage of reducing
 latency through this layer and storage needs at the network edge.  But
 the cost is having no historical data to use for analytics that need to look back in time to make a decision.
+
+!!! Note
+    When persistence is turned off via the PersistData flag, it is off for all devices.  At this time, you cannot specify which device data is persisted and which device data is not.  [Application services](../../application/ApplicationServices.md) do allow filtering of device data before it is exported or sent to another service like the rules engine, but this is not based on whether the data is persisted or not.
 
 ## Events and Readings
 
