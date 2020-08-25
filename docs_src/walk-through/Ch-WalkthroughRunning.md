@@ -22,7 +22,7 @@ A Docker Compose file is a manifest file, which lists:
 
 It is recommended that you use the lastest version of EdgeX Foundry. As
 of this writing, the latest version can be found here:
-<https://github.com/edgexfoundry/developer-scripts/raw/master/releases/fuji/compose-files/docker-compose-fuji.yml>
+<https://github.com/edgexfoundry/developer-scripts/raw/master/releases/geneva/compose-files/docker-compose-geneva-redis.yml>
 
 Save this file as `docker-compose.yml` in your working directory so that
 the following commands will find it.
