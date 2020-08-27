@@ -92,7 +92,7 @@ NewBatchByCount(10).Batch
 | NewBatchByTimeAndCount(timeInterval string, batchThreshold int) | This function returns a `BatchConfig` instance with a combination of both time and count being the strategy that is used for determining when to release the batched data and continue the pipeline. Whichever occurs first will trigger the data to continue and be reset.
 ``` go
 // Example:
-NewBatchByCount("30s", 10).Batch
+NewBatchByTimeAndCount("30s", 10).Batch
 ```
 `Batch` - This function will apply the selected strategy in your pipeline.
 
