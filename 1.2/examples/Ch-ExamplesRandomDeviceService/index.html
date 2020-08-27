@@ -21,7 +21,7 @@
     
     
       
-        <title>Random Integer Device Service Example - EdgeX Foundry Documentation</title>
+        <title>Random Integer Device Service - EdgeX Foundry Documentation</title>
       
     
     
@@ -63,7 +63,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#random-integer-device-service-example" class="md-skip">
+        <a href="#random-integer-device-service" class="md-skip">
           Skip to content
         </a>
       
@@ -90,7 +90,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Random Integer Device Service Example
+              Random Integer Device Service
             
           </span>
         </div>
@@ -208,7 +208,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="../Ch-ExamplesProvisionDevice/" class="md-tabs__link md-tabs__link--active">
+        <a href="../Ch-ExamplesVirtualDeviceService/" class="md-tabs__link md-tabs__link--active">
           Examples and Tutorials
         </a>
       
@@ -1248,30 +1248,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-ExamplesProvisionDevice/" title="Provison a Device - Modbus Example" class="md-nav__link">
-      Provison a Device - Modbus Example
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../Ch-ExamplesModbusdatatypeconversion/" title="Modbus - Data Type Conversion" class="md-nav__link">
-      Modbus - Data Type Conversion
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../Ch-ExamplesVirtualDeviceService/" title="Using the Virtual Device Service" class="md-nav__link">
       Using the Virtual Device Service
     </a>
@@ -1293,14 +1269,14 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Random Integer Device Service Example
+        Random Integer Device Service
         <span class="md-nav__icon md-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z" /></svg>
         </span>
       </label>
     
-    <a href="./" title="Random Integer Device Service Example" class="md-nav__link md-nav__link--active">
-      Random Integer Device Service Example
+    <a href="./" title="Random Integer Device Service" class="md-nav__link md-nav__link--active">
+      Random Integer Device Service
     </a>
     
       
@@ -1319,6 +1295,20 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edgex-apis-related-to-random-integer-device-service" class="md-nav__link">
+    EdgeX APIs related to Random Integer Device Service
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#running-commands" class="md-nav__link">
     Running Commands
   </a>
@@ -1327,15 +1317,22 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#get-command" class="md-nav__link">
-    GET Command
+  <a href="#find-the-get-and-put-commands" class="md-nav__link">
+    Find the GET and PUT Commands
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#put-command" class="md-nav__link">
-    PUT Command
+  <a href="#get-command-example" class="md-nav__link">
+    GET Command Example
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#put-command-example" class="md-nav__link">
+    PUT Command Example
   </a>
   
 </li>
@@ -1393,18 +1390,30 @@
           
 
 
+  <li class="md-nav__item">
+    <a href="../Ch-ExamplesModbusdatatypeconversion/" title="Modbus - Data Type Conversion" class="md-nav__link">
+      Modbus - Data Type Conversion
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-8" type="checkbox" id="nav-4-8">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-7" type="checkbox" id="nav-4-7">
     
-    <label class="md-nav__link" for="nav-4-8">
+    <label class="md-nav__link" for="nav-4-7">
       Adding a Device
       <span class="md-nav__icon md-icon">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
       </span>
     </label>
     <nav class="md-nav" aria-label="Adding a Device" data-md-level="2">
-      <label class="md-nav__title" for="nav-4-8">
+      <label class="md-nav__title" for="nav-4-7">
         <span class="md-nav__icon md-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
         </span>
@@ -1461,16 +1470,16 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-9" type="checkbox" id="nav-4-9">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-8" type="checkbox" id="nav-4-8">
     
-    <label class="md-nav__link" for="nav-4-9">
+    <label class="md-nav__link" for="nav-4-8">
       Walkthrough
       <span class="md-nav__icon md-icon">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
       </span>
     </label>
     <nav class="md-nav" aria-label="Walkthrough" data-md-level="2">
-      <label class="md-nav__title" for="nav-4-9">
+      <label class="md-nav__title" for="nav-4-8">
         <span class="md-nav__icon md-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
         </span>
@@ -1977,6 +1986,20 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edgex-apis-related-to-random-integer-device-service" class="md-nav__link">
+    EdgeX APIs related to Random Integer Device Service
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#running-commands" class="md-nav__link">
     Running Commands
   </a>
@@ -1985,15 +2008,22 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#get-command" class="md-nav__link">
-    GET Command
+  <a href="#find-the-get-and-put-commands" class="md-nav__link">
+    Find the GET and PUT Commands
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#put-command" class="md-nav__link">
-    PUT Command
+  <a href="#get-command-example" class="md-nav__link">
+    GET Command Example
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#put-command-example" class="md-nav__link">
+    PUT Command Example
   </a>
   
 </li>
@@ -2023,13 +2053,11 @@
                   
                 
                 
-                <h1 id="random-integer-device-service-example">Random Integer Device Service Example</h1>
-<p>The Random Integer Device Service is a sample Device Service that can
-run directly with other EdgeX services. It has a default, pre-defined
-device profile (see the <em>device.random.yaml</em> file), device and schedule
-events (see the <em>configuration.toml</em> file). After the EdgeX Core Service
-and Random Integer Device Service start, the following Core Service APIs
-can be viewed in the browser:</p>
+                <h1 id="random-integer-device-service">Random Integer Device Service</h1>
+<h2 id="introduction">Introduction</h2>
+<p>The Random Integer device service is a simple device service that works quickly and easily with EdgeX. It simulates a single device (<code>Random-Integer-Generator01</code>) that generates a collection of random integer numbers every 20 seconds by default.  It initializes with a pre-defined device profile, device, and auto events schedule.</p>
+<h2 id="edgex-apis-related-to-random-integer-device-service">EdgeX APIs related to Random Integer Device Service</h2>
+<p>Once the Random Integer device service is started, the table below provides a list of various EdgeX APIs that can be explored to learn more about the device service, the device, its commands and see the data the simulated device generates.</p>
 <table>
 <thead>
 <tr>
@@ -2041,67 +2069,229 @@ can be viewed in the browser:</p>
 <tbody>
 <tr>
 <td>Core Metadata</td>
-<td>http://[host]:48081/api/v1/deviceservice/device-random</td>
+<td>http://[host]:48081/api/v1/deviceservice/name/device-random</td>
 <td>Device Service created</td>
 </tr>
 <tr>
 <td>Core Metadata</td>
-<td>http://[host]:48081/api/v1/deviceprofile/Random-Integer-Generator</td>
+<td>http://[host]:48081/api/v1/deviceprofile/name/Random-Integer-Generator</td>
 <td>Device profile created</td>
 </tr>
 <tr>
 <td>Core Metadata</td>
-<td>http://[host]:48081/api/v1/device/Random-Integer-Generator01</td>
+<td>http://[host]:48081/api/v1/device/name/Random-Integer-Generator01</td>
 <td>Device created</td>
-</tr>
-<tr>
-<td>Core Metadata</td>
-<td>http://[host]:48081/api/v1/scheduleevent/readValue_int16</td>
-<td>Schedule created</td>
-</tr>
-<tr>
-<td>Core Metadata</td>
-<td>http://[host]:48081/api/v1/scheduleevent/readValue_int32</td>
-<td>Schedule created</td>
 </tr>
 <tr>
 <td>Core Data</td>
 <td>http://[host]:48080/api/v1/event</td>
-<td>GenerateRandomValue_Int16 and GenerateRandomValue_Int32 called every 5 seconds to produce events and readings according to the readValue_int16 and readValue_int32</td>
+<td>Events created by the random integer generator device</td>
 </tr>
 <tr>
 <td>Core Command</td>
-<td>http://[host]:48082/api/v1/device</td>
-<td>The following commands are available for GET and PUT methods: - GenerateRandomValue_Int8 - GenerateRandomValue_Int16 - GenerateRandomValue_Int32</td>
+<td>http://[host]:48082/api/v1/device/name/Random-Integer-Generator01</td>
+<td>Commands for the random integer generator device</td>
 </tr>
 </tbody>
 </table>
 <h2 id="running-commands">Running Commands</h2>
-<p>The command execution URLs can be acquired using a Core Command API
-inquiry. The command URL is
-<code>http://[host]:48082/api/v1/device/[device id]/command/[command id]</code>.
-For example:</p>
-<p><img alt="Example API Inquiry" src="../APIinquiry.png" /></p>
-<h3 id="get-command">GET Command</h3>
-<p>If you replace the host and run the GET command for
-GenerateRandomValue_Int8, you receive an event with a random reading
-value between -128 and 127, as illustrated below:</p>
-<p><img alt="Example GET Command" src="../RandomDeviceService-getcommand.png" /></p>
-<h3 id="put-command">PUT Command</h3>
-<p>PUT commands can adjust the minimum and maximum values for future random
-reading values, but they must be valid values for the data type. For
-example, the minimum value for GenerateRandomValue_Int16 cannot be less
-than -32768.</p>
-<p>In the following example, the PUT command limits the future reading
-value of GenerateRandomValue_Int8 to a range of -2 to 2:</p>
-<p><img alt="Example PUT Command" src="../RandomDeviceService-putcommand.png" /></p>
+<p>Use the examples below to exercise the Random Integer device service's command set against the simulated device - the <code>Random-Integer-Generator01</code> device.</p>
+<h3 id="find-the-get-and-put-commands">Find the <code>GET</code> and <code>PUT</code> Commands</h3>
+<p>The Random Integer device service is configured to send simulated data to core data every few seconds (20 seconds by default) - see the [configuration file](https://github.com/edgexfoundry/device-random/blob/master/cmd/res/configuration.toml for default details.  It will send three different deviceResources of data - Int8, Int16 and Int32.  You can excersice the <code>GET</code> and <code>PUT</code> requests on the command service to trigger the Random-Integer-Generator01 device to generate values for any one of the deviceResources or to set the min/max random number generated for any of the deviceResources.  </p>
+<p>First, use the curl command below to exercise the command service API to get a list of commands (both <code>GET</code> and <code>PUT</code>) for the Random-Integer-Generator01 device.</p>
+<div class="highlight"><pre><span></span><code>curl -X GET localhost:48082/api/v1/device/name/Random-Integer-Generator01 <span class="p">|</span> json_pp
+</code></pre></div>
+
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The example above assumes your core command service is available on <code>localhost</code> at the default service port of 48082.  </p>
+</div>
+<p>The result should look something like that displayed below.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+   <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;Random-Integer-Generator01&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;labels&quot;</span> <span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&quot;device-random-example&quot;</span>
+   <span class="p">],</span>
+   <span class="nt">&quot;adminState&quot;</span> <span class="p">:</span> <span class="s2">&quot;UNLOCKED&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;id&quot;</span> <span class="p">:</span> <span class="s2">&quot;ec7a7586-875e-4bb4-aa46-836d9e04514b&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;operatingState&quot;</span> <span class="p">:</span> <span class="s2">&quot;ENABLED&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;commands&quot;</span> <span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+         <span class="nt">&quot;id&quot;</span> <span class="p">:</span> <span class="s2">&quot;7dc0478d-29dd-4f6e-945d-85e4ad848bb1&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;put&quot;</span> <span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;responses&quot;</span> <span class="p">:</span> <span class="p">[</span>
+               <span class="p">{</span>
+                  <span class="nt">&quot;code&quot;</span> <span class="p">:</span> <span class="s2">&quot;200&quot;</span>
+               <span class="p">},</span>
+               <span class="p">{</span>
+                  <span class="nt">&quot;code&quot;</span> <span class="p">:</span> <span class="s2">&quot;503&quot;</span><span class="p">,</span>
+                  <span class="nt">&quot;description&quot;</span> <span class="p">:</span> <span class="s2">&quot;service unavailable&quot;</span>
+               <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;url&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:48082/api/v1/device/ec7a7586-875e-4bb4-aa46-836d9e04514b/command/7dc0478d-29dd-4f6e-945d-85e4ad848bb1&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;parameterNames&quot;</span> <span class="p">:</span> <span class="p">[</span>
+               <span class="s2">&quot;Min_Int32&quot;</span><span class="p">,</span>
+               <span class="s2">&quot;Max_Int32&quot;</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;path&quot;</span> <span class="p">:</span> <span class="s2">&quot;/api/v1/device/{deviceId}/GenerateRandomValue_Int32&quot;</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;created&quot;</span> <span class="p">:</span> <span class="mi">1596666924062</span><span class="p">,</span>
+         <span class="nt">&quot;get&quot;</span> <span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;url&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:48082/api/v1/device/ec7a7586-875e-4bb4-aa46-836d9e04514b/command/7dc0478d-29dd-4f6e-945d-85e4ad848bb1&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;responses&quot;</span> <span class="p">:</span> <span class="p">[</span>
+               <span class="p">{</span>
+                  <span class="nt">&quot;expectedValues&quot;</span> <span class="p">:</span> <span class="p">[</span>
+                     <span class="s2">&quot;RandomValue_Int32&quot;</span>
+                  <span class="p">],</span>
+                  <span class="nt">&quot;code&quot;</span> <span class="p">:</span> <span class="s2">&quot;200&quot;</span>
+               <span class="p">},</span>
+               <span class="p">{</span>
+                  <span class="nt">&quot;code&quot;</span> <span class="p">:</span> <span class="s2">&quot;503&quot;</span><span class="p">,</span>
+                  <span class="nt">&quot;description&quot;</span> <span class="p">:</span> <span class="s2">&quot;service unavailable&quot;</span>
+               <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;path&quot;</span> <span class="p">:</span> <span class="s2">&quot;/api/v1/device/{deviceId}/GenerateRandomValue_Int32&quot;</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;modified&quot;</span> <span class="p">:</span> <span class="mi">1596666924062</span><span class="p">,</span>
+         <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;GenerateRandomValue_Int32&quot;</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+         <span class="nt">&quot;put&quot;</span> <span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;path&quot;</span> <span class="p">:</span> <span class="s2">&quot;/api/v1/device/{deviceId}/GenerateRandomValue_Int8&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;parameterNames&quot;</span> <span class="p">:</span> <span class="p">[</span>
+               <span class="s2">&quot;Min_Int8&quot;</span><span class="p">,</span>
+               <span class="s2">&quot;Max_Int8&quot;</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;url&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:48082/api/v1/device/ec7a7586-875e-4bb4-aa46-836d9e04514b/command/ab8e16f9-2e94-4c10-b600-858ea1087cdf&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;responses&quot;</span> <span class="p">:</span> <span class="p">[</span>
+               <span class="p">{</span>
+                  <span class="nt">&quot;code&quot;</span> <span class="p">:</span> <span class="s2">&quot;200&quot;</span>
+               <span class="p">},</span>
+               <span class="p">{</span>
+                  <span class="nt">&quot;description&quot;</span> <span class="p">:</span> <span class="s2">&quot;service unavailable&quot;</span><span class="p">,</span>
+                  <span class="nt">&quot;code&quot;</span> <span class="p">:</span> <span class="s2">&quot;503&quot;</span>
+               <span class="p">}</span>
+            <span class="p">]</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;created&quot;</span> <span class="p">:</span> <span class="mi">1596666924062</span><span class="p">,</span>
+         <span class="nt">&quot;get&quot;</span> <span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;responses&quot;</span> <span class="p">:</span> <span class="p">[</span>
+               <span class="p">{</span>
+                  <span class="nt">&quot;expectedValues&quot;</span> <span class="p">:</span> <span class="p">[</span>
+                     <span class="s2">&quot;RandomValue_Int8&quot;</span>
+                  <span class="p">],</span>
+                  <span class="nt">&quot;code&quot;</span> <span class="p">:</span> <span class="s2">&quot;200&quot;</span>
+               <span class="p">},</span>
+               <span class="p">{</span>
+                  <span class="nt">&quot;description&quot;</span> <span class="p">:</span> <span class="s2">&quot;service unavailable&quot;</span><span class="p">,</span>
+                  <span class="nt">&quot;code&quot;</span> <span class="p">:</span> <span class="s2">&quot;503&quot;</span>
+               <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;url&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:48082/api/v1/device/ec7a7586-875e-4bb4-aa46-836d9e04514b/command/ab8e16f9-2e94-4c10-b600-858ea1087cdf&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;path&quot;</span> <span class="p">:</span> <span class="s2">&quot;/api/v1/device/{deviceId}/GenerateRandomValue_Int8&quot;</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;id&quot;</span> <span class="p">:</span> <span class="s2">&quot;ab8e16f9-2e94-4c10-b600-858ea1087cdf&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;modified&quot;</span> <span class="p">:</span> <span class="mi">1596666924062</span><span class="p">,</span>
+         <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;GenerateRandomValue_Int8&quot;</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+         <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;GenerateRandomValue_Int16&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;id&quot;</span> <span class="p">:</span> <span class="s2">&quot;cfa21103-8ec9-44a0-9c55-25f9cc653dc0&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;get&quot;</span> <span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;url&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:48082/api/v1/device/ec7a7586-875e-4bb4-aa46-836d9e04514b/command/cfa21103-8ec9-44a0-9c55-25f9cc653dc0&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;responses&quot;</span> <span class="p">:</span> <span class="p">[</span>
+               <span class="p">{</span>
+                  <span class="nt">&quot;expectedValues&quot;</span> <span class="p">:</span> <span class="p">[</span>
+                     <span class="s2">&quot;RandomValue_Int16&quot;</span>
+                  <span class="p">],</span>
+                  <span class="nt">&quot;code&quot;</span> <span class="p">:</span> <span class="s2">&quot;200&quot;</span>
+               <span class="p">},</span>
+               <span class="p">{</span>
+                  <span class="nt">&quot;description&quot;</span> <span class="p">:</span> <span class="s2">&quot;service unavailable&quot;</span><span class="p">,</span>
+                  <span class="nt">&quot;code&quot;</span> <span class="p">:</span> <span class="s2">&quot;503&quot;</span>
+               <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;path&quot;</span> <span class="p">:</span> <span class="s2">&quot;/api/v1/device/{deviceId}/GenerateRandomValue_Int16&quot;</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;put&quot;</span> <span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;responses&quot;</span> <span class="p">:</span> <span class="p">[</span>
+               <span class="p">{</span>
+                  <span class="nt">&quot;code&quot;</span> <span class="p">:</span> <span class="s2">&quot;200&quot;</span>
+               <span class="p">},</span>
+               <span class="p">{</span>
+                  <span class="nt">&quot;description&quot;</span> <span class="p">:</span> <span class="s2">&quot;service unavailable&quot;</span><span class="p">,</span>
+                  <span class="nt">&quot;code&quot;</span> <span class="p">:</span> <span class="s2">&quot;503&quot;</span>
+               <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;url&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:48082/api/v1/device/ec7a7586-875e-4bb4-aa46-836d9e04514b/command/cfa21103-8ec9-44a0-9c55-25f9cc653dc0&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;parameterNames&quot;</span> <span class="p">:</span> <span class="p">[</span>
+               <span class="s2">&quot;Min_Int16&quot;</span><span class="p">,</span>
+               <span class="s2">&quot;Max_Int16&quot;</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;path&quot;</span> <span class="p">:</span> <span class="s2">&quot;/api/v1/device/{deviceId}/GenerateRandomValue_Int16&quot;</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;created&quot;</span> <span class="p">:</span> <span class="mi">1596666924062</span><span class="p">,</span>
+         <span class="nt">&quot;modified&quot;</span> <span class="p">:</span> <span class="mi">1596666924062</span>
+      <span class="p">}</span>
+   <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The parameter of the PUT command body is defined in the <code>parameterNames</code>
-field of the Command model.</p>
+<p>The identifiers and URLs will look different in your result as the unique identifiers for devices, commands, etc. will be different in each EdgeX instance.</p>
 </div>
-<p>To validate the result, send the following GET command:</p>
-<p><img alt="Validating GET Command" src="../Validate.png" /></p>
+<h3 id="get-command-example">GET Command Example</h3>
+<p>Locate the <code>GET</code> URL for one of the deviceResources in your JSON produced by the curl command above.  Use another curl command to trigger a <code>GET</code> command against that URL for the Random-Integer-Generator01 device.  In the example below, a <code>GET</code> is called for the GenerateRandomValue_Int16 deviceResource.</p>
+<div class="highlight"><pre><span></span><code>curl -X GET localhost:48082/api/v1/device/ec7a7586-875e-4bb4-aa46-836d9e04514b/command/cfa21103-8ec9-44a0-9c55-25f9cc653dc0 <span class="p">|</span> json_pp
+</code></pre></div>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Importantly, notice that the host name provided in the JSON is always <code>edgex-core-command</code>.  This is the host name of the command service when running in Docker.  Use <code>localhost</code> in your curl commands to exercise the APIs.  You are not running your curl command inside of Docker.</p>
+</div>
+<p>The curl command will fire a request to the core command service which will relay the request to the Random-Integer-Generator device and return results of the <code>GET</code> request.  The results should look similar to the JSON below (except that the random number generated will return a differnt value).  The random number is the 'value' property of the reading - <code>-14351</code> in this example. </p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+   <span class="nt">&quot;device&quot;</span> <span class="p">:</span> <span class="s2">&quot;Random-Integer-Generator01&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;EncodedEvent&quot;</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+   <span class="nt">&quot;origin&quot;</span> <span class="p">:</span> <span class="mi">1596669607120457092</span><span class="p">,</span>
+   <span class="nt">&quot;readings&quot;</span> <span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+         <span class="nt">&quot;valueType&quot;</span> <span class="p">:</span> <span class="s2">&quot;Int16&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;origin&quot;</span> <span class="p">:</span> <span class="mi">1596669607120421119</span><span class="p">,</span>
+         <span class="nt">&quot;value&quot;</span> <span class="p">:</span> <span class="s2">&quot;-14351&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;device&quot;</span> <span class="p">:</span> <span class="s2">&quot;Random-Integer-Generator01&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;RandomValue_Int16&quot;</span>
+      <span class="p">}</span>
+   <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="put-command-example">PUT Command Example</h3>
+<p><code>PUT</code> commands can adjust the minimum and maximum values for future random readings, but they must be valid values for the data type. For example, the minimum value for GenerateRandomValue_Int16 cannot be more than 32767 and less than -32768.  Below, the PUT command limits the future reading value of GenerateRandomValue_Int16 to a range of -2 to 2:</p>
+<div class="highlight"><pre><span></span><code>curl -X PUT -d <span class="s1">&#39;{&quot;Min_Int16&quot;: &quot;-2&quot;, &quot;Max_Int16&quot;: &quot;2&quot;}&#39;</span> localhost:48082/api/v1/device/ec7a7586-875e-4bb4-aa46-836d9e04514b/command/cfa21103-8ec9-44a0-9c55-25f9cc653dc0
+</code></pre></div>
+
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Nothing will be returned by the <code>PUT</code> curl call above unless you have and error. </p>
+</div>
+<p>After running the command above, if you rerun the <code>GET</code> request for the same deviceResource (<code>GenerateRandomValue\_Int16</code>) you should only get values between -2 and 2.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+   <span class="nt">&quot;readings&quot;</span> <span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+         <span class="nt">&quot;device&quot;</span> <span class="p">:</span> <span class="s2">&quot;Random-Integer-Generator01&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;origin&quot;</span> <span class="p">:</span> <span class="mi">1596670608709647108</span><span class="p">,</span>
+         <span class="nt">&quot;value&quot;</span> <span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;RandomValue_Int16&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;valueType&quot;</span> <span class="p">:</span> <span class="s2">&quot;Int16&quot;</span>
+      <span class="p">}</span>
+   <span class="p">],</span>
+   <span class="nt">&quot;origin&quot;</span> <span class="p">:</span> <span class="mi">1596670608709698016</span><span class="p">,</span>
+   <span class="nt">&quot;EncodedEvent&quot;</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+   <span class="nt">&quot;device&quot;</span> <span class="p">:</span> <span class="s2">&quot;Random-Integer-Generator01&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
                 
               
               
