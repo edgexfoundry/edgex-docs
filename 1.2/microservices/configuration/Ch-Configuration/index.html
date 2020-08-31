@@ -2233,7 +2233,7 @@ relevant values, and then overlay any environment variable override values as sp
 configuration from the configuration provider, use one of the following flags:</p>
 <p><code>--configProvider / -cp</code></p>
 <p>Again, taking the <code>core-data</code> service as an example:</p>
-<p><code>./core-data -cp=http://localhost:8500</code> will start the service using configuration values found in the provider</p>
+<p><code>./core-data -cp=consul.http://localhost:8500</code> will start the service using configuration values found in the provider</p>
 <h3 id="configuration-structure">Configuration Structure</h3>
 <p>Configuration information is organized into a hierarchical structure
 allowing for a logical grouping of services, as well as versioning,
@@ -2315,7 +2315,7 @@ configuration provider running during an EdgeX Foundry upgrade any customization
 <tr>
 <td></td>
 <td></td>
-<td>entries in the Writable section of the configuration can be changed on the fly while the service is running if the service is running with the <code>-cp/--configProvider=&lt;url&gt;</code> flag</td>
+<td>entries in the Writable section of the configuration can be changed on the fly while the service is running if the service is running with the <code>-cp/--configProvider=consul.&lt;url&gt;</code> flag</td>
 </tr>
 <tr>
 <td>LogLevel</td>
@@ -2599,7 +2599,7 @@ modifications to the other settings (read-only configuration) would require a re
 </code></pre></div>
 
 <h2 id="configuration-provider">Configuration Provider</h2>
-<p>You can supply and manage configuration in a centralized manner by utilizing the <code>-cp/--configProvider=&lt;url&gt;</code> flag when starting a service. If the flag is provided and pointed to an application such as <a href="https://www.consul.io/">HashiCorp's Consul</a>, the service will bootstrap its configuration into Consul if it doesn't exist. If configuration does already exist, it will load the content from the given location applying any environment variables overrides of which the service is aware. Integration with the configuration provider is handled through the
+<p>You can supply and manage configuration in a centralized manner by utilizing the <code>-cp/--configProvider=consul.&lt;url&gt;</code> flag when starting a service. If the flag is provided and pointed to an application such as <a href="https://www.consul.io/">HashiCorp's Consul</a>, the service will bootstrap its configuration into Consul if it doesn't exist. If configuration does already exist, it will load the content from the given location applying any environment variables overrides of which the service is aware. Integration with the configuration provider is handled through the
 <a href="https://github.com/edgexfoundry/go-mod-configuration">go-mod-configuration</a> module referenced by all services.</p>
 <h2 id="registry-provider">Registry Provider</h2>
 <p>The registry refers to any platform you may use for service discovery. For the EdgeX Foundry reference implementation, the default provider for this responsibility is Consul. Integration with the registry is handled through the <a href="https://github.com/edgexfoundry/go-mod-registry">go-mod-registry</a> module referenced by all services.</p>
