@@ -10,3 +10,4 @@
 | [0007 Release Automation](./adr/devops/0007-Release-Automation.md)   | Overview of Release Automation Flow for EdgeX   |
 | [0008 Secret Distribution](./adr/security/0008-Secret-Creation-and-Distribution.md)   | Creation and Distribution of Secrets   |
 | [0011 Device Service REST API](./adr/device-service/0011-DeviceService-Rest-API.md)   | The REST API for Device Services in EdgeX v2.x   |
+| [0012 Event UUID](./adr/core/0012-Event-UUID.md)                      | Event UUID for unique and ubiquitous identification of events |
