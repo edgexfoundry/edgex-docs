@@ -1,6 +1,6 @@
 # Configuration and Registry
 
-![image](EdgeX_RegistryHighlighted.png)
+![image](EdgeX_CoreRegConfig.png)
 
 ## Introduction
 
