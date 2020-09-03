@@ -625,8 +625,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#starting-a-new-device-service-project" class="md-nav__link">
-    Starting a new Device Service project
+  <a href="#starting-a-new-device-service" class="md-nav__link">
+    Starting a new Device Service
   </a>
   
 </li>
@@ -2031,8 +2031,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#starting-a-new-device-service-project" class="md-nav__link">
-    Starting a new Device Service project
+  <a href="#starting-a-new-device-service" class="md-nav__link">
+    Starting a new Device Service
   </a>
   
 </li>
@@ -2100,227 +2100,191 @@
                 
                 
                 <h1 id="c-sdk">C SDK</h1>
-<p>In this guide, you create a simple device service in C that generates a
-random number in place of getting data from an actual sensor. In this
-way, you get to explore some of the scaffolding and work necessary to
-complete a device service without actually having a device to talk to.</p>
+<p>In this guide, you create a simple device service that generates a
+random number as a means to simulate getting data from an actual device. In this way, you explore some of the SDK framework and work necessary to complete a device service without actually having a device to talk to.</p>
 <h2 id="install-dependencies">Install dependencies</h2>
-<p>To build a device service using the EdgeX C SDK you'll need the following:
--   libmicrohttpd
--   libcurl
--   libyaml
--   libcbor</p>
-<p>You can install these on Ubuntu by running:
-<div class="highlight"><pre><span></span><code>sudo apt install libcurl4-openssl-dev libmicrohttpd-dev libyaml-dev libcbor-dev
-</code></pre></div></p>
+<p>See the <a href="../Ch-GettingStartedCDevelopers/">Getting Started - C Developers</a> guide to install the necessary tools and infrastructure needed to develop a GoLang service.</p>
 <h2 id="get-the-edgex-device-sdk-for-c">Get the EdgeX Device SDK for C</h2>
-<p>The next step is to download and build the EdgeX Device SDK for C. You
-always want to use the release of the SDK that matches the release of
-EdgeX you are targeting. As of this writing the <strong>fuji</strong>
-release is the current stable release of EdgeX, so we will be using the
-<strong>fuji</strong> branch of the C SDK.</p>
+<p>The next step is to download and build the EdgeX device service SDK for C.</p>
 <ol>
 <li>
-<p>First, clone the fuji branch of device-sdk-c from Github:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">git clone -b fuji https://github.com/edgexfoundry/device-sdk-c.git</span>
-<span class="err">cd ./device-sdk-c</span>
-</code></pre></div>
-
-
+<p>First, clone the device-sdk-c from Github:
+    <div class="highlight"><pre><span></span><code>git clone -b v1.2.1 https://github.com/edgexfoundry/device-sdk-c.git
+<span class="nb">cd</span> ./device-sdk-c
+</code></pre></div></p>
+<p><img alt="image" src="../EdgeX_GettingStartedSDKCloneC.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The clone command above has you pull v1.2.1 of the C SDK which is the version compatible with the Geneva release.</p>
+</div>
 </li>
 <li>
-<p>Then, build the device-sdk-c:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">./scripts/build.sh</span>
-</code></pre></div>
-
-
+<p>Then, build the device-sdk-c:
+    <div class="highlight"><pre><span></span><code>make
+</code></pre></div></p>
 </li>
 </ol>
-<h2 id="starting-a-new-device-service-project">Starting a new Device Service project</h2>
-<p>For this guide we're going to use the example template provided by the
-C SDK as a starting point, and will modify it to generate random integer
+<h2 id="starting-a-new-device-service">Starting a new Device Service</h2>
+<p>For this guide, you use the example template provided by the
+C SDK as a starting point for a new device service.  You modify the device service to generate random integer
 values.</p>
-<ol>
-<li>Begin by copying the template example source into a new directory
+<p>Begin by copying the template example source into a new directory
     named <code>example-device-c</code>:
-<div class="highlight"><pre><span></span><code>mkdir -p ../example-device-c/res
+    <div class="highlight"><pre><span></span><code>mkdir -p ../example-device-c/res
 cp ./src/c/examples/template.c ../example-device-c
 <span class="nb">cd</span> ../example-device-c
-</code></pre></div></li>
-</ol>
+</code></pre></div></p>
+<p><img alt="image" src="../EdgeX_GettingStartedSDKCopyFilesC.png" /></p>
 <h2 id="build-your-device-service">Build your Device Service</h2>
 <p>Now you are ready to build your new device service using the C SDK you
 compiled in an earlier step.</p>
 <ol>
-<li>Tell the compiler where to find the C SDK files:<div class="codehilite"><pre><span></span><code><span class="err">export CSDK_DIR=../device-sdk-c/build/release/_CPack_Packages/Linux/TGZ/csdk-1.0.0</span>
-</code></pre></div>
-
-
-</li>
-</ol>
+<li>
+<p>Tell the compiler where to find the C SDK files:
+    <div class="highlight"><pre><span></span><code><span class="nb">export</span> <span class="nv">CSDK_DIR</span><span class="o">=</span>../device-sdk-c/build/release/_CPack_Packages/Linux/TGZ/csdk-1.2.1
+</code></pre></div></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The exact path to your compiled CSDK_DIR may differ, depending on the
-tagged version number on the SDK</p>
+<p>The exact path to your compiled CSDK_DIR may differ depending on the tagged version number on the SDK.  The version of the SDK can be found in the VERSION file located in the ./device-sdk-c/VERSION file.  In the example above, the Geneva release of 1.2.1 is used.</p>
 </div>
-<ol>
-<li>Now you can build your device service executable:<div class="codehilite"><pre><span></span><code><span class="err">gcc -I$CSDK_DIR/include -L$CSDK_DIR/lib -o device-example-c template.c -lcsdk</span>
+</li>
+<li>
+<p>Now build your device service executable:</p>
+<div class="highlight"><pre><span></span><code>gcc -I<span class="nv">$CSDK_DIR</span>/include -L<span class="nv">$CSDK_DIR</span>/lib -o device-example-c template.c -lcsdk
 </code></pre></div>
 
-
+<p>If everything is working properly, a <code>device-example-c</code> executable will be created in the directory.</p>
+<p><img alt="image" src="../EdgeX_GettingStartedSDKCompileC.png" /></p>
 </li>
 </ol>
 <h2 id="customize-your-device-service">Customize your Device Service</h2>
 <p>Up to now you've been building the example device service provided by
 the C SDK. In order to change it to a device service that generates
 random numbers, you need to modify your <code>template.c</code> method
-<strong>template_get_handler</strong> so that it reads as follows:</p>
+<strong>template_get_handler</strong>.  Replace the following code:</p>
 <div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="p">(</span><span class="kt">uint32_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nreadings</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="k">const</span> <span class="n">edgex_nvpairs</span> <span class="o">*</span> <span class="n">current</span> <span class="o">=</span> <span class="n">requests</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">attributes</span><span class="p">;</span>
-  <span class="k">while</span> <span class="p">(</span><span class="n">current</span><span class="o">!=</span><span class="nb">NULL</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">)</span> <span class="o">==</span><span class="mi">0</span> <span class="p">)</span>
-    <span class="p">{</span>
-      <span class="cm">/* Set the resulting reading type as Uint64 */</span>
-      <span class="n">readings</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">type</span> <span class="o">=</span> <span class="n">Uint64</span><span class="p">;</span>
+    <span class="cm">/* Log the attributes for each requested resource */</span>
+    <span class="n">iot_log_debug</span> <span class="p">(</span><span class="n">driver</span><span class="o">-&gt;</span><span class="n">lc</span><span class="p">,</span> <span class="s">&quot;  Requested reading %u:&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+    <span class="n">dump_nvpairs</span> <span class="p">(</span><span class="n">driver</span><span class="o">-&gt;</span><span class="n">lc</span><span class="p">,</span> <span class="n">requests</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">attributes</span><span class="p">);</span>
+    <span class="cm">/* Fill in a result regardless */</span>
+    <span class="n">readings</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">type</span> <span class="o">=</span> <span class="n">String</span><span class="p">;</span>
+    <span class="cm">/* NB String (and binary) readings get deallocated in the SDK */</span>
+    <span class="n">readings</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">value</span><span class="p">.</span><span class="n">string_result</span> <span class="o">=</span> <span class="n">strdup</span> <span class="p">(</span><span class="s">&quot;Template result&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</code></pre></div>
 
-      <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">,</span> <span class="s">&quot;random&quot;</span><span class="p">)</span> <span class="o">==</span><span class="mi">0</span> <span class="p">)</span>
-      <span class="p">{</span>
+<p>with this code:</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="p">(</span><span class="kt">uint32_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nreadings</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">rdtype</span> <span class="o">=</span> <span class="n">edgex_nvpairs_value</span> <span class="p">(</span><span class="n">requests</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">attributes</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">rdtype</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span> <span class="p">(</span><span class="n">rdtype</span><span class="p">,</span> <span class="s">&quot;random&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">{</span>
+        <span class="cm">/* Set the resulting reading type as Uint64 */</span>
+        <span class="n">readings</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">type</span> <span class="o">=</span> <span class="n">Edgex_Uint64</span><span class="p">;</span>
         <span class="cm">/* Set the reading as a random value between 0 and 100 */</span>
         <span class="n">readings</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">value</span><span class="p">.</span><span class="n">ui64_result</span> <span class="o">=</span> <span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">100</span><span class="p">;</span>
-      <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+        <span class="n">iot_log_error</span> <span class="p">(</span><span class="n">driver</span><span class="o">-&gt;</span><span class="n">lc</span><span class="p">,</span> <span class="s">&quot;Unknown sensor type </span><span class="se">\&quot;</span><span class="s">%s</span><span class="se">\&quot;</span><span class="s"> requested&quot;</span><span class="p">,</span> <span class="n">rdtype</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-    <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-  <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="n">iot_log_error</span> <span class="p">(</span><span class="n">driver</span><span class="o">-&gt;</span><span class="n">lc</span><span class="p">,</span> <span class="s">&quot;Unable to read value, no </span><span class="se">\&quot;</span><span class="s">type</span><span class="se">\&quot;</span><span class="s"> attribute given&quot;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
 </code></pre></div>
 
 <h2 id="creating-your-device-profile">Creating your Device Profile</h2>
-<p>A Device Profile is a YAML file that describes a class of device to
-EdgeX. General characteristics about the type of device, the data these
-devices provide, and how to command the device is all provided in a
-Device Profile. Device Services use the Device Profile to understand
-what data is being collected from the Device (in some cases providing
-information used by the Device Service to know how to communicate with
-the device and get the desired sensor readings). A Device Profile is
-needed to describe the data that will be collected from the simple
-random number generating Device Service.</p>
+<p>A device profile is a YAML file that describes a class of device to
+EdgeX. General characteristics about the type of device, the data these devices provide, and how to command the device are all in a device profile.   The device profile tells the device service what data gets collected from the the device and how to get it. </p>
+<p>Follow these steps to create a device profile for the simple random number generating device service.</p>
 <ol>
-<li>Explore the files in the src/c/examples/res folder. Take note of the
-    example Device Profile YAML file that is already there
-    (TemplateProfile.yaml). You can explore the contents of this file to
-    see how devices are represented by YAML. In particular, note how
-    fields or properties of a sensor are represented by
-    "deviceResources". Commands to be issued to the device are
-    represented by "coreCommands".</li>
-<li>Download this
-    <code>random-generator-device.yaml &lt;random-generator-device.yaml&gt;</code>{.interpreted-text
-    role="download"} into the ./res folder.</li>
-</ol>
-<p>You can open random-generator-device.yaml in a text editor. In this
-Device Profile, you are suggesting that the device you are describing to
-EdgeX has a single property (or deviceResource) which EdgeX should know
-about - in this case, the property is the "randomnumber". Note how the
-deviceResource is typed.</p>
-<blockquote>
-<p>In more real world IoT situations, this deviceResource list could be
-extensive and could be filled with all different types of data.</p>
-<p>Note also how the Device Profile describes REST commands that can be
-used by others to call on (or "get") the random number from the Device
-Service.</p>
-</blockquote>
-<h2 id="configuring-your-device-service">Configuring your Device Service</h2>
-<p>You will now update the configuration for your new Device Service --
-changing the port it operates on (so as not to conflict with other
-Device Services), altering the scheduled times of when the data is
-collected from the Device Service (every 10 seconds), and setting up the
-initial provisioning of the random number generating device when the
-service starts.</p>
-<ul>
-<li>Download this
-    <code>configuration.toml &lt;configuration.toml&gt;</code>{.interpreted-text
-    role="download"} to the ./res folder.</li>
-</ul>
-<p>If you will be running EdgeX inside of Docker containers (which you will
-at the bottom of this guide) you need to tell your new Device Service to
-listen on the Docker host IP address (172.17.0.1) instead of
-<strong>localhost</strong>. To do that, modify the configuration.toml file so that
-the top section looks like this:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Service]</span>
-<span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;172.17.0.1&quot;</span>
-<span class="n">Port</span> <span class="o">=</span> <span class="mi">49992</span>
-</code></pre></div>
-
-<h2 id="rebuild-your-device-service">Rebuild your Device Service</h2>
-<p>Now you have your new Device Service, modified to return a random
-number, a Device Profile that will tell EdgeX how to read that random
-number, as well as a configuration file that will let your Device
-Service register itself and it's Device Profile with EdgeX, and begin
-taking readings every 10 seconds.</p>
-<ol>
-<li>Rebuild your Device Service to reflect the changes that you have
-    made:<div class="codehilite"><pre><span></span><code><span class="err">gcc -I$CSDK_DIR/include -L$CSDK_DIR/lib -o device-example-c template.c -lcsdk</span>
-</code></pre></div>
-
-
+<li>
+<p>Explore the files in the device-sdk-c/src/c/examples/res folder.   Note the example TemplateProfile.yaml device profile that is already in this folder.  Open the file with your favorite editor and explore its contents.  Note how <code>deviceResources</code> in the file represent properties of a device (properties like SensorOne, SensorTwo and Switch).  Similarly, <code>coreCommands</code> specify commands that get issued to the device.</p>
+<p><img alt="image" src="../EdgeX_SampleDeviceProfile_DeviceResourcesC.png" /></p>
+</li>
+<li>
+<p>A pre-created device profile for the random number device is provided in this documentation.  Download <strong><a href="../random-generator-device.yaml">random-generator-device.yaml</a></strong> and save the file to the <code>./res</code> folder.</p>
+</li>
+<li>
+<p>Open the random-generator-device.yaml file in a text editor. In this device profile, the device described has a deviceResource:  <code>randomnuber</code>.  Note how the association of a type to the deviceResource.  In this case, the device profile informs EdgeX that randomnumber will be a INT32.  In real world IoT situations, this deviceResource list could be extensive and filled with many deviceResources all different types of data.  Note also how the device profile describes a REST command (GET Random) to call to get the random number from the device service.</p>
 </li>
 </ol>
+<h2 id="configuring-your-device-service">Configuring your Device Service</h2>
+<p>Now update the configuration for the new device service.    This documentation provides a new configuration.toml file.  This configuration file:
+- changes the port the service operates on so as not to conflict with other device services
+- alters the the auto event frequency, which determines when the device service collects data from the simulated device (every 10 seconds)
+- sets up the initial provisioning of the random number generating device when the service starts</p>
+<p>Download  <strong><a href="../configuration.toml">configuration.toml</a></strong> and save the file to the ./res folder.</p>
+<h2 id="rebuild-your-device-service">Rebuild your Device Service</h2>
+<p>Now you have your new device service, modified to return a random
+number, a device profile that will tell EdgeX how to read that random
+number, as well as a configuration file that will let your device
+service register itself and its device profile with EdgeX, and begin
+taking readings every 10 seconds.</p>
+<p>Rebuild your Device Service to reflect the changes that you have made:</p>
+<div class="highlight"><pre><span></span><code>gcc -I<span class="nv">$CSDK_DIR</span>/include -L<span class="nv">$CSDK_DIR</span>/lib -o device-example-c template.c -lcsdk
+</code></pre></div>
+
 <h2 id="run-your-device-service">Run your Device Service</h2>
 <p>Allow your newly created Device Service, which was formed out of the
 Device Service C SDK, to create sensor mimicking data which it then
 sends to EdgeX.</p>
 <ol>
 <li>
-<p>Follow the <a href="../Ch-GettingStartedUsers/">Getting Started Users</a>
-    guide to start all of the EdgeX services in Docker. From the folder
-    containing the docker-compose file, start EdgeX with a call to:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker-compose up -d</span>
+<p>Follow the <a href="../Ch-GettingStartedUsers/">Getting Started with Docker</a> guide to start all of EdgeX. From
+    the folder containing the docker-compose file, start EdgeX with the
+    following call:</p>
+<div class="highlight"><pre><span></span><code>docker-compose up -d
 </code></pre></div>
-
 
 </li>
 <li>
-<p>Back in your custom Device Service directory, tell your device
+<p>Back in your custom device service directory, tell your device
     service where to find the <code>libcsdk.so</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">export LD_LIBRARY_PATH=$CSDK_DIR/lib</span>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$CSDK_DIR</span>/lib
 </code></pre></div>
-
 
 </li>
 <li>
 <p>Run your device service:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">./device-example-c</span>
+<div class="highlight"><pre><span></span><code>./device-example-c
 </code></pre></div>
-
 
 </li>
 <li>
-<p>You should now see your Device Service having it's /Random command
+<p>You should now see your device service having its /Random command
     called every 10 seconds. You can verify that it is sending data into
     EdgeX by watching the logs of the <code>edgex-core-data</code>
     service:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker logs -f edgex-core-data</span>
+<div class="highlight"><pre><span></span><code>docker logs -f edgex-core-data
 </code></pre></div>
 
-
+<p>Which would print an event record every time your device service is called.</p>
 </li>
-</ol>
-<p>Which would print an Event record every time your Device Service is
-called.</p>
-<ol>
-<li>You can manually generate an event using curl to query the device
-    service directly:<div class="codehilite"><pre><span></span><code><span class="err">curl 0:49992/api/v1/device/name/RandNum-Device01/Random</span>
+<li>
+<p>You can manually generate an event using curl to query the device
+    service directly:</p>
+<div class="highlight"><pre><span></span><code>curl <span class="m">0</span>:49992/api/v1/device/name/RandNum-Device01/randomnumber
 </code></pre></div>
 
-
+</li>
+<li>
+<p>Using a browser, enter the following URL to see the event/reading
+    data that the service is generating and sending to EdgeX:</p>
+<p><a href="http://localhost:48080/api/v1/event/device/RandNum-Device01/100">http://localhost:48080/api/v1/event/device/RandNum-Device01/100</a></p>
+<p>This request asks core data to provide the last 100 events/readings associated to the RandNum-Device-01.</p>
 </li>
 </ol>
-<p>Note that the value of the "randomnumber" reading is an integer
-between 0 and 100:
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;device&quot;</span><span class="p">:</span><span class="s2">&quot;RandNum-Device01&quot;</span><span class="p">,</span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="mi">1559317102457</span><span class="p">,</span><span class="nt">&quot;readings&quot;</span><span class="p">:[{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;randomnumber&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="s2">&quot;63&quot;</span><span class="p">}]}</span>
-</code></pre></div></p>
                 
               
               
