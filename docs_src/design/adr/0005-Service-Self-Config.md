@@ -23,7 +23,7 @@ The design/architectural proposal, therefore, is:
 ### Command Line Options
 All EdgeX services support a common set of command-line options, some combination of which are required on startup for a service to interact with the rest of EdgeX. Command line options are not set by any configuration.  Command line options include:
 
-- --configProvider or -cp (the configuration provider location URL)
+- --configProvider or -cp (the configuration provider location URL - prefixed with `consul.` - for example:  `-cp=consul.http://localhost:8500`)
 - --overwrite or -o (overwrite the configuration in the configuration provider)
 - --file or -f (the configuration filename - configuration.toml is used by default if the configuration filename is not provided)
 - --profile or -p (the name of a sub directory in the configuration directory in which a profile-specific configuration file is found. This has no default. If not specified, the configuration file is read from the configuration directory)

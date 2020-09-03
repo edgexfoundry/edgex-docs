@@ -1,6 +1,6 @@
 # Configuration and Registry
 
-![image](EdgeX_RegistryHighlighted.png)
+![image](EdgeX_CoreRegConfig.png)
 
 ## Introduction
 
@@ -57,7 +57,7 @@ configuration from the configuration provider, use one of the following flags:
 
 Again, taking the `core-data` service as an example:
 
-`./core-data -cp=http://localhost:8500` will start the service using configuration values found in the provider
+`./core-data -cp=consul.http://localhost:8500` will start the service using configuration values found in the provider
 
 ### Configuration Structure
 
@@ -120,7 +120,7 @@ The following tables document configuration properties that are common to all se
 === "Writable"
     |Property|Default Value|Description|
     |---|---|---|
-    |||entries in the Writable section of the configuration can be changed on the fly while the service is running if the service is running with the `-cp/--configProvider=<url>` flag|
+    |||entries in the Writable section of the configuration can be changed on the fly while the service is running if the service is running with the `-cp/--configProvider=consul.<url>` flag|
     |LogLevel|INFO|log entry [severity level](https://en.wikipedia.org/wiki/Syslog#Severity_level).  Log entries not of the default level or higher are ignored.|
  === "Service"
     |Property|Default Value|Description|
@@ -220,7 +220,7 @@ File = ''
 
 ## Configuration Provider
 
-You can supply and manage configuration in a centralized manner by utilizing the `-cp/--configProvider=<url>` flag when starting a service. If the flag is provided and pointed to an application such as [HashiCorp's Consul](https://www.consul.io/), the service will bootstrap its configuration into Consul if it doesn't exist. If configuration does already exist, it will load the content from the given location applying any environment variables overrides of which the service is aware. Integration with the configuration provider is handled through the
+You can supply and manage configuration in a centralized manner by utilizing the `-cp/--configProvider=consul.<url>` flag when starting a service. If the flag is provided and pointed to an application such as [HashiCorp's Consul](https://www.consul.io/), the service will bootstrap its configuration into Consul if it doesn't exist. If configuration does already exist, it will load the content from the given location applying any environment variables overrides of which the service is aware. Integration with the configuration provider is handled through the
 [go-mod-configuration](https://github.com/edgexfoundry/go-mod-configuration) module referenced by all services.
 
 ## Registry Provider
