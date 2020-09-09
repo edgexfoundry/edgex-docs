@@ -162,6 +162,20 @@ Below are the functions that are available to use in the configurable functions 
 
 Please refer to the function's detailed documentation by clicking the function name below.
 
+### [AddTags](../BuiltIn#tags)
+
+**Parameters**
+
+- `tags` - String containing comma separated list of tag key/value pairs. The tag key/value pairs are colon seperated
+
+**Example**
+
+```toml
+    [Writable.Pipeline.Functions.AddTags]
+      [Writable.Pipeline.Functions.AddTags.Parameters]
+      tags = "GatewayId:HoustonStore000123,Latitude:29.630771,Longitude:-95.377603"
+```
+
 ### [BatchByCount](../ApplicationFunctionsSDK/#built-in-transformsfunctions)
 
 **Parameters**
