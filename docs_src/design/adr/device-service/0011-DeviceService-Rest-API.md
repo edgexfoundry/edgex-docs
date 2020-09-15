@@ -42,7 +42,7 @@ When an object is deleted, the Metadata service makes a `DELETE` request to the 
 
 #### Object creation and updates
 
-When an object is created or updated, the Metadata service makes a `POST` or `PUT` request respectively to the relevant *callback/{type}* endpoint. The payload of the request is the new or updated object.
+When an object is created or updated, the Metadata service makes a `POST` or `PUT` request respectively to the relevant *callback/{type}* endpoint. The payload of the request is the new or updated object, ie one of the Device, DeviceProfile or ProvisionWatcher DTOs.
 
 ### Device
 
@@ -69,7 +69,7 @@ The command specified must match a deviceCommand or deviceResource name in the d
 | **423** | the specified device is locked (admin state) or disabled (operating state)
 | **500** | the device driver is unable to process the request
 
-**response body**: A successful `GET` operation will return a JSON-encoded Event, which contains one or more Readings. Example: `{"device":"Gyro","origin":1592405201763915855,"readings":[{"name":"Xrotation","value":"124","origin":1592405201763915855,"valueType":"int32"},{"name":"Yrotation","value":"-54","origin":1592405201763915855,"valueType":"int32"},{"name":"Zrotation","value":"122","origin":1592405201763915855,"valueType":"int32"}]}`
+**response body**: A successful `GET` operation will return a JSON-encoded NewEventResponse object, which contains one or more Readings. Example: `{"apiVersion":"v2","device":"Gyro","origin":1592405201763915855,"readings":[{"device":"Gyro","name":"Xrotation","value":"124","origin":1592405201763915855,"valueType":"int32"},{"device":"Gyro","name":"Yrotation","value":"-54","origin":1592405201763915855,"valueType":"int32"},{"device":"Gyro","name":"Zrotation","value":"122","origin":1592405201763915855,"valueType":"int32"}]}`
 
 This endpoint is used for obtaining readings from a device, and for writing settings to a device.
 
@@ -79,12 +79,12 @@ The values obtained when readings are taken, or used to make settings, are expre
 
 | Type | EdgeX types | Representation
 | --- | --- | ---
-| Boolean | `bool` | "true" or "false"
-| Integer | `uint8-uint64`, `int8-int64` | Numeric string, eg "-132"
-| Float | `float32`, `float64` | base64 encoded little-endian binary or decimal with exponent, eg "1.234e-5"
-| String | `string` | string
-| Binary | `bytes` | octet array
-| Array | `boolarray`, `uint8array-uint64array`, `int8array-int64array`, `float32array`, `float64array` | JSON Array, eg "["1", "34", "-5"]"
+| Boolean | `Bool` | "true" or "false"
+| Integer | `Uint8-Uint64`, `Int8-Int64` | Numeric string, eg "-132"
+| Float | `Float32`, `Float64` | base64 encoded little-endian binary or decimal with exponent, eg "1.234e-5"
+| String | `String` | string
+| Binary | `Bytes` | octet array
+| Array | `BoolArray`, `Uint8Array-Uint64Array`, `Int8Array-Int64Array`, `Float32Array`, `Float64Array` | JSON Array, eg "["1", "34", "-5"]"
 
 Notes:
 - The presence of a Binary reading will cause the entire Event to be encoded using CBOR rather than JSON
@@ -96,12 +96,22 @@ A Reading represents a value obtained from a deviceResource. It contains the fol
 
 | Field name | Description
 | --- | ---
+| *device* | The name of the device
 | *name* | The name of the deviceResource
-| *valueType* | The type of the data
 | *origin* | A timestamp indicating when the reading was taken
 | *value* | The reading value
-| *mediaType* | (Only for Binary readings) The MIME type of the data
+| *valueType* | The type of the data
 | *floatEncoding* | (Only for floats and arrays of floats) The float representation in use
+
+Or for binary Readings, the following fields
+
+| Field name | Description
+| --- | ---
+| *device* | The name of the device
+| *name* | The name of the deviceResource
+| *origin* | A timestamp indicating when the reading was taken
+| *binaryValue* | The reading value
+| *mediaType* | The MIME type of the data
 
 An Event represents the result of a `GET` command. If the command names a deviceResource, the Event will contain a single Reading. If the command names a deviceCommand, the Event will contain as many Readings as there are deviceResources listed in the deviceCommand.
 
@@ -144,9 +154,13 @@ ie, `new-value = (current-value & !mask) | request-value`
 
 The combination of mask and shift can therefore be used to access data contained in a subdivision of an octet.
 
+It is possible that following the application of the specified transformations, a value may exceed the range that may be represented by its type. Should this occur on a set operation, a suitable error should be logged and returned, along with the `Bad Request` http code 400. If it occurs as part of a get operation, the Reading's value should be set to the String `"overflow"`.
+
 #### Assertions and Mappings 
 
-Assertions are another attribute in a device resource's PropertyValue which specify a string value which the result is compared against. If the comparison fails, then the result is set to a string of the form *"Assertion failed for device resource: \<name>, with value: \<result>"*, this also has a side-effect of setting the device operatingstate to `DISABLED`. A 500 status code is also returned.
+Assertions are another attribute in a device resource's PropertyValue which specify a string value which the result is compared against. If the comparison fails, then the result is set to a string of the form *"Assertion failed for device resource: \<name>, with value: \<result>"*, this also has a side-effect of setting the device operatingstate to `DISABLED`. A 500 status code is also returned. Note that the error response and status code should be returned regardless of the `ds-returnevent` setting.
+
+Assertions are checked where an event is being generated due to an AutoEvent, or asynchronous readings are pushed. In these cases if the assertion is triggered, an error should be logged and the operating state should be set as above.
 
 Mappings may be defined in a deviceCommand. These allow Readings of string type to be remapped. Mappings are applied after assertions are checked, and are the final transformation before Readings are created. Mappings are also applied, but in reverse, to settings (`PUT` request data).
 
@@ -178,5 +192,6 @@ A call to this endpoint triggers the device discovery process, if enabled. See
 
 ## References
 
-OpenAPI definition of v2 API : https://github.com/edgexfoundry/device-sdk-go/blob/master/api/oas3.0/v2/device-sdk.yaml
+OpenAPI definition of v2 API : https://github.com/edgexfoundry/device-sdk-go/blob/master/openapi/v2/device-sdk.yaml
+
 Device Service Functional Requirements (Geneva) : https://wiki.edgexfoundry.org/download/attachments/329488/edgex-device-service-requirements-v11.pdf?version=1&modificationDate=1591621033000&api=v2
