@@ -2226,45 +2226,45 @@ that implements the MQTT protocol versions 5.0, 3.1.1 and 3.1.</p>
 <li>Receive the put request, then change the device value</li>
 </ol>
 <p>We created the following script to simulate the MQTT device:</p>
-<div class="codehilite"><pre><span></span><code><span class="o">//</span> <span class="n">mock</span><span class="o">-</span><span class="n">device</span><span class="p">.</span><span class="n">js</span>
-<span class="k">function</span> <span class="n">getRandomFloat</span><span class="p">(</span><span class="k">min</span><span class="p">,</span> <span class="k">max</span><span class="p">)</span> <span class="err">{</span>
-    <span class="k">return</span> <span class="n">Math</span><span class="p">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="p">(</span><span class="k">max</span> <span class="o">-</span> <span class="k">min</span><span class="p">)</span> <span class="o">+</span> <span class="k">min</span><span class="p">;</span>
-<span class="err">}</span>
+<div class="codehilite"><pre><span></span><code><span class="o">//</span> <span class="n">mock</span><span class="o">-</span><span class="n">device</span><span class="o">.</span><span class="n">js</span>
+<span class="n">function</span> <span class="n">getRandomFloat</span><span class="p">(</span><span class="nb">min</span><span class="p">,</span> <span class="nb">max</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">Math</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="p">(</span><span class="nb">max</span> <span class="o">-</span> <span class="nb">min</span><span class="p">)</span> <span class="o">+</span> <span class="nb">min</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="n">const</span> <span class="n">deviceName</span> <span class="o">=</span> <span class="ss">&quot;MQ_DEVICE&quot;</span><span class="p">;</span>
-<span class="n">let</span> <span class="n">message</span> <span class="o">=</span> <span class="ss">&quot;test-message&quot;</span><span class="p">;</span>
+<span class="k">const</span> <span class="n">deviceName</span> <span class="o">=</span> <span class="s2">&quot;MQ_DEVICE&quot;</span><span class="p">;</span>
+<span class="n">let</span> <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;test-message&quot;</span><span class="p">;</span>
 
-<span class="o">//</span> <span class="mi">1</span><span class="p">.</span> <span class="n">Publish</span> <span class="n">random</span> <span class="nb">number</span> <span class="k">every</span> <span class="mi">15</span> <span class="n">seconds</span>
-<span class="n">schedule</span><span class="p">(</span><span class="s1">&#39;*/15 * * * * *&#39;</span><span class="p">,</span> <span class="p">()</span><span class="o">=&gt;</span><span class="err">{</span>
-    <span class="n">let</span> <span class="n">body</span> <span class="o">=</span> <span class="err">{</span>
-        <span class="ss">&quot;name&quot;</span><span class="p">:</span> <span class="n">deviceName</span><span class="p">,</span>
-           <span class="ss">&quot;cmd&quot;</span><span class="p">:</span> <span class="ss">&quot;randnum&quot;</span><span class="p">,</span>
-        <span class="ss">&quot;randnum&quot;</span><span class="p">:</span> <span class="n">getRandomFloat</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span><span class="mi">29</span><span class="p">).</span><span class="n">toFixed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="err">}</span><span class="p">;</span>
-    <span class="n">publish</span><span class="p">(</span> <span class="s1">&#39;DataTopic&#39;</span><span class="p">,</span> <span class="n">JSON</span><span class="p">.</span><span class="n">stringify</span><span class="p">(</span><span class="n">body</span><span class="p">));</span>
-<span class="err">}</span><span class="p">);</span>
+<span class="o">//</span> <span class="mf">1.</span> <span class="n">Publish</span> <span class="n">random</span> <span class="n">number</span> <span class="n">every</span> <span class="mi">15</span> <span class="n">seconds</span>
+<span class="n">schedule</span><span class="p">(</span><span class="s1">&#39;*/15 * * * * *&#39;</span><span class="p">,</span> <span class="p">()</span><span class="o">=&gt;</span><span class="p">{</span>
+    <span class="n">let</span> <span class="n">body</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">deviceName</span><span class="p">,</span>
+           <span class="s2">&quot;cmd&quot;</span><span class="p">:</span> <span class="s2">&quot;randnum&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;randnum&quot;</span><span class="p">:</span> <span class="n">getRandomFloat</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span><span class="mi">29</span><span class="p">)</span><span class="o">.</span><span class="n">toFixed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">};</span>
+    <span class="n">publish</span><span class="p">(</span> <span class="s1">&#39;DataTopic&#39;</span><span class="p">,</span> <span class="n">JSON</span><span class="o">.</span><span class="n">stringify</span><span class="p">(</span><span class="n">body</span><span class="p">));</span>
+<span class="p">});</span>
 
-<span class="o">//</span> <span class="mi">2</span><span class="p">.</span> <span class="n">Receive</span> <span class="n">the</span> <span class="n">reading</span> <span class="n">request</span><span class="p">,</span> <span class="k">then</span> <span class="k">return</span> <span class="n">the</span> <span class="n">response</span>
-<span class="o">//</span> <span class="mi">3</span><span class="p">.</span> <span class="n">Receive</span> <span class="n">the</span> <span class="n">put</span> <span class="n">request</span><span class="p">,</span> <span class="k">then</span> <span class="n">change</span> <span class="n">the</span> <span class="n">device</span> <span class="n">value</span>
-<span class="n">subscribe</span><span class="p">(</span> <span class="ss">&quot;CommandTopic&quot;</span> <span class="p">,</span> <span class="p">(</span><span class="n">topic</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="err">{</span>
-    <span class="n">var</span> <span class="k">data</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="k">data</span><span class="p">.</span><span class="k">method</span> <span class="o">==</span> <span class="ss">&quot;set&quot;</span><span class="p">)</span> <span class="err">{</span>
-        <span class="n">message</span> <span class="o">=</span> <span class="k">data</span><span class="p">[</span><span class="k">data</span><span class="p">.</span><span class="n">cmd</span><span class="p">]</span>
-    <span class="err">}</span><span class="k">else</span><span class="err">{</span>
-        <span class="n">switch</span><span class="p">(</span><span class="k">data</span><span class="p">.</span><span class="n">cmd</span><span class="p">)</span> <span class="err">{</span>
-            <span class="k">case</span> <span class="ss">&quot;ping&quot;</span><span class="p">:</span>
-              <span class="k">data</span><span class="p">.</span><span class="n">ping</span> <span class="o">=</span> <span class="ss">&quot;pong&quot;</span><span class="p">;</span>
-              <span class="n">break</span><span class="p">;</span>
-            <span class="k">case</span> <span class="ss">&quot;message&quot;</span><span class="p">:</span>
-              <span class="k">data</span><span class="p">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">message</span><span class="p">;</span>
-              <span class="n">break</span><span class="p">;</span>
-            <span class="k">case</span> <span class="ss">&quot;randnum&quot;</span><span class="p">:</span>
-                <span class="k">data</span><span class="p">.</span><span class="n">randnum</span> <span class="o">=</span> <span class="mi">12</span><span class="p">.</span><span class="mi">123</span><span class="p">;</span>
-                <span class="n">break</span><span class="p">;</span>
-          <span class="err">}</span>
-    <span class="err">}</span>
-    <span class="n">publish</span><span class="p">(</span> <span class="ss">&quot;ResponseTopic&quot;</span><span class="p">,</span> <span class="n">JSON</span><span class="p">.</span><span class="n">stringify</span><span class="p">(</span><span class="k">data</span><span class="p">));</span>
-<span class="err">}</span><span class="p">);</span>
+<span class="o">//</span> <span class="mf">2.</span> <span class="n">Receive</span> <span class="n">the</span> <span class="n">reading</span> <span class="n">request</span><span class="p">,</span> <span class="n">then</span> <span class="k">return</span> <span class="n">the</span> <span class="n">response</span>
+<span class="o">//</span> <span class="mf">3.</span> <span class="n">Receive</span> <span class="n">the</span> <span class="n">put</span> <span class="n">request</span><span class="p">,</span> <span class="n">then</span> <span class="n">change</span> <span class="n">the</span> <span class="n">device</span> <span class="n">value</span>
+<span class="n">subscribe</span><span class="p">(</span> <span class="s2">&quot;CommandTopic&quot;</span> <span class="p">,</span> <span class="p">(</span><span class="n">topic</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="n">data</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;set&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">cmd</span><span class="p">]</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="n">switch</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">cmd</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">case</span> <span class="s2">&quot;ping&quot;</span><span class="p">:</span>
+              <span class="n">data</span><span class="o">.</span><span class="n">ping</span> <span class="o">=</span> <span class="s2">&quot;pong&quot;</span><span class="p">;</span>
+              <span class="k">break</span><span class="p">;</span>
+            <span class="n">case</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span>
+              <span class="n">data</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">message</span><span class="p">;</span>
+              <span class="k">break</span><span class="p">;</span>
+            <span class="n">case</span> <span class="s2">&quot;randnum&quot;</span><span class="p">:</span>
+                <span class="n">data</span><span class="o">.</span><span class="n">randnum</span> <span class="o">=</span> <span class="mf">12.123</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+          <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">publish</span><span class="p">(</span> <span class="s2">&quot;ResponseTopic&quot;</span><span class="p">,</span> <span class="n">JSON</span><span class="o">.</span><span class="n">stringify</span><span class="p">(</span><span class="n">data</span><span class="p">));</span>
+<span class="p">});</span>
 </code></pre></div>
 
 

@@ -2478,7 +2478,7 @@
 <p>The <code>Parameters</code> section for each function is a key/value map of <code>string</code> values. So even tough the parameter is referred to as an Integer or Boolean, it has to be specified as a string, e.g. "20" or "true".</p>
 </div>
 <p>Please refer to the function's detailed documentation by clicking the function name below.</p>
-<h3 id="batchbycount"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">BatchByCount</a></h3>
+<h3 id="batchbycount"><a href="../BuiltIn/#batch">BatchByCount</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>BatchThreshold</code> - Number of items to batch before sending batched items to the next function in the pipeline.</li>
@@ -2489,7 +2489,7 @@
       <span class="n">BatchThreshold</span> <span class="o">=</span> <span class="s">&quot;30&quot;</span>
 </code></pre></div>
 
-<h3 id="batchbytime"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">BatchByTime</a></h3>
+<h3 id="batchbytime"><a href="../BuiltIn/#batch">BatchByTime</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>TimeInterval</code> - Time duration to batch before sending batched items to the next function in the pipeline.</li>
@@ -2500,7 +2500,7 @@
       <span class="n">TimeInterval</span> <span class="o">=</span> <span class="s">&quot;60s&quot;</span>
 </code></pre></div>
 
-<h3 id="batchbytimeandcount"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">BatchByTimeAndCount</a></h3>
+<h3 id="batchbytimeandcount"><a href="../BuiltIn/#batch">BatchByTimeAndCount</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>BatchThreshold</code> - The number of items to batch before sending batched items to the next function in the pipeline.</li>
@@ -2513,21 +2513,21 @@
       <span class="n">TimeInterval</span> <span class="o">=</span> <span class="s">&quot;60s&quot;</span>
 </code></pre></div>
 
-<h3 id="compresswithgzip"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">CompressWithGZIP</a></h3>
+<h3 id="compresswithgzip"><a href="../BuiltIn/#gzip">CompressWithGZIP</a></h3>
 <p><strong>Parameters</strong></p>
 <p>none</p>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.CompressWithGZIP]</span>
 </code></pre></div>
 
-<h3 id="compresswithzlib"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">CompressWithZLIB</a></h3>
+<h3 id="compresswithzlib"><a href="../BuiltIn/#zlib">CompressWithZLIB</a></h3>
 <p><strong>Parameters</strong></p>
 <p>none</p>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.CompressWithZLIB]</span>
 </code></pre></div>
 
-<h3 id="encryptwithaes"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">EncryptWithAES</a></h3>
+<h3 id="encryptwithaes"><a href="../BuiltIn/#aes">EncryptWithAES</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>Key</code> - Encryption key used for the AES encryption.</li>
@@ -2540,7 +2540,7 @@
         <span class="n">InitVector</span> <span class="o">=</span> <span class="s">&quot;123456789012345678901234567890&quot;</span>
 </code></pre></div>
 
-<h3 id="filterbydevicename"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">FilterByDeviceName</a></h3>
+<h3 id="filterbydevicename"><a href="../BuiltIn/#by-device-name">FilterByDeviceName</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>DeviceNames</code> - Comma separated list of device names for filtering</li>
@@ -2553,7 +2553,7 @@
         <span class="n">FilterOut</span> <span class="o">=</span> <span class="s">&quot;false&quot;</span>
 </code></pre></div>
 
-<h3 id="filterbyvaluedescriptor"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">FilterByValueDescriptor</a></h3>
+<h3 id="filterbyvaluedescriptor"><a href="../BuiltIn/#by-value-descriptor">FilterByValueDescriptor</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>ValueDescriptors</code> - Comma separated list of value descriptor (reading) names for filtering</li>
@@ -2566,7 +2566,7 @@
         <span class="n">FilterOut</span> <span class="o">=</span> <span class="s">&quot;true&quot;</span>
 </code></pre></div>
 
-<h3 id="httppost"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">HTTPPost</a></h3>
+<h3 id="httppost"><a href="../BuiltIn/#http">HTTPPost</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>Url</code> - HTTP endpoint to POST the data.</li>
@@ -2585,7 +2585,7 @@
         <span class="n">SecretPath</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
 </code></pre></div>
 
-<h3 id="httppostjson"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">HTTPPostJSON</a></h3>
+<h3 id="httppostjson"><a href="../BuiltIn/#http">HTTPPostJSON</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>Url</code> - HTTP endpoint to POST the data.</li>
@@ -2602,7 +2602,7 @@
         <span class="n">SecretPath</span> <span class="o">=</span> <span class="s">&quot;http&quot;</span>
 </code></pre></div>
 
-<h3 id="httppostxml"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">HTTPPostXML</a></h3>
+<h3 id="httppostxml"><a href="../BuiltIn/#http">HTTPPostXML</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>Url</code> - HTTP endpoint to POST the data.</li>
@@ -2619,7 +2619,7 @@
         <span class="n">SecretPath</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
 </code></pre></div>
 
-<h3 id="jsonlogic"><a href="../ApplicationFunctionsSDK/#jsonlogic">JSONLogic</a></h3>
+<h3 id="jsonlogic"><a href="../BuiltIn/#json-logic">JSONLogic</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>Rule</code> - The JSON formatted rule that with be executed on the data by JSONLogic </li>
@@ -2630,14 +2630,14 @@
         <span class="n">Rule</span> <span class="o">=</span> <span class="s">&quot;{ \&quot;and\&quot; : [{\&quot;&lt;\&quot; : [{ \&quot;var\&quot; : \&quot;temp\&quot; }, 110 ]}, {\&quot;==\&quot; : [{ \&quot;var\&quot; : \&quot;sensor.type\&quot; }, \&quot;temperature\&quot; ]} ] }&quot;</span>
 </code></pre></div>
 
-<h3 id="markaspushed"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">MarkAsPushed</a></h3>
+<h3 id="markaspushed"><a href="../BuiltIn/#mark-as-pushed">MarkAsPushed</a></h3>
 <p><strong>Parameters</strong></p>
 <p>none</p>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.MarkAsPushed]</span>
 </code></pre></div>
 
-<h3 id="mqttsecretsend"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">MQTTSecretSend</a></h3>
+<h3 id="mqttsecretsend"><a href="../BuiltIn/#mqtt">MQTTSecretSend</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>BrokerAddress</code> - URL specify the address of the MQTT Broker</li>
@@ -2684,30 +2684,30 @@
         <span class="n">AuthMode</span> <span class="o">=</span> <span class="s">&quot;usernamepassword&quot;</span>
         <span class="n">SecretPath</span> <span class="o">=</span> <span class="s">&quot;mqtt&quot;</span>
 </code></pre></div></p>
-<h3 id="mqttsend"><a href="http://localhost:8000/microservices/application/ApplicationFunctionsSDK/#built-in-transformsfunctions">MQTTSend</a></h3>
+<h3 id="mqttsend"><a href="../BuiltIn/#mqtt">MQTTSend</a></h3>
 <p>MQTTSend has been deprecated. Please use <a href="#mqttsecretsend">MQTTSecretSend</a>.</p>
-<h3 id="pushtocore"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">PushToCore</a></h3>
+<h3 id="pushtocore"><a href="../BuiltIn/#push-to-core">PushToCore</a></h3>
 <p><strong>Parameters</strong></p>
 <p>none</p>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.PushToCore]</span>
 </code></pre></div>
 
-<h3 id="setoutputdata"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">SetOutputData</a></h3>
+<h3 id="setoutputdata"><a href="../BuiltIn/#output-functions">SetOutputData</a></h3>
 <p><strong>Parameters</strong></p>
 <p>none</p>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.SetOutputData]</span>
 </code></pre></div>
 
-<h3 id="transformtojson"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">TransformToJSON</a></h3>
+<h3 id="transformtojson"><a href="../BuiltIn/#json">TransformToJSON</a></h3>
 <p><strong>Parameters</strong></p>
 <p>none</p>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.TransformToJSON]</span>
 </code></pre></div>
 
-<h3 id="transformtoxml"><a href="../ApplicationFunctionsSDK/#built-in-transformsfunctions">TransformToXML</a></h3>
+<h3 id="transformtoxml"><a href="../BuiltIn/#xml">TransformToXML</a></h3>
 <p><strong>Parameters</strong></p>
 <p>none</p>
 <p><strong>Example</strong></p>

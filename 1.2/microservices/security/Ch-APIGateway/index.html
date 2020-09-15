@@ -2045,16 +2045,16 @@ individually with these commands used in sequence after secret store
 starts successfully. Lines starts with # are comments to explain the
 purpose of the command. :</p>
 <div class="codehilite"><pre><span></span><code><span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="n">up</span> <span class="o">-</span><span class="n">d</span> <span class="n">kong</span><span class="o">-</span><span class="n">db</span>
-<span class="o">#</span> <span class="k">start</span> <span class="n">up</span> <span class="n">backend</span> <span class="k">database</span> <span class="k">for</span> <span class="n">API</span> <span class="n">gateway</span>
+<span class="c1"># start up backend database for API gateway</span>
 
 <span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="n">up</span> <span class="o">-</span><span class="n">d</span> <span class="n">kong</span><span class="o">-</span><span class="n">migrations</span>
-<span class="o">#</span> <span class="k">initialize</span> <span class="n">the</span> <span class="n">backend</span> <span class="k">database</span> <span class="k">for</span> <span class="n">API</span> <span class="n">gateway</span>
+<span class="c1"># initialize the backend database for API gateway</span>
 
 <span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="n">up</span> <span class="o">-</span><span class="n">d</span> <span class="n">kong</span>
-<span class="o">#</span> <span class="k">start</span> <span class="n">up</span> <span class="n">KONG</span> <span class="n">the</span> <span class="n">major</span> <span class="n">component</span> <span class="k">of</span> <span class="n">API</span> <span class="n">gateway</span>
+<span class="c1"># start up KONG the major component of API gateway</span>
 
 <span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="n">up</span> <span class="o">-</span><span class="n">d</span> <span class="n">edgex</span><span class="o">-</span><span class="n">proxy</span>
-<span class="o">#</span> <span class="k">initialize</span> <span class="n">KONG</span><span class="p">,</span> <span class="n">configure</span> <span class="n">proxy</span> <span class="n">routes</span><span class="p">,</span> <span class="n">apply</span> <span class="n">certificates</span> <span class="k">to</span> <span class="n">routes</span><span class="p">,</span> <span class="k">and</span> <span class="n">enable</span> <span class="n">various</span> <span class="n">authentication</span><span class="o">/</span><span class="n">ACL</span> <span class="n">features</span><span class="p">.</span>
+<span class="c1"># initialize KONG, configure proxy routes, apply certificates to routes, and enable various authentication/ACL features.</span>
 </code></pre></div>
 
 
