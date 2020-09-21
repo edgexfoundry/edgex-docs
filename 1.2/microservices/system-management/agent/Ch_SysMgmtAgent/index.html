@@ -853,6 +853,18 @@
           
           
 
+
+  <li class="md-nav__item">
+    <a href="../../Ch_SystemManagement/" title="System Management Micro Services" class="md-nav__link">
+      System Management Micro Services
+    </a>
+  </li>
+
+        
+          
+          
+          
+
   
 
 
@@ -894,54 +906,19 @@
     Introduction
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#examples-of-api-calls" class="md-nav__link">
-    Examples of API Calls
-  </a>
-  
-    <nav class="md-nav" aria-label="Examples of API Calls">
+    <nav class="md-nav" aria-label="Introduction">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#metrics-of-a-service" class="md-nav__link">
-    Metrics of a service
+  <a href="#management-architecture" class="md-nav__link">
+    Management Architecture
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#configuration-of-a-service" class="md-nav__link">
-    Configuration of a service
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#start-a-service" class="md-nav__link">
-    Start a service
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#stop-a-service" class="md-nav__link">
-    Stop a service
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#restart-a-service" class="md-nav__link">
-    Restart a service
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#health-check-on-a-service" class="md-nav__link">
-    Health check on a service
+  <a href="#examples-of-api-calls" class="md-nav__link">
+    Examples of API Calls
   </a>
   
 </li>
@@ -951,10 +928,36 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#configuration-properties" class="md-nav__link">
+    Configuration Properties
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-reference" class="md-nav__link">
+    API Reference
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
     
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../executor/Ch_SysMgmtExecutor/" title="System Management Executor (SME)" class="md-nav__link">
+      System Management Executor (SME)
+    </a>
   </li>
 
         
@@ -2018,60 +2021,39 @@
     Introduction
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#examples-of-api-calls" class="md-nav__link">
-    Examples of API Calls
-  </a>
-  
-    <nav class="md-nav" aria-label="Examples of API Calls">
+    <nav class="md-nav" aria-label="Introduction">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#metrics-of-a-service" class="md-nav__link">
-    Metrics of a service
+  <a href="#management-architecture" class="md-nav__link">
+    Management Architecture
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#configuration-of-a-service" class="md-nav__link">
-    Configuration of a service
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#start-a-service" class="md-nav__link">
-    Start a service
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#stop-a-service" class="md-nav__link">
-    Stop a service
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#restart-a-service" class="md-nav__link">
-    Restart a service
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#health-check-on-a-service" class="md-nav__link">
-    Health check on a service
+  <a href="#examples-of-api-calls" class="md-nav__link">
+    Examples of API Calls
   </a>
   
 </li>
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-properties" class="md-nav__link">
+    Configuration Properties
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-reference" class="md-nav__link">
+    API Reference
+  </a>
   
 </li>
       
@@ -2096,59 +2078,52 @@
                 
                 
                 <h1 id="system-management-agent-sma">System Management Agent (SMA)</h1>
+<p><img alt="image" src="../../EdgeX_SystemManagement.png" /></p>
 <h2 id="introduction">Introduction</h2>
-<p>While the SMA serves several purposes, it is to be considered, first and
-foremost, as the single connection point of management control for an
-EdgeX instance. As such, the API calls related to system management are
-defined so as to interface with the SMA.</p>
-<h2 id="examples-of-api-calls">Examples of API Calls</h2>
-<p>To get an appreciation for some SMA API calls in action, it will be
-instructive to look at what responses the SMA provides to the caller,
-for the respective calls (Notice, too, the error messages returned by
-the SMA, should it encounter a problem). Thus, consider the following
-calls that the SMA handles:</p>
-<ul>
-<li><a href="#metrics-of-a-service">Metrics of a service</a></li>
-<li><a href="#configuration-of-a-service">Configuration of a service</a></li>
-<li><a href="#start-a-service">Start a service</a></li>
-<li><a href="#stop-a-service">Stop a service</a></li>
-<li><a href="#restart-a-service">Restart a service</a></li>
-<li><a href="#health-check-on-a-service">Health check on a service</a></li>
-</ul>
-<p>Let's look at the preceding calls (aka requests), one-by-one, in the
-following sections.</p>
-<h3 id="metrics-of-a-service">Metrics of a service</h3>
+<p>The SMA serves as the connection point of management control for an EdgeX instance.  </p>
+<h3 id="management-architecture">Management Architecture</h3>
+<p>The SMA serves as the proxy for management requests.  Some management requests (metrics requests and operations to start, stop and restart services) are routed to an executor for execution.  Other requests (for service configuration) are routed to the services for a response.  Configuration information is only available by asking each service for its current configuration.  Metrics and operations (tasks to start, stop, restart) typically need to be performed by some other software that can perform the task best under the platform / deployment environment.  When running EdgeX in a Docker Engine, Docker can provide service metrics like memory and CPU usage to the requestor.  If EdgeX services were running non-containerized in a Linux environment, the request may be best performed by some Linux shell script or by sysd.  An executor encapsulates the implementation for the metrics gathering and start, stop, restart operations.  That implementation of the executor can vary based on OS, platform environment, etc.  EdgeX defines the system management executor interface and a reference implementation which utilizes Docker (for situations when EdgeX is run in Docker) to responsd to metrics and start, stop, and restart operations.</p>
+<p><img alt="image" src="../../EdgeX_SysMgmtArch.png" /></p>
+<h3 id="examples-of-api-calls">Examples of API Calls</h3>
+<p>To get an appreciation for some SMA API calls in action, it is instructive to look at what responses the SMA provides to the caller,
+for the respective calls.  The tabs below provide the API path and corresponding response for each of the system management capabilities.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Notice, too, the error messages returned by the SMA, should it encounter a problem.</p>
+</div>
+<div class="tabbed-set" data-tabs="1:6"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Metrics of a service</label><div class="tabbed-content">
 <p>Example request: /api/v1/metrics/edgex-core-command,edgex-core-data</p>
 <p>Corresponding response, in JSON format:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-   <span class="nt">&quot;Metrics&quot;</span><span class="p">:{</span>
-      <span class="nt">&quot;edgex-core-command&quot;</span><span class="p">:{</span>
-         <span class="nt">&quot;CpuBusyAvg&quot;</span><span class="p">:</span><span class="mf">2.224995150836366</span><span class="p">,</span>
-         <span class="nt">&quot;Memory&quot;</span><span class="p">:{</span>
+<span class="nt">&quot;Metrics&quot;</span><span class="p">:{</span>
+    <span class="nt">&quot;edgex-core-command&quot;</span><span class="p">:{</span>
+        <span class="nt">&quot;CpuBusyAvg&quot;</span><span class="p">:</span><span class="mf">2.224995150836366</span><span class="p">,</span>
+        <span class="nt">&quot;Memory&quot;</span><span class="p">:{</span>
             <span class="nt">&quot;Alloc&quot;</span><span class="p">:</span><span class="mi">1403648</span><span class="p">,</span>
             <span class="nt">&quot;Frees&quot;</span><span class="p">:</span><span class="mi">1504</span><span class="p">,</span>
             <span class="nt">&quot;LiveObjects&quot;</span><span class="p">:</span><span class="mi">18280</span><span class="p">,</span>
             <span class="nt">&quot;Mallocs&quot;</span><span class="p">:</span><span class="mi">19784</span><span class="p">,</span>
             <span class="nt">&quot;Sys&quot;</span><span class="p">:</span><span class="mi">71891192</span><span class="p">,</span>
             <span class="nt">&quot;TotalAlloc&quot;</span><span class="p">:</span><span class="mi">1403648</span>
-         <span class="p">}</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;edgex-core-data&quot;</span><span class="p">:{</span>
-         <span class="nt">&quot;CpuBusyAvg&quot;</span><span class="p">:</span><span class="mf">2.854720153816541</span><span class="p">,</span>
-         <span class="nt">&quot;Memory&quot;</span><span class="p">:{</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;edgex-core-data&quot;</span><span class="p">:{</span>
+        <span class="nt">&quot;CpuBusyAvg&quot;</span><span class="p">:</span><span class="mf">2.854720153816541</span><span class="p">,</span>
+        <span class="nt">&quot;Memory&quot;</span><span class="p">:{</span>
             <span class="nt">&quot;Alloc&quot;</span><span class="p">:</span><span class="mi">929080</span><span class="p">,</span>
             <span class="nt">&quot;Frees&quot;</span><span class="p">:</span><span class="mi">1453</span><span class="p">,</span>
             <span class="nt">&quot;LiveObjects&quot;</span><span class="p">:</span><span class="mi">7700</span><span class="p">,</span>
             <span class="nt">&quot;Mallocs&quot;</span><span class="p">:</span><span class="mi">9153</span><span class="p">,</span>
             <span class="nt">&quot;Sys&quot;</span><span class="p">:</span><span class="mi">70451200</span><span class="p">,</span>
             <span class="nt">&quot;TotalAlloc&quot;</span><span class="p">:</span><span class="mi">929080</span>
-         <span class="p">}</span>
-      <span class="p">}</span>
-   <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 
-<h3 id="configuration-of-a-service">Configuration of a service</h3>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Configuration of a service</label><div class="tabbed-content">
 <p>Example request: /api/v1/config/device-simple,edgex-core-data</p>
 <p>Corresponding response, in JSON format:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
@@ -2217,15 +2192,16 @@ following sections.</p>
 <span class="p">}</span>
 </code></pre></div>
 
-<h3 id="start-a-service">Start a service</h3>
+</div>
+<input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">Start a service</label><div class="tabbed-content">
 <p>Example request: /api/v1/operation</p>
 <p>Example (POST) body accompanying the "start" request:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-   <span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="s2">&quot;start&quot;</span><span class="p">,</span>
-   <span class="nt">&quot;services&quot;</span><span class="p">:[</span>
-      <span class="s2">&quot;edgex-core-data&quot;</span><span class="p">,</span>
-   <span class="p">],</span>
-   <span class="nt">&quot;params&quot;</span><span class="p">:[</span>
+<span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="s2">&quot;start&quot;</span><span class="p">,</span>
+<span class="nt">&quot;services&quot;</span><span class="p">:[</span>
+    <span class="s2">&quot;edgex-core-data&quot;</span><span class="p">,</span>
+<span class="p">],</span>
+<span class="nt">&quot;params&quot;</span><span class="p">:[</span>
     <span class="s2">&quot;graceful&quot;</span>
     <span class="p">]</span>
 <span class="p">}</span>
@@ -2235,15 +2211,16 @@ following sections.</p>
 requested services."</p>
 <p>Corresponding response, in JSON format, on failure: "HTTP 500 -
 Internal Server Error"</p>
-<h3 id="stop-a-service">Stop a service</h3>
+</div>
+<input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><label for="__tabbed_1_4">Stop a service</label><div class="tabbed-content">
 <p>Example request: /api/v1/operation</p>
 <p>Example (POST) body accompanying the "stop" request:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-   <span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="s2">&quot;stop&quot;</span><span class="p">,</span>
-   <span class="nt">&quot;services&quot;</span><span class="p">:[</span>
-      <span class="s2">&quot;edgex-support-notifications&quot;</span>
-   <span class="p">],</span>
-   <span class="nt">&quot;params&quot;</span><span class="p">:[</span>
+<span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="s2">&quot;stop&quot;</span><span class="p">,</span>
+<span class="nt">&quot;services&quot;</span><span class="p">:[</span>
+    <span class="s2">&quot;edgex-support-notifications&quot;</span>
+<span class="p">],</span>
+<span class="nt">&quot;params&quot;</span><span class="p">:[</span>
     <span class="s2">&quot;graceful&quot;</span>
     <span class="p">]</span>
 <span class="p">}</span>
@@ -2253,16 +2230,17 @@ Internal Server Error"</p>
 requested service."</p>
 <p>Corresponding response, in JSON format, on failure: "HTTP 500 -
 Internal Server Error"</p>
-<h3 id="restart-a-service">Restart a service</h3>
+</div>
+<input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><label for="__tabbed_1_5">Restart a service</label><div class="tabbed-content">
 <p>Example request: /api/v1/operation</p>
 <p>Example (POST) body accompanying the "restart" request:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-   <span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="s2">&quot;restart&quot;</span><span class="p">,</span>
-   <span class="nt">&quot;services&quot;</span><span class="p">:[</span>
-      <span class="s2">&quot;edgex-support-notifications&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;edgex-core-data&quot;</span><span class="p">,</span>
-   <span class="p">],</span>
-   <span class="nt">&quot;params&quot;</span><span class="p">:[</span>
+<span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="s2">&quot;restart&quot;</span><span class="p">,</span>
+<span class="nt">&quot;services&quot;</span><span class="p">:[</span>
+    <span class="s2">&quot;edgex-support-notifications&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;edgex-core-data&quot;</span><span class="p">,</span>
+<span class="p">],</span>
+<span class="nt">&quot;params&quot;</span><span class="p">:[</span>
     <span class="s2">&quot;graceful&quot;</span>
     <span class="p">]</span>
 <span class="p">}</span>
@@ -2272,7 +2250,8 @@ Internal Server Error"</p>
 the requested services."</p>
 <p>Corresponding response, in JSON format, on failure: "HTTP 500 -
 Internal Server Error"</p>
-<h3 id="health-check-on-a-service">Health check on a service</h3>
+</div>
+<input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><label for="__tabbed_1_6">Health check on a service</label><div class="tabbed-content">
 <p>Example request:
 /api/v1/health/device-simple,edgex-core-data,support-notifications</p>
 <p>Corresponding response, in JSON format:</p>
@@ -2282,6 +2261,88 @@ Internal Server Error"</p>
     <span class="nt">&quot;support-notifications&quot;</span><span class="p">:</span> <span class="kc">true</span>
 <span class="p">}</span>
 </code></pre></div>
+
+</div>
+</div>
+<h2 id="configuration-properties">Configuration Properties</h2>
+<p>Please refer to the general <a href="https://docs.edgexfoundry.org/1.2/microservices/configuration/Ch-Configuration/#configuration">Configuration documentation</a> for configuration properties common to all services.</p>
+<div class="tabbed-set" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Writable</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td>Writable properties can be set and will dynamically take effect without service restart</td>
+</tr>
+<tr>
+<td>ResendLimit</td>
+<td>2</td>
+<td>Number of attempts to perform a system management operation before raising an error</td>
+</tr>
+</tbody>
+</table>
+</div>
+<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">General</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td>general system management configuration properties</td>
+</tr>
+<tr>
+<td>ExecutorPath</td>
+<td>'../sys-mgmt-executor/sys-mgmt-executor'</td>
+<td>path to the executor to use for system management requests other than configuration</td>
+</tr>
+<tr>
+<td>MetricsMechanism</td>
+<td>'direct-service'</td>
+<td>either direct-service or executor to advise the SMA where to go for service metrics information</td>
+</tr>
+</tbody>
+</table>
+</div>
+<input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><label for="__tabbed_2_3">Service</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td>these keys represent the system management service configuration settings</td>
+</tr>
+<tr>
+<td>FormatSpecifier</td>
+<td>'%(\d+\$)?([-#+ 0(\&lt;]*)?(\d+)?(\.\d+)?([tT])?([a-zA-Z%])'</td>
+<td>metrics data output format specifier</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<h2 id="api-reference">API Reference</h2>
+<p><a href="../../../../api/Ch-APISystemManagement/">System Management API Reference</a></p>
                 
               
               
@@ -2300,7 +2361,7 @@ Internal Server Error"</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../../../support/scheduler/Ch-Scheduling/" title="Scheduling" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../../Ch_SystemManagement/" title="System Management Micro Services" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
             </div>
@@ -2309,19 +2370,19 @@ Internal Server Error"</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Scheduling
+                System Management Micro Services
               </div>
             </div>
           </a>
         
         
-          <a href="../../../security/Ch-Security/" title="Security" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../../executor/Ch_SysMgmtExecutor/" title="System Management Executor (SME)" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Security
+                System Management Executor (SME)
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
