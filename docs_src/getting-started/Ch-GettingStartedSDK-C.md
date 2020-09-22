@@ -5,7 +5,7 @@ random number as a means to simulate getting data from an actual device. In this
 
 ## Install dependencies
 
-See the [Getting Started - C Developers](./Ch-GettingStartedCDevelopers.md) guide to install the necessary tools and infrastructure needed to develop a GoLang service.
+See the [Getting Started - C Developers](./Ch-GettingStartedCDevelopers.md) guide to install the necessary tools and infrastructure needed to develop a C service.
 
 ## Get the EdgeX Device SDK for C
 
