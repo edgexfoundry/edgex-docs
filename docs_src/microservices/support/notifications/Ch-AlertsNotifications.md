@@ -35,7 +35,7 @@ channels include SMS message, e-mail, REST callback, AMQP, MQTT, and so
 on. 
 
 !!! Warning
-    Currently in EdgeX Foundry, e-mail and REST callback channels ar provided.
+    Currently in EdgeX Foundry, e-mail and REST callback channels are provided.
 
 When the notification service receives notifications from any interface, 
 the notifications are passed to the Notifications Handler internally. 
@@ -43,9 +43,6 @@ The Notifications Handler persists the received notifications first,
 and passes them to the Distribution Coordinator immediately when a 
 given notification is either **critical** (severity = “CRITICAL”) or to the Message Scheduler when 
 it is **normal** (severity = “NORMAL”).
-
-!!! Info
-    Redis DB is used by default to persist all notification service information to include received notifications.
 
 When the Distribution Coordinator receives a notification, it first
 queries the Subscription database to get receivers who need this
