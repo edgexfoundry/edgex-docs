@@ -6,7 +6,7 @@ In Review 06/10/2020
 
 ## Context
 
-During the Geneva release of EdgeX Foundry the DevOps WG transformed the CI/CD process with new Jenkins pipeline functionality. After this new functionality was added we also started adding release automation. This new automation is outlined in ADR 0007 Release Automation. However, in [ADR 0007 Release Automation](https://github.com/edgexfoundry/edgex-docs/blob/master/docs_src/design/adr/devops/0007-Release-Automation.md) only three release artifact types are outlined. This document is meant to be a living document to try to outlines all currently supported artifacts associated with an EdgeX Foundry release, and should be updated if/when this list changes.
+During the Geneva release of EdgeX Foundry the DevOps WG transformed the CI/CD process with new Jenkins pipeline functionality. After this new functionality was added we also started adding release automation. This new automation is outlined in ADR 0007 Release Automation. However, in [ADR 0007 Release Automation](https://github.com/edgexfoundry/edgex-docs/blob/master/docs_src/design/adr/devops/0007-Release-Automation.md) only two release artifact types are outlined. This document is meant to be a living document to try to outlines all currently supported artifacts associated with an EdgeX Foundry release, and should be updated if/when this list changes.
 
 ## Release Artifact Types
 
@@ -19,6 +19,7 @@ Docker images are released for every named release of EdgeX Foundry. During deve
 #### Nexus Retention Policy
 
 ##### docker.snapshots
+
 Retention Policy: 90 days since last download
 
 Contains: Docker images that are not expected to be released. This contains images to optimize the builds in the CI infrastructure. The definitions of these docker images can be found in the [edgexfoundry/ci-build-images](https://github.com/edgexfoundry/ci-build-images) Github repository.
@@ -26,6 +27,7 @@ Contains: Docker images that are not expected to be released. This contains imag
 Docker Tags Used: Version, Latest
 
 ##### docker.staging
+
 Retention Policy: 180 days since last download
 
 Contains: Docker images built for potential release and testing purposes during development.
@@ -33,11 +35,12 @@ Contains: Docker images built for potential release and testing purposes during 
 Docker Tags Used: Version (ie: v1.x), Release Branch (master, fuji, etc), Latest
 
 ##### docker.release
+
 Retention Policy: No automatic removal. Requires TSC approval to remove images from this repository.
 
-Contains: Officially released docker images for EdgeX. 
+Contains: Officially released docker images for EdgeX.
 
-Docker Tags Used:•Version (ie: v1.x), Latest 
+Docker Tags Used:•Version (ie: v1.x), Latest
 
 [Nexus Cleanup Policies Reference](https://help.sonatype.com/repomanager3/repository-management/cleanup-policies)
 
@@ -63,7 +66,27 @@ Github tags are used to track the releases of EdgeX Foundry. During development 
 
 *Tied to Code Release?* Yes
 
-Snaps are released for every named release of EdgeX Foundry. During development the community stages snaps to the `latest/edge` channel of the [Snapcraft Store](https://snapcraft.io/search?q=edgexfoundry). At the time of code freeze we will promote the snaps from `latest/edge` to the `latest/beta` amd `latest/candidate` channels as beta release. This beta release is to trigger validation of the release candidate. At the time of release we will promote the snaps from `latest/beta` to `latest/stable`. In addition we also create a named release track for the release. (ie: `geneva/stable`).
+The building of snaps was removed from community scope in September 2020 but are still available on the [snapcraft store](https://snapcraft.io/edgexfoundry).
+
+Canonical publishes daily arm64 and amd64 releases of the following snaps to latest/edge in the Snap Store. These builds take place on the Canonical Launchpad platform and use the latest code from the master branch of each EdgeX repository, versioned using the latest git tag.
+
+edgexfoundry
+edgex-app-service-configurable
+edgex-device-camera
+edgex-device-rest
+edgex-device-modbus
+edgex-device-mqtt
+edgex-device-grove
+edgex-cli (work-in-progress)
+Note - this list may expand over time.
+
+At code freeze the edgexfoundry snap revision in the edge channel is promoted to latest/beta and $TRACK/beta. Publishing to beta will trigger the Canonical checkbox automated tests, which include tests on a variety of hardware hosted by Canonical.
+
+When the project tags a release of any of the snaps listed above, the resulting snap revision is first promoted from the edge channel to latest/candidate and $TRACK/candidate. Canonical tests this revision, and if all looks good, releases to latest/stable and $TRACK/stable.
+
+Canonical may also publish updates to the EdgeX snaps after release to address high/critical bugs and CVEs (common vulnerabilities and exposures).
+
+Note - in the above descriptions, $TRACK corresponds to the named release tracks (e.g. fuji, geneva, hanoi, ...) which are created for every major/minor release of EdgeX Foundry.
 
 ### SwaggerHub API Docs
 
@@ -77,16 +100,21 @@ In addition to our documentation site EdgeX foundry also releases our API specif
 
 The EdgeX Foundry community has a set of tests we maintain to do regression testing during development this framework is tracking the `master` branch of the components of EdgeX. At the time of release we will update the testing frameworks to point at the released Github tags and add a version tag to the testing frameworks themselves. This creates a snapshot of testing framework at the time of release for validation of the official release.
 
+### GitHub Release Artifacts
+
+*Tied to Code Release?* Yes
+
+GitHub release functionality is utilized on some repositories to release binary artifacts/assets (e.g. zip/tar files). These are versioned with the semantic version and found on the repository's GitHub Release page under 'Assets'.
+
 ### Known Build Dependencies for EdgeX Foundry
 
 There are some internal build dependencies within the EdgeX Foundry organization. When building artifacts for validation or a release you will need to take into the account the build dependencies to make sure you build them in the correct order.
 
 ![Known EdgeX Foundry Build Dependencies](0010/known-build-dependencies.png)
 
- - Edgex-go Snap: Has dependencies on app-service-configurable, device-virtual-go and support-rulesengine because they are included in the snap.
- - Application services have a dependency on the Application services SDK.
- - Go Device services have a dependency on the Go Device SDK.
- - C Device services have a dependency on the C Device SDK.
+- Application services have a dependency on the Application Functions SDK.
+- Go Device services have a dependency on the Go Device SDK.
+- C Device services have a dependency on the C Device SDK.
 
 ## Decision
 

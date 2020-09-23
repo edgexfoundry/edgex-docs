@@ -12,13 +12,15 @@ EdgeX Foundry is a framework composed of microservices to ease development of Io
 
 ### Release Artifact Definition
 
-For the scope of Geneva release artifact types are defined as:
+For the scope of Hanoi release artifact types are defined as:
 
 - GitHub tags in the repositories.
 - Docker images in our Nexus repository and Docker hub.
-- Snaps in the Snapcraft store.
+- *Snaps in the Snapcraft store.
 
 This list is likely to expand in future releases.
+
+*The building and publishing of snaps was removed from community scope in September 2020 and is managed outside the community by Canonical.
 
 ### General Requirements
 
@@ -56,32 +58,19 @@ Go modules, Application and Device SDKs only release a GitHub tag as their relea
 
 The release automation for go modules is used to set a new version that increases the major or minor version for the module. (IE: 1.0.0 -> 1.1.0) For the Application and Device SDKs it is used to set the final release version. (IE: 1.0.0-dev.X -> 1.0.0)
 
-### Application, Device Services and Supporting Docker Images
+### Core Services (Including Security and System Management services), Application Services, Device Services and Supporting Docker Images
 
 #### During Development
 
-![Merge Actions](0007/appdevservices_mergeactions.png)
+![Merge Actions](0007/mergeactions.png)
 
-For the Device, Application services and supporting docker images we release Github tags, docker images and snaps. On every merge to the `master` branch we will do the following; increment a developmental version tag on GitHub, (IE: 1.0.0-dev.1 -> 1.0.0-dev.2), stage docker images in our Nexus repository (docker.staging) and snaps will be pushed to the edge (experimental) and beta (QA) channels in the Snapcraft store.
-
-#### Release
-
-The release automation for the Application and Device services is the same as the services found in the `edgex-go` repository.
-
-### Core Services
-
-#### During Development
-
-![Merge Actions](0007/coreservices_mergeactions.png)
-
-For the Core services we release Github tags, docker images and snaps. On every merge to the `master` branch we will do the following; increment a developmental version tag on GitHub, (IE: 1.0.0-dev.1 -> 1.0.0-dev.2), stage docker images in our Nexus repository (docker.staging). Snaps will be pushed daily to the edge (experimental) and beta (QA) channels in the Snapcraft store because the core services snap can take up to a hour and half to build.
+For the Core Services, Application Services, Device Services and Supporting Docker Images we release Github tags and docker images. On every merge to the `master` branch we will do the following; increment a developmental version tag on GitHub, (IE: 1.0.0-dev.1 -> 1.0.0-dev.2), stage docker images in our Nexus repository (docker.staging).
 
 #### Release
 
 ![Release Actions](0007/releaseactions.png)
 
 The release automation will need to do the following:
- 
+
 1. Set version tag on GitHub. (IE: 1.0.0-dev.X -> 1.0.0)
 2. Promote docker images in our Nexus repository from docker.staging to docker.release and public Docker hub.
-3. Promote snaps from the beta (QA) channel to the release channel in the Snapcraft store.
