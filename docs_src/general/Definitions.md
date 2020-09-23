@@ -1,11 +1,14 @@
 # Definitions
 The following glossary provides terms used in EdgeX Foundry.  The definition are based on how EdgeX and its community use the term versus any strict technical or industry definition.
 
+## Actuate
+To cause a machine or device to operate.  In EdgeX terms, to command a device or sensor under management of EdgeX to do something (example: stop a motor) or to reconfigure itself (example: set a thermostat's cooling point).
+
 ## Brownfield and Greenfield
 Brownfield refers to older legacy equipment (nodes, devices, sensors) in an edge/IoT deployment, which typically uses older protocols.  Greenfield refers to, typically, new equipment with modern protocols.
 
 ## Containerized
-EdgeX micro services and infrastrucutre (i.e. databases, registry, etc.) are built as executable programs, put into Docker images, and made available via Docker Hub (and Nexus repository for nightly builds).  A service (or infrastructure element) that is available in Docker Hub (or Nexus) is said to be containerized.  Docker images can be quickly downloaded and new Docker containers created from the images.
+EdgeX micro services and infrastructure (i.e. databases, registry, etc.) are built as executable programs, put into Docker images, and made available via Docker Hub (and Nexus repository for nightly builds).  A service (or infrastructure element) that is available in Docker Hub (or Nexus) is said to be containerized.  Docker images can be quickly downloaded and new Docker containers created from the images.
 
 ## Contributor/Developer
 If you want to change, add to or at least build the existing EdgeX code base, then you are a "Developer". "Contributors" are developers that further wish to contribute their code back into the EdgeX open source effort.
