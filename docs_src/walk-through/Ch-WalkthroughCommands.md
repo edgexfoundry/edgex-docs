@@ -46,8 +46,8 @@ See [core data API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-data
 
 See that the value descriptors are in core data. There should be a total
 of 4 value descriptors in core data. Note that value descriptors are
-stored in core data, yet referenced by several objects core metadata. This is because as data
-coming from a device is sent to core data, Core data may need to
+stored in core data, yet referenced by several objects in core metadata. This is because as data
+coming from a device is sent to core data, core data may need to
 validate the incoming values against the associated value descriptor
 parameters (like min, max, etc.) but without having to make a trip to
 core metadata to do that validation. Getting data into core data is a
@@ -113,7 +113,7 @@ For example sake, let's launch a command to set the scan depth of
 `countcamera1` (the name of the single human/dog counting camera device in
 EdgeX right now). The first task to launch a request to set the scan
 depth is to get the URL for the command to `put` or set a new scan
-depth on the device. [Return to he results of the request](./Ch-WalkthroughCommands.md#walkthrough-commands) to get a list of the commands by the
+depth on the device. [Return to the results of the request](./Ch-WalkthroughCommands.md#walkthrough-commands) to get a list of the commands by the
 device name above.
 
 Locate and copy the URL for the `put` depth command. Because of the

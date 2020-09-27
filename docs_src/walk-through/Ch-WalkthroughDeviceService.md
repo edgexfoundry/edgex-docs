@@ -1,7 +1,7 @@
 # Register your device service
 
 Once the reference information is established by the device service in
-core data and meta data, the device service can register or define
+core data and core metadata, the device service can register or define
 itself in EdgeX. That is, it can proclaim to EdgeX that "I have arrived
 and am functional."
 

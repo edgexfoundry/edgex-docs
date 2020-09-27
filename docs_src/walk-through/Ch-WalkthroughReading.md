@@ -73,7 +73,7 @@ Modified timestamp by the database when it is saved to give the data some time c
 
 Now that an `Event` (or two) and associated `Readings` have been sent to
 core data, you can use the core data API to explore that data that is
-now stored in MongoDB.
+now stored in the database.
 
 Recall from a [previous walkthrough step](./Ch-WalkthroughCommands.md#walkthrough-events), you checked that no data was yet
 stored in core data. Make a similar call to see event records have now been sent into core data..

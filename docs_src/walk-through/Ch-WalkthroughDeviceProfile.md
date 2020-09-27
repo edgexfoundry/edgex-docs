@@ -83,16 +83,15 @@ names for the camera's count data. The expected values for the
 ```json
 {
   "responses":[
-    {"description" : "Get the people and dog counts","expectedValues" : ["HumanCount", "CanineCount"],"code" : "200"}
+    {"description" : "Get the people and dog counts","expectedValues" : ["HumanCount", "CanineCount"],"code" : "200"},
     {"description" : "bad request","expectedValues" : ["CameraError"],"code" : "404"}
-    ]
-  }
+  ]
 }
 ```
 
 #### Understanding Set Command Parameters
 
-`coreCommand`s are also used to send data to Devices (via device services) as much
+`coreCommand`s are also used to send data to devices (via device services) as much
 as they are used to get data from devices. Therefore, any `coreCommand` may
 have a set of parameters associated with its call. Parameter data is
 added to the body of the command request. Parameters are defined via an
