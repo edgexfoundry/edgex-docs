@@ -13,10 +13,12 @@ EdgeX micro services and infrastructure (i.e. databases, registry, etc.) are bui
 ## Contributor/Developer
 If you want to change, add to or at least build the existing EdgeX code base, then you are a "Developer". "Contributors" are developers that further wish to contribute their code back into the EdgeX open source effort.
 
-## Created timestamp
+## Created time stamp
 The Created time stamp is the time the data was created in the database and is unchangeable. The Origin time stamp is the time the data is created on the device, device services, sensor, or object that collected the data before the data was sent to EdgeX Foundry and the database.
 
 Usually, the Origin and Created time stamps are the same, or very close to being the same. On occasion the sensor may be a long way from the gateway or even in a different time zone, and the Origin and Created time stamps may be quite different.
+
+If persistence is disable in core-data, the time stamp will default to 0.
 
 ## Device
 In EdgeX parlance, "device" is used to refer to a sensor, actuator, or IoT "thing".  A sensor generally collects information from the physical world - like a temperature or vibration sensor.  Actuators are machines that can be told to do something.  Actuators move or otherwise control a mechanism or system - like a value on a pump.  While there may be some technical differences, for the purposes of EdgeX documentation, device will refer to a sensor, actuator or "thing".
@@ -50,7 +52,7 @@ Benefits of micro service architectures include:
 - Allow services to be distributed across host compute platforms - allowing better utilization of available compute resources
 - Allow for more scalable solutions by adding copies of services when needed
 
-## Origin timestamp
+## Origin time stamp
 The Origin time stamp is the time the data is created on the device, device services, sensor, or object that collected the data before the data is sent to EdgeX Foundry and the database. The Created time stamp is the time the data was created in the database.
 
 Usually, the Origin and Created time stamps are the same or very close to the same. On occasion the sensor may be a long way from the gateway or even in a different time zone, and the Origin and Created time stamps may be quite different.
@@ -87,7 +89,7 @@ EdgeX enables data to be sent "north, " "south, " or laterally as
 needed and as directed.
 
 ## "Snappy" / Ubuntu Core & Snaps
-A Linux-based Operating System provided by Ubuntu - formally called [Ubuntu Core](https://ubuntu.com/core) but offend referred to as "Snappy". The packages are called 'snaps' and the tool for using them 'snapd', and works for phone, cloud, internet of things, and desktop computers. The "Snap" packages are self-contained and have no dependency on external stores. "Snaps" can be used to create command line tools, background services, and desktop applications.
+A Linux-based Operating System provided by Ubuntu - formally called [Ubuntu Core](https://ubuntu.com/core) but often referred to as "Snappy". The packages are called 'snaps' and the tool for using them 'snapd', and works for phone, cloud, internet of things, and desktop computers. The "Snap" packages are self-contained and have no dependency on external stores. "Snaps" can be used to create command line tools, background services, and desktop applications.
 
 ## User
 If you want to get the EdgeX platform and run it (but do not intend to change or add to the existing code base now) then you are considered a "User".

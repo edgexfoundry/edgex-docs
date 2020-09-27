@@ -6,6 +6,8 @@ See the [Configuration and Registry documentation](../microservices/configuratio
 
 Please refer to the EdgeX Foundry [architectural decision record](https://github.com/edgexfoundry/edgex-docs/blob/master/docs_src/design/adr/0005-Service-Self-Config.md) for details (and design decisions) behind the configuration in EdgeX.
 
+Please refer to the general [Configuration documentation](../microservices/configuration/Ch-Configuration.md#configuration) for configuration properties common to all services.  Find service specific configuration references in the tabs below.
+
 === "Core"
     |Service Name|Configuration Reference|
     |---|---|
