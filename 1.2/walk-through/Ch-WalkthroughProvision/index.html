@@ -21,7 +21,7 @@
     
     
       
-        <title>Provision a Device - EdgeX Foundry Documentation</title>
+        <title>Provision a device - EdgeX Foundry Documentation</title>
       
     
     
@@ -90,7 +90,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Provision a Device
+              Provision a device
             
           </span>
         </div>
@@ -1473,18 +1473,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-WalkthroughRunning/" title="Running EdgeX" class="md-nav__link">
-      Running EdgeX
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../Ch-WalkthroughUseCase/" title="Example Use Case" class="md-nav__link">
       Example Use Case
     </a>
@@ -1521,8 +1509,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-WalkthroughDeviceService/" title="Register your Device Service" class="md-nav__link">
-      Register your Device Service
+    <a href="../Ch-WalkthroughDeviceService/" title="Register your device service" class="md-nav__link">
+      Register your device service
     </a>
   </li>
 
@@ -1542,14 +1530,14 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Provision a Device
+        Provision a device
         <span class="md-nav__icon md-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z" /></svg>
         </span>
       </label>
     
-    <a href="./" title="Provision a Device" class="md-nav__link md-nav__link--active">
-      Provision a Device
+    <a href="./" title="Provision a device" class="md-nav__link md-nav__link--active">
+      Provision a device
     </a>
     
       
@@ -1568,31 +1556,30 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#adding-your-device" class="md-nav__link">
-    Adding your device
+  <a href="#device" class="md-nav__link">
+    Device
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#test-the-setup" class="md-nav__link">
-    Test the Setup
-  </a>
-  
-    <nav class="md-nav" aria-label="Test the Setup">
+    <nav class="md-nav" aria-label="Device">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#check-the-device-service" class="md-nav__link">
-    Check the Device Service
+  <a href="#walkthrough-device" class="md-nav__link">
+    Walkthrough - Device
+  </a>
+  
+    <nav class="md-nav" aria-label="Walkthrough - Device">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-the-get-api" class="md-nav__link">
+    Test the GET API
   </a>
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#check-the-device" class="md-nav__link">
-    Check the Device
-  </a>
+      </ul>
+    </nav>
   
 </li>
         
@@ -2022,31 +2009,30 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#adding-your-device" class="md-nav__link">
-    Adding your device
+  <a href="#device" class="md-nav__link">
+    Device
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#test-the-setup" class="md-nav__link">
-    Test the Setup
-  </a>
-  
-    <nav class="md-nav" aria-label="Test the Setup">
+    <nav class="md-nav" aria-label="Device">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#check-the-device-service" class="md-nav__link">
-    Check the Device Service
+  <a href="#walkthrough-device" class="md-nav__link">
+    Walkthrough - Device
+  </a>
+  
+    <nav class="md-nav" aria-label="Walkthrough - Device">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-the-get-api" class="md-nav__link">
+    Test the GET API
   </a>
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#check-the-device" class="md-nav__link">
-    Check the Device
-  </a>
+      </ul>
+    </nav>
   
 </li>
         
@@ -2075,77 +2061,58 @@
                   
                 
                 
-                <h1 id="provision-a-device">Provision a Device</h1>
-<p>In the last act of setup, a Device Service often discovers and
-provisions new Devices it finds and is going to manage on the part of
-EdgeX. Note the word "often" in the last sentence. Not all Device
-Services will discover new Devices or provision them right away.
-Depending on the type of Device and how the Devices communicate, it is
-up to the Device Service to determine how/when to provision a Device. In
-some rare cases, the provisioning may be triggered by a human request of
-the Device Service once everything is in place and once the human can
-provide the information the Device Service needs to physically connect
-to the Device.</p>
-<h2 id="adding-your-device">Adding your device</h2>
-<p>See <a href="https://github.com/edgexfoundry/edgex-go/blob/master/api/raml/core-metadata.raml">APIs Core Services
-Metadata</a></p>
-<p>For the sake of this demonstration, the call to Core Metadata below will
-provision the human/dog counting monitor camera as if the Device Service
-discovered it (by some unknown means) and provisioned the Device as part
-of some startup process. To create a Device, it must be associated to a
-<a href="../Ch-WalkthroughDeviceProfile/">Device Profile</a> (by name or id), a
-<a href="../Ch-WalkthroughDeviceService/">Device Service</a> (by name or id), and
+                <h1 id="provision-a-device">Provision a device</h1>
+<p>In the last act of setup, a device service often discovers and provisions devices (either <a href="../../microservices/device/Ch-DeviceServices/#device-discovery-and-provision-watchers">statically or dynamically</a>) and that it is going to manage on the part of
+EdgeX. Note the word "often" in the last sentence. Not all device
+services will discover new devices or provision them right away.
+Depending on the type of device and how the devices communicate, it is
+up to the device service to determine how/when to provision a device. In
+some cases, the provisioning may be triggered by a human request of
+the device service once everything is in place and once the human can
+provide the information the device service needs to physically connected
+to the device.</p>
+<h2 id="device">Device</h2>
+<p>See <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/1.2.0">core metadata API</a> for more details.</p>
+<p>For the sake of this demonstration, the call to core metadata will
+provision the human/dog counting monitor camera as if the device service
+discovered it (by some unknown means) and provisioned the device as part
+of some startup process. To create a <code>Device</code>, it must be associated to a
+<a href="../Ch-WalkthroughDeviceProfile/"><code>DeviceProfile</code></a>, a
+<a href="../Ch-WalkthroughDeviceService/"><code>DeviceService</code></a>, and
 contain one or more <a href="../Ch-WalkthroughData/#addressables">Protocols</a>
-defining its address. When calling each of the POST calls above, the ID
-was returned by the associated micro service and used in the call below.
-In this example, the names of Device Profile, Device Service, and
-Protocols are used.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">POST</span> <span class="k">to</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">48081</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">device</span>
+defining its address. </p>
+<h3 id="walkthrough-device">Walkthrough - Device</h3>
+<p>Use either the Postman or Curl tab below to walkthrough creating the <code>Device</code>.</p>
+<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Postman</label><div class="tabbed-content">
+<p>Make a POST request to <code>http://localhost:48081/api/v1/device</code> with the following body:</p>
+<div class="highlight"><pre><span></span><code><span class="err">BODY:</span> <span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;countcamera1&quot;</span><span class="p">,</span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;human and dog counting camera #1&quot;</span><span class="p">,</span><span class="nt">&quot;adminState&quot;</span><span class="p">:</span><span class="s2">&quot;unlocked&quot;</span><span class="p">,</span><span class="nt">&quot;operatingState&quot;</span><span class="p">:</span><span class="s2">&quot;enabled&quot;</span><span class="p">,</span><span class="nt">&quot;protocols&quot;</span><span class="p">:{</span><span class="nt">&quot;camera protocol&quot;</span><span class="p">:{</span><span class="nt">&quot;camera address&quot;</span><span class="p">:</span><span class="s2">&quot;camera 1&quot;</span><span class="p">}},</span><span class="nt">&quot;labels&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;camera&quot;</span><span class="p">,</span><span class="s2">&quot;counter&quot;</span><span class="p">],</span><span class="nt">&quot;location&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nt">&quot;service&quot;</span><span class="p">:{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;camera control device service&quot;</span><span class="p">},</span><span class="nt">&quot;profile&quot;</span><span class="p">:{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;camera monitor profile&quot;</span><span class="p">}}</span>
+</code></pre></div>
 
-<span class="n">BODY</span><span class="p">:</span>  <span class="err">{</span><span class="ss">&quot;name&quot;</span><span class="p">:</span><span class="ss">&quot;countcamera1&quot;</span><span class="p">,</span><span class="ss">&quot;description&quot;</span><span class="p">:</span><span class="ss">&quot;human and dog counting camera #1&quot;</span><span class="p">,</span><span class="ss">&quot;adminState&quot;</span><span class="p">:</span><span class="ss">&quot;unlocked&quot;</span><span class="p">,</span><span class="ss">&quot;operatingState&quot;</span><span class="p">:</span><span class="ss">&quot;enabled&quot;</span><span class="p">,</span><span class="ss">&quot;protocols&quot;</span><span class="p">:</span><span class="err">{</span><span class="ss">&quot;camera protocol&quot;</span><span class="p">:</span><span class="err">{</span><span class="ss">&quot;camera address&quot;</span><span class="p">:</span><span class="ss">&quot;camera 1&quot;</span><span class="err">}}</span><span class="p">,</span><span class="ss">&quot;labels&quot;</span><span class="p">:</span> <span class="p">[</span><span class="ss">&quot;camera&quot;</span><span class="p">,</span><span class="ss">&quot;counter&quot;</span><span class="p">],</span><span class="ss">&quot;location&quot;</span><span class="p">:</span><span class="ss">&quot;&quot;</span><span class="p">,</span><span class="ss">&quot;service&quot;</span><span class="p">:</span><span class="err">{</span><span class="ss">&quot;name&quot;</span><span class="p">:</span><span class="ss">&quot;camera control device service&quot;</span><span class="err">}</span><span class="p">,</span><span class="ss">&quot;profile&quot;</span><span class="p">:</span><span class="err">{</span><span class="ss">&quot;name&quot;</span><span class="p">:</span><span class="ss">&quot;camera monitor profile&quot;</span><span class="err">}}</span>
+<p>Be sure that you are POSTing <strong>raw</strong> data, not form-encoded data.  If your API call is successful, you will get a generated ID (a UUID) for your new <code>DeviceService</code> in the response area.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>camera monitor profile</code> was created by the device profile uploaded in a previous walkthrough step. The <code>camera control device service</code> was created in the last walkthough step.</p>
+</div>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Curl</label><div class="tabbed-content">
+<p>Make a curl POST request as shown below.</p>
+<div class="highlight"><pre><span></span><code>curl -X POST -d <span class="s1">&#39;{&quot;name&quot;:&quot;countcamera1&quot;,&quot;description&quot;:&quot;human and dog counting camera #1&quot;,&quot;adminState&quot;:&quot;unlocked&quot;,&quot;operatingState&quot;:&quot;enabled&quot;,&quot;protocols&quot;:{&quot;camera protocol&quot;:{&quot;camera address&quot;:&quot;camera 1&quot;}},&quot;labels&quot;: [&quot;camera&quot;,&quot;counter&quot;],&quot;location&quot;:&quot;&quot;,&quot;service&quot;:{&quot;name&quot;:&quot;camera control device service&quot;},&quot;profile&quot;:{&quot;name&quot;:&quot;camera monitor profile&quot;}}&#39;</span> localhost:48081/api/v1/device
+</code></pre></div>
+
+<p>If your API call is successful, you will get a generated ID (a UUID) for your new <code>Device</code>.</p>
+</div>
+</div>
+<h4 id="test-the-get-api">Test the GET API</h4>
+<p>Ensure the monitor camera is among the devices known to core metadata.  If you make a GET call to the <code>http://localhost:48081/api/v1/device</code> URL (with Postman or curl) you will get a listing (in JSON) of all the device services currently defined of devices in your instance of EdgeX that should include the one you just added.</p>
+<p>There are many additional APIs on core metadata to retrieve a <code>Device</code>, <code>DeviceService</code>, etc. As an example, here is one to find
+all devices associated to a given <code>DeviceProfile</code>.</p>
+<div class="codehilite"><pre><span></span><code><span class="err">``` shell</span>
+<span class="err">curl -X GET http://localhost:48081/api/v1/device/profilename/camera+monitor+profile | json_pp</span>
+<span class="err">```</span>
 </code></pre></div>
 
 
-<p>Note that <code>camera monitor profile</code> was created by the
-<code>CameraMonitorProfile.yml &lt;EdgeX_CameraMonitorProfile.yml&gt;</code>{.interpreted-text
-role="download"} you uploaded in a previous step.</p>
-<h2 id="test-the-setup">Test the Setup</h2>
-<p>With the Device Service and Device now appropriately setup/provisioned
-in EdgeX, let's try a few of the micro service APIs out to confirm that
-things have been configured correctly.</p>
-<h3 id="check-the-device-service">Check the Device Service</h3>
-<p>See <a href="https://github.com/edgexfoundry/edgex-go/blob/master/api/raml/core-metadata.raml">APIs Core Services
-Metadata</a></p>
-<p>To begin, check out that the Device Service is available via Core
-Metadata.</p>
-<div class="codehilite"><pre><span></span><code><span class="err">GET to http://localhost:48081/api/v1/deviceservice</span>
-</code></pre></div>
-
-
-<p>Note that the associated Addressable is returned with the Device
-Service. There are many additional APIs on Core Metadata to retrieve a
-Device Service. As an example, here is one to find all Device Services
-by label - in this case using the label that was associated to the
-camera control device service.</p>
-<div class="codehilite"><pre><span></span><code><span class="err">GET to http://localhost:48081/api/v1/deviceservice/label/camera</span>
-</code></pre></div>
-
-
-<h3 id="check-the-device">Check the Device</h3>
-<p>See <a href="https://github.com/edgexfoundry/edgex-go/blob/master/api/raml/core-metadata.raml">APIs Core Services
-Metadata</a></p>
-<p>Ensure the monitor camera is among the devices known to Core Metadata.</p>
-<div class="codehilite"><pre><span></span><code><span class="err">GET to http://localhost:48081/api/v1/device</span>
-</code></pre></div>
-
-
-<p>Note that the associated Device Profile, Device Service and Addressable
-is returned with the Device. Again, there are many additional APIs on
-Core Metadata to retrieve a Device. As an example, here is one to find
-all Devices associated to a given Device Profile - in this case using
-the camera monitor profile Device Profile name.</p>
-<div class="codehilite"><pre><span></span><code><span class="err">GET to http://localhost:48081/api/v1/device/profilename/camera+monitor+profile</span>
-</code></pre></div>
+<p><a class="md-button" href="../Ch-WalkthroughDeviceService/">&lt;Back</a> <a class="md-button" href="../Ch-WalkthroughCommands/">Next&gt;</a></p>
                 
               
               
@@ -2164,7 +2131,7 @@ the camera monitor profile Device Profile name.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../Ch-WalkthroughDeviceService/" title="Register your Device Service" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../Ch-WalkthroughDeviceService/" title="Register your device service" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
             </div>
@@ -2173,7 +2140,7 @@ the camera monitor profile Device Profile name.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Register your Device Service
+                Register your device service
               </div>
             </div>
           </a>

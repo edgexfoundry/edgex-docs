@@ -1473,18 +1473,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-WalkthroughRunning/" title="Running EdgeX" class="md-nav__link">
-      Running EdgeX
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../Ch-WalkthroughUseCase/" title="Example Use Case" class="md-nav__link">
       Example Use Case
     </a>
@@ -1543,12 +1531,51 @@
     Addressables
   </a>
   
+    <nav class="md-nav" aria-label="Addressables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#walkthrough-addressables" class="md-nav__link">
+    Walkthrough - Addressables
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
   <a href="#value-descriptors" class="md-nav__link">
     Value Descriptors
   </a>
+  
+    <nav class="md-nav" aria-label="Value Descriptors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#walkthrough-value-descriptors" class="md-nav__link">
+    Walkthrough - Value Descriptors
+  </a>
+  
+    <nav class="md-nav" aria-label="Walkthrough - Value Descriptors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-the-get-api" class="md-nav__link">
+    Test the GET API
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1577,8 +1604,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-WalkthroughDeviceService/" title="Register your Device Service" class="md-nav__link">
-      Register your Device Service
+    <a href="../Ch-WalkthroughDeviceService/" title="Register your device service" class="md-nav__link">
+      Register your device service
     </a>
   </li>
 
@@ -1589,8 +1616,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-WalkthroughProvision/" title="Provision a Device" class="md-nav__link">
-      Provision a Device
+    <a href="../Ch-WalkthroughProvision/" title="Provision a device" class="md-nav__link">
+      Provision a device
     </a>
   </li>
 
@@ -2020,12 +2047,51 @@
     Addressables
   </a>
   
+    <nav class="md-nav" aria-label="Addressables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#walkthrough-addressables" class="md-nav__link">
+    Walkthrough - Addressables
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
   <a href="#value-descriptors" class="md-nav__link">
     Value Descriptors
   </a>
+  
+    <nav class="md-nav" aria-label="Value Descriptors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#walkthrough-value-descriptors" class="md-nav__link">
+    Walkthrough - Value Descriptors
+  </a>
+  
+    <nav class="md-nav" aria-label="Walkthrough - Value Descriptors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-the-get-api" class="md-nav__link">
+    Test the GET API
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2050,145 +2116,131 @@
                 
                 
                 <h1 id="defining-your-data">Defining your data</h1>
-<p>When a new Device Service is first started in EdgeX, there are many many
-tasks to perform - all in preparation for the Device Service to manage
-one or more Devices, which are yet unknown to EdgeX. In general, the
-Device Service tasks when it first starts can be categorized into:</p>
+<p>When a new device service is first started in EdgeX, there are many many
+tasks to perform - all in preparation for the device service to manage
+one or more devices, which are yet unknown to EdgeX. In general, the
+device service tasks when it first starts can be categorized into:</p>
 <ul>
-<li>Establish the reference information around the Device Service and
-    Device.</li>
-<li>Make the Device Service itself known to the rest of EdgeX</li>
-<li>Provision the Devices the Device Service will manage with EdgeX</li>
+<li>Establish the reference information around the device service and
+    device.</li>
+<li>Make the device service itself known to the rest of EdgeX</li>
+<li>Provision the devices the device service will manage with EdgeX</li>
 </ul>
 <p>Reference information includes things such as defining the address
-(called an <strong>Addressable</strong>) of the Device and Device Service or
+(called an <strong>Addressable</strong>) of the device or
 establishing the new unit of measure (called a <strong>Value Descriptor</strong> in
-EdgeX) used by the Device. The term "provision" is the way we talk
-about establishing the initial connection to the physical Device and
+EdgeX) used by the device. The term "provision" is the way we talk
+about establishing the initial connection to the physical device and
 have it be known to and communication with EdgeX.</p>
-<p>After the first run of a Device Service, these steps are not repeated.
-For example, after its initial startup, a Device Service would not need
-to re-establish the reference information into EdgeX. Instead,it would
+<p>After the first run of a device service, these steps are not repeated.
+For example, after its initial startup, a device service would not need
+to re-establish the reference information into EdgeX. Instead, it would
 simply check that these operations have been accomplished and do not
 need to be redone.</p>
 <h2 id="creating-reference-information-in-edgex">Creating Reference Information in EdgeX</h2>
 <p>There is a lot of background information that EdgeX needs to know about
-the Device and Device Service before it can start collecting data from
-the Device or send actuation commands to the Device. Say, for example,
-the camera Device wanted to report its human and canine counts. If it
+the device and device service before it can start collecting data from
+the device or send actuation commands to the device. Say, for example,
+the camera device wanted to report its human and canine counts. If it
 were to just start sending numbers into EdgeX, EdgeX would have no idea
 of what those numbers represented or even where they came from. Further,
 if someone/something wanted to send a command to the camera, it would
 not know how to reach the camera without some additional information
 like where the camera is located on the network.</p>
-<p>This background or reference information is what a Device Service must
+<p>This background or reference information is what a device service must
 define in EdgeX when it first comes up. The API calls here give you a
-glimpse of this communication between the fledgling Device Service and
+glimpse of this communication between the fledgling device service and
 the other EdgeX micro services.</p>
 <p>By the way, the order in which these calls are shown may not be the
-exact order that a Device Service does them. As you become more familiar
-with Device Services and the Device Service SDK, the small nuances and
+exact order that a real device service does them. As you become more familiar
+with device services and the <a href="../../microservices/device/sdk/Ch-DeviceSDK/">device service SDK</a>, the small nuances and
 differences will become clear.</p>
 <h2 id="addressables">Addressables</h2>
-<p>See Core Metadata API RAML at <a href="https://github.com/edgexfoundry/edgex-go/blob/master/api/raml/core-metadata.raml">APIs Core Services
-Metadata</a></p>
-<p>The Device Service will often establish at least two Addressable objects
-with the Core Metadata micro service. An Addressable is a flexible EdgeX
+<p>See <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/1.2.0">core metadata API</a> for more details.</p>
+<p>The device service will often establish at least two <code>Addressable</code> objects
+with the core metadata micro service. An <code>Addressable</code> is a flexible EdgeX
 object that specifies a physical address of something - in this case the
-physical address of the Device Service and the Device (the camera).
-While an Addressable could be created for a named MQTT pipe or other
-protocol endpoint, for this example, we will assume that both the Device
-Service and Device are able to be reached via HTTP REST calls.</p>
-<p>So in this case, the Device Service would make two calls to Core
-Metadata, to create the Addressable for the Device Service:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">POST</span> <span class="k">to</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">48081</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">addressable</span>
-
-<span class="n">BODY</span><span class="p">:</span> <span class="err">{</span><span class="ss">&quot;name&quot;</span><span class="p">:</span><span class="ss">&quot;camera control&quot;</span><span class="p">,</span><span class="ss">&quot;protocol&quot;</span><span class="p">:</span><span class="ss">&quot;HTTP&quot;</span><span class="p">,</span><span class="ss">&quot;address&quot;</span><span class="p">:</span><span class="ss">&quot;172.17.0.1&quot;</span><span class="p">,</span><span class="ss">&quot;port&quot;</span><span class="p">:</span><span class="mi">49977</span><span class="p">,</span><span class="ss">&quot;path&quot;</span><span class="p">:</span><span class="ss">&quot;/cameracontrol&quot;</span><span class="p">,</span><span class="ss">&quot;publisher&quot;</span><span class="p">:</span><span class="ss">&quot;none&quot;</span><span class="p">,</span><span class="ss">&quot;user&quot;</span><span class="p">:</span><span class="ss">&quot;none&quot;</span><span class="p">,</span><span class="ss">&quot;password&quot;</span><span class="p">:</span><span class="ss">&quot;none&quot;</span><span class="p">,</span><span class="ss">&quot;topic&quot;</span><span class="p">:</span><span class="ss">&quot;none&quot;</span><span class="err">}</span>
+physical address of the device service and the device (the camera).
+While an <code>Addressable</code> could be created for a named MQTT pipe or other
+protocol endpoint, for this example, we will assume that both the device
+service and device are able to be reached via HTTP REST calls.</p>
+<p>So in this case, the device service would make two calls to core
+metadata, to create the <code>Addressable</code> for the device service and the <code>Addressable</code> for the device (the camera in this case).</p>
+<h3 id="walkthrough-addressables">Walkthrough - Addressables</h3>
+<p>Use either the Postman or Curl tab below to begin your API walkthrough starting with setting up the <code>Addressable</code>s</p>
+<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Postman</label><div class="tabbed-content">
+<p>Make two (2) POST requests to <code>http://localhost:48081/api/v1/addressable</code> with the following bodies:</p>
+<div class="highlight"><pre><span></span><code><span class="err">BODY:</span> <span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;camera control&quot;</span><span class="p">,</span><span class="nt">&quot;protocol&quot;</span><span class="p">:</span><span class="s2">&quot;HTTP&quot;</span><span class="p">,</span><span class="nt">&quot;address&quot;</span><span class="p">:</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span><span class="nt">&quot;port&quot;</span><span class="p">:</span><span class="mi">49977</span><span class="p">,</span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/api/v1/callback&quot;</span><span class="p">,</span><span class="nt">&quot;publisher&quot;</span><span class="p">:</span><span class="s2">&quot;none&quot;</span><span class="p">,</span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="s2">&quot;none&quot;</span><span class="p">,</span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="s2">&quot;none&quot;</span><span class="p">,</span><span class="nt">&quot;topic&quot;</span><span class="p">:</span><span class="s2">&quot;none&quot;</span><span class="p">}</span>
+<span class="err">BODY:</span> <span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;camera1 address&quot;</span><span class="p">,</span><span class="nt">&quot;protocol&quot;</span><span class="p">:</span><span class="s2">&quot;HTTP&quot;</span><span class="p">,</span><span class="nt">&quot;address&quot;</span><span class="p">:</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span><span class="nt">&quot;port&quot;</span><span class="p">:</span><span class="mi">49999</span><span class="p">,</span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/camera1&quot;</span><span class="p">,</span><span class="nt">&quot;publisher&quot;</span><span class="p">:</span><span class="s2">&quot;none&quot;</span><span class="p">,</span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="s2">&quot;none&quot;</span><span class="p">,</span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="s2">&quot;none&quot;</span><span class="p">,</span><span class="nt">&quot;topic&quot;</span><span class="p">:</span><span class="s2">&quot;none&quot;</span><span class="p">}</span>
 </code></pre></div>
 
-
-<p>and the Addressable for the Device (the camera in this case):</p>
-<div class="codehilite"><pre><span></span><code><span class="n">POST</span> <span class="k">to</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">48081</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">addressable</span>
-
-<span class="n">BODY</span><span class="p">:</span> <span class="err">{</span><span class="ss">&quot;name&quot;</span><span class="p">:</span><span class="ss">&quot;camera1 address&quot;</span><span class="p">,</span><span class="ss">&quot;protocol&quot;</span><span class="p">:</span><span class="ss">&quot;HTTP&quot;</span><span class="p">,</span><span class="ss">&quot;address&quot;</span><span class="p">:</span><span class="ss">&quot;172.17.0.1&quot;</span><span class="p">,</span><span class="ss">&quot;port&quot;</span><span class="p">:</span><span class="mi">49999</span><span class="p">,</span><span class="ss">&quot;path&quot;</span><span class="p">:</span><span class="ss">&quot;/camera1&quot;</span><span class="p">,</span><span class="ss">&quot;publisher&quot;</span><span class="p">:</span><span class="ss">&quot;none&quot;</span><span class="p">,</span><span class="ss">&quot;user&quot;</span><span class="p">:</span><span class="ss">&quot;none&quot;</span><span class="p">,</span><span class="ss">&quot;password&quot;</span><span class="p">:</span><span class="ss">&quot;none&quot;</span><span class="p">,</span><span class="ss">&quot;topic&quot;</span><span class="p">:</span><span class="ss">&quot;none&quot;</span><span class="err">}</span>
-</code></pre></div>
-
-
-<p>Note that for an Addressable, a unique name must be provided. Obviously,
-these address are phony and made up for the purposes of this exercise.
-This is OK and it will still allow you to see how your Device and Device
-Services will work going forward.</p>
-<p><strong>Walk Through Alert!</strong></p>
-<p>If you are using Postman, be sure that you are POSTing raw data, not
-form-encoded data.</p>
+<p>Be sure that you are POSTing <strong>raw</strong> data, not form-encoded data (as shown below).</p>
 <p><img alt="image" src="../EdgeX_WalkthroughPostmanPOST.png" /></p>
-<p>If your API call was successful, you will get a generated ID for your
-new Addressable that looks like this:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">5b773ad19f8fc200012a802d</span>
+<p>If your API calls are successful, you will get a generated ID (a UUID) for your new <code>Addressable</code> that looks similar to this: <code>9a110e5a-1ceb-4b6f-82a3-a77810630b4e</code></p>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Curl</label><div class="tabbed-content">
+<p>Make two (2) curl POST requests as shown below.</p>
+<div class="highlight"><pre><span></span><code>curl -X POST -d <span class="s1">&#39;{&quot;name&quot;:&quot;camera control&quot;,&quot;protocol&quot;:&quot;HTTP&quot;,&quot;address&quot;:&quot;localhost&quot;,&quot;port&quot;:49977,&quot;path&quot;:&quot;/api/v1/callback&quot;,&quot;publisher&quot;:&quot;none&quot;,&quot;user&quot;:&quot;none&quot;,&quot;password&quot;:&quot;none&quot;,&quot;topic&quot;:&quot;none&quot;}&#39;</span> localhost:48081/api/v1/addressable
+curl -X POST -d <span class="s1">&#39;{&quot;name&quot;:&quot;camera1 address&quot;,&quot;protocol&quot;:&quot;HTTP&quot;,&quot;address&quot;:&quot;localhost&quot;,&quot;port&quot;:49999,&quot;path&quot;:&quot;/camera1&quot;,&quot;publisher&quot;:&quot;none&quot;,&quot;user&quot;:&quot;none&quot;,&quot;password&quot;:&quot;none&quot;,&quot;topic&quot;:&quot;none&quot;}&#39;</span> localhost:48081/api/v1/addressable
 </code></pre></div>
 
-
+<p>If your API calls are successful, you will get a generated ID (a UUID) for your new <code>Addressable</code> that looks similar to this: <code>9a110e5a-1ceb-4b6f-82a3-a77810630b4e</code></p>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For an <code>Addressable</code>, a unique name must be provided. Obviously, these address, port numbers, and paths are phony and made up for the purposes of this exercise. This is OK and it will still allow you to see how your device and device services will work going forward.</p>
+</div>
 <h2 id="value-descriptors">Value Descriptors</h2>
-<p>See Core Data API RAML at <a href="https://github.com/edgexfoundry/edgex-go/blob/master/api/raml/core-data.raml">APIs Core Services Core
-Data</a></p>
-<p>Next, the Device Service needs to inform EdgeX about the type of data it
-will be sending on the behalf of the Devices. If you are given the
+<p>See <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-data/1.2.0">core data API</a> for more details.</p>
+<p>Next, the device service needs to inform EdgeX about the type of data it
+will be sending on the behalf of the devices. If you are given the
 number 5, what does that mean to you? Nothing, without some context and
 unit of measure. For example, if I was to say 5 feet is the scan depth
 of the camera right now, you have a much better understanding about what
-the number 5 represents. In EdgeX, Value Descriptors provide the context
-and unit of measure for any data (or values) sent to and from a Device.
-As the name implies, a Value Descriptor describes a value - its unit of
+the number 5 represents. In EdgeX, <code>Value Descriptors</code> provide the context
+and unit of measure for any data (or values) sent to and from a device.
+As the name implies, a <code>Value Descriptor</code> describes a value - its unit of
 measure, its min and max values (if there are any), the way to display
 the value when showing it on the screen, and more. Any data obtained
-from a Device (we call this "get" from the Device) or any data sent to
-the Device for actuation (we call this "set" or "put" to the Device)
-requires a Value Descriptor to be associated with that data.</p>
-<p>In this demo, there are four Value Descriptors required: human count,
-canine count, scan depth, and snapshot duration. The Device Service
-would make four POST requests to Core Data to establish these Value
-Descriptors.</p>
-<p><strong>Walk Through alert!</strong></p>
-<p>Pay attention to the port numbers. In the previous section you were
-calling the core-metadata service (port 48081), in these you will be
-calling core-data (port 48080)</p>
-<div class="codehilite"><pre><span></span><code><span class="n">POST</span> <span class="k">to</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">48080</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">valuedescriptor</span>
-
-<span class="n">BODY</span><span class="p">:</span>  <span class="err">{</span><span class="ss">&quot;name&quot;</span><span class="p">:</span><span class="ss">&quot;humancount&quot;</span><span class="p">,</span><span class="ss">&quot;description&quot;</span><span class="p">:</span><span class="ss">&quot;people count&quot;</span><span class="p">,</span> <span class="ss">&quot;min&quot;</span><span class="p">:</span><span class="ss">&quot;0&quot;</span><span class="p">,</span><span class="ss">&quot;max&quot;</span><span class="p">:</span><span class="ss">&quot;100&quot;</span><span class="p">,</span><span class="ss">&quot;type&quot;</span><span class="p">:</span><span class="ss">&quot;I&quot;</span><span class="p">,</span><span class="ss">&quot;uomLabel&quot;</span><span class="p">:</span><span class="ss">&quot;count&quot;</span><span class="p">,</span><span class="ss">&quot;defaultValue&quot;</span><span class="p">:</span><span class="ss">&quot;0&quot;</span><span class="p">,</span><span class="ss">&quot;formatting&quot;</span><span class="p">:</span><span class="ss">&quot;%s&quot;</span><span class="p">,</span><span class="ss">&quot;labels&quot;</span><span class="p">:[</span><span class="ss">&quot;count&quot;</span><span class="p">,</span><span class="ss">&quot;humans&quot;</span><span class="p">]</span><span class="err">}</span>
-
-<span class="n">POST</span> <span class="k">to</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">48080</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">valuedescriptor</span>
-
-<span class="n">BODY</span><span class="p">:</span>  <span class="err">{</span><span class="ss">&quot;name&quot;</span><span class="p">:</span><span class="ss">&quot;caninecount&quot;</span><span class="p">,</span><span class="ss">&quot;description&quot;</span><span class="p">:</span><span class="ss">&quot;dog count&quot;</span><span class="p">,</span> <span class="ss">&quot;min&quot;</span><span class="p">:</span><span class="ss">&quot;0&quot;</span><span class="p">,</span><span class="ss">&quot;max&quot;</span><span class="p">:</span><span class="ss">&quot;100&quot;</span><span class="p">,</span><span class="ss">&quot;type&quot;</span><span class="p">:</span><span class="ss">&quot;I&quot;</span><span class="p">,</span><span class="ss">&quot;uomLabel&quot;</span><span class="p">:</span><span class="ss">&quot;count&quot;</span><span class="p">,</span><span class="ss">&quot;defaultValue&quot;</span><span class="p">:</span><span class="ss">&quot;0&quot;</span><span class="p">,</span><span class="ss">&quot;formatting&quot;</span><span class="p">:</span><span class="ss">&quot;%s&quot;</span><span class="p">,</span><span class="ss">&quot;labels&quot;</span><span class="p">:[</span><span class="ss">&quot;count&quot;</span><span class="p">,</span><span class="ss">&quot;canines&quot;</span><span class="p">]</span><span class="err">}</span>
-
-<span class="n">POST</span> <span class="k">to</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">48080</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">valuedescriptor</span>
-
-<span class="n">BODY</span><span class="p">:</span>  <span class="err">{</span><span class="ss">&quot;name&quot;</span><span class="p">:</span><span class="ss">&quot;depth&quot;</span><span class="p">,</span><span class="ss">&quot;description&quot;</span><span class="p">:</span><span class="ss">&quot;scan distance&quot;</span><span class="p">,</span> <span class="ss">&quot;min&quot;</span><span class="p">:</span><span class="ss">&quot;1&quot;</span><span class="p">,</span><span class="ss">&quot;max&quot;</span><span class="p">:</span><span class="ss">&quot;10&quot;</span><span class="p">,</span><span class="ss">&quot;type&quot;</span><span class="p">:</span><span class="ss">&quot;I&quot;</span><span class="p">,</span><span class="ss">&quot;uomLabel&quot;</span><span class="p">:</span><span class="ss">&quot;feet&quot;</span><span class="p">,</span><span class="ss">&quot;defaultValue&quot;</span><span class="p">:</span><span class="ss">&quot;1&quot;</span><span class="p">,</span><span class="ss">&quot;formatting&quot;</span><span class="p">:</span><span class="ss">&quot;%s&quot;</span><span class="p">,</span><span class="ss">&quot;labels&quot;</span><span class="p">:[</span><span class="ss">&quot;scan&quot;</span><span class="p">,</span><span class="ss">&quot;distance&quot;</span><span class="p">]</span><span class="err">}</span>
-
-<span class="n">POST</span> <span class="k">to</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">48080</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">valuedescriptor</span>
-
-<span class="n">BODY</span><span class="p">:</span>  <span class="err">{</span><span class="ss">&quot;name&quot;</span><span class="p">:</span><span class="ss">&quot;duration&quot;</span><span class="p">,</span><span class="ss">&quot;description&quot;</span><span class="p">:</span><span class="ss">&quot;time between events&quot;</span><span class="p">,</span> <span class="ss">&quot;min&quot;</span><span class="p">:</span><span class="ss">&quot;10&quot;</span><span class="p">,</span><span class="ss">&quot;max&quot;</span><span class="p">:</span><span class="ss">&quot;180&quot;</span><span class="p">,</span><span class="ss">&quot;type&quot;</span><span class="p">:</span><span class="ss">&quot;I&quot;</span><span class="p">,</span><span class="ss">&quot;uomLabel&quot;</span><span class="p">:</span><span class="ss">&quot;seconds&quot;</span><span class="p">,</span><span class="ss">&quot;defaultValue&quot;</span><span class="p">:</span><span class="ss">&quot;10&quot;</span><span class="p">,</span><span class="ss">&quot;formatting&quot;</span><span class="p">:</span><span class="ss">&quot;%s&quot;</span><span class="p">,</span><span class="ss">&quot;labels&quot;</span><span class="p">:[</span><span class="ss">&quot;duration&quot;</span><span class="p">,</span><span class="ss">&quot;time&quot;</span><span class="p">]</span><span class="err">}</span>
+from a device (we call this a <code>GET</code> from the device) or any data sent to
+the device for actuation (we call this <code>SET</code> or <code>PUT</code> to the device)
+requires a <code>Value Descriptor</code> to be associated with that data.</p>
+<p>In this demo, there are four <code>Value Descriptors</code> required: human count,
+canine count, scan depth, and snapshot duration. The device service
+would make four POST requests to core data to establish these <code>Value
+Descriptors</code> on initialization.</p>
+<h3 id="walkthrough-value-descriptors">Walkthrough - Value Descriptors</h3>
+<p>Use either the Postman or Curl tab below to walkthrough the addition of the <code>Value Descriptor</code>s</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Pay attention to the port numbers. In the previous section you were calling the core metadata service (port 48081), in these you will be calling core data (port 48080).</p>
+</div>
+<div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Postman</label><div class="tabbed-content">
+<p>Make four (4) POST requests to <code>http://localhost:48080/api/v1/valuedescriptor</code> with the following bodies:</p>
+<p><div class="highlight"><pre><span></span><code><span class="err">BODY:</span>  <span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;humancount&quot;</span><span class="p">,</span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;people count&quot;</span><span class="p">,</span> <span class="nt">&quot;min&quot;</span><span class="p">:</span><span class="s2">&quot;0&quot;</span><span class="p">,</span><span class="nt">&quot;max&quot;</span><span class="p">:</span><span class="s2">&quot;100&quot;</span><span class="p">,</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;Int16&quot;</span><span class="p">,</span><span class="nt">&quot;uomLabel&quot;</span><span class="p">:</span><span class="s2">&quot;count&quot;</span><span class="p">,</span><span class="nt">&quot;defaultValue&quot;</span><span class="p">:</span><span class="s2">&quot;0&quot;</span><span class="p">,</span><span class="nt">&quot;formatting&quot;</span><span class="p">:</span><span class="s2">&quot;%s&quot;</span><span class="p">,</span><span class="nt">&quot;labels&quot;</span><span class="p">:[</span><span class="s2">&quot;count&quot;</span><span class="p">,</span><span class="s2">&quot;humans&quot;</span><span class="p">]}</span>
+<span class="err">BODY:</span>  <span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;caninecount&quot;</span><span class="p">,</span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;dog count&quot;</span><span class="p">,</span> <span class="nt">&quot;min&quot;</span><span class="p">:</span><span class="s2">&quot;0&quot;</span><span class="p">,</span><span class="nt">&quot;max&quot;</span><span class="p">:</span><span class="s2">&quot;100&quot;</span><span class="p">,</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;Int16&quot;</span><span class="p">,</span><span class="nt">&quot;uomLabel&quot;</span><span class="p">:</span><span class="s2">&quot;count&quot;</span><span class="p">,</span><span class="nt">&quot;defaultValue&quot;</span><span class="p">:</span><span class="s2">&quot;0&quot;</span><span class="p">,</span><span class="nt">&quot;formatting&quot;</span><span class="p">:</span><span class="s2">&quot;%s&quot;</span><span class="p">,</span><span class="nt">&quot;labels&quot;</span><span class="p">:[</span><span class="s2">&quot;count&quot;</span><span class="p">,</span><span class="s2">&quot;canines&quot;</span><span class="p">]}</span>
+<span class="err">BODY:</span>  <span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;depth&quot;</span><span class="p">,</span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;scan distance&quot;</span><span class="p">,</span> <span class="nt">&quot;min&quot;</span><span class="p">:</span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="nt">&quot;max&quot;</span><span class="p">:</span><span class="s2">&quot;10&quot;</span><span class="p">,</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;Int16&quot;</span><span class="p">,</span><span class="nt">&quot;uomLabel&quot;</span><span class="p">:</span><span class="s2">&quot;feet&quot;</span><span class="p">,</span><span class="nt">&quot;defaultValue&quot;</span><span class="p">:</span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="nt">&quot;formatting&quot;</span><span class="p">:</span><span class="s2">&quot;%s&quot;</span><span class="p">,</span><span class="nt">&quot;labels&quot;</span><span class="p">:[</span><span class="s2">&quot;scan&quot;</span><span class="p">,</span><span class="s2">&quot;distance&quot;</span><span class="p">]}</span>
+<span class="err">BODY:</span>  <span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;duration&quot;</span><span class="p">,</span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;time between events&quot;</span><span class="p">,</span> <span class="nt">&quot;min&quot;</span><span class="p">:</span><span class="s2">&quot;10&quot;</span><span class="p">,</span><span class="nt">&quot;max&quot;</span><span class="p">:</span><span class="s2">&quot;180&quot;</span><span class="p">,</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;Int15&quot;</span><span class="p">,</span><span class="nt">&quot;uomLabel&quot;</span><span class="p">:</span><span class="s2">&quot;seconds&quot;</span><span class="p">,</span><span class="nt">&quot;defaultValue&quot;</span><span class="p">:</span><span class="s2">&quot;10&quot;</span><span class="p">,</span><span class="nt">&quot;formatting&quot;</span><span class="p">:</span><span class="s2">&quot;%s&quot;</span><span class="p">,</span><span class="nt">&quot;labels&quot;</span><span class="p">:[</span><span class="s2">&quot;duration&quot;</span><span class="p">,</span><span class="s2">&quot;time&quot;</span><span class="p">]}</span>
+</code></pre></div>
+<img alt="image" src="../EdgeX_WalkthroughPostValueDescriptor.png" /></p>
+</div>
+<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Curl</label><div class="tabbed-content">
+<p>Make four (4) curl POST requests as shown below.</p>
+<div class="highlight"><pre><span></span><code>curl -X POST -d <span class="s1">&#39;{&quot;name&quot;:&quot;humancount&quot;,&quot;description&quot;:&quot;people count&quot;, &quot;min&quot;:&quot;0&quot;,&quot;max&quot;:&quot;100&quot;,&quot;type&quot;:&quot;Int16&quot;,&quot;uomLabel&quot;:&quot;count&quot;,&quot;defaultValue&quot;:&quot;0&quot;,&quot;formatting&quot;:&quot;%s&quot;,&quot;labels&quot;:[&quot;count&quot;,&quot;humans&quot;]}&#39;</span> localhost:48080/api/v1/valuedescriptor
+curl -X POST -d <span class="s1">&#39;{&quot;name&quot;:&quot;caninecount&quot;,&quot;description&quot;:&quot;dog count&quot;, &quot;min&quot;:&quot;0&quot;,&quot;max&quot;:&quot;100&quot;,&quot;type&quot;:&quot;Int16&quot;,&quot;uomLabel&quot;:&quot;count&quot;,&quot;defaultValue&quot;:&quot;0&quot;,&quot;formatting&quot;:&quot;%s&quot;,&quot;labels&quot;:[&quot;count&quot;,&quot;canines&quot;]}&#39;</span> localhost:48080/api/v1/valuedescriptor
+curl -X POST -d <span class="s1">&#39;{&quot;name&quot;:&quot;depth&quot;,&quot;description&quot;:&quot;scan distance&quot;, &quot;min&quot;:&quot;1&quot;,&quot;max&quot;:&quot;10&quot;,&quot;type&quot;:&quot;Int16&quot;,&quot;uomLabel&quot;:&quot;feet&quot;,&quot;defaultValue&quot;:&quot;1&quot;,&quot;formatting&quot;:&quot;%s&quot;,&quot;labels&quot;:[&quot;scan&quot;,&quot;distance&quot;]}&#39;</span> localhost:48080/api/v1/valuedescriptor
+curl -X POST -d <span class="s1">&#39;{&quot;name&quot;:&quot;duration&quot;,&quot;description&quot;:&quot;time between events&quot;, &quot;min&quot;:&quot;10&quot;,&quot;max&quot;:&quot;180&quot;,&quot;type&quot;:&quot;Int15&quot;,&quot;uomLabel&quot;:&quot;seconds&quot;,&quot;defaultValue&quot;:&quot;10&quot;,&quot;formatting&quot;:&quot;%s&quot;,&quot;labels&quot;:[&quot;duration&quot;,&quot;time&quot;]}&#39;</span> localhost:48080/api/v1/valuedescriptor
 </code></pre></div>
 
-
-<p>An error can occur when communication with the camera. Therefore a fifth
-Value Descriptor is created for this eventuality.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">POST</span> <span class="k">to</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">48080</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">valuedescriptor</span>
-
-<span class="n">BODY</span><span class="p">:</span>  <span class="err">{</span><span class="ss">&quot;name&quot;</span><span class="p">:</span><span class="ss">&quot;cameraerror&quot;</span><span class="p">,</span><span class="ss">&quot;description&quot;</span><span class="p">:</span><span class="ss">&quot;error response message from a camera&quot;</span><span class="p">,</span> <span class="ss">&quot;min&quot;</span><span class="p">:</span><span class="ss">&quot;&quot;</span><span class="p">,</span><span class="ss">&quot;max&quot;</span><span class="p">:</span><span class="ss">&quot;&quot;</span><span class="p">,</span><span class="ss">&quot;type&quot;</span><span class="p">:</span><span class="ss">&quot;S&quot;</span><span class="p">,</span><span class="ss">&quot;uomLabel&quot;</span><span class="p">:</span><span class="ss">&quot;&quot;</span><span class="p">,</span><span class="ss">&quot;defaultValue&quot;</span><span class="p">:</span><span class="ss">&quot;error&quot;</span><span class="p">,</span><span class="ss">&quot;formatting&quot;</span><span class="p">:</span><span class="ss">&quot;%s&quot;</span><span class="p">,</span><span class="ss">&quot;labels&quot;</span><span class="p">:[</span><span class="ss">&quot;error&quot;</span><span class="p">,</span><span class="ss">&quot;message&quot;</span><span class="p">]</span><span class="err">}</span>
-</code></pre></div>
-
-
-<p>Again, the name of each Value Descriptor must be unique (within all of
-EdgeX). The type of a Value Descriptor indicates the type of the
-associated value: I (integer), F (floating point number), S (character
-or string), B (boolean), or J (JSON object). Formatting is used by UIs
-and should follow the printf formatting standard for how to represent
-the associated value.</p>
-<p><strong>Walk Through alert!</strong></p>
-<p>If you make a GET call to the
-<a href="http://localhost:48080/api/v1/valuedescriptor">http://localhost:48080/api/v1/valuedescriptor</a> URL you will
-get a listing (in JSON) of all the Value Descriptors currently defined
+</div>
+</div>
+<p>Again, the name of each <code>Value Descriptor</code> must be unique (within all of EdgeX). The type of a <code>Value Descriptor</code> indicates the type of the associated value (in the examples above, all integer 16).Formatting is used by UIs and should follow the printf formatting standard for how to represent the associated value.</p>
+<h4 id="test-the-get-api">Test the GET API</h4>
+<p>If you make a GET call to the <code>http://localhost:48080/api/v1/valuedescriptor</code> URL (with Postman or curl) you will get a listing (in JSON) of all the Value Descriptors currently defined
 in your instance of EdgeX, including the ones you just added.</p>
+<p><img alt="image" src="../EdgeX_WalkthroughGetValueDescriptors.png" /></p>
+<p><a class="md-button" href="../Ch-WalkthroughUseCase/">&lt;Back</a> <a class="md-button" href="../Ch-WalkthroughDeviceProfile/">Next&gt;</a></p>
                 
               
               

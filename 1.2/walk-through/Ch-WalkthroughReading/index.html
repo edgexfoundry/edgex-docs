@@ -1473,18 +1473,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-WalkthroughRunning/" title="Running EdgeX" class="md-nav__link">
-      Running EdgeX
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../Ch-WalkthroughUseCase/" title="Example Use Case" class="md-nav__link">
       Example Use Case
     </a>
@@ -1521,8 +1509,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-WalkthroughDeviceService/" title="Register your Device Service" class="md-nav__link">
-      Register your Device Service
+    <a href="../Ch-WalkthroughDeviceService/" title="Register your device service" class="md-nav__link">
+      Register your device service
     </a>
   </li>
 
@@ -1533,8 +1521,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-WalkthroughProvision/" title="Provision a Device" class="md-nav__link">
-      Provision a Device
+    <a href="../Ch-WalkthroughProvision/" title="Provision a device" class="md-nav__link">
+      Provision a device
     </a>
   </li>
 
@@ -1596,12 +1584,51 @@
     Send an Event/Reading
   </a>
   
+    <nav class="md-nav" aria-label="Send an Event/Reading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#walkthrough-send-event" class="md-nav__link">
+    Walkthrough - Send Event
+  </a>
+  
+    <nav class="md-nav" aria-label="Walkthrough - Send Event">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#origin-timestamp" class="md-nav__link">
+    Origin Timestamp
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#reading-data" class="md-nav__link">
-    Reading data
+  <a href="#exploring-eventsreadings" class="md-nav__link">
+    Exploring Events/Readings
   </a>
+  
+    <nav class="md-nav" aria-label="Exploring Events/Readings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#walkthrough-query-eventsreadings" class="md-nav__link">
+    Walkthrough - Query Events/Readings
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2006,12 +2033,51 @@
     Send an Event/Reading
   </a>
   
+    <nav class="md-nav" aria-label="Send an Event/Reading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#walkthrough-send-event" class="md-nav__link">
+    Walkthrough - Send Event
+  </a>
+  
+    <nav class="md-nav" aria-label="Walkthrough - Send Event">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#origin-timestamp" class="md-nav__link">
+    Origin Timestamp
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#reading-data" class="md-nav__link">
-    Reading data
+  <a href="#exploring-eventsreadings" class="md-nav__link">
+    Exploring Events/Readings
   </a>
+  
+    <nav class="md-nav" aria-label="Exploring Events/Readings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#walkthrough-query-eventsreadings" class="md-nav__link">
+    Walkthrough - Query Events/Readings
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2038,66 +2104,79 @@
                 <h1 id="sending-events-and-reading-data">Sending events and reading data</h1>
 <p>In the real world, the human/dog counting camera would start to take
 pictures, count beings, and send that data to EdgeX. To simulate this
-activity. in this section, you will make Core Data API calls as if you
-were the camera's Device and Device Service.</p>
+activity in this section of the walkthrough, you will make core data API calls as if you
+were the camera's device and device service.  That is, you will report human and dog counts to core data in the form of event/reading objects.</p>
 <h2 id="send-an-eventreading">Send an Event/Reading</h2>
-<p>See <a href="https://github.com/edgexfoundry/edgex-go/blob/master/api/raml/core-data.raml">APIs Core Services Core
-Data</a></p>
-<p>Data is submitted to Core Data as an Event. An Event is a collection of
-sensor readings from a Device (associated to a Device by its ID or name)
-at a particular point in time. A Reading in an Event is a particular
-value sensed by the Device and associated to a <a href="../Ch-WalkthroughData/#value-descriptors">Value
+<p>See <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-data/1.2.0">core data API</a> for more details.</p>
+<p>Data is submitted to core data as an <code>Event</code> object. An event is a collection of
+sensor readings from a device (associated to a device by its ID or name)
+at a particular point in time. A <code>Reading</code> object in an <code>Event</code> object is a particular
+value sensed by the device and associated to a <a href="../Ch-WalkthroughData/#value-descriptors">Value
 Descriptor</a> (by name) to
-provide context to the reading. So, the human/dog counting camera might
-determine that there are current 5 people and 3 dogs in the space it is
-monitoring. In the EdgeX vernacular, the Device Service upon receiving
-these sensed values from the Device would create an Event with two
-Readings - one Reading would contain the key/value pair of humancount:5
-and the other Reading would contain the key/value pair of caninecount:3.</p>
-<p>The Device Service, on creating the Event and associated Reading objects
-would transmit this information to Core Data via REST call.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">POST</span> <span class="k">to</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">48080</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">event</span>
-
-<span class="n">BODY</span><span class="p">:</span> <span class="err">{</span><span class="ss">&quot;device&quot;</span><span class="p">:</span><span class="ss">&quot;countcamera1&quot;</span><span class="p">,</span><span class="ss">&quot;readings&quot;</span><span class="p">:[</span><span class="err">{</span><span class="ss">&quot;name&quot;</span><span class="p">:</span><span class="ss">&quot;humancount&quot;</span><span class="p">,</span><span class="ss">&quot;value&quot;</span><span class="p">:</span><span class="ss">&quot;5&quot;</span><span class="err">}</span><span class="p">,</span><span class="err">{</span><span class="ss">&quot;name&quot;</span><span class="p">:</span><span class="ss">&quot;caninecount&quot;</span><span class="p">,</span><span class="ss">&quot;value&quot;</span><span class="p">:</span><span class="ss">&quot;3&quot;</span><span class="err">}</span><span class="p">]</span><span class="err">}</span>
+provide context to the reading. </p>
+<p>So, the human/dog counting camera might
+determine that there are 5 people and 3 dogs in the space it is
+monitoring. In the EdgeX vernacular, the device service upon receiving
+these sensed values from the camera device would create an <code>Event</code> with two
+<code>Reading</code>s - one <code>Reading</code> would contain the key/value pair of HumanCount:5
+and the other <code>Reading</code> would contain the key/value pair of CanineCount:3.</p>
+<p>The device service, on creating the <code>Event</code> and associated <code>Reading</code> objects
+would transmit this information to core data via REST call.</p>
+<h3 id="walkthrough-send-event">Walkthrough - Send Event</h3>
+<p>Use either the Postman or Curl tab below to walkthrough sending an <code>Event</code> with <code>Reading</code>s to core data.</p>
+<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Postman</label><div class="tabbed-content">
+<p>Make a POST request to <code>http://localhost:48080/api/v1/event</code> with the body below.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;device&quot;</span><span class="p">:</span><span class="s2">&quot;countcamera1&quot;</span><span class="p">,</span><span class="nt">&quot;readings&quot;</span><span class="p">:[{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;HumanCount&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="s2">&quot;5&quot;</span><span class="p">},{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;CanineCount&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="s2">&quot;3&quot;</span><span class="p">}]}</span>
 </code></pre></div>
 
+<p>If your API call is successful, you will get a generated ID (a UUID) for your new <code>Event</code> as shown in the image below.</p>
+<p><img alt="image" src="../EdgeX_WalkthroughSendEvent.png" /></p>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Curl</label><div class="tabbed-content">
+<p>Make a curl POST request as shown below.</p>
+<div class="highlight"><pre><span></span><code>curl -X POST -d <span class="s1">&#39;{&quot;device&quot;:&quot;countcamera1&quot;,&quot;readings&quot;:[{&quot;name&quot;:&quot;HumanCount&quot;,&quot;value&quot;:&quot;5&quot;},{&quot;name&quot;:&quot;CanineCount&quot;,&quot;value&quot;:&quot;3&quot;}]}&#39;</span> localhost:48080/api/v1/event
+</code></pre></div>
 
-<p>If desired, the Device Service can also supply an origin property (see
-below) to the Event or Reading to suggest the time (in Epoch
+</div>
+</div>
+<h4 id="origin-timestamp">Origin Timestamp</h4>
+<p>If desired, the device service can also supply an origin property in the <code>Event</code> or <code>Reading</code> object to suggest the time (in Epoch
 timestamp/milliseconds format) at which the data was sensed/collected.
-If an origin is not provided, no origin will be set for the Event or
-Reading, however every Event and Reading is provided a Created and
-Modified timestamp in the database to give the data some time context.</p>
-<div class="codehilite"><pre><span></span><code><span class="c">BODY: {&quot;device&quot;:&quot;countcamera1&quot;,&quot;origin&quot;:1471806386919, &quot;readings&quot;:[{&quot;name&quot;:&quot;humancount&quot;,&quot;value&quot;:&quot;1&quot;,&quot;origin&quot;:1471806386919},{&quot;name&quot;:&quot;caninecount&quot;,&quot;value&quot;:&quot;0&quot;,&quot;origin&quot;:1471806386919}]}</span>
+If an origin is not provided, no origin will be set for the <code>Event</code> or
+<code>Reading</code>.  However, every <code>Event</code> and <code>Reading</code> is provided a Created and
+Modified timestamp by the database when it is saved to give the data some time context.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;device&quot;</span><span class="p">:</span><span class="s2">&quot;countcamera1&quot;</span><span class="p">,</span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="mi">1471806386919</span><span class="p">,</span> <span class="nt">&quot;readings&quot;</span><span class="p">:[{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;HumanCount&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="mi">1471806386919</span><span class="p">},{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;CanineCount&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="s2">&quot;0&quot;</span><span class="p">,</span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="mi">1471806386919</span><span class="p">}]}</span>
 </code></pre></div>
 
-
-<p><strong>Origin Timestamp Recommendation!</strong></p>
-<p>Note: Smart devices will often timestamp sensor data and this timestamp
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Smart devices will often timestamp sensor data and this timestamp
 can be used as the origin timestamp. In cases where the sensor/device is
 unable to provide a timestamp ("dumb" or brownfield sensors), it is
-recommended that the Device Service create a timestamp for the sensor
-data that is applied as the origin timestamp for the Device.</p>
-<h2 id="reading-data">Reading data</h2>
-<p>Now that an Event (or two) and associated Readings have been sent to
-Core Data, you can use the Core Data API to explore that data that is
-now stored in MongoDB.</p>
-<p>Recall from the Test Setup section, you checked that no data was yet
-stored in Core Data. Make the same call and this time, 2 Event records
-should be the count returned.</p>
-<div class="codehilite"><pre><span></span><code><span class="err">GET to http://localhost:48080/api/v1/event/count</span>
+recommended that the device service create a timestamp for the sensor
+data that it be applied as the origin timestamp for the device.</p>
+</div>
+<h2 id="exploring-eventsreadings">Exploring Events/Readings</h2>
+<p>Now that an <code>Event</code> (or two) and associated <code>Readings</code> have been sent to
+core data, you can use the core data API to explore that data that is
+now stored in the database.</p>
+<p>Recall from a <a href="../Ch-WalkthroughCommands/#walkthrough-events">previous walkthrough step</a>, you checked that no data was yet
+stored in core data. Make a similar call to see event records have now been sent into core data..</p>
+<h3 id="walkthrough-query-eventsreadings">Walkthrough - Query Events/Readings</h3>
+<p>Use either the Postman or Curl tab below to walkthrough getting the list of events.</p>
+<div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Postman</label><div class="tabbed-content">
+<p>Make a GET request to retrieve 10 of the last <code>Event</code>s associated to the <code>countcamera1</code> device: <code>http://localhost:48080/api/v1/event/device/countcamera1/10</code>.</p>
+<p>Make a GET request to retrieve 10 of the human count <code>Reading</code>s associated to the <code>countcamera1</code> device: http://localhost:48080/api/v1/reading/name/HumanCount/10</p>
+</div>
+<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Curl</label><div class="tabbed-content">
+<p>Make a curl GET requests to retrieve 10 of the last <code>Event</code>s associated to the <code>countcamera1</code> device and to retrieve 10 of the human count readings associated to <code>countcamera1</code></p>
+<div class="highlight"><pre><span></span><code>curl -X GET localhost:48080/api/v1/event/device/countcamera1/10 <span class="p">|</span> json_pp
+curl -X GET localhost:48080/api/v1/reading/name/HumanCount/10 <span class="p">|</span> json_pp
 </code></pre></div>
 
-
-<p>Retrieve 10 of the Events associated to the countcamera1 Device.</p>
-<div class="codehilite"><pre><span></span><code><span class="err">GET to http://localhost:48080/api/v1/event/device/countcamera1/10</span>
-</code></pre></div>
-
-
-<p>Retrieve 10 of the human count Readings associated to the countcamera1
-Device (i.e. - get Readings by Value Descriptor)</p>
-<div class="codehilite"><pre><span></span><code><span class="err">GET to http://localhost:48080/api/v1/reading/name/humancount/10</span>
-</code></pre></div>
+</div>
+</div>
+<p><a class="md-button" href="../Ch-WalkthroughCommands/">&lt;Back</a> <a class="md-button" href="../Ch-WalkthroughExporting/">Next&gt;</a></p>
                 
               
               

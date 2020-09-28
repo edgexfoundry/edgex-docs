@@ -1473,18 +1473,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-WalkthroughRunning/" title="Running EdgeX" class="md-nav__link">
-      Running EdgeX
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../Ch-WalkthroughUseCase/" title="Example Use Case" class="md-nav__link">
       Example Use Case
     </a>
@@ -1521,8 +1509,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-WalkthroughDeviceService/" title="Register your Device Service" class="md-nav__link">
-      Register your Device Service
+    <a href="../Ch-WalkthroughDeviceService/" title="Register your device service" class="md-nav__link">
+      Register your device service
     </a>
   </li>
 
@@ -1533,8 +1521,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-WalkthroughProvision/" title="Provision a Device" class="md-nav__link">
-      Provision a Device
+    <a href="../Ch-WalkthroughProvision/" title="Provision a device" class="md-nav__link">
+      Provision a device
     </a>
   </li>
 
@@ -1580,16 +1568,43 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#list-the-commands" class="md-nav__link">
-    List the Commands
+  <a href="#walkthrough-commands" class="md-nav__link">
+    Walkthrough - Commands
   </a>
   
-    <nav class="md-nav" aria-label="List the Commands">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-the-value-descriptors" class="md-nav__link">
+    Check the Value Descriptors
+  </a>
+  
+    <nav class="md-nav" aria-label="Check the Value Descriptors">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#check-the-value-descriptors" class="md-nav__link">
-    Check the Value Descriptors
+  <a href="#walkthrough-value-descriptors" class="md-nav__link">
+    Walkthrough - Value Descriptors
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-the-events" class="md-nav__link">
+    Check the Events
+  </a>
+  
+    <nav class="md-nav" aria-label="Check the Events">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#walkthrough-events" class="md-nav__link">
+    Walkthrough - Events
   </a>
   
 </li>
@@ -1603,6 +1618,32 @@
   <a href="#execute-a-command" class="md-nav__link">
     Execute a Command
   </a>
+  
+    <nav class="md-nav" aria-label="Execute a Command">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#walkthrough-actuation-command" class="md-nav__link">
+    Walkthrough - Actuation Command
+  </a>
+  
+    <nav class="md-nav" aria-label="Walkthrough - Actuation Command">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check-command-service-log" class="md-nav__link">
+    Check Command Service Log
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2015,16 +2056,43 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#list-the-commands" class="md-nav__link">
-    List the Commands
+  <a href="#walkthrough-commands" class="md-nav__link">
+    Walkthrough - Commands
   </a>
   
-    <nav class="md-nav" aria-label="List the Commands">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-the-value-descriptors" class="md-nav__link">
+    Check the Value Descriptors
+  </a>
+  
+    <nav class="md-nav" aria-label="Check the Value Descriptors">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#check-the-value-descriptors" class="md-nav__link">
-    Check the Value Descriptors
+  <a href="#walkthrough-value-descriptors" class="md-nav__link">
+    Walkthrough - Value Descriptors
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-the-events" class="md-nav__link">
+    Check the Events
+  </a>
+  
+    <nav class="md-nav" aria-label="Check the Events">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#walkthrough-events" class="md-nav__link">
+    Walkthrough - Events
   </a>
   
 </li>
@@ -2038,6 +2106,32 @@
   <a href="#execute-a-command" class="md-nav__link">
     Execute a Command
   </a>
+  
+    <nav class="md-nav" aria-label="Execute a Command">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#walkthrough-actuation-command" class="md-nav__link">
+    Walkthrough - Actuation Command
+  </a>
+  
+    <nav class="md-nav" aria-label="Walkthrough - Actuation Command">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check-command-service-log" class="md-nav__link">
+    Check Command Service Log
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2062,94 +2156,139 @@
                 
                 
                 <h1 id="calling-commands">Calling commands</h1>
-<p>Recall that the Device Profile (the camera monitor profile) included a
-number of Commands to get and put information from any Device of that
-type. Also recall that the Device (the countcamera1) was associated to
-the Device Profile (the camera monitor profile) when the Device was
+<p>Recall that the device profile (the camera monitor profile in this walkthrough) included a
+number of commands to get and set information from any device of that
+type. Also recall that the device (the <code>countcamera1</code> in this walkthrough) was associated to
+the device profile (again, the camera monitor profile) when the device was
 provisioned.</p>
-<h2 id="list-the-commands">List the Commands</h2>
-<p>See <a href="https://github.com/edgexfoundry/edgex-go/blob/master/core/command/raml/core-command.raml">APIs Core Services
-Command</a></p>
-<p>Now with all the setup complete, you can ask the Core Command micro
-service for the list of Commands associated to the Device (the
-countcamera1).</p>
-<div class="codehilite"><pre><span></span><code><span class="err">GET to http://localhost:48082/api/v1/device/name/countcamera1</span>
+<p>See <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-command/1.2.0">core command API</a> for more details.</p>
+<p>With the setup complete, you can ask the <a href="../../microservices/core/command/Ch-Command/">core command micro
+service</a> for the list of commands associated to the device (the
+<code>countcamera1</code>).  The command micro service exposes the commands in a common, normalized
+way that enables simplified communications with the devices for</p>
+<ul>
+<li>other micro services within EdgeX Foundry (for example, an edge analytics or rules engine micro service)</li>
+<li>other applications that may exist on the same host with EdgeX Foundry (for example, a management agent that needs to shutoff a sensor)</li>
+<li>any external system that needs to command those devices (for example, a cloud-based application that determined the need to modify the settings on a collection of devices)</li>
+</ul>
+<h3 id="walkthrough-commands">Walkthrough - Commands</h3>
+<p>Use either the Postman or Curl tab below to walkthrough getting the list of commands.</p>
+<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Postman</label><div class="tabbed-content">
+<p>Make a GET request to <code>http://localhost:48082/api/v1/device/name/countcamera1</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please note the change in port for the command request above.  The command micro service is at port 48082 by default.</p>
+</div>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Curl</label><div class="tabbed-content">
+<p>Make a curl GET request as shown below.</p>
+<div class="highlight"><pre><span></span><code>curl -X GET localhost:48082/api/v1/device/name/countcamera1 <span class="p">|</span> json_pp
 </code></pre></div>
 
-
-<p>Note all of the URLs returned as part of this response! These are the
-URLs that clients (internal or external to EdgeX) can call to trigger
-the various get and put offerings on the Device.</p>
-<h3 id="check-the-value-descriptors">Check the Value Descriptors</h3>
-<p>See <a href="https://github.com/edgexfoundry/edgex-go/blob/master/api/raml/core-data.raml">APIs Core Services Core
-Data</a></p>
-<p>See that the Value Descriptors are in Core Data. There should be a total
-of 5 Value Descriptors in Core Data. Note that Value Descriptors are
-stored in Core Data, yet referenced in Metadata. This is because as data
-coming from a Device is sent to Core Data, Core Data may need to
-validate the incoming values against the associated Value Descriptor
+</div>
+</div>
+<p><img alt="image" src="../EdgeX_WalkthroughGetCommands.png" /></p>
+<p>Explore all of the URLs returned as part of this response! These are the URLs that clients (internal or external to EdgeX) can call to trigger the various get and put offerings on the Device. However, do take note that the host for the URLs is <code>edgex-core-command</code>.  This is the name of the host for core command inside Docker.  To exercise the URL outside of Docker, you would have to use the name of the system host (localhost if executing on the same box).</p>
+<h2 id="check-the-value-descriptors">Check the Value Descriptors</h2>
+<p>See <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-data/1.2.0">core data API</a> for more details.</p>
+<p>See that the value descriptors are in core data. There should be a total
+of 4 value descriptors in core data. Note that value descriptors are
+stored in core data, yet referenced by several objects in core metadata. This is because as data
+coming from a device is sent to core data, core data may need to
+validate the incoming values against the associated value descriptor
 parameters (like min, max, etc.) but without having to make a trip to
-Core Metadata to do that validation. Getting data into Core Data is a
+core metadata to do that validation. Getting data into core data is a
 key function of EdgeX and must be accomplished as quickly as possible
 (without having to make additional REST requests).</p>
-<div class="codehilite"><pre><span></span><code><span class="err">GET to http://localhost:48080/api/v1/valuedescriptor</span>
+<h3 id="walkthrough-value-descriptors">Walkthrough - Value Descriptors</h3>
+<p>Use either the Postman or Curl tab below to walkthrough getting the list of value descriptors.</p>
+<div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Postman</label><div class="tabbed-content">
+<p>Make a GET request to <code>http://localhost:48080/api/v1/valuedescriptor</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Again, note the change in port for the core micro service request above.  The core micro service is at port 48080 by default.</p>
+</div>
+</div>
+<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Curl</label><div class="tabbed-content">
+<p>Make a curl GET request as shown below.</p>
+<div class="highlight"><pre><span></span><code>curl -X GET localhost:48080/api/v1/valuedescriptor <span class="p">|</span> json_pp
 </code></pre></div>
 
-
-<p>While we're at it, check that no data has yet been shipped to Core
-Data. Since the Device Service and Device are in this demonstration
+</div>
+</div>
+<h2 id="check-the-events">Check the Events</h2>
+<p>While we're at it, check that no data has yet been shipped to core
+data from the camera device. Since the device service and device in this demonstration are
 wholly manually driven by you, no sensor data should yet have been
-collected. You can test this theory by asking for the count of Events in
-Core Data.</p>
-<div class="codehilite"><pre><span></span><code><span class="err">GET to http://localhost:48080/api/v1/event/count</span>
+collected. You can test this theory by asking for the count of events in
+core data.</p>
+<h3 id="walkthrough-events">Walkthrough - Events</h3>
+<p>Use either the Postman or Curl tab below to walkthrough getting the list of events.</p>
+<div class="tabbed-set" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">Postman</label><div class="tabbed-content">
+<p>Make a GET request to <code>http://localhost:48080/api/v1/event/count</code>.</p>
+</div>
+<input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><label for="__tabbed_3_2">Curl</label><div class="tabbed-content">
+<p>Make a curl GET request as shown below.</p>
+<div class="highlight"><pre><span></span><code>curl -X GET localhost:48080/api/v1/event/count
 </code></pre></div>
 
-
+</div>
+</div>
 <h2 id="execute-a-command">Execute a Command</h2>
-<p>While there is no real Device or Device Service in this walk through,
+<p>While there is no real device or device service in this walkthrough,
 EdgeX doesn't know that. Therefore, with all the configuration and
 setup you have performed, you can ask EdgeX to set the scan depth or set
 the snapshot duration to the camera, and EdgeX will dutifully try to
-perform the task. Of course, since no Device Service or Device exists,
+perform the task. Of course, since no device service or device exists,
 as expected EdgeX will ultimately responds with an error. However,
-through the log files, you can see a Command made of the Core Command
-micro service, attempts to call on the appropriate Command of the
-fictitious Device Service that manages our fictitious camera.</p>
-<p>For example sake, let's launch a Command to set the scan depth of
-countcamera1 (the name of the single human/dog counting camera Device in
+through the log files, you can see a command made of the core command
+micro service, attempts to call on the appropriate command of the
+fictitious device service that manages our fictitious camera.</p>
+<p>For example sake, let's launch a command to set the scan depth of
+<code>countcamera1</code> (the name of the single human/dog counting camera device in
 EdgeX right now). The first task to launch a request to set the scan
-depth is to get the URL for the Command to "PUT" or set a new scan
-depth on the Device. As seen above request a list of the Commands by the
-Device name with the following API on Core Command</p>
-<div class="codehilite"><pre><span></span><code><span class="err">GET to http://localhost:48082/api/v1/device/name/countcamera1</span>
-</code></pre></div>
-
-
-<p>Now locate and copy the URL for the PUT Depth Command. Because of the
-IDs used, this will be different on each system so a generic API call
+depth is to get the URL for the command to <code>put</code> or set a new scan
+depth on the device. <a href="./#walkthrough-commands">Return to the results of the request</a> to get a list of the commands by the
+device name above.</p>
+<p>Locate and copy the URL for the <code>put</code> depth command. Because of the
+IDs used, the IDs you see in the image above will be different on each system so a generic API call
 will not suffice here. Below is a picture containing a slice of the JSON
-returned by the GET request above and desired PUT Command URL
+returned by the GET request above and desired <code>put</code> Command URL
 highlighted - yours will vary based on IDs.</p>
 <p><img alt="image" src="../EdgeX_WalkthroughPutCommandURL.png" /></p>
-<p>Copy this URL into your REST client tool of choice and make a PUT to
-that URL on Core Command with the new depth as the parameter with that
-request.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">PUT</span> <span class="k">to</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">48082</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">device</span><span class="o">/&lt;</span><span class="k">system</span> <span class="k">specific</span> <span class="n">device</span> <span class="n">id</span><span class="o">&gt;/</span><span class="n">command</span><span class="o">/&lt;</span><span class="k">system</span> <span class="k">specific</span> <span class="n">command</span> <span class="n">id</span><span class="o">&gt;</span>
-
-<span class="n">BODY</span><span class="p">:</span>  <span class="err">{</span><span class="ss">&quot;depth&quot;</span><span class="p">:</span><span class="ss">&quot;9&quot;</span><span class="err">}</span>
+<h3 id="walkthrough-actuation-command">Walkthrough - Actuation Command</h3>
+<p>Use either the Postman or Curl tab below to walkthrough actuating the device.</p>
+<div class="tabbed-set" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><label for="__tabbed_4_1">Postman</label><div class="tabbed-content">
+<p>Make a PUT request to <code>http://localhost:48082/api/v1/device/&lt;system specific device id&gt;/command/&lt;system specific command id&gt;</code> with the following body.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;depth&quot;</span><span class="p">:</span><span class="s2">&quot;9&quot;</span><span class="p">}</span>
 </code></pre></div>
 
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Notice that the URL above requires you to plugin the device and command IDs from your command list.</p>
+</div>
+</div>
+<input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><label for="__tabbed_4_2">Curl</label><div class="tabbed-content">
+<p>Make a curl PUT request as shown below - <strong>replacing the device id and command id</strong> obtained from your command list.</p>
+<div class="highlight"><pre><span></span><code>curl -X PUT -d <span class="s1">&#39;{&quot;depth&quot;:&quot;9&quot;}&#39;</span> localhost:48082/api/v1/device/&lt;system specific device id&gt;/command/&lt;system specific <span class="nb">command</span> id&gt;
+</code></pre></div>
 
-<p>Again, because no Device Service (or Device) actually exists, Core
-Command will respond with an HTTP 502 Bad Gateway error. However,
-checking the logging output will prove that the Core Command micro
+</div>
+</div>
+<h4 id="check-command-service-log">Check Command Service Log</h4>
+<p>Again, because no device service (or device) actually exists, core
+command will respond with a connection refused error. However,
+checking the logging output will prove that the core command micro
 service did receive the request and attempted to call on the
-non-existent Device Service to issue the actuating command.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">docker</span> <span class="n">logs</span> <span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">command</span>
-
-<span class="n">INFO</span><span class="p">:</span> <span class="mi">2019</span><span class="o">/</span><span class="mi">02</span><span class="o">/</span><span class="mi">15</span> <span class="mi">19</span><span class="p">:</span><span class="mi">32</span><span class="p">:</span><span class="mi">13</span> <span class="n">Issuing</span> <span class="k">GET</span> <span class="n">command</span> <span class="k">to</span><span class="p">:</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mi">172</span><span class="p">.</span><span class="mi">17</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">:</span><span class="mi">49977</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">devices</span><span class="o">/</span><span class="mi">5</span><span class="n">c6711419f8fc200010f4ada</span><span class="o">/</span><span class="n">scandepth</span>
-<span class="n">ERROR</span><span class="p">:</span> <span class="mi">2019</span><span class="o">/</span><span class="mi">02</span><span class="o">/</span><span class="mi">15</span> <span class="mi">19</span><span class="p">:</span><span class="mi">32</span><span class="p">:</span><span class="mi">13</span> <span class="k">Get</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mi">172</span><span class="p">.</span><span class="mi">17</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">:</span><span class="mi">49977</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">devices</span><span class="o">/</span><span class="mi">5</span><span class="n">c6711419f8fc200010f4ada</span><span class="o">/</span><span class="n">scandepth</span><span class="p">:</span> <span class="n">dial</span> <span class="n">tcp</span> <span class="mi">172</span><span class="p">.</span><span class="mi">17</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">:</span><span class="mi">49977</span><span class="p">:</span> <span class="n">getsockopt</span><span class="p">:</span> <span class="k">connection</span> <span class="n">refused</span>
+non-existent device service (at the <code>Addressable</code> address provided earlier in this walkthrough) to issue the actuating command.  To see the core command service log issue the following Docker command :</p>
+<p><div class="highlight"><pre><span></span><code>docker logs edgex-core-command
 </code></pre></div>
+The last lines of the log entries should highlight the attempt to contact the non-existent device.</p>
+<div class="highlight"><pre><span></span><code>level=ERROR ts=2020-08-07T17:58:41.427153136Z app=edgex-core-command source=types.go:41 msg=&quot;Put http://localhost:49977/api/v1/devices/516baf46-c7a0-4fee-ad0c-b56df813bcb5/Depth: dial tcp 127.0.0.1:49977: connect: connection refused&quot;
+level=ERROR ts=2020-08-07T17:58:41.427220406Z app=edgex-core-command source=handler.go:47 msg=&quot;Put http://localhost:49977/api/v1/devices/516baf46-c7a0-4fee-ad0c-b56df813bcb5/Depth: dial tcp 127.0.0.1:49977: connect: connection refused&quot;
+</code></pre></div>
+
+<p><a class="md-button" href="../Ch-WalkthroughProvision/">&lt;Back</a> <a class="md-button" href="../Ch-WalkthroughReading/">Next&gt;</a></p>
                 
               
               
@@ -2168,7 +2307,7 @@ non-existent Device Service to issue the actuating command.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../Ch-WalkthroughProvision/" title="Provision a Device" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../Ch-WalkthroughProvision/" title="Provision a device" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
             </div>
@@ -2177,7 +2316,7 @@ non-existent Device Service to issue the actuating command.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Provision a Device
+                Provision a device
               </div>
             </div>
           </a>

@@ -1496,15 +1496,15 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install-docker-docker-compose" class="md-nav__link">
-    Install Docker &amp; Docker Compose
+  <a href="#install-docker-docker-compose-edgex-foundry" class="md-nav__link">
+    Install Docker, Docker Compose &amp; EdgeX Foundry
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#install-postman" class="md-nav__link">
-    Install Postman
+  <a href="#install-postman-optional" class="md-nav__link">
+    Install Postman (optional)
   </a>
   
 </li>
@@ -1513,18 +1513,6 @@
   
 </nav>
     
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../Ch-WalkthroughRunning/" title="Running EdgeX" class="md-nav__link">
-      Running EdgeX
-    </a>
   </li>
 
         
@@ -1570,8 +1558,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-WalkthroughDeviceService/" title="Register your Device Service" class="md-nav__link">
-      Register your Device Service
+    <a href="../Ch-WalkthroughDeviceService/" title="Register your device service" class="md-nav__link">
+      Register your device service
     </a>
   </li>
 
@@ -1582,8 +1570,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-WalkthroughProvision/" title="Provision a Device" class="md-nav__link">
-      Provision a Device
+    <a href="../Ch-WalkthroughProvision/" title="Provision a device" class="md-nav__link">
+      Provision a device
     </a>
   </li>
 
@@ -2002,15 +1990,15 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install-docker-docker-compose" class="md-nav__link">
-    Install Docker &amp; Docker Compose
+  <a href="#install-docker-docker-compose-edgex-foundry" class="md-nav__link">
+    Install Docker, Docker Compose &amp; EdgeX Foundry
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#install-postman" class="md-nav__link">
-    Install Postman
+  <a href="#install-postman-optional" class="md-nav__link">
+    Install Postman (optional)
   </a>
   
 </li>
@@ -2036,41 +2024,36 @@
                 
                 
                 <h1 id="setup-up-your-environment">Setup up your environment</h1>
-<h2 id="install-docker-docker-compose">Install Docker &amp; Docker Compose</h2>
-<p>To run Dockerized EdgeX Foundry, you need to install Docker. See
-<a href="https://docs.docker.com/install/">https://docs.docker.com/install/</a> to learn how to obtain and install
-Docker. If you are new to using Docker, the same web site provides you
-additional information. The following short video has is also very
-informative
-<a href="https://www.youtube.com/watch?time_continue=3&amp;v=VhabrYF1nms">https://www.youtube.com/watch?time_continue=3&amp;v=VhabrYF1nms</a></p>
-<p>Docker Compose is used to orchestrate the fetch (or pull), installation,
-and the start and stop of the EdgeX Foundry microservice containers.
-See: <a href="https://docs.docker.com/compose/">https://docs.docker.com/compose/</a> to learn more about Docker
-Compose.</p>
-<p>Docker Compose is automatically installed with Docker for Mac and
-Windows users. See: <a href="https://docs.docker.com/compose/install/">https://docs.docker.com/compose/install/</a> to
-determine if your Docker installation already contains Docker Compose,
-and how to install Compose if it does not.</p>
-<p>You do not need to be an expert with Docker to run EdgeX Foundry. The
-instructions in this guide provide you with the steps to get EdgeX
-Foundry running in your environment. Some basic knowledge of these two
-technologies of Docker and Docker Compose, are nice to have, but not
-required.</p>
-<h2 id="install-postman">Install Postman</h2>
+<h2 id="install-docker-docker-compose-edgex-foundry">Install Docker, Docker Compose &amp; EdgeX Foundry</h2>
+<p>To explore EdgeX and walk through it's APIs and how it works, you will need:</p>
+<ul>
+<li>Docker</li>
+<li>Docker Compose</li>
+<li>EdgeX Foundry (the base set of containers)</li>
+</ul>
+<p>If you have not already done so, proceed to <a href="../../getting-started/Ch-GettingStartedUsers/">Getting Started With Docker</a> for how to get these tools and run EdgeX Foundry.  If you have the tools and EdgeX already installed and running, you can proceed to the <a href="../Ch-WalkthroughUseCase/">Walkthrough Use Case</a>.</p>
+<h2 id="install-postman-optional">Install Postman (optional)</h2>
 <p>You can follow this walkthrough making HTTP calls from the command-line
-with a tool like <code>curl</code>, but it's easier if you use a tool
-designed for testing REST APIs. For that we like to use <strong>Postman</strong>. You
+with a tool like <code>curl</code>, but it's easier if you use a graphical user interface tool
+designed for exercising REST APIs. For that we like to use <strong>Postman</strong>. You
 can download the <a href="https://app.getpostman.com/">native Postman app</a> for
 your operating system.</p>
-<p><strong>Walk Through Alert!</strong></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Example <code>curl</code> commands will be provided with the walk through so that you can run this walkthrough without Postman.</p>
+</div>
+<div class="admonition alert">
+<p class="admonition-title">Alert</p>
 <p>It is assumed that for the purposes of this walk through demonstration</p>
 <ul>
-<li>all API micro services are running on "localhost". If this is not
+<li>all API micro services are running on <code>localhost</code>. If this is not
     the case, substitute your hostname for localhost.</li>
 <li>any POST call has the associated <strong>CONTENT-TYPE=application/JSON</strong>
     header associated to it unless explicitly stated otherwise.</li>
 </ul>
 <p><img alt="image" src="../EdgeX_WalkthroughPostmanHeaders.png" /></p>
+</div>
+<p><a class="md-button" href="../Ch-Walkthrough/">&lt;Back</a> <a class="md-button" href="../Ch-WalkthroughUseCase/">Next&gt;</a></p>
                 
               
               
@@ -2104,13 +2087,13 @@ your operating system.</p>
           </a>
         
         
-          <a href="../Ch-WalkthroughRunning/" title="Running EdgeX" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../Ch-WalkthroughUseCase/" title="Example Use Case" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Running EdgeX
+                Example Use Case
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">

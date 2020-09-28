@@ -1473,18 +1473,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-WalkthroughRunning/" title="Running EdgeX" class="md-nav__link">
-      Running EdgeX
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../Ch-WalkthroughUseCase/" title="Example Use Case" class="md-nav__link">
       Example Use Case
     </a>
@@ -1521,8 +1509,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-WalkthroughDeviceService/" title="Register your Device Service" class="md-nav__link">
-      Register your Device Service
+    <a href="../Ch-WalkthroughDeviceService/" title="Register your device service" class="md-nav__link">
+      Register your device service
     </a>
   </li>
 
@@ -1533,8 +1521,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-WalkthroughProvision/" title="Provision a Device" class="md-nav__link">
-      Provision a Device
+    <a href="../Ch-WalkthroughProvision/" title="Provision a device" class="md-nav__link">
+      Provision a device
     </a>
   </li>
 
@@ -1604,15 +1592,55 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#export-clients" class="md-nav__link">
-    Export Clients
+  <a href="#getting-data-to-the-rules-engine" class="md-nav__link">
+    Getting data to the rules engine
+  </a>
+  
+    <nav class="md-nav" aria-label="Getting data to the rules engine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#seeing-the-data-export" class="md-nav__link">
+    Seeing the data export
+  </a>
+  
+    <nav class="md-nav" aria-label="Seeing the data export">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-the-log-level" class="md-nav__link">
+    Set the log level
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#view-the-service-log" class="md-nav__link">
+    View the service log
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exporting-data-to-anywhere" class="md-nav__link">
+    Exporting data to anywhere
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#register-an-export-client" class="md-nav__link">
-    Register an Export Client
+  <a href="#building-your-own-solutions" class="md-nav__link">
+    Building your own solutions
   </a>
   
 </li>
@@ -2002,15 +2030,55 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#export-clients" class="md-nav__link">
-    Export Clients
+  <a href="#getting-data-to-the-rules-engine" class="md-nav__link">
+    Getting data to the rules engine
+  </a>
+  
+    <nav class="md-nav" aria-label="Getting data to the rules engine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#seeing-the-data-export" class="md-nav__link">
+    Seeing the data export
+  </a>
+  
+    <nav class="md-nav" aria-label="Seeing the data export">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-the-log-level" class="md-nav__link">
+    Set the log level
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#view-the-service-log" class="md-nav__link">
+    View the service log
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exporting-data-to-anywhere" class="md-nav__link">
+    Exporting data to anywhere
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#register-an-export-client" class="md-nav__link">
-    Register an Export Client
+  <a href="#building-your-own-solutions" class="md-nav__link">
+    Building your own solutions
   </a>
   
 </li>
@@ -2036,58 +2104,52 @@
                 
                 
                 <h1 id="exporting-your-device-data">Exporting your device data</h1>
-<p>Great, so the data sent by the camera Device makes it way to Core Data.
+<p>Great, so the data sent by the camera device makes it way to core data.
 How can that data be sent to an enterprise system or the Cloud? How can
-that data be used by an edge analytics system (like the Rules Engine
-provided with EdgeX) to actuate on a Device? Anything wishing to receive
-the sensor/device data as it comes into EdgeX must register as an
-"export" client.</p>
-<h2 id="export-clients">Export Clients</h2>
-<p>In fact, by default, the Rules Engine is automatically registered as a
-client of the export services and automatically receives all the
-Events/Readings from Core Data that are sent by Devices. To see all the
-existing export clients, you can request a list from the Export Client
-micro service.</p>
-<div class="codehilite"><pre><span></span><code><span class="err">GET to http://localhost:48071/api/v1/registration</span>
+that data be used by an edge analytics system (like a rules engine) to actuate on a device?</p>
+<h2 id="getting-data-to-the-rules-engine">Getting data to the rules engine</h2>
+<p>By default, data is already passed from the core data service to application services (app services) via 0MQ message.  A preconfigured application service is provided with the EdgeX default Docker Compose files that gets this data and routes it to the <a href="../../microservices/support/Kuiper/Ch-Kuiper/">Kuiper rules engine</a>.  The application service is called <code>app-service-rules</code> (see below).  More specifically, it is an <a href="../../microservices/application/AppServiceConfigurable/">app service configurable</a>.</p>
+<div class="highlight"><pre><span></span><code>  <span class="nt">app-service-rules</span><span class="p">:</span>
+    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgexfoundry/docker-app-service-configurable:1.2.0</span>
+    <span class="nt">ports</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;127.0.0.1:48100:48100&quot;</span>
+    <span class="nt">container_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-app-service-configurable-rules</span>
+    <span class="nt">hostname</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-app-service-configurable-rules</span>
+    <span class="nt">networks</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">edgex-network</span>
+    <span class="nt">environment</span><span class="p">:</span>
+      <span class="nt">&lt;&lt;</span><span class="p">:</span> <span class="nv">*common-variables</span>
+      <span class="nt">edgex_profile</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rules-engine</span>
+      <span class="nt">Service_Host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-app-service-configurable-rules</span>
+      <span class="nt">Service_Port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">48100</span>
+      <span class="nt">MessageBus_SubscribeHost_Host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-core-data</span>
+      <span class="nt">Binding_PublishTopic</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">events</span>
+    <span class="nt">depends_on</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">consul</span>
+<span class="c1">#      - logging  # uncomment if re-enabled remote logging</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">data</span>
 </code></pre></div>
 
-
-<p>The response from Export Client is a list of registered client details -
-in this case just the Rules Engine is registered.</p>
-<p><img alt="image" src="../EdgeX_WalkthroughExportServiceResponse.png" /></p>
-<h2 id="register-an-export-client">Register an Export Client</h2>
-<p>To register a new client to receive EdgeX data, you will first need to
-setup a client capable of receiving HTTP REST calls, or an MQTT topic
-capable of receiving messages from EdgeX. For the purposes of this
-demonstration, let's say there is an cloud based MQTT Topic that has
-been setup ready to receive EdgeX Event/Reading data. To register this
-MQTT endpoint to receive all Event/Reading data, in JSON format, but
-encrypted, you will need to request Export Client to make a new EdgeX
-client.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">POST</span> <span class="k">to</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">48071</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">registration</span>
-
-<span class="n">BODY</span><span class="p">:</span> <span class="err">{</span><span class="ss">&quot;name&quot;</span><span class="p">:</span><span class="ss">&quot;MyMQTTTopic&quot;</span><span class="p">,</span><span class="ss">&quot;addressable&quot;</span><span class="p">:</span><span class="err">{</span><span class="ss">&quot;name&quot;</span><span class="p">:</span><span class="ss">&quot;MyMQTTBroker&quot;</span><span class="p">,</span><span class="ss">&quot;protocol&quot;</span><span class="p">:</span><span class="ss">&quot;TCP&quot;</span><span class="p">,</span><span class="ss">&quot;address&quot;</span><span class="p">:</span><span class="ss">&quot;tcp://m10.cloudmqtt.com&quot;</span><span class="p">,</span><span class="ss">&quot;port&quot;</span><span class="p">:</span><span class="mi">15421</span><span class="p">,</span><span class="ss">&quot;publisher&quot;</span><span class="p">:</span><span class="ss">&quot;EdgeXExportPublisher&quot;</span><span class="p">,</span><span class="ss">&quot;user&quot;</span><span class="p">:</span><span class="ss">&quot;hukfgtoh&quot;</span><span class="p">,</span><span class="ss">&quot;password&quot;</span><span class="p">:</span><span class="ss">&quot;mypass&quot;</span><span class="p">,</span><span class="ss">&quot;topic&quot;</span><span class="p">:</span><span class="ss">&quot;EdgeXDataTopic&quot;</span><span class="err">}</span><span class="p">,</span><span class="ss">&quot;format&quot;</span><span class="p">:</span><span class="ss">&quot;JSON&quot;</span><span class="p">,</span><span class="ss">&quot;encryption&quot;</span><span class="p">:</span><span class="err">{</span><span class="ss">&quot;encryptionAlgorithm&quot;</span><span class="p">:</span><span class="ss">&quot;AES&quot;</span><span class="p">,</span><span class="ss">&quot;encryptionKey&quot;</span><span class="p">:</span><span class="ss">&quot;123&quot;</span><span class="p">,</span><span class="ss">&quot;initializingVector&quot;</span><span class="p">:</span><span class="ss">&quot;123&quot;</span><span class="err">}</span><span class="p">,</span><span class="ss">&quot;enable&quot;</span><span class="p">:</span><span class="k">true</span><span class="p">,</span><span class="ss">&quot;destination&quot;</span><span class="p">:</span><span class="ss">&quot;MQTT_TOPIC&quot;</span><span class="err">}</span>
+<h3 id="seeing-the-data-export">Seeing the data export</h3>
+<p>The log level of any EdgeX micro service is set to <code>INFO</code> by default.  If you tune the log level of the app-service-rules micro service to <code>DEBUG</code>, you can see <code>Event</code>s pass through the app service on the way to the rules engine.</p>
+<h4 id="set-the-log-level">Set the log level</h4>
+<p>To set the log level of any service, open the <a href="../../microservices/configuration/Ch-Configuration/#web-user-interface">Consul UI</a> in a browser by visiting <code>http://[host]:8500</code>.  When the Consul UI opens, click on the Key/Value tab on the top of the screen.</p>
+<p><img alt="image" src="../EdgeX_WalkthroughConsulKeyValue.png" /></p>
+<p>On the Key/Value display page, click on <code>edgex</code> &gt; <code>appservices</code> &gt; <code>1.0</code> &gt; <code>AppService-rules-engine</code> &gt; <code>Writable</code> &gt; <code>LogLevel</code>.  In the Value entry field that presents itself, replace <code>INFO</code> with <code>DEBUG</code> and hit the <code>Save</code> button.</p>
+<p><img alt="image" src="../EdgeX_WalkthroughConsulSetLogLevel.png" /></p>
+<h4 id="view-the-service-log">View the service log</h4>
+<p>The log level change will be picked up by the application service.  In a terminal window, execute the Docker command below to view the service log.</p>
+<div class="highlight"><pre><span></span><code>docker logs -f edgex-app-service-configurable-rules
 </code></pre></div>
 
-
-<p>Note that the Addressable for the REST address is built into the
-request.</p>
-<p>Now, should a new <a href="../Ch-WalkthroughReading/">Event be posted</a> to Core
-Data, the Export Distro micro service will attempt to sent the
-encrypted, JSON-formated Event/Reading data to the MQTT client. Unless
-you have actually setup the MQTT Topic to receive the messages, Export
-Distro will fail to deliver the contents and an error will result. You
-can check the Export Distro log to see the attempt was made and that the
-EdgeX Export services are working correctly, despite the non-existence
-of the receiving MQTT Topic.</p>
-<p>MQTTOutboundServiceActivator: message sent to MQTT broker:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">Addressable [name=MyMQTTBroker, protocol=TCP, address=tcp://m10.cloudmqtt.com, port=15421, path=null, publisher=EdgeXExportPublisher, user=hukfgtoh, password=mypass, topic=EdgeXDataTopic, toString()=BaseObject [id=null, created=0, modified=0, origin=0]] : 596283c7e4b0011866276e9</span>
-</code></pre></div>
-
-
-<h1 id="building-your-own-solutions">Building your own solutions</h1>
+<p>Now push another event/reading into core data as you did earlier (see <a href="../Ch-WalkthroughReading/#walkthrough-send-event">Send Event</a>).  You should see each new event/reading created by acknowledged by the app service.  With the right application service and rules engine configuration, the event/reading data is sent to the rules engine where it can then be used to trigger commands just as you did manually in this walkthrough.</p>
+<p><img alt="image" src="../EdgeX_WalkthroughAppServiceLog.png" /></p>
+<h2 id="exporting-data-to-anywhere">Exporting data to anywhere</h2>
+<p>You can create an additional application service to get the data to another application or service, REST endpoint, MQTT topic, cloud provider, and more.  See the <a href="../../getting-started/quick-start/#exporting-data">Getting Started guide</a> on exporting data for more information on how to use another app service configurable to get EdgeX data to any client.</p>
+<h2 id="building-your-own-solutions">Building your own solutions</h2>
 <p>Congratulations, you've made it all the way through the Walkthrough
 tutorial!</p>
+<p><a class="md-button" href="../Ch-WalkthroughReading/">&lt;Back</a></p>
                 
               
               
