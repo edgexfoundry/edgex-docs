@@ -1,5 +1,9 @@
 # Example Use Case
 
+In order to explore EdgeX, its services and APIs and to generally understand how it works, it helps to see EdgeX under the context of a real use case.  While you exercise the APIs under a hypothetical situation in order to demonstrate how EdgeX works, the use case is very much a valid example of how EdgeX can be used to collect data from devices and actuate control of the sensed environment it monitors.  People (and animal) counting camera technology as highlighted in this walk through does exist and has been connected to EdgeX before.
+
+## Object Counting Camera
+
 Suppose you had a new device that you wanted to connect to EdgeX. The
 device was a camera that took a picture and then had an on-board chip
 that analyzed the picture and reported the number of humans and canines
@@ -20,16 +24,18 @@ the user to set based on use case needs.
 
 ![image](EdgeX_WalkthroughSnapshotDepth.png)
 
-In EdgeX, the camera must be represented by a Device. Each Device is
-managed by a Device Service micro service. The Device Service
+## EdgeX Device Representation
+
+In EdgeX, the camera must be represented by a `Device`. Each `Device` is
+managed by a [device service](../microservices/device/Ch-DeviceServices.md). The device service
 communicates with the underlying hardware - in this case the camera - in
-the protocol of choice for that Device. The Device Service collects the
-data from the Devices it manages and passes that data into EdgeX (into
-Core Data). In this case, the Device Service would be collecting the
-count of humans and dogs that the camera sees. The Device Service also
+the protocol of choice for that `Device`. The device service collects the
+data from the devices it manages and passes that data into EdgeX (into
+[core data](../microservices/core/data/Ch-CoreData.md)). In this case, the device service would be collecting the
+count of humans and dogs that the camera sees. The device service also
 serves to translate the request for actuation from EdgeX and the rest of
-the world into protocol requests that the physical Device would
-understand. So in this example, the Device Service would take requests
+the world into protocol requests that the physical device would
+understand. So in this example, the device service would take requests
 to set the duration between snapshots and to set the scan depth and
 translate those requests into protocol commands that the camera
 understood.
@@ -37,7 +43,9 @@ understood.
 ![image](EdgeX_WalkthroughCameraCommands.png)
 
 Exactly how this camera physically connects to the host machine running
-EdgeX and how the Device Service works under the covers to communicate
+EdgeX and how the device service works under the covers to communicate
 with the camera Device is immaterial for the point of this
 demonstration.
+
+[<Back](Ch-WalkthroughSetup.md){: .md-button } [Next>](Ch-WalkthroughData.md){: .md-button }
 
