@@ -11,10 +11,10 @@ when executing functional or performance tests without having any real devices.
 
 The virtual device service, built in Go and based on the device service Go SDK, can simulate sensors by generating data of the following data types:
 
-- Bool
-- Int8, Int16, Int32, Int64
-- Uint8, Uint16, Uint32, Uint64
-- Float32, Float64
+- Bool, BoolArray
+- Int8, Int16, Int32, Int64, Int8Array, Int16Array, Int32Array, Int64Array
+- Uint8, Uint16, Uint32, Uint64, Uint8Array, Uint16Array, Uint32Array, Uint64Array
+- Float32, Float64, Float32Array, Float64Array
 - Binary
 
 The virtual device services leverages [ql(an embedded SQL database engine)](https://godoc.org/github.com/cznic/ql) to simulate virtual resources.
