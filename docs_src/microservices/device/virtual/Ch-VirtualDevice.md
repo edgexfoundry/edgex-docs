@@ -137,7 +137,7 @@ Use the following core command service APIs to execute commands against the virt
 
 ## Configuration Properties
 
-Please refer to the general [Configuration documentation](https://docs.edgexfoundry.org/1.2/microservices/configuration/Ch-Configuration/#configuration) for configuration properties common to all services.
+Please refer to the general [Configuration documentation](../../configuration/Ch-Configuration.md#configuration) for configuration properties common to all services.
 
 For each device, the virual device service will contain a DeviceList with associated Protocols and AutoEvents as shown by the example below.
 === "DeviceList"   
