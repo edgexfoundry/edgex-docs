@@ -154,7 +154,7 @@ Cleanup service removes old notification and transmission records.
 
 ## Configuration Properties
 
-Please refer to the general [Configuration documentation](../../configuration/Ch-Configuration.md#configuration) for configuration properties common to all services.
+Please refer to the general [Configuration documentation](../../configuration/Ch-Configuration.md#configuration-properties) for configuration properties common to all services.
 
 === "Writable"
     |Property|Default Value|Description|
