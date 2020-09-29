@@ -118,7 +118,7 @@ The two following High Level Interaction Diagrams show:
 
 ## Configuration Properties
 
-Please refer to the general [Configuration documentation](../../configuration/Ch-Configuration.md#configuration) for configuration properties common to all services.
+Please refer to the general [Configuration documentation](../../configuration/Ch-Configuration.md#configuration-properties) for configuration properties common to all services.
 
 === "Writable"
     |Property|Default Value|Description|
