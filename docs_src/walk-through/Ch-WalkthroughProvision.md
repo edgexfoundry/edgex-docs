@@ -1,79 +1,64 @@
-# Provision a Device
+# Provision a device
 
-In the last act of setup, a Device Service often discovers and
-provisions new Devices it finds and is going to manage on the part of
-EdgeX. Note the word "often" in the last sentence. Not all Device
-Services will discover new Devices or provision them right away.
-Depending on the type of Device and how the Devices communicate, it is
-up to the Device Service to determine how/when to provision a Device. In
-some rare cases, the provisioning may be triggered by a human request of
-the Device Service once everything is in place and once the human can
-provide the information the Device Service needs to physically connect
-to the Device.
+In the last act of setup, a device service often discovers and provisions devices (either [statically or dynamically](../microservices/device/Ch-DeviceServices.md#device-discovery-and-provision-watchers)) and that it is going to manage on the part of
+EdgeX. Note the word "often" in the last sentence. Not all device
+services will discover new devices or provision them right away.
+Depending on the type of device and how the devices communicate, it is
+up to the device service to determine how/when to provision a device. In
+some cases, the provisioning may be triggered by a human request of
+the device service once everything is in place and once the human can
+provide the information the device service needs to physically connected
+to the device.
 
-## Adding your device
+## Device
 
-See [APIs Core Services
-Metadata](https://github.com/edgexfoundry/edgex-go/blob/master/api/raml/core-metadata.raml)
+See [core metadata API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/1.2.0) for more details.
 
-For the sake of this demonstration, the call to Core Metadata below will
-provision the human/dog counting monitor camera as if the Device Service
-discovered it (by some unknown means) and provisioned the Device as part
-of some startup process. To create a Device, it must be associated to a
-[Device Profile](./Ch-WalkthroughDeviceProfile.md) (by name or id), a
-[Device Service](./Ch-WalkthroughDeviceService.md) (by name or id), and
+For the sake of this demonstration, the call to core metadata will
+provision the human/dog counting monitor camera as if the device service
+discovered it (by some unknown means) and provisioned the device as part
+of some startup process. To create a `Device`, it must be associated to a
+[`DeviceProfile`](./Ch-WalkthroughDeviceProfile.md), a
+[`DeviceService`](./Ch-WalkthroughDeviceService.md), and
 contain one or more [Protocols](./Ch-WalkthroughData.md#addressables)
-defining its address. When calling each of the POST calls above, the ID
-was returned by the associated micro service and used in the call below.
-In this example, the names of Device Profile, Device Service, and
-Protocols are used.
+defining its address. 
 
-    POST to http://localhost:48081/api/v1/device
+### Walkthrough - Device
 
-    BODY:  {"name":"countcamera1","description":"human and dog counting camera #1","adminState":"unlocked","operatingState":"enabled","protocols":{"camera protocol":{"camera address":"camera 1"}},"labels": ["camera","counter"],"location":"","service":{"name":"camera control device service"},"profile":{"name":"camera monitor profile"}}
+Use either the Postman or Curl tab below to walkthrough creating the `Device`.
 
-Note that `camera monitor profile` was created by the
-`CameraMonitorProfile.yml <EdgeX_CameraMonitorProfile.yml>`{.interpreted-text
-role="download"} you uploaded in a previous step.
+=== "Postman"
 
-## Test the Setup
+    Make a POST request to `http://localhost:48081/api/v1/device` with the following body:
 
-With the Device Service and Device now appropriately setup/provisioned
-in EdgeX, let's try a few of the micro service APIs out to confirm that
-things have been configured correctly.
+    ``` json
+    BODY: {"name":"countcamera1","description":"human and dog counting camera #1","adminState":"unlocked","operatingState":"enabled","protocols":{"camera protocol":{"camera address":"camera 1"}},"labels": ["camera","counter"],"location":"","service":{"name":"camera control device service"},"profile":{"name":"camera monitor profile"}}
+    ```
 
-### Check the Device Service
+    Be sure that you are POSTing **raw** data, not form-encoded data.  If your API call is successful, you will get a generated ID (a UUID) for your new `DeviceService` in the response area.
 
-See [APIs Core Services
-Metadata](https://github.com/edgexfoundry/edgex-go/blob/master/api/raml/core-metadata.raml)
+    !!! Note
+        The `camera monitor profile` was created by the device profile uploaded in a previous walkthrough step. The `camera control device service` was created in the last walkthough step.
 
-To begin, check out that the Device Service is available via Core
-Metadata.
+=== "Curl"
 
-    GET to http://localhost:48081/api/v1/deviceservice
+    Make a curl POST request as shown below.
 
-Note that the associated Addressable is returned with the Device
-Service. There are many additional APIs on Core Metadata to retrieve a
-Device Service. As an example, here is one to find all Device Services
-by label - in this case using the label that was associated to the
-camera control device service.
+    ``` shell
+    curl -X POST -d '{"name":"countcamera1","description":"human and dog counting camera #1","adminState":"unlocked","operatingState":"enabled","protocols":{"camera protocol":{"camera address":"camera 1"}},"labels": ["camera","counter"],"location":"","service":{"name":"camera control device service"},"profile":{"name":"camera monitor profile"}}' localhost:48081/api/v1/device
+    ```
 
-    GET to http://localhost:48081/api/v1/deviceservice/label/camera
+    If your API call is successful, you will get a generated ID (a UUID) for your new `Device`.
 
-### Check the Device
+#### Test the GET API
 
-See [APIs Core Services
-Metadata](https://github.com/edgexfoundry/edgex-go/blob/master/api/raml/core-metadata.raml)
+Ensure the monitor camera is among the devices known to core metadata.  If you make a GET call to the `http://localhost:48081/api/v1/device` URL (with Postman or curl) you will get a listing (in JSON) of all the device services currently defined of devices in your instance of EdgeX that should include the one you just added.
 
-Ensure the monitor camera is among the devices known to Core Metadata.
+There are many additional APIs on core metadata to retrieve a `Device`, `DeviceService`, etc. As an example, here is one to find
+all devices associated to a given `DeviceProfile`.
 
-    GET to http://localhost:48081/api/v1/device
+    ``` shell
+    curl -X GET http://localhost:48081/api/v1/device/profilename/camera+monitor+profile | json_pp
+    ```
 
-Note that the associated Device Profile, Device Service and Addressable
-is returned with the Device. Again, there are many additional APIs on
-Core Metadata to retrieve a Device. As an example, here is one to find
-all Devices associated to a given Device Profile - in this case using
-the camera monitor profile Device Profile name.
-
-    GET to http://localhost:48081/api/v1/device/profilename/camera+monitor+profile
-
+[<Back](Ch-WalkthroughDeviceService.md){: .md-button } [Next>](Ch-WalkthroughCommands.md){: .md-button }

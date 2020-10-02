@@ -1,7 +1,7 @@
 # App Service Examples
 
 The following is a list of examples we currently have available that demonstrate various ways that the Application Functions SDK can be used. All of the examples
-can be found in [https://github.com/edgexfoundry-holding/app-service-examples](https://github.com/edgexfoundry-holding/app-service-examples). They focus on how to leverage various built in
+can be found in [https://github.com/edgexfoundry/edgex-examples/tree/master/application-services](https://github.com/edgexfoundry/edgex-examples/tree/master/application-services). They focus on how to leverage various built in
 provided functions as mentioned above as well as how to write your own in the case that the SDK does not provide what is needed.
 
 | Example Name | Description |

@@ -4,7 +4,7 @@
 
 ## Overview
 
-EMQ X Kuiper is the new EdgeX reference implementation rules engine (or [edge analytcs](../../../general/Definitions.md#edge-analytics)) implementation (replacing the Support Rules Engine - which wrapped the Java Drools engine).
+[EMQ X Kuiper](https://www.emqx.io/products/kuiper) is the new EdgeX reference implementation rules engine (or [edge analytcs](../../../general/Definitions.md#edge-analytics)) implementation (replacing the Support Rules Engine - which wrapped the Java Drools engine).
 
 ## What is EMQ X Kuiper?
 
@@ -38,7 +38,7 @@ An extension mechanism allows Kuiper to be customized to analyze and process dat
 - [Control the device with the EdgeX Kuiper rules engine](https://github.com/emqx/kuiper/blob/master/docs/en_US/edgex/edgex_rule_engine_command.md): This article describes how to use the Kuiper rule engine in EdgeX to control the device based on the analysis results.
 - Read [EdgeX Source](https://github.com/emqx/kuiper/blob/master/docs/en_US/rules/sources/edgex.md) to get more detailed information, and type conversions.
 - [How to use the meta function to extract more information sent in the EdgeX message bus?](https://github.com/emqx/kuiper/blob/master/docs/en_US/edgex/edgex_meta.md) When the device service sends data to the bus, some additional information is also sent, such as creation time and id. If you want to use this information in SQL statements, please refer to this article.
-- [EdgeX Message Bus Sink](https://github.com/emqx/kuiper/blob/master/docs/en_US/rules/sinks/edgex.md): This document describes how to use the EdgeX message bus sink. If you want to send the analysis results to the message bus, you may be interested in this article.
+- [EdgeX Message Bus Sink](https://github.com/emqx/kuiper/blob/master/docs/en_US/rules/sinks/edgex.md): The document describes how to use EdgeX message bus sink. If you'd like to have your analysis result be consumed by other EdgeX services, you can send analysis data with EdgeX data format through this sink, and other EdgeX services can subscribe new message bus exposed by Kuiper sink.
 
 For more information on the EMQ X Kuiper project, please refer to the following resources.
 

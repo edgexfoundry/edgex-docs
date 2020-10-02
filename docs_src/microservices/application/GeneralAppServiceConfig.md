@@ -5,7 +5,7 @@ Similar to other EdgeX services, configuration is first determined by the `confi
 
 This section describes the configuration elements that are unique to Application Services
 
-Please refer to the general [Configuration documentation](../../configuration/Ch-Configuration/#configuration) for configuration properties common across all services.
+Please refer to the general [Configuration documentation](../../configuration/Ch-Configuration#configuration-properties) for configuration properties common across all services.
 
 !!! note
     `*`indicates the configuration value can be changed on the fly if using a configuration provider (like Consul).

@@ -16,7 +16,7 @@ micro services.
 
 ### Go
 
-The open sourced micro services of EdgeX Foundry are written in Go 1.13.
+The open sourced micro services of EdgeX Foundry are written in Go 1.15.
 See <https://golang.org/dl/> for download and installation instructions.
 Newer versions of Go are available and may work, but the project has not
 built and tested to these newer versions of the language.

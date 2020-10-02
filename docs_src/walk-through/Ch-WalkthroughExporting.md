@@ -1,60 +1,71 @@
 # Exporting your device data
 
-Great, so the data sent by the camera Device makes it way to Core Data.
+Great, so the data sent by the camera device makes it way to core data.
 How can that data be sent to an enterprise system or the Cloud? How can
-that data be used by an edge analytics system (like the Rules Engine
-provided with EdgeX) to actuate on a Device? Anything wishing to receive
-the sensor/device data as it comes into EdgeX must register as an
-"export" client.
+that data be used by an edge analytics system (like a rules engine) to actuate on a device?
 
-## Export Clients
+## Getting data to the rules engine
 
-In fact, by default, the Rules Engine is automatically registered as a
-client of the export services and automatically receives all the
-Events/Readings from Core Data that are sent by Devices. To see all the
-existing export clients, you can request a list from the Export Client
-micro service.
+By default, data is already passed from the core data service to application services (app services) via 0MQ message.  A preconfigured application service is provided with the EdgeX default Docker Compose files that gets this data and routes it to the [Kuiper rules engine](../microservices/support/Kuiper/Ch-Kuiper.md).  The application service is called `app-service-rules` (see below).  More specifically, it is an [app service configurable](../microservices/application/AppServiceConfigurable.md).
 
-    GET to http://localhost:48071/api/v1/registration
+``` yaml
+  app-service-rules:
+    image: edgexfoundry/docker-app-service-configurable:1.2.0
+    ports:
+      - "127.0.0.1:48100:48100"
+    container_name: edgex-app-service-configurable-rules
+    hostname: edgex-app-service-configurable-rules
+    networks:
+      - edgex-network
+    environment:
+      <<: *common-variables
+      edgex_profile: rules-engine
+      Service_Host: edgex-app-service-configurable-rules
+      Service_Port: 48100
+      MessageBus_SubscribeHost_Host: edgex-core-data
+      Binding_PublishTopic: events
+    depends_on:
+      - consul
+#      - logging  # uncomment if re-enabled remote logging
+      - data
+```
 
-The response from Export Client is a list of registered client details -
-in this case just the Rules Engine is registered.
+### Seeing the data export
 
-![image](EdgeX_WalkthroughExportServiceResponse.png)
+The log level of any EdgeX micro service is set to `INFO` by default.  If you tune the log level of the app-service-rules micro service to `DEBUG`, you can see `Event`s pass through the app service on the way to the rules engine.
 
-## Register an Export Client
+#### Set the log level
 
-To register a new client to receive EdgeX data, you will first need to
-setup a client capable of receiving HTTP REST calls, or an MQTT topic
-capable of receiving messages from EdgeX. For the purposes of this
-demonstration, let's say there is an cloud based MQTT Topic that has
-been setup ready to receive EdgeX Event/Reading data. To register this
-MQTT endpoint to receive all Event/Reading data, in JSON format, but
-encrypted, you will need to request Export Client to make a new EdgeX
-client.
+To set the log level of any service, open the [Consul UI](../microservices/configuration/Ch-Configuration.md#web-user-interface) in a browser by visiting `http://[host]:8500`.  When the Consul UI opens, click on the Key/Value tab on the top of the screen.
 
-    POST to http://localhost:48071/api/v1/registration
+![image](EdgeX_WalkthroughConsulKeyValue.png)
 
-    BODY: {"name":"MyMQTTTopic","addressable":{"name":"MyMQTTBroker","protocol":"TCP","address":"tcp://m10.cloudmqtt.com","port":15421,"publisher":"EdgeXExportPublisher","user":"hukfgtoh","password":"mypass","topic":"EdgeXDataTopic"},"format":"JSON","encryption":{"encryptionAlgorithm":"AES","encryptionKey":"123","initializingVector":"123"},"enable":true,"destination":"MQTT_TOPIC"}
+On the Key/Value display page, click on `edgex` > `appservices` > `1.0` > `AppService-rules-engine` > `Writable` > `LogLevel`.  In the Value entry field that presents itself, replace `INFO` with `DEBUG` and hit the `Save` button.
 
-Note that the Addressable for the REST address is built into the
-request.
+![image](EdgeX_WalkthroughConsulSetLogLevel.png)
 
-Now, should a new [Event be posted](./Ch-WalkthroughReading.md) to Core
-Data, the Export Distro micro service will attempt to sent the
-encrypted, JSON-formated Event/Reading data to the MQTT client. Unless
-you have actually setup the MQTT Topic to receive the messages, Export
-Distro will fail to deliver the contents and an error will result. You
-can check the Export Distro log to see the attempt was made and that the
-EdgeX Export services are working correctly, despite the non-existence
-of the receiving MQTT Topic.
+#### View the service log
 
-MQTTOutboundServiceActivator: message sent to MQTT broker:
+The log level change will be picked up by the application service.  In a terminal window, execute the Docker command below to view the service log.
 
-    Addressable [name=MyMQTTBroker, protocol=TCP, address=tcp://m10.cloudmqtt.com, port=15421, path=null, publisher=EdgeXExportPublisher, user=hukfgtoh, password=mypass, topic=EdgeXDataTopic, toString()=BaseObject [id=null, created=0, modified=0, origin=0]] : 596283c7e4b0011866276e9
+``` shell
+docker logs -f edgex-app-service-configurable-rules
+```
 
-# Building your own solutions
+Now push another event/reading into core data as you did earlier (see [Send Event](./Ch-WalkthroughReading.md#walkthrough-send-event)).  You should see each new event/reading created by acknowledged by the app service.  With the right application service and rules engine configuration, the event/reading data is sent to the rules engine where it can then be used to trigger commands just as you did manually in this walkthrough.
+
+![image](EdgeX_WalkthroughAppServiceLog.png)
+
+
+## Exporting data to anywhere
+
+You can create an additional application service to get the data to another application or service, REST endpoint, MQTT topic, cloud provider, and more.  See the [Getting Started guide](../getting-started/quick-start/index.md#exporting-data) on exporting data for more information on how to use another app service configurable to get EdgeX data to any client.
+
+
+## Building your own solutions
 
 Congratulations, you've made it all the way through the Walkthrough
 tutorial!
+
+[<Back](Ch-WalkthroughReading.md){: .md-button }
 

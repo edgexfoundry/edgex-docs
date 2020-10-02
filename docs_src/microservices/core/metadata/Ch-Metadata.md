@@ -401,7 +401,7 @@ Sequence diagrams for some of the more critical or complex events regarding meta
 
 ## Configuration Properties
 
-Please refer to the general [Configuration documentation](https://docs.edgexfoundry.org/1.2/microservices/configuration/Ch-Configuration/#configuration) for configuration properties common to all services.
+Please refer to the general [Configuration documentation](../../configuration/Ch-Configuration.md#configuration-properties) for configuration properties common to all services.
 
 === "Writable"
     |Property|Default Value|Description|

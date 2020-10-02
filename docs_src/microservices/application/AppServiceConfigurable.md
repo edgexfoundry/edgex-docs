@@ -162,7 +162,21 @@ Below are the functions that are available to use in the configurable functions 
 
 Please refer to the function's detailed documentation by clicking the function name below.
 
-### [BatchByCount](../ApplicationFunctionsSDK/#built-in-transformsfunctions)
+### [AddTags](../BuiltIn#tags)
+
+**Parameters**
+
+- `tags` - String containing comma separated list of tag key/value pairs. The tag key/value pairs are colon seperated
+
+**Example**
+
+```toml
+    [Writable.Pipeline.Functions.AddTags]
+      [Writable.Pipeline.Functions.AddTags.Parameters]
+      tags = "GatewayId:HoustonStore000123,Latitude:29.630771,Longitude:-95.377603"
+```
+
+### [BatchByCount](../BuiltIn/#batch)
 
 **Parameters**
 
@@ -176,7 +190,7 @@ Please refer to the function's detailed documentation by clicking the function n
       BatchThreshold = "30"
 ```
 
-### [BatchByTime](../ApplicationFunctionsSDK/#built-in-transformsfunctions)
+### [BatchByTime](../BuiltIn/#batch)
 
 **Parameters**
 
@@ -189,7 +203,7 @@ Please refer to the function's detailed documentation by clicking the function n
       [Writable.Pipeline.Functions.BatchByTime.Parameters]
       TimeInterval = "60s"
 ```
-### [BatchByTimeAndCount](../ApplicationFunctionsSDK/#built-in-transformsfunctions)
+### [BatchByTimeAndCount](../BuiltIn/#batch)
 **Parameters**
 
 - `BatchThreshold` - The number of items to batch before sending batched items to the next function in the pipeline.
@@ -203,7 +217,7 @@ Please refer to the function's detailed documentation by clicking the function n
       BatchThreshold = "30"
       TimeInterval = "60s"
 ```
-### [CompressWithGZIP](../ApplicationFunctionsSDK/#built-in-transformsfunctions)
+### [CompressWithGZIP](../BuiltIn/#gzip)
 
 **Parameters**
 
@@ -215,7 +229,7 @@ none
     [Writable.Pipeline.Functions.CompressWithGZIP]
 ```
 
-### [CompressWithZLIB](../ApplicationFunctionsSDK/#built-in-transformsfunctions)
+### [CompressWithZLIB](../BuiltIn/#zlib)
 
 **Parameters**
 
@@ -227,7 +241,7 @@ none
     [Writable.Pipeline.Functions.CompressWithZLIB]
 ```
 
-### [EncryptWithAES](../ApplicationFunctionsSDK/#built-in-transformsfunctions)
+### [EncryptWithAES](../BuiltIn/#aes)
 **Parameters**
 
 - `Key` - Encryption key used for the AES encryption.
@@ -241,7 +255,7 @@ none
         Key = "aquqweoruqwpeoruqwpoeruqwpoierupqoweiurpoqwiuerpqowieurqpowieurpoqiweuroipwqure"
         InitVector = "123456789012345678901234567890"
 ```
-### [FilterByDeviceName](../ApplicationFunctionsSDK/#built-in-transformsfunctions)
+### [FilterByDeviceName](../BuiltIn/#by-device-name)
 **Parameters**
 
 - `DeviceNames` - Comma separated list of device names for filtering
@@ -255,7 +269,7 @@ none
         DeviceNames = "Random-Float-Device,Random-Integer-Device"
         FilterOut = "false"
 ```
-### [FilterByValueDescriptor](../ApplicationFunctionsSDK/#built-in-transformsfunctions)
+### [FilterByValueDescriptor](../BuiltIn/#by-value-descriptor)
 **Parameters**
 
 - `ValueDescriptors` - Comma separated list of value descriptor (reading) names for filtering
@@ -269,7 +283,7 @@ none
         ValueDescriptors = "RandomValue_Int8, RandomValue_Int64"
         FilterOut = "true"
 ```
-### [HTTPPost](../ApplicationFunctionsSDK/#built-in-transformsfunctions)
+### [HTTPPost](../BuiltIn/#http)
 **Parameters**
 
 - `Url` - HTTP endpoint to POST the data.
@@ -289,7 +303,7 @@ none
         SecretHeaderName = "" # This is the name used in the HTTP header and also used as the secret key
         SecretPath = ""
 ```
-### [HTTPPostJSON](../ApplicationFunctionsSDK/#built-in-transformsfunctions)
+### [HTTPPostJSON](../BuiltIn/#http)
 **Parameters**
 
 - `Url` - HTTP endpoint to POST the data.
@@ -307,7 +321,7 @@ none
         SecretHeaderName = "Authorization" # This is the name used in the HTTP header and also used as the secret key
         SecretPath = "http"
 ```
-### [HTTPPostXML](../ApplicationFunctionsSDK/#built-in-transformsfunctions)
+### [HTTPPostXML](../BuiltIn/#http)
 **Parameters**
 
 - `Url` - HTTP endpoint to POST the data.
@@ -325,7 +339,7 @@ none
         SecretHeaderName = "" # This is the name used in the HTTP header and also used as the secret key
         SecretPath = ""
 ```
-### [JSONLogic](../ApplicationFunctionsSDK/#jsonlogic)
+### [JSONLogic](../BuiltIn/#json-logic)
 **Parameters**
 
 - `Rule` - The JSON formatted rule that with be executed on the data by JSONLogic 
@@ -338,7 +352,7 @@ none
         Rule = "{ \"and\" : [{\"<\" : [{ \"var\" : \"temp\" }, 110 ]}, {\"==\" : [{ \"var\" : \"sensor.type\" }, \"temperature\" ]} ] }"
 
 ```
-### [MarkAsPushed](../ApplicationFunctionsSDK/#built-in-transformsfunctions)
+### [MarkAsPushed](../BuiltIn/#mark-as-pushed)
 
 **Parameters**
 
@@ -349,7 +363,7 @@ none
 ```toml
     [Writable.Pipeline.Functions.MarkAsPushed]
 ```
-### [MQTTSecretSend](../ApplicationFunctionsSDK/#built-in-transformsfunctions)
+### [MQTTSecretSend](../BuiltIn/#mqtt)
 
 **Parameters**
 
@@ -398,11 +412,11 @@ none
         AuthMode = "usernamepassword"
         SecretPath = "mqtt"
 ```
-### [MQTTSend](http://localhost:8000/microservices/application/ApplicationFunctionsSDK/#built-in-transformsfunctions)
+### [MQTTSend](../BuiltIn/#mqtt)
 
 MQTTSend has been deprecated. Please use [MQTTSecretSend](#mqttsecretsend).
 
-### [PushToCore](../ApplicationFunctionsSDK/#built-in-transformsfunctions)
+### [PushToCore](../BuiltIn/#push-to-core)
 
 **Parameters**
 
@@ -413,7 +427,7 @@ none
 ```toml
     [Writable.Pipeline.Functions.PushToCore]
 ```
-### [SetOutputData](../ApplicationFunctionsSDK/#built-in-transformsfunctions)
+### [SetOutputData](../BuiltIn/#output-functions)
 
 **Parameters**
 
@@ -425,7 +439,7 @@ none
     [Writable.Pipeline.Functions.SetOutputData]
 ```
 
-### [TransformToJSON](../ApplicationFunctionsSDK/#built-in-transformsfunctions)
+### [TransformToJSON](../BuiltIn/#json)
 
 **Parameters**
 
@@ -437,7 +451,7 @@ none
     [Writable.Pipeline.Functions.TransformToJSON]
 ```
 
-### [TransformToXML](../ApplicationFunctionsSDK/#built-in-transformsfunctions)
+### [TransformToXML](../BuiltIn/#xml)
 **Parameters**
 
 none
