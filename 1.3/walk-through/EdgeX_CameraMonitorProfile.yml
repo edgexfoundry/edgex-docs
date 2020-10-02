@@ -1,0 +1,123 @@
+name: "camera monitor profile"
+manufacturer: "IOTech"
+model: "Cam12345"
+labels: 
+- "camera"
+description: "Human and canine camera monitor profile"
+
+deviceResources:
+-
+  name: "HumanCount"
+  description: "Number of people on camera"
+  properties:
+    value:
+      { type: "Int16", readWrite: "R", minimum: "0", maximum: "1000", defaultValue: "0" }
+    units:
+      { type: "String", readWrite: "R", defaultValue: "count" }
+-
+  name: "CanineCount"
+  description: "Number of dogs on camera"
+  properties:
+    value:
+      { type: "Int16", readWrite: "R", minimum: 0, maximum: "1000", defaultValue: "0" }
+    units:
+      { type: "String", readWrite: "R", defaultValue: "dog count" }
+-
+  name: "ScanDepth"
+  description: "Get the scan depth"
+  properties:
+    value:
+      { type: "Int16", readWrite: "R", minimum: 0, maximum: "100", defaultValue: "0" }
+    units:
+      { type: "String", readWrite: "R", defaultValue: "depth" }
+-
+  name: "SnapshotDuration"
+  description: "Get the snaphot duration"
+  properties:
+    value:
+      { type: "Int16", readWrite: "R", minimum: 0, maximum: "60", defaultValue: "0" }
+    units:
+      { type: "String", readWrite: "R", defaultValue: "duration" }
+
+deviceCommands:
+-
+  name: "People"
+  get:
+  - { operation: "get", deviceResource: "HumanCount" }
+-
+  name: "Dogs"
+  get:
+  - { operation: "get", deviceResource: "CanineCount" }
+-
+  name: "Depth"
+  get:
+  - { operation: "get", deviceResource: "ScanDepth" }
+  set:
+  - { operation: "set", deviceResource: "ScanDepth", parameter: "0" }
+-
+  name: "Duration"
+  get:
+  - { operation: "get", deviceResource: "SnapshotDuration" }
+  set:
+  - { operation: "set", deviceResource: "SnapshotDuration", parameter: "0" }
+  
+coreCommands: 
+- 
+  name: People
+  get: 
+    path: "/api/v1/devices/{deviceId}/People"
+    responses:
+    - 
+      code: "200"
+      description: "Number of people on camera"
+      expectedValues: ["HumanCount"]
+- 
+  name: Dogs
+  get: 
+    path: "/api/v1/devices/{deviceId}/Dogs"
+    responses:
+    - 
+      code: "200"
+      description: "Number of dogs on camera"
+      expectedValues: ["CanineCount"]
+- 
+  name: Depth
+  get:
+    path: "/api/v1/devices/{deviceId}/Depth"
+    responses:
+    -
+      code: "200"
+      description: "Get the scan depth"
+      expectedValues: ["ScanDepth"]
+  put:
+    path: "/api/v1/devices/{deviceId}/Depth"
+    parameterNames: ["ScanDepth"]
+    responses:
+    - 
+      code: "200"
+      description: "Set the scan depth."
+- 
+  name: Duration
+  get:
+    path: "/api/v1/devices/{deviceId}/Duration"
+    responses:
+    -
+      code: "200"
+      description: "Get the snaphot duration"
+      expectedValues: ["SnapshotDuration"]
+  put:
+    path: "/api/v1/devices/{deviceId}/Duration"
+    parameterNames: ["SnapshotDuration"]
+    responses:
+    - 
+      code: "200"
+      description: "Set the snapshot duration."
+- 
+  name: Counts
+  get:
+    path: "/api/v1/devices/{deviceId}/Counts"
+    responses:
+    -
+      code: "200"
+      description: "Get the people and dog counts"
+      expectedValues: ["HumanCount","CanineCount"]
