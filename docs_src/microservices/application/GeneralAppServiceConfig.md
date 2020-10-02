@@ -87,13 +87,13 @@ This section defines the `Trigger` binding for incoming data.
 
 |Configuration  |     Default Value     | Description |
 | --- | --- | -- |
-| Binding `Type` | messagebus** | Indicates the `Trigger` binding type. valid values are `messagebus` and `http` |
-| Binding `SubscribeTopic` | events** | Only used for `messagebus  ` binding type<br />Indicates the subscribe topic to use to receive data from the Message Bus |
-| Binding `PublishTopic` | blank** | Only used for `messagebus` binding type<br />Indicates the publish topic to use when sending data to the Message Bus |
+| Binding `Type` | edgex-messagebus** | Indicates the `Trigger` binding type. valid values are `edgex-messagebus`, `external-mqtt` or `http` |
+| Binding `SubscribeTopic` | events** | Used for `edgex-messagebus` and `external-mqtt` binding types<br />Indicates the subscribe topic to use to receive data from the Message Bus |
+| Binding `PublishTopic` | blank** | Used for `edgex-messagebus` and `external-mqtt` binding types<br />Indicates the publish topic to use when sending data to the Message Bus |
 
 ### MessageBus
 This section defines the message bus connect information.
-Only used for `messagebus` binding type
+Only used for `edgex-messagebus` binding type
 
 |Configuration  |     Default Value     | Description |
 | --- | --- | -- |
@@ -107,6 +107,28 @@ Only used for `messagebus` binding type
 | MessageBus SubscribeHost `Port` | 5565** | Indicates the port number for publishing to the Message Bus |
 | MessageBus SubscribeHost `Protocol` | tcp** | Indicates the protocol number for publishing to the Message Bus |
 | **MessageBus Optional** | ... | This section is used for optional configuration specific to the Message Bus type used. Please refer to [go-mod-messaging](https://github.com/edgexfoundry/go-mod-messaging/blob/master/README.md) for more details |
+
+### MqttBroker
+
+This section defines the external MQTT Broker connect information.
+Only used for `external-mqtt` trigger binding type
+
+!!! note
+    `external-mqtt` is not the default Trigger type, so there are no default values for `MqttBrokerConfig` settings beyond those that the Go compiler gives to the empty struct. Some of those default values are not valid and must be specified, i.e. `Authmode`
+
+| Configuration                     | Default Value | Description                                                  |
+| --------------------------------- | ------------- | ------------------------------------------------------------ |
+| MqttBroker `Url`            | blank**       | Fully qualified URL to connect to the MQTT broker, i.e. `tcp://localhost:1883` |
+| MqttBroker `ClientId`       | blank**       | ClientId to connect to the broker with                       |
+| MqttBroker `ConnectTimeout` | blank**       | Time duration indicating how long to wait before timing out                                                                            
+ broker connection, i.e "30s" |
+| MqttBroker `AutoReconnect`  | false**       | Indicates whether or not to retry connection if disconnected |
+| MqttBroker `KeepAlive`      | 0**           | Seconds between client ping when no active data flowing to avoid client being disconnected. Must be greater then 2 |
+| MqttBroker   `QOS`          | 0**           | Quality of Service 0 (At most once), 1 (At least once) or 2 (Exactly once) |
+| MqttBroker `Retain`         | false**       | Retain setting for MQTT Connection                           |
+| MqttBroker `SkipCertVerify` | false**       | Indicates if the certificate verification should be skipped  |
+| MqttBroker `SecretPath`     | blank**       | Name of the path in secret provider to retrieve your secrets. Must be non-blank. |
+| MqttBroker `AuthMode`       | blank**       | Indicates what to use when connecting to the broker. Must be one of "none", "cacert" , "usernamepassword", "clientcert". <br />If a CA Cert exists in the SecretPath then it will be used for all modes except "none". |
 
 ### Application Settings 
 
