@@ -16,4 +16,9 @@ system behavior. After exploring this demonstration, and hopefully
 exercising the APIs yourself, you should have a much better
 understanding of how EdgeX Foundry works.
 
+To be clear, this walkthrough is not the way you setup all your device services, devices, etc.
+In this walkthrough, you manually call EdgeX APIs to perform the work that a device service would do to get a new device setup and to send data to/through EdgeX.  In other words, you are simulating the work of a device service does automatically by manually executing EdgeX APIs.  You will also exercise APIs to see the results of the work accomplished by the device service and all of EdgeX.
+
+[Next>](Ch-WalkthroughSetup.md){: .md-button }
+
 
