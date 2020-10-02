@@ -12,7 +12,7 @@ All transforms define a type and a `New` function which is used to initialize an
 
 There are two basic types of filtering included in the SDK to add to your pipeline. There is also an option to `Filter Out` specific items. These provided filter functions return a type of events.Model. If filtering results in no remaining data, the pipeline execution for that pass is terminated. If no values are provided for filtering, then data flows through unfiltered.
 
-| Factory Method                   | Description | 
+| Factory Method                   | Description |
 |----------------------------------|-------------|
 | NewFilter([]string filterValues)  | This function returns a `Filter` instance initialized with the passed in filter values. This `Filter` instance is used to access the following filter functions that will operate using the specified filter values. |
 
@@ -43,7 +43,7 @@ NewFilter([] {"ValueDescriptor1", "ValueDescriptor2"}).FilterByValueDescriptor
 
 
 ### JSON Logic
-| Factory Method                   | Description | 
+| Factory Method                   | Description |
 |----------------------------------|-------------|
 | NewJSONLogic(rule string) | This function returns a `JSONLogic` instance initialized with the passed in JSON rule. The rule passed in should be a JSON string conforming to the specification here: http://jsonlogic.com/operations.html. |
 
@@ -63,17 +63,40 @@ NewJSONLogic("{ \"in\" : [{ \"var\" : \"device\" }, [\"Random-Integer-Device\",\
 ## Encryption
 There is one encryption transform included in the SDK that can be added to your pipeline. 
 
-| Factory Method                   | Description | 
+| Factory Method                   | Description |
 |----------------------------------|-------------|
 | NewEncryption(key string, initializationVector string) | This function returns a `Encryption` instance initialized with the passed in key and initialization vector. This `Encryption` instance is used to access the following encryption function that will use the specified key and initialization vector. |
 
 ### AES
 `EncryptWithAES` - This function receives a either a `string`, `[]byte`, or `json.Marshaller` type and encrypts it using AES encryption and returns a `[]byte` to the pipeline.
+
 ``` go
 NewEncryption("key", "initializationVector").EncryptWithAES
 ```
 
+## Tags
+
+There is one Tags transform included in the SDK that can be added to your pipeline. 
+
+| Factory Method                       | Description                                                  |
+| ------------------------------------ | ------------------------------------------------------------ |
+| NewTags(tags map[string]string) Tags | This function returns a `Tags` instance initialized with the passed in collection of tag key/value pairs. This `Tags` instance is used to access the following Tags function that will use the specified collection of tag key/value pairs. |
+
+### AddTags
+
+`AddTags` - This function receives an Edgex `Event` type and adds the collection of specified tags to the Event's `Tags` collection.
+
+``` go
+var myTags = map[string]string{
+	"GatewayId": "HoustonStore000123",
+	"Latitude":  "29.630771",
+	"Longitude": "-95.377603",
+}
+NewTags(myTags).AddTags
+```
+
 ## Batch
+
 Included in the SDK is an in-memory batch function that will hold on to your data before continuing the pipeline. There are three functions provided for batching each with their own strategy.
 
 
@@ -102,7 +125,7 @@ NewBatchByTimeAndCount("30s", 10).Batch
 ## Conversion
 There are two conversions included in the SDK that can be added to your pipeline. These transforms return a `string`.
 
-| Factory Method                   | Description | 
+| Factory Method                   | Description |
 |----------------------------------|-------------|
 | NewConversion() | This function returns a `Conversion` instance that is used to access the conversion functions. |
 
@@ -166,7 +189,7 @@ There are a few export functions included in the SDK that can be added to your p
 ### HTTP
 `HTTPPost` - This function receives either a `string`,`[]byte`, or `json.Marshaler` type from the previous function in the pipeline and posts it to the configured endpoint. If no previous function exists, then the event that triggered the pipeline, marshaled to json, will be used. If the post fails and `persistOnError`is `true` and `Store and Forward` is enabled, the data will be stored for later retry. See [Store and Forward](#store-and-forward) for more details. 
 
-| Factory Method                   | Description | 
+| Factory Method                   | Description |
 |----------------------------------|-------------|
 |NewHTTPSender(url string, mimeType string, persistOnError bool)| This function returns a `HTTPSender` instance initialized with the passed in url, mime type and persistOnError values. |
 | NewHTTPSenderWithSecretHeader(url string, mimeType string, persistOnError bool, httpHeaderSecretName string, secretPath string) | This function returns a `HTTPSender` instance similar to the above function however will set up the `HTTPSender` to add a header to the HTTP request using the `httpHeaderSecretName` as both the header key  and the key to search for in the secret provider at `secretPath` leveraging secure storage of secrets. |
@@ -182,7 +205,7 @@ There are a few export functions included in the SDK that can be added to your p
 
 ### MQTT
 
-| Factory Method                   | Description | 
+| Factory Method                   | Description |
 |----------------------------------|-------------|
 | NewMQTTSecretSender(mqttConfig MQTTSecretConfig, persistOnError bool) | This function returns a `MQTTSecretSender` instance initialized with the options specified in the `MQTTSecretConfig`. |
 
@@ -222,14 +245,14 @@ Secrets in the secret provider may be located at any path however they must have
 What `AuthMode` you choose depends on what values are used. For example, if "none" is specified as auth mode all keys will be ignored. Similarly, if `AuthMode` is set to "clientcert" username and password will be ignored.
 
 
-| Factory Method                   | Description | 
+| Factory Method                   | Description |
 |----------------------------------|-------------|
 | **DEPRECATED** NewMQTTSender(logging logger.LoggingClient, addr models.Addressable, keyCertPair *KeyCertPair, mqttConfig MqttConfig, persistOnError bool) | This function returns a `MQTTSender` instance initialized with the passed in MQTT configuration . This `MQTTSender` instance is used to access the following  function that will use the specified MQTT configuration |
-  
+
     - `KeyCertPair` - This structure holds the Key and Certificate information for when using secure **TLS** connection to the broker. Can be `nil` if not using secure **TLS** connection. 
     
     - `MqttConfig` - This structure holds addition MQTT configuration settings. 
-    
+
 ```go
 Qos            byte
 Retain         bool
@@ -248,10 +271,10 @@ Password       string
 
 There is one output function included in the SDK that can be added to your pipeline. 
 
-| Factory Method                   | Description | 
+| Factory Method                   | Description |
 |----------------------------------|-------------|
 | NewOutput() | This function returns a `Output` instance that is used to access the following output function |
-  
+
 `SetOutput` - This function receives either a `string`,`[]byte`, or `json.Marshaler` type from the previous function in the pipeline and sets it as the output data for the pipeline to return to the configured trigger. If configured to use message bus, the data will be published to the message bus as determined by the `MessageBus` and `Binding` configuration. If configured to use HTTP trigger the data is returned as the HTTP response. 
 
 
