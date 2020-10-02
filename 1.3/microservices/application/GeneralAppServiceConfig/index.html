@@ -1340,6 +1340,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#mqttbroker" class="md-nav__link">
+    MqttBroker
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#application-settings" class="md-nav__link">
     Application Settings
   </a>
@@ -2233,6 +2240,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#mqttbroker" class="md-nav__link">
+    MqttBroker
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#application-settings" class="md-nav__link">
     Application Settings
   </a>
@@ -2521,24 +2535,24 @@
 <tbody>
 <tr>
 <td>Binding <code>Type</code></td>
-<td>messagebus**</td>
-<td>Indicates the <code>Trigger</code> binding type. valid values are <code>messagebus</code> and <code>http</code></td>
+<td>edgex-messagebus**</td>
+<td>Indicates the <code>Trigger</code> binding type. valid values are <code>edgex-messagebus</code>, <code>external-mqtt</code> or <code>http</code></td>
 </tr>
 <tr>
 <td>Binding <code>SubscribeTopic</code></td>
 <td>events**</td>
-<td>Only used for <code>messagebus</code> binding type<br />Indicates the subscribe topic to use to receive data from the Message Bus</td>
+<td>Used for <code>edgex-messagebus</code> and <code>external-mqtt</code> binding types<br />Indicates the subscribe topic to use to receive data from the Message Bus</td>
 </tr>
 <tr>
 <td>Binding <code>PublishTopic</code></td>
 <td>blank**</td>
-<td>Only used for <code>messagebus</code> binding type<br />Indicates the publish topic to use when sending data to the Message Bus</td>
+<td>Used for <code>edgex-messagebus</code> and <code>external-mqtt</code> binding types<br />Indicates the publish topic to use when sending data to the Message Bus</td>
 </tr>
 </tbody>
 </table>
 <h3 id="messagebus">MessageBus</h3>
 <p>This section defines the message bus connect information.
-Only used for <code>messagebus</code> binding type</p>
+Only used for <code>edgex-messagebus</code> binding type</p>
 <table>
 <thead>
 <tr>
@@ -2597,6 +2611,79 @@ Only used for <code>messagebus</code> binding type</p>
 <td><strong>MessageBus Optional</strong></td>
 <td>...</td>
 <td>This section is used for optional configuration specific to the Message Bus type used. Please refer to <a href="https://github.com/edgexfoundry/go-mod-messaging/blob/master/README.md">go-mod-messaging</a> for more details</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mqttbroker">MqttBroker</h3>
+<p>This section defines the external MQTT Broker connect information.
+Only used for <code>external-mqtt</code> trigger binding type</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>external-mqtt</code> is not the default Trigger type, so there are no default values for <code>MqttBrokerConfig</code> settings beyond those that the Go compiler gives to the empty struct. Some of those default values are not valid and must be specified, i.e. <code>Authmode</code></p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Configuration</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MqttBroker <code>Url</code></td>
+<td>blank**</td>
+<td>Fully qualified URL to connect to the MQTT broker, i.e. <code>tcp://localhost:1883</code></td>
+</tr>
+<tr>
+<td>MqttBroker <code>ClientId</code></td>
+<td>blank**</td>
+<td>ClientId to connect to the broker with</td>
+</tr>
+<tr>
+<td>MqttBroker <code>ConnectTimeout</code></td>
+<td>blank**</td>
+<td>Time duration indicating how long to wait before timing out</td>
+</tr>
+<tr>
+<td>broker connection, i.e "30s"</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>MqttBroker <code>AutoReconnect</code></td>
+<td>false**</td>
+<td>Indicates whether or not to retry connection if disconnected</td>
+</tr>
+<tr>
+<td>MqttBroker <code>KeepAlive</code></td>
+<td>0**</td>
+<td>Seconds between client ping when no active data flowing to avoid client being disconnected. Must be greater then 2</td>
+</tr>
+<tr>
+<td>MqttBroker   <code>QOS</code></td>
+<td>0**</td>
+<td>Quality of Service 0 (At most once), 1 (At least once) or 2 (Exactly once)</td>
+</tr>
+<tr>
+<td>MqttBroker <code>Retain</code></td>
+<td>false**</td>
+<td>Retain setting for MQTT Connection</td>
+</tr>
+<tr>
+<td>MqttBroker <code>SkipCertVerify</code></td>
+<td>false**</td>
+<td>Indicates if the certificate verification should be skipped</td>
+</tr>
+<tr>
+<td>MqttBroker <code>SecretPath</code></td>
+<td>blank**</td>
+<td>Name of the path in secret provider to retrieve your secrets. Must be non-blank.</td>
+</tr>
+<tr>
+<td>MqttBroker <code>AuthMode</code></td>
+<td>blank**</td>
+<td>Indicates what to use when connecting to the broker. Must be one of "none", "cacert" , "usernamepassword", "clientcert". <br />If a CA Cert exists in the SecretPath then it will be used for all modes except "none".</td>
 </tr>
 </tbody>
 </table>

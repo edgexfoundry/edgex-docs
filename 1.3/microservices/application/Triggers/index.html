@@ -63,7 +63,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#message-bus-trigger" class="md-skip">
+        <a href="#edgex-message-bus-trigger" class="md-skip">
           Skip to content
         </a>
       
@@ -1145,11 +1145,11 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#message-bus-trigger" class="md-nav__link">
-    Message Bus Trigger
+  <a href="#edgex-message-bus-trigger" class="md-nav__link">
+    EdgeX Message Bus Trigger
   </a>
   
-    <nav class="md-nav" aria-label="Message Bus Trigger">
+    <nav class="md-nav" aria-label="EdgeX Message Bus Trigger">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1162,6 +1162,33 @@
           <li class="md-nav__item">
   <a href="#message-bus-connection-configuration" class="md-nav__link">
     Message bus connection configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mqtt-trigger" class="md-nav__link">
+    MQTT Trigger
+  </a>
+  
+    <nav class="md-nav" aria-label="MQTT Trigger">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#type-and-topic-configuration_1" class="md-nav__link">
+    Type and Topic configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mqtt-broker-configuration" class="md-nav__link">
+    MQTT Broker configuration
   </a>
   
 </li>
@@ -2095,11 +2122,11 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#message-bus-trigger" class="md-nav__link">
-    Message Bus Trigger
+  <a href="#edgex-message-bus-trigger" class="md-nav__link">
+    EdgeX Message Bus Trigger
   </a>
   
-    <nav class="md-nav" aria-label="Message Bus Trigger">
+    <nav class="md-nav" aria-label="EdgeX Message Bus Trigger">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2112,6 +2139,33 @@
           <li class="md-nav__item">
   <a href="#message-bus-connection-configuration" class="md-nav__link">
     Message bus connection configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mqtt-trigger" class="md-nav__link">
+    MQTT Trigger
+  </a>
+  
+    <nav class="md-nav" aria-label="MQTT Trigger">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#type-and-topic-configuration_1" class="md-nav__link">
+    Type and Topic configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mqtt-broker-configuration" class="md-nav__link">
+    MQTT Broker configuration
   </a>
   
 </li>
@@ -2150,21 +2204,22 @@
                 
                   <h1>Triggers</h1>
                 
-                <p>Triggers determine how the app functions pipeline begins execution. The trigger is determined by the <code>configuration.toml</code> file located in the <code>/res</code> directory under a section called <code>[Binding]</code>. Check out the <a href="#configuration">Configuration Section</a> for more information about the toml file.</p>
-<h2 id="message-bus-trigger">Message Bus Trigger</h2>
-<p>A message bus trigger will execute the pipeline every time data is received off of the configured topic.  </p>
+                <p>Triggers determine how the app functions pipeline begins execution. The trigger is determined by the <code>configuration.toml</code> file located in the <code>/res</code> directory under a section called <code>[Binding]</code>. Check out the <a href="../GeneralAppServiceConfig/">Configuration Section</a> for more information about the toml file.</p>
+<h2 id="edgex-message-bus-trigger">EdgeX Message Bus Trigger</h2>
+<p>An EdgeX Message Bus trigger will execute the pipeline every time data is received from the configured Edgex Message Bus <code>SubscribeTopic</code>.  The EdgeX Message Bus is the central message bus internal to EdgeX and has a specific message envelope that wraps all data published to this message bus.</p>
+<p>There currently are three implementations of the EdgeX Message Bus available to be used. These are <code>ZeroMQ</code>, <code>MQTT</code> &amp; <code>Redis Streams</code>. The implementation type is selected via the <code>[MessageBus]</code> configuration described below.</p>
 <h3 id="type-and-topic-configuration">Type and Topic configuration</h3>
-<p>Here's an example:
-<div class="highlight"><pre><span></span><code><span class="n">Type</span><span class="o">=</span><span class="s">&quot;messagebus&quot;</span> 
+<p>Here's an example:</p>
+<p><div class="highlight"><pre><span></span><code><span class="k">[Binding]</span>
+<span class="n">Type</span><span class="o">=</span><span class="s">&quot;edgex-messagebus&quot;</span> <span class="c1"># also can use legacy messagebus for type</span>
 <span class="n">SubscribeTopic</span><span class="o">=</span><span class="s">&quot;events&quot;</span>
 <span class="n">PublishTopic</span><span class="o">=</span><span class="s">&quot;&quot;</span>
 </code></pre></div>
-The <code>Type=</code> is set to "messagebus". <a href="">EdgeX Core Data</a> is publishing data to the <code>events</code> topic. So to receive data from core data, you can set your <code>SubscribeTopic=</code> either to <code>""</code> or <code>"events"</code>. You may also designate a <code>PublishTopic=</code> if you wish to publish data back to the message bus.
-<code>edgexcontext.Complete([]byte outputData)</code> - Will send data back to back to the message bus with the topic specified in the <code>PublishTopic=</code> property</p>
+The <code>Type=</code> is set to <code>edgex-messagebus</code> trigger type or the legacy type of <code>messagebus</code>. EdgeX Core Data is publishing data to the <code>events</code> topic. So to receive data from core data, you can set your <code>SubscribeTopic=</code> either to <code>""</code> or <code>"events"</code>. You may also designate a <code>PublishTopic=</code> if you wish to publish data back to the message bus. <code>edgexcontext.Complete([]byte outputData)</code> - Will send data back to the message bus on the topic specified by the <code>PublishTopic=</code> property</p>
 <h3 id="message-bus-connection-configuration">Message bus connection configuration</h3>
 <p>The other piece of configuration required are the connection settings:
 <div class="highlight"><pre><span></span><code><span class="k">[MessageBus]</span>
-<span class="n">Type</span> <span class="o">=</span> <span class="s">&#39;zero&#39;</span> <span class="c1">#specifies of message bus (i.e zero for ZMQ)</span>
+<span class="n">Type</span> <span class="o">=</span> <span class="s">&#39;zero&#39;</span> <span class="c1"># message bus type (i.e zero for ZMQ, mqtt for MQTT or redisstreams for Redis Streams)</span>
     <span class="k">[MessageBus.PublishHost]</span>
         <span class="n">Host</span> <span class="o">=</span> <span class="s">&#39;*&#39;</span>
         <span class="n">Port</span> <span class="o">=</span> <span class="mi">5564</span>
@@ -2174,14 +2229,96 @@ The <code>Type=</code> is set to "messagebus". <a href="">EdgeX Core Data</a> is
         <span class="n">Port</span> <span class="o">=</span> <span class="mi">5563</span>
         <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&#39;tcp&#39;</span>
 </code></pre></div>
-By default, <code>EdgeX Core Data</code> publishes data to the <code>events</code>  topic using ZMQ on port 5563. The publish host is used if publishing data back to the message bus. </p>
+By default, <code>EdgeX Core Data</code> publishes data to the <code>events</code>  topic using ZMQ on port 5563. The publish host is used if publishing data back to the message bus. As stated above there are three implementations you can choose from. These type values are as follows:</p>
+<div class="highlight"><pre><span></span><code>zero - for ZeroMQ
+mqtt - for MQTT (Requires a MQTT Broker running and Core-Data configure to use MQTT)
+redisstreams - for Redis Streams (Requires Redis running and Core-Data configure to use Redis Streams)
+</code></pre></div>
+
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-</div>
 <p>When using ZMQ for the message bus, the Publish Host <strong>MUST</strong> be different for every topic you wish to publish to since the SDK will bind to the specific port. 5563 for example cannot be used to publish since <code>EdgeX Core Data</code> has bound to that port. Similarly, you cannot have two separate instances of the app functions SDK running publishing to the same port.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When using MQTT for the message bus, there is additional configuration required for specifying the MQTT specific options. </p>
+</div>
+<p>Here is example <code>MessageBus</code> configuration when using MQTT as the message bus:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[MessageBus]</span>
+<span class="n">Type</span> <span class="o">=</span> <span class="s">&quot;mqtt&quot;</span>
+    <span class="k">[MessageBus.SubscribeHost]</span>
+        <span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
+        <span class="n">Port</span> <span class="o">=</span> <span class="mi">1883</span>
+        <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&quot;tcp&quot;</span>
+    <span class="k">[MessageBus.PublishHost]</span>
+        <span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
+        <span class="n">Port</span> <span class="o">=</span> <span class="mi">1883</span>
+        <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&quot;tcp&quot;</span>
+    <span class="k">[MessageBus.Optional]</span>
+        <span class="c1"># MQTT Specific options</span>
+        <span class="n">Username</span> <span class="o">=</span><span class="s">&quot;&quot;</span>
+        <span class="n">Password</span> <span class="o">=</span><span class="s">&quot;&quot;</span>
+        <span class="n">ClientId</span> <span class="o">=</span><span class="s">&quot;AppService&quot;</span>
+        <span class="c1"># Connection information</span>
+        <span class="n">Qos</span>          <span class="o">=</span>  <span class="s">&quot;0&quot;</span> <span class="c1"># Quality of Sevice 0 (At most once), 1 (At least once) or 2 (Exactly once)</span>
+        <span class="n">KeepAlive</span>    <span class="o">=</span>  <span class="s">&quot;10&quot;</span> <span class="c1"># Seconds (must be 2 or greater)</span>
+        <span class="n">Retained</span>     <span class="o">=</span> <span class="s">&quot;false&quot;</span>
+        <span class="n">AutoReconnect</span>  <span class="o">=</span> <span class="s">&quot;true&quot;</span>
+        <span class="n">ConnectTimeout</span> <span class="o">=</span> <span class="s">&quot;5&quot;</span> <span class="c1"># Seconds</span>
+        <span class="n">SkipCertVerify</span> <span class="o">=</span> <span class="s">&quot;false&quot;</span>
+        <span class="n">CertFile</span>       <span class="o">=</span> <span class="s">&quot;&quot;</span>
+        <span class="n">KeyFile</span>        <span class="o">=</span> <span class="s">&quot;&quot;</span>
+        <span class="n">KeyPEMBlock</span>    <span class="o">=</span> <span class="s">&quot;&quot;</span>
+        <span class="n">CertPEMBlock</span>   <span class="o">=</span> <span class="s">&quot;&quot;</span>
+</code></pre></div>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The MQTT <code>MessageBus</code> implementation doesn't yet support retrieving secrets from the <code>Secret Store</code>. Thus the secrets for secure connection are currently in plain text in the configuration file.</p>
+</div>
+<h2 id="mqtt-trigger">MQTT Trigger</h2>
+<p>A MQTT trigger will execute the pipeline every time data is received from the configured external MQTT broker on the configured subscribe topic.  </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The data received from the external MQTT broker is not wrapped with any metadata known to EdgeX. The data is handled as JSON or CBOR. The data is assumed to be JSON unless the first byte in the data is not a <code>{</code> , in which case it is then assumed to be CBOR.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The data received, encoded as JSON or CBOR, must match the <code>TargetType</code> define by your application service. The default  <code>TargetType</code> is an <code>Edgex Event</code>. See <a href="../AdvancedTopics/#target-type">TargetType</a> for more details.</p>
+</div>
+<h3 id="type-and-topic-configuration_1">Type and Topic configuration</h3>
+<p>Here's an example:
+<div class="highlight"><pre><span></span><code><span class="k">[Binding]</span>
+<span class="n">Type</span><span class="o">=</span><span class="s">&quot;external-mqtt&quot;</span> 
+<span class="n">SubscribeTopic</span><span class="o">=</span><span class="s">&quot;some-request&quot;</span>
+<span class="n">PublishTopic</span><span class="o">=</span><span class="s">&quot;&quot;</span>
+</code></pre></div>
+The <code>Type=</code> is set to <code>external-mqtt</code>. To receive data from the external MQTT Broker you must set your <code>SubscribeTopic=</code> to the appropriate topic that the external publisher is using. You may also designate a <code>PublishTopic=</code> if you wish to publish data back to the external MQTT Broker. <code>edgexcontext.Complete([]byte outputData)</code> - Will send data back to back to the external MQTT Broker on the topic specified by the <code>PublishTopic=</code> property</p>
+<h3 id="mqtt-broker-configuration">MQTT Broker configuration</h3>
+<p>The other piece of configuration required are the MQTT Broker connection settings:
+<div class="highlight"><pre><span></span><code><span class="k">[MqttBroker]</span>
+    <span class="n">Url</span> <span class="o">=</span> <span class="s">&quot;tcp://localhost:1883&quot;</span> <span class="c1">#  fully qualified URL to connect to the MQTT broker</span>
+    <span class="n">ClientId</span> <span class="o">=</span> <span class="s">&quot;AppService&quot;</span> 
+    <span class="n">ConnectTimeout</span> <span class="o">=</span> <span class="s">&quot;5s&quot;</span> <span class="c1"># 5 seconds</span>
+    <span class="n">AutoReconnect</span> <span class="o">=</span> <span class="kc">true</span>
+    <span class="n">KeepAlive</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1"># Seconds (must be 2 or greater)</span>
+    <span class="n">QoS</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># Quality of Service 0 (At most once), 1 (At least once) or 2 (Exactly once)</span>
+    <span class="n">Retain</span> <span class="o">=</span> <span class="kc">true</span>
+    <span class="n">SkipCertVerify</span> <span class="o">=</span> <span class="kc">false</span>
+    <span class="n">SecretPath</span> <span class="o">=</span> <span class="s">&quot;mqtt-trigger&quot;</span> 
+    <span class="n">AuthMode</span> <span class="o">=</span> <span class="s">&quot;none&quot;</span> <span class="c1"># Options are &quot;none&quot;, &quot;cacert&quot; , &quot;usernamepassword&quot;, &quot;clientcert&quot;.</span>
+</code></pre></div></p>
 <h2 id="http-trigger">HTTP Trigger</h2>
-<p>Designating an HTTP trigger will allow the pipeline to be triggered by a RESTful <code>POST</code> call to <code>http://[host]:[port]/api/v1/trigger/</code>. The body of the POST must be an EdgeX event. </p>
+<p>Designating an HTTP trigger will allow the pipeline to be triggered by a RESTful <code>POST</code> call to <code>http://[host]:[port]/api/v1/trigger/</code>. </p>
 <p><code>edgexcontext.Complete([]byte outputData)</code> - Will send the specified data as the response to the request that originally triggered the HTTP Request. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The HTTP trigger uses the <code>content-type</code> from the HTTP Header to determine if the data is JSON or CBOR encoded and the optional <code>X-Correlation-ID</code> to set the correlation ID for the request.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The data received, encoded as JSON or CBOR, must match the <code>TargetType</code> defined by your application service. The default  <code>TargetType</code> is an <code>Edgex Event</code>. See <a href="../AdvancedTopics/#target-type">TargetType</a> for more details.</p>
+</div>
                 
               
               
