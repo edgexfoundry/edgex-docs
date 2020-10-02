@@ -424,3 +424,25 @@ If in secure mode, the secrets are retrieved from the secret store based on the 
 
 If running in insecure mode, the secrets are retrieved from the *Writable.InsecureSecrets* configuration.
 
+### Registry Client
+
+**After initialization**, the configured registry client used by the SDK can be retrieved from the sdk instance at .RegistryClient.  It is important to note that sdk.RegistryClient may be nil - either if the SDK is not yet initialized, or if the registry option (-r/--registry) is not specified on start.  Once retrieved the client can be used to look up host information for other services, or perform other operations supported by the registry.Client type in [go-mod-registry](https://github.com/edgexfoundry/go-mod-registry).  For example, to retrieve the URL for a given service:
+
+```go
+func(sdk *appsdk.AppFunctionsSDK, serviceKey string) (string, error) {
+	if sdk.RegistryClient == nil {
+		return "", errors.New("Registry client is not available")
+	}
+
+	details, err := sdk.RegistryClient.GetServiceEndpoint(serviceKey)
+
+	if err != nil {
+		return "", err
+	}
+
+	return fmt.Sprintf("http://%s:%d", details.Host, details.Port), nil
+}
+```
+!!! note Known Service Keys
+    Service keys for known EdgeX services can be found under clients in [go-mod-core-contracts](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/constants.go#L58-L72)
+		
