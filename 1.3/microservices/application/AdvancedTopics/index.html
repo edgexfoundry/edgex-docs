@@ -1426,6 +1426,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#background-publishing" class="md-nav__link">
+    Background Publishing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#registry-client" class="md-nav__link">
+    Registry Client
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2450,6 +2464,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#background-publishing" class="md-nav__link">
+    Background Publishing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#registry-client" class="md-nav__link">
+    Registry Client
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2827,6 +2855,63 @@ This sets the Service information fields as follows:
 <p>Application Services can retrieve their secrets from the underlying secret store using the <a href="#.GetSecrets()">GetSecrets()</a> API in the SDK. </p>
 <p>If in secure mode, the secrets are retrieved from the secret store based on the <em>SecretStoreExclusive</em> configuration values. </p>
 <p>If running in insecure mode, the secrets are retrieved from the <em>Writable.InsecureSecrets</em> configuration.</p>
+<h3 id="background-publishing">Background Publishing</h3>
+<p>Application Services using the MessageBus trigger can request a background publisher using the AddBackgroundPublisher API in the SDK.  This method takes an int representing the background channel's capacity as the only parameter and returns a reference to a BackgroundPublisher.  This reference can then be used by background processes to publish to the configured MessageBus output.  Example usage is as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">func</span> <span class="nx">runJob</span> <span class="p">(</span><span class="nx">pub</span> <span class="nx">appsdk</span><span class="p">.</span><span class="nx">BackgroundPublisher</span><span class="p">,</span> <span class="nx">done</span> <span class="kd">chan</span> <span class="kd">struct</span><span class="p">{}){</span>
+    <span class="nx">ticker</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">NewTicker</span><span class="p">(</span><span class="mi">1</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Minute</span><span class="p">)</span>
+    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">{</span>
+            <span class="k">select</span> <span class="p">{</span>
+            <span class="k">case</span> <span class="o">&lt;-</span><span class="nx">ticker</span><span class="p">.</span><span class="nx">C</span><span class="p">:</span>
+                <span class="nx">msg</span> <span class="o">:=</span> <span class="nx">myDataService</span><span class="p">.</span><span class="nx">GetMessage</span><span class="p">()</span>
+                <span class="nx">payload</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">Marshal</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+                    <span class="k">continue</span>
+                <span class="p">}</span>
+                <span class="nx">pub</span><span class="p">.</span><span class="nx">Publish</span><span class="p">(</span><span class="nx">payload</span><span class="p">,</span> <span class="nx">uuid</span><span class="p">.</span><span class="nx">New</span><span class="p">().</span><span class="nx">String</span><span class="p">(),</span> <span class="nx">clients</span><span class="p">.</span><span class="nx">ContentTypeJSON</span><span class="p">)</span>
+            <span class="k">case</span> <span class="o">&lt;-</span><span class="nx">j</span><span class="p">.</span><span class="nx">done</span><span class="p">:</span>
+                <span class="nx">ticker</span><span class="p">.</span><span class="nx">Stop</span><span class="p">()</span>
+                <span class="k">return</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">edgexSdk</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">appsdk</span><span class="p">.</span><span class="nx">AppFunctionsSDK</span><span class="p">{</span><span class="nx">ServiceKey</span><span class="p">:</span> <span class="nx">serviceKey</span><span class="p">}</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">edgexSdk</span><span class="p">.</span><span class="nx">Initialize</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">edgexSdk</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;SDK initialization failed: %v&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">))</span>
+        <span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1">//initialize background publisher with a channel capacity of 10</span>
+    <span class="nx">pub</span> <span class="o">:=</span> <span class="nx">sdk</span><span class="p">.</span><span class="nx">AddBackgroundPublisher</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+    <span class="nx">done</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{})</span>
+    <span class="k">defer</span> <span class="nb">close</span><span class="p">(</span><span class="nx">done</span><span class="p">)</span>
+
+    <span class="c1">//pass publisher to your background job</span>
+    <span class="nx">runJob</span><span class="p">(</span><span class="nx">pub</span><span class="p">,</span> <span class="nx">done</span><span class="p">)</span>
+
+    <span class="nx">edgexSdk</span><span class="p">.</span><span class="nx">SetFunctionsPipeline</span><span class="p">(</span>
+        <span class="nx">All</span><span class="p">,</span>
+        <span class="nx">My</span><span class="p">,</span>
+        <span class="nx">Functions</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="nx">edgexSdk</span><span class="p">.</span><span class="nx">MakeItRun</span><span class="p">()</span>
+
+    <span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="registry-client">Registry Client</h3>
+<p><strong>After initialization</strong>, the configured registry client used by the SDK can be retrieved from the sdk instance at .RegistryClient.  It is important to note that sdk.RegistryClient may be nil - either if the SDK is not yet initialized, or if the registry option (-r/--registry) is not specified on start.  Once retrieved the client can be used to look up host information for other services, or perform other operations supported by the registry.Client type in <a href="https://github.com/edgexfoundry/go-mod-registry">go-mod-registry</a>.  For example, to retrieve the URL for a given service:</p>
+<div class="admonition note known service keys">
+<p class="admonition-title">Note</p>
+<p>Service keys for known EdgeX services can be found under clients in <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/constants.go#L58-L72">go-mod-core-contracts</a></p>
+</div>
                 
               
               

@@ -1266,6 +1266,26 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#tags" class="md-nav__link">
+    Tags
+  </a>
+  
+    <nav class="md-nav" aria-label="Tags">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#addtags" class="md-nav__link">
+    AddTags
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#batch" class="md-nav__link">
     Batch
   </a>
@@ -2299,6 +2319,26 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#tags" class="md-nav__link">
+    Tags
+  </a>
+  
+    <nav class="md-nav" aria-label="Tags">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#addtags" class="md-nav__link">
+    AddTags
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#batch" class="md-nav__link">
     Batch
   </a>
@@ -2526,9 +2566,36 @@
 </tbody>
 </table>
 <h3 id="aes">AES</h3>
-<p><code>EncryptWithAES</code> - This function receives a either a <code>string</code>, <code>[]byte</code>, or <code>json.Marshaller</code> type and encrypts it using AES encryption and returns a <code>[]byte</code> to the pipeline.
+<p><code>EncryptWithAES</code> - This function receives a either a <code>string</code>, <code>[]byte</code>, or <code>json.Marshaller</code> type and encrypts it using AES encryption and returns a <code>[]byte</code> to the pipeline.</p>
 <div class="highlight"><pre><span></span><code><span class="nx">NewEncryption</span><span class="p">(</span><span class="s">&quot;key&quot;</span><span class="p">,</span> <span class="s">&quot;initializationVector&quot;</span><span class="p">).</span><span class="nx">EncryptWithAES</span>
-</code></pre></div></p>
+</code></pre></div>
+
+<h2 id="tags">Tags</h2>
+<p>There is one Tags transform included in the SDK that can be added to your pipeline. </p>
+<table>
+<thead>
+<tr>
+<th>Factory Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NewTags(tags map[string]string) Tags</td>
+<td>This function returns a <code>Tags</code> instance initialized with the passed in collection of tag key/value pairs. This <code>Tags</code> instance is used to access the following Tags function that will use the specified collection of tag key/value pairs.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="addtags">AddTags</h3>
+<p><code>AddTags</code> - This function receives an Edgex <code>Event</code> type and adds the collection of specified tags to the Event's <code>Tags</code> collection.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">myTags</span> <span class="p">=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
+    <span class="s">&quot;GatewayId&quot;</span><span class="p">:</span> <span class="s">&quot;HoustonStore000123&quot;</span><span class="p">,</span>
+    <span class="s">&quot;Latitude&quot;</span><span class="p">:</span>  <span class="s">&quot;29.630771&quot;</span><span class="p">,</span>
+    <span class="s">&quot;Longitude&quot;</span><span class="p">:</span> <span class="s">&quot;-95.377603&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="nx">NewTags</span><span class="p">(</span><span class="nx">myTags</span><span class="p">).</span><span class="nx">AddTags</span>
+</code></pre></div>
+
 <h2 id="batch">Batch</h2>
 <p>Included in the SDK is an in-memory batch function that will hold on to your data before continuing the pipeline. There are three functions provided for batching each with their own strategy.</p>
 <table>
