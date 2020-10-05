@@ -1,14 +1,12 @@
 
 
 
-
 <!doctype html>
 <html lang="en" class="no-js">
   <head>
     
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
-      <meta http-equiv="x-ua-compatible" content="ie=edge">
       
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
@@ -18,27 +16,8 @@
       
         <meta name="author" content="Michael Johanson">
       
-      
-        <meta name="lang:clipboard.copy" content="Copy to clipboard">
-      
-        <meta name="lang:clipboard.copied" content="Copied to clipboard">
-      
-        <meta name="lang:search.language" content="en">
-      
-        <meta name="lang:search.pipeline.stopwords" content="True">
-      
-        <meta name="lang:search.pipeline.trimmer" content="True">
-      
-        <meta name="lang:search.result.none" content="No matching documents">
-      
-        <meta name="lang:search.result.one" content="1 matching document">
-      
-        <meta name="lang:search.result.other" content="# matching documents">
-      
-        <meta name="lang:search.tokenizer" content="[\s\-]+">
-      
       <link rel="shortcut icon" href="../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.1, mkdocs-material-4.6.3">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.1.0">
     
     
       
@@ -46,127 +25,98 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/application.adb8469c.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.89dc9fe3.min.css">
       
-        <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.a8b3c06d.css">
-      
-      
-        
-        
-        <meta name="theme-color" content="#7e57c2">
       
     
-    
-      <script src="../../../assets/javascripts/modernizr.86422ebf.js"></script>
     
     
       
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
       
     
-    <link rel="stylesheet" href="../../../assets/fonts/material-icons.css">
     
     
       <link rel="stylesheet" href="../../../assets/stylesheets/version-select.css">
     
+      <link rel="stylesheet" href="../../../assets/stylesheets/branding.css">
+    
     
       
         
-<script>
-  window.ga = window.ga || function() {
-    (ga.q = ga.q || []).push(arguments)
-  }
-  ga.l = +new Date
-  /* Setup integration and send page view */
-  ga("create", "UA-82811140-6", "auto")
-  ga("set", "anonymizeIp", true)
-  ga("send", "pageview")
-  /* Register handler to log search on blur */
-  document.addEventListener("DOMContentLoaded", () => {
-    if (document.forms.search) {
-      var query = document.forms.search.query
-      query.addEventListener("blur", function() {
-        if (this.value) {
-          var path = document.location.pathname;
-          ga("send", "pageview", path + "?q=" + this.value)
-        }
-      })
-    }
-  })
-</script>
+<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com">
+<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-82811140-6","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview")})</script>
 <script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
     
   </head>
   
-    
-    
-    <body dir="ltr" data-md-color-primary="deep-purple" data-md-color-accent="red">
   
-    <svg class="md-svg">
-      <defs>
-        
-        
-          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
-        
-      </defs>
-    </svg>
+    <body dir="ltr">
+  
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
-    
-      <a href="#secret-store" tabindex="0" class="md-skip">
-        Skip to content
-      </a>
-    
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#secret-store" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
     
       <header class="md-header" data-md-component="header">
-  <nav class="md-header-nav md-grid">
-    <div class="md-flex">
-      <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" aria-label="EdgeX Foundry Documentation" class="md-header-nav__button md-logo">
-          
-            <img alt="logo" src="../../../assets/logo_edgex.png" width="24" height="24">
-          
-        </a>
-      </div>
-      <div class="md-flex__cell md-flex__cell--shrink">
-        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
-      </div>
-      <div class="md-flex__cell md-flex__cell--stretch">
-        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
-          
-            <span class="md-header-nav__topic">
-              EdgeX Foundry Documentation
-            </span>
-            <span class="md-header-nav__topic">
-              
-                Secret Store
-              
-            </span>
-          
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+      
+  <img src="../../../assets/logo_edgex_white.png" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" /></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            EdgeX Foundry Documentation
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Secret Store
+            
+          </span>
         </div>
-      </div>
-      <div class="md-flex__cell md-flex__cell--shrink">
-        
-          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
-          
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" /></svg>
+      </label>
+      
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" aria-label="search" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
-      <label class="md-icon md-search__icon" for="__search"></label>
-      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
-        &#xE5CD;
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" /></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
       </button>
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="result">
+        <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             Type to start searching
           </div>
@@ -176,56 +126,49 @@
     </div>
   </div>
 </div>
+    
+    
+      <div class="md-header-nav__source">
         
-      </div>
-      
-        <div class="md-flex__cell md-flex__cell--shrink">
-          <div class="md-header-nav__source">
-            
-
-
-  
-
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source" data-md-source="github">
-  
-    <div class="md-source__icon">
-      <svg viewBox="0 0 24 24" width="24" height="24">
-        <use xlink:href="#__github" width="24" height="24"></use>
-      </svg>
-    </div>
-  
+<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
   <div class="md-source__repository">
     edgex/edgex-go
   </div>
 </a>
-          </div>
-        </div>
-      
-    </div>
+      </div>
+    
   </nav>
 </header>
     
-    <div class="md-container">
+    <div class="md-container" data-md-component="container">
       
         
       
       
         
+          
 
   
 
-<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
   <div class="md-tabs__inner md-grid">
     <ul class="md-tabs__list">
       
         
-  <li class="md-tabs__item">
-    
-      <a href="../../.." class="md-tabs__link">
-        Introduction
-      </a>
-    
-  </li>
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../.." class="md-tabs__link">
+          Introduction
+        </a>
+      
+    </li>
+  
 
       
         
@@ -250,7 +193,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="../../core/data/Ch-CoreData/" class="md-tabs__link">
+        <a href="../../core/Ch-CoreServices/" class="md-tabs__link">
           Microservices
         </a>
       
@@ -265,7 +208,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="../../../examples/Ch-ExamplesProvisionDevice/" class="md-tabs__link">
+        <a href="../../../examples/Ch-ExamplesVirtualDeviceService/" class="md-tabs__link">
           Examples and Tutorials
         </a>
       
@@ -305,41 +248,48 @@
   
 
       
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../general/Definitions/" class="md-tabs__link">
+          Reference
+        </a>
+      
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
+        
       
-      <main class="md-main" role="main">
-        <div class="md-main__inner md-grid" data-md-component="container">
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
           
             
               <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
-                    <nav class="md-nav md-nav--primary" data-md-level="0">
-  <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
-        <img alt="logo" src="../../../assets/logo_edgex.png" width="48" height="48">
-      
+  <img src="../../../assets/logo_edgex_white.png" alt="logo">
+
     </a>
     EdgeX Foundry Documentation
   </label>
   
     <div class="md-nav__source">
       
-
-
-  
-
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source" data-md-source="github">
-  
-    <div class="md-source__icon">
-      <svg viewBox="0 0 24 24" width="24" height="24">
-        <use xlink:href="#__github" width="24" height="24"></use>
-      </svg>
-    </div>
-  
+<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
   <div class="md-source__repository">
     edgex/edgex-go
   </div>
@@ -353,10 +303,40 @@
       
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1">
+    
+    <label class="md-nav__link" for="nav-1">
+      Introduction
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Introduction
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
     <a href="../../.." title="Introduction" class="md-nav__link">
       Introduction
     </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
     
@@ -367,13 +347,19 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
     
     <label class="md-nav__link" for="nav-2">
       Getting Started
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+    <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
       <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
         Getting Started
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -410,13 +396,19 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-3" type="checkbox" id="nav-2-3">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-3" type="checkbox" id="nav-2-3">
     
     <label class="md-nav__link" for="nav-2-3">
       Users
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+    <nav class="md-nav" aria-label="Users" data-md-level="2">
       <label class="md-nav__title" for="nav-2-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
         Users
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -428,8 +420,20 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../getting-started/Ch-GettingStartedUsers/" title="Getting Started - Users" class="md-nav__link">
-      Getting Started - Users
+    <a href="../../../getting-started/Ch-GettingStartedUsers/" title="Getting Started with Docker" class="md-nav__link">
+      Getting Started with Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../getting-started/Ch-GettingStartedSnapUsers/" title="Getting Started with Snap" class="md-nav__link">
+      Getting Started with Snap
     </a>
   </li>
 
@@ -446,13 +450,19 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-4" type="checkbox" id="nav-2-4">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-4" type="checkbox" id="nav-2-4">
     
     <label class="md-nav__link" for="nav-2-4">
       Developers
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+    <nav class="md-nav" aria-label="Developers" data-md-level="2">
       <label class="md-nav__title" for="nav-2-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
         Developers
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -476,8 +486,20 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../getting-started/Ch-GettingStartedGoDevelopers/" title="Get EdgeX Foundry - Go Developers" class="md-nav__link">
-      Get EdgeX Foundry - Go Developers
+    <a href="../../../getting-started/Ch-GettingStartedGoDevelopers/" title="Getting Started - Go Developers" class="md-nav__link">
+      Getting Started - Go Developers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../getting-started/Ch-GettingStartedCDevelopers/" title="Getting Started - C Developers" class="md-nav__link">
+      Getting Started - C Developers
     </a>
   </li>
 
@@ -499,15 +521,33 @@
           
 
 
+  <li class="md-nav__item">
+    <a href="../../../getting-started/ApplicationFunctionsSDK/" title="Application Functions SDK" class="md-nav__link">
+      Application Functions SDK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-4-4" type="checkbox" id="nav-2-4-4">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-4-6" type="checkbox" id="nav-2-4-6">
     
-    <label class="md-nav__link" for="nav-2-4-4">
+    <label class="md-nav__link" for="nav-2-4-6">
       Device Services
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
-      <label class="md-nav__title" for="nav-2-4-4">
+    <nav class="md-nav" aria-label="Device Services" data-md-level="3">
+      <label class="md-nav__title" for="nav-2-4-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
         Device Services
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -585,13 +625,19 @@
 
   <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
     
     <label class="md-nav__link" for="nav-3">
       Microservices
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+    <nav class="md-nav" aria-label="Microservices" data-md-level="1">
       <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
         Microservices
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -604,17 +650,35 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1">
     
     <label class="md-nav__link" for="nav-3-1">
       Core Services
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+    <nav class="md-nav" aria-label="Core Services" data-md-level="2">
       <label class="md-nav__title" for="nav-3-1">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
         Core Services
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../core/Ch-CoreServices/" title="Core Services" class="md-nav__link">
+      Core Services
+    </a>
+  </li>
+
         
           
           
@@ -664,13 +728,19 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
     
     <label class="md-nav__link" for="nav-3-2">
       Supporting Services
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+    <nav class="md-nav" aria-label="Supporting Services" data-md-level="2">
       <label class="md-nav__title" for="nav-3-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
         Supporting Services
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -730,6 +800,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../support/Kuiper/Ch-Kuiper/" title="Kuiper Rules Engine" class="md-nav__link">
+      Kuiper Rules Engine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../support/scheduler/Ch-Scheduling/" title="Scheduling" class="md-nav__link">
       Scheduling
     </a>
@@ -748,13 +830,19 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
     
     <label class="md-nav__link" for="nav-3-3">
       System Management
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+    <nav class="md-nav" aria-label="System Management" data-md-level="2">
       <label class="md-nav__title" for="nav-3-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
         System Management
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -766,8 +854,32 @@
 
 
   <li class="md-nav__item">
+    <a href="../../system-management/Ch_SystemManagement/" title="System Management Micro Services" class="md-nav__link">
+      System Management Micro Services
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../system-management/agent/Ch_SysMgmtAgent/" title="System Management Agent (SMA)" class="md-nav__link">
       System Management Agent (SMA)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../system-management/executor/Ch_SysMgmtExecutor/" title="System Management Executor (SME)" class="md-nav__link">
+      System Management Executor (SME)
     </a>
   </li>
 
@@ -786,13 +898,19 @@
 
   <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4" checked>
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4" checked>
     
     <label class="md-nav__link" for="nav-3-4">
       Security
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+    <nav class="md-nav" aria-label="Security" data-md-level="2">
       <label class="md-nav__title" for="nav-3-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
         Security
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -819,13 +937,16 @@
 
   <li class="md-nav__item md-nav__item--active">
     
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     
       
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
         Secret Store
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z" /></svg>
+        </span>
       </label>
     
     <a href="./" title="Secret Store" class="md-nav__link md-nav__link--active">
@@ -833,13 +954,18 @@
     </a>
     
       
-<nav class="md-nav md-nav--secondary">
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
     
   
   
-    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </span>
+      Table of contents
+    </label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
@@ -847,7 +973,7 @@
     Start the Secret Store
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="Start the Secret Store">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -855,7 +981,7 @@
     Troubleshooting steps
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="Troubleshooting steps">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -936,7 +1062,7 @@
     Using the Secret Store
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="Using the Secret Store">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -971,10 +1097,6 @@
   </a>
   
 </li>
-      
-      
-      
-      
       
     </ul>
   
@@ -1043,13 +1165,19 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-5" type="checkbox" id="nav-3-5">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-5" type="checkbox" id="nav-3-5">
     
     <label class="md-nav__link" for="nav-3-5">
       Devices Services
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+    <nav class="md-nav" aria-label="Devices Services" data-md-level="2">
       <label class="md-nav__title" for="nav-3-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
         Devices Services
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -1115,14 +1243,20 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6">
     
     <label class="md-nav__link" for="nav-3-6">
-      App Services
+      Application Services
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+    <nav class="md-nav" aria-label="Application Services" data-md-level="2">
       <label class="md-nav__title" for="nav-3-6">
-        App Services
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Application Services
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -1133,8 +1267,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../application/Ch-ApplServices/" title="Application Services Microservices" class="md-nav__link">
-      Application Services Microservices
+    <a href="../../application/ApplicationServices/" title="Introduction" class="md-nav__link">
+      Introduction
     </a>
   </li>
 
@@ -1145,7 +1279,109 @@
 
 
   <li class="md-nav__item">
-    <a href="../../application/Ch-AppServiceConfigurable/" title="App Service Configurable" class="md-nav__link">
+    <a href="../../application/Triggers/" title="Triggers" class="md-nav__link">
+      Triggers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6-3" type="checkbox" id="nav-3-6-3">
+    
+    <label class="md-nav__link" for="nav-3-6-3">
+      Application Functions SDK
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Application Functions SDK" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-6-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Application Functions SDK
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../application/ApplicationFunctionsSDK/" title="App Functions SDK" class="md-nav__link">
+      App Functions SDK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../application/ContextAPI/" title="Context API" class="md-nav__link">
+      Context API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../application/BuiltIn/" title="Built-In Transforms/Functions" class="md-nav__link">
+      Built-In Transforms/Functions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../application/ErrorHandling/" title="Error Handling" class="md-nav__link">
+      Error Handling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../application/AdvancedTopics/" title="Advanced Topics" class="md-nav__link">
+      Advanced Topics
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../application/AppServiceConfigurable/" title="App Service Configurable" class="md-nav__link">
       App Service Configurable
     </a>
   </li>
@@ -1157,44 +1393,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../application/Ch-ApplicationServices/" title="Application Services" class="md-nav__link">
-      Application Services
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../application/Ch-ApplicationFunctionsSDK/" title="App Functions SDK (Golang) - Beta" class="md-nav__link">
-      App Functions SDK (Golang) - Beta
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../application/Ch-HTTPTrigger/" title="HTTP Trigger" class="md-nav__link">
-      HTTP Trigger
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../application/Ch-MessageBusTrigger/" title="Message Bus Trigger" class="md-nav__link">
-      Message Bus Trigger
+    <a href="../../application/GeneralAppServiceConfig/" title="General App Service Configuration" class="md-nav__link">
+      General App Service Configuration
     </a>
   </li>
 
@@ -1228,41 +1428,23 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
     
     <label class="md-nav__link" for="nav-4">
       Examples and Tutorials
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+    <nav class="md-nav" aria-label="Examples and Tutorials" data-md-level="1">
       <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
         Examples and Tutorials
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../../examples/Ch-ExamplesProvisionDevice/" title="Provison a Device - Modbus Example" class="md-nav__link">
-      Provison a Device - Modbus Example
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../../examples/Ch-ExamplesModbusdatatypeconversion/" title="Modbus - Data Type Conversion" class="md-nav__link">
-      Modbus - Data Type Conversion
-    </a>
-  </li>
-
         
           
           
@@ -1282,8 +1464,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../examples/Ch-ExamplesRandomDeviceService/" title="Random Integer Device Service Example" class="md-nav__link">
-      Random Integer Device Service Example
+    <a href="../../../examples/Ch-ExamplesRandomDeviceService/" title="Random Integer Device Service" class="md-nav__link">
+      Random Integer Device Service
     </a>
   </li>
 
@@ -1305,15 +1487,57 @@
           
 
 
+  <li class="md-nav__item">
+    <a href="../../../examples/AppServiceExamples/" title="App Service Examples" class="md-nav__link">
+      App Service Examples
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../examples/Ch-CommandingDeviceThroughRulesEngine/" title="Command Devices with Kuiper Rules Engine" class="md-nav__link">
+      Command Devices with Kuiper Rules Engine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../examples/Ch-ExamplesModbusdatatypeconversion/" title="Modbus - Data Type Conversion" class="md-nav__link">
+      Modbus - Data Type Conversion
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-6" type="checkbox" id="nav-4-6">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-7" type="checkbox" id="nav-4-7">
     
-    <label class="md-nav__link" for="nav-4-6">
+    <label class="md-nav__link" for="nav-4-7">
       Adding a Device
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
-      <label class="md-nav__title" for="nav-4-6">
+    <nav class="md-nav" aria-label="Adding a Device" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
         Adding a Device
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -1367,13 +1591,19 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-7" type="checkbox" id="nav-4-7">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-8" type="checkbox" id="nav-4-8">
     
-    <label class="md-nav__link" for="nav-4-7">
+    <label class="md-nav__link" for="nav-4-8">
       Walkthrough
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
-      <label class="md-nav__title" for="nav-4-7">
+    <nav class="md-nav" aria-label="Walkthrough" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-8">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
         Walkthrough
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -1399,18 +1629,6 @@
   <li class="md-nav__item">
     <a href="../../../walk-through/Ch-WalkthroughSetup/" title="Setup up your environment" class="md-nav__link">
       Setup up your environment
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../../walk-through/Ch-WalkthroughRunning/" title="Running EdgeX" class="md-nav__link">
-      Running EdgeX
     </a>
   </li>
 
@@ -1457,8 +1675,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../walk-through/Ch-WalkthroughDeviceService/" title="Register your Device Service" class="md-nav__link">
-      Register your Device Service
+    <a href="../../../walk-through/Ch-WalkthroughDeviceService/" title="Register your device service" class="md-nav__link">
+      Register your device service
     </a>
   </li>
 
@@ -1469,8 +1687,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../walk-through/Ch-WalkthroughProvision/" title="Provision a Device" class="md-nav__link">
-      Provision a Device
+    <a href="../../../walk-through/Ch-WalkthroughProvision/" title="Provision a device" class="md-nav__link">
+      Provision a device
     </a>
   </li>
 
@@ -1516,6 +1734,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../examples/LinuxTutorial/LinuxTutorial/" title="EdgeX Foundry Hands On Tutorial" class="md-nav__link">
+      EdgeX Foundry Hands On Tutorial
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -1528,13 +1758,19 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
     
     <label class="md-nav__link" for="nav-5">
       API Reference
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+    <nav class="md-nav" aria-label="API Reference" data-md-level="1">
       <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
         API Reference
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -1547,13 +1783,19 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-1" type="checkbox" id="nav-5-1">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-1" type="checkbox" id="nav-5-1">
     
     <label class="md-nav__link" for="nav-5-1">
       Core
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+    <nav class="md-nav" aria-label="Core" data-md-level="2">
       <label class="md-nav__title" for="nav-5-1">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
         Core
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -1619,13 +1861,19 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-2" type="checkbox" id="nav-5-2">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-2" type="checkbox" id="nav-5-2">
     
     <label class="md-nav__link" for="nav-5-2">
       Supporting Services
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+    <nav class="md-nav" aria-label="Supporting Services" data-md-level="2">
       <label class="md-nav__title" for="nav-5-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
         Supporting Services
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -1690,8 +1938,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../api/Ch-APIDeviceServicesVirtual/" title="APIs - Device Services - Virtual Device Service" class="md-nav__link">
-      APIs - Device Services - Virtual Device Service
+    <a href="../../../api/Ch-APIDeviceSDK/" title="Device Service - Device SDK" class="md-nav__link">
+      Device Service - Device SDK
     </a>
   </li>
 
@@ -1708,6 +1956,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../api/Ch-APIAppFunctionsSDK/" title="Application Service - Application Service SDK" class="md-nav__link">
+      Application Service - Application Service SDK
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -1720,13 +1980,19 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
     
     <label class="md-nav__link" for="nav-6">
       Architectural Decision Records
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+    <nav class="md-nav" aria-label="Architectural Decision Records" data-md-level="1">
       <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
         Architectural Decision Records
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -1763,13 +2029,19 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6-3" type="checkbox" id="nav-6-3">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6-3" type="checkbox" id="nav-6-3">
     
     <label class="md-nav__link" for="nav-6-3">
       Legacy
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+    <nav class="md-nav" aria-label="Legacy" data-md-level="2">
       <label class="md-nav__title" for="nav-6-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
         Legacy
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -1809,6 +2081,96 @@
   </li>
 
     
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Reference
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Reference" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Reference
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../general/Definitions/" title="Definitions" class="md-nav__link">
+      Definitions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../general/PlatformRequirements/" title="Platform Requirements" class="md-nav__link">
+      Platform Requirements
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../general/ServicePorts/" title="Default Service Ports" class="md-nav__link">
+      Default Service Ports
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../general/ContainerNames/" title="EdgeX Container Names" class="md-nav__link">
+      EdgeX Container Names
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../general/ServiceConfiguration/" title="Service Configuration" class="md-nav__link">
+      Service Configuration
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
   </ul>
 </nav>
                   </div>
@@ -1820,13 +2182,18 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
-<nav class="md-nav md-nav--secondary">
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
     
   
   
-    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </span>
+      Table of contents
+    </label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
@@ -1834,7 +2201,7 @@
     Start the Secret Store
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="Start the Secret Store">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1842,7 +2209,7 @@
     Troubleshooting steps
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="Troubleshooting steps">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1923,7 +2290,7 @@
     Using the Secret Store
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="Using the Secret Store">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1959,10 +2326,6 @@
   
 </li>
       
-      
-      
-      
-      
     </ul>
   
 </nav>
@@ -1975,7 +2338,12 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/microservices/security/Ch-SecretStore.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/microservices/security/Ch-SecretStore.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg>
+                  </a>
+                
+                
+                  
                 
                 
                 <h1 id="secret-store">Secret Store</h1>
@@ -2038,31 +2406,26 @@ services in production.</p>
 </blockquote>
 <h2 id="start-the-secret-store">Start the Secret Store</h2>
 <p>Start the Secret Store with Docker Compose and a Docker Compose manifest
-file. The Docker Compose file named docker-compose-fuji.yml can be found
-at these two locations:</p>
+file. The whole set of Docker Compose files for Geneva release can be found here:</p>
 <blockquote>
 <ul>
-<li><a href="https://github.com/edgexfoundry/security-secret-store/blob/fuji/docker-compose-fuji.yml">https://github.com/edgexfoundry/security-secret-store/blob/fuji/docker-compose-fuji.yml</a></li>
-<li><a href="https://github.com/edgexfoundry/developer-scripts/blob/master/releases/fuji/compose-files/security/docker-compose-fuji.yml">https://github.com/edgexfoundry/developer-scripts/blob/master/releases/fuji/compose-files/security/docker-compose-fuji.yml</a></li>
+<li><a href="https://github.com/edgexfoundry/developer-scripts/blob/master/releases/geneva/compose-files">https://github.com/edgexfoundry/developer-scripts/blob/master/releases/geneva/compose-files</a></li>
 </ul>
 </blockquote>
-<p>This Compose file starts the entire EdgeX Foundry platform including the
-security services.</p>
+<p><a href="https://github.com/edgexfoundry/developer-scripts/blob/master/releases/geneva/compose-files/docker-compose-geneva-redis.yml">The Compose file</a> starts the entire EdgeX Foundry platform with Redis including the security services.</p>
 <p>The command to start EdgeX Foundry platform including the Secret Store
 and API gateway related services is:</p>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker-compose up -d
+<div class="highlight"><pre><span></span><code>sh&gt; docker-compose up -d
 </code></pre></div>
-
 
 <p>For a pristine run, it is strongly recommended to thoroughly clean up
 any Docker artifacts remaining from the current run.</p>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker-compose down -v
+<div class="highlight"><pre><span></span><code>sh&gt; docker-compose down -v
 </code></pre></div>
-
 
 <p>The "down" operation will remove containers, network and adding the -v
 option it will also remove persistent volumes:</p>
-<div class="codehilite"><pre><span></span><code>Stopping edgex-vault       ... <span class="k">done</span>
+<div class="highlight"><pre><span></span><code>Stopping edgex-vault       ... <span class="k">done</span>
 Stopping edgex-core-consul ... <span class="k">done</span>
 Stopping edgex-files       ... <span class="k">done</span>
 Removing edgex-vault-worker ... <span class="k">done</span>
@@ -2080,7 +2443,6 @@ Removing volume security-secret-store_vault-file
 Removing volume security-secret-store_vault-logs
 </code></pre></div>
 
-
 <h3 id="troubleshooting-steps">Troubleshooting steps</h3>
 <p>For debugging purpose, the Secret Store services can be started
 individually with these commands. A pre-requisite being to carefully
@@ -2088,7 +2450,7 @@ follow the invocation sequence in order to avoid any dependency failure.
 Lines starting with # (hashtag) are contextual comments to explicit the
 purpose of the above corresponding command:</p>
 <h4 id="clean-up">Clean-up</h4>
-<div class="codehilite"><pre><span></span><code>sh&gt; <span class="nb">cd</span> &lt;path-to-EdgeX-Foundry-Secret-Store&gt;
+<div class="highlight"><pre><span></span><code>sh&gt; <span class="nb">cd</span> &lt;path-to-EdgeX-Foundry-Secret-Store&gt;
 <span class="c1"># &lt;...&gt;/security-secret-store/</span>
 
 sh&gt; docker-compose down -v
@@ -2106,14 +2468,12 @@ sh&gt; docker network ls
 sh&gt; docker network rm edgex-network
 </code></pre></div>
 
-
 <h4 id="start-the-first-service-volume-platform-volume-initializations">Start the first service: volume (platform volume initializations)</h4>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker-compose up -d volume
+<div class="highlight"><pre><span></span><code>sh&gt; docker-compose up -d volume
 </code></pre></div>
 
-
 <p>Sample output:</p>
-<div class="codehilite"><pre><span></span><code>Creating network <span class="s2">&quot;security-secret-store_edgex-network&quot;</span> with driver <span class="s2">&quot;bridge&quot;</span>
+<div class="highlight"><pre><span></span><code>Creating network <span class="s2">&quot;security-secret-store_edgex-network&quot;</span> with driver <span class="s2">&quot;bridge&quot;</span>
 Creating volume <span class="s2">&quot;security-secret-store_db-data&quot;</span> with default driver
 Creating volume <span class="s2">&quot;security-secret-store_log-data&quot;</span> with default driver
 Creating volume <span class="s2">&quot;security-secret-store_consul-config&quot;</span> with default driver
@@ -2124,81 +2484,72 @@ Creating volume <span class="s2">&quot;security-secret-store_vault-logs&quot;</s
 Creating edgex-files ... <span class="k">done</span>
 </code></pre></div>
 
-
 <h4 id="start-the-second-service-consul-consul-is-vault-store-backend">Start the second service: consul (Consul is Vault store backend)</h4>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker-compose up -d consul
+<div class="highlight"><pre><span></span><code>sh&gt; docker-compose up -d consul
 </code></pre></div>
 
-
 <p>Sample output:</p>
-<div class="codehilite"><pre><span></span><code>edgex-files is up-to-date
+<div class="highlight"><pre><span></span><code>edgex-files is up-to-date
 Creating edgex-core-consul ... <span class="k">done</span>
 </code></pre></div>
 
-
 <p>Display and inspect consul service logs: important lines are highlighted</p>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker-compose logs consul
+<div class="highlight"><pre><span></span><code>sh&gt; docker-compose logs consul
 </code></pre></div>
-
 
 <p>Sample output:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">Attaching</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="o">==&gt;</span><span class="w"> </span><span class="n">Starting</span><span class="w"> </span><span class="n">Consul</span><span class="w"> </span><span class="n">agent</span><span class="p">...</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="o">==&gt;</span><span class="w"> </span><span class="n">Consul</span><span class="w"> </span><span class="n">agent</span><span class="w"> </span><span class="n">running</span><span class="err">!</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">            </span><span class="nl">Version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;v1.1.0&#39;</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">            </span><span class="n">Node</span><span class="w"> </span><span class="nl">ID</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;371cbce6-02a8-65f6-ddea-6df5c40a4c50&#39;</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">          </span><span class="n">Node</span><span class="w"> </span><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;edgex-core-consul&#39;</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">         </span><span class="nl">Datacenter</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;dc1&#39;</span><span class="w"> </span><span class="p">(</span><span class="nl">Segment</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&lt;all&gt;&#39;</span><span class="p">)</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">             </span><span class="nl">Server</span><span class="p">:</span><span class="w"> </span><span class="k">true</span><span class="w"> </span><span class="p">(</span><span class="nl">Bootstrap</span><span class="p">:</span><span class="w"> </span><span class="k">false</span><span class="p">)</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">        </span><span class="n">Client</span><span class="w"> </span><span class="nl">Addr</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="n">0.0.0.0</span><span class="o">]</span><span class="w"> </span><span class="p">(</span><span class="nl">HTTP</span><span class="p">:</span><span class="w"> </span><span class="mi">8500</span><span class="p">,</span><span class="w"> </span><span class="nl">HTTPS</span><span class="p">:</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nl">DNS</span><span class="p">:</span><span class="w"> </span><span class="mi">8600</span><span class="p">)</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">       </span><span class="n">Cluster</span><span class="w"> </span><span class="nl">Addr</span><span class="p">:</span><span class="w"> </span><span class="mf">127.0.0.1</span><span class="w"> </span><span class="p">(</span><span class="nl">LAN</span><span class="p">:</span><span class="w"> </span><span class="mi">8301</span><span class="p">,</span><span class="w"> </span><span class="nl">WAN</span><span class="p">:</span><span class="w"> </span><span class="mi">8302</span><span class="p">)</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">            </span><span class="nl">Encrypt</span><span class="p">:</span><span class="w"> </span><span class="nl">Gossip</span><span class="p">:</span><span class="w"> </span><span class="k">false</span><span class="p">,</span><span class="w"> </span><span class="n">TLS</span><span class="o">-</span><span class="nl">Outgoing</span><span class="p">:</span><span class="w"> </span><span class="k">false</span><span class="p">,</span><span class="w"> </span><span class="n">TLS</span><span class="o">-</span><span class="nl">Incoming</span><span class="p">:</span><span class="w"> </span><span class="k">false</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="o">==&gt;</span><span class="w"> </span><span class="nf">Log</span><span class="w"> </span><span class="k">data</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="n">stream</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="nl">occurs</span><span class="p">:</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">DEBUG</span><span class="o">]</span><span class="w"> </span><span class="nl">agent</span><span class="p">:</span><span class="w"> </span><span class="k">Using</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="ss">&quot;371cbce6-02a8-65f6-ddea-6df5c40a4c50&quot;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="n">ID</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="nl">raft</span><span class="p">:</span><span class="w"> </span><span class="n">Initial</span><span class="w"> </span><span class="n">configuration</span><span class="w"> </span><span class="p">(</span><span class="k">index</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="err">:</span><span class="w"> </span><span class="o">[</span><span class="n">{Suffrage:Voter ID:371cbce6-02a8-65f6-ddea-6df5c40a4c50 Address:127.0.0.1:8300}</span><span class="o">]</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="nl">raft</span><span class="p">:</span><span class="w"> </span><span class="n">Node</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="mf">127.0.0.1</span><span class="err">:</span><span class="mi">8300</span><span class="w"> </span><span class="o">[</span><span class="n">Follower</span><span class="o">]</span><span class="w"> </span><span class="n">entering</span><span class="w"> </span><span class="n">Follower</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="p">(</span><span class="nl">Leader</span><span class="p">:</span><span class="w"> </span><span class="ss">&quot;&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="nl">serf</span><span class="p">:</span><span class="w"> </span><span class="nl">EventMemberJoin</span><span class="p">:</span><span class="w"> </span><span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="p">.</span><span class="n">dc1</span><span class="w"> </span><span class="mf">127.0.0.1</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="nl">serf</span><span class="p">:</span><span class="w"> </span><span class="nl">EventMemberJoin</span><span class="p">:</span><span class="w"> </span><span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w"> </span><span class="mf">127.0.0.1</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="nl">consul</span><span class="p">:</span><span class="w"> </span><span class="n">Adding</span><span class="w"> </span><span class="n">LAN</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w"> </span><span class="p">(</span><span class="nl">Addr</span><span class="p">:</span><span class="w"> </span><span class="n">tcp</span><span class="o">/</span><span class="mf">127.0.0.1</span><span class="err">:</span><span class="mi">8300</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nl">DC</span><span class="p">:</span><span class="w"> </span><span class="n">dc1</span><span class="p">)</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="nl">consul</span><span class="p">:</span><span class="w"> </span><span class="n">Handled</span><span class="w"> </span><span class="k">member</span><span class="o">-</span><span class="k">join</span><span class="w"> </span><span class="n">event</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="ss">&quot;edgex-core-consul.dc1&quot;</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">area</span><span class="w"> </span><span class="ss">&quot;wan&quot;</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="nl">agent</span><span class="p">:</span><span class="w"> </span><span class="n">Started</span><span class="w"> </span><span class="n">DNS</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="mf">0.0.0.0</span><span class="err">:</span><span class="mi">8600</span><span class="w"> </span><span class="p">(</span><span class="n">tcp</span><span class="p">)</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="nl">agent</span><span class="p">:</span><span class="w"> </span><span class="n">Started</span><span class="w"> </span><span class="n">DNS</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="mf">0.0.0.0</span><span class="err">:</span><span class="mi">8600</span><span class="w"> </span><span class="p">(</span><span class="n">udp</span><span class="p">)</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="nl">agent</span><span class="p">:</span><span class="w"> </span><span class="n">Started</span><span class="w"> </span><span class="n">HTTP</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="o">[</span><span class="n">::</span><span class="o">]</span><span class="err">:</span><span class="mi">8500</span><span class="w"> </span><span class="p">(</span><span class="n">tcp</span><span class="p">)</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="nl">agent</span><span class="p">:</span><span class="w"> </span><span class="n">started</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">syncer</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">WARN</span><span class="o">]</span><span class="w"> </span><span class="nl">raft</span><span class="p">:</span><span class="w"> </span><span class="n">Heartbeat</span><span class="w"> </span><span class="n">timeout</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="ss">&quot;&quot;</span><span class="w"> </span><span class="n">reached</span><span class="p">,</span><span class="w"> </span><span class="n">starting</span><span class="w"> </span><span class="n">election</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="nl">raft</span><span class="p">:</span><span class="w"> </span><span class="n">Node</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="mf">127.0.0.1</span><span class="err">:</span><span class="mi">8300</span><span class="w"> </span><span class="o">[</span><span class="n">Candidate</span><span class="o">]</span><span class="w"> </span><span class="n">entering</span><span class="w"> </span><span class="n">Candidate</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">term</span><span class="w"> </span><span class="mi">2</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">DEBUG</span><span class="o">]</span><span class="w"> </span><span class="nl">raft</span><span class="p">:</span><span class="w"> </span><span class="n">Votes</span><span class="w"> </span><span class="nl">needed</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">DEBUG</span><span class="o">]</span><span class="w"> </span><span class="nl">raft</span><span class="p">:</span><span class="w"> </span><span class="n">Vote</span><span class="w"> </span><span class="n">granted</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="mi">371</span><span class="n">cbce6</span><span class="o">-</span><span class="mi">02</span><span class="n">a8</span><span class="o">-</span><span class="mi">65</span><span class="n">f6</span><span class="o">-</span><span class="n">ddea</span><span class="o">-</span><span class="mi">6</span><span class="n">df5c40a4c50</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">term</span><span class="w"> </span><span class="mf">2.</span><span class="w"> </span><span class="nl">Tally</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="nl">raft</span><span class="p">:</span><span class="w"> </span><span class="n">Election</span><span class="w"> </span><span class="n">won</span><span class="p">.</span><span class="w"> </span><span class="nl">Tally</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="nl">raft</span><span class="p">:</span><span class="w"> </span><span class="n">Node</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="mf">127.0.0.1</span><span class="err">:</span><span class="mi">8300</span><span class="w"> </span><span class="o">[</span><span class="n">Leader</span><span class="o">]</span><span class="w"> </span><span class="n">entering</span><span class="w"> </span><span class="n">Leader</span><span class="w"> </span><span class="k">state</span><span class="w"></span>
-<span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">consul</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="mi">2019</span><span class="o">/</span><span class="mi">01</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="mi">13</span><span class="err">:</span><span class="mi">25</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="nl">consul</span><span class="p">:</span><span class="w"> </span><span class="n">cluster</span><span class="w"> </span><span class="n">leadership</span><span class="w"> </span><span class="n">acquired</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code>Attaching to edgex-core-consul
+edgex-core-consul  | ==&gt; Starting Consul agent...
+edgex-core-consul  | ==&gt; Consul agent running!
+edgex-core-consul  |            Version: &#39;v1.1.0&#39;
+edgex-core-consul  |            Node ID: &#39;371cbce6-02a8-65f6-ddea-6df5c40a4c50&#39;
+edgex-core-consul  |          Node name: &#39;edgex-core-consul&#39;
+edgex-core-consul  |         Datacenter: &#39;dc1&#39; (Segment: &#39;&lt;all&gt;&#39;)
+edgex-core-consul  |             Server: true (Bootstrap: false)
+edgex-core-consul  |        Client Addr: [0.0.0.0] (HTTP: 8500, HTTPS: -1, DNS: 8600)
+edgex-core-consul  |       Cluster Addr: 127.0.0.1 (LAN: 8301, WAN: 8302)
+edgex-core-consul  |            Encrypt: Gossip: false, TLS-Outgoing: false, TLS-Incoming: false
+edgex-core-consul  |
+edgex-core-consul  | ==&gt; Log data will now stream in as it occurs:
+edgex-core-consul  |
+edgex-core-consul  |     2019/01/13 13:25:06 [DEBUG] agent: Using random ID &quot;371cbce6-02a8-65f6-ddea-6df5c40a4c50&quot; as node ID
+edgex-core-consul  |     2019/01/13 13:25:06 [INFO] raft: Initial configuration (index=1): [{Suffrage:Voter ID:371cbce6-02a8-65f6-ddea-6df5c40a4c50 Address:127.0.0.1:8300}]
+edgex-core-consul  |     2019/01/13 13:25:06 [INFO] raft: Node at 127.0.0.1:8300 [Follower] entering Follower state (Leader: &quot;&quot;)
+edgex-core-consul  |     2019/01/13 13:25:06 [INFO] serf: EventMemberJoin: edgex-core-consul.dc1 127.0.0.1
+edgex-core-consul  |     2019/01/13 13:25:06 [INFO] serf: EventMemberJoin: edgex-core-consul 127.0.0.1
+edgex-core-consul  |     2019/01/13 13:25:06 [INFO] consul: Adding LAN server edgex-core-consul (Addr: tcp/127.0.0.1:8300) (DC: dc1)
+edgex-core-consul  |     2019/01/13 13:25:06 [INFO] consul: Handled member-join event for server &quot;edgex-core-consul.dc1&quot; in area &quot;wan&quot;
+edgex-core-consul  |     2019/01/13 13:25:06 [INFO] agent: Started DNS server 0.0.0.0:8600 (tcp)
+edgex-core-consul  |     2019/01/13 13:25:06 [INFO] agent: Started DNS server 0.0.0.0:8600 (udp)
+edgex-core-consul  |     2019/01/13 13:25:06 [INFO] agent: Started HTTP server on [::]:8500 (tcp)
+edgex-core-consul  |     2019/01/13 13:25:06 [INFO] agent: started state syncer
+edgex-core-consul  |     2019/01/13 13:25:06 [WARN] raft: Heartbeat timeout from &quot;&quot; reached, starting election
+edgex-core-consul  |     2019/01/13 13:25:06 [INFO] raft: Node at 127.0.0.1:8300 [Candidate] entering Candidate state in term 2
+edgex-core-consul  |     2019/01/13 13:25:06 [DEBUG] raft: Votes needed: 1
+edgex-core-consul  |     2019/01/13 13:25:06 [DEBUG] raft: Vote granted from 371cbce6-02a8-65f6-ddea-6df5c40a4c50 in term 2. Tally: 1
+edgex-core-consul  |     2019/01/13 13:25:06 [INFO] raft: Election won. Tally: 1
+edgex-core-consul  |     2019/01/13 13:25:06 [INFO] raft: Node at 127.0.0.1:8300 [Leader] entering Leader state
+edgex-core-consul  |     2019/01/13 13:25:06 [INFO] consul: cluster leadership acquired
 </code></pre></div>
-
 
 <h4 id="start-the-third-service-config-seed-platform-configuration-initializations">Start the third service: config-seed (platform configuration initializations)</h4>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker-compose up -d config-seed
+<div class="highlight"><pre><span></span><code>sh&gt; docker-compose up -d config-seed
 </code></pre></div>
 
-
 <p>Sample output:</p>
-<div class="codehilite"><pre><span></span><code>edgex-files is up-to-date
+<div class="highlight"><pre><span></span><code>edgex-files is up-to-date
 edgex-core-consul is up-to-date
 Creating edgex-config-seed ... <span class="k">done</span>
 </code></pre></div>
 
-
 <p>Display and inspect the created container states: important lines are
 highlighted</p>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker-compose ps
+<div class="highlight"><pre><span></span><code>sh&gt; docker-compose ps
 </code></pre></div>
-
 
 <p>Sample output:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">Name                     Command               State                                      Ports</span>
+<div class="highlight"><pre><span></span><code>Name                     Command               State                                      Ports
 </code></pre></div>
-
 
 <blockquote>
 <p>---------------------------------------------------------------------------------------------------------------------------------------edgex-config-seed
@@ -2220,41 +2571,37 @@ processing (exit code 0)</p>
 <code>vault-worker</code> service will process the initialization and unsealing
 tasks.</p>
 </div>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker-compose up -d vault
+<div class="highlight"><pre><span></span><code>sh&gt; docker-compose up -d vault
 </code></pre></div>
 
-
 <p>Sample output:</p>
-<div class="codehilite"><pre><span></span><code>edgex-files is up-to-date
+<div class="highlight"><pre><span></span><code>edgex-files is up-to-date
 edgex-core-consul is up-to-date
 Creating edgex-vault ... <span class="k">done</span>
 </code></pre></div>
 
-
 <p>Display and inspect "vault" service logs: important lines are
 highlighted</p>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker-compose logs vault
+<div class="highlight"><pre><span></span><code>sh&gt; docker-compose logs vault
 </code></pre></div>
-
 
 <p>Sample output:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">Attaching to edgex-vault</span>
-<span class="err">edgex-vault        | ==&gt; Vault server configuration:</span>
-<span class="err">edgex-vault        |</span>
-<span class="err">edgex-vault        |              Api Address: https://edgex-vault:8200</span>
-<span class="err">edgex-vault        |                      Cgo: disabled</span>
-<span class="err">edgex-vault        |          Cluster Address: https://edgex-vault:8201</span>
-<span class="err">edgex-vault        |               Listener 1: tcp (addr: &quot;edgex-vault:8200&quot;, cluster address: &quot;edgex-vault:8201&quot;, tls: &quot;enabled&quot;)</span>
-<span class="err">edgex-vault        |                Log Level: info</span>
-<span class="err">edgex-vault        |                    Mlock: supported: true, enabled: true</span>
-<span class="err">edgex-vault        |                  Storage: consul (HA available)</span>
-<span class="err">edgex-vault        |                  Version: Vault v0.10.2</span>
-<span class="err">edgex-vault        |              Version Sha: 3ee0802ed08cb7f4046c2151ec4671a076b76166</span>
-<span class="err">edgex-vault        |</span>
-<span class="err">edgex-vault        | ==&gt; Vault server started! Log data will stream in below:</span>
-<span class="err">edgex-vault        |</span>
+<div class="highlight"><pre><span></span><code>Attaching to edgex-vault
+edgex-vault        | ==&gt; Vault server configuration:
+edgex-vault        |
+edgex-vault        |              Api Address: https://edgex-vault:8200
+edgex-vault        |                      Cgo: disabled
+edgex-vault        |          Cluster Address: https://edgex-vault:8201
+edgex-vault        |               Listener 1: tcp (addr: &quot;edgex-vault:8200&quot;, cluster address: &quot;edgex-vault:8201&quot;, tls: &quot;enabled&quot;)
+edgex-vault        |                Log Level: info
+edgex-vault        |                    Mlock: supported: true, enabled: true
+edgex-vault        |                  Storage: consul (HA available)
+edgex-vault        |                  Version: Vault v0.10.2
+edgex-vault        |              Version Sha: 3ee0802ed08cb7f4046c2151ec4671a076b76166
+edgex-vault        |
+edgex-vault        | ==&gt; Vault server started! Log data will stream in below:
+edgex-vault        |
 </code></pre></div>
-
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2263,121 +2610,115 @@ highlighted</p>
 <p>Line 10: Vault backend storage is <strong>Consul</strong>.</p>
 </div>
 <h4 id="start-the-fifth-service-vault-worker-vault-initunseal-process-and-setups">Start the fifth service: vault-worker (Vault init/unseal process and setups)</h4>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker-compose up -d vault-worker
+<div class="highlight"><pre><span></span><code>sh&gt; docker-compose up -d vault-worker
 </code></pre></div>
 
-
 <p>Sample output:</p>
-<div class="codehilite"><pre><span></span><code>edgex-files is up-to-date
+<div class="highlight"><pre><span></span><code>edgex-files is up-to-date
 edgex-core-consul is up-to-date
 edgex-vault is up-to-date
 Creating edgex-vault-worker ... <span class="k">done</span>
 </code></pre></div>
 
-
 <p>Display and inspect "vault-worker" service logs: important lines are
 highlighted</p>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker-compose logs vault-worker
+<div class="highlight"><pre><span></span><code>sh&gt; docker-compose logs vault-worker
 </code></pre></div>
-
 
 <p>Sample output:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">Attaching to edgex-vault-worker</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:42 successful loading the rootCA cert.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:43 {&quot;keys&quot;:[&quot;564b9444eebe28b393c21a4dca1e32835b7dc27f5da03b73d22b666cb20224a9&quot;],&quot;keys_base64&quot;:[&quot;VkuURO6+KLOTwhpNyh4yg1t9wn9doDtz0itmbLICJKk=&quot;],&quot;recovery_keys&quot;:null,&quot;recovery_keys_base64&quot;:null,&quot;root_token&quot;:&quot;01dbbae4-353a-8cdf-8189-4d50e5535a6f&quot;}</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:43 Vault has been initialized successfully.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:43 Vault has been unsealed successfully.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Vault Health Check HTTP Status: 200 OK (StatusCode: 200)</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Verifying Admin policy file hash (SHA256).</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Vault policy file checksum (SHA256): 5ce8d58cf7d931735f6532742f677c109a91a263bcefe9aef73ab2a69f4b43d3</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Reading Admin policy file.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Importing Vault Admin policy.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Import Policy Successfull.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Reading Kong policy file.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Importing Vault Kong policy.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Import Policy Successfull.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Creating Vault Admin token.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Create Token Successfull.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Creating Vault Kong token.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Create Token Successfull.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Successful on reading certificate from v1/secret/edgex/pki/tls/edgex-kong.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Cert&amp;key are not in the secret store yet, will need to upload them.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Load cert&amp;key pair from volume successfully, now will upload to secret store.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Trying to upload cert&amp;key to secret store.</span>
-<span class="err">edgex-vault-worker | INFO: 2019/01/13 13:35:48 Successful to add certificate to the secret store.</span>
+<div class="highlight"><pre><span></span><code>Attaching to edgex-vault-worker
+edgex-vault-worker | INFO: 2019/01/13 13:35:42 successful loading the rootCA cert.
+edgex-vault-worker | INFO: 2019/01/13 13:35:43 {&quot;keys&quot;:[&quot;564b9444eebe28b393c21a4dca1e32835b7dc27f5da03b73d22b666cb20224a9&quot;],&quot;keys_base64&quot;:[&quot;VkuURO6+KLOTwhpNyh4yg1t9wn9doDtz0itmbLICJKk=&quot;],&quot;recovery_keys&quot;:null,&quot;recovery_keys_base64&quot;:null,&quot;root_token&quot;:&quot;01dbbae4-353a-8cdf-8189-4d50e5535a6f&quot;}
+edgex-vault-worker | INFO: 2019/01/13 13:35:43 Vault has been initialized successfully.
+edgex-vault-worker | INFO: 2019/01/13 13:35:43 Vault has been unsealed successfully.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Vault Health Check HTTP Status: 200 OK (StatusCode: 200)
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Verifying Admin policy file hash (SHA256).
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Vault policy file checksum (SHA256): 5ce8d58cf7d931735f6532742f677c109a91a263bcefe9aef73ab2a69f4b43d3
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Reading Admin policy file.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Importing Vault Admin policy.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Import Policy Successfull.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Reading Kong policy file.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Importing Vault Kong policy.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Import Policy Successfull.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Creating Vault Admin token.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Create Token Successfull.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Creating Vault Kong token.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Create Token Successfull.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Successful on reading certificate from v1/secret/edgex/pki/tls/edgex-kong.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Cert&amp;key are not in the secret store yet, will need to upload them.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Load cert&amp;key pair from volume successfully, now will upload to secret store.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Trying to upload cert&amp;key to secret store.
+edgex-vault-worker | INFO: 2019/01/13 13:35:48 Successful to add certificate to the secret store.
 </code></pre></div>
-
 
 <p>Display and inspect "vault" service logs: important lines are
 highlighted</p>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker-compose logs vault
+<div class="highlight"><pre><span></span><code>sh&gt; docker-compose logs vault
 </code></pre></div>
-
 
 <p>Sample output:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">Attaching to edgex-vault</span>
-<span class="err">edgex-vault        | ==&gt; Vault server configuration:</span>
-<span class="err">edgex-vault        |</span>
-<span class="err">edgex-vault        |              Api Address: https://edgex-vault:8200</span>
-<span class="err">edgex-vault        |                      Cgo: disabled</span>
-<span class="err">edgex-vault        |          Cluster Address: https://edgex-vault:8201</span>
-<span class="err">edgex-vault        |               Listener 1: tcp (addr: &quot;edgex-vault:8200&quot;, cluster address: &quot;edgex-vault:8201&quot;, tls: enabled&quot;)</span>
-<span class="err">edgex-vault        |                Log Level: info</span>
-<span class="err">edgex-vault        |                    Mlock: supported: true, enabled: true</span>
-<span class="err">edgex-vault        |                  Storage: consul (HA available)</span>
-<span class="err">edgex-vault        |                  Version: Vault v0.10.2</span>
-<span class="err">edgex-vault        |              Version Sha: 3ee0802ed08cb7f4046c2151ec4671a076b76166</span>
-<span class="err">edgex-vault        |</span>
-<span class="err">edgex-vault        | ==&gt; Vault server started! Log data will stream in below:</span>
-<span class="err">edgex-vault        |</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.549Z [INFO ] core: security barrier not initialized</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.551Z [INFO ] core: security barrier not initialized</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.554Z [INFO ] core: security barrier initialized: shares=1 threshold=1</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.575Z [INFO ] core: post-unseal setup starting</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.583Z [INFO ] core: loaded wrapping token key</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.583Z [INFO ] core: successfully setup plugin catalog: plugin-directory=</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.584Z [INFO ] core: no mounts; adding default mount table</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.585Z [INFO ] core: successfully mounted backend: type=kv path=secret/</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.586Z [INFO ] core: successfully mounted backend: type=cubbyhole path=cubbyhole/</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.586Z [INFO ] core: successfully mounted backend: type=system path=sys/</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.586Z [INFO ] core: successfully mounted backend: type=identity path=identity/</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.593Z [INFO ] core: restoring leases</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.593Z [INFO ] rollback: starting rollback manager</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.594Z [INFO ] expiration: lease restore complete</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.596Z [INFO ] identity: entities restored</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.597Z [INFO ] identity: groups restored</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.597Z [INFO ] core: post-unseal setup complete</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.597Z [INFO ] core: core/startClusterListener: starting listener: listener_address=172.19.0.4:8201</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.597Z [INFO ] core: core/startClusterListener: serving cluster requests: cluster_listen_address=172.19.0.4:8201</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.600Z [INFO ] core: root token generated</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.600Z [INFO ] core: pre-seal teardown starting</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.600Z [INFO ] core: stopping cluster listeners</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.600Z [INFO ] core: shutting down forwarding rpc listeners</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:42.600Z [INFO ] core: forwarding rpc listeners stopped</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.099Z [INFO ] core: rpc listeners successfully shut down</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.099Z [INFO ] core: cluster listeners successfully shut down</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.100Z [INFO ] rollback: stopping rollback manager</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.100Z [INFO ] core: pre-seal teardown complete</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.105Z [INFO ] core: vault is unsealed</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.105Z [INFO ] core: entering standby mode</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.109Z [INFO ] core: acquired lock, enabling active operation</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.134Z [INFO ] core: post-unseal setup starting</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.135Z [INFO ] core: loaded wrapping token key</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.135Z [INFO ] core: successfully setup plugin catalog: plugin-directory=</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.137Z [INFO ] core: successfully mounted backend: type=kv path=secret/</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.137Z [INFO ] core: successfully mounted backend: type=system path=sys/</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.137Z [INFO ] core: successfully mounted backend: type=identity path=identity/</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.137Z [INFO ] core: successfully mounted backend: type=cubbyhole path=cubbyhole/</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.141Z [INFO ] core: restoring leases</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.142Z [INFO ] rollback: starting rollback manager</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.142Z [INFO ] expiration: lease restore complete</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.143Z [INFO ] identity: entities restored</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.143Z [INFO ] identity: groups restored</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.144Z [INFO ] core: post-unseal setup complete</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.144Z [INFO ] core: core/startClusterListener: starting listener: listener_address=172.19.0.4:8201</span>
-<span class="err">edgex-vault        | 2019-01-13T13:35:43.144Z [INFO ] core: core/startClusterListener: serving cluster requests: cluster_listen_address=172.19.0.4:8201</span>
+<div class="highlight"><pre><span></span><code>Attaching to edgex-vault
+edgex-vault        | ==&gt; Vault server configuration:
+edgex-vault        |
+edgex-vault        |              Api Address: https://edgex-vault:8200
+edgex-vault        |                      Cgo: disabled
+edgex-vault        |          Cluster Address: https://edgex-vault:8201
+edgex-vault        |               Listener 1: tcp (addr: &quot;edgex-vault:8200&quot;, cluster address: &quot;edgex-vault:8201&quot;, tls: enabled&quot;)
+edgex-vault        |                Log Level: info
+edgex-vault        |                    Mlock: supported: true, enabled: true
+edgex-vault        |                  Storage: consul (HA available)
+edgex-vault        |                  Version: Vault v0.10.2
+edgex-vault        |              Version Sha: 3ee0802ed08cb7f4046c2151ec4671a076b76166
+edgex-vault        |
+edgex-vault        | ==&gt; Vault server started! Log data will stream in below:
+edgex-vault        |
+edgex-vault        | 2019-01-13T13:35:42.549Z [INFO ] core: security barrier not initialized
+edgex-vault        | 2019-01-13T13:35:42.551Z [INFO ] core: security barrier not initialized
+edgex-vault        | 2019-01-13T13:35:42.554Z [INFO ] core: security barrier initialized: shares=1 threshold=1
+edgex-vault        | 2019-01-13T13:35:42.575Z [INFO ] core: post-unseal setup starting
+edgex-vault        | 2019-01-13T13:35:42.583Z [INFO ] core: loaded wrapping token key
+edgex-vault        | 2019-01-13T13:35:42.583Z [INFO ] core: successfully setup plugin catalog: plugin-directory=
+edgex-vault        | 2019-01-13T13:35:42.584Z [INFO ] core: no mounts; adding default mount table
+edgex-vault        | 2019-01-13T13:35:42.585Z [INFO ] core: successfully mounted backend: type=kv path=secret/
+edgex-vault        | 2019-01-13T13:35:42.586Z [INFO ] core: successfully mounted backend: type=cubbyhole path=cubbyhole/
+edgex-vault        | 2019-01-13T13:35:42.586Z [INFO ] core: successfully mounted backend: type=system path=sys/
+edgex-vault        | 2019-01-13T13:35:42.586Z [INFO ] core: successfully mounted backend: type=identity path=identity/
+edgex-vault        | 2019-01-13T13:35:42.593Z [INFO ] core: restoring leases
+edgex-vault        | 2019-01-13T13:35:42.593Z [INFO ] rollback: starting rollback manager
+edgex-vault        | 2019-01-13T13:35:42.594Z [INFO ] expiration: lease restore complete
+edgex-vault        | 2019-01-13T13:35:42.596Z [INFO ] identity: entities restored
+edgex-vault        | 2019-01-13T13:35:42.597Z [INFO ] identity: groups restored
+edgex-vault        | 2019-01-13T13:35:42.597Z [INFO ] core: post-unseal setup complete
+edgex-vault        | 2019-01-13T13:35:42.597Z [INFO ] core: core/startClusterListener: starting listener: listener_address=172.19.0.4:8201
+edgex-vault        | 2019-01-13T13:35:42.597Z [INFO ] core: core/startClusterListener: serving cluster requests: cluster_listen_address=172.19.0.4:8201
+edgex-vault        | 2019-01-13T13:35:42.600Z [INFO ] core: root token generated
+edgex-vault        | 2019-01-13T13:35:42.600Z [INFO ] core: pre-seal teardown starting
+edgex-vault        | 2019-01-13T13:35:42.600Z [INFO ] core: stopping cluster listeners
+edgex-vault        | 2019-01-13T13:35:42.600Z [INFO ] core: shutting down forwarding rpc listeners
+edgex-vault        | 2019-01-13T13:35:42.600Z [INFO ] core: forwarding rpc listeners stopped
+edgex-vault        | 2019-01-13T13:35:43.099Z [INFO ] core: rpc listeners successfully shut down
+edgex-vault        | 2019-01-13T13:35:43.099Z [INFO ] core: cluster listeners successfully shut down
+edgex-vault        | 2019-01-13T13:35:43.100Z [INFO ] rollback: stopping rollback manager
+edgex-vault        | 2019-01-13T13:35:43.100Z [INFO ] core: pre-seal teardown complete
+edgex-vault        | 2019-01-13T13:35:43.105Z [INFO ] core: vault is unsealed
+edgex-vault        | 2019-01-13T13:35:43.105Z [INFO ] core: entering standby mode
+edgex-vault        | 2019-01-13T13:35:43.109Z [INFO ] core: acquired lock, enabling active operation
+edgex-vault        | 2019-01-13T13:35:43.134Z [INFO ] core: post-unseal setup starting
+edgex-vault        | 2019-01-13T13:35:43.135Z [INFO ] core: loaded wrapping token key
+edgex-vault        | 2019-01-13T13:35:43.135Z [INFO ] core: successfully setup plugin catalog: plugin-directory=
+edgex-vault        | 2019-01-13T13:35:43.137Z [INFO ] core: successfully mounted backend: type=kv path=secret/
+edgex-vault        | 2019-01-13T13:35:43.137Z [INFO ] core: successfully mounted backend: type=system path=sys/
+edgex-vault        | 2019-01-13T13:35:43.137Z [INFO ] core: successfully mounted backend: type=identity path=identity/
+edgex-vault        | 2019-01-13T13:35:43.137Z [INFO ] core: successfully mounted backend: type=cubbyhole path=cubbyhole/
+edgex-vault        | 2019-01-13T13:35:43.141Z [INFO ] core: restoring leases
+edgex-vault        | 2019-01-13T13:35:43.142Z [INFO ] rollback: starting rollback manager
+edgex-vault        | 2019-01-13T13:35:43.142Z [INFO ] expiration: lease restore complete
+edgex-vault        | 2019-01-13T13:35:43.143Z [INFO ] identity: entities restored
+edgex-vault        | 2019-01-13T13:35:43.143Z [INFO ] identity: groups restored
+edgex-vault        | 2019-01-13T13:35:43.144Z [INFO ] core: post-unseal setup complete
+edgex-vault        | 2019-01-13T13:35:43.144Z [INFO ] core: core/startClusterListener: starting listener: listener_address=172.19.0.4:8201
+edgex-vault        | 2019-01-13T13:35:43.144Z [INFO ] core: core/startClusterListener: serving cluster requests: cluster_listen_address=172.19.0.4:8201
 </code></pre></div>
-
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2389,14 +2730,12 @@ highlighted</p>
 </div>
 <p>Display and inspect the created container states: important lines are
 highlighted</p>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker-compose ps
+<div class="highlight"><pre><span></span><code>sh&gt; docker-compose ps
 </code></pre></div>
-
 
 <p>Sample output:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">Name                     Command               State                                     Ports</span>
+<div class="highlight"><pre><span></span><code>Name                     Command               State                                     Ports
 </code></pre></div>
-
 
 <blockquote>
 <p>---------------------------------------------------------------------------------------------------------------------------------------edgex-config-seed
@@ -2415,7 +2754,7 @@ processing (exit code 0)</p>
 </div>
 <p>Display and inspect the created container volumes: important lines are
 highlighted</p>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker volume ls
+<div class="highlight"><pre><span></span><code>sh&gt; docker volume ls
 DRIVER              VOLUME NAME
 <span class="nb">local</span>               security-secret-store_consul-config
 <span class="nb">local</span>               security-secret-store_consul-data
@@ -2426,17 +2765,15 @@ DRIVER              VOLUME NAME
 <span class="nb">local</span>               security-secret-store_vault-logs
 </code></pre></div>
 
-
 <p>Display and inspect the container network
 (<code>security-secret-store_edgex-network</code>): important lines are highlighted</p>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker network ls
+<div class="highlight"><pre><span></span><code>sh&gt; docker network ls
 NETWORK ID          NAME                                  DRIVER              SCOPE
 63227826fbc7        bridge                                bridge              <span class="nb">local</span>
 60763abffde3        host                                  host                <span class="nb">local</span>
 1d236ab1dbbd        none                                  null                <span class="nb">local</span>
 0a7f7266d102        security-secret-store_edgex-network   bridge              <span class="nb">local</span>
 </code></pre></div>
-
 
 <h3 id="using-consul-web-ui">Using Consul Web UI</h3>
 <p>For learning and verification purposes one might use the Consul Web UI
@@ -2493,7 +2830,7 @@ Each Vault secret is encrypted before being transmitted to Consul
 node(s).</p>
 <p><img alt="image" src="../EdgeX-UI-Consul-09.png" /></p>
 <h3 id="shell-access-to-consul-container-and-using-consul-cli">Shell Access to Consul Container and Using Consul CLI</h3>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker <span class="nb">exec</span> -it -e <span class="nv">PS1</span><span class="o">=</span><span class="s1">&#39;\u@\h:\w \$ &#39;</span> edgex-core-consul sh
+<div class="highlight"><pre><span></span><code>sh&gt; docker <span class="nb">exec</span> -it -e <span class="nv">PS1</span><span class="o">=</span><span class="s1">&#39;\u@\h:\w \$ &#39;</span> edgex-core-consul sh
 
 root@edgex-core-consul:/ <span class="c1"># consul members</span>
 Node               Address         Status  Type    Build  Protocol  DC   Segment
@@ -2508,7 +2845,6 @@ consul
 edgex-mongo
 vault
 </code></pre></div>
-
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2525,35 +2861,34 @@ container should be accessed to then modify the JSON file. The absolute
 path being <code>/vault/config/local.json</code>. To reload the new configuration
 simply send Vault PID a HUP signal to trigger a configuration reload.</p>
 <p>Sample Vault server configuration file:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">listener</span> <span class="ss">&quot;tcp&quot;</span> <span class="err">{</span>
-<span class="n">address</span> <span class="o">=</span> <span class="ss">&quot;edgex-vault:8200&quot;</span>
-<span class="n">tls_disable</span> <span class="o">=</span> <span class="ss">&quot;0&quot;</span>
-<span class="n">cluster_address</span> <span class="o">=</span> <span class="ss">&quot;edgex-vault:8201&quot;</span>
-<span class="n">tls_min_version</span> <span class="o">=</span> <span class="ss">&quot;tls12&quot;</span>
-<span class="n">tls_client_ca_file</span> <span class="o">=</span><span class="ss">&quot;/vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem&quot;</span>
-<span class="n">tls_cert_file</span> <span class="o">=</span><span class="ss">&quot;/vault/config/pki/EdgeXFoundryCA/edgex-vault.pem&quot;</span>
-<span class="n">tls_key_file</span> <span class="o">=</span> <span class="ss">&quot;/vault/config/pki/EdgeXFoundryCA/edgex-vault.priv.key&quot;</span>
-<span class="err">}</span>
+<div class="highlight"><pre><span></span><code>listener &quot;tcp&quot; {
+address = &quot;edgex-vault:8200&quot;
+tls_disable = &quot;0&quot;
+cluster_address = &quot;edgex-vault:8201&quot;
+tls_min_version = &quot;tls12&quot;
+tls_client_ca_file =&quot;/vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem&quot;
+tls_cert_file =&quot;/vault/config/pki/EdgeXFoundryCA/edgex-vault.pem&quot;
+tls_key_file = &quot;/vault/config/pki/EdgeXFoundryCA/edgex-vault.priv.key&quot;
+}
 
-<span class="n">backend</span> <span class="ss">&quot;consul&quot;</span> <span class="err">{</span>
-<span class="n">path</span> <span class="o">=</span> <span class="ss">&quot;vault/&quot;</span>
-<span class="n">address</span> <span class="o">=</span> <span class="ss">&quot;edgex-core-consul:8500&quot;</span>
-<span class="n">scheme</span> <span class="o">=</span> <span class="ss">&quot;http&quot;</span>
-<span class="n">redirect_addr</span> <span class="o">=</span> <span class="ss">&quot;https://edgex-vault:8200&quot;</span>
-<span class="n">cluster_addr</span> <span class="o">=</span> <span class="ss">&quot;https://edgex-vault:8201&quot;</span>
-<span class="err">}</span>
+backend &quot;consul&quot; {
+path = &quot;vault/&quot;
+address = &quot;edgex-core-consul:8500&quot;
+scheme = &quot;http&quot;
+redirect_addr = &quot;https://edgex-vault:8200&quot;
+cluster_addr = &quot;https://edgex-vault:8201&quot;
+}
 
-<span class="n">default_lease_ttl</span> <span class="o">=</span> <span class="ss">&quot;168h&quot;</span>
-<span class="n">max_lease_ttl</span> <span class="o">=</span> <span class="ss">&quot;720h&quot;</span>
+default_lease_ttl = &quot;168h&quot;
+max_lease_ttl = &quot;720h&quot;
 </code></pre></div>
-
 
 <p>The <code>listener</code> clause refers to Vault server process (port, TLS and
 server name), the <code>backend</code> clause refers to the storage backend (i.e.
 Consul).</p>
 <p>To modify this configuration file, execute a shell session in the
 running Vault container:</p>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker <span class="nb">exec</span> -it -e <span class="nv">PS1</span><span class="o">=</span><span class="s1">&#39;\u@\h:\w \$ &#39;</span> -e <span class="nv">VAULT_CAPATH</span><span class="o">=</span><span class="s1">&#39;/vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem&#39;</span> edgex-vault sh
+<div class="highlight"><pre><span></span><code>sh&gt; docker <span class="nb">exec</span> -it -e <span class="nv">PS1</span><span class="o">=</span><span class="s1">&#39;\u@\h:\w \$ &#39;</span> -e <span class="nv">VAULT_CAPATH</span><span class="o">=</span><span class="s1">&#39;/vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem&#39;</span> edgex-vault sh
 
 root@edgex-vault:/vault <span class="c1"># ls -l</span>
 total <span class="m">12</span>
@@ -2561,7 +2896,6 @@ drwxr-xr-x    <span class="m">4</span> vault    vault         <span class="m">40
 drwxr-xr-x    <span class="m">2</span> vault    vault         <span class="m">4096</span> Jun  <span class="m">7</span>  <span class="m">2018</span> file
 drwxr-xr-x    <span class="m">2</span> vault    vault         <span class="m">4096</span> Jun  <span class="m">7</span>  <span class="m">2018</span> logs
 </code></pre></div>
-
 
 <p>Pay attention to the <code>VAULT_CAPATH</code> environment variable passed to the
 session. This is necessary in order to run succesful Vault CLI command.
@@ -2579,32 +2913,31 @@ configuration file (see above local.json), with parameter
 <code>tls_client_ca_file ="/vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem"</code>.</p>
 <p>The <code>local.json</code> configuration file can be read and modified within the
 running container:</p>
-<div class="codehilite"><pre><span></span><code><span class="o">&lt;</span><span class="n">root</span><span class="nv">@edgex</span><span class="o">-</span><span class="n">vault</span><span class="o">&gt;</span><span class="err">:</span><span class="o">/</span><span class="n">vault</span><span class="w"> </span><span class="err">\#</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="n">config</span><span class="o">/</span><span class="k">local</span><span class="p">.</span><span class="n">json</span><span class="w"> </span>
-<span class="n">listener</span><span class="w"> </span><span class="ss">&quot;tcp&quot;</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;edgex-vault:8200&quot;</span><span class="w"> </span>
-<span class="w">    </span><span class="n">tls</span><span class="err">\</span><span class="n">_disable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;0&quot;</span><span class="w"> </span>
-<span class="w">    </span><span class="n">cluster</span><span class="err">\</span><span class="n">_address</span><span class="w"> </span><span class="o">=</span><span class="ss">&quot;edgex-vault:8201&quot;</span><span class="w"> </span>
-<span class="w">    </span><span class="n">tls</span><span class="err">\</span><span class="n">_min</span><span class="err">\</span><span class="n">_version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;tls12&quot;</span><span class="w"> </span>
-<span class="w">    </span><span class="n">tls</span><span class="err">\</span><span class="n">_client</span><span class="err">\</span><span class="n">_ca</span><span class="err">\</span><span class="n">_file</span><span class="o">=</span><span class="ss">&quot;/vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem&quot;</span><span class="w"> </span>
-<span class="w">    </span><span class="n">tls</span><span class="err">\</span><span class="n">_cert</span><span class="err">\</span><span class="n">_file</span><span class="o">=</span><span class="ss">&quot;/vault/config/pki/EdgeXFoundryCA/edgex-vault.pem&quot;</span><span class="w"> </span>
-<span class="w">    </span><span class="n">tls</span><span class="err">\</span><span class="n">_key</span><span class="err">\</span><span class="n">_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;/vault/config/pki/EdgeXFoundryCA/edgex-vault.priv.key&quot;</span><span class="w"> </span>
-<span class="err">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code>&lt;root@edgex-vault&gt;:/vault \# cat config/local.json 
+listener &quot;tcp&quot; {
+    address = &quot;edgex-vault:8200&quot; 
+    tls\_disable = &quot;0&quot; 
+    cluster\_address =&quot;edgex-vault:8201&quot; 
+    tls\_min\_version = &quot;tls12&quot; 
+    tls\_client\_ca\_file=&quot;/vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem&quot; 
+    tls\_cert\_file=&quot;/vault/config/pki/EdgeXFoundryCA/edgex-vault.pem&quot; 
+    tls\_key\_file = &quot;/vault/config/pki/EdgeXFoundryCA/edgex-vault.priv.key&quot; 
+}
 
-<span class="n">backend</span><span class="w"> </span><span class="ss">&quot;consul&quot;</span><span class="w"> </span><span class="err">{</span><span class="w"> </span>
-<span class="k">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;vault/&quot;</span><span class="w"> </span>
-<span class="n">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;edgex-core-consul:8500&quot;</span><span class="w"> </span>
-<span class="n">scheme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;http&quot;</span><span class="w"> </span>
-<span class="n">redirect</span><span class="err">\</span><span class="n">_addr</span><span class="w"> </span><span class="o">=</span><span class="ss">&quot;&lt;https://edgex-vault:8200&gt;&quot;</span><span class="w"> </span>
-<span class="n">cluster</span><span class="err">\</span><span class="n">_addr</span><span class="w"> </span><span class="o">=</span><span class="ss">&quot;&lt;https://edgex-vault:8201&gt;&quot;</span><span class="w"> </span>
-<span class="err">}</span><span class="w"></span>
+backend &quot;consul&quot; { 
+path = &quot;vault/&quot; 
+address = &quot;edgex-core-consul:8500&quot; 
+scheme = &quot;http&quot; 
+redirect\_addr =&quot;&lt;https://edgex-vault:8200&gt;&quot; 
+cluster\_addr =&quot;&lt;https://edgex-vault:8201&gt;&quot; 
+}
 
-<span class="k">default</span><span class="err">\</span><span class="n">_lease</span><span class="err">\</span><span class="n">_ttl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;168h&quot;</span><span class="w"> </span>
-<span class="nf">max</span><span class="err">\</span><span class="n">_lease</span><span class="err">\</span><span class="n">_ttl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;720h&quot;</span><span class="w"></span>
+default\_lease\_ttl = &quot;168h&quot; 
+max\_lease\_ttl = &quot;720h&quot;
 </code></pre></div>
 
-
 <p>A sample Vault CLI command to check Vault status:</p>
-<div class="codehilite"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault status</span>
+<div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault status</span>
 Key             Value
 ---             -----
 Seal Type       shamir
@@ -2619,10 +2952,9 @@ HA Cluster      https://edgex-vault:8201
 HA Mode         active
 </code></pre></div>
 
-
 <p>All the X.509 PKI materials including the self-signing CA are located
 under <code>/vault/config/pki/EdgeXFoundryCA</code>.</p>
-<div class="codehilite"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># ls -l config/pki/EdgeXFoundryCA/</span>
+<div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># ls -l config/pki/EdgeXFoundryCA/</span>
 total <span class="m">24</span>
 -rw-r--r--    <span class="m">1</span> vault    vault          <span class="m">956</span> Dec  <span class="m">5</span> <span class="m">14</span>:05 EdgeXFoundryCA.pem
 -r--------    <span class="m">1</span> vault    vault          <span class="m">306</span> Dec  <span class="m">5</span> <span class="m">14</span>:05 EdgeXFoundryCA.priv.key
@@ -2631,7 +2963,6 @@ total <span class="m">24</span>
 -rw-r--r--    <span class="m">1</span> vault    vault         <span class="m">1001</span> Dec  <span class="m">5</span> <span class="m">14</span>:05 edgex-vault.pem
 -rw-------    <span class="m">1</span> vault    vault          <span class="m">306</span> Dec  <span class="m">5</span> <span class="m">14</span>:05 edgex-vault.priv.key
 </code></pre></div>
-
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2661,7 +2992,7 @@ have to be built.</p>
 <a href="https://github.com/edgexfoundry/security-secret-store/blob/master/Dockerfile.vault">Dockerfile</a>
 contains the <code>pkisetup</code> executions, see below for a corresponding
 excerpt (highlighted lines):</p>
-<div class="codehilite"><pre><span></span><code><span class="c"># Create assets folder (needed for unseal key/s, root token and tmp)</span>
+<div class="highlight"><pre><span></span><code><span class="c"># Create assets folder (needed for unseal key/s, root token and tmp)</span>
 <span class="c"># Run CA/Vault and Kong PKI/TLS setups and peform housekeeping tasks</span>
 <span class="k">RUN</span> mkdir /vault/config/assets <span class="o">&amp;&amp;</span> <span class="se">\</span>
     chown -R vault:vault /vault <span class="o">&amp;&amp;</span> <span class="se">\</span>
@@ -2673,7 +3004,6 @@ excerpt (highlighted lines):</p>
     chown -R vault:vault /vault/config/pki <span class="o">&amp;&amp;</span> <span class="se">\</span>
 rm -f /vault/pkisetup /vault/pkisetup-vault.json /vault/pkisetup-kong.json
 </code></pre></div>
-
 
 <p>EdgeX Foundry Docker environment implements a basic Vault/Consul
 architecture that does not provide high availability guaranties. Only
@@ -2697,21 +3027,19 @@ the <code>VAULT_CAPATH</code> environment variable.</p>
 <p>See HashiCorp Vault API documentation for further details on syntax and
 usage (<a href="https://www.vaultproject.io/api/">https://www.vaultproject.io/api/</a>).</p>
 <p>Execute a shell session in the running Vault container:</p>
-<div class="codehilite"><pre><span></span><code>sh&gt; docker <span class="nb">exec</span> -it -e <span class="nv">PS1</span><span class="o">=</span><span class="s1">&#39;\u@\h:\w \$ &#39;</span> -e <span class="nv">VAULT_CAPATH</span><span class="o">=</span><span class="s1">&#39;/vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem&#39;</span> edgex-vault sh
+<div class="highlight"><pre><span></span><code>sh&gt; docker <span class="nb">exec</span> -it -e <span class="nv">PS1</span><span class="o">=</span><span class="s1">&#39;\u@\h:\w \$ &#39;</span> -e <span class="nv">VAULT_CAPATH</span><span class="o">=</span><span class="s1">&#39;/vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem&#39;</span> edgex-vault sh
 </code></pre></div>
 
-
 <p>Locate the <code>assets</code> folder, and the <code>resp-init.json</code> file:</p>
-<div class="codehilite"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># ls -l config/assets/</span>
+<div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># ls -l config/assets/</span>
 total <span class="m">12</span>
 -rw-r--r--    <span class="m">1</span> root     root           <span class="m">366</span> Jan <span class="m">13</span> <span class="m">13</span>:35 admin-token.json
 -rw-r--r--    <span class="m">1</span> root     root           <span class="m">365</span> Jan <span class="m">13</span> <span class="m">13</span>:35 kong-token.json
 -rw-r--r--    <span class="m">1</span> root     root           <span class="m">241</span> Jan <span class="m">13</span> <span class="m">13</span>:35 resp-init.json
 </code></pre></div>
 
-
 <p>Inspect the <code>resp-init.json</code> file to grab the Vault Root Token:</p>
-<div class="codehilite"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># cat config/assets/resp-init.json</span>
+<div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># cat config/assets/resp-init.json</span>
 <span class="o">{</span>
 <span class="s2">&quot;keys&quot;</span>:<span class="o">[</span><span class="s2">&quot;564b9444eebe28b393c21a4dca1e32835b7dc27f5da03b73d22b666cb20224a9&quot;</span><span class="o">]</span>,
 <span class="s2">&quot;keys_base64&quot;</span>:<span class="o">[</span><span class="s2">&quot;VkuURO6+KLOTwhpNyh4yg1t9wn9doDtz0itmbLICJKk=&quot;</span><span class="o">]</span>,
@@ -2721,9 +3049,8 @@ total <span class="m">12</span>
 <span class="o">}</span>
 </code></pre></div>
 
-
 <p>Login to Vault using Vault CLI and the gathered Root Token:</p>
-<div class="codehilite"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault login 01dbbae4-353a-8cdf-8189-4d50e5535a6f</span>
+<div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault login 01dbbae4-353a-8cdf-8189-4d50e5535a6f</span>
 Success! You are now authenticated. The token information displayed below
 is already stored in the token helper. You <span class="k">do</span> NOT need to run <span class="s2">&quot;vault login&quot;</span>
 again. Future Vault requests will automatically use this token.
@@ -2737,9 +3064,8 @@ token_renewable    <span class="nb">false</span>
 token_policies     <span class="o">[</span>root<span class="o">]</span>
 </code></pre></div>
 
-
 <p>Perform an introspection <code>lookup</code> on the current token login:</p>
-<div class="codehilite"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault token lookup</span>
+<div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault token lookup</span>
 Key                 Value
 ---                 -----
 accessor            4d5eabf7-8710-81b1-b6a4-9ba17fdfdeb7
@@ -2758,7 +3084,6 @@ policies            <span class="o">[</span>root<span class="o">]</span>
 ttl                 <span class="m">0</span>
 </code></pre></div>
 
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Lines 9 &amp; 10: the Root Token is the only token that has no expiration
@@ -2766,14 +3091,13 @@ enforcement rules (Time to Live TTL counter).</p>
 </div>
 <p>Perform a check on the current token login to display the corresponding
 capabilities (policies):</p>
-<div class="codehilite"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault token capabilities 01dbbae4-353a-8cdf-8189-4d50e5535a6f</span>
+<div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault token capabilities 01dbbae4-353a-8cdf-8189-4d50e5535a6f</span>
 root
 </code></pre></div>
 
-
 <p>Perform a <code>list</code> request to display the currently mounted secret
 backends:</p>
-<div class="codehilite"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault secrets list</span>
+<div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault secrets list</span>
 Path          Type         Accessor              Description
 ----          ----         --------              -----------
 cubbyhole/    cubbyhole    cubbyhole_ad070930    per-token private secret storage
@@ -2781,7 +3105,6 @@ identity/     identity     identity_5397dc2f     identity store
 secret/       kv           kv_2362c227           key/value secret storage
 sys/          system       system_410e4276       system endpoints used <span class="k">for</span> control, policy and debugging
 </code></pre></div>
-
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2798,7 +3121,7 @@ service is storing each service materials into Vault using arbitrary
 paths, setting up access policies accordingly.</p>
 </div>
 <p>For example, the API Gateway (Kong) service X.509 TLS materials:</p>
-<div class="codehilite"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault list secret</span>
+<div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault list secret</span>
 Keys
 ----
 edgex/
@@ -2819,10 +3142,9 @@ Keys
 edgex-kong
 </code></pre></div>
 
-
 <p>Displaying the API gateway (Kong) service X.509 TLS materials (TLS
 certificate <code>cert</code> &amp; corresponding private key <code>key</code>):</p>
-<div class="codehilite"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault read secret/edgex/pki/tls/edgex-kong</span>
+<div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault read secret/edgex/pki/tls/edgex-kong</span>
 Key                 Value
 ---                 -----
 refresh_interval    168h
@@ -2851,7 +3173,6 @@ PVOPOZYoW/cDTCSXA1uz230ktPR5ylCvrhrbvtSdMBCGAK/Z7b/H0Q/h61qBKXPk
 -----END PRIVATE KEY-----
 </code></pre></div>
 
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>These two key values are in PEM format.</p>
@@ -2867,13 +3188,13 @@ displaying the current token name:</p>
 <p><img alt="image" src="../EdgeX-UI-Vault-02.png" />{.align-center width="275px"
 height="156px"}</p>
 <p>Select the Vault secret backend:</p>
-<p><img alt="image" src="../EdgeX-UI-Vault-03.png" />{.align-center}</p>
+<p><img alt="image" class="align-center" src="../EdgeX-UI-Vault-03.png" /></p>
 <p>Navigate the API Gateway (Kong) service X.509 TLS materials path
 (edgex/pki/tls/edgex-kong):</p>
-<p><img alt="image" src="../EdgeX-UI-Vault-04.png" />{.align-center}</p>
+<p><img alt="image" class="align-center" src="../EdgeX-UI-Vault-04.png" /></p>
 <p>The Vault UI also allows entering Vault CLI commands (see above <strong>1st
 alternative</strong>) using an embedded console:</p>
-<p><img alt="image" src="../EdgeX-UI-Vault-05.png" />{.align-center}</p>
+<p><img alt="image" class="align-center" src="../EdgeX-UI-Vault-05.png" /></p>
 <h3 id="3rd-alternative-directly-using-the-vault-http-api-with-curl-commands">3rd alternative: directly using the Vault HTTP API with cURL commands.</h3>
 <p>See paragraph <strong>Configuring the Secret Store</strong> to have more details on
 the <code>--cacert</code> option (identical purpose as the <code>VAULT_CAPATH</code>
@@ -2885,13 +3206,12 @@ gathering the Vault Root Token (ref:
 usage (<a href="https://www.vaultproject.io/api/">https://www.vaultproject.io/api/</a>).</p>
 <p>Displaying (GET) the API gateway (Kong) service X.509 TLS materials (TLS
 certificate cert &amp; corresponding private key key):</p>
-<div class="codehilite"><pre><span></span><code>curl -s --cacert /vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem <span class="se">\</span>
+<div class="highlight"><pre><span></span><code>curl -s --cacert /vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem <span class="se">\</span>
     --location <span class="se">\</span>
     --header <span class="s2">&quot;X-Vault-Token: 01dbbae4-353a-8cdf-8189-4d50e5535a6f&quot;</span> <span class="se">\</span>
     --request GET <span class="se">\</span>
     https://edgex-vault:8200/v1/secret/edgex/pki/tls/edgex-kong <span class="p">|</span> jq
 </code></pre></div>
-
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2904,7 +3224,7 @@ processor (<a href="https://stedolan.github.io/jq/">https://stedolan.github.io/j
 printing in the terminal.</p>
 </div>
 <p>Sample JSON returned:</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="nt">&quot;request_id&quot;</span><span class="p">:</span> <span class="s2">&quot;eaa80a1b-0d31-8d11-6ce1-8d9aa3ac6a19&quot;</span><span class="p">,</span>
 <span class="nt">&quot;lease_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
 <span class="nt">&quot;renewable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
@@ -2919,7 +3239,6 @@ printing in the terminal.</p>
 <span class="p">}</span>
 </code></pre></div>
 
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Lines 7 &amp; 8: the two key values (TLS certificate <code>cert</code> &amp; corresponding
@@ -2928,16 +3247,15 @@ private key <code>key</code>) are in PEM format
 </div>
 <p>Displaying (LIST) the root key path in the Vault <code>secret</code> backend for
 the EdgeX Foudry platform (<code>edgex</code>):</p>
-<div class="codehilite"><pre><span></span><code>curl -s --cacert /vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem <span class="se">\</span>
+<div class="highlight"><pre><span></span><code>curl -s --cacert /vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem <span class="se">\</span>
     --location <span class="se">\</span>
     --header <span class="s2">&quot;X-Vault-Token: 01dbbae4-353a-8cdf-8189-4d50e5535a6f&quot;</span> <span class="se">\</span>
     --request LIST <span class="se">\</span>
     https://edgex-vault:8200/v1/secret <span class="p">|</span> jq
 </code></pre></div>
 
-
 <p>Sample JSON returned:</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
     <span class="nt">&quot;request_id&quot;</span><span class="p">:</span> <span class="s2">&quot;0e0ea024-176d-21b3-73cb-99f17729b230&quot;</span><span class="p">,</span>
     <span class="nt">&quot;lease_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
     <span class="nt">&quot;renewable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
@@ -2953,19 +3271,17 @@ the EdgeX Foudry platform (<code>edgex</code>):</p>
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>Displaying (GET) the Vault seal status
 (<code>API path: /v1/sys/seal-status</code>):</p>
-<div class="codehilite"><pre><span></span><code>curl -s --cacert /vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem <span class="se">\</span>
+<div class="highlight"><pre><span></span><code>curl -s --cacert /vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem <span class="se">\</span>
     --location <span class="se">\</span>
     --header <span class="s2">&quot;X-Vault-Token: 01dbbae4-353a-8cdf-8189-4d50e5535a6f&quot;</span> <span class="se">\</span>
     --request GET <span class="se">\</span>
     https://edgex-vault:8200/v1/sys/seal-status <span class="p">|</span> jq
 </code></pre></div>
 
-
 <p>Sample JSON returned:</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
     <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;shamir&quot;</span><span class="p">,</span>
     <span class="nt">&quot;sealed&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
     <span class="nt">&quot;t&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
@@ -2977,7 +3293,6 @@ the EdgeX Foudry platform (<code>edgex</code>):</p>
     <span class="nt">&quot;cluster_id&quot;</span><span class="p">:</span> <span class="s2">&quot;fe6d18bf-fa9c-0d52-3278-bca0390af023&quot;</span>
 <span class="p">}</span>
 </code></pre></div>
-
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2997,9 +3312,6 @@ man-style documentation:</p>
     secret management</li>
 </ul>
                 
-                  
-                
-                
               
               
                 
@@ -3015,34 +3327,34 @@ man-style documentation:</p>
 <footer class="md-footer">
   
     <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../Ch-Security/" title="Security" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+          <a href="../Ch-Security/" title="Security" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
             </div>
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
                 Security
-              </span>
+              </div>
             </div>
           </a>
         
         
-          <a href="../Ch-APIGateway/" title="API Gateway" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
+          <a href="../Ch-APIGateway/" title="API Gateway" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
                 API Gateway
-              </span>
+              </div>
             </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" /></svg>
             </div>
           </a>
         
@@ -3057,21 +3369,31 @@ man-style documentation:</p>
             Copyright &copy; 2020 EdgeX Foundry
           </div>
         
-        powered by
-        <a href="https://www.mkdocs.org" target="_blank" rel="noopener">MkDocs</a>
-        and
+        Made with
         <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-          Material for MkDocs</a>
+          Material for MkDocs
+        </a>
       </div>
       
   <div class="md-footer-social">
-    <link rel="stylesheet" href="../../../assets/fonts/font-awesome.css">
     
-      <a href="https://github.com/edgexfoundry" target="_blank" rel="noopener" title="github" class="md-footer-social__link fa fa-github"></a>
+      
+      
+      <a href="https://github.com/edgexfoundry" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+      </a>
     
-      <a href="https://twitter.com/edgexfoundry" target="_blank" rel="noopener" title="twitter" class="md-footer-social__link fa fa-twitter"></a>
+      
+      
+      <a href="https://twitter.com/edgexfoundry" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
     
-      <a href="https://www.linkedin.com/company/edgexfoundry" target="_blank" rel="noopener" title="linkedin" class="md-footer-social__link fa fa-linkedin"></a>
+      
+      
+      <a href="https://www.linkedin.com/company/edgexfoundry" target="_blank" rel="noopener" title="www.linkedin.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+      </a>
     
   </div>
 
@@ -3081,9 +3403,18 @@ man-style documentation:</p>
       
     </div>
     
-      <script src="../../../assets/javascripts/application.c33a9706.js"></script>
+      <script src="../../../assets/javascripts/vendor.36cbf620.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
       
-      <script>app.initialize({version:"1.1",url:{base:"../../.."}})</script>
+      <script>
+        app = initialize({
+          base: "../../..",
+          features: ["tabs"],
+          search: Object.assign({
+            worker: "../../../assets/javascripts/worker/search.7f7c8775.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
       
         <script src="../../../assets/javascripts/version-select.js"></script>
       
