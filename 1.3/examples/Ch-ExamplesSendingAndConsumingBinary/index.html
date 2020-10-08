@@ -2237,7 +2237,6 @@ following format is used:</p>
   <span class="nt">units</span><span class="p">:</span>
       <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;Binary&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;CameraSnapshot&quot;</span> <span class="p p-Indicator">}</span>
 </code></pre></div>
-
 <h3 id="device-service">Device Service</h3>
 <p>Here is a snippet from a hypothetical Device Service's
 <code>HandleReadCommands()</code> method that produces an event that
@@ -2252,7 +2251,6 @@ represents a JPEG image captured from a camera:</p>
   responses[i] = cv
 }
 </code></pre></div>
-
 <h2 id="calling-device-service-command">Calling Device Service Command</h2>
 <p>Querying core-metadata for the Device's Commands and DeviceID provides
 the following as the URL to request a reading from the snapshot command:
@@ -2301,7 +2299,6 @@ func main() {
   ioutil.WriteFile(“/Users/johndoe/Desktop/image.jpeg”, imgBytes, 0644)
 }
 </code></pre></div>
-
 <p>In the code above, the CBOR data is read into a buffer, a
 <code>code.Decoder</code> is created to decode the CBOR data, an EdgeX
 Event struct is created, and a pointer is passed into the decoder's
@@ -2338,7 +2335,6 @@ check(err)
 cv, err := sdkModel.NewBinaryValue(reqs[i].DeviceResourceName, 0, buffer.Bytes())
 responses[i] = cv
 </code></pre></div>
-
 <p>This code takes the anonymous struct with fields X, Y, Z, and Bar (of
 different types) and serializes it into a byte slice using the same
 <code>codec</code> library, and passing the output to
@@ -2374,7 +2370,6 @@ place to get the structure out of the binary payload.</p>
   fmt.Println(foo)
 }
 </code></pre></div>
-
 <p>This code takes a command response in the same format as the previous
 example, but uses the <code>codec</code> library to decode the CBOR
 data inside the EdgeX Reading's <code>BinaryValue</code> field.</p>
@@ -2451,7 +2446,6 @@ func check(e error) {
     }
 }
 </code></pre></div>
-
 <p>In the code above, as a final step, the CBOR payload has been written to the filesystem,
 into a file that we are calling <code>CBOR_Binary</code>.</p>
 <p>Here is how to use the <code>PUT</code> command: Via the <code>--data-binary</code> flag in <code>cURL</code>, supply as

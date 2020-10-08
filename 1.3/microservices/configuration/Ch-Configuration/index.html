@@ -2724,7 +2724,6 @@ modifications to the other settings (read-only configuration) would require a re
 <span class="l l-Scalar l-Scalar-Plain">EnableRemote = false</span>  
 <span class="l l-Scalar l-Scalar-Plain">File = &#39;&#39;</span>
 </code></pre></div>
-
 <h2 id="configuration-provider">Configuration Provider</h2>
 <p>You can supply and manage configuration in a centralized manner by utilizing the <code>-cp/--configProvider=consul.&lt;url&gt;</code> flag when starting a service. If the flag is provided and pointed to an application such as <a href="https://www.consul.io/">HashiCorp's Consul</a>, the service will bootstrap its configuration into Consul if it doesn't exist. If configuration does already exist, it will load the content from the given location applying any environment variables overrides of which the service is aware. Integration with the configuration provider is handled through the
 <a href="https://github.com/edgexfoundry/go-mod-configuration">go-mod-configuration</a> module referenced by all services.</p>
@@ -2769,11 +2768,9 @@ Registry:</p>
 image by the docker pull command:</p>
 <div class="highlight"><pre><span></span><code>docker pull edgexfoundry/docker-core-consul
 </code></pre></div>
-
 <p>Then, startup Consul using Docker container by the Docker run command:</p>
 <div class="highlight"><pre><span></span><code>docker run -p <span class="m">8400</span>:8400 -p <span class="m">8500</span>:8500 -p <span class="m">8600</span>:8600 <span class="se">\-</span>-name edgex-core-consul <span class="se">\-</span>-hostname edgex-core-consul -d edgexfoundry/docker-core-consul
 </code></pre></div>
-
 <p>These are the command steps to start up Consul and import the default
 configuration data:</p>
 <ol>
@@ -2781,7 +2778,6 @@ configuration data:</p>
 <p>login to Docker Hub:</p>
 <div class="highlight"><pre><span></span><code>docker login
 </code></pre></div>
-
 </li>
 <li>
 <p>A Docker network is needed to enable one Docker container to
@@ -2789,19 +2785,16 @@ configuration data:</p>
     that establishes a client-server relationship:</p>
 <div class="highlight"><pre><span></span><code>docker network create edgex-network
 </code></pre></div>
-
 </li>
 <li>
 <p>Create a Docker volume container for EdgeX Foundry:</p>
 <div class="highlight"><pre><span></span><code>docker run -it --name edgex-files --net<span class="o">=</span>edgex-network -v /data/db -v /edgex/logs -v /consul/config -v /consul/data -d edgexfoundry/docker-edgex-volume
 </code></pre></div>
-
 </li>
 <li>
 <p>Create the Consul container:</p>
 <div class="highlight"><pre><span></span><code>docker run -p <span class="m">8400</span>:8400 -p <span class="m">8500</span>:8500 -p <span class="m">8600</span>:8600 --name edgex-core-consul --hostname edgex-core-consul --net<span class="o">=</span>edgex-network --volumes-from edgex-files -d edgexfoundry/docker-core-consul
 </code></pre></div>
-
 </li>
 <li>
 <p>Verify the result: <a href="http://localhost:8500/ui">http://localhost:8500/ui</a></p>
@@ -2821,7 +2814,6 @@ configuration data:</p>
 
 <span class="c1"># ${DATA_FOLDER} could be any folder to put the data files of Consul and it needs the read/write permission.</span>
 </code></pre></div>
-
 </li>
 <li>
 <p>Verify the result: <a href="http://localhost:8500/ui">http://localhost:8500/ui</a></p>

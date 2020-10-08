@@ -14,19 +14,20 @@ deviceResources:
             { type: "random" }
         properties:
             value:
-                { type: "int32", readWrite: "R" }
+                { type: "INT32", readWrite: "R", defaultValue: "0.00", minimum: "0.00", maximum: "100.00"  }
             units:
-                { type: "String", readWrite: "R" }
+                { type: "String", readWrite: "R", defaultValue: "" }
 
 deviceCommands:
--
-  name: "randomnumber"
-  get:
-  - { operation: "get", deviceResource: "randomnumber" }
+    -
+        name: "Random"
+        get:
+            -
+                { operation: "get", object: "randomnumber", property: "value", parameter: "Random" }
 
 coreCommands:
   -
-    name: "randomnumber"
+    name: "Random"
     get:
         path: "/api/v1/device/{deviceId}/Random"
         responses:

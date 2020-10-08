@@ -2295,7 +2295,6 @@ that looks something like this:</p>
     <span class="nt">&quot;CanineCount&quot;</span><span class="p">:</span> <span class="mi">2</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>Here is an example set of responses that might be used for a <code>get</code> command
 in the camera example. Note that one response is coded as the "good"
 response (code 200) while the other is for "error" response (code
@@ -2330,7 +2329,6 @@ what is populated in the body of the command call when the
   <span class="nt">&quot;SnapshotDuration&quot;</span><span class="p">:</span> <span class="mi">10</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>If you open the <a href="../EdgeX_CameraMonitorProfile.yml">Camera Monitor Profile YAML file</a>, see that there are commands to get people and dog
 counts (and a command called Counts, which provides both values). There
 are also commands to <code>get</code> and <code>put</code> the snapshot duration and scan depth.</p>
@@ -2353,7 +2351,6 @@ are also commands to <code>get</code> and <code>put</code> the snapshot duration
 <p>Make a curl POST request as shown below.</p>
 <div class="highlight"><pre><span></span><code>curl -F <span class="s1">&#39;file=@/path/to/your/profile/here/EdgeX_CameraMonitorProfile.yml&#39;</span> localhost:48081/api/v1/deviceprofile/uploadfile
 </code></pre></div>
-
 <p>If your API call is successful, you will get a generated ID (a UUID) for your new <code>DeviceProfile</code>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>

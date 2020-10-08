@@ -2367,12 +2367,10 @@ Compose.</p>
 <div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">x86</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code>wget https://raw.githubusercontent.com/edgexfoundry/developer-scripts/master/releases/geneva/compose-files/docker-compose-geneva-redis-no-secty.yml -O docker-compose.yml
 </code></pre></div>
-
 </div>
 <input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">ARM</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code>wget https://raw.githubusercontent.com/edgexfoundry/developer-scripts/master/releases/geneva/compose-files/docker-compose-geneva-mongo-no-secty-arm64.yml -O docker-compose.yml
 </code></pre></div>
-
 </div>
 </div>
 <div class="admonition note">
@@ -2386,14 +2384,12 @@ start EdgeX!</p>
 <p>In a command terminal, change directories to the location of your  docker-compose.yml.  Run the following command in the terminal to pull (fetch) and then start the EdgeX containers.</p>
 <div class="highlight"><pre><span></span><code>docker-compose up -d
 </code></pre></div>
-
 <div class="admonition info">
 <p class="admonition-title">Info</p>
 <p>If you wish, you can fetch the images first and then run them.  This allows you to make sure the EdgeX images you need are all available before trying to run.</p>
 <div class="highlight"><pre><span></span><code>docker-compose pull
 docker-compose up -d
 </code></pre></div>
-
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2404,7 +2400,6 @@ docker-compose up -d
 containers downloaded and started.</p>
 <div class="highlight"><pre><span></span><code>docker-compose ps
 </code></pre></div>
-
 <p><img alt="image" src="../EdgeX_GettingStartedUsrActiveContainers.png" />
 <em>If all EdgeX containers pulled and started correctly and without error, you should see a process status (ps) that looks similar to the image above.</em></p>
 <h2 id="checking-the-status-of-edgex-foundry">Checking the Status of EdgeX Foundry</h2>
@@ -2416,7 +2411,6 @@ docker-compose logs -f <span class="o">[</span>compose-service-name<span class="
 <span class="c1"># example - core data</span>
 docker-compose logs -f data
 </code></pre></div>
-
 <p>See <a href="../quick-start/#REFERENCE-EdgeX-Container-Names">EdgeX Container Names</a> for a list of the EdgeX Docker Compose service names.</p>
 <p><img alt="image" src="../EdgeX_GettingStartedUsrLogs.png" />
 <em>A check of an EdgeX service log usually indicates if the service is running normally or has errors.</em> </p>
@@ -2426,7 +2420,6 @@ to stop the output to your terminal.</p>
 <p>Each EdgeX micro service has a built-in respond to a "ping" HTTP request. In networking environments, use a <a href="https://techterms.com/definition/ping">ping request</a> to check the reach-ability of a network resource.  EdgeX uses the same concept to check the availability or reach-ability of a micro service. After the EdgeX micro service containers are running, you can "ping" any one of the micro services to check that it is running. Open a browser or HTTP REST client tool and use the service's ping address (outlined below) to check that is available.</p>
 <div class="highlight"><pre><span></span><code>http://localhost:[port]/api/v1/ping
 </code></pre></div>
-
 <p>See <a href="../quick-start/#REFERENCE-Default-Service-Ports">EdgeX Device Service Ports</a> for a list of the EdgeX default service ports.</p>
 <p><img alt="image" src="../EdgeX_GettingStartedUsrPing.png" />
 <em>"Pinging" an EdgeX micro service allows you to check on its availability.  If the service does not respond to ping, the service is down or having issues.</em></p>

@@ -2303,7 +2303,6 @@
     <span class="nx">SecretProvider</span> <span class="o">*</span><span class="nx">security</span><span class="p">.</span><span class="nx">SecretProvider</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <h2 id="clients">Clients</h2>
 <h3 id="loggingclient">LoggingClient</h3>
 <p>The <code>LoggingClient</code> exposed on the context is available to leverage logging libraries/service utilized throughout the EdgeX framework. The SDK has initialized everything so it can be used to log <code>Trace</code>, <code>Debug</code>, <code>Warn</code>, <code>Info</code>, and <code>Error</code> messages as appropriate. See <a href="https://github.com/edgexfoundry-holding/app-service-examples/blob/master/app-services/simple-filter-xml/main.go">simple-filter-xml/main.go</a> for an example of how to use the <code>LoggingClient</code>.</p>
@@ -2338,7 +2337,6 @@
   Host = &#39;localhost&#39;
   Port = 48060
 </code></pre></div>
-
 <h2 id="markaspushed">.MarkAsPushed()</h2>
 <p><code>.MarkAsPushed()</code> is used to indicate to EdgeX Core Data that an event has been "pushed" and is no longer required to be stored. The scheduler service will purge all events that have been marked as pushed based on the configured schedule. By default, it is once daily at midnight. If you leverage the built in export functions (i.e. HTTP Export, or MQTT Export), then simply adding the MaskedAsPush function to you pipeline after the export function will take care of calling this API. </p>
 <h2 id="pushtocore">.PushToCore()</h2>

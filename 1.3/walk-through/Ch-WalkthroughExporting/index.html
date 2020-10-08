@@ -2220,7 +2220,6 @@ that data be used by an edge analytics system (like a rules engine) to actuate o
 <span class="c1">#      - logging  # uncomment if re-enabled remote logging</span>
       <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">data</span>
 </code></pre></div>
-
 <h3 id="seeing-the-data-export">Seeing the data export</h3>
 <p>The log level of any EdgeX micro service is set to <code>INFO</code> by default.  If you tune the log level of the app-service-rules micro service to <code>DEBUG</code>, you can see <code>Event</code>s pass through the app service on the way to the rules engine.</p>
 <h4 id="set-the-log-level">Set the log level</h4>
@@ -2232,7 +2231,6 @@ that data be used by an edge analytics system (like a rules engine) to actuate o
 <p>The log level change will be picked up by the application service.  In a terminal window, execute the Docker command below to view the service log.</p>
 <div class="highlight"><pre><span></span><code>docker logs -f edgex-app-service-configurable-rules
 </code></pre></div>
-
 <p>Now push another event/reading into core data as you did earlier (see <a href="../Ch-WalkthroughReading/#walkthrough-send-event">Send Event</a>).  You should see each new event/reading created by acknowledged by the app service.  With the right application service and rules engine configuration, the event/reading data is sent to the rules engine where it can then be used to trigger commands just as you did manually in this walkthrough.</p>
 <p><img alt="image" src="../EdgeX_WalkthroughAppServiceLog.png" /></p>
 <h2 id="exporting-data-to-anywhere">Exporting data to anywhere</h2>

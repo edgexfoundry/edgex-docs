@@ -2652,7 +2652,6 @@ volumes and change the entrypoint for device-modbus internal use.</p>
 <span class="err">docker-compose up -d</span>
 </code></pre></div>
 
-
 </li>
 </ol>
 <p><img alt="Start EdgeX" src="../startEdgeX.png" /></p>
@@ -2676,7 +2675,6 @@ steps:</p>
 <div class="highlight"><pre><span></span><code>$ curl http://your-edgex-server-ip:48081/api/v1/deviceprofile/uploadfile \
   -F &quot;file=@DENT.Mod.PS6037.profile.yaml&quot;
 </code></pre></div>
-
 </li>
 <li>
 <p>Ensure the Modbus device service is running, adjust the service name
@@ -2773,7 +2771,6 @@ from Step 1.</p>
     -H &quot;Content-Type:application/json&quot; -X PUT  \
     -d &#39;{&quot;DemandWindowSize&quot;:&quot;1122&quot;,&quot;LineFrequency&quot;:&quot;1012&quot;}&#39;
 </code></pre></div>
-
 <p>Aside from using device id and command id in the URL, use the following API with device name and command is another approach.
 Refer to <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-command/1.2.0#/default/put_v1_device_name__name__command__commandname_">Core Command API</a> for more details.
 <div class="highlight"><pre><span></span><code>$ curl &quot;http://your-edgex-server-ip:48082/api/v1/device/name/Modbus-TCP-Device/command/Configuration&quot; \
@@ -2809,7 +2806,6 @@ edgex-core-command.</p>
    &quot;origin&quot; : 1574314180435629113
 }
 </code></pre></div>
-
 <h2 id="autoevent">AutoEvent</h2>
 <p>The AutoEvent is defined in the [[DeviceList.AutoEvents]] section of the TOML configuration file:
 <div class="highlight"><pre><span></span><code># Pre-define Devices

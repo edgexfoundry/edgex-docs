@@ -2486,7 +2486,6 @@
 <p class="admonition-title">Example</p>
 <div class="highlight"><pre><span></span><code><span class="nx">NewFilter</span><span class="p">([]</span> <span class="p">{</span><span class="s">&quot;Device1&quot;</span><span class="p">,</span> <span class="s">&quot;Device2&quot;</span><span class="p">}).</span><span class="nx">FilterByDeviceName</span>
 </code></pre></div>
-
 </div>
 <h2 id="filtering">Filtering</h2>
 <p>There are two basic types of filtering included in the SDK to add to your pipeline. There is also an option to <code>Filter Out</code> specific items. These provided filter functions return a type of events.Model. If filtering results in no remaining data, the pipeline execution for that pass is terminated. If no values are provided for filtering, then data flows through unfiltered.</p>
@@ -2511,17 +2510,14 @@
     <span class="nx">FilterOut</span>    <span class="kt">bool</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <h3 id="by-device-name">By Device Name</h3>
 <p><code>FilterByDeviceName</code> - This function will filter the event data down to the specified device names and return the filtered data to the pipeline.</p>
 <div class="highlight"><pre><span></span><code><span class="nx">NewFilter</span><span class="p">([]</span> <span class="p">{</span><span class="s">&quot;Device1&quot;</span><span class="p">,</span> <span class="s">&quot;Device2&quot;</span><span class="p">}).</span><span class="nx">FilterByDeviceName</span>
 </code></pre></div>
-
 <h3 id="by-value-descriptor">By Value Descriptor</h3>
 <p><code>FilterByValueDescriptor</code> - This function will filter the event data down to the specified device value descriptor and return the filtered data to the pipeline.</p>
 <div class="highlight"><pre><span></span><code><span class="nx">NewFilter</span><span class="p">([]</span> <span class="p">{</span><span class="s">&quot;ValueDescriptor1&quot;</span><span class="p">,</span> <span class="s">&quot;ValueDescriptor2&quot;</span><span class="p">}).</span><span class="nx">FilterByValueDescriptor</span>
 </code></pre></div>
-
 <h3 id="json-logic">JSON Logic</h3>
 <table>
 <thead>
@@ -2540,7 +2536,6 @@
 <p><code>Evaluate</code> - This is the function that will be used in the pipeline to apply the JSON rule to data coming in on the pipeline. If the condition of your rule is met, then the pipeline will continue and the data will continue to flow to the next function in the pipeline. If the condition of your rule is NOT met, then pipeline execution stops. </p>
 <div class="highlight"><pre><span></span><code><span class="nx">NewJSONLogic</span><span class="p">(</span><span class="s">&quot;{ \&quot;in\&quot; : [{ \&quot;var\&quot; : \&quot;device\&quot; }, [\&quot;Random-Integer-Device\&quot;,\&quot;Random-Float-Device\&quot;] ] }&quot;</span><span class="p">).</span><span class="nx">Evaluate</span>
 </code></pre></div>
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Only  operations that return true or false are supported. See http://jsonlogic.com/operations.html# for the complete list of operations paying attention to return values. Any operator that returns manipulated data is currently not supported. For more advanced scenarios checkout <a href="https://github.com/emqx/kuiper">EMQ X Kuiper</a>.</p>
@@ -2569,7 +2564,6 @@
 <p><code>EncryptWithAES</code> - This function receives a either a <code>string</code>, <code>[]byte</code>, or <code>json.Marshaller</code> type and encrypts it using AES encryption and returns a <code>[]byte</code> to the pipeline.</p>
 <div class="highlight"><pre><span></span><code><span class="nx">NewEncryption</span><span class="p">(</span><span class="s">&quot;key&quot;</span><span class="p">,</span> <span class="s">&quot;initializationVector&quot;</span><span class="p">).</span><span class="nx">EncryptWithAES</span>
 </code></pre></div>
-
 <h2 id="tags">Tags</h2>
 <p>There is one Tags transform included in the SDK that can be added to your pipeline. </p>
 <table>
@@ -2595,7 +2589,6 @@
 <span class="p">}</span>
 <span class="nx">NewTags</span><span class="p">(</span><span class="nx">myTags</span><span class="p">).</span><span class="nx">AddTags</span>
 </code></pre></div>
-
 <h2 id="batch">Batch</h2>
 <p>Included in the SDK is an in-memory batch function that will hold on to your data before continuing the pipeline. There are three functions provided for batching each with their own strategy.</p>
 <table>
@@ -2748,10 +2741,8 @@
 <p class="admonition-title">Example</p>
 <div class="highlight"><pre><span></span><code><span class="nx">NewHTTPSender</span><span class="p">(</span><span class="s">&quot;https://myendpoint.com&quot;</span><span class="p">,</span><span class="s">&quot;application/json&quot;</span><span class="p">,</span><span class="kc">false</span><span class="p">).</span><span class="nx">HTTPPost</span> <span class="c1">//assumes TransformToJSON was used before this transform in the pipeline</span>
 </code></pre></div>
-
 <div class="highlight"><pre><span></span><code><span class="nx">NewHTTPSenderWithSecretHeader</span><span class="p">(</span><span class="s">&quot;https://myendpoint.com&quot;</span><span class="p">,</span><span class="s">&quot;application/json&quot;</span><span class="p">,</span><span class="kc">false</span><span class="p">,</span><span class="s">&quot;Authentication&quot;</span><span class="p">,</span><span class="s">&quot;/jwt&quot;</span><span class="p">).</span><span class="nx">HTTPPost</span> <span class="c1">//assumes TransformToJSON was used before this transform in the pipeline and /jwt has been seeded into the secret provider with a key of Authentication</span>
 </code></pre></div>
-
 </div>
 <h3 id="mqtt">MQTT</h3>
 <table>
@@ -2820,7 +2811,6 @@ Secrets in the secret provider may be located at any path however they must have
 <span class="o">-</span> <span class="n">`MqttConfig`</span> <span class="o">-</span> <span class="n">This</span> <span class="n">structure</span> <span class="n">holds</span> <span class="n">addition</span> <span class="n">MQTT</span> <span class="n">configuration</span> <span class="k">set</span><span class="n">tings</span><span class="p">.</span>
 </code></pre></div>
 
-
 <div class="highlight"><pre><span></span><code><span class="nx">Qos</span>            <span class="kt">byte</span>
 <span class="nx">Retain</span>         <span class="kt">bool</span>
 <span class="nx">AutoReconnect</span>  <span class="kt">bool</span>
@@ -2828,7 +2818,6 @@ Secrets in the secret provider may be located at any path however they must have
 <span class="nx">User</span>           <span class="kt">string</span>
 <span class="nx">Password</span>       <span class="kt">string</span>
 </code></pre></div>
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <code>GO</code> complier will default these to <code>0</code>, <code>false</code> and <code>""</code>, so you only need to set the fields that your usage requires that differ from the default.</p>

@@ -2268,7 +2268,6 @@ cp -rf ./device-sdk-go/example/* ./device-simple/
 <p>Change folders to the device-simple directory.</p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/go/src/github.com/edgexfoundry/device-simple
 </code></pre></div>
-
 </li>
 <li>
 <p>Open main.go file in the cmd/device-simple folder with your favorite text editor. Modify the
@@ -2284,11 +2283,9 @@ cp -rf ./device-sdk-go/example/* ./device-simple/
 <div class="codehilite"><pre><span></span><code><span class="err">MICROSERVICES=example/cmd/device-simple/device-simple</span>
 </code></pre></div>
 
-
 <p>with:</p>
 <div class="codehilite"><pre><span></span><code><span class="err">MICROSERVICES=cmd/device-simple/device-simple</span>
 </code></pre></div>
-
 
 </li>
 <li>
@@ -2296,11 +2293,9 @@ cp -rf ./device-sdk-go/example/* ./device-simple/
 <div class="codehilite"><pre><span></span><code><span class="err">GOFLAGS=-ldflags &quot;-X github.com/edgexfoundry/device-sdk-go.Version=$(VERSION)&quot;</span>
 </code></pre></div>
 
-
 <p>to refer to the new service with:</p>
 <div class="codehilite"><pre><span></span><code><span class="err">GOFLAGS=-ldflags &quot;-X github.com/edgexfoundry/device-simple.Version=$(VERSION)&quot;</span>
 </code></pre></div>
-
 
 </li>
 <li>
@@ -2309,12 +2304,10 @@ cp -rf ./device-sdk-go/example/* ./device-simple/
 <span class="err">  $(GO) build $(GOFLAGS) -o $@ ./example/cmd/device-simple</span>
 </code></pre></div>
 
-
 <p>to:</p>
 <div class="codehilite"><pre><span></span><code><span class="err">cmd/device-simple/device-simple:</span>
 <span class="err">  $(GO) build $(GOFLAGS) -o $@ ./cmd/device-simple</span>
 </code></pre></div>
-
 
 </li>
 </ul>
@@ -2327,7 +2320,6 @@ cp -rf ./device-sdk-go/example/* ./device-simple/
     and write it to the go.mod file:</p>
 <div class="codehilite"><pre><span></span><code><span class="err">GO111MODULE=on go mod init</span>
 </code></pre></div>
-
 
 <p><img alt="image" src="../EdgeX_GettingStartedGoModInit.png" /></p>
 </li>
@@ -2350,7 +2342,6 @@ cp -rf ./device-sdk-go/example/* ./device-simple/
 the device service. In a terminal window, make sure you are still in the device-simple folder (the folder containing the Makefile).  Build the service by issuing the following command:</p>
 <div class="highlight"><pre><span></span><code>make build
 </code></pre></div>
-
 <p>If there are no errors, your service is ready for you to add
 custom code to generate data values as if there was a sensor
 attached.</p>
@@ -2376,14 +2367,12 @@ service would ordinarily make a call to get sensor data from the actual device.<
         <span class="nx">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="nx">cv</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>Add the conditional (if-else) code in front of the above conditional:</p>
 <div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="nx">reqs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">DeviceResourceName</span> <span class="o">==</span> <span class="s">&quot;randomnumber&quot;</span> <span class="p">{</span>
        <span class="nx">cv</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">dsModels</span><span class="p">.</span><span class="nx">NewInt32Value</span><span class="p">(</span><span class="nx">reqs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">DeviceResourceName</span><span class="p">,</span> <span class="nx">now</span><span class="p">,</span> <span class="nb">int32</span><span class="p">(</span><span class="nx">rand</span><span class="p">.</span><span class="nx">Intn</span><span class="p">(</span><span class="mi">100</span><span class="p">)))</span>
        <span class="nx">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="nx">cv</span>
 <span class="p">}</span> <span class="k">else</span>
 </code></pre></div>
-
 <p><img alt="image" src="../EdgeX_GettingStartedSDKGoGenNumber.png" /></p>
 <p>The first line of code checks that the current request is for a resource called "randomnumber". The second line of code generates
 an integer (between 0 and 100) and uses that as the value the device
@@ -2445,7 +2434,6 @@ sends to EdgeX:</p>
     following call:</p>
 <div class="highlight"><pre><span></span><code>docker-compose up -d
 </code></pre></div>
-
 </li>
 <li>
 <p>In a terminal window, change directories to the device-simple's
@@ -2453,7 +2441,6 @@ sends to EdgeX:</p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/go/src/github.com/edgexfoundry/device-simple/cmd/device-simple
 ./device-simple
 </code></pre></div>
-
 <p>This starts the service and immediately displays log entries in the
 terminal.</p>
 </li>

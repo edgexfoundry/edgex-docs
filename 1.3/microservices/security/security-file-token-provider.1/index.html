@@ -2077,7 +2077,6 @@ parameters used for Vault token generation.</p>
 <span class="na">OutputFilename</span> <span class="o">=</span> <span class="s">secrets-token.json</span>
 </code></pre></div>
 
-
 <h2 id="secrets-tokenjson">secrets-token.json</h2>
 <p>This file contains a token used to authenticate to Vault. The filename
 is customizable via <em>OutputFilename</em>.</p>
@@ -2087,7 +2086,6 @@ is customizable via <em>OutputFilename</em>.</p>
 <span class="err">  }</span>
 <span class="err">}</span>
 </code></pre></div>
-
 
 <h2 id="token-configjson">token-config.json</h2>
 <p>This configuration file tells security-file-token-provider which tokens
@@ -2111,7 +2109,6 @@ configuration file uses the JSON serialization of HCL, documented at
 <span class="err">}</span>
 </code></pre></div>
 
-
 <p>When edgex-use-default is true (the default), the following is added to
 the policy specification for the auto-generated policy. The
 auto-generated policy is named <code>edgex-secrets-XYZ</code> where <code>XYZ</code> is
@@ -2127,7 +2124,6 @@ default policy) plus the <code>custom_policy</code> defined above.</p>
 <span class="err">}</span>
 </code></pre></div>
 
-
 <p>When edgex-use-default is true (the default), the following is inserted
 (if not overridden) to the token parameters for the generated token.
 (See
@@ -2136,7 +2132,6 @@ default policy) plus the <code>custom_policy</code> defined above.</p>
 <span class="err">&quot;no_parent&quot;:    true</span>
 <span class="err">&quot;policies&quot;:     [ &quot;edgex-service-service-name&quot; ]</span>
 </code></pre></div>
-
 
 <p>Note that <code>display_name</code> is set by vault to be "token-" + the
 specified display name. This is hard-coded in Vault from versions 0.6 to
@@ -2149,7 +2144,6 @@ are held.</p>
 <span class="err">  &quot;edgex-service-name&quot;: service-name</span>
 <span class="err">}</span>
 </code></pre></div>
-
 
 <h2 id="outputdirservice-nameoutputfilename">{OutputDir}/{service-name}/{OutputFilename}</h2>
 <p>For example:
@@ -2189,7 +2183,6 @@ convention. This token must have the following policy
   <span class="n">capabilities</span> <span class="o">=</span> <span class="p">[</span><span class="ss">&quot;list&quot;</span><span class="p">]</span>
 <span class="err">}</span>
 </code></pre></div>
-
 
 <h1 id="author">AUTHOR</h1>
 <p>EdgeX Foundry \&lt;<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#64;&#101;&#100;&#103;&#101;&#120;&#102;&#111;&#117;&#110;&#100;&#114;&#121;&#46;&#111;&#114;&#103;">&#105;&#110;&#102;&#111;&#64;&#101;&#100;&#103;&#101;&#120;&#102;&#111;&#117;&#110;&#100;&#114;&#121;&#46;&#111;&#114;&#103;</a>></p>

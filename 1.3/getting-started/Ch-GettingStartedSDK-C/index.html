@@ -2267,7 +2267,6 @@ compiled in an earlier step.</p>
 <p>Now build your device service executable:</p>
 <div class="highlight"><pre><span></span><code>gcc -I<span class="nv">$CSDK_DIR</span>/include -L<span class="nv">$CSDK_DIR</span>/lib -o device-example-c template.c -lcsdk
 </code></pre></div>
-
 <p>If everything is working properly, a <code>device-example-c</code> executable will be created in the directory.</p>
 <p><img alt="image" src="../EdgeX_GettingStartedSDKCompileC.png" /></p>
 </li>
@@ -2289,7 +2288,6 @@ random numbers, you need to modify your <code>template.c</code> method
 <span class="p">}</span>
 <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
 </code></pre></div>
-
 <p>with this code:</p>
 <div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="p">(</span><span class="kt">uint32_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nreadings</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
 <span class="p">{</span>
@@ -2317,7 +2315,6 @@ random numbers, you need to modify your <code>template.c</code> method
 <span class="p">}</span>
 <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
 </code></pre></div>
-
 <h2 id="creating-your-device-profile">Creating your Device Profile</h2>
 <p>A device profile is a YAML file that describes a class of device to
 EdgeX. General characteristics about the type of device, the data these devices provide, and how to command the device are all in a device profile.   The device profile tells the device service what data gets collected from the the device and how to get it. </p>
@@ -2349,7 +2346,6 @@ taking readings every 10 seconds.</p>
 <p>Rebuild your Device Service to reflect the changes that you have made:</p>
 <div class="highlight"><pre><span></span><code>gcc -I<span class="nv">$CSDK_DIR</span>/include -L<span class="nv">$CSDK_DIR</span>/lib -o device-example-c template.c -lcsdk
 </code></pre></div>
-
 <h2 id="run-your-device-service">Run your Device Service</h2>
 <p>Allow your newly created Device Service, which was formed out of the
 Device Service C SDK, to create sensor mimicking data which it then
@@ -2361,20 +2357,17 @@ sends to EdgeX.</p>
     following call:</p>
 <div class="highlight"><pre><span></span><code>docker-compose up -d
 </code></pre></div>
-
 </li>
 <li>
 <p>Back in your custom device service directory, tell your device
     service where to find the <code>libcsdk.so</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$CSDK_DIR</span>/lib
 </code></pre></div>
-
 </li>
 <li>
 <p>Run your device service:</p>
 <div class="highlight"><pre><span></span><code>./device-example-c
 </code></pre></div>
-
 </li>
 <li>
 <p>You should now see your device service having its /Random command
@@ -2383,7 +2376,6 @@ sends to EdgeX.</p>
     service:</p>
 <div class="highlight"><pre><span></span><code>docker logs -f edgex-core-data
 </code></pre></div>
-
 <p>Which would print an event record every time your device service is called.</p>
 </li>
 <li>
@@ -2391,7 +2383,6 @@ sends to EdgeX.</p>
     service directly:</p>
 <div class="highlight"><pre><span></span><code>curl <span class="m">0</span>:49992/api/v1/device/name/RandNum-Device01/randomnumber
 </code></pre></div>
-
 </li>
 <li>
 <p>Using a browser, enter the following URL to see the event/reading

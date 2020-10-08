@@ -2154,7 +2154,6 @@ The command to start EdgeX inclusive of API gateway related services is:
 <div class="codehilite"><pre><span></span><code><span class="err">docker-compose up -d</span>
 </code></pre></div>
 
-
 <p>For debugging purpose, the API gateway services can be started
 individually with these commands used in sequence after secret store
 starts successfully. Lines starts with # are comments to explain the
@@ -2172,7 +2171,6 @@ purpose of the command. :</p>
 <span class="c1"># initialize KONG, configure proxy routes, apply certificates to routes, and enable various authentication/ACL features.</span>
 </code></pre></div>
 
-
 <p>If the last command returns an error message for any reason (such as
 incorrect configuration file), the API gateway may be in an unstable
 status. The following command can be used to stop and remove the
@@ -2181,25 +2179,21 @@ containers. :</p>
 <span class="err"># stop and remove the containers</span>
 </code></pre></div>
 
-
 <p>After stopping and removing the containers, you can attempt to recreate
 and start them again. Alternatively you can use the command to reset the
 API gateway as shown below: :</p>
 <div class="codehilite"><pre><span></span><code><span class="err">docker run –network=edgex-network edgexfoundry/docker-edgex-proxy-go --reset=true</span>
 </code></pre></div>
 
-
 <p>After issuing the reset command, attempt to start and reinitialize with
 the command below. :</p>
 <div class="codehilite"><pre><span></span><code><span class="err">docker run –network=edgex-network edgexfoundry/docker-edgex-proxy-go --init=true</span>
 </code></pre></div>
 
-
 <p>You can learn more about these commands, to include some additional
 options by running: :</p>
 <div class="codehilite"><pre><span></span><code><span class="err">docker run –network=edgex-network edgexfoundry/docker-edgex-proxy-go –h</span>
 </code></pre></div>
-
 
 <p>On successfully starting EdgeX with the API Gateway services, the list
 of running containers should close follow the listing shown below. Note
@@ -2223,7 +2217,6 @@ specified in the configuration file as shown below. :</p>
 <span class="na">Name</span> <span class="o">=</span> <span class="s">&quot;jwt&quot;</span>
 </code></pre></div>
 
-
 <p><strong>Configuration of OAuth2 Authentication for API Gateway</strong></p>
 <p>When using OAuth2 Authentication, the [KongAuth] section needs to
 specify oauth2 in the configuration file as shown below. Note, today
@@ -2242,7 +2235,6 @@ EdgeX only supports "client credential" authentication (specified in
 <span class="na">resource</span> <span class="o">=</span> <span class="s">&quot;coredata&quot;</span>
 </code></pre></div>
 
-
 <p><strong>Configuration of ACL for API Gateway</strong></p>
 <p>Access control is also specified in the configuration file as shown
 below. Note, users that belong to the whitelist will have access to the
@@ -2253,7 +2245,6 @@ will be denied when trying to access resources through the API Gateway.
 <span class="na">name</span> <span class="o">=</span> <span class="s">&quot;acl&quot;</span>
 <span class="na">whitelist</span> <span class="o">=</span> <span class="s">&quot;admin,user&quot;</span>
 </code></pre></div>
-
 
 <p><strong>Configuration of Adding Microservices Routes for API Gateway</strong></p>
 <p>For the current pre-existing Kong routes, they are configured and initialized statically through configuration TOML file specified in <code>security-proxy-setup</code> application. This is not sufficient for some other new additional microservices like application services, for example.  Thus, adding new proxy Kong routes are now possibly achieved via the environment variable, <code>ADD_PROXY_ROUTE</code>, of service <code>edgex-proxy</code> in the docker-compose file.  Here is an example:</p>
@@ -2272,7 +2263,6 @@ will be denied when trying to access resources through the API Gateway.
    <span class="nt">hostname</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">myApp</span>
    <span class="l l-Scalar l-Scalar-Plain">...</span>
 </code></pre></div>
-
 <p>The value of <code>ADD_PROXY_ROUTE</code> takes a comma-separated list of one or more (at least one) paired additional service name and URL for which to create proxy Kong routes.   The paired specification is given as the following:</p>
 <p><strong>\&lt;RoutePrefix>.\&lt;TargetRouteURL></strong></p>
 <p>where <strong>RoutePrefix</strong> is the name of service which requests to create proxy Kong route and it is case insensitive; it is the docker network hostname of the service that want to add the proxy Kong route in the docker-compose file if running from docker-compose, for example, <code>myApp</code> in this case.</p>
@@ -2288,7 +2278,6 @@ the Core Data microservice with curl command like this: :</p>
 <div class="codehilite"><pre><span></span><code><span class="err">curl http://&lt;core-data-microservice-ip&gt;:48080/api/v1/ping</span>
 </code></pre></div>
 
-
 <p>Once the API gateway is started and initialized successfully, and all
 the common ports for EdgeX microservices are blocked by disabling the
 exposed external ports of the EdgeX microservices through updating the
@@ -2301,7 +2290,6 @@ API gateway in place, the curl command to ping the endpoint of the same
 Core Data service, as shown above, needs to change to : :</p>
 <div class="codehilite"><pre><span></span><code><span class="err">curl https://&lt;api-gateway-host-ip&gt;:8443/coredata/api/v1/ping</span>
 </code></pre></div>
-
 
 <p>Comparing these two curl commands you may notice several differences.</p>
 <ul>
@@ -2340,7 +2328,6 @@ the Core Data microservice with curl command like this: :</p>
 <div class="codehilite"><pre><span></span><code><span class="err">curl http://&lt;core-data-microservice-ip&gt;:48080/api/v1/ping</span>
 </code></pre></div>
 
-
 <p>Again, the request doesn't include client identity information. Once the
 API gateway is started and initialized successfully, the EdgeX
 microservice REST APIs will be behind the gateway, an access token must
@@ -2358,7 +2345,6 @@ user and the group is: :</p>
 <div class="codehilite"><pre><span></span><code><span class="err">docker-compose -f docker-compose-nexus-mongo.yml run --rm --entrypoint /edgex/security-proxy-setup edgex-proxy --init=false --useradd=&lt;user&gt; --group=&lt;groupname&gt;</span>
 </code></pre></div>
 
-
 <p>The command above will return an access token that can then be used by
 the client to access the EdgeX REST API resources. Depending on the
 choice of authentication method, the format of the access token will be
@@ -2366,18 +2352,15 @@ something like this if JWT is enabled: :</p>
 <div class="codehilite"><pre><span></span><code><span class="err">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI5M3V3cmZBc0xzS2Qwd1JnckVFdlRzQloxSmtYOTRRciIsImFjY291bnQiOiJhZG1pbmlzdHJhdG9yIn0.em8ffitqrd59_DeYKfQkTZGtUA1T99NikETwtedOgHQ</span>
 </code></pre></div>
 
-
 <p>Alternatively, the access token may look like what is shown below if the
 OAuth2 is enabled: :</p>
 <div class="codehilite"><pre><span></span><code><span class="err">MNsBh6jDDSxaECzUtimW1nDSvI2v0xsZ</span>
 </code></pre></div>
 
-
 <p>If a client needs to be disabled and the client's token invalidated, use
 the command here to remove/delete the user: :</p>
 <div class="codehilite"><pre><span></span><code><span class="err">docker run –network=edgex-network edgexfoundry/docker-edgex-proxy-go –-userdel=&lt;user&gt;</span>
 </code></pre></div>
-
 
 <p><strong>Using API Gateway to Proxy Existing EdgeX Microservices</strong></p>
 <p>Once the resource mapping and access token to API gateway are in place,
@@ -2388,12 +2371,10 @@ Core Data microservice using curl: :</p>
 <div class="codehilite"><pre><span></span><code><span class="err">curl http://&lt;core-data-microservice-ip&gt;:48080/api/v1/ping</span>
 </code></pre></div>
 
-
 <p>With the security service and JWT authentication is enabled, the command
 changes to: :</p>
 <div class="codehilite"><pre><span></span><code><span class="err">curl –H “host: edgex” https://&lt;api-gateway-service-ip&gt;:8443/coredata/api/v1/ping?  -H &quot;Authorization: Bearer &lt;access-token&gt;”</span>
 </code></pre></div>
-
 
 <p>In summary the difference between the two commands are listed below:</p>
 <ul>

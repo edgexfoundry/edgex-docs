@@ -2228,7 +2228,6 @@
 <p>First, use the curl command below to exercise the command service API to get a list of commands (both <code>GET</code> and <code>PUT</code>) for the Random-Integer-Generator01 device.</p>
 <div class="highlight"><pre><span></span><code>curl -X GET localhost:48082/api/v1/device/name/Random-Integer-Generator01 <span class="p">|</span> json_pp
 </code></pre></div>
-
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The example above assumes your core command service is available on <code>localhost</code> at the default service port of 48082.  </p>
@@ -2363,7 +2362,6 @@
    <span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The identifiers and URLs will look different in your result as the unique identifiers for devices, commands, etc. will be different in each EdgeX instance.</p>
@@ -2372,7 +2370,6 @@
 <p>Locate the <code>GET</code> URL for one of the deviceResources in your JSON produced by the curl command above.  Use another curl command to trigger a <code>GET</code> command against that URL for the Random-Integer-Generator01 device.  In the example below, a <code>GET</code> is called for the GenerateRandomValue_Int16 deviceResource.</p>
 <div class="highlight"><pre><span></span><code>curl -X GET localhost:48082/api/v1/device/ec7a7586-875e-4bb4-aa46-836d9e04514b/command/cfa21103-8ec9-44a0-9c55-25f9cc653dc0 <span class="p">|</span> json_pp
 </code></pre></div>
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Importantly, notice that the host name provided in the JSON is always <code>edgex-core-command</code>.  This is the host name of the command service when running in Docker.  Use <code>localhost</code> in your curl commands to exercise the APIs.  You are not running your curl command inside of Docker.</p>
@@ -2393,12 +2390,10 @@
    <span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <h3 id="put-command-example">PUT Command Example</h3>
 <p><code>PUT</code> commands can adjust the minimum and maximum values for future random readings, but they must be valid values for the data type. For example, the minimum value for GenerateRandomValue_Int16 cannot be more than 32767 and less than -32768.  Below, the PUT command limits the future reading value of GenerateRandomValue_Int16 to a range of -2 to 2:</p>
 <div class="highlight"><pre><span></span><code>curl -X PUT -d <span class="s1">&#39;{&quot;Min_Int16&quot;: &quot;-2&quot;, &quot;Max_Int16&quot;: &quot;2&quot;}&#39;</span> localhost:48082/api/v1/device/ec7a7586-875e-4bb4-aa46-836d9e04514b/command/cfa21103-8ec9-44a0-9c55-25f9cc653dc0
 </code></pre></div>
-
 <div class="admonition info">
 <p class="admonition-title">Info</p>
 <p>Nothing will be returned by the <code>PUT</code> curl call above unless you have and error. </p>

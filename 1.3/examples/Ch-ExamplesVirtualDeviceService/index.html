@@ -2300,7 +2300,6 @@ to simulate virtual resources.</p>
 <p>The virtual device service is configured to send simulated data to core data every few seconds (from 10-30 seconds depending on device - see the <a href="https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/configuration.toml">configuration file</a> for AutoEvent details).  You can excersice the <code>GET</code> request on the command service to see the generated value produced by any of the virtual device's simulated devices.  Use the curl command below to exercise the virtual device service API (via core command service).</p>
 <div class="highlight"><pre><span></span><code>curl -X GET localhost:48082/api/v1/device/1bd5d4c3-9d43-42f2-8c4a-f32f5999edf7/command/e5d7c2b8-eab7-4da4-9d41-388da05979a4<span class="sb">`</span>
 </code></pre></div>
-
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 </div>
@@ -2325,7 +2324,6 @@ to simulate virtual resources.</p>
 <p>Below is example actuation of one of the virtual devices.  In this example, it sets the fixed <code>GET</code> return value to 123 and turns off random generation.</p>
 <div class="highlight"><pre><span></span><code>curl -X PUT -d <span class="s1">&#39;{&quot;Int8&quot;: &quot;123&quot;, &quot;EnableRandomization_Int8&quot;: &quot;false&quot;}&#39;</span> localhost:48082/api/v1/device/1bd5d4c3-9d43-42f2-8c4a-f32f5999edf7/command/e5d7c2b8-eab7-4da4-9d41-388da05979a4
 </code></pre></div>
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The value of the resource's EnableRandomization property is simultaneously updated to false when sending a put command to assign a specified value to the resource.  Therefore, the need to set EnableRandomization_Int8 to false is not actually required in the call above </p>
@@ -2333,7 +2331,6 @@ to simulate virtual resources.</p>
 <p>Return the virtual device to randomly generating numbers with another <code>PUT</code> call.</p>
 <div class="highlight"><pre><span></span><code>curl -X PUT -d <span class="s1">&#39;{&quot;EnableRandomization_Int8&quot;: &quot;true&quot;}&#39;</span> <span class="m">48082</span>/api/v1/device/1bd5d4c3-9d43-42f2-8c4a-f32f5999edf7/command/e5d7c2b8-eab7-4da4-9d41-388da05979a4
 </code></pre></div>
-
 <h2 id="manipulate-virtual-resources-using-the-command-ql-tool">Manipulate Virtual Resources Using the command ql Tool</h2>
 <p>The virtual device service utilizes the ql database under he covers to store parameters for virtual device operations.  The values a virtual device generates can be controlled by changing these parameters in the embedded database (versus calling on the API).</p>
 <ol>
@@ -2381,7 +2378,6 @@ to simulate virtual resources.</p>
   <span class="nt">volumes</span><span class="p">:</span>
     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">/mnt/hgfs/EdgeX/DeviceVirtualDB:/db</span> <span class="c1"># Mount ql database directory</span>
 </code></pre></div>
-
 </div>
 <input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Running in Development Mode</label><div class="tabbed-content">
 <p>If the virtual device service runs in development mode, the ql database is under the <code>device-virtual-go/cmd/db</code> directory.</p>

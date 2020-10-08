@@ -2219,7 +2219,6 @@ would transmit this information to core data via REST call.</p>
 <p>Make a POST request to <code>http://localhost:48080/api/v1/event</code> with the body below.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;device&quot;</span><span class="p">:</span><span class="s2">&quot;countcamera1&quot;</span><span class="p">,</span><span class="nt">&quot;readings&quot;</span><span class="p">:[{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;HumanCount&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="s2">&quot;5&quot;</span><span class="p">},{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;CanineCount&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="s2">&quot;3&quot;</span><span class="p">}]}</span>
 </code></pre></div>
-
 <p>If your API call is successful, you will get a generated ID (a UUID) for your new <code>Event</code> as shown in the image below.</p>
 <p><img alt="image" src="../EdgeX_WalkthroughSendEvent.png" /></p>
 </div>
@@ -2227,7 +2226,6 @@ would transmit this information to core data via REST call.</p>
 <p>Make a curl POST request as shown below.</p>
 <div class="highlight"><pre><span></span><code>curl -X POST -d <span class="s1">&#39;{&quot;device&quot;:&quot;countcamera1&quot;,&quot;readings&quot;:[{&quot;name&quot;:&quot;HumanCount&quot;,&quot;value&quot;:&quot;5&quot;},{&quot;name&quot;:&quot;CanineCount&quot;,&quot;value&quot;:&quot;3&quot;}]}&#39;</span> localhost:48080/api/v1/event
 </code></pre></div>
-
 </div>
 </div>
 <h4 id="origin-timestamp">Origin Timestamp</h4>
@@ -2238,7 +2236,6 @@ If an origin is not provided, no origin will be set for the <code>Event</code> o
 Modified timestamp by the database when it is saved to give the data some time context.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;device&quot;</span><span class="p">:</span><span class="s2">&quot;countcamera1&quot;</span><span class="p">,</span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="mi">1471806386919</span><span class="p">,</span> <span class="nt">&quot;readings&quot;</span><span class="p">:[{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;HumanCount&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="mi">1471806386919</span><span class="p">},{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;CanineCount&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="s2">&quot;0&quot;</span><span class="p">,</span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="mi">1471806386919</span><span class="p">}]}</span>
 </code></pre></div>
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Smart devices will often timestamp sensor data and this timestamp
@@ -2264,7 +2261,6 @@ stored in core data. Make a similar call to see event records have now been sent
 <div class="highlight"><pre><span></span><code>curl -X GET localhost:48080/api/v1/event/device/countcamera1/10 <span class="p">|</span> json_pp
 curl -X GET localhost:48080/api/v1/reading/name/HumanCount/10 <span class="p">|</span> json_pp
 </code></pre></div>
-
 </div>
 </div>
 <p><a class="md-button" href="../Ch-WalkthroughCommands/">&lt;Back</a> <a class="md-button" href="../Ch-WalkthroughExporting/">Next&gt;</a></p>

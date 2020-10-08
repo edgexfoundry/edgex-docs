@@ -2313,7 +2313,6 @@ services, such as core data, core command, and so forth.</p>
     <span class="p p-Indicator">-</span> <span class="s">&quot;B-AAC&quot;</span>
 <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;KMC</span><span class="nv"> </span><span class="s">BAC-9001</span><span class="nv"> </span><span class="s">BACnet</span><span class="nv"> </span><span class="s">thermostat&quot;</span>
 </code></pre></div>
-
 <p>Labels provided a way to tag, organize or categorize the various profiles.  They serve no real purpose inside of EdgeX.</p>
 </div>
 <input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Device Resources</label><div class="tabbed-content">
@@ -2325,7 +2324,6 @@ services, such as core data, core command, and so forth.</p>
 <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ActiveCoolingSetpoint</span>
 <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;The</span><span class="nv"> </span><span class="s">active</span><span class="nv"> </span><span class="s">cooling</span><span class="nv"> </span><span class="s">set</span><span class="nv"> </span><span class="s">point&quot;</span>
 </code></pre></div>
-
 <p>The device service allows access to the device resources via REST endpoint.  Values specified in the device resources section of the device profile can be accessed through the following URL patterns:</p>
 <ul>
 <li>http://<device-service>:<port>/api/v1/device/<DeviceID>/<DeviceResourceName></li>
@@ -2347,7 +2345,6 @@ services, such as core data, core command, and so forth.</p>
     <span class="nt">attributes</span><span class="p">:</span>
         <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;analogValue&quot;</span><span class="p p-Indicator">,</span><span class="nt"> instance</span><span class="p">:</span> <span class="s">&quot;3&quot;</span><span class="p p-Indicator">,</span><span class="nt"> property</span><span class="p">:</span> <span class="s">&quot;presentValue&quot;</span><span class="p p-Indicator">,</span><span class="nt"> index</span><span class="p">:</span> <span class="s">&quot;none&quot;</span>  <span class="p p-Indicator">}</span>
 </code></pre></div>
-
 </div>
 <input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><label for="__tabbed_1_4">Properties</label><div class="tabbed-content">
 <p>The properties of a device resource describe the value obtained or set on the device.  The properties can optionally inform the device service of some simple processing to be performed on the value.  Again, using the BACnet profile as an example, here are the properties associated to the thermostat's temperature device resource.</p>
@@ -2361,7 +2358,6 @@ services, such as core data, core command, and so forth.</p>
     <span class="nt">units</span><span class="p">:</span>
         <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;String&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;Degrees</span><span class="nv"> </span><span class="s">Fahrenheit&quot;</span> <span class="p p-Indicator">}</span>
 </code></pre></div>
-
 <p>The 'value' property of properties gives more detail about the value collected or set.  In this case giving the details of the temperature value to be set.  The value provides details such as the type of the data collected or set, whether the value can be read, written or both.</p>
 <p>The following fields are available in the value property:</p>
 <ul>
@@ -2635,7 +2631,7 @@ services, such as core data, core command, and so forth.</p>
 </tr>
 <tr>
 <td>Location</td>
-<td>Device service specific location (interface</td>
+<td>Device service specific location (interface{} is an empty interface so it can be anything)</td>
 </tr>
 <tr>
 <td>Commands</td>
@@ -2695,7 +2691,7 @@ services, such as core data, core command, and so forth.</p>
 </tr>
 <tr>
 <td>Location</td>
-<td>Device service specific location (interface</td>
+<td>Device service specific location (interface{} is an empty interface so it can be anything)</td>
 </tr>
 <tr>
 <td>Service</td>

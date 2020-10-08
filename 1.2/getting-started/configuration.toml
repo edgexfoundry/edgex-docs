@@ -1,72 +1,68 @@
-[Writable]
-LogLevel = 'INFO'
-
 [Service]
-BootTimeout = 30000
-CheckInterval = '10s'
-Host = '172.17.0.1'  # set this to the IP address of the system host
-ServerBindAddr = ''  # blank value defaults to Service.Host value
-Port = 49992  #modified to be different than existing device services
-Protocol = 'http'
-StartupMsg = 'device simple started'
-Timeout = 20000
-ConnectRetries = 20
+Host = "localhost"
+Port = 49992
+ConnectRetries = 3
 Labels = []
+OpenMsg = "device simple started"
+MaxResultCount = 50000
+Timeout = 5000
 EnableAsyncReadings = true
 AsyncBufferSize = 16
 
 [Registry]
-Host = 'localhost'
+Host = "localhost"
 Port = 8500
-Type = 'consul'
+CheckInterval = "10s"
+FailLimit = 3
+FailWaitTime = 10
 
 [Clients]
   [Clients.Data]
-  Protocol = 'http'
-  Host = 'localhost'
+  Name = "edgex-core-data"
+  Protocol = "http"
+  Host = "localhost"
   Port = 48080
+  Timeout = 5000
 
   [Clients.Metadata]
-  Protocol = 'http'
-  Host = 'localhost'
+  Name = "edgex-core-metadata"
+  Protocol = "http"
+  Host = "localhost"
   Port = 48081
+  Timeout = 5000
 
   [Clients.Logging]
-  Protocol = 'http'
-  Host = 'localhost'
+  Name = "edgex-support-logging"
+  Protocol = "http"
+  Host = "localhost"
   Port = 48061
-
 
 [Device]
   DataTransform = true
-  InitCmd = ''
-  InitCmdArgs = ''
+  InitCmd = ""
+  InitCmdArgs = ""
   MaxCmdOps = 128
   MaxCmdValueLen = 256
-  RemoveCmd = ''
-  RemoveCmdArgs = ''
-  ProfilesDir = './res'
-  UpdateLastConnected = false
-  [Device.Discovery]
-    Enabled = false
-    Interval = '30s'
+  RemoveCmd = ""
+  RemoveCmdArgs = ""
+  ProfilesDir = "./res"
 
-# Remote and file logging disabled so only stdout logging is used
 [Logging]
 EnableRemote = false
-File = ''
+File = "./device-simple.log"
+Level = "DEBUG"
 
 # Pre-define Devices
 [[DeviceList]]
-  Name = 'RandNum-Device01'
-  Profile = 'RandNum-Device'
-  Description = 'Random Number Generator Device'
+  Name = "RandNum-Device01"
+  Profile = "RandNum-Device"
+  Description = "Random Number Generator Device"
   Labels = [ "random", "test" ]
   [DeviceList.Protocols]
     [DeviceList.Protocols.Other]
-      Address = 'random'
-      Port = '300'
+      Address = "random"
+      Port = 300
   [[DeviceList.AutoEvents]]
-    Resource = 'randomnumber'
+    Resource = "Random"
     OnChange = false
-    Frequency = '10s'
+    Frequency = "10s"

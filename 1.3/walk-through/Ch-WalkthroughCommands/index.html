@@ -2275,7 +2275,6 @@ way that enables simplified communications with the devices for</p>
 <p>Make a curl GET request as shown below.</p>
 <div class="highlight"><pre><span></span><code>curl -X GET localhost:48082/api/v1/device/name/countcamera1 <span class="p">|</span> json_pp
 </code></pre></div>
-
 </div>
 </div>
 <p><img alt="image" src="../EdgeX_WalkthroughGetCommands.png" /></p>
@@ -2304,7 +2303,6 @@ key function of EdgeX and must be accomplished as quickly as possible
 <p>Make a curl GET request as shown below.</p>
 <div class="highlight"><pre><span></span><code>curl -X GET localhost:48080/api/v1/valuedescriptor <span class="p">|</span> json_pp
 </code></pre></div>
-
 </div>
 </div>
 <h2 id="check-the-events">Check the Events</h2>
@@ -2322,7 +2320,6 @@ core data.</p>
 <p>Make a curl GET request as shown below.</p>
 <div class="highlight"><pre><span></span><code>curl -X GET localhost:48080/api/v1/event/count
 </code></pre></div>
-
 </div>
 </div>
 <h2 id="execute-a-command">Execute a Command</h2>
@@ -2353,7 +2350,6 @@ highlighted - yours will vary based on IDs.</p>
 <p>Make a PUT request to <code>http://localhost:48082/api/v1/device/&lt;system specific device id&gt;/command/&lt;system specific command id&gt;</code> with the following body.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;depth&quot;</span><span class="p">:</span><span class="s2">&quot;9&quot;</span><span class="p">}</span>
 </code></pre></div>
-
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Notice that the URL above requires you to plugin the device and command IDs from your command list.</p>
@@ -2363,7 +2359,6 @@ highlighted - yours will vary based on IDs.</p>
 <p>Make a curl PUT request as shown below - <strong>replacing the device id and command id</strong> obtained from your command list.</p>
 <div class="highlight"><pre><span></span><code>curl -X PUT -d <span class="s1">&#39;{&quot;depth&quot;:&quot;9&quot;}&#39;</span> localhost:48082/api/v1/device/&lt;system specific device id&gt;/command/&lt;system specific <span class="nb">command</span> id&gt;
 </code></pre></div>
-
 </div>
 </div>
 <h4 id="check-command-service-log">Check Command Service Log</h4>
@@ -2378,7 +2373,6 @@ The last lines of the log entries should highlight the attempt to contact the no
 <div class="highlight"><pre><span></span><code>level=ERROR ts=2020-08-07T17:58:41.427153136Z app=edgex-core-command source=types.go:41 msg=&quot;Put http://localhost:49977/api/v1/devices/516baf46-c7a0-4fee-ad0c-b56df813bcb5/Depth: dial tcp 127.0.0.1:49977: connect: connection refused&quot;
 level=ERROR ts=2020-08-07T17:58:41.427220406Z app=edgex-core-command source=handler.go:47 msg=&quot;Put http://localhost:49977/api/v1/devices/516baf46-c7a0-4fee-ad0c-b56df813bcb5/Depth: dial tcp 127.0.0.1:49977: connect: connection refused&quot;
 </code></pre></div>
-
 <p><a class="md-button" href="../Ch-WalkthroughProvision/">&lt;Back</a> <a class="md-button" href="../Ch-WalkthroughReading/">Next&gt;</a></p>
                 
               

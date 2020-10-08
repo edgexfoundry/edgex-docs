@@ -2417,12 +2417,10 @@ file. The whole set of Docker Compose files for Geneva release can be found here
 and API gateway related services is:</p>
 <div class="highlight"><pre><span></span><code>sh&gt; docker-compose up -d
 </code></pre></div>
-
 <p>For a pristine run, it is strongly recommended to thoroughly clean up
 any Docker artifacts remaining from the current run.</p>
 <div class="highlight"><pre><span></span><code>sh&gt; docker-compose down -v
 </code></pre></div>
-
 <p>The "down" operation will remove containers, network and adding the -v
 option it will also remove persistent volumes:</p>
 <div class="highlight"><pre><span></span><code>Stopping edgex-vault       ... <span class="k">done</span>
@@ -2442,7 +2440,6 @@ Removing volume security-secret-store_vault-config
 Removing volume security-secret-store_vault-file
 Removing volume security-secret-store_vault-logs
 </code></pre></div>
-
 <h3 id="troubleshooting-steps">Troubleshooting steps</h3>
 <p>For debugging purpose, the Secret Store services can be started
 individually with these commands. A pre-requisite being to carefully
@@ -2467,11 +2464,9 @@ sh&gt; docker network ls
 <span class="c1"># Check and remove the previous EdgeX Foundry Docker network</span>
 sh&gt; docker network rm edgex-network
 </code></pre></div>
-
 <h4 id="start-the-first-service-volume-platform-volume-initializations">Start the first service: volume (platform volume initializations)</h4>
 <div class="highlight"><pre><span></span><code>sh&gt; docker-compose up -d volume
 </code></pre></div>
-
 <p>Sample output:</p>
 <div class="highlight"><pre><span></span><code>Creating network <span class="s2">&quot;security-secret-store_edgex-network&quot;</span> with driver <span class="s2">&quot;bridge&quot;</span>
 Creating volume <span class="s2">&quot;security-secret-store_db-data&quot;</span> with default driver
@@ -2483,20 +2478,16 @@ Creating volume <span class="s2">&quot;security-secret-store_vault-file&quot;</s
 Creating volume <span class="s2">&quot;security-secret-store_vault-logs&quot;</span> with default driver
 Creating edgex-files ... <span class="k">done</span>
 </code></pre></div>
-
 <h4 id="start-the-second-service-consul-consul-is-vault-store-backend">Start the second service: consul (Consul is Vault store backend)</h4>
 <div class="highlight"><pre><span></span><code>sh&gt; docker-compose up -d consul
 </code></pre></div>
-
 <p>Sample output:</p>
 <div class="highlight"><pre><span></span><code>edgex-files is up-to-date
 Creating edgex-core-consul ... <span class="k">done</span>
 </code></pre></div>
-
 <p>Display and inspect consul service logs: important lines are highlighted</p>
 <div class="highlight"><pre><span></span><code>sh&gt; docker-compose logs consul
 </code></pre></div>
-
 <p>Sample output:</p>
 <div class="highlight"><pre><span></span><code>Attaching to edgex-core-consul
 edgex-core-consul  | ==&gt; Starting Consul agent...
@@ -2531,26 +2522,21 @@ edgex-core-consul  |     2019/01/13 13:25:06 [INFO] raft: Election won. Tally: 1
 edgex-core-consul  |     2019/01/13 13:25:06 [INFO] raft: Node at 127.0.0.1:8300 [Leader] entering Leader state
 edgex-core-consul  |     2019/01/13 13:25:06 [INFO] consul: cluster leadership acquired
 </code></pre></div>
-
 <h4 id="start-the-third-service-config-seed-platform-configuration-initializations">Start the third service: config-seed (platform configuration initializations)</h4>
 <div class="highlight"><pre><span></span><code>sh&gt; docker-compose up -d config-seed
 </code></pre></div>
-
 <p>Sample output:</p>
 <div class="highlight"><pre><span></span><code>edgex-files is up-to-date
 edgex-core-consul is up-to-date
 Creating edgex-config-seed ... <span class="k">done</span>
 </code></pre></div>
-
 <p>Display and inspect the created container states: important lines are
 highlighted</p>
 <div class="highlight"><pre><span></span><code>sh&gt; docker-compose ps
 </code></pre></div>
-
 <p>Sample output:</p>
 <div class="highlight"><pre><span></span><code>Name                     Command               State                                      Ports
 </code></pre></div>
-
 <blockquote>
 <p>---------------------------------------------------------------------------------------------------------------------------------------edgex-config-seed
 /bin/sh -c /edgex/cmd/conf ... Exit 0 edgex-core-consul
@@ -2573,18 +2559,15 @@ tasks.</p>
 </div>
 <div class="highlight"><pre><span></span><code>sh&gt; docker-compose up -d vault
 </code></pre></div>
-
 <p>Sample output:</p>
 <div class="highlight"><pre><span></span><code>edgex-files is up-to-date
 edgex-core-consul is up-to-date
 Creating edgex-vault ... <span class="k">done</span>
 </code></pre></div>
-
 <p>Display and inspect "vault" service logs: important lines are
 highlighted</p>
 <div class="highlight"><pre><span></span><code>sh&gt; docker-compose logs vault
 </code></pre></div>
-
 <p>Sample output:</p>
 <div class="highlight"><pre><span></span><code>Attaching to edgex-vault
 edgex-vault        | ==&gt; Vault server configuration:
@@ -2602,7 +2585,6 @@ edgex-vault        |
 edgex-vault        | ==&gt; Vault server started! Log data will stream in below:
 edgex-vault        |
 </code></pre></div>
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Line 4 &amp; 7: Vault <strong>API</strong> endpoint on port 8200 (lines 4 and 7).</p>
@@ -2612,19 +2594,16 @@ edgex-vault        |
 <h4 id="start-the-fifth-service-vault-worker-vault-initunseal-process-and-setups">Start the fifth service: vault-worker (Vault init/unseal process and setups)</h4>
 <div class="highlight"><pre><span></span><code>sh&gt; docker-compose up -d vault-worker
 </code></pre></div>
-
 <p>Sample output:</p>
 <div class="highlight"><pre><span></span><code>edgex-files is up-to-date
 edgex-core-consul is up-to-date
 edgex-vault is up-to-date
 Creating edgex-vault-worker ... <span class="k">done</span>
 </code></pre></div>
-
 <p>Display and inspect "vault-worker" service logs: important lines are
 highlighted</p>
 <div class="highlight"><pre><span></span><code>sh&gt; docker-compose logs vault-worker
 </code></pre></div>
-
 <p>Sample output:</p>
 <div class="highlight"><pre><span></span><code>Attaching to edgex-vault-worker
 edgex-vault-worker | INFO: 2019/01/13 13:35:42 successful loading the rootCA cert.
@@ -2650,12 +2629,10 @@ edgex-vault-worker | INFO: 2019/01/13 13:35:48 Load cert&amp;key pair from volum
 edgex-vault-worker | INFO: 2019/01/13 13:35:48 Trying to upload cert&amp;key to secret store.
 edgex-vault-worker | INFO: 2019/01/13 13:35:48 Successful to add certificate to the secret store.
 </code></pre></div>
-
 <p>Display and inspect "vault" service logs: important lines are
 highlighted</p>
 <div class="highlight"><pre><span></span><code>sh&gt; docker-compose logs vault
 </code></pre></div>
-
 <p>Sample output:</p>
 <div class="highlight"><pre><span></span><code>Attaching to edgex-vault
 edgex-vault        | ==&gt; Vault server configuration:
@@ -2719,7 +2696,6 @@ edgex-vault        | 2019-01-13T13:35:43.144Z [INFO ] core: post-unseal setup co
 edgex-vault        | 2019-01-13T13:35:43.144Z [INFO ] core: core/startClusterListener: starting listener: listener_address=172.19.0.4:8201
 edgex-vault        | 2019-01-13T13:35:43.144Z [INFO ] core: core/startClusterListener: serving cluster requests: cluster_listen_address=172.19.0.4:8201
 </code></pre></div>
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Line 18: Vault <strong>initialization</strong> successful.</p>
@@ -2732,11 +2708,9 @@ edgex-vault        | 2019-01-13T13:35:43.144Z [INFO ] core: core/startClusterLis
 highlighted</p>
 <div class="highlight"><pre><span></span><code>sh&gt; docker-compose ps
 </code></pre></div>
-
 <p>Sample output:</p>
 <div class="highlight"><pre><span></span><code>Name                     Command               State                                     Ports
 </code></pre></div>
-
 <blockquote>
 <p>---------------------------------------------------------------------------------------------------------------------------------------edgex-config-seed
 /bin/sh -c /edgex/cmd/conf ... Exit 0 edgex-core-consul
@@ -2764,7 +2738,6 @@ DRIVER              VOLUME NAME
 <span class="nb">local</span>               security-secret-store_vault-file
 <span class="nb">local</span>               security-secret-store_vault-logs
 </code></pre></div>
-
 <p>Display and inspect the container network
 (<code>security-secret-store_edgex-network</code>): important lines are highlighted</p>
 <div class="highlight"><pre><span></span><code>sh&gt; docker network ls
@@ -2774,7 +2747,6 @@ NETWORK ID          NAME                                  DRIVER              SC
 1d236ab1dbbd        none                                  null                <span class="nb">local</span>
 0a7f7266d102        security-secret-store_edgex-network   bridge              <span class="nb">local</span>
 </code></pre></div>
-
 <h3 id="using-consul-web-ui">Using Consul Web UI</h3>
 <p>For learning and verification purposes one might use the Consul Web UI
 interface to gather and double check specific Vault informations.</p>
@@ -2845,7 +2817,6 @@ consul
 edgex-mongo
 vault
 </code></pre></div>
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Line 5: Shows the Consul node status <code>alive</code> (1 node in EdgeX default
@@ -2882,7 +2853,6 @@ cluster_addr = &quot;https://edgex-vault:8201&quot;
 default_lease_ttl = &quot;168h&quot;
 max_lease_ttl = &quot;720h&quot;
 </code></pre></div>
-
 <p>The <code>listener</code> clause refers to Vault server process (port, TLS and
 server name), the <code>backend</code> clause refers to the storage backend (i.e.
 Consul).</p>
@@ -2896,7 +2866,6 @@ drwxr-xr-x    <span class="m">4</span> vault    vault         <span class="m">40
 drwxr-xr-x    <span class="m">2</span> vault    vault         <span class="m">4096</span> Jun  <span class="m">7</span>  <span class="m">2018</span> file
 drwxr-xr-x    <span class="m">2</span> vault    vault         <span class="m">4096</span> Jun  <span class="m">7</span>  <span class="m">2018</span> logs
 </code></pre></div>
-
 <p>Pay attention to the <code>VAULT_CAPATH</code> environment variable passed to the
 session. This is necessary in order to run succesful Vault CLI command.
 Every Vault CLI command is a wrapper of the Vault HTTP API. The Vault
@@ -2935,7 +2904,6 @@ cluster\_addr =&quot;&lt;https://edgex-vault:8201&gt;&quot;
 default\_lease\_ttl = &quot;168h&quot; 
 max\_lease\_ttl = &quot;720h&quot;
 </code></pre></div>
-
 <p>A sample Vault CLI command to check Vault status:</p>
 <div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault status</span>
 Key             Value
@@ -2951,7 +2919,6 @@ HA Enabled      <span class="nb">true</span>
 HA Cluster      https://edgex-vault:8201
 HA Mode         active
 </code></pre></div>
-
 <p>All the X.509 PKI materials including the self-signing CA are located
 under <code>/vault/config/pki/EdgeXFoundryCA</code>.</p>
 <div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># ls -l config/pki/EdgeXFoundryCA/</span>
@@ -2963,7 +2930,6 @@ total <span class="m">24</span>
 -rw-r--r--    <span class="m">1</span> vault    vault         <span class="m">1001</span> Dec  <span class="m">5</span> <span class="m">14</span>:05 edgex-vault.pem
 -rw-------    <span class="m">1</span> vault    vault          <span class="m">306</span> Dec  <span class="m">5</span> <span class="m">14</span>:05 edgex-vault.priv.key
 </code></pre></div>
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Line 3: self-signing root CA certificate.</p>
@@ -3004,7 +2970,6 @@ excerpt (highlighted lines):</p>
     chown -R vault:vault /vault/config/pki <span class="o">&amp;&amp;</span> <span class="se">\</span>
 rm -f /vault/pkisetup /vault/pkisetup-vault.json /vault/pkisetup-kong.json
 </code></pre></div>
-
 <p>EdgeX Foundry Docker environment implements a basic Vault/Consul
 architecture that does not provide high availability guaranties. Only
 one Consul server and one Vault server will be running. In a more
@@ -3029,7 +2994,6 @@ usage (<a href="https://www.vaultproject.io/api/">https://www.vaultproject.io/ap
 <p>Execute a shell session in the running Vault container:</p>
 <div class="highlight"><pre><span></span><code>sh&gt; docker <span class="nb">exec</span> -it -e <span class="nv">PS1</span><span class="o">=</span><span class="s1">&#39;\u@\h:\w \$ &#39;</span> -e <span class="nv">VAULT_CAPATH</span><span class="o">=</span><span class="s1">&#39;/vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem&#39;</span> edgex-vault sh
 </code></pre></div>
-
 <p>Locate the <code>assets</code> folder, and the <code>resp-init.json</code> file:</p>
 <div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># ls -l config/assets/</span>
 total <span class="m">12</span>
@@ -3037,7 +3001,6 @@ total <span class="m">12</span>
 -rw-r--r--    <span class="m">1</span> root     root           <span class="m">365</span> Jan <span class="m">13</span> <span class="m">13</span>:35 kong-token.json
 -rw-r--r--    <span class="m">1</span> root     root           <span class="m">241</span> Jan <span class="m">13</span> <span class="m">13</span>:35 resp-init.json
 </code></pre></div>
-
 <p>Inspect the <code>resp-init.json</code> file to grab the Vault Root Token:</p>
 <div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># cat config/assets/resp-init.json</span>
 <span class="o">{</span>
@@ -3048,7 +3011,6 @@ total <span class="m">12</span>
 <span class="s2">&quot;root_token&quot;</span>:<span class="s2">&quot;01dbbae4-353a-8cdf-8189-4d50e5535a6f&quot;</span>
 <span class="o">}</span>
 </code></pre></div>
-
 <p>Login to Vault using Vault CLI and the gathered Root Token:</p>
 <div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault login 01dbbae4-353a-8cdf-8189-4d50e5535a6f</span>
 Success! You are now authenticated. The token information displayed below
@@ -3063,7 +3025,6 @@ token_duration     ∞
 token_renewable    <span class="nb">false</span>
 token_policies     <span class="o">[</span>root<span class="o">]</span>
 </code></pre></div>
-
 <p>Perform an introspection <code>lookup</code> on the current token login:</p>
 <div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault token lookup</span>
 Key                 Value
@@ -3083,7 +3044,6 @@ path                auth/token/root
 policies            <span class="o">[</span>root<span class="o">]</span>
 ttl                 <span class="m">0</span>
 </code></pre></div>
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Lines 9 &amp; 10: the Root Token is the only token that has no expiration
@@ -3094,7 +3054,6 @@ capabilities (policies):</p>
 <div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault token capabilities 01dbbae4-353a-8cdf-8189-4d50e5535a6f</span>
 root
 </code></pre></div>
-
 <p>Perform a <code>list</code> request to display the currently mounted secret
 backends:</p>
 <div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault secrets list</span>
@@ -3105,7 +3064,6 @@ identity/     identity     identity_5397dc2f     identity store
 secret/       kv           kv_2362c227           key/value secret storage
 sys/          system       system_410e4276       system endpoints used <span class="k">for</span> control, policy and debugging
 </code></pre></div>
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Line 5: EdgeX Foundry platform is using the Key/Value secret storage
@@ -3141,7 +3099,6 @@ Keys
 ----
 edgex-kong
 </code></pre></div>
-
 <p>Displaying the API gateway (Kong) service X.509 TLS materials (TLS
 certificate <code>cert</code> &amp; corresponding private key <code>key</code>):</p>
 <div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault read secret/edgex/pki/tls/edgex-kong</span>
@@ -3172,7 +3129,6 @@ PVOPOZYoW/cDTCSXA1uz230ktPR5ylCvrhrbvtSdMBCGAK/Z7b/H0Q/h61qBKXPk
 8Kp0DKRZbRREgQ9LBQpabHjHUMHDJQPagM4+wWvLAhUQLcOWpAAvqG4<span class="o">=</span>
 -----END PRIVATE KEY-----
 </code></pre></div>
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>These two key values are in PEM format.</p>
@@ -3212,7 +3168,6 @@ certificate cert &amp; corresponding private key key):</p>
     --request GET <span class="se">\</span>
     https://edgex-vault:8200/v1/secret/edgex/pki/tls/edgex-kong <span class="p">|</span> jq
 </code></pre></div>
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Line 2: the <code>--location</code> option allows following a redirection
@@ -3238,7 +3193,6 @@ printing in the terminal.</p>
 <span class="nt">&quot;auth&quot;</span><span class="p">:</span> <span class="kc">null</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Lines 7 &amp; 8: the two key values (TLS certificate <code>cert</code> &amp; corresponding
@@ -3253,7 +3207,6 @@ the EdgeX Foudry platform (<code>edgex</code>):</p>
     --request LIST <span class="se">\</span>
     https://edgex-vault:8200/v1/secret <span class="p">|</span> jq
 </code></pre></div>
-
 <p>Sample JSON returned:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
     <span class="nt">&quot;request_id&quot;</span><span class="p">:</span> <span class="s2">&quot;0e0ea024-176d-21b3-73cb-99f17729b230&quot;</span><span class="p">,</span>
@@ -3270,7 +3223,6 @@ the EdgeX Foudry platform (<code>edgex</code>):</p>
     <span class="nt">&quot;auth&quot;</span><span class="p">:</span> <span class="kc">null</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>Displaying (GET) the Vault seal status
 (<code>API path: /v1/sys/seal-status</code>):</p>
 <div class="highlight"><pre><span></span><code>curl -s --cacert /vault/config/pki/EdgeXFoundryCA/EdgeXFoundryCA.pem <span class="se">\</span>
@@ -3279,7 +3231,6 @@ the EdgeX Foudry platform (<code>edgex</code>):</p>
     --request GET <span class="se">\</span>
     https://edgex-vault:8200/v1/sys/seal-status <span class="p">|</span> jq
 </code></pre></div>
-
 <p>Sample JSON returned:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
     <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;shamir&quot;</span><span class="p">,</span>
@@ -3293,7 +3244,6 @@ the EdgeX Foudry platform (<code>edgex</code>):</p>
     <span class="nt">&quot;cluster_id&quot;</span><span class="p">:</span> <span class="s2">&quot;fe6d18bf-fa9c-0d52-3278-bca0390af023&quot;</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Line 3: Vault is <strong>unsealed</strong> therefore available and ready for

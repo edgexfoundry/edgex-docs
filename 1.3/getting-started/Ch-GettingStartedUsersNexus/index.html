@@ -2133,7 +2133,6 @@
 <p>Nexus contains the EdgeX project staging and development container images. In other words, Nexus contains work-in-progress or pre-release images.  These, pre-release/work-in-progress Docker images are built nightly and made available at the following Nexus location:</p>
 <div class="highlight"><pre><span></span><code>nexus3.edgexfoundry.org:10004
 </code></pre></div>
-
 <h2 id="rationale-to-use-nexus-images">Rationale To Use Nexus Images</h2>
 <p>Reasons you might want to use container images from Nexus include:</p>
 <ol>
@@ -2157,7 +2156,6 @@
 <p>To get containers from the Nexus Repository, in a command terminal, change directories to the location of your downloaded Nexus Docker Compose yaml.  Rename the file to docker-compose.yml.  Then run the following command in the terminal to pull (fetch) and then start the EdgeX Nexus-image containers.</p>
 <div class="highlight"><pre><span></span><code>docker-compose up -d
 </code></pre></div>
-
 <h2 id="using-a-single-nexus-image">Using a Single Nexus Image</h2>
 <p>In some cases, you may only need to use a single image from Nexus while other EdgeX services are created from the Docker Hub images.  In this case, you can simply replace the image location for the selected image in your original Docker Compose file.  The address of Nexus is <strong>nexus3.edgexfoundry.org</strong> at port <strong>10004</strong>.  So, if you wished to use the EdgeX core data image from Nexus, you would replace the name and location of the core data image "edgexfoundry/docker-core-data-go:1.2.1" with "nexus3.edgexfoundry.org:10004/docker-core-data-go:master" in the Compose file.</p>
 <p><img alt="image" src="../EdgeX_GettingStartedChangeToNexus.png" />

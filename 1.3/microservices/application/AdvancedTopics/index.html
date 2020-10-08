@@ -2538,7 +2538,6 @@ You can access the resources such as the logging client by accessing the context
     <span class="nx">TargetType</span><span class="p">:</span> <span class="o">&amp;</span><span class="nx">Person</span><span class="p">{},</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p><code>TargetType</code> must be set to a pointer to an instance of your target type such as <code>&amp;Person{}</code> . The first function in your function pipeline will be passed an instance of your target type, not a pointer to it. In the example above, the first function in the pipeline would start something like:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">func</span> <span class="nx">MyPersonFunction</span><span class="p">(</span><span class="nx">edgexcontext</span> <span class="o">*</span><span class="nx">appcontext</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">params</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="kt">bool</span><span class="p">,</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
 
@@ -2556,7 +2555,6 @@ You can access the resources such as the logging client by accessing the context
 
     <span class="c1">// ....</span>
 </code></pre></div>
-
 <p>The SDK supports un-marshaling JSON or CBOR encoded data into an instance of the target type. If your incoming data is not JSON or CBOR encoded, you then need to set the <code>TargetType</code> to  <code>&amp;[]byte</code>.</p>
 <p>If the target type is set to <code>&amp;[]byte</code> the incoming data will not be un-marshaled.  The content type, if set, will be passed as the second parameter to the first function in your pipeline.  Your first function will be responsible for decoding the data or not.</p>
 <h3 id="command-line-options">Command Line Options</h3>
@@ -2595,22 +2593,18 @@ You can access the resources such as the logging client by accessing the context
         If the name provided contains the text `&lt;profile&gt;`, this text will be 
         replaced with the name of the profile used. 
 </code></pre></div>
-
 <p>Examples:</p>
 <div class="highlight"><pre><span></span><code>simple-filter-xml -c<span class="o">=</span>./res -p<span class="o">=</span>http-export
 </code></pre></div>
-
 <p>or</p>
 <div class="highlight"><pre><span></span><code>simple-filter-xml --confdir<span class="o">=</span>./res -p<span class="o">=</span>http-export -cp<span class="o">=</span>consul.http://localhost:8500 --registry
 </code></pre></div>
-
 <h3 id="environment-variable-overrides">Environment Variable Overrides</h3>
 <p>All the configuration settings from the configuration.toml file can be overridden by environment variables. The environment variable names have the following format:</p>
 <div class="highlight"><pre><span></span><code><span class="err">&lt;</span><span class="n">TOML</span> <span class="n">KEY</span><span class="err">&gt;</span>
 <span class="err">&lt;</span><span class="n">TOML</span> <span class="n">SECTION</span><span class="err">&gt;</span><span class="n">_</span><span class="err">&lt;</span><span class="n">TOML</span> <span class="n">KEY</span><span class="err">&gt;</span>
 <span class="err">&lt;</span><span class="n">TOML</span> <span class="n">SECTION</span><span class="err">&gt;</span><span class="n">_</span><span class="err">&lt;</span><span class="n">TOML</span> <span class="n">SUB-SECTION</span><span class="err">&gt;</span><span class="n">_</span><span class="err">&lt;</span><span class="n">TOML</span> <span class="n">KEY</span><span class="err">&gt;</span>
 </code></pre></div>
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>With the Geneva release CamelCase environment variable names are deprecated. Instead use all uppercase environment variable names as in the example below.</p>
@@ -2628,7 +2622,6 @@ You can access the resources such as the logging client by accessing the context
             <span class="n">Host</span> <span class="o">=</span> <span class="s">&#39;localhost&#39;</span>
 <span class="n">ENVVAR</span> <span class="p">:</span> <span class="n">CLIENTS_COREDATA_HOST</span><span class="o">=</span><span class="n">edgex-core-data</span>
 </code></pre></div>
-
 <h4 id="edgex_service_key">EDGEX_SERVICE_KEY</h4>
 <p>This environment variable overrides the service key used with the Configuration and/or Registry providers. Default is set by the application service. Also overrides any value set with the -sk/--serviceKey command-line option.</p>
 <div class="admonition note">
@@ -2648,7 +2641,6 @@ This sets the Configration Provider information fields as follows:
     Host: edgex-core-consul
     Port: 8500
 </code></pre></div>
-
 <h4 id="edgex_registry-deprecated">edgex_registry (DEPRECATED)</h4>
 <p>This environment variable overrides the Registry connection information and occurs every time the application service starts. The value is in the format of a URL.</p>
 <div class="admonition note">
@@ -2662,7 +2654,6 @@ This sets the Registry information fields as follows:
     Host: edgex-core-consul
     Port: 8500
 </code></pre></div>
-
 <h4 id="edgex_service-deprecated">edgex_service (DEPRECATED)</h4>
 <p>This environment variable overrides the Service connection information. The value is in the format of a URL.</p>
 <div class="admonition note">
@@ -2676,7 +2667,6 @@ This sets the Service information fields as follows:
     Host: 192.168.1.2
     Port: 4903
 </code></pre></div>
-
 <h4 id="edgex_profile">EDGEX_PROFILE</h4>
 <p>This environment variable overrides the command line <code>profile</code> argument. It will set the <code>profile</code> or replace the value passed via the <code>-p</code> or <code>--profile</code>, if one exists. This is useful when running the service via docker-compose.</p>
 <div class="admonition note">
@@ -2700,7 +2690,6 @@ This sets the Service information fields as follows:
       - data
       - command
 </code></pre></div>
-
 <p>This sets the <code>profile</code> so that the application service uses the <code>rules-engine</code> configuration profile which resides at <code>/res/rules-engine/configuration.toml</code></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2728,7 +2717,6 @@ This sets the Service information fields as follows:
   <span class="n">RetryInterval</span> <span class="o">=</span> <span class="s">&#39;5m&#39;</span>
   <span class="n">MaxRetryCount</span> <span class="o">=</span> <span class="mi">10</span>
 </code></pre></div>
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>RetryInterval should be at least 1 second (eg. '1s') or greater. If a value less than 1 second is specified, 1 second will be used. Endless retries will occur when MaxRetryCount is set to 0. If MaxRetryCount is set to less than 0, a default of 1 retry will be used.</p>
@@ -2742,7 +2730,6 @@ This sets the Service information fields as follows:
 <span class="n">Username</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
 <span class="n">Password</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
 </code></pre></div>
-
 <h4 id="how-it-works">How it works</h4>
 <p>When an export function encounters an error sending data it can call <code>SetRetryData(payload []byte)</code> on the Context. This will store the data for later retry. If the application service is stopped and then restarted while stored data hasn't been successfully exported, the export retry will resume once the service is up and running again.</p>
 <div class="admonition note">
@@ -2811,7 +2798,6 @@ This sets the Service information fields as follows:
     <span class="k">[SecretStoreExclusive.Authentication]</span>
         <span class="n">AuthType</span> <span class="o">=</span> <span class="s">&#39;X-Vault-Token&#39;</span>
 </code></pre></div>
-
 <h4 id="storing-secrets">Storing Secrets</h4>
 <h5 id="secure-mode">Secure Mode</h5>
 <p>When running an application service in secure mode, secrets can be stored in the secret store (Vault) by making an HTTP <code>POST</code> call to the secrets API route in the application service, <code>http://[host]:[port]/api/v1/secrets</code>. The secrets are stored and retrieved from the secret store based on values in the <em>SecretStoreExclusive</em> section of the configuration file. Once a secret is stored, only the service that added the secret will be able to retrieve it.  For secret retrieval see <a href="#getting-secrets">Getting Secrets</a>.</p>
@@ -2826,7 +2812,6 @@ This sets the Service information fields as follows:
   <span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Path specifies the type or location of the secrets to store. It is appended to the base path from the SecretStoreExclusive configuration. An empty path is a valid configuration for a secret's location.</p>
@@ -2846,7 +2831,6 @@ This sets the Service information fields as follows:
           <span class="n">username</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
           <span class="n">password</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
 </code></pre></div>
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>An empty path is a valid configuration for a secret's location </p>
@@ -2905,7 +2889,6 @@ This sets the Service information fields as follows:
     <span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <h3 id="registry-client">Registry Client</h3>
 <p><strong>After initialization</strong>, the configured registry client used by the SDK can be retrieved from the sdk instance at .RegistryClient.  It is important to note that sdk.RegistryClient may be nil - either if the SDK is not yet initialized, or if the registry option (-r/--registry) is not specified on start.  Once retrieved the client can be used to look up host information for other services, or perform other operations supported by the registry.Client type in <a href="https://github.com/edgexfoundry/go-mod-registry">go-mod-registry</a>.  For example, to retrieve the URL for a given service:</p>
 <div class="admonition note known service keys">

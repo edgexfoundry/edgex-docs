@@ -2331,7 +2331,6 @@ that implements the MQTT protocol versions 5.0, 3.1.1 and 3.1.</p>
 <div class="codehilite"><pre><span></span><code><span class="err">docker run -d --rm --name broker -p 1883:1883 eclipse-mosquitto</span>
 </code></pre></div>
 
-
 <h2 id="run-an-mqtt-device-simulator">Run an MQTT Device Simulator</h2>
 <p><img alt="MQTT Device Service" src="../MQTTDeviceService.png" /></p>
 <p>This simulator has three behaviors:</p>
@@ -2382,7 +2381,6 @@ that implements the MQTT protocol versions 5.0, 3.1.1 and 3.1.</p>
 <span class="p">});</span>
 </code></pre></div>
 
-
 <p>To run the device simulator, enter the commands shown below with the
 following changes:</p>
 <ol>
@@ -2399,7 +2397,6 @@ following changes:</p>
 <span class="err">  dersimn/mqtt-scripts --url mqtt://mqtt-broker-ip --dir /scripts</span>
 </code></pre></div>
 
-
 </li>
 </ol>
 <h3 id="setup">Setup</h3>
@@ -2411,7 +2408,6 @@ deployment:</p>
 <span class="err">     |- configuration.toml</span>
 <span class="err">     |- mqtt.test.device.profile.yml</span>
 </code></pre></div>
-
 
 <h2 id="device-profile-mqtttestdeviceprofileyml">Device Profile (mqtt.test.device.profile.yml)</h2>
 <p>The DeviceProfile defines the device's values and operation method,
@@ -2522,7 +2518,6 @@ following content:</p>
         <span class="n">expectedValues</span><span class="p">:</span> <span class="p">[]</span>
 </code></pre></div>
 
-
 <h2 id="device-service-configuration-configurationtoml">Device Service Configuration (configuration.toml)</h2>
 <p>Use this configuration file to define devices and schedule jobs.
 device-mqtt generates a relative instance on start-up.</p>
@@ -2631,7 +2626,6 @@ replacing the host IP with your host address:</p>
 <span class="ow">In</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Driver</span><span class="w"> </span><span class="n">configs</span><span class="w"> </span><span class="k">section</span><span class="err">:</span><span class="w"></span>
 </code></pre></div>
 
-
 <ul>
 <li>IncomingXxx defines the DataTopic for receiving an async value from
     the device</li>
@@ -2669,7 +2663,6 @@ internal use.</p>
 <span class="c">    - --confdir=/custom-config</span>
 </code></pre></div>
 
-
 <p>When using Device Services, the user has to provide the registry URL in
 --registry argument.</p>
 <h3 id="start-edgex-foundry-on-docker">Start EdgeX Foundry on Docker</h3>
@@ -2681,13 +2674,11 @@ internal use.</p>
 <span class="err">     |- mqtt.test.device.profile.yml</span>
 </code></pre></div>
 
-
 <p>Deploy EdgeX using the following commands:</p>
 <div class="codehilite"><pre><span></span><code><span class="err">cd path/to/device-service-demo</span>
 <span class="err">docker-compose pull</span>
 <span class="err">docker-compose up -d</span>
 </code></pre></div>
-
 
 <p>After the services start, check the consul dashboard as follows:</p>
 <blockquote>
@@ -2748,7 +2739,6 @@ internal use.</p>
 <span class="p">]</span>
 </code></pre></div>
 
-
 <h2 id="execute-put-command">Execute put Command</h2>
 <p>Execute a put command according to the url and parameterNames, replacing
 [host] with the server IP when running the edgex-core-command. This
@@ -2757,7 +2747,6 @@ can be done in either of the following ways:</p>
     -H <span class="s2">&quot;Content-Type:application/json&quot;</span> -X PUT  <span class="se">\</span>
     -d <span class="s1">&#39;{&quot;message&quot;:&quot;Hello!&quot;}&#39;</span>
 </code></pre></div>
-
 
 <p>or</p>
 <blockquote>
@@ -2786,7 +2775,6 @@ can be done in either of the following ways:</p>
 <span class="p">}</span>
 </code></pre></div>
 
-
 <h2 id="schedule-job">Schedule Job</h2>
 <p>The schedule job is defined in the [[DeviceList.AutoEvents]] section
 of the TOML configuration file:</p>
@@ -2810,7 +2798,6 @@ of the TOML configuration file:</p>
 <span class="w">    </span><span class="n">OnChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">false</span><span class="w"></span>
 <span class="w">    </span><span class="n">Resource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;testrandnum&quot;</span><span class="w"></span>
 </code></pre></div>
-
 
 <p>After the service starts, query core-data's reading API. The results
 show that the service auto-executes the command every 30 secs, as shown
@@ -2844,7 +2831,6 @@ below:</p>
 <span class="p">]</span>
 </code></pre></div>
 
-
 <h3 id="async-device-reading">Async Device Reading</h3>
 <blockquote>
 <p><img alt="Async Device Reading" src="../asyncreading.png" /></p>
@@ -2872,7 +2858,6 @@ file, as follows:</p>
 <span class="na">IncomingClientId</span> <span class="o">=</span> <span class="s">&quot;IncomingDataSubscriber&quot;</span>
 <span class="na">IncomingTopic</span> <span class="o">=</span> <span class="s">&quot;DataTopic&quot;</span>
 </code></pre></div>
-
 
 <p>The following results show that the mock device sent the reading every
 15 secs:</p>

@@ -2150,24 +2150,20 @@
 <p>This will create the VM select your network interface and let the prompt continue.  Once the prompt finishes, ignore the VMs popup window, we will be login in via SSH in the next step.</p>
 <div class="highlight"><pre><span></span><code>vagrant up
 </code></pre></div>
-
 <ul>
 <li>ssh into the worker node via from your host's terminal:</li>
 </ul>
 <div class="highlight"><pre><span></span><code>vagrant ssh
 </code></pre></div>
-
 <p>This will give you a terminal prompt in the worker node where you will run the <code>sudo docker swarm join</code> command in a few steps.</p>
 <h3 id="connecting-the-swarm-nodes">Connecting the swarm nodes</h3>
 <p>With the VM up and running we need to connect the two nodes using docker swarm.</p>
 <p>The following command initializes a docker swarm and is to be ran on the host machine: </p>
 <div class="highlight"><pre><span></span><code>sudo docker swarm init --advertise-addr &lt;your host ip address&gt;
 </code></pre></div>
-
 <p>The previous command will output a token use this token in the following join command.  This joins the worker node to the cluster, to be ran your vagrant VM (worker-node):</p>
 <div class="highlight"><pre><span></span><code>sudo docker swarm join --token &lt;token&gt; &lt;manager ip address&gt;:2377
 </code></pre></div>
-
 <p>Next, I will walk-through the changes we made to the docker-stack.yml file to convert the edgex compose file into a docker swarm stack file.</p>
 <h3 id="setting-up-the-docker-stack-edgexyml-file">Setting up the docker-stack-edgex.yml file</h3>
 <p>All of the following changes are already done in the examples repo.  I will just outline the necessary changes to go from a compose file to stack file.</p>
@@ -2184,7 +2180,6 @@ Here is the inverse of the previous yml block. This gets added to the device ser
         <span class="nt">constraints</span><span class="p">:</span> 
           <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">node.hostname == worker-node</span>
 </code></pre></div>
-
 <p>These work because we set the 'hostname = worker-node' in the Vagrantfile.</p>
 <h3 id="adding-host-mounted-volumes">Adding Host Mounted Volumes</h3>
 <p>In docker swarm bind mount volumes need to be explicitly defined in the stack yml file.  Below are the first three bind mount volume definitions these directories must be created on the host before the stack file can be ran.</p>
@@ -2209,7 +2204,6 @@ Here is the inverse of the previous yml block. This gets added to the device ser
       <span class="nt">device</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/tmp/edgex/secrets/edgex-consul/</span>
 <span class="nn">...</span>
 </code></pre></div>
-
 <p>The full docker-stack file is included here:</p>
 <p><a href="https://github.com/edgexfoundry/edgex-examples/security/remote_devices/docker-swarm/docker-stack-edgex.yml">docker-stack-edgex.yml file</a></p>
 <h3 id="other-changes-in-docker-stack-edgexyml-file">Other changes in docker-stack-edgex.yml file</h3>
@@ -2273,22 +2267,18 @@ Here is the inverse of the previous yml block. This gets added to the device ser
         <span class="nt">constraints</span><span class="p">:</span> 
           <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">node.hostname != worker-node</span> 
 </code></pre></div>
-
 <p>Another change we had to make is to set the restart policy for one-shot initialization containers like kong-migrations and edgex-proxy.  Simply add this section of yaml to the services you'd like to only run once and they wont be restarted unless a failure condition happens.</p>
 <div class="highlight"><pre><span></span><code>restart_policy:
   condition: on-failure
 </code></pre></div>
-
 <p>The next and final change in the stack yml file is to ensure the EdgeX services are binding to the correct host.  In Geneva we do this by adding a common variable <code>Service_ServerBindAddr: "0.0.0.0"</code> to ensure that the service will bind to any host and not be limited to the hostname.  </p>
 <h3 id="running-the-docker-stack-file">Running the docker stack file</h3>
 <p>With all of these changes in place we are ready to run the stack file.  We included a script to run the stack file and create the volumes needed in the stack file.  This script simply creates the volumes directories and runs the <code>docker stack deploy ...</code> command.</p>
 <div class="highlight"><pre><span></span><code>sudo ./run.sh
 </code></pre></div>
-
 <p>Once the stack is up you can run the following command to view the running services: </p>
 <div class="highlight"><pre><span></span><code>sudo docker stack services edgex-overlay
 </code></pre></div>
-
 <h3 id="confirming-results">Confirming results</h3>
 <p>To ensure the device service is running on the worker node you can run the <code>docker stack ps edgex-overlay</code> command. Now check that you see the device service running on the <code>worker-node</code> while all of the other services are running on your host.</p>
 <p>We have encryption enabled but how to we confirm that the overlay network is encrypting our data?  </p>
@@ -2298,7 +2288,6 @@ Here is the inverse of the previous yml block. This gets added to the device ser
 <p>To remove the stack run the command:</p>
 <div class="highlight"><pre><span></span><code>sudo ./down.sh
 </code></pre></div>
-
 <p>This will remove the volumes and the stack.</p>
 <p>To remove the swarm itself run: on the worker node <code>docker swarm leave</code>  and on the host machine <code>docker swarm leave --force</code>.</p>
 <p>To remove the vagrant VM run <code>vagrant destroy</code> on the host.</p>

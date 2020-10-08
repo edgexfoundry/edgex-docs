@@ -2178,7 +2178,6 @@ defining its address. </p>
 <p>Make a POST request to <code>http://localhost:48081/api/v1/device</code> with the following body:</p>
 <div class="highlight"><pre><span></span><code><span class="err">BODY:</span> <span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;countcamera1&quot;</span><span class="p">,</span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;human and dog counting camera #1&quot;</span><span class="p">,</span><span class="nt">&quot;adminState&quot;</span><span class="p">:</span><span class="s2">&quot;unlocked&quot;</span><span class="p">,</span><span class="nt">&quot;operatingState&quot;</span><span class="p">:</span><span class="s2">&quot;enabled&quot;</span><span class="p">,</span><span class="nt">&quot;protocols&quot;</span><span class="p">:{</span><span class="nt">&quot;camera protocol&quot;</span><span class="p">:{</span><span class="nt">&quot;camera address&quot;</span><span class="p">:</span><span class="s2">&quot;camera 1&quot;</span><span class="p">}},</span><span class="nt">&quot;labels&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;camera&quot;</span><span class="p">,</span><span class="s2">&quot;counter&quot;</span><span class="p">],</span><span class="nt">&quot;location&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nt">&quot;service&quot;</span><span class="p">:{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;camera control device service&quot;</span><span class="p">},</span><span class="nt">&quot;profile&quot;</span><span class="p">:{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;camera monitor profile&quot;</span><span class="p">}}</span>
 </code></pre></div>
-
 <p>Be sure that you are POSTing <strong>raw</strong> data, not form-encoded data.  If your API call is successful, you will get a generated ID (a UUID) for your new <code>DeviceService</code> in the response area.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2189,7 +2188,6 @@ defining its address. </p>
 <p>Make a curl POST request as shown below.</p>
 <div class="highlight"><pre><span></span><code>curl -X POST -d <span class="s1">&#39;{&quot;name&quot;:&quot;countcamera1&quot;,&quot;description&quot;:&quot;human and dog counting camera #1&quot;,&quot;adminState&quot;:&quot;unlocked&quot;,&quot;operatingState&quot;:&quot;enabled&quot;,&quot;protocols&quot;:{&quot;camera protocol&quot;:{&quot;camera address&quot;:&quot;camera 1&quot;}},&quot;labels&quot;: [&quot;camera&quot;,&quot;counter&quot;],&quot;location&quot;:&quot;&quot;,&quot;service&quot;:{&quot;name&quot;:&quot;camera control device service&quot;},&quot;profile&quot;:{&quot;name&quot;:&quot;camera monitor profile&quot;}}&#39;</span> localhost:48081/api/v1/device
 </code></pre></div>
-
 <p>If your API call is successful, you will get a generated ID (a UUID) for your new <code>Device</code>.</p>
 </div>
 </div>
@@ -2201,7 +2199,6 @@ all devices associated to a given <code>DeviceProfile</code>.</p>
 <span class="err">curl -X GET http://localhost:48081/api/v1/device/profilename/camera+monitor+profile | json_pp</span>
 <span class="err">```</span>
 </code></pre></div>
-
 
 <p><a class="md-button" href="../Ch-WalkthroughDeviceService/">&lt;Back</a> <a class="md-button" href="../Ch-WalkthroughCommands/">Next&gt;</a></p>
                 
