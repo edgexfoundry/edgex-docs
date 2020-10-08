@@ -1,10 +1,10 @@
 ## PR Checklist
 Please check if your PR fulfills the following requirements:
 
-- [ ] Tests for the changes have been added (for bug fixes / features)
+- [ ] Changes have been rendered and validated locally using mkdocs-material (see edgex-docs README)
 - [ ] Docs have been added / updated (for bug fixes / features)
 
-**If your build fails** due to your commit message not passing the build checks, please review the guidelines here: https://github.com/edgexfoundry/edgex-examples/blob/master/.github/CONTRIBUTING.md.
+**If your build fails** due to your commit message not passing the build checks, please review the guidelines here: https://github.com/edgexfoundry/edgex-docs/blob/master/.github/CONTRIBUTING.md.
 
 ## What is the current behavior?
 <!-- Please describe the current behavior and link to a relevant issue. -->
