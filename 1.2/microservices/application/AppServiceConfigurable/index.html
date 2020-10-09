@@ -2459,7 +2459,6 @@
         <span class="n">url</span> <span class="o">=</span> <span class="s">&quot;http://my.api.net/edgexdata&quot;</span>
         <span class="n">mimeType</span> <span class="o">=</span> <span class="s">&quot;&quot;</span> <span class="c1">#OPTIONAL - default application/json</span>
 </code></pre></div>
-
 <p>The first line of note is <code>ExecutionOrder = "FilterByDeviceName, TransformToXML, HTTPPost,MarkAsPushed"</code>. This specifies the order in which to execute your functions. Each function specified here must also be placed in the <code>[Writeable.Pipeline.Functions]</code> section. </p>
 <p>Next, each function and its required information is listed. Each function typically has associated Parameters that must be configured to properly execute the function as designated by <code>[Writable.Pipeline.Functions.{FunctionName}.Parameters]</code>. Knowing which parameters are required for each function, can be referenced by taking a look at  the <a href="#available-configurable-pipeline-functions">Available Configurable Pipeline Functions</a> section below. In a few cases, such as <code>TransformToXML</code>, <code>TransformToJSON</code>, SetOutputData`, etc. there are no parameters required.</p>
 <div class="admonition note">
@@ -2475,7 +2474,6 @@
 <span class="nt">MESSAGEBUS_SUBSCRIBEHOST_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-core-data</span>
 <span class="nt">CLIENTS_COREDATA_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-core-data</span>
 </code></pre></div>
-
 <p>The following is an example docker compose entry for <strong>App Service Configurable</strong>:</p>
 <div class="highlight"><pre><span></span><code>  <span class="nt">app-service-configurable-rules</span><span class="p">:</span>
     <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgexfoundry/docker-app-service-configurable:1.1.0</span>
@@ -2494,7 +2492,6 @@
     <span class="nt">depends_on</span><span class="p">:</span>
       <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">data</span>
 </code></pre></div>
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>App Service Configurable</strong> is designed to be run multiple times each with different profiles. This is why in the above example the name <code>edgex-app-service-configurable-rules</code> is used for the instance running the <code>rules-engine</code> profile.</p>
@@ -2553,7 +2550,6 @@
   <span class="p p-Indicator">-</span> <span class="nt">WRITABLE_PIPELINE_FUNCTIONS_MQTTSEND_PARAMETERS_RETAIN</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;true&quot;</span> <span class="nv">or &quot;false&quot;</span><span class="p p-Indicator">]</span>
   <span class="p p-Indicator">-</span> <span class="nt">WRITABLE_PIPELINE_FUNCTIONS_MQTTSEND_PARAMETERS_PERSISTONERROR</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;true&quot;</span> <span class="nv">or &quot;false&quot;</span><span class="p p-Indicator">]</span>
 </code></pre></div>
-
 <ul>
 <li><strong>rules-engine</strong> - Profile used to push Event messages to the Rules Engine via <strong>ZMQ</strong> Message Bus.</li>
 <li><strong>rules-engine-mqtt</strong> - Profile used to push Event messages to the Rules Engine via <strong>MQTT</strong> Message Bus.</li>
@@ -2580,12 +2576,10 @@
       <span class="k">[Writable.Pipeline.Functions.HTTPPost.Parameters]</span>
         <span class="n">url</span> <span class="o">=</span> <span class="s">&quot;http://my.api.net/edgexdata&quot;</span>
 </code></pre></div>
-
 <p>If along with this pipeline configuration, you also configured the <code>Binding</code> to be <code>http</code> trigger,  you could then send any data to the app-service-configurable' s <code>/api/v1/trigger</code> endpoint and have it compressed, encrypted and sent to your configured URL above.</p>
 <div class="highlight"><pre><span></span><code><span class="k">[Binding]</span>
 <span class="n">Type</span><span class="o">=</span><span class="s">&quot;http&quot;</span>
 </code></pre></div>
-
 <h2 id="available-configurable-pipeline-functions">Available Configurable Pipeline Functions</h2>
 <p>Below are the functions that are available to use in the configurable functions pipeline (<code>[Writable.Pipeline]</code>) section of the configuration. The function names below can be added to the <code>Writable.Pipeline.ExecutionOrder</code> setting (comma separated list) and must also be present or added to the <code>[Writable.Pipeline.Functions]</code> section as <code>[Writable.Pipeline.Functions.{FunctionName}]</code>. Certain functions will also have the <code>[Writable.Pipeline.Functions.{FunctionName}.Parameters]</code> section where the function's parameters are configured. Please refer to the <a href="#getting-started">Getting Started</a> section above for an example.</p>
 <div class="admonition note">
@@ -2603,7 +2597,6 @@
       <span class="k">[Writable.Pipeline.Functions.BatchByCount.Parameters]</span>
       <span class="n">BatchThreshold</span> <span class="o">=</span> <span class="s">&quot;30&quot;</span>
 </code></pre></div>
-
 <h3 id="batchbytime"><a href="../BuiltIn/#batch">BatchByTime</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
@@ -2614,7 +2607,6 @@
       <span class="k">[Writable.Pipeline.Functions.BatchByTime.Parameters]</span>
       <span class="n">TimeInterval</span> <span class="o">=</span> <span class="s">&quot;60s&quot;</span>
 </code></pre></div>
-
 <h3 id="batchbytimeandcount"><a href="../BuiltIn/#batch">BatchByTimeAndCount</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
@@ -2627,21 +2619,18 @@
       <span class="n">BatchThreshold</span> <span class="o">=</span> <span class="s">&quot;30&quot;</span>
       <span class="n">TimeInterval</span> <span class="o">=</span> <span class="s">&quot;60s&quot;</span>
 </code></pre></div>
-
 <h3 id="compresswithgzip"><a href="../BuiltIn/#gzip">CompressWithGZIP</a></h3>
 <p><strong>Parameters</strong></p>
 <p>none</p>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.CompressWithGZIP]</span>
 </code></pre></div>
-
 <h3 id="compresswithzlib"><a href="../BuiltIn/#zlib">CompressWithZLIB</a></h3>
 <p><strong>Parameters</strong></p>
 <p>none</p>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.CompressWithZLIB]</span>
 </code></pre></div>
-
 <h3 id="encryptwithaes"><a href="../BuiltIn/#aes">EncryptWithAES</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
@@ -2654,7 +2643,6 @@
         <span class="n">Key</span> <span class="o">=</span> <span class="s">&quot;aquqweoruqwpeoruqwpoeruqwpoierupqoweiurpoqwiuerpqowieurqpowieurpoqiweuroipwqure&quot;</span>
         <span class="n">InitVector</span> <span class="o">=</span> <span class="s">&quot;123456789012345678901234567890&quot;</span>
 </code></pre></div>
-
 <h3 id="filterbydevicename"><a href="../BuiltIn/#by-device-name">FilterByDeviceName</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
@@ -2667,7 +2655,6 @@
         <span class="n">DeviceNames</span> <span class="o">=</span> <span class="s">&quot;Random-Float-Device,Random-Integer-Device&quot;</span>
         <span class="n">FilterOut</span> <span class="o">=</span> <span class="s">&quot;false&quot;</span>
 </code></pre></div>
-
 <h3 id="filterbyvaluedescriptor"><a href="../BuiltIn/#by-value-descriptor">FilterByValueDescriptor</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
@@ -2680,7 +2667,6 @@
         <span class="n">ValueDescriptors</span> <span class="o">=</span> <span class="s">&quot;RandomValue_Int8, RandomValue_Int64&quot;</span>
         <span class="n">FilterOut</span> <span class="o">=</span> <span class="s">&quot;true&quot;</span>
 </code></pre></div>
-
 <h3 id="httppost"><a href="../BuiltIn/#http">HTTPPost</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
@@ -2699,7 +2685,6 @@
         <span class="n">SecretHeaderName</span> <span class="o">=</span> <span class="s">&quot;&quot;</span> <span class="c1"># This is the name used in the HTTP header and also used as the secret key</span>
         <span class="n">SecretPath</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
 </code></pre></div>
-
 <h3 id="httppostjson"><a href="../BuiltIn/#http">HTTPPostJSON</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
@@ -2716,7 +2701,6 @@
         <span class="n">SecretHeaderName</span> <span class="o">=</span> <span class="s">&quot;Authorization&quot;</span> <span class="c1"># This is the name used in the HTTP header and also used as the secret key</span>
         <span class="n">SecretPath</span> <span class="o">=</span> <span class="s">&quot;http&quot;</span>
 </code></pre></div>
-
 <h3 id="httppostxml"><a href="../BuiltIn/#http">HTTPPostXML</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
@@ -2733,7 +2717,6 @@
         <span class="n">SecretHeaderName</span> <span class="o">=</span> <span class="s">&quot;&quot;</span> <span class="c1"># This is the name used in the HTTP header and also used as the secret key</span>
         <span class="n">SecretPath</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
 </code></pre></div>
-
 <h3 id="jsonlogic"><a href="../BuiltIn/#json-logic">JSONLogic</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
@@ -2744,14 +2727,12 @@
       <span class="k">[Writable.Pipeline.Functions.JSONLogic.Parameters]</span>
         <span class="n">Rule</span> <span class="o">=</span> <span class="s">&quot;{ \&quot;and\&quot; : [{\&quot;&lt;\&quot; : [{ \&quot;var\&quot; : \&quot;temp\&quot; }, 110 ]}, {\&quot;==\&quot; : [{ \&quot;var\&quot; : \&quot;sensor.type\&quot; }, \&quot;temperature\&quot; ]} ] }&quot;</span>
 </code></pre></div>
-
 <h3 id="markaspushed"><a href="../BuiltIn/#mark-as-pushed">MarkAsPushed</a></h3>
 <p><strong>Parameters</strong></p>
 <p>none</p>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.MarkAsPushed]</span>
 </code></pre></div>
-
 <h3 id="mqttsecretsend"><a href="../BuiltIn/#mqtt">MQTTSecretSend</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
@@ -2807,21 +2788,18 @@
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.PushToCore]</span>
 </code></pre></div>
-
 <h3 id="setoutputdata"><a href="../BuiltIn/#output-functions">SetOutputData</a></h3>
 <p><strong>Parameters</strong></p>
 <p>none</p>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.SetOutputData]</span>
 </code></pre></div>
-
 <h3 id="transformtojson"><a href="../BuiltIn/#json">TransformToJSON</a></h3>
 <p><strong>Parameters</strong></p>
 <p>none</p>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.TransformToJSON]</span>
 </code></pre></div>
-
 <h3 id="transformtoxml"><a href="../BuiltIn/#xml">TransformToXML</a></h3>
 <p><strong>Parameters</strong></p>
 <p>none</p>

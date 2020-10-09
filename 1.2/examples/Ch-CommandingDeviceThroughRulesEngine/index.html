@@ -2286,12 +2286,10 @@
   -H <span class="s1">&#39;Content-Type: application/json&#39;</span> <span class="se">\</span>
   -d <span class="s1">&#39;{&quot;sql&quot;: &quot;create stream demo() WITH (FORMAT=\&quot;JSON\&quot;, TYPE=\&quot;edgex\&quot;)&quot;}&#39;</span>
 </code></pre></div>
-
 <h2 id="get-and-test-the-command-url">Get and Test the Command URL</h2>
 <p>Since both use case scenario rules will send commands to the <code>Random-Boolean-Device</code> virtual device, use the curl request below to get a list of available commands for this device.</p>
 <div class="highlight"><pre><span></span><code>curl http://localhost:48082/api/v1/device/name/Random-Boolean-Device <span class="p">|</span> jq
 </code></pre></div>
-
 <p>It should print results like those below.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
   <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;9b051411-ca20-4556-bd3e-7f52475764ff&quot;</span><span class="p">,</span>
@@ -2344,7 +2342,6 @@
   <span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>From this output, look for the URL associated to the <code>PUT</code> command (the second URL listed).  This is the command Kuiper will used to call on the device. There are two parameters for this command:</p>
 <ul>
 <li><code>Bool</code>: Set the returned value when other services want to get device data. The parameter will be used only when <code>EnableRandomization_Bool</code> is set to false.</li>
@@ -2356,7 +2353,6 @@
   -H <span class="s1">&#39;Content-Type: application/json&#39;</span> <span class="se">\</span>
   -d <span class="s1">&#39;{&quot;Bool&quot;:&quot;true&quot;, &quot;EnableRandomization_Bool&quot;: &quot;true&quot;}&#39;</span>
 </code></pre></div>
-
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The URL used in this example will not be the same as the URL for you command service.  EdgeX provides a different UUID for each command.  The example above shows you what to look for and how to make the request, but the URL will be unique to your system.</p>
@@ -2386,7 +2382,6 @@
 <span class="s1">  ]</span>
 <span class="s1">}&#39;</span>
 </code></pre></div>
-
 <h3 id="the-second-rule">The second rule</h3>
 <p>The 2nd rule is to monitor for events coming from the <code>Random-Integer-Device</code> device (another of the default virtual device managed devices), and if the average for <code>int8</code> reading values (within 20 seconds) is larger than 0, then send a command to <code>Random-Boolean-Device</code> device to stop generating random numbers (specifically - set random generation bool to false).  Here is the curl request to setup the second rule in Kuiper.  The same command URL is used as the same device action (<code>Random-Boolean-Device's PUT bool command</code>) is being actuated, but with different parameters.</p>
 <div class="highlight"><pre><span></span><code>curl -X POST <span class="se">\</span>
@@ -2410,21 +2405,17 @@
 <span class="s1">  ]</span>
 <span class="s1">}&#39;</span>
 </code></pre></div>
-
 <h2 id="watch-the-kuiper-logs">Watch the Kuiper Logs</h2>
 <p>Both rules are now created in Kuiper.  Kuiper is busy analyzing the event data coming for the virtual devices looking for readings that match the rules you created.  You can watch the edgex-kuiper container logs for the rule triggering and command execution.</p>
 <div class="highlight"><pre><span></span><code>docker logs edgex-kuiper
 </code></pre></div>
-
 <h2 id="explore-the-results">Explore the Results</h2>
 <p>You can also explore the Kuiper analysis that caused the commands to be sent to the service.  To see the the data from the analysis, use the SQL below to query Kuiper filtering data.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span> <span class="nb">int8</span><span class="p">,</span> <span class="ss">&quot;true&quot;</span> <span class="k">AS</span> <span class="n">randomization</span> <span class="k">FROM</span> <span class="n">demo</span> <span class="k">WHERE</span> <span class="n">uint8</span> <span class="o">&gt;</span> <span class="mi">20</span>
 </code></pre></div>
-
 <p>The output of the SQL should look similar to the results below.</p>
 <div class="highlight"><pre><span></span><code><span class="p">[{</span><span class="nt">&quot;int8&quot;</span><span class="p">:</span><span class="mi">-75</span><span class="p">,</span> <span class="nt">&quot;randomization&quot;</span><span class="p">:</span><span class="s2">&quot;true&quot;</span><span class="p">}]</span>
 </code></pre></div>
-
 <h2 id="extended-reading">Extended Reading</h2>
 <p>Use these resouces to learn more about the features of EMQ X Kuiper.</p>
 <ul>
