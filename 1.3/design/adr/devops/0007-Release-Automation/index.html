@@ -2122,11 +2122,11 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#application-device-services-and-supporting-docker-images" class="md-nav__link">
-    Application, Device Services and Supporting Docker Images
+  <a href="#core-services-including-security-and-system-management-services-application-services-device-services-and-supporting-docker-images" class="md-nav__link">
+    Core Services (Including Security and System Management services), Application Services, Device Services and Supporting Docker Images
   </a>
   
-    <nav class="md-nav" aria-label="Application, Device Services and Supporting Docker Images">
+    <nav class="md-nav" aria-label="Core Services (Including Security and System Management services), Application Services, Device Services and Supporting Docker Images">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2138,33 +2138,6 @@
         
           <li class="md-nav__item">
   <a href="#release_1" class="md-nav__link">
-    Release
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#core-services" class="md-nav__link">
-    Core Services
-  </a>
-  
-    <nav class="md-nav" aria-label="Core Services">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#during-development_2" class="md-nav__link">
-    During Development
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#release_2" class="md-nav__link">
     Release
   </a>
   
@@ -2207,13 +2180,14 @@
 <p>EdgeX Foundry is a framework composed of microservices to ease development of IoT/Edge solutions. With the framework getting richer, project growth, the number of artifacts to be released has increased. This proposal outlines a method for automating the release process for the base artifacts.</p>
 <h2 id="requirements">Requirements</h2>
 <h3 id="release-artifact-definition">Release Artifact Definition</h3>
-<p>For the scope of Geneva release artifact types are defined as:</p>
+<p>For the scope of Hanoi release artifact types are defined as:</p>
 <ul>
 <li>GitHub tags in the repositories.</li>
 <li>Docker images in our Nexus repository and Docker hub.</li>
-<li>Snaps in the Snapcraft store.</li>
+<li>*Snaps in the Snapcraft store.</li>
 </ul>
 <p>This list is likely to expand in future releases.</p>
+<p>*The building and publishing of snaps was removed from community scope in September 2020 and is managed outside the community by Canonical.</p>
 <h3 id="general-requirements">General Requirements</h3>
 <p>As the EdgeX Release Czar I gathered the following requirements for automating this part of the release.</p>
 <ol>
@@ -2237,23 +2211,16 @@
 <h4 id="release">Release</h4>
 <p><img alt="Release Actions" src="../0007/gomods_releaseactions.png" /></p>
 <p>The release automation for go modules is used to set a new version that increases the major or minor version for the module. (IE: 1.0.0 -&gt; 1.1.0) For the Application and Device SDKs it is used to set the final release version. (IE: 1.0.0-dev.X -&gt; 1.0.0)</p>
-<h3 id="application-device-services-and-supporting-docker-images">Application, Device Services and Supporting Docker Images</h3>
+<h3 id="core-services-including-security-and-system-management-services-application-services-device-services-and-supporting-docker-images">Core Services (Including Security and System Management services), Application Services, Device Services and Supporting Docker Images</h3>
 <h4 id="during-development_1">During Development</h4>
-<p><img alt="Merge Actions" src="../0007/appdevservices_mergeactions.png" /></p>
-<p>For the Device, Application services and supporting docker images we release Github tags, docker images and snaps. On every merge to the <code>master</code> branch we will do the following; increment a developmental version tag on GitHub, (IE: 1.0.0-dev.1 -&gt; 1.0.0-dev.2), stage docker images in our Nexus repository (docker.staging) and snaps will be pushed to the edge (experimental) and beta (QA) channels in the Snapcraft store.</p>
+<p><img alt="Merge Actions" src="../0007/mergeactions.png" /></p>
+<p>For the Core Services, Application Services, Device Services and Supporting Docker Images we release Github tags and docker images. On every merge to the <code>master</code> branch we will do the following; increment a developmental version tag on GitHub, (IE: 1.0.0-dev.1 -&gt; 1.0.0-dev.2), stage docker images in our Nexus repository (docker.staging).</p>
 <h4 id="release_1">Release</h4>
-<p>The release automation for the Application and Device services is the same as the services found in the <code>edgex-go</code> repository.</p>
-<h3 id="core-services">Core Services</h3>
-<h4 id="during-development_2">During Development</h4>
-<p><img alt="Merge Actions" src="../0007/coreservices_mergeactions.png" /></p>
-<p>For the Core services we release Github tags, docker images and snaps. On every merge to the <code>master</code> branch we will do the following; increment a developmental version tag on GitHub, (IE: 1.0.0-dev.1 -&gt; 1.0.0-dev.2), stage docker images in our Nexus repository (docker.staging). Snaps will be pushed daily to the edge (experimental) and beta (QA) channels in the Snapcraft store because the core services snap can take up to a hour and half to build.</p>
-<h4 id="release_2">Release</h4>
 <p><img alt="Release Actions" src="../0007/releaseactions.png" /></p>
 <p>The release automation will need to do the following:</p>
 <ol>
 <li>Set version tag on GitHub. (IE: 1.0.0-dev.X -&gt; 1.0.0)</li>
 <li>Promote docker images in our Nexus repository from docker.staging to docker.release and public Docker hub.</li>
-<li>Promote snaps from the beta (QA) channel to the release channel in the Snapcraft store.</li>
 </ol>
                 
               
