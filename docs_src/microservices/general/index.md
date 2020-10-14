@@ -12,7 +12,7 @@ EdgeX provides the means to “tag” the event data from any point in the syste
 
 For example, a device service could populate the `Tags` property with latitude and longitude key/value pairs of the physical location of the sensor when the Event is created to send sensed information to Core Data.
 
-When the Event gets to an [Application Service](../application/ApplicationServices.md), the service has an optional function (defined by `Writable.Pipeline.Functions.AddTags` in configuration) that will add a default key/value pair to the Event `Tags`.  The key and value for the default tag are provided in configuration (as shown by the example below).  Multiple tags can be provide separated by commas.
+When the Event gets to an [Application Service](../application/ApplicationServices.md), the service has an optional function (defined by `Writable.Pipeline.Functions.AddTags` in configuration) that will add additional key/value pair to the Event `Tags`.  The key and value for the additional tag are provided in configuration (as shown by the example below).  Multiple tags can be provide separated by commas.
 
 ```toml
     [Writable.Pipeline.Functions.AddTags]
@@ -21,7 +21,5 @@ When the Event gets to an [Application Service](../application/ApplicationServic
 ```
 
 If the Event already has `Tags` when it arrives at the application service, then default tags will be added to the `Tags` map.  If the default tags have the same key as an existing key in the `Tags` map, then the default key/value will override what is already in the Event `Tags` map.
-
-!!! Note
-    At this time, because XML cannot marshal maps, use of the tagging function with the XML transformation in the same pipeline is prohibited.   
+  
 
