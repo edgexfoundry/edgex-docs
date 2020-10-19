@@ -2725,6 +2725,7 @@
 <p>There are a few export functions included in the SDK that can be added to your pipeline. </p>
 <h3 id="http">HTTP</h3>
 <p><code>HTTPPost</code> - This function receives either a <code>string</code>,<code>[]byte</code>, or <code>json.Marshaler</code> type from the previous function in the pipeline and posts it to the configured endpoint. If no previous function exists, then the event that triggered the pipeline, marshaled to json, will be used. If the post fails and <code>persistOnError</code>is <code>true</code> and <code>Store and Forward</code> is enabled, the data will be stored for later retry. See <a href="#store-and-forward">Store and Forward</a> for more details. </p>
+<p><code>HTTPPut</code> - This function operates the same as <code>HTTPPost</code> but uses the <code>PUT</code> method rather than <code>POST</code>. </p>
 <table>
 <thead>
 <tr>
@@ -2745,10 +2746,18 @@
 </table>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="nx">NewHTTPSender</span><span class="p">(</span><span class="s">&quot;https://myendpoint.com&quot;</span><span class="p">,</span><span class="s">&quot;application/json&quot;</span><span class="p">,</span><span class="kc">false</span><span class="p">).</span><span class="nx">HTTPPost</span> <span class="c1">//assumes TransformToJSON was used before this transform in the pipeline</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="nx">NewHTTPSenderWithSecretHeader</span><span class="p">(</span><span class="s">&quot;https://myendpoint.com&quot;</span><span class="p">,</span><span class="s">&quot;application/json&quot;</span><span class="p">,</span><span class="kc">false</span><span class="p">,</span><span class="s">&quot;Authentication&quot;</span><span class="p">,</span><span class="s">&quot;/jwt&quot;</span><span class="p">).</span><span class="nx">HTTPPost</span> <span class="c1">//assumes TransformToJSON was used before this transform in the pipeline and /jwt has been seeded into the secret provider with a key of Authentication</span>
-</code></pre></div>
+<p><strong>POST</strong>            <br />
+NewHTTPSender("https://myendpoint.com","application/json",false).HTTPPost 
+//assumes TransformToJSON was used before this transform in the pipeline</p>
+<p><strong>PUT</strong>                 <br />
+NewHTTPSender("https://myendpoint.com","application/json",false).HTTPPut 
+//assumes TransformToJSON was used before this transform in the pipeline</p>
+<p><strong>POST with secure header</strong>
+NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,"Authentication","/jwt").HTTPPost 
+//assumes TransformToJSON was used before this transform in the pipeline and /jwt has been seeded into the secret provider with a key of Authentication</p>
+<p><strong> PUT with secure header</strong>
+NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,"Authentication","/jwt").HTTPPPut 
+//assumes TransformToJSON was used before this transform in the pipeline and /jwt has been seeded into the secret provider with a key of Authentication</p>
 </div>
 <h3 id="mqtt">MQTT</h3>
 <table>
