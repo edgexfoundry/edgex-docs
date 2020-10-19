@@ -189,19 +189,29 @@ There are a few export functions included in the SDK that can be added to your p
 ### HTTP
 `HTTPPost` - This function receives either a `string`,`[]byte`, or `json.Marshaler` type from the previous function in the pipeline and posts it to the configured endpoint. If no previous function exists, then the event that triggered the pipeline, marshaled to json, will be used. If the post fails and `persistOnError`is `true` and `Store and Forward` is enabled, the data will be stored for later retry. See [Store and Forward](#store-and-forward) for more details. 
 
+`HTTPPut` - This function operates the same as `HTTPPost` but uses the `PUT` method rather than `POST`. 
+
 | Factory Method                   | Description |
 |----------------------------------|-------------|
 |NewHTTPSender(url string, mimeType string, persistOnError bool)| This function returns a `HTTPSender` instance initialized with the passed in url, mime type and persistOnError values. |
 | NewHTTPSenderWithSecretHeader(url string, mimeType string, persistOnError bool, httpHeaderSecretName string, secretPath string) | This function returns a `HTTPSender` instance similar to the above function however will set up the `HTTPSender` to add a header to the HTTP request using the `httpHeaderSecretName` as both the header key  and the key to search for in the secret provider at `secretPath` leveraging secure storage of secrets. |
 
 !!! example
-    ```go
-    NewHTTPSender("https://myendpoint.com","application/json",false).HTTPPost //assumes TransformToJSON was used before this transform in the pipeline
-    ```
+    **POST**              
+    NewHTTPSender("https://myendpoint.com","application/json",false).HTTPPost 
+    //assumes TransformToJSON was used before this transform in the pipeline
 
-    ```go
-    NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,"Authentication","/jwt").HTTPPost //assumes TransformToJSON was used before this transform in the pipeline and /jwt has been seeded into the secret provider with a key of Authentication
-    ```
+    **PUT**                   
+    NewHTTPSender("https://myendpoint.com","application/json",false).HTTPPut 
+    //assumes TransformToJSON was used before this transform in the pipeline
+
+    **POST with secure header**
+    NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,"Authentication","/jwt").HTTPPost 
+    //assumes TransformToJSON was used before this transform in the pipeline and /jwt has been seeded into the secret provider with a key of Authentication
+
+    ** PUT with secure header**
+    NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,"Authentication","/jwt").HTTPPPut 
+    //assumes TransformToJSON was used before this transform in the pipeline and /jwt has been seeded into the secret provider with a key of Authentication
 
 ### MQTT
 

@@ -306,7 +306,7 @@ none
 ### [HTTPPostJSON](../BuiltIn/#http)
 **Parameters**
 
-- `Url` - HTTP endpoint to POST the data.
+- `Url` - HTTP endpoint to POST the JSON data.
 - `PersistOnError` - Indicates to persist the data if the POST fails. Store and Forward must also be enabled if this is set to "true".
 - `SecretHeaderName` - Optional HTTP header name used when POSTing with authorization token. If specified, the Secret Store (Vault or [InsecureSecrets](../GeneralAppServiceConfig/#writable-insecuresecrets)) must contain the `<name>` secret at the specified `SecretPath`.
 - `SecretPath` - Optional  path in the secret store where to token is stored. 
@@ -324,7 +324,7 @@ none
 ### [HTTPPostXML](../BuiltIn/#http)
 **Parameters**
 
-- `Url` - HTTP endpoint to POST the data.
+- `Url` - HTTP endpoint to POST the XML data.
 - `PersistOnError` - Indicates to persist the data if the POST fails. Store and Forward must also be enabled if this is set to "true".
 - `SecretHeaderName` - Optional HTTP header name used when POSTing with authorization token. If specified, the Secret Store (Vault or [InsecureSecrets](../GeneralAppServiceConfig/#writable-insecuresecrets)) must contain the `<name>` secret at the specified `SecretPath`.
 - `SecretPath` - Optional path in the secret store where to token is stored.
@@ -334,6 +334,63 @@ none
 ```toml
     [Writable.Pipeline.Functions.HTTPPostXML]
       [Writable.Pipeline.Functions.HTTPPostXML.Parameters]
+        Url = "http://my.api.net/edgexdata"
+        PersistOnError = "false"
+        SecretHeaderName = "" # This is the name used in the HTTP header and also used as the secret key
+        SecretPath = ""
+```
+
+### [HTTPPut](../BuiltIn/#http)
+**Parameters**
+
+- `Url` - HTTP endpoint to PUT the data.
+- `MimeType` - Optional mime type for the data. Defaults to application/json.
+- `PersistOnError` - Indicates to persist the data if the PUT fails. Store and Forward must also be enabled if this is set to "true".
+- `SecretHeaderName` - Optional HTTP header name used when PUTing with authorization token. If specified, the Secret Store (Vault or [InsecureSecrets](../GeneralAppServiceConfig/#writable-insecuresecrets)) must contain the `<name>` secret at the specified `SecretPath`.
+- `SecretPath` - Optional path in the secret store where to token is stored.
+
+**Example**
+
+```toml
+    [Writable.Pipeline.Functions.HTTPPut]
+      [Writable.Pipeline.Functions.HTTPPut.Parameters]
+        Url = "http://my.api.net/edgexdata"
+        MimeType = "" #OPTIONAL - default application/json
+        PersistOnError = "false"
+        SecretHeaderName = "" # This is the name used in the HTTP header and also used as the secret key
+        SecretPath = ""
+```
+### [HTTPPutJSON](../BuiltIn/#http)
+**Parameters**
+
+- `Url` - HTTP endpoint to PUT the JSON data.
+- `PersistOnError` - Indicates to persist the data if the PUT fails. Store and Forward must also be enabled if this is set to "true".
+- `SecretHeaderName` - Optional HTTP header name used when PUTing with authorization token. If specified, the Secret Store (Vault or [InsecureSecrets](../GeneralAppServiceConfig/#writable-insecuresecrets)) must contain the `<name>` secret at the specified `SecretPath`.
+- `SecretPath` - Optional  path in the secret store where to token is stored. 
+
+**Example**
+
+```toml
+    [Writable.Pipeline.Functions.HTTPPuttJSON]
+      [Writable.Pipeline.Functions.HTTPPutJSON.Parameters]
+        Url = "https://my.api.net/edgexdata"
+        PersistOnError = "true"
+        SecretHeaderName = "Authorization" # This is the name used in the HTTP header and also used as the secret key
+        SecretPath = "http"
+```
+### [HTTPPutXML](../BuiltIn/#http)
+**Parameters**
+
+- `Url` - HTTP endpoint to PUT the XML data.
+- `PersistOnError` - Indicates to persist the data if the PUT fails. Store and Forward must also be enabled if this is set to "true".
+- `SecretHeaderName` - Optional HTTP header name used when PUTing with authorization token. If specified, the Secret Store (Vault or [InsecureSecrets](../GeneralAppServiceConfig/#writable-insecuresecrets)) must contain the `<name>` secret at the specified `SecretPath`.
+- `SecretPath` - Optional path in the secret store where to token is stored.
+
+**Example**
+
+```toml
+    [Writable.Pipeline.Functions.HTTPPutXML]
+      [Writable.Pipeline.Functions.HTTPPutXML.Parameters]
         Url = "http://my.api.net/edgexdata"
         PersistOnError = "false"
         SecretHeaderName = "" # This is the name used in the HTTP header and also used as the secret key
