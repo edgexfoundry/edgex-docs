@@ -80,6 +80,8 @@ The filter criteria for discovered devices are represented by Provision Watchers
 
 A candidate new device passes a ProvisionWatcher if all of the `Identifiers` match, and none of the `BlockingIdentifiers`.
 
+For devices with multiple `Device.Protocols`, each `Device.Protocol` is considered separately. A pass (as described above) on any of the protocols results in the device being added.
+
 The values specified in `Identifiers` are regular expressions.
 
 **Note:** *the above is a whitelist+blacklist scheme. If a discovered Device is manually removed from EdgeX, it will be necessary to adjust the ProvisionWatcher via which it was added, either by making the `Identifiers` more specific or by adding `BlockingIdentifiers`, otherwise the Device will be re-added the next time Discovery is initiated.*
