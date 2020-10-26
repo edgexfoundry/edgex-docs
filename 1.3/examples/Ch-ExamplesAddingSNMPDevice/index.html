@@ -2442,49 +2442,49 @@ issue</p>
 <a href="http://localhost:48082/api/v1/device">http://localhost:48082/api/v1/device</a></p>
 <p>Press Send</p>
 <p>You should see something similar to</p>
-<div class="codehilite"><pre><span></span><code><span class="err">{</span>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
 
-            <span class="ss">&quot;id&quot;</span><span class="p">:</span> <span class="ss">&quot;5a1d6f8ae4b0c3936013120f&quot;</span><span class="p">,</span>
+            <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="s">&quot;5a1d6f8ae4b0c3936013120f&quot;</span><span class="p">,</span>
 
-            <span class="ss">&quot;name&quot;</span><span class="p">:</span> <span class="ss">&quot;diStatus0&quot;</span><span class="p">,</span>
+            <span class="s">&quot;name&quot;</span><span class="o">:</span> <span class="s">&quot;diStatus0&quot;</span><span class="p">,</span>
 
-            <span class="ss">&quot;get&quot;</span><span class="p">:</span> <span class="err">{</span>
+            <span class="s">&quot;get&quot;</span><span class="o">:</span> <span class="p">{</span>
 
-                <span class="ss">&quot;url&quot;</span><span class="p">:</span> <span class="ss">&quot;http://localhost:48082/api/v1/device/5a1d7134e4b0c39360131212/command/5a1d6f8ae4b0c3936013120f&quot;</span><span class="p">,</span> <span class="o">&lt;</span><span class="c1">-- This</span>
+                <span class="s">&quot;url&quot;</span><span class="o">:</span> <span class="s">&quot;http://localhost:48082/api/v1/device/5a1d7134e4b0c39360131212/command/5a1d6f8ae4b0c3936013120f&quot;</span><span class="p">,</span> <span class="o">&lt;--</span> <span class="n">This</span>
 
-                <span class="ss">&quot;responses&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s">&quot;responses&quot;</span><span class="o">:</span> <span class="p">[</span>
 
-                    <span class="err">{</span>
+                    <span class="p">{</span>
 
-                        <span class="ss">&quot;code&quot;</span><span class="p">:</span> <span class="ss">&quot;200&quot;</span><span class="p">,</span>
+                        <span class="s">&quot;code&quot;</span><span class="o">:</span> <span class="s">&quot;200&quot;</span><span class="p">,</span>
 
-                        <span class="ss">&quot;description&quot;</span><span class="p">:</span> <span class="ss">&quot;Get di 0 Status.&quot;</span><span class="p">,</span>
+                        <span class="s">&quot;description&quot;</span><span class="o">:</span> <span class="s">&quot;Get di 0 Status.&quot;</span><span class="p">,</span>
 
-                        <span class="ss">&quot;expectedValues&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s">&quot;expectedValues&quot;</span><span class="o">:</span> <span class="p">[</span>
 
-                            <span class="ss">&quot;diStatus0&quot;</span>
+                            <span class="s">&quot;diStatus0&quot;</span>
 
                         <span class="p">]</span>
 
-                    <span class="err">}</span><span class="p">,</span>
+                    <span class="p">},</span>
 
-                    <span class="err">{</span>
+                    <span class="p">{</span>
 
-                        <span class="ss">&quot;code&quot;</span><span class="p">:</span> <span class="ss">&quot;503&quot;</span><span class="p">,</span>
+                        <span class="s">&quot;code&quot;</span><span class="o">:</span> <span class="s">&quot;503&quot;</span><span class="p">,</span>
 
-                        <span class="ss">&quot;description&quot;</span><span class="p">:</span> <span class="ss">&quot;service unavailable&quot;</span><span class="p">,</span>
+                        <span class="s">&quot;description&quot;</span><span class="o">:</span> <span class="s">&quot;service unavailable&quot;</span><span class="p">,</span>
 
-                        <span class="ss">&quot;expectedValues&quot;</span><span class="p">:</span> <span class="p">[]</span>
+                        <span class="s">&quot;expectedValues&quot;</span><span class="o">:</span> <span class="p">[]</span>
 
-                    <span class="err">}</span>
+                    <span class="p">}</span>
 
                 <span class="p">]</span>
 
-            <span class="err">}</span><span class="p">,</span>
+            <span class="p">},</span>
 
-            <span class="ss">&quot;put&quot;</span><span class="p">:</span> <span class="k">null</span>
+            <span class="s">&quot;put&quot;</span><span class="o">:</span> <span class="n">null</span>
 
- <span class="err">}</span><span class="p">,</span>
+ <span class="p">},</span>
 </code></pre></div>
 
 <p>Double click on the "url" and a new tab within Postman should open,
@@ -2503,97 +2503,97 @@ regularly viewing data.</p>
 <p>Look for the id or the device that you want to schedule an event for</p>
 <div class="codehilite"><pre><span></span><code><span class="p">[</span>
 
-   <span class="err">{</span>
+   <span class="p">{</span>
 
-       <span class="ss">&quot;name&quot;</span><span class="p">:</span> <span class="ss">&quot;moxa-e2210-device&quot;</span><span class="p">,</span>
+       <span class="s">&quot;name&quot;</span><span class="o">:</span> <span class="s">&quot;moxa-e2210-device&quot;</span><span class="p">,</span>
 
-       <span class="ss">&quot;id&quot;</span><span class="p">:</span> <span class="ss">&quot;5a280a0be4b0c39393ec7780&quot;</span><span class="p">,</span>  <span class="o">&lt;</span><span class="c1">--- This</span>
+       <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="s">&quot;5a280a0be4b0c39393ec7780&quot;</span><span class="p">,</span>  <span class="o">&lt;---</span> <span class="n">This</span>
 
-       <span class="ss">&quot;description&quot;</span><span class="p">:</span> <span class="ss">&quot;snmp smart ethernet io&quot;</span><span class="p">,</span>
+       <span class="s">&quot;description&quot;</span><span class="o">:</span> <span class="s">&quot;snmp smart ethernet io&quot;</span><span class="p">,</span>
 
-       <span class="ss">&quot;labels&quot;</span><span class="p">:</span> <span class="p">[</span>
+       <span class="s">&quot;labels&quot;</span><span class="o">:</span> <span class="p">[</span>
 
-           <span class="ss">&quot;snmp&quot;</span><span class="p">,</span>
+           <span class="s">&quot;snmp&quot;</span><span class="p">,</span>
 
-           <span class="ss">&quot;rtu&quot;</span><span class="p">,</span>
+           <span class="s">&quot;rtu&quot;</span><span class="p">,</span>
 
-           <span class="ss">&quot;io&quot;</span>
+           <span class="s">&quot;io&quot;</span>
 
        <span class="p">],</span>
 
-       <span class="ss">&quot;adminState&quot;</span><span class="p">:</span> <span class="ss">&quot;unlocked&quot;</span><span class="p">,</span>
+       <span class="s">&quot;adminState&quot;</span><span class="o">:</span> <span class="s">&quot;unlocked&quot;</span><span class="p">,</span>
 </code></pre></div>
 
 <p>In this case the id is "5a280a0be4b0c39393ec7780"</p>
 <p>Next you want to get the "name" of the command you want to schedule an
 event for</p>
-<div class="codehilite"><pre><span></span><code><span class="ss">&quot;commands&quot;</span><span class="p">:</span> <span class="p">[</span>
+<div class="codehilite"><pre><span></span><code><span class="s">&quot;commands&quot;</span><span class="o">:</span> <span class="p">[</span>
 
-           <span class="err">{</span>
+           <span class="p">{</span>
 
-               <span class="ss">&quot;id&quot;</span><span class="p">:</span> <span class="ss">&quot;5a2808e6e4b0c39393ec777c&quot;</span><span class="p">,</span>
+               <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="s">&quot;5a2808e6e4b0c39393ec777c&quot;</span><span class="p">,</span>
 
-               <span class="ss">&quot;name&quot;</span><span class="p">:</span> <span class="ss">&quot;serverModel&quot;</span><span class="p">,</span>
+               <span class="s">&quot;name&quot;</span><span class="o">:</span> <span class="s">&quot;serverModel&quot;</span><span class="p">,</span>
 
-               <span class="ss">&quot;get&quot;</span><span class="p">:</span> <span class="err">{</span>
+               <span class="s">&quot;get&quot;</span><span class="o">:</span> <span class="p">{</span>
 
-                   <span class="ss">&quot;url&quot;</span><span class="p">:</span> <span class="ss">&quot;http://localhost:48082/api/v1/device/5a280a0be4b0c39393ec7780/command/5a2808e6e4b0c39393ec777c&quot;</span><span class="p">,</span>
+                   <span class="s">&quot;url&quot;</span><span class="o">:</span> <span class="s">&quot;http://localhost:48082/api/v1/device/5a280a0be4b0c39393ec7780/command/5a2808e6e4b0c39393ec777c&quot;</span><span class="p">,</span>
 
-                   <span class="ss">&quot;responses&quot;</span><span class="p">:</span> <span class="p">[</span>
+                   <span class="s">&quot;responses&quot;</span><span class="o">:</span> <span class="p">[</span>
 
-                       <span class="err">{</span>
+                       <span class="p">{</span>
 
-                           <span class="ss">&quot;code&quot;</span><span class="p">:</span> <span class="ss">&quot;200&quot;</span><span class="p">,</span>
+                           <span class="s">&quot;code&quot;</span><span class="o">:</span> <span class="s">&quot;200&quot;</span><span class="p">,</span>
 
-                           <span class="ss">&quot;description&quot;</span><span class="p">:</span> <span class="ss">&quot;Get server model number.&quot;</span><span class="p">,</span>
+                           <span class="s">&quot;description&quot;</span><span class="o">:</span> <span class="s">&quot;Get server model number.&quot;</span><span class="p">,</span>
 
-                           <span class="ss">&quot;expectedValues&quot;</span><span class="p">:</span> <span class="p">[</span>
+                           <span class="s">&quot;expectedValues&quot;</span><span class="o">:</span> <span class="p">[</span>
 
-                               <span class="ss">&quot;serverModel&quot;</span>
+                               <span class="s">&quot;serverModel&quot;</span>
 
                            <span class="p">]</span>
 
-                       <span class="err">}</span><span class="p">,</span>
+                       <span class="p">},</span>
 
-                       <span class="err">{</span>
+                       <span class="p">{</span>
 
-                           <span class="ss">&quot;code&quot;</span><span class="p">:</span> <span class="ss">&quot;503&quot;</span><span class="p">,</span>
+                           <span class="s">&quot;code&quot;</span><span class="o">:</span> <span class="s">&quot;503&quot;</span><span class="p">,</span>
 
-                           <span class="ss">&quot;description&quot;</span><span class="p">:</span> <span class="ss">&quot;service unavailable&quot;</span><span class="p">,</span>
+                           <span class="s">&quot;description&quot;</span><span class="o">:</span> <span class="s">&quot;service unavailable&quot;</span><span class="p">,</span>
 
-                           <span class="ss">&quot;expectedValues&quot;</span><span class="p">:</span> <span class="p">[]</span>
+                           <span class="s">&quot;expectedValues&quot;</span><span class="o">:</span> <span class="p">[]</span>
 
-                       <span class="err">}</span>
+                       <span class="p">}</span>
 
                    <span class="p">]</span>
 
-               <span class="err">}</span><span class="p">,</span>
+               <span class="p">},</span>
 
-               <span class="ss">&quot;put&quot;</span><span class="p">:</span> <span class="k">null</span>
+               <span class="s">&quot;put&quot;</span><span class="o">:</span> <span class="n">null</span>
 
-           <span class="err">}</span><span class="p">,</span>
+           <span class="p">},</span>
 
-           <span class="err">{</span>
+           <span class="p">{</span>
 
-               <span class="ss">&quot;id&quot;</span><span class="p">:</span> <span class="ss">&quot;5a2808e6e4b0c39393ec777d&quot;</span><span class="p">,</span>
+               <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="s">&quot;5a2808e6e4b0c39393ec777d&quot;</span><span class="p">,</span>
 
-               <span class="ss">&quot;name&quot;</span><span class="p">:</span> <span class="ss">&quot;diStatus0&quot;</span><span class="p">,</span>  <span class="o">&lt;</span><span class="c1">--- This</span>
+               <span class="s">&quot;name&quot;</span><span class="o">:</span> <span class="s">&quot;diStatus0&quot;</span><span class="p">,</span>  <span class="o">&lt;---</span> <span class="n">This</span>
 
-               <span class="ss">&quot;get&quot;</span><span class="p">:</span> <span class="err">{</span>
+               <span class="s">&quot;get&quot;</span><span class="o">:</span> <span class="p">{</span>
 
-                   <span class="ss">&quot;url&quot;</span><span class="p">:</span> <span class="ss">&quot;http://localhost:48082/api/v1/device/5a280a0be4b0c39393ec7780/command/5a2808e6e4b0c39393ec777d&quot;</span><span class="p">,</span>
+                   <span class="s">&quot;url&quot;</span><span class="o">:</span> <span class="s">&quot;http://localhost:48082/api/v1/device/5a280a0be4b0c39393ec7780/command/5a2808e6e4b0c39393ec777d&quot;</span><span class="p">,</span>
 
-                   <span class="ss">&quot;responses&quot;</span><span class="p">:</span> <span class="p">[</span>
+                   <span class="s">&quot;responses&quot;</span><span class="o">:</span> <span class="p">[</span>
 
-                       <span class="err">{</span>
+                       <span class="p">{</span>
 
-                           <span class="ss">&quot;code&quot;</span><span class="p">:</span> <span class="ss">&quot;200&quot;</span><span class="p">,</span>
+                           <span class="s">&quot;code&quot;</span><span class="o">:</span> <span class="s">&quot;200&quot;</span><span class="p">,</span>
 
-                           <span class="ss">&quot;description&quot;</span><span class="p">:</span> <span class="ss">&quot;Get di 0 Status.&quot;</span><span class="p">,</span>
+                           <span class="s">&quot;description&quot;</span><span class="o">:</span> <span class="s">&quot;Get di 0 Status.&quot;</span><span class="p">,</span>
 
-                           <span class="ss">&quot;expectedValues&quot;</span><span class="p">:</span> <span class="p">[</span>
+                           <span class="s">&quot;expectedValues&quot;</span><span class="o">:</span> <span class="p">[</span>
 
-                               <span class="ss">&quot;diStatus0&quot;</span>
+                               <span class="s">&quot;diStatus0&quot;</span>
 
                            <span class="p">]</span>
 </code></pre></div>

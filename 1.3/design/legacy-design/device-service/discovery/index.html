@@ -2160,6 +2160,7 @@ the collection of discovered devices to the SDK. Using a callback mechanism inst
 <li><code>AdminState</code>: The initial Administrative State for new devices which pass this ProvisionWatcher</li>
 </ul>
 <p>A candidate new device passes a ProvisionWatcher if all of the <code>Identifiers</code> match, and none of the <code>BlockingIdentifiers</code>.</p>
+<p>For devices with multiple <code>Device.Protocols</code>, each <code>Device.Protocol</code> is considered separately. A pass (as described above) on any of the protocols results in the device being added.</p>
 <p>The values specified in <code>Identifiers</code> are regular expressions.</p>
 <p><strong>Note:</strong> <em>the above is a whitelist+blacklist scheme. If a discovered Device is manually removed from EdgeX, it will be necessary to adjust the ProvisionWatcher via which it was added, either by making the <code>Identifiers</code> more specific or by adding <code>BlockingIdentifiers</code>, otherwise the Device will be re-added the next time Discovery is initiated.</em></p>
 <p><strong>Note:</strong> <em>ProvisionWatchers are stored in core-metadata. A facility for managing ProvisionWatchers is needed, eg <code>edgex-cli</code> could be extended</em></p>
