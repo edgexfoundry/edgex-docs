@@ -1411,6 +1411,19 @@
     Output Functions
   </a>
   
+    <nav class="md-nav" aria-label="Output Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#content-type" class="md-nav__link">
+    Content Type
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -2464,6 +2477,19 @@
     Output Functions
   </a>
   
+    <nav class="md-nav" aria-label="Output Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#content-type" class="md-nav__link">
+    Content Type
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -2854,6 +2880,11 @@ Secrets in the secret provider may be located at any path however they must have
 </tr>
 </tbody>
 </table>
+<h3 id="content-type">Content Type</h3>
+<p><code>ResponseContentType</code> - This property is used to set the content-type of the response.</p>
+<div class="highlight"><pre><span></span><code><span class="nx">output</span> <span class="o">:=</span> <span class="nx">NewOutput</span><span class="p">()</span>
+<span class="nx">output</span><span class="p">.</span><span class="nx">ResponseContentType</span> <span class="p">=</span> <span class="s">&quot;application/json&quot;</span>
+</code></pre></div>
 <p><code>SetOutput</code> - This function receives either a <code>string</code>,<code>[]byte</code>, or <code>json.Marshaler</code> type from the previous function in the pipeline and sets it as the output data for the pipeline to return to the configured trigger. If configured to use message bus, the data will be published to the message bus as determined by the <code>MessageBus</code> and <code>Binding</code> configuration. If configured to use HTTP trigger the data is returned as the HTTP response. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
