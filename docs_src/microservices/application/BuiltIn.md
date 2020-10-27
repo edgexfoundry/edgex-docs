@@ -285,6 +285,14 @@ There is one output function included in the SDK that can be added to your pipel
 |----------------------------------|-------------|
 | NewOutput() | This function returns a `Output` instance that is used to access the following output function |
 
+### Content Type
+`ResponseContentType` - This property is used to set the content-type of the response.
+
+``` go
+output := NewOutput()
+output.ResponseContentType = "application/json"
+```
+
 `SetOutput` - This function receives either a `string`,`[]byte`, or `json.Marshaler` type from the previous function in the pipeline and sets it as the output data for the pipeline to return to the configured trigger. If configured to use message bus, the data will be published to the message bus as determined by the `MessageBus` and `Binding` configuration. If configured to use HTTP trigger the data is returned as the HTTP response. 
 
 

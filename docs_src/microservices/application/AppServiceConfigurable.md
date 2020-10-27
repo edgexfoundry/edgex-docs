@@ -488,12 +488,14 @@ none
 
 **Parameters**
 
-none
+- `ResponseContentType` - Used to specify content-type header for response - optional
 
 **Example**
 
 ```toml
     [Writable.Pipeline.Functions.SetOutputData]
+      [Writable.Pipeline.Functions.SetOutputData.Parameters]
+        ResponseContentType = "application/json"
 ```
 
 ### [TransformToJSON](../BuiltIn/#json)

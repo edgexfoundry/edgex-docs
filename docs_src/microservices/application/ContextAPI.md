@@ -37,6 +37,9 @@ type Context struct {
 	
 	// SecretProvider exposes the support for getting and storing secrets
 	SecretProvider *security.SecretProvider
+
+	// ResponseContentType sets a custom response type
+	ResponseContentType string
 }
 ```
 
