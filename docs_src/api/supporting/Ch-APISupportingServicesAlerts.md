@@ -15,7 +15,5 @@ include sensor data detected outside of certain parameters, usually
 detected by a Rules Engine service, or a system or service malfunction,
 usually detected by system management services.
 
-<https://github.com/edgexfoundry/support-notifications/blob/master/raml/support-notifications.raml>
-
 [Alerts and Notifications V1 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-notifications)
 <!-- [Alerts and Notifications API HTML Documentation](support-notifications.html) -->

@@ -225,10 +225,9 @@ At this point the Dockerized version of EdgeX is running.
 **Importing APIs**
 
 In this section you will be using the program Postman to interact with
-EdgeX. You will also need to have the file "core-metadata.raml"
+EdgeX. You will also need to have the file "core-metadata.yaml" (OpenAPI)
 available to load into the Postman application. The file
-"core-metadata.raml" can be found here:
-"edgex/core-metadata..../src/test/resources/raml/core-metadata.raml"
+"core-metadata.yaml" can be found in [Github](https://github.com/edgexfoundry/edgex-go/blob/master/openapi/v1/core-metadata.yaml),
 
 **Viewing available APIs**
 
@@ -236,6 +235,7 @@ available to load into the Postman application. The file
 -   Click on the Import button
 -   Add the file to the import dialog box - the application will take a
     about 30 seconds to digest the file you added.
+-   A `baseURL` environment variable will need to be setup in Postman to execute the APIs.  Set this to your EdgeX instance host and port(example:  `http://localhost:48081`)
 -   If a list of API commands do not show up on the left hand side of
     the application then click on the "Collections" tab to the right of
     the "History" tab.
