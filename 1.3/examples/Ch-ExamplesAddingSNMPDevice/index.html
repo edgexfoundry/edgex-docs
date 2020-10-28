@@ -2341,16 +2341,16 @@ start" to re-start</p>
 <p><strong>Adding the Device to EdgeX</strong></p>
 <p><strong>Importing APIs</strong></p>
 <p>In this section you will be using the program Postman to interact with
-EdgeX. You will also need to have the file "core-metadata.raml"
+EdgeX. You will also need to have the file "core-metadata.yaml" (OpenAPI)
 available to load into the Postman application. The file
-"core-metadata.raml" can be found here:
-"edgex/core-metadata..../src/test/resources/raml/core-metadata.raml"</p>
+"core-metadata.yaml" can be found in <a href="https://github.com/edgexfoundry/edgex-go/blob/master/openapi/v1/core-metadata.yaml">Github</a>,</p>
 <p><strong>Viewing available APIs</strong></p>
 <ul>
 <li>Open Postman</li>
 <li>Click on the Import button</li>
 <li>Add the file to the import dialog box - the application will take a
     about 30 seconds to digest the file you added.</li>
+<li>A <code>baseURL</code> environment variable will need to be setup in Postman to execute the APIs.  Set this to your EdgeX instance host and port(example:  <code>http://localhost:48081</code>)</li>
 <li>If a list of API commands do not show up on the left hand side of
     the application then click on the "Collections" tab to the right of
     the "History" tab.</li>
