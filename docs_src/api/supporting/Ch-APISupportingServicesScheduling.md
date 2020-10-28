@@ -8,8 +8,6 @@ For a description of the architecture, see
 
 The following API RESTful Web Service(s) for EdgeX Foundry.
 
-<https://github.com/edgexfoundry/edgex-go/blob/master/api/raml/support-scheduling.raml>
-
 [Scheduling V1 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-scheduler)
 <!-- [Scheduling API HTML Documentation](support-scheduler.html) -->
 
