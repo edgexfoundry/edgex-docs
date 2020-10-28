@@ -11,10 +11,8 @@
 
 In EdgeX today, sensor/device data collected can be "filtered" by [application services](../../../microservices/application/ApplicationServices.md) before being exported or sent to some [north side](../../../general/Definitions.md#south-and-north-side) application or system. Built-in application service functions (available through the app services SDK) allow EdgeX event/reading objects to be filtered by device name or by value descriptor type.  That is, event/readings can be filtered by:
 
-- which device sent the event/reading (as determined by the device name in the event/readings)
+- which device sent the event/reading (as determined by the Reading's value descriptor name - otherwise known as the Reading name).
 - the category (such as temperature or humidity) of data as determined by the value descriptor.
-
-*With value descriptor's deprecation, what will the app function SDK offer for filtering?*
 
 ### Filter by device name and value descriptor nearer collection
 
