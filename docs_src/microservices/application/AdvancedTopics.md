@@ -248,7 +248,7 @@ This sets the `profile` so that the application service uses the `rules-engine` 
 
 #### EDGEX_STARTUP_DURATION
 
-This environment variable overrides the default duration, 30 seconds, for a service to complete the start-up, aka bootstrap, phase of execution
+This environment variable overrides the default duration, 60 seconds, for a service to complete the start-up, aka bootstrap, phase of execution
 
 #### EDGEX_STARTUP_INTERVAL
 

@@ -170,7 +170,7 @@ The following tables document configuration properties that are common to all se
     |Property|Default Value|Description|
     |---|---|---|
     ||||config values that govern the StartupTimer created at boot for ensuring the service starts in a timely fashion|
-    |Duration| 30  | The maximum amount of time (in seconds) the service is given to complete the bootstrap phase.|
+    |Duration| 60 | The maximum amount of time (in seconds) the service is given to complete the bootstrap phase.|
     |Interval| 1  | The amount of time (in seconds) to sleep between retries on a failed dependency such as DB connection|
 === "SecretStore"
     |Property|Default Value|Description|
