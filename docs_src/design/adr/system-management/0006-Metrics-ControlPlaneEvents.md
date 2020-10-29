@@ -43,7 +43,7 @@ In the future, EdgeX may consume its own metric data or CPE.  For example, EdgeX
 
 In the future, EdgeX application services may optionally subscribe to metrics and CPE messages (by attaching to the appropriate message pipe).  Thus allowing additional filtering, transformation, endpoint control of metric and CPE data.
 
-- At the point where this feature is supported, consideration would need to be made as to whether all events (sensor reading messages and metric/CPE messages go through the same application services)
+- At the point where this feature is supported, consideration would need to be made as to whether all events (sensor reading messages and metric/CPE messages) go through the same application services.
 
 At this time, EdgeX will not persist the metric or CPE data (except as it may be retained as part of message delivery).  Consumers of metric or CPE data are responsible for persisting the data if needed.  Persistence of metric or CPE information may be considered in the future.
 
@@ -52,18 +52,24 @@ In general, EdgeX metrics and CPE are meant to provide external applications and
 ### Requirements
 
 - Services will push specified metrics collected for that service to a specified (by configuration) message endpoint (MQTT topic, 0MQ topic or other EdgeX supported messaging implementation)
-  - Use and configuration to target a secure endpoint (MQTTS) must be provided.  As exemplified by application services, there must be the option to use "insecure secrets" or Vault-backed security services when a secure endpoint is desired.
+    - Use and configuration to target a secure endpoint (MQTTS) must be provided.  As exemplified by application services, there must be the option to use "insecure secrets" or Vault-backed security services when a secure endpoint is desired.
 - Services will push all CPE detected for that service to a specified (by configuration) message endpoint.
-  - The endpoint for metric and CPE may be the same or different at the user's discretion.
-  - Use and configuration to target a secure endpoint (MQTTS) must be provided.  As exemplified by application services, there must be the option to use "insecure secrets" or Vault-backed security services when a secure endpoint is desired.
+    - The endpoint for metric and CPE may be the same or different at the user's discretion.
+    - Use and configuration to target a secure endpoint (MQTTS) must be provided.  As exemplified by application services, there must be the option to use "insecure secrets" or Vault-backed security services when a secure endpoint is desired.
 - All services must document what metrics and CPE they offer.
 - Services must provide REST endpoints that respond with what metrics and CPE the service offers (and whether that metric or CPE is currently `on` or `off`).
-  - Proposed endpoint format:  /api/v2/metrics and /api/v2/cpe
-- Services will have configuration which allows EdgeX system managers to select which metrics and CPE are turned `on` or `off`.
-  - When a metric or CPE is turned `off` the service does not collect the metric or monitor for the CPE.  When a metric is turned `on` the service collects and sends the metric to the designated endpoint.  When a CPE is turned `on` the service monitors for the event and sends any detected CPE to the designated endpoint.
-  - All metrics collection and CPE monitoring and sending is `off` by default.
-  - Metrics collection must be harvested on some appointed schedule.  This could be designated by configuration in the schedule service or done in a way similar to auto events in device services.  *Do we want to dictate this or allow services to implement as they see fit?*
-  - CPE is triggered by some happening in the service that the service monitors for and triggers the publishing of a new CPE message when the event occurs.
+    - Proposed endpoint format:  /api/v2/metrics and /api/v2/cpe
+    - These endpoints are not to provide the metrics or CPE data, but to know what metrics / CPE the service provides and what their current state is (`on` or `off`, level, etc).
+- Services will have configuration which allows EdgeX system managers to select which metrics and CPE are turned `on` or `off` and to which level (not unlike how logging is set to volume and sensitivity levels).
+    - When a metric or CPE is turned `off` the service does not collect the metric or monitor for the CPE.  When a metric is turned `on` the service collects and sends the metric to the designated endpoint.  When a CPE is turned `on` the service monitors for the event and sends any detected CPE to the designated endpoint.
+    - All metrics collection and CPE monitoring and sending is `off` by default.
+    - Proposed metric/CPE levels include:
+        - `NONE`:  metric or CPE is `off` and not collected or monitored - and the **default** setting for metrics and CPE.
+        - `REDUCED`: metric or CPE is `on` (collected and monitored) and needed even when minimal metric/CPE telemetry is requested (in order to save and reduce telemetry collection and monitoring under certain production settings)
+        - `STANDARD`: metric or CPE is `on` (collected and monitored) and needed in most/general circumstances when telemetry is requested.
+        - `ENHANCED`: metric or CPE is `on` (collected and monitored) and needed in circumstances where the most detailed telemetry is required to locate an issue; and requiring the most resources of the system to collect and monitor.  Advised to be used in only development and/or critical circumstances.
+    - Metrics collection must be pushed on some appointed schedule.  This could be designated by configuration in the schedule service or done in a way similar to auto events in device services.  *Do we want to dictate this or allow services to implement as they see fit?*
+    - CPE is triggered by some happening in the service that the service monitors for and triggers the publishing of a new CPE message when the event occurs.
 
 ### Requested Metrics
 
@@ -90,8 +96,10 @@ The following metrics apply to all (or most) services.
 - Number of notifications handled
 - Number of failed notification transmissions
 - Number of notifications in retry status
-- **CPE** - creation or removal of a new notification subscriber
-- **CPE** - creation or removal of a device profile
+- **CPE** - creation, update or removal of a new notification subscriber
+- **CPE** - creation, update or removal of a device profile
+- **CPE** - device added / provisioned (via metadata)
+- **CPE** - device removed / de-provisioned (via metadata)
 
 #### Application Services
 
@@ -127,13 +135,13 @@ Security metrics may be more difficult to ascertain as they are cross service me
 
 - All services will use/integrate go-mod-messaging (if not already integrated).
 - A new metric/CPE model/DTO (Telemetry/Bucket) is required for services to structure the metric or CPE data.  The model/DTO will have similarities to the core event/reading model/DTO.
-  - Even though metric and CPE manifest from different circumstances (a scheduled collection versus monitored event in the service), the same model/DTO should be used to represent either.  This simplifies both the publish and subscribe to metrics/CPE data.
-  - *Should we use the same Event/Reading structure for metric and CPE messages?  The event/reading structure has some elements (like device and binary value) that would not make sense in a metric/CPE message.  Additionally, the metric or CPE would want to be attributed to the service that created it.*
-  - The proposed message structure (DTO) for metrics and CPE (for inclusion in go-mod-core-contracts) is:
+    - Even though metric and CPE manifest from different circumstances (a scheduled collection versus monitored event in the service), the same model/DTO should be used to represent either.  This simplifies both the publish and subscribe to metrics/CPE data.
+    - *Should we use the same Event/Reading structure for metric and CPE messages?  The event/reading structure has some elements (like device and binary value) that would not make sense in a metric/CPE message.  Additionally, the metric or CPE would want to be attributed to the service that created it.*
+    - The proposed message structure (DTO) for metrics and CPE (for inclusion in go-mod-core-contracts) is:
   
   ``` go
     type Telemtry struct {
-        ID          string            `json:"id,omitempty" codec:"id,omitempty"`
+        Id          string            `json:"id,omitempty" codec:"id,omitempty"`
         Service     string            `json:"device,omitempty" codec:"device,omitempty"`  // originating service
         Created     int64             `json:"created,omitempty" codec:"created,omitempty"`
         Modified    int64             `json:"modified,omitempty" codec:"modified,omitempty"`
@@ -142,7 +150,7 @@ Security metrics may be more difficult to ascertain as they are cross service me
     }
 
     type Bucket struct {
-        ID            string `json:"id,omitempty" codec:"id,omitempty"`
+        Id            string `json:"id,omitempty" codec:"id,omitempty"`
         Created       int64  `json:"created,omitempty" codec:"created,omitempty"` 
         Modified      int64  `json:"modified,omitempty" codec:"modified,omitempty"`
         Service       string `json:"device,omitempty" codec:"device,omitempty"`
@@ -155,7 +163,7 @@ Security metrics may be more difficult to ascertain as they are cross service me
 
 - Proposed endpoint for the REST endpoints that respond with what metrics and CPE the service offers are:  /api/v2/metrics and /api/v2/cpe
 - Configuration, not unlike that provided in core data, will specify what message endpoints the metrics and CPE messages should be sent.
-  - Proposed configuration for each service for metric and CPE endpoints:
+    - Proposed configuration for each service for metric and CPE endpoints:
 
   ``` yaml
     [MetricsMessageQueue]
@@ -201,11 +209,16 @@ Security metrics may be more difficult to ascertain as they are cross service me
         SkipCertVerify = "false"
   ```
 
-- Metrics and CPE collected/monitored and reported by a service will be associated with a name key.  That name key will be used in the configuration to turn `on` the metric or CPE and will be used in the model/DTO when reporting on the metric or CPE. 
+- Proposed service level metrics configuration structure
+    - *To be determined when we have more input and agreement on this ADR*
+- Proposed service level CPE configuration structure
+    - *To be determined when we have more input and agreement on this ADR*
+- Metrics and CPE collected/monitored and reported by a service will be associated with a name key.  That name key will be used in the configuration to turn `on` the metric or CPE and will be used in the model/DTO when reporting on the metric or CPE.
+    - Proposed:  this can be accomplished with putting the service key in the topic like edgex/metrics/edgex-core-data . This allows subscriber to filter for a specific service using the full topic or all metrics using a wild card edgex/metrics#
 - *Should consideration be given to incorporate alternate protocols/standards for metric and CPE such as https://opentelemetry.io/ or https://github.com/statsd/?*
 - *Should we provide a standard interface for the function that gets called to create a new CPE*
 - *Should we provide a standard interface for the function that gets called by a schedule service (internal or external) to fetch and publish the desired metrics at the appointed time?*
-  - *Do we dictate the use of the scheduler service for this or use the internal scheduler approach?*
+    - *Do we dictate the use of the scheduler service for this or use the internal scheduler approach?*
 
 ## Decision
 
@@ -216,11 +229,11 @@ Security metrics may be more difficult to ascertain as they are cross service me
 - Given the potential that each service publish metrics or CPE, 0MQ is an unlikely implementation unless each service uses a different 0MQ pipe (0MQ topics do not allow multiple publishers).  *Given this constraint, should 0MQ implementation be allowed*
 - We need to avoid service bloat.  EdgeX is not an enterprise system.  How can we implement in a concise and economical way?
 - The existing system management service (and associated executors) shall remain in place for now.  SMA reports on service CPU, memory, configuration and provides the means to start/stop/restart the services.  This is currently outside the scope of the new metric/CPE collection/monitoring.
-  - In the future, SMA could be configured to subscribe to the metric/CPE messages and provide those to clients (with REST calls in a pull vs push way).
-  - In the future, some of the SMA's functionality around CPU and memory collection as well as configuration reporting could be delegated to the service and removed from the SMA.  However, considerations for how a service collects its own CPU and memory usage in different languages, different environment (container vs native, etc) would have to considered.
-  - In the future, 3rd party mechanisms which offer the same capability as SMA may warrant all of SMA irrelevant.
+    - In the future, SMA could be configured to subscribe to the metric/CPE messages and provide those to clients (with REST calls in a pull vs push way).
+    - In the future, some of the SMA's functionality around CPU and memory collection as well as configuration reporting could be delegated to the service and removed from the SMA.  However, considerations for how a service collects its own CPU and memory usage in different languages, different environment (container vs native, etc) would have to considered.
+    - In the future, 3rd party mechanisms which offer the same capability as SMA may warrant all of SMA irrelevant.
 - The existing notifications service serves to send a notification via alternate protocol outside of EdgeX.  This communication service is provided as a generic communication instrument from any micro service and is independent of any type of data or concern.
-  - In the future, the notification service could be configured to be a subscriber of the metric/CPE messages and trigger appropriate external notification (via email, SMTP, etc.).
+    - In the future, the notification service could be configured to be a subscriber of the metric/CPE messages and trigger appropriate external notification (via email, SMTP, etc.).
 
 ## Reference
 
