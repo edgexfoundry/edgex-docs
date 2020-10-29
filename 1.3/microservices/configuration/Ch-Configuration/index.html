@@ -2435,7 +2435,7 @@ an upgrade. A service on startup will not overwrite existing configuration when 
 configuration provider running during an EdgeX Foundry upgrade any customization will be left in place. Environment variable overrides such as those supplied in the docker-compose for a given release will always override existing content in the configuration provider.</p>
 <h2 id="configuration-properties">Configuration Properties</h2>
 <p>The following tables document configuration properties that are common to all services in the EdgeX Foundry platform. Service-specific properties can be found on the respective documentation page for each service.</p>
-<div class="tabbed-set" data-tabs="1:7"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Writable</label><div class="tabbed-content">
+<div class="tabbed-set" data-tabs="1:8"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Writable</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2458,7 +2458,75 @@ configuration provider running during an EdgeX Foundry upgrade any customization
 </tbody>
 </table>
 </div>
-<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Logging</label><div class="tabbed-content">
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Service</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td>these keys represent the core service-level configuration settings</td>
+</tr>
+<tr>
+<td>MaxResultCount</td>
+<td>50000</td>
+<td>Read data limit per invocation</td>
+</tr>
+<tr>
+<td>BootTimeout</td>
+<td>300000</td>
+<td>Heart beat time in milliseconds</td>
+</tr>
+<tr>
+<td>StartupMsg</td>
+<td>Logging Service heart beat</td>
+<td>Heart beat message</td>
+</tr>
+<tr>
+<td>Port</td>
+<td>48061</td>
+<td>Micro service port number</td>
+</tr>
+<tr>
+<td>Host</td>
+<td>localhost</td>
+<td>Micro service host name</td>
+</tr>
+<tr>
+<td>ServerBindAddr</td>
+<td>'' (empty string)</td>
+<td>The interface on which the service's REST server should listen. By default the server is to listen on the interface to which the <code>Host</code> option resolves (leaving it blank). A value of <code>0.0.0.0</code> means listen on all available interfaces.</td>
+</tr>
+<tr>
+<td>Protocol</td>
+<td>http</td>
+<td>Micro service host protocol</td>
+</tr>
+<tr>
+<td>ClientMonitor</td>
+<td>15000</td>
+<td>The interval in milliseconds at which any service clients will refresh their endpoint information from the service registry (Consul)</td>
+</tr>
+<tr>
+<td>CheckInterval</td>
+<td>10s</td>
+<td>The interval in seconds at which the service registry(Consul) will conduct a health check of this service.</td>
+</tr>
+<tr>
+<td>Timeout</td>
+<td>5000</td>
+<td>Specifies a timeout (in milliseconds) for handling requests</td>
+</tr>
+</tbody>
+</table>
+</div>
+<input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">Logging</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2486,7 +2554,7 @@ configuration provider running during an EdgeX Foundry upgrade any customization
 </tbody>
 </table>
 </div>
-<input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">Databases/Databases.Primary</label><div class="tabbed-content">
+<input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><label for="__tabbed_1_4">Databases/Databases.Primary</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2539,7 +2607,7 @@ configuration provider running during an EdgeX Foundry upgrade any customization
 </tbody>
 </table>
 </div>
-<input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><label for="__tabbed_1_4">Registry</label><div class="tabbed-content">
+<input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><label for="__tabbed_1_5">Registry</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2572,7 +2640,7 @@ configuration provider running during an EdgeX Foundry upgrade any customization
 </tbody>
 </table>
 </div>
-<input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><label for="__tabbed_1_5">Clients/[Service name like Metadata]</label><div class="tabbed-content">
+<input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><label for="__tabbed_1_6">Clients/[Service name like Metadata]</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2605,7 +2673,7 @@ configuration provider running during an EdgeX Foundry upgrade any customization
 </tbody>
 </table>
 </div>
-<input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><label for="__tabbed_1_6">Startup</label><div class="tabbed-content">
+<input id="__tabbed_1_7" name="__tabbed_1" type="radio" /><label for="__tabbed_1_7">Startup</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2633,7 +2701,7 @@ configuration provider running during an EdgeX Foundry upgrade any customization
 </tbody>
 </table>
 </div>
-<input id="__tabbed_1_7" name="__tabbed_1" type="radio" /><label for="__tabbed_1_7">SecretStore</label><div class="tabbed-content">
+<input id="__tabbed_1_8" name="__tabbed_1" type="radio" /><label for="__tabbed_1_8">SecretStore</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
