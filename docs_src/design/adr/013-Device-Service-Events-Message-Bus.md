@@ -31,7 +31,7 @@
 
 This ADR details how device services will send EdgeX Events to other services via the EdgeX Message Bus. This is instead of how they currently send the Events via HTTP to Core Data, which then puts the Events on the Message Bus. 
 
-> *Note: Though this design is centered on device services, it does have cross cutting impacts with other Edgex services and modules*
+> *Note: Though this design is centered on device services, it does have cross cutting impacts with other EdgeX services and modules*
 
 > *Note: This ADR is depended on the [**Secret Provider for All**](TBD) to provide the secrets for secure Message Bus connections.*
 
@@ -59,7 +59,7 @@ As this development will be part of the Ireland release all Events published to 
 
 ### Message Envelope
 
-Edgex Go Services currently uses a custom Message Envelope for all data this is published to the Message Bus. This envelope wraps the data with metadata, which is `ContentType` (JSON or CBOR), `Correlation-Id` and the obsolete `Checksum`. The `Checksum` is used when the data is CBOR encoded to identify the Event in V1 API to be mark it as push. This checksum is no longer needed as the V2 Event DTO requires the ID be set by the Device Services which will always by used in the V2 API to mark the Events as pushed. The Message Envelope will be updated to remove this property.
+EdgeX Go Services currently uses a custom Message Envelope for all data that is published to the Message Bus. This envelope wraps the data with metadata, which is `ContentType` (JSON or CBOR), `Correlation-Id` and the obsolete `Checksum`. The `Checksum` is used when the data is CBOR encoded to identify the Event in V1 API to be mark it as pushed. This checksum is no longer needed as the V2 Event DTO requires the ID be set by the Device Services which will always be used in the V2 API to mark the Events as pushed. The Message Envelope will be updated to remove this property.
 
 The C SDK will also will recreate this Message Envelope.
 
@@ -75,13 +75,13 @@ The App Service SDK will be enhanced for the secure Message Bus connection descr
 
 ### Message Bus Topics
 
-> *Note: The change recommended here is not required for this deign, but it provides a good opportunity to adopt it.*
+> *Note: The change recommended here is not required for this design, but it provides a good opportunity to adopt it.*
 
 Currently Core Data publishes Events to the simple `events` topic. All Application Services running receive all Events published, whether they want them or not. The Events can be filtered out using the `FilterByDeviceName` pipeline function, but the Application Services still receive all the Events and process all the Events to some extent. This could cause load issues in a deployment with many devices and large volume of Events.
 
 Pub/Sub systems have advanced topic schema, which we can take advantage of to filter for just the Events the Application Service actual needs. If the publishers of Events add the `Device Name` to the topic in the form `edgex/events/<device-name>` then the Application Service can filter for just the Events from the device(s) it wants by only subscribing to those `Device Names`, i.e. `edgex/events/Random-Integer-Device` . If persistence is require, Core Data will subscribe using the `#` wild card, i.e. `edgex/events/#` , so that it receives all Events. 
 
-The Message Bus abstraction allows for multiple subscriptions, so an Application Service could specify it wants to receive data from only specific devices by creating multiple subscriptions. i.e.  `edgex/Events/Random-Integer-Device` and  `edgex/Events/Random-Boolean-Device` . Currently the App SDK only allows for a single subscription topic to be configured, but that could easily be expanded. See [Configuration](#configuration) section below for details. 
+The Message Bus abstraction allows for multiple subscriptions, so an Application Service could specify to receive data from only specific devices by creating multiple subscriptions. i.e.  `edgex/Events/Random-Integer-Device` and  `edgex/Events/Random-Boolean-Device`. Currently the App SDK only allows for a single subscription topic to be configured, but that could easily be expanded to handle a list of subscriptions. See [Configuration](#configuration) section below for details. 
 
 Core Data's existing publishing of Events would also need to be changed to use this new topic schema. One challenge with this is Core Data doesn't currently know the `Device Name` when it receives a CBOR encoded event. This is because it doesn't decode the Event until after it publishes it to the Message Bus. The V2 API could be enhanced to require the `Device Name` in the HTTP header when content type is CBOR.
 
@@ -188,7 +188,7 @@ The `Binding` configuration section will require change for the subscribe topic 
 Type="messagebus"
 SubscribeTopics="edgex/events/Random-Integer-Device, edgex/events/Random-Boolean-Device"
 ```
-
+or receives all Events as follows:
 ```toml
 [Binding]
 Type="messagebus"
