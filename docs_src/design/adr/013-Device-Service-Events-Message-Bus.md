@@ -116,7 +116,7 @@ PublishTopic = 'edgex/events/<device-name>'
     # TLS configuration - Only used if Cert/Key file or Cert/Key PEMblock are specified
     SkipCertVerify = "false"
     Authmode = "none"
-    Secretpath = "mqtt"
+    Secretpath = "messagebus"
 ```
 
 The `PublishTopic` has a placeholder for the `Device Name` which gets replaced with the actual `Device Name`. If the place holder doesn't exist in the configured value, the  `PublishTopic` values  is used as is.
@@ -151,7 +151,7 @@ SubscibeTopic = 'edgex/events/#'
     # TLS configuration - Only used if Cert/Key file or Cert/Key PEMblock are specified
     SkipCertVerify = "false"
     Authmode = "none"
-    Secretpath = "mqtt"
+    Secretpath = "messagebus"
 ```
 
 The `PublishTopic` has a placeholder for the `Device Name` which gets replaced with the actual `Device Name`. If the place holder doesn't exist in the configured value, the  `PublishTopic` values  is used as is.
@@ -176,7 +176,7 @@ Similar to above, the Application Services `MessageBus` configuration will chang
     # TLS configuration - Only used if Cert/Key file or Cert/Key PEMblock are specified
     SkipCertVerify = "false"
     Authmode = "none"
-    Secretpath = "mqtt"
+    Secretpath = "messagebus"
 ```
 
 ##### [Binding]
