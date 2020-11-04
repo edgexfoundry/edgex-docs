@@ -30,37 +30,17 @@ pipeline {
         }
 
         // back onto the main centos agent (not in docker container)
-        stage('Push Changes') {
-            when { expression { edgex.isReleaseStream() } }
+        stage('Publish to GitHub pages') {
+            when {
+                beforeAgent true
+                expression { edgex.isReleaseStream() }
+            }
+            agent {
+                label 'centos7-docker-4c-2g'
+            }
             steps {
                 script {
-                    def originalCommitMsg = sh(script: 'git log --format=%B -n 1 | grep -v Signed-off-by | head -n 1', returnStdout: true)
-
-                    // cleanup workspace
-                    cleanWs()
-
-                    dir('edgex-docs-clean') {
-                        git url: 'git@github.com:edgexfoundry/edgex-docs.git', branch: 'gh-pages', credentialsId: 'edgex-jenkins-ssh', changelog: false, poll: false
-                        unstash 'site-contents'
-
-                        sh 'cp -rlf docs/* .'
-                        sh 'rm -rf docs'
-
-                        def changesDetected = sh(script: 'git diff-index --quiet HEAD --', returnStatus: true)
-                        echo "We have detected there are changes to commit: [${changesDetected}] [${changesDetected != 0}]"
-
-                        if(changesDetected != 0) {
-                            sh 'git config --global user.email "jenkins@edgexfoundry.org"'
-                            sh 'git config --global user.name "EdgeX Jenkins"'
-                            sh 'git add .'
-
-                            sh "git commit -s -m 'ci: ${originalCommitMsg}'"
-
-                            sshagent (credentials: ['edgex-jenkins-ssh']) {
-                                sh 'git push origin gh-pages'
-                            }
-                        }
-                    }
+                    edgeXGHPagesPublish(repoUrl: 'git@github.com:edgexfoundry/edgex-docs.git')
                 }
             }
         }
