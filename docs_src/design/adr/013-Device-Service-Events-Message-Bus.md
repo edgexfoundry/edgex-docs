@@ -29,7 +29,7 @@
 
 ## Context
 
-This ADR details how device services will send EdgeX Events to other services via the EdgeX Message Bus. This is instead of how they currently send the Events via HTTP to Core Data, which then puts the Events on the Message Bus. 
+Currently EdgeX Events are sent from Device Services via HTTP to Core Data, which then puts the Events on the Message Bus. This ADR details how device services will send EdgeX Events to other services via the EdgeX Message Bus. 
 
 > *Note: Though this design is centered on device services, it does have cross cutting impacts with other EdgeX services and modules*
 
