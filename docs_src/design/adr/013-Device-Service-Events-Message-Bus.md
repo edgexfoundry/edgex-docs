@@ -1,27 +1,29 @@
+
+
 # Device Services Send Events via Message Bus
 
-  * [Status](#status)
-  * [Context](#context)
-  * [Decision](#decision)
-    + [Which Message Bus implementations?](#which-message-bus-implementations-)
-    + [Go Device SDK](#go-device-sdk)
-    + [C Device SDK](#c-device-sdk)
-    + [Core Data and Persistence](#core-data-and-persistence)
-    + [V2 Event DTO](#v2-event-dto)
-    + [Message Envelope](#message-envelope)
-    + [Redis Streams](#redis-streams)
-    + [Application Services](#application-services)
-    + [Message Bus Topics](#message-bus-topics)
-    + [Configuration](#configuration)
-      - [Device Services](#device-services)
-        * [[MessageQueue]](#-messagequeue-)
-      - [Core Data](#core-data)
-        * [[MessageQueue]](#-messagequeue--1)
-      - [Application Services](#application-services-1)
-        * [[MessageBus]](#-messagebus-)
-        * [[Binding]](#-binding-)
-    + [Secure Connections](#secure-connections)
-  * [Consequences](#consequences)
+- [Status](#status)
+- [Context](#context)
+- [Decision](#decision)
+  * [Which Message Bus implementations?](#which-message-bus-implementations-)
+  * [Go Device SDK](#go-device-sdk)
+  * [C Device SDK](#c-device-sdk)
+  * [Core Data and Persistence](#core-data-and-persistence)
+  * [V2 Event DTO](#v2-event-dto)
+    + [Validation](#validation)
+  * [Message Envelope](#message-envelope)
+  * [Application Services](#application-services)
+  * [Message Bus Topics](#message-bus-topics)
+  * [Configuration](#configuration)
+    + [Device Services](#device-services)
+      - [[MessageQueue]](#-messagequeue-)
+    + [Core Data](#core-data)
+      - [[MessageQueue]](#-messagequeue--1)
+    + [Application Services](#application-services-1)
+      - [[MessageBus]](#-messagebus-)
+      - [[Binding]](#-binding-)
+  * [Secure Connections](#secure-connections)
+- [Consequences](#consequences)
 
 ## Status
 
@@ -39,33 +41,44 @@ Currently EdgeX Events are sent from Device Services via HTTP to Core Data, whic
 
 ### Which Message Bus implementations?
 
-Multiple Device Services will need to be publishing Events to the Message Bus concurrently, so the `ZMQ` will not be a valid option. This is because `ZMQ` only allows for a single publisher. The `MQTT` and `Redis Streams` are valid option to use with this design as they both support multiple publishers. These are the only other implementations currently available for Go services. The C base device services do not yet have a Message Bus implementation.  See the [C Device SDK](#c-device-sdk) below for details.
+Multiple Device Services may need to be publishing Events to the Message Bus concurrently.  `ZMQ` will not be a valid option if multiple Device Services are configured to publish. This is because `ZMQ` only allows for a single publisher. `ZMQ` will still be valid if only one Device Service is publishing Events. The `MQTT` and `Redis Streams` are valid option to use with multiple Device Services publishing as they both support multiple publishers. These are the only other implementations currently available for Go services. The C base device services do not yet have a Message Bus implementation.  See the [C Device SDK](#c-device-sdk) below for details.
+
+> *Note: Documentation will need to be clear when `ZMQ` can be used and when it can not be used.*
 
 ### Go Device SDK
 
-The Go Device SDK will take advantage of the existing `go-mod-messaging` module to enable use of the EdgeX Message Bus. A new bootstrap handler will be created which initializes the Message Bus client based on configuration. See [Configuration](#configuration) section below for details.  Bootstrapping will fail if the Message Bus configuration specifies `zero` for the type. This has to be a specific check by for Device Services since `zero` is a valid type in go-mod-messaging. The Go SDK will be enhanced to optionally publish Events to the Message Bus anywhere it currently POSTs Events to Core Data. This publish vs POST option will be controlled by configuration.  See [Configuration](#configuration) section below for details. 
+The Go Device SDK will take advantage of the existing `go-mod-messaging` module to enable use of the EdgeX Message Bus. A new bootstrap handler will be created which initializes the Message Bus client based on configuration. See [Configuration](#configuration) section below for details.  The Go Device SDK will be enhanced to optionally publish Events to the Message Bus anywhere it currently POSTs Events to Core Data. This publish vs POST option will be controlled by configuration with publish as the default.  See [Configuration](#configuration) section below for details. 
 
 ### C Device SDK
 
-The C Device SDK will implement its own Message Bus abstraction similar to the one in `go-mod-messaging` with just the MQTT implementation to start with. Using this abstraction allows for future implementations to be added when use cases warrant the addition.  As with the Go SDK, the C SDK will be enhanced to optionally publish Events to the Message Bus anywhere it currently POSTs Events to Core Data. This publish vs POST option will be controlled by configuration.  See [Configuration](#configuration) section below for details.
+The C Device SDK will implement its own Message Bus abstraction similar to the one in `go-mod-messaging` with just the MQTT implementation to start with. Using this abstraction allows for future implementations to be added when use cases warrant the addition of `ZMQ` and/or `Redis Streams`.  As with the Go SDK, the C SDK will be enhanced to optionally publish Events to the Message Bus anywhere it currently POSTs Events to Core Data. This publish vs POST option will be controlled by configuration with publish as the default.  See [Configuration](#configuration) section below for details.
 
 ### Core Data and Persistence
 
 With this design, Events will be sent directly to Application Services w/o going through Core Data and thus will not be persisted unless changes are made to Core Data. To allow Events to optionally continue to be persisted, Core Data will become a subscriber for the Events from the Message Bus. The Events will be persisted when they are received. Core Data will also retain the ability to receive Events via HTTP, persist them and publish them to the Message Bus as is done today. This allows for the flexibility to have some device services to be configured to POST Events and some to be configured to publish Events while we transition the Device Services to all have the capability to publishing Events. In the future, once this new `Publish` approach has been proven, we may decide to remove POSTing Events to Core Data from the Device SDKs.
 
+If Core Data is configured to not persist Events (HTTP or Message Bus) it will ignore any requests for `Mark As Pushed` by simply return the 202 (Accepted) status. Application Services `Marked As Pushed` documentation will be updated to have note about not using  `Marked As Pushed` if Core Data persistence is disabled to reduce unneeded HTTP Traffic.
+
+There is a race condition for `Marked As Pushed` when Core Data is persisting Events received from the Message Bus. Core Data may not have finished persisting an Event before the Application Service has processed the Event and requested the Event be `Marked As Pushed`. Options to resolve this race condition are:
+
+1. App SDK retries `Marked As Pushed` request when receives 404 (Not Found) status and fails after some number of reties.
+2.  V2 `Marked As Pushed` API creates a pending queue of Event IDs and retries the `Marked As Pushed`  and fails after some number of reties.
+
 ### V2 Event DTO
 
 As this development will be part of the Ireland release all Events published to the Message Bus will use the V2 Event DTO. This is already implemented in Core Data for the V2 AddEvent API.
+
+#### Validation
+
+The Device SDKs will validate the Event DTO prior to publishing. This will catch any new DTO validation that the SDK may not have been updated to properly handle, allow the issue to be caught early.
+
+Services receiving the Event DTO from the Message Bus will log validation errors and stop processing the Event.
 
 ### Message Envelope
 
 EdgeX Go Services currently uses a custom Message Envelope for all data that is published to the Message Bus. This envelope wraps the data with metadata, which is `ContentType` (JSON or CBOR), `Correlation-Id` and the obsolete `Checksum`. The `Checksum` is used when the data is CBOR encoded to identify the Event in V1 API to be mark it as pushed. This checksum is no longer needed as the V2 Event DTO requires the ID be set by the Device Services which will always be used in the V2 API to mark the Events as pushed. The Message Envelope will be updated to remove this property.
 
-The C SDK will also will recreate this Message Envelope.
-
-### Redis Streams
-
-The Redis Streams Message Bus implementation currently only supports password authentication in configuration. There is support in the code for certificates, but it is not exposed via configuration. The implementation may need to be enhanced to include the authentication capabilities described in the **[Secure Connections](#secure-connections)** section below.
+The C SDK will recreate this Message Envelope.
 
 ### Application Services
 
@@ -77,19 +90,39 @@ The App Service SDK will be enhanced for the secure Message Bus connection descr
 
 > *Note: The change recommended here is not required for this design, but it provides a good opportunity to adopt it.*
 
-Currently Core Data publishes Events to the simple `events` topic. All Application Services running receive all Events published, whether they want them or not. The Events can be filtered out using the `FilterByDeviceName` pipeline function, but the Application Services still receive all the Events and process all the Events to some extent. This could cause load issues in a deployment with many devices and large volume of Events.
+Currently Core Data publishes Events to the simple `events` topic. All Application Services running receive every Event published, whether they want them or not. The Events can be filtered out using the `FilterByDeviceName` pipeline function, but the Application Services still receives every Event and process all the Events to some extent. This could cause load issues in a deployment with many devices and large volume of Events from various devices or a very verbose device that that Application Services is not interested in.
 
-Pub/Sub systems have advanced topic schema, which we can take advantage of to filter for just the Events the Application Service actual needs. If the publishers of Events add the `Device Name` to the topic in the form `edgex/events/<device-name>` then the Application Service can filter for just the Events from the device(s) it wants by only subscribing to those `Device Names`, i.e. `edgex/events/Random-Integer-Device` . If persistence is require, Core Data will subscribe using the `#` wild card, i.e. `edgex/events/#` , so that it receives all Events. 
+> *Note: The current `FilterByDeviceName` is only good if the device name is known statically and the only instance of the device defined by the `DeviceProfileName`. What we really need is `FilterByDeviceProfileName` which allows multiple instances of a device to be filtered for, rather than a single instance as it it now. The V2 API will be adding `DeviceProfileName` to the Events, so in Ireland this  filter will be possible.*
 
-The Message Bus abstraction allows for multiple subscriptions, so an Application Service could specify to receive data from only specific devices by creating multiple subscriptions. i.e.  `edgex/Events/Random-Integer-Device` and  `edgex/Events/Random-Boolean-Device`. Currently the App SDK only allows for a single subscription topic to be configured, but that could easily be expanded to handle a list of subscriptions. See [Configuration](#configuration) section below for details. 
+Pub/Sub systems have advanced topic schema, which we can take advantage of from Application Services to filter for just the Events the Application Service actual wants. Publishers of Events must add the `DeviceProfileName` and/or `DeviceName` to the topic in the form `edgex/events/<device-profile-name>/<device-name>`. This allows Application Services to filter for just the Events from the device(s) it wants by only subscribing to those `DeviceProfileNames` or the specific `DeviceNames`. Example subscribe topics if above schema is used:
 
-Core Data's existing publishing of Events would also need to be changed to use this new topic schema. One challenge with this is Core Data doesn't currently know the `Device Name` when it receives a CBOR encoded event. This is because it doesn't decode the Event until after it publishes it to the Message Bus. The V2 API could be enhanced to require the `Device Name` in the HTTP header when content type is CBOR.
+- **edgex/events/#**
+  - All Events 
+  - Core Data will subscribe using this topic schema
+- **edgex/events/Random-Integer-Device/#** 
+  - Only Events from devices created from the **Random-Integer-Device** device profile
+- **edgex/events/Random-Integer-Device/Random-Integer-Device1** 
+  - Only Events from the **Random-Integer-Device1** Device
+
+The Message Bus abstraction allows for multiple subscriptions, so an Application Service could specify to receive data from multiple specific device profiles or devices by creating multiple subscriptions. i.e.  `edgex/Events/Random-Integer-Device/#` and  `edgex/Events/Random-Boolean-Device/#`. Currently the App SDK only allows for a single subscription topic to be configured, but that could easily be expanded to handle a list of subscriptions. See [Configuration](#configuration) section below for details. 
+
+Core Data's existing publishing of Events would also need to be changed to use this new topic schema. One challenge with this is Core Data doesn't currently know the `DeviceProfileName` or `DeviceName` when it receives a CBOR encoded event. This is because it doesn't decode the Event until after it has published it to the Message Bus. The V2 API could be enhanced to require the `DeviceProfileName` and `DeviceName` be added to the HTTP header when content type is CBOR.
+
+This new topic approach will be enabled via each publisher's `PublishTopic` having the placeholder(s) for the `DeviceProfileName` and `DeviceName` which get replaced with the actual  `DeviceProfileName` and `DeviceName`.
+
+```toml
+PublishTopic = 'edgex/events/<device-profile-name>'
+or
+PublishTopic = 'edgex/events/<device-profile-name>/<device-name>'
+```
+
+ If the place holders do not exist in the configured `PublishTopic` value, then the value is used as is.  This allows the flexibility to uses this new topics approach or use the existing simple approach of `events` topic. See [Configuration](#configuration) section below for details. 
 
 ### Configuration
 
 #### Device Services
 
-All Device services will have the following additional configuration to allow connecting and publishing to the Message Bus.
+All Device services will have the following additional configuration to allow connecting and publishing to the Message Bus. As describe above in the  [Message Bus Topics](#message-bus-topics) section, the `PublishTopic` will optionally have placeholders for the `DeviceProfileName` and `DeviceName` which get replaced with the actual `DeviceProfileName` and `DeviceName`. If the place holders do not exist in the configured `PublishTopic` value, then the value is used as is.
 
 ##### [MessageQueue]
 
@@ -102,7 +135,7 @@ Protocol = 'tcp'
 Host = 'localhost'
 Port = 1883
 Type = 'mqtt'
-PublishTopic = 'edgex/events/<device-name>'
+PublishTopic = 'edgex/events/<device-profile-name>/<device-name>'
 [MessageQueue.Optional]
     # Default MQTT Specific options that need to be here to enable evnironment variable overrides of them
     # Client Identifiers
@@ -119,11 +152,9 @@ PublishTopic = 'edgex/events/<device-name>'
     Secretpath = "messagebus"
 ```
 
-The `PublishTopic` has a placeholder for the `Device Name` which gets replaced with the actual `Device Name`. If the place holder doesn't exist in the configured value, the  `PublishTopic` values  is used as is.
-
 #### Core Data
 
-Core data will also require additional configuration to be able to subscribe to receive Events from the Message Bus.
+Core data will also require additional configuration to be able to subscribe to receive Events from the Message Bus. As describe above in the  [Message Bus Topics](#message-bus-topics) section, the `PublishTopic` will optionally have placeholders for the `DeviceProfileName` and `DeviceName` which get replaced with the actual `DeviceProfileName` and `DeviceName`. If the place holders do not exist in the configured `PublishTopic` value, then the value is used as is.
 
 ##### [MessageQueue]
 
@@ -135,7 +166,7 @@ Protocol = 'tcp'
 Host = 'localhost'
 Port = 1883
 Type = 'mqtt'
-PublishTopic = 'edgex/events/<device-name>'
+PublishTopic = 'edgex/events/<device-profile-name>/<device-name>'
 SubscribeEnabled = true
 SubscibeTopic = 'edgex/events/#'
 [MessageQueue.Optional]
@@ -153,8 +184,6 @@ SubscibeTopic = 'edgex/events/#'
     Authmode = "none"
     Secretpath = "messagebus"
 ```
-
-The `PublishTopic` has a placeholder for the `Device Name` which gets replaced with the actual `Device Name`. If the place holder doesn't exist in the configured value, the  `PublishTopic` values  is used as is.
 
 #### Application Services
 
@@ -181,14 +210,25 @@ Similar to above, the Application Services `MessageBus` configuration will chang
 
 ##### [Binding]
 
-The `Binding` configuration section will require change for the subscribe topic schema describe in the [Message Bus Topics](#message-bus-topics) section above to filter for Events from specific devices. `SubscribeTopic` will change from a string property containing a single topic to the `SubscribeTopics` string property containing a comma separated list of topics. This allows for the flexibility for the property to be a single topic with the `#` wild card so the Application Service receives all Events as it does today.
+The `Binding` configuration section will require change for the subscribe topics scheme describe in the [Message Bus Topics](#message-bus-topics) section above to filter for Events from specific device profiles or devices. `SubscribeTopic` will change from a string property containing a single topic to the `SubscribeTopics` string property containing a comma separated list of topics. This allows for the flexibility for the property to be a single topic with the `#` wild card so the Application Service receives all Events as it does today.
+
+Receive only Events from the `Random-Integer-Device` and `Random-Boolean-Device` profiles
 
 ```toml
 [Binding]
 Type="messagebus"
 SubscribeTopics="edgex/events/Random-Integer-Device, edgex/events/Random-Boolean-Device"
 ```
-or receives all Events as follows:
+Receive only Events from the  `Random-Integer-Device1` from the `Random-Integer-Device` profile
+
+```toml
+[Binding]
+Type="messagebus"
+SubscribeTopics="edgex/events/Random-Integer-Device/Random-Integer-Device1"
+```
+
+or receives all Events:
+
 ```toml
 [Binding]
 Type="messagebus"
@@ -208,8 +248,10 @@ The secrets specified for the above options are pulled from the `Secret Provider
 
 How the secrets are injected into the `Secret Provider` is out of scope for this ADR and covered in the [**Secret Provider for All**](TBD) ADR. 
 
+> *Note: It has been decide the TLS connections are not required for on box service to service communications. This includes Device Service to Broker to App Service. The configuration will still support certificates for those deployments that feel certificates are needed, but will not be used by default EdgeX deployment.*
+
 ## Consequences
 
-- If C SDK doesn't support Redis Streams then there must be a MQTT Broker running when a C Device service is in use and configured to use Message Bus.
-
-- If we adopt proposed publish topic with `Device Name` then the V2 API must restrict the characters used in device names to those allowed in a topic.  An [issue](https://github.com/edgexfoundry/go-mod-core-contracts/issues/343) for V2 API already exists for restricting the allowable characters to [RFC 3986](https://tools.ietf.org/html/rfc3986) , which will suffice.
+- If C SDK doesn't support `ZMQ` or `Redis Streams` then there must be a MQTT Broker running when a C Device service is in use and configured to publish to Message Bus.
+- If we adopt proposed publish topic scheme with `Device Name` the V2 API must restrict the characters used in device names to those allowed in a topic.  An [issue](https://github.com/edgexfoundry/go-mod-core-contracts/issues/343) for V2 API already exists for restricting the allowable characters to [RFC 3986](https://tools.ietf.org/html/rfc3986) , which will suffice.
+- Newer ZMQ may allow for multiple publishers. Requires investigation and very likely rework of the ZMQ implementation in go-mod-messaging.
