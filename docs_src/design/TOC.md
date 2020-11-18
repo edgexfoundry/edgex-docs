@@ -10,4 +10,5 @@
 | [0007 Release Automation](./adr/devops/0007-Release-Automation.md)   | Overview of Release Automation Flow for EdgeX   |
 | [0008 Secret Distribution](./adr/security/0008-Secret-Creation-and-Distribution.md)   | Creation and Distribution of Secrets                     |
 | [0011 Device Service REST API](./adr/device-service/0011-DeviceService-Rest-API.md)   | The REST API for Device Services in EdgeX v2.x           |
+| [0015 Encryption between microservices](./adr/security/0015-in-cluster-tls.md)        | Details conditions under which TLS is or is not used     |
 | [0016 Container Image Guidelines](./adr/security/0016-docker-image-guidelines.md)     | Documents best practices for security of docker images   |
