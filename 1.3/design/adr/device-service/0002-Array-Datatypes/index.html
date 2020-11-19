@@ -2144,7 +2144,7 @@
 <!--te-->
 
 <h2 id="status">Status</h2>
-<p>Proposed</p>
+<p><strong>Approved</strong></p>
 <h2 id="context">Context</h2>
 <p>The current data model does not directly provide for devices which provide array data. Small fixed-length arrays may be handled by defining multiple device resources - one for each element - and aggregating them via a resource command. Other array data may be passed using the Binary type. Neither of these approaches is ideal: the binary data is opaque and any service processing it would need specific knowledge to do so, and aggregation presents the device service implementation with a multiple-read request that could in many cases be better handled by a single request.</p>
 <p>This design adds arrays of primitives to the range of supported types in EdgeX. It comprises an extension of the DeviceProfile model, and an update to the definition of Reading.</p>
