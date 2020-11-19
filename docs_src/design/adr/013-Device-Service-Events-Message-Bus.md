@@ -61,16 +61,16 @@ If Core Data is configured to not persist Events (HTTP or Message Bus) it will i
 
 There is a race condition for `Marked As Pushed` when Core Data is persisting Events received from the Message Bus. Core Data may not have finished persisting an Event before the Application Service has processed the Event and requested the Event be `Marked As Pushed`. Options to resolve this race condition are:
 
-1. App SDK retries `Marked As Pushed` request when receives 404 (Not Found) status and fails after some number of reties.
-2.  V2 `Marked As Pushed` API creates a pending queue of Event IDs and retries the `Marked As Pushed`  and fails after some number of reties.
+1. **Remove `Mark as Pushed` capability and just rely on time based scrubbing of old Events.** 
+2. App SDK retries `Marked As Pushed` request when receives 404 (Not Found) status and fails after some number of reties.
+3. V2 `Marked As Pushed` API creates a pending queue of Event IDs and retries the `Marked As Pushed`  and fails after some number of reties.
+
 
 ### V2 Event DTO
 
 As this development will be part of the Ireland release all Events published to the Message Bus will use the V2 Event DTO. This is already implemented in Core Data for the V2 AddEvent API.
 
 #### Validation
-
-The Device SDKs will validate the Event DTO prior to publishing. This will catch any new DTO validation that the SDK may not have been updated to properly handle, allow the issue to be caught early.
 
 Services receiving the Event DTO from the Message Bus will log validation errors and stop processing the Event.
 
@@ -106,7 +106,7 @@ Pub/Sub systems have advanced topic schema, which we can take advantage of from 
 
 The Message Bus abstraction allows for multiple subscriptions, so an Application Service could specify to receive data from multiple specific device profiles or devices by creating multiple subscriptions. i.e.  `edgex/Events/Random-Integer-Device/#` and  `edgex/Events/Random-Boolean-Device/#`. Currently the App SDK only allows for a single subscription topic to be configured, but that could easily be expanded to handle a list of subscriptions. See [Configuration](#configuration) section below for details. 
 
-Core Data's existing publishing of Events would also need to be changed to use this new topic schema. One challenge with this is Core Data doesn't currently know the `DeviceProfileName` or `DeviceName` when it receives a CBOR encoded event. This is because it doesn't decode the Event until after it has published it to the Message Bus. The V2 API could be enhanced to require the `DeviceProfileName` and `DeviceName` be added to the HTTP header when content type is CBOR.
+Core Data's existing publishing of Events would also need to be changed to use this new topic schema. One challenge with this is Core Data doesn't currently know the `DeviceProfileName` or `DeviceName` when it receives a CBOR encoded event. This is because it doesn't decode the Event until after it has published it to the Message Bus. The V2 API will be enhanced to change the AddEvent endpoint from `/event` to `/event/{profile}/{device}` so that `DeviceProfileName` and `DeviceName` are always know no matter how the request is encoded.
 
 This new topic approach will be enabled via each publisher's `PublishTopic` having the placeholder(s) for the `DeviceProfileName` and `DeviceName` which get replaced with the actual  `DeviceProfileName` and `DeviceName`.
 
@@ -253,5 +253,7 @@ How the secrets are injected into the `Secret Provider` is out of scope for this
 ## Consequences
 
 - If C SDK doesn't support `ZMQ` or `Redis Streams` then there must be a MQTT Broker running when a C Device service is in use and configured to publish to Message Bus.
-- If we adopt proposed publish topic scheme with `Device Name` the V2 API must restrict the characters used in device names to those allowed in a topic.  An [issue](https://github.com/edgexfoundry/go-mod-core-contracts/issues/343) for V2 API already exists for restricting the allowable characters to [RFC 3986](https://tools.ietf.org/html/rfc3986) , which will suffice.
+- If we adopt proposed publish topic scheme with `DeviceProfileName` and `DeviceName` the V2 API must restrict the characters used in device names to those allowed in a topic.  An [issue](https://github.com/edgexfoundry/go-mod-core-contracts/issues/343) for V2 API already exists for restricting the allowable characters to [RFC 3986](https://tools.ietf.org/html/rfc3986) , which will suffice.
 - Newer ZMQ may allow for multiple publishers. Requires investigation and very likely rework of the ZMQ implementation in go-mod-messaging.
+- Mark as Push V2 Api will be removed from Core Data, Core Data Client and the App SDK
+- Consider moving App Service Binding to Writable.  (out of scope for this ADR)
