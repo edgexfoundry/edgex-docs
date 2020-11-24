@@ -57,7 +57,7 @@ func (f Filter) FilterByValueInRange (lc logger.LoggingClient, event *models.Eve
 
 func (f Filter) FilterByValueOutRange (lc logger.LoggingClient, event *models.Event) (*models.Event, error) {}
 
-func (f Filter) FilterByValueNotEqual (lc logger.LoggingClient, event *models.Event) (*models.Event, error) {}
+func (f Filter) FilterByValueEqual (lc logger.LoggingClient, event *models.Event) (*models.Event, error) {}
 
 func (f Filter) FilterByValueNotEqual (lc logger.LoggingClient, event *models.Event) (*models.Event, error) {}
 
@@ -72,7 +72,7 @@ func (f Filter) FilterByResourceNamesMatch (lc logger.LoggingClient, event *mode
 A NewFilter function creates, initializes and returns a new instance of the filter based on the configuration provided.
 
 ``` go
-func NewReadingFilter(filterValues []string) Filter {
+func NewReadingNameFilter(filterValues []string) Filter {
     return Filter{FilterValues: filterValues}
 }
 ```
@@ -91,13 +91,17 @@ As Device Services do not have the concept of a functions pipeline like applicat
 - create the filter
 - invoke the filtering functions
 
+At this time, custom filters will not be supported as the custom filters would not be known by the SDK and therefore could not be specified in configuration.  This is consistent with the app functions SDK and filtering.
+
 #### Function Inflection Point
 
 When instructed to "get" new readings, the function [`execReadDeviceResource`](https://github.com/edgexfoundry/device-sdk-go/blob/0bbcb663a9153978e7e9ef8c297d5988e58906d0/internal/handler/command.go) is called which subsequently calls on the the device service driver's `HandleReadCommands` function to get the latest sensor values from the device.  The driver's `HandleReadCommands` returns the sensor reading data (via array of CommandValues) to be put into an event.
 
 After receiving the `CommandValues` the `execReadDeviceResource` function calls the `cvsToEvent` function convert the `CommandValues` into and `Event/Reading` objects (from `go-mod-core-contracts`) and returns this model to be sent via REST to core data by the rest of the SDK.
 
-It is precisely after the convert to `Event/Reading` objects and before returning that result in `execReadDeviceResource` function that the device service should invoke the required filter functions.
+It is precisely after the convert to `Event/Reading` objects and before returning that result in `common.SendEvent` (in utils.go) function that the device service should invoke the required filter functions.
+
+Events containing binary values (event.HasBinaryValue), will not be filtered.  Future releases may include binary value filters.
 
 !!! TODO
     *Where and how would this work for Async events? Need help from the DS team.*
