@@ -35,7 +35,7 @@ Currently EdgeX Events are sent from Device Services via HTTP to Core Data, whic
 
 > *Note: Though this design is centered on device services, it does have cross cutting impacts with other EdgeX services and modules*
 
-> *Note: This ADR is depended on the [**Secret Provider for All**](TBD) to provide the secrets for secure Message Bus connections.*
+> *Note: This ADR is dependent on the [**Secret Provider for All**](TBD) to provide the secrets for secure Message Bus connections.*
 
 ## Decision
 
@@ -55,9 +55,9 @@ The C Device SDK will implement its own MessageBus abstraction similar to the on
 
 ### Core Data and Persistence
 
-With this design, Events will be sent directly to Application Services w/o going through Core Data and thus will not be persisted unless changes are made to Core Data. To allow Events to optionally continue to be persisted, Core Data will become a subscriber for the Events from the MessageBus. The Events will be persisted when they are received. Core Data will also retain the ability to receive Events via HTTP, persist them and publish them to the MessageBus as is done today. This allows for the flexibility to have some device services to be configured to POST Events and some to be configured to publish Events while we transition the Device Services to all have the capability to publishing Events. In the future, once this new `Publish` approach has been proven, we may decide to remove POSTing Events to Core Data from the Device SDKs.
+With this design, Events will be sent directly to Application Services w/o going through Core Data and thus will not be persisted unless changes are made to Core Data. To allow Events to optionally continue to be persisted, Core Data will become an additional or secondary (and optional) subscriber for the Events from the MessageBus. The Events will be persisted when they are received. Core Data will also retain the ability to receive Events via HTTP, persist them and publish them to the MessageBus as is done today. This allows for the flexibility to have some device services to be configured to POST Events and some to be configured to publish Events while we transition the Device Services to all have the capability to publishing Events. In the future, once this new `Publish` approach has been proven, we may decide to remove POSTing Events to Core Data from the Device SDKs.
 
-If Core Data is configured to not persist Events (HTTP or MessageBus) it will ignore any requests for `Mark As Pushed` by simply return the 202 (Accepted) status. Application Services `Marked As Pushed` documentation will be updated to have note about not using  `Marked As Pushed` if Core Data persistence is disabled to reduce unneeded HTTP Traffic.
+The existing `PersistData` setting will be ignored by the code path subscribing to Events since the only reason to do this is to persist the Events. 
 
 There is a race condition for `Marked As Pushed` when Core Data is persisting Events received from the MessageBus. Core Data may not have finished persisting an Event before the Application Service has processed the Event and requested the Event be `Marked As Pushed`. It was decided to remove `Mark as Pushed` capability and just rely on time based scrubbing of old Events.
 
