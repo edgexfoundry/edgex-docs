@@ -247,6 +247,6 @@ How the secrets are injected into the `Secret Provider` is out of scope for this
 
 - If C SDK doesn't support `ZMQ` or `Redis Streams` then there must be a MQTT Broker running when a C Device service is in use and configured to publish to MessageBus.
 - If we adopt proposed publish topic scheme with `DeviceProfileName` and `DeviceName` the V2 API must restrict the characters used in device names to those allowed in a topic.  An [issue](https://github.com/edgexfoundry/go-mod-core-contracts/issues/343) for V2 API already exists for restricting the allowable characters to [RFC 3986](https://tools.ietf.org/html/rfc3986) , which will suffice.
-- Newer ZMQ may allow for multiple publishers. Requires investigation and very likely rework of the ZMQ implementation in go-mod-messaging.
+- Newer ZMQ may allow for multiple publishers. Requires investigation and very likely rework of the ZMQ implementation in go-mod-messaging. **No alternative has been found**.
 - **Mark as Push V2 Api** will be removed from Core Data, Core Data Client and the App SDK
 - Consider moving App Service Binding to Writable.  (out of scope for this ADR)
