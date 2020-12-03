@@ -104,15 +104,14 @@ The MessageBus abstraction allows for multiple subscriptions, so an Application 
 
 Core Data's existing publishing of Events would also need to be changed to use this new topic schema. One challenge with this is Core Data doesn't currently know the `DeviceProfileName` or `DeviceName` when it receives a CBOR encoded event. This is because it doesn't decode the Event until after it has published it to the MessageBus. The V2 API will be enhanced to change the AddEvent endpoint from `/event` to `/event/{profile}/{device}` so that `DeviceProfileName` and `DeviceName` are always know no matter how the request is encoded.
 
-This new topic approach will be enabled via each publisher's `PublishTopic` having the placeholder(s) for the `DeviceProfileName` and `DeviceName` which get replaced with the actual  `DeviceProfileName` and `DeviceName`.
+This new topic approach will be enabled via each publisher's `PublishTopic` having the `DeviceProfileName` and `DeviceName`  added to the configured `PublishTopicPrefix`
 
 ```toml
-PublishTopic = 'edgex/events/<device-profile-name>'
-or
-PublishTopic = 'edgex/events/<device-profile-name>/<device-name>'
+
+PublishTopicPrefix = 'edgex/events' # /<device-profile-name>/<device-name> will be added to this Publish Topic prefix
 ```
 
- If the place holders do not exist in the configured `PublishTopic` value, then the value is used as is.  This allows the flexibility to uses this new topics approach or use the existing simple approach of `events` topic. See [Configuration](#configuration) section below for details. 
+See [Configuration](#configuration) section below for details. 
 
 ### Configuration
 
@@ -122,7 +121,7 @@ All Device services will have the following additional configuration to allow co
 
 ##### [MessageQueue]
 
-A  MessageQueue section will be added, which is similar to that used in Core Data today. To enable secure connections, the `Username` & `Password` have been replaced with `Authmode` & `SecretPath`, See **[Secure Connections](#secure-connections)** section below for details. The added `Enabled` property controls whether the Device Service publishes to the MessageBus or POSTs to Core Data. 
+A  MessageQueue section will be added, which is similar to that used in Core Data today, but with `PublishTopicPrefix` instead of `Topic`.To enable secure connections, the `Username` & `Password` have been replaced with `Authmode` & `SecretPath`, See **[Secure Connections](#secure-connections)** section below for details. The added `Enabled` property controls whether the Device Service publishes to the MessageBus or POSTs to Core Data. 
 
 ```toml
 [MessageQueue]
@@ -131,7 +130,7 @@ Protocol = 'tcp'
 Host = 'localhost'
 Port = 1883
 Type = 'mqtt'
-PublishTopic = 'edgex/events/<device-profile-name>/<device-name>'
+PublishTopicPrefix = 'edgex/events' # /<device-profile-name>/<device-name> will be added to this Publish Topic prefix
 [MessageQueue.Optional]
     # Default MQTT Specific options that need to be here to enable environment variable overrides of them
     # Client Identifiers
@@ -149,11 +148,11 @@ PublishTopic = 'edgex/events/<device-profile-name>/<device-name>'
 
 #### Core Data
 
-Core data will also require additional configuration to be able to subscribe to receive Events from the MessageBus. As describe above in the  [MessageBus Topics](#messagebus-topics) section, the `PublishTopic` will optionally have placeholders for the `DeviceProfileName` and `DeviceName` which get replaced with the actual `DeviceProfileName` and `DeviceName`. If the place holders do not exist in the configured `PublishTopic` value, then the value is used as is.
+Core data will also require additional configuration to be able to subscribe to receive Events from the MessageBus. As describe above in the  [MessageBus Topics](#messagebus-topics) section, the `PublishTopicPrefix` will have `DeviceProfileName` and `DeviceName` added to create the actual Public Topic.
 
 ##### [MessageQueue]
 
-The `MessageQueue` section will be  changed so that the `Topic` property changes to `PublishTopic` and `SubscribeEnabled` and `SubscribeTopic` will be added. As with device services configuration, the `Username` & `Password` have been replaced with `Authmode` & `SecretPath` for secure connections. See **[Secure Connections](#secure-connections)** section below for details. In addition, the Boolean `SubscribeEnabled` property will be used to control if the service subscribes to Events from the MessageBus or not.
+The `MessageQueue` section will be  changed so that the `Topic` property changes to `PublishTopicPrefix` and `SubscribeEnabled` and `SubscribeTopic` will be added. As with device services configuration, the `Username` & `Password` have been replaced with `Authmode` & `SecretPath` for secure connections. See **[Secure Connections](#secure-connections)** section below for details. In addition, the Boolean `SubscribeEnabled` property will be used to control if the service subscribes to Events from the MessageBus or not.
 
 ```toml
 [MessageQueue]
@@ -161,7 +160,7 @@ Protocol = 'tcp'
 Host = 'localhost'
 Port = 1883
 Type = 'mqtt'
-PublishTopic = 'edgex/events/<device-profile-name>/<device-name>'
+PublishTopicPrefix = 'edgex/events' # /<device-profile-name>/<device-name> will be added to this Publish Topic prefix
 SubscribeEnabled = true
 SubscribeTopic = 'edgex/events/#'
 [MessageQueue.Optional]
