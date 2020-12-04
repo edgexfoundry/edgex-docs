@@ -44,39 +44,31 @@ The EdgeX development team provides Docker Compose files for each release.  Visi
 !!! Note
     At the GitHub location specified above there is a folder for each EdgeX release.  The nightly-build folder contains Docker Compose files that use artifacts created from the latest code submitted by contributors.  Most end users should avoid using these Docker Compose files.  They are work-in-progress.  Users should use the Docker Compose files for the latest version of EdgeX. 
 
-In each folder, you will find several Docker Compose files (all with a .yml extension).  The name of the file will suggest the type of EdgeX instance the Compose file will help setup.  The table below provides a list of the Docker Compose filenames for the latest release (Geneva).   Find the Docker Compose file that matches:
+In each folder, you will find several Docker Compose files (all with a .yml extension).  The name of the file will suggest the type of EdgeX instance the Compose file will help setup.  The table below provides a list of the Docker Compose filenames for the latest release (Hanoi).   Find the Docker Compose file that matches:
 
 - your hardware (x86 or ARM)
-- the database you want to use (Mongo or Redis)
 - your desire to have security services on or off
 
 |filename|Docker Compose contents|
 |---|---|
-|docker-compose-geneva-mongo-arm64.yml |Specifies ARM 64 containers, uses Mongo database for persistence, and includes security services|
-|docker-compose-geneva-mongo-no-secty-arm64.yml|Specifies x86 containers, uses Mongo database for persistence, but does not include security services|
-|docker-compose-geneva-mongo-no-secty.yml| Specifies x86 containers, uses Mongo database for persistence, but does not include security services|
-|docker-compose-geneva-mongo.yml|Specifies x86 containers, uses Mongo database for persistence, and includes security services|
-|docker-compose-geneva-redis-arm64.yml|Specifies x86 containers, uses Redis database for persistence, and includes security services|
-|docker-compose-geneva-redis-no-secty-arm64.yml|Specifies ARM 64 containers, uses Redis database for persistence, but does not include security services|
-|docker-compose-geneva-redis-no-secty.yml|Specifies x86 containers, uses Redis database for persistence, but does not include security services|
-|docker-compose-geneva-redis.yml|Specifies x86 containers, uses Redis database for persistence, and includes security services|
-|docker-compose-geneva-ui-arm64.|Specifies the EdgeX user interface extension to be used with the ARM 64 EdgeX platform|
-|docker-compose-geneva-ui.yml|Specifies the EdgeX user interface extension to be used with the x86 EdgeX platform|
+|docker-compose-hanoi-arm64.yml|Specifies x86 containers, uses Redis database for persistence, and includes security services|
+|docker-compose-hanoi-no-secty-arm64.yml|Specifies ARM 64 containers, uses Redis database for persistence, but does not include security services|
+|docker-compose-hanoi-no-secty.yml|Specifies x86 containers, uses Redis database for persistence, but does not include security services|
+|docker-compose-hanoi.yml|Specifies x86 containers, uses Redis database for persistence, and includes security services|
+|docker-compose-hanoi-ui-arm64.|Specifies the EdgeX user interface extension to be used with the ARM 64 EdgeX platform|
+|docker-compose-hanoi-ui.yml|Specifies the EdgeX user interface extension to be used with the x86 EdgeX platform|
 |docker-compose-portainer.yml|Specifies the Portainer user interface extension (to be used with the x86 or ARM EdgeX platform)|
 
-!!! Info
-    Unsure which Docker Compose file to use?  The EdgeX community recommends you use the Reds, no security Docker Compose file for your architecture to start.  As you learn about EdgeX, you can incorporate security elements.  The Mongo database is being archived with the next release. 
-
 ### Download a EdgeX Foundry Compose File
-Once you have selected the EdgeX Compose file you want to use, download it using your favorite tool.  The examples below uses *wget* to fetch Docker Compose for the Geneva release, no security, Redis database.
+Once you have selected the EdgeX Compose file you want to use, download it using your favorite tool.  The examples below uses *wget* to fetch Docker Compose for the Hanoi release with no security.
 
 === "x86"
     ```
-    wget https://raw.githubusercontent.com/edgexfoundry/developer-scripts/master/releases/geneva/compose-files/docker-compose-geneva-redis-no-secty.yml -O docker-compose.yml
+    wget https://raw.githubusercontent.com/edgexfoundry/developer-scripts/master/releases/hanoi/compose-files/docker-compose-hanoi-no-secty.yml -O docker-compose.yml
     ```
 === "ARM"
     ```
-    wget https://raw.githubusercontent.com/edgexfoundry/developer-scripts/master/releases/geneva/compose-files/docker-compose-geneva-mongo-no-secty-arm64.yml -O docker-compose.yml
+    wget https://raw.githubusercontent.com/edgexfoundry/developer-scripts/master/releases/hanoi/compose-files/docker-compose-hanoi-no-secty-arm64.yml -O docker-compose.yml
     ```
 
 !!! Note

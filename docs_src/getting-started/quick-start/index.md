@@ -12,18 +12,18 @@ The fastest way to start running EdgeX is by using our pre-built Docker images. 
 ## Running EdgeX
 Once you have Docker and Docker Compose installed, you need to:
 
-* download / save the latest [`docker-compose` file](https://github.com/edgexfoundry/developer-scripts/blob/master/releases/geneva/compose-files/docker-compose-geneva-redis-no-secty.yml)
+* download / save the latest [`docker-compose` file](https://github.com/edgexfoundry/developer-scripts/blob/master/releases/hanoi/compose-files/docker-compose-hanoi-no-secty.yml)
 * issue command to download and run the EdgeX Foundry Docker images from Docker Hub
 
 This can be accomplished with a single command as shown below (please note the tabs for x86 vs ARM architectures).
 
 === "x86"
     ```
-    curl https://raw.githubusercontent.com/edgexfoundry/developer-scripts/master/releases/geneva/compose-files/docker-compose-geneva-redis-no-secty.yml -o docker-compose.yml; docker-compose up
+    curl https://raw.githubusercontent.com/edgexfoundry/developer-scripts/master/releases/hanoi/compose-files/docker-compose-hanoi-no-secty.yml -o docker-compose.yml; docker-compose up -d
     ```
 === "ARM"
     ```
-    curl https://raw.githubusercontent.com/edgexfoundry/developer-scripts/master/releases/geneva/compose-files/docker-compose-geneva-redis-no-secty-arm64.yml -o docker-compose.yml; docker-compose up
+    curl https://raw.githubusercontent.com/edgexfoundry/developer-scripts/master/releases/hanoi/compose-files/docker-compose-hanoi-no-secty-arm64.yml -o docker-compose.yml; docker-compose up -d
     ```
 
 Verify that the EdgeX containers have started:
@@ -34,22 +34,34 @@ docker-compose ps
 *If all EdgeX containers pulled and started correctly and without error, you should see a process status (ps) that looks similar to the image above.*
 
 ## Connecting a Device
-EdgeX Foundry provides a [Random Number device service](https://github.com/edgexfoundry/device-random) which is useful to testing, it returns a random number within a configurable range. Configuration for running this service is in the `docker-compose.yml` file you downloaded at the start of this guide, but it is disabled by default. To enable it, uncomment the following lines in your `docker-compose.yml`:
+EdgeX Foundry provides a [Random Number device service](https://github.com/edgexfoundry/device-random) which is useful for testing. It returns a random number within a configurable range. In order to pull and run this device service, you will need to add a new service to the `docker-compose.yml` file you downloaded at the start of this guide. Copy and paste the following lines into your `docker-compose.yml` right before `version: '3.7'`:
+
 ``` yaml
   device-random:
-    image: edgexfoundry/docker-device-random-go:1.2.1
-    ports:
-      - "127.0.0.1:49988:49988"
     container_name: edgex-device-random
-    hostname: edgex-device-random
-    networks:
-      - edgex-network
-    environment:
-      <<: *common-variables
-      Service_Host: edgex-device-random
     depends_on:
+      - consul
       - data
-      - command
+      - metadata
+    environment:
+      CLIENTS_COMMAND_HOST: edgex-core-command
+      CLIENTS_COREDATA_HOST: edgex-core-data
+      CLIENTS_DATA_HOST: edgex-core-data
+      CLIENTS_METADATA_HOST: edgex-core-metadata
+      CLIENTS_NOTIFICATIONS_HOST: edgex-support-notifications
+      CLIENTS_RULESENGINE_HOST: edgex-kuiper
+      CLIENTS_SCHEDULER_HOST: edgex-support-scheduler
+      CLIENTS_VIRTUALDEVICE_HOST: edgex-device-random
+      DATABASES_PRIMARY_HOST: edgex-redis
+      EDGEX_SECURITY_SECRET_STORE: "false"
+      REGISTRY_HOST: edgex-core-consul
+      Service_Host: edgex-device-random
+    hostname: edgex-device-random
+    image: edgexfoundry/docker-device-random-go:1.3.0
+    networks:
+      edgex-network: {}
+    ports:
+    - 127.0.0.1:49988:49988/tcp
 ```
 Then you can start the Random device service with:
 ```

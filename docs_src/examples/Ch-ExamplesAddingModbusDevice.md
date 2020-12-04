@@ -346,6 +346,9 @@ volumes and change the entrypoint for device-modbus internal use.
 
 ![configuration.toml Updates](config_changes.png)
 
+!!! Note
+    This example uses the Geneva Release.  There are later EdgeX releases.
+
 ## Start EdgeX Foundry on Docker
 
 Finally, we can deploy EdgeX in the Photon OS.

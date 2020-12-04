@@ -327,6 +327,9 @@ replacing the host IP with your host address:
 Download the `Geneva` release docker-compose file from
 <https://github.com/edgexfoundry/developer-scripts/blob/master/releases/geneva/compose-files/docker-compose-geneva-redis.yml>.
 
+!!! Note
+    This example uses the Geneva Release.  There are later EdgeX releases.
+
 Because we deploy EdgeX using docker-compose, we must add device-mqtt to
 the docker-compose file. If you have prepared configuration files, you
 can mount them using volumes and change the entrypoint for device-mqtt
