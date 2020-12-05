@@ -799,6 +799,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../microservices/core/database/Ch-Redis/" title="Redis Database" class="md-nav__link">
+      Redis Database
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -2186,16 +2198,16 @@
 <h2 id="running-edgex">Running EdgeX</h2>
 <p>Once you have Docker and Docker Compose installed, you need to:</p>
 <ul>
-<li>download / save the latest <a href="https://github.com/edgexfoundry/developer-scripts/blob/master/releases/geneva/compose-files/docker-compose-geneva-redis-no-secty.yml"><code>docker-compose</code> file</a></li>
+<li>download / save the latest <a href="https://github.com/edgexfoundry/developer-scripts/blob/master/releases/hanoi/compose-files/docker-compose-hanoi-no-secty.yml"><code>docker-compose</code> file</a></li>
 <li>issue command to download and run the EdgeX Foundry Docker images from Docker Hub</li>
 </ul>
 <p>This can be accomplished with a single command as shown below (please note the tabs for x86 vs ARM architectures).</p>
 <div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">x86</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code>curl https://raw.githubusercontent.com/edgexfoundry/developer-scripts/master/releases/geneva/compose-files/docker-compose-geneva-redis-no-secty.yml -o docker-compose.yml; docker-compose up
+<div class="highlight"><pre><span></span><code>curl https://raw.githubusercontent.com/edgexfoundry/developer-scripts/master/releases/hanoi/compose-files/docker-compose-hanoi-no-secty.yml -o docker-compose.yml; docker-compose up -d
 </code></pre></div>
 </div>
 <input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">ARM</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code>curl https://raw.githubusercontent.com/edgexfoundry/developer-scripts/master/releases/geneva/compose-files/docker-compose-geneva-redis-no-secty-arm64.yml -o docker-compose.yml; docker-compose up
+<div class="highlight"><pre><span></span><code>curl https://raw.githubusercontent.com/edgexfoundry/developer-scripts/master/releases/hanoi/compose-files/docker-compose-hanoi-no-secty-arm64.yml -o docker-compose.yml; docker-compose up -d
 </code></pre></div>
 </div>
 </div>
@@ -2205,21 +2217,32 @@
 <img alt="image" src="EdgeX_GettingStartedUsrActiveContainers.png" />
 <em>If all EdgeX containers pulled and started correctly and without error, you should see a process status (ps) that looks similar to the image above.</em></p>
 <h2 id="connecting-a-device">Connecting a Device</h2>
-<p>EdgeX Foundry provides a <a href="https://github.com/edgexfoundry/device-random">Random Number device service</a> which is useful to testing, it returns a random number within a configurable range. Configuration for running this service is in the <code>docker-compose.yml</code> file you downloaded at the start of this guide, but it is disabled by default. To enable it, uncomment the following lines in your <code>docker-compose.yml</code>:
-<div class="highlight"><pre><span></span><code>  <span class="nt">device-random</span><span class="p">:</span>
-    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgexfoundry/docker-device-random-go:1.2.1</span>
-    <span class="nt">ports</span><span class="p">:</span>
-      <span class="p p-Indicator">-</span> <span class="s">&quot;127.0.0.1:49988:49988&quot;</span>
+<p>EdgeX Foundry provides a <a href="https://github.com/edgexfoundry/device-random">Random Number device service</a> which is useful for testing. It returns a random number within a configurable range. In order to pull and run this device service, you will need to add a new service to the <code>docker-compose.yml</code> file you downloaded at the start of this guide. Copy and paste the following lines into your <code>docker-compose.yml</code> right before <code>version: '3.7'</code>:</p>
+<p><div class="highlight"><pre><span></span><code>  <span class="nt">device-random</span><span class="p">:</span>
     <span class="nt">container_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-device-random</span>
-    <span class="nt">hostname</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-device-random</span>
-    <span class="nt">networks</span><span class="p">:</span>
-      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">edgex-network</span>
-    <span class="nt">environment</span><span class="p">:</span>
-      <span class="nt">&lt;&lt;</span><span class="p">:</span> <span class="nv">*common-variables</span>
-      <span class="nt">Service_Host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-device-random</span>
     <span class="nt">depends_on</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">consul</span>
       <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">data</span>
-      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">command</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">metadata</span>
+    <span class="nt">environment</span><span class="p">:</span>
+      <span class="nt">CLIENTS_COMMAND_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-core-command</span>
+      <span class="nt">CLIENTS_COREDATA_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-core-data</span>
+      <span class="nt">CLIENTS_DATA_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-core-data</span>
+      <span class="nt">CLIENTS_METADATA_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-core-metadata</span>
+      <span class="nt">CLIENTS_NOTIFICATIONS_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-support-notifications</span>
+      <span class="nt">CLIENTS_RULESENGINE_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-kuiper</span>
+      <span class="nt">CLIENTS_SCHEDULER_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-support-scheduler</span>
+      <span class="nt">CLIENTS_VIRTUALDEVICE_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-device-random</span>
+      <span class="nt">DATABASES_PRIMARY_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-redis</span>
+      <span class="nt">EDGEX_SECURITY_SECRET_STORE</span><span class="p">:</span> <span class="s">&quot;false&quot;</span>
+      <span class="nt">REGISTRY_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-core-consul</span>
+      <span class="nt">Service_Host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-device-random</span>
+    <span class="nt">hostname</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-device-random</span>
+    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgexfoundry/docker-device-random-go:1.3.0</span>
+    <span class="nt">networks</span><span class="p">:</span>
+      <span class="nt">edgex-network</span><span class="p">:</span> <span class="p p-Indicator">{}</span>
+    <span class="nt">ports</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">127.0.0.1:49988:49988/tcp</span>
 </code></pre></div>
 Then you can start the Random device service with:
 <div class="highlight"><pre><span></span><code>docker-compose up -d device-random

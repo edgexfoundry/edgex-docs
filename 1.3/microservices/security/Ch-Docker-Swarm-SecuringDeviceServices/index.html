@@ -718,6 +718,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../core/database/Ch-Redis/" title="Redis Database" class="md-nav__link">
+      Redis Database
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -2277,7 +2289,7 @@ Here is the inverse of the previous yml block. This gets added to the device ser
 <div class="highlight"><pre><span></span><code>restart_policy:
   condition: on-failure
 </code></pre></div>
-<p>The next and final change in the stack yml file is to ensure the EdgeX services are binding to the correct host.  In Geneva we do this by adding a common variable <code>Service_ServerBindAddr: "0.0.0.0"</code> to ensure that the service will bind to any host and not be limited to the hostname.  </p>
+<p>The next and final change in the stack yml file is to ensure the EdgeX services are binding to the correct host.  Since Geneva we do this by adding a common variable <code>Service_ServerBindAddr: "0.0.0.0"</code> to ensure that the service will bind to any host and not be limited to the hostname.  </p>
 <h3 id="running-the-docker-stack-file">Running the docker stack file</h3>
 <p>With all of these changes in place we are ready to run the stack file.  We included a script to run the stack file and create the volumes needed in the stack file.  This script simply creates the volumes directories and runs the <code>docker stack deploy ...</code> command.</p>
 <div class="highlight"><pre><span></span><code>sudo ./run.sh

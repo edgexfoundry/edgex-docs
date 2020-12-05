@@ -718,6 +718,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/core/database/Ch-Redis/" title="Redis Database" class="md-nav__link">
+      Redis Database
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -2082,6 +2094,10 @@
                 <h1 id="geneva-api-guiding-principles">Geneva API Guiding Principles</h1>
 <h2 id="status">Status</h2>
 <p>Accepted by EdgeX Foundry working groups as of Core Working Group meeting 16-Jan-2020</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This ADR was written pre-Geneva with an assumption that the V2 APIs would be available in Geneva.  In actuality, the full V2 APIs will be delivered in the Ireland release (Spring 2020)</p>
+</div>
 <h2 id="context">Context</h2>
 <p>A redesign of the EdgeX Foundry API is proposed for the Geneva release. This is understood by the community to warrant a 2.0 release that will not be backward compatible. The goal is to rework the API using solid principles that will allow for extension over the course of several release cycles, avoiding the necessity of yet another major release version in a short period of time.</p>
 <p>Briefly, this effort grew from the acknowledgement that the current models used to facilitate requests and responses via the EdgeX Foundry API were legacy definitions that were once used as internal representations of state within the EdgeX services themselves. Thus if you want to add or update a device, you populate a full device model rather than a specific Add/UpdateDeviceRequest. Currently, your request model has the same definition, and thus validation constraints, as the response model because they are one and the same! It is desirable to separate and be specific about what is required for a given request, as well as its state validity, and the bare minimum that must be returned within a response.</p>

@@ -11,7 +11,7 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/microservices/device/sdk/Ch-DeviceSDK/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/microservices/core/database/Ch-Redis/">
       
       
         <meta name="author" content="Michael Johanson">
@@ -21,7 +21,7 @@
     
     
       
-        <title>Device Services SDK - EdgeX Foundry Documentation</title>
+        <title>Redis Database - EdgeX Foundry Documentation</title>
       
     
     
@@ -63,7 +63,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#device-services-sdk" class="md-skip">
+        <a href="#redis-database" class="md-skip">
           Skip to content
         </a>
       
@@ -90,7 +90,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Device Services SDK
+              Redis Database
             
           </span>
         </div>
@@ -653,10 +653,12 @@
           
           
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2" checked>
     
     <label class="md-nav__link" for="nav-3-2">
       Core Services
@@ -680,7 +682,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../core/Ch-CoreServices/" title="Core Services" class="md-nav__link">
+    <a href="../../Ch-CoreServices/" title="Core Services" class="md-nav__link">
       Core Services
     </a>
   </li>
@@ -692,7 +694,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../core/data/Ch-CoreData/" title="Core Data" class="md-nav__link">
+    <a href="../../data/Ch-CoreData/" title="Core Data" class="md-nav__link">
       Core Data
     </a>
   </li>
@@ -704,7 +706,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../core/metadata/Ch-Metadata/" title="Metadata" class="md-nav__link">
+    <a href="../../metadata/Ch-Metadata/" title="Metadata" class="md-nav__link">
       Metadata
     </a>
   </li>
@@ -716,7 +718,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../core/command/Ch-Command/" title="Command" class="md-nav__link">
+    <a href="../../command/Ch-Command/" title="Command" class="md-nav__link">
       Command
     </a>
   </li>
@@ -726,11 +728,60 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../../../core/database/Ch-Redis/" title="Redis Database" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Redis Database
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z" /></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Redis Database" class="md-nav__link md-nav__link--active">
       Redis Database
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#memory-utilization" class="md-nav__link">
+    Memory Utilization
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#on-disk-persistence" class="md-nav__link">
+    On-disk Persistence
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -1013,12 +1064,10 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6" checked>
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6">
     
     <label class="md-nav__link" for="nav-3-6">
       Devices Services
@@ -1042,7 +1091,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../Ch-DeviceServices/" title="Device Services Microservices" class="md-nav__link">
+    <a href="../../../device/Ch-DeviceServices/" title="Device Services Microservices" class="md-nav__link">
       Device Services Microservices
     </a>
   </li>
@@ -1054,7 +1103,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../profile/Ch-DeviceProfile/" title="Device Profile" class="md-nav__link">
+    <a href="../../../device/profile/Ch-DeviceProfile/" title="Device Profile" class="md-nav__link">
       Device Profile
     </a>
   </li>
@@ -1064,60 +1113,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Device Services SDK
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z" /></svg>
-        </span>
-      </label>
-    
-    <a href="./" title="Device Services SDK" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../../../device/sdk/Ch-DeviceSDK/" title="Device Services SDK" class="md-nav__link">
       Device Services SDK
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
-      </span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#introduction-to-the-sdks" class="md-nav__link">
-    Introduction to the SDKs
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#writing-a-device-service" class="md-nav__link">
-    Writing a Device Service
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -1127,7 +1127,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../virtual/Ch-VirtualDevice/" title="Virtual Device" class="md-nav__link">
+    <a href="../../../device/virtual/Ch-VirtualDevice/" title="Virtual Device" class="md-nav__link">
       Virtual Device
     </a>
   </li>
@@ -2099,15 +2099,15 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction-to-the-sdks" class="md-nav__link">
-    Introduction to the SDKs
+  <a href="#memory-utilization" class="md-nav__link">
+    Memory Utilization
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#writing-a-device-service" class="md-nav__link">
-    Writing a Device Service
+  <a href="#on-disk-persistence" class="md-nav__link">
+    On-disk Persistence
   </a>
   
 </li>
@@ -2124,7 +2124,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/microservices/device/sdk/Ch-DeviceSDK.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/microservices/core/database/Ch-Redis.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg>
                   </a>
                 
@@ -2132,33 +2132,20 @@
                   
                 
                 
-                <h1 id="device-services-sdk">Device Services SDK</h1>
-<p><img alt="image" src="../EdgeX_SDKs.png" /></p>
-<h2 id="introduction-to-the-sdks">Introduction to the SDKs</h2>
-<p>EdgeX provides two software development kits (SDKs) to help developers create new device services.  While the EdgeX community and the larger EdgeX ecosystem provide a number of open source and commercially available device services for use with EdgeX, there is no way that every protocol and every sensor can be accommodated and connected to EdgeX with a pre-existing device service.  Even if all the device service connectivity were provided, your use case, sensor or security infrastructure may require customization.  Therefore, the device service SDKs provide the means to extend or customize EdgeX’s device connectivity.</p>
-<p>EdgeX is mostly written in Go and C.  There is a device service SDK written in both Go and C to support the more popular languages used in EdgeX today.  In the future, alternate language SDKs may be provided by the community or made available by the larger ecosystem.</p>
-<p>The SDKs are really libraries to be incorporated into a new micro service.  They make writing a new device service much easier.  By importing the SDK library of choice into your new device service project, you can focus on the details associated with getting and manipulating sensor data from your device via the specific protocol of your device.  Other details, such as initialization of the device service, getting the service configured, sending sensor data to core data, managing communications with core metadata, and much more are handled by the code in the SDK library.  The code in the SDK also helps to ensure your device service adheres to rules and standards of EdgeX – such as making sure the service registers with the EdgeX registry service when it starts up.</p>
-<p>The EdgeX Foundry Device Service Software Development Kit (SDK) takes
-the developer through the step-by-step process to create an EdgeX
-Foundry device service micro service. Then setup the SDK and execute the
-code to generate the device service scaffolding to get you started using
-EdgeX.</p>
-<p>The Device Service SDK supports:</p>
+                <h1 id="redis-database">Redis Database</h1>
+<p>EdgeX Foundry's reference implementation database (for sensor data, metadata and all things that need to be persisted in a database) is Redis.</p>
+<p>Redis is an open source (BSD licensed), in-memory data structure store, used as a database and message broker in EdgeX. It supports data structures such as strings, hashes, lists, sets, sorted sets with range queries, bitmaps, hyperloglogs, geospatial indexes with radius queries and streams. Redis is durable and uses persistence only for recovering state; the only data Redis operates on is in-memory.</p>
+<h2 id="memory-utilization">Memory Utilization</h2>
+<p>Redis uses a number of techniques to optimize memory utilization. Antirez and <a href="https://redislabs.com/">Redis Labs</a> have written a number of articles on the underlying details (see the list below) and those strategies has continued to <a href="http://antirez.com/news/128">evolve</a>. When thinking about your system architecture, consider how long data will be living at the edge and consuming memory (physical or physical + virtual).</p>
 <ul>
-<li>Synchronous read and write operations</li>
-<li>Asynchronous device data collection</li>
-<li>Initialization and deconstruction of Driver Interface</li>
-<li>Initialization and destruction of Device Connection</li>
-<li>Framework for automated Provisioning Mechanism</li>
-<li>Support for multiple classes of Devices with Profiles</li>
-<li>Support for sets of actions triggered by a command</li>
-<li>Cached responses to queries</li>
+<li><a href="http://antirez.com/news/92">http://antirez.com/news/92</a></li>
+<li><a href="https://redislabs.com/blog/redis-ram-ramifications-part-i/">https://redislabs.com/blog/redis-ram-ramifications-part-i/</a></li>
+<li><a href="https://redis.io/topics/memory-optimization">https://redis.io/topics/memory-optimization</a></li>
+<li><a href="http://antirez.com/news/128">http://antirez.com/news/128</a></li>
 </ul>
-<h2 id="writing-a-device-service">Writing a Device Service</h2>
-<ul>
-<li><a href="../../../../getting-started/Ch-GettingStartedSDK-Go/">Writing a new Device Service in Go</a></li>
-<li><a href="../../../../getting-started/Ch-GettingStartedSDK-C/">Writing a new Device Service in C</a></li>
-</ul>
+<h2 id="on-disk-persistence">On-disk Persistence</h2>
+<p>Redis supports a number of different levels of on-disk persistence. By default, snapshots of the data are persisted every 60 seconds or after 1000 keys have changed. Beyond increasing the frequency of snapshots, append only files that log every database write are also supported. See https://redis.io/topics/persistence for a detailed discussion on how to balance the options.</p>
+<p>Redis supports setting a memory usage limit and a policy on what to do if memory cannot be allocated for a write. See the MEMORY MANAGEMENT section of https://raw.githubusercontent.com/antirez/redis/5.0/redis.conf for the configuration options. Since EdgeX and Redis do not currently communicate on data evictions, you will need to use the EdgeX scheduler to control memory usage rather than a Redis eviction policy.</p>
                 
               
               
@@ -2177,7 +2164,7 @@ EdgeX.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../../profile/Ch-DeviceProfile/" title="Device Profile" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../../command/Ch-Command/" title="Command" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
             </div>
@@ -2186,19 +2173,19 @@ EdgeX.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Device Profile
+                Command
               </div>
             </div>
           </a>
         
         
-          <a href="../../virtual/Ch-VirtualDevice/" title="Virtual Device" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../../../support/Ch-SupportingServices/" title="Supporting Services Microservices" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Virtual Device
+                Supporting Services Microservices
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
