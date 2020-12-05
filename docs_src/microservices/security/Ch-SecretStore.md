@@ -67,6 +67,9 @@ file. The whole set of Docker Compose files for Geneva release can be found here
 
 > -   <https://github.com/edgexfoundry/developer-scripts/blob/master/releases/geneva/compose-files>
 
+!!! Note
+    This example uses the Geneva Release.  There are later EdgeX releases.
+
 [The Compose file](https://github.com/edgexfoundry/developer-scripts/blob/master/releases/geneva/compose-files/docker-compose-geneva-redis.yml) starts the entire EdgeX Foundry platform with Redis including the security services.
 
 The command to start EdgeX Foundry platform including the Secret Store

@@ -26,7 +26,7 @@ download the [Device SDK](../../microservices/device/sdk/Ch-DeviceSDK), and get 
     ![image](EdgeX_GettingStartedSDKClone.png)
 
     !!! Note
-        The clone command above has you pull v1.2.2 of the Go SDK which is the version associated to Geneva.  You may want to check for the latest released version by going to https://github.com/edgexfoundry/device-sdk-go and look for the lastest release tag.
+        The clone command above has you pull v1.2.2 of the Go SDK which is the version associated to Geneva.  There are later releases of EdgeX.  While backward compatible, it is always a good idea to pull and use the latest version associated with the major version of EdgeX you are using.  You may want to check for the latest released version by going to https://github.com/edgexfoundry/device-sdk-go and look for the latest release.
 
 3.  Create a folder that will hold the new device service.  The name of the folder is also the name you want to give your new device service. Standard practice in EdgeX is to prefix the name of a device service with `device-`.  In this example, the name 'device-simple` is used.
     ``` bash

@@ -192,7 +192,7 @@ restart_policy:
   condition: on-failure
 ```
 
-The next and final change in the stack yml file is to ensure the EdgeX services are binding to the correct host.  In Geneva we do this by adding a common variable `Service_ServerBindAddr: "0.0.0.0"` to ensure that the service will bind to any host and not be limited to the hostname.  
+The next and final change in the stack yml file is to ensure the EdgeX services are binding to the correct host.  Since Geneva we do this by adding a common variable `Service_ServerBindAddr: "0.0.0.0"` to ensure that the service will bind to any host and not be limited to the hostname.  
 
 ### Running the docker stack file
 
