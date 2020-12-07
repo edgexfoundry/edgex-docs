@@ -31,7 +31,7 @@
 
 ## Context
 
-Currently EdgeX Events are sent from Device Services via HTTP to Core Data, which then puts the Events on the MessageBus. This ADR details how Device Services will send EdgeX Events to other services via the EdgeX MessageBus. 
+Currently EdgeX Events are sent from Device Services via HTTP to Core Data, which then puts the Events on the MessageBus after optionally persisting them to the database. This ADR details how Device Services will send EdgeX Events to other services via the EdgeX MessageBus. 
 
 > *Note: Though this design is centered on device services, it does have cross cutting impacts with other EdgeX services and modules*
 
@@ -51,7 +51,7 @@ The Go Device SDK will take advantage of the existing `go-mod-messaging` module 
 
 ### C Device SDK
 
-The C Device SDK will implement its own MessageBus abstraction similar to the one in `go-mod-messaging` with just the MQTT implementation to start with. Using this abstraction allows for future implementations to be added when use cases warrant the addition of `ZMQ` and/or `Redis Streams`.  As with the Go SDK, the C SDK will be enhanced to optionally publish Events to the MessageBus anywhere it currently POSTs Events to Core Data. This publish vs POST option will be controlled by configuration with publish as the default.  See [Configuration](#configuration) section below for details.
+The C Device SDK will implement its own MessageBus abstraction similar to the one in `go-mod-messaging`.  The first implementation type (MQTT or Redis Streams) is TBD. Using this abstraction allows for future implementations to be added when use cases warrant the additional implementations.  As with the Go SDK, the C SDK will be enhanced to optionally publish Events to the MessageBus anywhere it currently POSTs Events to Core Data. This publish vs POST option will be controlled by configuration with publish as the default.  See [Configuration](#configuration) section below for details.
 
 ### Core Data and Persistence
 
@@ -117,7 +117,7 @@ See [Configuration](#configuration) section below for details.
 
 #### Device Services
 
-All Device services will have the following additional configuration to allow connecting and publishing to the MessageBus. As describe above in the  [MessageBus Topics](#messagebus-topics) section, the `PublishTopic` will optionally have placeholders for the `DeviceProfileName` and `DeviceName` which get replaced with the actual `DeviceProfileName` and `DeviceName`. If the place holders do not exist in the configured `PublishTopic` value, then the value is used as is.
+All Device services will have the following additional configuration to allow connecting and publishing to the MessageBus. As describe above in the  [MessageBus Topics](#messagebus-topics) section, the `PublishTopic` will include the `DeviceProfileName` and `DeviceName`.
 
 ##### [MessageQueue]
 
@@ -142,7 +142,7 @@ PublishTopicPrefix = 'edgex/events' # /<device-profile-name>/<device-name> will 
     AutoReconnect  = "true"
     ConnectTimeout = "5" # Seconds
     SkipCertVerify = "false" # Only used if Cert/Key file or Cert/Key PEMblock are specified
-    Authmode = "none" # Valid values are: `none`, `usernamepassword`, `clientcert` or `cacert`
+    ClientAuth = "none" # Valid values are: `none`, `usernamepassword` or `clientcert`
     Secretpath = "messagebus"  # Path in secret store used if Authmode not `none`
 ```
 
@@ -174,7 +174,7 @@ SubscribeTopic = 'edgex/events/#'
     AutoReconnect  = "true"
     ConnectTimeout = "5" # Seconds
     SkipCertVerify = "false" # Only used if Cert/Key file or Cert/Key PEMblock are specified
-    Authmode = "none" # Valid values are: `none`, `usernamepassword`, `clientcert` or `cacert`
+    ClientAuth = "none" # Valid values are: `none`, `usernamepassword` or `clientcert`
     Secretpath = "messagebus"  # Path in secret store used if Authmode not `none`
 ```
 
@@ -196,13 +196,13 @@ Similar to above, the Application Services `MessageBus` configuration will chang
     AutoReconnect  = "true"
     ConnectTimeout = "5" # Seconds
     SkipCertVerify = "false" # Only used if Cert/Key file or Cert/Key PEMblock are specified
-    Authmode = "none" # Valid values are: `none`, `usernamepassword`, `clientcert` or `cacert`
+    ClientAuth = "none" # Valid values are: `none`, `usernamepassword` or `clientcert`
     Secretpath = "messagebus"  # Path in secret store used if Authmode not `none`
 ```
 
 ##### [Binding]
 
-The `Binding` configuration section will require change for the subscribe topics scheme describe in the [MessageBus Topics](#messagebus-topics) section above to filter for Events from specific device profiles or devices. `SubscribeTopic` will change from a string property containing a single topic to the `SubscribeTopics` string property containing a comma separated list of topics. This allows for the flexibility for the property to be a single topic with the `#` wild card so the Application Service receives all Events as it does today.
+The `Binding` configuration section will require changes for the subscribe topics scheme described in the [MessageBus Topics](#messagebus-topics) section above to filter for Events from specific device profiles or devices. `SubscribeTopic` will change from a string property containing a single topic to the `SubscribeTopics` string property containing a comma separated list of topics. This allows for the flexibility for the property to be a single topic with the `#` wild card so the Application Service receives all Events as it does today.
 
 Receive only Events from the `Random-Integer-Device` and `Random-Boolean-Device` profiles
 
@@ -229,18 +229,14 @@ SubscribeTopics="edgex/events/#"
 
 ### Secure Connections
 
-As stated earlier,  this ADR is dependent on the  [**Secret Provider for All**](TBD) ADR to provide a common Secret Provider for all Edgex Services to access their secrets. Once this is available, the MessageBus connection can be secured via the following configurable authentications modes which follows the implementation for secure MQTT Export and secure MQTT Trigger used in Application Services.
+As stated earlier,  this ADR is dependent on the  [**Secret Provider for All**](TBD) ADR to provide a common Secret Provider for all Edgex Services to access their secrets. Once this is available, the MessageBus connection can be secured via the following configurable client authentications modes which follows similar implementation for secure MQTT Export and secure MQTT Trigger used in Application Services.
 
-- **none** - No authentication used
-- **usernamepassword** - Username & password authentication. CA Cert used in conjunction if it exists in the Secret Provider. 
-- **clientcert** - Client certificate and key for authentication. CA Cert used in conjunction if it exists in the Secret Provider. 
-- **cacert** - CA Certificate only, i.e. just a TLS enabled connection
-
-The secrets specified for the above options are pulled from the `Secret Provider` using the configured `SecretPath`. If the `cacert` secret exists along with the secrets for one of the other modes, it will be used in conjunction to enable a TLS connection in addition to the other mode.
+- **none** - No authentication 
+- **usernamepassword** - Username & password authentication. 
+- **clientcert** - Client certificate and key for authentication. 
+- The secrets specified for the above options are pulled from the `Secret Provider` using the configured `SecretPath`.
 
 How the secrets are injected into the `Secret Provider` is out of scope for this ADR and covered in the [**Secret Provider for All**](TBD) ADR. 
-
-> *Note: It has been decide the TLS connections are not required for on box service to service communications. This includes Device Service to Broker to App Service. The configuration will still support certificates for those deployments that feel certificates are needed, but will not be used by default EdgeX deployment.*
 
 ## Consequences
 
