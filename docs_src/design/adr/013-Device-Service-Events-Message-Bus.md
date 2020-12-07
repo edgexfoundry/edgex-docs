@@ -41,7 +41,7 @@ Currently EdgeX Events are sent from Device Services via HTTP to Core Data, whic
 
 ### Which Message Bus implementations?
 
-Multiple Device Services may need to be publishing Events to the MessageBus concurrently.  `ZMQ` will not be a valid option if multiple Device Services are configured to publish. This is because `ZMQ` only allows for a single publisher. `ZMQ` will still be valid if only one Device Service is publishing Events. The `MQTT` and `Redis Streams` are valid options to use when multiple Device Services are require, as they both support multiple publishers. These are the only other implementations currently available for Go services. The C base device services do not yet have a MessageBus implementation.  See the [C Device SDK](#c-device-sdk) below for details.
+Multiple Device Services may need to be publishing Events to the MessageBus concurrently.  `ZMQ` will not be a valid option if multiple Device Services are configured to publish. This is because `ZMQ` only allows for a single publisher. `ZMQ` will still be valid if only one Device Service is publishing Events. The `MQTT` and `Redis Streams` are valid options to use when multiple Device Services are required, as they both support multiple publishers. These are the only other implementations currently available for Go services. The C base device services do not yet have a MessageBus implementation.  See the [C Device SDK](#c-device-sdk) below for details.
 
 > *Note: Documentation will need to be clear when `ZMQ` can be used and when it can not be used.*
 
@@ -86,7 +86,7 @@ The App Service SDK will be enhanced for the secure MessageBus connection descri
 
 > *Note: The change recommended here is not required for this design, but it provides a good opportunity to adopt it.*
 
-Currently Core Data publishes Events to the simple `events` topic. All Application Services running receive every Event published, whether they want them or not. The Events can be filtered out using the `FilterByDeviceName` pipeline function, but the Application Services still receives every Event and process all the Events to some extent. This could cause load issues in a deployment with many devices and large volume of Events from various devices or a very verbose device that that Application Services is not interested in.
+Currently Core Data publishes Events to the simple `events` topic. All Application Services running receive every Event published, whether they want them or not. The Events can be filtered out using the `FilterByDeviceName` pipeline function, but the Application Services still receives every Event and process all the Events to some extent. This could cause load issues in a deployment with many devices and large volume of Events from various devices or a very verbose device that the Application Services is not interested in.
 
 > *Note: The current `FilterByDeviceName` is only good if the device name is known statically and the only instance of the device defined by the `DeviceProfileName`. What we really need is `FilterByDeviceProfileName` which allows multiple instances of a device to be filtered for, rather than a single instance as it it now. The V2 API will be adding `DeviceProfileName` to the Events, so in Ireland this  filter will be possible.*
 
@@ -121,7 +121,7 @@ All Device services will have the following additional configuration to allow co
 
 ##### [MessageQueue]
 
-A  MessageQueue section will be added, which is similar to that used in Core Data today, but with `PublishTopicPrefix` instead of `Topic`.To enable secure connections, the `Username` & `Password` have been replaced with `Authmode` & `SecretPath`, See **[Secure Connections](#secure-connections)** section below for details. The added `Enabled` property controls whether the Device Service publishes to the MessageBus or POSTs to Core Data. 
+A  MessageQueue section will be added, which is similar to that used in Core Data today, but with `PublishTopicPrefix` instead of `Topic`.To enable secure connections, the `Username` & `Password` have been replaced with ClientAuth & `SecretPath`, See **[Secure Connections](#secure-connections)** section below for details. The added `Enabled` property controls whether the Device Service publishes to the MessageBus or POSTs to Core Data. 
 
 ```toml
 [MessageQueue]
@@ -143,7 +143,7 @@ PublishTopicPrefix = 'edgex/events' # /<device-profile-name>/<device-name> will 
     ConnectTimeout = "5" # Seconds
     SkipCertVerify = "false" # Only used if Cert/Key file or Cert/Key PEMblock are specified
     ClientAuth = "none" # Valid values are: `none`, `usernamepassword` or `clientcert`
-    Secretpath = "messagebus"  # Path in secret store used if Authmode not `none`
+    Secretpath = "messagebus"  # Path in secret store used if ClientAuth not `none`
 ```
 
 #### Core Data
@@ -152,7 +152,7 @@ Core data will also require additional configuration to be able to subscribe to 
 
 ##### [MessageQueue]
 
-The `MessageQueue` section will be  changed so that the `Topic` property changes to `PublishTopicPrefix` and `SubscribeEnabled` and `SubscribeTopic` will be added. As with device services configuration, the `Username` & `Password` have been replaced with `Authmode` & `SecretPath` for secure connections. See **[Secure Connections](#secure-connections)** section below for details. In addition, the Boolean `SubscribeEnabled` property will be used to control if the service subscribes to Events from the MessageBus or not.
+The `MessageQueue` section will be  changed so that the `Topic` property changes to `PublishTopicPrefix` and `SubscribeEnabled` and `SubscribeTopic` will be added. As with device services configuration, the `Username` & `Password` have been replaced with `ClientAuth` & `SecretPath` for secure connections. See **[Secure Connections](#secure-connections)** section below for details. In addition, the Boolean `SubscribeEnabled` property will be used to control if the service subscribes to Events from the MessageBus or not.
 
 ```toml
 [MessageQueue]
@@ -175,14 +175,14 @@ SubscribeTopic = 'edgex/events/#'
     ConnectTimeout = "5" # Seconds
     SkipCertVerify = "false" # Only used if Cert/Key file or Cert/Key PEMblock are specified
     ClientAuth = "none" # Valid values are: `none`, `usernamepassword` or `clientcert`
-    Secretpath = "messagebus"  # Path in secret store used if Authmode not `none`
+    Secretpath = "messagebus"  # Path in secret store used if ClientAuth not `none`
 ```
 
 #### Application Services
 
 ##### [MessageBus]
 
-Similar to above, the Application Services `MessageBus` configuration will change to allow for secure connection to the MessageBus. The `Username` & `Password` have been replaced with `Authmode` & `SecretPath` for secure connections. See **[Secure Connections](#secure-connections)** section below for details.
+Similar to above, the Application Services `MessageBus` configuration will change to allow for secure connection to the MessageBus. The `Username` & `Password` have been replaced with `ClientAuth` & `SecretPath` for secure connections. See **[Secure Connections](#secure-connections)** section below for details.
 
 ```toml
 [MessageBus.Optional]
@@ -197,7 +197,7 @@ Similar to above, the Application Services `MessageBus` configuration will chang
     ConnectTimeout = "5" # Seconds
     SkipCertVerify = "false" # Only used if Cert/Key file or Cert/Key PEMblock are specified
     ClientAuth = "none" # Valid values are: `none`, `usernamepassword` or `clientcert`
-    Secretpath = "messagebus"  # Path in secret store used if Authmode not `none`
+    Secretpath = "messagebus"  # Path in secret store used if ClientAuth not `none`
 ```
 
 ##### [Binding]
@@ -241,7 +241,7 @@ How the secrets are injected into the `Secret Provider` is out of scope for this
 ## Consequences
 
 - If C SDK doesn't support `ZMQ` or `Redis Streams` then there must be a MQTT Broker running when a C Device service is in use and configured to publish to MessageBus.
-- If we adopt proposed publish topic scheme with `DeviceProfileName` and `DeviceName` the V2 API must restrict the characters used in device names to those allowed in a topic.  An [issue](https://github.com/edgexfoundry/go-mod-core-contracts/issues/343) for V2 API already exists for restricting the allowable characters to [RFC 3986](https://tools.ietf.org/html/rfc3986) , which will suffice.
+- Since we've adopted the publish topic scheme with `DeviceProfileName` and `DeviceName` the V2 API must restrict the characters used in device names to those allowed in a topic.  An [issue](https://github.com/edgexfoundry/go-mod-core-contracts/issues/343) for V2 API already exists for restricting the allowable characters to [RFC 3986](https://tools.ietf.org/html/rfc3986) , which will suffice.
 - Newer ZMQ may allow for multiple publishers. Requires investigation and very likely rework of the ZMQ implementation in go-mod-messaging. **No alternative has been found**.
 - **Mark as Push V2 Api** will be removed from Core Data, Core Data Client and the App SDK
 - Consider moving App Service Binding to Writable.  (out of scope for this ADR)
