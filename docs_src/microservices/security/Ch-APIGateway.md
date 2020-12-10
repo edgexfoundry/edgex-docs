@@ -21,29 +21,30 @@ OAuth2 authentication and ACL.
 ## Start the API Gateway
 
 Start the API gateway with Docker Compose and a Docker Compose manifest
-file (the Docker Compose file named docker-compose-nexus-{redis,mongo}.yml (or -arm64 variabnts) found at
-<https://github.com/edgexfoundry/developer-scripts/tree/master/releases/geneva/compose-files>)).
+file (the Docker Compose file named `docker-compose.yml` (or -arm64 variants) found at
+<https://github.com/edgexfoundry/edgex-compose/tree/master>,
+on a branch appropriate for the release of EdgeX that you are using).
 This Compose file starts all of EdgeX including the security services.
 The command to start EdgeX inclusive of API gateway related services is:
 :
 
-    docker-compose up -d
+    docker-compose -p edgex -f docker-compose.yml up -d
 
 For debugging purpose, the API gateway services can be started
 individually with these commands used in sequence after secret store
 starts successfully. Lines starts with \# are comments to explain the
 purpose of the command. :
 
-    docker-compose up -d kong-db
+    docker-compose -p edgex -f docker-compose.yml up -d kong-db
     # start up backend database for API gateway
 
-    docker-compose up -d kong-migrations
+    docker-compose -p edgex -f docker-compose.yml up -d kong-migrations
     # initialize the backend database for API gateway
 
-    docker-compose up -d kong
+    docker-compose -p edgex -f docker-compose.yml up -d kong
     # start up KONG the major component of API gateway
 
-    docker-compose up -d edgex-proxy
+    docker-compose -p edgex -f docker-compose.yml up -d edgex-proxy
     # initialize KONG, configure proxy routes, apply certificates to routes, and enable various authentication/ACL features. 
 
 If the last command returns an error message for any reason (such as
@@ -51,7 +52,7 @@ incorrect configuration file), the API gateway may be in an unstable
 status. The following command can be used to stop and remove the
 containers. :
 
-    docker-compose down
+    docker-compose -p edgex -f docker-compose.yml down
     # stop and remove the containers
 
 After stopping and removing the containers, you can attempt to recreate
@@ -225,46 +226,98 @@ Comparing these two curl commands you may notice several differences.
 
 **Creating Access Token for API Gateway Authentication**
 
-If the EdgeX API gateway is not in use, a client can access and use any
-REST API provided by the EdgeX microservices by sending an HTTP request
-to the service endpoint. E.g., a client can consume the ping endpoint of
-the Core Data microservice with curl command like this: :
+The API gateway is configured to require authentiation prior to
+passing a request to a back-end microservice.
 
-    curl http://<core-data-microservice-ip>:48080/api/v1/ping
+It is necessary to create an API gateway user in order to
+satify the authentication requirement.  Gateway users
+are created using the proxy subcommand of the
+[secrets-config](secrets-config-proxy.1.md)
+utility.
 
-Again, the request doesn't include client identity information. Once the
-API gateway is started and initialized successfully, the EdgeX
-microservice REST APIs will be behind the gateway, an access token must
-be attached with any client-side HTTP request for identity verification
-and authentication done by the API gateway. This access token is
-different from the access token of secret store even though they have
-the same name. The purpose of the access token for the API gateway is to
-identity clients that send the requests to consume the REST API of
-EdgeX. The secret store will then use the token to verify the identity
-of clients that send the request to access the secrets of EdgeX that are
-stored in the secret store. To obtain an access token for a client, a
-user that is associated with the client as well as a group that the user
-belongs to needs to be added into the API gateway. The command to add a
-user and the group is: :
+There are two ways to create a user, depending on how the API
+gateway is configured.
 
-    docker-compose -f docker-compose-nexus-mongo.yml run --rm --entrypoint /edgex/security-proxy-setup edgex-proxy --init=false --useradd=<user> --group=<groupname>
+**OAuth2 method**
 
-The command above will return an access token that can then be used by
-the client to access the EdgeX REST API resources. Depending on the
-choice of authentication method, the format of the access token will be
-something like this if JWT is enabled: :
+Before we begin, we need the JWT used to authenticate to Kong--this JWT
+was written to host-based secrets area when the framework was started.
+(Note the backtick to capture the output.)
 
-    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI5M3V3cmZBc0xzS2Qwd1JnckVFdlRzQloxSmtYOTRRciIsImFjY291bnQiOiJhZG1pbmlzdHJhdG9yIn0.em8ffitqrd59_DeYKfQkTZGtUA1T99NikETwtedOgHQ
+    KONGJWT=`sudo cat /tmp/edgex/secrets/security-proxy-setup/kong-admin-jwt`
 
-Alternatively, the access token may look like what is shown below if the
-OAuth2 is enabled: :
+For OAuth2, a client ID and client secret are required:
+
+    docker-compose -p edgex -f docker-compose.yml run --rm --entrypoint "/edgex/secrets-config" proxy-setup -- proxy adduser --token-type oauth2 --user _SOME_USERNAME_ --client_id _SOME_IDENTIFIER_ --client_secret _VERY_LONG_PASSWORD_ --group gateway --jwt "$KONGJWT"
+
+User creation need only be done once.  Afterwards,
+an access token can be generated from the token endpoint on
+the API gateway.
+
+    curk -k https://localhost:8443/{service}/oauth2/token -d "grant_type=client_credentials" -d "scope=" -d "client_id=_SOME_IDENTIFIER_" -d "client_secret=_VERY_LONG_PASSWORD_"
+
+The secrets-config utility also contains a helper function
+to do the above:
+
+    docker-compose -p edgex -f docker-compose.yml run --rm --entrypoint /edgex/secrets-config edgex-proxy proxy oauth2 --client_id _SOME_IDENTIFIER_ --client_secret _VERY_LONG_PASSWORD_
+
+The token is output to standard output.  For example:
 
     MNsBh6jDDSxaECzUtimW1nDSvI2v0xsZ
 
-If a client needs to be disabled and the client's token invalidated, use
-the command here to remove/delete the user: :
+The access token is used in the Authorization header of the request
+(see details below).
 
-    docker run –network=edgex-network edgexfoundry/docker-edgex-proxy-go –-userdel=<user>
+To de-authorize or delete the user:
+
+    docker-compose -p edgex -f docker-compose.yml run --rm --entrypoint "/edgex/secrets-config" proxy-setup -- proxy deluser --user _SOME_USERNAME_ --jwt "$KONGJWT"
+
+**JWT method (default)**
+
+By default, the API gateway is configured for JWT authentication.
+
+JWT authentication is based on a public/private keypair,
+where the public key is registered with the API gateway,
+and the private key is kept secret.  This method does not
+require exposing any secret to the API gateway and
+allows JWTs to be generated offline.
+
+Before using the JWT authentiation method,
+it is necessary to create a public/private keypair.
+This example uses ECDSA keys, but RSA key can be used as well.
+
+    openssl ecparam -name prime256v1 -genkey -noout -out ec256.key
+    openssl ec -out ec256.pub < ec256.key
+
+Next, generate and save a unique ID that will be used in
+any issued JWTs to look up the public key to be used for validation.
+Also we need the JWT used to authenticate to Kong--this JWT
+was written to host-based secrets area when the framework was started.
+(Note the backtick to capture the uuidegen output.)
+
+    ID=`uuidgen`
+    KONGJWT=`sudo cat /tmp/edgex/secrets/security-proxy-setup/kong-admin-jwt`
+
+Register a user for that key:
+
+    docker-compose -p edgex -f docker-compose.yml run --rm -v `pwd`:/host:ro -u "$UID" --entrypoint "/edgex/secrets-config" proxy-setup -- proxy adduser --token-type jwt --id "$ID" --algorithm ES256 --public_key /host/ec256.pub --user _SOME_USERNAME_ --group gateway --jwt "$KONGJWT"
+
+Lastly, generate a valid JWT.  Any JWT library should work,
+but secrets-config provides a convenient utility:
+
+    docker-compose -p edgex -f docker-compose.yml run --rm -v `pwd`:/host:ro -u "$UID" --entrypoint "/edgex/secrets-config" proxy-setup -- proxy jwt --id "$ID" --algorithm ES256 --private_key /host/ec256.key
+
+The command will output a long alphanumeric sequence of the format
+
+    <alphanumeric> '.' <alphanumeric> '.' <alphanumeric>
+
+The access token is used in the Authorization header of the request
+(see details below).
+
+To de-authorize or delete the user:
+
+    docker-compose -p edgex -f docker-compose.yml run --rm -u "$UID" --entrypoint "/edgex/secrets-config" proxy-setup -- proxy deluser --user _SOME_USERNAME_ --jwt "$KONGJWT"
+
 
 **Using API Gateway to Proxy Existing EdgeX Microservices**
 
@@ -279,10 +332,17 @@ Core Data microservice using curl: :
 With the security service and JWT authentication is enabled, the command
 changes to: :
 
-    curl –H “host: edgex” https://<api-gateway-service-ip>:8443/coredata/api/v1/ping?  -H "Authorization: Bearer <access-token>”
+    curl -k --resolve kong:8443:127.0.0.1 -H 'Authorization: Bearer <JWT>' https://kong:8443/coredata/api/v1/ping
 
 In summary the difference between the two commands are listed below:
 
+-   --resolve tells curl to resolve https://kong:8443 to
+    the loopback address.  This will cause curl to use the
+    hostname `kong` as the SNI, but connect to the specified IP
+    address to make the connection.
+    -k tells curl to ignore certificate errors. This is for
+    demonstration purposes. In production, a known certificate that
+    the client trusts be installed on the proxy and this parameter omitted.
 -   --H "host: edgex" is used to indicate that the request is for
     EdgeX domain as the API gateway could be used to take requests for
     different domains.
@@ -299,4 +359,44 @@ The format for OAuth2 authentication is similar. For OAuth2 use the
 bearer token from OAuth2 authentication instead of the JWT token. Here
 is an example of the curl command using OAuth2: :
 
-    curl –H "host: edgex" https://<api-gateway-service-ip>:8443/coredata/api/v1/ping -H "Authorization:bearer <access-token>"
+    curl -k --resolve kong:8443:127.0.0.1 -H 'Authorization: Bearer <access-token>' https://kong:8443/coredata/api/v1/ping
+
+**Using a bring-your-own external TLS certificate for API gateway**
+
+The API gateway will generate a default self-signed TLS certificate
+that is used for external communication.
+Since this certificate is not trusted by client software,
+it is commonplace to replace this auto-generated certificate
+with one generated from a known certificate authority,
+such as an enterprise PKI, or a commercial certificate authority.
+
+The process for obtaining a certificate is out-of-scope
+for this document.  For purposes of the example,
+the X.509 PEM-encoded certificate is assumed to be called `cert.pem`
+and the unencrypted PEM-encoded private key is called `key.pem`.
+Do not use an encrypted private key as the API gateway
+will hang on startup in order to prompt for a password.
+
+Also, for purposes of the example, the external DNS name of
+the API gateway is assumed to be `edge001.example.com`.
+The API gateway requires client to support Server Name
+Identification (SNI) and that the client connects to the
+API gateway using a DNS host name.  The API gateway uses
+the host name supplied by the client to determine which
+certificate to present to the client.  The API gateway
+will continue to serve the default (untrusted) certificate
+if clients connect via IP address or do not provide
+SNI at all.
+
+Run the following command to install a custom certficate
+using the assumptions above:
+
+    docker-compose -p edgex -f docker-compose.yml run --rm -v `pwd`:/host:ro --entrypoint /edgex/secrets-config edgex-proxy proxy tls --incert /host/cert.pem --inkey /host/key.pem --snis edge001.example.com
+
+The utility will always add the internal host names,
+"localhost" and "kong" to the specified SNI list.
+
+The following command can verify the certificate installation
+was successful.
+
+    echo "GET /" | openssl s_client -showcerts -servername edge001.example.com -connect 127.0.0.1:8443
