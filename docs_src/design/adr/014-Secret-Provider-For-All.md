@@ -254,7 +254,7 @@ Timeout = "30s"
 
 ##### InsecureSecrets Configuration
 
-The App SDK defines a new `Writable` configuration section called `InsecureSecrets`. This structure mimics that of the secure `SecretStore`. Having the `InsecureSecrets` in the `Writable`  section allows for the secrets to be updated without restarting the service. Some minor processing must occur when the `InsecureSecrets ` section is updated. This is to call the `InsecureSecretsUpdated` API. This API simply sets the time the secrets were last updated. The `SecretsLastUpdated` API returns this timestamp so pipeline functions that use credentials for exporting know if their client needs to be recreated with new credentials, i.e MQTT export.
+The App SDK defines a new `Writable` configuration section called `InsecureSecrets`. This structure mimics that of the secure `SecretStore` when `EDGEX_SECURITY_SECRET_STORE`environment variable is set to `false`. Having the `InsecureSecrets` in the `Writable`  section allows for the secrets to be updated without restarting the service. Some minor processing must occur when the `InsecureSecrets ` section is updated. This is to call the `InsecureSecretsUpdated` API. This API simply sets the time the secrets were last updated. The `SecretsLastUpdated` API returns this timestamp so pipeline functions that use credentials for exporting know if their client needs to be recreated with new credentials, i.e MQTT export.
 
 ```go
 type WritableInfo struct {
