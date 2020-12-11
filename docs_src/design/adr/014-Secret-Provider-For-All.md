@@ -46,7 +46,7 @@ The similarities and differences between these implementations are:
 
 - Both wrap the `SecretClient` from go-mod-secrets
 - Both initialize the `SecretClient` based on the `SecretStore` configuration(s)
-- Both have factory method, but they differ greatly
+- Both have factory methods, but they differ greatly
 - Both implement the `GetDatabaseCredentials` API
 - Bootstrap's uses split interfaces definitions (`CredentialsProvider` & `CertificateProvider`) while the App SDK's use a single interface (`SecretProvider`) for the abstraction 
 - Bootstrap's includes the bootstrap handler while the App SDK's has the bootstrap handler separated out
@@ -92,7 +92,7 @@ Application Services currently have the ability to configure `SecretStores` for 
     ADD_SECRETSTORE_TOKENS: "appservice-http-export, appservice-mqtt-export"
     ```
 
-    This creates an exclusive secret store token for each service listed. The name provided for each service must be used in the service's `SecretStore` configuration and Docker volume mount. Typically the configuration is set via environment overrides or is already in an existing configuration profile (***http-export*** profile for app-service-configurable). 
+    This creates an exclusive secret store token for each service listed. The name provided for each service must be used in the service's `SecretStore` configuration and Docker volume mount  (if applicable). Typically the configuration is set via environment overrides or is already in an existing configuration profile (***http-export*** profile for app-service-configurable). 
 
     Example docker-compose file entries:
 
@@ -404,6 +404,6 @@ The C Device SDK will implement the same `SecretProvider` abstraction, InsecureS
 - App SDK will be modified to use the new `SecretProvider` bootstrap handler
 - app-service-configurable's configuration profiles as well as all the Application Service examples configurations will be updated to remove the `SecretStoreExclusive` configuration and just use the existing `SecretStore` configuration
 - security-secretstore-setup will be enhanced as described in the [Exclusive Secret Stores only](#exclusive-secret-stores-only) section above
-- Adding new services that need static secrets added to their `SecretStore` requires stopping and restarting all the services. The is because security-secretstore-setup has completed but not stopped. If it is rerun without stopping the other services, there tokens and static secrets will have changed. The planned refactor of `security-secretstore-setup` will attempt to resolved this.
-- Snaps does not yet support setting the environment variable for adding SecretStore. It is planned for Ireland release.
+- Adding new services that need static secrets added to their `SecretStore` requires stopping and restarting all the services. The is because security-secretstore-setup has completed but not stopped. If it is rerun without stopping the other services, there tokens and static secrets will have changed. The planned refactor of `security-secretstore-setup` will attempt to resolve this.
+- Snaps do not yet support setting the environment variable for adding SecretStore. It is planned for Ireland release.
 
