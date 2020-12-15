@@ -32,7 +32,7 @@
 
 ## Status
 
-**proposed**
+**Approved**
 
 ## Context
 
@@ -339,8 +339,7 @@ type SecretProvider interface {
     // Retrieves secrets from the service's exclusive SecretStore at the specified path.
     GetSecrets(path string, _ ...string) (map[string]string, error)
     // Sets the secrets lastupdated time to current time. 
-    // Needed for InsecureSecrets support
-    InsecureSecretsUpdated()
+    SecretsUpdated()
     // Returns the secrets last updated time
     SecretsLastUpdated() time.Time
 }
