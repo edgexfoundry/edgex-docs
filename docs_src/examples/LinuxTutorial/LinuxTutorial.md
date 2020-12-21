@@ -4,7 +4,7 @@ Provided by Jonas Werner, Cloud Solutions Architect, CTO, Dell Technologies
 
 ## Download
 
-**[Tutorial (in PDF format)](EdgeX-Foundry-tutorial-ver1.0.pdf)**
+**[Tutorial (in PDF format)](EdgeX-Foundry-tutorial-ver1.1.pdf)**
 
 ## Scope and Format
 This is meant to be a beginners guide to EdgeX Foundry it assumes nothing but some basic Linux command line experience. While the level of detail is aimed to support new Linux users, the content will be applicable also to experienced users who wish to get into open source IoT and perhaps who want to learn more about technologies such as docker-compose, etc.
