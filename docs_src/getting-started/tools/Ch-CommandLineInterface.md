@@ -4,11 +4,11 @@ As of the Hanoi release (v1.3.0), EdgeX Foundry provides a command line interfac
 
 ## What is the EdgeX CLI?
 
-Edgex-CLI is a command line interface that provides a convenient way for interacting with EdgeX Foundry micro services. It abstracts away all the underling infrastructure and allows the user to easily execute commands. It removes the need to manually track micro services parameters like host and port, as well as knowing the exact request path.
+EdgeX-CLI is a command line interface that provides a convenient way for interacting with EdgeX Foundry micro services. It abstracts away all the underling infrastructure and allows the user to easily execute commands. It removes the need to manually track micro services parameters like host and port, as well as knowing the exact request path.
 
-It replaces the need to manually construct complex CURL commands. In particular, it helps with Post/Update requests (example: create a new event, or update a device) because the request body of these requests often include a lot of parameters. Edgex-CLI provides an "interactive mode" that greatly simplifies the request constructing process. Commands that represent Post/Update requests leverage the interactive mode that opens the user's default editor with preloaded request scaffolding ready to be customized. The interactive mode also works with in-line parameters - allowing in-line values of the CLI command to get loaded in to the request scaffolding. 
+It replaces the need to manually construct complex CURL commands. In particular, it helps with Post/Update requests (example: create a new event, or update a device) because the request body of these requests often include a lot of parameters. EdgeX-CLI provides an "interactive mode" that greatly simplifies the request constructing process. Commands that represent Post/Update requests leverage the interactive mode that opens the user's default editor with preloaded request scaffolding ready to be customized. The interactive mode also works with in-line parameters - allowing in-line values of the CLI command to get loaded in to the request scaffolding. 
 
-Edgex-CLI is an easy to use helper tool that benefits both Edgex developers and users. This is the first release of the CLI with future enhancements planned.  Currently, the CLI only works in insecure mode (that is without the EdgeX API gateway protecting EdgeX services), but there is a lot more to come in future EdgeX releases.
+EdgeX-CLI is an easy to use helper tool that benefits both EdgeX developers and users. This is the first release of the CLI with future enhancements planned.  Currently, the CLI only works in insecure mode (that is without the EdgeX API gateway protecting EdgeX services), but there is a lot more to come in future EdgeX releases.
 
 ## How to get the EdgeX CLI
 
