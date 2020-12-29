@@ -64,14 +64,16 @@ In general, EdgeX metrics are meant to provide external applications and systems
 - All services must document what metrics they offer.
 - All EdgeX services must implement a common metrics interface/contract that defines an API set about service metrics.
     - The interface would include the definition of a GET REST endpoint that responds with the metrics that the service offers (and whether that metric is currently `on` or `off`). The proposed endpoint format:  **/api/v2/metrics**.
-    - The interface would define a POST REST endpoint that allows the user to toggle between `on` and `off` for any metric.  The proposed endpoint format:  **/api/v2/metrics**.  In this REST request body would be the list of metric names to be turned `on`.  It is assumed that those metrics not listed are to be turned `off`.
+    - The interface would define PUT and PATCH REST endpoints that allows the user to toggle between `on` and `off` for any metric.  The proposed endpoint format:  **/api/v2/metrics**.  In this REST request body would be the list of metric names to be turned `on` (or those turned `on` or `off` in the case of PATCH).  It is assumed that those metrics not listed are to be turned `off` in the PUT call where PATCH request is explicit about which metrics are turned `on` or `off` and leaves others unchanged.
     - The metrics REST endpoints implemented on each service are not there to provide the metrics data, but to know what metrics the service provides, to know the the current state for each metric (`on` or `off`), and to provide a means to turn `on` or `off` the metrics collection.  The actual metric data will be provided, when collected, in messages to a message bus.
 - Services will have configuration which allows EdgeX system managers to select which metrics are `on` or `off` by default - in other words providing the initial bootstrapping configuration that determines what metrics are collected and reported by default.
     - When a metric is turned `off` the service does not report the metric.  When a metric is turned `on` the service collects and sends the metric to the designated message topic.
     - Per REST API described above, the `on` and `off` control of the metrics collected can be changed during runtime of the service.
     - Metrics collection must be pushed to the designated message topic on some appointed schedule.  The schedule could be designated by configuration in the schedule service or done in a way similar to auto events in device services.  
         - *Do we want to dictate this or allow services to implement as they see fit?*
+            - Recommendation by @cloudxxx8 - have internal scheduler but provide option to use external scheduler.   The service then has to provide the API for the external to call for collection.  Suggest using a design similar to auto discovery in device services.
         - *Also, should there me an interval per metric or a single interval for all metrics collected and pushed?*
+            - Recommendation by @cloudxxx8 to support interval per metric but to have one for all as default
 
 !!! Info
     Initially, it was proposed that metrics be associated with a "level" and allow metrics to be turned on or off by level (like levels associated to log messages in logging).  The level of metrics data seems arbitrary at this time and considered too complex for initial implementation.  This may be reconsidered in a future release and based on new requirements/use cases.
@@ -130,48 +132,48 @@ Security metrics may be more difficult to ascertain as they are cross service me
 
 ### Design Proposal
 
-- Each metric must have a unique name associate with it.  Because some metrics are reported from multiple services (such as service uptime), the name is not required to be unique across all services.  However, the name and the service name/key for a metric (see Bucket definition below) along with the created timestamp would uniquely identify a metric from a service at a designated time.
+- Each metric must have a unique name associate with it.  Because some metrics are reported from multiple services (such as service uptime), the name is not required to be unique across all services.  However, the name and the service name/key for a metric (see Bucket definition below) along with the origin timestamp would uniquely identify a metric from a service at a designated time.
 - All services will use/integrate go-mod-messaging (if not already integrated).
 - A new metric DTO (Telemetry/Bucket) is required for services to structure the metric data.  The model/DTO will have similarities to the core event/reading model/DTO.
     - The DTO for the metric data will allow originating service information (the service key) to be provided in the DTO
     - The proposed message structure (DTO) for metrics (for inclusion in go-mod-core-contracts) is:
   
 ``` go
-type Telemtry struct {
-    Id          string            `json:"id,omitempty" codec:"id,omitempty"`  // UUID to identify the telemtry group
+type Telemetry struct {
+    Id          string            `json:"id,omitempty" codec:"id,omitempty"`  // UUID to identify the telemetry group
     Service     string            `json:"device,omitempty" codec:"device,omitempty"`  // originating service key
-    Created     int64             `json:"created,omitempty" codec:"created,omitempty"`
-    Modified    int64             `json:"modified,omitempty" codec:"modified,omitempty"`
+    Origin      int64             `json:"origin,omitempty" codec:"origin,omitempty"`
     Buckets    []Bucket           `json:"readings,omitempty" codec:"buckets,omitempty"`
     Tags        map[string]string `json:"tags,omitempty" codec:"tags,omitempty" xml:"-"`
 }
 
 type Bucket struct {
     Id            string `json:"id,omitempty" codec:"id,omitempty"`  // UUID to identify the Bucket
-    Created       int64  `json:"created,omitempty" codec:"created,omitempty"` 
-    Modified      int64  `json:"modified,omitempty" codec:"modified,omitempty"`
+    Origin        int64  `json:"origin,omitempty" codec:"origin,omitempty"` 
     Service       string `json:"device,omitempty" codec:"device,omitempty"`   // originating service key
     Name          string `json:"name,omitempty" codec:"name,omitempty"`  // metric name key
     Value         string `json:"value,omitempty" codec:"value,omitempty"` // metric value
     ValueType     string `json:"valueType,omitempty" codec:"valueType,omitempty"`  // metric value type
-    Description   string `json:"name,omitempty" codec:"description,omitempty"`  // human readable details
 }
 ```
 
 !!! Note
+    Metrics are considered immutable and therefore not requiring a modified timestamp.
+
     *For consideration, should we keep the metric data values simple (i.e. just a number field) since the metrics are just numbers and thereby avoid having to deal with types (pulling ValueType from above).  Even times could be sent as UTC number values.*
 
     *Also for consideration, can we simplify the structures?*
 
-    - would the telemtry and bucket need an ID?  
-    - would Created timestamp need to be put on the telemtry object?
+    - would the telemetry and bucket need an ID?  
+    - would origin timestamp need to be put on the telemetry object?
     - would originating service need to be put in both telemetry and bucket objects?
-    - would either Telemtry or Bucket be modified (necessitating a modified timestamp)?
-    - Can the description be found in documentation and therefore left off of the Bucket?
+    - would either Telemetry or Bucket be modified (necessitating a modified timestamp)?
+    - Can the description be found in documentation and therefore left off of the Bucket?  (@cloudxxx8 recommends removing.  Can add back in if there are dissenting opinions)
 
 - Proposed endpoint for the REST endpoint that responds with what metrics the service offers is:  /api/v2/metrics
 - Body of the GET response would contain a JSON list of metrics (by metric name key) that are `on`
-- Body of the POST request would containe a JSON list of the metrics that are to be turned `on` (others are assumed to be turned `off`)
+- Body of the PUT request would contain a JSON list of the metrics that are to be turned `on` (others are assumed to be turned `off`)
+- Body of the PATCH request would contain a JSON list of the metrics that are to be turned `on` or `off` - leaving all other metrics unchanged
 - Configuration, not unlike that provided in core data, will specify what message endpoints the metrics messages should be sent.
 - Proposed configuration for each service for metric endpoints:
 
@@ -198,7 +200,7 @@ Topic = 'metrics'
     SkipCertVerify = "false"
 ```
 
-- *Should consideration be given to allow metrics to be placed in different topics per name?  If so, do we need a telemtry object?*
+- *Should consideration be given to allow metrics to be placed in different topics per name?  If so, do we need a telemetry object?*
 - *Should consideration be given to incorporate alternate protocols/standards for metric collection such as https://opentelemetry.io/ or https://github.com/statsd/?*
 - *Should we provide a standard interface for the function that gets called by a schedule service (internal or external) to fetch and publish the desired metrics at the appointed time?*
     - *Do we dictate the use of the scheduler service for this or use the internal scheduler approach?*
