@@ -88,7 +88,7 @@ The values obtained when readings are taken, or used to make settings, are expre
 
 Notes:
 - The presence of a Binary reading will cause the entire Event to be encoded using CBOR rather than JSON
-- The representation of a float is determined by the *"floatEncoding"* attribute of the device resource. *"base64"* is the default, *"eNotation"* will cause the float to be written as a decimal with exponent.
+- Arrays of String and Binary data are not supported
 
 #### Readings and Events
 
@@ -102,7 +102,6 @@ A Reading represents a value obtained from a deviceResource. It contains the fol
 | *origin* | A timestamp indicating when the reading was taken
 | *value* | The reading value
 | *valueType* | The type of the data
-| *floatEncoding* | (Only for floats and arrays of floats) The float representation in use
 
 Or for binary Readings, the following fields
 
@@ -132,7 +131,7 @@ Calls to the device endpoints may include a Query String in the URL. This may be
 
 | Parameter | Valid Values | Default | Meaning
 | --- | --- | --- | ---
-| *ds-postevent* | "yes" or "no" | "no" | If set to yes, a successful `GET` will result in an event being posted to core-data
+| *ds-pushevent* | "yes" or "no" | "no" | If set to yes, a successful `GET` will result in an event being pushed to the EdgeX system
 | *ds-returnevent* | "yes" or "no" | "yes" | If set to no, there will be no Event returned in the http response
 
 #### Device States
@@ -145,7 +144,7 @@ A number of simple data transformations may be defined in the deviceResource. Th
 
 | Transform | Applicable reading types | Effect
 | --- | --- | ---
-**mask** | Integers | The reading is bitwise masked with the specified value.
+**mask** | Integers | The reading is masked (bitwise-and operation) with the specified value.
 **shift** | Integers | The reading is bit-shifted by the specified value. Positive values indicate right-shift, negative for left.
 **base** | Integers and Floats | The reading is replaced by the specified value raised to the power of the reading.
 **scale** | Integers and Floats | The reading is multiplied by the specified value.
@@ -164,6 +163,8 @@ It is possible that following the application of the specified transformations, 
 Assertions are another attribute in a device resource's PropertyValue, which specify a string which the reading value is compared against. If the comparison fails, then the http request returns a string of the form *"Assertion failed for device resource: \<name>, with value: \<value>"*, this also has a side-effect of setting the device operatingstate to `DISABLED`. A 500 status code is also returned. Note that the error response and status code should be returned regardless of the `ds-returnevent` setting.
 
 Assertions are also checked where an event is being generated due to an AutoEvent, or asynchronous readings are pushed. In these cases if the assertion is triggered, an error should be logged and the operating state should be set as above.
+
+Assertions are not checked for settings, only for readings.
 
 Mappings may be defined in a deviceCommand. These allow Readings of string type to be remapped. Mappings are applied after assertions are checked, and are the final transformation before Readings are created. Mappings are also applied, but in reverse, to settings (`PUT` request data).
 
