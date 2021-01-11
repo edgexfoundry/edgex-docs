@@ -125,3 +125,109 @@ Designating an HTTP trigger will allow the pipeline to be triggered by a RESTful
 
 !!! note
     The data received, encoded as JSON or CBOR, must match the `TargetType` defined by your application service. The default  `TargetType` is an `Edgex Event`. See [TargetType](../AdvancedTopics/#target-type) for more details.
+
+## Custom Triggers
+
+It is also possible to define your own trigger and register a factory function for it with the SDK.  You can then configure the trigger by registering a factory function to build it along with a name to use in the config file.  These triggers can be registered with:
+
+```go
+sdk.RegisterCustomTriggerFactory("my-trigger-name", myFactoryFunc) 
+```
+
+!!! note
+    You can NOT override trigger names built into the SDK ("http", "edgex-messagebus", "external-mqtt") for a custom trigger.
+
+The trigger factory function is bound to an instance of a trigger configuration struct that is provided by the SDK:
+
+```go
+type TriggerConfig struct {
+	Config           *common.ConfigurationStruct
+	Logger           logger.LoggingClient
+	ContextBuilder   TriggerContextBuilder
+	MessageProcessor TriggerMessageProcessor
+}
+```
+
+This type carries a pointer to the internal edgex configuration and logger, along with two functions:
+
+- `ContextBuilder` builds an `*appcontext.Context` from a message envelope you construct.
+- `MessageProcessor` exposes a function that sends your message envelope and context built above into the edgex function pipeline.
+
+The custom trigger constructed here will then need to implement the trigger interface so that the SDK can invoke it:
+
+```go
+type Trigger interface {
+	Initialize(wg *sync.WaitGroup, ctx context.Context, background <-chan types.MessageEnvelope) (bootstrap.Deferred, error)
+}
+```
+
+This leaves a lot of flexibility for how you want the trigger to behave (for example you could write a trigger to watch for file changes, or run on a timer).  Below is a sample implementation of a trigger to read lines from os.Stdin and pass the captured string through the edgex function pipeline.  In this case the target type for the service is `&[]byte{}`.
+
+```go
+type stdinTrigger struct{
+	tc appsdk.TriggerConfig
+}
+
+func (t *stdinTrigger) Initialize(wg *sync.WaitGroup, ctx context.Context, background <-chan types.MessageEnvelope) (bootstrap.Deferred, error) {
+    msgs := make(chan []byte)
+
+    ctx, cancel := context.WithCancel(context.Background())
+
+    receiveMessage := true
+
+    go func() {
+        fmt.Print("> ")
+        rdr := bufio.NewReader(os.Stdin)
+        for receiveMessage {
+            s, err := rdr.ReadString('\n')
+            s = strings.TrimRight(s, "\n")
+
+            if err != nil {
+                t.tc.Logger.Error(err.Error())
+                continue
+            }
+
+            msgs <- []byte(s)
+        }
+    }()
+
+    go func() {
+        for receiveMessage {
+            select {
+            case <-ctx.Done():
+                receiveMessage = false
+
+            case m := <-msgs:
+                go func() {
+                    env := types.MessageEnvelope{
+                        Payload: m,
+                    }
+
+                    ctx := t.tc.ContextBuilder(env)
+
+                    err := t.tc.MessageProcessor(ctx, env)
+
+                    if err != nil {
+                        t.tc.Logger.Error(err.Error())
+                    }
+                }()
+            }
+        }
+    }()
+
+    return func() {
+        cancel()
+    }, nil
+}
+```
+
+This trigger can then be registered by calling:
+
+```go
+edgexSdk.RegisterCustomTriggerFactory("custom-stdin", func(config appsdk.TriggerConfig) (appsdk.Trigger, error) {
+    return &stdinTrigger{
+        tc: config,
+    }, nil
+})
+```
+A complete working example can be found [here](https://github.com/edgexfoundry/edgex-examples/tree/master/application-services/custom/custom-trigger)
