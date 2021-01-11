@@ -72,7 +72,7 @@ In general, EdgeX metrics are meant to provide external applications and systems
     - Metrics collection must be pushed to the designated message topic on some appointed schedule.  The schedule could be designated by configuration in the schedule service or done in a way similar to auto events in device services.  
         - *Do we want to dictate this or allow services to implement as they see fit?*
             - Recommendation by @cloudxxx8 - have internal scheduler but provide option to use external scheduler.   The service then has to provide the API for the external to call for collection.  Suggest using a design similar to auto discovery in device services.
-        - *Also, should there me an interval per metric or a single interval for all metrics collected and pushed?*
+        - *Also, should there be an interval per metric or a single interval for all metrics collected and pushed?*
             - Recommendation by @cloudxxx8 to support interval per metric but to have one for all as default
 
 !!! Info
