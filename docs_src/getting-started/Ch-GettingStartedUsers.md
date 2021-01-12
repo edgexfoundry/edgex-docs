@@ -76,7 +76,7 @@ Once you have selected the EdgeX Compose file you want to use, download it using
 
 ### Generate a custom docker compose file
 
-The docker compose files under the `releases/hanoi` folder contain the standard set of EdgeX services configured to use `ZeroMQ` for the message bus and include only the Device Virtual and Device REST device services. If you need to have different device services running or use `MQTT` for the message bus, you need a modified version of one of the standard docker compose files. The [`Compose Builder`](https://github.com/edgexfoundry/developer-scripts/tree/v1.3.0/compose-builder) tool was added for the Hanoi release. This tool allows users to generate custom compose files. 
+The docker compose files under the `releases/hanoi` folder contain the standard set of EdgeX services configured to use `ZeroMQ` for the message bus and include only the Virtual and REST device services. If you need to have different device services running or use `MQTT` for the message bus, you need a modified version of one of the standard docker files. You could manually add the device services to one of the existing EdgeX compose files or, use the EdgeX Compose Builder tool to generate a new custom compose file that contains the services you would like included. When you use Compose Builder, you don't have to worry about adding all the necessary ports, variables, etc. as the tool will generate the service elements in the file for you. The [`Compose Builder`](https://github.com/edgexfoundry/developer-scripts/tree/v1.3.0/compose-builder) tool was added for the Hanoi release. This tool allows users to generate custom compose files. 
 
 Do the following to use this tool:
 
@@ -96,7 +96,7 @@ Do the following to use this tool:
 
    ```
    make gen ds-mqtt mqtt 
-     - Generates secure compose file configured to use MQTT for the message bus and just the Device MQTT device service. 
+     - Generates secure compose file configured to use MQTT for the message bus, adds then MQTT broker and the Device MQTT services. 
    
    make gen no-secty ds-modbus 
      - Generates non-secure compose file with just the Device Modbus device service.
