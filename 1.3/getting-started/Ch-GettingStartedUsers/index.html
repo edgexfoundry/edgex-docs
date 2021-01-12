@@ -489,6 +489,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#generate-a-custom-docker-compose-file" class="md-nav__link">
+    Generate a custom docker compose file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#run-edgex-foundry" class="md-nav__link">
     Run EdgeX Foundry
   </a>
@@ -2252,6 +2259,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#generate-a-custom-docker-compose-file" class="md-nav__link">
+    Generate a custom docker compose file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#run-edgex-foundry" class="md-nav__link">
     Run EdgeX Foundry
   </a>
@@ -2415,6 +2429,36 @@ Compose.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The commands above fetch the Docker Compose to a file named 'docker-compose.yml' in the current directory.  Docker Compose commands look for a file named 'docker-compose.yml' by default.  You can use an alternate file name but then must specify that file name when issuing Docker Compose commands.  See Compose <a href="https://docs.docker.com/compose/reference/overview/">reference documentation</a> for help.  </p>
+</div>
+<h3 id="generate-a-custom-docker-compose-file">Generate a custom docker compose file</h3>
+<p>The docker compose files under the <code>releases/hanoi</code> folder contain the standard set of EdgeX services configured to use <code>ZeroMQ</code> for the message bus and include only the Virtual and REST device services. If you need to have different device services running or use <code>MQTT</code> for the message bus, you need a modified version of one of the standard docker files. You could manually add the device services to one of the existing EdgeX compose files or, use the EdgeX Compose Builder tool to generate a new custom compose file that contains the services you would like included. When you use Compose Builder, you don't have to worry about adding all the necessary ports, variables, etc. as the tool will generate the service elements in the file for you. The <a href="https://github.com/edgexfoundry/developer-scripts/tree/v1.3.0/compose-builder"><code>Compose Builder</code></a> tool was added for the Hanoi release. This tool allows users to generate custom compose files. </p>
+<p>Do the following to use this tool:</p>
+<ol>
+<li>Clone the <code>developer-scripts</code> repository.</li>
+</ol>
+<div class="highlight"><pre><span></span><code>git clone https://github.com/edgexfoundry/developer-scripts.git
+</code></pre></div>
+<ol>
+<li>Checkout the Hanoi tag</li>
+</ol>
+<div class="highlight"><pre><span></span><code>git checkout v1.3.0
+</code></pre></div>
+<ol>
+<li>Use the <code>make gen &lt;options&gt;</code> command to generate your custom compose file. The generated docker compose file is named <code>docker-compose.yaml</code>.  Here are some examples:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>make gen ds-mqtt mqtt 
+  - Generates secure compose file configured to use MQTT for the message bus, adds then MQTT broker and the Device MQTT services. 
+
+make gen no-secty ds-modbus 
+  - Generates non-secure compose file with just the Device Modbus device service.
+
+make gen no-secty arm64 ds-grove 
+  - Generates non-secure compose file for ARM64 with just the Device Grove device service.
+</code></pre></div>
+<p>​      See the <a href="https://github.com/edgexfoundry/developer-scripts/blob/v1.3.0/compose-builder/README.md">README</a> here for details on all available options for <code>make gen</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The generated docker compose file may need addition customizations for your specific needs, such as environment override(s) to set appropriate Host IP address, etc.</p>
 </div>
 <h3 id="run-edgex-foundry">Run EdgeX Foundry</h3>
 <p>Now that you have the EdgeX Docker Compose file, you are ready
