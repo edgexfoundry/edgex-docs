@@ -20,7 +20,7 @@ The next step is to download and build the EdgeX device service SDK for C.
     ![image](EdgeX_GettingStartedSDKCloneC.png)
 
     !!! Note
-        The clone command above has you pull v1.2.1 of the C SDK which is the version compatible with the Geneva release.
+        The clone command above has you pull v1.2.1 of the C SDK which is the version compatible with the Geneva release.  There are later releases of EdgeX.  While backward compatible, it is always a good idea to pull and use the latest version associated with the major version of EdgeX you are using.
 
 2.  Then, build the device-sdk-c:
     ``` bash

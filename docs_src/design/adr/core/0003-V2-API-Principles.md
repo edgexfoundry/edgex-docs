@@ -4,6 +4,9 @@
 
 Accepted by EdgeX Foundry working groups as of Core Working Group meeting 16-Jan-2020
 
+!!! Note
+    This ADR was written pre-Geneva with an assumption that the V2 APIs would be available in Geneva.  In actuality, the full V2 APIs will be delivered in the Ireland release (Spring 2020)
+
 ## Context
 
 A redesign of the EdgeX Foundry API is proposed for the Geneva release. This is understood by the community to warrant a 2.0 release that will not be backward compatible. The goal is to rework the API using solid principles that will allow for extension over the course of several release cycles, avoiding the necessity of yet another major release version in a short period of time.
