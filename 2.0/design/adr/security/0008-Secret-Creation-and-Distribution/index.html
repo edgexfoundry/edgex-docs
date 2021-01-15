@@ -1,0 +1,2688 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for use of EdgeX Foundry">
+      
+      
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/design/adr/security/0008-Secret-Creation-and-Distribution/">
+      
+      
+        <meta name="author" content="Michael Johanson">
+      
+      <link rel="shortcut icon" href="../../../../assets/logo_edgex.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.1.0">
+    
+    
+      
+        <title>Creation and Distribution of Secrets - EdgeX Foundry Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.89dc9fe3.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/version-select.css">
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/branding.css">
+    
+    
+      
+        
+<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com">
+<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-82811140-6","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview")})</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#creation-and-distribution-of-secrets" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+      
+  <img src="../../../../assets/logo_edgex_white.png" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" /></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            EdgeX Foundry Documentation
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Creation and Distribution of Secrets
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" /></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" /></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    edgex/edgex-go
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../.." class="md-tabs__link">
+          Introduction
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../../getting-started/" class="md-tabs__link">
+          Getting Started
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../../microservices/general/" class="md-tabs__link">
+          Microservices
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../../examples/Ch-ExamplesVirtualDeviceService/" class="md-tabs__link">
+          Examples and Tutorials
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../../api/core/Ch-APICoreCommand/" class="md-tabs__link">
+          API Reference
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../" class="md-tabs__link">
+          Architectural Decision Records
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../../general/Definitions/" class="md-tabs__link">
+          Reference
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+      
+  <img src="../../../../assets/logo_edgex_white.png" alt="logo">
+
+    </a>
+    EdgeX Foundry Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    edgex/edgex-go
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1">
+    
+    <label class="md-nav__link" for="nav-1">
+      Introduction
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Introduction
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../.." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Getting Started
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Getting Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../getting-started/" title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../getting-started/quick-start/" title="Quick Start" class="md-nav__link">
+      Quick Start
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-3" type="checkbox" id="nav-2-3">
+    
+    <label class="md-nav__link" for="nav-2-3">
+      Users
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Users" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Users
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../getting-started/Ch-GettingStartedUsers/" title="Getting Started with Docker" class="md-nav__link">
+      Getting Started with Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../getting-started/Ch-GettingStartedSnapUsers/" title="Getting Started with Snap" class="md-nav__link">
+      Getting Started with Snap
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-4" type="checkbox" id="nav-2-4">
+    
+    <label class="md-nav__link" for="nav-2-4">
+      Developers
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Developers" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Developers
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../getting-started/Ch-GettingStartedDevelopers/" title="Getting Started - Developers" class="md-nav__link">
+      Getting Started - Developers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../getting-started/Ch-GettingStartedGoDevelopers/" title="Getting Started - Go Developers" class="md-nav__link">
+      Getting Started - Go Developers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../getting-started/Ch-GettingStartedCDevelopers/" title="Getting Started - C Developers" class="md-nav__link">
+      Getting Started - C Developers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../getting-started/Ch-GettingStartedHybrid/" title="Working in a Hybrid Environment" class="md-nav__link">
+      Working in a Hybrid Environment
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../getting-started/ApplicationFunctionsSDK/" title="Application Functions SDK" class="md-nav__link">
+      Application Functions SDK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-4-6" type="checkbox" id="nav-2-4-6">
+    
+    <label class="md-nav__link" for="nav-2-4-6">
+      Device Services
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Device Services" data-md-level="3">
+      <label class="md-nav__title" for="nav-2-4-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Device Services
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../getting-started/Ch-GettingStartedSDK/" title="Device Service SDK" class="md-nav__link">
+      Device Service SDK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../getting-started/Ch-GettingStartedSDK-C/" title="C SDK" class="md-nav__link">
+      C SDK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../getting-started/Ch-GettingStartedSDK-Go/" title="Golang SDK" class="md-nav__link">
+      Golang SDK
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../getting-started/Ch-GettingStartedUsersNexus/" title="Getting Docker Images from EdgeX Nexus Repository" class="md-nav__link">
+      Getting Docker Images from EdgeX Nexus Repository
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-5" type="checkbox" id="nav-2-5">
+    
+    <label class="md-nav__link" for="nav-2-5">
+      Tools
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Tools" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Tools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../getting-started/tools/Ch-CommandLineInterface/" title="Command Line Interface (CLI)" class="md-nav__link">
+      Command Line Interface (CLI)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Microservices
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Microservices" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Microservices
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/general/" title="Cross Cutting Concerns" class="md-nav__link">
+      Cross Cutting Concerns
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
+    
+    <label class="md-nav__link" for="nav-3-2">
+      Core Services
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Core Services" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Core Services
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/core/Ch-CoreServices/" title="Core Services" class="md-nav__link">
+      Core Services
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/core/data/Ch-CoreData/" title="Core Data" class="md-nav__link">
+      Core Data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/core/metadata/Ch-Metadata/" title="Metadata" class="md-nav__link">
+      Metadata
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/core/command/Ch-Command/" title="Command" class="md-nav__link">
+      Command
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/core/database/Ch-Redis/" title="Redis Database" class="md-nav__link">
+      Redis Database
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3">
+      Supporting Services
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Supporting Services" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Supporting Services
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/support/Ch-SupportingServices/" title="Supporting Services Microservices" class="md-nav__link">
+      Supporting Services Microservices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/support/logging/Ch-Logging/" title="Logging" class="md-nav__link">
+      Logging
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/support/notifications/Ch-AlertsNotifications/" title="Alerts & Notifications" class="md-nav__link">
+      Alerts & Notifications
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/support/rulesengine/Ch-RulesEngine/" title="Rules Engine" class="md-nav__link">
+      Rules Engine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/support/Kuiper/Ch-Kuiper/" title="Kuiper Rules Engine" class="md-nav__link">
+      Kuiper Rules Engine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/support/scheduler/Ch-Scheduling/" title="Scheduling" class="md-nav__link">
+      Scheduling
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      System Management
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="System Management" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        System Management
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/system-management/Ch_SystemManagement/" title="System Management Micro Services" class="md-nav__link">
+      System Management Micro Services
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/system-management/agent/Ch_SysMgmtAgent/" title="System Management Agent (SMA)" class="md-nav__link">
+      System Management Agent (SMA)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/system-management/executor/Ch_SysMgmtExecutor/" title="System Management Executor (SME)" class="md-nav__link">
+      System Management Executor (SME)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-5" type="checkbox" id="nav-3-5">
+    
+    <label class="md-nav__link" for="nav-3-5">
+      Security
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Security" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Security
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/security/Ch-Security/" title="Security" class="md-nav__link">
+      Security
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/security/Ch-SecretStore/" title="Secret Store" class="md-nav__link">
+      Secret Store
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/security/Ch-APIGateway/" title="API Gateway" class="md-nav__link">
+      API Gateway
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/security/Ch-AccessEdgeXRESTResources/" title="Access EdgeX REST resources" class="md-nav__link">
+      Access EdgeX REST resources
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/security/Ch-StartingSecurity/" title="Starting security services within EdgeX" class="md-nav__link">
+      Starting security services within EdgeX
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/security/Ch-SecurityIssues/" title="Security Issues" class="md-nav__link">
+      Security Issues
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6">
+    
+    <label class="md-nav__link" for="nav-3-6">
+      Devices Services
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Devices Services" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Devices Services
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/device/Ch-DeviceServices/" title="Device Services Microservices" class="md-nav__link">
+      Device Services Microservices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/device/profile/Ch-DeviceProfile/" title="Device Profile" class="md-nav__link">
+      Device Profile
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/device/sdk/Ch-DeviceSDK/" title="Device Services SDK" class="md-nav__link">
+      Device Services SDK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/device/virtual/Ch-VirtualDevice/" title="Virtual Device" class="md-nav__link">
+      Virtual Device
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-7" type="checkbox" id="nav-3-7">
+    
+    <label class="md-nav__link" for="nav-3-7">
+      Application Services
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Application Services" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Application Services
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/application/ApplicationServices/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/application/Triggers/" title="Triggers" class="md-nav__link">
+      Triggers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-7-3" type="checkbox" id="nav-3-7-3">
+    
+    <label class="md-nav__link" for="nav-3-7-3">
+      Application Functions SDK
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Application Functions SDK" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-7-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Application Functions SDK
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/application/ApplicationFunctionsSDK/" title="App Functions SDK" class="md-nav__link">
+      App Functions SDK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/application/ContextAPI/" title="Context API" class="md-nav__link">
+      Context API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/application/BuiltIn/" title="Built-In Transforms/Functions" class="md-nav__link">
+      Built-In Transforms/Functions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/application/ErrorHandling/" title="Error Handling" class="md-nav__link">
+      Error Handling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/application/AdvancedTopics/" title="Advanced Topics" class="md-nav__link">
+      Advanced Topics
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/application/AppServiceConfigurable/" title="App Service Configurable" class="md-nav__link">
+      App Service Configurable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/application/GeneralAppServiceConfig/" title="General App Service Configuration" class="md-nav__link">
+      General App Service Configuration
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../microservices/configuration/Ch-Configuration/" title="Configuration and Registry" class="md-nav__link">
+      Configuration and Registry
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Examples and Tutorials
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Examples and Tutorials" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Examples and Tutorials
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../examples/Ch-ExamplesVirtualDeviceService/" title="Using the Virtual Device Service" class="md-nav__link">
+      Using the Virtual Device Service
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../examples/Ch-ExamplesRandomDeviceService/" title="Random Integer Device Service" class="md-nav__link">
+      Random Integer Device Service
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../examples/Ch-ExamplesSendingAndConsumingBinary/" title="Sending and Consuming Binary Data From EdgeX Device Services" class="md-nav__link">
+      Sending and Consuming Binary Data From EdgeX Device Services
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../examples/AppServiceExamples/" title="App Service Examples" class="md-nav__link">
+      App Service Examples
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../examples/Ch-CommandingDeviceThroughRulesEngine/" title="Command Devices with Kuiper Rules Engine" class="md-nav__link">
+      Command Devices with Kuiper Rules Engine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../examples/Ch-ExamplesModbusdatatypeconversion/" title="Modbus - Data Type Conversion" class="md-nav__link">
+      Modbus - Data Type Conversion
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../examples/Ch-ExamplesRP4/" title="EdgeX on Raspberry Pi 4B" class="md-nav__link">
+      EdgeX on Raspberry Pi 4B
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-8" type="checkbox" id="nav-4-8">
+    
+    <label class="md-nav__link" for="nav-4-8">
+      Adding a Device
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Adding a Device" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-8">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Adding a Device
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../examples/Ch-ExamplesAddingModbusDevice/" title="Modbus" class="md-nav__link">
+      Modbus
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../examples/Ch-ExamplesAddingSNMPDevice/" title="SNMP" class="md-nav__link">
+      SNMP
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../examples/Ch-ExamplesAddingMQTTDevice/" title="MQTT" class="md-nav__link">
+      MQTT
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-9" type="checkbox" id="nav-4-9">
+    
+    <label class="md-nav__link" for="nav-4-9">
+      Walkthrough
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Walkthrough" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-9">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Walkthrough
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../walk-through/Ch-Walkthrough/" title="EdgeX Demonstration API Walk Through" class="md-nav__link">
+      EdgeX Demonstration API Walk Through
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../walk-through/Ch-WalkthroughSetup/" title="Setup up your environment" class="md-nav__link">
+      Setup up your environment
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../walk-through/Ch-WalkthroughUseCase/" title="Example Use Case" class="md-nav__link">
+      Example Use Case
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../walk-through/Ch-WalkthroughData/" title="Defining your data" class="md-nav__link">
+      Defining your data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../walk-through/Ch-WalkthroughDeviceProfile/" title="Defining your device" class="md-nav__link">
+      Defining your device
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../walk-through/Ch-WalkthroughDeviceService/" title="Register your device service" class="md-nav__link">
+      Register your device service
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../walk-through/Ch-WalkthroughProvision/" title="Provision a device" class="md-nav__link">
+      Provision a device
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../walk-through/Ch-WalkthroughCommands/" title="Calling commands" class="md-nav__link">
+      Calling commands
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../walk-through/Ch-WalkthroughReading/" title="Sending events and reading data" class="md-nav__link">
+      Sending events and reading data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../walk-through/Ch-WalkthroughExporting/" title="Exporting your device data" class="md-nav__link">
+      Exporting your device data
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../examples/LinuxTutorial/LinuxTutorial/" title="EdgeX Foundry Hands On Tutorial" class="md-nav__link">
+      EdgeX Foundry Hands On Tutorial
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      API Reference
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="API Reference" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        API Reference
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-1" type="checkbox" id="nav-5-1">
+    
+    <label class="md-nav__link" for="nav-5-1">
+      Core
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Core" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-1">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Core
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../api/core/Ch-APICoreCommand/" title="Core Command" class="md-nav__link">
+      Core Command
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../api/core/Ch-APICoreData/" title="Core Data" class="md-nav__link">
+      Core Data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../api/core/Ch-APICoreMetadata/" title="Core Metadata" class="md-nav__link">
+      Core Metadata
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../api/core/Ch-APICoreServiceConfiguration/" title="Configuration and Registry" class="md-nav__link">
+      Configuration and Registry
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-2" type="checkbox" id="nav-5-2">
+    
+    <label class="md-nav__link" for="nav-5-2">
+      Supporting Services
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Supporting Services" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Supporting Services
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../api/supporting/Ch-APISupportingServicesAlerts/" title="Alerts & Notifications" class="md-nav__link">
+      Alerts & Notifications
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../api/supporting/Ch-APISupportingServicesLogging/" title="Logging" class="md-nav__link">
+      Logging
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../api/supporting/Ch-APISupportingServicesRulesEngine/" title="Rules Engine" class="md-nav__link">
+      Rules Engine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../api/supporting/Ch-APISupportingServicesScheduling/" title="Scheduling" class="md-nav__link">
+      Scheduling
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../api/Ch-APIDeviceSDK/" title="Device Service - Device SDK" class="md-nav__link">
+      Device Service - Device SDK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../api/Ch-APISystemManagement/" title="APIs - System Management - Agent" class="md-nav__link">
+      APIs - System Management - Agent
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../api/Ch-APIAppFunctionsSDK/" title="Application Service - Application Service SDK" class="md-nav__link">
+      Application Service - Application Service SDK
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Architectural Decision Records
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Architectural Decision Records" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Architectural Decision Records
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../" title="Architecture Decision Records Folder" class="md-nav__link">
+      Architecture Decision Records Folder
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../TOC/" title="ADR Table of Contents" class="md-nav__link">
+      ADR Table of Contents
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6-3" type="checkbox" id="nav-6-3">
+    
+    <label class="md-nav__link" for="nav-6-3">
+      Legacy
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Legacy" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Legacy
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../legacy-design/" title="Legacy Design Documents" class="md-nav__link">
+      Legacy Design Documents
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../legacy-requirements/" title="Legacy Requirements" class="md-nav__link">
+      Legacy Requirements
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Reference
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Reference" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Reference
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../general/Definitions/" title="Definitions" class="md-nav__link">
+      Definitions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../general/PlatformRequirements/" title="Platform Requirements" class="md-nav__link">
+      Platform Requirements
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../general/ServicePorts/" title="Default Service Ports" class="md-nav__link">
+      Default Service Ports
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../general/ContainerNames/" title="EdgeX Container Names" class="md-nav__link">
+      EdgeX Container Names
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../general/ServiceConfiguration/" title="Service Configuration" class="md-nav__link">
+      Service Configuration
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#status" class="md-nav__link">
+    Status
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    Context
+  </a>
+  
+    <nav class="md-nav" aria-label="Context">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#terms" class="md-nav__link">
+    Terms
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#current-practices-survey" class="md-nav__link">
+    Current practices survey
+  </a>
+  
+    <nav class="md-nav" aria-label="Current practices survey">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system-managed-secrets" class="md-nav__link">
+    System-managed secrets
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-managed-secrets" class="md-nav__link">
+    User-managed secrets
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision" class="md-nav__link">
+    Decision
+  </a>
+  
+    <nav class="md-nav" aria-label="Decision">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creation-of-secrets" class="md-nav__link">
+    Creation of secrets
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choosing-between-alternative-forms-of-secrets" class="md-nav__link">
+    Choosing between alternative forms of secrets
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distribution-and-consumption-of-secrets" class="md-nav__link">
+    Distribution and consumption of secrets
+  </a>
+  
+    <nav class="md-nav" aria-label="Distribution and consumption of secrets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prohibited-practices" class="md-nav__link">
+    Prohibited practices
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-practices" class="md-nav__link">
+    Recommended practices
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consequences" class="md-nav__link">
+    Consequences
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/design/adr/security/0008-Secret-Creation-and-Distribution.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="creation-and-distribution-of-secrets">Creation and Distribution of Secrets</h1>
+<h2 id="status">Status</h2>
+<p><strong>Approved</strong></p>
+<h2 id="context">Context</h2>
+<p>This ADR seeks to clarify and prioritize the secret handling approach taken by EdgeX.</p>
+<p>EdgeX microservices need a number of secrets to be created and distributed
+in order to create a functional, secure system.
+Among these secrets are:</p>
+<ul>
+<li>Privileged administrator passwords (such as a database superuser password)</li>
+<li>Service account passwords (e.g. non-privileged database accounts)</li>
+<li>PKI private keys</li>
+</ul>
+<p>There is a lack of consistency on how secrets are created and distributed to EdgeX microservices,
+and when developers need to add new components to the system,
+it is unclear on what the preferred approach should be.</p>
+<p>This document assumes a threat model wherein the EdgeX services are sandboxed
+(such as in a snap or a container) and the host system is trusted,
+and all services running in a single snap share a trust boundary.</p>
+<h3 id="terms">Terms</h3>
+<p>The following terms will be helpful for understading the subsequent discussion:</p>
+<ul>
+<li><em>SECRETSLOC</em> is a protected file system path where bootstrapping secrets are stored.</li>
+</ul>
+<p>While EdgeX implements a sophisticated secret handling mechanism,
+  that mechanism itself requires secrets.
+  For example, every microservice that talks to Vault
+  must have its own unique secret to authenticate:
+  Vault itself cannot be used to distribute these secrets.
+  <em>SECRETSLOC</em> fulfills the role that the non-routable
+  instance data IP address, 169.254.169.254,
+  fulfills in the public cloud:
+  delivery of bootstrapping secrets.
+  As EdgeX does not have a hypervisor nor virtual machines for this purpose,
+  a protected file system path is used instead.</p>
+<p><em>SECRETSLOC</em> is implementation-dependent. 
+  A desirable feature of <em>SECRETSLOC</em> would be that data written here
+  is kept in RAM and is not persisted to storage media.
+  This property is not achieveable in all circumstances.</p>
+<p>For Docker, a list of suggested paths--in preference order--is:</p>
+<ul>
+<li><code>/run/edgex/secrets</code> (a <code>tmpfs</code> volume on a Linux host)</li>
+<li><code>/tmp/edgex/secrets</code> (a temporary file area on Linux and MacOS hosts)</li>
+<li>A persistent docker volume (use when host bind mounts are not available)</li>
+</ul>
+<p>For snaps, a list of suggested paths-in preference order--is:
+  * <code>/run/snap.</code><em>$SNAP_NAME</em><code>/</code> (a <code>tmpfs</code> volume on a Linux host)
+  * <em>$SNAP_DATA</em><code>/secrets</code> (a snap-specific persistent data area)
+  * <em>TBD</em> (a content interface that allows for sharing of secrets from the core snap)</p>
+<h3 id="current-practices-survey">Current practices survey</h3>
+<p>A survey on the existing EdgeX secrets reveals the following appoaches.</p>
+<p>A designation of "compliant" means that the current implementation
+is aligned with the recommended practices documented in the next section.
+A designation of "non-compliant" means that the current implementation
+uses an implemention mechanism outside of the recommended practices documented in the next section.
+A "non-compliant" implementation is a candidate for refactoring
+to bring the implementation into conformance with the recommended practices.</p>
+<h4 id="system-managed-secrets">System-managed secrets</h4>
+<ul>
+<li>PKI private keys</li>
+<li>Docker: PKI generated by standalone utility every cold start of the framework. Distribution via <em>SECRETSLOC</em>. (Compliant.)</li>
+<li>
+<p>Snaps: PKI generated by standalone utility every cold start of the framework. Deployed to <em>SECRETSLOC</em>. (Compliant.)</p>
+</li>
+<li>
+<p>Secret store master password</p>
+</li>
+<li>Docker: Distribution via persistent docker volume. (Non-compliant.)</li>
+<li>
+<p>Snaps: Stored in <code>$SNAP_DATA/config/security-secrets-setup/res</code>. (Non-compliant.)</p>
+</li>
+<li>
+<p>Secret store per-service authentication tokens</p>
+</li>
+<li>Docker: Distribution via <em>SECRETSLOC</em> generated every cold start of the framework. (Compliant.)</li>
+<li>
+<p>Snaps: Distribution via <em>SECRETSLOC</em>, generated every cold start of the framework. (Compliant.)</p>
+</li>
+<li>
+<p>Postgres superuser password</p>
+</li>
+<li>Docker: Hard-coded into docker-compose file, checked in to source control. (Non-compliant.)</li>
+<li>
+<p>Snaps: Generated at snap install time via "apg" ("automatic password generator") tool, installed into Postgres, cached to <code>$SNAP_DATA/config/postgres/kongpw</code> (non-compliant), and passed to Kong via <code>$KONG_PG_PASSWORD</code>. </p>
+</li>
+<li>
+<p>MongoDB service account passwords</p>
+</li>
+<li>Docker: Direct consumption from secret store. (Compliant.)</li>
+<li>
+<p>Snaps: Direct consumption from secret store. (Compliant.)</p>
+</li>
+<li>
+<p>Redis authentication password</p>
+</li>
+<li>Docker: Server--staged to secrets volume and injected via command line. (Non-compliant.). Clients--direct consumption from secret store. (Compliant.)</li>
+<li>
+<p>Snaps: Server--staged to <code>$SNAP_DATA/secrets/edgex-redis/redis5-password</code> and injected via command line. (Non-compliant.). Clients--direct consumption from secret store. (Compliant.)</p>
+</li>
+<li>
+<p>Kong client authentication tokens</p>
+</li>
+<li>Docker: System of reference is unencrypted Postgres database. (Non-compliant.)</li>
+<li>Snaps: System of reference is unencrypted Postgres database. (Non-compliant.)</li>
+</ul>
+<p>Note: in the current implementation,
+Consul is being operated as a public service.
+Consul will be a subject of a future "bootstrapping ADR"
+due to its role in serivce location.</p>
+<h4 id="user-managed-secrets">User-managed secrets</h4>
+<p>User-managed secrets functionality is provided by <code>app-functions-sdk-go</code>.</p>
+<p>If security is enabled, secrets are retrieved from Vault.
+If security is disabled, secrets are retreived from the configuration provider.
+If the configuration provider is not available, secrets are read from the underlying <code>.toml</code>.
+It is taken as granted in this ADR that secrets originating in the configuration provider
+or from <code>.toml</code> configuration files are not secret.
+The fallback mechanism is provided as a convienience to the developer,
+who would otherwise have to litter their code with "if (isSecurityEnabled())" logic leading to implementation inconsistencies.</p>
+<p>The central database credential is supplied by <code>GetDatabaseCredentials()</code>
+and returns the database credential assigned to <code>app-service-configurable</code>.
+If security is enabled, database credentials are retreived using the standard flow.
+If security is disabled, secrets are retreived from the configuration provider
+from a special section called <code>[Writable.InsecureSecrets]</code>.
+If not found there, the configuration provider is searched
+for credentials stored in the legacy <code>[Databases.Primary]</code> section
+using the <code>Username</code> and <code>Password</code> keys.</p>
+<p>Each user application has its own exclusive-use area of the secret store
+that is accessed via <code>GetSecrets()</code>.
+If security is enabled, secret requests are passed along to <code>go-mod-secrets</code>
+using an application-specific access token.
+If security is disabled, secret requets are made to the configuration provider
+from the <code>[Writable.InsecureSecrets]</code> section.
+There is no fallback configuration location.</p>
+<p>As user-managed secrets have no framework support for initialization,
+a special <code>StoreSecrets()</code> method is made available
+to the application for the application to initialize its own secrets.
+This method is only available in security-enabled mode.</p>
+<p>No changes to user-managed secrets are being proposed in this ADR.</p>
+<h2 id="decision">Decision</h2>
+<h3 id="creation-of-secrets">Creation of secrets</h3>
+<p>Management of hardware-bound secrets is platform-specific
+and out-of-scope for the EdgeX framework.
+EdgeX open source will contain only the necessary hooks to integrate
+platform-specific functionality.</p>
+<p>For software-managed secrets, the
+<a href="https://www.dqglossary.com/record%20of%20reference.html"><em>system of referece</em></a>
+of secrets in EdgeX is the EdgeX secret store.
+The EdgeX secret store provides for encryption of secrets at rest.
+This term means that if a secret is replicated,
+the EdgeX secret store is the authoritative source of truth of the secret.
+Whenever possible, the EdgeX secret store should also be the
+<a href="https://www.dqglossary.com/record%20of%20origin.html"><em>record of origin</em></a>
+of a secret as well.
+This means creating secrets inside of the EdgeX secret store
+is preferrable to importing an externally-created secret into the secret store.
+This can often be done for framework-managed secrets,
+but not possible for user-managed secrets.</p>
+<h3 id="choosing-between-alternative-forms-of-secrets">Choosing between alternative forms of secrets</h3>
+<p>When given a choice between plain-text secrets
+and cryptographic keys,
+cryptographic keys should be preferred.</p>
+<p>An example situation would be the introduction of an MQTT message broker.
+A broker may support both TLS client authentication as well as username/password authentication.
+In such a situation, TLS client authentication would be preferred:</p>
+<ul>
+<li>The cryptographic key is typically longer in bits than a plain-text secret.</li>
+<li>A plain-text secret will require transport encryption in order to protect confidentiality of the secret, such as server-side TLS.</li>
+<li>Use of TLS client authentication typically eliminates the need for additional assets on the server side (such as a password database) to authenticate the client, by relying on digital signature instead.</li>
+</ul>
+<p>TLS client authentication <strong>should not be used</strong>
+unless there is a capability to revoke a compromised certificate,
+such as by replacing the certificate authority,
+or providing a certificate revokation list to the server.
+If certificate revokation is not supported,
+plain-text secrets (such as username/password) should be used instead,
+as they are typically easier to revoke.</p>
+<h3 id="distribution-and-consumption-of-secrets">Distribution and consumption of secrets</h3>
+<h4 id="prohibited-practices">Prohibited practices</h4>
+<p>Use of hard-coded secrets is an instance of
+<a href="https://cwe.mitre.org/data/definitions/798.html">CWE-798: Use of hard-coded credentials</a>
+and is not allowed.
+A hard-coded secret is a secret that is the same across multiple EdgeX instances.
+Hard-coded secrets make devices susceptible to BORE (break-once-run-everywhere) attacks,
+where collections of machines can compromised by a single replicated secret.
+Specific cases where this is likely to come up are:</p>
+<ul>
+<li>Secrets embedded in source control</li>
+</ul>
+<p>EdgeX is an open-source project.
+  Any secret that is present in an EdgeX repository is public to the world,
+  and therefore not a secret, by definition.
+  Configuration files, such as .toml files, .json files, .yaml files
+  (including <code>docker-compose.yml</code>) are specific instances of this practice.</p>
+<ul>
+<li>Secrets embedded in binaries</li>
+</ul>
+<p>Binaries are usually not protected against confidentiality threats,
+  and binaries can be easily reverse-engineered to find any secrets therein.
+  Binaries included compile executables as well as Docker images.</p>
+<h4 id="recommended-practices">Recommended practices</h4>
+<ol>
+<li>Direct consumption from process-to-process interaction with secret store</li>
+</ol>
+<p>This approach is only possible for components that have native support for
+   <a href="https://www.vaultproject.io/">Hashicorp Vault</a>.
+   This includes any EdgeX service that links to go-mod-secrets.</p>
+<p>For example, if secretClient is an instance of the go-mod-secrets
+   secret store client:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">secrets</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">secretClient</span><span class="p">.</span><span class="nx">GetSecrets</span><span class="p">(</span><span class="s">&quot;myservice&quot;</span><span class="p">,</span> <span class="s">&quot;username&quot;</span><span class="p">,</span> <span class="s">&quot;password&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>The above code will retrieve the <code>username</code> and <code>password</code> properties
+   of the <code>myservice</code> secret.</p>
+<ol>
+<li>Dynamic injection of secret into process environment space</li>
+</ol>
+<p>Environment variables are part of a process' environment block
+   and are mapped into a process' memory.
+   In this scenario,
+   an intermediary makes a connection to the secret store to fetch a secret,
+   store it into an environment variable,
+   and then launches a target executable,
+   thereby passing the secret <em>in-memory</em> to the target process.</p>
+<p>Existing examples of this functionality include
+   <a href="https://github.com/channable/vaultenv">vaultenv</a>,
+   <a href="https://github.com/hashicorp/envconsul">envconsul</a>,
+   or <a href="https://github.com/gmr/env-aws-params">env-aws-params</a>.
+   These tools authenticate to a remote network service,
+   inject secrets into the process environment,
+   and then exec's a replacment process
+   that inherits the secret-enriched enviornment block.</p>
+<p>There are a few potential risks with this approach:</p>
+<ul>
+<li>Environment blocks are passed to child processes by default.</li>
+<li>
+<p>Environment-variable-sniffing malware (introduced by compromised 3rd party libaries) is a proven attack method.</p>
+</li>
+<li>
+<p>Dynamic injection of secret into container-scoped <code>tmpfs</code> volume</p>
+</li>
+</ul>
+<p>An example of this approach is <a href="https://github.com/hashicorp/consul-template">consul-template</a>.
+   This approach is useful when a secret is required to be in a configuration file
+   and cannot be passed via an environment variable
+   or directly consumed from a secret store.</p>
+<ol>
+<li>Distribution via <em>SECRETSLOC</em></li>
+</ol>
+<p>This option is the most widely supported secret distribution mechanism by container orchestrators.</p>
+<p>EdgeX supports runtime environments such as standard Docker and snaps
+   that have no built-in secret management features.</p>
+<ul>
+<li>
+<p>Generic Docker does not have a built-in secrets mechanism.
+     Manual configuration of a <em>SECRETSLOC</em> should utilize either
+     a host file file system path or
+     a Docker volume.</p>
+</li>
+<li>
+<p>Snaps also do not have a built-in secrets mechanism.
+     The options for <em>SECRETSLOC</em> are limited
+     to designated snap-writable directories.</p>
+</li>
+</ul>
+<p>For comparison:</p>
+<ul>
+<li>
+<p>Docker Swarm:
+   Swarm swarm mode is not officially supported by the EdgeX project.
+   Docker Swarm secrets are shared via the <code>/run/secrets</code> volume,
+   which is a Linux <code>tmpfs</code> volume created on the host and shared with the container.
+   For an example of Docker Swarm secrets, see the
+   <a href="https://docs.docker.com/compose/compose-file/#secrets">docker-compose secrets stanza</a>.
+   Secrets distributed in this manner become part of the RaftDB,
+   and thus it becomes necessary to enable swarm autolock mode,
+   which prevents the Raft database encryption key
+   from being stored plaintext on disk.
+   Swarm secrets have an additional limitation in that they are not
+   mutable at runtime.</p>
+</li>
+<li>
+<p>Kubernetes:
+   Kubernetes is not officially supported by the EdgeX project.
+   Kubernetes also supports the secrets volume approach,
+   though the secrets volume can be mounted anywhere in the container namespace.
+   For an example of Kubernetes secrets volumes, see the
+   <a href="https://kubernetes.io/docs/concepts/configuration/secret/">Kubernetes secrets documentation</a>.
+   Secrets distributed in this manner become part of the <code>etcd</code> database,
+   and thus it becomes necessary to specify a
+   <a href="https://kubernetes.io/docs/tasks/administer-cluster/kms-provider/">KMS provider for data encryption</a>
+   to prevent <code>etcd</code> from storing plaintext versions of secrets.</p>
+</li>
+</ul>
+<h2 id="consequences">Consequences</h2>
+<p>As the existing implementation is not fully-compliant with this ADR,
+significant scope will be added to current and future EdgeX releases
+in order to bring the project into compliance.</p>
+<p>List of needed improvements:</p>
+<ul>
+<li>PKI private keys</li>
+<li>All: Move to using Vault as system of origin for the PKI instead of the standalone <code>security-secrets-setup</code> utility.</li>
+<li>All: Cache the PKI for Consul and Vault on persistent disk; rotate occasionally.</li>
+<li>
+<p>All: Investigate hardware protection of cached Consul and Vault PKI secret keys.  (Vault cannot unseal its own TLS certificate.)</p>
+</li>
+<li>
+<p>Special case: Bring-your-own external Kong certificate and key</p>
+</li>
+<li>
+<p>The Kong external certificate and key is already stored in Vault,
+    however, additional metadata is needed
+    to signal whether these are auto-generated or manually-installed.
+    A manually-installed certificate and key
+    would not be overwritten by the framework bringup logic.
+    Installing a custom certificate and key can then be implemented by
+    overwriting the system-generated ones and setting a flag
+    indicating that they were manually-installed.</p>
+</li>
+<li>
+<p>Secret store master password</p>
+</li>
+<li>
+<p>All: Enable hooks for <a href="https://github.com/edgexfoundry/edgex-go/issues/1919">hardware protection</a> of secret store master password.</p>
+</li>
+<li>
+<p>Secret store per-service authentication tokens</p>
+</li>
+<li>
+<p>No changes required.</p>
+</li>
+<li>
+<p>Postgres superuser password</p>
+</li>
+<li>Generate at install time or on cold start of the framework. </li>
+<li>
+<p>Cache in Vault and inject into Kong using environment variable injection.</p>
+</li>
+<li>
+<p>MongoDB service account passwords</p>
+</li>
+<li>
+<p>No changes required.</p>
+</li>
+<li>
+<p>Redis(v5) authentication password</p>
+</li>
+<li>All: Implement process-to-process injection: start Redis unauthenticated, with a post-start hook to read the secret out of Vault and set the Redis password. (Short race condition between Redis starting, password being set, and dependent services starting.)</li>
+<li>
+<p>No changes on client side.</p>
+</li>
+<li>
+<p>Redis(v6) passwords (v6 adds multiple user support)</p>
+</li>
+<li>Interim solution: handle like MongoDB service account passwords.
+    Future ADR to propose use of a Vault database secrets engine.</li>
+<li>
+<p>No changes on client side (each service accesses its own credential)</p>
+</li>
+<li>
+<p>Kong authentication tokens</p>
+</li>
+<li>All: Implement in-transit authentication with TLS-protected Postgres interface.
+    (Subject to change if it is decided not to enable a Postgres backend out of the box.)</li>
+<li>Additional research needed as PostgreSQL does not support transparent data encryption.</li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://github.com/edgexfoundry/edgex-docs/issues/132">ADR for secret creation and distribution</a></li>
+<li><a href="https://cwe.mitre.org/data/definitions/798.html">CWE-798: Use of hard-coded credentials</a></li>
+<li><a href="https://docs.docker.com/engine/swarm/secrets/">Docker Swarm secrets</a></li>
+<li><a href="https://github.com/edgexfoundry/go-mod-secrets">EdgeX go-mod-secrets</a></li>
+<li><a href="https://www.vaultproject.io/">Hashicorp Vault</a></li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 EdgeX Foundry
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+      <a href="https://github.com/edgexfoundry" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+      </a>
+    
+      
+      
+      <a href="https://twitter.com/edgexfoundry" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+      
+      
+      <a href="https://www.linkedin.com/company/edgexfoundry" target="_blank" rel="noopener" title="www.linkedin.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../../assets/javascripts/vendor.36cbf620.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../../..",
+          features: ["tabs"],
+          search: Object.assign({
+            worker: "../../../../assets/javascripts/worker/search.7f7c8775.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../../../assets/javascripts/version-select.js"></script>
+      
+    
+  </body>
+</html>
