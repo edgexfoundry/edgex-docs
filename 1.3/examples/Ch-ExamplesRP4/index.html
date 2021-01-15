@@ -11,7 +11,7 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/examples/Ch-ExamplesModbusdatatypeconversion/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/examples/Ch-ExamplesRP4/">
       
       
         <meta name="author" content="Michael Johanson">
@@ -21,7 +21,7 @@
     
     
       
-        <title>Modbus - Data Type Conversion - EdgeX Foundry Documentation</title>
+        <title>EdgeX on Raspberry Pi 4B - EdgeX Foundry Documentation</title>
       
     
     
@@ -63,7 +63,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#modbus-data-type-conversion" class="md-skip">
+        <a href="#edgex-on-raspberry-pi-4b" class="md-skip">
           Skip to content
         </a>
       
@@ -90,7 +90,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Modbus - Data Type Conversion
+              EdgeX on Raspberry Pi 4B
             
           </span>
         </div>
@@ -1403,6 +1403,18 @@
           
           
 
+
+  <li class="md-nav__item">
+    <a href="../Ch-ExamplesModbusdatatypeconversion/" title="Modbus - Data Type Conversion" class="md-nav__link">
+      Modbus - Data Type Conversion
+    </a>
+  </li>
+
+        
+          
+          
+          
+
   
 
 
@@ -1414,14 +1426,14 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Modbus - Data Type Conversion
+        EdgeX on Raspberry Pi 4B
         <span class="md-nav__icon md-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z" /></svg>
         </span>
       </label>
     
-    <a href="./" title="Modbus - Data Type Conversion" class="md-nav__link md-nav__link--active">
-      Modbus - Data Type Conversion
+    <a href="./" title="EdgeX on Raspberry Pi 4B" class="md-nav__link md-nav__link--active">
+      EdgeX on Raspberry Pi 4B
     </a>
     
       
@@ -1440,29 +1452,15 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#read-command" class="md-nav__link">
-    Read Command
+  <a href="#why-the-pi" class="md-nav__link">
+    Why the Pi?
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#write-command" class="md-nav__link">
-    Write Command
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#when-to-transform-data" class="md-nav__link">
-    When to Transform Data
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#supported-transformations" class="md-nav__link">
-    Supported Transformations
+  <a href="#pi-example-kit" class="md-nav__link">
+    Pi Example Kit
   </a>
   
 </li>
@@ -1471,18 +1469,6 @@
   
 </nav>
     
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../Ch-ExamplesRP4/" title="EdgeX on Raspberry Pi 4B" class="md-nav__link">
-      EdgeX on Raspberry Pi 4B
-    </a>
   </li>
 
         
@@ -2165,29 +2151,15 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#read-command" class="md-nav__link">
-    Read Command
+  <a href="#why-the-pi" class="md-nav__link">
+    Why the Pi?
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#write-command" class="md-nav__link">
-    Write Command
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#when-to-transform-data" class="md-nav__link">
-    When to Transform Data
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#supported-transformations" class="md-nav__link">
-    Supported Transformations
+  <a href="#pi-example-kit" class="md-nav__link">
+    Pi Example Kit
   </a>
   
 </li>
@@ -2204,7 +2176,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/examples/Ch-ExamplesModbusdatatypeconversion.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/examples/Ch-ExamplesRP4.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg>
                   </a>
                 
@@ -2212,102 +2184,15 @@
                   
                 
                 
-                <h1 id="modbus-data-type-conversion">Modbus - Data Type Conversion</h1>
-<p>In use cases where the device resource uses an integer data type with a
-float scale, precision can be lost following transformation.</p>
-<p>For example, a Modbus device stores the temperature and humidity in an
-INT16 data type with a float scale of 0.01. If the temperature is 26.53,
-the read value is 2653. However, following transformation, the value is
-26.</p>
-<p>To avoid this scenario, the device resource data type must differ from
-the value descriptor data type. This is achieved using the optional
-<code>rawType</code> attribute in the device profile to define the binary data read
-from the Modbus device, and a <code>value type</code> to indicate what data type
-the user wants to receive.</p>
-<p>If the <code>rawType</code> attribute exists, the device service parses the binary
-data according to the defined <code>rawType</code>, then casts the value according
-to the <code>value type</code> defined in the <code>properties</code> of the device resources.</p>
-<p>The following extract from a device profile defines the <code>rawType</code> as
-INT16 and the <code>value type</code> as FLOAT32:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">deviceResources</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;humidity&quot;</span>
-    <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;The</span><span class="nv"> </span><span class="s">response</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">result</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">original</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">multiplied</span><span class="nv"> </span><span class="s">by</span><span class="nv"> </span><span class="s">100.&quot;</span>
-    <span class="nt">attributes</span><span class="p">:</span>
-      <span class="p p-Indicator">{</span><span class="nt"> primaryTable</span><span class="p">:</span> <span class="s">&quot;HOLDING_REGISTERS&quot;</span><span class="p p-Indicator">,</span><span class="nt"> startingAddress</span><span class="p">:</span> <span class="s">&quot;1&quot;</span><span class="p p-Indicator">,</span><span class="nt"> rawType</span><span class="p">:</span> <span class="s">&quot;INT16&quot;</span> <span class="p p-Indicator">}</span>
-    <span class="nt">properties</span><span class="p">:</span>
-      <span class="nt">value</span><span class="p">:</span>
-        <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;FLOAT32&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;RW&quot;</span><span class="p p-Indicator">,</span><span class="nt"> scale</span><span class="p">:</span> <span class="s">&quot;0.01&quot;</span> <span class="p p-Indicator">}</span>
-      <span class="nt">units</span><span class="p">:</span>
-        <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;String&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;%RH&quot;</span><span class="p p-Indicator">}</span>
-
-  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;temperature&quot;</span>
-    <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;The</span><span class="nv"> </span><span class="s">response</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">result</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">original</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">multiplied</span><span class="nv"> </span><span class="s">by</span><span class="nv"> </span><span class="s">100.&quot;</span>
-    <span class="nt">attributes</span><span class="p">:</span>
-      <span class="p p-Indicator">{</span><span class="nt"> primaryTable</span><span class="p">:</span> <span class="s">&quot;HOLDING_REGISTERS&quot;</span><span class="p p-Indicator">,</span><span class="nt"> startingAddress</span><span class="p">:</span> <span class="s">&quot;2&quot;</span><span class="p p-Indicator">,</span><span class="nt"> rawType</span><span class="p">:</span> <span class="s">&quot;INT16&quot;</span> <span class="p p-Indicator">}</span>
-    <span class="nt">properties</span><span class="p">:</span>
-      <span class="nt">value</span><span class="p">:</span>
-        <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;FLOAT32&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;RW&quot;</span><span class="p p-Indicator">,</span><span class="nt"> scale</span><span class="p">:</span> <span class="s">&quot;0.01&quot;</span> <span class="p p-Indicator">}</span>
-      <span class="nt">units</span><span class="p">:</span>
-        <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;String&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;degrees</span><span class="nv"> </span><span class="s">Celsius&quot;</span><span class="p p-Indicator">}</span>
-</code></pre></div>
-<h2 id="read-command">Read Command</h2>
-<p>A Read command is executed as follows:</p>
-<ol>
-<li>The device service executes the Read command to read binary data</li>
-<li>The binary reading data is parsed as an INT16 data type</li>
-<li>The integer value is cast to a FLOAT32 value</li>
-</ol>
-<p><img alt="Modbus Read Command" src="../ModbusReadConversion.png" /></p>
-<h2 id="write-command">Write Command</h2>
-<p>A Write command is executed as follows:</p>
-<ol>
-<li>The device service cast the requested FLOAT32 value to an integer
-    value</li>
-<li>The integer value is converted to binary data</li>
-<li>The device service executes the Write command</li>
-</ol>
-<p><img alt="Modbus Write Command" src="../ModbusWriteConversion.png" /></p>
-<h2 id="when-to-transform-data">When to Transform Data</h2>
-<p>You generally need to transform data when scaling readings between a
-16-bit integer and a float value.</p>
-<p>The following limitations apply:</p>
-<ul>
-<li><code>rawType</code> supports only INT16 and UINT16 data types</li>
-<li>The corresponding <code>value type</code> must be FLOAT32 or FLOAT64</li>
-</ul>
-<p>If an unsupported data type is defined for the <code>rawType</code> attribute, the
-device service throws an exception similar to the following:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">Handler - execReadCmd: error for device: Modbus-TCP-Device cmd: readAll, the raw type INT32 is not supported /api/v1/device/91f6430d-9268-43e3-88a6-19dbe7f98dad/readAll</span>
-</code></pre></div>
-
-<h2 id="supported-transformations">Supported Transformations</h2>
-<p>The supported transformations are as follows:</p>
-<table>
-<thead>
-<tr>
-<th>From <code>rawType</code></th>
-<th>To <code>value type</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>INT16</td>
-<td>FLOAT32</td>
-</tr>
-<tr>
-<td>INT16</td>
-<td>FLOAT64</td>
-</tr>
-<tr>
-<td>UINT16</td>
-<td>FLOAT32</td>
-</tr>
-<tr>
-<td>UINT16</td>
-<td>FLOAT64</td>
-</tr>
-</tbody>
-</table>
+                <h1 id="edgex-on-raspberry-pi-4b">EdgeX on Raspberry Pi 4B</h1>
+<h2 id="why-the-pi">Why the Pi?</h2>
+<p>At the edge, you will see all sorts of compute platforms.  The edge is extremely heterogeneous - comprised of different architectures (Intel, ARM, etc.), different OSes (Linux, Unix, RTOS, Windows, etc.), different resourcing (CPU, memory, etc.) and varying levels of connectivity (always connected, intermittently connected, etc.).</p>
+<p>While the platforms vary, it is often said that the edge is a bit more resource constrained.  This is not always the case as some edge platforms are as richly resourced as what you would find in an enterprise environment.  But because of environmental conditions (hot, damp, tight spaces,etc.), asset location (often hard to reach or exposed to external forces and damage) and the sheer cost for so many edge nodes, organizations will often use more resource constrained platforms to host their edge applications.</p>
+<p>Therefore, the Raspberry Pi - in addition to being a developer or hobbyist preferred platform - has become somewhat of an example platform for those creating, running and testing out edge solutions.  It is cheap and (depending on the version and configuration) resource constrained, and therefore representative of some of the production edge and IoT platforms (if not the actually target platform).</p>
+<p><img alt="The Raspberry Pi 4" src="../RP4.jpeg" /></p>
+<h2 id="pi-example-kit">Pi Example Kit</h2>
+<p>Because of its wide spread use in edge and IoT situations, The EdgeX community gets numerous requests for assistance in getting EdgeX installed and running on a Raspberry Pi. To assist in this, the community has provided several working examples of EdgeX on a Raspberry Pi.  The latest can be found in <a href="https://github.com/edgexfoundry/edgex-examples/tree/master/deployment/raspberry-pi-4">EdgeX Examples</a> and helps get EdgeX working on a Raspberry Pi 4B running Ubuntu Linux.</p>
+<p>The EdgeX community isn't endorsing the Raspberry Pi or any platform - we remain committed to being agnostic with regard to the underlying hardware and OS.  The example is provided to quicken the introduction of EdgeX to new users and potential adopters on this popular platform.  Further, demonstrating that EdgeX can run on a Raspberry Pi also gives our community members a quick (albeit rough) means to answer questions about the underlying hardware characteristics needed to run EdgeX.  Saying EdgeX can easily run on platforms as small as an RP3 or RP4 (or even smaller - especially with selected micro services) provides adopters with context even before deeper research. </p>
                 
               
               
@@ -2326,7 +2211,7 @@ device service throws an exception similar to the following:</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../Ch-CommandingDeviceThroughRulesEngine/" title="Command Devices with Kuiper Rules Engine" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../Ch-ExamplesModbusdatatypeconversion/" title="Modbus - Data Type Conversion" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
             </div>
@@ -2335,19 +2220,19 @@ device service throws an exception similar to the following:</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Command Devices with Kuiper Rules Engine
+                Modbus - Data Type Conversion
               </div>
             </div>
           </a>
         
         
-          <a href="../Ch-ExamplesRP4/" title="EdgeX on Raspberry Pi 4B" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../Ch-ExamplesAddingModbusDevice/" title="Modbus" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                EdgeX on Raspberry Pi 4B
+                Modbus
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
