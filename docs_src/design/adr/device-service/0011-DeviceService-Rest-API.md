@@ -24,21 +24,20 @@ The DS should provide the REST endpoints that are expected of all EdgeX microser
 | Endpoint | Methods
 | --- | ---
 | *callback/device* | `PUT` and `POST`
-| *callback/device/id/{id}* | `DELETE`
-| *callback/profile* | `PUT` and `POST`
-| *callback/profile/id/{id}* | `DELETE`
+| *callback/device/name/{name}* | `DELETE`
+| *callback/profile* | `PUT`
 | *callback/watcher* | `PUT` and `POST`
-| *callback/watcher/id/{id}* | `DELETE`
+| *callback/watcher/name/{name}* | `DELETE`
 
 | parameter | meaning
 | --- | ---
-| *{id}* | a database-generated object id
+| *{name}* | the name of the device or watcher
 
-These endpoints are used by the Core Metadata service to inform the device service of metadata updates. Endpoints are defined for each of the objects of interest to a device service, ie Devices, Device Profiles and Provision Watchers. On receipt of calls to these endpoints the device service should update its internal state accordingly.
+These endpoints are used by the Core Metadata service to inform the device service of metadata updates. Endpoints are defined for each of the objects of interest to a device service, ie Devices, Device Profiles and Provision Watchers. On receipt of calls to these endpoints the device service should update its internal state accordingly. Note that the device service does not need to be informed of the creation or deletion of device profiles, as these operations may only occur where no devices are associated with the profile. To avoid stale profile entries the device service should delete a profile from its cache when the last device using it is deleted.
 
 #### Object deletion
 
-When an object is deleted, the Metadata service makes a `DELETE` request to the relevant *callback/{type}/id/{id}* endpoint.
+When an object is deleted, the Metadata service makes a `DELETE` request to the relevant *callback/{type}/name/{name}* endpoint.
 
 #### Object creation and updates
 
@@ -49,11 +48,9 @@ When an object is created or updated, the Metadata service makes a `POST` or `PU
 | Endpoint | Methods
 | --- | ---
 | *device/name/{name}/{command}* | `GET` and `PUT`
-| *device/{id}/{command}* | `GET` and `PUT`
 
 | parameter | meaning
 | --- | ---
-| *{id}* | a database-generated device id *or*
 | *{name}* | the name of the device
 | *{command}* | the command name
 
