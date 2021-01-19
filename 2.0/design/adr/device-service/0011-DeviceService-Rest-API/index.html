@@ -2302,23 +2302,19 @@
 <td><code>PUT</code> and <code>POST</code></td>
 </tr>
 <tr>
-<td><em>callback/device/id/{id}</em></td>
+<td><em>callback/device/name/{name}</em></td>
 <td><code>DELETE</code></td>
 </tr>
 <tr>
 <td><em>callback/profile</em></td>
-<td><code>PUT</code> and <code>POST</code></td>
-</tr>
-<tr>
-<td><em>callback/profile/id/{id}</em></td>
-<td><code>DELETE</code></td>
+<td><code>PUT</code></td>
 </tr>
 <tr>
 <td><em>callback/watcher</em></td>
 <td><code>PUT</code> and <code>POST</code></td>
 </tr>
 <tr>
-<td><em>callback/watcher/id/{id}</em></td>
+<td><em>callback/watcher/name/{name}</em></td>
 <td><code>DELETE</code></td>
 </tr>
 </tbody>
@@ -2332,16 +2328,16 @@
 </thead>
 <tbody>
 <tr>
-<td><em>{id}</em></td>
-<td>a database-generated object id</td>
+<td><em>{name}</em></td>
+<td>the name of the device or watcher</td>
 </tr>
 </tbody>
 </table>
-<p>These endpoints are used by the Core Metadata service to inform the device service of metadata updates. Endpoints are defined for each of the objects of interest to a device service, ie Devices, Device Profiles and Provision Watchers. On receipt of calls to these endpoints the device service should update its internal state accordingly.</p>
+<p>These endpoints are used by the Core Metadata service to inform the device service of metadata updates. Endpoints are defined for each of the objects of interest to a device service, ie Devices, Device Profiles and Provision Watchers. On receipt of calls to these endpoints the device service should update its internal state accordingly. Note that the device service does not need to be informed of the creation or deletion of device profiles, as these operations may only occur where no devices are associated with the profile. To avoid stale profile entries the device service should delete a profile from its cache when the last device using it is deleted.</p>
 <h4 id="object-deletion">Object deletion</h4>
-<p>When an object is deleted, the Metadata service makes a <code>DELETE</code> request to the relevant <em>callback/{type}/id/{id}</em> endpoint.</p>
+<p>When an object is deleted, the Metadata service makes a <code>DELETE</code> request to the relevant <em>callback/{type}/name/{name}</em> endpoint.</p>
 <h4 id="object-creation-and-updates">Object creation and updates</h4>
-<p>When an object is created or updated, the Metadata service makes a <code>POST</code> or <code>PUT</code> request respectively to the relevant <em>callback/{type}</em> endpoint. The payload of the request is the new or updated object.</p>
+<p>When an object is created or updated, the Metadata service makes a <code>POST</code> or <code>PUT</code> request respectively to the relevant <em>callback/{type}</em> endpoint. The payload of the request is the new or updated object, ie one of the Device, DeviceProfile or ProvisionWatcher DTOs.</p>
 <h3 id="device">Device</h3>
 <table>
 <thead>
@@ -2355,10 +2351,6 @@
 <td><em>device/name/{name}/{command}</em></td>
 <td><code>GET</code> and <code>PUT</code></td>
 </tr>
-<tr>
-<td><em>device/{id}/{command}</em></td>
-<td><code>GET</code> and <code>PUT</code></td>
-</tr>
 </tbody>
 </table>
 <table>
@@ -2369,10 +2361,6 @@
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><em>{id}</em></td>
-<td>a database-generated device id <em>or</em></td>
-</tr>
 <tr>
 <td><em>{name}</em></td>
 <td>the name of the device</td>
@@ -2415,7 +2403,7 @@
 </tr>
 </tbody>
 </table>
-<p><strong>response body</strong>: A successful <code>GET</code> operation will return a JSON-encoded Event, which contains one or more Readings. Example: <code>{"device":"Gyro","origin":1592405201763915855,"readings":[{"name":"Xrotation","value":"124","origin":1592405201763915855,"valueType":"int32"},{"name":"Yrotation","value":"-54","origin":1592405201763915855,"valueType":"int32"},{"name":"Zrotation","value":"122","origin":1592405201763915855,"valueType":"int32"}]}</code></p>
+<p><strong>response body</strong>: A successful <code>GET</code> operation will return a JSON-encoded EventResponse object, which contains one or more Readings. Example: <code>{"apiVersion":"v2","deviceName":"Gyro","origin":1592405201763915855,"readings":[{"deviceName":"Gyro","name":"Xrotation","value":"124","origin":1592405201763915855,"valueType":"int32"},{"deviceName":"Gyro","name":"Yrotation","value":"-54","origin":1592405201763915855,"valueType":"int32"},{"deviceName":"Gyro","name":"Zrotation","value":"122","origin":1592405201763915855,"valueType":"int32"}]}</code></p>
 <p>This endpoint is used for obtaining readings from a device, and for writing settings to a device.</p>
 <h4 id="data-formats">Data formats</h4>
 <p>The values obtained when readings are taken, or used to make settings, are expressed as strings.</p>
@@ -2430,39 +2418,39 @@
 <tbody>
 <tr>
 <td>Boolean</td>
-<td><code>bool</code></td>
+<td><code>Bool</code></td>
 <td>"true" or "false"</td>
 </tr>
 <tr>
 <td>Integer</td>
-<td><code>uint8-uint64</code>, <code>int8-int64</code></td>
+<td><code>Uint8-Uint64</code>, <code>Int8-Int64</code></td>
 <td>Numeric string, eg "-132"</td>
 </tr>
 <tr>
 <td>Float</td>
-<td><code>float32</code>, <code>float64</code></td>
-<td>base64 encoded little-endian binary or decimal with exponent, eg "1.234e-5"</td>
+<td><code>Float32</code>, <code>Float64</code></td>
+<td>Decimal with exponent, eg "1.234e-5"</td>
 </tr>
 <tr>
 <td>String</td>
-<td><code>string</code></td>
+<td><code>String</code></td>
 <td>string</td>
 </tr>
 <tr>
 <td>Binary</td>
-<td><code>bytes</code></td>
+<td><code>Bytes</code></td>
 <td>octet array</td>
 </tr>
 <tr>
 <td>Array</td>
-<td><code>boolarray</code>, <code>uint8array-uint64array</code>, <code>int8array-int64array</code>, <code>float32array</code>, <code>float64array</code></td>
+<td><code>BoolArray</code>, <code>Uint8Array-Uint64Array</code>, <code>Int8Array-Int64Array</code>, <code>Float32Array</code>, <code>Float64Array</code></td>
 <td>JSON Array, eg "["1", "34", "-5"]"</td>
 </tr>
 </tbody>
 </table>
 <p>Notes:
 - The presence of a Binary reading will cause the entire Event to be encoded using CBOR rather than JSON
-- The representation of a float is determined by the <em>"floatEncoding"</em> attribute of the device resource. <em>"base64"</em> is the default, <em>"eNotation"</em> will cause the float to be written as a decimal with exponent.</p>
+- Arrays of String and Binary data are not supported</p>
 <h4 id="readings-and-events">Readings and Events</h4>
 <p>A Reading represents a value obtained from a deviceResource. It contains the following fields</p>
 <table>
@@ -2474,12 +2462,16 @@
 </thead>
 <tbody>
 <tr>
-<td><em>name</em></td>
-<td>The name of the deviceResource</td>
+<td><em>deviceName</em></td>
+<td>The name of the device</td>
 </tr>
 <tr>
-<td><em>valueType</em></td>
-<td>The type of the data</td>
+<td><em>profileName</em></td>
+<td>The name of the Profile describing the Device</td>
+</tr>
+<tr>
+<td><em>resourceName</em></td>
+<td>The name of the deviceResource</td>
 </tr>
 <tr>
 <td><em>origin</em></td>
@@ -2490,12 +2482,43 @@
 <td>The reading value</td>
 </tr>
 <tr>
-<td><em>mediaType</em></td>
-<td>(Only for Binary readings) The MIME type of the data</td>
+<td><em>valueType</em></td>
+<td>The type of the data</td>
+</tr>
+</tbody>
+</table>
+<p>Or for binary Readings, the following fields</p>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>deviceName</em></td>
+<td>The name of the device</td>
 </tr>
 <tr>
-<td><em>floatEncoding</em></td>
-<td>(Only for floats and arrays of floats) The float representation in use</td>
+<td><em>profileName</em></td>
+<td>The name of the Profile describing the Device</td>
+</tr>
+<tr>
+<td><em>resourceName</em></td>
+<td>The name of the deviceResource</td>
+</tr>
+<tr>
+<td><em>origin</em></td>
+<td>A timestamp indicating when the reading was taken</td>
+</tr>
+<tr>
+<td><em>binaryValue</em></td>
+<td>The reading value</td>
+</tr>
+<tr>
+<td><em>mediaType</em></td>
+<td>The MIME type of the data</td>
 </tr>
 </tbody>
 </table>
@@ -2510,8 +2533,12 @@
 </thead>
 <tbody>
 <tr>
-<td><em>device</em></td>
+<td><em>deviceName</em></td>
 <td>The name of the Device from which the Readings are taken</td>
+</tr>
+<tr>
+<td><em>profileName</em></td>
+<td>The name of the Profile describing the Device</td>
 </tr>
 <tr>
 <td><em>origin</em></td>
@@ -2536,10 +2563,10 @@
 </thead>
 <tbody>
 <tr>
-<td><em>ds-postevent</em></td>
+<td><em>ds-pushevent</em></td>
 <td>"yes" or "no"</td>
 <td>"no"</td>
-<td>If set to yes, a successful <code>GET</code> will result in an event being posted to core-data</td>
+<td>If set to yes, a successful <code>GET</code> will result in an event being pushed to the EdgeX system</td>
 </tr>
 <tr>
 <td><em>ds-returnevent</em></td>
@@ -2565,7 +2592,7 @@
 <tr>
 <td><strong>mask</strong></td>
 <td>Integers</td>
-<td>The reading is bitwise masked with the specified value.</td>
+<td>The reading is masked (bitwise-and operation) with the specified value.</td>
 </tr>
 <tr>
 <td><strong>shift</strong></td>
@@ -2592,8 +2619,11 @@
 <p>The operation of the <strong>mask</strong> transform on incoming data (a setting) is that the value to be set on the resource is the existing value bitwise-anded with the complement of the mask, bitwise-ored with the value specified in the request.</p>
 <p>ie, <code>new-value = (current-value &amp; !mask) | request-value</code></p>
 <p>The combination of mask and shift can therefore be used to access data contained in a subdivision of an octet.</p>
+<p>It is possible that following the application of the specified transformations, a value may exceed the range that may be represented by its type. Should this occur on a set operation, a suitable error should be logged and returned, along with the <code>Bad Request</code> http code 400. If it occurs as part of a get operation, the Reading's value should be set to the String <code>"overflow"</code> and its valueType to <code>String</code>.</p>
 <h4 id="assertions-and-mappings">Assertions and Mappings</h4>
-<p>Assertions are another attribute in a device resource's PropertyValue which specify a string value which the result is compared against. If the comparison fails, then the result is set to a string of the form <em>"Assertion failed for device resource: \<name>, with value: \<result>"</em>, this also has a side-effect of setting the device operatingstate to <code>DISABLED</code>. A 500 status code is also returned.</p>
+<p>Assertions are another attribute in a device resource's PropertyValue, which specify a string which the reading value is compared against. If the comparison fails, then the http request returns a string of the form <em>"Assertion failed for device resource: \<name>, with value: \<value>"</em>, this also has a side-effect of setting the device operatingstate to <code>DISABLED</code>. A 500 status code is also returned. Note that the error response and status code should be returned regardless of the <code>ds-returnevent</code> setting.</p>
+<p>Assertions are also checked where an event is being generated due to an AutoEvent, or asynchronous readings are pushed. In these cases if the assertion is triggered, an error should be logged and the operating state should be set as above.</p>
+<p>Assertions are not checked for settings, only for readings.</p>
 <p>Mappings may be defined in a deviceCommand. These allow Readings of string type to be remapped. Mappings are applied after assertions are checked, and are the final transformation before Readings are created. Mappings are also applied, but in reverse, to settings (<code>PUT</code> request data).</p>
 <h4 id="lastconnected-timestamp">lastConnected timestamp</h4>
 <p>Each Device has as part of its metadata a timestamp named <code>lastConnected</code>, this
@@ -2627,8 +2657,8 @@ performance reasons).</p>
 <li><code>GET</code> requests take parameters controlling what is to be done with resulting Events, and the default behavior does not send the Event to core-data</li>
 </ul>
 <h2 id="references">References</h2>
-<p>OpenAPI definition of v2 API : https://github.com/edgexfoundry/device-sdk-go/blob/master/api/oas3.0/v2/device-sdk.yaml
-Device Service Functional Requirements (Geneva) : https://wiki.edgexfoundry.org/download/attachments/329488/edgex-device-service-requirements-v11.pdf?version=1&amp;modificationDate=1591621033000&amp;api=v2</p>
+<p>OpenAPI definition of v2 API : https://github.com/edgexfoundry/device-sdk-go/blob/master/openapi/v2/device-sdk.yaml</p>
+<p>Device Service Functional Requirements (Geneva) : https://wiki.edgexfoundry.org/download/attachments/329488/edgex-device-service-requirements-v11.pdf?version=1&amp;modificationDate=1591621033000&amp;api=v2</p>
                 
               
               
