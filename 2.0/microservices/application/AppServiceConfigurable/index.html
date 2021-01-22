@@ -1459,13 +1459,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#markaspushed" class="md-nav__link">
-    MarkAsPushed
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#mqttsecretsend" class="md-nav__link">
     MQTTSecretSend
   </a>
@@ -2489,13 +2482,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#markaspushed" class="md-nav__link">
-    MarkAsPushed
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#mqttsecretsend" class="md-nav__link">
     MQTTSecretSend
   </a>
@@ -2570,24 +2556,22 @@
 <li><a href="../ApplicationFunctionsSDK/#filtering">FilterByDeviceName</a> -  to filter events for a specific device.</li>
 <li><a href="../ApplicationFunctionsSDK/#conversion">TransformToXML</a> - to transform the data to XML</li>
 <li><a href="../ApplicationFunctionsSDK/#export-functions">HTTPPost</a> - to send the data to an HTTP endpoint that takes our XML data</li>
-<li><a href="../ApplicationFunctionsSDK/#CoreData-Functions">MarkAsPushed</a> - to call Core Data API to mark the event as having been pushed</li>
 </ol>
 <p>Once the functions have been identified, we'll go ahead and build out the configuration in the <code>configuration.toml</code> file under the <code>[Writable.Pipeline]</code> section:</p>
 <div class="highlight"><pre><span></span><code><span class="k">[Writable]</span>
   <span class="n">LogLevel</span> <span class="o">=</span> <span class="s">&#39;DEBUG&#39;</span>
   <span class="k">[Writable.Pipeline]</span>
-    <span class="n">ExecutionOrder</span> <span class="o">=</span> <span class="s">&quot;FilterByDeviceName, TransformToXML, HTTPPost, MarkAsPushed&quot;</span>
+    <span class="n">ExecutionOrder</span> <span class="o">=</span> <span class="s">&quot;FilterByDeviceName, TransformToXML, HTTPPost&quot;</span>
     <span class="k">[Writable.Pipeline.Functions.FilterByDeviceName]</span>
       <span class="k">[Writable.Pipeline.Functions.FilterByDeviceName.Parameters]</span>
         <span class="n">FilterValues</span> <span class="o">=</span> <span class="s">&quot;Random-Float-Device, Random-Integer-Device&quot;</span>
     <span class="k">[Writable.Pipeline.Functions.TransformToXML]</span>
-    <span class="k">[Writable.Pipeline.Functions.MarkAsPushed]</span>
     <span class="k">[Writable.Pipeline.Functions.HTTPPost]</span>
       <span class="k">[Writable.Pipeline.Functions.HTTPPost.Parameters]</span>
         <span class="n">url</span> <span class="o">=</span> <span class="s">&quot;http://my.api.net/edgexdata&quot;</span>
         <span class="n">mimeType</span> <span class="o">=</span> <span class="s">&quot;&quot;</span> <span class="c1">#OPTIONAL - default application/json</span>
 </code></pre></div>
-<p>The first line of note is <code>ExecutionOrder = "FilterByDeviceName, TransformToXML, HTTPPost,MarkAsPushed"</code>. This specifies the order in which to execute your functions. Each function specified here must also be placed in the <code>[Writeable.Pipeline.Functions]</code> section. </p>
+<p>The first line of note is <code>ExecutionOrder = "FilterByDeviceName, TransformToXML, HTTPPost"</code>. This specifies the order in which to execute your functions. Each function specified here must also be placed in the <code>[Writeable.Pipeline.Functions]</code> section. </p>
 <p>Next, each function and its required information is listed. Each function typically has associated Parameters that must be configured to properly execute the function as designated by <code>[Writable.Pipeline.Functions.{FunctionName}.Parameters]</code>. Knowing which parameters are required for each function, can be referenced by taking a look at  the <a href="#available-configurable-pipeline-functions">Available Configurable Pipeline Functions</a> section below. In a few cases, such as <code>TransformToXML</code>, <code>TransformToJSON</code>, SetOutputData`, etc. there are no parameters required.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2914,12 +2898,6 @@
 <div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.JSONLogic]</span>
       <span class="k">[Writable.Pipeline.Functions.JSONLogic.Parameters]</span>
         <span class="n">Rule</span> <span class="o">=</span> <span class="s">&quot;{ \&quot;and\&quot; : [{\&quot;&lt;\&quot; : [{ \&quot;var\&quot; : \&quot;temp\&quot; }, 110 ]}, {\&quot;==\&quot; : [{ \&quot;var\&quot; : \&quot;sensor.type\&quot; }, \&quot;temperature\&quot; ]} ] }&quot;</span>
-</code></pre></div>
-<h3 id="markaspushed"><a href="../BuiltIn/#mark-as-pushed">MarkAsPushed</a></h3>
-<p><strong>Parameters</strong></p>
-<p>none</p>
-<p><strong>Example</strong></p>
-<div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.MarkAsPushed]</span>
 </code></pre></div>
 <h3 id="mqttsecretsend"><a href="../BuiltIn/#mqtt">MQTTSecretSend</a></h3>
 <p><strong>Parameters</strong></p>

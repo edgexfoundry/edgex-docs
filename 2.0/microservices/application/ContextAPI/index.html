@@ -1311,13 +1311,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#markaspushed" class="md-nav__link">
-    .MarkAsPushed()
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#pushtocore" class="md-nav__link">
     .PushToCore()
   </a>
@@ -2280,13 +2273,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#markaspushed" class="md-nav__link">
-    .MarkAsPushed()
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#pushtocore" class="md-nav__link">
     .PushToCore()
   </a>
@@ -2382,7 +2368,7 @@
 <h3 id="loggingclient">LoggingClient</h3>
 <p>The <code>LoggingClient</code> exposed on the context is available to leverage logging libraries/service utilized throughout the EdgeX framework. The SDK has initialized everything so it can be used to log <code>Trace</code>, <code>Debug</code>, <code>Warn</code>, <code>Info</code>, and <code>Error</code> messages as appropriate. See <a href="https://github.com/edgexfoundry-holding/app-service-examples/blob/master/app-services/simple-filter-xml/main.go">simple-filter-xml/main.go</a> for an example of how to use the <code>LoggingClient</code>.</p>
 <h3 id="eventclient">EventClient</h3>
-<p>The <code>EventClient</code> exposed on the context is available to leverage Core Data's <code>Event</code> API. See <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/coredata/event.go#L35">interface definition</a> for more details. This client is useful for querying events and is used by the <a href="#markaspushed">MarkAsPushed</a> convenience API described below.</p>
+<p>The <code>EventClient</code> exposed on the context is available to leverage Core Data's <code>Event</code> API. See <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/coredata/event.go#L35">interface definition</a> for more details. This client is useful for querying events and is used by the <a href="#pushtocore">PushToCore</a> convenience API described below.</p>
 <h3 id="valuedescriptorclient">ValueDescriptorClient</h3>
 <p>The <code>ValueDescriptorClient</code> exposed on the context is available to leverage Core Data's <code>ValueDescriptor</code> API. See <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/coredata/value_descriptor.go#L29">interface definition</a> for more details. Useful for looking up the value descriptor for a reading received.</p>
 <h3 id="commandclient">CommandClient</h3>
@@ -2412,8 +2398,6 @@
   Host = &#39;localhost&#39;
   Port = 48060
 </code></pre></div>
-<h2 id="markaspushed">.MarkAsPushed()</h2>
-<p><code>.MarkAsPushed()</code> is used to indicate to EdgeX Core Data that an event has been "pushed" and is no longer required to be stored. The scheduler service will purge all events that have been marked as pushed based on the configured schedule. By default, it is once daily at midnight. If you leverage the built in export functions (i.e. HTTP Export, or MQTT Export), then simply adding the MaskedAsPush function to you pipeline after the export function will take care of calling this API. </p>
 <h2 id="pushtocore">.PushToCore()</h2>
 <p><code>.PushToCore(string deviceName, string readingName, byte[] value)</code> is used to push data to EdgeX Core Data so that it can be shared with other applications that are subscribed to the message bus that core-data publishes to. <code>deviceName</code> can be set as you like along with the <code>readingName</code> which will be set on the EdgeX event sent to CoreData. This function will return the new EdgeX Event with the ID populated, however the CorrelationId will not be available.</p>
 <div class="admonition note">

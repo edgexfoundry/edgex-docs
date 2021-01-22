@@ -1415,13 +1415,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mark-as-pushed" class="md-nav__link">
-    Mark As Pushed
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#push-to-core" class="md-nav__link">
     Push to Core
   </a>
@@ -2493,13 +2486,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mark-as-pushed" class="md-nav__link">
-    Mark As Pushed
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#push-to-core" class="md-nav__link">
     Push to Core
   </a>
@@ -2801,10 +2787,6 @@
 </tr>
 </tbody>
 </table>
-<h3 id="mark-as-pushed">Mark As Pushed</h3>
-<p><code>MarkAsPushed</code> - This function provides the MarkAsPushed function from the context as a First-Class Transform that can be called in your pipeline. <a href="#.MarkAsPushed()">See Definition Above</a>. The data passed into this function from the pipeline is passed along unmodified since all required information is provided on the context (EventId, CorrelationId,etc.. )
-<div class="highlight"><pre><span></span><code><span class="nx">NewCoreData</span><span class="p">().</span><span class="nx">MarkAsPushed</span>
-</code></pre></div></p>
 <h3 id="push-to-core">Push to Core</h3>
 <p><code>PushToCore</code> - This function provides the PushToCore function from the context as a First-Class Transform that can be called in your pipeline. <a href="#.PushToCore()">See Definition Above</a>. The data passed into this function from the pipeline is wrapped in an EdgeX event with the <code>deviceName</code> and <code>readingName</code> that were set upon the <code>CoreData</code> instance and then sent to Core Data service to be added as an event. Returns the new EdgeX event with ID populated.
 <div class="highlight"><pre><span></span><code><span class="nx">NewCoreData</span><span class="p">().</span><span class="nx">PushToCore</span>
