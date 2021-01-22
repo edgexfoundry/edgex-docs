@@ -9,7 +9,6 @@ To get started with the App-Service-Configurable, you'll want to start by determ
 1. [FilterByDeviceName](./ApplicationFunctionsSDK.md#filtering) -  to filter events for a specific device.
 2. [TransformToXML](./ApplicationFunctionsSDK.md#conversion) - to transform the data to XML
 3. [HTTPPost](./ApplicationFunctionsSDK.md#export-functions) - to send the data to an HTTP endpoint that takes our XML data
-4. [MarkAsPushed](./ApplicationFunctionsSDK.md#CoreData-Functions) - to call Core Data API to mark the event as having been pushed
 
 Once the functions have been identified, we'll go ahead and build out the configuration in the `configuration.toml` file under the `[Writable.Pipeline]` section:
 
@@ -17,19 +16,18 @@ Once the functions have been identified, we'll go ahead and build out the config
 [Writable]
   LogLevel = 'DEBUG'
   [Writable.Pipeline]
-    ExecutionOrder = "FilterByDeviceName, TransformToXML, HTTPPost, MarkAsPushed"
+    ExecutionOrder = "FilterByDeviceName, TransformToXML, HTTPPost"
     [Writable.Pipeline.Functions.FilterByDeviceName]
       [Writable.Pipeline.Functions.FilterByDeviceName.Parameters]
         FilterValues = "Random-Float-Device, Random-Integer-Device"
     [Writable.Pipeline.Functions.TransformToXML]
-    [Writable.Pipeline.Functions.MarkAsPushed]
     [Writable.Pipeline.Functions.HTTPPost]
       [Writable.Pipeline.Functions.HTTPPost.Parameters]
         url = "http://my.api.net/edgexdata"
         mimeType = "" #OPTIONAL - default application/json
 ```
 
-The first line of note is `ExecutionOrder = "FilterByDeviceName, TransformToXML, HTTPPost,MarkAsPushed"`. This specifies the order in which to execute your functions. Each function specified here must also be placed in the `[Writeable.Pipeline.Functions]` section. 
+The first line of note is `ExecutionOrder = "FilterByDeviceName, TransformToXML, HTTPPost"`. This specifies the order in which to execute your functions. Each function specified here must also be placed in the `[Writeable.Pipeline.Functions]` section. 
 
 Next, each function and its required information is listed. Each function typically has associated Parameters that must be configured to properly execute the function as designated by `[Writable.Pipeline.Functions.{FunctionName}.Parameters]`. Knowing which parameters are required for each function, can be referenced by taking a look at  the [Available Configurable Pipeline Functions](#available-configurable-pipeline-functions) section below. In a few cases, such as `TransformToXML`, `TransformToJSON`, SetOutputData`, etc. there are no parameters required.
 
@@ -408,17 +406,6 @@ none
       [Writable.Pipeline.Functions.JSONLogic.Parameters]
         Rule = "{ \"and\" : [{\"<\" : [{ \"var\" : \"temp\" }, 110 ]}, {\"==\" : [{ \"var\" : \"sensor.type\" }, \"temperature\" ]} ] }"
 
-```
-### [MarkAsPushed](../BuiltIn/#mark-as-pushed)
-
-**Parameters**
-
-none
-
-**Example**
-
-```toml
-    [Writable.Pipeline.Functions.MarkAsPushed]
 ```
 ### [MQTTSecretSend](../BuiltIn/#mqtt)
 
