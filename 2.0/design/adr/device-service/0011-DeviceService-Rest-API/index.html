@@ -2577,7 +2577,7 @@
 </tbody>
 </table>
 <h4 id="device-states">Device States</h4>
-<p>A Device in EdgeX has two states associated with it: the Administrative state and the Operational state. The Administrative state may be set to <code>LOCKED</code> (normally <code>UNLOCKED</code>) to block access to the device for administrative reasons. The Operational state may be set to <code>DISABLED</code> (normally <code>ENABLED</code>) to indicate that the device is not currently working. In either case access to the device via this endpoint will be denied and HTTP 423 ("Locked") will be returned.</p>
+<p>A Device in EdgeX has two states associated with it: the Administrative state and the Operational state. The Administrative state may be set to <code>LOCKED</code> (normally <code>UNLOCKED</code>) to block access to the device for administrative reasons. The Operational state may be set to <code>DOWN</code> (normally <code>UP</code>) to indicate that the device is not currently working. In either case access to the device via this endpoint will be denied and HTTP 423 ("Locked") will be returned.</p>
 <h4 id="data-transformations">Data Transformations</h4>
 <p>A number of simple data transformations may be defined in the deviceResource. The table below shows these transformations in the order in which they are applied to outgoing data, ie Readings. The transformations are inverted and applied in reverse order for incoming data.</p>
 <table>
