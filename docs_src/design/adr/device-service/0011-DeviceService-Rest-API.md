@@ -133,7 +133,7 @@ Calls to the device endpoints may include a Query String in the URL. This may be
 
 #### Device States
 
-A Device in EdgeX has two states associated with it: the Administrative state and the Operational state. The Administrative state may be set to `LOCKED` (normally `UNLOCKED`) to block access to the device for administrative reasons. The Operational state may be set to `DISABLED` (normally `ENABLED`) to indicate that the device is not currently working. In either case access to the device via this endpoint will be denied and HTTP 423 ("Locked") will be returned.
+A Device in EdgeX has two states associated with it: the Administrative state and the Operational state. The Administrative state may be set to `LOCKED` (normally `UNLOCKED`) to block access to the device for administrative reasons. The Operational state may be set to `DOWN` (normally `UP`) to indicate that the device is not currently working. In either case access to the device via this endpoint will be denied and HTTP 423 ("Locked") will be returned.
 
 #### Data Transformations
 
