@@ -86,10 +86,10 @@ Do the following to use this tool:
    git clone https://github.com/edgexfoundry/developer-scripts.git
    ```
 
-2. Checkout the Hanoi tag
+2. Checkout the Hanoi branch
 
    ```
-   git checkout v1.3.0
+   git checkout hanoi
    ```
 
 3. Use the `make gen <options>` command to generate your custom compose file. The generated docker compose file is named `docker-compose.yaml`.  Here are some examples:
