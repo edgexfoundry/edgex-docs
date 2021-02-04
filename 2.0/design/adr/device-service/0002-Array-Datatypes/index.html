@@ -2131,26 +2131,6 @@
     Readings
   </a>
   
-    <nav class="md-nav" aria-label="Readings">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#implementation-in-v2-api" class="md-nav__link">
-    Implementation in v2 API
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#fallback-position-for-v1-api" class="md-nav__link">
-    Fallback position for v1 API
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
       </ul>
@@ -2219,10 +2199,7 @@
 <p>The permitted values of the <code>Type</code> field in <code>PropertyValue</code> are extended to include:
   "BoolArray", "Uint8Array", "Uint16Array", "Uint32Array", "Uint64Array", "Int8Array", Int16Array", "Int32Array", "Int64Array", "Float32Array", "Float64Array"</p>
 <h3 id="readings">Readings</h3>
-<h4 id="implementation-in-v2-api">Implementation in v2 API</h4>
-<p>The <code>value</code> field of <code>SimpleReading</code> becomes an array of strings. For non-array types, an array of length 1 is created.</p>
-<h4 id="fallback-position-for-v1-api">Fallback position for v1 API</h4>
-<p>In the v1 API, <code>Reading.Value</code> is a string representation of the data. If this is maintained, the representation for Array types will follow the JSON array syntax, ie <code>["value1", "value2", ...]</code></p>
+<p>In the API (v1 and v2), <code>Reading.Value</code> is a string representation of the data. If this is maintained, the representation for Array types will follow the JSON array syntax, ie <code>["value1", "value2", ...]</code></p>
 <h2 id="consequences">Consequences</h2>
 <p>Any service which processes Readings will need to be reworked to account for the new Reading type.</p>
 <h3 id="device-service-considerations">Device Service considerations</h3>
