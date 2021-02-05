@@ -95,7 +95,7 @@ Do the following to use this tool:
 3. Use the `make gen <options>` command to generate your custom compose file. The generated docker compose file is named `docker-compose.yaml`.  Here are some examples:
 
    ```
-   make gen ds-mqtt mqtt 
+   make gen ds-mqtt mqtt-bus 
      - Generates secure compose file configured to use MQTT for the message bus, adds then MQTT broker and the Device MQTT services. 
    
    make gen no-secty ds-modbus 
