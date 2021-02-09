@@ -4,22 +4,22 @@
 
 ### Proposed
 
-- design for Hanoi
-- implementation for Ireland
+- design (initially) for Hanoi - but now being considered for Ireland
+- implementation TBD (desired feature targeted for Ireland or Jakarata)
 
 ## Context
 
-In EdgeX today, sensor/device data collected can be "filtered" by [application services](../../../microservices/application/ApplicationServices.md) before being exported or sent to some [north side](../../../general/Definitions.md#south-and-north-side) application or system. Built-in application service functions (available through the app services SDK) allow EdgeX event/reading objects to be filtered by device name or by device resource name.  That is, event/readings can be filtered by:
+In EdgeX today, sensor/device data collected can be "filtered" by [application services](../../../microservices/application/ApplicationServices.md) before being exported or sent to some [north side](../../../general/Definitions.md#south-and-north-side) application or system. Built-in application service functions (available through the app services SDK) allow EdgeX event/reading objects to be filtered by device name or by device ResourceName.  That is, event/readings can be filtered by:
 
 - which device sent the event/reading (as determined by the Event device property).
-- the classification or origin (such as temperature or humidity) of data produced by the device as determined by the Reading's name property (which used to be the value descriptor and now refers to the device resource name).
+- the classification or origin (such as temperature or humidity) of data produced by the device as determined by the Reading's name property (which used to be the value descriptor and now refers to the device ResourceName).
 
 ### Two Levels of Device Service Filtering
 
 There are potentially two places where "filtering" in a device service could be useful.  
 
 - One (Sensor Data Filter) - after the device service has communicated with the sensor or device to get sensor values (but before the service creates `Event/Reading` objects and pushes those to core data).  A sensor data filter would allow the device service to essentially ignore some of the raw sensed data.  This would allow for some device service optimization in that the device service would not have perform type transformations and creation of event/reading objects if the data can be eliminated at this early stage.  This first level filtering would, **if put in place**, likely occur in code associated with the read command gets done by the `ProtocolDriver`.
-- Two (Reading Filter) - after the sensor data has been collected and read and put into `Event/Reading` objects, there is a desire to filter some of the `Readings` based on the `Reading` values or `Reading` name (which is the device resource name and formerly the value descriptor name) or some combination of value and name.
+- Two (Reading Filter) - after the sensor data has been collected and read and put into `Event/Reading` objects, there is a desire to filter some of the `Readings` based on the `Reading` values or `Reading` name (which is the device ResourceName) or some combination of value and name.
 
 At this time, **this design only addresses the need for the second filter (Reading Filter)**.  At the time of this writing, no applicable use case has yet to be defined to warrant the Sensor Data Filter.
 
@@ -27,14 +27,17 @@ At this time, **this design only addresses the need for the second filter (Readi
 Reading filters will allow, not unlike application service filter functions today, to have `Readings` in an `Event` to be removed if:
 
 - the value was outside or inside some range, or the value was greater than, less than or equal to some value
-    - based on the `Reading` value (numeric) of a `Reading` outside a specified range (min/max) described in the device profile for a device resource.  Thus avoiding sending in outlier or jittery data `Readings` that could negatively effect analytics.
+    - based on the `Reading` value (numeric) of a `Reading` outside a specified range (min/max) described in the service configuration.  Thus avoiding sending in outlier or jittery data `Readings` that could negatively effect analytics.
     - based on the `Reading` value (numeric) equal to or near (with in some specified range) the last reading.  This allows a device service to reduce sending in `Event/Readings` that do not represent any significant change.  This differs from the already implemented onChangeOnly in that it is filtering `Readings` within a specified degree of change.
 - the value was the same as some or not the same as some specified value or values (for strings, boolean and other non-numeric values)
-- the name (the device resource name which used to be the value descriptor) matched a particular value; in other words match `temperature` or `humidity` as example device resources.
+- the value matches a pattern (glob and/or regex) when the value is a string.
+- the name (the device ResourceName) matched a particular value; in other words match `temperature` or `humidity` as example device resources.
 
 Unlike application services, there is not a need to filter on a device name (or identifier).  Simply disable the device in the device service if all `Event/Readings` are to be stopped for the device.
 
 In the case that all `Readings` of an `Event` are filtered, it is assumed the entire `Event` is deemed to be worthless and not sent to core data by the device service.  If only some `Readings` from and `Event` are filtered, the `Event` minus the filtered `Readings` would be sent to core data.
+
+The filter behaves the same whether the collection of `Readings` and `Events` is triggered by a scheduled collection of data from the underlying sensor/device or triggered by a command request (as from the command service).  Therefore, the call for a command request still results in a successful status code and a return of no results (or partial results) if the filter causes all or some of the readings to be removed.
 
 ### Design / Architecture
 
@@ -81,7 +84,7 @@ func NewReadingNameFilter(filterValues []string) Filter {
 
 If one were to explore the filtering functions in the app functions SDK [filter.go](https://github.com/edgexfoundry/app-functions-sdk-go/blob/master/pkg/transforms/filter.go) (both `FilterByDeviceName` and `FilterByValueDescriptor`), the filters operate on the `Event` model object and return the same objects (`Event` or nil).  Ideally, since both app services and device services generally share the same interface model (from `go-mod-core-contracts`), it would be the desire to share the same filter functions functions between SDKs and associated services.
 
-Decisions on how to do this in Go - whether by shared module for example - is left as an implementation detail.  C needs are likely to be handled in the SDK directly.
+Decisions on how to do this in Go - whether by shared module for example - is left as a future release design and implementation task - and as the need for common filter functions across device services and application services are identified in use cases.  C needs are likely to be handled in the SDK directly.
 
 #### Additional Design Considerations
 
@@ -99,16 +102,11 @@ When instructed to "get" new readings, the function [`execReadDeviceResource`](h
 
 After receiving the `CommandValues` the `execReadDeviceResource` function calls the `cvsToEvent` function convert the `CommandValues` into and `Event/Reading` objects (from `go-mod-core-contracts`) and returns this model to be sent via REST to core data by the rest of the SDK.
 
-It is precisely after the convert to `Event/Reading` objects and before returning that result in `common.SendEvent` (in utils.go) function that the device service should invoke the required filter functions.
+It is precisely after the convert to `Event/Reading` objects (after the async readings are assembled into events) and before returning that result in `common.SendEvent` (in utils.go) function that the device service should invoke the required filter functions.  In the existing V1 implementation of the device-sdk-go, commands, async readings, and auto-events all call the function `common.SendEvent()`.  This means that there would likely be several different places in the code which would need to call `FilterEvent`.  In the C SDK, it is likely that the filters will be called before conversion to Event/Reading objects - they will operate on commandresult objects (equivalent to CommandValues).
+
+The order in which functions are called is important when more than one filter is provided.  The order that functions are called should be reflected in the order listed in the configuration of the filters.
 
 Events containing binary values (event.HasBinaryValue), will not be filtered.  Future releases may include binary value filters.
-
-!!! TODO
-    *Where and how would this work for Async events? Need help from the DS team.*
-
-    *Are the Go and C SDKs similar enough to use this design?*
-
-    *Do we care about function order?*
 
 #### Setting Filter Function and Configuration
 
@@ -139,6 +137,7 @@ Suggested and hypothetical configuration for the device service reading filters 
             Min = 100
             Max = 200
 ```
+Note: this is not an exhaustive list of options for configuration.  For instance, change the `FilterByValueInRange` filter to `FilterByValueOutRange` in the example above and the function would filter the readings that lie outside 100-200 range versus inside as specified.
 
 ## Decision
 
