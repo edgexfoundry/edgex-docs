@@ -84,6 +84,6 @@ For devices with multiple `Device.Protocols`, each `Device.Protocol` is consider
 
 The values specified in `Identifiers` are regular expressions.
 
-**Note:** *the above is a whitelist+blacklist scheme. If a discovered Device is manually removed from EdgeX, it will be necessary to adjust the ProvisionWatcher via which it was added, either by making the `Identifiers` more specific or by adding `BlockingIdentifiers`, otherwise the Device will be re-added the next time Discovery is initiated.*
+**Note:** *If a discovered Device is manually removed from EdgeX, it will be necessary to adjust the ProvisionWatcher via which it was added, either by making the `Identifiers` more specific or by adding `BlockingIdentifiers`, otherwise the Device will be re-added the next time Discovery is initiated.*
 
 **Note:** *ProvisionWatchers are stored in core-metadata. A facility for managing ProvisionWatchers is needed, eg `edgex-cli` could be extended*
