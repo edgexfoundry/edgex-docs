@@ -24,36 +24,33 @@ The DS should provide the REST endpoints that are expected of all EdgeX microser
 | Endpoint | Methods
 | --- | ---
 | *callback/device* | `PUT` and `POST`
-| *callback/device/id/{id}* | `DELETE`
-| *callback/profile* | `PUT` and `POST`
-| *callback/profile/id/{id}* | `DELETE`
+| *callback/device/name/{name}* | `DELETE`
+| *callback/profile* | `PUT`
 | *callback/watcher* | `PUT` and `POST`
-| *callback/watcher/id/{id}* | `DELETE`
+| *callback/watcher/name/{name}* | `DELETE`
 
 | parameter | meaning
 | --- | ---
-| *{id}* | a database-generated object id
+| *{name}* | the name of the device or watcher
 
-These endpoints are used by the Core Metadata service to inform the device service of metadata updates. Endpoints are defined for each of the objects of interest to a device service, ie Devices, Device Profiles and Provision Watchers. On receipt of calls to these endpoints the device service should update its internal state accordingly.
+These endpoints are used by the Core Metadata service to inform the device service of metadata updates. Endpoints are defined for each of the objects of interest to a device service, ie Devices, Device Profiles and Provision Watchers. On receipt of calls to these endpoints the device service should update its internal state accordingly. Note that the device service does not need to be informed of the creation or deletion of device profiles, as these operations may only occur where no devices are associated with the profile. To avoid stale profile entries the device service should delete a profile from its cache when the last device using it is deleted.
 
 #### Object deletion
 
-When an object is deleted, the Metadata service makes a `DELETE` request to the relevant *callback/{type}/id/{id}* endpoint.
+When an object is deleted, the Metadata service makes a `DELETE` request to the relevant *callback/{type}/name/{name}* endpoint.
 
 #### Object creation and updates
 
-When an object is created or updated, the Metadata service makes a `POST` or `PUT` request respectively to the relevant *callback/{type}* endpoint. The payload of the request is the new or updated object.
+When an object is created or updated, the Metadata service makes a `POST` or `PUT` request respectively to the relevant *callback/{type}* endpoint. The payload of the request is the new or updated object, ie one of the Device, DeviceProfile or ProvisionWatcher DTOs.
 
 ### Device
 
 | Endpoint | Methods
 | --- | ---
 | *device/name/{name}/{command}* | `GET` and `PUT`
-| *device/{id}/{command}* | `GET` and `PUT`
 
 | parameter | meaning
 | --- | ---
-| *{id}* | a database-generated device id *or*
 | *{name}* | the name of the device
 | *{command}* | the command name
 
@@ -69,7 +66,7 @@ The command specified must match a deviceCommand or deviceResource name in the d
 | **423** | the specified device is locked (admin state) or disabled (operating state)
 | **500** | the device driver is unable to process the request
 
-**response body**: A successful `GET` operation will return a JSON-encoded Event, which contains one or more Readings. Example: `{"device":"Gyro","origin":1592405201763915855,"readings":[{"name":"Xrotation","value":"124","origin":1592405201763915855,"valueType":"int32"},{"name":"Yrotation","value":"-54","origin":1592405201763915855,"valueType":"int32"},{"name":"Zrotation","value":"122","origin":1592405201763915855,"valueType":"int32"}]}`
+**response body**: A successful `GET` operation will return a JSON-encoded EventResponse object, which contains one or more Readings. Example: `{"apiVersion":"v2","deviceName":"Gyro","origin":1592405201763915855,"readings":[{"deviceName":"Gyro","name":"Xrotation","value":"124","origin":1592405201763915855,"valueType":"int32"},{"deviceName":"Gyro","name":"Yrotation","value":"-54","origin":1592405201763915855,"valueType":"int32"},{"deviceName":"Gyro","name":"Zrotation","value":"122","origin":1592405201763915855,"valueType":"int32"}]}`
 
 This endpoint is used for obtaining readings from a device, and for writing settings to a device.
 
@@ -79,16 +76,16 @@ The values obtained when readings are taken, or used to make settings, are expre
 
 | Type | EdgeX types | Representation
 | --- | --- | ---
-| Boolean | `bool` | "true" or "false"
-| Integer | `uint8-uint64`, `int8-int64` | Numeric string, eg "-132"
-| Float | `float32`, `float64` | base64 encoded little-endian binary or decimal with exponent, eg "1.234e-5"
-| String | `string` | string
-| Binary | `bytes` | octet array
-| Array | `boolarray`, `uint8array-uint64array`, `int8array-int64array`, `float32array`, `float64array` | JSON Array, eg "["1", "34", "-5"]"
+| Boolean | `Bool` | "true" or "false"
+| Integer | `Uint8-Uint64`, `Int8-Int64` | Numeric string, eg "-132"
+| Float | `Float32`, `Float64` | Decimal with exponent, eg "1.234e-5"
+| String | `String` | string
+| Binary | `Bytes` | octet array
+| Array | `BoolArray`, `Uint8Array-Uint64Array`, `Int8Array-Int64Array`, `Float32Array`, `Float64Array` | JSON Array, eg "["1", "34", "-5"]"
 
 Notes:
 - The presence of a Binary reading will cause the entire Event to be encoded using CBOR rather than JSON
-- The representation of a float is determined by the *"floatEncoding"* attribute of the device resource. *"base64"* is the default, *"eNotation"* will cause the float to be written as a decimal with exponent.
+- Arrays of String and Binary data are not supported
 
 #### Readings and Events
 
@@ -96,12 +93,23 @@ A Reading represents a value obtained from a deviceResource. It contains the fol
 
 | Field name | Description
 | --- | ---
-| *name* | The name of the deviceResource
-| *valueType* | The type of the data
+| *deviceName* | The name of the device
+| *profileName* | The name of the Profile describing the Device
+| *resourceName* | The name of the deviceResource
 | *origin* | A timestamp indicating when the reading was taken
 | *value* | The reading value
-| *mediaType* | (Only for Binary readings) The MIME type of the data
-| *floatEncoding* | (Only for floats and arrays of floats) The float representation in use
+| *valueType* | The type of the data
+
+Or for binary Readings, the following fields
+
+| Field name | Description
+| --- | ---
+| *deviceName* | The name of the device
+| *profileName* | The name of the Profile describing the Device
+| *resourceName* | The name of the deviceResource
+| *origin* | A timestamp indicating when the reading was taken
+| *binaryValue* | The reading value
+| *mediaType* | The MIME type of the data
 
 An Event represents the result of a `GET` command. If the command names a deviceResource, the Event will contain a single Reading. If the command names a deviceCommand, the Event will contain as many Readings as there are deviceResources listed in the deviceCommand.
 
@@ -109,7 +117,8 @@ The fields of an Event are as follows:
 
 | Field name | Description
 | --- | ---
-| *device* | The name of the Device from which the Readings are taken
+| *deviceName* | The name of the Device from which the Readings are taken
+| *profileName* | The name of the Profile describing the Device
 | *origin* | The time at which the Event was created
 | *readings* | An array of Readings
 
@@ -119,12 +128,12 @@ Calls to the device endpoints may include a Query String in the URL. This may be
 
 | Parameter | Valid Values | Default | Meaning
 | --- | --- | --- | ---
-| *ds-postevent* | "yes" or "no" | "no" | If set to yes, a successful `GET` will result in an event being posted to core-data
+| *ds-pushevent* | "yes" or "no" | "no" | If set to yes, a successful `GET` will result in an event being pushed to the EdgeX system
 | *ds-returnevent* | "yes" or "no" | "yes" | If set to no, there will be no Event returned in the http response
 
 #### Device States
 
-A Device in EdgeX has two states associated with it: the Administrative state and the Operational state. The Administrative state may be set to `LOCKED` (normally `UNLOCKED`) to block access to the device for administrative reasons. The Operational state may be set to `DISABLED` (normally `ENABLED`) to indicate that the device is not currently working. In either case access to the device via this endpoint will be denied and HTTP 423 ("Locked") will be returned.
+A Device in EdgeX has two states associated with it: the Administrative state and the Operational state. The Administrative state may be set to `LOCKED` (normally `UNLOCKED`) to block access to the device for administrative reasons. The Operational state may be set to `DOWN` (normally `UP`) to indicate that the device is not currently working. In either case access to the device via this endpoint will be denied and HTTP 423 ("Locked") will be returned.
 
 #### Data Transformations
 
@@ -132,7 +141,7 @@ A number of simple data transformations may be defined in the deviceResource. Th
 
 | Transform | Applicable reading types | Effect
 | --- | --- | ---
-**mask** | Integers | The reading is bitwise masked with the specified value.
+**mask** | Integers | The reading is masked (bitwise-and operation) with the specified value.
 **shift** | Integers | The reading is bit-shifted by the specified value. Positive values indicate right-shift, negative for left.
 **base** | Integers and Floats | The reading is replaced by the specified value raised to the power of the reading.
 **scale** | Integers and Floats | The reading is multiplied by the specified value.
@@ -144,9 +153,15 @@ ie, `new-value = (current-value & !mask) | request-value`
 
 The combination of mask and shift can therefore be used to access data contained in a subdivision of an octet.
 
+It is possible that following the application of the specified transformations, a value may exceed the range that may be represented by its type. Should this occur on a set operation, a suitable error should be logged and returned, along with the `Bad Request` http code 400. If it occurs as part of a get operation, the Reading's value should be set to the String `"overflow"` and its valueType to `String`.
+
 #### Assertions and Mappings 
 
-Assertions are another attribute in a device resource's PropertyValue which specify a string value which the result is compared against. If the comparison fails, then the result is set to a string of the form *"Assertion failed for device resource: \<name>, with value: \<result>"*, this also has a side-effect of setting the device operatingstate to `DISABLED`. A 500 status code is also returned.
+Assertions are another attribute in a device resource's PropertyValue, which specify a string which the reading value is compared against. If the comparison fails, then the http request returns a string of the form *"Assertion failed for device resource: \<name>, with value: \<value>"*, this also has a side-effect of setting the device operatingstate to `DISABLED`. A 500 status code is also returned. Note that the error response and status code should be returned regardless of the `ds-returnevent` setting.
+
+Assertions are also checked where an event is being generated due to an AutoEvent, or asynchronous readings are pushed. In these cases if the assertion is triggered, an error should be logged and the operating state should be set as above.
+
+Assertions are not checked for settings, only for readings.
 
 Mappings may be defined in a deviceCommand. These allow Readings of string type to be remapped. Mappings are applied after assertions are checked, and are the final transformation before Readings are created. Mappings are also applied, but in reverse, to settings (`PUT` request data).
 
@@ -178,5 +193,6 @@ A call to this endpoint triggers the device discovery process, if enabled. See
 
 ## References
 
-OpenAPI definition of v2 API : https://github.com/edgexfoundry/device-sdk-go/blob/master/api/oas3.0/v2/device-sdk.yaml
+OpenAPI definition of v2 API : https://github.com/edgexfoundry/device-sdk-go/blob/master/openapi/v2/device-sdk.yaml
+
 Device Service Functional Requirements (Geneva) : https://wiki.edgexfoundry.org/download/attachments/329488/edgex-device-service-requirements-v11.pdf?version=1&modificationDate=1591621033000&api=v2
