@@ -2171,34 +2171,34 @@ precautions to safeguard the PKI:</p>
 ---------------------------------</p>
 <p>Configuration files for certificate parameters. These files conform to
 the following schema:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">{</span>
-<span class="err">    &quot;create_new_rootca&quot;: &quot;true|false&quot;,</span>
-<span class="err">    &quot;working_dir&quot;: &quot;./config&quot;,</span>
-<span class="err">    &quot;pki_setup_dir&quot;: &quot;pki&quot;,</span>
-<span class="err">    &quot;dump_config&quot;: &quot;true&quot;,</span>
-<span class="err">    &quot;key_scheme&quot;: {</span>
-<span class="err">        &quot;dump_keys&quot;: &quot;false&quot;,</span>
-<span class="err">        &quot;rsa&quot;: &quot;false&quot;,</span>
-<span class="err">        &quot;rsa_key_size&quot;: &quot;4096&quot;,</span>
-<span class="err">        &quot;ec&quot;: &quot;true&quot;,</span>
-<span class="err">        &quot;ec_curve&quot;: &quot;384&quot;</span>
-<span class="err">    },</span>
-<span class="err">    &quot;x509_root_ca_parameters&quot;: {</span>
-<span class="err">        &quot;ca_name&quot;: &quot;EdgeXFoundryCA&quot;,</span>
-<span class="err">        &quot;ca_c&quot;: &quot;US&quot;,</span>
-<span class="err">        &quot;ca_st&quot;: &quot;CA&quot;,</span>
-<span class="err">        &quot;ca_l&quot;: &quot;San Francisco&quot;,</span>
-<span class="err">        &quot;ca_o&quot;: &quot;EdgeXFoundry&quot;</span>
-<span class="err">    },</span>
-<span class="err">    &quot;x509_tls_server_parameters&quot;: {</span>
-<span class="err">        &quot;tls_host&quot;: &quot;edgex-vault|edgex-kong&quot;,</span>
-<span class="err">        &quot;tls_domain&quot;: &quot;local&quot;,</span>
-<span class="err">        &quot;tls_c&quot;: &quot;US&quot;,</span>
-<span class="err">        &quot;tls_st&quot;: &quot;CA&quot;,</span>
-<span class="err">        &quot;tls_l&quot;: &quot;San Francisco&quot;,</span>
-<span class="err">        &quot;tls_o&quot;: &quot;Kong&quot;</span>
-<span class="err">    }</span>
-<span class="err">}</span>
+<div class="codehilite"><pre><span></span><code>{
+    &quot;create_new_rootca&quot;: &quot;true|false&quot;,
+    &quot;working_dir&quot;: &quot;./config&quot;,
+    &quot;pki_setup_dir&quot;: &quot;pki&quot;,
+    &quot;dump_config&quot;: &quot;true&quot;,
+    &quot;key_scheme&quot;: {
+        &quot;dump_keys&quot;: &quot;false&quot;,
+        &quot;rsa&quot;: &quot;false&quot;,
+        &quot;rsa_key_size&quot;: &quot;4096&quot;,
+        &quot;ec&quot;: &quot;true&quot;,
+        &quot;ec_curve&quot;: &quot;384&quot;
+    },
+    &quot;x509_root_ca_parameters&quot;: {
+        &quot;ca_name&quot;: &quot;EdgeXFoundryCA&quot;,
+        &quot;ca_c&quot;: &quot;US&quot;,
+        &quot;ca_st&quot;: &quot;CA&quot;,
+        &quot;ca_l&quot;: &quot;San Francisco&quot;,
+        &quot;ca_o&quot;: &quot;EdgeXFoundry&quot;
+    },
+    &quot;x509_tls_server_parameters&quot;: {
+        &quot;tls_host&quot;: &quot;edgex-vault|edgex-kong&quot;,
+        &quot;tls_domain&quot;: &quot;local&quot;,
+        &quot;tls_c&quot;: &quot;US&quot;,
+        &quot;tls_st&quot;: &quot;CA&quot;,
+        &quot;tls_l&quot;: &quot;San Francisco&quot;,
+        &quot;tls_o&quot;: &quot;Kong&quot;
+    }
+}
 </code></pre></div>
 
 <p>When generating or caching, the utility hard-codes the names of the

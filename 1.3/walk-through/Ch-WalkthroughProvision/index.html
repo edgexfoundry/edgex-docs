@@ -2267,8 +2267,8 @@ defining its address. </p>
 <p>Ensure the monitor camera is among the devices known to core metadata.  If you make a GET call to the <code>http://localhost:48081/api/v1/device</code> URL (with Postman or curl) you will get a listing (in JSON) of all the device services currently defined of devices in your instance of EdgeX that should include the one you just added.</p>
 <p>There are many additional APIs on core metadata to retrieve a <code>Device</code>, <code>DeviceService</code>, etc. As an example, here is one to find
 all devices associated to a given <code>DeviceProfile</code>.</p>
-<div class="codehilite"><pre><span></span><code><span class="err">``` shell</span>
-<span class="err">curl -X GET http://localhost:48081/api/v1/device/profilename/camera+monitor+profile | json_pp</span>
+<div class="codehilite"><pre><span></span><code><span class="err">```</span> <span class="n">shell</span>
+<span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">http</span><span class="err">:</span><span class="c1">//localhost:48081/api/v1/device/profilename/camera+monitor+profile | json_pp</span>
 <span class="err">```</span>
 </code></pre></div>
 

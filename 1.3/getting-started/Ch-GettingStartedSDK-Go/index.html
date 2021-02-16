@@ -2352,33 +2352,33 @@ cp -rf ./device-sdk-go/example/* ./device-simple/
 <ul>
 <li>
 <p>Replace:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">MICROSERVICES=example/cmd/device-simple/device-simple</span>
+<div class="codehilite"><pre><span></span><code>MICROSERVICES=example/cmd/device-simple/device-simple
 </code></pre></div>
 
 <p>with:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">MICROSERVICES=cmd/device-simple/device-simple</span>
+<div class="codehilite"><pre><span></span><code>MICROSERVICES=cmd/device-simple/device-simple
 </code></pre></div>
 
 </li>
 <li>
 <p>Change:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">GOFLAGS=-ldflags &quot;-X github.com/edgexfoundry/device-sdk-go.Version=$(VERSION)&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">GOFLAGS</span><span class="o">=</span>-ldflags <span class="s2">&quot;-X github.com/edgexfoundry/device-sdk-go.Version=</span><span class="k">$(</span>VERSION<span class="k">)</span><span class="s2">&quot;</span>
 </code></pre></div>
 
 <p>to refer to the new service with:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">GOFLAGS=-ldflags &quot;-X github.com/edgexfoundry/device-simple.Version=$(VERSION)&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">GOFLAGS</span><span class="o">=</span>-ldflags <span class="s2">&quot;-X github.com/edgexfoundry/device-simple.Version=</span><span class="k">$(</span>VERSION<span class="k">)</span><span class="s2">&quot;</span>
 </code></pre></div>
 
 </li>
 <li>
 <p>Change:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">example/cmd/device-simple/device-simple:</span>
-<span class="err">  $(GO) build $(GOFLAGS) -o $@ ./example/cmd/device-simple</span>
+<div class="codehilite"><pre><span></span><code><span class="nf">example/cmd/device-simple/device-simple</span><span class="o">:</span>
+  <span class="k">$(</span>GO<span class="k">)</span> build <span class="k">$(</span>GOFLAGS<span class="k">)</span> -o <span class="nv">$@</span> ./example/cmd/device-simple
 </code></pre></div>
 
 <p>to:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">cmd/device-simple/device-simple:</span>
-<span class="err">  $(GO) build $(GOFLAGS) -o $@ ./cmd/device-simple</span>
+<div class="codehilite"><pre><span></span><code><span class="nf">cmd/device-simple/device-simple</span><span class="o">:</span>
+  <span class="k">$(</span>GO<span class="k">)</span> build <span class="k">$(</span>GOFLAGS<span class="k">)</span> -o <span class="nv">$@</span> ./cmd/device-simple
 </code></pre></div>
 
 </li>
@@ -2390,7 +2390,7 @@ cp -rf ./device-sdk-go/example/* ./device-simple/
 <li>
 <p>Enter the following command to create the initial module definition
     and write it to the go.mod file:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">GO111MODULE=on go mod init</span>
+<div class="codehilite"><pre><span></span><code><span class="n">GO111MODULE</span><span class="o">=</span><span class="k">on</span><span class="w"> </span><span class="k">go</span><span class="w"> </span><span class="k">mod</span><span class="w"> </span><span class="n">init</span><span class="w"></span>
 </code></pre></div>
 
 <p><img alt="image" src="../EdgeX_GettingStartedGoModInit.png" /></p>
