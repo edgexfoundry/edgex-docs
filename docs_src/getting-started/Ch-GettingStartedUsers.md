@@ -105,7 +105,7 @@ Do the following to use this tool:
      - Generates non-secure compose file for ARM64 with just the Device Grove device service.
    ```
 
-​      See the [README](https://github.com/edgexfoundry/developer-scripts/blob/v1.3.0/compose-builder/README.md) here for details on all available options for `make gen`.
+​      See the [README](https://github.com/edgexfoundry/developer-scripts/blob/hanoi/compose-builder/README.md) here for details on all available options for `make gen`.
 
 !!! Note
     The generated docker compose file may need addition customizations for your specific needs, such as environment override(s) to set appropriate Host IP address, etc.
