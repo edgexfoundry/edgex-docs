@@ -1265,6 +1265,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#custom-triggers" class="md-nav__link">
+    Custom Triggers
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2254,6 +2261,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#custom-triggers" class="md-nav__link">
+    Custom Triggers
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2389,6 +2403,97 @@ The <code>Type=</code> is set to <code>external-mqtt</code>. To receive data fro
 <p class="admonition-title">Note</p>
 <p>The data received, encoded as JSON or CBOR, must match the <code>TargetType</code> defined by your application service. The default  <code>TargetType</code> is an <code>Edgex Event</code>. See <a href="../AdvancedTopics/#target-type">TargetType</a> for more details.</p>
 </div>
+<h2 id="custom-triggers">Custom Triggers</h2>
+<p>It is also possible to define your own trigger and register a factory function for it with the SDK.  You can then configure the trigger by registering a factory function to build it along with a name to use in the config file.  These triggers can be registered with:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">sdk</span><span class="p">.</span><span class="nx">RegisterCustomTriggerFactory</span><span class="p">(</span><span class="s">&quot;my-trigger-name&quot;</span><span class="p">,</span> <span class="nx">myFactoryFunc</span><span class="p">)</span> 
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can NOT override trigger names built into the SDK ("http", "edgex-messagebus", "external-mqtt") for a custom trigger.</p>
+</div>
+<p>The trigger factory function is bound to an instance of a trigger configuration struct that is provided by the SDK:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">TriggerConfig</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Config</span>           <span class="o">*</span><span class="nx">common</span><span class="p">.</span><span class="nx">ConfigurationStruct</span>
+    <span class="nx">Logger</span>           <span class="nx">logger</span><span class="p">.</span><span class="nx">LoggingClient</span>
+    <span class="nx">ContextBuilder</span>   <span class="nx">TriggerContextBuilder</span>
+    <span class="nx">MessageProcessor</span> <span class="nx">TriggerMessageProcessor</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This type carries a pointer to the internal edgex configuration and logger, along with two functions:</p>
+<ul>
+<li><code>ContextBuilder</code> builds an <code>*appcontext.Context</code> from a message envelope you construct.</li>
+<li><code>MessageProcessor</code> exposes a function that sends your message envelope and context built above into the edgex function pipeline.</li>
+</ul>
+<p>The custom trigger constructed here will then need to implement the trigger interface so that the SDK can invoke it:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">Trigger</span> <span class="kd">interface</span> <span class="p">{</span>
+    <span class="nx">Initialize</span><span class="p">(</span><span class="nx">wg</span> <span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">,</span> <span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">background</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="nx">types</span><span class="p">.</span><span class="nx">MessageEnvelope</span><span class="p">)</span> <span class="p">(</span><span class="nx">bootstrap</span><span class="p">.</span><span class="nx">Deferred</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This leaves a lot of flexibility for how you want the trigger to behave (for example you could write a trigger to watch for file changes, or run on a timer).  Below is a sample implementation of a trigger to read lines from os.Stdin and pass the captured string through the edgex function pipeline.  In this case the target type for the service is <code>&amp;[]byte{}</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">stdinTrigger</span> <span class="kd">struct</span><span class="p">{</span>
+    <span class="nx">tc</span> <span class="nx">appsdk</span><span class="p">.</span><span class="nx">TriggerConfig</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">stdinTrigger</span><span class="p">)</span> <span class="nx">Initialize</span><span class="p">(</span><span class="nx">wg</span> <span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">,</span> <span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">background</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="nx">types</span><span class="p">.</span><span class="nx">MessageEnvelope</span><span class="p">)</span> <span class="p">(</span><span class="nx">bootstrap</span><span class="p">.</span><span class="nx">Deferred</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">msgs</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span>
+
+    <span class="nx">ctx</span><span class="p">,</span> <span class="nx">cancel</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">WithCancel</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">())</span>
+
+    <span class="nx">receiveMessage</span> <span class="o">:=</span> <span class="kc">true</span>
+
+    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nx">Print</span><span class="p">(</span><span class="s">&quot;&gt; &quot;</span><span class="p">)</span>
+        <span class="nx">rdr</span> <span class="o">:=</span> <span class="nx">bufio</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdin</span><span class="p">)</span>
+        <span class="k">for</span> <span class="nx">receiveMessage</span> <span class="p">{</span>
+            <span class="nx">s</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">rdr</span><span class="p">.</span><span class="nx">ReadString</span><span class="p">(</span><span class="sc">&#39;\n&#39;</span><span class="p">)</span>
+            <span class="nx">s</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimRight</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+                <span class="nx">t</span><span class="p">.</span><span class="nx">tc</span><span class="p">.</span><span class="nx">Logger</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
+                <span class="k">continue</span>
+            <span class="p">}</span>
+
+            <span class="nx">msgs</span> <span class="o">&lt;-</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}()</span>
+
+    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="nx">receiveMessage</span> <span class="p">{</span>
+            <span class="k">select</span> <span class="p">{</span>
+            <span class="k">case</span> <span class="o">&lt;-</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">Done</span><span class="p">():</span>
+                <span class="nx">receiveMessage</span> <span class="p">=</span> <span class="kc">false</span>
+
+            <span class="k">case</span> <span class="nx">m</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">msgs</span><span class="p">:</span>
+                <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="nx">env</span> <span class="o">:=</span> <span class="nx">types</span><span class="p">.</span><span class="nx">MessageEnvelope</span><span class="p">{</span>
+                        <span class="nx">Payload</span><span class="p">:</span> <span class="nx">m</span><span class="p">,</span>
+                    <span class="p">}</span>
+
+                    <span class="nx">ctx</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">tc</span><span class="p">.</span><span class="nx">ContextBuilder</span><span class="p">(</span><span class="nx">env</span><span class="p">)</span>
+
+                    <span class="nx">err</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">tc</span><span class="p">.</span><span class="nx">MessageProcessor</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">env</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+                        <span class="nx">t</span><span class="p">.</span><span class="nx">tc</span><span class="p">.</span><span class="nx">Logger</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
+                    <span class="p">}</span>
+                <span class="p">}()</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}()</span>
+
+    <span class="k">return</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">cancel</span><span class="p">()</span>
+    <span class="p">},</span> <span class="kc">nil</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This trigger can then be registered by calling:</p>
+<p><div class="highlight"><pre><span></span><code><span class="nx">edgexSdk</span><span class="p">.</span><span class="nx">RegisterCustomTriggerFactory</span><span class="p">(</span><span class="s">&quot;custom-stdin&quot;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">config</span> <span class="nx">appsdk</span><span class="p">.</span><span class="nx">TriggerConfig</span><span class="p">)</span> <span class="p">(</span><span class="nx">appsdk</span><span class="p">.</span><span class="nx">Trigger</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">&amp;</span><span class="nx">stdinTrigger</span><span class="p">{</span>
+        <span class="nx">tc</span><span class="p">:</span> <span class="nx">config</span><span class="p">,</span>
+    <span class="p">},</span> <span class="kc">nil</span>
+<span class="p">})</span>
+</code></pre></div>
+A complete working example can be found <a href="https://github.com/edgexfoundry/edgex-examples/tree/master/application-services/custom/custom-trigger">here</a></p>
                 
               
               
