@@ -28,13 +28,7 @@ The permitted values of the `Type` field in `PropertyValue` are extended to incl
 
 ### Readings
 
-#### Implementation in v2 API
-
-The `value` field of `SimpleReading` becomes an array of strings. For non-array types, an array of length 1 is created.
-
-#### Fallback position for v1 API
-
-In the v1 API, `Reading.Value` is a string representation of the data. If this is maintained, the representation for Array types will follow the JSON array syntax, ie `["value1", "value2", ...]`
+In the API (v1 and v2), `Reading.Value` is a string representation of the data. If this is maintained, the representation for Array types will follow the JSON array syntax, ie `["value1", "value2", ...]`
 
 ## Consequences
 

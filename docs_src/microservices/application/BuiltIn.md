@@ -168,12 +168,6 @@ These are functions that enable interactions with the CoreData REST API.
 |----------------------------------|-------------|
 | NewCoreData() | This function returns a `CoreData` instance. This `CoreData` instance is used to access core data functions.
 
-### Mark As Pushed
-`MarkAsPushed` - This function provides the MarkAsPushed function from the context as a First-Class Transform that can be called in your pipeline. [See Definition Above](#.MarkAsPushed()). The data passed into this function from the pipeline is passed along unmodified since all required information is provided on the context (EventId, CorrelationId,etc.. )
-```go
-NewCoreData().MarkAsPushed
-```
-
 ### Push to Core
 `PushToCore` - This function provides the PushToCore function from the context as a First-Class Transform that can be called in your pipeline. [See Definition Above](#.PushToCore()). The data passed into this function from the pipeline is wrapped in an EdgeX event with the `deviceName` and `readingName` that were set upon the `CoreData` instance and then sent to Core Data service to be added as an event. Returns the new EdgeX event with ID populated.
 ```go

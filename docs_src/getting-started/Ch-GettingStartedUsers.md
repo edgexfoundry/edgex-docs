@@ -74,6 +74,42 @@ Once you have selected the EdgeX Compose file you want to use, download it using
 !!! Note
     The commands above fetch the Docker Compose to a file named 'docker-compose.yml' in the current directory.  Docker Compose commands look for a file named 'docker-compose.yml' by default.  You can use an alternate file name but then must specify that file name when issuing Docker Compose commands.  See Compose [reference documentation](https://docs.docker.com/compose/reference/overview/) for help.  
 
+### Generate a custom docker compose file
+
+The docker compose files under the `releases/hanoi` folder contain the standard set of EdgeX services configured to use `ZeroMQ` for the message bus and include only the Virtual and REST device services. If you need to have different device services running or use `MQTT` for the message bus, you need a modified version of one of the standard docker files. You could manually add the device services to one of the existing EdgeX compose files or, use the EdgeX Compose Builder tool to generate a new custom compose file that contains the services you would like included. When you use Compose Builder, you don't have to worry about adding all the necessary ports, variables, etc. as the tool will generate the service elements in the file for you. The [`Compose Builder`](https://github.com/edgexfoundry/developer-scripts/tree/v1.3.0/compose-builder) tool was added for the Hanoi release. This tool allows users to generate custom compose files. 
+
+Do the following to use this tool:
+
+1. Clone the `developer-scripts` repository.
+
+   ```
+   git clone https://github.com/edgexfoundry/developer-scripts.git
+   ```
+
+2. Checkout the Hanoi tag
+
+   ```
+   git checkout v1.3.0
+   ```
+
+3. Use the `make gen <options>` command to generate your custom compose file. The generated docker compose file is named `docker-compose.yaml`.  Here are some examples:
+
+   ```
+   make gen ds-mqtt mqtt 
+     - Generates secure compose file configured to use MQTT for the message bus, adds then MQTT broker and the Device MQTT services. 
+   
+   make gen no-secty ds-modbus 
+     - Generates non-secure compose file with just the Device Modbus device service.
+   
+   make gen no-secty arm64 ds-grove 
+     - Generates non-secure compose file for ARM64 with just the Device Grove device service.
+   ```
+
+​      See the [README](https://github.com/edgexfoundry/developer-scripts/blob/v1.3.0/compose-builder/README.md) here for details on all available options for `make gen`.
+
+!!! Note
+    The generated docker compose file may need addition customizations for your specific needs, such as environment override(s) to set appropriate Host IP address, etc.
+
 ### Run EdgeX Foundry
 
 Now that you have the EdgeX Docker Compose file, you are ready

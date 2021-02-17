@@ -86,29 +86,33 @@ The App Service SDK will be enhanced for the secure MessageBus connection descri
 
 > *Note: The change recommended here is not required for this design, but it provides a good opportunity to adopt it.*
 
-Currently Core Data publishes Events to the simple `events` topic. All Application Services running receive every Event published, whether they want them or not. The Events can be filtered out using the `FilterByDeviceName` pipeline function, but the Application Services still receives every Event and process all the Events to some extent. This could cause load issues in a deployment with many devices and large volume of Events from various devices or a very verbose device that the Application Services is not interested in.
+Currently Core Data publishes Events to the simple `events` topic. All Application Services running receive every Event published, whether they want them or not. The Events can be filtered out using the `FilterByDeviceName` or `FilterByResourceName` pipeline functions, but the Application Services still receives every Event and process all the Events to some extent. This could cause load issues in a deployment with many devices and large volume of Events from various devices or a very verbose device that the Application Services is not interested in.
 
 > *Note: The current `FilterByDeviceName` is only good if the device name is known statically and the only instance of the device defined by the `DeviceProfileName`. What we really need is `FilterByDeviceProfileName` which allows multiple instances of a device to be filtered for, rather than a single instance as it it now. The V2 API will be adding `DeviceProfileName` to the Events, so in Ireland this  filter will be possible.*
 
-Pub/Sub systems have advanced topic schema, which we can take advantage of from Application Services to filter for just the Events the Application Service actual wants. Publishers of Events must add the `DeviceProfileName` and/or `DeviceName` to the topic in the form `edgex/events/<device-profile-name>/<device-name>`. This allows Application Services to filter for just the Events from the device(s) it wants by only subscribing to those `DeviceProfileNames` or the specific `DeviceNames`. Example subscribe topics if above schema is used:
+Pub/Sub systems have advanced topic schema, which we can take advantage of from Application Services to filter for just the Events the Application Service actual wants. Publishers of Events must add the `DeviceProfileName`, `DeviceName` and `SourceName` to the topic in the form `edgex/events/<device-profile-name>/<device-name>/<source-name>`. The `SourceName` is the `Resource` or `Command` name used to create the Event. This allows Application Services to filter for just the Events from the device(s) it wants by only subscribing to those `DeviceProfileNames` or the specific `DeviceNames` or just the specific `SourceNames`  Example subscribe topics if above schema is used:
 
 - **edgex/events/#**
   - All Events 
   - Core Data will subscribe using this topic schema
 - **edgex/events/Random-Integer-Device/#** 
-  - Only Events from devices created from the **Random-Integer-Device** device profile
+  - Any Events from devices created from the **Random-Integer-Device** device profile
 - **edgex/events/Random-Integer-Device/Random-Integer-Device1** 
   - Only Events from the **Random-Integer-Device1** Device
+- **edgex/events/Random-Integer-Device/#/Int16**
+  - Any Events with Readings from`Int16` device resource from devices created from the **Random-Integer-Device** device profile. 
+- **edgex/events/Modbus-Device/#/HVACValues
+  - Any Events with Readings from `HVACValues` device command from devices created from the **Modbus-Device** device profile.
 
 The MessageBus abstraction allows for multiple subscriptions, so an Application Service could specify to receive data from multiple specific device profiles or devices by creating multiple subscriptions. i.e.  `edgex/Events/Random-Integer-Device/#` and  `edgex/Events/Random-Boolean-Device/#`. Currently the App SDK only allows for a single subscription topic to be configured, but that could easily be expanded to handle a list of subscriptions. See [Configuration](#configuration) section below for details. 
 
-Core Data's existing publishing of Events would also need to be changed to use this new topic schema. One challenge with this is Core Data doesn't currently know the `DeviceProfileName` or `DeviceName` when it receives a CBOR encoded event. This is because it doesn't decode the Event until after it has published it to the MessageBus. The V2 API will be enhanced to change the AddEvent endpoint from `/event` to `/event/{profile}/{device}` so that `DeviceProfileName` and `DeviceName` are always know no matter how the request is encoded.
+Core Data's existing publishing of Events would also need to be changed to use this new topic schema. One challenge with this is Core Data doesn't currently know the `DeviceProfileName` or `DeviceName` when it receives a CBOR encoded event. This is because it doesn't decode the Event until after it has published it to the MessageBus. Also, Core Data doesn't know of `SourceName` at all. The V2 API will be enhanced to change the AddEvent endpoint from `/event` to `/event/{profile}/{device}/{source}` so that `DeviceProfileName`, `DeviceName`, and `SourceName` are always know no matter how the request is encoded.
 
-This new topic approach will be enabled via each publisher's `PublishTopic` having the `DeviceProfileName` and `DeviceName`  added to the configured `PublishTopicPrefix`
+This new topic approach will be enabled via each publisher's `PublishTopic` having the `DeviceProfileName`, `DeviceName`and `SourceName`  added to the configured `PublishTopicPrefix`
 
 ```toml
 
-PublishTopicPrefix = 'edgex/events' # /<device-profile-name>/<device-name> will be added to this Publish Topic prefix
+PublishTopicPrefix = 'edgex/events' # /<device-profile-name>/<device-name>/<source-name> will be added to this Publish Topic prefix
 ```
 
 See [Configuration](#configuration) section below for details. 
@@ -130,7 +134,7 @@ Protocol = 'tcp'
 Host = 'localhost'
 Port = 1883
 Type = 'mqtt'
-PublishTopicPrefix = 'edgex/events' # /<device-profile-name>/<device-name> will be added to this Publish Topic prefix
+PublishTopicPrefix = 'edgex/events' # /<device-profile-name>/<device-name>/<source-name> will be added to this Publish Topic prefix
 [MessageQueue.Optional]
     # Default MQTT Specific options that need to be here to enable environment variable overrides of them
     # Client Identifiers
@@ -160,7 +164,7 @@ Protocol = 'tcp'
 Host = 'localhost'
 Port = 1883
 Type = 'mqtt'
-PublishTopicPrefix = 'edgex/events' # /<device-profile-name>/<device-name> will be added to this Publish Topic prefix
+PublishTopicPrefix = 'edgex/events' # /<device-profile-name>/<device-name>/<source-name> will be added to this Publish Topic prefix
 SubscribeEnabled = true
 SubscribeTopic = 'edgex/events/#'
 [MessageQueue.Optional]
