@@ -2266,23 +2266,23 @@ Lastly, on a system supporting it, the snap may be installed using GNOME (or Ubu
 </div>
 <h2 id="using-the-edgex-snap">Using the EdgeX snap</h2>
 <p>Upon installation, the following EdgeX services are automatically and immediately started:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">- consul</span>
-<span class="err">- redis</span>
-<span class="err">- core-data</span>
-<span class="err">- core-command</span>
-<span class="err">- core-metadata</span>
-<span class="err">- security-services (see note below)</span>
+<div class="codehilite"><pre><span></span><code>- consul
+- redis
+- core-data
+- core-command
+- core-metadata
+- security-services (see note below)
 </code></pre></div>
 
 <p>The following services are disabled by default:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">- app-service-configurable (required for Kuiper and support-rulesengine)</span>
-<span class="err">- device-virtual</span>
-<span class="err">- kuiper</span>
-<span class="err">- support-logging</span>
-<span class="err">- support-notifications</span>
-<span class="err">- support-rulesengine (deprecated)</span>
-<span class="err">- support-scheduler</span>
-<span class="err">- sys-mgmt-agent</span>
+<div class="codehilite"><pre><span></span><code><span class="o">-</span> <span class="nv">app</span><span class="o">-</span><span class="nv">service</span><span class="o">-</span><span class="nv">configurable</span> <span class="ss">(</span><span class="nv">required</span> <span class="k">for</span> <span class="nv">Kuiper</span> <span class="nv">and</span> <span class="nv">support</span><span class="o">-</span><span class="nv">rulesengine</span><span class="ss">)</span>
+<span class="o">-</span> <span class="nv">device</span><span class="o">-</span><span class="nv">virtual</span>
+<span class="o">-</span> <span class="nv">kuiper</span>
+<span class="o">-</span> <span class="nv">support</span><span class="o">-</span><span class="nv">logging</span>
+<span class="o">-</span> <span class="nv">support</span><span class="o">-</span><span class="nv">notifications</span>
+<span class="o">-</span> <span class="nv">support</span><span class="o">-</span><span class="nv">rulesengine</span> <span class="ss">(</span><span class="nv">deprecated</span><span class="ss">)</span>
+<span class="o">-</span> <span class="nv">support</span><span class="o">-</span><span class="nv">scheduler</span>
+<span class="o">-</span> <span class="nv">sys</span><span class="o">-</span><span class="nv">mgmt</span><span class="o">-</span><span class="nv">agent</span>
 </code></pre></div>
 
 <p>Any disabled services can be enabled and started up using snap set:</p>
@@ -2309,12 +2309,12 @@ Or by using the systemd unit name and journalctl:</p>
 </code></pre></div>
 <h2 id="security-services">Security services</h2>
 <p>Currently, the security services are enabled by default. The security services consitute the following components:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">- Kong</span>
-<span class="err">- PostgreSQL</span>
-<span class="err">- Vault</span>
-<span class="err">- security-secrets-setup</span>
-<span class="err">- security-secretstore-setup</span>
-<span class="err">- security-proxy-setup</span>
+<div class="codehilite"><pre><span></span><code>- Kong
+- PostgreSQL
+- Vault
+- security-secrets-setup
+- security-secretstore-setup
+- security-proxy-setup
 </code></pre></div>
 
 <p>Vault is used for secret management, and Kong is used as an HTTPS proxy for all the services.</p>

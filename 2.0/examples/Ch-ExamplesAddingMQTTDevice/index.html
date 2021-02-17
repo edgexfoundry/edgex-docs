@@ -2400,7 +2400,7 @@ provides a straight-forward way to test the device-mqtt features.</p>
 <p>Eclipse Mosquitto is an open source (EPL/EDL licensed) message broker
 that implements the MQTT protocol versions 5.0, 3.1.1 and 3.1.</p>
 <p>Run Mosquitto using the following docker command:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker run -d --rm --name broker -p 1883:1883 eclipse-mosquitto</span>
+<div class="codehilite"><pre><span></span><code>docker run -d --rm --name broker -p 1883:1883 eclipse-mosquitto
 </code></pre></div>
 
 <h2 id="run-an-mqtt-device-simulator">Run an MQTT Device Simulator</h2>
@@ -2463,10 +2463,10 @@ following changes:</p>
 <li>
 <p>Replace the mqtt-broker-ip in the example docker run command with
     the correct broker IP:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">mv mock-device.js /path/to/mqtt-scripts</span>
-<span class="err">docker run -d --restart=always --name=mqtt-scripts \</span>
-<span class="err">  -v /path/to/mqtt-scripts:/scripts  \</span>
-<span class="err">  dersimn/mqtt-scripts --url mqtt://mqtt-broker-ip --dir /scripts</span>
+<div class="codehilite"><pre><span></span><code>mv mock-device.js /path/to/mqtt-scripts
+docker run -d --restart=always --name=mqtt-scripts \
+  -v /path/to/mqtt-scripts:/scripts  \
+  dersimn/mqtt-scripts --url mqtt://mqtt-broker-ip --dir /scripts
 </code></pre></div>
 
 </li>
@@ -2474,11 +2474,11 @@ following changes:</p>
 <h3 id="setup">Setup</h3>
 <p>In this section, we create a folder that contains files required for
 deployment:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">- device-service-demo</span>
-<span class="err">  |- docker-compose.yml</span>
-<span class="err">  |- mqtt</span>
-<span class="err">     |- configuration.toml</span>
-<span class="err">     |- mqtt.test.device.profile.yml</span>
+<div class="codehilite"><pre><span></span><code>- device-service-demo
+  |- docker-compose.yml
+  |- mqtt
+     |- configuration.toml
+     |- mqtt.test.device.profile.yml
 </code></pre></div>
 
 <h2 id="device-profile-mqtttestdeviceprofileyml">Device Profile (mqtt.test.device.profile.yml)</h2>
@@ -2486,108 +2486,108 @@ deployment:</p>
 which can be Read or Write.</p>
 <p>Create a device profile, named mqtt.test.device.profile.yml, with the
 following content:</p>
-<div class="codehilite"><pre><span></span><code><span class="o">#</span> <span class="n">mqtt</span><span class="p">.</span><span class="n">test</span><span class="p">.</span><span class="n">device</span><span class="p">.</span><span class="n">profile</span><span class="p">.</span><span class="n">yml</span>
-<span class="n">name</span><span class="p">:</span> <span class="ss">&quot;Test.Device.MQTT.Profile&quot;</span>
-<span class="n">manufacturer</span><span class="p">:</span> <span class="ss">&quot;iot&quot;</span>
-<span class="n">model</span><span class="p">:</span> <span class="ss">&quot;MQTT-DEVICE&quot;</span>
-<span class="n">description</span><span class="p">:</span> <span class="ss">&quot;Test device profile&quot;</span>
-<span class="n">labels</span><span class="p">:</span>
-  <span class="o">-</span> <span class="ss">&quot;mqtt&quot;</span>
-  <span class="o">-</span> <span class="ss">&quot;test&quot;</span>
-<span class="n">deviceResources</span><span class="p">:</span>
+<div class="codehilite"><pre><span></span><code># <span class="nv">mqtt</span>.<span class="nv">test</span>.<span class="nv">device</span>.<span class="nv">profile</span>.<span class="nv">yml</span>
+<span class="nv">name</span>: <span class="s2">&quot;</span><span class="s">Test.Device.MQTT.Profile</span><span class="s2">&quot;</span>
+<span class="nv">manufacturer</span>: <span class="s2">&quot;</span><span class="s">iot</span><span class="s2">&quot;</span>
+<span class="nv">model</span>: <span class="s2">&quot;</span><span class="s">MQTT-DEVICE</span><span class="s2">&quot;</span>
+<span class="nv">description</span>: <span class="s2">&quot;</span><span class="s">Test device profile</span><span class="s2">&quot;</span>
+<span class="nv">labels</span>:
+  <span class="o">-</span> <span class="s2">&quot;</span><span class="s">mqtt</span><span class="s2">&quot;</span>
+  <span class="o">-</span> <span class="s2">&quot;</span><span class="s">test</span><span class="s2">&quot;</span>
+<span class="nv">deviceResources</span>:
   <span class="o">-</span>
-    <span class="n">name</span><span class="p">:</span> <span class="n">randnum</span>
-    <span class="n">description</span><span class="p">:</span> <span class="ss">&quot;device random number&quot;</span>
-    <span class="n">properties</span><span class="p">:</span>
-      <span class="n">value</span><span class="p">:</span>
-        <span class="err">{</span> <span class="k">type</span><span class="p">:</span> <span class="ss">&quot;Float64&quot;</span><span class="p">,</span> <span class="k">size</span><span class="p">:</span> <span class="ss">&quot;4&quot;</span><span class="p">,</span> <span class="n">readWrite</span><span class="p">:</span> <span class="ss">&quot;R&quot;</span><span class="p">,</span> <span class="n">floatEncoding</span><span class="p">:</span> <span class="ss">&quot;eNotation&quot;</span>  <span class="err">}</span>
-      <span class="n">units</span><span class="p">:</span>
-        <span class="err">{</span> <span class="k">type</span><span class="p">:</span> <span class="ss">&quot;String&quot;</span><span class="p">,</span> <span class="n">readWrite</span><span class="p">:</span> <span class="ss">&quot;R&quot;</span><span class="p">,</span> <span class="n">defaultValue</span><span class="p">:</span> <span class="ss">&quot;&quot;</span> <span class="err">}</span>
+    <span class="nv">name</span>: <span class="nv">randnum</span>
+    <span class="nv">description</span>: <span class="s2">&quot;</span><span class="s">device random number</span><span class="s2">&quot;</span>
+    <span class="nv">properties</span>:
+      <span class="nv">value</span>:
+        { <span class="nv">type</span>: <span class="s2">&quot;</span><span class="s">Float64</span><span class="s2">&quot;</span>, <span class="nv">size</span>: <span class="s2">&quot;</span><span class="s">4</span><span class="s2">&quot;</span>, <span class="nv">readWrite</span>: <span class="s2">&quot;</span><span class="s">R</span><span class="s2">&quot;</span>, <span class="nv">floatEncoding</span>: <span class="s2">&quot;</span><span class="s">eNotation</span><span class="s2">&quot;</span>  }
+      <span class="nv">units</span>:
+        { <span class="nv">type</span>: <span class="s2">&quot;</span><span class="s">String</span><span class="s2">&quot;</span>, <span class="nv">readWrite</span>: <span class="s2">&quot;</span><span class="s">R</span><span class="s2">&quot;</span>, <span class="nv">defaultValue</span>: <span class="s2">&quot;&quot;</span> }
   <span class="o">-</span>
-    <span class="n">name</span><span class="p">:</span> <span class="n">ping</span>
-    <span class="n">description</span><span class="p">:</span> <span class="ss">&quot;device awake&quot;</span>
-    <span class="n">properties</span><span class="p">:</span>
-      <span class="n">value</span><span class="p">:</span>
-        <span class="err">{</span> <span class="k">type</span><span class="p">:</span> <span class="ss">&quot;String&quot;</span><span class="p">,</span> <span class="k">size</span><span class="p">:</span> <span class="ss">&quot;0&quot;</span><span class="p">,</span> <span class="n">readWrite</span><span class="p">:</span> <span class="ss">&quot;R&quot;</span><span class="p">,</span> <span class="n">defaultValue</span><span class="p">:</span> <span class="ss">&quot;pong&quot;</span> <span class="err">}</span>
-      <span class="n">units</span><span class="p">:</span>
-        <span class="err">{</span> <span class="k">type</span><span class="p">:</span> <span class="ss">&quot;String&quot;</span><span class="p">,</span> <span class="n">readWrite</span><span class="p">:</span> <span class="ss">&quot;R&quot;</span><span class="p">,</span> <span class="n">defaultValue</span><span class="p">:</span> <span class="ss">&quot;&quot;</span> <span class="err">}</span>
+    <span class="nv">name</span>: <span class="nv">ping</span>
+    <span class="nv">description</span>: <span class="s2">&quot;</span><span class="s">device awake</span><span class="s2">&quot;</span>
+    <span class="nv">properties</span>:
+      <span class="nv">value</span>:
+        { <span class="nv">type</span>: <span class="s2">&quot;</span><span class="s">String</span><span class="s2">&quot;</span>, <span class="nv">size</span>: <span class="s2">&quot;</span><span class="s">0</span><span class="s2">&quot;</span>, <span class="nv">readWrite</span>: <span class="s2">&quot;</span><span class="s">R</span><span class="s2">&quot;</span>, <span class="nv">defaultValue</span>: <span class="s2">&quot;</span><span class="s">pong</span><span class="s2">&quot;</span> }
+      <span class="nv">units</span>:
+        { <span class="nv">type</span>: <span class="s2">&quot;</span><span class="s">String</span><span class="s2">&quot;</span>, <span class="nv">readWrite</span>: <span class="s2">&quot;</span><span class="s">R</span><span class="s2">&quot;</span>, <span class="nv">defaultValue</span>: <span class="s2">&quot;&quot;</span> }
   <span class="o">-</span>
-    <span class="n">name</span><span class="p">:</span> <span class="n">message</span>
-    <span class="n">description</span><span class="p">:</span> <span class="ss">&quot;device message&quot;</span>
-    <span class="n">properties</span><span class="p">:</span>
-      <span class="n">value</span><span class="p">:</span>
-        <span class="err">{</span> <span class="k">type</span><span class="p">:</span> <span class="ss">&quot;String&quot;</span><span class="p">,</span> <span class="k">size</span><span class="p">:</span> <span class="ss">&quot;0&quot;</span><span class="p">,</span> <span class="n">readWrite</span><span class="p">:</span> <span class="ss">&quot;W&quot;</span> <span class="p">,</span><span class="k">scale</span><span class="p">:</span> <span class="ss">&quot;&quot;</span><span class="p">,</span> <span class="k">offset</span><span class="p">:</span> <span class="ss">&quot;&quot;</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="ss">&quot;&quot;</span>  <span class="err">}</span>
-      <span class="n">units</span><span class="p">:</span>
-        <span class="err">{</span> <span class="k">type</span><span class="p">:</span> <span class="ss">&quot;String&quot;</span><span class="p">,</span> <span class="n">readWrite</span><span class="p">:</span> <span class="ss">&quot;R&quot;</span><span class="p">,</span> <span class="n">defaultValue</span><span class="p">:</span> <span class="ss">&quot;&quot;</span> <span class="err">}</span>
+    <span class="nv">name</span>: <span class="nv">message</span>
+    <span class="nv">description</span>: <span class="s2">&quot;</span><span class="s">device message</span><span class="s2">&quot;</span>
+    <span class="nv">properties</span>:
+      <span class="nv">value</span>:
+        { <span class="nv">type</span>: <span class="s2">&quot;</span><span class="s">String</span><span class="s2">&quot;</span>, <span class="nv">size</span>: <span class="s2">&quot;</span><span class="s">0</span><span class="s2">&quot;</span>, <span class="nv">readWrite</span>: <span class="s2">&quot;</span><span class="s">W</span><span class="s2">&quot;</span> ,<span class="nv">scale</span>: <span class="s2">&quot;&quot;</span>, <span class="nv">offset</span>: <span class="s2">&quot;&quot;</span>, <span class="nv">base</span>: <span class="s2">&quot;&quot;</span>  }
+      <span class="nv">units</span>:
+        { <span class="nv">type</span>: <span class="s2">&quot;</span><span class="s">String</span><span class="s2">&quot;</span>, <span class="nv">readWrite</span>: <span class="s2">&quot;</span><span class="s">R</span><span class="s2">&quot;</span>, <span class="nv">defaultValue</span>: <span class="s2">&quot;&quot;</span> }
 
-<span class="n">deviceCommands</span><span class="p">:</span>
+<span class="nv">deviceCommands</span>:
   <span class="o">-</span>
-    <span class="n">name</span><span class="p">:</span> <span class="n">testrandnum</span>
-    <span class="k">get</span><span class="p">:</span>
-    <span class="o">-</span> <span class="err">{</span> <span class="k">index</span><span class="p">:</span> <span class="ss">&quot;1&quot;</span><span class="p">,</span> <span class="k">operation</span><span class="p">:</span> <span class="ss">&quot;get&quot;</span><span class="p">,</span> <span class="k">object</span><span class="p">:</span> <span class="ss">&quot;randnum&quot;</span><span class="p">,</span> <span class="k">parameter</span><span class="p">:</span> <span class="ss">&quot;randnum&quot;</span> <span class="err">}</span>
+    <span class="nv">name</span>: <span class="nv">testrandnum</span>
+    <span class="nv">get</span>:
+    <span class="o">-</span> { <span class="nv">index</span>: <span class="s2">&quot;</span><span class="s">1</span><span class="s2">&quot;</span>, <span class="nv">operation</span>: <span class="s2">&quot;</span><span class="s">get</span><span class="s2">&quot;</span>, <span class="nv">object</span>: <span class="s2">&quot;</span><span class="s">randnum</span><span class="s2">&quot;</span>, <span class="nv">parameter</span>: <span class="s2">&quot;</span><span class="s">randnum</span><span class="s2">&quot;</span> }
   <span class="o">-</span>
-    <span class="n">name</span><span class="p">:</span> <span class="n">testping</span>
-    <span class="k">get</span><span class="p">:</span>
-    <span class="o">-</span> <span class="err">{</span> <span class="k">index</span><span class="p">:</span> <span class="ss">&quot;1&quot;</span><span class="p">,</span> <span class="k">operation</span><span class="p">:</span> <span class="ss">&quot;get&quot;</span><span class="p">,</span> <span class="k">object</span><span class="p">:</span> <span class="ss">&quot;ping&quot;</span><span class="p">,</span> <span class="k">parameter</span><span class="p">:</span> <span class="ss">&quot;ping&quot;</span> <span class="err">}</span>
+    <span class="nv">name</span>: <span class="nv">testping</span>
+    <span class="nv">get</span>:
+    <span class="o">-</span> { <span class="nv">index</span>: <span class="s2">&quot;</span><span class="s">1</span><span class="s2">&quot;</span>, <span class="nv">operation</span>: <span class="s2">&quot;</span><span class="s">get</span><span class="s2">&quot;</span>, <span class="nv">object</span>: <span class="s2">&quot;</span><span class="s">ping</span><span class="s2">&quot;</span>, <span class="nv">parameter</span>: <span class="s2">&quot;</span><span class="s">ping</span><span class="s2">&quot;</span> }
   <span class="o">-</span>
-    <span class="n">name</span><span class="p">:</span> <span class="n">testmessage</span>
-    <span class="k">get</span><span class="p">:</span>
-    <span class="o">-</span> <span class="err">{</span> <span class="k">index</span><span class="p">:</span> <span class="ss">&quot;1&quot;</span><span class="p">,</span> <span class="k">operation</span><span class="p">:</span> <span class="ss">&quot;get&quot;</span><span class="p">,</span> <span class="k">object</span><span class="p">:</span> <span class="ss">&quot;message&quot;</span><span class="p">,</span> <span class="k">parameter</span><span class="p">:</span> <span class="ss">&quot;message&quot;</span> <span class="err">}</span>
-    <span class="k">set</span><span class="p">:</span>
-    <span class="o">-</span> <span class="err">{</span> <span class="k">index</span><span class="p">:</span> <span class="ss">&quot;1&quot;</span><span class="p">,</span> <span class="k">operation</span><span class="p">:</span> <span class="ss">&quot;set&quot;</span><span class="p">,</span> <span class="k">object</span><span class="p">:</span> <span class="ss">&quot;message&quot;</span><span class="p">,</span> <span class="k">parameter</span><span class="p">:</span> <span class="ss">&quot;message&quot;</span> <span class="err">}</span>
+    <span class="nv">name</span>: <span class="nv">testmessage</span>
+    <span class="nv">get</span>:
+    <span class="o">-</span> { <span class="nv">index</span>: <span class="s2">&quot;</span><span class="s">1</span><span class="s2">&quot;</span>, <span class="nv">operation</span>: <span class="s2">&quot;</span><span class="s">get</span><span class="s2">&quot;</span>, <span class="nv">object</span>: <span class="s2">&quot;</span><span class="s">message</span><span class="s2">&quot;</span>, <span class="nv">parameter</span>: <span class="s2">&quot;</span><span class="s">message</span><span class="s2">&quot;</span> }
+    <span class="nv">set</span>:
+    <span class="o">-</span> { <span class="nv">index</span>: <span class="s2">&quot;</span><span class="s">1</span><span class="s2">&quot;</span>, <span class="nv">operation</span>: <span class="s2">&quot;</span><span class="s">set</span><span class="s2">&quot;</span>, <span class="nv">object</span>: <span class="s2">&quot;</span><span class="s">message</span><span class="s2">&quot;</span>, <span class="nv">parameter</span>: <span class="s2">&quot;</span><span class="s">message</span><span class="s2">&quot;</span> }
 
-<span class="n">coreCommands</span><span class="p">:</span>
+<span class="nv">coreCommands</span>:
   <span class="o">-</span>
-    <span class="n">name</span><span class="p">:</span> <span class="n">testrandnum</span>
-    <span class="k">get</span><span class="p">:</span>
-      <span class="n">path</span><span class="p">:</span> <span class="ss">&quot;/api/v1/device/{deviceId}/testrandnum&quot;</span>
-      <span class="n">responses</span><span class="p">:</span>
+    <span class="nv">name</span>: <span class="nv">testrandnum</span>
+    <span class="nv">get</span>:
+      <span class="nv">path</span>: <span class="s2">&quot;</span><span class="s">/api/v1/device/{deviceId}/testrandnum</span><span class="s2">&quot;</span>
+      <span class="nv">responses</span>:
       <span class="o">-</span>
-        <span class="n">code</span><span class="p">:</span> <span class="ss">&quot;200&quot;</span>
-        <span class="n">description</span><span class="p">:</span> <span class="ss">&quot;get the random value&quot;</span>
-        <span class="n">expectedValues</span><span class="p">:</span> <span class="p">[</span><span class="ss">&quot;randnum&quot;</span><span class="p">]</span>
+        <span class="nv">code</span>: <span class="s2">&quot;</span><span class="s">200</span><span class="s2">&quot;</span>
+        <span class="nv">description</span>: <span class="s2">&quot;</span><span class="s">get the random value</span><span class="s2">&quot;</span>
+        <span class="nv">expectedValues</span>: [<span class="s2">&quot;</span><span class="s">randnum</span><span class="s2">&quot;</span>]
       <span class="o">-</span>
-        <span class="n">code</span><span class="p">:</span> <span class="ss">&quot;503&quot;</span>
-        <span class="n">description</span><span class="p">:</span> <span class="ss">&quot;service unavailable&quot;</span>
-        <span class="n">expectedValues</span><span class="p">:</span> <span class="p">[]</span>
+        <span class="nv">code</span>: <span class="s2">&quot;</span><span class="s">503</span><span class="s2">&quot;</span>
+        <span class="nv">description</span>: <span class="s2">&quot;</span><span class="s">service unavailable</span><span class="s2">&quot;</span>
+        <span class="nv">expectedValues</span>: []
   <span class="o">-</span>
-    <span class="n">name</span><span class="p">:</span> <span class="n">testping</span>
-    <span class="k">get</span><span class="p">:</span>
-      <span class="n">path</span><span class="p">:</span> <span class="ss">&quot;/api/v1/device/{deviceId}/testping&quot;</span>
-      <span class="n">responses</span><span class="p">:</span>
+    <span class="nv">name</span>: <span class="nv">testping</span>
+    <span class="nv">get</span>:
+      <span class="nv">path</span>: <span class="s2">&quot;</span><span class="s">/api/v1/device/{deviceId}/testping</span><span class="s2">&quot;</span>
+      <span class="nv">responses</span>:
       <span class="o">-</span>
-        <span class="n">code</span><span class="p">:</span> <span class="ss">&quot;200&quot;</span>
-        <span class="n">description</span><span class="p">:</span> <span class="ss">&quot;ping the device&quot;</span>
-        <span class="n">expectedValues</span><span class="p">:</span> <span class="p">[</span><span class="ss">&quot;ping&quot;</span><span class="p">]</span>
+        <span class="nv">code</span>: <span class="s2">&quot;</span><span class="s">200</span><span class="s2">&quot;</span>
+        <span class="nv">description</span>: <span class="s2">&quot;</span><span class="s">ping the device</span><span class="s2">&quot;</span>
+        <span class="nv">expectedValues</span>: [<span class="s2">&quot;</span><span class="s">ping</span><span class="s2">&quot;</span>]
       <span class="o">-</span>
-        <span class="n">code</span><span class="p">:</span> <span class="ss">&quot;503&quot;</span>
-        <span class="n">description</span><span class="p">:</span> <span class="ss">&quot;service unavailable&quot;</span>
-        <span class="n">expectedValues</span><span class="p">:</span> <span class="p">[]</span>
+        <span class="nv">code</span>: <span class="s2">&quot;</span><span class="s">503</span><span class="s2">&quot;</span>
+        <span class="nv">description</span>: <span class="s2">&quot;</span><span class="s">service unavailable</span><span class="s2">&quot;</span>
+        <span class="nv">expectedValues</span>: []
   <span class="o">-</span>
-    <span class="n">name</span><span class="p">:</span> <span class="n">testmessage</span>
-    <span class="k">get</span><span class="p">:</span>
-      <span class="n">path</span><span class="p">:</span> <span class="ss">&quot;/api/v1/device/{deviceId}/testmessage&quot;</span>
-      <span class="n">responses</span><span class="p">:</span>
+    <span class="nv">name</span>: <span class="nv">testmessage</span>
+    <span class="nv">get</span>:
+      <span class="nv">path</span>: <span class="s2">&quot;</span><span class="s">/api/v1/device/{deviceId}/testmessage</span><span class="s2">&quot;</span>
+      <span class="nv">responses</span>:
       <span class="o">-</span>
-        <span class="n">code</span><span class="p">:</span> <span class="ss">&quot;200&quot;</span>
-        <span class="n">description</span><span class="p">:</span> <span class="ss">&quot;get the message&quot;</span>
-        <span class="n">expectedValues</span><span class="p">:</span> <span class="p">[</span><span class="ss">&quot;message&quot;</span><span class="p">]</span>
+        <span class="nv">code</span>: <span class="s2">&quot;</span><span class="s">200</span><span class="s2">&quot;</span>
+        <span class="nv">description</span>: <span class="s2">&quot;</span><span class="s">get the message</span><span class="s2">&quot;</span>
+        <span class="nv">expectedValues</span>: [<span class="s2">&quot;</span><span class="s">message</span><span class="s2">&quot;</span>]
       <span class="o">-</span>
-        <span class="n">code</span><span class="p">:</span> <span class="ss">&quot;503&quot;</span>
-        <span class="n">description</span><span class="p">:</span> <span class="ss">&quot;service unavailable&quot;</span>
-        <span class="n">expectedValues</span><span class="p">:</span> <span class="p">[]</span>
-    <span class="n">put</span><span class="p">:</span>
-      <span class="n">path</span><span class="p">:</span> <span class="ss">&quot;/api/v1/device/{deviceId}/testmessage&quot;</span>
-      <span class="n">parameterNames</span><span class="p">:</span> <span class="p">[</span><span class="ss">&quot;message&quot;</span><span class="p">]</span>
-      <span class="n">responses</span><span class="p">:</span>
+        <span class="nv">code</span>: <span class="s2">&quot;</span><span class="s">503</span><span class="s2">&quot;</span>
+        <span class="nv">description</span>: <span class="s2">&quot;</span><span class="s">service unavailable</span><span class="s2">&quot;</span>
+        <span class="nv">expectedValues</span>: []
+    <span class="nv">put</span>:
+      <span class="nv">path</span>: <span class="s2">&quot;</span><span class="s">/api/v1/device/{deviceId}/testmessage</span><span class="s2">&quot;</span>
+      <span class="nv">parameterNames</span>: [<span class="s2">&quot;</span><span class="s">message</span><span class="s2">&quot;</span>]
+      <span class="nv">responses</span>:
       <span class="o">-</span>
-        <span class="n">code</span><span class="p">:</span> <span class="ss">&quot;204&quot;</span>
-        <span class="n">description</span><span class="p">:</span> <span class="ss">&quot;set the message.&quot;</span>
-        <span class="n">expectedValues</span><span class="p">:</span> <span class="p">[]</span>
+        <span class="nv">code</span>: <span class="s2">&quot;</span><span class="s">204</span><span class="s2">&quot;</span>
+        <span class="nv">description</span>: <span class="s2">&quot;</span><span class="s">set the message.</span><span class="s2">&quot;</span>
+        <span class="nv">expectedValues</span>: []
       <span class="o">-</span>
-        <span class="n">code</span><span class="p">:</span> <span class="ss">&quot;503&quot;</span>
-        <span class="n">description</span><span class="p">:</span> <span class="ss">&quot;service unavailable&quot;</span>
-        <span class="n">expectedValues</span><span class="p">:</span> <span class="p">[]</span>
+        <span class="nv">code</span>: <span class="s2">&quot;</span><span class="s">503</span><span class="s2">&quot;</span>
+        <span class="nv">description</span>: <span class="s2">&quot;</span><span class="s">service unavailable</span><span class="s2">&quot;</span>
+        <span class="nv">expectedValues</span>: []
 </code></pre></div>
 
 <h2 id="device-service-configuration-configurationtoml">Device Service Configuration (configuration.toml)</h2>
@@ -2716,44 +2716,44 @@ the docker-compose file. If you have prepared configuration files, you
 can mount them using volumes and change the entrypoint for device-mqtt
 internal use.</p>
 <p>This is illustrated in the following docker-compose file snippet:</p>
-<div class="codehilite"><pre><span></span><code><span class="c">device-mqtt:</span>
-<span class="c">  image: edgexfoundry/docker-device-mqtt-go:1.0.0</span>
-<span class="c">  ports:</span>
-<span class="c">    - &quot;49982:49982&quot;</span>
-<span class="c">  container_name: edgex-device-mqtt</span>
-<span class="c">  hostname: edgex-device-mqtt</span>
-<span class="c">  networks:</span>
-<span class="c">    - edgex-network</span>
-<span class="c">  volumes:</span>
-<span class="c">    - db-data:/data/db</span>
-<span class="c">    - log-data:/edgex/logs</span>
-<span class="c">    - consul-config:/consul/config</span>
-<span class="c">    - consul-data:/consul/data</span>
-<span class="c">    - ./mqtt:/custom-config</span>
-<span class="c">  depends_on:</span>
-<span class="c">    - data</span>
-<span class="c">    - command</span>
-<span class="c">  entrypoint:</span>
-<span class="c">    - /device-mqtt</span>
-<span class="c">    - --registry=consul://edgex-core-consul:8500</span>
-<span class="c">    - --confdir=/custom-config</span>
+<div class="codehilite"><pre><span></span><code><span class="n">device</span><span class="o">-</span><span class="nl">mqtt</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nc">image</span><span class="err">:</span><span class="w"> </span><span class="n">edgexfoundry</span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">device</span><span class="o">-</span><span class="n">mqtt</span><span class="o">-</span><span class="k">go</span><span class="err">:</span><span class="mf">1.0.0</span><span class="w"></span>
+<span class="w">  </span><span class="nl">ports</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="ss">&quot;49982:49982&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nl">container_name</span><span class="p">:</span><span class="w"> </span><span class="n">edgex</span><span class="o">-</span><span class="n">device</span><span class="o">-</span><span class="n">mqtt</span><span class="w"></span>
+<span class="w">  </span><span class="nl">hostname</span><span class="p">:</span><span class="w"> </span><span class="n">edgex</span><span class="o">-</span><span class="n">device</span><span class="o">-</span><span class="n">mqtt</span><span class="w"></span>
+<span class="w">  </span><span class="nl">networks</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">edgex</span><span class="o">-</span><span class="n">network</span><span class="w"></span>
+<span class="w">  </span><span class="nl">volumes</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">db</span><span class="o">-</span><span class="k">data</span><span class="err">:</span><span class="o">/</span><span class="k">data</span><span class="o">/</span><span class="n">db</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="nf">log</span><span class="o">-</span><span class="k">data</span><span class="err">:</span><span class="o">/</span><span class="n">edgex</span><span class="o">/</span><span class="n">logs</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">consul</span><span class="o">-</span><span class="nl">config</span><span class="p">:</span><span class="o">/</span><span class="n">consul</span><span class="o">/</span><span class="n">config</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">consul</span><span class="o">-</span><span class="k">data</span><span class="err">:</span><span class="o">/</span><span class="n">consul</span><span class="o">/</span><span class="k">data</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="p">.</span><span class="o">/</span><span class="nl">mqtt</span><span class="p">:</span><span class="o">/</span><span class="n">custom</span><span class="o">-</span><span class="n">config</span><span class="w"></span>
+<span class="w">  </span><span class="nl">depends_on</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="k">data</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">command</span><span class="w"></span>
+<span class="w">  </span><span class="nl">entrypoint</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="o">/</span><span class="n">device</span><span class="o">-</span><span class="n">mqtt</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="o">--</span><span class="n">registry</span><span class="o">=</span><span class="nl">consul</span><span class="p">:</span><span class="o">//</span><span class="n">edgex</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="nl">consul</span><span class="p">:</span><span class="mi">8500</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="c1">--confdir=/custom-config</span>
 </code></pre></div>
 
 <p>When using Device Services, the user has to provide the registry URL in
 --registry argument.</p>
 <h3 id="start-edgex-foundry-on-docker">Start EdgeX Foundry on Docker</h3>
 <p>Once the following folder has been populated, we can deploy EdgeX:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">- device-service-demo</span>
-<span class="err">  |- docker-compose.yml</span>
-<span class="err">  |- mqtt</span>
-<span class="err">     |- configuration.toml</span>
-<span class="err">     |- mqtt.test.device.profile.yml</span>
+<div class="codehilite"><pre><span></span><code>- device-service-demo
+  |- docker-compose.yml
+  |- mqtt
+     |- configuration.toml
+     |- mqtt.test.device.profile.yml
 </code></pre></div>
 
 <p>Deploy EdgeX using the following commands:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">cd path/to/device-service-demo</span>
-<span class="err">docker-compose pull</span>
-<span class="err">docker-compose up -d</span>
+<div class="codehilite"><pre><span></span><code>cd path/to/device-service-demo
+docker-compose pull
+docker-compose up -d
 </code></pre></div>
 
 <p>After the services start, check the consul dashboard as follows:</p>

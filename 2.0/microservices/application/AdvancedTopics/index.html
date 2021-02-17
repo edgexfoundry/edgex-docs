@@ -1500,6 +1500,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#stopping-the-service" class="md-nav__link">
+    Stopping the Service
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2550,6 +2557,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#stopping-the-service" class="md-nav__link">
+    Stopping the Service
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2967,6 +2981,8 @@ This sets the Service information fields as follows:
 <p class="admonition-title">Note</p>
 <p>Service keys for known EdgeX services can be found under clients in <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/constants.go#L58-L72">go-mod-core-contracts</a></p>
 </div>
+<h3 id="stopping-the-service">Stopping the Service</h3>
+<p>Application Services will listen for SIGTERM / SIGINT signals from the OS and stop the function pipeline in response.  The pipeline can also be exited programmatically by calling <code>sdk.MakeItStop()</code> on the running SDK instance.  This can be useful for cases where you want to stop a service in response to a runtime condition, e.g. receiving a "poison pill" message through its trigger.</p>
                 
               
               
