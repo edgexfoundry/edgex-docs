@@ -28,7 +28,8 @@ Reading filters will allow, not unlike application service filter functions toda
 
 - the value was outside or inside some range, or the value was greater than, less than or equal to some value
     - based on the `Reading` value (numeric) of a `Reading` outside a specified range (min/max) described in the service configuration.  Thus avoiding sending in outlier or jittery data `Readings` that could negatively effect analytics.
-    - based on the `Reading` value (numeric) equal to or near (with in some specified range) the last reading.  This allows a device service to reduce sending in `Event/Readings` that do not represent any significant change.  This differs from the already implemented onChangeOnly in that it is filtering `Readings` within a specified degree of change.
+    - Future scope:  based on the `Reading` value (numeric) equal to or near (with in some specified range) the last reading.  This allows a device service to reduce sending in `Event/Readings` that do not represent any significant change.  This differs from the already implemented onChangeOnly in that it is filtering `Readings` within a specified degree of change.  **Note:** this feature would require caching of readings which has not fully been implemented in the SDK.  The existing mechanism for `autoevents` provides a partial cache.  Added for future reference, but this feature would not be accomplished in the initial implementation; requiring extra design work on caching to be implemented.
+    
 - the value was the same as some or not the same as some specified value or values (for strings, boolean and other non-numeric values)
 - the value matches a pattern (glob and/or regex) when the value is a string.
 - the name (the device ResourceName) matched a particular value; in other words match `temperature` or `humidity` as example device resources.
@@ -41,30 +42,28 @@ The filter behaves the same whether the collection of `Readings` and `Events` is
 
 ### Design / Architecture
 
-A new function interface shall be defined that, when implemented, performs a Reading Filter operation.  A ReadingFilter function would take a parameter (an `Event` containing readings), check whether the `Readings` of the `Event` match on the filtering configuration (see below) and if they do then remove them from the `Event`.  The ReadingFilter function would return the `Event` object (minus filtered `Readings`) or `nil` if the `Event` held no more `Readings`.  Pseudo code for the generic function is provided below.
+A new function interface shall be defined that, when implemented, performs a Reading Filter operation.  A ReadingFilter function would take a parameter (an `Event` containing readings), check whether the `Readings` of the `Event` match on the filtering configuration (see below) and if they do then remove them from the `Event`.  The ReadingFilter function would return the `Event` object (minus filtered `Readings`) or `nil` if the `Event` held no more `Readings`.  Pseudo code for the generic function is provided below.  The results returned will include a boolean to indicate whether any `Reading` objects were removed from the `Event` (allowing the receiver to know if some were filtered from the original list).
 
 ``` go
-func (f Filter) ReadingFilter(lc logger.LoggingClient, event *models.Event) (*models.Event, error) {
+func (f Filter) ReadingFilter(lc logger.LoggingClient, event *models.Event) (*models.Event, error, boolean) {
     // depending on impl; filtering for values in/out of a range, >, <, =, same, not same, from a particular name (device resource), etc.
+    // The boolean will indicate whether any Readings were filtered from the Event.  
     if (len(event.Reading )) > 0)
-        return event
+        if (len filteredReadings > 0)
+            return event, true
+        else 
+            return event, false
     else
-        return nil
+        return nil, true
 }
 ```
 
 Based on current needs/use cases, implementations of the function interface could include the following filter functions:
 
 ``` go
-func (f Filter) FilterByValueInRange (lc logger.LoggingClient, event *models.Event) (*models.Event, error) {}
+func (f Filter) FilterByValue (lc logger.LoggingClient, event *models.Event) (*models.Event, error, boolean) {}
 
-func (f Filter) FilterByValueOutRange (lc logger.LoggingClient, event *models.Event) (*models.Event, error) {}
-
-func (f Filter) FilterByValueEqual (lc logger.LoggingClient, event *models.Event) (*models.Event, error) {}
-
-func (f Filter) FilterByValueNotEqual (lc logger.LoggingClient, event *models.Event) (*models.Event, error) {}
-
-func (f Filter) FilterByResourceNamesMatch (lc logger.LoggingClient, event *models.Event) (*models.Event, error) {}
+func (f Filter) FilterByResourceNamesMatch (lc logger.LoggingClient, event *models.Event) (*models.Event, error, boolean) {}
 ```
 
 !!! Note
@@ -72,11 +71,40 @@ func (f Filter) FilterByResourceNamesMatch (lc logger.LoggingClient, event *mode
 
     The Filter structure houses the configuration parameters for which the filter functions work and filter on.
 
+!!! Note
+    The app functions SDK uses a fairly simple Filter structure.
+
+``` go
+    type Filter struct {
+	    FilterValues []string
+	    FilterOut    bool
+    }
+```
+
+Given the collection of filter operations (in range, out of range, equal or not equal), the following structure is proposed:
+
+``` go
+    type Filter struct {
+	    FilterValues []string
+        FilterOp string  // enum of in (in range inclusive), out (outside a range exclusive), eq (equal) or ne (not equal)
+    }
+```
+
+Examples use of the Filter structure to specify filtering:
+
+``` go
+    Filter {FilterValues: {10, 20}, FilterOp: "in"} // filter for those readings with values between 10-20 inclusive
+    Filter {FilterValues: {10, 20}, FilterOp: "out"} // filter for those readings with values outside of 10-20.
+    Filter {FilterValues: {8, 10, 12}, FilterOp: "eq"} //filter for those readings with values of 8, 10, or 12.
+    Filter {FilterValues: {8, 10}, FilterOp: "ne"}  //filter for those readings with values not equal to 8 or 10
+    Filter {FilterValues: {"Int32"}, FilterOp: "eq"} //filter for to be used with FilterByResourceNameMatch
+```
+
 A NewFilter function creates, initializes and returns a new instance of the filter based on the configuration provided.
 
 ``` go
-func NewReadingNameFilter(filterValues []string) Filter {
-    return Filter{FilterValues: filterValues}
+func NewReadingNameFilter(filterValues []string, filterOp string) Filter {
+    return Filter{FilterValues: filterValues, FilterOp: filterOp}
 }
 ```
 
@@ -98,11 +126,7 @@ At this time, custom filters will not be supported as the custom filters would n
 
 #### Function Inflection Point
 
-When instructed to "get" new readings, the function [`execReadDeviceResource`](https://github.com/edgexfoundry/device-sdk-go/blob/0bbcb663a9153978e7e9ef8c297d5988e58906d0/internal/handler/command.go) is called which subsequently calls on the the device service driver's `HandleReadCommands` function to get the latest sensor values from the device.  The driver's `HandleReadCommands` returns the sensor reading data (via array of CommandValues) to be put into an event.
-
-After receiving the `CommandValues` the `execReadDeviceResource` function calls the `cvsToEvent` function convert the `CommandValues` into and `Event/Reading` objects (from `go-mod-core-contracts`) and returns this model to be sent via REST to core data by the rest of the SDK.
-
-It is precisely after the convert to `Event/Reading` objects (after the async readings are assembled into events) and before returning that result in `common.SendEvent` (in utils.go) function that the device service should invoke the required filter functions.  In the existing V1 implementation of the device-sdk-go, commands, async readings, and auto-events all call the function `common.SendEvent()`.  This means that there would likely be several different places in the code which would need to call `FilterEvent`.  In the C SDK, it is likely that the filters will be called before conversion to Event/Reading objects - they will operate on commandresult objects (equivalent to CommandValues).
+It is precisely after the convert to `Event/Reading` objects (after the async readings are assembled into events) and before returning that result in `common.SendEvent` (in utils.go) function that the device service should invoke the required filter functions.  In the existing V1 implementation of the device-sdk-go, commands, async readings, and auto-events all call the function `common.SendEvent()`.  *Note: V2 implementation will require some re-evaluation of this inflection point.*  Where possible, the implementation should locate a single point of inflection if possible.  In the C SDK, it is likely that the filters will be called before conversion to Event/Reading objects - they will operate on commandresult objects (equivalent to CommandValues).
 
 The order in which functions are called is important when more than one filter is provided.  The order that functions are called should be reflected in the order listed in the configuration of the filters.
 
@@ -127,17 +151,16 @@ Suggested and hypothetical configuration for the device service reading filters 
 
 ``` toml
 [Writable.Filters]
-    ExecutionOrder = "FilterByValueInRange, FilterByResourceNamesMatch"
+    ExecutionOrder = "FilterByResourceNamesMatch, FilterByValue"
     [Writable.Filter.Functions.FilterByResourceNamesMatch]
         [Writable.Filter.Functions.FilterByResourceNamesMatch.Parameters]
-            DeviceNames = "Random-Float-Device,Random-Integer-Device"
-            FilterOut = "false"
-    [Writable.Filter.Functions.FilterByValueInRange]
-        [Writable.Filter.Functions.FilterByValueInRange.Parameters]
-            Min = 100
-            Max = 200
+            FilterValues = "Int32"
+            FilterOps ="eq"
+    [Writable.Filter.Functions.FilterByValue]
+        [Writable.Filter.Functions.FilterByValue.Parameters]
+            FilterValues = {10,20}
+            FilterOp = "in"
 ```
-Note: this is not an exhaustive list of options for configuration.  For instance, change the `FilterByValueInRange` filter to `FilterByValueOutRange` in the example above and the function would filter the readings that lie outside 100-200 range versus inside as specified.
 
 ## Decision
 
