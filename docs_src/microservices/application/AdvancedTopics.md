@@ -501,3 +501,6 @@ func(sdk *appsdk.AppFunctionsSDK, serviceKey string) (string, error) {
 !!! note Known Service Keys
     Service keys for known EdgeX services can be found under clients in [go-mod-core-contracts](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/constants.go#L58-L72)
 		
+### Stopping the Service
+
+Application Services will listen for SIGTERM / SIGINT signals from the OS and stop the function pipeline in response.  The pipeline can also be exited programmatically by calling `sdk.MakeItStop()` on the running SDK instance.  This can be useful for cases where you want to stop a service in response to a runtime condition, e.g. receiving a "poison pill" message through its trigger.
