@@ -2418,9 +2418,16 @@ to simulate virtual resources.</p>
 <li>Query all data:
   <div class="highlight"><pre><span></span><code>ql -db /path-to-the-ql-db-folder/deviceVirtual.db -fld <span class="s2">&quot;select * from VIRTUAL_RESOURCE&quot;</span>
 </code></pre></div></li>
-<li>Update Enable_Randomization:
+<li>
+<p>Update Enable_Randomization:
   <div class="highlight"><pre><span></span><code>ql -db /path-to-the-ql-db-folder/deviceVirtual.db <span class="s2">&quot;update VIRTUAL_RESOURCE set ENABLE_RANDOMIZATION=false where DEVICE_NAME=&quot;</span>Random-Integer-Device<span class="s2">&quot; and DEVICE_RESOURCE_NAME=&quot;</span>Int8<span class="s2">&quot; &quot;</span>
-</code></pre></div></li>
+</code></pre></div></p>
+</li>
+<li>
+<p>Update Value:
+  <div class="highlight"><pre><span></span><code>ql -db /path-to-the-ql-db-folder/deviceVirtual.db <span class="s2">&quot;update VIRTUAL_RESOURCE set VALUE=&quot;</span><span class="m">26</span><span class="s2">&quot; where DEVICE_NAME=&quot;</span>Random-Integer-Device<span class="s2">&quot; and DEVICE_RESOURCE_NAME=&quot;</span>Int8<span class="s2">&quot; &quot;</span>
+</code></pre></div></p>
+</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>

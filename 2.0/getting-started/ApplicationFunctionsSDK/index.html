@@ -2242,6 +2242,13 @@
 <span class="p">}</span>
 </code></pre></div>
 After placing the above function in your code, the next step is to modify the pipeline to call this function:</p>
+<p><div class="highlight"><pre><span></span><code><span class="nx">edgexSdk</span><span class="p">.</span><span class="nx">SetFunctionsPipeline</span><span class="p">(</span>
+  <span class="nx">transforms</span><span class="p">.</span><span class="nx">NewFilter</span><span class="p">(</span><span class="nx">deviceNames</span><span class="p">).</span><span class="nx">FilterByDeviceName</span><span class="p">,</span> 
+  <span class="nx">transforms</span><span class="p">.</span><span class="nx">NewConversion</span><span class="p">().</span><span class="nx">TransformToXML</span><span class="p">,</span>
+  <span class="nx">printXMLToConsole</span> <span class="c1">//notice this is not a function call, but simply a function pointer. </span>
+<span class="p">)</span>
+</code></pre></div>
+After making the above modifications, you should now see data printing out to the console in XML when an event is triggered.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>You can find this example called "Simple Filter XML" and more located in the <a href="../../examples/AppServiceExamples/">examples</a> section.</p>

@@ -2174,6 +2174,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#dockerhub-image-descriptions-and-overviews" class="md-nav__link">
+    DockerHub Image Descriptions and Overviews
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#github-page-edgex-docs" class="md-nav__link">
     Github Page: EdgeX Docs
   </a>
@@ -2263,7 +2270,7 @@
                 
                 <h1 id="release-artifacts">Release Artifacts</h1>
 <h2 id="status">Status</h2>
-<p>In Review 06/10/2020</p>
+<p>Approved</p>
 <h2 id="context">Context</h2>
 <p>During the Geneva release of EdgeX Foundry the DevOps WG transformed the CI/CD process with new Jenkins pipeline functionality. After this new functionality was added we also started adding release automation. This new automation is outlined in ADR 0007 Release Automation. However, in <a href="https://github.com/edgexfoundry/edgex-docs/blob/master/docs_src/design/adr/devops/0007-Release-Automation.md">ADR 0007 Release Automation</a> only two release artifact types are outlined. This document is meant to be a living document to try to outlines all currently supported artifacts associated with an EdgeX Foundry release, and should be updated if/when this list changes.</p>
 <h2 id="release-artifact-types">Release Artifact Types</h2>
@@ -2287,6 +2294,9 @@
 <h3 id="docker-compose-files">Docker Compose Files</h3>
 <p><em>Tied to Code Release?</em> Yes</p>
 <p>Docker compose files are released alongside the docker images for every release of EdgeX Foundry. During development the community maintains compose files a folder named <code>nightly-build</code>. These compose files are meant to be used by our testing frameworks. At the time of release the community makes compose files for that release in a folder matching it's name. (ie: <code>geneva</code>)</p>
+<h3 id="dockerhub-image-descriptions-and-overviews">DockerHub Image Descriptions and Overviews</h3>
+<p><em>Tied to Code Release?</em> No</p>
+<p>After Docker images are published to <a href="https://hub.docker.com/orgs/edgexfoundry">DockerHub</a>, automation should be run to update the image Overviews and Descriptions of the necessary images. This automation is located in the <code>edgex-docker-hub-documentation</code> branch of the <a href="https://github.com/edgexfoundry/cd-management/tree/edgex-docker-hub-documentation">cd-management</a> repository. In preparation for the release the community makes changes to the Overview and Description metadata as appropriate. The Release Czar will coordinate the execution of the automation near the release time.</p>
 <h3 id="github-page-edgex-docs">Github Page: EdgeX Docs</h3>
 <p><em>Tied to Code Release?</em> No</p>
 <p>EdgeX Foundry releases a set of documentation for our project at <a href="http://docs.edgexfoundry.org">http://docs.edgexfoundry.org</a>. This page is a Github page that is managed by the <a href="https://github.com/edgexfoundry/edgex-docs/">edgex/foundry/edgex-docs</a> Github repository. As a community we make our best effort to keep these docs up to date. On this page we are also versioning the docs with the semantic versions of the named releases. As a community we try to version our documentation site shortly after the official release date but documentation changes are addressed as we find them throughout the release cycle.</p>

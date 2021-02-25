@@ -2322,6 +2322,8 @@ Or by using the systemd unit name and journalctl:</p>
 <div class="highlight"><pre><span></span><code>$ sudo snap set edgexfoundry security-proxy=off
 </code></pre></div>
 <p>Vault can be also be disabled, but doing so will also disable Kong, as it depends on Vault. Thus the following command will disable both:</p>
+<div class="highlight"><pre><span></span><code>$ sudo snap set edgexfoundry security-secret-store=off
+</code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Kong is currently not supported in the snap when installed on an arm64-based device, so it will be disabled on install.</p>
