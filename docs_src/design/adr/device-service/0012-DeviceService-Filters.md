@@ -86,6 +86,7 @@ Given the collection of filter operations (in range, out of range, equal or not 
 ``` go
     type Filter struct {
 	    FilterValues []string
+        TargetResourceName string
         FilterOp string  // enum of in (in range inclusive), out (outside a range exclusive), eq (equal) or ne (not equal)
     }
 ```
@@ -93,18 +94,19 @@ Given the collection of filter operations (in range, out of range, equal or not 
 Examples use of the Filter structure to specify filtering:
 
 ``` go
-    Filter {FilterValues: {10, 20}, FilterOp: "in"} // filter for those readings with values between 10-20 inclusive
-    Filter {FilterValues: {10, 20}, FilterOp: "out"} // filter for those readings with values outside of 10-20.
-    Filter {FilterValues: {8, 10, 12}, FilterOp: "eq"} //filter for those readings with values of 8, 10, or 12.
-    Filter {FilterValues: {8, 10}, FilterOp: "ne"}  //filter for those readings with values not equal to 8 or 10
-    Filter {FilterValues: {"Int32"}, FilterOp: "eq"} //filter for to be used with FilterByResourceNameMatch
+    Filter {FilterValues: {10, 20}, "Int64", FilterOp: "in"} // filter for those Int64 readings with values between 10-20 inclusive
+    Filter {FilterValues: {10, 20}, "Int64", FilterOp: "out"} // filter for those Int64 readings with values outside of 10-20.
+    Filter {FilterValues: {8, 10, 12}, "Int64", FilterOp: "eq"} //filter for those Int64 readings with values of 8, 10, or 12.
+    Filter {FilterValues: {8, 10}, "Int64", FilterOp: "ne"}  //filter for those Int64 readings with values not equal to 8 or 10
+    Filter {FilterValues: {"Int32", "Int64"}, nil, FilterOp: "eq"} //filter to be used with FilterByResourceNameMatch.  Filter for resource names of Int32 or Int64.
+    Filter {FilterValues: {"Int32"}, nil, FilterOp: "ne"} //filter to be used with FilterByResourceNameMatch.  Filter for resource names not equal to (excluding) Int32.
 ```
 
 A NewFilter function creates, initializes and returns a new instance of the filter based on the configuration provided.
 
 ``` go
 func NewReadingNameFilter(filterValues []string, filterOp string) Filter {
-    return Filter{FilterValues: filterValues, FilterOp: filterOp}
+    return Filter{FilterValues: filterValues, TargetResourceName string, FilterOp: filterOp}
 }
 ```
 
@@ -151,13 +153,16 @@ Suggested and hypothetical configuration for the device service reading filters 
 
 ``` toml
 [Writable.Filters]
+    # filter readings where resource name equals Int32 
     ExecutionOrder = "FilterByResourceNamesMatch, FilterByValue"
     [Writable.Filter.Functions.FilterByResourceNamesMatch]
         [Writable.Filter.Functions.FilterByResourceNamesMatch.Parameters]
             FilterValues = "Int32"
             FilterOps ="eq"
+    # filter readings where the Int64 readings (resource name) is Int64 and the values are between 10 and 20
     [Writable.Filter.Functions.FilterByValue]
         [Writable.Filter.Functions.FilterByValue.Parameters]
+            TargetResourceName = "Int64"
             FilterValues = {10,20}
             FilterOp = "in"
 ```
