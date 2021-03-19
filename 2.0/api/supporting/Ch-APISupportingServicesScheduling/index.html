@@ -2233,8 +2233,7 @@ action(s).</p>
         ISO 8601 YYYYMMDD't'HHmmss format. Empty means now.
     -   <strong>end</strong> - identifies when the operation ends. Expressed in ISO
         8601 YYYYMMDD't'HHmmss format. Empty means never
-    -   <strong>frequency</strong> - identifies the interval between invocations.
-        Expressed in ISO 8601 PxYxMxDTxHxMxS format. Empty means no
+    -   <strong>frequency</strong> - How often the specific resource needs to be polled. It represents as a duration string. The format of this field is to be an unsigned integer followed by a unit which may be "ns", "us" (or "µs"), "ms", "s", "m", "h" representing nanoseconds, microseconds, milliseconds, seconds, minutes or hours. Eg, "100ms", "24h" Empty means no
         frequency.</p>
 <p><strong>Interval Action(s)</strong></p>
 <p>:   -   <strong>name</strong> - unique name of the interval action.
@@ -2254,12 +2253,12 @@ action(s).</p>
 <p>Create an interval upon which the scheduler will operate :</p>
 <p>curl -X POST -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '{</p>
 <p>:   "name": "midnight", "start": "20180101T000000",
-    "frequency": "P1D"}'
+    "frequency": "24h"}'
     "<a href="http://localhost:48081/api/v1/interval">http://localhost:48081/api/v1/interval</a>"</p>
 <p>Example of a second interval which will run every 20 seconds :</p>
 <p>curl -X POST -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '{</p>
 <p>:   "name": "every20s", "start":"20000101T000000", "end":"",
-    "frequency":"PT20S"}'
+    "frequency":"20s"}'
     "<a href="http://localhost:48081/api/v1/interval">http://localhost:48081/api/v1/interval</a>"</p>
 <p>Create an interval action that will invoke the interval action (drive
 the scrubber) in core-data :</p>
