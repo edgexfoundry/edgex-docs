@@ -51,7 +51,7 @@ In each folder, you will find several Docker Compose files (all with a .yml exte
 
 |filename|Docker Compose contents|
 |---|---|
-|docker-compose-hanoi-arm64.yml|Specifies x86 containers, uses Redis database for persistence, and includes security services|
+|docker-compose-hanoi-arm64.yml|Specifies ARM 64 containers, uses Redis database for persistence, and includes security services|
 |docker-compose-hanoi-no-secty-arm64.yml|Specifies ARM 64 containers, uses Redis database for persistence, but does not include security services|
 |docker-compose-hanoi-no-secty.yml|Specifies x86 containers, uses Redis database for persistence, but does not include security services|
 |docker-compose-hanoi.yml|Specifies x86 containers, uses Redis database for persistence, and includes security services|
