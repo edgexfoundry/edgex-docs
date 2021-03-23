@@ -2963,6 +2963,20 @@ This sets the Service information fields as follows:
 </code></pre></div>
 <h3 id="registry-client">Registry Client</h3>
 <p><strong>After initialization</strong>, the configured registry client used by the SDK can be retrieved from the sdk instance at .RegistryClient.  It is important to note that sdk.RegistryClient may be nil - either if the SDK is not yet initialized, or if the registry option (-r/--registry) is not specified on start.  Once retrieved the client can be used to look up host information for other services, or perform other operations supported by the registry.Client type in <a href="https://github.com/edgexfoundry/go-mod-registry">go-mod-registry</a>.  For example, to retrieve the URL for a given service:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="p">(</span><span class="nx">sdk</span> <span class="o">*</span><span class="nx">appsdk</span><span class="p">.</span><span class="nx">AppFunctionsSDK</span><span class="p">,</span> <span class="nx">serviceKey</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">sdk</span><span class="p">.</span><span class="nx">RegistryClient</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;Registry client is not available&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="nx">details</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">sdk</span><span class="p">.</span><span class="nx">RegistryClient</span><span class="p">.</span><span class="nx">GetServiceEndpoint</span><span class="p">(</span><span class="nx">serviceKey</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="nx">err</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;http://%s:%d&quot;</span><span class="p">,</span> <span class="nx">details</span><span class="p">.</span><span class="nx">Host</span><span class="p">,</span> <span class="nx">details</span><span class="p">.</span><span class="nx">Port</span><span class="p">),</span> <span class="kc">nil</span>
+<span class="p">}</span>
+</code></pre></div>
 <div class="admonition note known service keys">
 <p class="admonition-title">Note</p>
 <p>Service keys for known EdgeX services can be found under clients in <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/constants.go#L58-L72">go-mod-core-contracts</a></p>

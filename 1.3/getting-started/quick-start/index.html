@@ -2310,10 +2310,57 @@ The device service will register a device named <code>Random-Integer-Generator01
 <h2 id="controlling-the-device">Controlling the Device</h2>
 <p>Reading data from devices is only part of what EdgeX is capable of.  You can also use it to control your devices - this is termed 'actuating' the device. When a device registers with the EdgeX services, it provides a <a href="../../microservices/device/profile/Ch-DeviceProfile/">Device Profile</a> that describes both the data readings available from that device, and also the commands that control it. </p>
 <p>When our Random Number device service registered the device <code>Random-Integer-Generator01</code>, it used a <a href="https://github.com/edgexfoundry/device-random/blob/master/cmd/res/device.random.yaml">profile</a> which defines commands for changing the minimum and maximum values for the random numbers it will generate.</p>
+<p>You won't call commands on devices directly, instead you use the EdgeX Foundry <a href="../../microservices/core/command/Ch-Command/">Command Service</a> to do that. The first step is to check what commands are available to call by asking the Command service about your device:
+<div class="highlight"><pre><span></span><code>curl http://localhost:48082/api/v1/device/name/Random-Integer-Generator01
+</code></pre></div>
+This will return a lot of JSON, because there are a number of commands you can call on this device, but the one we're going to try in this guide in will look something like this:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+  <span class="nt">&quot;created&quot;</span><span class="p">:</span> <span class="mi">1592190157924</span><span class="p">,</span>
+  <span class="nt">&quot;modified&quot;</span><span class="p">:</span> <span class="mi">1592190157924</span><span class="p">,</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;5353248d-8006-4b01-8250-a07cb436aeb1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;GenerateRandomValue_Int8&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;get&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/device/{deviceId}/GenerateRandomValue_Int8&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;responses&quot;</span><span class="p">:</span> <span class="p">[</span>
+     <span class="p">{</span>
+       <span class="nt">&quot;code&quot;</span><span class="p">:</span> <span class="s2">&quot;200&quot;</span><span class="p">,</span>
+       <span class="nt">&quot;expectedValues&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="s2">&quot;RandomValue_Int8&quot;</span>
+       <span class="p">]</span>
+     <span class="p">},</span>
+     <span class="p">{</span>
+       <span class="nt">&quot;code&quot;</span><span class="p">:</span> <span class="s2">&quot;503&quot;</span><span class="p">,</span>
+       <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;service unavailable&quot;</span>
+     <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:48082/api/v1/device/4a602dc3-afd5-4c76-9d72-de02407e80f8/command/5353248d-8006-4b01-8250-a07cb436aeb1&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;put&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/device/{deviceId}/GenerateRandomValue_Int8&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;responses&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;code&quot;</span><span class="p">:</span> <span class="s2">&quot;200&quot;</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;code&quot;</span><span class="p">:</span> <span class="s2">&quot;503&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;service unavailable&quot;</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:48082/api/v1/device/4a602dc3-afd5-4c76-9d72-de02407e80f8/command/5353248d-8006-4b01-8250-a07cb436aeb1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;parameterNames&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&quot;Min_Int8&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;Max_Int8&quot;</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The URLs won't be exactly the same for you, as the generated unique IDs for both the Device and the Command will be different. So be sure to use your values for the following steps.</p>
 </div>
+<p>You'll notice that this one command has both a <strong>GET</strong> and a <strong>PUT</strong> option. The <strong>GET</strong> call will return a random number, and is what is being called automatically to send data into the rest of EdgeX (specifically core data). You can also call <strong>GET</strong> manually using the URL provided:
+<div class="highlight"><pre><span></span><code>curl http://localhost:48082/api/v1/device/4a602dc3-afd5-4c76-9d72-de02407e80f8/command/5353248d-8006-4b01-8250-a07cb436aeb1
+</code></pre></div></p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Notice that <strong>localhost</strong> replaces <strong>edgex-core-command</strong> here. That's because the EdgeX Foundry services are running in Docker.  Docker recognizes the internal hostname <strong>edgex-core-command</strong>, but when calling the service from outside of Docker, you have to use <strong>localhost</strong> to reach it.</p>
@@ -2336,6 +2383,9 @@ The device service will register a device named <code>Random-Integer-Generator01
 </code></pre></div></p>
 <p><img alt="image" src="EdgeX_GettingStartedCommandGet.png" />
 <em>A call to GET of the Random-Integer-Generator01 device's GenerateRandomValue_Int8 operation through the command service results in the next random value produced by the device in JSON format.</em></p>
+<p>The default range for this reading is -128 to 127. We can limit that to only positive values between 0 and 100 by calling the <strong>PUT</strong> command with new minimum and maximum values:
+<div class="highlight"><pre><span></span><code>curl -X PUT -d <span class="s1">&#39;{&quot;Min_Int8&quot;: &quot;0&quot;, &quot;Max_Int8&quot;: &quot;100&quot;}&#39;</span> http://localhost:48082/api/v1/device/4a602dc3-afd5-4c76-9d72-de02407e80f8/command/5353248d-8006-4b01-8250-a07cb436aeb1
+</code></pre></div></p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Again, also notice that <strong>localhost</strong> replaces <strong>edgex-core-command</strong>.</p>
