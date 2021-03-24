@@ -24,7 +24,7 @@ For information on the virtual device service see [virtual device](../microservi
 
 ### Running the Virtual Device Service Container
 
-The virtual device service depends on the EdgeX core services. By default, the virtual device service is part of the EdgeX community provided Docker Compose files.  If you use one of the [community provide Compose files](https://github.com/edgexfoundry/developer-scripts/tree/master/releases), you can pull and run EdgeX inclusive of the virtual device service without having to make any changes.
+The virtual device service depends on the EdgeX core services. By default, the virtual device service is part of the EdgeX community provided Docker Compose files.  If you use one of the [community provide Compose files](https://github.com/edgexfoundry/edgex-compose/blob/hanoi), you can pull and run EdgeX inclusive of the virtual device service without having to make any changes.
 
 ### Running the Virtual Device Service Natively (in development mode)
 

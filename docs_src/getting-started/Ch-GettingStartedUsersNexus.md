@@ -2,7 +2,7 @@
 
 Released EdgeX Docker container images are available from [Docker Hub](https://hub.docker.com/search?q=edgexfoundry&type=image).  In some cases, it may be necessary to get your EdgeX container images from the Nexus repository.  The Linux Foundation manages the Nexus repository for the project.
 
-Nexus contains the EdgeX project staging and development container images. In other words, Nexus contains work-in-progress or pre-release images.  These, pre-release/work-in-progress Docker images are built nightly and made available at the following Nexus location:
+Nexus contains the EdgeX project staging and development container images. In other words, Nexus contains work-in-progress or pre-release images.  These pre-release/work-in-progress Docker images are built nightly and made available at the following Nexus location:
 
 ```
 nexus3.edgexfoundry.org:10004
@@ -16,16 +16,15 @@ Reasons you might want to use container images from Nexus include:
 2.  You need the latest development container image (the work in progress)
 3.  You are working in a Windows or non-Linux environment and you are unable to build a container without some issues.
 
-A set of Docker Compose files have been created to allow you to get and use the latest EdgeX service images from Nexus.  Find these [Nexus "Nightly Build" Compose files](https://github.com/edgexfoundry/developer-scripts/tree/master/releases/nightly-build/compose-files) in GitHub.  The EdgeX development team provides these Docker Compose files.  As with the EdgeX release Compose files, you will find several different Docker Compose files that allow you to get the type of EdgeX instance setup based on: 
+A set of Docker Compose files have been created to allow you to get and use the latest EdgeX service images from Nexus.  Find these [Nexus "Pre-Release" Compose files](https://github.com/edgexfoundry/edgex-compose/tree/master) in GitHub.  The EdgeX development team provides these Docker Compose files.  As with the EdgeX release Compose files, you will find several different Docker Compose files that allow you to get the type of EdgeX instance setup based on: 
 
 - your hardware (x86 or ARM)
-- the database you want to use (Mongo or Redis)
 - your desire to have security services on or off
 
 ![image](EdgeX_GettingStartedNexusCompose.png)
 
 !!! Warning
-    The "Nightly Build" images are provided as is and may not always function properly or with other EdgeX services.  Use with caution and typically only if you are a developer/contributor to EdgeX. These images represent the latest development work and may not have been thoroughly tested or integrated.
+    The "Pre-Release" images are provided as is and may not always function properly or with other EdgeX services.  Use with caution and typically only if you are a developer/contributor to EdgeX. These images represent the latest development work and may not have been thoroughly tested or integrated.
 
 ## Using Nexus Images
 The operations to pull the images and run the Nexus Repository is the same as when using EdgeX images from Docker Hub (see [Getting Started with Docker](./Ch-GettingStartedUsers.md#run-edgex-foundry)).
@@ -43,4 +42,4 @@ In some cases, you may only need to use a single image from Nexus while other Ed
 ![image](EdgeX_GettingStartedNexusComposeNew.png)
 
 !!! Note
-    The example above replaces the Geneva core data service from Docker Hub with the latest core data image in Nexus. 
+    The example above replaces the Geneva core data service from Docker Hub with the latest core data image in Nexus. Still the same process for Hanoi compose files.

@@ -26,7 +26,7 @@ contain configurations appropriate to the respective profile.
 
 As of the Geneva release, EdgeX recommends using environment variable
 overrides instead of creating profiles to override some subset of config
-values. You can see examples of this in the related [docker-compose files](https://github.com/edgexfoundry/developer-scripts/tree/master/releases/geneva/compose-files).
+values. You can see examples of this in the related [docker-compose files](https://github.com/edgexfoundry/edgex-compose/tree/hanoi).
 
 If you choose to use profiles as described above, the config profile
 can be indicated using one of the following command line flags:

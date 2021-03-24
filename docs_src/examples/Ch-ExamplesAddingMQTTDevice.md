@@ -325,7 +325,7 @@ replacing the host IP with your host address:
 ## Add Device Service to docker-compose File (docker-compose.yml)
 
 Download the `Geneva` release docker-compose file from
-<https://github.com/edgexfoundry/developer-scripts/blob/master/releases/geneva/compose-files/docker-compose-geneva-redis.yml>.
+<https://github.com/edgexfoundry/edgex-compose/blob/geneva/docker-compose-geneva-redis.yml>.
 
 !!! Note
     This example uses the Geneva Release.  There are later EdgeX releases.

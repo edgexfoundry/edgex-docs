@@ -208,7 +208,7 @@ Note that:
 the ping response of calling edgex-device-virtual's ping action:
 
 ```sh
-jim@jim-NUC7i5DNHE:~/go/src/github.com/edgexfoundry/developer-scripts/releases/geneva/compose-files$ curl http://localhost:49990/api/v1/ping
+jim@jim-NUC7i5DNHE:~/go/src/github.com/edgexfoundry/edgex-compose/releases/geneva$ curl http://localhost:49990/api/v1/ping
 
 1.2.0-dev.13j
 
@@ -217,7 +217,7 @@ jim@jim-NUC7i5DNHE:~/go/src/github.com/edgexfoundry/developer-scripts/releases/g
 or see the configuration of it via `curl` command:
 
 ```sh
-jim@jim-NUC7i5DNHE:~/go/src/github.com/edgexfoundry/developer-scripts/releases/geneva/compose-files$ curl http://localhost:49990/api/v1/config
+jim@jim-NUC7i5DNHE:~/go/src/github.com/edgexfoundry/edgex-compose/releases/geneva$ curl http://localhost:49990/api/v1/config
 ```
 
 ```json

@@ -36,15 +36,14 @@ After installing Docker and Docker Compose, you need a EdgeX Docker Compose file
 - The order in which the containers should be started,
 - The parameters (such as ports) under which the containers should be run
 
-The EdgeX development team provides Docker Compose files for each release.  Visit the project [GitHub](https://github.com/edgexfoundry/developer-scripts/tree/master/releases)  and locate the EdgeX Docker Compose file for the version of EdgeX you want to run.
+The EdgeX development team provides the Docker Compose files for each release.  Visit the project [GitHub](https://github.com/edgexfoundry/edgex-compose/blob/hanoi)  and locate the EdgeX Docker Compose file for the version of EdgeX you want to run. Each release is on a separate branch of the `edgex-compose` repository. Hanoi release shown below.
 
-![image](EdgeX_GettingStartedReleaseFolders.png)
-*The EdgeX Developer Scripts repository contains a folder for each release.  In the folder, find the Docker Compose files for each release.*
+![image](EdgeX_GettingStartedRelease.png)
 
 !!! Note
-    At the GitHub location specified above there is a folder for each EdgeX release.  The nightly-build folder contains Docker Compose files that use artifacts created from the latest code submitted by contributors.  Most end users should avoid using these Docker Compose files.  They are work-in-progress.  Users should use the Docker Compose files for the latest version of EdgeX. 
+    At the GitHub location specified above there is a `branch` for each EdgeX release.  The `master` branch contains Docker Compose files that use artifacts created from the latest code submitted by contributors.  Most end users should avoid using these Docker Compose files.  They are work-in-progress.  Users should use the Docker Compose files for the latest version of EdgeX. 
 
-In each folder, you will find several Docker Compose files (all with a .yml extension).  The name of the file will suggest the type of EdgeX instance the Compose file will help setup.  The table below provides a list of the Docker Compose filenames for the latest release (Hanoi).   Find the Docker Compose file that matches:
+In each `branch`, you will find several Docker Compose files (all with a .yml extension).  The name of the file will suggest the type of EdgeX instance the Compose file will help setup.  The table below provides a list of the Docker Compose filenames for the latest release (Hanoi).   Find the Docker Compose file that matches:
 
 - your hardware (x86 or ARM)
 - your desire to have security services on or off
@@ -64,11 +63,11 @@ Once you have selected the EdgeX Compose file you want to use, download it using
 
 === "x86"
     ```
-    wget https://raw.githubusercontent.com/edgexfoundry/developer-scripts/master/releases/hanoi/compose-files/docker-compose-hanoi-no-secty.yml -O docker-compose.yml
+    wget https://raw.githubusercontent.com/edgexfoundry/edgex-compose/hanoi/docker-compose-hanoi-no-secty.yml -O docker-compose.yml
     ```
 === "ARM"
     ```
-    wget https://raw.githubusercontent.com/edgexfoundry/developer-scripts/master/releases/hanoi/compose-files/docker-compose-hanoi-no-secty-arm64.yml -O docker-compose.yml
+    wget https://raw.githubusercontent.com/edgexfoundry/edgex-compose/hanoi/docker-compose-hanoi-no-secty-arm64.yml -O docker-compose.yml
     ```
 
 !!! Note
@@ -76,14 +75,14 @@ Once you have selected the EdgeX Compose file you want to use, download it using
 
 ### Generate a custom docker compose file
 
-The docker compose files under the `releases/hanoi` folder contain the standard set of EdgeX services configured to use `ZeroMQ` for the message bus and include only the Virtual and REST device services. If you need to have different device services running or use `MQTT` for the message bus, you need a modified version of one of the standard docker files. You could manually add the device services to one of the existing EdgeX compose files or, use the EdgeX Compose Builder tool to generate a new custom compose file that contains the services you would like included. When you use Compose Builder, you don't have to worry about adding all the necessary ports, variables, etc. as the tool will generate the service elements in the file for you. The [`Compose Builder`](https://github.com/edgexfoundry/developer-scripts/tree/v1.3.0/compose-builder) tool was added for the Hanoi release. This tool allows users to generate custom compose files. 
+The docker compose files on the `hanoi` branch contain the standard set of EdgeX services configured to use `ZeroMQ` for the message bus and include only the Virtual and REST device services. If you need to have different device services running or use `MQTT` for the message bus, you need a modified version of one of the standard docker files. You could manually add the device services to one of the existing EdgeX compose files or, use the EdgeX Compose Builder tool to generate a new custom compose file that contains the services you would like included. When you use Compose Builder, you don't have to worry about adding all the necessary ports, variables, etc. as the tool will generate the service elements in the file for you. The [`Compose Builder`](https://github.com/edgexfoundry/edgex-compose/tree/hanoi/compose-builder) tool was added for the Hanoi release. This tool allows users to generate custom compose files. 
 
 Do the following to use this tool:
 
-1. Clone the `developer-scripts` repository.
+1. Clone the `edgex-compose` repository.
 
    ```
-   git clone https://github.com/edgexfoundry/developer-scripts.git
+   git clone https://github.com/edgexfoundry/edgex-compose.git
    ```
 
 2. Checkout the Hanoi branch
@@ -105,7 +104,7 @@ Do the following to use this tool:
      - Generates non-secure compose file for ARM64 with just the Device Grove device service.
    ```
 
-​      See the [README](https://github.com/edgexfoundry/developer-scripts/blob/hanoi/compose-builder/README.md) here for details on all available options for `make gen`.
+​      See the [README](https://github.com/edgexfoundry/edgex-compose/blob/hanoi/compose-builder/README.md) here for details on all available options for `make gen`.
 
 !!! Note
     The generated docker compose file may need addition customizations for your specific needs, such as environment override(s) to set appropriate Host IP address, etc.
