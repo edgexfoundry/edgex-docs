@@ -131,7 +131,7 @@ Designating an HTTP trigger will allow the pipeline to be triggered by a RESTful
 It is also possible to define your own trigger and register a factory function for it with the SDK.  You can then configure the trigger by registering a factory function to build it along with a name to use in the config file.  These triggers can be registered with:
 
 ```go
-sdk.RegisterCustomTriggerFactory("my-trigger-name", myFactoryFunc) 
+appService.RegisterCustomTriggerFactory("my-trigger-name", myFactoryFunc) 
 ```
 
 !!! note
@@ -141,17 +141,20 @@ The trigger factory function is bound to an instance of a trigger configuration 
 
 ```go
 type TriggerConfig struct {
-	Config           *common.ConfigurationStruct
 	Logger           logger.LoggingClient
 	ContextBuilder   TriggerContextBuilder
 	MessageProcessor TriggerMessageProcessor
+	ConfigLoader     TriggerConfigLoader
 }
 ```
 
-This type carries a pointer to the internal edgex configuration and logger, along with two functions:
+This type carries a pointer to the internal edgex logger, along with three functions:
 
 - `ContextBuilder` builds an `*appcontext.Context` from a message envelope you construct.
 - `MessageProcessor` exposes a function that sends your message envelope and context built above into the edgex function pipeline.
+- `ConfigLoader` exposes a function that loads your custom config struct.  By default this is done from the primary EdgeX configuration pipeline, and only loads root-level elements.
+
+If you need to override these functions it can be done in the factory function registered with the service.
 
 The custom trigger constructed here will then need to implement the trigger interface so that the SDK can invoke it:
 
@@ -168,10 +171,10 @@ type stdinTrigger struct{
 	tc appsdk.TriggerConfig
 }
 
-func (t *stdinTrigger) Initialize(wg *sync.WaitGroup, ctx context.Context, background <-chan types.MessageEnvelope) (bootstrap.Deferred, error) {
+func (t *stdinTrigger) Initialize(wg *sync.WaitGroup, appCtx context.Context, background <-chan types.MessageEnvelope) (bootstrap.Deferred, error) {
     msgs := make(chan []byte)
 
-    ctx, cancel := context.WithCancel(context.Background())
+    ctx, cancel := context.WithCancel(appCtx)
 
     receiveMessage := true
 
@@ -215,16 +218,14 @@ func (t *stdinTrigger) Initialize(wg *sync.WaitGroup, ctx context.Context, backg
         }
     }()
 
-    return func() {
-        cancel()
-    }, nil
+    return cancel, nil
 }
 ```
 
 This trigger can then be registered by calling:
 
 ```go
-edgexSdk.RegisterCustomTriggerFactory("custom-stdin", func(config appsdk.TriggerConfig) (appsdk.Trigger, error) {
+appService.RegisterCustomTriggerFactory("custom-stdin", func(config appsdk.TriggerConfig) (appsdk.Trigger, error) {
     return &stdinTrigger{
         tc: config,
     }, nil
