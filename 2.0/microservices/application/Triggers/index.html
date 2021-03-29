@@ -2405,7 +2405,7 @@ The <code>Type=</code> is set to <code>external-mqtt</code>. To receive data fro
 </div>
 <h2 id="custom-triggers">Custom Triggers</h2>
 <p>It is also possible to define your own trigger and register a factory function for it with the SDK.  You can then configure the trigger by registering a factory function to build it along with a name to use in the config file.  These triggers can be registered with:</p>
-<div class="highlight"><pre><span></span><code><span class="nx">sdk</span><span class="p">.</span><span class="nx">RegisterCustomTriggerFactory</span><span class="p">(</span><span class="s">&quot;my-trigger-name&quot;</span><span class="p">,</span> <span class="nx">myFactoryFunc</span><span class="p">)</span> 
+<div class="highlight"><pre><span></span><code><span class="nx">appService</span><span class="p">.</span><span class="nx">RegisterCustomTriggerFactory</span><span class="p">(</span><span class="s">&quot;my-trigger-name&quot;</span><span class="p">,</span> <span class="nx">myFactoryFunc</span><span class="p">)</span> 
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2413,17 +2413,19 @@ The <code>Type=</code> is set to <code>external-mqtt</code>. To receive data fro
 </div>
 <p>The trigger factory function is bound to an instance of a trigger configuration struct that is provided by the SDK:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">TriggerConfig</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">Config</span>           <span class="o">*</span><span class="nx">common</span><span class="p">.</span><span class="nx">ConfigurationStruct</span>
     <span class="nx">Logger</span>           <span class="nx">logger</span><span class="p">.</span><span class="nx">LoggingClient</span>
     <span class="nx">ContextBuilder</span>   <span class="nx">TriggerContextBuilder</span>
     <span class="nx">MessageProcessor</span> <span class="nx">TriggerMessageProcessor</span>
+    <span class="nx">ConfigLoader</span>     <span class="nx">TriggerConfigLoader</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>This type carries a pointer to the internal edgex configuration and logger, along with two functions:</p>
+<p>This type carries a pointer to the internal edgex logger, along with three functions:</p>
 <ul>
 <li><code>ContextBuilder</code> builds an <code>*appcontext.Context</code> from a message envelope you construct.</li>
 <li><code>MessageProcessor</code> exposes a function that sends your message envelope and context built above into the edgex function pipeline.</li>
+<li><code>ConfigLoader</code> exposes a function that loads your custom config struct.  By default this is done from the primary EdgeX configuration pipeline, and only loads root-level elements.</li>
 </ul>
+<p>If you need to override these functions it can be done in the factory function registered with the service.</p>
 <p>The custom trigger constructed here will then need to implement the trigger interface so that the SDK can invoke it:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">Trigger</span> <span class="kd">interface</span> <span class="p">{</span>
     <span class="nx">Initialize</span><span class="p">(</span><span class="nx">wg</span> <span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">,</span> <span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">background</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="nx">types</span><span class="p">.</span><span class="nx">MessageEnvelope</span><span class="p">)</span> <span class="p">(</span><span class="nx">bootstrap</span><span class="p">.</span><span class="nx">Deferred</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
@@ -2434,10 +2436,10 @@ The <code>Type=</code> is set to <code>external-mqtt</code>. To receive data fro
     <span class="nx">tc</span> <span class="nx">appsdk</span><span class="p">.</span><span class="nx">TriggerConfig</span>
 <span class="p">}</span>
 
-<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">stdinTrigger</span><span class="p">)</span> <span class="nx">Initialize</span><span class="p">(</span><span class="nx">wg</span> <span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">,</span> <span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">background</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="nx">types</span><span class="p">.</span><span class="nx">MessageEnvelope</span><span class="p">)</span> <span class="p">(</span><span class="nx">bootstrap</span><span class="p">.</span><span class="nx">Deferred</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">stdinTrigger</span><span class="p">)</span> <span class="nx">Initialize</span><span class="p">(</span><span class="nx">wg</span> <span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">,</span> <span class="nx">appCtx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">background</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="nx">types</span><span class="p">.</span><span class="nx">MessageEnvelope</span><span class="p">)</span> <span class="p">(</span><span class="nx">bootstrap</span><span class="p">.</span><span class="nx">Deferred</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">msgs</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span>
 
-    <span class="nx">ctx</span><span class="p">,</span> <span class="nx">cancel</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">WithCancel</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">())</span>
+    <span class="nx">ctx</span><span class="p">,</span> <span class="nx">cancel</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">WithCancel</span><span class="p">(</span><span class="nx">appCtx</span><span class="p">)</span>
 
     <span class="nx">receiveMessage</span> <span class="o">:=</span> <span class="kc">true</span>
 
@@ -2481,13 +2483,11 @@ The <code>Type=</code> is set to <code>external-mqtt</code>. To receive data fro
         <span class="p">}</span>
     <span class="p">}()</span>
 
-    <span class="k">return</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">cancel</span><span class="p">()</span>
-    <span class="p">},</span> <span class="kc">nil</span>
+    <span class="k">return</span> <span class="nx">cancel</span><span class="p">,</span> <span class="kc">nil</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>This trigger can then be registered by calling:</p>
-<p><div class="highlight"><pre><span></span><code><span class="nx">edgexSdk</span><span class="p">.</span><span class="nx">RegisterCustomTriggerFactory</span><span class="p">(</span><span class="s">&quot;custom-stdin&quot;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">config</span> <span class="nx">appsdk</span><span class="p">.</span><span class="nx">TriggerConfig</span><span class="p">)</span> <span class="p">(</span><span class="nx">appsdk</span><span class="p">.</span><span class="nx">Trigger</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+<p><div class="highlight"><pre><span></span><code><span class="nx">appService</span><span class="p">.</span><span class="nx">RegisterCustomTriggerFactory</span><span class="p">(</span><span class="s">&quot;custom-stdin&quot;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">config</span> <span class="nx">appsdk</span><span class="p">.</span><span class="nx">TriggerConfig</span><span class="p">)</span> <span class="p">(</span><span class="nx">appsdk</span><span class="p">.</span><span class="nx">Trigger</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="o">&amp;</span><span class="nx">stdinTrigger</span><span class="p">{</span>
         <span class="nx">tc</span><span class="p">:</span> <span class="nx">config</span><span class="p">,</span>
     <span class="p">},</span> <span class="kc">nil</span>
