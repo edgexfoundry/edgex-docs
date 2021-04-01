@@ -340,7 +340,7 @@ File = ''
 
 Because we deploy EdgeX using docker-compose, we must add the
 device-modbus to the docker-compose file (
-<https://github.com/edgexfoundry/developer-scripts/blob/master/releases/geneva/compose-files/docker-compose-geneva-redis.yml>
+<https://github.com/edgexfoundry/edgex-compose/blob/geneva/docker-compose-geneva-redis.yml>
 ). If you have prepared configuration files, you can mount them using
 volumes and change the entrypoint for device-modbus internal use.
 

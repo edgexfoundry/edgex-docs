@@ -22,7 +22,7 @@ OAuth2 authentication and ACL.
 
 Start the API gateway with Docker Compose and a Docker Compose manifest
 file (the Docker Compose file named docker-compose-nexus-{redis,mongo}.yml (or -arm64 variabnts) found at
-<https://github.com/edgexfoundry/developer-scripts/tree/master/releases/geneva/compose-files>)).
+<https://github.com/edgexfoundry/edgex-compose/tree/hanoi>)).
 This Compose file starts all of EdgeX including the security services.
 The command to start EdgeX inclusive of API gateway related services is:
 :
