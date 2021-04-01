@@ -2202,7 +2202,7 @@
                 
                 <h1 id="getting-docker-images-from-edgex-nexus-repository">Getting Docker Images from EdgeX Nexus Repository</h1>
 <p>Released EdgeX Docker container images are available from <a href="https://hub.docker.com/search?q=edgexfoundry&amp;type=image">Docker Hub</a>.  In some cases, it may be necessary to get your EdgeX container images from the Nexus repository.  The Linux Foundation manages the Nexus repository for the project.</p>
-<p>Nexus contains the EdgeX project staging and development container images. In other words, Nexus contains work-in-progress or pre-release images.  These, pre-release/work-in-progress Docker images are built nightly and made available at the following Nexus location:</p>
+<p>Nexus contains the EdgeX project staging and development container images. In other words, Nexus contains work-in-progress or pre-release images.  These pre-release/work-in-progress Docker images are built nightly and made available at the following Nexus location:</p>
 <div class="highlight"><pre><span></span><code>nexus3.edgexfoundry.org:10004
 </code></pre></div>
 <h2 id="rationale-to-use-nexus-images">Rationale To Use Nexus Images</h2>
@@ -2212,16 +2212,15 @@
 <li>You need the latest development container image (the work in progress)</li>
 <li>You are working in a Windows or non-Linux environment and you are unable to build a container without some issues.</li>
 </ol>
-<p>A set of Docker Compose files have been created to allow you to get and use the latest EdgeX service images from Nexus.  Find these <a href="https://github.com/edgexfoundry/developer-scripts/tree/master/releases/nightly-build/compose-files">Nexus "Nightly Build" Compose files</a> in GitHub.  The EdgeX development team provides these Docker Compose files.  As with the EdgeX release Compose files, you will find several different Docker Compose files that allow you to get the type of EdgeX instance setup based on: </p>
+<p>A set of Docker Compose files have been created to allow you to get and use the latest EdgeX service images from Nexus.  Find these <a href="https://github.com/edgexfoundry/edgex-compose/tree/master">Nexus "Pre-Release" Compose files</a> in GitHub.  The EdgeX development team provides these Docker Compose files.  As with the EdgeX release Compose files, you will find several different Docker Compose files that allow you to get the type of EdgeX instance setup based on: </p>
 <ul>
 <li>your hardware (x86 or ARM)</li>
-<li>the database you want to use (Mongo or Redis)</li>
 <li>your desire to have security services on or off</li>
 </ul>
 <p><img alt="image" src="../EdgeX_GettingStartedNexusCompose.png" /></p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>The "Nightly Build" images are provided as is and may not always function properly or with other EdgeX services.  Use with caution and typically only if you are a developer/contributor to EdgeX. These images represent the latest development work and may not have been thoroughly tested or integrated.</p>
+<p>The "Pre-Release" images are provided as is and may not always function properly or with other EdgeX services.  Use with caution and typically only if you are a developer/contributor to EdgeX. These images represent the latest development work and may not have been thoroughly tested or integrated.</p>
 </div>
 <h2 id="using-nexus-images">Using Nexus Images</h2>
 <p>The operations to pull the images and run the Nexus Repository is the same as when using EdgeX images from Docker Hub (see <a href="../Ch-GettingStartedUsers/#run-edgex-foundry">Getting Started with Docker</a>).</p>
@@ -2234,7 +2233,7 @@
 <img alt="image" src="../EdgeX_GettingStartedNexusComposeNew.png" /></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The example above replaces the Geneva core data service from Docker Hub with the latest core data image in Nexus. </p>
+<p>The example above replaces the Geneva core data service from Docker Hub with the latest core data image in Nexus. Still the same process for Hanoi compose files.</p>
 </div>
                 
               
