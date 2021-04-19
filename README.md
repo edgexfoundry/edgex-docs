@@ -1,4 +1,6 @@
 # Documentation for developing with EdgeX-Docs
+[![Build Status](https://jenkins.edgexfoundry.org/view/EdgeX%20Foundry%20Project/job/edgexfoundry/job/edgex-docs/job/master/badge/icon)](https://jenkins.edgexfoundry.org/view/EdgeX%20Foundry%20Project/job/edgexfoundry/job/edgex-docs/job/master/) [![GitHub Pull Requests](https://img.shields.io/github/issues-pr-raw/edgexfoundry/edgex-docs)](https://github.com/edgexfoundry/edgex-docs/pulls) [![GitHub Contributors](https://img.shields.io/github/contributors/edgexfoundry/edgex-docs)](https://github.com/edgexfoundry/edgex-docs/contributors) [![GitHub Committers](https://img.shields.io/badge/team-committers-green)](https://github.com/orgs/edgexfoundry/teams/edgex-docs-committers/members) [![GitHub Commit Activity](https://img.shields.io/github/commit-activity/m/edgexfoundry/edgex-docs)](https://github.com/edgexfoundry/edgex-docs/commits)
+
 
 ## Local Development (docker) (recommended):
 
