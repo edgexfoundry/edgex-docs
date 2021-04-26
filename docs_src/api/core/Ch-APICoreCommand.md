@@ -22,7 +22,5 @@ into two groups for each device:
     setting the speed in RPMs of a motor, or setting the brightness of a
     dimmer light.
 
-<https://github.com/edgexfoundry/edgex-go/blob/master/api/raml/core-command.raml>
-
 [Core Command V1 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-command)
 <!-- [Core Command API HTML Documentation](core-command.html) -->

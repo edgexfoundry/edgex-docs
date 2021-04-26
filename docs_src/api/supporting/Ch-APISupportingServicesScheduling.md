@@ -8,8 +8,6 @@ For a description of the architecture, see
 
 The following API RESTful Web Service(s) for EdgeX Foundry.
 
-<https://github.com/edgexfoundry/edgex-go/blob/master/api/raml/support-scheduling.raml>
-
 [Scheduling V1 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-scheduler)
 <!-- [Scheduling API HTML Documentation](support-scheduler.html) -->
 
@@ -26,8 +24,7 @@ action(s).
         ISO 8601 YYYYMMDD't'HHmmss format. Empty means now.
     -   **end** - identifies when the operation ends. Expressed in ISO
         8601 YYYYMMDD't'HHmmss format. Empty means never
-    -   **frequency** - identifies the interval between invocations.
-        Expressed in ISO 8601 PxYxMxDTxHxMxS format. Empty means no
+    -   **frequency** - How often the specific resource needs to be polled. It represents as a duration string. The format of this field is to be an unsigned integer followed by a unit which may be "ns", "us" (or "µs"), "ms", "s", "m", "h" representing nanoseconds, microseconds, milliseconds, seconds, minutes or hours. Eg, "100ms", "24h" Empty means no
         frequency.
 
 **Interval Action(s)**
@@ -53,7 +50,7 @@ Create an interval upon which the scheduler will operate :
 curl -X POST -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '{
 
 :   "name": "midnight", "start": "20180101T000000",
-    "frequency": "P1D"}'
+    "frequency": "24h"}'
     "<http://localhost:48081/api/v1/interval>"
 
 Example of a second interval which will run every 20 seconds :
@@ -61,7 +58,7 @@ Example of a second interval which will run every 20 seconds :
 curl -X POST -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '{
 
 :   "name": "every20s", "start":"20000101T000000", "end":"",
-    "frequency":"PT20S"}'
+    "frequency":"20s"}'
     "<http://localhost:48081/api/v1/interval>"
 
 Create an interval action that will invoke the interval action (drive

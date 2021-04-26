@@ -168,12 +168,6 @@ These are functions that enable interactions with the CoreData REST API.
 |----------------------------------|-------------|
 | NewCoreData() | This function returns a `CoreData` instance. This `CoreData` instance is used to access core data functions.
 
-### Mark As Pushed
-`MarkAsPushed` - This function provides the MarkAsPushed function from the context as a First-Class Transform that can be called in your pipeline. [See Definition Above](#.MarkAsPushed()). The data passed into this function from the pipeline is passed along unmodified since all required information is provided on the context (EventId, CorrelationId,etc.. )
-```go
-NewCoreData().MarkAsPushed
-```
-
 ### Push to Core
 `PushToCore` - This function provides the PushToCore function from the context as a First-Class Transform that can be called in your pipeline. [See Definition Above](#.PushToCore()). The data passed into this function from the pipeline is wrapped in an EdgeX event with the `deviceName` and `readingName` that were set upon the `CoreData` instance and then sent to Core Data service to be added as an event. Returns the new EdgeX event with ID populated.
 ```go
@@ -284,6 +278,14 @@ There is one output function included in the SDK that can be added to your pipel
 | Factory Method                   | Description |
 |----------------------------------|-------------|
 | NewOutput() | This function returns a `Output` instance that is used to access the following output function |
+
+### Content Type
+`ResponseContentType` - This property is used to set the content-type of the response.
+
+``` go
+output := NewOutput()
+output.ResponseContentType = "application/json"
+```
 
 `SetOutput` - This function receives either a `string`,`[]byte`, or `json.Marshaler` type from the previous function in the pipeline and sets it as the output data for the pipeline to return to the configured trigger. If configured to use message bus, the data will be published to the message bus as determined by the `MessageBus` and `Binding` configuration. If configured to use HTTP trigger the data is returned as the HTTP response. 
 

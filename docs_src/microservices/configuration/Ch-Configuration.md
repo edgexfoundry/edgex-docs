@@ -122,7 +122,7 @@ The following tables document configuration properties that are common to all se
     |---|---|---|
     |||entries in the Writable section of the configuration can be changed on the fly while the service is running if the service is running with the `-cp/--configProvider=consul.<url>` flag|
     |LogLevel|INFO|log entry [severity level](https://en.wikipedia.org/wiki/Syslog#Severity_level).  Log entries not of the default level or higher are ignored.|
- === "Service"
+=== "Service"
     |Property|Default Value|Description|
     |---|---|---|
     |||these keys represent the core service-level configuration settings|
@@ -131,6 +131,7 @@ The following tables document configuration properties that are common to all se
     |StartupMsg      |Logging Service heart beat    |Heart beat message|
     |Port            |48061                         |Micro service port number|
     |Host            |localhost                     |Micro service host name|
+    |ServerBindAddr  |'' (empty string)             | The interface on which the service's REST server should listen. By default the server is to listen on the interface to which the `Host` option resolves (leaving it blank). A value of `0.0.0.0` means listen on all available interfaces.|
     |Protocol        |http                          |Micro service host protocol|
     |ClientMonitor   |15000                         |The interval in milliseconds at which any service clients will refresh their endpoint information from the service registry (Consul)|
     |CheckInterval   |10s                           | The interval in seconds at which the service registry(Consul) will conduct a health check of this service.|
@@ -170,7 +171,7 @@ The following tables document configuration properties that are common to all se
     |Property|Default Value|Description|
     |---|---|---|
     ||||config values that govern the StartupTimer created at boot for ensuring the service starts in a timely fashion|
-    |Duration| 30  | The maximum amount of time (in seconds) the service is given to complete the bootstrap phase.|
+    |Duration| 60 | The maximum amount of time (in seconds) the service is given to complete the bootstrap phase.|
     |Interval| 1  | The amount of time (in seconds) to sleep between retries on a failed dependency such as DB connection|
 === "SecretStore"
     |Property|Default Value|Description|

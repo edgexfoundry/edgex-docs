@@ -37,6 +37,9 @@ type Context struct {
 	
 	// SecretProvider exposes the support for getting and storing secrets
 	SecretProvider *security.SecretProvider
+
+	// ResponseContentType sets a custom response type
+	ResponseContentType string
 }
 ```
 
@@ -48,7 +51,7 @@ The `LoggingClient` exposed on the context is available to leverage logging libr
 
 ### EventClient 
 
-The `EventClient ` exposed on the context is available to leverage Core Data's `Event` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/coredata/event.go#L35) for more details. This client is useful for querying events and is used by the [MarkAsPushed](#markaspushed) convenience API described below.
+The `EventClient ` exposed on the context is available to leverage Core Data's `Event` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/coredata/event.go#L35) for more details. This client is useful for querying events and is used by the [PushToCore](#pushtocore) convenience API described below.
 
 ### ValueDescriptorClient
 
@@ -88,10 +91,6 @@ Each of the clients above is only initialized if the Clients section of the conf
   Host = 'localhost'
   Port = 48060
 ```
-
-## .MarkAsPushed()
-
-`.MarkAsPushed()` is used to indicate to EdgeX Core Data that an event has been "pushed" and is no longer required to be stored. The scheduler service will purge all events that have been marked as pushed based on the configured schedule. By default, it is once daily at midnight. If you leverage the built in export functions (i.e. HTTP Export, or MQTT Export), then simply adding the MaskedAsPush function to you pipeline after the export function will take care of calling this API. 
 
 ## .PushToCore()
 `.PushToCore(string deviceName, string readingName, byte[] value)` is used to push data to EdgeX Core Data so that it can be shared with other applications that are subscribed to the message bus that core-data publishes to. `deviceName` can be set as you like along with the `readingName` which will be set on the EdgeX event sent to CoreData. This function will return the new EdgeX Event with the ID populated, however the CorrelationId will not be available.

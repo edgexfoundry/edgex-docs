@@ -46,7 +46,7 @@ The times and frequencies defined in the scheduler service's intervals are speci
     |Name |the name of the given interval|
     |start|The start time of the given interval in ISO 8601 format|
     |end|The end time of the given interval in ISO 8601 format|
-    |frequency |Periodicity of the interval according to ISO 8601|
+    |frequency |How often the specific resource needs to be polled. It represents as a duration string. The format of this field is to be an unsigned integer followed by a unit which may be "ns", "us" (or "µs"), "ms", "s", "m", "h" representing nanoseconds, microseconds, milliseconds, seconds, minutes or hours. Eg, "100ms", "24h"|
     |cron|cron styled regular expression indicating how often the action under interval should occur.  Use either runOnce, frequency or cron and not all|
     |runOnce|boolean indicating that this interval runs one time - at the time indicated by the start|
 === "IntervalAction"

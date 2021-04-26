@@ -235,9 +235,11 @@ The code name of each release is named after some geographical location in the w
 |Edinburgh |Jul 2019 | 1.0.0 |
 |Fuji |Nov 2019 | 1.1.0 |
 |Geneva |May 2020 | 1.2.0 |
-|Hanoi |Fall 2020 | TBD |
+|Hanoi |November 2020 | 1.3.0 |
 |Ireland |Spring 2021 | TBD |
 |Jakarta |Fall 2021 | TBD |
+|Kamukura |Spring 2022| TBD |
+|Levski| Fall 2022| TBD|
 
 *Note*: minor releases of the Device Services and Application Services (along with their associated SDKs) can be release independently.
 

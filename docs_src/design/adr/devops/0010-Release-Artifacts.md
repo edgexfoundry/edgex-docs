@@ -2,7 +2,7 @@
 
 ## Status
 
-In Review 06/10/2020
+Approved
 
 ## Context
 
@@ -49,6 +49,12 @@ Docker Tags Used:•Version (ie: v1.x), Latest
 *Tied to Code Release?* Yes
 
 Docker compose files are released alongside the docker images for every release of EdgeX Foundry. During development the community maintains compose files a folder named `nightly-build`. These compose files are meant to be used by our testing frameworks. At the time of release the community makes compose files for that release in a folder matching it's name. (ie: `geneva`)
+
+### DockerHub Image Descriptions and Overviews
+
+*Tied to Code Release?* No
+
+After Docker images are published to [DockerHub](https://hub.docker.com/orgs/edgexfoundry), automation should be run to update the image Overviews and Descriptions of the necessary images. This automation is located in the `edgex-docker-hub-documentation` branch of the [cd-management](https://github.com/edgexfoundry/cd-management/tree/edgex-docker-hub-documentation) repository. In preparation for the release the community makes changes to the Overview and Description metadata as appropriate. The Release Czar will coordinate the execution of the automation near the release time.
 
 ### Github Page: EdgeX Docs
 
