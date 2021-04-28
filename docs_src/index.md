@@ -168,7 +168,7 @@ SDKs are language specific; meaning an SDK is written to create services in a pa
 
 - Golang Device Service SDK
 - C Device Service SDK
-- Golang Device Service SDK
+- Golang Application Functions SDK
 
 ## How EdgeX Works
 
