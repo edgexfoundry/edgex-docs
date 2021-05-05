@@ -44,7 +44,7 @@ Currently, the list of services is haphazardly managed by the needing service.
 - In the case that the services are distributed (especially when device services run on different hosts - as is likely), access to a distributed file system or volume mount becomes more of an issue and requires additional technology.
 - The service list would have to be a list of services and service locations (URI).  Therefore, the service list will really be a map of service names (keys) and the location of the services URIs (values).  This will help support things like the API gateway setup as well.  In some cases, just a list of the service names is needed (in security token setup for example).  In this latter case, the service would just pick off the service keys.
 - Generation of security tokens for the new services under most of the conceived alternatives is complex.  In the current security bootstrapping, secret store setup will require a restart of all the services in order to add or remove a service.  The ORRA project and some adopters are clear that they would like to have the ability to add/remove services dynamically at runtime.
-- From a security perspective, being able to add/remove new services dynamically opens up a rather large attack vector and vulnerability.
+- From a security perspective, being able to add/remove new services dynamically opens up a rather large attack surface.
 
 ### Implementation Alternative Discussion
 
