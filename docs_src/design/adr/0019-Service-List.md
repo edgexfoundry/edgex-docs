@@ -11,6 +11,7 @@ Several EdgeX Foundry services today require a list of the services that are par
 The current list of needs include:
 
 - Security bootstrapping service requires a list of services in order to know which services need a file token for Vault access and to add shared secrets to Vault.
+- Consul bootstrapping service requires a list of services in order to generate an appropriate per-service Consul ACL as well as to configure Vault to allow the service to request a Consul token with that ACL.
 - System management agent service requires a list of services in order to know which services it can provide status, configuration and metrics for client requestors.  The SMA also needs to know which services to include in any start/stop/restart operations.
 - The user interface needs to know which services, specifically device and application services, are available in order to provide interaction with those services, and potentially to display some metrics on operational services.
 - The CLI needs to know which services are operational (for some interaction) and which device services and application services to include in start/stop operations.
