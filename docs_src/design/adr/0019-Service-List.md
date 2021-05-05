@@ -23,7 +23,7 @@ In the future, there may be other internal or 3rd party needs to what services c
 
 Currently, the list of services is haphazardly managed by the needing service.
 
-- The security bootstrapping services are being built to use an environment variable to provide it with a list of services at startup.
+- The security bootstrapping services are being built to use an environment variable to provide it with a list of services at startup.  (This list is needed for both Vault and Consul to setup appropriate access control lists.)
 - The user interface and CLI do not deal with service lists today and assume all services are operational (with known service host and port defined in configuration).
 - The SMA has a static/hardcoded list built into the codebase.  Clearly the least desirable means of dealing with the list of services as this not only requires a restart of the service, but also code changes and redeployment.
 
