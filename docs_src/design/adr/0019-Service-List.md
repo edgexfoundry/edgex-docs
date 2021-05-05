@@ -16,6 +16,7 @@ The current list of needs include:
 - The user interface needs to know which services, specifically device and application services, are available in order to provide interaction with those services, and potentially to display some metrics on operational services.
 - The CLI needs to know which services are operational (for some interaction) and which device services and application services to include in start/stop operations.
 - Security proxy setup requires a lot of services for which a reverse proxy route should be established.  This is a subset of the full list of EdgeX services.
+- Core Metadata must maintain a list of device-type services.  This list is used to validate device additions (i.e., any new device definition must include a valid named device service which it is going to be associated with).  This list is also used when routing commands (via core command) to the appropriate device service.
 
 In the future, there may be other internal or 3rd party needs to what services comprise an EdgeX deployment.
 
@@ -31,11 +32,13 @@ Currently, the list of services is haphazardly managed by the needing service.
 
 1. It is desired that the service list be addressed in a consistent manner.  It is further desired that there be one single, authoritative source of the service list information for all EdgeX services and 3rd party requestors.  While the source of the service list may change under certain runtime circumstances (for example – whether operating with or without security), once EdgeX is running the authoritative source remains the same for all services.
 
-2. Any changes to the list of services must adhere to ACID transactional properties.  That is, any change to the list of services must be atomic, consistent, isolated and durable with regard to any operations on the service list.  In other words, no two services should ever be able to get a different list of services when making a request of EdgeX for the list of services.
+2. Any changes to the list of services must adhere to ACID transactional properties.  That is, any change to the list of services must be atomic, consistent, isolated and durable with regard to any operations on the service list.  In other words, if a service A makes a change to the list of services, service B should see that change and now have the same list as service A (once the change has been made in some sort of transactional boundry).  No two services should ever be able to get a different list of services when making a request of EdgeX for the list of services.
 
-3. EdgeX services may be added or removed (either intentionally or unintentionally due to failures) all the time.  The list of services should reflect, as best it can, the current list of EdgeX services – that is be dynamic and not a static list at the start/bootstrap of the EdgeX instance.  In particular, new device services and application services are likely to be added to the EdgeX instance after the system is started.  The list should eventually reflect the additions.
+3. EdgeX services may be added or removed (either intentionally or unintentionally due to failures) all the time.  The list of services should reflect the current list of EdgeX services – that is be dynamic and not a static list at the start/bootstrap of the EdgeX instance.  In particular, new device services and application services are likely to be added to the EdgeX instance after the system is started.
 
-4. While Consul is often used as the configuration/registry service, EdgeX was constructed to operate off of local configuration in the absence of the central config/registry service (for development purposes or in order to reduce the resource needs of the platform).  The service list need should be provided when a central configuration/registry service like Consul is provided and even when services operate off local configuration.  Per #1 above, all services should get the service list information in the same way, but that may change depending on the existence of a central configuration/registration service.
+4. Additions and deletions from the EdgeX services to the service list need to be authenticated and authorized.
+
+5. While Consul is often used as the configuration/registry service, EdgeX was constructed to operate off of local configuration in the absence of the central config/registry service (for development purposes or in order to reduce the resource needs of the platform).  The service list need should be provided when a central configuration/registry service like Consul is provided and even when services operate off local configuration.  Per #1 above, all services should get the service list information in the same way, but that may change depending on the existence of a central configuration/registration service.
 
 ### Considerations
 
@@ -50,18 +53,18 @@ Currently, the list of services is haphazardly managed by the needing service.
 
 - A service list could be made available in a configuration file in the file system (non-Docker) or volume mount (in a Docker situation).
   - All services would get the configuration in a consistent way (#1)
-  - It would also mean that there is a single, authoritative list for all services and it could be made to be ACID safe (#2 and #3).
-  - The file would have to be validated whenever edited in order not to bring down all the services with bad contents.
+  - It would also mean that there is a single, authoritative list for all services.  Finding a file-based solution that is also supports ACID transactional would be a challenge - if even possible(#2 and #3).
+  - The file would have to be validated whenever edited in order not to bring down all the services with bad contents.  Integrity of the configuration file could not be protected if someone edited the file by hand.
   - This alternative would solve the requirement that the solution operate with or without Consul (#4).  UI and CLI should have access to the same file or volume mount.
   - There is a question about who or what service would put this file into the file system or volume mount – especially since security bootstrapping would need it first but this file would be needed in non-secure runtime as well.
-  - There isn’t a central “dummy” service that would own the file – especially for dev/test.
-  - It has to be a service that is always there (like core metadata), but also available from the start of all services (which metadata is not in the case of security services).
+  - There isn’t a central service that would own the file – especially for dev/test.
+  - It has to be a service that is always there (like core metadata), but also available from the start of all services (which metadata is not in the case of security services).  Ideally, this service should not require root user privileaes.
   - Services would have to monitor the file or volume for changes in order to be able to address the add/removal of services at runtime.
   - How would the security bootstrapping address the add/removal of services and get new tokens established?  The bootstrapping service isn’t even long running to do this.
 - Have global configuration in Consul (or config/reg service) that everyone reads.
-  - When Consul is not used, have a common service list in each service configuration.toml file that everyone reads.
-  - While the means to get the configuration is consistent in this solution alternative (#1), there is not a single, authoritative list of services when using local configuration and making ACID transactions (#3) across the multiple files would be difficult – especially if distributed across hosts.
-  - Using Consul would make sure that the service list is valid and that any change operation is ACID.
+  - When Consul is used, there would be a single authoritative list of services provided to all requesting services through Consul. Updates to Consul would be transactional (ACID).
+  - When Consul is not used, have a common service list in each service configuration.toml file that everyone reads.  Further, when Consul is not used, each service is using the same means (addressing #1 above) to get its service list (that is going to its config TOML file locally).  However, each service list in each configuration file could be different (leading to service list inconsistencies) and there is not a single, authoritative list when using local configuration (making ACID transactions to the service list per #3 above very difficult – especially if services and their configuration file holding the copy of the service list are distributed across hosts).
+  - Using Consul would make sure that the service list is well formed (meaining adherence to format, but this does not mean that the service list necessarily adheres to any validity rules unless additional code interacting with Consul changes is checking for well formed-ness and validity) and that any change operation is ACID (but only with regard to Consul and the service list - this does not mean the transaction would incorporate additional needs such as the API Gateway updating new routes).
   - When using the local configuration, some of the same issues exist as listed in the first alternative (validation of the file, etc.).
   - Services would have to be notified by Consul if the service list changes or monitor the local config for a service list change in order to be able to address the add/removal of services at runtime.
   - Again, how would the security bootstrapping address the add/removal of services and get new tokens established?  The bootstrapping service isn’t even long running to do this.
