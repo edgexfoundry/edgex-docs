@@ -15,6 +15,7 @@ The current list of needs include:
 - System management agent service requires a list of services in order to know which services it can provide status, configuration and metrics for client requestors.  The SMA also needs to know which services to include in any start/stop/restart operations.
 - The user interface needs to know which services, specifically device and application services, are available in order to provide interaction with those services, and potentially to display some metrics on operational services.
 - The CLI needs to know which services are operational (for some interaction) and which device services and application services to include in start/stop operations.
+- Security proxy setup requires a lot of services for which a reverse proxy route should be established.  This is a subset of the full list of EdgeX services.
 
 In the future, there may be other internal or 3rd party needs to what services comprise an EdgeX deployment.
 
