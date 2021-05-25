@@ -18,3 +18,5 @@
 | [0016 Container Image Guidelines](./adr/security/0016-docker-image-guidelines.md)              | Documents best practices for security of docker images  |
 | [0017 Securing access to Consul](./adr/security/0017-consul-security.md)                       | Access control and authorization strategy for Consul    |
 | [0018 Service Registry](./adr/0018-Service-Registry.md)                                        | Service registry usage for EdgeX services               |
+| [0020 Unit of Measure](./adr/0020-UnitOfMeasure.md)                                            | Unit of Measures for EdgeX Device Resources             |
+
