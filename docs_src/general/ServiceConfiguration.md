@@ -33,7 +33,7 @@ Please refer to the general [Configuration documentation](../microservices/confi
 === "Security"
     |Services Name|	Configuration Reference|
     |---|---|
-    |API Gateway|[Kong Configuration](../microservices/security/Ch-APIGateway.md#configuring-api-gateway)|
+    |API Gateway|[Kong Configuration](../security/Ch-APIGateway.md#configuring-api-gateway)|
 === "System Management"
     |Services Name|	Configuration Reference|
     |---|---|
