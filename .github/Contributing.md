@@ -55,6 +55,7 @@ Modules:
 * **legacy**: A change or addition to legacy design documentation
 * **examples**: A change or addition to examples
 * **microservices**: A change or addition to the micro services documentation
+* **security**: A change or addition to the security documentation
 * **ref** A change or addition to the reference documentation
 * **walkthru**: A change or addition to the walk through documentation
 * *no scope*:  If no scope is provided, it is assumed the PR does not apply to the above scopes or applies to all scopes
