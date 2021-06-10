@@ -1,4 +1,4 @@
-# Security Issues
+# Reporting Security Issues
 
 This page describes how to report EdgeX Foundry security issues and how
 they are handled.
