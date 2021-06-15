@@ -184,12 +184,12 @@ EdgeX’s primary job is to collect data from sensors and devices and make that 
 
     ![image](./general/EdgeX_step1-2.png)
 
-When core data receives the event (either via message bus or REST), it persists the sensor data in the local edge database.  Redis is used as the database by default (other databases can be used alternatively).  Persistence is not required and can be turned off.  Data is persisted in EdgeX at the edge for two basics reasons:
+When core data receives the event (either via message bus or REST), it persists the sensor data in the local edge database.  EdgeX uses Redis as our persistence store.  There is an abstraction in place to allow you to use another database (which has allowed other databases to be used in the past).  Persistence is not required and can be turned off.  Data is persisted in EdgeX at the edge for two basics reasons:
 
 - Edge nodes are not always connected.  During periods of disconnected operations, the sensor data must be saved so that it can be transmitted northbound when connectivity is restored.  This is referred to as store and forward capability.
 - In some cases, analytics of sensor data needs to look back in history in order to understand the trend and to make the right decision based on that history.  If a sensor reports that it is 72° F right now, you might want to know what the temperature was ten minutes ago before you make a decision to adjust a heating or cooling system.  If the temperature was 85° F, you may decide that adjustments to lower the room temperature you made ten minutes ago were sufficient to cool the room.  It is the context of historical data that are important to local analytic decisions.
 
-When core data receives event objects from the device service via REST, it will puts sensor data events on a message topic destined for application services.  Redis Streams is used as the messaging infrastructure by default (step 2).  MQTT or ZMQ can also be used as the messaging infrastructure between core data and the application services.
+When core data receives event objects from the device service via REST, it will put sensor data events on a message topic destined for application services.  Redis Pub/Sub is used as the messaging infrastructure by default (step 2).  MQTT or ZMQ can also be used as the messaging infrastructure between core data and the application services.
 
 ![image](./general/EdgeX_step2.png)
 
