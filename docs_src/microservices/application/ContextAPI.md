@@ -29,9 +29,6 @@ type AppFunctionContext interface {
 }
 ```
 
-## InputContentType()
-`InputContentType()` returns the content type of the data that initiated the pipeline execution. Only useful when the TargetType for the pipeline is []byte, otherwise the data will be the type specified by TargetType.
-
 ## Response Data
 
 ### SetResponseData()
@@ -134,6 +131,9 @@ The context API exposes a map-like interface that can be used to store custom da
 `SecretsLastUpdated()` returns that timestamp for when the secrets in the SecretStore where last updated.  Useful when a connection to external source needs to be redone when the credentials have been updated.
 
 ## Miscellaneous
+
+### InputContentType()
+`InputContentType()` returns the content type of the data that initiated the pipeline execution. Only useful when the TargetType for the pipeline is []byte, otherwise the data will be the type specified by TargetType.
 
 ### GetDeviceResource()
 `GetDeviceResource(profileName string, resourceName string) (dtos.DeviceResource, error)` retrieves the DeviceResource for the given profile / resource name. Results are cached to minimize HTTP traffic to core-metadata.
