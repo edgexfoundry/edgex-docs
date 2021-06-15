@@ -426,11 +426,11 @@ If running in insecure mode, the secrets are retrieved from the *Writable.Insecu
 
 ### Background Publishing
 
-Application Services using the MessageBus trigger can request a background publisher using the AddBackgroundPublisher API in the SDK.  This method takes an int representing the background channel's capacity as the only parameter and returns a reference to a BackgroundPublisher.  This reference can then be used by background processes to publish to the configured MessageBus output.  Example usage is as follows:
+Application Services using the MessageBus trigger can request a background publisher using the AddBackgroundPublisher API in the SDK.  This method takes an int representing the background channel's capacity as the only parameter and returns a reference to a BackgroundPublisher.  This reference can then be used by background processes to publish to the configured MessageBus output.  A custom topic can be provided to use instead of the configured message bus output as well.  Example usage is as follows:
 
 ```go
 
-func runJob (pub appsdk.BackgroundPublisher, done chan struct{}){
+func runJob (pub interfaces.BackgroundPublisher, ctxSeed interfaces.AppFunctionContext, done chan struct{}){
 	ticker := time.NewTicker(1 * time.Minute)
 	go func() {
 		for {
@@ -440,9 +440,14 @@ func runJob (pub appsdk.BackgroundPublisher, done chan struct{}){
 				payload, err := json.Marshal(message)
 				
 				if err != nil {
-					continue
+					//do something
 				}
-				pub.Publish(payload, uuid.New().String(), clients.ContentTypeJSON)
+				
+				err = pub.Publish(payload, ctxSeed)
+				
+				if err != nil {
+					//do something
+				}
 			case <-j.done:
 				ticker.Stop()
 				return
@@ -458,9 +463,13 @@ func main() {
 		os.Exit(-1)
 	}
 
-	//initialize background publisher with a channel capacity of 10
-	pub := sdk.AddBackgroundPublisher(10)
+	//initialize background publisher with a channel capacity of 10 and a custom topic
+	pub, err := sdk.AddBackgroundPublisherWithTopic(10, "custom-topic")
 
+	if err != nil {
+		// do something
+	}
+	
 	done := make(chan struct{})
 	defer close(done)
 
