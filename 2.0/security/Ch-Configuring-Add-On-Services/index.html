@@ -21,7 +21,7 @@
     
     
       
-        <title>Placeholder - EdgeX Foundry Documentation</title>
+        <title>Configuring Add-on Service - EdgeX Foundry Documentation</title>
       
     
     
@@ -58,7 +58,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#placeholder" class="md-skip">
+        <a href="#configuring-add-on-service" class="md-skip">
           Skip to content
         </a>
       
@@ -85,7 +85,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Placeholder
+              Configuring Add-on Service
             
           </span>
         </div>
@@ -147,7 +147,9 @@
         
           
 
-<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
   <div class="md-tabs__inner md-grid">
     <ul class="md-tabs__list">
       
@@ -182,7 +184,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="../Ch-Security/" class="md-tabs__link">
+        <a href="../Ch-Security/" class="md-tabs__link md-tabs__link--active">
           Security
         </a>
       
@@ -662,10 +664,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
     
     <label class="md-nav__link" for="nav-3">
       Security
@@ -752,6 +756,88 @@
     <a href="../Ch-Secure-MessageBus/" title="Secure MessageBus" class="md-nav__link">
       Secure MessageBus
     </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Configuring Add-on Service
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z" /></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Configuring Add-on Service" class="md-nav__link md-nav__link--active">
+      Configuring Add-on Service
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#make-add-on-services-security-bootstrapper-compatible" class="md-nav__link">
+    Make add-on services security-bootstrapper compatible
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configure-the-services-secret-store-to-use" class="md-nav__link">
+    Configure the service's Secret Store to use
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-configure-known-secrets-for-add-on-services" class="md-nav__link">
+    (Optional) Configure known secrets for add-on services
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-configure-the-acl-role-of-configurationregistry-to-use-if-the-service-depends-on-it" class="md-nav__link">
+    (Optional) Configure the ACL role of configuration/registry to use if the service depends on it
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-configure-the-api-gateway-access-route-for-add-on-service" class="md-nav__link">
+    (Optional) Configure the API gateway access route for add-on service
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -2109,6 +2195,51 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#make-add-on-services-security-bootstrapper-compatible" class="md-nav__link">
+    Make add-on services security-bootstrapper compatible
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configure-the-services-secret-store-to-use" class="md-nav__link">
+    Configure the service's Secret Store to use
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-configure-known-secrets-for-add-on-services" class="md-nav__link">
+    (Optional) Configure known secrets for add-on services
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-configure-the-acl-role-of-configurationregistry-to-use-if-the-service-depends-on-it" class="md-nav__link">
+    (Optional) Configure the ACL role of configuration/registry to use if the service depends on it
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-configure-the-api-gateway-access-route-for-add-on-service" class="md-nav__link">
+    (Optional) Configure the API gateway access route for add-on service
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2127,7 +2258,193 @@
                   
                 
                 
-                <h1 id="placeholder">Placeholder</h1>
+                <h1 id="configuring-add-on-service">Configuring Add-on Service</h1>
+<p>In the current EdgeX security serivces, we set up and configure all security related properties and environments
+for the existing default serivces like <code>core-data</code>, <code>core-metadata</code>, <code>device-virtual</code>, and so on.</p>
+<p>The settings and service environment variables are pre-wired and ready to run in secure mode without any update
+or modification to the Docker-compose files.  However, there are some pre-built add-on services like some device services
+(e.g.<code>device-camera</code>, <code>device-modbus</code>), and some of application services (e.g. <code>app-http-export</code>, <code>app-mqtt-export</code>)
+are not pre-wired for by default. Also if you are adding on your custom application service,
+there is no pre-wiring for it and thus need some configuration efforts to make them run in secure mode.</p>
+<p>EdgeX provides a way for a user to add and configure those add-on services into EdgeX Docker
+software stack running in secure mode.  This can be done vai Docker-compose files with a few additional
+environment variables and some modification of micro-service's Dockerfile. From <code>edgex-compose</code> repository,
+the <code>compose-builder</code> utility provides some ways to deal with those add-on services like through <code>add-security.yml</code>
+via <code>make</code> targets to generate <code>docker-compose</code> file for running them in secure mode. For more details, please refer to
+<a href="https://github.com/edgexfoundry/edgex-compose/blob/master/compose-builder/README.md">README documentation of compose-builder</a>.</p>
+<p>The above same guidelines can also be applied to custom device and application services, i.e. non-EdgeX built services.</p>
+<p>One of the major security features in EdgeX Ireland release is to utilize the service <code>security-bootstrapper</code>
+to ensure the right starting sequence so that all services have their needed security dependencies
+when they start up.</p>
+<p>Currently EdgeX uses <code>Vault</code> as the default implementation for secret store and Consul as the configuration
+and/or registry server if user chooses to do so.  There are some default services pre-configured to have
+<code>Secret Stores</code> created by default such as EdgeX core/support services, device-virtual, device-rest, and
+app-rules-engine services.</p>
+<p>For running additional add-on services (e.g. <code>device-camera</code>, <code>app-http-export</code>) in secure mode,
+their <code>Secret Stores</code> are not generated by default but they can be generated
+through some configuring steps as shown below.</p>
+<p>In the following scenario, we assume the EdgeX services are running in Docker environments,
+and thus the examples are given in terms of Docker-compose ways.  It should not be much or bigger
+difference for <code>snap</code> running environment to apply the same steps or concepts if found to do so.</p>
+<p>If users want to configure and set up an add-on service, e.g. <code>device-camera</code>,
+they can achieve this by following the steps that are outlined below:</p>
+<h2 id="make-add-on-services-security-bootstrapper-compatible">Make add-on services security-bootstrapper compatible</h2>
+<p>To use the Docker entrypoint scripts for gating mechanism from <code>security-bootstrapper</code>,
+the Dockerfile of <code>device-camera</code> should inherit shell scripting capability like <code>alpine</code>-based
+as the base Docker image and should install <code>dumb-init</code>(see details in
+<a href="https://github.com/Yelp/dumb-init#why-you-need-an-init-system">Why you need an init system</a>)
+via <code>apk add --update</code> command.</p>
+<p>Dockerfile example using alpine-base image and add <code>dumb-init</code>:</p>
+<div class="highlight"><pre><span></span><code>......
+<span class="k">FROM</span> <span class="s">alpine:3.12</span>
+
+<span class="c"># dumb-init needed for injected secure bootstrapping entrypoint script when run in secure mode.</span>
+<span class="k">RUN</span> apk add --update --no-cache dumb-init
+......
+</code></pre></div>
+<p>and then for the service itself should add <code>/edgex-init/ready_to_run_wait_install.sh</code>
+as the entrypoint script for the service in gating fashion and add related Docker volumes
+for <code>edgex-init</code> and for <code>Secret Store</code> token, which will be outlined in the next section.</p>
+<p>A good example of this will be like <code>app-service-rules</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nn">...</span>
+  <span class="nt">app-service-rules</span><span class="p">:</span>
+    <span class="nt">entrypoint</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;/edgex-init/ready_to_run_wait_install.sh&quot;</span><span class="p p-Indicator">]</span>
+    <span class="nt">command</span><span class="p">:</span> <span class="s">&quot;/app-service-configurable</span><span class="nv"> </span><span class="s">${DEFAULT_EDGEX_RUN_CMD_PARMS}&quot;</span>
+    <span class="nt">volumes</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">edgex-init:/edgex-init:ro,z</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">/tmp/edgex/secrets/app-rules-engine:/tmp/edgex/secrets/app-rules-engine:ro,z</span>
+    <span class="nt">depends_on</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">security-bootstrapper</span>
+<span class="nn">...</span>
+</code></pre></div>
+<p>Note that we also add <code>command</code> directive override in the above example because we override
+Docker's entrypoint script in the original Dockerfile and Docker ignores the original command
+when the entrypoint script is overridden.  In this case, we also override the <code>command</code> for
+<code>app-service-rules</code> service with arguments to execute.</p>
+<h2 id="configure-the-services-secret-store-to-use">Configure the service's <code>Secret Store</code> to use</h2>
+<p>Make sure the TOML configuration file of add-on service like <code>device-camera</code> contains
+the proper <code>[SecretStore]</code> section.</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[SecretStore]</span>
+<span class="n">Type</span> <span class="o">=</span> <span class="s">&#39;vault&#39;</span>
+<span class="n">Host</span> <span class="o">=</span> <span class="s">&#39;localhost&#39;</span>
+<span class="n">Port</span> <span class="o">=</span> <span class="mi">8200</span>
+<span class="n">Path</span> <span class="o">=</span> <span class="s">&#39;device-camera/&#39;</span>
+<span class="n">Protocol</span> <span class="o">=</span> <span class="s">&#39;http&#39;</span>
+<span class="n">RootCaCertPath</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+<span class="n">ServerName</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+<span class="n">TokenFile</span> <span class="o">=</span> <span class="s">&#39;/tmp/edgex/secrets/device-camera/secrets-token.json&#39;</span>
+  <span class="k">[SecretStore.Authentication]</span>
+  <span class="n">AuthType</span> <span class="o">=</span> <span class="s">&#39;X-Vault-Token&#39;</span>
+</code></pre></div>
+<p>Note that the service key <code>device-camera</code> must be used for the <code>Path</code> and in the <code>TokenFile</code> path
+to keep it consistent and easier to maintain.
+And then add the add-on service's service key to EdgeX service <code>secretstore-setup</code>'s
+<code>ADD_SECRETSTORE_TOKENS</code> environment variable in the <code>environment</code> section of <code>docker-compose</code>
+as the example shown below:</p>
+<div class="highlight"><pre><span></span><code><span class="nn">...</span>
+  <span class="nt">secretstore-setup</span><span class="p">:</span>
+    <span class="nt">container_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-secretstore-setup</span>
+    <span class="nt">depends_on</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">security-bootstrapper</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">vault</span>
+    <span class="nt">environment</span><span class="p">:</span>
+      <span class="nt">ADD_SECRETSTORE_TOKENS</span><span class="p">:</span> <span class="s">&#39;device-camera&#39;</span>
+<span class="nn">...</span>
+</code></pre></div>
+<p>With that, <code>secretstore-setup</code> then will generate <code>Secret Store</code> token from <code>Vault</code> and store it in
+the <code>TokenFile</code> path specified in the TOML configuration file like the above example.</p>
+<p>Also note that the value of <code>ADD_SECRETSTORE_TOKENS</code> can take more than one service in a form of
+comma separated list like "<code>device-camera</code>, <code>device-modbus</code>" if needed.</p>
+<h2 id="optional-configure-known-secrets-for-add-on-services">(Optional) Configure known secrets for add-on services</h2>
+<p>The <code>ADD_KNOWN_SECRETS</code> environment variable on <code>secretstore-setup</code> allows for known secrets
+to be added to an add-on service's <code>Secret Store</code>.</p>
+<p>For the Ireland release, the only <code>known</code> secret is the <code>Redis DB credentials</code> identified by
+the name <code>redisdb</code>. Any add-on service needing access to the <code>Redis DB</code> such as
+App Service HTTP Export with Store and Forward enabled will need the <code>Redis DB credentials</code>
+put in its <code>Secret Store</code>. Also, since the <code>Redis DB</code> service is now used for the MessageBus implementation,
+all services that connect to the MessageBus also need the <code>Redis DB credentials</code></p>
+<p>Note that the steps needed for connecting add-on services to the <code>Secure MessageBus</code> are:</p>
+<ol>
+<li>Utilizing the <code>security-bootstrapper</code> to ensure proper startup sequence</li>
+<li>Creating the <code>Secret Store</code> for the add-on service</li>
+<li>Adding the <code>redisdb</code>'s known secret to the add-on service's <code>Secret Store</code></li>
+</ol>
+<p>and if the add-on service is not connecting to the bus or the Redis database, then this step can be skipped.</p>
+<p>So given an example for service <code>device-virtual</code> to use the <code>Redis</code> message bus in secure mode,
+we need to tell <code>secretstore-setup</code> to add the <code>redisdb</code> known secret to <code>Secret Store</code> for <code>device-virtual</code>.
+This can be done through the configuration of adding <code>redisdb[device-virtual]</code> into the environment variable
+<code>ADD_KNOWN_SECRETS</code> in <code>secretstore-setup</code> service's environment section, in which <code>redisdb</code> is the name of
+the <code>known secret</code> and <code>device-virtual</code> is the service key of the add-on service.</p>
+<div class="highlight"><pre><span></span><code><span class="nn">...</span>
+  <span class="nt">secretstore-setup</span><span class="p">:</span>
+    <span class="nt">container_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-secretstore-setup</span>
+    <span class="nt">depends_on</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">security-bootstrapper</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">vault</span>
+    <span class="nt">environment</span><span class="p">:</span>
+      <span class="nt">ADD_SECRETSTORE_TOKENS</span><span class="p">:</span> <span class="s">&#39;device-camera,</span><span class="nv"> </span><span class="s">my-service&#39;</span>
+      <span class="nt">ADD_KNOWN_SECRETS</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">redisdb[app-rules-engine],redisdb[device-rest],redisdb[device-virtual]</span>
+<span class="nn">...</span>
+</code></pre></div>
+<p>In the above <code>docker-compose</code> section of <code>secretstore-setup</code>, we specify the known secret of
+<code>redisdb</code> to add/copy the Redis database credentials to the <code>Secret Store</code> for the <code>app-rules-engine</code>,
+<code>device-rest</code>, and <code>device-virtual</code> services.</p>
+<p>We can also use the alternative or simpler form of <code>ADD_KNOWN_SECRETS</code> environment variable's value like</p>
+<div class="highlight"><pre><span></span><code>    <span class="nt">ADD_KNOWN_SECRETS</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">redisdb[app-rules-engine, device-rest, device-virtual]</span>
+</code></pre></div>
+<p>in which all add-on services are put together in a comma separated list associated with the
+known secret <code>redisdb</code>.</p>
+<h2 id="optional-configure-the-acl-role-of-configurationregistry-to-use-if-the-service-depends-on-it">(Optional) Configure the ACL role of configuration/registry to use if the service depends on it</h2>
+<p>This is a new step coming from <code>securing Consul</code> security features as part of EdgeX Ireland release.</p>
+<p>If the add-on service uses <code>Consul</code> as the configuration and/or registry service, then we also need to
+configure the environment variable <code>ADD_REGISTRY_ACL_ROLES</code> to tell <code>security-bootstrapper</code> to generate
+an ACL role for <code>Consul</code> to associate with its token.</p>
+<p>An example of configuring ACL roles of the registry <code>Consul</code> for the add-on services
+<code>device-modbus</code> and <code>app-http-export</code> is shown as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="nn">...</span>
+  <span class="nt">consul</span><span class="p">:</span>
+    <span class="nt">container_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-core-consul</span>
+    <span class="nt">depends_on</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">security-bootstrapper</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">vault</span>
+    <span class="nt">entrypoint</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">/edgex-init/consul_wait_install.sh</span>
+    <span class="nt">environment</span><span class="p">:</span>
+      <span class="nt">ADD_REGISTRY_ACL_ROLES</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">app-http-export,device-modbus</span>
+<span class="nn">...</span>
+</code></pre></div>
+<p>The configuration of Edgex service <code>consul</code>'s environment variable <code>ADD_REGISTRY_ACL_ROLES</code> tells
+the <code>security-bootstrapper</code> to set up <code>Consul</code> ACL role so that the ACL token is generated,
+hence the permission is granted for that service with the access to <code>Consul</code> in secure mode.</p>
+<p>Without this step the add-on service will get status <code>Forbidden</code> (HTTP status code = 403) error
+when the service is depending on Consul and attempting to access Consul for configuration or
+service registry.</p>
+<h2 id="optional-configure-the-api-gateway-access-route-for-add-on-service">(Optional) Configure the API gateway access route for add-on service</h2>
+<p>If it is desirable to let user or other application services outside EdgeX's Docker network access
+the endpoint of the add-on service, then we can configure and add it via <code>proxy-setup</code> service's
+<code>ADD_PROXY_ROUTE</code> environment variable.  <code>proxy-setup</code> adds those services listed in that environment
+variable into the API gateway (also known as Kong) route so that the endpoint can be accessible
+using Kong's proxy endpoint.</p>
+<p>One example of adding API gateway access routes for both <code>device-camera</code> and <code>device-modbus</code>
+is given as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="nn">...</span>
+<span class="nt">edgex-proxy</span><span class="p">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">...</span>
+    <span class="l l-Scalar l-Scalar-Plain">environment</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">...</span>
+      <span class="nt">ADD_PROXY_ROUTE</span><span class="p">:</span> <span class="s">&quot;device-camera.http://edgex-device-camera:59985,</span><span class="nv"> </span><span class="s">device-modbus.http://edgex-device-modbus:59901&quot;</span>
+      <span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="nn">...</span>
+</code></pre></div>
+<p>where in the comma separated list, the first part of configured value <code>device-camera</code> is the service key
+and the URL format is the service's hostname with its docker network port number <code>59985</code>
+for <code>device-camera</code>.  The same idea applies to <code>device-modbus</code> with its values.</p>
+<p>With that setup, we can then access the endpoints of <code>device-camera</code> from Kong's host like
+<code>https://&lt;HostName&gt;:8443/device-camera/{device-name}/name</code> assuming the caller can resolve
+<code>&lt;HostName&gt;</code> from DNS server.</p>
+<p>For more details on the introduction to the API gateway and how it works,
+please see <a href="../Ch-APIGateway/">APIGateway documentation page</a>.</p>
                 
               
               
@@ -2142,6 +2459,41 @@
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../Ch-Secure-MessageBus/" title="Secure MessageBus" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Secure MessageBus
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../Ch-SecurityIssues/" title="Security Issues" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Security Issues
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" /></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
