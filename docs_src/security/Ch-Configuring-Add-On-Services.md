@@ -4,14 +4,19 @@ In the current EdgeX security serivces, we set up and configure all security rel
 for the existing default serivces like `core-data`, `core-metadata`, `device-virtual`, and so on.
 
 The settings and service environment variables are pre-wired and ready to run in secure mode without any update
-or modification to the Docker-compose files.  However, there are some pre-built add-on services like `device-camera`,
-`device-modbus` and some of application services (eg. `app-http-export`) are not pre-wired by default
-and thus need some configuration efforts to make them run in secure mode.
+or modification to the Docker-compose files.  However, there are some pre-built add-on services like some device services
+(e.g.`device-camera`, `device-modbus`), and some of application services (e.g. `app-http-export`, `app-mqtt-export`)
+are not pre-wired for by default. Also if you are adding on your custom application service,
+there is no pre-wiring for it and thus need some configuration efforts to make them run in secure mode.
 
 EdgeX provides a way for a user to add and configure those add-on services into EdgeX Docker
-software stack running in secure mode.  This can be done vai Docker-compose files with a few addition of
-environment variables and some modification of micro-service's Dockerfile. The same guidelines can also applied to
-device and application services from user made, i.e. non-EdgeX built services.
+software stack running in secure mode.  This can be done vai Docker-compose files with a few additional
+environment variables and some modification of micro-service's Dockerfile. From `edgex-compose` repository,
+the `compose-builder` utility provides some ways to deal with those add-on services like through `add-security.yml`
+via `make` targets to generate `docker-compose` file for running them in secure mode. For more details, please refer to
+[README documentation of compose-builder](https://github.com/edgexfoundry/edgex-compose/blob/master/compose-builder/README.md).
+
+The above same guidelines can also be applied to custom device and application services, i.e. non-EdgeX built services.
 
 One of the major security features in EdgeX Ireland release is to utilize the service `security-bootstrapper`
 to ensure the right starting sequence so that all services have their needed security dependencies
@@ -124,7 +129,7 @@ the `TokenFile` path specified in the TOML configuration file like the above exa
 Also note that the value of `ADD_SECRETSTORE_TOKENS` can take more than one service in a form of
 comma separated list like "`device-camera`, `device-modbus`" if needed.
 
-## Configure known secrets add-on services need
+## (Optional) Configure known secrets for add-on services
 
 The `ADD_KNOWN_SECRETS` environment variable on `secretstore-setup` allows for known secrets
 to be added to an add-on service's `Secret Store`.
@@ -135,9 +140,13 @@ App Service HTTP Export with Store and Forward enabled will need the `Redis DB c
 put in its `Secret Store`. Also, since the `Redis DB` service is now used for the MessageBus implementation,
 all services that connect to the MessageBus also need the `Redis DB credentials`
 
-Note that the steps needed for connecting add-on services to the `secure MessageBus` are just
-creating the `Secret Stores` and then adding the `redisdb`'s known secrets. It is not necessary to do
-if the add-on service is not connecting to the bus or the Redis database.
+Note that the steps needed for connecting add-on services to the `Secure MessageBus` are:
+
+1. Utilizing the `security-bootstrapper` to ensure proper startup sequence
+2. Creating the `Secret Store` for the add-on service
+3. Adding the `redisdb`'s known secret to the add-on service's `Secret Store`
+
+and if the add-on service is not connecting to the bus or the Redis database, then this step can be skipped.
 
 So given an example for service `device-virtual` to use the `Redis` message bus in secure mode,
 we need to tell `secretstore-setup` to add the `redisdb` known secret to `Secret Store` for `device-virtual`.
