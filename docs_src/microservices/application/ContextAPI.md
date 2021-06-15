@@ -1,69 +1,82 @@
-The context parameter passed to each function/transform provides operations and data associated with each execution of the pipeline. Let's take a look at a few of the properties that are available:
+The context parameter passed to each function/transform provides operations and data associated with each execution of the pipeline. Let's take a look at its API:
 
 ```go
-type Context struct {
-	// ID of the EdgeX Event (will be filled for a received JSON Event)
-	EventID string
-	
-	// Checksum of the EdgeX Event (will be filled for a received CBOR Event)
-	EventChecksum string
-	
-	// This is the ID used to track the EdgeX event through entire EdgeX framework.
-	CorrelationID string
-	
-	// OutputData is used for specifying the data that is to be outputted. Leverage the .Complete() function to set.
-	OutputData []byte
-	
-	// This holds the configuration for your service. This is the preferred way to access your custom application settings that have been set in the configuration.	
-	Configuration common.ConfigurationStruct
-	
-	// LoggingClient is exposed to allow logging following the preferred logging strategy within EdgeX.
-	LoggingClient logger.LoggingClient
-	
-	// EventClient exposes Core Data's EventClient API
-	EventClient coredata.EventClient
-	
-	// ValueDescriptorClient exposes Core Data's ValueDescriptor API
-	ValueDescriptorClient coredata.ValueDescriptorClient
-	
-	// CommandClient exposes Core Commands's Command API
-	CommandClient command.CommandClient
-	
-	// NotificationsClient exposes Support Notification's Notifications API
-	NotificationsClient notifications.NotificationsClient
-	
-	// RetryData holds the data to be stored for later retry when the pipeline function returns an error
-	RetryData []byte
-	
-	// SecretProvider exposes the support for getting and storing secrets
-	SecretProvider *security.SecretProvider
-
-	// ResponseContentType sets a custom response type
-	ResponseContentType string
+type AppFunctionContext interface {
+    CorrelationID() string
+    InputContentType() string
+    SetResponseData(data []byte)
+    ResponseData() []byte
+    SetResponseContentType(string)
+    ResponseContentType() string
+    SetRetryData(data []byte)
+    GetSecret(path string, keys ...string) (map[string]string, error)
+    SecretsLastUpdated() time.Time
+    LoggingClient() logger.LoggingClient
+    EventClient() interfaces.EventClient
+    CommandClient() interfaces.CommandClient
+    NotificationClient() interfaces.NotificationClient
+    SubscriptionClient() interfaces.SubscriptionClient
+    DeviceServiceClient() interfaces.DeviceServiceClient
+    DeviceProfileClient() interfaces.DeviceProfileClient
+    DeviceClient() interfaces.DeviceClient
+    PushToCore(event dtos.Event) (common.BaseWithIdResponse, error)
+    GetDeviceResource(profileName string, resourceName string) (dtos.DeviceResource, error)
+    AddValue(key string, value string)
+    RemoveValue(key string)
+    GetValue(key string) (string, bool)
+    GetAllValues() map[string]string
+    ApplyValues(format string) (string, error)
 }
 ```
 
+## InputContentType()
+`InputContentType()` returns the content type of the data that initiated the pipeline execution. Only useful when the TargetType for the pipeline is []byte, otherwise the data will be the type specified by TargetType.
+
+## Response Data
+
+### SetResponseData()
+`SetResponseData(data []byte)` sets the response data that will be returned to the trigger when pipeline execution is complete.
+
+### ResponseData()
+`ResponseData()` returns the data that will be returned to the trigger when pipeline execution is complete.
+
+### SetResponseContentType()
+`SetResponseContentType(string)` sets the content type that will be returned to the trigger when pipeline execution is complete.
+
+### ResponseContentType()
+`ResponseContentType()` returns the content type that will be returned to the trigger when pipeline execution is complete.
+
 ## Clients
 
-### LoggingClient
+### LoggingClient()
 
-The `LoggingClient` exposed on the context is available to leverage logging libraries/service utilized throughout the EdgeX framework. The SDK has initialized everything so it can be used to log `Trace`, `Debug`, `Warn`, `Info`, and `Error` messages as appropriate. See [simple-filter-xml/main.go](https://github.com/edgexfoundry-holding/app-service-examples/blob/master/app-services/simple-filter-xml/main.go) for an example of how to use the `LoggingClient`.
+Returns a `LoggingClient` to leverage logging libraries/service utilized throughout the EdgeX framework. The SDK has initialized everything so it can be used to log `Trace`, `Debug`, `Warn`, `Info`, and `Error` messages as appropriate. See [simple-filter-xml/main.go](https://github.com/edgexfoundry-holding/app-service-examples/blob/master/app-services/simple-filter-xml/main.go) for an example of how to use the `LoggingClient`.
 
-### EventClient 
+### EventClient()
 
-The `EventClient ` exposed on the context is available to leverage Core Data's `Event` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/coredata/event.go#L35) for more details. This client is useful for querying events and is used by the [PushToCore](#pushtocore) convenience API described below.
+Returns an `EventClient` to leverage Core Data's `Event` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/interfaces/event.go) for more details. This client is useful for querying events and is used by the [PushToCore](#pushtocore) convenience API described below. Note if Core Data is not specified in the Clients configuration, this will return nil.
 
-### ValueDescriptorClient
 
-The `ValueDescriptorClient ` exposed on the context is available to leverage Core Data's `ValueDescriptor` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/coredata/value_descriptor.go#L29) for more details. Useful for looking up the value descriptor for a reading received.
+### CommandClient() 
 
-### CommandClient 
+Returns a `CommandClient`  to leverage Core Command's `Command` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/interfaces/command.go) for more details. Useful for sending commands to devices. Note if Core Command is not specified in the Clients configuration, this will return nil.
 
-The `CommandClient ` exposed on the context is available to leverage Core Command's `Command` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/command/client.go#L28) for more details. Useful for sending commands to devices.
 
-### NotificationsClient
+### NotificationClient()
 
-The `NotificationsClient` exposed on the context is available to leverage Support Notifications' `Notifications` API. See [README](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/notifications/README.md) for more details. Useful for sending notifications. 
+Returns a `NotificationClient` to leverage Support Notifications' `Notifications` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/interfaces/notification.go) for more details. Useful for sending notifications. Note if Support Notifications is not specified in the Clients configuration, this will return nil.
+
+### SubscriptionClient()
+Returns a `SubscriptionClient` to leverage Support Notifications' `Subscription` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/http/subscription.go) for more details. Useful for create notification subscriptions. Note if Support Notifications is not specified in the Clients configuration, this will return nil.
+
+### DeviceServiceClient()
+Returns a `DeviceServiceClient` to leverage Core Metadata's `DeviceService` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/http/deviceservice.go) for more details. Useful for querying information about Device Services. Note if Core Metadata is not specified in the Clients configuration, this will return nil. 
+
+### DeviceProfileClient()
+Returns a `DeviceProfileClient` to leverage Core Metadata's `DeviceProfile` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/http/deviceprofile.go) for more details. Useful for querying information about Device Profiles and is used by the `GetDeviceResource` helper function below. Note if Core Metadata is not specified in the Clients configuration, this will return nil. 
+
+### DeviceClient()
+Returns a `DeviceClient` to leverage Core Metadata's `Device` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/http/device.go) for more details. Useful for querying information about Devices. Note if Core Metadata is not specified in the Clients configuration, this will return nil. 
 
 ### Note about Clients
 
@@ -71,46 +84,71 @@ Each of the clients above is only initialized if the Clients section of the conf
 
 ```
 [Clients]
-  [Clients.Logging]
-  Protocol = "http"
-  Host = "localhost"
-  Port = 48061
 
-  [Clients.CoreData]
+  [Clients.core-data]
   Protocol = 'http'
   Host = 'localhost'
-  Port = 48080
-
-  [Clients.Command]
+  Port = 59880
+  
+  [Clients.core-metadata]
   Protocol = 'http'
   Host = 'localhost'
-  Port = 48082
+  Port = 59881
 
-  [Clients.Notifications]
+  [Clients.core-command]
   Protocol = 'http'
   Host = 'localhost'
-  Port = 48060
+  Port = 59882
+
+  [Clients.support-notifications]
+  Protocol = 'http'
+  Host = 'localhost'
+  Port = 59860
 ```
 
-## .PushToCore()
-`.PushToCore(string deviceName, string readingName, byte[] value)` is used to push data to EdgeX Core Data so that it can be shared with other applications that are subscribed to the message bus that core-data publishes to. `deviceName` can be set as you like along with the `readingName` which will be set on the EdgeX event sent to CoreData. This function will return the new EdgeX Event with the ID populated, however the CorrelationId will not be available.
+## Context Storage
+The context API exposes a map-like interface that can be used to store custom data specific to a given pipeline execution.  This data is persisted for retry if needed.  Currently only strings are supported, and keys are treated as case-insensitive.  Storage can be accessed using the following methods:
+
+### AddValue()
+`AddValue(key string, value string)` stores a value for access within a pipeline execution
+
+### RemoveValue()
+`RemoveValue(key string)` deletes a value stored in the context at the given key
+
+### GetValue()
+`GetValue(key string) (string, bool)` attempts to retrieve a value stored in the context at the given key
+
+### GetAllValues()
+`GetAllValues() map[string]string` returns a read-only copy of all data stored in the context
+
+### ApplyValues()
+`ApplyValues(format string) (string, error)` will replace placeholders of the form `{context-key-name}` with the value found in the context at `context-key-name`.  Note that key matching is case insensitive.  An error will be returned if any placeholders in the provided string do NOT have a corresponding entry in the context storage map.
+
+## Secrets
+
+### GetSecret()
+
+`GetSecret(path string, keys ...string)` is used to retrieve secrets from the secret store. `path` specifies the type or location of the secrets to retrieve. If specified, it is appended to the base path from the exclusive secret store configuration. `keys` specifies the list of secrets to be retrieved. If no keys are provided then all the keys associated with the specified path will be returned.
+
+### SecretsLastUpdated
+`SecretsLastUpdated()` returns that timestamp for when the secrets in the SecretStore where last updated.  Useful when a connection to external source needs to be redone when the credentials have been updated.
+
+## Miscellaneous
+
+### GetDeviceResource()
+`GetDeviceResource(profileName string, resourceName string) (dtos.DeviceResource, error)` retrieves the DeviceResource for the given profile / resource name. Results are cached to minimize HTTP traffic to core-metadata.
+
+### PushToCore()
+`PushToCore(event dtos.Event)` is used to push data to EdgeX Core Data so that it can be shared with other applications that are subscribed to the message bus that core-data publishes to. This function will return the new EdgeX Event with the ID populated, along with any error encountered.  Note that CorrelationId will not be available.
 
 !!! note
-    If validation is turned on in CoreServices then your deviceName and readingName must exist in the CoreMetadata and be properly registered in EdgeX. 
+If validation is turned on in CoreServices then your deviceName and readingName must exist in the CoreMetadata and be properly registered in EdgeX.
 
 !!! warning
-    Be aware that without a filter in your pipeline, it is possible to create an infinite loop when the Message Bus trigger is used. Choose your device-name and reading name appropriately.
+Be aware that without a filter in your pipeline, it is possible to create an infinite loop when the Message Bus trigger is used. Choose your device-name and reading name appropriately.
 
-## .Complete()
-`.Complete([]byte outputData)` can be used to return data back to the configured trigger. In the case of an HTTP trigger, this would be an HTTP Response to the caller. In the case of a message bus trigger, this is how data can be published to a new topic per the configuration. 
-
-## .SetRetryData()
-
-`.SetRetryData(payload []byte)` can be used to store data for later retry. This is useful when creating a custom export function that needs to retry on failure when sending the data. The payload data will be stored for later retry based on `Store and Forward` configuration. When the retry is triggered, the function pipeline will be re-executed starting with the function that called this API. That function will be passed the stored data, so it is important that all transformations occur in functions prior to the export function. The `Context` will also be restored to the state when the function called this API. See [Store and Forward](#store-and-forward) for more details.
+### SetRetryData()
+`SetRetryData(data []byte)` can be used to store data for later retry. This is useful when creating a custom export function that needs to retry on failure. The payload data will be stored for later retry based on `Store and Forward` configuration. When the retry is triggered, the function pipeline will be re-executed starting with the function that called this API. That function will be passed the stored data, so it is important that all transformations occur in functions prior to the export function. The `Context` will also be restored to the state when the function called this API. See [Store and Forward](#store-and-forward) for more details.
 
 !!! note
-    `Store and Forward` be must enabled when calling this API. 
-
-## .GetSecrets()
-
-`.GetSecrets(path string, keys ...string)` is used to retrieve secrets from the secret store. `path` specifies the type or location of the secrets to retrieve. If specified, it is appended to the base path from the exclusive secret store configuration. `keys` specifies the list of secrets to be retrieved. If no keys are provided then all the keys associated with the specified path will be returned.
+`Store and Forward` be must enabled when calling this API.
