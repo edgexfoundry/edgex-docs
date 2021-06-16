@@ -2236,6 +2236,10 @@
 <li>The fourth is the <code>FilterByResourceName</code> which exhibits the same behavior as <code>DeviceNameFilter</code> except filtering the event's <code>Readings</code> on <code>ResourceName</code> instead of <code>DeviceName</code>. Execution of the pipeline will cease if no readings remain after filtering. </li>
 <li>The fifth and sixth provided functions in the SDK transform the data received to either XML or JSON by calling <code>XMLTransform</code> or <code>JSONTransform</code>.</li>
 </ul>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>The <code>FilterByProfileName</code> and <code>FilterBySourceName</code> pipeline functions are new in EdgeX 2.0 with the addition of the <code>ProfileName</code> and <code>SourceName</code> on the V2 <code>Event</code> DTO.   <code>FilterByResourceName</code> replaces the <code>FileterByValueDescriptor</code> pipeline function in EdgeX 2.0 with the change of <code>Name</code> to <code>ResourceName</code> on the V2 <code>Reading</code> DTO. This function serves the same purpose of filtering Event Readings.</p>
+</div>
 <p>Typically, after filtering and transforming the data as needed, exporting is the last step in a pipeline to ship the data where it needs to go. There are three primary functions included in the SDK to help facilitate this. The first are the<code>HTTPPost/HTTPPut</code> functions that will POST/PUT the provided data to a specified endpoint, and the third is an <code>MQTTSecretSend()</code> function that will publish the provided data to an MQTT Broker as specified in the configuration.</p>
 <p>See <a href="../BuiltIn/">Built-in Functions</a> section for full list of SDK supplied functions </p>
 <div class="admonition note">
