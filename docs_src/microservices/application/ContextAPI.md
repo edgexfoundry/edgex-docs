@@ -132,6 +132,9 @@ The context API exposes a map-like interface that can be used to store custom da
 
 ## Miscellaneous
 
+### CorrelationID()
+`CorrelationID()` returns the ID used to track the EdgeX event through entire EdgeX framework.
+
 ### InputContentType()
 `InputContentType()` returns the content type of the data that initiated the pipeline execution. Only useful when the TargetType for the pipeline is []byte, otherwise the data will be the type specified by TargetType.
 
