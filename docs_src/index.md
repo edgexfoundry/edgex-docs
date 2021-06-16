@@ -1,5 +1,8 @@
 # Introduction
 
+!!! edgey "EdgeX 2.0"
+    Want to know what's new in EdgeX 2.0 (Ireland)?  If you are already familiar with EdgeX, look for the EdgeX 2.0 emoji (`Edgey` - the EdgeX mascot) throughout the documentation - [like the one on this page](#the-ireland-release) outlining what's in the Ireland release.  These sections will give you a summary of what's new in each area of the documentation.
+
 EdgeX Foundry is an open source, vendor neutral, flexible, interoperable, software platform at the
 edge of the network, that interacts with the physical world of [devices](./general/Definitions.md#Device), sensors, actuators, and other IoT objects. In simple terms, EdgeX is edge middleware - serving  between physical sensing and actuating "things" and our information technology (IT) systems.
 ![image](./general/EdgeX_middleware.png)
@@ -9,8 +12,7 @@ IoT solution providers to work together in an ecosystem of interoperable
 components to reduce uncertainty, accelerate time to market, and
 facilitate scale.
 
-By bringing this much-needed interoperability, EdgeX makes it easier to
-monitor physical world items, send instructions to them, collect data
+By bringing this much-needed interoperability, EdgeX makes it easier to monitor physical world items, send instructions to them, collect data
 from them, move the data across the fog up to the cloud where it may be
 stored, aggregated, analyzed, and turned into information, actuated, and
 acted upon. So EdgeX enables data to travel northwards towards the cloud or enterprise and back to devices, sensors, and actuators.
@@ -41,7 +43,7 @@ overall architecture:
     - Hardware (x86, ARM)
     - Operating system (Linux, Windows, MacOS, ...)
     - Distribution
- (allowing for the distribution of functionality through microservices at the edge, on a gateway, in the fog, on cloud, etc.)
+ (allowing for the distribution of functionality through micro services at the edge, on a gateway, in the fog, on cloud, etc.)
     - Deployment/orchestration (Docker, Snaps, K8s, roll-your-own, ... )
     - Protocols ([north or south](./general/Definitions.md#South-and-North-Side) side protocols)
 
@@ -118,9 +120,8 @@ These services often require some amount of core services in order to function. 
 
 Supporting services include:
 
-- Rules Engine:  the reference implementation edge analytics service that performs if-then conditional actuation at the edge based on sensor data collected by the EdgeX instance.  This service will likely be replaced or augmented by use case specific analytics capability.
+- Rules Engine:  the reference implementation edge analytics service that performs if-then conditional actuation at the edge based on sensor data collected by the EdgeX instance.  This service may be replaced or augmented by use case specific analytics capability.
 - Scheduling:  an internal EdgeX “clock” that can kick off operations in any EdgeX service.  At a configuration specified time, the service will call on any EdgeX service API URL via REST to trigger an operation.  For example, the scheduling service periodically calls on core data APIs to clean up old sensed events that have been successfully exported out of EdgeX.
-- Logging:  provides a central logging facility for all of EdgeX services.  Services send log entries into the logging facility via a REST API where log entries can be persisted in a database or log file.  *Note*: this service is being deprecated and will be removed after the Geneva release.  Services will still be able to log using standard output or log to a file.  Most operating systems and logging facilities provide better logging aggregation then what EdgeX was providing through the logging service.
 - Alerts and Notifications:  provides EdgeX services with a central facility to send out an alert or notification.  These are notices sent to another system or to a person monitoring the EdgeX instance (internal service communications are often handled more directly).
 
 ### Application Services Layer
@@ -141,7 +142,7 @@ Device services may service one or a number of things or devices (sensor, actuat
 
 The device service communicates with the devices, sensors, actuators, and other IoT objects through protocols native to each device object. The device service converts the data produced and communicated by the IoT object into a common EdgeX Foundry data structure, and sends that converted data into the core services layer, and to other micro services in other layers of EdgeX Foundry.
 
-EdgeX comes with a number of [device services](https://wiki.edgexfoundry.org/display/FA/Device+Services+-+existing+and+work+underway) speaking many common IoT protocols such as Modbus, BACnet, BLE, etc.
+EdgeX comes with a number of [device services](https://wiki.edgexfoundry.org/display/FA/Device+Services+-+existing+and+work+underway) speaking many common IoT protocols such as Modbus, BACnet, MQTT, etc.
 
 ### System Services Layer
 
@@ -173,16 +174,22 @@ SDKs are language specific; meaning an SDK is written to create services in a pa
 ## How EdgeX Works
 
 ### Sensor Data Collection
-EdgeX’s primary job is to collect data from sensors and devices and make that data available to north side applications and systems.  Data is collected from a sensor by a device service that speaks the protocol of that device.  Example: a Modbus device service would communicate in Modbus to get a pressure reading from a Modbus pump.  The device service translates the sensor data into an EdgeX event object and sends the event object to the core data service via REST communications (step 1).
+EdgeX’s primary job is to collect data from sensors and devices and make that data available to north side applications and systems.  Data is collected from a sensor by a device service that speaks the protocol of that device.  Example: a Modbus device service would communicate in Modbus to get a pressure reading from a Modbus pump.  The device service translates the sensor data into an EdgeX event object.  The device service can then either:
 
-![image](./general/EdgeX_step1.png)
+1. put the event object on a message bus (which may be implemented via Redis Streams or MQTT).  Subscribers to the event message on the message bus can be application services or core data or both (see step 1.1 below).
 
-Core data persists the sensor data in the local edge database.  Redis is used as the database by default (other databases can be used alternatively).  In fact, persistence is not required and can be turned off.  Data is persisted in EdgeX at the edge for two basics reasons:
+    ![image](./general/EdgeX_step1-1.png)
+
+2. send the event object to the core data service via REST communications (see step 1.2).
+
+    ![image](./general/EdgeX_step1-2.png)
+
+When core data receives the event (either via message bus or REST), it persists the sensor data in the local edge database.  EdgeX uses Redis as our persistence store.  There is an abstraction in place to allow you to use another database (which has allowed other databases to be used in the past).  Persistence is not required and can be turned off.  Data is persisted in EdgeX at the edge for two basics reasons:
 
 - Edge nodes are not always connected.  During periods of disconnected operations, the sensor data must be saved so that it can be transmitted northbound when connectivity is restored.  This is referred to as store and forward capability.
 - In some cases, analytics of sensor data needs to look back in history in order to understand the trend and to make the right decision based on that history.  If a sensor reports that it is 72° F right now, you might want to know what the temperature was ten minutes ago before you make a decision to adjust a heating or cooling system.  If the temperature was 85° F, you may decide that adjustments to lower the room temperature you made ten minutes ago were sufficient to cool the room.  It is the context of historical data that are important to local analytic decisions.
 
-Core data puts sensor data events on a message topic destined for application services.  Zero MQ is used as the messaging infrastructure by default (step 2).
+When core data receives event objects from the device service via REST, it will put sensor data events on a message topic destined for application services.  Redis Pub/Sub is used as the messaging infrastructure by default (step 2).  MQTT or ZMQ can also be used as the messaging infrastructure between core data and the application services.
 
 ![image](./general/EdgeX_step2.png)
 
@@ -206,7 +213,7 @@ Local analytics allows systems to operate independently, at least for some stret
 
 EdgeX is built to act locally on data it collects from the edge.  In other words, events are processed by local analytics and can be used to trigger action back down on a sensor/device.
 
-Just as application services prepare data for consumption by north side cloud systems or applications, application services can process and get EdgeX events (and the sensor data they contain) to any analytics package (see step 4).  By default, EdgeX ships with a simple rules engine (the default EdgeX rules engine is [Kuiper](https://www.emqx.io/products/kuiper) – an open source rules engine by EMQ X).  Your own analytics package (or ML agent) could replace or augment the local rules engine.
+Just as application services prepare data for consumption by north side cloud systems or applications, application services can process and get EdgeX events (and the sensor data they contain) to any analytics package (see step 4).  By default, EdgeX ships with a simple rules engine (the default EdgeX rules engine is [Kuiper](https://www.emqx.io/products/kuiper) – an open source rules engine by EMQ X and now a sister project in LF Edge).  Your own analytics package (or ML agent) could replace or augment the local rules engine.
 
 ![image](./general/EdgeX_step4.png)
 
@@ -225,7 +232,7 @@ The device service receives the request for actuation, translates that into a pr
 ## Project Release Cadence
 Typically, EdgeX releases twice a year; once in the spring and once in the fall.  Bug fix releases may occur more often.  Each EdgeX release has a code name.  The code name follows an alphabetic pattern similar to Android (code names sequentially follow the alphabet).
 
-The code name of each release is named after some geographical location in the world.  The honor of naming an EdgeX release is given to a developer deemed to have contributed significantly to the project in the past six months.  A release also has a version number.  The release version follows sematic versioning to indicate the release is major or minor in scope.  Major releases typically contain significant new features and functionality and are not always backward compatible with prior releases.  Minor releases are backward compatible and usually contain bug fixes and fewer new features.  See the project Wiki for more information on [releases, versions and patches](https://wiki.edgexfoundry.org/pages/viewpage.action?pageId=21823969).
+The code name of each release is named after some geographical location in the world.  The honor of naming an EdgeX release is given to a community member deemed to have contributed significantly to the project.  A release also has a version number.  The release version follows sematic versioning to indicate the release is major or minor in scope.  Major releases typically contain significant new features and functionality and are not always backward compatible with prior releases.  Minor releases are backward compatible and usually contain bug fixes and fewer new features.  See the project Wiki for more information on [releases, versions and patches](https://wiki.edgexfoundry.org/pages/viewpage.action?pageId=21823969).
 
 | Release | Schedule | Version |
 | :------------- | :----------: | -----------: |
@@ -236,16 +243,38 @@ The code name of each release is named after some geographical location in the w
 |Fuji |Nov 2019 | 1.1.0 |
 |Geneva |May 2020 | 1.2.0 |
 |Hanoi |November 2020 | 1.3.0 |
-|Ireland |Spring 2021 | TBD |
-|Jakarta |Fall 2021 | TBD |
+|Ireland |Spring 2021 | 2.0.0 |
+|Jakarta |Fall 2021 | 2.1.0 |
 |Kamukura |Spring 2022| TBD |
 |Levski| Fall 2022| TBD|
 
-*Note*: minor releases of the Device Services and Application Services (along with their associated SDKs) can be release independently.
+*Note*: minor releases of the Device Services and Application Services (along with their associated SDKs) can be release independently.  Graphical User Interface, the command line interface (CLI) and other tools can be released independently.
 
-EdgeX community members convene in a face-to-face meeting right at the time of a release to plan the next release and roadmap future releases.
+EdgeX community members convene in a meeting right at the time of a release to plan the next release and roadmap future releases.
 
 See the Project Wiki for more detailed information on [releases](https://wiki.edgexfoundry.org/display/FA/Releases) and [roadmap](https://wiki.edgexfoundry.org/display/FA/Roadmap).
+
+!!! edgey "EdgeX 2.0"
+    ### The Ireland Release
+    The Ireland release, available June 2021, is the second major version of EdgeX.  Highlights of the 2.0 release include:
+
+    - A new and improved set of service APIs, which eliminate a lot of technical debt and setting EdgeX up for new features in the future (such as allowing for more message based communications)
+    - Direct device service to application service communications via message bus (bypassing core data if desired or allowing it to be a secondary subscriber)
+    ![image](./general/EdgeX_data-flow.png)
+    - Simplified device profiles
+    - Improved security
+    - New, improved and more comprehensive graphical user interface (for development and demonstration purposes)
+    - New device services for CoAP, GPIO, and LLRP (RFID protocol)
+    - An LLRP inventory application service
+    - Improved application service capability and functions (to include new filter functions)
+    - Cleaner/simpler Docker image naming and facilities to create custom Docker Compose files
+
+    EdgeX 2.0 provides adopters with a platform that
+
+    - Has an improved API that addresses edge application needs of today and tomorrow
+    - Is more efficient and lighter (depending on use case)
+    - Is more reliable and offers better quality of service (less REST, more messaging and incorporating a number of bug fixes)
+    - Has eliminated a lot of technical debt accumulated over 4 years
 
 ## EdgeX History and Naming
 EdgeX Foundry began as a project chartered by Dell IoT Marketing and developed by the Dell Client Office of the CTO as an incubation project called Project Fuse in July 2015.  It was initially created to run as the IoT software application on Dell’s introductory line of IoT gateways.
