@@ -2167,7 +2167,10 @@
                 
                 
                 <h1 id="secure-messagebus">Secure MessageBus</h1>
-<p>Starting with the Ireland release (2.0.0) the default <code>MessageBus</code> implementation used is <code>Redis Pub/Sub</code>. <code>Redis Pub/Sub</code> utilizes the existing <code>Redis</code> database service so that no additional broker service is required. When running in secure mode the <code>Redis</code> database service is secured with a username/password. This in turn creates a <code>Secure MessageBus</code>.</p>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>Starting with the Ireland release (2.0.0) the default <code>MessageBus</code> implementation used is <code>Redis Pub/Sub</code>, which replaced the <code>Redis Streams</code> implementation. <code>Redis Pub/Sub</code> utilizes the existing <code>Redis</code> database service so that no additional broker service is required. When running in secure mode the <code>Redis</code> database service is secured with a username/password. This in turn creates a <code>Secure MessageBus</code>.</p>
+</div>
 <p>All the default services (Core Data, App Service Rules, Device Virtual, Kuiper, etc.) that utilize the <code>MessageBus</code> are configured out of the box to connect securely.</p>
 <p>Additional add-on services that require <code>Secure MessageBus</code> access (App and/or Device services) need to follow the steps outline in the <a href="../Ch-Configuring-Add-On-Services/">Configuring Add-On Services for Security</a> section.</p>
 <div class="admonition note">
