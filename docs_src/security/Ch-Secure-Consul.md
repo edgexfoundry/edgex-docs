@@ -1,14 +1,15 @@
 # Secure Consul
 
 !!! edgey "EdgeX 2.0"
+    Secure Consul is new in EdgeX 2.0
 
 ## Introduction
 
-In the current EdgeX architecture, `Consul` is pre-wired as the default agent service mainly for
+In the current EdgeX architecture, `Consul` is pre-wired as the default agent service for
 `Service Configuration`, `Service Registry`, and `Service Health Check` purposes. Prior to EdgeX's
-Ireland release, the communication and configuration to `Consul` are in plain HTTP calls without any
-access control (ACL) token header and thus are insecure.  With the Ireland release,
-that situation is now improved by adding required ACL token header `X-Consul-Token` in any HTTP calls.
+Ireland release, the communication to `Consul` uses plain HTTP calls without any access control (ACL)
+token header and thus are insecure.  With the Ireland release, that situation is now improved by
+adding required ACL token header `X-Consul-Token` in any HTTP calls.
 Moreover, `Consul` itself is now bootstrapped and started with its ACL system enabled and thus provides
 better authentication and authorization security features for services.  In other words, with the required
 Consul's ACL token for accessing Consul, assets inside Consul like EdgeX's configuration items in Key-Value (KV)
@@ -24,7 +25,7 @@ from `edgex-compose`'s `compose-builder` utility for better developer experience
 ## Consul access token with Vault integration
 
 In order to reduce another token generation system to maintain, we utilize the Vault's feature of
-`Consul Secrets Engine` APIs, governed by Vault itself, and they are integrated with Consul.
+`Consul Secrets Engine` APIs, governed by Vault itself, and integrated with Consul.
 Consul service itself provides ACL system and is enabled via Consul's configuration settings like:
 
 ```hcl
@@ -65,8 +66,8 @@ and hence enforced access controls by Consul when the service is communicating w
 Note that Consul token is generated via Vault's `/consul/creds/<role_name>` API with Vault's
 secretstore token and hence the generated Consul token is inherited the time-restriction nature
 from Vault system itself. Thus Consul token will be revoked by Vault if Vault's token used to generate
-it gets expired. Currently in EdgeX we utilize the auto-renewal feature of Vault's token implemented
-in `go-mod-secrets` to keep Consul token alive and not expired.
+it expires or is revoked. Currently in EdgeX we utilize the auto-renewal feature of Vault's token
+implemented in `go-mod-secrets` to keep Consul token alive and not expire.
 
 ## How to get Consul ACL token
 
