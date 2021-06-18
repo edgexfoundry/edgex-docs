@@ -119,10 +119,11 @@ Phase 3 will not introduce any breaking changes on top of the Phase 2 breaking c
 - Introduce per-service roles and ACL policies that give each service
   access to its own subset of the Consul key-value store
   and to register in the service registry.
-- Vault configuration will be changed to request two (2) hour expiring Consul access tokens
-  instead of non-expiring global management tokens.
 - Consul access tokens will be scoped to the needs of the particular service
   (ability to update that service's registry data, an access that services's KV store).
+- Create a separate management token (non-bootstrap) for API gateway proxy authentication
+  and Consul UI access that is different from boostrap management token stored in Vault.
+  This token will need to be requested outside of Vault in order for it to be non-expiring.
 - Glue logic will ensure that expired Consul tokens are replaced with fresh ones
   (token freshness can be pre-checked by a request made to `/acl/token/self`).
 
