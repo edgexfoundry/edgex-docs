@@ -301,8 +301,8 @@ Please refer to the function's detailed documentation by clicking the function n
 ```toml
     [Writable.Pipeline.Functions.FilterByDeviceName]
       [Writable.Pipeline.Functions.FilterByDeviceName.Parameters]
-      DeviceNames = "Random-Float-Device,Random-Integer-Device"
-      FilterOut = "false"
+        DeviceNames = "Random-Float-Device,Random-Integer-Device"
+        FilterOut = "false"
 ```
 ### [FilterByProfileName](BuiltIn/#by-profile-name)
 
@@ -337,8 +337,8 @@ Please refer to the function's detailed documentation by clicking the function n
 ```toml
     [Writable.Pipeline.Functions.FilterByResourceName]
       [Writable.Pipeline.Functions.FilterByResourceName.Parameters]
-      ResourceNames = "Int8, Int64"
-      FilterOut = "true"
+       ResourceNames = "Int8, Int64"
+        FilterOut = "true"
 ```
 
 
