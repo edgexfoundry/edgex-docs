@@ -301,8 +301,8 @@ Please refer to the function's detailed documentation by clicking the function n
 ```toml
     [Writable.Pipeline.Functions.FilterByDeviceName]
       [Writable.Pipeline.Functions.FilterByDeviceName.Parameters]
-        DeviceNames = "Random-Float-Device,Random-Integer-Device"
-        FilterOut = "false"
+      DeviceNames = "Random-Float-Device,Random-Integer-Device"
+      FilterOut = "false"
 ```
 ### [FilterByProfileName](BuiltIn/#by-profile-name)
 
@@ -337,8 +337,8 @@ Please refer to the function's detailed documentation by clicking the function n
 ```toml
     [Writable.Pipeline.Functions.FilterByResourceName]
       [Writable.Pipeline.Functions.FilterByResourceName.Parameters]
-        ResourceNames = "Int8, Int64"
-        FilterOut = "true"
+      ResourceNames = "Int8, Int64"
+      FilterOut = "true"
 ```
 
 
@@ -469,24 +469,24 @@ Please refer to the function's detailed documentation by clicking the function n
 	# Simple MQTT Export
 	[Writable.Pipeline.Functions.MQTTSecretSend]
       [Writable.Pipeline.Functions.MQTTSecretSend.Parameters]
-        BrokerAddress = "tcps://localhost:8883"
-        Topic = "mytopic"
-        ClientId = "myclientid"
+      BrokerAddress = "tcps://localhost:8883"
+      Topic = "mytopic"
+      ClientId = "myclientid"
 ```
 ```toml
 	# MQTT Export with auth credentials pull from the Secret Store
 	[Writable.Pipeline.Functions.MQTTSecretSend]
       [Writable.Pipeline.Functions.MQTTSecretSend.Parameters]
-        BrokerAddress = "tcps://my-broker-host.com:8883"
-        Topic = "mytopic"
-        ClientId = "myclientid"
-        Qos="2"
-        AutoReconnect="true"
-        Retain="true"
-        SkipVerify = "false"
-        PersistOnError = "true"
-        AuthMode = "usernamepassword"
-        SecretPath = "mqtt"
+      BrokerAddress = "tcps://my-broker-host.com:8883"
+      Topic = "mytopic"
+      ClientId = "myclientid"
+      Qos="2"
+      AutoReconnect="true"
+      Retain="true"
+      SkipVerify = "false"
+      PersistOnError = "true"
+      AuthMode = "usernamepassword"
+      SecretPath = "mqtt"
 ```
 
 
@@ -529,7 +529,7 @@ Please refer to the function's detailed documentation by clicking the function n
 ```toml
     [Writable.Pipeline.Functions.SetResponseData]
       [Writable.Pipeline.Functions.SetResponseData.Parameters]
-        ResponseContentType = "application/json"
+      ResponseContentType = "application/json"
 ```
 
 !!! edgey "EdgeX 2.0"
