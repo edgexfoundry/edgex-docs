@@ -1,11 +1,11 @@
 
-# General App Service Configuration
+# Application Service Configuration
 
-Similar to other EdgeX services, configuration is first determined by the `configuration.toml` file in the `/res` folder. If `-cp` is passed to the application on startup, the SDK will leverage the specific configuration provider (i.e Consul) to push configuration from the file into the registry and monitor configuration from there. You will find the configuration under the `edgex/appservices/1.0/` key. 
+Similar to other EdgeX services, configuration is first determined by the `configuration.toml` file in the `/res` folder. Once loaded any environment overrides are applied. If `-cp` is passed to the application on startup, the SDK will leverage the specific configuration provider (i.e Consul) to push the configuration into the provider and monitor `Writeable` configuration from there. You will find the configuration under the `edgex/appservices/2.0/` key in the provider (i.e Consul). On re-restart the service will pull the configuration from the provider and apply any environment overrides.
 
 This section describes the configuration elements that are unique to Application Services
 
-Please refer to the general [Configuration documentation](../../configuration/Ch-Configuration#configuration-properties) for configuration properties common across all services.
+Please first refer to the general [Configuration documentation](../../configuration/Ch-Configuration#configuration-properties) for configuration properties common across all EdgeX services.
 
 !!! note
     `*`indicates the configuration value can be changed on the fly if using a configuration provider (like Consul).
@@ -15,120 +15,128 @@ Please refer to the general [Configuration documentation](../../configuration/Ch
 The following are additional entries in the **Writable** section which are applicable to Application Services.
 
 ### Writable StoreAndForward
-The section configures the **Store and Forward** capability. Please refer to [Store and Forward](../ApplicationFunctionsSDK/#store-and-forward) section for more details.
+The section configures the **Store and Forward** capability. Please refer to [Store and Forward](../ApplicationFunctionsSDK/#store-and-forward) documentation for more details.
 
-|Configuration  |     Default Value     | Description |
-| --- | --- | -- |
-|Writable StoreAndForward `Enabled` | false* | Indicates whether the **Store and Forward** capability enabled or disabled |
-| Writable StoreAndForward `RetryInterval`             | "5m"* | Indicates the duration of time to wait before retries, aka *Forward* |
-| Writable StoreAndForward `MaxRetryCount`             | 10* | Indicates whether maximum number of retries of failed data. The failed data is removed after the maximum retries has been exceeded. A value of `0` indicates endless retries. |
+| Configuration | Default Value |                                                              |
+| :------------ | ------------- | ------------------------------------------------------------ |
+| Enabled       | false*        | Indicates whether the **Store and Forward** capability enabled or disabled |
+| RetryInterval | "5m"*         | Indicates the duration of time to wait before retries, aka *Forward* |
+| MaxRetryCount | 10*           | Indicates whether maximum number of retries of failed data. The failed data is removed after the maximum retries has been exceeded. A value of `0` indicates endless retries. |
 
 ### Writable Pipeline
 The section configures the Configurable Function Pipeline which is used only by App Service Configurable. Please refer to [App Service Configurable - Getting Started](../AppServiceConfigurable/#getting-started) section for more details
 
 ### Writable InsecureSecrets
-This section defines Insecure Secrets that are used when running is non-secure mode, i.e. when Vault isn't available. This is a dynamic map of configuration, so can empty if no secrets are used or can have as many or few user define secrets. Below are a few that are need if using the indicated capabilities.
+This section defines Insecure Secrets that are used when running in non-secure mode, i.e. when Vault isn't available. This is a dynamic map of configuration, so can empty if no secrets are used or can have as many or few user define secrets. It simulates a Secret Store in non-secure mode. Below are a few examples that are need if using the indicated capabilities.
 
 |Configuration  |     Default Value     | Description |
 | --- | --- | -- |
-| **Writable InsecureSecrets DB** | --- | This section defines a block of insecure secrets for database connection when **Store and Forward** is enabled and running is non-secure mode. This section is not required if **Store and Forward** is not enabled. |
-| Writable InsecureSecrets DB `path` | redisdb* | Indicates the type of database the insecure secrets are for. `redisdb` id the DB type name used internally and used to look up the credentials. |
-| **Writable InsecureSecrets DB Secrets** | --- | This section contains the Secrets key value pair map of database credentials |
-| Writable InsecureSecrets DB Secrets `username` | blank* | Indicates the value for the `username` when connecting to the database. When running in non-secure mode it is `blank`. |
-| Writable InsecureSecrets DB Secrets `password` | blank* | Indicates the value for the `password` when connecting to the database. When running in non-secure mode it is `blank`. |
-| **Writable InsecureSecrets http** | --- | This section defines a block of insecure secrets for HTTP Export, i.e `HTTPPost` function |
-| Writable InsecureSecrets http `path` | http* | Indicates the secrets path for HTTP Export. Must match the `secretpath` name configured for the `HTTPPost` function. |
-| **Writable InsecureSecrets http Secrets** | --- | This section contains the Secrets key value pair map for the `HTTPPost` function |
-| Writable InsecureSecrets http Secrets `[headername]` | undefined* | This indicates the HTTP header name and the value to set it to. I.e. the key name you choose is the actual HTTP Header name. The key name must match the `secretheadername` configured for `HTTPPost`. The value is what you need the header set to. |
-| **Writable InsecureSecrets MQTT** | --- | This section defines a block of insecure secrets for MQTT export, i.e. `MQTTSecretSend` function. |
-| Writable InsecureSecrets MQTT `path` | mqtt* | Indicates the secrets path for MQTT Export. Must match the `secretpath` name configured for the `MQTTSecretSend` function. |
-| **Writable InsecureSecrets MQTT Secrets** | --- | This section contains the Secrets key value pair map for the `MQTTSecretSend` function |
-| Writable InsecureSecrets MQTT Secrets `username` | blank* | Indicates the value for the `username` when connecting to the MQTT broker using ` usernamepassword` authentication mode. Must be configured to the value the MQTT broker is expecting. |
-| Writable InsecureSecrets MQTT Secrets `password` | blank* | Indicates the value for the `password` when connecting to the MQTT broker using ` usernamepassword` authentication mode. Must be configured to the value the MQTT broker is expecting. |
-| Writable InsecureSecrets MQTT Secrets `cacert` | blank* | Indicates the value (contents) for the `CA Certificate` when connecting to the MQTT broker using ` cacert` authentication mode. Must be configured to the value the MQTT broker is expecting. |
-| Writable InsecureSecrets MQTT Secrets `clientcert` | blank* | Indicates the value (contents) for the `Client Certificate` when connecting to the MQTT broker using ` clientcert` authentication mode. Must be configured to the value the MQTT broker is expecting. |
-| Writable InsecureSecrets MQTT Secrets `clientkey` | blank* | Indicates the value (contents) for the `Client Key` when connecting to the MQTT broker using ` clientcert` authentication mode. Must be configured to the value the MQTT broker is expecting. |
+| **DB** | --- | This section defines a block of insecure secrets for database credentials when **Redis** is used for the MessageBus and/or when **Store and Forward** is enabled and running is non-secure mode. This section is not required if **Store and Forward** is not enabled and not using **Redis** for the MessageBus . |
+| path | redisdb* | Indicates the location in the simulated Secret Store where the DB secret resides. |
+| **DB Secrets** | --- | This section is the collection of **DB** secret data |
+| username | blank* | Indicates the value for the `username` when connecting to the database. When running in non-secure mode it is `blank`. |
+| password | blank* | Indicates the value for the `password` when connecting to the database. When running in non-secure mode it is `blank`. |
+| **http** | --- | This section defines a block of insecure secrets for HTTP Export, i.e `HTTPPost` function |
+| path | http* | Indicates the location in the simulated Secret Store where the HTTP secret resides. |
+| **http Secrets** | --- | This section is the collection of **HTTP** secret data.  See [Http Export](BuiltIn.md#http) documentation for more details on use of secret data. |
+| headervalue | undefined* | This indicates the name of the secret value to use as the value in the HTTP header. |
+| **mqtt** | --- | This section defines a block of insecure secrets for MQTT export, i.e. `MQTTSecretSend` function. |
+| path | mqtt* | Indicates the location in the simulated Secret Store where the MQTT secret reside. |
+| **mqtt Secrets** | --- | This section is the collection of MQTT secret data. See [Mqtt Export](BuiltIn.md#mqtt) documentation for more details on use of secret data. |
+| username | blank* | Indicates the value for the `username` when connecting to the MQTT broker using ` usernamepassword` authentication mode. Must be configured to the value the MQTT broker is expecting. |
+| password | blank* | Indicates the value for the `password` when connecting to the MQTT broker using ` usernamepassword` authentication mode. Must be configured to the value the MQTT broker is expecting. |
+| cacert | blank* | Indicates the value (contents) for the `CA Certificate` when connecting to the MQTT broker using ` cacert` authentication mode. Must be configured to the value the MQTT broker is expecting. |
+| clientcert | blank* | Indicates the value (contents) for the `Client Certificate` when connecting to the MQTT broker using ` clientcert` authentication mode. Must be configured to the value the MQTT broker is expecting. |
+| clientkey | blank* | Indicates the value (contents) for the `Client Key` when connecting to the MQTT broker using ` clientcert` authentication mode. Must be configured to the value the MQTT broker is expecting. |
 
 ## Not Writable
 The following are additional configuration which are applicable to Application Services that require the service to be restarted after value(s) are changed.
 
+### HttpServer
+
+!!! edgey "EdgeX 2.0"
+    New for EdgeX 2.0. These setting previously were in the `Service` configuration section specific to Application Services. Now the `Service` configuration is the same for all EdgeX services. See the general [Configuration documentation](../../configuration/Ch-Configuration#configuration-properties) for more details on the common `Service` configuration.
+
+This section contains the configuration for the internal Webserver. Only need if configuring the Webserver for `HTTPS`
+
+| Configuration | Default Value | Description                                                  |
+| ------------- | ------------- | ------------------------------------------------------------ |
+| Protocol      | http**        | Indicates the protocol for the webserver to use              |
+| SecretName    | blank**       | Indicates the name of the secret in the Secret Store where the HTTPS secret data resides |
+| HTTPSCertName | blank**       | Indicates the key name in the HTTPS secret data that contains the `certificate data` to use for HTTPS |
+| HTTPSKeyName  | blank**       | Indicates the key name in the HTTPS secret data that contains the `key data` to use for HTTPS |
+
 ### Database
-This optional section contains the connection information. It is only required when the **Store and Forward** capability is enabled. Note that it has a slightly different format that the database section used in the core services configuration.
+
+This section contains the connection information. It is required when using `redis` for the **MessageBus** (which is the default) and/or when the **Store and Forward** capability is enabled. Note that it has a slightly different format than the database section used in the core services configuration.
 
 |Configuration  |     Default Value     | Description |
 | --- | --- | -- |
-| Database `Type` | redisdb** | Indicates the type of database used. `redisdb` and `mongodb` are the only valid types. |
-| Database `Host` | localhost** | Indicates the hostname for the database |
-| Database `Port` | 6379** | Indicates the port number for the database |
-| Database `Timeout` | "30s"** | Indicates the connection timeout for the database |
-
-### SecretStoreExclusive
-This optional section defines the configuration for the `Exclusive` Secret Store (i.e. Vault) used to Put and Get secrets that are exclusive to the instance of the Application Service. Please refer to the [Secrets](../ApplicationFunctionsSDK/#secrets) section for more details.
-
-|Configuration  |     Default Value     | Description |
-| --- | --- | -- |
-| SecretStoreExclusive `Host` | localhost** | Indicates the hostname for the Secret Store |
-| SecretStoreExclusive `Port` | 8200** | Indicates the port number for the Secret Store |
-| SecretStoreExclusive `Path` | Depends on <br />profile used<br /> | Indicates the base path for the secrets with in the |
-| SecretStoreExclusive `Protocol` | https** | Indicates the protocol used for the Secret Store |
-| SecretStoreExclusive `RootCaCertPath` | /vault/config/pki/<br />EdgeXFoundryCA/<br />EdgeXFoundryCA.pem** | Indicates the path to the root CA Certificate for Vault |
-| SecretStoreExclusive `ServerName` | localhost** | Indicates the server name for the Secret Store |
-| SecretStoreExclusive `TokenFile` | /vault/config/<br />assets/<br />resp-init.json** | Indicates the path to the `exclusive` token for the service to connect to the Secret Store |
-| SecretStoreExclusive `AdditionalRetryAttempts` | 10** | Indicates the maximum number of failed connection attempts allowed |
-| SecretStoreExclusive `RetryWaitPeriod` | "1s"** | Indicates the wait time between failed connection attempts |
-| **SecretStoreExclusive Authentication** | --- | The section defines the Secret Store Authentication |
-| SecretStoreExclusive Authentication `AuthType` | X-Vault-Token** | Indicates the authentication type used when connecting to the Secret Store |
+| Type | redisdb** | Indicates the type of database used. `redisdb` and `mongodb` are the only valid types. |
+| Host | localhost** | Indicates the hostname for the database |
+| Port | 6379** | Indicates the port number for the database |
+| Timeout | "30s"** | Indicates the connection timeout for the database |
 
 ### Clients
-This section defines the clients connect information. Please refer to the [Note about Clients](../ApplicationFunctionsSDK/#note-about-clients) section for more details.
+This section defines the connect information for the EdgeX Clients and is the same as that used by all EdgeX services, just which clients are needed differs. Please refer to the [Note about Clients](../ApplicationFunctionsSDK/#note-about-clients) section for more details.
 
-### Binding
-This section defines the `Trigger` binding for incoming data.
+### Trigger
+This section defines the `Trigger` for incoming data. See the [Triggers](Triggers.md) documentation for more details on the inner working of triggers. 
+
+!!! edgey "EdgeX 2.0"
+    For EdgeX 2.0 the `Binding` section has been renamed to `Trigger` .  
 
 |Configuration  |     Default Value     | Description |
 | --- | --- | -- |
-| Binding `Type` | edgex-messagebus** | Indicates the `Trigger` binding type. valid values are `edgex-messagebus`, `external-mqtt` or `http` |
-| Binding `SubscribeTopic` | events** | Used for `edgex-messagebus` and `external-mqtt` binding types<br />Indicates the subscribe topic to use to receive data from the Message Bus |
-| Binding `PublishTopic` | blank** | Used for `edgex-messagebus` and `external-mqtt` binding types<br />Indicates the publish topic to use when sending data to the Message Bus |
+| Type | edgex-messagebus** | Indicates the `Trigger` binding type. valid values are `edgex-messagebus`, `external-mqtt` or `http` |
 
-### MessageBus
+### Tigger EdgeXMessageBus
 This section defines the message bus connect information.
 Only used for `edgex-messagebus` binding type
 
+!!! edgey "EdgeX 2.0"
+    For EdgeX 2.0 the `MessageBus` section has been renamed to `EdgexMessageBus` and moved under the `Trigger` section. The `SubscribeTopic` setting has changed to `SubscribeTopics` and moved under the `SubscribeHost` section of `EdgexMessageBus` . The `PublishTopic` has been moved under the `PublishHost` section of `EdgexMessageBus`.
+
 |Configuration  |     Default Value     | Description |
 | --- | --- | -- |
-| MessageBus `Type` | zero** | Indicates the type of message bus being used. Valid type are `zero`, `mqtt` or `redisstreams` |
-| **MessageBus SubscribeHost** | ... | This section defines the connection information for subscribing to the Message Bus |
-| MessageBus SubscribeHost `Host` | localhost** | Indicates the hostname for subscribing to the Message Bus |
-| MessageBus SubscribeHost `Port` | 5563** | Indicates the port number for subscribing to the Message Bus |
-| MessageBus SubscribeHost `Protocol` | tcp** | Indicates the protocol number for subscribing to the Message Bus |
-| **MessageBus PublishHost** | ... | This section defines the connection information for publishing to the Message Bus |
-| MessageBus PublishHost`Host` | "*" ** | Indicates the hostname for publishing to the Message Bus |
-| MessageBus SubscribeHost `Port` | 5565** | Indicates the port number for publishing to the Message Bus |
-| MessageBus SubscribeHost `Protocol` | tcp** | Indicates the protocol number for publishing to the Message Bus |
-| **MessageBus Optional** | ... | This section is used for optional configuration specific to the Message Bus type used. Please refer to [go-mod-messaging](https://github.com/edgexfoundry/go-mod-messaging/blob/master/README.md) for more details |
+| Type | redis** | Indicates the type of MessageBus being used. Valid type are `redis`, `mqtt`,  or`zero` |
+| **SubscribeHost** | ... | This section defines the connection information for subscribing/publishing to the MessageBus |
+| Host | localhost** | Indicates the hostname for subscribing to the MessageBus |
+| Port | 6379** | Indicates the port number for subscribing to the MessageBus |
+| Protocol | redis** | Indicates the protocol number for subscribing to the MessageBus |
+| SubscribeTopics | edgex/events/#** | MessageBus topic(s) to subscribe to. This is a comma separated list of topics. Supports filtering by subscribe topics. See [EdgeXMessageBus](Triggers.md#edgex-message-bus) Trigger for more details. |
+| **PublishHost** | ... | This section defines the connection information for publishing to the MessageBus |
+| Host | "*" ** | Indicates the hostname for publishing to the Message Bus |
+| Port | 6379** | Indicates the port number for publishing to the Message Bus |
+| Protocol | redis** | Indicates the protocol number for publishing to the Message Bus |
+| PublishTopic | blank** | Indicates the topic in which to publish the function pipeline response data, if any. Supports dynamic topic places holders. See [EdgeXMessageBus](Triggers.md#edgex-message-bus) Trigger for more details. |
+| **Optional** | ... | This section is used for optional configuration specific to the MessageBus type used. Please refer to [go-mod-messaging](https://github.com/edgexfoundry/go-mod-messaging/blob/master/README.md) for more details |
 
-### MqttBroker
+### Tigger ExternalMqtt
 
 This section defines the external MQTT Broker connect information.
 Only used for `external-mqtt` trigger binding type
 
-!!! note
-    `external-mqtt` is not the default Trigger type, so there are no default values for `MqttBrokerConfig` settings beyond those that the Go compiler gives to the empty struct. Some of those default values are not valid and must be specified, i.e. `Authmode`
+!!! edgey "EdgeX 2.0"
+     For EdgeX 2.0 the `MqttBroker` section has been renamed to `ExternalMqtt` and moved under the `Trigger` section. The `ExternalMqtt` section now has it's own `SubscribeTopics` and  `PublishTopic` settings. 
 
-| Configuration                     | Default Value | Description                                                  |
+!!! note
+    `external-mqtt` is not the default Trigger type, so there are no default values for `ExternalMqtt` settings beyond those that the Go compiler gives to the empty struct. Some of those default values are not valid and must be specified, i.e. `Authmode`
+
+| Configuration   | Default Value | Description                                                  |
 | --------------------------------- | ------------- | ------------------------------------------------------------ |
-| MqttBroker `Url`            | blank**       | Fully qualified URL to connect to the MQTT broker, i.e. `tcp://localhost:1883` |
-| MqttBroker `ClientId`       | blank**       | ClientId to connect to the broker with                       |
-| MqttBroker `ConnectTimeout` | blank**       | Time duration indicating how long to wait before timing out                                                                            
- broker connection, i.e "30s" |
-| MqttBroker `AutoReconnect`  | false**       | Indicates whether or not to retry connection if disconnected |
-| MqttBroker `KeepAlive`      | 0**           | Seconds between client ping when no active data flowing to avoid client being disconnected. Must be greater then 2 |
-| MqttBroker   `QOS`          | 0**           | Quality of Service 0 (At most once), 1 (At least once) or 2 (Exactly once) |
-| MqttBroker `Retain`         | false**       | Retain setting for MQTT Connection                           |
-| MqttBroker `SkipCertVerify` | false**       | Indicates if the certificate verification should be skipped  |
-| MqttBroker `SecretPath`     | blank**       | Name of the path in secret provider to retrieve your secrets. Must be non-blank. |
-| MqttBroker `AuthMode`       | blank**       | Indicates what to use when connecting to the broker. Must be one of "none", "cacert" , "usernamepassword", "clientcert". <br />If a CA Cert exists in the SecretPath then it will be used for all modes except "none". |
+| Url | blank**       | Fully qualified URL to connect to the MQTT broker, i.e. `tcp://localhost:1883` |
+| SubscribeTopics | blank** | MQTT topic(s) to subscribe to. This is a comma separated list of topics |
+| PublishTopic | blank** | MQTT topic to publish the function pipeline response data, if any. Supports dynamic topic places holders. See [ExternalMqtt](Triggers.md#external-mqtt) Trigger for more details. |
+| ClientId | blank**       | ClientId to connect to the broker with |
+| ConnectTimeout | blank**       | Time duration indicating how long to wait before timing out                                                        broker connection, i.e "30s" |
+| AutoReconnect | false**       | Indicates whether or not to retry connection if disconnected |
+| KeepAlive | 0**           | Seconds between client ping when no active data flowing to avoid client being disconnected. Must be greater then 2 |
+| QOS | 0**           | Quality of Service 0 (At most once), 1 (At least once) or 2 (Exactly once) |
+| Retain | false**       | Retain setting for MQTT Connection                           |
+| SkipCertVerify | false**       | Indicates if the certificate verification should be skipped  |
+| SecretPath | blank**       | Name of the path in secret provider to retrieve your secrets. Must be non-blank. |
+| AuthMode | blank**       | Indicates what to use when connecting to the broker. Must be one of "none", "cacert" , "usernamepassword", "clientcert". <br />If a CA Cert exists in the SecretPath then it will be used for all modes except "none". |
 
 ### Application Settings 
 
@@ -138,3 +146,11 @@ Only used for `external-mqtt` trigger binding type
  [ApplicationSettings]
  ApplicationName = "My Application Service"
 ```
+
+### Custom Structured Configuration
+
+!!! edgey "EdgeX 2.0"
+    New for EdgeX 2.0
+
+Custom Application Services can now define their own custom structured configuration section in the `configuration.toml` file. Any additional sections in the TOML are ignore by the SDK when it parses the file for the SDK defined sections. See the [Custom Configuration](ApplicationFunctionsSDK.md#custom-configuration) section of the SDK documentation for more details.
+
