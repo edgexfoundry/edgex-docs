@@ -26,4 +26,4 @@
 
 edgex-secrets-config-proxy(1)
 
-EdgeX Foundry Last change: 2020
+EdgeX Foundry Last change: 2021
