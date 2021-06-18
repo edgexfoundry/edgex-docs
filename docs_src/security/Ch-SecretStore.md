@@ -1,24 +1,12 @@
 # Secret Store
 
-## Table of Contents
-
-  * [Introduction](#introduction)
-  * [Start the Secret Store](#start-the-secret-store)
-  * [Using the Secret Store](#using-the-secret-store)
-    + [Preferred Approach](#preferred-approach)
-    + [Obtaining the Vault Root Token](#obtaining-the-vault-root-token)
-    + [Using the Vault CLI](#using-the-vault-cli)
-    + [Use the Vault REST API](#use-the-vault-rest-api)
-    + [Using the Vault Web UI](#using-the-vault-web-ui)
-  * [See also](#see-also)
-
 ## Introduction
 
 There are all kinds of secrets used within EdgeX Foundry micro services,
 such as tokens, passwords, certificates etc. The secret store serves as
 the central repository to keep these secrets. The developers of other
 EdgeX Foundry micro services utilize the secret store to create, store
-and retrieve secrets relevant to their corresponding micro service.
+and retrieve secrets relevant to their corresponding micro services.
 
 Currently the EdgeX Foundry secret store is implemented with
 [Vault](https://www.vaultproject.io/), a HashiCorp open source software
@@ -34,22 +22,21 @@ EdgeX uses the Consul secrets engine to allow Vault to
 issue Consul access tokens to EdgeX microservices.
 
 In EdgeX, Vault's storage backend is the host file system.
-Vault has the capability to run in a high-availability mode
-by supporting replicated storage backends,
-but these high availabilty features are not currently enabled.
 
 ## Start the Secret Store
 
-The EdgeX secret store is started by default when using the Docker Compose
-scripts found at
-<https://github.com/edgexfoundry/edgex-compose/tree/master>.
+The EdgeX secret store is started by default when using 
+the secure version of the Docker Compose scripts found at
+<https://github.com/edgexfoundry/edgex-compose/tree/ireland>.
 
 The command to start EdgeX with the secret store enabled is:
 
+    git clone -b ireland https://github.com/edgexfoundry/edgex-compose
     make run
 
 or
 
+    git clone -b ireland https://github.com/edgexfoundry/edgex-compose
     make run arm64
 
 The EdgeX secret store is not started if EdgeX is started with security
@@ -87,11 +74,12 @@ it is necessary to obtain a copy of the Vault root token
 using the below recommended procedure.
 Note that following this procedure directly contradicts the
 [Vault production hardening guide](https://learn.hashicorp.com/tutorials/vault/production-hardening).
-Since the root token cannot be un-revoked the framework
+Since the root token cannot be un-revoked, the framework
 must be started for the first time with root token revokation disabled.
 
 1. Shut down the entire framework and remove the Docker persistent volumes
-   using `make clean` in `edgex-compose` or `docker volume prune`.
+   using `make clean` in `edgex-compose` or `docker volume prune` after stopping all the containers.
+   Optionally remove `/tmp/edgex` as well to clean the shared secrets volume.
 
 2. Edit `docker-compose.yml` and add an environment variable override for `SECRETSTORE_REVOKEROOTTOKENS`
 
@@ -118,7 +106,7 @@ in `resp-init.json`
 using the [Vault's documented procedure](https://learn.hashicorp.com/tutorials/vault/generate-root).
 The EdgeX framework executes this process internally whenever it requires root token capability.
 Note that a token created in this manner will again be revoked the next time EdgeX is restarted
-if `SECRETSTORE_REVOKEROOTTOKENS` remains set to its default value--all root tokens
+if `SECRETSTORE_REVOKEROOTTOKENS` remains set to its default value: all root tokens
 are revoked every time the framework is started if `SECRETSTORE_REVOKEROOTTOKENS` is `true`.
 
 
@@ -229,8 +217,7 @@ vault read secret/edgex/core-data/redisdb
 command looks like the following using the REST API:
 
 
-Displaying (GET) the API gateway (Kong) service X.509 TLS materials (TLS
-certificate cert & corresponding private key key):
+Displaying (GET) the redis credentials from Core Data's secret store:
 
 ```
 curl -s -H 'X-Vault-Token: s.ULr5bcjwy8S0I5g3h4xZ5uWa' http://localhost:8200/v1/secret/edgex/core-data/redisdb | python -m json.tool
@@ -290,5 +277,5 @@ man-style documentation:
 
 -   [security-file-token-provider](./security-file-token-provider.1.md) -
     Generate Vault tokens for EdgeX services
--   [secrets-config](./secrets-config.1.md) - Utility for secrets management.
--   [secrets-config-proxy](./secrets-config-proxy.1.md) - "proxy" subcommand for managing proxy secrets.
+-   [secrets-config](./secrets-config.md) - Utility for secrets management.
+-   [secrets-config-proxy](./secrets-config-proxy.md) - "proxy" subcommand for managing proxy secrets.

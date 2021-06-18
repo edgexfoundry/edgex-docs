@@ -54,7 +54,7 @@ Proxy configuration commands (listed below) require access to the secret store m
 
     * **--token-type** jwt (required)
     
-      Create user using either the JWT or OAuth2 authentication plugin.
+      Create user using either the JWT authentication plugin.
       This value must match the configured authentication plugin
       (`KongAuth.Name` in security-proxy-setup's `configuration.toml`).
 
