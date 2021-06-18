@@ -216,7 +216,7 @@ passing a request to a back-end microservice.
 It is necessary to create an API gateway user in order to
 satify the authentication requirement.  Gateway users
 are created using the proxy subcommand of the
-[secrets-config](secrets-config-proxy.1.md)
+[secrets-config](secrets-config-proxy.md)
 utility.
 
 #### JWT authentication
