@@ -21,7 +21,7 @@
     
     
       
-        <title>General App Service Configuration - EdgeX Foundry Documentation</title>
+        <title>Application Service Configuration - EdgeX Foundry Documentation</title>
       
     
     
@@ -60,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#general-app-service-configuration" class="md-skip">
+        <a href="#application-service-configuration" class="md-skip">
           Skip to content
         </a>
       
@@ -87,7 +87,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              General App Service Configuration
+              Application Service Configuration
             
           </span>
         </div>
@@ -1355,14 +1355,14 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        General App Service Configuration
+        Application Service Configuration
         <span class="md-nav__icon md-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z" /></svg>
         </span>
       </label>
     
-    <a href="./" title="General App Service Configuration" class="md-nav__link md-nav__link--active">
-      General App Service Configuration
+    <a href="./" title="Application Service Configuration" class="md-nav__link md-nav__link--active">
+      Application Service Configuration
     </a>
     
       
@@ -1423,15 +1423,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#database" class="md-nav__link">
-    Database
+  <a href="#httpserver" class="md-nav__link">
+    HttpServer
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#secretstoreexclusive" class="md-nav__link">
-    SecretStoreExclusive
+  <a href="#database" class="md-nav__link">
+    Database
   </a>
   
 </li>
@@ -1444,22 +1444,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#binding" class="md-nav__link">
-    Binding
+  <a href="#trigger" class="md-nav__link">
+    Trigger
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#messagebus" class="md-nav__link">
-    MessageBus
+  <a href="#trigger-edgexmessagebus" class="md-nav__link">
+    Trigger EdgeXMessageBus
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#mqttbroker" class="md-nav__link">
-    MqttBroker
+  <a href="#trigger-externalmqtt" class="md-nav__link">
+    Trigger ExternalMqtt
   </a>
   
 </li>
@@ -1467,6 +1467,13 @@
           <li class="md-nav__item">
   <a href="#application-settings" class="md-nav__link">
     Application Settings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-structured-configuration" class="md-nav__link">
+    Custom Structured Configuration
   </a>
   
 </li>
@@ -2335,15 +2342,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#database" class="md-nav__link">
-    Database
+  <a href="#httpserver" class="md-nav__link">
+    HttpServer
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#secretstoreexclusive" class="md-nav__link">
-    SecretStoreExclusive
+  <a href="#database" class="md-nav__link">
+    Database
   </a>
   
 </li>
@@ -2356,22 +2363,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#binding" class="md-nav__link">
-    Binding
+  <a href="#trigger" class="md-nav__link">
+    Trigger
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#messagebus" class="md-nav__link">
-    MessageBus
+  <a href="#trigger-edgexmessagebus" class="md-nav__link">
+    Trigger EdgeXMessageBus
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#mqttbroker" class="md-nav__link">
-    MqttBroker
+  <a href="#trigger-externalmqtt" class="md-nav__link">
+    Trigger ExternalMqtt
   </a>
   
 </li>
@@ -2379,6 +2386,13 @@
           <li class="md-nav__item">
   <a href="#application-settings" class="md-nav__link">
     Application Settings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-structured-configuration" class="md-nav__link">
+    Custom Structured Configuration
   </a>
   
 </li>
@@ -2408,10 +2422,10 @@
                   
                 
                 
-                <h1 id="general-app-service-configuration">General App Service Configuration</h1>
-<p>Similar to other EdgeX services, configuration is first determined by the <code>configuration.toml</code> file in the <code>/res</code> folder. If <code>-cp</code> is passed to the application on startup, the SDK will leverage the specific configuration provider (i.e Consul) to push configuration from the file into the registry and monitor configuration from there. You will find the configuration under the <code>edgex/appservices/1.0/</code> key. </p>
+                <h1 id="application-service-configuration">Application Service Configuration</h1>
+<p>Similar to other EdgeX services, configuration is first determined by the <code>configuration.toml</code> file in the <code>/res</code> folder. Once loaded any environment overrides are applied. If <code>-cp</code> is passed to the application on startup, the SDK will leverage the specific configuration provider (i.e Consul) to push the configuration into the provider and monitor <code>Writeable</code> configuration from there. You will find the configuration under the <code>edgex/appservices/2.0/</code> key in the provider (i.e Consul). On re-restart the service will pull the configuration from the provider and apply any environment overrides.</p>
 <p>This section describes the configuration elements that are unique to Application Services</p>
-<p>Please refer to the general <a href="../../configuration/Ch-Configuration#configuration-properties">Configuration documentation</a> for configuration properties common across all services.</p>
+<p>Please first refer to the general <a href="../../configuration/Ch-Configuration#configuration-properties">Configuration documentation</a> for configuration properties common across all EdgeX services.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><code>*</code>indicates the configuration value can be changed on the fly if using a configuration provider (like Consul).
@@ -2420,28 +2434,28 @@
 <h2 id="writable">Writable</h2>
 <p>The following are additional entries in the <strong>Writable</strong> section which are applicable to Application Services.</p>
 <h3 id="writable-storeandforward">Writable StoreAndForward</h3>
-<p>The section configures the <strong>Store and Forward</strong> capability. Please refer to <a href="../ApplicationFunctionsSDK/#store-and-forward">Store and Forward</a> section for more details.</p>
+<p>The section configures the <strong>Store and Forward</strong> capability. Please refer to <a href="../ApplicationFunctionsSDK/#store-and-forward">Store and Forward</a> documentation for more details.</p>
 <table>
 <thead>
 <tr>
-<th>Configuration</th>
+<th align="left">Configuration</th>
 <th>Default Value</th>
-<th>Description</th>
+<th></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Writable StoreAndForward <code>Enabled</code></td>
+<td align="left">Enabled</td>
 <td>false*</td>
 <td>Indicates whether the <strong>Store and Forward</strong> capability enabled or disabled</td>
 </tr>
 <tr>
-<td>Writable StoreAndForward <code>RetryInterval</code></td>
+<td align="left">RetryInterval</td>
 <td>"5m"*</td>
 <td>Indicates the duration of time to wait before retries, aka <em>Forward</em></td>
 </tr>
 <tr>
-<td>Writable StoreAndForward <code>MaxRetryCount</code></td>
+<td align="left">MaxRetryCount</td>
 <td>10*</td>
 <td>Indicates whether maximum number of retries of failed data. The failed data is removed after the maximum retries has been exceeded. A value of <code>0</code> indicates endless retries.</td>
 </tr>
@@ -2450,7 +2464,7 @@
 <h3 id="writable-pipeline">Writable Pipeline</h3>
 <p>The section configures the Configurable Function Pipeline which is used only by App Service Configurable. Please refer to <a href="../AppServiceConfigurable/#getting-started">App Service Configurable - Getting Started</a> section for more details</p>
 <h3 id="writable-insecuresecrets">Writable InsecureSecrets</h3>
-<p>This section defines Insecure Secrets that are used when running is non-secure mode, i.e. when Vault isn't available. This is a dynamic map of configuration, so can empty if no secrets are used or can have as many or few user define secrets. Below are a few that are need if using the indicated capabilities.</p>
+<p>This section defines Insecure Secrets that are used when running in non-secure mode, i.e. when Vault isn't available. This is a dynamic map of configuration, so can empty if no secrets are used or can have as many or few user define secrets. It simulates a Secret Store in non-secure mode. Below are a few examples that are need if using the indicated capabilities.</p>
 <table>
 <thead>
 <tr>
@@ -2461,87 +2475,87 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>Writable InsecureSecrets DB</strong></td>
+<td><strong>DB</strong></td>
 <td>---</td>
-<td>This section defines a block of insecure secrets for database connection when <strong>Store and Forward</strong> is enabled and running is non-secure mode. This section is not required if <strong>Store and Forward</strong> is not enabled.</td>
+<td>This section defines a block of insecure secrets for database credentials when <strong>Redis</strong> is used for the MessageBus and/or when <strong>Store and Forward</strong> is enabled and running is non-secure mode. This section is not required if <strong>Store and Forward</strong> is not enabled and not using <strong>Redis</strong> for the MessageBus .</td>
 </tr>
 <tr>
-<td>Writable InsecureSecrets DB <code>path</code></td>
+<td>path</td>
 <td>redisdb*</td>
-<td>Indicates the type of database the insecure secrets are for. <code>redisdb</code> id the DB type name used internally and used to look up the credentials.</td>
+<td>Indicates the location in the simulated Secret Store where the DB secret resides.</td>
 </tr>
 <tr>
-<td><strong>Writable InsecureSecrets DB Secrets</strong></td>
+<td><strong>DB Secrets</strong></td>
 <td>---</td>
-<td>This section contains the Secrets key value pair map of database credentials</td>
+<td>This section is the collection of <strong>DB</strong> secret data</td>
 </tr>
 <tr>
-<td>Writable InsecureSecrets DB Secrets <code>username</code></td>
+<td>username</td>
 <td>blank*</td>
 <td>Indicates the value for the <code>username</code> when connecting to the database. When running in non-secure mode it is <code>blank</code>.</td>
 </tr>
 <tr>
-<td>Writable InsecureSecrets DB Secrets <code>password</code></td>
+<td>password</td>
 <td>blank*</td>
 <td>Indicates the value for the <code>password</code> when connecting to the database. When running in non-secure mode it is <code>blank</code>.</td>
 </tr>
 <tr>
-<td><strong>Writable InsecureSecrets http</strong></td>
+<td><strong>http</strong></td>
 <td>---</td>
 <td>This section defines a block of insecure secrets for HTTP Export, i.e <code>HTTPPost</code> function</td>
 </tr>
 <tr>
-<td>Writable InsecureSecrets http <code>path</code></td>
+<td>path</td>
 <td>http*</td>
-<td>Indicates the secrets path for HTTP Export. Must match the <code>secretpath</code> name configured for the <code>HTTPPost</code> function.</td>
+<td>Indicates the location in the simulated Secret Store where the HTTP secret resides.</td>
 </tr>
 <tr>
-<td><strong>Writable InsecureSecrets http Secrets</strong></td>
+<td><strong>http Secrets</strong></td>
 <td>---</td>
-<td>This section contains the Secrets key value pair map for the <code>HTTPPost</code> function</td>
+<td>This section is the collection of <strong>HTTP</strong> secret data.  See <a href="../BuiltIn/#http">Http Export</a> documentation for more details on use of secret data.</td>
 </tr>
 <tr>
-<td>Writable InsecureSecrets http Secrets <code>[headername]</code></td>
+<td>headervalue</td>
 <td>undefined*</td>
-<td>This indicates the HTTP header name and the value to set it to. I.e. the key name you choose is the actual HTTP Header name. The key name must match the <code>secretheadername</code> configured for <code>HTTPPost</code>. The value is what you need the header set to.</td>
+<td>This indicates the name of the secret value to use as the value in the HTTP header.</td>
 </tr>
 <tr>
-<td><strong>Writable InsecureSecrets MQTT</strong></td>
+<td><strong>mqtt</strong></td>
 <td>---</td>
 <td>This section defines a block of insecure secrets for MQTT export, i.e. <code>MQTTSecretSend</code> function.</td>
 </tr>
 <tr>
-<td>Writable InsecureSecrets MQTT <code>path</code></td>
+<td>path</td>
 <td>mqtt*</td>
-<td>Indicates the secrets path for MQTT Export. Must match the <code>secretpath</code> name configured for the <code>MQTTSecretSend</code> function.</td>
+<td>Indicates the location in the simulated Secret Store where the MQTT secret reside.</td>
 </tr>
 <tr>
-<td><strong>Writable InsecureSecrets MQTT Secrets</strong></td>
+<td><strong>mqtt Secrets</strong></td>
 <td>---</td>
-<td>This section contains the Secrets key value pair map for the <code>MQTTSecretSend</code> function</td>
+<td>This section is the collection of MQTT secret data. See <a href="../BuiltIn/#mqtt">Mqtt Export</a> documentation for more details on use of secret data.</td>
 </tr>
 <tr>
-<td>Writable InsecureSecrets MQTT Secrets <code>username</code></td>
+<td>username</td>
 <td>blank*</td>
 <td>Indicates the value for the <code>username</code> when connecting to the MQTT broker using <code>usernamepassword</code> authentication mode. Must be configured to the value the MQTT broker is expecting.</td>
 </tr>
 <tr>
-<td>Writable InsecureSecrets MQTT Secrets <code>password</code></td>
+<td>password</td>
 <td>blank*</td>
 <td>Indicates the value for the <code>password</code> when connecting to the MQTT broker using <code>usernamepassword</code> authentication mode. Must be configured to the value the MQTT broker is expecting.</td>
 </tr>
 <tr>
-<td>Writable InsecureSecrets MQTT Secrets <code>cacert</code></td>
+<td>cacert</td>
 <td>blank*</td>
 <td>Indicates the value (contents) for the <code>CA Certificate</code> when connecting to the MQTT broker using <code>cacert</code> authentication mode. Must be configured to the value the MQTT broker is expecting.</td>
 </tr>
 <tr>
-<td>Writable InsecureSecrets MQTT Secrets <code>clientcert</code></td>
+<td>clientcert</td>
 <td>blank*</td>
 <td>Indicates the value (contents) for the <code>Client Certificate</code> when connecting to the MQTT broker using <code>clientcert</code> authentication mode. Must be configured to the value the MQTT broker is expecting.</td>
 </tr>
 <tr>
-<td>Writable InsecureSecrets MQTT Secrets <code>clientkey</code></td>
+<td>clientkey</td>
 <td>blank*</td>
 <td>Indicates the value (contents) for the <code>Client Key</code> when connecting to the MQTT broker using <code>clientcert</code> authentication mode. Must be configured to the value the MQTT broker is expecting.</td>
 </tr>
@@ -2549,8 +2563,12 @@
 </table>
 <h2 id="not-writable">Not Writable</h2>
 <p>The following are additional configuration which are applicable to Application Services that require the service to be restarted after value(s) are changed.</p>
-<h3 id="database">Database</h3>
-<p>This optional section contains the connection information. It is only required when the <strong>Store and Forward</strong> capability is enabled. Note that it has a slightly different format that the database section used in the core services configuration.</p>
+<h3 id="httpserver">HttpServer</h3>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>New for EdgeX 2.0. These setting previously were in the <code>Service</code> configuration section specific to Application Services. Now the <code>Service</code> configuration is the same for all EdgeX services. See the general <a href="../../configuration/Ch-Configuration#configuration-properties">Configuration documentation</a> for more details on the common <code>Service</code> configuration.</p>
+</div>
+<p>This section contains the configuration for the internal Webserver. Only need if configuring the Webserver for <code>HTTPS</code></p>
 <table>
 <thead>
 <tr>
@@ -2561,195 +2579,67 @@
 </thead>
 <tbody>
 <tr>
-<td>Database <code>Type</code></td>
+<td>Protocol</td>
+<td>http**</td>
+<td>Indicates the protocol for the webserver to use</td>
+</tr>
+<tr>
+<td>SecretName</td>
+<td>blank**</td>
+<td>Indicates the name of the secret in the Secret Store where the HTTPS secret data resides</td>
+</tr>
+<tr>
+<td>HTTPSCertName</td>
+<td>blank**</td>
+<td>Indicates the key name in the HTTPS secret data that contains the <code>certificate data</code> to use for HTTPS</td>
+</tr>
+<tr>
+<td>HTTPSKeyName</td>
+<td>blank**</td>
+<td>Indicates the key name in the HTTPS secret data that contains the <code>key data</code> to use for HTTPS</td>
+</tr>
+</tbody>
+</table>
+<h3 id="database">Database</h3>
+<p>This section contains the connection information. It is required when using <code>redis</code> for the <strong>MessageBus</strong> (which is the default) and/or when the <strong>Store and Forward</strong> capability is enabled. Note that it has a slightly different format than the database section used in the core services configuration.</p>
+<table>
+<thead>
+<tr>
+<th>Configuration</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Type</td>
 <td>redisdb**</td>
 <td>Indicates the type of database used. <code>redisdb</code> and <code>mongodb</code> are the only valid types.</td>
 </tr>
 <tr>
-<td>Database <code>Host</code></td>
+<td>Host</td>
 <td>localhost**</td>
 <td>Indicates the hostname for the database</td>
 </tr>
 <tr>
-<td>Database <code>Port</code></td>
+<td>Port</td>
 <td>6379**</td>
 <td>Indicates the port number for the database</td>
 </tr>
 <tr>
-<td>Database <code>Timeout</code></td>
+<td>Timeout</td>
 <td>"30s"**</td>
 <td>Indicates the connection timeout for the database</td>
 </tr>
 </tbody>
 </table>
-<h3 id="secretstoreexclusive">SecretStoreExclusive</h3>
-<p>This optional section defines the configuration for the <code>Exclusive</code> Secret Store (i.e. Vault) used to Put and Get secrets that are exclusive to the instance of the Application Service. Please refer to the <a href="../ApplicationFunctionsSDK/#secrets">Secrets</a> section for more details.</p>
-<table>
-<thead>
-<tr>
-<th>Configuration</th>
-<th>Default Value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>SecretStoreExclusive <code>Host</code></td>
-<td>localhost**</td>
-<td>Indicates the hostname for the Secret Store</td>
-</tr>
-<tr>
-<td>SecretStoreExclusive <code>Port</code></td>
-<td>8200**</td>
-<td>Indicates the port number for the Secret Store</td>
-</tr>
-<tr>
-<td>SecretStoreExclusive <code>Path</code></td>
-<td>Depends on <br />profile used<br /></td>
-<td>Indicates the base path for the secrets with in the</td>
-</tr>
-<tr>
-<td>SecretStoreExclusive <code>Protocol</code></td>
-<td>https**</td>
-<td>Indicates the protocol used for the Secret Store</td>
-</tr>
-<tr>
-<td>SecretStoreExclusive <code>RootCaCertPath</code></td>
-<td>/vault/config/pki/<br />EdgeXFoundryCA/<br />EdgeXFoundryCA.pem**</td>
-<td>Indicates the path to the root CA Certificate for Vault</td>
-</tr>
-<tr>
-<td>SecretStoreExclusive <code>ServerName</code></td>
-<td>localhost**</td>
-<td>Indicates the server name for the Secret Store</td>
-</tr>
-<tr>
-<td>SecretStoreExclusive <code>TokenFile</code></td>
-<td>/vault/config/<br />assets/<br />resp-init.json**</td>
-<td>Indicates the path to the <code>exclusive</code> token for the service to connect to the Secret Store</td>
-</tr>
-<tr>
-<td>SecretStoreExclusive <code>AdditionalRetryAttempts</code></td>
-<td>10**</td>
-<td>Indicates the maximum number of failed connection attempts allowed</td>
-</tr>
-<tr>
-<td>SecretStoreExclusive <code>RetryWaitPeriod</code></td>
-<td>"1s"**</td>
-<td>Indicates the wait time between failed connection attempts</td>
-</tr>
-<tr>
-<td><strong>SecretStoreExclusive Authentication</strong></td>
-<td>---</td>
-<td>The section defines the Secret Store Authentication</td>
-</tr>
-<tr>
-<td>SecretStoreExclusive Authentication <code>AuthType</code></td>
-<td>X-Vault-Token**</td>
-<td>Indicates the authentication type used when connecting to the Secret Store</td>
-</tr>
-</tbody>
-</table>
 <h3 id="clients">Clients</h3>
-<p>This section defines the clients connect information. Please refer to the <a href="../ApplicationFunctionsSDK/#note-about-clients">Note about Clients</a> section for more details.</p>
-<h3 id="binding">Binding</h3>
-<p>This section defines the <code>Trigger</code> binding for incoming data.</p>
-<table>
-<thead>
-<tr>
-<th>Configuration</th>
-<th>Default Value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Binding <code>Type</code></td>
-<td>edgex-messagebus**</td>
-<td>Indicates the <code>Trigger</code> binding type. valid values are <code>edgex-messagebus</code>, <code>external-mqtt</code> or <code>http</code></td>
-</tr>
-<tr>
-<td>Binding <code>SubscribeTopic</code></td>
-<td>events**</td>
-<td>Used for <code>edgex-messagebus</code> and <code>external-mqtt</code> binding types<br />Indicates the subscribe topic to use to receive data from the Message Bus</td>
-</tr>
-<tr>
-<td>Binding <code>PublishTopic</code></td>
-<td>blank**</td>
-<td>Used for <code>edgex-messagebus</code> and <code>external-mqtt</code> binding types<br />Indicates the publish topic to use when sending data to the Message Bus</td>
-</tr>
-</tbody>
-</table>
-<h3 id="messagebus">MessageBus</h3>
-<p>This section defines the message bus connect information.
-Only used for <code>edgex-messagebus</code> binding type</p>
-<table>
-<thead>
-<tr>
-<th>Configuration</th>
-<th>Default Value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>MessageBus <code>Type</code></td>
-<td>zero**</td>
-<td>Indicates the type of message bus being used. Valid type are <code>zero</code>, <code>mqtt</code> or <code>redisstreams</code></td>
-</tr>
-<tr>
-<td><strong>MessageBus SubscribeHost</strong></td>
-<td>...</td>
-<td>This section defines the connection information for subscribing to the Message Bus</td>
-</tr>
-<tr>
-<td>MessageBus SubscribeHost <code>Host</code></td>
-<td>localhost**</td>
-<td>Indicates the hostname for subscribing to the Message Bus</td>
-</tr>
-<tr>
-<td>MessageBus SubscribeHost <code>Port</code></td>
-<td>5563**</td>
-<td>Indicates the port number for subscribing to the Message Bus</td>
-</tr>
-<tr>
-<td>MessageBus SubscribeHost <code>Protocol</code></td>
-<td>tcp**</td>
-<td>Indicates the protocol number for subscribing to the Message Bus</td>
-</tr>
-<tr>
-<td><strong>MessageBus PublishHost</strong></td>
-<td>...</td>
-<td>This section defines the connection information for publishing to the Message Bus</td>
-</tr>
-<tr>
-<td>MessageBus PublishHost<code>Host</code></td>
-<td>"<em>" </em>*</td>
-<td>Indicates the hostname for publishing to the Message Bus</td>
-</tr>
-<tr>
-<td>MessageBus SubscribeHost <code>Port</code></td>
-<td>5565**</td>
-<td>Indicates the port number for publishing to the Message Bus</td>
-</tr>
-<tr>
-<td>MessageBus SubscribeHost <code>Protocol</code></td>
-<td>tcp**</td>
-<td>Indicates the protocol number for publishing to the Message Bus</td>
-</tr>
-<tr>
-<td><strong>MessageBus Optional</strong></td>
-<td>...</td>
-<td>This section is used for optional configuration specific to the Message Bus type used. Please refer to <a href="https://github.com/edgexfoundry/go-mod-messaging/blob/master/README.md">go-mod-messaging</a> for more details</td>
-</tr>
-</tbody>
-</table>
-<h3 id="mqttbroker">MqttBroker</h3>
-<p>This section defines the external MQTT Broker connect information.
-Only used for <code>external-mqtt</code> trigger binding type</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><code>external-mqtt</code> is not the default Trigger type, so there are no default values for <code>MqttBrokerConfig</code> settings beyond those that the Go compiler gives to the empty struct. Some of those default values are not valid and must be specified, i.e. <code>Authmode</code></p>
+<p>This section defines the connect information for the EdgeX Clients and is the same as that used by all EdgeX services, just which clients are needed differs. Please refer to the <a href="../ApplicationFunctionsSDK/#note-about-clients">Note about Clients</a> section for more details.</p>
+<h3 id="trigger">Trigger</h3>
+<p>This section defines the <code>Trigger</code> for incoming data. See the <a href="../Triggers/">Triggers</a> documentation for more details on the inner working of triggers. </p>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>For EdgeX 2.0 the <code>Binding</code> section has been renamed to <code>Trigger</code> .  </p>
 </div>
 <table>
 <thead>
@@ -2761,57 +2651,167 @@ Only used for <code>external-mqtt</code> trigger binding type</p>
 </thead>
 <tbody>
 <tr>
-<td>MqttBroker <code>Url</code></td>
+<td>Type</td>
+<td>edgex-messagebus**</td>
+<td>Indicates the <code>Trigger</code> binding type. valid values are <code>edgex-messagebus</code>, <code>external-mqtt</code> or <code>http</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="trigger-edgexmessagebus">Trigger EdgeXMessageBus</h3>
+<p>This section defines the message bus connect information.
+Only used for <code>edgex-messagebus</code> binding type</p>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>For EdgeX 2.0 the <code>MessageBus</code> section has been renamed to <code>EdgexMessageBus</code> and moved under the <code>Trigger</code> section. The <code>SubscribeTopic</code> setting has changed to <code>SubscribeTopics</code> and moved under the <code>SubscribeHost</code> section of <code>EdgexMessageBus</code> . The <code>PublishTopic</code> has been moved under the <code>PublishHost</code> section of <code>EdgexMessageBus</code>.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Configuration</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Type</td>
+<td>redis**</td>
+<td>Indicates the type of MessageBus being used. Valid type are <code>redis</code>, <code>mqtt</code>,  or<code>zero</code></td>
+</tr>
+<tr>
+<td><strong>SubscribeHost</strong></td>
+<td>...</td>
+<td>This section defines the connection information for subscribing/publishing to the MessageBus</td>
+</tr>
+<tr>
+<td>Host</td>
+<td>localhost**</td>
+<td>Indicates the hostname for subscribing to the MessageBus</td>
+</tr>
+<tr>
+<td>Port</td>
+<td>6379**</td>
+<td>Indicates the port number for subscribing to the MessageBus</td>
+</tr>
+<tr>
+<td>Protocol</td>
+<td>redis**</td>
+<td>Indicates the protocol number for subscribing to the MessageBus</td>
+</tr>
+<tr>
+<td>SubscribeTopics</td>
+<td>edgex/events/#**</td>
+<td>MessageBus topic(s) to subscribe to. This is a comma separated list of topics. Supports filtering by subscribe topics. See <a href="../Triggers/#edgex-message-bus">EdgeXMessageBus</a> Trigger for more details.</td>
+</tr>
+<tr>
+<td><strong>PublishHost</strong></td>
+<td>...</td>
+<td>This section defines the connection information for publishing to the MessageBus</td>
+</tr>
+<tr>
+<td>Host</td>
+<td>"<em>" </em>*</td>
+<td>Indicates the hostname for publishing to the Message Bus</td>
+</tr>
+<tr>
+<td>Port</td>
+<td>6379**</td>
+<td>Indicates the port number for publishing to the Message Bus</td>
+</tr>
+<tr>
+<td>Protocol</td>
+<td>redis**</td>
+<td>Indicates the protocol number for publishing to the Message Bus</td>
+</tr>
+<tr>
+<td>PublishTopic</td>
+<td>blank**</td>
+<td>Indicates the topic in which to publish the function pipeline response data, if any. Supports dynamic topic places holders. See <a href="../Triggers/#edgex-message-bus">EdgeXMessageBus</a> Trigger for more details.</td>
+</tr>
+<tr>
+<td><strong>Optional</strong></td>
+<td>...</td>
+<td>This section is used for optional configuration specific to the MessageBus type used. Please refer to <a href="https://github.com/edgexfoundry/go-mod-messaging/blob/master/README.md">go-mod-messaging</a> for more details</td>
+</tr>
+</tbody>
+</table>
+<h3 id="trigger-externalmqtt">Trigger ExternalMqtt</h3>
+<p>This section defines the external MQTT Broker connect information.
+Only used for <code>external-mqtt</code> trigger binding type</p>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>For EdgeX 2.0 the <code>MqttBroker</code> section has been renamed to <code>ExternalMqtt</code> and moved under the <code>Trigger</code> section. The <code>ExternalMqtt</code> section now has it's own <code>SubscribeTopics</code> and  <code>PublishTopic</code> settings. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>external-mqtt</code> is not the default Trigger type, so there are no default values for <code>ExternalMqtt</code> settings beyond those that the Go compiler gives to the empty struct. Some of those default values are not valid and must be specified, i.e. <code>Authmode</code></p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Configuration</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Url</td>
 <td>blank**</td>
 <td>Fully qualified URL to connect to the MQTT broker, i.e. <code>tcp://localhost:1883</code></td>
 </tr>
 <tr>
-<td>MqttBroker <code>ClientId</code></td>
+<td>SubscribeTopics</td>
+<td>blank**</td>
+<td>MQTT topic(s) to subscribe to. This is a comma separated list of topics</td>
+</tr>
+<tr>
+<td>PublishTopic</td>
+<td>blank**</td>
+<td>MQTT topic to publish the function pipeline response data, if any. Supports dynamic topic places holders. See <a href="../Triggers/#external-mqtt">ExternalMqtt</a> Trigger for more details.</td>
+</tr>
+<tr>
+<td>ClientId</td>
 <td>blank**</td>
 <td>ClientId to connect to the broker with</td>
 </tr>
 <tr>
-<td>MqttBroker <code>ConnectTimeout</code></td>
+<td>ConnectTimeout</td>
 <td>blank**</td>
-<td>Time duration indicating how long to wait before timing out</td>
+<td>Time duration indicating how long to wait before timing out                                                        broker connection, i.e "30s"</td>
 </tr>
 <tr>
-<td>broker connection, i.e "30s"</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>MqttBroker <code>AutoReconnect</code></td>
+<td>AutoReconnect</td>
 <td>false**</td>
 <td>Indicates whether or not to retry connection if disconnected</td>
 </tr>
 <tr>
-<td>MqttBroker <code>KeepAlive</code></td>
+<td>KeepAlive</td>
 <td>0**</td>
 <td>Seconds between client ping when no active data flowing to avoid client being disconnected. Must be greater then 2</td>
 </tr>
 <tr>
-<td>MqttBroker   <code>QOS</code></td>
+<td>QOS</td>
 <td>0**</td>
 <td>Quality of Service 0 (At most once), 1 (At least once) or 2 (Exactly once)</td>
 </tr>
 <tr>
-<td>MqttBroker <code>Retain</code></td>
+<td>Retain</td>
 <td>false**</td>
 <td>Retain setting for MQTT Connection</td>
 </tr>
 <tr>
-<td>MqttBroker <code>SkipCertVerify</code></td>
+<td>SkipCertVerify</td>
 <td>false**</td>
 <td>Indicates if the certificate verification should be skipped</td>
 </tr>
 <tr>
-<td>MqttBroker <code>SecretPath</code></td>
+<td>SecretPath</td>
 <td>blank**</td>
 <td>Name of the path in secret provider to retrieve your secrets. Must be non-blank.</td>
 </tr>
 <tr>
-<td>MqttBroker <code>AuthMode</code></td>
+<td>AuthMode</td>
 <td>blank**</td>
 <td>Indicates what to use when connecting to the broker. Must be one of "none", "cacert" , "usernamepassword", "clientcert". <br />If a CA Cert exists in the SecretPath then it will be used for all modes except "none".</td>
 </tr>
@@ -2822,6 +2822,12 @@ Only used for <code>external-mqtt</code> trigger binding type</p>
 <div class="highlight"><pre><span></span><code> <span class="k">[ApplicationSettings]</span>
  <span class="n">ApplicationName</span> <span class="o">=</span> <span class="s">&quot;My Application Service&quot;</span>
 </code></pre></div>
+<h3 id="custom-structured-configuration">Custom Structured Configuration</h3>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>New for EdgeX 2.0</p>
+</div>
+<p>Custom Application Services can now define their own custom structured configuration section in the <code>configuration.toml</code> file. Any additional sections in the TOML are ignore by the SDK when it parses the file for the SDK defined sections. See the <a href="../ApplicationFunctionsSDK/#custom-configuration">Custom Configuration</a> section of the SDK documentation for more details.</p>
                 
               
               
