@@ -90,7 +90,7 @@ This section defines the `Trigger` for incoming data. See the [Triggers](Trigger
 | --- | --- | -- |
 | Type | edgex-messagebus** | Indicates the `Trigger` binding type. valid values are `edgex-messagebus`, `external-mqtt` or `http` |
 
-### Tigger EdgeXMessageBus
+### Trigger EdgeXMessageBus
 This section defines the message bus connect information.
 Only used for `edgex-messagebus` binding type
 
@@ -112,7 +112,7 @@ Only used for `edgex-messagebus` binding type
 | PublishTopic | blank** | Indicates the topic in which to publish the function pipeline response data, if any. Supports dynamic topic places holders. See [EdgeXMessageBus](Triggers.md#edgex-message-bus) Trigger for more details. |
 | **Optional** | ... | This section is used for optional configuration specific to the MessageBus type used. Please refer to [go-mod-messaging](https://github.com/edgexfoundry/go-mod-messaging/blob/master/README.md) for more details |
 
-### Tigger ExternalMqtt
+### Trigger ExternalMqtt
 
 This section defines the external MQTT Broker connect information.
 Only used for `external-mqtt` trigger binding type
