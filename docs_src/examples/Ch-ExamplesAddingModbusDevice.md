@@ -1,51 +1,62 @@
 # Modbus
 
-EdgeX - Delhi Release
+EdgeX - Ireland Release
 
-PowerScout 3037 Power Submeter
+This page describes how to connect Modbus devices to EdgeX. In this example, we simulate the [temperature sensor](https://www.audon.co.uk/ethernet_sensors/NANO_TEMP.html) instead of using a real device. This provides a straightforward way to test the device service features.
 
-<https://shop.dentinstruments.com/products/powerscout-3037-ps3037>
-<https://www.dentinstruments.com/hs-fs/hub/472997/file-2378482732-pdf/Pdf_Files/PS3037_Manual.pdf>
-
-![PowerScout 3037 Power Submeter](powerscout.png)
-
-In this example, we simulate the PowerScout meter instead of using a
-real device. This provides a straight-forward way to test the
-device-modbus features.
-
-![Modbus Simulator](simulator.png)
+- Temperature sensor: https://www.audon.co.uk/ethernet_sensors/NANO_TEMP.html
+- User manual: http://download.inveo.com.pl/manual/nano_t/user_manual_en.pdf
 
 ## Environment
 
 You can use any operating system that can install docker and
-docker-compose. In this example, we use Photon OS to delpoy EdgeX using
-docker. The system requirements can be found at
-<https://docs.edgexfoundry.org/Ch-GettingStartedUsers.html#what-you-need>.
+docker-compose.  In this example, we use Ubuntu to deploy EdgeX using docker.
 
-![Photon Operating System](PhotonOS.png)
+## Modbus Device Simulator
+1.Download ModbusPal 
 
-![Version Information](PhotonOSversion.png)
+Download the fixed version of ModbusPal from the [https://sourceforge.net/p/modbuspal/discussion/899955/thread/72cf35ee/cd1f/attachment/ModbusPal.jar](https://sourceforge.net/p/modbuspal/discussion/899955/thread/72cf35ee/cd1f/attachment/ModbusPal.jar) .
 
-## Modbus Device (Simulator)
+2.Install required lib:
+```
+sudo apt install librxtx-java
+```
+3.Startup the ModbusPal:
+```
+sudo java -jar ModbusPal.jar
+```
 
-<http://modbuspal.sourceforge.net/>
+### Modbus Register Table
+You can find the available registers in the user manual.
 
-To simulate sensors, such as temperature and humidity, do the following:
+Modbus TCP – Holding Registers
 
-1.  Add two mock devices:
+| Address | Name            | R/W | Description |
+| ------- | --------------- | --- | --------------------- |
+| 4000    | ThermostatL     | R/W | Lower alarm threshold |
+| 4001    | ThermostatH     | R/W | Upper alarm threshold |
+| 4002    | Alarm mode      | R/W | 1 - OFF (disabled), 2 - Lower, 3 - Higher, 4 - Lower or Higher |
+| 4004    | Temperature x10 | R   | Temperature x 10 (np. 10,5 st.C to 105) |
 
-![Add Mock Devices](addmockdevices.png)
+### Setup ModbusPal
 
-2.  Add registers according to the device manual:
+To simulate the sensor, do the following:
 
-![Add Registers](addregisters.png)
+1.  Add mock device:
+    ![Add Mock Device](EdgeX_ExampleModbus_simulator_addmockdevice.png)
+2.  Add registers according to the register table:
+    ![Add Registers](EdgeX_ExampleModbus_simulator_addregister.png)
 
 3.  Add the ModbusPal support value auto-generator, which can bind to
-    registers:
+    the registers:
+    ![Add Device Value Generators](EdgeX_ExampleModbus_simulator_addvaluegen.png)
+    ![Bind Value Generator](EdgeX_ExampleModbus_simulator_bindvaluegen.png)
 
-![Add Device Value Generators](addvaluegen.png)
+### Run the Simulator
 
-![Bind Value Generator](bindvalue.png)
+Enable the value generator and click the `Run` button.
+
+![Run the simulator](EdgeX_ExampleModbus_simulator_run.png)
 
 ## Set Up Before Starting Services
 
@@ -54,317 +65,222 @@ starting the services. If you prefer to start the services and then add
 the device, see [Set Up After Starting
 Services](#set-up-after-starting-services)
 
+### Create a Custom configuration folder
+Run the following command:
+```
+mkdir -p custom-config
+```
+
 ### Set Up Device Profile
 
-The DeviceProfile defines the device's values and operation method,
-which can be Read or Write.
+Run the following command to create your device profile:
+```
+cd custom-config
+nano temperature.profile.yml
+```
 
-In the Modbus protocol, we must define attributes:
+Fill in the device profile according to the [Modbus Register Table](#modbus-register-table), as shown below:
+```
+name: "Ethernet-Temperature-Sensor"
+manufacturer: "Audon Electronics"
+model: "Temperature"
+labels:
+  - "Web"
+  - "Modbus TCP"
+  - "SNMP"
+description: "The NANO_TEMP is a Ethernet Thermometer measuring from -55°C to 125°C with a web interface and Modbus TCP communications."
 
--   `primaryTable`: HOLDING\_REGISTERS, INPUT\_REGISTERS, COILS,
+deviceResources:
+  -
+    name: "ThermostatL"
+    isHidden: true
+    description: "Lower alarm threshold of the temperature"
+    attributes:
+      { primaryTable: "HOLDING_REGISTERS", startingAddress: 3999, rawType: "Int16" }
+    properties:
+      valueType: "Float32"
+      readWrite: "RW"
+      scale: "0.1"
+  -
+    name: "ThermostatH"
+    isHidden: true
+    description: "Upper alarm threshold of the temperature"
+    attributes:
+      { primaryTable: "HOLDING_REGISTERS", startingAddress: 4000, rawType: "Int16" }
+    properties:
+      valueType: "Float32"
+      readWrite: "RW"
+      scale: "0.1"
+  -
+    name: "AlarmMode"
+    isHidden: true
+    description: "1 - OFF (disabled), 2 - Lower, 3 - Higher, 4 - Lower or Higher"
+    attributes:
+      { primaryTable: "HOLDING_REGISTERS", startingAddress: 4001 }
+    properties:
+      valueType: "Int16"
+      readWrite: "RW"
+  -
+    name: "Temperature"
+    isHidden: false
+    description: "Temperature x 10 (np. 10,5 st.C to 105)"
+    attributes:
+      { primaryTable: "HOLDING_REGISTERS", startingAddress: 4003, rawType: "Int16" }
+    properties:
+      valueType: "Float32"
+      readWrite: "R"
+      scale: "0.1"
+
+deviceCommands:
+  -
+    name: "AlarmThreshold"
+    readWrite: "RW"
+    isHidden: false
+    resourceOperations:
+      - { deviceResource: "ThermostatL" }
+      - { deviceResource: "ThermostatH" }
+  -
+    name: "AlarmMode"
+    readWrite: "RW"
+    isHidden: false
+    resourceOperations:
+      - { deviceResource: "AlarmMode", mappings: { "1":"OFF","2":"Lower","3":"Higher","4":"Lower or Higher"} }
+```
+In the Modbus protocol, we provide the following attributes:
+
+1.`primaryTable`: HOLDING\_REGISTERS, INPUT\_REGISTERS, COILS,
     DISCRETES\_INPUT
 
--   `startingAddress` specifies the address in Modbus device
+2.`startingAddress` This attribute defines the zero-based startingAddress in Modbus device. For example, the GET command requests data from the Modbus address 4004 to get the temperature data, so the starting register address should be 4003.
 
-![DeviceProfile Attributes](attributes.png)
+| Address | Starting Address | Name            | R/W | Description |
+| ------- | --------------   |---------------  | --- | --------------------- |
+| 4004    | 4003             | Temperature x10 | R   | Temperature x 10 (np. 10,5 st.C to 105) |
 
-The Property value type decides how many registers will be read. Like
-Holding registers, a register has 16 bits. If the device manual
-specifies that a value has two registers, define it as FLOAT32 or INT32
-or UINT32 in the deviceProfile.
+3.`IS_BYTE_SWAP`, `IS_WORD_SWAP`: To handle the different Modbus binary data order, we support Int32, Uint32, Float32 to do the swap operation before decoding the binary data.
+
+For example: `{ primaryTable: "INPUT_REGISTERS", startingAddress: "4", isByteSwap: "false", isWordSwap: "true" }`
+
+4.`RAW_TYPE`: This attribute defines the binary data read from the Modbus device, then we can use the value type to indicate the data type that the user wants to receive.
+
+We only support `Int16` and `Uint16` for rawType. The corresponding value type must be `Float32` and `Float64`.
+For example:
+```
+deviceResources:
+  -
+    name: "Temperature"
+    isHidden: false
+    description: "Temperature x 10 (np. 10,5 st.C to 105)"
+    attributes:
+      { primaryTable: "HOLDING_REGISTERS", startingAddress: 4003, rawType: "Int16" }
+    properties:
+      valueType: "Float32"
+      readWrite: "R"
+      scale: "0.1"
+```
+
+In the device-modbus, the Property `valueType` decides how many registers will be read. Like
+Holding registers, a register has 16 bits. If the Modbus device's user manual
+specifies that a value has two registers, define it as `Float32` or `Int32`
+or `Uint32` in the deviceProfile.
 
 Once we execute a command, device-modbus knows its value type and
 register type, startingAddress, and register length. So it can read or
 write value using the modbus protocol.
 
-![Properties](properties.png)
-
-
-![Holding Registers](holdingregisters.png)
-
-
-Create the device profile, as shown below:
-```
-name: "Network Power Meter"
-manufacturer: "Dent Instruments"
-model: "PS3037"
-description: "Power Scout Meter"
-labels:
-  - "modbus"
-  - "powerscout"
-deviceResources:
-  -
-    name: "Current"
-    description: "Average current of all phases"
-    attributes:
-      { primaryTable: "HOLDING_REGISTERS", startingAddress: "9" }
-    properties:
-      value:
-        { type: "UINT16", scale: "1"}
-      units:
-        { type: "String", readWrite: "R", defaultValue: "min"}
-  -
-    name: "Energy"
-    description: "System Total True Energy"
-    attributes:
-      { primaryTable: "HOLDING_REGISTERS", startingAddress: "4001" }
-    properties:
-      value:
-        { type: "FLOAT32", scale: "1"}
-      units:
-        { type: "String", readWrite: "R", defaultValue: "min"}
-  -
-    name: "Power"
-    description: "System Total True Power "
-    attributes:
-      { primaryTable: "HOLDING_REGISTERS", startingAddress: "4003" }
-    properties:
-      value:
-        { type: "UINT16", scale: "1"}
-      units:
-        { type: "String", readWrite: "R", defaultValue: "min"}
-  -
-    name: "Voltage"
-    description: "Voltage Line to line (Volts) Average"
-    attributes:
-      { primaryTable: "HOLDING_REGISTERS", startingAddress: "4017" }
-    properties:
-      value:
-        { type: "UINT16", scale: "1"}
-      units:
-        { type: "String", readWrite: "R", defaultValue: "min"}
-  -
-    name: "DemandWindowSize"
-    description: "Demand window size in minutes; default is 15 min"
-    attributes:
-      { primaryTable: "HOLDING_REGISTERS", startingAddress: "4603" }
-    properties:
-      value:
-        { type: "UINT16", readWrite: "R", scale: "1"}
-      units:
-        { type: "String", readWrite: "R", defaultValue: "min"}
-  -
-    name: "LineFrequency"
-    description: "Line frequency setting for metering: 50=50 Hz, 60=60Hz"
-    attributes:
-      { primaryTable: "HOLDING_REGISTERS", startingAddress: "4609" }
-    properties:
-      value:
-        { type: "UINT16", readWrite: "R", scale: "1"}
-      units:
-        { type: "String", readWrite: "R", defaultValue: "Hz"}
-deviceCommands:
-  -
-    name: "Current"
-    get:
-      - { index: "1", operation: "get", deviceResource: "Current" }
-  -
-    name: "Values"
-    get:
-      - { index: "1", operation: "get", deviceResource: "Energy" }
-      - { index: "2", operation: "get", deviceResource: "Power" }
-      - { index: "3", operation: "get", deviceResource: "Voltage" }
-  -
-    name: "Configuration"
-    set:
-      - { index: "1", operation: "set", deviceResource: "DemandWindowSize" }
-      - { index: "2", operation: "set", deviceResource: "LineFrequency" }
-    get:
-      - { index: "1", operation: "get", deviceResource: "DemandWindowSize" }
-      - { index: "2", operation: "get", deviceResource: "LineFrequency" }
-coreCommands:
-  -
-    name: "Current"
-    get:
-      path: "/api/v1/device/{deviceId}/Current"
-      responses:
-        -
-          code: "200"
-          description: "Get the Current"
-          expectedValues: ["Current"]
-        -
-          code: "500"
-          description: "internal server error"
-          expectedValues: []
-  -
-    name: "Values"
-    get:
-      path: "/api/v1/device/{deviceId}/Values"
-      responses:
-        -
-          code: "200"
-          description: "Get the Values"
-          expectedValues: ["Energy","Power","Voltage"]
-        -
-          code: "500"
-          description: "internal server error"
-          expectedValues: []
-  -
-    name: "Configuration"
-    get:
-      path: "/api/v1/device/{deviceId}/Configuration"
-      responses:
-        -
-          code: "200"
-          description: "Get the Configuration"
-          expectedValues: ["DemandWindowSize","LineFrequency"]
-        -
-          code: "500"
-          description: "internal server error"
-          expectedValues: []
-    put:
-      path: "/api/v1/device/{deviceId}/Configuration"
-      parameterNames: ["DemandWindowSize","LineFrequency"]
-      responses:
-        -
-          code: "204"
-          description: "Set the Configuration"
-          expectedValues: []
-        -
-          code: "500"
-          description: "internal server error"
-          expectedValues: []
-```
-
 ### Set Up Device Service Configuration
 
-Use this configuration file to define devices and AutoEvent. The
-device-modbus generates a relative instance on startup.
+Run the following command to create your device configuration:
+```
+cd custom-config
+nano device.config.toml
+```
+Fill in the device.config.toml file, as shown below:
+```
+[[DeviceList]]
+    Name = 'Modbus-TCP-Temperature-Sensor'
+    ProfileName = 'Ethernet-Temperature-Sensor'
+    Description = 'This device is a product for monitoring the temperature via the ethernet'
+    labels = [ 'temperature','modbus TCP' ]
+    [DeviceList.Protocols]
+        [DeviceList.Protocols.modbus-tcp]
+            Address = '172.17.0.1'
+            Port = '502'
+            UnitID = '1'
+            Timeout = "5"
+            IdleTimeout = "5"
+        [[DeviceList.AutoEvents]]
+        Interval = '30s'
+        OnChange = false
+        SourceName = 'Temperature'
+```
+> The address `172.17.0.1` is point to the docker bridge network which means it can forward the request from docker network to the host.
 
-device-modbus offers two types of protocol, Modbus TCP and Modbus RTU, which can be defined as shown below:
+Use this configuration file to define devices and AutoEvent. Then the device-modbus will generate the relative instance on startup.
+
+
+The device-modbus offers two types of protocol, Modbus TCP and Modbus RTU, which can be defined as shown below:
 
   
-  |protocol        | Name            | Protocol   | Address      | Port    | UnitID | BaudRate | DataBits | StopBits | Parity |
-  |--------------- | --------------- | ---------- | -------------|---------| ------- | ------- |--------- | -------- | ------ |
-  |Modbus TCP      | Gateway address | TCP        | 10.211.55.6  | 502     | 1      |          |          |          |        |
-  |Modbus RTU      | Gateway address | RTU        | /tmp/slave   | 502     | 2      | 19200    | 8        | 1        | N      |
+  |protocol        | Name            | Protocol   | Address      | Port    | UnitID | BaudRate | DataBits | StopBits | Parity | Timeout | IdleTimeout |
+  |--------------- | --------------- | ---------- | -------------|---------| ------- | ------- |--------- | -------- | ------ | -------- | ------ |
+  |Modbus TCP      | Gateway address | TCP        | 10.211.55.6  | 502     | 1      |          |          |          |        | 5        | 5      |
+  |Modbus RTU      | Gateway address | RTU        | /tmp/slave   | 502     | 2      | 19200    | 8        | 1        | N      | 5        | 5      |
   
 
 In the RTU protocol, Parity can be:
+
 * N - None is 0
 * O - Odd is 1 
 * E - Even is 2, default is E
 
-Create the configuration.toml file, as shown below:
+
+## Prepare docker-compose file
+
+1. Clone edgex-compose
 ```
-[Writable]
-LogLevel = 'DEBUG'
-
-[Service]
-BootTimeout = 30000
-CheckInterval = '10s'
-Host = 'localhost'
-ServerBindAddr = ''  # blank value defaults to Service.Host value
-Port = 49991
-Protocol = 'http'
-StartupMsg = 'device modbus started'
-Timeout = 5000
-ConnectRetries = 10
-Labels = []
-EnableAsyncReadings = true
-AsyncBufferSize = 16
-
-[Registry]
-Host = 'localhost'
-Port = 8500
-Type = 'consul'
-
-[Logging]
-EnableRemote = false
-File = ''
-
-[Clients]
-  [Clients.Data]
-  Protocol = 'http'
-  Host = 'localhost'
-  Port = 48080
-
-  [Clients.Metadata]
-  Protocol = 'http'
-  Host = 'localhost'
-  Port = 48081
-
-  [Clients.Logging]
-  Protocol = 'http'
-  Host = 'localhost'
-  Port = 48061
-
-[Device]
-  DataTransform = true
-  InitCmd = ''
-  InitCmdArgs = ''
-  MaxCmdOps = 128
-  MaxCmdValueLen = 256
-  RemoveCmd = ''
-  RemoveCmdArgs = ''
-  ProfilesDir = './res/example'
-  UpdateLastConnected = false
-
-# Pre-define Devices
-[[DeviceList]]
-  Name = 'Modbus TCP test device'
-  Profile = 'Test.Device.Modbus.Profile'
-  Description = 'This device is a product for monitoring and controlling digital inputs and outputs over a LAN.'
-  labels = [ 'Air conditioner','modbus TCP' ]
-  [DeviceList.Protocols]
-    [DeviceList.Protocols.modbus-tcp]
-       Address = '0.0.0.0'
-       Port = '1502'
-       UnitID = '1'
-  [[DeviceList.AutoEvents]]
-    Frequency = '20s'
-    OnChange = false
-    Resource = 'Configuration'
-  [[DeviceList.AutoEvents]]
-    Frequency = '20s'
-    OnChange = true
-    Resource = 'Values'
-
-[[DeviceList]]
-  Name = 'Modbus RTU test device'
-  Profile = 'Test.Device.Modbus.Profile'
-  Description = 'This device is a product for monitoring and controlling digital inputs and outputs over a LAN.'
-  labels = [ 'Air conditioner','modbus RTU' ]
-  [DeviceList.Protocols]
-    [DeviceList.Protocols.modbus-rtu]
-       Address = '/tmp/slave'
-       BaudRate = '19200'
-       DataBits = '8'
-       StopBits = '1'
-       Parity = 'N'
-       UnitID = '1'
+$ git clone git@github.com:edgexfoundry/edgex-compose.git
+```
+2. Generate the docker-compose.yml file
+```
+$ cd edgex-compose/compose-builder
+$ make gen ds-modbus
 ```
 
+### Add Custom Configuration to docker-compose File
 
-### Add Device Service to docker-compose File
+Add prepared configuration files to docker-compose file, you can mount them using
+volumes and change the environment for device-modbus internal use.
 
-Because we deploy EdgeX using docker-compose, we must add the
-device-modbus to the docker-compose file (
-<https://github.com/edgexfoundry/developer-scripts/blob/master/releases/geneva/compose-files/docker-compose-geneva-redis.yml>
-). If you have prepared configuration files, you can mount them using
-volumes and change the entrypoint for device-modbus internal use.
-
-![configuration.toml Updates](config_changes.png)
-
-!!! Note
-    This example uses the Geneva Release.  There are later EdgeX releases.
+Open the `docker-compose.yml` file and then add volumes path and environment as shown below:
+```
+ device-modbus:
+    ...
+    environment:
+      ...
+      DEVICE_DEVICESDIR: /custom-config
+      DEVICE_PROFILESDIR: /custom-config
+    volumes:
+    ...
+    - /path/to/custom-config:/custom-config
+```
 
 ## Start EdgeX Foundry on Docker
 
-Finally, we can deploy EdgeX in the Photon OS.
-
-1.  Prepare configuration files by moving the files to the Photon OS
-
-2.  Deploy EdgeX using the following commands:
-
-        docker-compose pull
-        docker-compose up -d
-
-![Start EdgeX](startEdgeX.png)
-
-3.  Check the consul dashboard
-
-![Consul Dashboard](consul.png)
+Since we generate the `docker-compose.yml` file at the previous step, we can deploy EdgeX as shown below:
+```
+$ cd edgex-compose/compose-builder
+$ docker-compose up -d
+Creating network "compose-builder_edgex-network" with driver "bridge"
+Creating volume "compose-builder_consul-acl-token" with default driver
+...
+Creating edgex-core-metadata              ... done
+Creating edgex-core-command               ... done
+Creating edgex-core-data                  ... done
+Creating edgex-device-modbus              ... done
+Creating edgex-app-rules-engine           ... done
+Creating edgex-sys-mgmt-agent             ... done
+```
 
 ## Set Up After Starting Services
 
@@ -377,59 +293,61 @@ To add a device after starting the services, complete the following
 steps:
 
 1. Upload the device profile above to metadata with a POST to
-    <http://localhost:48081/api/v1/deviceprofile/uploadfile> and add the
+    <http://localhost:59881/api/v2/deviceprofile/uploadfile> and add the
     file as key "file" to the body in form-data format, and the created
     ID will be returned. The following example command uses curl to send the request:
 
     ```
-    $ curl http://your-edgex-server-ip:48081/api/v1/deviceprofile/uploadfile \
-      -F "file=@DENT.Mod.PS6037.profile.yaml"
+    $ curl http://localhost:59881/api/v2/deviceprofile/uploadfile \
+      -F "file=@temperature.profile.yml"
     ```
 
 2. Ensure the Modbus device service is running, adjust the service name
     below to match if necessary or if using other device services.
 
 4.  Add the device with a POST to
-    <http://localhost:48081/api/v1/device>, the body will look something
+    <http://localhost:59881/api/v2/device>, the body will look something
     like:
     ```
-    $ curl http://your-edgex-server-ip:48081/api/v1/device -H "Content-Type:application/json" -X POST \
-      -d '{ 
-       "name" :"Modbus-TCP-Device-2",
-       "description":"Power Submeter device.",
-       "adminState":"UNLOCKED",
-       "operatingState":"ENABLED",
-       "protocols":{
-          "modbus-tcp":{
-             "Address" : "your-device-ip",
-             "Port" : "1502",
-             "UnitID" : "2"
-          }
-       },
-       "labels":[ 
-          "power submeter",
-          "modbus TCP"
-       ],
-       "service":{"name":"edgex-device-modbus"},
-       "profile":{"name":"Network Power Meter"},
-       "autoEvents":[ 
-          { 
-             "frequency":"50s",
-             "onChange":false,
-             "resource":"Configuration"
-          },
-          { 
-             "frequency":"5s",
-             "onChange":true,
-             "resource":"Values"
-          }
-       ]
-    }'
+    $ curl http://localhost:59881/api/v2/device -H "Content-Type:application/json" -X POST \
+      -d '[
+            {
+                "apiVersion": "v2",
+                "device": {
+                   "name" :"Modbus-TCP-Temperature-Sensor",
+                   "description":"This device is a product for monitoring the temperature via the ethernet",
+                   "labels":[ 
+                      "Temperature",
+                      "Modbus TCP"
+                   ],
+                   "serviceName": "device-modbus",
+                   "profileName": "Ethernet-Temperature-Sensor",
+                   "protocols":{
+                      "modbus-tcp":{
+                         "Address" : "172.17.0.1",
+                         "Port" : "502",
+                         "UnitID" : "1",
+                         "Timeout" : "5",
+                         "IdleTimeout" : "5"
+                      }
+                   },
+                   "autoEvents":[ 
+                      { 
+                         "Interval":"30s",
+                         "onChange":false,
+                         "SourceName":"Temperature"
+                      }
+                   ],
+                   "adminState":"UNLOCKED",
+                   "operatingState":"UP"
+                }
+            }
+        ]'
     ```
 
     The service name must match/refer to the target device
     service, and the profile name must match the device profile name
-    from Step 1.
+    from the previous steps.
 
 ## Execute Commands
 
@@ -439,144 +357,322 @@ Now we're ready to run some commands.
 
 Use the following query to find executable commands:
 ```
-$ curl http://your-edgex-server-ip:48082/api/v1/device | json_pp
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100  1718  100  1718    0     0  14081      0 --:--:-- --:--:-- --:--:-- 14081
-[
-   {
-      "id" : "56dcf3ad-52d8-4d12-a2d0-ae53c177ae3d",
-      "commands" : [
-         {
-            "put" : {
-               "url" : "http://edgex-core-command:48082/api/v1/device/56dcf3ad-52d8-4d12-a2d0-ae53c177ae3d/command/67b35f63-8f94-427b-a60c-188bf9e0633a",
-               "parameterNames" : [
-                  "DemandWindowSize",
-                  "LineFrequency"
-               ],
-               "path" : "/api/v1/device/{deviceId}/Configuration"
-            },
-            "id" : "67b35f63-8f94-427b-a60c-188bf9e0633a",
-            "get" : {
-               "url" : "http://edgex-core-command:48082/api/v1/device/56dcf3ad-52d8-4d12-a2d0-ae53c177ae3d/command/67b35f63-8f94-427b-a60c-188bf9e0633a",
-               "responses" : [
+$ curl http://localhost:59882/api/v2/device/all | json_pp
+
+{
+   "apiVersion" : "v2",
+   "deviceCoreCommands" : [
+      {
+         "deviceName" : "Modbus-TCP-Temperature-Sensor",
+         "profileName" : "Ethernet-Temperature-Sensor",
+         "coreCommands" : [
+            {
+               "url" : "http://edgex-core-command:59882",
+               "name" : "AlarmThreshold",
+               "get" : true,
+               "set" : true,
+               "parameters" : [
                   {
-                     "description" : "service unavailable",
-                     "code" : "503"
+                     "valueType" : "Float32",
+                     "resourceName" : "ThermostatL"
+                  },
+                  {
+                     "valueType" : "Float32",
+                     "resourceName" : "ThermostatH"
                   }
                ],
-               "path" : "/api/v1/device/{deviceId}/Configuration"
+               "path" : "/api/v2/device/name/Modbus-TCP-Temperature-Sensor/AlarmThreshold"
             },
-            ...
-            "name" : "Configuration"
-         }
-      ],
-      ...
-   },
-   {
-      ....
-   }
-]
+            {
+               "get" : true,
+               "url" : "http://edgex-core-command:59882",
+               "name" : "AlarmMode",
+               "set" : true,
+               "path" : "/api/v2/device/name/Modbus-TCP-Temperature-Sensor/AlarmMode",
+               "parameters" : [
+                  {
+                     "resourceName" : "AlarmMode",
+                     "valueType" : "Int16"
+                  }
+               ]
+            },
+            {
+               "get" : true,
+               "url" : "http://edgex-core-command:59882",
+               "name" : "Temperature",
+               "path" : "/api/v2/device/name/Modbus-TCP-Temperature-Sensor/Temperature",
+               "parameters" : [
+                  {
+                     "valueType" : "Float32",
+                     "resourceName" : "Temperature"
+                  }
+               ]
+            }
+         ]
+      }
+   ],
+   "statusCode" : 200
+}
+
 ```
 
 ### Execute PUT command
 
-Execute PUT command according to `url` and `parameterNames`, replacing [host] with the server IP when running the edgex-core-command. This can be done in either of the following ways:
+Execute PUT command according to `url` and `parameterNames`, replacing [host] with the server IP when running the PUT command.
 
 ```
-$ curl http://your-edgex-server-ip:48082/api/v1/device/56dcf3ad-52d8-4d12-a2d0-ae53c177ae3d/command/67b35f63-8f94-427b-a60c-188bf9e0633a \
+$ curl http://localhost:59882/api/v2/device/name/Modbus-TCP-Temperature-Sensor/AlarmThreshold \
     -H "Content-Type:application/json" -X PUT  \
-    -d '{"DemandWindowSize":"1122","LineFrequency":"1012"}'
+    -d '{"ThermostatL":"15","ThermostatH":"100"}'
 ```
-
-Aside from using device id and command id in the URL, use the following API with device name and command is another approach.
-Refer to [Core Command API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-command/1.2.0#/default/put_v1_device_name__name__command__commandname_) for more details.
-```
-$ curl "http://your-edgex-server-ip:48082/api/v1/device/name/Modbus-TCP-Device/command/Configuration" \
-    -H "Content-Type:application/json" -X PUT  \
-    -d '{"DemandWindowSize":"1122","LineFrequency":"1012"}'
-```
-
-Check the result from Modbus simulator:
-![PUT ModbusPal](putModbusPal.png)
 
 ### Execute GET command
 
-Replace *\<host\>* with the server IP when running the
-edgex-core-command.
+Replace *\<host\>* with the server IP when running the GET command.
 
 ```
-$ curl "http://your-edgex-server-ip:48082/api/v1/device/name/Modbus-TCP-Device/command/Configuration" | json_pp
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100   320  100   320    0     0  12800      0 --:--:-- --:--:-- --:--:-- 12307
+$ curl http://localhost:59882/api/v2/device/name/Modbus-TCP-Temperature-Sensor/AlarmThreshold | json_pp
+
 {
-   "device" : "Modbus-TCP-Device",
-   "EncodedEvent" : null,
-   "readings" : [
-      {
-         "device" : "Modbus-TCP-Device",
-         "origin" : 1574314180435573491,
-         "name" : "DemandWindowSize",
-         "value" : "1122"
-      },
-      {
-         "origin" : 1574314180435578175,
-         "device" : "Modbus-TCP-Device",
-         "value" : "1012",
-         "name" : "LineFrequency"
-      }
-   ],
-   "origin" : 1574314180435629113
+   "statusCode" : 200,
+   "apiVersion" : "v2",
+   "event" : {
+      "origin" : 1624324686964377495,
+      "deviceName" : "Modbus-TCP-Temperature-Sensor",
+      "id" : "f3d44a0f-d2c3-4ef6-9441-ad6b1bfb8a9e",
+      "sourceName" : "AlarmThreshold",
+      "readings" : [
+         {
+            "resourceName" : "ThermostatL",
+            "value" : "1.500000e+01",
+            "deviceName" : "Modbus-TCP-Temperature-Sensor",
+            "id" : "9aa879a0-c184-476b-8124-34d35a2a51f3",
+            "valueType" : "Float32",
+            "mediaType" : "",
+            "binaryValue" : null,
+            "origin" : 1624324686963970614,
+            "profileName" : "Ethernet-Temperature-Sensor"
+         },
+         {
+            "value" : "1.000000e+02",
+            "resourceName" : "ThermostatH",
+            "deviceName" : "Modbus-TCP-Temperature-Sensor",
+            "id" : "bf7df23b-4338-4b93-a8bd-7abd5e848379",
+            "valueType" : "Float32",
+            "mediaType" : "",
+            "binaryValue" : null,
+            "origin" : 1624324686964343768,
+            "profileName" : "Ethernet-Temperature-Sensor"
+         }
+      ],
+      "apiVersion" : "v2",
+      "profileName" : "Ethernet-Temperature-Sensor"
+   }
 }
+
 ```
 
 ## AutoEvent
-The AutoEvent is defined in the [[DeviceList.AutoEvents]] section of the TOML configuration file:
+The AutoEvent is defined in the [[DeviceList.AutoEvents]] section of the device configuration file:
 ```
-# Pre-define Devices
-[[DeviceList]]
-  Name = 'Modbus TCP test device'
-  Profile = 'Test.Device.Modbus.Profile'
-  Description = 'This device is a product for monitoring and controlling digital inputs and outputs over a LAN.'
-  labels = [ 'Air conditioner','modbus TCP' ]
-  [DeviceList.Protocols]
-    [DeviceList.Protocols.modbus-tcp]
-       Address = '0.0.0.0'
-       Port = '1502'
-       UnitID = '1'
-  [[DeviceList.AutoEvents]]
-    Frequency = '20s'
-    OnChange = false
-    Resource = 'HVACValues'
+[[DeviceList.AutoEvents]]
+Interval = '30s'
+OnChange = false
+SourceName = 'Temperature'
 ```
-After service startup, query core-data's reading API. The results show
-that the service auto-executes the command every 20 seconds.
+After service startup, query core-data's API. The results show
+that the service auto-executes the command every 30 seconds.
 
 ```
-$ curl "http://your-edgex-server-ip:48080/api/v1/event/device/Modbus-TCP-Device/10" | json_pp
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100  1997  100  1997    0     0   216k      0 --:--:-- --:--:-- --:--:--  216k
-[
-   {
-      "origin" : 1574313452749054661,
-      "id" : "a066d154-fe44-4572-9870-8790017b9c59",
-      "created" : 1574313452750,
-      "device" : "Modbus-TCP-Device",
-      "readings" : [
-         ...
-      ]
-   },
-   {
-      "device" : "Modbus-TCP-Device",
-      "readings" : [
-         ...
-      ],
-      "created" : 1574313457759,
-      "id" : "25314175-d6f5-461e-8be4-94129fbf94c6",
-      "origin" : 1574313457757445677
-   },
-   ...
-]
+$ curl http://localhost:59880/api/v2/event/device/name/Modbus-TCP-Temperature-Sensor | json_pp
+
+{
+   "events" : [
+      {
+         "readings" : [
+            {
+               "value" : "5.300000e+01",
+               "binaryValue" : null,
+               "origin" : 1624325219186870396,
+               "id" : "68a66a35-d3cf-48a2-9bf0-09578267a3f7",
+               "deviceName" : "Modbus-TCP-Temperature-Sensor",
+               "mediaType" : "",
+               "valueType" : "Float32",
+               "resourceName" : "Temperature",
+               "profileName" : "Ethernet-Temperature-Sensor"
+            }
+         ],
+         "apiVersion" : "v2",
+         "origin" : 1624325219186977564,
+         "id" : "4b235616-7304-419e-97ae-17a244911b1c",
+         "deviceName" : "Modbus-TCP-Temperature-Sensor",
+         "sourceName" : "Temperature",
+         "profileName" : "Ethernet-Temperature-Sensor"
+      },
+      {
+         "readings" : [
+            {
+               "profileName" : "Ethernet-Temperature-Sensor",
+               "resourceName" : "Temperature",
+               "valueType" : "Float32",
+               "id" : "56b7e8be-7ce8-4fa9-89e2-3a1a7ef09050",
+               "origin" : 1624325189184675483,
+               "value" : "5.300000e+01",
+               "binaryValue" : null,
+               "mediaType" : "",
+               "deviceName" : "Modbus-TCP-Temperature-Sensor"
+            }
+         ],
+         "profileName" : "Ethernet-Temperature-Sensor",
+         "sourceName" : "Temperature",
+         "deviceName" : "Modbus-TCP-Temperature-Sensor",
+         "id" : "fbab44f5-9775-4c09-84bd-cbfb00001115",
+         "origin" : 1624325189184721223,
+         "apiVersion" : "v2"
+      },
+      ...
+   ],
+   "apiVersion" : "v2",
+   "statusCode" : 200
+}
 ```
+
+## Set up the Modbus RTU Device
+This section describes how to connect the Modbus RTU device. We use Ubuntu OS and a Modbus RTU device for this example. 
+
+- Modbus RTU device: http://www.icpdas.com/root/product/solutions/remote_io/rs-485/i-7000_m-7000/i-7055.html
+- User manual: http://ftp.icpdas.com/pub/cd/8000cd/napdos/7000/manual/7000dio.pdf
+
+### Connect the device
+1. Connect the device to your machine(laptop or gateway,etc.) via RS485/USB adaptor and power on.
+
+2. Execute a command on the machine, and you can find a message like the following:
+    ```
+    $ dmesg | grep tty
+    ...
+    ...
+    [18006.167625] usb 1-1: FTDI USB Serial Device converter now attached to ttyUSB0
+    ```
+
+3. It shows the USB attach to ttyUSB0, then you can check whether the device path exists:
+    ```
+    $ ls /dev/ttyUSB0
+    /dev/ttyUSB0
+    ```
+
+### Deploy the EdgeX
+1. Modify the docker-compose.yml file to mount the device path to the device-modbus:
+    1. Change the permission of the device path
+    ```
+    sudo chmod 777 /dev/ttyUSB0
+    ```
+    2. Open `docker-compose.yml` file with text editor.
+    ```
+    $ nano /docker-compose.yml
+    ```
+    3. Modify the device-modbus section and save the file
+    ```
+    device-modbus:
+       ...
+       devices:
+         - /dev/ttyUSB0
+    ```
+2. Deploy the EdgeX
+   ```
+   $ docker-compose up -d
+   ```
+### Add device to EdgeX
+
+1. Create the device profile according to the register table
+    ```
+    $ nano modbus.rtu.demo.profile.yml
+    ```
+    ```
+    name: "Modbus-RTU-IO-Module"
+    manufacturer: "icpdas"
+    model: "M-7055"
+    labels:
+      - "Modbus RTU"
+      - "IO Module"
+    description: "This IO module offers 8 isolated channels for digital input and 8 isolated channels for digital output."
+    
+    deviceResources:
+      -
+        name: "DO0"
+        isHidden: true
+        description: "On/Off , 0-OFF 1-ON"
+        attributes:
+          { primaryTable: "COILS", startingAddress: 0 }
+        properties:
+          valueType: "Bool"
+          readWrite: "RW"
+      -
+        name: "DO1"
+        isHidden: true
+        description: "On/Off , 0-OFF 1-ON"
+        attributes:
+          { primaryTable: "COILS", startingAddress: 1 }
+        properties:
+          valueType: "Bool"
+          readWrite: "RW"
+      -
+        name: "DO2"
+        isHidden: true
+        description: "On/Off , 0-OFF 1-ON"
+        attributes:
+          { primaryTable: "COILS", startingAddress: 2 }
+        properties:
+          valueType: "Bool"
+          readWrite: "RW"
+    
+    deviceCommands:
+      -
+        name: "DO"
+        readWrite: "RW"
+        isHidden: false
+        resourceOperations:
+          - { deviceResource: "DO0" }
+          - { deviceResource: "DO1" }
+          - { deviceResource: "DO2" }
+    ```
+2. Upload the device profile
+    ```
+    $ curl http://localhost:59881/api/v2/deviceprofile/uploadfile \
+      -F "file=@modbus.rtu.demo.profile.yml"
+    ```
+
+3. Create the device entity to the EdgeX.
+    You can find the Modbus RTU setting on the device or the user manual.
+    ```
+    $ curl http://localhost:59881/api/v2/device -H "Content-Type:application/json" -X POST \
+      -d '[
+            {
+                "apiVersion": "v2",
+                "device": {
+                   "name" :"Modbus-RTU-IO-Module",
+                   "description":"The device can be used to monitor the status of the digital input and digital output channels.",
+                   "labels":[ 
+                      "IO Module",
+                      "Modbus RTU"
+                   ],
+                   "serviceName": "device-modbus",
+                   "profileName": "Ethernet-Temperature-Sensor",
+                   "protocols":{
+                      "modbus-tcp":{
+                         "Address" : "/dev/ttyUSB0",
+                         "BaudRate" : "19200",
+                         "DataBits" : "8",
+                         "StopBits" : "1",
+                         "Parity" : "N",
+                         "UnitID" : "1",
+                         "Timeout" : "5",
+                         "IdleTimeout" : "5"
+                      }
+                   },
+                   "adminState":"UNLOCKED",
+                   "operatingState":"UP"
+                }
+            }
+        ]'
+    ```
+4. Test the GET or PUT command
