@@ -10,7 +10,7 @@ Triggers determine how the App Functions Pipeline begins execution. The trigger 
 There are 4 types of `Triggers` supported in the App Functions SDK which are discussed in this document
 
 1. **[EdgeX Message Bus](#edgex-messagebus-trigger)** - Default Trigger for most use cases as this is how the App Services receive Events from EdgeX Core Data and/or Devices Services
-2. **[External MQTT](#external-mqtt-trigger)** - Useful when receiving commands from a Cloud MQTT broker.
+2. **[External MQTT](#external-mqtt-trigger)** - Useful when receiving commands from an external/Cloud MQTT broker.
 3. **[HTTP](#http-trigger)** - Useful during development and testing of custom functions. 
 4. **[Custom](#custom-triggers)** - Allows custom Application Services to implement their own Custom Trigger
 
@@ -34,7 +34,7 @@ Type="edgex-messagebus"
 ```
 The `Type=` is set to `edgex-messagebus` trigger type. The Context function `ctx.SetResponseData([]byte outputData)` stores the data to send back to the EdgeX MessageBus on the topic specified by the PublishHost `PublishTopic=` setting.
 
-### MessageBus connection configuration
+### MessageBus Connection Configuration
 The other piece of configuration required are the connection settings:
 ```toml
 [Trigger.EdgexMessageBus]
@@ -60,7 +60,7 @@ Type = 'redis' # message bus type (i.e 'redis`, `mqtt` or `zero` for ZeroMQ)
 ```
 redis - for Redis Pub/Sub (Requires Redis running and Core Data and/or Device Services configure to use Redis Pub/Sub)
 mqtt  - for MQTT (Requires a MQTT Broker running and Core Data and/or Device Services configure to use MQTT)
-zero  - for ZeroMQ (No Broker/Service required. Core Data must be configureed to use Zero and Device service configure to use REST to Core Data)
+zero  - for ZeroMQ (No Broker/Service required. Core Data must be configured to use Zero and Device service configure to use REST to Core Data)
 ```
 
 !!! edgey "Edgex 2.0"
@@ -72,7 +72,7 @@ zero  - for ZeroMQ (No Broker/Service required. Core Data must be configureed to
 !!! note
     When using MQTT for the message bus, there is additional configuration required for specifying the MQTT specific options. 
 
-### Example using MQTT
+### Example Using MQTT
 
 Here is example `EdgexMessageBus` configuration when using MQTT as the message bus:
 
@@ -128,36 +128,36 @@ edgex/events/device/<profile-name>/<device-name>/<source-name>
 
 This with App Services capability to have multiple subscriptions allows for multiple filters by subscriptions. The `SubscribeTopics` setting takes a comma separated list of subscribe topics.
 
- Here are a few examples of how to configure the `SubscribeTopics` setting under the `Trigger.EdgexMessageBus.SubscribeHost` section to filter by subscriptions using the `profile`, `device` and `source` names from the Virtual Device Service:
+ Here are a few examples of how to configure the `SubscribeTopics` setting under the `Trigger.EdgexMessageBus.SubscribeHost` section to filter by subscriptions using the `profile`, `device` and `source` names from the SNMP Device Service file [here](https://github.com/edgexfoundry/device-snmp-go/tree/master/cmd/res):
 
 - Filter for all Events 
 
   ```toml
-  SubscribeTopics="edgex/events/#
+  SubscribeTopics="edgex/events/#"
   ```
 
 - Filter for Events only from a single class of devices (device profile defines a class of device)
 
   ```toml
-  SubscribeTopics="edgex/events/#/Random-Integer-Device/#"
+  SubscribeTopics="edgex/events/#/trendnet/#"
   ```
 
 - Filter for Events only from a single actual device
 
   ```toml
-  SubscribeTopics="edgex/events/#/#/Random-Integer-Device/#"
+  SubscribeTopics="edgex/events/#/#/trendnet01/#"
   ```
 
 - Filter for Events from two specific actual devices
 
   ```toml
-  SubscribeTopics="edgex/events/#/#/Random-Integer-Device/#, edgex/events/#/#/Random-UnsignedInteger-Device/#"
+  SubscribeTopics="edgex/events/#/#/trendnet01/#, edgex/events/#/#/trendnet02/#"
   ```
 
 - Filter for Events from two specific sources. 
 
   ```toml
-  SubscribeTopics="edgex/events/#/#/#/Int8, edgex/events/#/#/#/Uint8"
+  SubscribeTopics="edgex/events/#/#/#/Uptime, edgex/events/#/#/#/MacAddress"
   ```
 
 !!! note
@@ -186,7 +186,7 @@ Type="external-mqtt"
 
 The `Type=` is set to `external-mqtt`. To receive data from the external MQTT Broker you must set your `SubscribeTopics=` to the appropriate topic(s) that the external publisher is using. You may also designate a `PublishTopic=` if you wish to publish data back to the external MQTT Broker. The Context function `ctx.SetResponseData([]byte outputData)` stores the data to send back to the external MQTT Broker on the topic specified by the `PublishTopic=` setting.
 
-### External Mqtt Broker configuration
+### External MQTT Broker Configuration
 The other piece of configuration required are the MQTT Broker connection settings:
 ```toml
 [Trigger.ExternalMqtt]
@@ -203,6 +203,8 @@ The other piece of configuration required are the MQTT Broker connection setting
 	SecretPath = "mqtt-trigger" 
 	AuthMode = "none" # Options are "none", "cacert" , "usernamepassword", "clientcert".
 ```
+
+
 !!! edgey "Edgex 2.0"
     For Edgex 2.0 the `PublishTopic` can have placeholders. See [Publish Topic Placeholders](#publish-topic-placeholders) section below for more details
 
