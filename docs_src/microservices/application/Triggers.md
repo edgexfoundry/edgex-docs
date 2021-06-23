@@ -1,6 +1,6 @@
 # Application Service Triggers
 
-### Introduction
+## Introduction
 
 Triggers determine how the App Functions Pipeline begins execution. The trigger is determined by the `[Trigger]` configuration section in the  `configuration.toml` file.   
 
