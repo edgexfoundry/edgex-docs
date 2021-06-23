@@ -165,7 +165,7 @@ This with App Services capability to have multiple subscriptions allows for mult
 
 ## External MQTT Trigger
 
-A External MQTT trigger will execute the pipeline every time data is received from an external MQTT broker on the configured `SubscribeTopics`.  
+An External MQTT trigger will execute the pipeline every time data is received from an external MQTT broker on the configured `SubscribeTopics`.  
 
 !!! note
     The data received from the external MQTT broker is not wrapped with any metadata known to EdgeX. The data is handled as JSON or CBOR. The data is assumed to be JSON unless the first byte in the data is **not** a `{`  or a `[`, in which case it is then assumed to be CBOR.
@@ -275,7 +275,7 @@ type BackgroundMessage interface {
 }
 ```
 
-This leaves a lot of flexibility for how you want the trigger to behave (for example you could write a trigger to watch for file changes, or run on a timer).  Below is a sample implementation of a trigger that read lines from os.Stdin and pass the captured string through the edgex function pipeline.  In this case the target type for the service is set to `&[]byte{}`.
+This leaves a lot of flexibility for how you want the trigger to behave (for example you could write a trigger to watch for file changes, or run on a timer).  Below is a sample implementation of a trigger that reads lines from os.Stdin and pass the captured string through the edgex function pipeline.  In this case the target type for the service is set to `&[]byte{}`.
 
 ```go
 type stdinTrigger struct{
