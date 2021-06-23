@@ -92,7 +92,7 @@ Type = "mqtt"
     [Trigger.EdgexMessageBus.Optional]
     # MQTT Specific options
     ClientId ="new-app-service"
-    Qos            = "0" # Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)
+    Qos            = "0" # Quality of Service values are 0 (At most once), 1 (At least once) or 2 (Exactly once)
     KeepAlive      = "10" # Seconds (must be 2 or greater)
     Retained       = "false"
     AutoReconnect  = "true"
@@ -374,4 +374,3 @@ PublishTopic = "data/{profilename}/{devicename}/{custom}"
 	New for EdgeX 2.0 
 
 The topic the data was received on for `EdgeX MessageBus` and the `External MQTT` triggers is now stored in the new `Context Storage` with the key `receivedtopic`. This makes it available to pipeline functions via the `Context Storage` .
-
