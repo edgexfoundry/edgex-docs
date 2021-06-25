@@ -496,12 +496,12 @@ func main() {
 **After initialization**, the configured registry client used by the SDK can be retrieved from the sdk instance at .RegistryClient.  It is important to note that sdk.RegistryClient may be nil - either if the SDK is not yet initialized, or if the registry option (-r/--registry) is not specified on start.  Once retrieved the client can be used to look up host information for other services, or perform other operations supported by the registry.Client type in [go-mod-registry](https://github.com/edgexfoundry/go-mod-registry).  For example, to retrieve the URL for a given service:
 
 ```go
-func(sdk *appsdk.AppFunctionsSDK, serviceKey string) (string, error) {
-	if sdk.RegistryClient == nil {
+func GetHostUrl(service interfaces.ApplicationService, serviceKey string) (string, error) {
+	if service.RegistryClient() == nil {
 		return "", errors.New("Registry client is not available")
 	}
 
-	details, err := sdk.RegistryClient.GetServiceEndpoint(serviceKey)
+	details, err := service.RegistryClient().GetServiceEndpoint(serviceKey)
 
 	if err != nil {
 		return "", err
