@@ -426,13 +426,23 @@ If running in insecure mode, the secrets are retrieved from the *Writable.Insecu
 
 ### Background Publishing
 
-Application Services using the MessageBus trigger can request a background publisher using the AddBackgroundPublisher API in the SDK.  This method takes an int representing the background channel's capacity as the only parameter and returns a reference to a BackgroundPublisher.  This reference can then be used by background processes to publish to the configured MessageBus output.  A custom topic can be provided to use instead of the configured message bus output as well.  Example usage is as follows:
+Application Services using the MessageBus trigger can request a background publisher using the AddBackgroundPublisher API in the SDK.  This method takes an int representing the background channel's capacity as the only parameter and returns a reference to a BackgroundPublisher.  This reference can then be used by background processes to publish to the configured MessageBus output.  A custom topic can be provided to use instead of the configured message bus output as well.
 
+!!!edgey "Edgex 2.0"
+    For version 2 the background publish operation takes a full AppContext instead of just the parameters used to create a message envelope.  This allows the background publisher to leverage context-based topic formatting functionality as the trigger output.
 ```go
 
-func runJob (pub interfaces.BackgroundPublisher, ctxSeed interfaces.AppFunctionContext, done chan struct{}){
+func runJob (service interfaces.ApplicationService, done chan struct{}){
 	ticker := time.NewTicker(1 * time.Minute)
-	go func() {
+	
+    //initialize background publisher with a channel capacity of 10 and a custom topic
+    publisher, err := service.AddBackgroundPublisherWithTopic(10, "custom-topic")
+    
+    if err != nil {
+        // do something
+    }
+	
+	go func(pub interfaces.BackgroundPublisher) {
 		for {
 			select {
 			case <-ticker.C:
@@ -443,7 +453,11 @@ func runJob (pub interfaces.BackgroundPublisher, ctxSeed interfaces.AppFunctionC
 					//do something
 				}
 				
-				err = pub.Publish(payload, ctxSeed)
+				ctx := svc.BuildContext(uuid.NewString(), common.ContentTypeJSON)
+				
+				// modify context as needed
+				
+				err = pub.Publish(payload, ctx)
 				
 				if err != nil {
 					//do something
@@ -453,36 +467,25 @@ func runJob (pub interfaces.BackgroundPublisher, ctxSeed interfaces.AppFunctionC
 				return
 			}
 		}
-	}()
+	}(publisher)
 }
 
 func main() {
-	edgexSdk := &appsdk.AppFunctionsSDK{ServiceKey: serviceKey}
-	if err := edgexSdk.Initialize(); err != nil {
-		edgexSdk.LoggingClient.Error(fmt.Sprintf("SDK initialization failed: %v", err))
-		os.Exit(-1)
-	}
-
-	//initialize background publisher with a channel capacity of 10 and a custom topic
-	pub, err := sdk.AddBackgroundPublisherWithTopic(10, "custom-topic")
-
-	if err != nil {
-		// do something
-	}
+	service := pkg.NewAppService(serviceKey)
 	
 	done := make(chan struct{})
 	defer close(done)
 
 	//pass publisher to your background job
-	runJob(pub, done)
+	runJob(service, done)
 
-	edgexSdk.SetFunctionsPipeline(
+	service.SetFunctionsPipeline(
 		All,
 		My,
 		Functions,
 	)
-
-	edgexSdk.MakeItRun()
+	
+	service.MakeItRun()
 
 	os.Exit(0)
 }
@@ -493,12 +496,12 @@ func main() {
 **After initialization**, the configured registry client used by the SDK can be retrieved from the sdk instance at .RegistryClient.  It is important to note that sdk.RegistryClient may be nil - either if the SDK is not yet initialized, or if the registry option (-r/--registry) is not specified on start.  Once retrieved the client can be used to look up host information for other services, or perform other operations supported by the registry.Client type in [go-mod-registry](https://github.com/edgexfoundry/go-mod-registry).  For example, to retrieve the URL for a given service:
 
 ```go
-func(sdk *appsdk.AppFunctionsSDK, serviceKey string) (string, error) {
-	if sdk.RegistryClient == nil {
+func GetHostUrl(service interfaces.ApplicationService, serviceKey string) (string, error) {
+	if service.RegistryClient() == nil {
 		return "", errors.New("Registry client is not available")
 	}
 
-	details, err := sdk.RegistryClient.GetServiceEndpoint(serviceKey)
+	details, err := service.RegistryClient().GetServiceEndpoint(serviceKey)
 
 	if err != nil {
 		return "", err
