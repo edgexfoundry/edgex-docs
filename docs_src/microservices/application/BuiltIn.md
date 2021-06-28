@@ -48,17 +48,19 @@ There are two compression types included in the SDK that can be added to your pi
 
 `CompressWithGZIP`  - This pipeline function receives either a `string`,`[]byte`, or `json.Marshaler` type, GZIP compresses the data, converts result to base64 encoded string, which is returned as a `[]byte` to the pipeline.
 
-```go
-NewCompression().CompressWithGZIP
-```
+!!! example
+    ```go
+    NewCompression().CompressWithGZIP
+    ```
 
 ### ZLIB
 
 `CompressWithZLIB` - This pipeline function receives either a `string`,`[]byte`, or `json.Marshaler` type, ZLIB compresses the data, converts result to base64 encoded string, which is returned as a `[]byte` to the pipeline.
 
-```go
-NewCompression().CompressWithZLIB
-```
+!!! example
+    ```go
+    NewCompression().CompressWithZLIB
+    ```
 
 ## Conversion
 
@@ -72,17 +74,19 @@ There are two conversions included in the SDK that can be added to your pipeline
 
 `TransformToJSON` - This pipeline function receives an `dtos.Event` type and converts it to JSON format and returns the JSON string to the pipeline.
 
-```go
-NewConversion().TransformToJSON
-```
+!!! example
+    ```go
+    NewConversion().TransformToJSON
+    ```
 
 ### XML
 
 `TransformToXML`  - This pipeline function receives an `dtos.Event` type, converts it to XML format and returns the XML string to the pipeline. 
 
-```go
-NewConversion().TransformToXML
-```
+!!! example
+    ```go
+    NewConversion().TransformToXML
+    ```
 
 ## Core Data 
 
@@ -100,9 +104,10 @@ There is one Core Data function that enables interactions with the Core Data RES
 
 `PushToCoreData` - This pipeline function provides the capability to push a new Event/Reading to Core Data. The data passed into this function from the pipeline is wrapped in an EdgeX Event with the Event and Reading metadata specified from the factory function options. The function returns the new EdgeX Event with ID populated.
 
-```go
-NewCoreDataSimpleReading("my-profile", "my-device", "my-resource", "string").PushToCoreData
-```
+!!! example
+    ```go
+    NewCoreDataSimpleReading("my-profile", "my-device", "my-resource", "string").PushToCoreData
+    ```
 
 ## Encryption
 
@@ -120,11 +125,12 @@ There is one encryption transform included in the SDK that can be added to your 
 
 `EncryptWithAES` - This pipeline function receives either a `string`, `[]byte`, or `json.Marshaller` type and encrypts it using AES encryption and returns a `[]byte` to the pipeline.
 
-``` go
-NewEncryption("key", "initializationVector").EncryptWithAES
-or
-NewEncryptionWithSecrets("aes", "aes-key", "initializationVector").EncryptWithAES)
-```
+!!! example
+    ```go
+    NewEncryption("key", "initializationVector").EncryptWithAES
+    or
+    NewEncryptionWithSecrets("aes", "aes-key", "initializationVector").EncryptWithAES)
+    ```
 
 ## Export
 
@@ -144,7 +150,7 @@ There are two export functions included in the SDK that can be added to your pip
 !!! edgey "EdgeX 2.0"
     New in EdgeX 2.0 is the ability to chain multiple instances of the HTTP exports to accomplish exporting to multiple destinations. The new `NewHTTPSenderWithOptions` factory function was added to allow for configuring all the options, including the new `ContinueOnSendError` and `ReturnInputData` options that enable this chaining. 
 
-```
+```go
 // HTTPSenderOptions contains all options available to the sender
 type HTTPSenderOptions struct {
 	// URL of destination
@@ -177,20 +183,15 @@ type HTTPSenderOptions struct {
 !!! example
     **POST**              
     NewHTTPSender("https://myendpoint.com","application/json",false).HTTPPost 
-    //assumes TransformToJSON was used before this transform in the pipeline
 
     **PUT**                   
     NewHTTPSender("https://myendpoint.com","application/json",false).HTTPPut 
-    // Assumes TransformToJSON was used before this transform in the pipeline
-    
+        
     **POST with secure header**
     NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,"Authentication","/jwt","AuthToken").HTTPPost 
-    // Assumes TransformToJSON was used before this transform in the pipeline and the JWT token has been seeded into the Secret Store at "/jwt' with a key of "AuthToken"
     
     ** PUT with secure header**
     NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,"Authentication","/jwt","AuthToken").HTTPPPut 
-    // Assumes TransformToJSON was used before this transform in the pipeline and the JWT token has been seeded into the Secret Store at "/jwt' with a key of "AuthToken"
-
 
 #### HTTP PUT
 
@@ -306,34 +307,38 @@ type Filter struct {
 
 `FilterByProfileName` - This pipeline function will filter the event data down to **Events** that either have (For) or don't have (Out) the specified profiles names.  
 
-``` go
-NewFilterFor([] {"Profile1", "Profile2"}).FilterByProfileName
-```
+!!! example
+    ``` go
+    NewFilterFor([] {"Profile1", "Profile2"}).FilterByProfileName
+    ```
 
 ### By Device Name
 
 `FilterByDeviceName` - This pipeline function will filter the event data down to **Events** that either have (For) or don't have (Out) the specified device names.  
 
-``` go
-NewFilterFor([] {"Device1", "Device2"}).FilterByDeviceName
-```
+!!! example
+    ``` go
+    NewFilterFor([] {"Device1", "Device2"}).FilterByDeviceName
+    ```
 
 ### By Source Name
 
 `FilterBySourceName` - This pipeline function will filter the event data down to **Events** that either have (For) or don't have (Out) the specified source names.  Source name is either the `resource name` or `command name` responsible for the Event creation.
 
-``` go
-NewFilterFor([] {"Source1", "Source2"}).FilterBySourceName
-```
+!!! example
+    ``` go
+    NewFilterFor([] {"Source1", "Source2"}).FilterBySourceName
+    ```
 
 
 ### By Resource Name
 
 `FilterByResourceName` - This pipeline function will filter the Event's reading data down to **Readings** that either have (For) or don't have (Out) the specified resource names.  If the result of filtering is zero Readings remaining, the function terminates pipeline execution.
 
-``` go
-NewFilterFor([] {"Resource1", "Resource2"}).FilterByResourceName
-```
+!!! example
+    ``` go
+    NewFilterFor([] {"Resource1", "Resource2"}).FilterByResourceName
+    ```
 
 
 ## JSON Logic
@@ -345,10 +350,11 @@ NewFilterFor([] {"Resource1", "Resource2"}).FilterByResourceName
 
 `Evaluate` - This is the pipeline function that will be used in the pipeline to apply the JSON rule to data coming in on the pipeline. If the condition of your rule is met, then the pipeline will continue and the data will continue to flow to the next function in the pipeline. If the condition of your rule is NOT met, then pipeline execution stops. 
 
-
-``` go
-NewJSONLogic("{ \"in\" : [{ \"var\" : \"device\" }, [\"Random-Integer-Device\",\"Random-Float-Device\"] ] }").Evaluate
-```
+!!! example
+    ``` go
+    NewJSONLogic("{ \"in\" : [{ \"var\" : \"device\" }, 
+                  [\"Random-Integer-Device\",\"Random-Float-Device\"] ] }").Evaluate
+    ```
 
 !!! note
     Only  operations that return true or false are supported. See http://jsonlogic.com/operations.html# for the complete list of operations paying attention to return values. Any operator that returns manipulated data is currently not supported. For more advanced scenarios checkout [EMQ X Kuiper](https://github.com/emqx/kuiper).
@@ -368,10 +374,11 @@ There is one response data function included in the SDK that can be added to you
 
 `ResponseContentType` - This property is used to set the content-type of the response.
 
-``` go
-responseData := NewResponseData()
-responseData.ResponseContentType = "application/json"
-```
+!!! example
+    ``` go
+    responseData := NewResponseData()
+    responseData.ResponseContentType = "application/json"
+    ```
 
 ### Set Response Data
 
@@ -392,12 +399,13 @@ There is one Tags transform included in the SDK that can be added to your pipeli
 
 `AddTags` - This pipeline function receives an Edgex `Event` type and adds the collection of specified tags to the Event's `Tags` collection.
 
-``` go
-var myTags = map[string]string{
-	"GatewayId": "HoustonStore000123",
-	"Latitude":  "29.630771",
-	"Longitude": "-95.377603",
-}
-NewTags(myTags).AddTags
-```
+!!! example
+    ``` go
+    var myTags = map[string]string{
+    	"GatewayId": "HoustonStore000123",
+    	"Latitude":  "29.630771",
+    	"Longitude": "-95.377603",
+    }
+    NewTags(myTags).AddTags
+    ```
 
