@@ -6,245 +6,183 @@ The following items discuss topics that are a bit beyond the basic use cases of 
 
 This SDK provides the capability to define the functions pipeline via configuration rather than code by using the **app-service-configurable** application service. See the [App Service Configurable](./AppServiceConfigurable.md) section for more details.
 
-### Using The Webserver
+### Custom REST Endpoints
 
-It is not uncommon to require your own API endpoints when building an app service. Rather than spin up your own webserver inside of your app (alongside the already existing running webserver), we've exposed a method that allows you add your own routes to the existing webserver. A few routes are reserved and cannot be used:
+It is not uncommon to require your own custom REST endpoints when building an Application Service. Rather than spin up your own webserver inside of your app (alongside the already existing running webserver), we've exposed a method that allows you add your own routes to the existing webserver. A few routes are reserved and cannot be used:
 
-- /api/version
-- /api/v1/ping
-- /api/v1/metrics
-- /api/v1/config
-- /api/v1/trigger
-- /api/v1/secrets
+- /api/v2/version
+- /api/v2/ping
+- /api/v2/metrics
+- /api/v2/config
+- /api/v2/trigger
+- /api/v2/secret
 
-To add your own route, use the `AddRoute(route string, handler func(nethttp.ResponseWriter, *nethttp.Request), methods ...string) error` function provided on the SDK. Here's an example:
+To add your own route, use the `AddRoute()` API provided on the `ApplicationService` interface. 
 
-```go
-edgexSdk.AddRoute("/myroute", func(writer http.ResponseWriter, req *http.Request) {
-    context := req.Context().Value(appsdk.SDKKey).(*appsdk.AppFunctionsSDK) 
-		context.LoggingClient.Info("TEST") // alternative to edgexSdk.LoggingClient.Info("TEST")
-		writer.Header().Set("Content-Type", "text/plain")
-		writer.Write([]byte("hello"))
-		writer.WriteHeader(200)
-}, "GET")
-```
-Under the hood, this simply adds the provided route, handler, and method to the gorilla `mux.Router` we use in the SDK. For more information on `gorilla mux` you can check out the github repo [here](https://github.com/gorilla/mux). 
-You can access the resources such as the logging client by accessing the context as shown above -- this is useful for when your routes might not be defined in your main.go where you have access to the `edgexSdk` instance.
+!!! example  "Example - Add Custom REST route"
+
+    ``` go      
+    myhandler := func(writer http.ResponseWriter, req *http.Request) {    
+      service := req.Context().Value(interfaces.AppServiceContextKey).(interfaces.ApplicationService)    
+      service.LoggingClient().Info("TEST")     
+      writer.Header().Set("Content-Type", "text/plain")   
+      writer.Write([]byte("hello"))   
+      writer.WriteHeader(200)    
+    }    
+    
+    service := pkg.NewAppService(serviceKey)    
+    service.AddRoute("/myroute", myHandler, "GET")    
+    ```    
+
+Under the hood, this simply adds the provided route, handler, and method to the gorilla `mux.Router` used in the SDK. For more information on `gorilla mux` you can check out the github repo [here](https://github.com/gorilla/mux). 
+You can access the `interfaces.ApplicationService` API for resources such as the logging client by pulling it from the context as shown above -- this is useful for when your routes might not be defined in your `main.go`  where you have access to the ``interfaces.ApplicationService`` instance.
 
 ### Target Type
 
-The target type is the object type of the incoming data that is sent to the first function in the function pipeline. By default this is an EdgeX `Event` since typical usage is receiving `events` from Core Data via Message Bus. 
+The target type is the object type of the incoming data that is sent to the first function in the function pipeline. By default this is an EdgeX `dtos.Event` since typical usage is receiving `Events` from the EdgeX MessageBus. 
 
-For other usages where the data is not `events` coming from Core Data, the `TargetType` of the accepted incoming data can be set when the SDK instance is created. There are scenarios where the incoming data is not an EdgeX `Event`. One example scenario is 2 application services are chained via the Message Bus. The output of the first service back to the Message Bus is inference data from analyzing the original input `Event`data.  The second service needs to be able to let the SDK know the target type of the input data it is expecting.
+There are scenarios where the incoming data is not an EdgeX `Event`. One example scenario is two application services are chained via the EdgeX MessageBus. The output of the first service is inference data from analyzing the original `Event`data, and published back to the EdgeX MessageBus. The second service needs to be able to let the SDK know the target type of the input data it is expecting.
 
-For usages where the incoming data is not `events`, the `TargetType` of the excepted incoming data can be set when the SDK instance is created. 
+For usages where the incoming data is not `events`, the `TargetType` of the expected incoming data can be set when the `ApplicationService` instance is created using the `NewAppServiceWithTargetType()` factory function.
 
-Example:
+!!! example "Example - Set and use custom Target Type"
 
-``` go
-type Person struct {
-    FirstName string `json:"first_name"`
-    LastName  string `json:"last_name"`
-}
-
-edgexSdk := &appsdk.AppFunctionsSDK {
-	ServiceKey: serviceKey, 
-	TargetType: &Person{},
-}
-```
-
-`TargetType` must be set to a pointer to an instance of your target type such as `&Person{}` . The first function in your function pipeline will be passed an instance of your target type, not a pointer to it. In the example above, the first function in the pipeline would start something like:
-
-``` go
-func MyPersonFunction(edgexcontext *appcontext.Context, params ...interface{}) (bool, interface{}) {
-
-	edgexcontext.LoggingClient.Debug("MyPersonFunction")
-
-	if len(params) < 1 {
-		// We didn't receive a result
-		return false, nil
-	}
-
-	person, ok := params[0].(Person)
-	if !ok {
-        return false, errors.New("type received is not a Person")
-	}
-	
-	// ....
-```
+    ``` go    
+    type Person struct {    
+      FirstName string `json:"first_name"`    
+      LastName  string `json:"last_name"`    
+    }    
+        
+    service := pkg.NewAppServiceWithTargetType(serviceKey, &Person{})    
+    ```    
+    
+    `TargetType` must be set to a pointer to an instance of your target type such as `&Person{}` . The first function in your function pipeline will be passed an instance of your target type, not a pointer to it. In the example above, the first function in the pipeline would start something like:
+    
+    ``` go    
+    func MyPersonFunction(ctx interfaces.AppFunctionContext, data interface{}) (bool, interface{}) {    
+    
+      ctx.LoggingClient().Debug("MyPersonFunction executing")
+    
+      if data == nil {
+    	return false, errors.New("no data received to     MyPersonFunction")
+      }
+    
+      person, ok := data.(Person)
+      if !ok {
+        return false, errors.New("MyPersonFunction type received is not a Person")
+      }
+    
+    // ....
+    ```
 
 The SDK supports un-marshaling JSON or CBOR encoded data into an instance of the target type. If your incoming data is not JSON or CBOR encoded, you then need to set the `TargetType` to  `&[]byte`.
 
-If the target type is set to `&[]byte` the incoming data will not be un-marshaled.  The content type, if set, will be passed as the second parameter to the first function in your pipeline.  Your first function will be responsible for decoding the data or not.
+If the target type is set to `&[]byte` the incoming data will not be un-marshaled.  The content type, if set, will be set on the `interfaces.AppFunctionContext` and can be access via the `InputContentType()` API.   Your first function will be responsible for decoding the data or not.
 
 ### Command Line Options
 
 The following command line options are available
 
-```
-  -c=<path>
-  --confdir=<path>
-        Specify an alternate configuration directory.
-        
-  -p=<profile>
-  --profile=<profile>
-        Specify a profile other than default.
-  -f, 
-  --file <name>               
-  		Indicates name of the local configuration file. Defaults to configuration.toml
+| Options                    | Description                                                  |
+| -------------------------- | ------------------------------------------------------------ |
+| -cp<br /> --configProvider | Indicates to use Configuration Provider service at specified URL.<br/>URL Format: `{type}.{protocol}://{host}:{port} ex: consul.http://localhost:8500` |
+| -r<br /> --registry        | Indicates service should use the Registry. Connection information is pulled from the `[Registry]` configuration section. |
+| -c<br />--confdir          | Specify local configuration directory. Default is `./res`    |
+| -f<br />--file <name>      | Indicates the name of the local configuration file. Default is `configuration.toml` |
+| -p<br />--profile <name>   | Indicates configuration profile other than default. Default is no profile name resulting in using `./res/configuration.toml` if `-f` and `-c` are not used. |
+| -s<br />--skipVersionCheck | Indicates the service should skip the Core Service's version compatibility check. |
+| -sk<br />--serviceKey      | Overrides the service key used with Registry and Configuration Providers and for security services. If the name provided contains the placeholder text `<profile>`, this text will be replaced with the name of the profile used. If profile not set, the `<profile>` is simply removed. |
+| -o<br />--overwrite        | Overwrite configuration in provider with local configuration<br/>*** Use with cation *** This will clobber existing settings in provider,<br/>problematic if those settings were edited by hand intentionally |
+| -h<br />--help             | Show the help message                                        |
 
-  -cp=<url>
-  --configProvider=<url>           
-  		Indicates to use Configuration Provider service at specified URL.
-        URL Format: {type}.{protocol}://{host}:{port} ex: consul.http://localhost:8500
-        No url, i.e. -cp, defaults to consul.http://localhost:8500
-  -o    
-  -overwrite
-        Force overwrite configuration in the Configuration Provider with local values.
-        
-  -r    
-  --registry
-        Indicates the service should use the service Registry.
-                
-  -s    
-  -skipVersionCheck
-        Indicates the service should skip the Core Service's version compatibility check.
-    
-  -sk
-  --serviceKey                
-        Overrides the service key used with Registry and/or Configuration Providers.
-        If the name provided contains the text `<profile>`, this text will be 
-        replaced with the name of the profile used. 
-```
-
-Examples:
-
-``` bash
-simple-filter-xml -c=./res -p=http-export
-```
-
-or
-
-``` bash
-simple-filter-xml --confdir=./res -p=http-export -cp=consul.http://localhost:8500 --registry
-```
+!!! example - "Example - Command-line Options"
+    `simple-filter-xml -c=./res -p=http-export`    
+    or    
+    `simple-filter-xml --confdir=./res -p=http-export -cp=consul.http://localhost:8500 --registry`
 
 ### Environment Variable Overrides
 
-All the configuration settings from the configuration.toml file can be overridden by environment variables. The environment variable names have the following format:
+!!! edgey "EdgeX 2.0"
+    The deprecated lowercase `edgex_registry` and `edgex_service` environment variables have been removed for EdgeX 2.0
+
+Any of the configuration settings from the `configuration.toml` file can be overridden by environment variables. The environment variable names have the following format:
 
 ```toml
-<TOML KEY>
-<TOML SECTION>_<TOML KEY>
-<TOML SECTION>_<TOML SUB-SECTION>_<TOML KEY>
+<TOM-SECTION-NAME>_<TOML-KEY-NAME>
+<TOML-SECTION-NAME>_<TOML-SUB-SECTION-NAME>_<TOML-KEY-NAME>
 ```
 
-!!! note
-    With the Geneva release CamelCase environment variable names are deprecated. Instead use all uppercase environment variable names as in the example below.
+!!! edgey "EdgeX 2.0"
+    With EdgeX 2.0 the use of CamelCase environment variable names is no longer supported. Instead the variable names must be all uppercase as in the example below. Also the using of dash `-` in the TOML-NAME is converted to an underscore `_` in the environment variable name.
 
-Examples:
+!!! example "Example - Environment Overrides"
 
-```toml
-TOML   : FailLimit = 30
-ENVVAR : FAILLIMIT=100
-
-TOML   : [Logging]
-		 EnableRemote = false
-ENVVAR : LOGGING_ENABLEREMOTE=true
-
-TOML   : [Clients]
-  			[Clients.CoreData]
-  			Host = 'localhost'
-ENVVAR : CLIENTS_COREDATA_HOST=edgex-core-data
-```
+    ``` toml   
+    TOML   : [Writable]    
+    		 LogLevel = 'INFO'    
+    ENVVAR : WRITABLE_LOGLEVEL=DEBUG    
+    
+    TOML   : [Clients]
+      			[Clients.core-data]
+      			Host = 'localhost'
+    ENVVAR : CLIENTS_CORE_DATA_HOST=edgex-core-data    
+    ```    
 
 #### EDGEX_SERVICE_KEY
 
-This environment variable overrides the service key used with the Configuration and/or Registry providers. Default is set by the application service. Also overrides any value set with the -sk/--serviceKey command-line option.
+Overrides the service key used with Registry, Configuration Providers and security services. Default is set by the application service. App Service Configurable defaults to the specified profile name with the `app-` prefix.  Also overrides any value set with the -sk/--serviceKey in the command-line option.
 
 !!! note
     If the name provided contains the text `<profile>`, this text will be replaced with the name of the profile used.
 
-!!! example
-    `EDGEX_SERVICE_KEY: AppService-<profile>-mycloud` and if `profile: http-export` then service key will be "AppService-http-export-mycloud"
+!!! example "Example - Service Key"
+    `EDGEX_SERVICE_KEY: app-<profile>-mycloud`    
+    `profile: http-export`    
+     then service key will be `app-http-export-mycloud`    
 
 
-### EDGEX_CONFIGURATION_PROVIDER
+#### EDGEX_CONFIGURATION_PROVIDER
 
 This environment variable overrides the Configuration Provider connection information. The value is in the format of a URL.
 
-```
-EDGEX_CONFIGURATION_PROVIDER=consul.http://edgex-core-consul:8500
+!!! example "Example - Configuration Provider"
 
-This sets the Configration Provider information fields as follows:
-    Type: consul
-    Host: edgex-core-consul
-    Port: 8500
-```
-
-#### edgex_registry (DEPRECATED)
-
-This environment variable overrides the Registry connection information and occurs every time the application service starts. The value is in the format of a URL.
-
-!!! note
-    This environment variable override has been deprecated in the Geneva Release. Instead, use configuration overrides of **REGISTRY_PROTOCOL** and/or **REGISTRY_HOST** and/or **REGISTRY_PORT**
-
-```
-EDGEX_REGISTRY=consul://edgex-core-consul:8500
-
-This sets the Registry information fields as follows:
-    Type: consul
-    Host: edgex-core-consul
-    Port: 8500
-```
-
-#### edgex_service (DEPRECATED)
-
-This environment variable overrides the Service connection information. The value is in the format of a URL.
-
-!!! note
-    This environment variable override has been deprecated in the Geneva Release. Instead, use configuration overrides of **SERVICE_PROTOCOL** and/or **SERVICE_HOST** and/or **SERVICE_PORT**
-
-```
-EDGEX_SERVICE=http://192.168.1.2:4903
-
-This sets the Service information fields as follows:
-    Protocol: http
-    Host: 192.168.1.2
-    Port: 4903
-```
+    ``` bash   
+    EDGEX_CONFIGURATION_PROVIDER=consul.http://edgex-core-consul:8500
+    
+    This sets the Configration Provider information fields as follows:
+        Type: consul
+        Host: edgex-core-consul
+        Port: 8500
+        Protocol: http
+    ```
 
 #### EDGEX_PROFILE
 
-This environment variable overrides the command line `profile` argument. It will set the `profile` or replace the value passed via the `-p` or `--profile`, if one exists. This is useful when running the service via docker-compose.
+!!! edgey "EdgeX 2.0"
+    The deprecate lower case version `edgex_profile` has been removed for EdgeX 2.0
 
-!!! note
-    The lower case version has been deprecated in the Geneva release. Instead use upper case version **EDGEX_PROFILE**
+This environment variable overrides the command line `profile` argument. It will set the `profile` or replace the value passed via the `-p` or `--profile`, if one exists. This is useful when running multiple instances of an Application Service such as App Service Configurable.
 
-Using docker-compose:
+!!! example "Example - Using docker-compose"
+    ```yaml
+    app-service-rules:
+        image: edgexfoundry/docker-app-service-configurable:2.0.0
+        environment: 
+          EDGEX_PROFILE: "rules-engine"
+        ports:
+          - "59701:59701"
+        container_name: edgex-app-rules-engine
+        hostname: edgex-app-rules-engine
+        networks:
+          edgex-network:
+        depends_on:
+          - consul
+          - metadata
+          - command
+    ```
 
-```
-  app-service-configurable-rules:
-    image: edgexfoundry/docker-app-service-configurable:1.1.0
-    environment: 
-      - EDGEX_PROFILE : "rules-engine"
-    ports:
-      - "48095:48095"
-    container_name: edgex-app-service-configurable
-    hostname: edgex-app-service-configurable
-    networks:
-      edgex-network:
-        aliases:
-          - edgex-app-service-configurable
-    depends_on:
-      - data
-      - command
-```
-
-This sets the `profile` so that the application service uses the `rules-engine` configuration profile which resides at `/res/rules-engine/configuration.toml`
-
-!!! note
-    EdgeX services no longer use docker profiles. They use Environment Overrides in *the docker compose file to make the necessary changes to the configuration for running in Docker. See the **Environment Variable Overrides For Docker** section in the [App Service Configurable](./AppServiceConfigurable.md#environment-variable-overrides-for-docker) section for more details and an example.
+This sets the `profile` so that the application service uses the `rules-engine` configuration profile which resides at `./res/rules-engine/configuration.toml`
 
 #### EDGEX_STARTUP_DURATION
 
@@ -262,6 +200,41 @@ This environment variable overrides the configuration directory where the config
 
 This environment variable overrides the configuration file name. Default is `configutation.toml` and also overrides any value set with the -f/--file command-line option.
 
+### Custom Configuration
+
+Applications can specify custom configuration in the TOML file in two ways. 
+
+#### Application Settings
+
+The first simple way is to add items to the `ApplicationSetting` section. This is a map of string key/value pairs, i.e. `map[string]string`. Use for simple string values or comma separated list of string values. The `ApplicationService` API provides the follow access APIs for this configuration section:
+
+- `ApplicationSettings() map[string]string`
+    - Returns the whole list of application settings
+- `GetAppSetting(setting string) (string, error)`
+    - Returns single entry from the map who's key matches the passed in `setting` value
+- `GetAppSettingStrings(setting string) ([]string, error)`
+    - Returns list of strings for the entry who's key matches the passed in `setting` value. The Entry is assumed to be a comma separated list of strings.
+
+#### Structure Custom Configuration
+
+!!! edgey "EdgeX 2.0"
+    Structure Custom Configuration is new for Edgex 2.0
+
+The second is the more complex `Structured Custom Configuration` which allows the Application Service to define and watch it's own structured section in the service's TOML configuration file.
+
+The `ApplicationService` API provides the follow APIs to enable structured custom configuration:
+
+- `LoadCustomConfig(config UpdatableConfig, sectionName string) error`
+    - Loads the service's custom configuration from local file or the Configuration Provider (if enabled). The Configuration Provider will also be seeded with the custom configuration the first time the service is started, if service is using the Configuration Provider. The `UpdateFromRaw` interface will be called on the custom configuration when the configuration is loaded from the Configuration Provider.
+
+- `ListenForCustomConfigChanges(configToWatch interface{}, sectionName string, changedCallback func(interface{})) error`
+    - Starts a listener on the Configuration Provider for changes to the specified section of the custom configuration. When changes are received from the Configuration Provider the UpdateWritableFromRaw interface will be called on the custom configuration to apply the updates and then signal that the changes occurred via changedCallback.
+
+See the [Application Service Template](https://github.com/edgexfoundry/app-functions-sdk-go/tree/v2.0.0/app-service-template) for an example of using the new Structured Custom Configuration capability.
+
+- [See here for defining the structured custom configuration](https://github.com/edgexfoundry/app-functions-sdk-go/blob/v2.0.0/app-service-template/config/configuration.go#L35-L80)
+- [See here for loading, validating and watching the configuration](https://github.com/edgexfoundry/app-functions-sdk-go/blob/v2.0.0/app-service-template/main.go#L74-L98)
+
 ### Store and Forward
 
 The Store and Forward capability allows for export functions to persist data on failure and for the export of the data to be retried at a later time. 
@@ -271,35 +244,37 @@ The Store and Forward capability allows for export functions to persist data on 
 
 #### Configuration
 
-Two sections of configuration have been added for Store and Forward.
+`Writable.StoreAndForward` allows enabling, setting the interval between retries and the max number of retries. If running with Configuration Provider, these setting can be changed on the fly via Consul without having to restart the service.
 
-`Writable.StoreAndForward` allows enabling, setting the interval between retries and the max number of retries. If running with Configuration Provider, these setting can be changed on the fly without having to restart the service.
-
-```toml
-  [Writable.StoreAndForward]
-  Enabled = false
-  RetryInterval = '5m'
-  MaxRetryCount = 10
-```
+!!! example "Example - Store and Forward configuration"
+    ```toml
+    [Writable.StoreAndForward]
+    Enabled = false
+    RetryInterval = '5m'
+    MaxRetryCount = 10
+    ```
 
 !!! note
     RetryInterval should be at least 1 second (eg. '1s') or greater. If a value less than 1 second is specified, 1 second will be used. Endless retries will occur when MaxRetryCount is set to 0. If MaxRetryCount is set to less than 0, a default of 1 retry will be used.
 
-Database describes which database type to use, `mongodb` (DEPRECATED) or `redisdb`, and the information required to connect to the database. This section is required if Store and Forward is enabled, otherwise it is currently optional.
+Database configuration section describes which database type to use and the information required to connect to the database. This section is required if Store and Forward is enabled. It is optional if **not** using `Redis` for the EdgeX MessageBus which is now the default. 
 
-```toml
-[Database]
-Type = "redisdb"
-Host = "localhost"
-Port = 6379
-Timeout = '30s'
-Username = ""
-Password = ""
-```
+!!! example "Example - Database configuration"
+    ```toml
+    [Database]
+    Type = "redisdb"
+    Host = "localhost"
+    Port = 6379
+    Timeout = '30s'
+    ```
+
+!!! edgey "EdgeX 2.0"
+    The deprecated support for Mongo DB has been remove in EdgeX 2.0
+
 
 #### How it works
 
-When an export function encounters an error sending data it can call `SetRetryData(payload []byte)` on the Context. This will store the data for later retry. If the application service is stopped and then restarted while stored data hasn't been successfully exported, the export retry will resume once the service is up and running again.
+When an export function encounters an error sending data it can call `SetRetryData(payload []byte)` on the `AppFunctionContext`. This will store the data for later retry. If the Application Service is stopped and then restarted while stored data hasn't been successfully exported, the export retry will resume once the service is up and running again.
 
 !!! note
     It is important that export functions return an error and stop pipeline execution after the call to `SetRetryData`. See [HTTPPost](https://github.com/edgexfoundry/app-functions-sdk-go/blob/master/pkg/transforms/http.go) function in SDK as an example
@@ -330,189 +305,151 @@ One of three out comes can occur after the export retried has completed.
 
 #### Configuration
 
-All instances of App Services share the same database and database credentials. However, there are secrets for each App Service that are exclusive to the instance running. As a result, two separate configurations for secret store clients are used to manage shared and exclusive application service secrets.
+All instances of App Services running in secure mode require a SecretStore to be configured. With the use of `Redis Pub/Sub` as the default EdgeX MessageBus all App Services need the `redisdb` known secret added to their SecretStore      so they can connect to the Secure EdgeX MessageBus. See the [Secure MessageBus](../../security/Ch-Secure-MessageBus.md) documentation for more details.
 
-The GetSecrets() and StoreSecrets() calls  use the exclusive secret store client to manage application secrets.
-
-An example of configuration settings for each secret store client is below:
-
-```toml
-# Shared Secret Store
-[SecretStore]
+!!! example "Example - SecretStore configuration"
+    ```toml
+    [SecretStore]
+    Type = 'vault'
     Host = 'localhost'
     Port = 8200
-    Path = '/v1/secret/edgex/appservice/'
-    Protocol = 'https'
-    RootCaCertPath = '/tmp/edgex/secrets/ca/ca.pem'
-    ServerName = 'edgex-vault'
-    TokenFile = '/tmp/edgex/secrets/edgex-appservice/secrets-token.json'
-    # Number of attempts to retry retrieving secrets before failing to start the service.
-    AdditionalRetryAttempts = 10
-    # Amount of time to wait before attempting another retry
-    RetryWaitPeriod = "1s"
+    Path = 'app-sample/'
+    Protocol = 'http'
+    RootCaCertPath = ''
+    ServerName = ''
+    TokenFile = '/tmp/edgex/secrets/app-sample/secrets-token.json'
+      [SecretStore.Authentication]
+      AuthType = 'X-Vault-Token'
+    ```
 
-	[SecretStore.Authentication]
-		AuthType = 'X-Vault-Token'	
-
-# Exclusive Secret Store
-[SecretStoreExclusive]
-    Host = 'localhost'
-    Port = 8200
-    Path = '/v1/secret/edgex/<app service key>/'
-    Protocol = 'https'
-    ServerName = 'edgex-vault'
-    TokenFile = '/tmp/edgex/secrets/<app service key>/secrets-token.json'
-    # Number of attempts to retry retrieving secrets before failing to start the service.
-    AdditionalRetryAttempts = 10
-    # Amount of time to wait before attempting another retry
-    RetryWaitPeriod = "1s"
-
-    [SecretStoreExclusive.Authentication]
-    	AuthType = 'X-Vault-Token'
-```
+!!! edgey "EdgeX 2.0"
+    For Edgex 2.0 all Application Service Secret Stores are `exclusive` so the explicit `[SecretStoreExclusive]` configuration has been removed.
 
 #### Storing Secrets
 
 ##### Secure Mode
 
-When running an application service in secure mode, secrets can be stored in the secret store (Vault) by making an HTTP `POST` call to the secrets API route in the application service, `http://[host]:[port]/api/v1/secrets`. The secrets are stored and retrieved from the secret store based on values in the *SecretStoreExclusive* section of the configuration file. Once a secret is stored, only the service that added the secret will be able to retrieve it.  For secret retrieval see [Getting Secrets](#getting-secrets).
+When running an application service in secure mode, secrets can be stored in the SecretStore      by making an HTTP `POST` call to the `/api/v2/secret` API route in the application service. The secret data POSTed is stored and retrieved from the SecretStore based on values in the `[SecretStore]` section of the configuration file. Once a secret is stored, only the service that added the secret will be able to retrieve it.  For secret retrieval see [Getting Secrets](#getting-secrets) section below.
 
-An example of the JSON message body is below.  
-
-```json
-{
-  "path" : "MyPath",
-  "secrets" : [
+!!! example "Example - JSON message body"
+    ```json
     {
-      "key" : "MySecretKey",
-      "value" : "MySecretValue"
+      "path" : "MyPath",
+      "secretData" : [
+        {
+          "key" : "MySecretKey",
+          "value" : "MySecretValue"
+        }
+      ]
     }
-  ]
-}
-```
+    ```
 
 !!! note
-    Path specifies the type or location of the secrets to store. It is appended to the base path from the SecretStoreExclusive configuration. An empty path is a valid configuration for a secret's location.
+    Path specifies the type or location of the secret in the SecretStore. It is appended to the base path from the `[SecretStore]` configuration. 
 
 ##### Insecure Mode
 
 When running in insecure mode, the secrets are stored and retrieved from the *Writable.InsecureSecrets* section of the service's configuration toml file. Insecure secrets and their paths can be configured as below.
 
-```toml
-   [Writable.InsecureSecrets]    
-      [Writable.InsecureSecrets.AWS]
-        Path = 'aws'
-        [Writable.InsecureSecrets.AWS.Secrets]
-          username = 'aws-user'
-          password = 'aws-pw'
-      
-      [Writable.InsecureSecrets.DB]
-        Path = 'redisdb'
-        [Writable.InsecureSecrets.DB.Secrets]
-          username = ''
-          password = ''
-```
-
-!!! note
-    An empty path is a valid configuration for a secret's location 
+!!! example "Example - InsecureSecrets Configuration"
+    ```toml
+       [Writable.InsecureSecrets]    
+          [Writable.InsecureSecrets.AWS]
+            Path = 'aws'
+              [Writable.InsecureSecrets.AWS.Secrets]
+              username = 'aws-user'
+              password = 'aws-pw'
+          
+          [Writable.InsecureSecrets.DB]
+            Path = 'redisdb'
+              [Writable.InsecureSecrets.DB.Secrets]
+              username = ''
+              password = ''
+    ```
 
 #### Getting Secrets
 
-Application Services can retrieve their secrets from the underlying secret store using the [GetSecrets()](#.GetSecrets()) API in the SDK. 
+Application Services can retrieve their secrets from their SecretStore      using the  [interfaces.ApplicationService.GetSecret()](#TBD) API or from the [interfaces.AppFunctionContext.GetSecret()](ContextAPI.md#getsecret) API  
 
-If in secure mode, the secrets are retrieved from the secret store based on the *SecretStoreExclusive* configuration values. 
+When in secure mode, the secrets are retrieved from the SecretStore      based on the `[SecretStore]`  configuration values. 
 
-If running in insecure mode, the secrets are retrieved from the *Writable.InsecureSecrets* configuration.
+When running in insecure mode, the secrets are retrieved from the `[Writable.InsecureSecrets]` configuration.
 
 ### Background Publishing
 
 Application Services using the MessageBus trigger can request a background publisher using the AddBackgroundPublisher API in the SDK.  This method takes an int representing the background channel's capacity as the only parameter and returns a reference to a BackgroundPublisher.  This reference can then be used by background processes to publish to the configured MessageBus output.  A custom topic can be provided to use instead of the configured message bus output as well.
 
 !!!edgey "Edgex 2.0"
-    For version 2 the background publish operation takes a full AppContext instead of just the parameters used to create a message envelope.  This allows the background publisher to leverage context-based topic formatting functionality as the trigger output.
-```go
+    For EdgeX 2.0 the background publish operation takes a full AppContext instead of just the parameters used to create a message envelope.  This allows the background publisher to leverage context-based topic formatting functionality as the trigger output.
 
-func runJob (service interfaces.ApplicationService, done chan struct{}){
-	ticker := time.NewTicker(1 * time.Minute)
-	
-    //initialize background publisher with a channel capacity of 10 and a custom topic
-    publisher, err := service.AddBackgroundPublisherWithTopic(10, "custom-topic")
-    
-    if err != nil {
-        // do something
-    }
-	
-	go func(pub interfaces.BackgroundPublisher) {
-		for {
-			select {
-			case <-ticker.C:
-				msg := myDataService.GetMessage()
-				payload, err := json.Marshal(message)
-				
-				if err != nil {
-					//do something
-				}
-				
-				ctx := svc.BuildContext(uuid.NewString(), common.ContentTypeJSON)
-				
-				// modify context as needed
-				
-				err = pub.Publish(payload, ctx)
-				
-				if err != nil {
-					//do something
-				}
-			case <-j.done:
-				ticker.Stop()
-				return
-			}
-		}
-	}(publisher)
-}
+!!! example "Example - Background Publisher"
+    ```go    
+    func runJob (service interfaces.ApplicationService, done chan struct{}){
+    	ticker := time.NewTicker(1 * time.Minute)
+    	
+        //initialize background publisher with a channel capacity of 10 and a custom topic
+        publisher, err := service.AddBackgroundPublisherWithTopic(10, "custom-topic")
+        
+        if err != nil {
+            // do something
+        }
+    	
+    	go func(pub interfaces.BackgroundPublisher) {
+     		for {
+     			select {
+     			case <-ticker.C:
+     				msg := myDataService.GetMessage()
+     				payload, err := json.Marshal(message)
+     				
+     				if err != nil {
+     					//do something
+     				}
+     				
+     				ctx := svc.BuildContext(uuid.NewString(), common.ContentTypeJSON)
+     				
+     				// modify context as needed
+     				
+     				err = pub.Publish(payload, ctx)
+     				
+     				if err != nil {
+     					//do something
+     				}
+     			case <-j.done:
+     				ticker.Stop()
+     				return
+     			}
+     		}
+     	}(publisher)
+     }
+     
+     func main() {
+     	service := pkg.NewAppService(serviceKey)
+     	
+     	done := make(chan struct{})
+     	defer close(done)
+     
+     	//pass publisher to your background job
+     	runJob(service, done)
+     
+     	service.SetFunctionsPipeline(
+     		All,
+     		My,
+     		Functions,
+     	)
+     	
+     	service.MakeItRun()
+     
+     	os.Exit(0)
+      }		
+    ```
 
-func main() {
-	service := pkg.NewAppService(serviceKey)
-	
-	done := make(chan struct{})
-	defer close(done)
-
-	//pass publisher to your background job
-	runJob(service, done)
-
-	service.SetFunctionsPipeline(
-		All,
-		My,
-		Functions,
-	)
-	
-	service.MakeItRun()
-
-	os.Exit(0)
-}
-```
-
-### Registry Client
-
-**After initialization**, the configured registry client used by the SDK can be retrieved from the sdk instance at .RegistryClient.  It is important to note that sdk.RegistryClient may be nil - either if the SDK is not yet initialized, or if the registry option (-r/--registry) is not specified on start.  Once retrieved the client can be used to look up host information for other services, or perform other operations supported by the registry.Client type in [go-mod-registry](https://github.com/edgexfoundry/go-mod-registry).  For example, to retrieve the URL for a given service:
-
-```go
-func GetHostUrl(service interfaces.ApplicationService, serviceKey string) (string, error) {
-	if service.RegistryClient() == nil {
-		return "", errors.New("Registry client is not available")
-	}
-
-	details, err := service.RegistryClient().GetServiceEndpoint(serviceKey)
-
-	if err != nil {
-		return "", err
-	}
-
-	return fmt.Sprintf("http://%s:%d", details.Host, details.Port), nil
-}
-```
-!!! note Known Service Keys
-    Service keys for known EdgeX services can be found under clients in [go-mod-core-contracts](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/constants.go#L58-L72)
-		
 ### Stopping the Service
 
-Application Services will listen for SIGTERM / SIGINT signals from the OS and stop the function pipeline in response.  The pipeline can also be exited programmatically by calling `sdk.MakeItStop()` on the running SDK instance.  This can be useful for cases where you want to stop a service in response to a runtime condition, e.g. receiving a "poison pill" message through its trigger.
+Application Services will listen for SIGTERM / SIGINT signals from the OS and stop the function pipeline in response.  The pipeline can also be exited programmatically by calling `sdk.MakeItStop()` on the running `ApplicationService` instance.  This can be useful for cases where you want to stop a service in response to a runtime condition, e.g. receiving a "poison pill" message through its trigger.
+
+### Received Topic
+
+!!! edgey "EdgeX 2.0"
+    Received Topic is new for Edgex 2.0
+
+When messages are received via the EdgeX MessageBus or External MQTT triggers, the topic that the data was received on is seeded into the new Context Storage on the `AppFunctionContext` with the key `receivedtopic`. This make the `Received Topic` available to all functions in the pipeline. The SDK provides the `interfaces.RECEIVEDTOPIC` constant for this key. See the [Context Storage](ContextAPI.md#context-storage) section for more details on extracting values.
