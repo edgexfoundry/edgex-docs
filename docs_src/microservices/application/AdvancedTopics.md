@@ -130,7 +130,7 @@ Any of the configuration settings from the `configuration.toml` file can be over
 
 #### EDGEX_SERVICE_KEY
 
-Overrides the service's service key used with Registry, Configuration Providers and security services. Default is set by the application service. App Service Configurable defaults to the specified profile name with the `app-` prefix.  Also overrides any value set with the -sk/--serviceKey command-line option.
+Overrides the service key used with Registry, Configuration Providers and security services. Default is set by the application service. App Service Configurable defaults to the specified profile name with the `app-` prefix.  Also overrides any value set with the -sk/--serviceKey in the command-line option.
 
 !!! note
     If the name provided contains the text `<profile>`, this text will be replaced with the name of the profile used.
