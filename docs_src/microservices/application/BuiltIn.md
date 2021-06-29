@@ -119,7 +119,7 @@ There is one encryption transform included in the SDK that can be added to your 
 | NewEncryptionWithSecrets(secretPath string, secretName string, initializationVector string) | This function returns a `Encryption` instance initialized with the passed in `secret path`, `Secret name` and `initialization vector`. This `Encryption` instance is used to access the following encryption function that will use the encryption key from the Secret Store and the passed in `initialization vector`. It uses the passed in`secret path` and `secret name` to pull the encryption key from the Secret Store |
 
 !!! edgey "EdgeX 2.0"
-    New for EdgeX 2.0 is the ability to pull the encryption key from the Secret Store. The encryption key must be seeded into the Secret Store using the `/api/v2/secret` endpoint on the running instance of the Application Service prior to the Encryption function executing. See [App Functions SDK swagger](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/app-functions-sdk/2.x#/default/post_secret) for more details on this endpoint.
+    New for EdgeX 2.0 is the ability to pull the encryption key from the Secret Store. The encryption key must be seeded into the Secret Store using the `/api/v2/secret` endpoint on the running instance of the Application Service prior to the Encryption function executing. See [App Functions SDK swagger](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/app-functions-sdk/2.0#/default/post_secret) for more details on this endpoint.
 
 ### AES
 
@@ -202,7 +202,7 @@ type HTTPSenderOptions struct {
 !!! edgey "EdgeX 2.0"
     URL Formatting is new in EdgeX 2.0
 
-The configured URL is dynamically formatted prior to the POST/PUT request. The default formatter (used if `URLFormatter` is nil) simply replaces any placeholder text, `{key-name}`, in the configured URL with matching values from the new `Context Storage`. An error will occur if a specified placeholder does not exist in the `Context Storage`. See the [Context Storage](../ContextAPI/#context-storage) documentation for more details on seeded values and storing your own values.
+The configured URL is dynamically formatted prior to the POST/PUT request. The default formatter (used if `URLFormatter` is nil) simply replaces any placeholder text, `{key-name}`, in the configured URL with matching values from the new `Context Storage`. An error will occur if a specified placeholder does not exist in the `Context Storage`. See the [Context Storage](../AppFunctionContextAPI/#context-storage) documentation for more details on seeded values and storing your own values.
 
 The `URLFormatter` option allows you to override the default formatter with your own custom URL formatting scheme.
 
@@ -268,7 +268,7 @@ The `AuthMode` setting you choose depends on what secret values above are used. 
 !!! edgey "EdgeX 2.0"
     Topic Formatting is new in EdgeX 2.0
 
-The configured Topic is dynamically formatted prior to publishing . The default formatter (used if `topicFormatter ` is nil) simply replaces any placeholder text, `{key-name}`, in the configured `Topic` with matching values from the new `Context Storage`. An error will occur if a specified placeholder does not exist in the `Context Storage`. See the [Context Storage](../ContextAPI/#context-storage) documentation for more details on seeded values and storing your own values.
+The configured Topic is dynamically formatted prior to publishing . The default formatter (used if `topicFormatter ` is nil) simply replaces any placeholder text, `{key-name}`, in the configured `Topic` with matching values from the new `Context Storage`. An error will occur if a specified placeholder does not exist in the `Context Storage`. See the [Context Storage](../AppFunctionContextAPI/#context-storage) documentation for more details on seeded values and storing your own values.
 
 The `topicFormatter` option allows you to override the default formatter with your own custom topic formatting scheme.
 
