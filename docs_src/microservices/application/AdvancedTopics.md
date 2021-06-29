@@ -41,7 +41,7 @@ You can access the `interfaces.ApplicationService` API for resources such as the
 
 The target type is the object type of the incoming data that is sent to the first function in the function pipeline. By default this is an EdgeX `dtos.Event` since typical usage is receiving `Events` from the EdgeX MessageBus. 
 
-There are scenarios where the incoming data is not an EdgeX `Event`. One example scenario is two application services are chained via the EdgeX MessageBus. The output of the first service, inference data from analyzing the original `Event`data, is published back to the EdgeX MessageBus. The second service needs to be able to let the SDK know the target type of the input data it is expecting.
+There are scenarios where the incoming data is not an EdgeX `Event`. One example scenario is two application services are chained via the EdgeX MessageBus. The output of the first service is inference data from analyzing the original `Event`data, and published back to the EdgeX MessageBus. The second service needs to be able to let the SDK know the target type of the input data it is expecting.
 
 For usages where the incoming data is not `events`, the `TargetType` of the expected incoming data can be set when the `ApplicationService` instance is created using the `NewAppServiceWithTargetType()` factory function.
 
