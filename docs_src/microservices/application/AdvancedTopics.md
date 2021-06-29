@@ -88,7 +88,7 @@ The following command line options are available
 | -cp<br /> --configProvider | Indicates to use Configuration Provider service at specified URL.<br/>URL Format: `{type}.{protocol}://{host}:{port} ex: consul.http://localhost:8500` |
 | -r<br /> --registry        | Indicates service should use the Registry. Connection information is pulled from the `[Registry]` configuration section. |
 | -c<br />--confdir          | Specify local configuration directory. Default is `./res`    |
-| -f<br />--file <name>      | Indicates name of the local configuration file. Default is `configuration.toml` |
+| -f<br />--file <name>      | Indicates the name of the local configuration file. Default is `configuration.toml` |
 | -p<br />--profile <name>   | Indicates configuration profile other than default. Default is no profile name resulting in using `./res/configuration.toml` if `-f` and `-c` are not used. |
 | -s<br />--skipVersionCheck | Indicates the service should skip the Core Service's version compatibility check. |
 | -sk<br />--serviceKey      | Overrides the service key used with Registry and Configuration Providers and for security services. If the name provided contains the placeholder text `<profile>`, this text will be replaced with the name of the profile used. If profile not set, the `<profile>` is simply removed. |
