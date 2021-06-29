@@ -53,7 +53,7 @@ For usages where the incoming data is not `events`, the `TargetType` of the expe
       LastName  string `json:"last_name"`    
     }    
         
-    serivce := pkg.NewAppServiceWithTargetType(serviceKey, &Person{})    
+    service := pkg.NewAppServiceWithTargetType(serviceKey, &Person{})    
     ```    
     
     `TargetType` must be set to a pointer to an instance of your target type such as `&Person{}` . The first function in your function pipeline will be passed an instance of your target type, not a pointer to it. In the example above, the first function in the pipeline would start something like:
@@ -65,12 +65,12 @@ For usages where the incoming data is not `events`, the `TargetType` of the expe
     
       if data == nil {
     	return false, errors.New("no data received to     MyPersonFunction")
-    }
+      }
     
-    person, ok := data.(Person)
-    if !ok {
-      return false, errors.New("MyPersonFunction type received is not a Person")
-    }
+      person, ok := data.(Person)
+      if !ok {
+        return false, errors.New("MyPersonFunction type received is not a Person")
+      }
     
     // ....
     ```
