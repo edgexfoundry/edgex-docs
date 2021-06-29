@@ -209,7 +209,7 @@ Applications can specify custom configuration in the TOML file in two ways.
 The first simple way is to add items to the `ApplicationSetting` section. This is a map of string key/value pairs, i.e. `map[string]string`. Use for simple string values or comma separated list of string values. The `ApplicationService` API provides the follow access APIs for this configuration section:
 
 - `ApplicationSettings() map[string]string`
-    - Returns the whole map
+    - Returns the whole list of application settings
 - `GetAppSetting(setting string) (string, error)`
     - Returns single entry from the map who's key matches the passed in `setting` value
 - `GetAppSettingStrings(setting string) ([]string, error)`
