@@ -35,7 +35,7 @@ To add your own route, use the `AddRoute()` API provided on the `ApplicationServ
     ```    
 
 Under the hood, this simply adds the provided route, handler, and method to the gorilla `mux.Router` used in the SDK. For more information on `gorilla mux` you can check out the github repo [here](https://github.com/gorilla/mux). 
-You can access the `interfaces.ApplicationService` API for resources such as the logging client by pull it from the context as shown above -- this is useful for when your routes might not be defined in your main.go, where you have access to the ``interfaces.ApplicationService`` instance.
+You can access the `interfaces.ApplicationService` API for resources such as the logging client by pulling it from the context as shown above -- this is useful for when your routes might not be defined in your `main.go`  where you have access to the ``interfaces.ApplicationService`` instance.
 
 ### Target Type
 
@@ -453,4 +453,3 @@ Application Services will listen for SIGTERM / SIGINT signals from the OS and st
     Received Topic is new for Edgex 2.0
 
 When messages are received via the EdgeX MessageBus or External MQTT triggers, the topic that the data was received on is seeded into the new Context Storage on the `AppFunctionContext` with the key `receivedtopic`. This make the `Received Topic` available to all functions in the pipeline. The SDK provides the `interfaces.RECEIVEDTOPIC` constant for this key. See the [Context Storage](ContextAPI.md#context-storage) section for more details on extracting values.
-
