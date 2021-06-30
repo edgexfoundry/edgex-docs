@@ -139,7 +139,7 @@ There are two export functions included in the SDK that can be added to your pip
 ### HTTP Export
 
 !!! edgey "EdgeX 2.0"
-    For EgdeX 2.0 the signature of the `NewHTTPSenderWithSecretHeader` factory function has changed. See below for details.
+    For EdgeX 2.0 the signature of the `NewHTTPSenderWithSecretHeader` factory function has changed. See below for details.
 
 | Factory Method                                               | Description                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |

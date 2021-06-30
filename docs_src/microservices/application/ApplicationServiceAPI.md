@@ -32,7 +32,7 @@ type ApplicationService interface {
 	AddBackgroundPublisher(capacity int) (BackgroundPublisher, error)
 	AddBackgroundPublisherWithTopic(capacity int, topic string) (BackgroundPublisher, error)
 	BuildContext(correlationId string, contentType string) AppFunctionContext
-    AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error
+	AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error
 	RegisterCustomTriggerFactory(name string, factory func(TriggerConfig) (Trigger, error)) error
 
 }
@@ -97,7 +97,7 @@ This API returns the complete key/value map of custom settings
     ```
     
     ```go
-    appSettings := serivce.ApplicationSettings()
+    appSettings := service.ApplicationSettings()
     greeting := appSettings["Greeting"]
     service.LoggingClient.Info(greeting)
     ```
@@ -117,7 +117,7 @@ This API is a convenience API that returns a single setting from the `[Applicati
     ```
     
     ```go
-    greeting, err := serivce.GetAppSetting["Greeting"]
+    greeting, err := service.GetAppSetting["Greeting"]
     if err != nil {
         ...
     }
@@ -138,7 +138,7 @@ This API is a convenience API that parses the string value for the specified cus
     ```
     
     ```go
-    greetings, err := serivce.GetAppSettingStrings["Greetings"]
+    greetings, err := service.GetAppSettingStrings["Greetings"]
     if err != nil {
         ...
     }
@@ -348,12 +348,12 @@ This API returns the secret data from the secret store (secure or insecure) for 
 !!! example "Example - GetSecret"
 
     ```go
-    secretData, err := service.MakeItStop("mqtt")
+    secretData, err := service.GetSecret("mqtt")
     if err != nil {
        ...
     }
     username := secretData["user"]
-    passsword := secretData["password"]
+    password := secretData["password"]
     ...
     ```
 
@@ -392,20 +392,20 @@ The following `ApplicationService` APIs allow your service access the various Ed
 
 `LoggingClient() logger.LoggingClient`
 
-This API returns the LoggingClient instance which the service uses to log messages. See the [LoggingClient interface](https://github.com/edgexfoundry/go-mod-core-contracts/blob/v2.0.0/clients/logger/logger.go#L35-L61) for more details.
+This API returns the LoggingClient instance which the service uses to log messages. See the [LoggingClient interface](https://github.com/edgexfoundry/go-mod-core-contracts/blob/v2.0.0/clients/logger/logger.go#L35-L61) for more details. 
 
 !!! example "Example - LoggingClient"
 
     ```go
     service.LoggingClient().Info("Hello World")
-    service.LoggingClient().Errorf("Some error occured: %w", err)
+    service.LoggingClient().Errorf("Some error occurred: %w", err)
     ```
 
 ### RegistryClient
 
 `RegistryClient() registry.Client`
 
-This API returns the Registry Client. Note the registry must been enable, otherwise this will return nil.
+This API returns the Registry Client. Note the registry must been enabled, otherwise this will return nil.
 See the [Registry Client interface](https://github.com/edgexfoundry/go-mod-registry/blob/v2.0.0/registry/interface.go#L23-L40) for more details. Useful if service needs to add additional health checks or needs to get endpoint of another registered service. 
 
 ### EventClient

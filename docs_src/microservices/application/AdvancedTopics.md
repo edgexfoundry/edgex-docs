@@ -369,7 +369,7 @@ When running in insecure mode, the secrets are stored and retrieved from the *Wr
 
 #### Getting Secrets
 
-Application Services can retrieve their secrets from their SecretStore      using the  [interfaces.ApplicationService.GetSecret()](#TBD) API or from the [interfaces.AppFunctionContext.GetSecret()](AppFunctionContextAPI.md#getsecret) API  
+Application Services can retrieve their secrets from their SecretStore      using the  [interfaces.ApplicationService.GetSecret()](../ApplicationServiceAPI/#getsecret) API or from the [interfaces.AppFunctionContext.GetSecret()](AppFunctionContextAPI.md#getsecret) API  
 
 When in secure mode, the secrets are retrieved from the SecretStore      based on the `[SecretStore]`  configuration values. 
 
