@@ -200,7 +200,7 @@ Below are the functions that are available to use in the configurable pipeline f
 
 Please refer to the function's detailed documentation by clicking the function name below.
 
-### [AddTags](BuiltIn#tags)
+### [AddTags](../BuiltIn/#tags)
 
 **Parameters**
 
@@ -214,7 +214,7 @@ Please refer to the function's detailed documentation by clicking the function n
       tags = "GatewayId:HoustonStore000123,Latitude:29.630771,Longitude:-95.377603"
 ```
 
-### [Batch](BuiltIn/#batch)
+### [Batch](../BuiltIn/#batching)
 
 **Parameters**
 
@@ -237,7 +237,7 @@ Please refer to the function's detailed documentation by clicking the function n
 !!! edgey "EdgeX 2.0"
     For EdgeX 2.0 the `BatchByCount`, `BatchByCount`, and `BatchByTimeCount` configurable pipeline functions have been replaced by single `Batch` configurable pipeline function with additional `Mode` parameter.
 
-### [Compress](BuiltIn/#compressions)
+### [Compress](../BuiltIn/#compression)
 
 **Parameters**
 
@@ -256,7 +256,7 @@ Please refer to the function's detailed documentation by clicking the function n
 !!! edgey "EdgeX 2.0"
     For EdgeX 2.0 the `CompressWithGZIP` and `CompressWithZLIB` configurable pipeline functions have been replaced by the single `Compress` configurable pipeline function with additional `Algorithm ` parameter.
 
-### [Encrypt](BuiltIn/#Encryption)
+### [Encrypt](../BuiltIn/#encryption)
 **Parameters**
 
 - `Key` -  (optional) Encryption key used for the encryption. Required if not using Secret Store for the encryption key data
@@ -304,7 +304,7 @@ Please refer to the function's detailed documentation by clicking the function n
         DeviceNames = "Random-Float-Device,Random-Integer-Device"
         FilterOut = "false"
 ```
-### [FilterByProfileName](BuiltIn/#by-profile-name)
+### [FilterByProfileName](../BuiltIn/#by-profile-name)
 
 **Parameters**
 
@@ -325,7 +325,7 @@ Please refer to the function's detailed documentation by clicking the function n
 !!! edgey "EdgeX 2.0"
     The `FilterByProfileName` configurable pipeline function is new for EdgeX 2.0 
 
-### [FilterByResourceName](/BuiltIn/#by-resource-descriptor)
+### [FilterByResourceName](../BuiltIn/#by-resource-name)
 
 **Parameters**
 
@@ -345,7 +345,7 @@ Please refer to the function's detailed documentation by clicking the function n
 !!! edgey "EdgeX 2.0"
     For EdgeX 2.0 the `FilterByValueDescriptor` configurable pipeline function has been renamed to `FilterByResourceName` and parameter names adjusted. 
 
-### [FilterBySourceName](BuiltIn/#by-source-name)
+### [FilterBySourceName](../BuiltIn/#by-source-name)
 
 **Parameters**
 
@@ -366,7 +366,7 @@ Please refer to the function's detailed documentation by clicking the function n
 !!! edgey "EdgeX 2.0"
     The `FilterBySourceName` configurable pipeline function is new for EdgeX 2.0 
 
-### [HTTPExport](BuiltIn/#http)
+### [HTTPExport](../BuiltIn/#http-export)
 
 **Parameters**
 
@@ -444,7 +444,7 @@ Please refer to the function's detailed documentation by clicking the function n
       [Writable.Pipeline.Functions.JSONLogic.Parameters]
       Rule = "{ \"and\" : [{\"<\" : [{ \"var\" : \"temp\" }, 110 ]}, {\"==\" : [{ \"var\" : \"sensor.type\" }, \"temperature\" ]} ] }"
 ```
-### [MQTTExport](BuiltIn/#mqtt)
+### [MQTTExport](../BuiltIn/#mqtt-export)
 
 **Parameters**
 
@@ -493,7 +493,7 @@ Please refer to the function's detailed documentation by clicking the function n
 !!! edgey "EdgeX 2.0"
     For EdgeX 2.0 the `MQTTSecretSend` configurable pipeline function has been renamed to `MQTTExport` and the deprecated  `MQTTSend` configurable pipeline function has been removed
 
-### [PushToCore](BuiltIn/#push-to-core)
+### [PushToCore](../BuiltIn/#push-to-core-data)
 
 **Parameters**
 
@@ -518,7 +518,7 @@ Please refer to the function's detailed documentation by clicking the function n
 !!! edgey "EdgeX 2.0"
     For EdgeX 2.0 the `ProfileName`, `ValueType` and `MediaType` parameters are new and the `ReadingName` parameter has been renamed to `ResourceName`. 
 
-### [SetResponseData](BuiltIn/#output-functions)
+### [SetResponseData](../BuiltIn/#set-response-data)
 
 **Parameters**
 
@@ -535,7 +535,7 @@ Please refer to the function's detailed documentation by clicking the function n
 !!! edgey "EdgeX 2.0"
     For EdgeX 2.0 the `SetOutputData` configurable pipeline function has been renamed to `SetResponseData` . 
 
-### [Transform](BuiltIn/#conversion)
+### [Transform](../BuiltIn/#conversion)
 
 **Parameters**
 

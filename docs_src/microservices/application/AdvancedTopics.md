@@ -369,7 +369,7 @@ When running in insecure mode, the secrets are stored and retrieved from the *Wr
 
 #### Getting Secrets
 
-Application Services can retrieve their secrets from their SecretStore      using the  [interfaces.ApplicationService.GetSecret()](#TBD) API or from the [interfaces.AppFunctionContext.GetSecret()](ContextAPI.md#getsecret) API  
+Application Services can retrieve their secrets from their SecretStore      using the  [interfaces.ApplicationService.GetSecret()](../ApplicationServiceAPI/#getsecret) API or from the [interfaces.AppFunctionContext.GetSecret()](AppFunctionContextAPI.md#getsecret) API  
 
 When in secure mode, the secrets are retrieved from the SecretStore      based on the `[SecretStore]`  configuration values. 
 
@@ -452,4 +452,4 @@ Application Services will listen for SIGTERM / SIGINT signals from the OS and st
 !!! edgey "EdgeX 2.0"
     Received Topic is new for Edgex 2.0
 
-When messages are received via the EdgeX MessageBus or External MQTT triggers, the topic that the data was received on is seeded into the new Context Storage on the `AppFunctionContext` with the key `receivedtopic`. This make the `Received Topic` available to all functions in the pipeline. The SDK provides the `interfaces.RECEIVEDTOPIC` constant for this key. See the [Context Storage](ContextAPI.md#context-storage) section for more details on extracting values.
+When messages are received via the EdgeX MessageBus or External MQTT triggers, the topic that the data was received on is seeded into the new Context Storage on the `AppFunctionContext` with the key `receivedtopic`. This make the `Received Topic` available to all functions in the pipeline. The SDK provides the `interfaces.RECEIVEDTOPIC` constant for this key. See the [Context Storage](AppFunctionContextAPI.md#context-storage) section for more details on extracting values.
