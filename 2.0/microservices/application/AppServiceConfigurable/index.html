@@ -1269,8 +1269,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../ApplicationFunctionsSDK/" title="App Functions SDK" class="md-nav__link">
-      App Functions SDK
+    <a href="../ApplicationFunctionsSDK/" title="App Functions SDK Introduction" class="md-nav__link">
+      App Functions SDK Introduction
     </a>
   </li>
 
@@ -1281,8 +1281,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../ContextAPI/" title="Context API" class="md-nav__link">
-      Context API
+    <a href="../ApplicationServiceAPI/" title="Application Service API" class="md-nav__link">
+      Application Service API
     </a>
   </li>
 
@@ -1293,8 +1293,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../BuiltIn/" title="Built-In Pipeline Functions" class="md-nav__link">
-      Built-In Pipeline Functions
+    <a href="../AppFunctionContextAPI/" title="App Function Context API" class="md-nav__link">
+      App Function Context API
     </a>
   </li>
 
@@ -1307,6 +1307,18 @@
   <li class="md-nav__item">
     <a href="../ErrorHandling/" title="Pipeline Function Error Handling" class="md-nav__link">
       Pipeline Function Error Handling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../BuiltIn/" title="Built-In Pipeline Functions" class="md-nav__link">
+      Built-In Pipeline Functions
     </a>
   </li>
 
@@ -2686,7 +2698,7 @@
 <p>The <code>Parameters</code> section for each function is a key/value map of <code>string</code> values. So even tough the parameter is referred to as an Integer or Boolean, it has to be specified as a valid string representation, e.g. "20" or "true".</p>
 </div>
 <p>Please refer to the function's detailed documentation by clicking the function name below.</p>
-<h3 id="addtags"><a href="BuiltIn#tags">AddTags</a></h3>
+<h3 id="addtags"><a href="../BuiltIn/#tags">AddTags</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>tags</code> - String containing comma separated list of tag key/value pairs. The tag key/value pairs are colon seperated</li>
@@ -2696,7 +2708,7 @@
       <span class="k">[Writable.Pipeline.Functions.AddTags.Parameters]</span>
       <span class="n">tags</span> <span class="o">=</span> <span class="s">&quot;GatewayId:HoustonStore000123,Latitude:29.630771,Longitude:-95.377603&quot;</span>
 </code></pre></div>
-<h3 id="batch"><a href="BuiltIn/#batch">Batch</a></h3>
+<h3 id="batch"><a href="../BuiltIn/#batching">Batch</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>Mode</code>- The batch mode to use. can be 'bycount', 'bytime' or 'bytimecount'</li>
@@ -2714,7 +2726,7 @@
 <p class="admonition-title">EdgeX 2.0</p>
 <p>For EdgeX 2.0 the <code>BatchByCount</code>, <code>BatchByCount</code>, and <code>BatchByTimeCount</code> configurable pipeline functions have been replaced by single <code>Batch</code> configurable pipeline function with additional <code>Mode</code> parameter.</p>
 </div>
-<h3 id="compress"><a href="BuiltIn/#compressions">Compress</a></h3>
+<h3 id="compress"><a href="../BuiltIn/#compression">Compress</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>Algorithm</code> - Compression algorithm to use.  Can be 'gzip' or 'zlib'</li>
@@ -2728,7 +2740,7 @@
 <p class="admonition-title">EdgeX 2.0</p>
 <p>For EdgeX 2.0 the <code>CompressWithGZIP</code> and <code>CompressWithZLIB</code> configurable pipeline functions have been replaced by the single <code>Compress</code> configurable pipeline function with additional <code>Algorithm</code> parameter.</p>
 </div>
-<h3 id="encrypt"><a href="BuiltIn/#Encryption">Encrypt</a></h3>
+<h3 id="encrypt"><a href="../BuiltIn/#encryption">Encrypt</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>Key</code> -  (optional) Encryption key used for the encryption. Required if not using Secret Store for the encryption key data</li>
@@ -2768,7 +2780,7 @@
         <span class="n">DeviceNames</span> <span class="o">=</span> <span class="s">&quot;Random-Float-Device,Random-Integer-Device&quot;</span>
         <span class="n">FilterOut</span> <span class="o">=</span> <span class="s">&quot;false&quot;</span>
 </code></pre></div>
-<h3 id="filterbyprofilename"><a href="BuiltIn/#by-profile-name">FilterByProfileName</a></h3>
+<h3 id="filterbyprofilename"><a href="../BuiltIn/#by-profile-name">FilterByProfileName</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>ProfileNames</code> - Comma separated list of profile names for filtering</li>
@@ -2784,7 +2796,7 @@
 <p class="admonition-title">EdgeX 2.0</p>
 <p>The <code>FilterByProfileName</code> configurable pipeline function is new for EdgeX 2.0 </p>
 </div>
-<h3 id="filterbyresourcename"><a href="/BuiltIn/#by-resource-descriptor">FilterByResourceName</a></h3>
+<h3 id="filterbyresourcename"><a href="../BuiltIn/#by-resource-name">FilterByResourceName</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>ResourceName</code> - Comma separated list of reading resource names for filtering</li>
@@ -2800,7 +2812,7 @@
 <p class="admonition-title">EdgeX 2.0</p>
 <p>For EdgeX 2.0 the <code>FilterByValueDescriptor</code> configurable pipeline function has been renamed to <code>FilterByResourceName</code> and parameter names adjusted. </p>
 </div>
-<h3 id="filterbysourcename"><a href="BuiltIn/#by-source-name">FilterBySourceName</a></h3>
+<h3 id="filterbysourcename"><a href="../BuiltIn/#by-source-name">FilterBySourceName</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>SourceNames</code> - Comma separated list of source names for filtering. Source name is either the device command name or the resource name that created the Event</li>
@@ -2816,7 +2828,7 @@
 <p class="admonition-title">EdgeX 2.0</p>
 <p>The <code>FilterBySourceName</code> configurable pipeline function is new for EdgeX 2.0 </p>
 </div>
-<h3 id="httpexport"><a href="BuiltIn/#http">HTTPExport</a></h3>
+<h3 id="httpexport"><a href="../BuiltIn/#http-export">HTTPExport</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>Method</code> - HTTP Method to use. Can be <code>post</code> or <code>put</code></li>
@@ -2890,7 +2902,7 @@
       <span class="k">[Writable.Pipeline.Functions.JSONLogic.Parameters]</span>
       <span class="n">Rule</span> <span class="o">=</span> <span class="s">&quot;{ \&quot;and\&quot; : [{\&quot;&lt;\&quot; : [{ \&quot;var\&quot; : \&quot;temp\&quot; }, 110 ]}, {\&quot;==\&quot; : [{ \&quot;var\&quot; : \&quot;sensor.type\&quot; }, \&quot;temperature\&quot; ]} ] }&quot;</span>
 </code></pre></div>
-<h3 id="mqttexport"><a href="BuiltIn/#mqtt">MQTTExport</a></h3>
+<h3 id="mqttexport"><a href="../BuiltIn/#mqtt-export">MQTTExport</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>BrokerAddress</code> - URL specify the address of the MQTT Broker</li>
@@ -2936,7 +2948,7 @@
 <p class="admonition-title">EdgeX 2.0</p>
 <p>For EdgeX 2.0 the <code>MQTTSecretSend</code> configurable pipeline function has been renamed to <code>MQTTExport</code> and the deprecated  <code>MQTTSend</code> configurable pipeline function has been removed</p>
 </div>
-<h3 id="pushtocore"><a href="BuiltIn/#push-to-core">PushToCore</a></h3>
+<h3 id="pushtocore"><a href="../BuiltIn/#push-to-core-data">PushToCore</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>ProfileName</code> - Profile name to use for the new Event</li>
@@ -2957,7 +2969,7 @@
 <p class="admonition-title">EdgeX 2.0</p>
 <p>For EdgeX 2.0 the <code>ProfileName</code>, <code>ValueType</code> and <code>MediaType</code> parameters are new and the <code>ReadingName</code> parameter has been renamed to <code>ResourceName</code>. </p>
 </div>
-<h3 id="setresponsedata"><a href="BuiltIn/#output-functions">SetResponseData</a></h3>
+<h3 id="setresponsedata"><a href="../BuiltIn/#set-response-data">SetResponseData</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>ResponseContentType</code> - Used to specify content-type header for response - optional</li>
@@ -2971,7 +2983,7 @@
 <p class="admonition-title">EdgeX 2.0</p>
 <p>For EdgeX 2.0 the <code>SetOutputData</code> configurable pipeline function has been renamed to <code>SetResponseData</code> . </p>
 </div>
-<h3 id="transform"><a href="BuiltIn/#conversion">Transform</a></h3>
+<h3 id="transform"><a href="../BuiltIn/#conversion">Transform</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>Type</code> - Type of transformation to perform. Can be 'xml' or 'json'</li>

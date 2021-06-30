@@ -1271,8 +1271,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../ApplicationFunctionsSDK/" title="App Functions SDK" class="md-nav__link">
-      App Functions SDK
+    <a href="../ApplicationFunctionsSDK/" title="App Functions SDK Introduction" class="md-nav__link">
+      App Functions SDK Introduction
     </a>
   </li>
 
@@ -1283,8 +1283,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../ContextAPI/" title="Context API" class="md-nav__link">
-      Context API
+    <a href="../ApplicationServiceAPI/" title="Application Service API" class="md-nav__link">
+      Application Service API
     </a>
   </li>
 
@@ -1295,8 +1295,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../BuiltIn/" title="Built-In Pipeline Functions" class="md-nav__link">
-      Built-In Pipeline Functions
+    <a href="../AppFunctionContextAPI/" title="App Function Context API" class="md-nav__link">
+      App Function Context API
     </a>
   </li>
 
@@ -1309,6 +1309,18 @@
   <li class="md-nav__item">
     <a href="../ErrorHandling/" title="Pipeline Function Error Handling" class="md-nav__link">
       Pipeline Function Error Handling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../BuiltIn/" title="Built-In Pipeline Functions" class="md-nav__link">
+      Built-In Pipeline Functions
     </a>
   </li>
 
@@ -3013,7 +3025,7 @@ This sets the Configration Provider information fields as follows:
 </code></pre></div>
 </div>
 <h4 id="getting-secrets">Getting Secrets</h4>
-<p>Application Services can retrieve their secrets from their SecretStore      using the  <a href="#TBD">interfaces.ApplicationService.GetSecret()</a> API or from the <a href="../ContextAPI/#getsecret">interfaces.AppFunctionContext.GetSecret()</a> API  </p>
+<p>Application Services can retrieve their secrets from their SecretStore      using the  <a href="../ApplicationServiceAPI/#getsecret">interfaces.ApplicationService.GetSecret()</a> API or from the <a href="../AppFunctionContextAPI/#getsecret">interfaces.AppFunctionContext.GetSecret()</a> API  </p>
 <p>When in secure mode, the secrets are retrieved from the SecretStore      based on the <code>[SecretStore]</code>  configuration values. </p>
 <p>When running in insecure mode, the secrets are retrieved from the <code>[Writable.InsecureSecrets]</code> configuration.</p>
 <h3 id="background-publishing">Background Publishing</h3>
@@ -3090,7 +3102,7 @@ This sets the Configration Provider information fields as follows:
 <p class="admonition-title">EdgeX 2.0</p>
 <p>Received Topic is new for Edgex 2.0</p>
 </div>
-<p>When messages are received via the EdgeX MessageBus or External MQTT triggers, the topic that the data was received on is seeded into the new Context Storage on the <code>AppFunctionContext</code> with the key <code>receivedtopic</code>. This make the <code>Received Topic</code> available to all functions in the pipeline. The SDK provides the <code>interfaces.RECEIVEDTOPIC</code> constant for this key. See the <a href="../ContextAPI/#context-storage">Context Storage</a> section for more details on extracting values.</p>
+<p>When messages are received via the EdgeX MessageBus or External MQTT triggers, the topic that the data was received on is seeded into the new Context Storage on the <code>AppFunctionContext</code> with the key <code>receivedtopic</code>. This make the <code>Received Topic</code> available to all functions in the pipeline. The SDK provides the <code>interfaces.RECEIVEDTOPIC</code> constant for this key. See the <a href="../AppFunctionContextAPI/#context-storage">Context Storage</a> section for more details on extracting values.</p>
                 
               
               
@@ -3109,7 +3121,7 @@ This sets the Configration Provider information fields as follows:
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../ErrorHandling/" title="Pipeline Function Error Handling" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../BuiltIn/" title="Built-In Pipeline Functions" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
             </div>
@@ -3118,7 +3130,7 @@ This sets the Configration Provider information fields as follows:
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Pipeline Function Error Handling
+                Built-In Pipeline Functions
               </div>
             </div>
           </a>

@@ -11,7 +11,7 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/microservices/application/Triggers/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/microservices/application/ApplicationServiceAPI/">
       
       
         <meta name="author" content="Michael Johanson">
@@ -21,7 +21,7 @@
     
     
       
-        <title>Triggers - EdgeX Foundry Documentation</title>
+        <title>Application Service API - EdgeX Foundry Documentation</title>
       
     
     
@@ -60,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#application-service-triggers" class="md-skip">
+        <a href="#application-service-api" class="md-skip">
           Skip to content
         </a>
       
@@ -87,7 +87,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Triggers
+              Application Service API
             
           </span>
         </div>
@@ -1230,188 +1230,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Triggers
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z" /></svg>
-        </span>
-      </label>
-    
-    <a href="./" title="Triggers" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../Triggers/" title="Triggers" class="md-nav__link">
       Triggers
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
-      </span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
-    Introduction
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#edgex-messagebus-trigger" class="md-nav__link">
-    EdgeX MessageBus Trigger
-  </a>
-  
-    <nav class="md-nav" aria-label="EdgeX MessageBus Trigger">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#type-configuration" class="md-nav__link">
-    Type Configuration
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#messagebus-connection-configuration" class="md-nav__link">
-    MessageBus Connection Configuration
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#example-using-mqtt" class="md-nav__link">
-    Example Using MQTT
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#filter-by-topics" class="md-nav__link">
-    Filter By Topics
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#external-mqtt-trigger" class="md-nav__link">
-    External MQTT Trigger
-  </a>
-  
-    <nav class="md-nav" aria-label="External MQTT Trigger">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#type-configuration_1" class="md-nav__link">
-    Type Configuration
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#external-mqtt-broker-configuration" class="md-nav__link">
-    External MQTT Broker Configuration
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#http-trigger" class="md-nav__link">
-    HTTP Trigger
-  </a>
-  
-    <nav class="md-nav" aria-label="HTTP Trigger">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#type-configuration_2" class="md-nav__link">
-    Type Configuration
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#custom-triggers" class="md-nav__link">
-    Custom Triggers
-  </a>
-  
-    <nav class="md-nav" aria-label="Custom Triggers">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#type-configuration_3" class="md-nav__link">
-    Type Configuration
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#publish-topic-placeholders" class="md-nav__link">
-    Publish Topic Placeholders
-  </a>
-  
-    <nav class="md-nav" aria-label="Publish Topic Placeholders">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
-    Example
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#received-topic" class="md-nav__link">
-    Received Topic
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -1419,10 +1242,12 @@
           
           
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-6-4" type="checkbox" id="nav-4-6-4">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-6-4" type="checkbox" id="nav-4-6-4" checked>
     
     <label class="md-nav__link" for="nav-4-6-4">
       Application Functions SDK
@@ -1456,11 +1281,326 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../ApplicationServiceAPI/" title="Application Service API" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Application Service API
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z" /></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Application Service API" class="md-nav__link md-nav__link--active">
       Application Service API
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#factory-functions" class="md-nav__link">
+    Factory Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Factory Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#newappservice" class="md-nav__link">
+    NewAppService
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#newappservicewithtargettype" class="md-nav__link">
+    NewAppServiceWithTargetType
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-configuration-apis" class="md-nav__link">
+    Custom Configuration APIs
+  </a>
+  
+    <nav class="md-nav" aria-label="Custom Configuration APIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#applicationsettings" class="md-nav__link">
+    ApplicationSettings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getappsetting" class="md-nav__link">
+    GetAppSetting
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getappsettingstrings" class="md-nav__link">
+    GetAppSettingStrings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadcustomconfig" class="md-nav__link">
+    LoadCustomConfig
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#listenforcustomconfigchanges" class="md-nav__link">
+    ListenForCustomConfigChanges
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#function-pipeline-apis" class="md-nav__link">
+    Function Pipeline APIs
+  </a>
+  
+    <nav class="md-nav" aria-label="Function Pipeline APIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setfunctionspipeline" class="md-nav__link">
+    SetFunctionsPipeline
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadconfigurablepipeline" class="md-nav__link">
+    LoadConfigurablePipeline
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#makeitrun" class="md-nav__link">
+    MakeItRun
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#makeitstop" class="md-nav__link">
+    MakeItStop
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#secrets-apis" class="md-nav__link">
+    Secrets APIs
+  </a>
+  
+    <nav class="md-nav" aria-label="Secrets APIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getsecret" class="md-nav__link">
+    GetSecret
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storesecret" class="md-nav__link">
+    StoreSecret
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#client-apis" class="md-nav__link">
+    Client APIs
+  </a>
+  
+    <nav class="md-nav" aria-label="Client APIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loggingclient" class="md-nav__link">
+    LoggingClient
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registryclient" class="md-nav__link">
+    RegistryClient
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eventclient" class="md-nav__link">
+    EventClient
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commandclient" class="md-nav__link">
+    CommandClient
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notificationclient" class="md-nav__link">
+    NotificationClient
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subscriptionclient" class="md-nav__link">
+    SubscriptionClient
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deviceserviceclient" class="md-nav__link">
+    DeviceServiceClient
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deviceprofileclient" class="md-nav__link">
+    DeviceProfileClient
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deviceclient" class="md-nav__link">
+    DeviceClient
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background-publisher-apis" class="md-nav__link">
+    Background Publisher APIs
+  </a>
+  
+    <nav class="md-nav" aria-label="Background Publisher APIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#addbackgroundpublisher" class="md-nav__link">
+    AddBackgroundPublisher
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#addbackgroundpublisherwithtopic" class="md-nav__link">
+    AddBackgroundPublisherWithTopic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buildcontext" class="md-nav__link">
+    BuildContext
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-apis" class="md-nav__link">
+    Other APIs
+  </a>
+  
+    <nav class="md-nav" aria-label="Other APIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#addroute" class="md-nav__link">
+    AddRoute
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registercustomtriggerfactory" class="md-nav__link">
+    RegisterCustomTriggerFactory
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -2339,44 +2479,23 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
-    Introduction
+  <a href="#factory-functions" class="md-nav__link">
+    Factory Functions
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#edgex-messagebus-trigger" class="md-nav__link">
-    EdgeX MessageBus Trigger
-  </a>
-  
-    <nav class="md-nav" aria-label="EdgeX MessageBus Trigger">
+    <nav class="md-nav" aria-label="Factory Functions">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#type-configuration" class="md-nav__link">
-    Type Configuration
+  <a href="#newappservice" class="md-nav__link">
+    NewAppService
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#messagebus-connection-configuration" class="md-nav__link">
-    MessageBus Connection Configuration
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#example-using-mqtt" class="md-nav__link">
-    Example Using MQTT
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#filter-by-topics" class="md-nav__link">
-    Filter By Topics
+  <a href="#newappservicewithtargettype" class="md-nav__link">
+    NewAppServiceWithTargetType
   </a>
   
 </li>
@@ -2387,23 +2506,44 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#external-mqtt-trigger" class="md-nav__link">
-    External MQTT Trigger
+  <a href="#custom-configuration-apis" class="md-nav__link">
+    Custom Configuration APIs
   </a>
   
-    <nav class="md-nav" aria-label="External MQTT Trigger">
+    <nav class="md-nav" aria-label="Custom Configuration APIs">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#type-configuration_1" class="md-nav__link">
-    Type Configuration
+  <a href="#applicationsettings" class="md-nav__link">
+    ApplicationSettings
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#external-mqtt-broker-configuration" class="md-nav__link">
-    External MQTT Broker Configuration
+  <a href="#getappsetting" class="md-nav__link">
+    GetAppSetting
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getappsettingstrings" class="md-nav__link">
+    GetAppSettingStrings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadcustomconfig" class="md-nav__link">
+    LoadCustomConfig
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#listenforcustomconfigchanges" class="md-nav__link">
+    ListenForCustomConfigChanges
   </a>
   
 </li>
@@ -2414,16 +2554,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#http-trigger" class="md-nav__link">
-    HTTP Trigger
+  <a href="#function-pipeline-apis" class="md-nav__link">
+    Function Pipeline APIs
   </a>
   
-    <nav class="md-nav" aria-label="HTTP Trigger">
+    <nav class="md-nav" aria-label="Function Pipeline APIs">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#type-configuration_2" class="md-nav__link">
-    Type Configuration
+  <a href="#setfunctionspipeline" class="md-nav__link">
+    SetFunctionsPipeline
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadconfigurablepipeline" class="md-nav__link">
+    LoadConfigurablePipeline
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#makeitrun" class="md-nav__link">
+    MakeItRun
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#makeitstop" class="md-nav__link">
+    MakeItStop
   </a>
   
 </li>
@@ -2434,16 +2595,23 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#custom-triggers" class="md-nav__link">
-    Custom Triggers
+  <a href="#secrets-apis" class="md-nav__link">
+    Secrets APIs
   </a>
   
-    <nav class="md-nav" aria-label="Custom Triggers">
+    <nav class="md-nav" aria-label="Secrets APIs">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#type-configuration_3" class="md-nav__link">
-    Type Configuration
+  <a href="#getsecret" class="md-nav__link">
+    GetSecret
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storesecret" class="md-nav__link">
+    StoreSecret
   </a>
   
 </li>
@@ -2454,16 +2622,72 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#publish-topic-placeholders" class="md-nav__link">
-    Publish Topic Placeholders
+  <a href="#client-apis" class="md-nav__link">
+    Client APIs
   </a>
   
-    <nav class="md-nav" aria-label="Publish Topic Placeholders">
+    <nav class="md-nav" aria-label="Client APIs">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
-    Example
+  <a href="#loggingclient" class="md-nav__link">
+    LoggingClient
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registryclient" class="md-nav__link">
+    RegistryClient
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eventclient" class="md-nav__link">
+    EventClient
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commandclient" class="md-nav__link">
+    CommandClient
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notificationclient" class="md-nav__link">
+    NotificationClient
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subscriptionclient" class="md-nav__link">
+    SubscriptionClient
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deviceserviceclient" class="md-nav__link">
+    DeviceServiceClient
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deviceprofileclient" class="md-nav__link">
+    DeviceProfileClient
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deviceclient" class="md-nav__link">
+    DeviceClient
   </a>
   
 </li>
@@ -2474,9 +2698,63 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#received-topic" class="md-nav__link">
-    Received Topic
+  <a href="#background-publisher-apis" class="md-nav__link">
+    Background Publisher APIs
   </a>
+  
+    <nav class="md-nav" aria-label="Background Publisher APIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#addbackgroundpublisher" class="md-nav__link">
+    AddBackgroundPublisher
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#addbackgroundpublisherwithtopic" class="md-nav__link">
+    AddBackgroundPublisherWithTopic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buildcontext" class="md-nav__link">
+    BuildContext
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-apis" class="md-nav__link">
+    Other APIs
+  </a>
+  
+    <nav class="md-nav" aria-label="Other APIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#addroute" class="md-nav__link">
+    AddRoute
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registercustomtriggerfactory" class="md-nav__link">
+    RegisterCustomTriggerFactory
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2492,7 +2770,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/microservices/application/Triggers.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/microservices/application/ApplicationServiceAPI.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg>
                   </a>
                 
@@ -2500,322 +2778,373 @@
                   
                 
                 
-                <h1 id="application-service-triggers">Application Service Triggers</h1>
-<h2 id="introduction">Introduction</h2>
-<p>Triggers determine how the App Functions Pipeline begins execution. The trigger is determined by the <code>[Trigger]</code> configuration section in the  <code>configuration.toml</code> file.   </p>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>For Edgex 2.0 the <code>[Binding]</code> configuration section has been renamed to <code>[Trigger]</code>. The  <code>[MessageBus]</code> section has been renamed to <code>EdgexMessageBus</code> and moved under the <code>[Trigger]</code> section. The <code>[MqttBroker]</code> section has been renamed to <code>ExternalMqtt</code> and moved under the <code>[Trigger]</code> section.</p>
-</div>
-<p>There are 4 types of <code>Triggers</code> supported in the App Functions SDK which are discussed in this document</p>
-<ol>
-<li><strong><a href="#edgex-messagebus-trigger">EdgeX Message Bus</a></strong> - Default Trigger for most use cases as this is how the App Services receive Events from EdgeX Core Data and/or Devices Services</li>
-<li><strong><a href="#external-mqtt-trigger">External MQTT</a></strong> - Useful when receiving commands from an external/Cloud MQTT broker.</li>
-<li><strong><a href="#http-trigger">HTTP</a></strong> - Useful during development and testing of custom functions. </li>
-<li><strong><a href="#custom-triggers">Custom</a></strong> - Allows custom Application Services to implement their own Custom Trigger</li>
-</ol>
-<h2 id="edgex-messagebus-trigger">EdgeX MessageBus Trigger</h2>
-<p>An EdgeX MessageBus trigger will execute the pipeline every time data is received from the configured Edgex MessageBus <code>SubscribeTopics</code>.  The EdgeX MessageBus is the central message bus internal to EdgeX and has a specific message envelope that wraps all data published to this message bus.</p>
-<p>There currently are three implementations of the EdgeX MessageBus available to be used. These are <code>Redis Pub/Sub</code>(default), <code>MQTT</code> and <code>ZeroMQ</code>. The implementation type is selected via the <code>[Trigger.EdgexMessageBus]</code> configuration described below.</p>
-<h3 id="type-configuration">Type Configuration</h3>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>For EdgeX 2.0 the <code>SubscribeTopic</code> has been renamed to <code>SubscribeTopics</code> and moved under the <strong>EdgexMessageBus</strong> <code>SubscribeHost</code> section. The <code>PublishTopic</code> has also been moved under the <strong>EdgexMessageBus</strong> <code>PublishHost</code> section. Also the legacy <code>type</code> of <code>messagebus</code> has been removed.</p>
-</div>
-<p>Here's an example:</p>
-<p><div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span>
-<span class="n">Type</span><span class="o">=</span><span class="s">&quot;edgex-messagebus&quot;</span>
-</code></pre></div>
-The <code>Type=</code> is set to <code>edgex-messagebus</code> trigger type. The Context function <code>ctx.SetResponseData([]byte outputData)</code> stores the data to send back to the EdgeX MessageBus on the topic specified by the PublishHost <code>PublishTopic=</code> setting.</p>
-<h3 id="messagebus-connection-configuration">MessageBus Connection Configuration</h3>
-<p>The other piece of configuration required are the connection settings:
-<div class="highlight"><pre><span></span><code><span class="k">[Trigger.EdgexMessageBus]</span>
-<span class="n">Type</span> <span class="o">=</span> <span class="s">&#39;redis&#39;</span> <span class="c1"># message bus type (i.e &#39;redis`, `mqtt` or `zero` for ZeroMQ)</span>
-    <span class="k">[Trigger.EdgexMessageBus.SubscribeHost]</span>
-        <span class="n">Host</span> <span class="o">=</span> <span class="s">&#39;localhost&#39;</span>
-        <span class="n">Port</span> <span class="o">=</span> <span class="mi">6379</span>
-        <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&#39;redis&#39;</span>
-        <span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#&quot;</span>
-    <span class="k">[Trigger.EdgexMessageBus.PublishHost]</span>
-        <span class="n">Host</span> <span class="o">=</span> <span class="s">&#39;localhost&#39;</span>
-        <span class="n">Port</span> <span class="o">=</span> <span class="mi">6379</span>
-        <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&#39;redis&#39;</span>
-        <span class="n">PublishTopic</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="c1"># optional if publishing response back to the MessageBus</span>
-</code></pre></div></p>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>For Edgex 2.0 the <code>PublishTopic</code> can now have placeholders. See <a href="#publish-topic-placeholders">Publish Topic Placeholders</a> section below for more details</p>
-</div>
-<p>As stated above there are three EdgeX MessageBus implementations you can choose from. These type values are as follows:</p>
-<div class="highlight"><pre><span></span><code>redis - for Redis Pub/Sub (Requires Redis running and Core Data and/or Device Services configure to use Redis Pub/Sub)
-mqtt  - for MQTT (Requires a MQTT Broker running and Core Data and/or Device Services configure to use MQTT)
-zero  - for ZeroMQ (No Broker/Service required. Core Data must be configured to use Zero and Device service configure to use REST to Core Data)
-</code></pre></div>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>For Edgex 2.0 Redis is now the default EdgeX MessageBus implementation used. Also, the Redis implementation changed from <code>Redis streams</code> to <code>Redis Pub/Sub</code>, thus the type value changed from <code>redisstreams</code> to <code>redis</code></p>
-</div>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>When using ZMQ for the message bus, the Publish Host <strong>MUST</strong> be different for each publisher to since the they will bind to the specific port. 5563 for example cannot be used to publish since <code>EdgeX Core Data</code> has bound to that port. Similarly, you cannot have two separate instances of the app functions SDK running and publishing to the same port. This is why once Device services started publishing the the EdgeX MessageBus the default was changed to <code>Redis Pub/Sub</code></p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>When using MQTT for the message bus, there is additional configuration required for specifying the MQTT specific options. </p>
-</div>
-<h3 id="example-using-mqtt">Example Using MQTT</h3>
-<p>Here is example <code>EdgexMessageBus</code> configuration when using MQTT as the message bus:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Trigger.EdgexMessageBus]</span>
-<span class="n">Type</span> <span class="o">=</span> <span class="s">&quot;mqtt&quot;</span>
-    <span class="k">[Trigger.EdgexMessageBus.SubscribeHost]</span>
-    <span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
-    <span class="n">Port</span> <span class="o">=</span> <span class="mi">1883</span>
-    <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&quot;tcp&quot;</span>
-    <span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#&quot;</span>
-    <span class="k">[Trigger.EdgexMessageBus.PublishHost]</span>
-    <span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
-    <span class="n">Port</span> <span class="o">=</span> <span class="mi">1883</span>
-    <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&quot;tcp&quot;</span>        
-    <span class="n">PublishTopic</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="c1"># optional if publishing response back to the MessageBus</span>
-    <span class="k">[Trigger.EdgexMessageBus.Optional]</span>
-    <span class="c1"># MQTT Specific options</span>
-    <span class="n">ClientId</span> <span class="o">=</span><span class="s">&quot;new-app-service&quot;</span>
-    <span class="n">Qos</span>            <span class="o">=</span> <span class="s">&quot;0&quot;</span> <span class="c1"># Quality of Service values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</span>
-    <span class="n">KeepAlive</span>      <span class="o">=</span> <span class="s">&quot;10&quot;</span> <span class="c1"># Seconds (must be 2 or greater)</span>
-    <span class="n">Retained</span>       <span class="o">=</span> <span class="s">&quot;false&quot;</span>
-    <span class="n">AutoReconnect</span>  <span class="o">=</span> <span class="s">&quot;true&quot;</span>
-    <span class="n">ConnectTimeout</span> <span class="o">=</span> <span class="s">&quot;30&quot;</span> <span class="c1"># Seconds</span>
-    <span class="n">SkipCertVerify</span> <span class="o">=</span> <span class="s">&quot;false&quot;</span>
-    <span class="n">authmode</span> <span class="o">=</span> <span class="s">&#39;none&#39;</span>  <span class="c1"># change to &#39;usernamepassword&#39;, &#39;clientcert&#39;, or &#39;cacert&#39; for secure MQTT messagebus.</span>
-    <span class="n">secretname</span> <span class="o">=</span> <span class="s">&#39;mqtt-bus&#39;</span>
-</code></pre></div>
+                <h1 id="application-service-api">Application Service API</h1>
+<p>The <code>ApplicationService</code> API is the central API for creating an EdgeX Application Service.</p>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
-<p>New for EdgeX 2.0 is the Secure MessageBus when use the <code>Redis Pub/Sub</code> implementation. See the <a href="../../../security/Ch-Secure-MessageBus/">Secure MessageBus</a> documentation for more details.</p>
+<p>For EdgeX 2.0 the <code>ApplicationService</code> API and factory functions replace the direct access to the <code>AppFunctionsSDK</code> struct. </p>
 </div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>Also new for EdgeX 2.0 is the MQTT MessageBus implementation now supports retrieving secrets from the <code>Secret Store</code> for secure MQTT connection, but there is not any facility yet to generate the credentials on first startup and distribute them to all services, as is done with <code>Redis Pub/sub</code>. This MQTT credentials generation and distribution is a future enhancement for EdgeX security services. </p>
-</div>
-<h3 id="filter-by-topics">Filter By Topics</h3>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>New for EdgeX 2.0</p>
-</div>
-<p>App services now have the capability to filter by EdgeX MessageBus topics rather then using Filter functions in the functions pipeline. Filtering by topic is more efficient since the App Service never receives the data off the MessageBus. Core Data and/or Device Services now publish to multi-level topics that include the <code>profilename</code>, <code>devicename</code> and <code>sourcename</code> . Sources are the <code>commandname</code> or <code>resourcename</code> that generated the Event. The publish topics now look like this:</p>
-<div class="highlight"><pre><span></span><code># From Core Data
-edgex/events/core/&lt;profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;
+<p>The new <code>ApplicationService</code> API is as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">ApplicationService</span> <span class="kd">interface</span> <span class="p">{</span>
+    <span class="nx">ApplicationSettings</span><span class="p">()</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span>
+    <span class="nx">GetAppSetting</span><span class="p">(</span><span class="nx">setting</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+    <span class="nx">GetAppSettingStrings</span><span class="p">(</span><span class="nx">setting</span> <span class="kt">string</span><span class="p">)</span> <span class="p">([]</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+    <span class="nx">LoadCustomConfig</span><span class="p">(</span><span class="nx">config</span> <span class="nx">UpdatableConfig</span><span class="p">,</span> <span class="nx">sectionName</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
+    <span class="nx">ListenForCustomConfigChanges</span><span class="p">(</span><span class="nx">configToWatch</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">sectionName</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">changedCallback</span> <span class="kd">func</span><span class="p">(</span><span class="kd">interface</span><span class="p">{}))</span> <span class="kt">error</span>
+    <span class="nx">SetFunctionsPipeline</span><span class="p">(</span><span class="nx">transforms</span> <span class="o">...</span><span class="nx">AppFunction</span><span class="p">)</span> <span class="kt">error</span>
+    <span class="nx">LoadConfigurablePipeline</span><span class="p">()</span> <span class="p">([]</span><span class="nx">AppFunction</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+    <span class="nx">MakeItRun</span><span class="p">()</span> <span class="kt">error</span>
+    <span class="nx">MakeItStop</span><span class="p">()</span>
+    <span class="nx">GetSecret</span><span class="p">(</span><span class="nx">path</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">keys</span> <span class="o">...</span><span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+    <span class="nx">StoreSecret</span><span class="p">(</span><span class="nx">path</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">secretData</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> 
+    <span class="nx">LoggingClient</span><span class="p">()</span> <span class="nx">logger</span><span class="p">.</span><span class="nx">LoggingClient</span>
+    <span class="nx">EventClient</span><span class="p">()</span> <span class="nx">interfaces</span><span class="p">.</span><span class="nx">EventClient</span>
+    <span class="nx">CommandClient</span><span class="p">()</span> <span class="nx">interfaces</span><span class="p">.</span><span class="nx">CommandClient</span>
+    <span class="nx">NotificationClient</span><span class="p">()</span> <span class="nx">interfaces</span><span class="p">.</span><span class="nx">NotificationClient</span>
+    <span class="nx">SubscriptionClient</span><span class="p">()</span> <span class="nx">interfaces</span><span class="p">.</span><span class="nx">SubscriptionClient</span>
+    <span class="nx">DeviceServiceClient</span><span class="p">()</span> <span class="nx">interfaces</span><span class="p">.</span><span class="nx">DeviceServiceClient</span>
+    <span class="nx">DeviceProfileClient</span><span class="p">()</span> <span class="nx">interfaces</span><span class="p">.</span><span class="nx">DeviceProfileClient</span>
+    <span class="nx">DeviceClient</span><span class="p">()</span> <span class="nx">interfaces</span><span class="p">.</span><span class="nx">DeviceClient</span>
+    <span class="nx">RegistryClient</span><span class="p">()</span> <span class="nx">registry</span><span class="p">.</span><span class="nx">Client</span>
+    <span class="nx">AddBackgroundPublisher</span><span class="p">(</span><span class="nx">capacity</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="nx">BackgroundPublisher</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+    <span class="nx">AddBackgroundPublisherWithTopic</span><span class="p">(</span><span class="nx">capacity</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">topic</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">BackgroundPublisher</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+    <span class="nx">BuildContext</span><span class="p">(</span><span class="nx">correlationId</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">contentType</span> <span class="kt">string</span><span class="p">)</span> <span class="nx">AppFunctionContext</span>
+    <span class="nx">AddRoute</span><span class="p">(</span><span class="nx">route</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">handler</span> <span class="kd">func</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">),</span> <span class="nx">methods</span> <span class="o">...</span><span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
+    <span class="nx">RegisterCustomTriggerFactory</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">factory</span> <span class="kd">func</span><span class="p">(</span><span class="nx">TriggerConfig</span><span class="p">)</span> <span class="p">(</span><span class="nx">Trigger</span><span class="p">,</span> <span class="kt">error</span><span class="p">))</span> <span class="kt">error</span>
 
-# From Device Services
-edgex/events/device/&lt;profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;
-</code></pre></div>
-<p>This with App Services capability to have multiple subscriptions allows for multiple filters by subscriptions. The <code>SubscribeTopics</code> setting takes a comma separated list of subscribe topics.</p>
-<p>Here are a few examples of how to configure the <code>SubscribeTopics</code> setting under the <code>Trigger.EdgexMessageBus.SubscribeHost</code> section to filter by subscriptions using the <code>profile</code>, <code>device</code> and <code>source</code> names from the SNMP Device Service file <a href="https://github.com/edgexfoundry/device-snmp-go/tree/master/cmd/res">here</a>:</p>
-<ul>
-<li>Filter for all Events </li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#&quot;</span>
-</code></pre></div>
-<ul>
-<li>Filter for Events only from a single class of devices (device profile defines a class of device)</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#/trendnet/#&quot;</span>
-</code></pre></div>
-<ul>
-<li>Filter for Events only from a single actual device</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#/#/trendnet01/#&quot;</span>
-</code></pre></div>
-<ul>
-<li>Filter for Events from two specific actual devices</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#/#/trendnet01/#, edgex/events/#/#/trendnet02/#&quot;</span>
-</code></pre></div>
-<ul>
-<li>Filter for Events from two specific sources. </li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#/#/#/Uptime, edgex/events/#/#/#/MacAddress&quot;</span>
-</code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Note the use of the <code>#</code> wild card character. This first one is used in the location for where Core Data's and Device Service's publish topics differ. This location will be <code>core</code> when coming from Core Data or <code>device</code> when coming from a Device Service. The additional use of the <code>#</code> in the above examples allows for any <code>Profile</code>, <code>Device</code> or <code>Source</code> when specifying one of the others.</p>
-</div>
-<h2 id="external-mqtt-trigger">External MQTT Trigger</h2>
-<p>An External MQTT trigger will execute the pipeline every time data is received from an external MQTT broker on the configured <code>SubscribeTopics</code>.  </p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The data received from the external MQTT broker is not wrapped with any metadata known to EdgeX. The data is handled as JSON or CBOR. The data is assumed to be JSON unless the first byte in the data is <strong>not</strong> a <code>{</code>  or a <code>[</code>, in which case it is then assumed to be CBOR.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The data received, encoded as JSON or CBOR, must match the <code>TargetType</code> defined by your application service. The default  <code>TargetType</code> is an <code>Edgex Event</code>. See <a href="../AdvancedTopics/#target-type">TargetType</a> for more details.</p>
-</div>
-<h3 id="type-configuration_1">Type Configuration</h3>
-<p>Here's an example:
-<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span>
-<span class="n">Type</span><span class="o">=</span><span class="s">&quot;external-mqtt&quot;</span> 
-</code></pre></div></p>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>For EdgeX 2.0 the <code>SubscribeTopic</code> has been renamed to <code>SubscribeTopics</code> and moved under the <code>ExternalMqtt</code> section. The <code>PublishTopic</code> has also been moved under the <code>ExternalMqtt</code> section.</p>
-</div>
-<p>The <code>Type=</code> is set to <code>external-mqtt</code>. To receive data from the external MQTT Broker you must set your <code>SubscribeTopics=</code> to the appropriate topic(s) that the external publisher is using. You may also designate a <code>PublishTopic=</code> if you wish to publish data back to the external MQTT Broker. The Context function <code>ctx.SetResponseData([]byte outputData)</code> stores the data to send back to the external MQTT Broker on the topic specified by the <code>PublishTopic=</code> setting.</p>
-<h3 id="external-mqtt-broker-configuration">External MQTT Broker Configuration</h3>
-<p>The other piece of configuration required are the MQTT Broker connection settings:
-<div class="highlight"><pre><span></span><code><span class="k">[Trigger.ExternalMqtt]</span>
-    <span class="n">Url</span> <span class="o">=</span> <span class="s">&quot;tcp://localhost:1883&quot;</span> <span class="c1">#  fully qualified URL to connect to the MQTT broker</span>
-    <span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;SomeTopics&quot;</span>
-    <span class="n">PublishTopic</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="c1"># optional if publishing response back to the the External MQTT Broker</span>
-    <span class="n">ClientId</span> <span class="o">=</span> <span class="s">&quot;AppService&quot;</span> 
-    <span class="n">ConnectTimeout</span> <span class="o">=</span> <span class="s">&quot;5s&quot;</span> <span class="c1"># 5 seconds</span>
-    <span class="n">AutoReconnect</span> <span class="o">=</span> <span class="kc">true</span>
-    <span class="n">KeepAlive</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1"># Seconds (must be 2 or greater)</span>
-    <span class="n">QoS</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># Quality of Service 0 (At most once), 1 (At least once) or 2 (Exactly once)</span>
-    <span class="n">Retain</span> <span class="o">=</span> <span class="kc">true</span>
-    <span class="n">SkipCertVerify</span> <span class="o">=</span> <span class="kc">false</span>
-    <span class="n">SecretPath</span> <span class="o">=</span> <span class="s">&quot;mqtt-trigger&quot;</span> 
-    <span class="n">AuthMode</span> <span class="o">=</span> <span class="s">&quot;none&quot;</span> <span class="c1"># Options are &quot;none&quot;, &quot;cacert&quot; , &quot;usernamepassword&quot;, &quot;clientcert&quot;.</span>
-</code></pre></div></p>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>For Edgex 2.0 the <code>PublishTopic</code> can have placeholders. See <a href="#publish-topic-placeholders">Publish Topic Placeholders</a> section below for more details</p>
-</div>
-<h2 id="http-trigger">HTTP Trigger</h2>
-<p>Designating an HTTP trigger will allow the pipeline to be triggered by a RESTful <code>POST</code> call to <code>http://[host]:[port]/api/v2/trigger/</code>. </p>
-<h3 id="type-configuration_2">Type Configuration</h3>
-<p>Here's an example:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span>
-<span class="n">Type</span><span class="o">=</span><span class="s">&quot;http&quot;</span> 
-</code></pre></div>
-<p>The <code>Type=</code> is set to <code>http</code>. This will will enable listening to the <code>api/v2/trigger/</code> endpoint. No other configuration is required. The Context function <code>ctx.SetResponseData([]byte outputData)</code> stores the data to send back as the response to the requestor that originally triggered the HTTP Request. </p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The HTTP trigger uses the <code>content-type</code> from the HTTP Header to determine if the data is JSON or CBOR encoded and the optional <code>X-Correlation-ID</code> to set the correlation ID for the request.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The data received, encoded as JSON or CBOR, must match the <code>TargetType</code> defined by your application service. The default  <code>TargetType</code> is an <code>Edgex Event</code>. See <a href="../AdvancedTopics/#target-type">TargetType</a> for more details.</p>
-</div>
-<h2 id="custom-triggers">Custom Triggers</h2>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>New for EdgeX 2.0 </p>
-</div>
-<p>It is also possible to define your own trigger and register a factory function for it with the SDK.  You can then configure the trigger by registering a factory function to build it along with a name to use in the config file.  These triggers can be registered with:</p>
-<div class="highlight"><pre><span></span><code><span class="nx">service</span><span class="p">.</span><span class="nx">RegisterCustomTriggerFactory</span><span class="p">(</span><span class="s">&quot;my-trigger-name&quot;</span><span class="p">,</span> <span class="nx">myFactoryFunc</span><span class="p">)</span> 
-</code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>You can <strong>NOT</strong> override trigger names built into the SDK ( "edgex-messagebus", "external-mqtt", or "http") for a custom trigger.</p>
-</div>
-<p>The trigger factory function is bound to an instance of a trigger configuration struct that is provided by the SDK:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">TriggerConfig</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">Logger</span>           <span class="nx">logger</span><span class="p">.</span><span class="nx">LoggingClient</span>
-    <span class="nx">ContextBuilder</span>   <span class="nx">TriggerContextBuilder</span>
-    <span class="nx">MessageProcessor</span> <span class="nx">TriggerMessageProcessor</span>
-    <span class="nx">ConfigLoader</span>     <span class="nx">TriggerConfigLoader</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>This type carries a pointer to the internal edgex logger, along with three functions:</p>
+<h2 id="factory-functions">Factory Functions</h2>
+<p>The App Functions SDK provides two factory functions for creating an <code>ApplicationService</code></p>
+<h3 id="newappservice">NewAppService</h3>
+<p><code>NewAppService(serviceKey string) (interfaces.ApplicationService, bool)</code></p>
+<p>This factory function returns an <code>interfaces.ApplicationService</code> using the default Target Type of <code>dtos.Event</code>  and initializes the service. The second <code>bool</code> return parameter will be <code>true</code> if successfully initialized, otherwise it will be <code>false</code> when error(s) occurred during initialization. All error(s) are logged so the caller just needs to call <code>os.Exit(-1)</code> if <code>false</code> is returned.</p>
+<div class="admonition example">
+<p class="admonition-title">Example - NewAppService</p>
+<div class="highlight"><pre><span></span><code>    <span class="kd">const</span> <span class="nx">serviceKey</span> <span class="p">=</span> <span class="s">&quot;app-myservice&quot;</span>
+    <span class="o">...</span>
+
+    <span class="nx">service</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">pkg</span><span class="p">.</span><span class="nx">NewAppService</span><span class="p">(</span><span class="nx">serviceKey</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+        <span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">}</span>
+</code></pre></div>
+</div>
+<h3 id="newappservicewithtargettype">NewAppServiceWithTargetType</h3>
+<p><code>NewAppServiceWithTargetType(serviceKey string, targetType interface{}) (interfaces.ApplicationService, bool)</code></p>
+<p>This factory function returns an <code>interfaces.ApplicationService</code> using the passed in Target Type and initializes the service. The second <code>bool</code> return parameter will be <code>true</code> if successfully initialized, otherwise it will be <code>false</code> when error(s) occurred during initialization. All error(s) are logged so the caller just needs to call <code>os.Exit(-1)</code> if <code>false</code> is returned.</p>
+<p>See the <a href="../AdvancedTopics/#target-type">Target Type</a> advanced topic for more details.</p>
+<div class="admonition example">
+<p class="admonition-title">Example - NewAppServiceWithTargetType</p>
+<div class="highlight"><pre><span></span><code>    <span class="kd">const</span> <span class="nx">serviceKey</span> <span class="p">=</span> <span class="s">&quot;app-myservice&quot;</span>
+    <span class="o">...</span>
+
+    <span class="nx">service</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">pkg</span><span class="p">.</span><span class="nx">NewAppServiceWithTargetType</span><span class="p">(</span><span class="nx">serviceKey</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">[]</span><span class="kt">byte</span><span class="p">{})</span>
+    <span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+        <span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">}</span>
+</code></pre></div>
+</div>
+<h2 id="custom-configuration-apis">Custom Configuration APIs</h2>
+<p>The following <code>ApplicationService</code> APIs allow your service to access their custom configuration from the TOML file and/or Configuration Provider. See the <a href="../AdvancedTopics/#custom-configuration">Custom Configuration</a> advanced topic for more details.</p>
+<h3 id="applicationsettings">ApplicationSettings</h3>
+<p><code>ApplicationSettings() map[string]string</code></p>
+<p>This API returns the complete key/value map of custom settings</p>
+<div class="admonition example">
+<p class="admonition-title">Example - ApplicationSettings</p>
+<div class="highlight"><pre><span></span><code><span class="k">[ApplicationSettings]</span>
+<span class="n">Greeting</span> <span class="o">=</span> <span class="s">&quot;Hello World&quot;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nx">appSettings</span> <span class="o">:=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">ApplicationSettings</span><span class="p">()</span>
+<span class="nx">greeting</span> <span class="o">:=</span> <span class="nx">appSettings</span><span class="p">[</span><span class="s">&quot;Greeting&quot;</span><span class="p">]</span>
+<span class="nx">service</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="nx">greeting</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<h3 id="getappsetting">GetAppSetting</h3>
+<p><code>GetAppSetting(setting string) (string, error)</code></p>
+<p>This API is a convenience API that returns a single setting from the <code>[ApplicationSetting]</code>
+ section of the service configuration. An error is returned if the specified setting is not found.</p>
+<div class="admonition example">
+<p class="admonition-title">Example - GetAppSetting</p>
+<div class="highlight"><pre><span></span><code><span class="k">[ApplicationSettings]</span>
+<span class="n">Greeting</span> <span class="o">=</span> <span class="s">&quot;Hello World&quot;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nx">greeting</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">GetAppSetting</span><span class="p">[</span><span class="s">&quot;Greeting&quot;</span><span class="p">]</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+<span class="nx">service</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="nx">greeting</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<h3 id="getappsettingstrings">GetAppSettingStrings</h3>
+<p><code>GetAppSettingStrings(setting string) ([]string, error)</code></p>
+<p>This API is a convenience API that parses the string value for the specified custom application setting as a comma separated list. It returns the list of strings. An error is returned if the specified setting is not found.</p>
+<div class="admonition example">
+<p class="admonition-title">Example - GetAppSettingStrings</p>
+<div class="highlight"><pre><span></span><code><span class="k">[ApplicationSettings]</span>
+<span class="n">Greetings</span> <span class="o">=</span> <span class="s">&quot;Hello World, Welcome World, Hi World&quot;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nx">greetings</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">GetAppSettingStrings</span><span class="p">[</span><span class="s">&quot;Greetings&quot;</span><span class="p">]</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">greeting</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">greetings</span> <span class="p">{</span>
+  <span class="nx">service</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="nx">greeting</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<h3 id="loadcustomconfig">LoadCustomConfig</h3>
+<p><code>LoadCustomConfig(config UpdatableConfig, sectionName string) error</code></p>
+<p>This API loads the service's Structured Custom Configuration from local file or the Configuration Provider (if enabled). The Configuration Provider will also be seeded with the custom configuration if service is using the Configuration Provider. The <code>UpdateFromRaw</code> API (<code>UpdatableConfig</code> interface) will be called on the custom configuration when the configuration is loaded from the Configuration Provider. The custom config must implement the <code>UpdatableConfig</code> interface.</p>
+<div class="admonition example">
+<p class="admonition-title">Example - LoadCustomConfig</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="n">AppCustom</span><span class="p">]</span> <span class="c1"># Can be any name you choose</span>
+<span class="n">ResourceNames</span> <span class="o">=</span> <span class="s">&quot;Boolean, Int32, Uint32, Float32, Binary&quot;</span>
+<span class="n">SomeValue</span> <span class="o">=</span> <span class="mi">123</span>
+  <span class="k">[AppCustom.SomeService]</span>
+  <span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
+  <span class="n">Port</span> <span class="o">=</span> <span class="mi">9080</span>
+  <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&quot;http&quot;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">ServiceConfig</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">AppCustom</span> <span class="nx">AppCustomConfig</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">AppCustomConfig</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">ResourceNames</span> <span class="kt">string</span>
+    <span class="nx">SomeValue</span>     <span class="kt">int</span>
+    <span class="nx">SomeService</span>   <span class="nx">HostInfo</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">ServiceConfig</span><span class="p">)</span> <span class="nx">UpdateFromRaw</span><span class="p">(</span><span class="nx">rawConfig</span> <span class="kd">interface</span><span class="p">{})</span> <span class="kt">bool</span> <span class="p">{</span>
+    <span class="nx">configuration</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">rawConfig</span><span class="p">.(</span><span class="o">*</span><span class="nx">ServiceConfig</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">false</span> <span class="c1">//errors.New(&quot;unable to cast raw config to type &#39;ServiceConfig&#39;&quot;)</span>
+    <span class="p">}</span>
+
+    <span class="o">*</span><span class="nx">c</span> <span class="p">=</span> <span class="o">*</span><span class="nx">configuration</span>
+
+    <span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span>
+
+<span class="o">...</span>
+
+<span class="nx">serviceConfig</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">ServiceConfig</span><span class="p">{}</span>
+<span class="nx">err</span> <span class="o">:=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">LoadCustomConfig</span><span class="p">(</span><span class="nx">serviceConfig</span><span class="p">,</span> <span class="s">&quot;AppCustom&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+  <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<p>See the <a href="https://github.com/edgexfoundry/app-functions-sdk-go/blob/v2.0.0/app-service-template/main.go#L74-L98">App Service Template</a> for a complete example of using Structured Custom Configuration </p>
+<h3 id="listenforcustomconfigchanges">ListenForCustomConfigChanges</h3>
+<p><code>ListenForCustomConfigChanges(configToWatch interface{}, sectionName string, changedCallback func(interface{})) error</code></p>
+<p>This API starts a listener on the Configuration Provider for changes to the specified section of the custom configuration. When changes are received from the Configuration Provider the provided <code>changedCallback</code> function is called with the updated section of configuration. The service must then implement the code to copy the updates into it's copy of the configuration and respond to the updates if needed.</p>
+<div class="admonition example">
+<p class="admonition-title">Example - ListenForCustomConfigChanges</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="n">AppCustom</span><span class="p">]</span> <span class="c1"># Can be any name you choose</span>
+<span class="n">ResourceNames</span> <span class="o">=</span> <span class="s">&quot;Boolean, Int32, Uint32, Float32, Binary&quot;</span>
+<span class="n">SomeValue</span> <span class="o">=</span> <span class="mi">123</span>
+  <span class="k">[AppCustom.SomeService]</span>
+  <span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
+  <span class="n">Port</span> <span class="o">=</span> <span class="mi">9080</span>
+  <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&quot;http&quot;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+
+<span class="nx">err</span> <span class="o">:=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">ListenForCustomConfigChanges</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">serviceConfig</span><span class="p">.</span><span class="nx">AppCustom</span><span class="p">,</span> <span class="s">&quot;AppCustom&quot;</span><span class="p">,</span> <span class="nx">ProcessConfigUpdates</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">app</span><span class="p">.</span><span class="nx">lc</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;unable to watch custom writable configuration: %s&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
+<span class="p">}</span>
+
+<span class="o">...</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">app</span> <span class="o">*</span><span class="nx">myApp</span><span class="p">)</span> <span class="nx">ProcessConfigUpdates</span><span class="p">(</span><span class="nx">rawWritableConfig</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
+    <span class="nx">updated</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">rawWritableConfig</span><span class="p">.(</span><span class="o">*</span><span class="nx">config</span><span class="p">.</span><span class="nx">AppCustomConfig</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+        <span class="o">...</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+
+    <span class="nx">previous</span> <span class="o">:=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">serviceConfig</span><span class="p">.</span><span class="nx">AppCustom</span>
+    <span class="nx">app</span><span class="p">.</span><span class="nx">serviceConfig</span><span class="p">.</span><span class="nx">AppCustom</span> <span class="p">=</span> <span class="o">*</span><span class="nx">updated</span>
+
+    <span class="k">if</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">DeepEqual</span><span class="p">(</span><span class="nx">previous</span><span class="p">,</span> <span class="nx">updated</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">app</span><span class="p">.</span><span class="nx">lc</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="s">&quot;No changes detected&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="nx">previous</span><span class="p">.</span><span class="nx">SomeValue</span> <span class="o">!=</span> <span class="nx">updated</span><span class="p">.</span><span class="nx">SomeValue</span> <span class="p">{</span>
+        <span class="nx">app</span><span class="p">.</span><span class="nx">lc</span><span class="p">.</span><span class="nx">Infof</span><span class="p">(</span><span class="s">&quot;AppCustom.SomeValue changed to: %d&quot;</span><span class="p">,</span> <span class="nx">updated</span><span class="p">.</span><span class="nx">SomeValue</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="nx">previous</span><span class="p">.</span><span class="nx">ResourceNames</span> <span class="o">!=</span> <span class="nx">updated</span><span class="p">.</span><span class="nx">ResourceNames</span> <span class="p">{</span>
+        <span class="nx">app</span><span class="p">.</span><span class="nx">lc</span><span class="p">.</span><span class="nx">Infof</span><span class="p">(</span><span class="s">&quot;AppCustom.ResourceNames changed to: %s&quot;</span><span class="p">,</span> <span class="nx">updated</span><span class="p">.</span><span class="nx">ResourceNames</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">!</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">DeepEqual</span><span class="p">(</span><span class="nx">previous</span><span class="p">.</span><span class="nx">SomeService</span><span class="p">,</span> <span class="nx">updated</span><span class="p">.</span><span class="nx">SomeService</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">app</span><span class="p">.</span><span class="nx">lc</span><span class="p">.</span><span class="nx">Infof</span><span class="p">(</span><span class="s">&quot;AppCustom.SomeService changed to: %v&quot;</span><span class="p">,</span> <span class="nx">updated</span><span class="p">.</span><span class="nx">SomeService</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<p>See the <a href="https://github.com/edgexfoundry/app-functions-sdk-go/blob/v2.0.0/app-service-template/main.go#L74-L98">App Service Template</a> for a complete example of using Structured Custom Configuration </p>
+<h2 id="function-pipeline-apis">Function Pipeline APIs</h2>
+<p>The following <code>ApplicationService</code> APIs allow your service to set the Functions Pipeline and start and stop the Functions Pipeline.</p>
+<h3 id="setfunctionspipeline">SetFunctionsPipeline</h3>
+<p><code>SetFunctionsPipeline(transforms ...AppFunction) error</code></p>
+<p>This API sets up the functions pipeline with the specified list of Application Functions. Note that the functions are executed in the order provided in the list.  An error is returned if the list is empty.</p>
+<div class="admonition example">
+<p class="admonition-title">Example - SetFunctionsPipeline</p>
+<div class="highlight"><pre><span></span><code><span class="nx">sample</span> <span class="o">:=</span> <span class="nx">functions</span><span class="p">.</span><span class="nx">NewSample</span><span class="p">()</span>
+<span class="nx">err</span> <span class="p">=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">SetFunctionsPipeline</span><span class="p">(</span>
+    <span class="nx">transforms</span><span class="p">.</span><span class="nx">NewFilterFor</span><span class="p">(</span><span class="nx">deviceNames</span><span class="p">).</span><span class="nx">FilterByDeviceName</span><span class="p">,</span>
+    <span class="nx">sample</span><span class="p">.</span><span class="nx">LogEventDetails</span><span class="p">,</span>
+    <span class="nx">sample</span><span class="p">.</span><span class="nx">ConvertEventToXML</span><span class="p">,</span>
+    <span class="nx">sample</span><span class="p">.</span><span class="nx">OutputXML</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">app</span><span class="p">.</span><span class="nx">lc</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;SetFunctionsPipeline returned error: %s&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<h3 id="loadconfigurablepipeline">LoadConfigurablePipeline</h3>
+<p><code>LoadConfigurablePipeline() ([]AppFunction, error)</code></p>
+<p>This API loads the function pipeline from configuration.  An error is returned if the configuration is not valid, i.e. missing required function parameters, invalid function name, etc.  </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This API is useful only if the Functions Pipeline is always defined in configuration as is with App Service Configurable.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Example - LoadConfigurablePipeline</p>
+<div class="highlight"><pre><span></span><code><span class="nx">transforms</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">LoadConfigurablePipeline</span><span class="p">()</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+   <span class="nx">lc</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;failed to create function pipeline from configuration: %s&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
+   <span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">SetFunctionsPipeline</span><span class="p">(</span><span class="nx">transforms</span><span class="o">...</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+   <span class="nx">lc</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;Unable to Set the Functions Pipeline: %s&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
+   <span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<h3 id="makeitrun">MakeItRun</h3>
+<p><code>MakeItRun() error</code></p>
+<p>This API starts the configured trigger to allow the Functions Pipeline to execute when the trigger receives data. The internal webserver is also started. This is a long running API which does not return until the service is stopped or MakeItStop() is called. An error is returned if the trigger can not be create or initialized or if the internal webserver encounters an error.</p>
+<div class="admonition example">
+<p class="admonition-title">Example - MakeItRun</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">MakeItRun</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+   <span class="nx">app</span><span class="p">.</span><span class="nx">lc</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;MakeItRun returned error: %s&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
+   <span class="nx">os</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// Do any required cleanup here, if needed</span>
+
+<span class="nx">os</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<h3 id="makeitstop">MakeItStop</h3>
+<p><code>MakeItStop()</code></p>
+<p>This API  stops the configured trigger so that the functions pipeline no longer executes. The internal webserver continues to accept requests. See <a href="../AdvancedTopics/#stopping-the-service">Stopping the Service</a> advanced topic for more details</p>
+<div class="admonition example">
+<p class="admonition-title">Example - MakeItStop</p>
+<div class="highlight"><pre><span></span><code><span class="nx">service</span><span class="p">.</span><span class="nx">MakeItStop</span><span class="p">()</span>
+<span class="o">...</span>
+</code></pre></div>
+</div>
+<h2 id="secrets-apis">Secrets APIs</h2>
+<p>The following <code>ApplicationService</code> APIs allow your service retrieve and store secrets from/to the service's SecretStore. See the <a href="../AdvancedTopics/#secrets">Secrets</a> advanced topic for more details about using secrets.</p>
+<h3 id="getsecret">GetSecret</h3>
+<p><code>GetSecret(path string, keys ...string) (map[string]string, error)</code></p>
+<p>This API returns the secret data from the secret store (secure or insecure) for the specified path. An error is returned if the path is not found or any of the keys (if specified) are not found. Omit keys if all secret data for the specified path is required.</p>
+<div class="admonition example">
+<p class="admonition-title">Example - GetSecret</p>
+<div class="highlight"><pre><span></span><code><span class="nx">secretData</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">GetSecret</span><span class="p">(</span><span class="s">&quot;mqtt&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+   <span class="o">...</span>
+<span class="p">}</span>
+<span class="nx">username</span> <span class="o">:=</span> <span class="nx">secretData</span><span class="p">[</span><span class="s">&quot;user&quot;</span><span class="p">]</span>
+<span class="nx">password</span> <span class="o">:=</span> <span class="nx">secretData</span><span class="p">[</span><span class="s">&quot;password&quot;</span><span class="p">]</span>
+<span class="o">...</span>
+</code></pre></div>
+</div>
+<h3 id="storesecret">StoreSecret</h3>
+<p><code>StoreSecret(path string, secretData map[string]string) error</code></p>
+<p>This API stores the specified secret data into the secret store (secure mode only) for the specified path
+An error is returned if:</p>
 <ul>
-<li><code>ContextBuilder</code> builds an <code>interfaces.AppFunctionContext</code> from a message envelope you construct.</li>
-<li><code>MessageProcessor</code> exposes a function that sends your message envelope and context built above into the edgex function pipeline.</li>
-<li><code>ConfigLoader</code> exposes a function that loads your custom config struct.  By default this is done from the primary EdgeX configuration pipeline, and only loads root-level elements.</li>
+<li>Specified secret data is empty</li>
+<li>Not using the secure secret store, i.e. not valid with InsecureSecrets configuration</li>
+<li>Secure secret provider is not properly initialized</li>
+<li>Connection issues with Secret Store service.</li>
 </ul>
-<p>If you need to override these functions it can be done in the factory function registered with the service.</p>
-<p>The custom trigger constructed here will then need to implement the trigger interface so that the SDK can invoke it:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">Trigger</span> <span class="kd">interface</span> <span class="p">{</span>
-    <span class="nx">Initialize</span><span class="p">(</span><span class="nx">wg</span> <span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">,</span> <span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">background</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="nx">BackgroundMessage</span><span class="p">)</span> <span class="p">(</span><span class="nx">bootstrap</span><span class="p">.</span><span class="nx">Deferred</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="kd">type</span> <span class="nx">BackgroundMessage</span> <span class="kd">interface</span> <span class="p">{</span>
-    <span class="nx">Message</span><span class="p">()</span> <span class="nx">types</span><span class="p">.</span><span class="nx">MessageEnvelope</span>
-    <span class="nx">Topic</span><span class="p">()</span> <span class="kt">string</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>This leaves a lot of flexibility for how you want the trigger to behave (for example you could write a trigger to watch for file changes, or run on a timer).  Below is a sample implementation of a trigger that reads lines from os.Stdin and pass the captured string through the edgex function pipeline.  In this case the target type for the service is set to <code>&amp;[]byte{}</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">stdinTrigger</span> <span class="kd">struct</span><span class="p">{</span>
-    <span class="nx">tc</span> <span class="nx">appsdk</span><span class="p">.</span><span class="nx">TriggerConfig</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">stdinTrigger</span><span class="p">)</span> <span class="nx">Initialize</span><span class="p">(</span><span class="nx">wg</span> <span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">,</span> <span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">_</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="nx">interfaces</span><span class="p">.</span><span class="nx">BackgroundMessage</span><span class="p">)</span> <span class="p">(</span><span class="nx">bootstrap</span><span class="p">.</span><span class="nx">Deferred</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">msgs</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span>
-
-    <span class="nx">receiveMessage</span> <span class="o">:=</span> <span class="kc">true</span>
-
-    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">fmt</span><span class="p">.</span><span class="nx">Print</span><span class="p">(</span><span class="s">&quot;&gt; &quot;</span><span class="p">)</span>
-        <span class="nx">rdr</span> <span class="o">:=</span> <span class="nx">bufio</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdin</span><span class="p">)</span>
-        <span class="k">for</span> <span class="nx">receiveMessage</span> <span class="p">{</span>
-            <span class="nx">s</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">rdr</span><span class="p">.</span><span class="nx">ReadString</span><span class="p">(</span><span class="sc">&#39;\n&#39;</span><span class="p">)</span>
-            <span class="nx">s</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimRight</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">)</span>
-
-            <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-                <span class="nx">t</span><span class="p">.</span><span class="nx">tc</span><span class="p">.</span><span class="nx">Logger</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
-                <span class="k">continue</span>
-            <span class="p">}</span>
-
-            <span class="nx">msgs</span> <span class="o">&lt;-</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>
-        <span class="p">}</span>
-    <span class="p">}()</span>
-
-    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">for</span> <span class="nx">receiveMessage</span> <span class="p">{</span>
-            <span class="k">select</span> <span class="p">{</span>
-            <span class="k">case</span> <span class="o">&lt;-</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">Done</span><span class="p">():</span>
-                <span class="nx">receiveMessage</span> <span class="p">=</span> <span class="kc">false</span>
-
-            <span class="k">case</span> <span class="nx">m</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">msgs</span><span class="p">:</span>
-                <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-                    <span class="nx">env</span> <span class="o">:=</span> <span class="nx">types</span><span class="p">.</span><span class="nx">MessageEnvelope</span><span class="p">{</span>
-                        <span class="nx">Payload</span><span class="p">:</span> <span class="nx">m</span><span class="p">,</span>
-                    <span class="p">}</span>
-
-                    <span class="nx">ctx</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">tc</span><span class="p">.</span><span class="nx">ContextBuilder</span><span class="p">(</span><span class="nx">env</span><span class="p">)</span>
-
-                    <span class="nx">err</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">tc</span><span class="p">.</span><span class="nx">MessageProcessor</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">env</span><span class="p">)</span>
-
-                    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-                        <span class="nx">t</span><span class="p">.</span><span class="nx">tc</span><span class="p">.</span><span class="nx">Logger</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
-                    <span class="p">}</span>
-                <span class="p">}()</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}()</span>
-
-    <span class="k">return</span> <span class="nx">cancel</span><span class="p">,</span> <span class="kc">nil</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>This trigger can then be registered by calling:</p>
-<div class="highlight"><pre><span></span><code><span class="nx">appService</span><span class="p">.</span><span class="nx">RegisterCustomTriggerFactory</span><span class="p">(</span><span class="s">&quot;custom-stdin&quot;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">config</span> <span class="nx">appsdk</span><span class="p">.</span><span class="nx">TriggerConfig</span><span class="p">)</span> <span class="p">(</span><span class="nx">appsdk</span><span class="p">.</span><span class="nx">Trigger</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="o">&amp;</span><span class="nx">stdinTrigger</span><span class="p">{</span>
-        <span class="nx">tc</span><span class="p">:</span> <span class="nx">config</span><span class="p">,</span>
-    <span class="p">},</span> <span class="kc">nil</span>
-<span class="p">})</span>
-</code></pre></div>
-<h3 id="type-configuration_3">Type Configuration</h3>
-<p>Here's an example:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span>
-<span class="n">Type</span><span class="o">=</span><span class="s">&quot;custom-stdin&quot;</span> 
-</code></pre></div>
-<p>Now the custom trigger is configured to be used rather than one of the built-in triggers.</p>
-<p>A complete working example can be found <a href="https://github.com/edgexfoundry/edgex-examples/tree/master/application-services/custom/custom-trigger"><strong>here</strong></a></p>
-<h2 id="publish-topic-placeholders">Publish Topic Placeholders</h2>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>New for EdgeX 2.0 </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Typically Application Services only needs to retrieve secrets via the code. The <code>/secret</code> REST API is used to seed secrets into the service's SecretStore.</p>
 </div>
-<p>Both the <code>EdgeX MessageBus</code>and the <code>External MQTT</code> triggers support the new <strong>Publish Topic Placeholders</strong> capability. The configured <code>PublishTopic</code> for either of these triggers can contain placeholders for runtime replacements. The placeholders are replaced with values from the new <code>Context Storage</code> whos key match the placeholder name. Function pipelines can add values to the <code>Context Storage</code> which can then be used as replacement values in the publish topic. If an EdgeX Event is received by the configured trigger the Event's <code>profilename</code>, <code>devicename</code> and <code>sourcename</code> as well as the will be seeded into the <code>Context Storage</code>. See the <a href="../AppFunctionContextAPI/#context-storage">Context Storage</a> documentation for more details.</p>
-<p>The <strong>Publish Topic Placeholders</strong> format is a simple <code>{&lt;key-name&gt;}</code> that can appear anywhere in the topic multiple times. An error will occur if a specified placeholder does not exist in the  <code>Context Storage</code>. </p>
-<h3 id="example">Example</h3>
-<div class="highlight"><pre><span></span><code><span class="n">PublishTopic</span> <span class="o">=</span> <span class="s">&quot;data/{profilename}/{devicename}/{custom}&quot;</span>
+<div class="admonition example">
+<p class="admonition-title">Example - StoreSecret</p>
+<div class="highlight"><pre><span></span><code><span class="nx">secretData</span> <span class="o">:=</span> <span class="nx">generateMqttCredentials</span><span class="p">()</span>
+<span class="nx">err</span> <span class="o">:=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">StoreSecret</span><span class="p">(</span><span class="s">&quot;mqtt&quot;</span><span class="p">,</span> <span class="nx">secretData</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+   <span class="o">...</span>
+<span class="p">}</span>
+<span class="o">...</span>
 </code></pre></div>
-<h2 id="received-topic">Received Topic</h2>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>New for EdgeX 2.0 </p>
 </div>
-<p>The topic the data was received on for <code>EdgeX MessageBus</code> and the <code>External MQTT</code> triggers is now stored in the new <code>Context Storage</code> with the key <code>receivedtopic</code>. This makes it available to pipeline functions via the <code>Context Storage</code> .</p>
+<h2 id="client-apis">Client APIs</h2>
+<p>The following <code>ApplicationService</code> APIs allow your service access the various EdgeX clients and their APIs.</p>
+<h3 id="loggingclient">LoggingClient</h3>
+<p><code>LoggingClient() logger.LoggingClient</code></p>
+<p>This API returns the LoggingClient instance which the service uses to log messages. See the <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/v2.0.0/clients/logger/logger.go#L35-L61">LoggingClient interface</a> for more details. </p>
+<div class="admonition example">
+<p class="admonition-title">Example - LoggingClient</p>
+<div class="highlight"><pre><span></span><code><span class="nx">service</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">().</span><span class="nx">Info</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
+<span class="nx">service</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">().</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;Some error occurred: %w&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<h3 id="registryclient">RegistryClient</h3>
+<p><code>RegistryClient() registry.Client</code></p>
+<p>This API returns the Registry Client. Note the registry must been enabled, otherwise this will return nil.
+See the <a href="https://github.com/edgexfoundry/go-mod-registry/blob/v2.0.0/registry/interface.go#L23-L40">Registry Client interface</a> for more details. Useful if service needs to add additional health checks or needs to get endpoint of another registered service. </p>
+<h3 id="eventclient">EventClient</h3>
+<p><code>EventClient() interfaces.EventClient</code></p>
+<p>This API returns the Event Client. Note if Core Data is not specified in the Clients configuration, this will return nil. See the <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/v2.0.0/clients/interfaces/event.go#L18-L43">Event Client interface</a> for more details. Useful for adding, deleting  or querying Events.</p>
+<h3 id="commandclient">CommandClient</h3>
+<p><code>CommandClient() interfaces.CommandClient</code></p>
+<p>This API returns the Command Client. Note if Support Command is not specified in the Clients configuration, this will return nil. See the <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/v2.0.0/clients/interfaces/command.go#L16-L31">Command Client interface</a> for more details. Useful for issuing commands to devices.</p>
+<h3 id="notificationclient">NotificationClient</h3>
+<p><code>NotificationClient() interfaces.NotificationClient</code></p>
+<p>This API returns the Notification Client. Note if Support Notifications is not specified in the Clients configuration, this will return nil. See the <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/v2.0.0/clients/interfaces/notification.go#L17-L44">Notification Client interface</a> for more details. Useful for sending notifications.</p>
+<h3 id="subscriptionclient">SubscriptionClient</h3>
+<p><code>SubscriptionClient() interfaces.SubscriptionClient</code></p>
+<p>This API returns the Subscription client. Note if Support Notifications is not specified in the Clients configuration, this will return nil. See the <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/v2.0.0/clients/interfaces/subscription.go#L17-L35">Subscription Client interface</a> for more details. Useful for creating notification subscriptions.</p>
+<h3 id="deviceserviceclient">DeviceServiceClient</h3>
+<p><code>DeviceServiceClient() interfaces.DeviceServiceClient</code></p>
+<p>This API returns the Device Service Client. Note if Core Metadata is not specified in the Clients configuration, this will return nil. See the <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/v2.0.0/clients/interfaces/subscription.go#L17-L35">Device Service Client interface</a> for more details. Useful for querying information about a Device Service.</p>
+<h3 id="deviceprofileclient">DeviceProfileClient</h3>
+<p><code>DeviceProfileClient() interfaces.DeviceProfileClient</code></p>
+<p>This API returns the Device Profile Client. Note if Core Metadata is not specified in the Clients configuration, this will return nil. See the <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/v2.0.0/clients/interfaces/deviceprofile.go#L17-L41">Device Profile Client interface</a> for more details. Useful for querying information about a Device Profile such as Device Resource details.</p>
+<h3 id="deviceclient">DeviceClient</h3>
+<p><code>DeviceClient() interfaces.DeviceClient</code></p>
+<p>This API returns the Device Client. Note if Core Metadata is not specified in the Clients configuration, this will return nil. See the <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/v2.0.0/clients/interfaces/device.go#L17-L44">Device Client interface</a> for more details. Useful for querying list of devices for a specific Device Service or Device Profile.</p>
+<h2 id="background-publisher-apis">Background Publisher APIs</h2>
+<p>The following <code>ApplicationService</code> APIs allow Application Services to have background publishers. See the <a href="../AdvancedTopics/#background-publishing">Background Publishing</a> advanced topic for more details and example.</p>
+<h3 id="addbackgroundpublisher">AddBackgroundPublisher</h3>
+<p><code>AddBackgroundPublisher(capacity int) (BackgroundPublisher, error)</code></p>
+<p>This API adds and returns a BackgroundPublisher which is used to publish asynchronously to the Edgex MessageBus. Not valid for use with the HTTP or External MQTT triggers</p>
+<h3 id="addbackgroundpublisherwithtopic">AddBackgroundPublisherWithTopic</h3>
+<p><code>AddBackgroundPublisherWithTopic(capacity int, topic string) (BackgroundPublisher, error)</code></p>
+<p>This API adds and returns a BackgroundPublisher which is used to publish asynchronously to the Edgex MessageBus on the specified topic. Not valid for use with the HTTP or External MQTT triggers. </p>
+<h3 id="buildcontext">BuildContext</h3>
+<p><code>BuildContext(correlationId string, contentType string) AppFunctionContext</code></p>
+<p>This API allows external callers that may need a context (eg background publishers) to easily create one.</p>
+<h2 id="other-apis">Other APIs</h2>
+<h3 id="addroute">AddRoute</h3>
+<p><code>AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error</code></p>
+<p>This API adds a custom REST route to the application service's internal webserver.  A reference to the ApplicationService is add the the context that is passed to the handler, which can be retrieved using the <code>AppService</code> key. See <a href="../AdvancedTopics/#custom-rest-endpoints">Custom REST Endpoints</a> advanced topic for more details and example.</p>
+<h3 id="registercustomtriggerfactory">RegisterCustomTriggerFactory</h3>
+<p><code>RegisterCustomTriggerFactory(name string, factory func(TriggerConfig) (Trigger, error)) error</code></p>
+<p>This API registers a trigger factory for a custom trigger to be used. See the <a href="../Triggers/#custom-triggers">Custom Triggers</a> section for more details and example.</p>
                 
               
               
@@ -2834,7 +3163,7 @@ edgex/events/device/&lt;profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../GettingStarted/" title="Getting Started" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../ApplicationFunctionsSDK/" title="App Functions SDK Introduction" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
             </div>
@@ -2843,19 +3172,19 @@ edgex/events/device/&lt;profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Getting Started
+                App Functions SDK Introduction
               </div>
             </div>
           </a>
         
         
-          <a href="../ApplicationFunctionsSDK/" title="App Functions SDK Introduction" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../AppFunctionContextAPI/" title="App Function Context API" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                App Functions SDK Introduction
+                App Function Context API
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">

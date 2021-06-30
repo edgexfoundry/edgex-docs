@@ -1271,8 +1271,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../ApplicationFunctionsSDK/" title="App Functions SDK" class="md-nav__link">
-      App Functions SDK
+    <a href="../ApplicationFunctionsSDK/" title="App Functions SDK Introduction" class="md-nav__link">
+      App Functions SDK Introduction
     </a>
   </li>
 
@@ -1283,8 +1283,32 @@
 
 
   <li class="md-nav__item">
-    <a href="../ContextAPI/" title="Context API" class="md-nav__link">
-      Context API
+    <a href="../ApplicationServiceAPI/" title="Application Service API" class="md-nav__link">
+      Application Service API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../AppFunctionContextAPI/" title="App Function Context API" class="md-nav__link">
+      App Function Context API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ErrorHandling/" title="Pipeline Function Error Handling" class="md-nav__link">
+      Pipeline Function Error Handling
     </a>
   </li>
 
@@ -1609,18 +1633,6 @@
   
 </nav>
     
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../ErrorHandling/" title="Pipeline Function Error Handling" class="md-nav__link">
-      Pipeline Function Error Handling
-    </a>
   </li>
 
         
@@ -2929,7 +2941,7 @@
 </table>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
-<p>New for EdgeX 2.0 is the ability to pull the encryption key from the Secret Store. The encryption key must be seeded into the Secret Store using the <code>/api/v2/secret</code> endpoint on the running instance of the Application Service prior to the Encryption function executing. See <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/app-functions-sdk/2.x#/default/post_secret">App Functions SDK swagger</a> for more details on this endpoint.</p>
+<p>New for EdgeX 2.0 is the ability to pull the encryption key from the Secret Store. The encryption key must be seeded into the Secret Store using the <code>/api/v2/secret</code> endpoint on the running instance of the Application Service prior to the Encryption function executing. See <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/app-functions-sdk/2.0.0#/default/post_secret">App Functions SDK swagger</a> for more details on this endpoint.</p>
 </div>
 <h3 id="aes">AES</h3>
 <p><code>EncryptWithAES</code> - This pipeline function receives either a <code>string</code>, <code>[]byte</code>, or <code>json.Marshaller</code> type and encrypts it using AES encryption and returns a <code>[]byte</code> to the pipeline.</p>
@@ -2945,7 +2957,7 @@
 <h3 id="http-export">HTTP Export</h3>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
-<p>For EgdeX 2.0 the signature of the <code>NewHTTPSenderWithSecretHeader</code> factory function has changed. See below for details.</p>
+<p>For EdgeX 2.0 the signature of the <code>NewHTTPSenderWithSecretHeader</code> factory function has changed. See below for details.</p>
 </div>
 <table>
 <thead>
@@ -3017,7 +3029,7 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 <p class="admonition-title">EdgeX 2.0</p>
 <p>URL Formatting is new in EdgeX 2.0</p>
 </div>
-<p>The configured URL is dynamically formatted prior to the POST/PUT request. The default formatter (used if <code>URLFormatter</code> is nil) simply replaces any placeholder text, <code>{key-name}</code>, in the configured URL with matching values from the new <code>Context Storage</code>. An error will occur if a specified placeholder does not exist in the <code>Context Storage</code>. See the <a href="../ContextAPI/#context-storage">Context Storage</a> documentation for more details on seeded values and storing your own values.</p>
+<p>The configured URL is dynamically formatted prior to the POST/PUT request. The default formatter (used if <code>URLFormatter</code> is nil) simply replaces any placeholder text, <code>{key-name}</code>, in the configured URL with matching values from the new <code>Context Storage</code>. An error will occur if a specified placeholder does not exist in the <code>Context Storage</code>. See the <a href="../AppFunctionContextAPI/#context-storage">Context Storage</a> documentation for more details on seeded values and storing your own values.</p>
 <p>The <code>URLFormatter</code> option allows you to override the default formatter with your own custom URL formatting scheme.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
@@ -3093,7 +3105,7 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 <p class="admonition-title">EdgeX 2.0</p>
 <p>Topic Formatting is new in EdgeX 2.0</p>
 </div>
-<p>The configured Topic is dynamically formatted prior to publishing . The default formatter (used if <code>topicFormatter</code> is nil) simply replaces any placeholder text, <code>{key-name}</code>, in the configured <code>Topic</code> with matching values from the new <code>Context Storage</code>. An error will occur if a specified placeholder does not exist in the <code>Context Storage</code>. See the <a href="../ContextAPI/#context-storage">Context Storage</a> documentation for more details on seeded values and storing your own values.</p>
+<p>The configured Topic is dynamically formatted prior to publishing . The default formatter (used if <code>topicFormatter</code> is nil) simply replaces any placeholder text, <code>{key-name}</code>, in the configured <code>Topic</code> with matching values from the new <code>Context Storage</code>. An error will occur if a specified placeholder does not exist in the <code>Context Storage</code>. See the <a href="../AppFunctionContextAPI/#context-storage">Context Storage</a> documentation for more details on seeded values and storing your own values.</p>
 <p>The <code>topicFormatter</code> option allows you to override the default formatter with your own custom topic formatting scheme.</p>
 <h2 id="filtering">Filtering</h2>
 <p>There are four basic types of filtering included in the SDK to add to your pipeline. There is also an option to <code>Filter Out</code> specific items. These provided filter functions return a type of <code>dtos.Event</code>. If filtering results in no remaining data, the pipeline execution for that pass is terminated. If no values are provided for filtering, then data flows through unfiltered.</p>
@@ -3265,7 +3277,7 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../ContextAPI/" title="Context API" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../ErrorHandling/" title="Pipeline Function Error Handling" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
             </div>
@@ -3274,19 +3286,19 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Context API
+                Pipeline Function Error Handling
               </div>
             </div>
           </a>
         
         
-          <a href="../ErrorHandling/" title="Pipeline Function Error Handling" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../AdvancedTopics/" title="Advanced Topics" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Pipeline Function Error Handling
+                Advanced Topics
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
