@@ -1,5 +1,10 @@
 # App Function Context API
-The context parameter passed to each function/transform provides operations and data associated with each execution of the pipeline. Let's take a look at its API:
+The context parameter passed to each function/transform provides operations and data associated with each execution of the pipeline. 
+
+!!! edgey "EdgeX 2.0"
+    For EdgeX 2.0 the `AppFunctionContext` API replaces the direct access to the `appcontext.Context` struct. 
+
+Let's take a look at its API:
 
 ```go
 type AppFunctionContext interface {
@@ -48,7 +53,13 @@ type AppFunctionContext interface {
 
 ### LoggingClient()
 
-Returns a `LoggingClient` to leverage logging libraries/service utilized throughout the EdgeX framework. The SDK has initialized everything so it can be used to log `Trace`, `Debug`, `Warn`, `Info`, and `Error` messages as appropriate. See [simple-filter-xml/main.go](https://github.com/edgexfoundry-holding/app-service-examples/blob/master/app-services/simple-filter-xml/main.go) for an example of how to use the `LoggingClient`.
+Returns a `LoggingClient` to leverage logging libraries/service utilized throughout the EdgeX framework. The SDK has initialized everything so it can be used to log `Trace`, `Debug`, `Warn`, `Info`, and `Error` messages as appropriate. 
+
+!!! example "Example - LoggingClient"
+    ```go
+    ctx.LoggingClient().Info("Hello World")
+    c.LoggingClient().Errorf("Some error occurred: %w", err)
+    ```
 
 ### EventClient()
 
@@ -65,16 +76,16 @@ Returns a `CommandClient`  to leverage Core Command's `Command` API. See [interf
 Returns a `NotificationClient` to leverage Support Notifications' `Notifications` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/interfaces/notification.go) for more details. Useful for sending notifications. Note if Support Notifications is not specified in the Clients configuration, this will return nil.
 
 ### SubscriptionClient()
-Returns a `SubscriptionClient` to leverage Support Notifications' `Subscription` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/http/subscription.go) for more details. Useful for create notification subscriptions. Note if Support Notifications is not specified in the Clients configuration, this will return nil.
+Returns a `SubscriptionClient` to leverage Support Notifications' `Subscription` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/interfaces/subscription.go) for more details. Useful for creating notification subscriptions. Note if Support Notifications is not specified in the Clients configuration, this will return nil.
 
 ### DeviceServiceClient()
-Returns a `DeviceServiceClient` to leverage Core Metadata's `DeviceService` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/http/deviceservice.go) for more details. Useful for querying information about Device Services. Note if Core Metadata is not specified in the Clients configuration, this will return nil. 
+Returns a `DeviceServiceClient` to leverage Core Metadata's `DeviceService` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/interfaces/deviceservice.go) for more details. Useful for querying information about Device Services. Note if Core Metadata is not specified in the Clients configuration, this will return nil. 
 
 ### DeviceProfileClient()
-Returns a `DeviceProfileClient` to leverage Core Metadata's `DeviceProfile` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/http/deviceprofile.go) for more details. Useful for querying information about Device Profiles and is used by the `GetDeviceResource` helper function below. Note if Core Metadata is not specified in the Clients configuration, this will return nil. 
+Returns a `DeviceProfileClient` to leverage Core Metadata's `DeviceProfile` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/interfaces/deviceprofile.go) for more details. Useful for querying information about Device Profiles and is used by the `GetDeviceResource` helper function below. Note if Core Metadata is not specified in the Clients configuration, this will return nil. 
 
 ### DeviceClient()
-Returns a `DeviceClient` to leverage Core Metadata's `Device` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/http/device.go) for more details. Useful for querying information about Devices. Note if Core Metadata is not specified in the Clients configuration, this will return nil. 
+Returns a `DeviceClient` to leverage Core Metadata's `Device` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/interfaces/device.go) for more details. Useful for querying information about Devices. Note if Core Metadata is not specified in the Clients configuration, this will return nil. 
 
 ### Note about Clients
 
@@ -105,7 +116,19 @@ Each of the clients above is only initialized if the Clients section of the conf
 ```
 
 ## Context Storage
-The context API exposes a map-like interface that can be used to store custom data specific to a given pipeline execution.  This data is persisted for retry if needed.  Currently only strings are supported, and keys are treated as case-insensitive.  Storage can be accessed using the following methods:
+The context API exposes a map-like interface that can be used to store custom data specific to a given pipeline execution.  This data is persisted for retry if needed.  Currently only strings are supported, and keys are treated as case-insensitive.  
+
+There following values are seeded into the Context Storage when an Event is received:
+
+- Profile Name (key to retrieve value is `interfaces.PROFILENAME`)
+- Device Name  (key to retrieve value is `interfaces.DEVICENAME `)
+- Source Name  (key to retrieve value is `interfaces.SOURCENAME  `)
+- Received Topic  (key to retrieve value is `interfaces.RECEIVEDTOPIC   `)
+
+!!! note
+    Received Topic only available when the message was received from the Edgex MessageBus or External MQTT triggers.
+
+Storage can be accessed using the following methods:
 
 ### AddValue()
 `AddValue(key string, value string)` stores a value for access within a pipeline execution
@@ -146,13 +169,14 @@ The context API exposes a map-like interface that can be used to store custom da
 `PushToCore(event dtos.Event)` is used to push data to EdgeX Core Data so that it can be shared with other applications that are subscribed to the message bus that core-data publishes to. This function will return the new EdgeX Event with the ID populated, along with any error encountered.  Note that CorrelationId will not be available.
 
 !!! note
-If validation is turned on in CoreServices then your deviceName and readingName must exist in the CoreMetadata and be properly registered in EdgeX.
+    If validation is turned on in CoreServices then your deviceName and readingName must exist in the CoreMetadata and be properly registered in EdgeX.
 
 !!! warning
-Be aware that without a filter in your pipeline, it is possible to create an infinite loop when the Message Bus trigger is used. Choose your device-name and reading name appropriately.
+    Be aware that without a filter in your pipeline, it is possible to create an infinite loop when the Message Bus trigger is used. Choose your device-name and reading name appropriately.
 
 ### SetRetryData()
-`SetRetryData(data []byte)` can be used to store data for later retry. This is useful when creating a custom export function that needs to retry on failure. The payload data will be stored for later retry based on `Store and Forward` configuration. When the retry is triggered, the function pipeline will be re-executed starting with the function that called this API. That function will be passed the stored data, so it is important that all transformations occur in functions prior to the export function. The `Context` will also be restored to the state when the function called this API. See [Store and Forward](#store-and-forward) for more details.
+`SetRetryData(data []byte)` can be used to store data for later retry. This is useful when creating a custom export function that needs to retry on failure. The payload data will be stored for later retry based on `Store and Forward` configuration. When the retry is triggered, the function pipeline will be re-executed starting with the function that called this API. That function will be passed the stored data, so it is important that all transformations occur in functions prior to the export function. The `Context` will also be restored to the state when the function called this API. See [Store and Forward](../AdvancedTopics/#store-and-forward) for more details.
 
 !!! note
-`Store and Forward` be must enabled when calling this API.
+    `Store and Forward` be must enabled when calling this API, otherwise the data is ignored.
+

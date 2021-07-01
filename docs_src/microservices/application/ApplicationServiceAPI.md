@@ -3,7 +3,7 @@
 The `ApplicationService` API is the central API for creating an EdgeX Application Service.
 
 !!! edgey "EdgeX 2.0"
-    For EdgeX 2.0 the `ApplicationService` API and factory functions replace the direct access to the `AppFunctionsSDK ` struct. 
+    For EdgeX 2.0 the `ApplicationService` API and factory functions replace direct access to the `AppFunctionsSDK ` struct. 
 
 The new `ApplicationService` API is as follows:
 
