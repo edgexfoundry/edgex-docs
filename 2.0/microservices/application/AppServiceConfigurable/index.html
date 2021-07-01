@@ -2513,11 +2513,13 @@
 <p>App-Service-Configurable is provided as an easy way to get started with processing data flowing through EdgeX. This service leverages the <a href="https://github.com/edgexfoundry/app-functions-sdk-go">App Functions SDK</a> and provides a way for developers to use configuration instead of having to compile standalone services to utilize built in functions in the SDK. Please refer to <a href="#available-configurable-pipeline-functions">Available Configurable Pipeline Functions</a>  section below for full list of built-in functions that can be used in the configurable pipeline. </p>
 <p>To get started with App Service Configurable, you'll want to start by determining which functions are required in your pipeline. Using a simple example, let's assume you wish to use the following functions from the SDK:</p>
 <ol>
-<li><a href="../ApplicationFunctionsSDK/#filtering">FilterByDeviceName</a> -  to filter events for a specific device.</li>
-<li><a href="../ApplicationFunctionsSDK/#conversion">Transform</a> - to transform the data to XML</li>
-<li><a href="../ApplicationFunctionsSDK/#export-functions">HTTPExport</a> - to send the data to an HTTP endpoint that takes our XML data   </li>
+<li><a href="../BuiltIn/#by-device-name">FilterByDeviceName</a> -  to filter events for a specific device.</li>
+<li><a href="../BuiltIn/#xml">Transform</a> - to transform the data to XML</li>
+<li><a href="../BuiltIn/#http-export">HTTPExport</a> - to send the data to an HTTP endpoint that takes our XML data   </li>
 </ol>
-<p>Once the functions have been identified, we'll go ahead and build out the configuration in the <code>configuration.toml</code> file under the <code>[Writable.Pipeline]</code> section:</p>
+<p>Once the functions have been identified, we'll go ahead and build out the configuration in the <code>configuration.toml</code> file under the <code>[Writable.Pipeline]</code> section.</p>
+<div class="admonition example">
+<p class="admonition-title">Example - Writable.Pipeline</p>
 <div class="highlight"><pre><span></span><code><span class="k">[Writable]</span>
   <span class="n">LogLevel</span> <span class="o">=</span> <span class="s">&#39;DEBUG&#39;</span>
   <span class="k">[Writable.Pipeline]</span>
@@ -2534,6 +2536,7 @@
       <span class="n">MimeType</span> <span class="o">=</span> <span class="s">&quot;application/xml&quot;</span> 
       <span class="n">Url</span> <span class="o">=</span> <span class="s">&quot;http://my.api.net/edgexdata&quot;</span>
 </code></pre></div>
+</div>
 <p>The first line of note is <code>ExecutionOrder = "FilterByDeviceName, Transform, HTTPExport"</code>. This specifies the order in which to execute your functions. Each function specified here must also be placed in the <code>[Writeable.Pipeline.Functions]</code> section. </p>
 <p>Next, each function and its required information is listed. Each function typically has associated Parameters that must be configured to properly execute the function as designated by <code>[Writable.Pipeline.Functions.{FunctionName}.Parameters]</code>. Knowing which parameters are required for each function, can be referenced by taking a look at  the <a href="#available-configurable-pipeline-functions">Available Configurable Pipeline Functions</a> section below.</p>
 <div class="admonition note">
@@ -2542,7 +2545,9 @@
 </div>
 <p>That's it! Now we can run/deploy this service and the functions pipeline will process the data with functions we've defined.</p>
 <h2 id="environment-variable-overrides-for-docker">Environment Variable Overrides For Docker</h2>
-<p>EdgeX services no longer have docker specific profiles. They now rely on environment variable overrides in the docker compose files for the docker specific differences. The following environment settings are required in the compose files when using App Service Configurable.</p>
+<p>EdgeX services no longer have docker specific profiles. They now rely on environment variable overrides in the docker compose files for the docker specific differences.</p>
+<div class="admonition example">
+<p class="admonition-title">Example - Environment settings required in the compose files for App Service Configurable </p>
 <div class="highlight"><pre><span></span><code>      <span class="nt">EDGEX_PROFILE </span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">target profile</span><span class="p p-Indicator">]</span>
       <span class="nt">SERVICE_HOST </span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">services network host name</span><span class="p p-Indicator">]</span>
       <span class="nt">EDGEX_SECURITY_SECRET_STORE</span><span class="p">:</span> <span class="s">&quot;false&quot;</span> <span class="c1"># only need to disable as default is true</span>
@@ -2557,7 +2562,9 @@
       <span class="nt">TRIGGER_EDGEXMESSAGEBUS_PUBLISHHOST_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-redis</span>
       <span class="nt">TRIGGER_EDGEXMESSAGEBUS_SUBSCRIBEHOST_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-redis</span>
 </code></pre></div>
-<p>The following is an example docker compose entry for <strong>App Service Configurable</strong> in no-secure compose file:</p>
+</div>
+<div class="admonition example -">
+<p class="admonition-title">Example - Docker compose entry for <strong>App Service Configurable</strong> in no-secure compose file</p>
 <div class="highlight"><pre><span></span><code>  <span class="nt">app-service-rules</span><span class="p">:</span>
     <span class="nt">container_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-app-rules-engine</span>
     <span class="nt">depends_on</span><span class="p">:</span>
@@ -2578,7 +2585,7 @@
       <span class="nt">TRIGGER_EDGEXMESSAGEBUS_PUBLISHHOST_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-redis</span>
       <span class="nt">TRIGGER_EDGEXMESSAGEBUS_SUBSCRIBEHOST_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-redis</span>
     <span class="nt">hostname</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-app-rules-engine</span>
-    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">nexus3.edgexfoundry.org:10004/app-service-configurable:latest</span>
+    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgexfoundry/app-service-configurable:2.0.0</span>
     <span class="nt">networks</span><span class="p">:</span>
       <span class="nt">edgex-network</span><span class="p">:</span> <span class="p p-Indicator">{}</span>
     <span class="nt">ports</span><span class="p">:</span>
@@ -2588,6 +2595,7 @@
     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">no-new-privileges:true</span>
     <span class="nt">user</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2002:2001</span>
 </code></pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>App Service Configurable</strong> is designed to be run multiple times each with different profiles. This is why in the above example the name <code>edgex-app-rules-engine</code> is used for the instance running the <code>rules-engine</code> profile.</p>
@@ -2661,7 +2669,9 @@
 <p>Functions can be declared in a profile but not used in the pipeline <code>ExecutionOrder</code>  allowing them to be added to the pipeline <code>ExecutionOrder</code> later at runtime if needed.</p>
 </div>
 <h2 id="what-if-my-input-data-isnt-an-edgex-event">What if my input data isn't an EdgeX Event ?</h2>
-<p>The default <code>TargetType</code> for data flowing into the functions pipeline is an EdgeX Event DTO. There are cases when this incoming data might not be an EdgeX Event DTO. In these cases the <code>Pipeline</code> can be configured using <code>UseTargetTypeOfByteArray=true</code> to set the <code>TargetType</code> to be a byte array/slice, i.e. <code>[]byte</code>. The first function in the pipeline must then be one that can handle the <code>[]byte</code> data. The <strong>compression</strong>,  <strong>encryption</strong> and <strong>export</strong> functions are examples of pipeline functions that will take input data that is <code>[]byte</code>. Here is an example of how to configure the functions pipeline to <strong>compress</strong>, <strong>encrypt</strong> and then <strong>export</strong> the  <code>[]byte</code> data via HTTP.</p>
+<p>The default <code>TargetType</code> for data flowing into the functions pipeline is an EdgeX Event DTO. There are cases when this incoming data might not be an EdgeX Event DTO. In these cases the <code>Pipeline</code> can be configured using <code>UseTargetTypeOfByteArray=true</code> to set the <code>TargetType</code> to be a byte array/slice, i.e. <code>[]byte</code>. The first function in the pipeline must then be one that can handle the <code>[]byte</code> data. The <strong>compression</strong>,  <strong>encryption</strong> and <strong>export</strong> functions are examples of pipeline functions that will take input data that is <code>[]byte</code>. </p>
+<div class="admonition example">
+<p class="admonition-title">Example - Configure the functions pipeline to <strong>compress</strong>, <strong>encrypt</strong> and then <strong>export</strong> the <code>[]byte</code> data via HTTP </p>
 <div class="highlight"><pre><span></span><code><span class="k">[Writable]</span>
   <span class="n">LogLevel</span> <span class="o">=</span> <span class="s">&#39;DEBUG&#39;</span>
   <span class="k">[Writable.Pipeline]</span>
@@ -2681,10 +2691,14 @@
       <span class="n">Url</span> <span class="o">=</span> <span class="s">&quot;http://my.api.net/edgexdata&quot;</span>
       <span class="n">MimeType</span> <span class="o">=</span> <span class="s">&quot;application/text&quot;</span>
 </code></pre></div>
+</div>
 <p>If along with this pipeline configuration, you also configured the <code>Trigger</code> to be <code>http</code> trigger,  you could then send any data to the app-service-configurable' s <code>/api/v2/trigger</code> endpoint and have it compressed, encrypted and sent to your configured URL above.</p>
+<div class="admonition example">
+<p class="admonition-title">Example - HTTP Trigger configuration</p>
 <div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span>
 <span class="n">Type</span><span class="o">=</span><span class="s">&quot;http&quot;</span>
 </code></pre></div>
+</div>
 <h2 id="multiple-instances-of-function">Multiple Instances of Function</h2>
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 2.0</p>
@@ -2703,11 +2717,13 @@
 <ul>
 <li><code>tags</code> - String containing comma separated list of tag key/value pairs. The tag key/value pairs are colon seperated</li>
 </ul>
-<p><strong>Example</strong></p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
 <div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.AddTags]</span>
       <span class="k">[Writable.Pipeline.Functions.AddTags.Parameters]</span>
       <span class="n">tags</span> <span class="o">=</span> <span class="s">&quot;GatewayId:HoustonStore000123,Latitude:29.630771,Longitude:-95.377603&quot;</span>
 </code></pre></div>
+</div>
 <h3 id="batch"><a href="../BuiltIn/#batching">Batch</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
@@ -2715,13 +2731,15 @@
 <li><code>BatchThreshold</code> - Number of items to batch before sending batched items to the next function in the pipeline. Used with  'bycount' and 'bytimecount' modes</li>
 <li><code>TimeInterval</code> - Amount of time to batch before sending batched items to the next function in the pipeline. Used with  'bytime' and 'bytimecount' modes</li>
 </ul>
-<p><strong>Example</strong></p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
 <div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.BatchByCount]</span>
       <span class="k">[Writable.Pipeline.Functions.BatchByCount.Parameters]</span>
       <span class="n">Mode</span> <span class="o">=</span> <span class="s">&quot;bytimecount&quot;</span> <span class="c1"># can be &#39;bycount&#39;, &#39;bytime&#39; or &#39;bytimecount&#39;</span>
       <span class="n">BatchThreshold</span> <span class="o">=</span> <span class="s">&quot;30&quot;</span>
       <span class="n">TimeInterval</span> <span class="o">=</span> <span class="s">&quot;60s&quot;</span>
 </code></pre></div>
+</div>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
 <p>For EdgeX 2.0 the <code>BatchByCount</code>, <code>BatchByCount</code>, and <code>BatchByTimeCount</code> configurable pipeline functions have been replaced by single <code>Batch</code> configurable pipeline function with additional <code>Mode</code> parameter.</p>
@@ -2731,11 +2749,13 @@
 <ul>
 <li><code>Algorithm</code> - Compression algorithm to use.  Can be 'gzip' or 'zlib'</li>
 </ul>
-<p><strong>Example</strong></p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
 <div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.Compress]</span>
       <span class="k">[Writable.Pipeline.Functions.Compress.Parameters]</span>
       <span class="n">Algorithm</span> <span class="o">=</span> <span class="s">&quot;gzip&quot;</span>
 </code></pre></div>
+</div>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
 <p>For EdgeX 2.0 the <code>CompressWithGZIP</code> and <code>CompressWithZLIB</code> configurable pipeline functions have been replaced by the single <code>Compress</code> configurable pipeline function with additional <code>Algorithm</code> parameter.</p>
@@ -2748,7 +2768,8 @@
 <li><code>SecretPath</code> - (optional) Path in the <code>Secret Store</code> where the encryption key is located. Required if Key not specified.</li>
 <li><code>SecretName</code> - (optional) name of the secret for the encryption key in the <code>Secret Store</code>.  Required if Key not specified.</li>
 </ul>
-<p><strong>Examples</strong></p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
 <p><div class="highlight"><pre><span></span><code>    <span class="c1"># Encrypt with key specified in configuation</span>
     <span class="k">[Writable.Pipeline.Functions.Encrypt]</span>
       <span class="k">[Writable.Pipeline.Functions.Encrypt.Parameters]</span>
@@ -2764,6 +2785,7 @@
       <span class="n">SecretPath</span> <span class="o">=</span> <span class="s">&quot;aes&quot;</span>
       <span class="n">SecretName</span> <span class="o">=</span> <span class="s">&quot;key&quot;</span>
 </code></pre></div></p>
+</div>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
 <p>For EdgeX 2.0 the <code>EncryptWithAES</code> configurable pipeline function have been replaced by the <code>Encrypt</code> configurable pipeline function with additional <code>Algorithm</code> parameter. In addition the ability to pull the encryption key from the <code>Secret Store</code> has been added.</p>
@@ -2774,24 +2796,28 @@
 <li><code>DeviceNames</code> - Comma separated list of device names for filtering</li>
 <li><code>FilterOut</code>- Boolean indicating if the data matching the device names should be filtered out or filtered for.</li>
 </ul>
-<p><strong>Example</strong></p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
 <div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.FilterByDeviceName]</span>
       <span class="k">[Writable.Pipeline.Functions.FilterByDeviceName.Parameters]</span>
         <span class="n">DeviceNames</span> <span class="o">=</span> <span class="s">&quot;Random-Float-Device,Random-Integer-Device&quot;</span>
         <span class="n">FilterOut</span> <span class="o">=</span> <span class="s">&quot;false&quot;</span>
 </code></pre></div>
+</div>
 <h3 id="filterbyprofilename"><a href="../BuiltIn/#by-profile-name">FilterByProfileName</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>ProfileNames</code> - Comma separated list of profile names for filtering</li>
 <li><code>FilterOut</code>- Boolean indicating if the data matching the profile names should be filtered out or filtered for.</li>
 </ul>
-<p><strong>Example</strong></p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
 <div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.FilterByProfileName]</span>
       <span class="k">[Writable.Pipeline.Functions.FilterByProfileName.Parameters]</span>
       <span class="n">ProfileNames</span> <span class="o">=</span> <span class="s">&quot;Random-Float-Device, Random-Integer-Device&quot;</span>
       <span class="n">FilterOut</span> <span class="o">=</span> <span class="s">&quot;false&quot;</span>
 </code></pre></div>
+</div>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
 <p>The <code>FilterByProfileName</code> configurable pipeline function is new for EdgeX 2.0 </p>
@@ -2802,12 +2828,14 @@
 <li><code>ResourceName</code> - Comma separated list of reading resource names for filtering</li>
 <li><code>FilterOut</code>- Boolean indicating if the readings matching the resource names should be filtered out or filtered for.</li>
 </ul>
-<p><strong>Example</strong></p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
 <div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.FilterByResourceName]</span>
       <span class="k">[Writable.Pipeline.Functions.FilterByResourceName.Parameters]</span>
        <span class="n">ResourceNames</span> <span class="o">=</span> <span class="s">&quot;Int8, Int64&quot;</span>
         <span class="n">FilterOut</span> <span class="o">=</span> <span class="s">&quot;true&quot;</span>
 </code></pre></div>
+</div>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
 <p>For EdgeX 2.0 the <code>FilterByValueDescriptor</code> configurable pipeline function has been renamed to <code>FilterByResourceName</code> and parameter names adjusted. </p>
@@ -2818,12 +2846,14 @@
 <li><code>SourceNames</code> - Comma separated list of source names for filtering. Source name is either the device command name or the resource name that created the Event</li>
 <li><code>FilterOut</code>- Boolean indicating if the data matching the device names should be filtered out or filtered for.</li>
 </ul>
-<p><strong>Example</strong></p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
 <div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.FilterBySourceName]</span>
       <span class="k">[Writable.Pipeline.Functions.FilterBySource.Parameters]</span>
       <span class="n">SourceNames</span> <span class="o">=</span> <span class="s">&quot;Bool, BoolArray&quot;</span>
       <span class="n">FilterOut</span> <span class="o">=</span> <span class="s">&quot;false&quot;</span>
 </code></pre></div>
+</div>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
 <p>The <code>FilterBySourceName</code> configurable pipeline function is new for EdgeX 2.0 </p>
@@ -2844,8 +2874,9 @@
 <li>
 <p><code>SecretName</code> - (Optional) Name of the secret for the header value in the <code>Secret Store</code>.</p>
 </li>
-<li><strong>Examples</strong></li>
 </ul>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
 <p><div class="highlight"><pre><span></span><code>    <span class="c1"># Simple HTTP Export</span>
     <span class="k">[Writable.Pipeline.Functions.HTTPExport]</span>
       <span class="k">[Writable.Pipeline.Functions.HTTPExport.Parameters]</span>
@@ -2862,7 +2893,7 @@
       <span class="n">HeaderName</span> <span class="o">=</span> <span class="s">&quot;MyApiKey&quot;</span> 
       <span class="n">SecretPath</span> <span class="o">=</span> <span class="s">&quot;http&quot;</span> 
       <span class="n">SecretName</span> <span class="o">=</span> <span class="s">&quot;apikey&quot;</span>
-</code></pre></div></p>
+</code></pre></div>
 <div class="highlight"><pre><span></span><code>    <span class="c1"># Http Export to multiple destinations</span>
     <span class="k">[Writable.Pipeline]</span>
     <span class="n">ExecutionOrder</span> <span class="o">=</span><span class="s">&quot;HTTPExport1, HTTPExport2&quot;</span>
@@ -2879,7 +2910,8 @@
       <span class="n">Method</span> <span class="o">=</span> <span class="s">&quot;put&quot;</span> 
       <span class="n">MimeType</span> <span class="o">=</span> <span class="s">&quot;application/xml&quot;</span> 
       <span class="n">Url</span> <span class="o">=</span> <span class="s">&quot;http://my.api2.net/edgexdata2&quot;</span>
-</code></pre></div>
+</code></pre></div></p>
+</div>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
 <p>For EdgeX 2.0 the <code>HTTPPost</code>, <code>HTTPPostJSON</code>, <code>HTTPPostXML</code>, <code>HTTPPut</code>, <code>HTTPPutJSON</code>,  and <code>HTTPPutXML</code>  configurable pipeline functions have been replaced by the single <code>HTTPExport</code> function with additional <code>Method</code> parameter. <code>ContinueOnSendError</code> and <code>ReturnInputData</code> parameter have been added to support multi destination exports. In addition the <code>HeaderName</code> and <code>SecretName</code> parameters have replaced the <code>SecretHeaderName</code> parameter.</p>
@@ -2897,11 +2929,13 @@
 <ul>
 <li><code>Rule</code> - The JSON formatted rule that with be executed on the data by JSONLogic </li>
 </ul>
-<p><strong>Example</strong></p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
 <div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.JSONLogic]</span>
       <span class="k">[Writable.Pipeline.Functions.JSONLogic.Parameters]</span>
       <span class="n">Rule</span> <span class="o">=</span> <span class="s">&quot;{ \&quot;and\&quot; : [{\&quot;&lt;\&quot; : [{ \&quot;var\&quot; : \&quot;temp\&quot; }, 110 ]}, {\&quot;==\&quot; : [{ \&quot;var\&quot; : \&quot;sensor.type\&quot; }, \&quot;temperature\&quot; ]} ] }&quot;</span>
 </code></pre></div>
+</div>
 <h3 id="mqttexport"><a href="../BuiltIn/#mqtt-export">MQTTExport</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
@@ -2922,7 +2956,8 @@
 </li>
 <li><code>SecretPath</code> - Path in the secret store where to authorization secrets are stored. </li>
 </ul>
-<p><strong>Examples</strong></p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
 <p><div class="highlight"><pre><span></span><code>    <span class="c1"># Simple MQTT Export</span>
     <span class="k">[Writable.Pipeline.Functions.MQTTSecretSend]</span>
       <span class="k">[Writable.Pipeline.Functions.MQTTSecretSend.Parameters]</span>
@@ -2944,6 +2979,7 @@
       <span class="n">AuthMode</span> <span class="o">=</span> <span class="s">&quot;usernamepassword&quot;</span>
       <span class="n">SecretPath</span> <span class="o">=</span> <span class="s">&quot;mqtt&quot;</span>
 </code></pre></div></p>
+</div>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
 <p>For EdgeX 2.0 the <code>MQTTSecretSend</code> configurable pipeline function has been renamed to <code>MQTTExport</code> and the deprecated  <code>MQTTSend</code> configurable pipeline function has been removed</p>
@@ -2957,7 +2993,8 @@
 <li><code>ValueType</code> - Value type to use  the new Event Reading's value type</li>
 <li><code>MediaType</code> - Media type to use the new Event Reading's value type. Required when the value type is <code>Binary</code></li>
 </ul>
-<p><strong>Example</strong></p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
 <div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.PushToCore]</span>
       <span class="k">[Writable.Pipeline.Functions.PushToCore.Parameters]</span>
       <span class="n">ProfileName</span> <span class="o">=</span> <span class="s">&quot;MyProfile&quot;</span>
@@ -2965,6 +3002,7 @@
       <span class="n">ResourceName</span> <span class="o">=</span> <span class="s">&quot;SomeResource&quot;</span>
       <span class="n">ValueType</span> <span class="o">=</span> <span class="s">&quot;String&quot;</span>
 </code></pre></div>
+</div>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
 <p>For EdgeX 2.0 the <code>ProfileName</code>, <code>ValueType</code> and <code>MediaType</code> parameters are new and the <code>ReadingName</code> parameter has been renamed to <code>ResourceName</code>. </p>
@@ -2974,11 +3012,13 @@
 <ul>
 <li><code>ResponseContentType</code> - Used to specify content-type header for response - optional</li>
 </ul>
-<p><strong>Example</strong></p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
 <div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.SetResponseData]</span>
       <span class="k">[Writable.Pipeline.Functions.SetResponseData.Parameters]</span>
       <span class="n">ResponseContentType</span> <span class="o">=</span> <span class="s">&quot;application/json&quot;</span>
 </code></pre></div>
+</div>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
 <p>For EdgeX 2.0 the <code>SetOutputData</code> configurable pipeline function has been renamed to <code>SetResponseData</code> . </p>
@@ -2988,11 +3028,13 @@
 <ul>
 <li><code>Type</code> - Type of transformation to perform. Can be 'xml' or 'json'</li>
 </ul>
-<p><strong>Example</strong></p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
 <div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.Transform]</span>
       <span class="k">[Writable.Pipeline.Functions.Transform.Parameters]</span>
       <span class="n">Type</span> <span class="o">=</span> <span class="s">&quot;xml&quot;</span>
 </code></pre></div>
+</div>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
 <p>For EdgeX 2.0 the <code>TransformToJSON</code> and <code>TransformToXML</code> configurable pipeline functions have been replaced by the single <code>Transform</code> configurable pipeline function with additional <code>Type</code> parameter.</p>

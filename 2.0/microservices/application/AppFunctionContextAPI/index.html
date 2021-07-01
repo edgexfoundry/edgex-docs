@@ -2699,7 +2699,12 @@
                 
                 
                 <h1 id="app-function-context-api">App Function Context API</h1>
-<p>The context parameter passed to each function/transform provides operations and data associated with each execution of the pipeline. Let's take a look at its API:</p>
+<p>The context parameter passed to each function/transform provides operations and data associated with each execution of the pipeline. </p>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>For EdgeX 2.0 the <code>AppFunctionContext</code> API replaces the direct access to the <code>appcontext.Context</code> struct. </p>
+</div>
+<p>Let's take a look at its API:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">AppFunctionContext</span> <span class="kd">interface</span> <span class="p">{</span>
     <span class="nx">CorrelationID</span><span class="p">()</span> <span class="kt">string</span>
     <span class="nx">InputContentType</span><span class="p">()</span> <span class="kt">string</span>
@@ -2738,7 +2743,13 @@
 <p><code>ResponseContentType()</code> returns the content type that will be returned to the trigger when pipeline execution is complete.</p>
 <h2 id="clients">Clients</h2>
 <h3 id="loggingclient">LoggingClient()</h3>
-<p>Returns a <code>LoggingClient</code> to leverage logging libraries/service utilized throughout the EdgeX framework. The SDK has initialized everything so it can be used to log <code>Trace</code>, <code>Debug</code>, <code>Warn</code>, <code>Info</code>, and <code>Error</code> messages as appropriate. See <a href="https://github.com/edgexfoundry-holding/app-service-examples/blob/master/app-services/simple-filter-xml/main.go">simple-filter-xml/main.go</a> for an example of how to use the <code>LoggingClient</code>.</p>
+<p>Returns a <code>LoggingClient</code> to leverage logging libraries/service utilized throughout the EdgeX framework. The SDK has initialized everything so it can be used to log <code>Trace</code>, <code>Debug</code>, <code>Warn</code>, <code>Info</code>, and <code>Error</code> messages as appropriate. </p>
+<div class="admonition example">
+<p class="admonition-title">Example - LoggingClient</p>
+<div class="highlight"><pre><span></span><code><span class="nx">ctx</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">().</span><span class="nx">Info</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
+<span class="nx">c</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">().</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;Some error occurred: %w&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</code></pre></div>
+</div>
 <h3 id="eventclient">EventClient()</h3>
 <p>Returns an <code>EventClient</code> to leverage Core Data's <code>Event</code> API. See <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/interfaces/event.go">interface definition</a> for more details. This client is useful for querying events and is used by the <a href="#pushtocore">PushToCore</a> convenience API described below. Note if Core Data is not specified in the Clients configuration, this will return nil.</p>
 <h3 id="commandclient">CommandClient()</h3>
@@ -2746,13 +2757,13 @@
 <h3 id="notificationclient">NotificationClient()</h3>
 <p>Returns a <code>NotificationClient</code> to leverage Support Notifications' <code>Notifications</code> API. See <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/interfaces/notification.go">interface definition</a> for more details. Useful for sending notifications. Note if Support Notifications is not specified in the Clients configuration, this will return nil.</p>
 <h3 id="subscriptionclient">SubscriptionClient()</h3>
-<p>Returns a <code>SubscriptionClient</code> to leverage Support Notifications' <code>Subscription</code> API. See <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/http/subscription.go">interface definition</a> for more details. Useful for create notification subscriptions. Note if Support Notifications is not specified in the Clients configuration, this will return nil.</p>
+<p>Returns a <code>SubscriptionClient</code> to leverage Support Notifications' <code>Subscription</code> API. See <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/interfaces/subscription.go">interface definition</a> for more details. Useful for creating notification subscriptions. Note if Support Notifications is not specified in the Clients configuration, this will return nil.</p>
 <h3 id="deviceserviceclient">DeviceServiceClient()</h3>
-<p>Returns a <code>DeviceServiceClient</code> to leverage Core Metadata's <code>DeviceService</code> API. See <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/http/deviceservice.go">interface definition</a> for more details. Useful for querying information about Device Services. Note if Core Metadata is not specified in the Clients configuration, this will return nil. </p>
+<p>Returns a <code>DeviceServiceClient</code> to leverage Core Metadata's <code>DeviceService</code> API. See <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/interfaces/deviceservice.go">interface definition</a> for more details. Useful for querying information about Device Services. Note if Core Metadata is not specified in the Clients configuration, this will return nil. </p>
 <h3 id="deviceprofileclient">DeviceProfileClient()</h3>
-<p>Returns a <code>DeviceProfileClient</code> to leverage Core Metadata's <code>DeviceProfile</code> API. See <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/http/deviceprofile.go">interface definition</a> for more details. Useful for querying information about Device Profiles and is used by the <code>GetDeviceResource</code> helper function below. Note if Core Metadata is not specified in the Clients configuration, this will return nil. </p>
+<p>Returns a <code>DeviceProfileClient</code> to leverage Core Metadata's <code>DeviceProfile</code> API. See <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/interfaces/deviceprofile.go">interface definition</a> for more details. Useful for querying information about Device Profiles and is used by the <code>GetDeviceResource</code> helper function below. Note if Core Metadata is not specified in the Clients configuration, this will return nil. </p>
 <h3 id="deviceclient">DeviceClient()</h3>
-<p>Returns a <code>DeviceClient</code> to leverage Core Metadata's <code>Device</code> API. See <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/http/device.go">interface definition</a> for more details. Useful for querying information about Devices. Note if Core Metadata is not specified in the Clients configuration, this will return nil. </p>
+<p>Returns a <code>DeviceClient</code> to leverage Core Metadata's <code>Device</code> API. See <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/interfaces/device.go">interface definition</a> for more details. Useful for querying information about Devices. Note if Core Metadata is not specified in the Clients configuration, this will return nil. </p>
 <h3 id="note-about-clients">Note about Clients</h3>
 <p>Each of the clients above is only initialized if the Clients section of the configuration contains an entry for the service associated with the Client API. If it isn't in the configuration the client will be <code>nil</code>. Your code must check for <code>nil</code> to avoid panic in case it is missing from the configuration. Only add the clients to your configuration that your Application Service will actually be using. All application services need <code>Core-Data</code> for version compatibility check done on start-up. The following is an example <code>Clients</code> section of a configuration.toml with all supported clients specified:</p>
 <div class="highlight"><pre><span></span><code>[Clients]
@@ -2778,7 +2789,19 @@
   Port = 59860
 </code></pre></div>
 <h2 id="context-storage">Context Storage</h2>
-<p>The context API exposes a map-like interface that can be used to store custom data specific to a given pipeline execution.  This data is persisted for retry if needed.  Currently only strings are supported, and keys are treated as case-insensitive.  Storage can be accessed using the following methods:</p>
+<p>The context API exposes a map-like interface that can be used to store custom data specific to a given pipeline execution.  This data is persisted for retry if needed.  Currently only strings are supported, and keys are treated as case-insensitive.  </p>
+<p>There following values are seeded into the Context Storage when an Event is received:</p>
+<ul>
+<li>Profile Name (key to retrieve value is <code>interfaces.PROFILENAME</code>)</li>
+<li>Device Name  (key to retrieve value is <code>interfaces.DEVICENAME</code>)</li>
+<li>Source Name  (key to retrieve value is <code>interfaces.SOURCENAME</code>)</li>
+<li>Received Topic  (key to retrieve value is <code>interfaces.RECEIVEDTOPIC</code>)</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Received Topic only available when the message was received from the Edgex MessageBus or External MQTT triggers.</p>
+</div>
+<p>Storage can be accessed using the following methods:</p>
 <h3 id="addvalue">AddValue()</h3>
 <p><code>AddValue(key string, value string)</code> stores a value for access within a pipeline execution</p>
 <h3 id="removevalue">RemoveValue()</h3>
@@ -2805,18 +2828,18 @@
 <p><code>PushToCore(event dtos.Event)</code> is used to push data to EdgeX Core Data so that it can be shared with other applications that are subscribed to the message bus that core-data publishes to. This function will return the new EdgeX Event with the ID populated, along with any error encountered.  Note that CorrelationId will not be available.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-</div>
 <p>If validation is turned on in CoreServices then your deviceName and readingName must exist in the CoreMetadata and be properly registered in EdgeX.</p>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-</div>
 <p>Be aware that without a filter in your pipeline, it is possible to create an infinite loop when the Message Bus trigger is used. Choose your device-name and reading name appropriately.</p>
+</div>
 <h3 id="setretrydata">SetRetryData()</h3>
-<p><code>SetRetryData(data []byte)</code> can be used to store data for later retry. This is useful when creating a custom export function that needs to retry on failure. The payload data will be stored for later retry based on <code>Store and Forward</code> configuration. When the retry is triggered, the function pipeline will be re-executed starting with the function that called this API. That function will be passed the stored data, so it is important that all transformations occur in functions prior to the export function. The <code>Context</code> will also be restored to the state when the function called this API. See <a href="#store-and-forward">Store and Forward</a> for more details.</p>
+<p><code>SetRetryData(data []byte)</code> can be used to store data for later retry. This is useful when creating a custom export function that needs to retry on failure. The payload data will be stored for later retry based on <code>Store and Forward</code> configuration. When the retry is triggered, the function pipeline will be re-executed starting with the function that called this API. That function will be passed the stored data, so it is important that all transformations occur in functions prior to the export function. The <code>Context</code> will also be restored to the state when the function called this API. See <a href="../AdvancedTopics/#store-and-forward">Store and Forward</a> for more details.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
+<p><code>Store and Forward</code> be must enabled when calling this API, otherwise the data is ignored.</p>
 </div>
-<p><code>Store and Forward</code> be must enabled when calling this API.</p>
                 
               
               
