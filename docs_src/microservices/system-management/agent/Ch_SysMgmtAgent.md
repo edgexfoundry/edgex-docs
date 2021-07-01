@@ -238,4 +238,4 @@ Please refer to the general [Configuration documentation](../../configuration/Ch
     |FormatSpecifier|'%(\\d+\\$)?([-#+ 0(\\<]*)?(\\d+)?(\\.\\d+)?([tT])?([a-zA-Z%])'|metrics data output format specifier|
 
 ## API Reference
-[System Management API Reference](../../../api/Ch-APISystemManagement.md)
+[System Management API Reference](../../../api/management/Ch-APISystemManagement.md)
