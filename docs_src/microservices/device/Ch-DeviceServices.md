@@ -113,7 +113,7 @@ The virtual device service ([device-virtual-go](https://github.com/edgexfoundry/
 
 ## Configuration Properties
 
-Please refer to the general [Configuration documentation](../configuration/Ch-Configuration.md#configuration-properties) for configuration properties common to all services.
+Please refer to the general [Common Configuration documentation](../configuration/CommonConfiguration.md) for configuration properties common to all services.
 
 === "Device"
     |Property|Default Value|Description|

@@ -22,5 +22,5 @@ To help accelerate the creation of your custom Application Service the `App Func
 
 ## Configuration
 
-Finally service configuration is very important to understand for both `Configurable` and `Custom` Application Services. The service configuration documentation is broken into two parts. First is the configuration that is common to all EdgeX services and the second is the configuration that is specific to Application Services. See the [Common Configuration](../configuration/Ch-Configuration.md) and [Application Service Configuration](./GeneralAppServiceConfig.md) sections for more details.
+Finally service configuration is very important to understand for both `Configurable` and `Custom` Application Services. The service configuration documentation is broken into two parts. First is the configuration that is common to all EdgeX services and the second is the configuration that is specific to Application Services. See the [Common Configuration](../configuration/CommonConfiguration.md) and [Application Service Configuration](./GeneralAppServiceConfig.md) sections for more details.
 
