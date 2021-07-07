@@ -664,6 +664,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#creating-your-device" class="md-nav__link">
+    Creating your Device
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configuring-your-device-service" class="md-nav__link">
     Configuring your Device Service
   </a>
@@ -2388,6 +2395,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#creating-your-device" class="md-nav__link">
+    Creating your Device
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configuring-your-device-service" class="md-nav__link">
     Configuring your Device Service
   </a>
@@ -2430,7 +2444,7 @@
                 
                 <h1 id="golang-sdk">Golang SDK</h1>
 <p>In this guide, you create a simple device service that generates a
-random number as a means to simulate getting data from an actual device. In this way, you explore some the SDK framework and work necessary to complete a device service without actually having a device to talk to.</p>
+random number as a means to simulate getting data from an actual device. In this way, you explore some SDK framework and work necessary to complete a device service without actually having a device to talk to.</p>
 <h2 id="install-dependencies">Install dependencies</h2>
 <p>See the <a href="../Ch-GettingStartedGoDevelopers/">Getting Started - Go Developers</a> guide to install the necessary tools and infrastructure needed to develop a GoLang service.</p>
 <h2 id="get-the-edgex-device-sdk-for-go">Get the EdgeX Device SDK for Go</h2>
@@ -2438,29 +2452,29 @@ random number as a means to simulate getting data from an actual device. In this
 download the <a href="../../microservices/device/sdk/Ch-DeviceSDK">Device SDK</a>, and get the GoLang device service SDK on your system.</p>
 <ol>
 <li>
-<p>Create a collection of nested folders, <code>~/go/src/github.com/edgexfoundry</code> on your file system. This folder will hold your new Device Service. In Linux, create a directory with a single mkdir command
-    <div class="highlight"><pre><span></span><code>mkdir -p ~/go/src/github.com/edgexfoundry
+<p>Create a collection of nested folders, <code>~/edgexfoundry</code> on your file system. This folder will hold your new Device Service. In Linux, create a directory with a single mkdir command
+    <div class="highlight"><pre><span></span><code>mkdir -p ~/edgexfoundry
 </code></pre></div></p>
 </li>
 <li>
 <p>In a terminal window, change directories to the folder just created and pull down the SDK in Go with the commands as shown.
-    <div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/go/src/github.com/edgexfoundry
-git clone --depth <span class="m">1</span> --branch v1.2.2 https://github.com/edgexfoundry/device-sdk-go.git
+    <div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/edgexfoundry
+git clone --depth <span class="m">1</span> --branch v2.0.0 https://github.com/edgexfoundry/device-sdk-go.git
 </code></pre></div></p>
 <p><img alt="image" src="../EdgeX_GettingStartedSDKClone.png" /></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The clone command above has you pull v1.2.2 of the Go SDK which is the version associated to Geneva.  There are later releases of EdgeX.  While backward compatible, it is always a good idea to pull and use the latest version associated with the major version of EdgeX you are using.  You may want to check for the latest released version by going to https://github.com/edgexfoundry/device-sdk-go and look for the latest release.</p>
+<p>The clone command above has you pull v2.0.0 of the Go SDK which is the version associated to Ireland.  There are later releases of EdgeX, and it is always a good idea to pull and use the latest version associated with the major version of EdgeX you are using.  You may want to check for the latest released version by going to https://github.com/edgexfoundry/device-sdk-go and look for the latest release.</p>
 </div>
 </li>
 <li>
-<p>Create a folder that will hold the new device service.  The name of the folder is also the name you want to give your new device service. Standard practice in EdgeX is to prefix the name of a device service with <code>device-</code>.  In this example, the name 'device-simple` is used.
-    <div class="highlight"><pre><span></span><code>mkdir ~/go/src/github.com/edgexfoundry/device-simple
+<p>Create a folder that will hold the new device service.  The name of the folder is also the name you want to give your new device service. Standard practice in EdgeX is to prefix the name of a device service with <code>device-</code>.  In this example, the name 'device-simple' is used.
+    <div class="highlight"><pre><span></span><code>mkdir -p ~/edgexfoundry/device-simple
 </code></pre></div></p>
 </li>
 <li>
 <p>Copy the example code from <strong>device-sdk-go</strong> to <strong>device-simple</strong>:
-    <div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/go/src/github.com/edgexfoundry
+    <div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/edgexfoundry
 cp -rf ./device-sdk-go/example/* ./device-simple/
 </code></pre></div></p>
 </li>
@@ -2480,16 +2494,17 @@ cp -rf ./device-sdk-go/example/* ./device-simple/
 <ol>
 <li>
 <p>Change folders to the device-simple directory.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/go/src/github.com/edgexfoundry/device-simple
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/edgexfoundry/device-simple
 </code></pre></div>
 </li>
 <li>
 <p>Open main.go file in the cmd/device-simple folder with your favorite text editor. Modify the
-    import statements.  Replace <code>github.com/edgexfoundry/device-sdk-go/example/driver</code> with <code>github.com/edgexfoundry/device-simple/driver</code> in the import statements. Also replace <code>github.com/edgexfoundry/device-sdk-go</code> with <code>github.com/edgexfoundry/device-simple</code>. Save the file when you have finished editing.</p>
+    import statements.  Replace <code>github.com/edgexfoundry/device-sdk-go/v2/example/driver</code> with <code>github.com/edgexfoundry/device-simple/driver</code> in the import statements.
+    Also replace <code>github.com/edgexfoundry/device-sdk-go/v2</code> with <code>github.com/edgexfoundry/device-simple</code>. Save the file when you have finished editing.</p>
 <p><img alt="image" src="../EdgeX_GettingStartedSDKReplaceImports.png" /></p>
 </li>
 <li>
-<p>Open Makefile found in the base folder (~/go/src/github.com/edgexfoundry/device-simple) in your favorite text editor and make the following
+<p>Open Makefile found in the base folder (~/edgexfoundry/device-simple) in your favorite text editor and make the following
     changes</p>
 <ul>
 <li>
@@ -2504,7 +2519,7 @@ cp -rf ./device-sdk-go/example/* ./device-simple/
 </li>
 <li>
 <p>Change:</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">GOFLAGS</span><span class="o">=</span>-ldflags <span class="s2">&quot;-X github.com/edgexfoundry/device-sdk-go.Version=</span><span class="k">$(</span>VERSION<span class="k">)</span><span class="s2">&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">GOFLAGS</span><span class="o">=</span>-ldflags <span class="s2">&quot;-X github.com/edgexfoundry/device-sdk-go/v2.Version=</span><span class="k">$(</span>VERSION<span class="k">)</span><span class="s2">&quot;</span>
 </code></pre></div>
 
 <p>to refer to the new service with:</p>
@@ -2515,12 +2530,14 @@ cp -rf ./device-sdk-go/example/* ./device-simple/
 <li>
 <p>Change:</p>
 <div class="codehilite"><pre><span></span><code><span class="nf">example/cmd/device-simple/device-simple</span><span class="o">:</span>
-  <span class="k">$(</span>GO<span class="k">)</span> build <span class="k">$(</span>GOFLAGS<span class="k">)</span> -o <span class="nv">$@</span> ./example/cmd/device-simple
+  go mod tidy
+  <span class="k">$(</span>GOCGO<span class="k">)</span> build <span class="k">$(</span>GOFLAGS<span class="k">)</span> -o <span class="nv">$@</span> ./example/cmd/device-simple
 </code></pre></div>
 
 <p>to:</p>
 <div class="codehilite"><pre><span></span><code><span class="nf">cmd/device-simple/device-simple</span><span class="o">:</span>
-  <span class="k">$(</span>GO<span class="k">)</span> build <span class="k">$(</span>GOFLAGS<span class="k">)</span> -o <span class="nv">$@</span> ./cmd/device-simple
+  go mod tidy
+  <span class="k">$(</span>GOCGO<span class="k">)</span> build <span class="k">$(</span>GOFLAGS<span class="k">)</span> -o <span class="nv">$@</span> ./cmd/device-simple
 </code></pre></div>
 
 </li>
@@ -2532,22 +2549,22 @@ cp -rf ./device-sdk-go/example/* ./device-simple/
 <li>
 <p>Enter the following command to create the initial module definition
     and write it to the go.mod file:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">GO111MODULE</span><span class="o">=</span><span class="k">on</span><span class="w"> </span><span class="k">go</span><span class="w"> </span><span class="k">mod</span><span class="w"> </span><span class="n">init</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="n">GO111MODULE</span><span class="o">=</span><span class="k">on</span><span class="w"> </span><span class="k">go</span><span class="w"> </span><span class="k">mod</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">edgexfoundry</span><span class="o">/</span><span class="n">device</span><span class="o">-</span><span class="n">simple</span><span class="w"></span>
 </code></pre></div>
 
 <p><img alt="image" src="../EdgeX_GettingStartedGoModInit.png" /></p>
 </li>
 <li>
-<p>Use an editor to open and edit the go.mod file created in ~/go/src/github.com/edgexfoundry/device-simple.  Add the code highlighted below to the bottom of the file.  This code indicates which version of the device service SDK and the associated EdgeX contracts module to use.</p>
+<p>Use an editor to open and edit the go.mod file created in ~/edgexfoundry/device-simple.  Add the code highlighted below to the bottom of the file.  This code indicates which version of the device service SDK and the associated EdgeX contracts module to use.</p>
 <p><div class="highlight"><pre><span></span><code><span class="nx">require</span> <span class="p">(</span>
-    <span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">edgexfoundry</span><span class="o">/</span><span class="nx">device</span><span class="o">-</span><span class="nx">sdk</span><span class="o">-</span><span class="k">go</span> <span class="nx">v1</span><span class="mf">.2.2</span>
-    <span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">edgexfoundry</span><span class="o">/</span><span class="k">go</span><span class="o">-</span><span class="nx">mod</span><span class="o">-</span><span class="nx">core</span><span class="o">-</span><span class="nx">contracts</span> <span class="nx">v0</span><span class="mf">.1.58</span>
+    <span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">edgexfoundry</span><span class="o">/</span><span class="nx">device</span><span class="o">-</span><span class="nx">sdk</span><span class="o">-</span><span class="k">go</span><span class="o">/</span><span class="nx">v2</span> <span class="nx">v2</span><span class="mf">.0.0</span>
+    <span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">edgexfoundry</span><span class="o">/</span><span class="k">go</span><span class="o">-</span><span class="nx">mod</span><span class="o">-</span><span class="nx">core</span><span class="o">-</span><span class="nx">contracts</span><span class="o">/</span><span class="nx">v2</span> <span class="nx">v2</span><span class="mf">.0.0</span>
 <span class="p">)</span>
 </code></pre></div>
 <img alt="image" src="../EdgeX_GettingStartedSDKGoMod.png" /></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You should always check the <strong><a href="https://github.com/edgexfoundry/device-sdk-go/blob/master/go.mod">go.mod</a></strong> file in the latest released version SDK for the correct versions of the Go SDK and go-mod-contracts to use in your go.mod.</p>
+<p>You should always check the <strong>go.mod</strong> file in the <a href="https://github.com/edgexfoundry/device-sdk-go">latest released version SDK</a> for the correct versions of the Go SDK and go-mod-contracts to use in your go.mod.</p>
 </div>
 </li>
 </ol>
@@ -2575,20 +2592,20 @@ service would ordinarily make a call to get sensor data from the actual device.<
 </li>
 <li>
 <p>Locate the HandleReadCommands() function in this same file (simpledriver.go). Find the
-    following lines of code in this file (around line 87):</p>
+    following lines of code in this file (around line 139):</p>
 <div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="nx">reqs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">DeviceResourceName</span> <span class="o">==</span> <span class="s">&quot;SwitchButton&quot;</span> <span class="p">{</span>
-        <span class="nx">cv</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">dsModels</span><span class="p">.</span><span class="nx">NewBoolValue</span><span class="p">(</span><span class="nx">reqs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">DeviceResourceName</span><span class="p">,</span> <span class="nx">now</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nx">switchButton</span><span class="p">)</span>
-        <span class="nx">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="nx">cv</span>
+    <span class="nx">cv</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">sdkModels</span><span class="p">.</span><span class="nx">NewCommandValue</span><span class="p">(</span><span class="nx">reqs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">DeviceResourceName</span><span class="p">,</span> <span class="nx">common</span><span class="p">.</span><span class="nx">ValueTypeBool</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nx">switchButton</span><span class="p">)</span>  
+    <span class="nx">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="nx">cv</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Add the conditional (if-else) code in front of the above conditional:</p>
 <div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="nx">reqs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">DeviceResourceName</span> <span class="o">==</span> <span class="s">&quot;randomnumber&quot;</span> <span class="p">{</span>
-       <span class="nx">cv</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">dsModels</span><span class="p">.</span><span class="nx">NewInt32Value</span><span class="p">(</span><span class="nx">reqs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">DeviceResourceName</span><span class="p">,</span> <span class="nx">now</span><span class="p">,</span> <span class="nb">int32</span><span class="p">(</span><span class="nx">rand</span><span class="p">.</span><span class="nx">Intn</span><span class="p">(</span><span class="mi">100</span><span class="p">)))</span>
-       <span class="nx">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="nx">cv</span>
+    <span class="nx">cv</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">sdkModels</span><span class="p">.</span><span class="nx">NewCommandValue</span><span class="p">(</span><span class="nx">reqs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">DeviceResourceName</span><span class="p">,</span> <span class="nx">common</span><span class="p">.</span><span class="nx">ValueTypeInt32</span><span class="p">,</span> <span class="nb">int32</span><span class="p">(</span><span class="nx">rand</span><span class="p">.</span><span class="nx">Intn</span><span class="p">(</span><span class="mi">100</span><span class="p">)))</span>
+    <span class="nx">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="nx">cv</span>
 <span class="p">}</span> <span class="k">else</span>
 </code></pre></div>
 <p><img alt="image" src="../EdgeX_GettingStartedSDKGoGenNumber.png" /></p>
-<p>The first line of code checks that the current request is for a resource called "randomnumber". The second line of code generates
+<p>The first line of code checks that the current request is for a resource called "RandomNumber". The second line of code generates
 an integer (between 0 and 100) and uses that as the value the device
 service sends to EdgeX -- mimicking the collection of data from a
 real device. It is here that the device service would normally
@@ -2607,36 +2624,48 @@ EdgeX. General characteristics about the type of device, the data these devices 
 <p>Follow these steps to create a device profile for the simple random number generating device service.</p>
 <ol>
 <li>
-<p>Explore the files in the cmd/device-simple/res folder.   Note the example Simple-Driver.yaml device profile that is already in this folder.  Open the file with your favorite editor and explore its contents.  Note how <code>deviceResources</code> in the file represent properties of a device (properties like SwitchButton, X, Y and Z rotation).  Similarly, <code>coreCommands</code> specify commands that get issued to the device.</p>
+<p>Explore the files in the cmd/device-simple/res/profiles folder.   Note the example Simple-Driver.yaml device profile that is already in this folder.  Open the file with your favorite editor and explore its contents.  Note how <code>deviceResources</code> in the file represent properties of a device (properties like SwitchButton, X, Y and Z rotation).</p>
 <p><img alt="image" src="../EdgeX_SampleDeviceProfile_DeviceResources.png" /></p>
 </li>
 <li>
-<p>A pre-created device profile for the random number device is provided in this documentation.  Download <strong><a href="../random-generator-device.yaml">random-generator-device.yaml</a></strong> and save the file to the <code>~/go/src/github.com/edgexfoundry/device-simple/cmd/device-simple/res</code> folder.</p>
+<p>A pre-created device profile for the random number device is provided in this documentation.  Download <strong><a href="../random-generator-device.yaml">random-generator-device.yaml</a></strong> and save the file to the <code>~/edgexfoundry/device-simple/cmd/device-simple/res/profiles</code> folder.</p>
 </li>
 <li>
-<p>Open the random-generator-device.yaml file in a text editor. In this device profile, the device described has a deviceResource:  <code>randomnumber</code>.  Note how the association of a type to the deviceResource.  In this case, the device profile informs EdgeX that randomnumber will be a INT32.  In real world IoT situations, this deviceResource list could be extensive.  Rather than a single deviceResource, you might find this section filled with many deviceResources and each deviceResource associated to a different type.  Note also how the device profile describes a REST command (GET Random) to call to get the random number from the device service.</p>
+<p>Open the random-generator-device.yaml file in a text editor. In this device profile, the device described has a deviceResource:  <code>RandomNumber</code>.  Note how the association of a type to the deviceResource.  In this case, the device profile informs EdgeX that RandomNumber will be a INT32.  In real world IoT situations, this deviceResource list could be extensive.  Rather than a single deviceResource, you might find this section filled with many deviceResources and each deviceResource associated to a different type.</p>
+</li>
+</ol>
+<h2 id="creating-your-device">Creating your Device</h2>
+<p>Device Service accepts pre-defined devices to be added to EdgeX during device service startup.</p>
+<p>Follow these steps to create a pre-defined device for the simple random number generating device service.</p>
+<ol>
+<li>
+<p>Explore the files in the cmd/device-simple/res/devices folder.   Note the example simple-device.toml that is already in this folder.  Open the file with your favorite editor and explore its contents.  Note how <code>DeviceList</code> in the file represent an actual device with its properties (properties like Name, ProfileName, AutoEvents).</p>
+</li>
+<li>
+<p>A pre-created device for the random number device is provided in this documentation.  Download <strong><a href="../random-generator-device.toml">random-generator-device.toml</a></strong> and save the file to the <code>~/edgexfoundry/device-simple/cmd/device-simple/res/devices</code> folder.</p>
+</li>
+<li>
+<p>Open the random-generator-device.toml file in a text editor. In this example, the device described has a ProfileName:  <code>RandNum-Device</code>.  In this case, the device informs EdgeX that it will be using the device profile we created in <a href="./#creating-your-device-profile">Creating your Device Profile</a></p>
 </li>
 </ol>
 <h2 id="configuring-your-device-service">Configuring your Device Service</h2>
 <p>Now update the configuration for the new device service.    This documentation provides a new configuration.toml file.  This configuration file:</p>
 <ul>
 <li>changes the port the service operates on so as not to conflict with other device services</li>
-<li>alters the the auto event frequency, which determines when the device service collects data from the simulated device (every 10 seconds)</li>
-<li>sets up the initial provisioning of the random number generating device when the service starts</li>
 </ul>
-<p>Download  <strong><a href="../configuration.toml">configuration.toml</a></strong> and save the file to the <code>~/go/src/github.com/edgexfoundry/device-simple/cmd/device-simple/res</code> folder (overwrite the existing configuration file).  Change the host address of the device service to your system's IP address.</p>
+<p>Download  <strong><a href="../configuration.toml">configuration.toml</a></strong> and save the file to the <code>~/edgexfoundry/device-simple/cmd/device-simple/res</code> folder (overwrite the existing configuration file).  Change the host address of the device service to your system's IP address.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>In the configuration.toml, change the host address (around line 7) to the IP address of the system host.  This allows core metadata to callback to your new device service when a new device is created.  Because the rest of EdgeX, to include core metadata, will be running in Docker, the IP address of the host system on the Docker network must be provided to allow metadata in Docker to call out from Docker to the new device service running on your host system.</p>
+<p>In the configuration.toml, change the host address (around line 14) to the IP address of the system host.  This allows core metadata to callback to your new device service when a new device is created.  Because the rest of EdgeX, to include core metadata, will be running in Docker, the IP address of the host system on the Docker network must be provided to allow metadata in Docker to call out from Docker to the new device service running on your host system.</p>
 </div>
 <h2 id="rebuild-your-device-service">Rebuild your Device Service</h2>
 <p>Just as you did in the <a href="./#build-your-device-service">Build your Device Service</a> step above, build the device-simple service, which creates the executable program that is your device service.  In a terminal window, make sure you are in the device-simple folder (the folder containing the Makefile).  Build the service by issuing the following command:</p>
-<p><div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/go/src/github.com/edgexfoundry/device-simple
+<p><div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/edgexfoundry/device-simple
 make build
 </code></pre></div>
 <img alt="image" src="../EdgeX_GettingStartedSDKBuild.png" /></p>
 <p>If there are no errors, your service is created and put in the 
-<code>~/go/src/github.com/edgexfoundry/device-simple/cmd/device-simple</code> folder.  Look for the <code>device-simple</code> executable in the folder.</p>
+<code>~/edgexfoundry/device-simple/cmd/device-simple</code> folder.  Look for the <code>device-simple</code> executable in the folder.</p>
 <h2 id="run-your-device-service">Run your Device Service</h2>
 <p>Allow the newly created device service, which was formed out of the
 Device Service Go SDK, to create sensor-mimicking data that it then
@@ -2645,14 +2674,14 @@ sends to EdgeX:</p>
 <li>
 <p>Follow the <a href="../Ch-GettingStartedUsers/">Getting Started with Docker</a> guide to start all of EdgeX. From
     the folder containing the docker-compose file, start EdgeX with the
-    following call:</p>
-<div class="highlight"><pre><span></span><code>docker-compose up -d
+    following call (we're using non-security EdgeX in this example):</p>
+<div class="highlight"><pre><span></span><code>docker-compose -f docker-compose-no-secty.yml up -d
 </code></pre></div>
 </li>
 <li>
 <p>In a terminal window, change directories to the device-simple's
     cmd/device-simple folder and run the new device-simple service.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/go/src/github.com/edgexfoundry/device-simple/cmd/device-simple
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/edgexfoundry/device-simple/cmd/device-simple
 ./device-simple
 </code></pre></div>
 <p>This starts the service and immediately displays log entries in the
@@ -2661,8 +2690,8 @@ terminal.</p>
 <li>
 <p>Using a browser, enter the following URL to see the event/reading
     data that the service is generating and sending to EdgeX:</p>
-<p><a href="http://localhost:48080/api/v1/event/device/RandNum-Device01/100">http://localhost:48080/api/v1/event/device/RandNum-Device01/100</a></p>
-<p>This request asks core data to provide the last 100 events/readings associated to the RandNum-Device-01.</p>
+<p><a href="http://localhost:59880/api/v2/event/device/name/RandNum-Device01">http://localhost:59880/api/v2/event/device/name/RandNum-Device01</a></p>
+<p>This request asks core data to provide the events associated to the RandNum-Device-01.</p>
 </li>
 </ol>
                 
