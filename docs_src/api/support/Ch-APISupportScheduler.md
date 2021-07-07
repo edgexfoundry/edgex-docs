@@ -6,5 +6,5 @@ EdgeX Foundry's Support Scheduler microservice to schedule actions to occur on s
 [Support Scheduler V2 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-scheduler)
 
 !!! edgey "EdgeX 2.0"
-    For EdgeX 2.0 the REST API provided by the Support Scheduler has changed to use DTOs (Data Transfer Objects) for all responses and for all POST/PUT/PATCH requests. 
+    For EdgeX 2.0 the REST API provided by the Support Scheduler has changed to use DTOs (Data Transfer Objects) for all responses and for all POST/PUT/PATCH requests. All query APIs (GET) which return multiple objects, such as /all, provide `offset` and `limit` query parameters.
 

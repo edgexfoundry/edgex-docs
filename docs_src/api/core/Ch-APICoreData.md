@@ -5,5 +5,7 @@ EdgeX Foundry Core Data microservice includes the Events/Readings database colle
 [Core Data V2 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-data)
 
 !!! edgey "EdgeX 2.0"
-    For EdgeX 2.0 the REST API provided by the Core Data has changed to use DTOs (Data Transfer Objects) for all responses and for all POST requests. 
+    For EdgeX 2.0 the REST API provided by the Core Data has changed to use DTOs (Data Transfer Objects) for all responses and for all POST requests. All query APIs (GET) which return multiple objects, such as /all, provide `offset` and `limit` query parameters.
+
+
 

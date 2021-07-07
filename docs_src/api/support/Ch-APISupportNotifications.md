@@ -5,5 +5,5 @@ When a person or a system needs to be informed of something discovered on the no
 [Support Notifications V2 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-notifications)
 
 !!! edgey "EdgeX 2.0"
-    For EdgeX 2.0 the REST API provided by the Support Notifications has changed to use DTOs (Data Transfer Objects) for all responses and for all POST/PUT/PATCH requests. 
+    For EdgeX 2.0 the REST API provided by the Support Notifications has changed to use DTOs (Data Transfer Objects) for all responses and for all POST/PUT/PATCH requests. All query APIs (GET) which return multiple objects, such as /all, provide `offset` and `limit` query parameters.
 
