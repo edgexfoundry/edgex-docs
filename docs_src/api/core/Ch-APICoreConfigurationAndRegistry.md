@@ -1,19 +1,12 @@
 # Configuration and Registry
 
-## Architecture Reference
+EdgeX uses the 3rd party Consul microservice as the implementations for Configuration and Registry. The RESTful APIs are provided by Consul directly, and several communities supply Consul client libraries for different programming languages, including Go (official), Python, Java, PHP, Scala, Erlang/OTP, Ruby, Node.js, and C\#.
 
-For a description of the architecture, see
-[Configuration](../../microservices/configuration/Ch-Configuration.md)
-
-## Introduction
-
-The RESTful APIs are provided by Consul directly, and several
-communities supply Consul client libraries for different programming
-languages, including Go (official), Python, Java, PHP, Scala,
-Erlang/OTP, Ruby, Node.js, and C\#.
+!!! edgey "EdgeX 2.0"
+    New for Edgex 2.0 is Secure Consul when running EdgeX in secure mode. See the [Secure Consul](../../../security/Ch-Secure-Consul) section for more details.
 
 For the client libraries of different languages, please refer to the
-list of this page:
+list on this page:
 
 > <https://www.consul.io/downloads_tools.html>
 
@@ -38,7 +31,7 @@ web site:
 
 **Service Registration**
 
-While each microservice is starting up, it should connect to Consul to
+While each microservice is starting up, it will connect to Consul to
 register its endpoint information, including microservice ID, address,
 port number, and health checking method. After that, other microservices
 can locate its URL from Consul, and Consul has the ability to monitor
@@ -83,3 +76,12 @@ following Consul page:
 
 The health checks should be established during service registration.
 Please see the paragraph on this page of Service Registration section.
+
+## Consul UI
+
+Consul has UI which allows you to view the health of registered services and view/edit services' individual configuration. Learn more about the UI on the following Consul page:
+
+> [https://learn.hashicorp.com/tutorials/consul/get-started-explore-the-ui](https://learn.hashicorp.com/tutorials/consul/get-started-explore-the-ui)
+
+
+
