@@ -10,20 +10,24 @@ The fastest way to start running EdgeX is by using our pre-built Docker images. 
 * Docker Compose <https://docs.docker.com/compose/install/>
 
 ## Running EdgeX
+
+!!! Info
+    Ireland (v 2.0) is the latest version of EdgeX and used by example in this guide.
+
 Once you have Docker and Docker Compose installed, you need to:
 
-* download / save the latest [`docker-compose` file](https://github.com/edgexfoundry/developer-scripts/blob/master/releases/hanoi/compose-files/docker-compose-hanoi-no-secty.yml)
+* download / save the latest [`docker-compose` file](https://github.com/edgexfoundry/edgex-compose/blob/ireland/docker-compose-no-secty.yml)
 * issue command to download and run the EdgeX Foundry Docker images from Docker Hub
 
 This can be accomplished with a single command as shown below (please note the tabs for x86 vs ARM architectures).
 
 === "x86"
     ```
-    curl https://raw.githubusercontent.com/edgexfoundry/developer-scripts/master/releases/hanoi/compose-files/docker-compose-hanoi-no-secty.yml -o docker-compose.yml; docker-compose up -d
+    curl https://raw.githubusercontent.com/edgexfoundry/edgex-compose/ireland/docker-compose-no-secty.yml -o docker-compose.yml; docker-compose up -d
     ```
 === "ARM"
     ```
-    curl https://raw.githubusercontent.com/edgexfoundry/developer-scripts/master/releases/hanoi/compose-files/docker-compose-hanoi-no-secty-arm64.yml -o docker-compose.yml; docker-compose up -d
+    curl https://raw.githubusercontent.com/edgexfoundry/edgex-compose/ireland/docker-compose-no-secty-arm64.yml -o docker-compose.yml; docker-compose up -d
     ```
 
 Verify that the EdgeX containers have started:
@@ -33,107 +37,82 @@ docker-compose ps
 ![image](EdgeX_GettingStartedUsrActiveContainers.png)
 *If all EdgeX containers pulled and started correctly and without error, you should see a process status (ps) that looks similar to the image above.*
 
-## Connecting a Device
-EdgeX Foundry provides a [Random Number device service](https://github.com/edgexfoundry/device-random) which is useful for testing. It returns a random number within a configurable range. In order to pull and run this device service, you will need to add a new service to the `docker-compose.yml` file you downloaded at the start of this guide. Copy and paste the following lines into your `docker-compose.yml` right before `version: '3.7'`:
+## Connected Devices
+EdgeX Foundry provides a [Virtual device service](https://github.com/edgexfoundry/device-virtual-go) which is useful for testing and development.  It simulates a number of [devices](../../general/Definitions.md#Device), each randomly generating data of various types and within configurable parameters.  For example, the Random-Integer-Device will generate random integers.
 
-``` yaml
-  device-random:
-    container_name: edgex-device-random
-    depends_on:
-      - consul
-      - data
-      - metadata
-    environment:
-      CLIENTS_COMMAND_HOST: edgex-core-command
-      CLIENTS_COREDATA_HOST: edgex-core-data
-      CLIENTS_DATA_HOST: edgex-core-data
-      CLIENTS_METADATA_HOST: edgex-core-metadata
-      CLIENTS_NOTIFICATIONS_HOST: edgex-support-notifications
-      CLIENTS_RULESENGINE_HOST: edgex-kuiper
-      CLIENTS_SCHEDULER_HOST: edgex-support-scheduler
-      CLIENTS_VIRTUALDEVICE_HOST: edgex-device-random
-      DATABASES_PRIMARY_HOST: edgex-redis
-      EDGEX_SECURITY_SECRET_STORE: "false"
-      REGISTRY_HOST: edgex-core-consul
-      Service_Host: edgex-device-random
-    hostname: edgex-device-random
-    image: edgexfoundry/docker-device-random-go:1.3.0
-    networks:
-      edgex-network: {}
-    ports:
-    - 127.0.0.1:49988:49988/tcp
-```
-Then you can start the Random device service with:
-```
-docker-compose up -d device-random
-```
-The device service will register a device named `Random-Integer-Generator01`, which will start sending its random number readings into EdgeX.
+The Virtual Device (also known as Device Virtual) service is already a service pulled and running as part of the default EdgeX configuration.
 
-You can verify that those readings are being sent by querying the EdgeX core data service for the last 10 event records sent for Random-Integer-Generator01:
+You can verify that Virtual Device readings are already being sent by querying the EdgeX core data service for the event records sent for Random-Integer-Device:
 ```
-curl http://localhost:48080/api/v1/event/device/Random-Integer-Generator01/10
+curl http://localhost:59880/api/v2/event/device/name/Random-Integer-Device
 ```
 ![image](EdgeX_GettingStartedRandomIntegerData.png)
-*Verify the random device service is operating correctly by requesting the last 10 event records received by core data for the Random-Integer-Generator device.*
+*Verify the virtual device service is operating correctly by requesting the last event records received by core data for the Random-Integer-Device.*
+
+!!! Note
+    By default, the maximum number of events returned will be 20 (the default limit).  You can pass a `limit` parameter to get more or less event records.
+    ```
+    curl http://localhost:59880/api/v2/event/device/name/Random-Integer-Device?limit=50
+    ```
 
 ## Controlling the Device
 
-Reading data from devices is only part of what EdgeX is capable of.  You can also use it to control your devices - this is termed 'actuating' the device. When a device registers with the EdgeX services, it provides a [Device Profile](../../microservices/device/profile/Ch-DeviceProfile.md) that describes both the data readings available from that device, and also the commands that control it. 
+Reading data from devices is only part of what EdgeX is capable of.  You can also use it to control your devices - this is termed ['actuating'](../../general/Definitions.md#Actuate) the device. When a device registers with the EdgeX services, it provides a [Device Profile](../../microservices/device/profile/Ch-DeviceProfile.md) that describes both the data readings available from that device, and also the commands that control it. 
 
-When our Random Number device service registered the device `Random-Integer-Generator01`, it used a [profile](https://github.com/edgexfoundry/device-random/blob/master/cmd/res/device.random.yaml) which defines commands for changing the minimum and maximum values for the random numbers it will generate.
+When our Virtual Device service registered the device `Random-Integer-Device`, it used a [profile](https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/profiles/device.virtual.int.yaml) to also define commands that allow you to tell the service not to generate random integers, but to always return a value you set.
 
 You won't call commands on devices directly, instead you use the EdgeX Foundry [Command Service](../../microservices/core/command/Ch-Command.md) to do that. The first step is to check what commands are available to call by asking the Command service about your device:
 ``` bash
-curl http://localhost:48082/api/v1/device/name/Random-Integer-Generator01
+curl http://localhost:59882/api/v2/device/name/Random-Integer-Device
 ```
-This will return a lot of JSON, because there are a number of commands you can call on this device, but the one we're going to try in this guide in will look something like this:
+
+This will return a lot of JSON, because there are a number of commands you can call on this device, but the commands we're going to use in this guide are `Int16` (the comand to get the current integer 16 value) and `WriteInt16Value` (the command to disable the generation of the random integer 16 number and specify the integer value to return).  Look for the `Int16` and `WriteInt16Value` commands like those shown in the JSON as below:
 ``` json
 {
-  "created": 1592190157924,
-  "modified": 1592190157924,
-  "id": "5353248d-8006-4b01-8250-a07cb436aeb1",
-  "name": "GenerateRandomValue_Int8",
-  "get": {
-    "path": "/api/v1/device/{deviceId}/GenerateRandomValue_Int8",
-    "responses": [
-     {
-       "code": "200",
-       "expectedValues": [
-          "RandomValue_Int8"
-       ]
-     },
-     {
-       "code": "503",
-       "description": "service unavailable"
-     }
-    ],
-    "url": "http://edgex-core-command:48082/api/v1/device/4a602dc3-afd5-4c76-9d72-de02407e80f8/command/5353248d-8006-4b01-8250-a07cb436aeb1"
-  },
-  "put": {
-    "path": "/api/v1/device/{deviceId}/GenerateRandomValue_Int8",
-    "responses": [
-      {
-        "code": "200"
-      },
-      {
-        "code": "503",
-        "description": "service unavailable"
-      }
-    ],
-    "url": "http://edgex-core-command:48082/api/v1/device/4a602dc3-afd5-4c76-9d72-de02407e80f8/command/5353248d-8006-4b01-8250-a07cb436aeb1",
-    "parameterNames": [
-      "Min_Int8",
-      "Max_Int8"
-    ]
-  }
+    "apiVersion": "v2",
+    "statusCode": 200,
+    "deviceCoreCommand": {
+        "deviceName": "Random-Integer-Device",
+        "profileName": "Random-Integer-Device",
+        "coreCommands": [
+            {
+                "name": "WriteInt16Value",
+                "set": true,
+                "path": "/api/v2/device/name/Random-Integer-Device/WriteInt16Value",
+                "url": "http://edgex-core-command:59882",
+                "parameters": [
+                    {
+                        "resourceName": "Int16",
+                        "valueType": "Int16"
+                    },
+                    {
+                        "resourceName": "EnableRandomization_Int16",
+                        "valueType": "Bool"
+                    }
+                ]
+            },
+            {
+                "name": "Int16",
+                "get": true,
+                "set": true,
+                "path": "/api/v2/device/name/Random-Integer-Device/Int16",
+                "url": "http://edgex-core-command:59882",
+                "parameters": [
+                    {
+                        "resourceName": "Int16",
+                        "valueType": "Int16"
+                    }
+                ]
+            }
+            ...
+            
+        ]
+    }
 }
 ```
-!!! Note
-    The URLs won't be exactly the same for you, as the generated unique IDs for both the Device and the Command will be different. So be sure to use your values for the following steps.
-
-You'll notice that this one command has both a **GET** and a **PUT** option. The **GET** call will return a random number, and is what is being called automatically to send data into the rest of EdgeX (specifically core data). You can also call **GET** manually using the URL provided:
+You'll notice that the commands have `get` or `set` (or both) options. A **get** call will return a random number (integer 16), and is what is being called automatically to send data into the rest of EdgeX (specifically core data). You can also call **get** manually using the URL provided (with no additinal parameters needed):
 ``` bash
-curl http://localhost:48082/api/v1/device/4a602dc3-afd5-4c76-9d72-de02407e80f8/command/5353248d-8006-4b01-8250-a07cb436aeb1
+curl http://localhost:59882/api/v2/device/name/Random-Integer-Device/Int16
 ```
 !!! Warning
     Notice that **localhost** replaces **edgex-core-command** here. That's because the EdgeX Foundry services are running in Docker.  Docker recognizes the internal hostname **edgex-core-command**, but when calling the service from outside of Docker, you have to use **localhost** to reach it.
@@ -141,72 +120,97 @@ curl http://localhost:48082/api/v1/device/4a602dc3-afd5-4c76-9d72-de02407e80f8/c
 This command will return a JSON result that looks like this:
 ``` json
 {
-  "device": "Random-Integer-Generator01",
-  "origin": 1592231895237359000,
-  "readings": [
-    {
-      "origin": 1592231895237098000,
-      "device": "Random-Integer-Generator01",
-      "name": "RandomValue_Int8",
-      "value": "-45",
-      "valueType": "Int8"
+    "apiVersion": "v2",
+    "statusCode": 200,
+    "event": {
+        "apiVersion": "v2",
+        "id": "6d829637-730c-4b70-9208-dc179070003f",
+        "deviceName": "Random-Integer-Device",
+        "profileName": "Random-Integer-Device",
+        "sourceName": "Int16",
+        "origin": 1625605672073875500,
+        "readings": [
+            {
+                "id": "545b7add-683b-4745-84f1-d859f3d839e0",
+                "origin": 1625605672073875500,
+                "deviceName": "Random-Integer-Device",
+                "resourceName": "Int16",
+                "profileName": "Random-Integer-Device",
+                "valueType": "Int16",
+                "binaryValue": null,
+                "mediaType": "",
+                "value": "-8146"
+            }
+        ]
     }
-  ],
-  "EncodedEvent": null
 }
 ```
 
 ![image](EdgeX_GettingStartedCommandGet.png)
-*A call to GET of the Random-Integer-Generator01 device's GenerateRandomValue_Int8 operation through the command service results in the next random value produced by the device in JSON format.*
+*A call to GET of the Int16 device's Random-Integer-Device operation through the command service results in the next random value produced by the device in JSON format.*
 
-The default range for this reading is -128 to 127. We can limit that to only positive values between 0 and 100 by calling the **PUT** command with new minimum and maximum values:
+The default range for this reading is -32,768 to 32,767.  In the example above, a value of `-8146` was returned as the reading value.  With the service set up to randomly return values, the value returned will be different each time the `Int16` command is sent.  However, we can use the `WriteInt16Value` command to disable random values from being returned and instead specify a value to return.  Use the curl command below to call the **set** command to disable random values and return the value `42` each time. 
+
 ``` bash
-curl -X PUT -d '{"Min_Int8": "0", "Max_Int8": "100"}' http://localhost:48082/api/v1/device/4a602dc3-afd5-4c76-9d72-de02407e80f8/command/5353248d-8006-4b01-8250-a07cb436aeb1
+curl -X PUT -d '{"Int16":"42", "EnableRandomization_Int16":"true"}' http://localhost:59882/api/v2/device/name/Random-Integer-Device/WriteInt16Value
 ```
+
 !!! Warning
     Again, also notice that **localhost** replaces **edgex-core-command**.
 
-There is no visible result of calling **PUT** if the call is successful.
+If successful, the service will confirm your setting of the value to be returned with a `200` status code.
 
 ![image](EdgeX_GettingStartedCommandPut.png)
-*A call to the device's PUT command through the command service will return no results.*
+*A call to the device's SET command through the command service will return the API version and a status code (200 for success).*
 
-Now every time we call **GET** on this command, the returned value will be between 0 and 100.
+Now every time we call **get** on the `Int16` command, the returned value will be `42`.
+
+![image](EdgeX_GettingStartedCommandGetAfterPut.png)
+
+*A call to GET of the Int16 device's Random-Integer-Device operation after setting the Int16 value to 42 and disabling randomization will always return a value of 42.*
 
 ## Exporting Data
 
 EdgeX provides exporters (called application services) for a variety of cloud services and applications. To keep this guide simple, we're going to use the community provided 'application service configurable' to send the EdgeX data to a public MQTT broker hosted by HiveMQ.  You can then watch for the EdgeX event data via HiveMQ provided MQTT browser client.
 
-First add the following application service to your docker-compose.yml file right after the 'rulesengine' service (around line 255).  Spacing is important in YAML, so make sure to copy and paste it correctly.
+First add the following application service to your docker-compose.yml file right after the 'app-service-rules' service (the first service in the file).  Spacing is important in YAML, so make sure to copy and paste it correctly.
 
 ``` yaml
   app-service-mqtt:
-    image: edgexfoundry/docker-app-service-configurable:1.1.0
-    ports:
-      - "127.0.0.1:48101:48101"
-    container_name: edgex-app-service-configurable-mqtt
-    hostname: edgex-app-service-configurable-mqtt
-    networks:
-      - edgex-network
-    environment:
-      <<: *common-variables
-      edgex_profile: mqtt-export
-      Service_Host: edgex-app-service-configurable-mqtt
-      Service_Port: 48101
-      MessageBus_SubscribeHost_Host: edgex-core-data
-      Binding_PublishTopic: events
-      Writable_Pipeline_Functions_MQTTSend_Addressable_Address: broker.mqttdashboard.com
-      Writable_Pipeline_Functions_MQTTSend_Addressable_Port: 1883
-      Writable_Pipeline_Functions_MQTTSend_Addressable_Protocol: tcp
-      Writable_Pipeline_Functions_MQTTSend_Addressable_Publisher: edgex
-      Writable_Pipeline_Functions_MQTTSend_Addressable_Topic: EdgeXEvents
+    container_name: edgex-app-mqtt
     depends_on:
-      - consul
-      - data
+    - consul
+    - data
+    environment:
+      CLIENTS_CORE_COMMAND_HOST: edgex-core-command
+      CLIENTS_CORE_DATA_HOST: edgex-core-data
+      CLIENTS_CORE_METADATA_HOST: edgex-core-metadata
+      CLIENTS_SUPPORT_NOTIFICATIONS_HOST: edgex-support-notifications
+      CLIENTS_SUPPORT_SCHEDULER_HOST: edgex-support-scheduler
+      DATABASES_PRIMARY_HOST: edgex-redis
+      EDGEX_PROFILE: mqtt-export
+      EDGEX_SECURITY_SECRET_STORE: "false"
+      MESSAGEQUEUE_HOST: edgex-redis
+      REGISTRY_HOST: edgex-core-consul
+      SERVICE_HOST: edgex-app-mqtt
+      TRIGGER_EDGEXMESSAGEBUS_PUBLISHHOST_HOST: edgex-redis
+      TRIGGER_EDGEXMESSAGEBUS_SUBSCRIBEHOST_HOST: edgex-redis
+      WRITABLE_PIPELINE_FUNCTIONS_MQTTEXPORT_PARAMETERS_BROKERADDRESS: tcp://broker.mqttdashboard.com:1883
+      WRITABLE_PIPELINE_FUNCTIONS_MQTTEXPORT_PARAMETERS_TOPIC: EdgeXEvents
+    hostname: edgex-app-mqtt
+    image: edgexfoundry/app-service-configurable:2.0.0
+    networks:
+      edgex-network: {}
+    ports:
+    - 127.0.0.1:59702:59702/tcp
+    read_only: true
+    security_opt:
+    - no-new-privileges:true
+    user: 2002:2001
 ```
 
 !!! Note
-    This adds the application service configurable to your EdgeX system.  The application service configurable allows you to configure (versus program) new exports - in this case exporting the EdgeX sensor data to the HiveMQ broker at broker.mqttdashboard.com port 1883.  You will be publishing to EdgeXEvents topic.
+    This adds the application service configurable to your EdgeX system.  The application service configurable allows you to configure (versus program) new exports - in this case exporting the EdgeX sensor data to the HiveMQ broker at `tcp://broker.mqttdashboard.com:1883`.  You will be publishing to the EdgeXEvents topic.
 
 Save the compose file and then execute another compose up command to have Docker Compose pull and start the configurable application service.
 
@@ -232,4 +236,4 @@ You will begin seeing your random number readings appear in the Messages area on
 
 Congratulations! You now have a full EdgeX deployment reading data from a (virtual) device and publishing it to an MQTT broker in the cloud, and you were able to control your device through commands into EdgeX. 
 
-It's time to continue your journey by reading the [Introduction](../../index.md) to EdgeX Foundry, what it is and how it's built. From there you can take the [Walkthrough](../../walk-through/Ch-Walkthrough.md) to learn how the microservices work together to control devices and read data from them as you just did.
+It's time to continue your journey by reading the [Introduction](../../index.md) to EdgeX Foundry, what it is and how it's built. From there you can take the [Walkthrough](../../walk-through/Ch-Walkthrough.md) to learn how the micro services work together to control devices and read data from them as you just did.
