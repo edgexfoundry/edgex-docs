@@ -136,4 +136,4 @@ Please refer to the general [Configuration documentation](../../configuration/Ch
 
 
 ## API Reference
-[Support Scheduler API Reference](../../../api/supporting/Ch-APISupportingServicesScheduling.md)
+[Support Scheduler API Reference](../../../api/support/Ch-APISupportScheduler.md)
