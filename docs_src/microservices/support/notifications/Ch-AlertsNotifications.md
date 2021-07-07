@@ -230,4 +230,4 @@ Then, use the following settings for the mail server properties:
     Smtp Password=${Yahoo password or App password}
 
 ## API Reference
-[Support Notifications API Reference](../../../api/supporting/Ch-APISupportingServicesAlerts.md)
+[Support Notifications API Reference](../../../api/support/Ch-APISupportNotifications.md)

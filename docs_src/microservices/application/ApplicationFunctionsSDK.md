@@ -1,4 +1,4 @@
-# App Functions SDK
+# App Functions SDK Introduction
 
 Welcome the App Functions SDK for EdgeX. This SDK is meant to provide all the plumbing necessary for developers to get started in processing/transforming/exporting data out of EdgeX. 
 
@@ -8,7 +8,11 @@ If you're already familiar - checkout the various sections about the SDK:
 
 | Section | Description|
 |---------|------------|
-| [Built In Transforms](./BuiltIn.md) | Provides a list of the available transforms in the SDK |
-| [Context API](./ContextAPI.md) | Provides a list of all available functions on the context that is available inside of an app function  |
-| [Error Handling](./ErrorHandling.md) | Describes how to properly handle pipeline execution failures | 
+| [Application Service API](ApplicationServiceAPI.md) | Provides a list of all available APIs on the interface use to build Application Services |
+| [App Function Context API](AppFunctionContextAPI.md) | Provides a list of all available APIs on the context interface that is available inside of a pipeline function |
+| [Pipeline Function Error Handling](./ErrorHandling.md) | Describes how to properly handle pipeline execution failures |
+| [Built-In Pipeline Functions](./BuiltIn.md) | Provides a list of the available pipeline functions/transforms in the SDK |
 | [Advanced Topics](./AdvancedTopics.md) | Learn about other ways to leverage the SDK beyond basic use cases |
+
+The App Functions SDK implements a small REST API which can be seen [Here](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/app-functions-sdk/2.0.0). 
+
