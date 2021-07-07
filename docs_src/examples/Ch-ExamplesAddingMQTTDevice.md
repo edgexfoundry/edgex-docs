@@ -1,6 +1,6 @@
 # MQTT
 
-EdgeX - Edinburgh Release
+EdgeX - Ireland Release
 
 ## Overview
 
@@ -20,13 +20,36 @@ Run Mosquitto using the following docker command:
 
 ## Run an MQTT Device Simulator
 
-![MQTT Device Service](MQTTDeviceService.png)
+![MQTT Device Service](EdgeX_ExamplesMQTTDeviceSimulator.png)
 
 This simulator has three behaviors:
 
-1.  Publish random number data every 15 seconds
-2.  Receive the reading request, then return the response
-3.  Receive the put request, then change the device value
+1.  Publish random number data every 15 seconds.
+    
+    The simulator publishes the data to the MQTT broker with topic `DataTopic` and the message is similar to the following:
+    ```
+    {"name":"MQTT-Test-Device", "cmd":"randnum", "method":"get", "randnum":4161.3549}
+    ```
+    
+2.  Receive the reading request, then return the response.
+
+    1. The simulator receives the request from the MQTT broker, the topic is `CommandTopic` and the message is similar to the following:
+        ```   
+        {"cmd":"randnum", "method":"get", "uuid":"293d7a00-66e1-4374-ace0-07520103c95f"}
+        ```
+    2. The simulator returns the response to the MQTT broker, the topic is `ResponseTopic` and the message is similar to the following:
+        ```   
+        `{"cmd":"randnum", "method":"get", "uuid":"293d7a00-66e1-4374-ace0-07520103c95f", "randnum":42.0}
+        ```
+3.  Receive the put request, then change the device value.
+
+    1. The simulator receives the request from the MQTT broker, the topic is `CommandTopic` and the message is similar to the following:
+        ```   
+        {"cmd":"message", "method":"set", "uuid":"293d7a00-66e1-4374-ace0-07520103c95f", "message":"test message..."}
+        ```
+    2. The simulator changes the device value and returns the response to the MQTT broker, the topic is `ResponseTopic` and the message is similar to the following:
+        ```   
+        `{"cmd":"message", "method":"set", "uuid":"293d7a00-66e1-4374-ace0-07520103c95f"}
 
 To simulate the MQTT device, create a javascript, named `mock-device.js`, with the
 following content:
@@ -38,7 +61,7 @@ function getRandomFloat(min, max) {
 const deviceName = "MQTT-Test-Device";
 let message = "test-message";
 
-// 1. Publish random number every 15 seconds
+// DataSender sends async value to MQTT broker every 15 seconds
 schedule('*/15 * * * * *', ()=>{
     let body = {
         "name": deviceName,
@@ -48,8 +71,9 @@ schedule('*/15 * * * * *', ()=>{
     publish( 'DataTopic', JSON.stringify(body));
 });
 
-// 2. Receive the reading request, then return the response
-// 3. Receive the put request, then change the device value
+// CommandHandler receives commands and sends response to MQTT broker
+// 1. Receive the reading request, then return the response
+// 2. Receive the put request, then change the device value
 subscribe( "CommandTopic" , (topic, val) => {
     var data = val;
         if (data.method == "set") {
@@ -86,11 +110,13 @@ $ docker run -d --restart=always --name=mqtt-scripts \
 
 ## Prepare the Custom Configuration 
 
-In this section, we create a folder that contains files required for deployment:
+In this section, we create folders that contains files required for deployment:
 ```
 - custom-config
- |- mqtt.test.device.profile.yml
- |- mqtt.test.device.config.toml
+  |- profiles
+     |- mqtt.test.device.profile.yml
+  |- devices
+     |- mqtt.test.device.config.toml
 ```
 
 ### Device Profile
@@ -165,13 +191,14 @@ Create the device configuration file, named `mqtt.test.device.config.toml`, as s
        SourceName = 'message'
 ```
 
-- `CommandTopic` is used to publish the GET or PUT command request
+- `CommandTopic` is used to publish the GET or SET command request
 
 ## Prepare docker-compose file
 
 1. Clone edgex-compose
 ```
 $ git clone git@github.com:edgexfoundry/edgex-compose.git
+$ git checkout ireland
 ```
 2. Generate the docker-compose.yml file
 ```
@@ -195,8 +222,8 @@ Open the `docker-compose.yml` file and then add volumes path and environment as 
     ...
     environment:
       ...
-      DEVICE_DEVICESDIR: /custom-config
-      DEVICE_PROFILESDIR: /custom-config
+      DEVICE_DEVICESDIR: /custom-config/devices
+      DEVICE_PROFILESDIR: /custom-config/profiles
       MQTTBROKERINFO_HOST: 172.17.0.1
     volumes:
     ...
@@ -272,10 +299,10 @@ $ curl http://localhost:59882/api/v2/device/all | json_pp
 }
 ```
 
-### Execute put Command
+### Execute SET Command
 
-Execute a put command according to the url and parameterNames, replacing
-\[host\] with the server IP when running the PUT command.
+Execute a SET command according to the url and parameterNames, replacing
+\[host\] with the server IP when running the SET command.
 
 ```
 $ curl http://localhost:59882/api/v2/device/name/MQTT-Test-Device/message \
@@ -283,9 +310,9 @@ $ curl http://localhost:59882/api/v2/device/name/MQTT-Test-Device/message \
     -d '{"message":"Hello!"}'
 ```
 
-### Execute get Command
+### Execute GET Command
 
-Execute a get command as follows:
+Execute a GET command as follows:
 
 ```
 $ curl http://localhost:59882/api/v2/device/name/MQTT-Test-Device/message | json_pp
@@ -371,9 +398,7 @@ $ curl http://localhost:59880/api/v2/reading/resourceName/message | json_pp
 
 ## Async Device Reading
 
-> ![Async Device Reading](asyncreading.png)
-
-`device-mqtt` subscribes to a `DataTopic`, which is wait for the real device to send value to MQTT broker, then `device-mqtt`
+The `device-mqtt` subscribes to a `DataTopic`, which is wait for the [real device to send value to MQTT broker](#run-an-mqtt-device-simulator), then `device-mqtt`
 parses the value and forward to the northbound.
 
 The data format contains the following values:
