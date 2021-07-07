@@ -41,7 +41,7 @@ Upon installation, the following EdgeX services are automatically and immediatel
 
 The following services are disabled by default:
 
-    - app-service-configurable (required for Kuiper and support-rulesengine)
+    - app-service-configurable (required for eKuiper and support-rulesengine)
     - device-virtual
     - kuiper
     - support-logging
