@@ -74,7 +74,7 @@ Incorporating versioning into the configuration hierarchy looks like this.
         -   2.0
             -   device-mqtt
             -   device-virtual
-            -   device- modbus
+            -   device-modbus
         -   3.0
     - appservices *(application services)*
         - 2.0
@@ -119,52 +119,9 @@ A web user interface is also provided by Consul. Users can view the available se
 
 ### Running on Docker
 
-For ease of use to install and update, the micro services of EdgeX Foundry are published as Docker images onto Docker Hub, including Registry:
+For ease of use to install and update, the microservices of EdgeX Foundry are published as Docker images onto Docker Hub and compose files that allow you to run EdgeX and dependent service such as Consul. These compose files can be found here in the [edgex-compose repository](https://github.com/edgexfoundry/edgex-compose/tree/ireland). See the [Getting Started with Docker](../../getting-started/Ch-GettingStartedUsers/#introduction) section for more details.
 
-> <https://hub.docker.com/r/edgexfoundry/docker-core-consul/>
-
-After the Docker engine is ready, users can download the latest Consul image by the docker pull command:
-
-``` bash
-docker pull edgexfoundry/docker-core-consul
-```
-
-Then, startup Consul using Docker container by the Docker run command:
-
-``` bash
-docker run -p 8400:8400 -p 8500:8500 -p 8600:8600 \--name edgex-core-consul \--hostname edgex-core-consul -d edgexfoundry/docker-core-consul
-```
-
-These are the command steps to start up Consul and import the default
-configuration data:
-
-1.  login to Docker Hub:
-
-    ``` bash
-    docker login
-    ```
-
-2.  A Docker network is needed to enable one Docker container to
-    communicate with another. This is preferred over use of \--links
-    that establishes a client-server relationship:
-
-    ``` bash
-    docker network create edgex-network
-    ```
-
-3.  Create a Docker volume container for EdgeX Foundry:
-
-    ``` bash
-    docker run -it --name edgex-files --net=edgex-network -v /data/db -v /edgex/logs -v /consul/config -v /consul/data -d edgexfoundry/docker-edgex-volume
-    ```
-
-4.  Create the Consul container:
-
-    ``` bash
-    docker run -p 8400:8400 -p 8500:8500 -p 8600:8600 --name edgex-core-consul --hostname edgex-core-consul --net=edgex-network --volumes-from edgex-files -d edgexfoundry/docker-core-consul
-    ```
-
-5.  Verify the result: <http://localhost:8500/ui>
+Once the EdgeX stack is running in docker verify Consul is running by going to  <http://localhost:8500/ui> in your browser.
 
 ### Running on Local Machine
 

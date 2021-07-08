@@ -72,7 +72,7 @@ The following tables document configuration properties that are common to all se
 |||Each service has it own collect of Clients that it uses|
 |Protocol | http  | The protocol to use when building a URI to local the service endpoint|
 |Host | localhost  | The host name or IP address where the service is hosted |
-|Port | 48081  | The port exposed by the target service|
+|Port | 598xx | The port exposed by the target service|
 
 
 !!! edgey "Edgex 2.0"
@@ -92,14 +92,14 @@ The following tables document configuration properties that are common to all se
 |RootCaCertPath | blank | Default is to not use HTTPS |
 |ServerName | blank | Not needed for HTTP |
 |TokenFile | /tmp/edgex/secrets/`<service-key>`/secrets-token.json | Fully-qualified path to the location of the Vault root token. This path will differ according to the given service. |
-|AdditionalRetryAttempts | 10  | Number of attemtps to retry retrieving secrets before failing to start the service|
+|AdditionalRetryAttempts | 10  | Number of attempts to retry retrieving secrets before failing to start the service |
 |RetryWaitPeriod | 1s  | Amount of time to wait before attempting another connection to Vault|
 |Authentication AuthType | X-Vault-Token  | A header used to indicate how the given service will authenticate with Vault|
 
 
 
 !!! edgey "Edgex 2.0"
-    For EdgeX 2.0 the `Protocol` default has changed to `HTTP` which no loger requires `RootCaCertPath` and `ServerName` to be set. `Path` has been reduce to the sub-path for the service since the based path is fixed. `TokenFile` default value has changed and requires the `service-key` be used in the path.
+    For EdgeX 2.0 the `Protocol` default has changed to `HTTP` which no longer requires `RootCaCertPath` and `ServerName` to be set. `Path` has been reduce to the sub-path for the service since the based path is fixed. `TokenFile` default value has changed and requires the `service-key` be used in the path.
 
 
 
