@@ -218,7 +218,7 @@ for the respective calls.  The tabs below provide the API path and corresponding
 
 ## Configuration Properties
 
-Please refer to the general [Configuration documentation](../../configuration/Ch-Configuration.md#configuration-properties) for configuration properties common to all services.
+Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services.
 
 === "Writable"
     |Property|Default Value|Description|

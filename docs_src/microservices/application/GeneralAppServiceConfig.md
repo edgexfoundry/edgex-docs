@@ -5,7 +5,7 @@ Similar to other EdgeX services, configuration is first determined by the `confi
 
 This section describes the configuration elements that are unique to Application Services
 
-Please first refer to the general [Configuration documentation](../../configuration/Ch-Configuration#configuration-properties) for configuration properties common across all EdgeX services.
+Please first refer to the general [Configuration documentation](../../configuration/CommonConfiguration) for configuration properties common across all EdgeX services.
 
 !!! note
     `*`indicates the configuration value can be changed on the fly if using a configuration provider (like Consul).
@@ -55,7 +55,7 @@ The following are additional configuration which are applicable to Application S
 ### HttpServer
 
 !!! edgey "EdgeX 2.0"
-    New for EdgeX 2.0. These setting previously were in the `Service` configuration section specific to Application Services. Now the `Service` configuration is the same for all EdgeX services. See the general [Configuration documentation](../../configuration/Ch-Configuration#configuration-properties) for more details on the common `Service` configuration.
+    New for EdgeX 2.0. These setting previously were in the `Service` configuration section specific to Application Services. Now the `Service` configuration is the same for all EdgeX services. See the general [Configuration documentation](../../configuration/CommonConfiguration) for more details on the common `Service` configuration.
 
 This section contains the configuration for the internal Webserver. Only need if configuring the Webserver for `HTTPS`
 

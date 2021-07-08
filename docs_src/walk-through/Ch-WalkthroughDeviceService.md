@@ -9,7 +9,7 @@ and am functional."
 
 Part of that registration process of the device service, indeed any
 EdgeX micro service, is to register itself with the [core configuration &
-registration](../microservices/configuration/Ch-Configuration.md). In this process, the micro service provides its location
+registration](../microservices/configuration/ConfigurationAndRegistry.md). In this process, the micro service provides its location
 to the Config/Reg micro service and picks up any new/latest
 configuration information from this central service. Since there is no
 real device service in this walkthrough demonstration, this part of the inter-micro
