@@ -136,11 +136,11 @@ The HTTP trigger configuration has not changed beyond the renaming of `Binding` 
 
 ### Code
 
-The first changes you will encounter in your code are that the `AppFunctionsSDK` and `Context` structs have be abstracted into the in `ApplicationService` and `AppFunctionContext` APIs. See the [Application Service API](../ApplicationServiceAPI) and [App Function Context API](../AppFunctionContextAPI) sections for complete details on these new APIs.
+The first changes you will encounter in your code are that the `AppFunctionsSDK` and `Context` structs have be abstracted into the new `ApplicationService` and `AppFunctionContext` APIs. See the [Application Service API](../ApplicationServiceAPI) and [App Function Context API](../AppFunctionContextAPI) sections for complete details on these new APIs.
 
 #### main()
 
-The following changes to you `main()` function will be necessary.
+The following changes to your `main()` function will be necessary.
 
 ##### Create and Initialize
 
