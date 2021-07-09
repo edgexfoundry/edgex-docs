@@ -66,7 +66,7 @@ The `Trigger` section (previously named `Binding`) has been restructured with `E
 
 ##### EdgeX MessageBus
 
-If your Application Service is using the EdgeX MessageBus trigger, you can simply copy the complete `Trigger` configuration from the example below and tweak it as needed. 
+If your Application Service is using the EdgeX MessageBus trigger you can then simply copy the complete `Trigger` configuration from the example below and tweak it as needed. 
 
 !!! example "Example - EdgeX MessageBus trigger configuration"
 
@@ -92,8 +92,8 @@ If your Application Service is using the EdgeX MessageBus trigger, you can simpl
 
 From the above example you can see the improved structure and the following changes:
 
-- Default `EdgexMessageBus` type has changed to `Redis` from `ZeroMQ`
-- Type value for `Redis` has changed from `redistreams` to `redis`. This is because the implementation no longer uses Redis Streams. It now using Redis Pub/Sub.
+- Default `EdgexMessageBus` type has changed from `ZeroMQ` to `Redis`.
+- Type value for `Redis` has changed from `redistreams` to `redis`. This is because the implementation no longer uses Redis Streams. It now uses Redis Pub/Sub.
 - `SubscribeTopics` is now plural since it now accepts a comma separated list of topics. The default value uses a multi-level topic with a wild card. This is because Core Data and Device Services now publish to a multi-level topics which have`edgex/events` as their base. This allows Application Services to filter by topic rather then receive the data and then filter it out via a pipeline filter function. See the [Filter By Topics](../Triggers/#filter-by-topics) section for more details.
 - The EdgeX MessageBus using Redis is a Secure MessageBus, thus the addition of the `AuthMode` and `SecretName` settings which allow the credentials to be pulled from the service's SecretStore. See the [Secure MessageBus](../../../security/Ch-Secure-MessageBus) secure for more details.
 
@@ -127,7 +127,7 @@ If your Application service is using the **External MQTT** trigger do the follow
 
 ##### HTTP
 
-The HTTP trigger configuration has not changed beyond the renaming of `Binding` to `Trigger`
+The HTTP trigger configuration has not changed beyond the renaming of `Binding` to `Trigger`.
 
 !!! example "Example - HTTP trigger configuration"
 
@@ -232,11 +232,11 @@ This function signature passes in an instance of the new AppFunctionContext API 
 
 ##### Return Values
 
-The Pipeline Function return values definitions have not changed.
+The definitions for the Pipeline Function return values have not changed.
 
 ##### Data
 
-The `data` passed in either set to a single instance for the function to process or nil, so no longer need to check the length.
+The `data` passed in either set to a single instance for the function to process or nil.  Now you no longer need to check the length of the incoming data.
 
 !!! example - Example - Validating data before processing
 
@@ -260,7 +260,7 @@ The `SetResponseData` and `ResponseData` APIs replace the previous `Complete` fu
 
 ##### ResponseContentType
 
-The `SetResponseContentType` and `ResponseContentType` APIs replace the previous direct access to the `ResponseContentType ` field.
+The `SetResponseContentType` and `ResponseContentType` APIs replace the previous direct access to the `ResponseContentType` field.
 
 ##### RetryData
 
@@ -282,7 +282,7 @@ Some new capabilities have been added to the new AppFunctionContext API. See the
 
 Custom profiles used with App Service Configurable are configuration files. These follow the same migration above for custom  [Application Service configuration](#configuration), except for the Configurable Functions Pipeline items.  The following are the changes for the Configurable Functions Pipeline:
 
-1. `FilterByValueDescriptor` changed to `FilterByResourceName`. See the [FilterByResourceName](../AppServiceConfigurable/#filterbyresourcename) section for details
+1. `FilterByValueDescriptor` changed to `FilterByResourceName`. See the [FilterByResourceName](../AppServiceConfigurable/#filterbyresourcename) section for details.
 2. `TransformToXML` and `TransformToJSON` have been collapsed into `Transform` with additional parameters. See the [Transform](../AppServiceConfigurable/#transform) section for more details.
 3. `CompressWithGZIP` and `CompressWithZLIB` have been collapsed into `Compress` with additional parameters. See the [Compress](../AppServiceConfigurable/#compress) section for more details.
 4. `EncryptWithAES` has been changed to `Encrypt` with additional parameters. See the [Encrypt](../AppServiceConfigurable/#encrypt) section for more details.
