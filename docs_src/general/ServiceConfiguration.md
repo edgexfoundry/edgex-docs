@@ -2,23 +2,23 @@
 
 Each EdgeX micro service requires configuration (i.e. - a repository of initialization and operating values).  The configuration is initially provided by a [TOML file](https://github.com/toml-lang/toml) but a service can utilize the centralized configuration management provided by EdgeX for its configuration. 
 
-See the [Configuration and Registry documentation](../microservices/configuration/Ch-Configuration.md) for more details about initialization of services and the use of the configuration service.  
+See the [Configuration and Registry documentation](../microservices/configuration/ConfigurationAndRegistry.md) for more details about initialization of services and the use of the configuration service.  
 
 Please refer to the EdgeX Foundry [architectural decision record](https://github.com/edgexfoundry/edgex-docs/blob/master/docs_src/design/adr/0005-Service-Self-Config.md) for details (and design decisions) behind the configuration in EdgeX.
 
-Please refer to the general [Configuration documentation](../microservices/configuration/Ch-Configuration.md#configuration-properties) for configuration properties common to all services.  Find service specific configuration references in the tabs below.
+Please refer to the general [Configuration documentation](../microservices/configuration/ConfigurationAndRegistry.md) for configuration properties common to all services.  Find service specific configuration references in the tabs below.
 
 === "Core"
     |Service Name|Configuration Reference|
     |---|---|
-    |core-data|	[Core Data Configuration](../microservices/core/data/Ch-CoreData.md#configuration-properties)|
-    |core-metadata	|[Core Metadata Configuration](../microservices/core/metadata/Ch-Metadata.md#configuration-properties)|
-    |core-command	|[Core Command Configuration](../microservices/core/command/Ch-Command.md#configuration-properties)|
+    |core-data|	[Core Data Configuration](../microservices/core/data/Ch-CoreData.md)|
+    |core-metadata	|[Core Metadata Configuration](../microservices/core/metadata/Ch-Metadata.md)|
+    |core-command	|[Core Command Configuration](../microservices/core/command/Ch-Command.md)|
 === "Supporting"
     |Service Name|Configuration Reference|
     |---|---|
-    |support-notifications	|[Support Notifications Configuration](../microservices/support/notifications/Ch-AlertsNotifications.md#configuration-properties)|
-    |support-scheduler|	[Support Scheduler Configuration](../microservices/support/scheduler/Ch-Scheduling.md#configuration-properties)|
+    |support-notifications	|[Support Notifications Configuration](../microservices/support/notifications/Ch-AlertsNotifications.md)|
+    |support-scheduler|	[Support Scheduler Configuration](../microservices/support/scheduler/Ch-Scheduler.md)|
 === "Application & Analytics"
     |Services Name|	Configuration Reference|
     |---|---|
@@ -28,8 +28,8 @@ Please refer to the general [Configuration documentation](../microservices/confi
 === "Device"
     |Services Name|	Configuration Reference|
     |---|---|
-    |device-service	|[General Device Service Configuration](../microservices/device/Ch-DeviceServices.md#configuration-properties)|
-    |device-virtual	|[Virtual Device Service Configuration](../microservices/device/virtual/Ch-VirtualDevice.md#configuration-properties)|
+    |device-service	|[General Device Service Configuration](../microservices/device/Ch-DeviceServices.md)|
+    |device-virtual	|[Virtual Device Service Configuration](../microservices/device/virtual/Ch-VirtualDevice.md)|
 === "Security"
     |Services Name|	Configuration Reference|
     |---|---|
@@ -37,4 +37,4 @@ Please refer to the general [Configuration documentation](../microservices/confi
 === "System Management"
     |Services Name|	Configuration Reference|
     |---|---|
-    |system	management|[System Management Agent Configuration](../microservices/system-management/agent/Ch_SysMgmtAgent.md#configuration-properties)|
+    |system	management|[System Management Agent Configuration](../microservices/system-management/agent/Ch_SysMgmtAgent.md)|

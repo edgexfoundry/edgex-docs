@@ -118,14 +118,14 @@ Core services provide intermediary communications between the things and the IT 
 ### Supporting Services Layer
 ![image](./general/EdgeX_SupportingServicesLayer.png)
 
-The supporting services encompass a wide range of micro services to include edge analytics (also known as local analytics). Normal software application duties such as logging, scheduling, and data clean up (also known as scrubbing in EdgeX) are performed by micro services in the supporting services layer.
+The supporting services encompass a wide range of micro services to include edge analytics (also known as local analytics). Normal software application duties such as scheduler, and data clean up (also known as scrubbing in EdgeX) are performed by micro services in the supporting services layer.
 
 These services often require some amount of core services in order to function.  In all cases, supporting service can be considered optional – that is they can be left out of an EdgeX deployment depending on use case needs and system resources.
 
 Supporting services include:
 
 - Rules Engine:  the reference implementation edge analytics service that performs if-then conditional actuation at the edge based on sensor data collected by the EdgeX instance.  This service may be replaced or augmented by use case specific analytics capability.
-- Scheduling:  an internal EdgeX “clock” that can kick off operations in any EdgeX service.  At a configuration specified time, the service will call on any EdgeX service API URL via REST to trigger an operation.  For example, the scheduling service periodically calls on core data APIs to clean up old sensed events that have been successfully exported out of EdgeX.
+- Scheduler:  an internal EdgeX “clock” that can kick off operations in any EdgeX service.  At a configuration specified time, the service will call on any EdgeX service API URL via REST to trigger an operation.  For example, the scheduler service periodically calls on core data APIs to clean up old sensed events that have been successfully exported out of EdgeX.
 - Alerts and Notifications:  provides EdgeX services with a central facility to send out an alert or notification.  These are notices sent to another system or to a person monitoring the EdgeX instance (internal service communications are often handled more directly).
 
 ### Application Services Layer

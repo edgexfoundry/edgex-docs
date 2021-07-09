@@ -1,19 +1,22 @@
 [Writable]
 LogLevel = 'INFO'
+  # Example InsecureSecrets configuration that simulates SecretStore for when EDGEX_SECURITY_SECRET_STORE=false
+  # InsecureSecrets are required for when Redis is used for message bus
+  [Writable.InsecureSecrets]
+    [Writable.InsecureSecrets.DB]
+    path = "redisdb"
+    [Writable.InsecureSecrets.DB.Secrets]
+      username = ""
+      password = ""
 
 [Service]
-BootTimeout = 30000
-CheckInterval = '10s'
-Host = '172.17.0.1'  # set this to the IP address of the system host
+HealthCheckInterval = '10s'
+Host = 'localhost'  # set this to the IP address of the system host
 ServerBindAddr = ''  # blank value defaults to Service.Host value
-Port = 49992  #modified to be different than existing device services
-Protocol = 'http'
+Port = 59992  #modified to be different than existing device services
 StartupMsg = 'device simple started'
-Timeout = 20000
-ConnectRetries = 20
-Labels = []
-EnableAsyncReadings = true
-AsyncBufferSize = 16
+MaxRequestSize = 0
+RequestTimeout = '20s'
 
 [Registry]
 Host = 'localhost'
@@ -21,52 +24,70 @@ Port = 8500
 Type = 'consul'
 
 [Clients]
-  [Clients.Data]
+  [Clients.core-data]
   Protocol = 'http'
   Host = 'localhost'
-  Port = 48080
+  Port = 59880
 
-  [Clients.Metadata]
+  [Clients.core-metadata]
   Protocol = 'http'
   Host = 'localhost'
-  Port = 48081
+  Port = 59881
 
-  [Clients.Logging]
-  Protocol = 'http'
-  Host = 'localhost'
-  Port = 48061
+[MessageQueue]
+Protocol = 'redis'
+Host = 'localhost'
+Port = 6379
+Type = 'redis'
+AuthMode = 'usernamepassword'  # required for redis messagebus (secure or insecure).
+SecretName = "redisdb"
+PublishTopicPrefix = 'edgex/events/device' # /<device-profile-name>/<device-name>/<source-name> will be added to this Publish Topic prefix
+[MessageQueue.Optional]
+# Default MQTT Specific options that need to be here to enable environment variable overrides of them
+# Client Identifiers
+ClientId = "device-simple"
+# Connection information
+Qos = "0" # Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)
+KeepAlive = "10" # Seconds (must be 2 or greater)
+Retained = "false"
+AutoReconnect = "true"
+ConnectTimeout = "5" # Seconds
+SkipCertVerify = "false" # Only used if Cert/Key file or Cert/Key PEMblock are specified
 
+# Example SecretStore configuration.
+# Only used when EDGEX_SECURITY_SECRET_STORE=true
+# Must also add `ADD_SECRETSTORE_TOKENS: "device-simple"` to vault-worker environment so it generates
+# the token and secret store in vault for 'device-simple'
+[SecretStore]
+Type = 'vault'
+Host = 'localhost'
+Port = 8200
+Path = 'device-simple/'
+Protocol = 'http'
+RootCaCertPath = ''
+ServerName = ''
+TokenFile = '/tmp/edgex/secrets/device-simple/secrets-token.json'
+[SecretStore.Authentication]
+AuthType = 'X-Vault-Token'
 
 [Device]
   DataTransform = true
-  InitCmd = ''
-  InitCmdArgs = ''
   MaxCmdOps = 128
   MaxCmdValueLen = 256
-  RemoveCmd = ''
-  RemoveCmdArgs = ''
-  ProfilesDir = './res'
+  ProfilesDir = './res/profiles'
+  DevicesDir = './res/devices'
   UpdateLastConnected = false
+  AsyncBufferSize = 1
+  EnableAsyncReadings = true
+  Labels = []
+  UseMessageBus = true
   [Device.Discovery]
     Enabled = false
     Interval = '30s'
 
-# Remote and file logging disabled so only stdout logging is used
-[Logging]
-EnableRemote = false
-File = ''
-
-# Pre-define Devices
-[[DeviceList]]
-  Name = 'RandNum-Device01'
-  Profile = 'RandNum-Device'
-  Description = 'Random Number Generator Device'
-  Labels = [ "random", "test" ]
-  [DeviceList.Protocols]
-    [DeviceList.Protocols.Other]
-      Address = 'random'
-      Port = '300'
-  [[DeviceList.AutoEvents]]
-    Resource = 'randomnumber'
-    OnChange = false
-    Frequency = '10s'
+# Example structured custom configuration
+[SimpleCustom]
+OnImageLocation = "./res/on.png"
+OffImageLocation = "./res/off.jpg"
+  [SimpleCustom.Writable]
+  DiscoverSleepDurationSecs = 10

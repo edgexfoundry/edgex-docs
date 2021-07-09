@@ -36,7 +36,7 @@ The log level of any EdgeX micro service is set to `INFO` by default.  If you tu
 
 #### Set the log level
 
-To set the log level of any service, open the [Consul UI](../microservices/configuration/Ch-Configuration.md#web-user-interface) in a browser by visiting `http://[host]:8500`.  When the Consul UI opens, click on the Key/Value tab on the top of the screen.
+To set the log level of any service, open the [Consul UI](../microservices/configuration/ConfigurationAndRegistry.md#web-user-interface) in a browser by visiting `http://[host]:8500`.  When the Consul UI opens, click on the Key/Value tab on the top of the screen.
 
 ![image](EdgeX_WalkthroughConsulKeyValue.png)
 
