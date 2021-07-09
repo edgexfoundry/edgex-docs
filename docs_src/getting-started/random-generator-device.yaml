@@ -7,34 +7,11 @@ labels:
 description: "random number generator to simulate a device"
 
 deviceResources:
-    -   
-        name: "randomnumber"
-        description: "generated random number"
-        attributes:
-            { type: "random" }
-        properties:
-            value:
-                { type: "int32", readWrite: "R" }
-            units:
-                { type: "String", readWrite: "R" }
-
-deviceCommands:
--
-  name: "randomnumber"
-  get:
-  - { operation: "get", deviceResource: "randomnumber" }
-
-coreCommands:
   -
-    name: "randomnumber"
-    get:
-        path: "/api/v1/device/{deviceId}/Random"
-        responses:
-          -
-            code: "200"
-            description: ""
-            expectedValues: ["Random"]
-          -
-            code: "503"
-            description: "service unavailable"
-            expectedValues: []
+    name: "RandomNumber"
+    description: "generated random number"
+    attributes:
+      { type: "random" }
+    properties:
+      valueType: "Int32"
+      readWrite: "R"

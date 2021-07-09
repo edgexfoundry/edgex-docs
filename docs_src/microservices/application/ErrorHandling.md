@@ -1,4 +1,4 @@
-# Error Handling
+# Pipeline Function Error Handling
 
 Each transform returns a `true` or `false` as part of the return signature. This is called the `continuePipeline` flag and indicates whether the SDK should continue calling successive transforms in the pipeline.
 

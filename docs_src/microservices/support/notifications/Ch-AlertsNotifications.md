@@ -154,7 +154,7 @@ Cleanup service removes old notification and transmission records.
 
 ## Configuration Properties
 
-Please refer to the general [Configuration documentation](../../configuration/Ch-Configuration.md#configuration-properties) for configuration properties common to all services.
+Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services.
 
 === "Writable"
     |Property|Default Value|Description|
@@ -230,4 +230,4 @@ Then, use the following settings for the mail server properties:
     Smtp Password=${Yahoo password or App password}
 
 ## API Reference
-[Support Notifications API Reference](../../../api/supporting/Ch-APISupportingServicesAlerts.md)
+[Support Notifications API Reference](../../../api/support/Ch-APISupportNotifications.md)
