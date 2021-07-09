@@ -33,12 +33,14 @@ The client used for the version validation check has changed to being from Core 
     ```toml
       [Clients]
         # Used for version check on start-up
-        # Also used for DeviceSevice, DeviceProfile and Device clients
+        # Also used for DeviceService, DeviceProfile and Device clients
         [Clients.core-metadata]
         Protocol = 'http'
         Host = 'localhost'
         Port = 59881
         
+    ```
+
         # Used for Event client which is used by PushToCoreData function
         [Clients.core-data]
         Protocol = 'http'
@@ -177,7 +179,7 @@ Since the factory function logs all errors all you need to do is exit if it retu
 The `Logging` client is now accessible from the `service.LoggingClient()` API. 
 
 !!! note "New extended Logging Client API"
-    The Logging Client API now has `formated` versions of all the logging APIs, which are `Infof`, `Debugf`, `Tracef`, `Warnf `and `Errorf`. If your code uses `fmt.Sprintf` to format your log messages then it can now be simplified by using these new APIs.
+    The Logging Client API now has `formatted` versions of all the logging APIs, which are `Infof`, `Debugf`, `Tracef`, `Warnf `and `Errorf`. If your code uses `fmt.Sprintf` to format your log messages then it can now be simplified by using these new APIs.
 
 ##### Application Settings
 
