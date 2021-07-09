@@ -38,7 +38,7 @@ docker-compose ps
 *If all EdgeX containers pulled and started correctly and without error, you should see a process status (ps) that looks similar to the image above.*
 
 ## Connected Devices
-EdgeX Foundry provides a [Virtual device service](https://github.com/edgexfoundry/device-virtual-go) which is useful for testing and development.  It simulates a number of [devices](../../general/Definitions.md#Device), each randomly generating data of various types and within configurable parameters.  For example, the Random-Integer-Device will generate random integers.
+EdgeX Foundry provides a [Virtual device service](https://github.com/edgexfoundry/device-virtual-go/tree/v2.0.0) which is useful for testing and development.  It simulates a number of [devices](../../general/Definitions.md#Device), each randomly generating data of various types and within configurable parameters.  For example, the Random-Integer-Device will generate random integers.
 
 The Virtual Device (also known as Device Virtual) service is already a service pulled and running as part of the default EdgeX configuration.
 
@@ -59,7 +59,7 @@ curl http://localhost:59880/api/v2/event/device/name/Random-Integer-Device
 
 Reading data from devices is only part of what EdgeX is capable of.  You can also use it to control your devices - this is termed ['actuating'](../../general/Definitions.md#Actuate) the device. When a device registers with the EdgeX services, it provides a [Device Profile](../../microservices/device/profile/Ch-DeviceProfile.md) that describes both the data readings available from that device, and also the commands that control it. 
 
-When our Virtual Device service registered the device `Random-Integer-Device`, it used a [profile](https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/profiles/device.virtual.int.yaml) to also define commands that allow you to tell the service not to generate random integers, but to always return a value you set.
+When our Virtual Device service registered the device `Random-Integer-Device`, it used a [profile](https://github.com/edgexfoundry/device-virtual-go/blob/v2.0.0/cmd/res/profiles/device.virtual.int.yaml) to also define commands that allow you to tell the service not to generate random integers, but to always return a value you set.
 
 You won't call commands on devices directly, instead you use the EdgeX Foundry [Command Service](../../microservices/core/command/Ch-Command.md) to do that. The first step is to check what commands are available to call by asking the Command service about your device:
 ``` bash
@@ -152,7 +152,7 @@ This command will return a JSON result that looks like this:
 The default range for this reading is -32,768 to 32,767.  In the example above, a value of `-8146` was returned as the reading value.  With the service set up to randomly return values, the value returned will be different each time the `Int16` command is sent.  However, we can use the `WriteInt16Value` command to disable random values from being returned and instead specify a value to return.  Use the curl command below to call the **set** command to disable random values and return the value `42` each time. 
 
 ``` bash
-curl -X PUT -d '{"Int16":"42", "EnableRandomization_Int16":"true"}' http://localhost:59882/api/v2/device/name/Random-Integer-Device/WriteInt16Value
+curl -X PUT -d '{"Int16":"42", "EnableRandomization_Int16":"false"}' http://localhost:59882/api/v2/device/name/Random-Integer-Device/WriteInt16Value
 ```
 
 !!! Warning
@@ -211,6 +211,8 @@ First add the following application service to your docker-compose.yml file righ
 
 !!! Note
     This adds the application service configurable to your EdgeX system.  The application service configurable allows you to configure (versus program) new exports - in this case exporting the EdgeX sensor data to the HiveMQ broker at `tcp://broker.mqttdashboard.com:1883`.  You will be publishing to the EdgeXEvents topic.
+
+    For convenience, see documentation on the [EdgeX Compose Builder](../Ch-GettingStartedUsers/#generate-a-custom-docker-compose-file) to create custom Docker Compose files.
 
 Save the compose file and then execute another compose up command to have Docker Compose pull and start the configurable application service.
 
