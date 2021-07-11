@@ -1558,22 +1558,15 @@
   
 </li>
         
-          <li class="md-nav__item">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#encoding-arbitrary-structures-in-events" class="md-nav__link">
     Encoding Arbitrary Structures in Events
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#creating-a-cbor-payload-for-use-with-put-commands" class="md-nav__link">
-    Creating a CBOR Payload for use with PUT Commands
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -2449,22 +2442,15 @@
   
 </li>
         
-          <li class="md-nav__item">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#encoding-arbitrary-structures-in-events" class="md-nav__link">
     Encoding Arbitrary Structures in Events
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#creating-a-cbor-payload-for-use-with-put-commands" class="md-nav__link">
-    Creating a CBOR Payload for use with PUT Commands
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -2489,7 +2475,7 @@
                 
                 
                 <h1 id="sending-and-consuming-binary-data-from-edgex-device-services">Sending and Consuming Binary Data From EdgeX Device Services</h1>
-<p>EdgeX - Fuji Release</p>
+<p>EdgeX - Ireland Release</p>
 <h2 id="overview">Overview</h2>
 <p>In this example, we will demonstrate how to send EdgeX Events and
 Readings that contain arbitrary binary data.</p>
@@ -2497,13 +2483,22 @@ Readings that contain arbitrary binary data.</p>
 <h3 id="device-profile">Device Profile</h3>
 <p>To indicate that a deviceResource represents a Binary type, the
 following format is used:</p>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;camera_snapshot&quot;</span>
-  <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;snapshot</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">camera&quot;</span>
-  <span class="nt">properties</span><span class="p">:</span>
-  <span class="nt">value</span><span class="p">:</span>
-      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;Binary&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span> <span class="p p-Indicator">}</span>
-  <span class="nt">units</span><span class="p">:</span>
-      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;Binary&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;CameraSnapshot&quot;</span> <span class="p p-Indicator">}</span>
+<div class="highlight"><pre><span></span><code><span class="nt">deviceResources</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;camera_snapshot&quot;</span>
+    <span class="nt">isHidden</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;snapshot</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">camera&quot;</span>
+    <span class="nt">properties</span><span class="p">:</span>
+        <span class="nt">valueType</span><span class="p">:</span> <span class="s">&quot;Binary&quot;</span>
+        <span class="nt">readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span>
+        <span class="nt">mediaType</span><span class="p">:</span> <span class="s">&quot;image/jpeg&quot;</span>
+<span class="nt">deviceCommands</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;OnvifSnapshot&quot;</span>
+    <span class="nt">isHidden</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+    <span class="nt">readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span>
+    <span class="nt">resourceOperations</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span> <span class="s">&quot;camera_snapshot&quot;</span> <span class="p p-Indicator">}</span>
 </code></pre></div>
 <h3 id="device-service">Device Service</h3>
 <p>Here is a snippet from a hypothetical Device Service's
@@ -2513,16 +2508,16 @@ represents a JPEG image captured from a camera:</p>
   data, err := cameraClient.GetSnapshot() // returns ([]byte, error)
   check(err)
 
-  cv, err := sdkModel.NewBinaryValue(reqs[i].DeviceResourceName, 0, data)
+  cv, err := sdkModels.NewCommandValue(reqs[i].DeviceResourceName, common.ValueTypeBinary, data)
   check(err)
 
   responses[i] = cv
 }
 </code></pre></div>
 <h2 id="calling-device-service-command">Calling Device Service Command</h2>
-<p>Querying core-metadata for the Device's Commands and DeviceID provides
+<p>Querying core-metadata for the Device's Commands and DeviceName provides
 the following as the URL to request a reading from the snapshot command:
-<a href="http://localhost:49990/api/v1/device/3469a658-c3b8-46f1-9098-7d19973af402/OnvifSnapshot">http://localhost:49990/api/v1/device/3469a658-c3b8-46f1-9098-7d19973af402/OnvifSnapshot</a></p>
+<a href="http://localhost:59990/api/v2/device/name/camera-device/OnvifSnapshot">http://localhost:59990/api/v2/device/name/camera-device/OnvifSnapshot</a></p>
 <p>Unlike with non-binary Events, making a request to this URL will return
 an event in CBOR representation. CBOR is a representation of binary data
 loosely based off of the JSON data model. This Event will not be
@@ -2532,14 +2527,14 @@ human-readable.</p>
 first need to be decoded from CBOR. The following is a simple Go program
 that reads in the CBOR response from a file containing the response from
 the previous HTTP request. The Go library recommended for parsing these
-events can be found at <a href="https://github.com/ugorji/go">https://github.com/ugorji/go</a></p>
+events can be found at <a href="https://github.com/fxamacker/cbor/">https://github.com/fxamacker/cbor/</a></p>
 <div class="highlight"><pre><span></span><code>package main
 
 import (
-  “io/ioutil”
+    &quot;io/ioutil&quot;
 
-  contracts “github.com/edgexfoundry/go-mod-core-contracts/models”
-  “github.com/ugorji/go/codec”
+    &quot;github.com/edgexfoundry/go-mod-core-contracts/v2/dtos/requests&quot;
+    &quot;github.com/fxamacker/cbor/v2&quot;
 )
 
 func check(e error) {
@@ -2549,34 +2544,27 @@ func check(e error) {
 }
 
 func main() {
-  // Read in our cbor data
-  fileBytes, err := ioutil.ReadFile(“/Users/johndoe/Desktop/image.cbor”)
-  check(err)
+    // Read in our cbor data
+    fileBytes, err := ioutil.ReadFile(&quot;/Users/johndoe/Desktop/image.cbor&quot;)
+    check(err)
 
-  // Create a cbor decoder from the cbor bytes and a cbor code handle
-  var h codec.Handle = new(codec.CborHandle)
-  var dec *codec.Decoder = codec.NewDecoderBytes(fileBytes, h)
+    // Decode into an EdgeX Event
+    eventRequest := &amp;requests.AddEventRequest{}
+    err = cbor.Unmarshal(fileBytes, eventRequest)
+    check(err)
 
-  // Decode into an EdgeX Event
-  var event contracts.Event
-  err = dec.Decode(&amp;event)
-  check(err)
-
-  // Grab binary data and write to a file
-  imgBytes := event.Readings[0].BinaryValue
-  ioutil.WriteFile(“/Users/johndoe/Desktop/image.jpeg”, imgBytes, 0644)
+    // Grab binary data and write to a file
+    imgBytes := eventRequest.Event.Readings[0].BinaryValue
+    ioutil.WriteFile(&quot;/Users/johndoe/Desktop/image.jpeg&quot;, imgBytes, 0644)
 }
 </code></pre></div>
-<p>In the code above, the CBOR data is read into a buffer, a
-<code>code.Decoder</code> is created to decode the CBOR data, an EdgeX
-Event struct is created, and a pointer is passed into the decoder's
-<code>Decode()</code> method to be filled in. Finally, the binary
-payload is written to a file from the <code>BinaryValue</code> field of
+<p>In the code above, the CBOR data is read into a byte array , an EdgeX Event struct is created, 
+and <code>cbor.Unmarshal</code> parses the CBOR-encoded data and stores the result in the Event struct. 
+Finally, the binary payload is written to a file from the <code>BinaryValue</code> field of
 the Reading.</p>
-<p>This method would work as well for decoding Events off the EdgeX message
-bus.</p>
-<h3 id="encoding-arbitrary-structures-in-events">Encoding Arbitrary Structures in Events</h3>
-<p>The Device SDK's <code>NewBinaryValue()</code> function above only
+<p>This method would work as well for decoding Events off the EdgeX message bus.</p>
+<h2 id="encoding-arbitrary-structures-in-events">Encoding Arbitrary Structures in Events</h2>
+<p>The Device SDK's <code>NewCommandValue()</code> function above only
 accepts a byte slice as binary data. Any arbitrary Go structure can be
 encoded in a binary reading by first encoding the structure into a byte
 slice using CBOR. The following illustrates this method:</p>
@@ -2593,137 +2581,47 @@ foo := struct {
   Bar: &quot;Hello world!&quot;,
 }
 
-buffer := new(bytes.Buffer)
-ch := new(codec.CborHandle)
-encoder := codec.NewEncoder(buffer, ch)
-
-err = encoder.Encode(&amp;foo)
+data, err := cbor.Marshal(&amp;foo)
 check(err)
 
-cv, err := sdkModel.NewBinaryValue(reqs[i].DeviceResourceName, 0, buffer.Bytes())
+cv, err := sdkModels.NewCommandValue(reqs[i].DeviceResourceName, common.ValueTypeBinary, data)
 responses[i] = cv
 </code></pre></div>
 <p>This code takes the anonymous struct with fields X, Y, Z, and Bar (of
 different types) and serializes it into a byte slice using the same
-<code>codec</code> library, and passing the output to
-<code>NewBinaryValue()</code>.</p>
+<code>cbor</code> library, and passing the output to
+<code>NewCommandValue()</code>.</p>
 <p>When consuming these events, another level of decoding will need to take
 place to get the structure out of the binary payload.</p>
 <div class="highlight"><pre><span></span><code>func main() {
-  // Read in our cbor data
-  fileBytes, err := ioutil.ReadFile(“/Users/johndoe/Desktop/image.cbor”)
-  check(err)
+    // Read in our cbor data
+    fileBytes, err := ioutil.ReadFile(&quot;/Users/johndoe/Desktop/foo.cbor&quot;)
+    check(err)
 
-  // Create a cbor decoder from the cbor bytes and a cbor code handle
-  var h codec.Handle = new(codec.CborHandle)
-  var dec *codec.Decoder = codec.NewDecoderBytes(fileBytes, h)
+    // Decode into an EdgeX Event
+    eventRequest := &amp;requests.AddEventRequest{}
+    err = cbor.Unmarshal(fileBytes, eventRequest)
+    check(err)
 
-  // Decode into an EdgeX Event
-  var event contracts.Event
-  err = dec.Decode(&amp;event)
-  check(err)
+    // Decode into arbitrary type
+    foo := struct {
+        X   int
+        Y   int
+        Z   int
+        Bar string
+    }{}
 
-  // Decode into arbitrary type
-  foo := struct {
-  X   int
-  Y   int
-  Z   int
-  Bar string
-  }{}
-
-  dec = codec.NewDecoderBytes(event.Readings[0].BinaryValue, h)
-  err = dec.Decode(&amp;foo)
-  check(err)
-
-  fmt.Println(foo)
+    err = cbor.Unmarshal(eventRequest.Event.Readings[0].BinaryValue, &amp;foo)
+    check(err)
+    fmt.Println(foo)
 }
 </code></pre></div>
 <p>This code takes a command response in the same format as the previous
-example, but uses the <code>codec</code> library to decode the CBOR
+example, but uses the <code>cbor</code> library to decode the CBOR
 data inside the EdgeX Reading's <code>BinaryValue</code> field.</p>
 <p>Using this approach, an Event can be sent containing data containing an
 arbitrary, flexible structure. Use cases could be a Reading containing
 multiple images, a variable length list of integer read-outs, etc.</p>
-<h3 id="creating-a-cbor-payload-for-use-with-put-commands">Creating a CBOR Payload for use with PUT Commands</h3>
-<p>To create a CBOR payload that, for example, can be used with <code>PUT</code> commands,
-we first need to set up some content which will be used to create the CBOR data.
-Then we encode that content and finally write the CBOR-encoded data to a file,
-followed by using that file with an example <code>PUT</code> command.</p>
-<p>The relevant data structures are as follows, containing details of the key
-and the corresponding value, where you should note in particular the <code>Put</code>
-field in the <code>Command</code> struct, and below the <code>Command</code> struct is the <code>Put</code>
-struct itself. More details available at
-https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/models/put.go:
-<div class="highlight"><pre><span></span><code>type Command struct {
-    Timestamps  `yaml:&quot;,inline&quot;`
-    Id          string `json:&quot;id&quot; yaml:&quot;id,omitempty&quot;`     // Id is a unique identifier, such as a UUID
-    Name        string `json:&quot;name&quot; yaml:&quot;name,omitempty&quot;` // Command name (unique on the profile)
-    Get         Get    `json:&quot;get&quot; yaml:&quot;get,omitempty&quot;`   // Get Command
-    Put         Put    `json:&quot;put&quot; yaml:&quot;put,omitempty&quot;`   // Put Command
-    isValidated bool   // internal member used for validation check
-}
-
-type Put struct {
-    Action         `yaml:&quot;,inline&quot;`
-    ParameterNames []string `json:&quot;parameterNames,omitempty&quot; yaml:&quot;parameterNames,omitempty&quot;`
-}
-</code></pre></div>
-What follows below is the accompanying <code>golang</code> code that accomplishes the steps above:</p>
-<div class="highlight"><pre><span></span><code>package main
-
-import (
-    &quot;io/ioutil&quot;
-
-    &quot;github.com/ugorji/go/codec&quot;
-)
-
-const (
-  fileLocation = &quot;/Users/johnpoe/Desktop/CBOR_Binary&quot;
-)
-
-const (
-    enableRandomizationBinary = &quot;EnableRandomization_Binary&quot;
-    path                      = &quot;Path&quot;
-    url                       = &quot;Url&quot;
-)
-
-func main() {
-    // Set up some records which will be used to create the CBOR data
-    cborContents := make(map[string]string)
-
-    // The user should put values in the cborContents variable above, which will
-    // be converted to CBOR. Please refer to the earlier note containing details
-    // of the key and the corresponding value each keys represent. What follows
-    // below is an example of populating the &quot;ParameterNames&quot; (aka &quot;Put&quot;)
-    cborContents[enableRandomizationBinary] = &quot;true&quot;
-    cborContents[path] = &quot;/api/v1/device/9f872d68/Binary&quot;
-    cborContents[url] = &quot;http://localhost:48082/api/v1/device/9f872d68/command/7ff8d51ea50d&quot;
-
-
-    // Encode the contents that were set up above.
-    input := make([]byte, 0)
-    check(codec.NewEncoderBytes(&amp;input, &amp;codec.CborHandle{}).Encode(cborContents))
-
-    // Write the CBOR-encoded data to a file.
-    ioutil.WriteFile(fileLocation, input, 0644)
-}
-
-func check(e error) {
-    if e != nil {
-        panic(e)
-    }
-}
-</code></pre></div>
-<p>In the code above, as a final step, the CBOR payload has been written to the filesystem,
-into a file that we are calling <code>CBOR_Binary</code>.</p>
-<p>Here is how to use the <code>PUT</code> command: Via the <code>--data-binary</code> flag in <code>cURL</code>, supply as
-follows the CBOR-encoded file created above. You will want to replace the fileLocation
-(i.e. <code>'@/Users/johnpoe/Desktop/CBOR_Binary'</code> by a suitably-located local file on your
-filesystem:
-<div class="highlight"><pre><span></span><code>curl --location --request PUT &#39;http://localhost:48082/api/v1/device/9f872d68-2281-4af4-959d-29e4d51c2192/command/b349df4a-6c3d-4218-b8bc-7ff8d51ea50d&#39; \
---header &#39;Content-Type: application/cbor&#39; \
---data-binary &#39;@/Users/johnpoe/Desktop/CBOR_Binary&#39;
-</code></pre></div></p>
                 
               
               
