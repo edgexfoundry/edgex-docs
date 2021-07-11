@@ -1,21 +1,12 @@
 # Core Metadata
 
-## Architecture Reference
-
-For a description of the architecture, see
-[Core-Metadata](../../microservices/core/metadata/Ch-Metadata.md)
-
-## Introduction
-
-The Metadata microservice includes the device/sensor metadata database
-and APIs to expose the database to other services. In particular, the
+The Core Metadata microservice includes the device/sensor metadata database
+and APIs to expose this database to other services. In particular, the
 device provisioning service deposits and manages device metadata through
-this service. This service may also hold and manage other configuration
-metadata used by other services on the gateway such as clean up
-schedules, hardware configuration (Wi-Fi connection info, MQTT queues,
-and so forth). Non-device metadata may need to be held in a different
-database and/or managed by another service--depending upon
-implementation.
+this service's API. See [Core Metadata](../../microservices/core/metadata/Ch-Metadata.md) for more details about this service.
 
-[Core Metadata V1 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata)
-<!-- [Core Metadata API HTML Documentation](core-metadata.html) -->
+[Core Metadata V2 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata)
+
+!!! edgey "EdgeX 2.0"
+    For EdgeX 2.0 the REST API provided by the Core Metadata has changed to use DTOs (Data Transfer Objects) for all responses and for all POST/PUT/PATCH requests.  All query APIs (GET) which return multiple objects, such as /all, provide `offset` and `limit` query parameters.
+
