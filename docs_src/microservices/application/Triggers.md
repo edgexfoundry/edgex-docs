@@ -161,7 +161,20 @@ This with App Services capability to have multiple subscriptions allows for mult
   ```
 
 !!! note
-    Note the use of the `#` wild card character. This first one is used in the location for where Core Data's and Device Service's publish topics differ. This location will be `core` when coming from Core Data or `device` when coming from a Device Service. The additional use of the `#` in the above examples allows for any `Profile`, `Device` or `Source` when specifying one of the others.
+    The above examples are for when Redis is used as the EdgeX MessageBus implementation, which is now the default. The Redis implementation uses the `#` wildcard character for multi-level and single level. The implementation actually converts all `#`'s to the `*`'s. The `*`is the actual wildcard character used by Redis Pub/Sub. In the first example (multi-level) the `#` is used at the end in the location for where Core Data's and Device Service's publish topics differ. This location will be `core` when coming from Core Data or `device` when coming from a Device Service. The additional use of `#` within the topic, not at the end, (single-level) allows for any `Profile`, `Device` or `Source` when specifying one of the others.
+
+!!! note
+    For the MQTT implementation of the EdgeX MessageBus, the `#` is also used for the multi-level wildcard, but the single-level wildcard is the `+` character. So the first and last examples above would be as follows for when using the MQTT implementation
+
+    ````toml
+    SubscribeTopics="edgex/events/#"
+    SubscribeTopics="edgex/events/+/trendnet/#"
+    SubscribeTopics="edgex/events/+/+/trendnet01/#"
+    SubscribeTopics="edgex/events/+/+/trendnet01/#, edgex/events/+/+/trendnet02/#"
+    SubscribeTopics="edgex/events/+/+/+/Uptime, edgex/events/+/+/+/MacAddress"
+    ````
+
+
 
 ## External MQTT Trigger
 
@@ -358,7 +371,7 @@ A complete working example can be found [**here**](https://github.com/edgexfound
 !!! edgey "Edgex 2.0"
 	New for EdgeX 2.0 
 
-Both the `EdgeX MessageBus`and the `External MQTT` triggers support the new **Publish Topic Placeholders** capability. The configured `PublishTopic` for either of these triggers can contain placeholders for runtime replacements. The placeholders are replaced with values from the new `Context Storage` whos key match the placeholder name. Function pipelines can add values to the `Context Storage` which can then be used as replacement values in the publish topic. If an EdgeX Event is received by the configured trigger the Event's `profilename`, `devicename` and `sourcename` as well as the will be seeded into the `Context Storage`. See the [Context Storage](AppFunctionContextAPI.md#context-storage) documentation for more details.
+Both the `EdgeX MessageBus`and the `External MQTT` triggers support the new **Publish Topic Placeholders** capability. The configured `PublishTopic` for either of these triggers can contain placeholders for runtime replacements. The placeholders are replaced with values from the new `Context Storage` whose key match the placeholder name. Function pipelines can add values to the `Context Storage` which can then be used as replacement values in the publish topic. If an EdgeX Event is received by the configured trigger the Event's `profilename`, `devicename` and `sourcename` as well as the will be seeded into the `Context Storage`. See the [Context Storage](AppFunctionContextAPI.md#context-storage) documentation for more details.
 
 The **Publish Topic Placeholders** format is a simple `{<key-name>}` that can appear anywhere in the topic multiple times. An error will occur if a specified placeholder does not exist in the  `Context Storage`. 
 
