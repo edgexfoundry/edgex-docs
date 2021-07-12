@@ -292,7 +292,7 @@ Custom profiles used with App Service Configurable are configuration files. Thes
 8. `HTTPPost`, `HTTPPostJSON`, `HTTPPostXML`, `HTTPPut`, `HTTPPutJSON` and `HTTPPutXML` have been collapsed into `HTTPExport` with additional parameters. See the [HTTPExport](../AppServiceConfigurable/#httpexport) section for more details.
 9. `MQTTSecretSend` has been renamed to `MQTTExport` with additional parameters. See the [MQTTExport](../AppServiceConfigurable/#mqttexport) section for more details.
 10. `MarkAsPushed` has been removed. The mark as push capability has been removed from Core Data, which this depended on.
-11. `MQTTSend` has been removed. This has been replaced by `MQTTExport`
+11. `MQTTSend` has been removed. This has been replaced by `MQTTExport`. See the [MQTTExport](../AppServiceConfigurable/#mqttexport) section for more details.
 12. `FilterByProfileName` and `FilterBySourceName` have been added. See the [FilterByProfileName](../AppServiceConfigurable/#filterbyprofilename) and  [FilterBySourceName](../AppServiceConfigurable/#filterbysourcename) sections for more details.
 13. Ability to define multiple instances of the same Configurable Pipeline Function has been added. See the [Multiple Instances of Function](../AppServiceConfigurable/#multiple-instances-of-function) section for more details.
 
