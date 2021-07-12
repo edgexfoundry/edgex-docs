@@ -40,6 +40,7 @@ The latest developed data model will be updated in the [Swagger API document](ht
 
 ![image](EdgeX_SupportSchedulerModel.png)
 
+This diagram is drawn by [diagram.net](https://app.diagrams.net/), and the source file is [here]( EdgeX_SupportSchedulerModel.xml).
 ## Data Dictionary
 ### Interval
 An object defining a specific "period" in time
