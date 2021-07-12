@@ -15,7 +15,7 @@ The `SecretStoreExclusive` section has been removed in EdgeX 2.0. With Edgex 2.0
 
 #### Clients
 
-The client used for the version validation check has changed to being from Core Metadata, rather than Core Data. This is because Core Data is now optional when persistence isn't required since all Device Services are publishing directly to the EdgeX MessageBus. The configuration for Core Metadata is the only `Clients` entry required, all other (see below) are optional based on use case needs. 
+The client used for the version validation check has changed to being from Core Metadata, rather than Core Data. This is because Core Data is now optional when persistence isn't required since all Device Services publish directly to the EdgeX MessageBus. The configuration for Core Metadata is the only `Clients` entry required, all other (see below) are optional based on use case needs. 
 
 !!! note 
     The port numbers for all EdgeX services have changed which must be reflected in the `Clients` configuration. Please see the [Default Service Ports](../../../general/ServicePorts) section for complete list of the new port assignments. 
@@ -225,7 +225,7 @@ The major change to custom Pipeline Functions for EdgeX 2.0 is the new function 
 !!! example "Example - New Pipeline Function signature"
 
     ```go
-    type AppFunction = func(cxt AppFunctionContext, data interface{}) (bool, interface{})
+    type AppFunction = func(ctx AppFunctionContext, data interface{}) (bool, interface{})
     ```
 
 This function signature passes in an instance of the new AppFunctionContext API for the context and now has only a single `data` instance for the function to operate on.
@@ -289,10 +289,10 @@ Custom profiles used with App Service Configurable are configuration files. Thes
 5. `BatchByCount`, `BatchByTime` and `BatchByTimeAndCount` have been collapsed into `Batch` with additional parameters. See the [Batch](../AppServiceConfigurable/#batch) section for more details.
 6. `SetOutputData` has been renamed to `SetResponseData`. See the [SetResponseData](../AppServiceConfigurable/#setresponsedata) section for more details.
 7. `PushToCore` parameters have changed. See the [PushToCore](../AppServiceConfigurable/#pushtocore) section for more details.
-9. `HTTPPost`, `HTTPPostJSON`, `HTTPPostXML`, `HTTPPut`, `HTTPPutJSON` and `HTTPPutXML` have been collapsed into `HTTPExport` with additional parameters. See the [HTTPExport](../AppServiceConfigurable/#httpexport) section for more details.
-10. `MQTTSecretSend` has been renamed to `MQTTExport` with additional parameters. See the [MQTTExport](../AppServiceConfigurable/#mqttexport) section for more details.
-11. `MarkAsPushed` has been removed.
-11. `MQTTSend` has been removed.
+8. `HTTPPost`, `HTTPPostJSON`, `HTTPPostXML`, `HTTPPut`, `HTTPPutJSON` and `HTTPPutXML` have been collapsed into `HTTPExport` with additional parameters. See the [HTTPExport](../AppServiceConfigurable/#httpexport) section for more details.
+9. `MQTTSecretSend` has been renamed to `MQTTExport` with additional parameters. See the [MQTTExport](../AppServiceConfigurable/#mqttexport) section for more details.
+10. `MarkAsPushed` has been removed. The mark as push capability has been removed from Core Data, which this depended on.
+11. `MQTTSend` has been removed. This has been replaced by `MQTTExport`
 12. `FilterByProfileName` and `FilterBySourceName` have been added. See the [FilterByProfileName](../AppServiceConfigurable/#filterbyprofilename) and  [FilterBySourceName](../AppServiceConfigurable/#filterbysourcename) sections for more details.
 13. Ability to define multiple instances of the same Configurable Pipeline Function has been added. See the [Multiple Instances of Function](../AppServiceConfigurable/#multiple-instances-of-function) section for more details.
 
