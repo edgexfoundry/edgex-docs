@@ -18,7 +18,7 @@ The `SecretStoreExclusive` section has been removed in EdgeX 2.0. With Edgex 2.0
 The client used for the version validation check has changed to being from Core Metadata, rather than Core Data. This is because Core Data is now optional when persistence isn't required since all Device Services are publishing directly to the EdgeX MessageBus. The configuration for Core Metadata is the only `Clients` entry required, all other (see below) are optional based on use case needs. 
 
 !!! note 
-    The port numbers for all EdgeX services have changed which must be reflected in the `Clients` configuration.
+    The port numbers for all EdgeX services have changed which must be reflected in the `Clients` configuration. Please see the [Default Service Ports](../../../general/ServicePorts) section for complete list of the new port assignments. 
 
 !!! example "Example - Core Metadata client configuration"
     ```toml
@@ -40,7 +40,7 @@ The client used for the version validation check has changed to being from Core 
         Port = 59881
         
     ```
-
+    
         # Used for Event client which is used by PushToCoreData function
         [Clients.core-data]
         Protocol = 'http'
@@ -278,7 +278,7 @@ The `PushToCore` API replaces the `PushToCoreData` function. The API signature h
 
 Some new capabilities have been added to the new AppFunctionContext API. See the [App Function Context](../AppFunctionContextAPI) API section for complete details.
 
-## Custom Profiles
+## App Service Configurable Profiles
 
 Custom profiles used with App Service Configurable are configuration files. These follow the same migration above for custom  [Application Service configuration](#configuration), except for the Configurable Functions Pipeline items.  The following are the changes for the Configurable Functions Pipeline:
 
