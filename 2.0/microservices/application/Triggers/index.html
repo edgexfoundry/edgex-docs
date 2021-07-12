@@ -2776,7 +2776,17 @@ edgex/events/device/&lt;profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Note the use of the <code>#</code> wild card character. This first one is used in the location for where Core Data's and Device Service's publish topics differ. This location will be <code>core</code> when coming from Core Data or <code>device</code> when coming from a Device Service. The additional use of the <code>#</code> in the above examples allows for any <code>Profile</code>, <code>Device</code> or <code>Source</code> when specifying one of the others.</p>
+<p>The above examples are for when Redis is used as the EdgeX MessageBus implementation, which is now the default. The Redis implementation uses the <code>#</code> wildcard character for multi-level and single level. The implementation actually converts all <code>#</code>'s to the <code>*</code>'s. The <code>*</code>is the actual wildcard character used by Redis Pub/Sub. In the first example (multi-level) the <code>#</code> is used at the end in the location for where Core Data's and Device Service's publish topics differ. This location will be <code>core</code> when coming from Core Data or <code>device</code> when coming from a Device Service. The additional use of <code>#</code> within the topic, not at the end, (single-level) allows for any <code>Profile</code>, <code>Device</code> or <code>Source</code> when specifying one of the others.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For the MQTT implementation of the EdgeX MessageBus, the <code>#</code> is also used for the multi-level wildcard, but the single-level wildcard is the <code>+</code> character. So the first and last examples above would be as follows for when using the MQTT implementation</p>
+<div class="highlight"><pre><span></span><code><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#&quot;</span>
+<span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/+/trendnet/#&quot;</span>
+<span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/+/+/trendnet01/#&quot;</span>
+<span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/+/+/trendnet01/#, edgex/events/+/+/trendnet02/#&quot;</span>
+<span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/+/+/+/Uptime, edgex/events/+/+/+/MacAddress&quot;</span>
+</code></pre></div>
 </div>
 <h2 id="external-mqtt-trigger">External MQTT Trigger</h2>
 <p>An External MQTT trigger will execute the pipeline every time data is received from an external MQTT broker on the configured <code>SubscribeTopics</code>.  </p>
@@ -2943,7 +2953,7 @@ edgex/events/device/&lt;profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;
 <p class="admonition-title">Edgex 2.0</p>
 <p>New for EdgeX 2.0 </p>
 </div>
-<p>Both the <code>EdgeX MessageBus</code>and the <code>External MQTT</code> triggers support the new <strong>Publish Topic Placeholders</strong> capability. The configured <code>PublishTopic</code> for either of these triggers can contain placeholders for runtime replacements. The placeholders are replaced with values from the new <code>Context Storage</code> whos key match the placeholder name. Function pipelines can add values to the <code>Context Storage</code> which can then be used as replacement values in the publish topic. If an EdgeX Event is received by the configured trigger the Event's <code>profilename</code>, <code>devicename</code> and <code>sourcename</code> as well as the will be seeded into the <code>Context Storage</code>. See the <a href="../AppFunctionContextAPI/#context-storage">Context Storage</a> documentation for more details.</p>
+<p>Both the <code>EdgeX MessageBus</code>and the <code>External MQTT</code> triggers support the new <strong>Publish Topic Placeholders</strong> capability. The configured <code>PublishTopic</code> for either of these triggers can contain placeholders for runtime replacements. The placeholders are replaced with values from the new <code>Context Storage</code> whose key match the placeholder name. Function pipelines can add values to the <code>Context Storage</code> which can then be used as replacement values in the publish topic. If an EdgeX Event is received by the configured trigger the Event's <code>profilename</code>, <code>devicename</code> and <code>sourcename</code> as well as the will be seeded into the <code>Context Storage</code>. See the <a href="../AppFunctionContextAPI/#context-storage">Context Storage</a> documentation for more details.</p>
 <p>The <strong>Publish Topic Placeholders</strong> format is a simple <code>{&lt;key-name&gt;}</code> that can appear anywhere in the topic multiple times. An error will occur if a specified placeholder does not exist in the  <code>Context Storage</code>. </p>
 <h3 id="example">Example</h3>
 <div class="highlight"><pre><span></span><code><span class="n">PublishTopic</span> <span class="o">=</span> <span class="s">&quot;data/{profilename}/{devicename}/{custom}&quot;</span>
