@@ -494,7 +494,7 @@
         
           <li class="md-nav__item">
   <a href="#generate-a-custom-docker-compose-file" class="md-nav__link">
-    Generate a custom docker compose file
+    Generate a custom Docker Compose file
   </a>
   
 </li>
@@ -2468,7 +2468,7 @@
         
           <li class="md-nav__item">
   <a href="#generate-a-custom-docker-compose-file" class="md-nav__link">
-    Generate a custom docker compose file
+    Generate a custom Docker Compose file
   </a>
   
 </li>
@@ -2573,14 +2573,15 @@ Compose.</p>
 <li>The order in which the containers should be started,</li>
 <li>The parameters (such as ports) under which the containers should be run</li>
 </ul>
-<p>The EdgeX development team provides Docker Compose files for each release.  Visit the project <a href="https://github.com/edgexfoundry/developer-scripts/tree/master/releases">GitHub</a>  and locate the EdgeX Docker Compose file for the version of EdgeX you want to run.</p>
-<p><img alt="image" src="../EdgeX_GettingStartedReleaseFolders.png" />
-<em>The EdgeX Developer Scripts repository contains a folder for each release.  In the folder, find the Docker Compose files for each release.</em></p>
+<p>The EdgeX development team provides Docker Compose files for each release.  Visit the project's GitHub and find the <a href="https://github.com/edgexfoundry/edgex-compose">edgex-compose repository</a>.  This repository holds all of the EdgeX Docker Compose files for each of the EdgeX releases/versions. The Compose files for each release are found in separate branches.  Click on the <code>main</code> button to see all the branches.</p>
+<p><img alt="image" src="../EdgeX_GettingStartedBranchSelection.png" />
+<em>The edgex-compose repositor contains branches for each release.  Select the release branch to locate the Docker Compose files for each release.</em></p>
+<p>Locate the branch containing the EdgeX Docker Compose file for the version of EdgeX you want to run.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>At the GitHub location specified above there is a folder for each EdgeX release.  The nightly-build folder contains Docker Compose files that use artifacts created from the latest code submitted by contributors.  Most end users should avoid using these Docker Compose files.  They are work-in-progress.  Users should use the Docker Compose files for the latest version of EdgeX. </p>
+<p>The <code>main</code> branch contains the Docker Compose files that use artifacts created from the latest code submitted by contributors (from the night builds).  Most end users should avoid using these Docker Compose files.  They are work-in-progress.  Users should use the Docker Compose files for the latest version of EdgeX. </p>
 </div>
-<p>In each folder, you will find several Docker Compose files (all with a .yml extension).  The name of the file will suggest the type of EdgeX instance the Compose file will help setup.  The table below provides a list of the Docker Compose filenames for the latest release (Hanoi).   Find the Docker Compose file that matches:</p>
+<p>In each edgex-compose branch, you will find several Docker Compose files (all with a .yml extension).  The name of the file will suggest the type of EdgeX instance the Compose file will help setup.  The table below provides a list of the Docker Compose filenames for the latest release (Ireland).   Find the Docker Compose file that matches:</p>
 <ul>
 <li>your hardware (x86 or ARM)</li>
 <li>your desire to have security services on or off</li>
@@ -2594,28 +2595,28 @@ Compose.</p>
 </thead>
 <tbody>
 <tr>
-<td>docker-compose-hanoi-arm64.yml</td>
+<td>docker-compose-arm64.yml</td>
 <td>Specifies x86 containers, uses Redis database for persistence, and includes security services</td>
 </tr>
 <tr>
-<td>docker-compose-hanoi-no-secty-arm64.yml</td>
+<td>docker-compose-no-secty-arm64.yml</td>
 <td>Specifies ARM 64 containers, uses Redis database for persistence, but does not include security services</td>
 </tr>
 <tr>
-<td>docker-compose-hanoi-no-secty.yml</td>
+<td>docker-compose-no-secty.yml</td>
 <td>Specifies x86 containers, uses Redis database for persistence, but does not include security services</td>
 </tr>
 <tr>
-<td>docker-compose-hanoi.yml</td>
+<td>docker-compose.yml</td>
 <td>Specifies x86 containers, uses Redis database for persistence, and includes security services</td>
 </tr>
 <tr>
-<td>docker-compose-hanoi-ui-arm64.</td>
-<td>Specifies the EdgeX user interface extension to be used with the ARM 64 EdgeX platform</td>
+<td>docker-compose-no-secty-with-ui-arm64.</td>
+<td>Same as docker-compose-no-secty-arm64.yml but also includes EdgeX user interface</td>
 </tr>
 <tr>
-<td>docker-compose-hanoi-ui.yml</td>
-<td>Specifies the EdgeX user interface extension to be used with the x86 EdgeX platform</td>
+<td>docker-compose-no-secty-with-ui.yml</td>
+<td>Same as docker-compose-no-secty.yml but also includes EdgeX user interface</td>
 </tr>
 <tr>
 <td>docker-compose-portainer.yml</td>
@@ -2624,13 +2625,13 @@ Compose.</p>
 </tbody>
 </table>
 <h3 id="download-a-edgex-foundry-compose-file">Download a EdgeX Foundry Compose File</h3>
-<p>Once you have selected the EdgeX Compose file you want to use, download it using your favorite tool.  The examples below uses <em>wget</em> to fetch Docker Compose for the Hanoi release with no security.</p>
+<p>Once you have selected the release branch of edgex-compose you want to use, download it using your favorite tool.  The examples below uses <em>wget</em> to fetch Docker Compose for the Ireland release with no security.</p>
 <div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">x86</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code>wget https://raw.githubusercontent.com/edgexfoundry/developer-scripts/master/releases/hanoi/compose-files/docker-compose-hanoi-no-secty.yml -O docker-compose.yml
+<div class="highlight"><pre><span></span><code>wget https://raw.githubusercontent.com/edgexfoundry/edgex-compose/ireland/docker-compose-no-secty.yml -O docker-compose.yml
 </code></pre></div>
 </div>
 <input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">ARM</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code>wget https://raw.githubusercontent.com/edgexfoundry/developer-scripts/master/releases/hanoi/compose-files/docker-compose-hanoi-no-secty-arm64.yml -O docker-compose.yml
+<div class="highlight"><pre><span></span><code>wget https://raw.githubusercontent.com/edgexfoundry/edgex-compose/ireland/docker-compose-no-secty-arm64.yml -O docker-compose.yml
 </code></pre></div>
 </div>
 </div>
@@ -2638,24 +2639,26 @@ Compose.</p>
 <p class="admonition-title">Note</p>
 <p>The commands above fetch the Docker Compose to a file named 'docker-compose.yml' in the current directory.  Docker Compose commands look for a file named 'docker-compose.yml' by default.  You can use an alternate file name but then must specify that file name when issuing Docker Compose commands.  See Compose <a href="https://docs.docker.com/compose/reference/overview/">reference documentation</a> for help.  </p>
 </div>
-<h3 id="generate-a-custom-docker-compose-file">Generate a custom docker compose file</h3>
-<p>The docker compose files under the <code>releases/hanoi</code> folder contain the standard set of EdgeX services configured to use <code>ZeroMQ</code> for the message bus and include only the Virtual and REST device services. If you need to have different device services running or use <code>MQTT</code> for the message bus, you need a modified version of one of the standard docker files. You could manually add the device services to one of the existing EdgeX compose files or, use the EdgeX Compose Builder tool to generate a new custom compose file that contains the services you would like included. When you use Compose Builder, you don't have to worry about adding all the necessary ports, variables, etc. as the tool will generate the service elements in the file for you. The <a href="https://github.com/edgexfoundry/developer-scripts/tree/v1.3.0/compose-builder"><code>Compose Builder</code></a> tool was added for the Hanoi release. This tool allows users to generate custom compose files. </p>
-<p>Do the following to use this tool:</p>
+<h3 id="generate-a-custom-docker-compose-file">Generate a custom Docker Compose file</h3>
+<p>The Docker Compose files in the <code>ireland</code> branch contain the standard set of EdgeX services configured to use <code>Redis</code> message bus and include only the Virtual and REST device services. If you need to have different device services running or use <code>MQTT</code> for the message bus, you need a modified version of one of the standard Docker Compose files. You could manually add the device services to one of the existing EdgeX Compose files or, use the EdgeX Compose Builder tool to generate a new custom Compose file that contains the services you would like included. When you use Compose Builder, you don't have to worry about adding all the necessary ports, variables, etc. as the tool will generate the service elements in the file for you. The Compose Builder tool was added with the Hanoi release. You will find the Compose Builder tool in each of the release branches since <code>Hanoi</code> under the compose-builder folder of those branches.  You will also find a compose-builder folder on the <code>main</code> branch for creating custom Compose files for the nightly builds. </p>
+<p>Do the following to use this tool to generate a custom Compose file:</p>
 <ol>
-<li>Clone the <code>developer-scripts</code> repository.</li>
+<li>Clone the edgex-compose repository.</li>
 </ol>
-<div class="highlight"><pre><span></span><code>git clone https://github.com/edgexfoundry/developer-scripts.git
+<div class="highlight"><pre><span></span><code>git clone https://github.com/edgexfoundry/edgex-compose.git
 </code></pre></div>
 <ol>
-<li>Checkout the Hanoi tag</li>
+<li>Change directories to the clone and checkout the appropriate release branch.  Checkout of the Ireland release branch is shown here.</li>
 </ol>
-<div class="highlight"><pre><span></span><code>git checkout v1.3.0
+<div class="highlight"><pre><span></span><code>cd edgex-compose/
+git checkout Ireland
 </code></pre></div>
 <ol>
-<li>Use the <code>make gen &lt;options&gt;</code> command to generate your custom compose file. The generated docker compose file is named <code>docker-compose.yaml</code>.  Here are some examples:</li>
+<li>Change directories to the compose-builder folder and then use the <code>make gen &lt;options&gt;</code> command to generate your custom compose file. The generated Docker Compose file is named <code>docker-compose.yaml</code>.  Here are some examples:</li>
 </ol>
-<div class="highlight"><pre><span></span><code>make gen ds-mqtt mqtt 
-  - Generates secure compose file configured to use MQTT for the message bus, adds then MQTT broker and the Device MQTT services. 
+<div class="highlight"><pre><span></span><code>cd compose-builder/
+make gen ds-mqtt mqtt-broker
+  - Generates secure Compose file configured to use MQTT for the message bus, adds then MQTT broker and the Device MQTT services. 
 
 make gen no-secty ds-modbus 
   - Generates non-secure compose file with just the Device Modbus device service.
@@ -2663,16 +2666,14 @@ make gen no-secty ds-modbus
 make gen no-secty arm64 ds-grove 
   - Generates non-secure compose file for ARM64 with just the Device Grove device service.
 </code></pre></div>
-<p>​      See the <a href="https://github.com/edgexfoundry/developer-scripts/blob/v1.3.0/compose-builder/README.md">README</a> here for details on all available options for <code>make gen</code>.</p>
+<p>​      See the README document in the compose-builder directory for details on all the available options.  The Compose Builder is different per release, so make sure to consult the README in the appropriate release branch.  See <a href="https://github.com/edgexfoundry/edgex-compose/blob/ireland/compose-builder/README.md">Ireland's Compose Builder README</a> for details on the lastest release Compose Builder options for <code>make gen</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The generated docker compose file may need addition customizations for your specific needs, such as environment override(s) to set appropriate Host IP address, etc.</p>
+<p>The generated Docker Compose file may require addition customizations for your specific needs, such as environment override(s) to set appropriate Host IP address, etc.</p>
 </div>
 <h3 id="run-edgex-foundry">Run EdgeX Foundry</h3>
-<p>Now that you have the EdgeX Docker Compose file, you are ready
-to run EdgeX. Follow these steps to get the container images and
-start EdgeX!</p>
-<p>In a command terminal, change directories to the location of your  docker-compose.yml.  Run the following command in the terminal to pull (fetch) and then start the EdgeX containers.</p>
+<p>Now that you have the EdgeX Docker Compose file, you are ready to run EdgeX. Follow these steps to get the container images and start EdgeX!</p>
+<p>In a command terminal, change directories to the location of your docker-compose.yml.  Run the following command in the terminal to pull (fetch) and then start the EdgeX containers.</p>
 <div class="highlight"><pre><span></span><code>docker-compose up -d
 </code></pre></div>
 <div class="admonition info">
@@ -2684,7 +2685,7 @@ docker-compose up -d
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The -d option indicates you want the Docker Compose to run the EdgeX containers in detached mode - that is to run the containers in the background. Without -d, the containers will all start in the terminal and to use the terminal further you have to stop the containers.</p>
+<p>The -d option indicates you want Docker Compose to run the EdgeX containers in detached mode - that is to run the containers in the background. Without -d, the containers will all start in the terminal and in order to use the terminal further you have to stop the containers.</p>
 </div>
 <h3 id="verify-edgex-foundry-running">Verify EdgeX Foundry Running</h3>
 <p>In the same terminal, run the process status command shown below to confirm that all the
@@ -2692,11 +2693,11 @@ containers downloaded and started.</p>
 <div class="highlight"><pre><span></span><code>docker-compose ps
 </code></pre></div>
 <p><img alt="image" src="../EdgeX_GettingStartedUsrActiveContainers.png" />
-<em>If all EdgeX containers pulled and started correctly and without error, you should see a process status (ps) that looks similar to the image above.</em></p>
+<em>If all EdgeX containers pulled and started correctly and without error, you should see a process status (ps) that looks similar to the image above.  If you are using a custom Compose file, your containers list may vary.  Also note that some "setup" containers are designed to start and then exit after configuring your EdgeX instance.</em></p>
 <h2 id="checking-the-status-of-edgex-foundry">Checking the Status of EdgeX Foundry</h2>
-<p>In addition to the process status of the EdgeX containers, there are a number of other tools to check on the healt and status of your EdgeX instance.</p>
+<p>In addition to the process status of the EdgeX containers, there are a number of other tools to check on the health and status of your EdgeX instance.</p>
 <h3 id="edgex-foundry-container-logs">EdgeX Foundry Container Logs</h3>
-<p>Use the command below to see log of any service.</p>
+<p>Use the command below to see the log of any service.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># see the logs of a service</span>
 docker-compose logs -f <span class="o">[</span>compose-service-name<span class="o">]</span>
 <span class="c1"># example - core data</span>
@@ -2705,15 +2706,14 @@ docker-compose logs -f data
 <p>See <a href="../quick-start/#REFERENCE-EdgeX-Container-Names">EdgeX Container Names</a> for a list of the EdgeX Docker Compose service names.</p>
 <p><img alt="image" src="../EdgeX_GettingStartedUsrLogs.png" />
 <em>A check of an EdgeX service log usually indicates if the service is running normally or has errors.</em> </p>
-<p>When you are done reviewing the content of the log, select <strong>Control-c</strong>
-to stop the output to your terminal.</p>
+<p>When you are done reviewing the content of the log, select <strong>Control-c</strong> to stop the output to your terminal.</p>
 <h3 id="ping-check">Ping Check</h3>
-<p>Each EdgeX micro service has a built-in respond to a "ping" HTTP request. In networking environments, use a <a href="https://techterms.com/definition/ping">ping request</a> to check the reach-ability of a network resource.  EdgeX uses the same concept to check the availability or reach-ability of a micro service. After the EdgeX micro service containers are running, you can "ping" any one of the micro services to check that it is running. Open a browser or HTTP REST client tool and use the service's ping address (outlined below) to check that is available.</p>
-<div class="highlight"><pre><span></span><code>http://localhost:[port]/api/v1/ping
+<p>Each EdgeX micro service has a built-in response to a "ping" HTTP request. In networking environments, use a <a href="https://techterms.com/definition/ping">ping request</a> to check the reach-ability of a network resource.  EdgeX uses the same concept to check the availability or reach-ability of a micro service. After the EdgeX micro service containers are running, you can "ping" any one of the micro services to check that it is running. Open a browser or HTTP REST client tool and use the service's ping address (outlined below) to check that is available.</p>
+<div class="highlight"><pre><span></span><code>http://localhost:[service port]/api/v2/ping
 </code></pre></div>
-<p>See <a href="../quick-start/#REFERENCE-Default-Service-Ports">EdgeX Device Service Ports</a> for a list of the EdgeX default service ports.</p>
-<p><img alt="image" src="../EdgeX_GettingStartedUsrPing.png" />
-<em>"Pinging" an EdgeX micro service allows you to check on its availability.  If the service does not respond to ping, the service is down or having issues.</em></p>
+<p>See <a href="../../general/ServicePorts">EdgeX Default Service Ports</a> for a list of the EdgeX default service ports.</p>
+<p><img alt="image" src="../EdgeX_GettingStartedUsrPing.png" /></p>
+<p><em>"Pinging" an EdgeX micro service allows you to check on its availability.  If the service does not respond to ping, the service is down or having issues.</em></p>
 <h3 id="consul-registry-check">Consul Registry Check</h3>
 <p>EdgeX uses the open source <a href="https://www.consul.io/">Consul</a> project as its registry
 service. All EdgeX micro services are expected to register with Consul as they start. Going to Consul's dashboard UI enables you to see which services are up. Find the Consul UI at
