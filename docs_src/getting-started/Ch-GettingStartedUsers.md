@@ -57,8 +57,8 @@ In each edgex-compose branch, you will find several Docker Compose files (all wi
 |docker-compose-no-secty-arm64.yml|Specifies ARM 64 containers, uses Redis database for persistence, but does not include security services|
 |docker-compose-no-secty.yml|Specifies x86 containers, uses Redis database for persistence, but does not include security services|
 |docker-compose.yml|Specifies x86 containers, uses Redis database for persistence, and includes security services|
-|docker-compose-no-secty-with-ui-arm64.|Specifies the EdgeX user interface extension to be used with the ARM 64 EdgeX platform|
-|docker-compose-no-secty-with-ui.yml|Specifies the EdgeX user interface extension to be used with the x86 EdgeX platform|
+|docker-compose-no-secty-with-ui-arm64.|Same as docker-compose-no-secty-arm64.yml but also includes EdgeX user interface|
+|docker-compose-no-secty-with-ui.yml|Same as docker-compose-no-secty.yml but also includes EdgeX user interface|
 |docker-compose-portainer.yml|Specifies the Portainer user interface extension (to be used with the x86 or ARM EdgeX platform)|
 
 ### Download a EdgeX Foundry Compose File
@@ -66,11 +66,11 @@ Once you have selected the release branch of edgex-compose you want to use, down
 
 === "x86"
     ```
-    wget https://raw.githubusercontent.com/edgexfoundry/edgex-compose/main/docker-compose-no-secty.yml -O docker-compose.yml
+    wget https://raw.githubusercontent.com/edgexfoundry/edgex-compose/ireland/docker-compose-no-secty.yml -O docker-compose.yml
     ```
 === "ARM"
     ```
-    wget https://raw.githubusercontent.com/edgexfoundry/edgex-compose/main/docker-compose-no-secty-arm64.yml -O docker-compose.yml
+    wget https://raw.githubusercontent.com/edgexfoundry/edgex-compose/ireland/docker-compose-no-secty-arm64.yml -O docker-compose.yml
     ```
 
 !!! Note
