@@ -1104,8 +1104,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#normal-notifications" class="md-nav__link">
-    Normal Notifications
+  <a href="#normalminor-notifications" class="md-nav__link">
+    Normal/Minor Notifications
   </a>
   
 </li>
@@ -1137,13 +1137,6 @@
         <li class="md-nav__item">
   <a href="#data-dictionary" class="md-nav__link">
     Data Dictionary
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#high-level-interaction-diagrams" class="md-nav__link">
-    High Level Interaction Diagrams
   </a>
   
 </li>
@@ -2460,8 +2453,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#normal-notifications" class="md-nav__link">
-    Normal Notifications
+  <a href="#normalminor-notifications" class="md-nav__link">
+    Normal/Minor Notifications
   </a>
   
 </li>
@@ -2493,13 +2486,6 @@
         <li class="md-nav__item">
   <a href="#data-dictionary" class="md-nav__link">
     Data Dictionary
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#high-level-interaction-diagrams" class="md-nav__link">
-    High Level Interaction Diagrams
   </a>
   
 </li>
@@ -2562,7 +2548,7 @@
 <p><img alt="image" src="../EdgeX_SupportingServicesAlertsNotifications.png" /></p>
 <h2 id="introduction">Introduction</h2>
 <p>When another system or a person needs to know that something occurred in EdgeX, the
-alerts and notifications micro service sends that notification.
+alerts and notifications microservice sends that notification.
 Examples of alerts and notifications that other services could broadcast, include the provisioning of a new device, sensor data detected outside of certain parameters
 (usually detected by a device service or rules engine) or system or service
 malfunctions (usually detected by system management services).</p>
@@ -2571,15 +2557,15 @@ malfunctions (usually detected by system management services).</p>
 more important, critical, or urgent nature, possibly requiring immediate
 action.</p>
 <p><img alt="image" src="../EdgeX_SupportingServicesAlertsArchitecture.png" /></p>
-<p>This diagram shows the high-level architecture of the notification service.
+<p>This diagram shows the high-level architecture of the notifications service.
 On the left side, the APIs are provided for other
-micro services, on-box applications, and off-box applications to use.  The APIs could be in REST, AMQP, MQTT, or any standard application
+microservices, on-box applications, and off-box applications to use.  The APIs could be in REST, AMQP, MQTT, or any standard application
 protocols. </p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Currently in EdgeX Foundry, only the RESTful interface is provided.</p>
 </div>
-<p>On the right side, the notification receiver could be a person or an
+<p>On the right side, the notifications receiver could be a person or an
 application system on Cloud or in a server room. By invoking the
 Subscription RESTful interface to subscribe the specific types of
 notifications, the receiver obtains the appropriate notifications
@@ -2590,12 +2576,10 @@ on. </p>
 <p class="admonition-title">Warning</p>
 <p>Currently in EdgeX Foundry, e-mail and REST callback channels are provided.</p>
 </div>
-<p>When the notification service receives notifications from any interface, 
+<p>When the notifications service receives notifications from any interface, 
 the notifications are passed to the Notifications Handler internally. 
 The Notifications Handler persists the received notifications first, 
-and passes them to the Distribution Coordinator immediately when a 
-given notification is either <strong>critical</strong> (severity = “CRITICAL”) or to the Message Scheduler when 
-it is <strong>normal</strong> (severity = “NORMAL”).</p>
+and passes them to the Distribution Coordinator.</p>
 <p>When the Distribution Coordinator receives a notification, it first
 queries the Subscription database to get receivers who need this
 notification and their receiving channel information. According to the
@@ -2603,14 +2587,84 @@ channel information, the Distribution Coordinator passes this
 notification to the corresponding channel senders. Then, the channel
 senders send out the notifications to the subscribed receivers.</p>
 <h3 id="workflow">Workflow</h3>
-<h4 id="normal-notifications">Normal Notifications</h4>
-<p>When a client requests a notification to be sent with "NORMAL" status, the notification is queued up (batched with other normal notifications).  The Message Scheduler, under a configurable interval, calls on the Distribution Coordinator to send all normal notifications to their receivers.  When a normal notification fails to be sent, it is retried a configurable number of times (resend limit).  After exceeding the resent tries, the notification is elevated to "CRITICAL" status and then sent through the critical notifications workflow below.</p>
+<h4 id="normalminor-notifications">Normal/Minor Notifications</h4>
+<p>When a client requests a notification to be sent with "NORMAL" or "MINOR" status, 
+the notification is immediately sent to its receivers via the Distribution Coordinator, 
+and the status is updated to "PROCESSED".</p>
 <h4 id="critical-notifications">Critical Notifications</h4>
-<p>Notifications that are sent with "CRITICAL" status, or notifications that have failed to send via the NORMAL workflow are immediately sent to their receivers via the Distribution Coordinator.  If a critical notification fails to send for a specified number of retries, the service escalates the notification in order to notify an escalation subscriber of the failure to notify the receiver.</p>
+<p>Notifications with "CRITICAL" status are also sent immediately.
+When encountering any error during sending critical notification, 
+an individual resend task is scheduled, and each transmission record persists.
+After exceeding the configurable limit (resend limit), the service escalates the notification 
+and create a new notification to notify particular receivers of the escalation subscription (name = "ESCALATION") of the failure.</p>
+<div class="admonition edgey">
+<p class="admonition-title">Edgex 2.0</p>
+<p>For EdgeX 2.0, all notifications are processed immediately. The resend feature is only provided for critical notifications.
+The <strong>resendLimit</strong> and <strong>resendInterval</strong> properties can be defined in each subscription. 
+If the properties are not provided, use the default values in the configuration properties.</p>
+</div>
 <h2 id="data-model">Data Model</h2>
+<p>The latest developed data model will be updated in the <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-notifications">Swagger API document</a>.</p>
 <p><img alt="image" src="../EdgeX_SupportingServicesNotificationsModel.png" /></p>
+<p>This diagram is drawn by <a href="https://app.diagrams.net/">diagrams.net</a> with the source file <a href="../EdgeX_SupportingServicesNotificationsModel.xml">EdgeX_SupportingServicesNotificationsModel.xml</a></p>
 <h2 id="data-dictionary">Data Dictionary</h2>
-<div class="tabbed-set" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Channel</label><div class="tabbed-content">
+<div class="tabbed-set" data-tabs="1:5"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Subscription</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>The object used to describe the receiver and the recipient channels</td>
+</tr>
+<tr>
+<td>ID</td>
+<td>Uniquely identifies a subscription, for example a UUID</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>Uniquely identifies a subscription</td>
+</tr>
+<tr>
+<td>Receiver</td>
+<td>The name of the party interested in the notification</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>Human readable description explaining the subscription intent</td>
+</tr>
+<tr>
+<td>Categories</td>
+<td>Link the subscription to one or more categories of notification.</td>
+</tr>
+<tr>
+<td>Labels</td>
+<td>An array of associated means to label or tag for categorization or identification</td>
+</tr>
+<tr>
+<td>Channels</td>
+<td>An array of channel objects indicating the destination for the notification</td>
+</tr>
+<tr>
+<td>ResendLimit</td>
+<td>The retry limit for attempts to send notifications</td>
+</tr>
+<tr>
+<td>ResendInterval</td>
+<td>The interval in ISO 8691 format of resending the notification</td>
+</tr>
+<tr>
+<td>AdminState</td>
+<td>An enumeration string indicating the subscription is locked or unlocked</td>
+</tr>
+</tbody>
+</table>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Channel</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2625,20 +2679,20 @@ senders send out the notifications to the subscribed receivers.</p>
 </tr>
 <tr>
 <td>Type</td>
-<td>object of ChannelType - indicates whether the channel facilitates email or REST</td>
+<td>Object of ChannelType - indicates whether the channel facilitates email or REST</td>
 </tr>
 <tr>
-<td>MailAddresses</td>
-<td>An array of string email addresses</td>
+<td>MailAddress</td>
+<td>EmailAddress object for an array of string email addresses</td>
 </tr>
 <tr>
-<td>Url</td>
-<td>A string REST API destination endpoint</td>
+<td>RESTAddress</td>
+<td>RESTAddress object for a REST API destination endpoint</td>
 </tr>
 </tbody>
 </table>
 </div>
-<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Notification</label><div class="tabbed-content">
+<input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">Notification</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2653,23 +2707,19 @@ senders send out the notifications to the subscribed receivers.</p>
 </tr>
 <tr>
 <td>ID</td>
-<td>Uniquely identifies an notification, for example a UUID</td>
-</tr>
-<tr>
-<td>Slug</td>
-<td>acts as the name of the notification</td>
+<td>Uniquely identifies a notification, for example a UUID</td>
 </tr>
 <tr>
 <td>Sender</td>
-<td>a string indicating the notification message sender</td>
+<td>A string indicating the notification message sender</td>
 </tr>
 <tr>
 <td>Category</td>
-<td>an enumeration string indicating whether the notification is about software health, hardware health or a security issue</td>
+<td>A string categorizing the notification</td>
 </tr>
 <tr>
 <td>Severity</td>
-<td>an enumeration string indicating the severity of the notification - as either normal or critical</td>
+<td>An enumeration string indicating the severity of the notification - as either normal or critical</td>
 </tr>
 <tr>
 <td>Content</td>
@@ -2681,20 +2731,20 @@ senders send out the notifications to the subscribed receivers.</p>
 </tr>
 <tr>
 <td>Status</td>
-<td>an enumeration string indicating the status of the notification as new, processed or escalated</td>
+<td>An enumeration string indicating the status of the notification as new, processed or escalated</td>
 </tr>
 <tr>
 <td>Labels</td>
-<td>array of associated means to label or tag a notification for better search and filtering</td>
+<td>Array of associated means to label or tag a notification for better search and filtering</td>
 </tr>
 <tr>
 <td>ContentType</td>
-<td>string indicating the type of content in the notification message</td>
+<td>String indicating the type of content in the notification message</td>
 </tr>
 </tbody>
 </table>
 </div>
-<input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">Transmission</label><div class="tabbed-content">
+<input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><label for="__tabbed_1_4">Transmission</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2709,36 +2759,40 @@ senders send out the notifications to the subscribed receivers.</p>
 </tr>
 <tr>
 <td>ID</td>
-<td>Uniquely identifies an transmission, for example a UUID</td>
+<td>Uniquely identifies a transmission, for example a UUID</td>
 </tr>
 <tr>
-<td>Notification</td>
-<td>a notification object - the message and sender content</td>
+<td>Created</td>
+<td>A timestamp indicating when the notification was created</td>
 </tr>
 <tr>
-<td>Receiver</td>
-<td>a string indicating the intended receiver of the notification</td>
+<td>NotificationId</td>
+<td>The notification id to be sent</td>
+</tr>
+<tr>
+<td>SubscriptionName</td>
+<td>The name of the subscription interested in the notification</td>
 </tr>
 <tr>
 <td>Channel</td>
-<td>a channel object indicating the destination for the notification</td>
+<td>A channel object indicating the destination for the notification</td>
 </tr>
 <tr>
 <td>Status</td>
-<td>an enumeration string indicating whether the transmission failed, was sent, was acknowledged, or was escalated</td>
+<td>An enumeration string indicating whether the transmission failed, was sent, was resending, was acknowledged, or was escalated</td>
 </tr>
 <tr>
 <td>ResendCount</td>
-<td>number indicating the number of resent attempts</td>
+<td>Number indicating the number of resent attempts</td>
 </tr>
 <tr>
 <td>Records</td>
-<td>an array of TransmissionRecords</td>
+<td>An array of TransmissionRecords</td>
 </tr>
 </tbody>
 </table>
 </div>
-<input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><label for="__tabbed_1_4">TransmissionRecord</label><div class="tabbed-content">
+<input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><label for="__tabbed_1_5">TransmissionRecord</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2753,11 +2807,11 @@ senders send out the notifications to the subscribed receivers.</p>
 </tr>
 <tr>
 <td>Status</td>
-<td>an enumeration string indicating whether the transmission failed, was sent, was acknowledged, or escalated</td>
+<td>An enumeration string indicating whether the transmission failed, was sent, was acknowledged, or escalated</td>
 </tr>
 <tr>
 <td>Response</td>
-<td>the response string from the receiver</td>
+<td>The response string from the receiver</td>
 </tr>
 <tr>
 <td>Sent</td>
@@ -2767,38 +2821,13 @@ senders send out the notifications to the subscribed receivers.</p>
 </table>
 </div>
 </div>
-<h2 id="high-level-interaction-diagrams">High Level Interaction Diagrams</h2>
-<p>This section shows the sequence diagrams for some of the more critical
-or complex events regarding alerts and notifications.</p>
-<p><strong>Critical Notifications Sequence</strong></p>
-<p>When receiving a critical notification (SEVERITY = "CRITICAL"), it
-persists first and triggers the distribution process immediately. After
-updating the notification status, Alerts and Notifications respond to
-the client to indicate the notification has been accepted.</p>
-<p><img alt="image" src="../EdgeX_SupportingServicesCriticalNotifications.png" /></p>
-<p><strong>Normal Notifications Sequence</strong></p>
-<p>When receiving a normal notification (SEVERITY = "NORMAL"), it persists
-first and responds to the client to indicate the notification has been
-accepted immediately. After a configurable duration, a scheduler
-triggers the distribution process in batch.</p>
-<p><img alt="image" src="../EdgeX_SupportingServicesNormalNotifications.png" /></p>
-<p><strong>Critical Resend Sequence</strong></p>
-<p>When encountering any error during sending critical notification, an
-individual resend task is scheduled, and each transmission record
-persists. If the resend tasks keeps failing and the resend count exceeds
-the configurable limit, the escalation process is triggered. The
-escalated notification is sent to particular receivers of a special
-subscription (slug = "ESCALATION").</p>
-<p><img alt="image" src="../EdgeX_SupportingServicesCriticalResend.png" /></p>
-<p><strong>Resend Sequence</strong></p>
-<p>For other non-critical notifications, the resend operation is triggered
-by a scheduler.</p>
-<p><img alt="image" src="../EdgeX_SupportingServicesResend.png" /></p>
-<p><strong>Cleanup Sequence</strong></p>
-<p>Cleanup service removes old notification and transmission records.</p>
-<p><img alt="image" src="../EdgeX_SupportingServicesCleanup.png" /></p>
 <h2 id="configuration-properties">Configuration Properties</h2>
 <p>Please refer to the general <a href="../../../configuration/CommonConfiguration/">Common Configuration documentation</a> for configuration properties common to all services.</p>
+<div class="admonition edgey">
+<p class="admonition-title">Edgex 2.0</p>
+<p>For EdgeX 2.0, the SMTP username and password can be set in the Writable.InsecureSecrets.SMTP.Secrets as an insecure secret,
+or be stored in the Smtp.SecretPath for security. </p>
+</div>
 <div class="tabbed-set" data-tabs="2:4"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Writable</label><div class="tabbed-content">
 <table>
 <thead>
@@ -2817,7 +2846,22 @@ by a scheduler.</p>
 <tr>
 <td>ResendLimit</td>
 <td>2</td>
-<td>Sets the retry limit for attempts to send notifications.  NORMAL notifications are make CRITICAL after exceeding the resend limit.  CRITICAL notifications are sent to the escalation subscriber when resend limit is exceeded.</td>
+<td>Sets the retry limit for attempts to send notifications. CRITICAL notifications are sent to the escalation subscriber when resend limit is exceeded.</td>
+</tr>
+<tr>
+<td>ResendInterval</td>
+<td>'5s'</td>
+<td>Sets the retry interval for attempts to send notifications.</td>
+</tr>
+<tr>
+<td>Writable.InsecureSecrets.SMTP.Secrets username</td>
+<td>username@mail.example.com</td>
+<td>The email to send alerts and notifications</td>
+</tr>
+<tr>
+<td>Writable.InsecureSecrets.SMTP.Secrets password</td>
+<td></td>
+<td>The email password</td>
 </tr>
 </tbody>
 </table>
@@ -2924,14 +2968,9 @@ by a scheduler.</p>
 <td>Indicates whether a self-signed cert can be used for secure connectivity.</td>
 </tr>
 <tr>
-<td>Smtp Username</td>
-<td>username@mail.example.com</td>
-<td>A username for authentications with the Smtp server, if required.</td>
-</tr>
-<tr>
-<td>Smtp Password</td>
-<td>(empty string)</td>
-<td>SMTP service host access password</td>
+<td>Smtp SecretPath</td>
+<td>smtp</td>
+<td>Specify the secret path to store the credential(username and password) for connecting the SMTP server via the /secret API, or set Writable SMTP username and password for insecure secrets</td>
 </tr>
 <tr>
 <td>Smtp Sender</td>
