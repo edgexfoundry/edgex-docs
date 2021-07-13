@@ -39,9 +39,9 @@ This simulator has three behaviors:
         ```
     2. The simulator returns the response to the MQTT broker, the topic is `ResponseTopic` and the message is similar to the following:
         ```   
-        `{"cmd":"randnum", "method":"get", "uuid":"293d7a00-66e1-4374-ace0-07520103c95f", "randnum":42.0}
+        {"cmd":"randnum", "method":"get", "uuid":"293d7a00-66e1-4374-ace0-07520103c95f", "randnum":42.0}
         ```
-3.  Receive the put request, then change the device value.
+3.  Receive the set request, then change the device value.
 
     1. The simulator receives the request from the MQTT broker, the topic is `CommandTopic` and the message is similar to the following:
         ```   
@@ -49,7 +49,8 @@ This simulator has three behaviors:
         ```
     2. The simulator changes the device value and returns the response to the MQTT broker, the topic is `ResponseTopic` and the message is similar to the following:
         ```   
-        `{"cmd":"message", "method":"set", "uuid":"293d7a00-66e1-4374-ace0-07520103c95f"}
+        {"cmd":"message", "method":"set", "uuid":"293d7a00-66e1-4374-ace0-07520103c95f"}
+        ```
 
 To simulate the MQTT device, create a javascript, named `mock-device.js`, with the
 following content:
@@ -73,7 +74,7 @@ schedule('*/15 * * * * *', ()=>{
 
 // CommandHandler receives commands and sends response to MQTT broker
 // 1. Receive the reading request, then return the response
-// 2. Receive the put request, then change the device value
+// 2. Receive the set request, then change the device value
 subscribe( "CommandTopic" , (topic, val) => {
     var data = val;
         if (data.method == "set") {
@@ -168,7 +169,7 @@ deviceCommands:
         - { deviceResource: "message" }
 ```
 
-### Device Service Configuration
+### Device Configuration
 
 Use this configuration file to define devices and schedule jobs.
 device-mqtt generates a relative instance on start-up.
@@ -405,7 +406,7 @@ The data format contains the following values:
 
 -   name = device name
 -   cmd = deviceResource name
--   method = get or put
+-   method = get or set
 -   cmd = device reading
 
 The following results show that the mock device sent the reading every
