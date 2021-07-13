@@ -357,7 +357,7 @@ type Filter struct {
     ```
 
 !!! note
-    Only  operations that return true or false are supported. See http://jsonlogic.com/operations.html# for the complete list of operations paying attention to return values. Any operator that returns manipulated data is currently not supported. For more advanced scenarios checkout [EMQ X Kuiper](https://github.com/emqx/kuiper).
+    Only  operations that return true or false are supported. See http://jsonlogic.com/operations.html# for the complete list of operations paying attention to return values. Any operator that returns manipulated data is currently not supported. For more advanced scenarios checkout [LF Edge eKuiper](https://github.com/lf-edge/ekuiper).
 
 !!! tip
     Leverage http://jsonlogic.com/play.html to get your rule right before implementing in code. JSON can be a bit tricky to get right in code with all the escaped double quotes.

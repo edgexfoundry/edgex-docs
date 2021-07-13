@@ -24,7 +24,7 @@ Please refer to the general [Configuration documentation](../microservices/confi
     |---|---|
     |app-service|[General Application Service Configuration](../microservices/application/GeneralAppServiceConfig.md)|
     |app-service-configurable|[Configurable Application Service Configuration](../microservices/application/AppServiceConfigurable.md#environment-variable-overrides-for-docker)|
-    |Kuiper rules engine/Kuiper|[Basic Kuiper Configuration](https://docs.emqx.io/kuiper/latest/en/operation/configuration_file.html)|
+    |eKuiper rules engine/eKuiper|[Basic eKuiper Configuration](https://github.com/lf-edge/ekuiper/blob/master/docs/en_US/operation/configuration_file.md)|
 === "Device"
     |Services Name|	Configuration Reference|
     |---|---|
