@@ -11,7 +11,7 @@ The migration of any Application Service's configuration starts with migrating c
 
 #### SecretStoreExclusive
 
-The `SecretStoreExclusive` section has been removed in EdgeX 2.0. With Edgex 2.0 all SecretStores are exclusive, so the existing `SecretStore` section is all that is required. Services requiring `known secrets` such as `redisdb` must inform the `Security SecretStore Setup` service (via environment variables) that the application service requires the secret added to its SecretStore. See the [Configuring Add-on Service](../../../security/Ch-Configuring-Add-On-Services) section for more details.
+The `SecretStoreExclusive` section has been removed in EdgeX 2.0. With EdgeX 2.0 all SecretStores are exclusive, so the existing `SecretStore` section is all that is required. Services requiring `known secrets` such as `redisdb` must inform the `Security SecretStore Setup` service (via environment variables) that the application service requires the secret added to its SecretStore. See the [Configuring Add-on Services](../../../security/Ch-Configuring-Add-On-Services) section for more details.
 
 #### Clients
 
@@ -24,8 +24,8 @@ The client used for the version validation check has changed to being from Core 
     ```toml
       [Clients]
         [Clients.core-metadata]
-        Protocol = 'http'
-        Host = 'localhost'
+        Protocol = "http"
+        Host = "localhost"
         Port = 59881
     ```
 
@@ -35,28 +35,30 @@ The client used for the version validation check has changed to being from Core 
         # Used for version check on start-up
         # Also used for DeviceService, DeviceProfile and Device clients
         [Clients.core-metadata]
-        Protocol = 'http'
-        Host = 'localhost'
+        Protocol = "http"
+        Host = "localhost"
         Port = 59881
         
+    ```
+
     ```
     
         # Used for Event client which is used by PushToCoreData function
         [Clients.core-data]
-        Protocol = 'http'
-        Host = 'localhost'
+        Protocol = "http"
+        Host = "localhost"
         Port = 59880
         
         # Used for Command client
         [Clients.core-command]
-        Protocol = 'http'
-        Host = 'localhost'
+        Protocol = "http"
+        Host = "localhost"
         Port = 59882
         
         # Used for Notification and Subscription clients
         [Clients.support-notifications]
-        Protocol = 'http'
-        Host = 'localhost'
+        Protocol = "http"
+        Host = "localhost"
         Port = 59860
     ```
 
@@ -66,7 +68,7 @@ The `Trigger` section (previously named `Binding`) has been restructured with `E
 
 ##### EdgeX MessageBus
 
-If your Application Service is using the EdgeX MessageBus trigger you can then simply copy the complete `Trigger` configuration from the example below and tweak it as needed. 
+If your Application Service is using the EdgeX MessageBus trigger, you can then simply copy the complete `Trigger` configuration from the example below and tweak it as needed. 
 
 !!! example "Example - EdgeX MessageBus trigger configuration"
 
@@ -86,8 +88,8 @@ If your Application Service is using the EdgeX MessageBus trigger you can then s
         Protocol = "redis"
         PublishTopic="example"
         [Trigger.EdgexMessageBus.Optional]
-        AuthMode = 'usernamepassword'  # required for redis messagebus (secure or insecure).
-        SecretName = 'redisdb'
+        AuthMode = "usernamepassword"  # required for redis messagebus (secure or insecure).
+        SecretName = "redisdb"
     ```
 
 From the above example you can see the improved structure and the following changes:
@@ -138,7 +140,7 @@ The HTTP trigger configuration has not changed beyond the renaming of `Binding` 
 
 ### Code
 
-The first changes you will encounter in your code are that the `AppFunctionsSDK` and `Context` structs have be abstracted into the new `ApplicationService` and `AppFunctionContext` APIs. See the [Application Service API](../ApplicationServiceAPI) and [App Function Context API](../AppFunctionContextAPI) sections for complete details on these new APIs.
+The first changes you will encounter in your code are that the `AppFunctionsSDK` and `Context` structs have been abstracted into the new `ApplicationService` and `AppFunctionContext` APIs. See the [Application Service API](../ApplicationServiceAPI) and [App Function Context API](../AppFunctionContextAPI) sections for complete details on these new APIs.
 
 #### main()
 
@@ -172,7 +174,7 @@ Your `main()` will change to use a factory function to create and initialize the
         }
     ```
 
-Since the factory function logs all errors all you need to do is exit if it returns `false`. 
+Since the factory function logs all errors, all you need to do is exit if it returns `false`. 
 
 ##### Logging Client
 
