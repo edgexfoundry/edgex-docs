@@ -21,7 +21,7 @@
     
     
       
-        <title>Command Devices with Kuiper Rules Engine - EdgeX Foundry Documentation</title>
+        <title>Command Devices with eKuiper Rules Engine - EdgeX Foundry Documentation</title>
       
     
     
@@ -60,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#command-devices-with-kuiper-rules-engine" class="md-skip">
+        <a href="#command-devices-with-ekuiper-rules-engine" class="md-skip">
           Skip to content
         </a>
       
@@ -87,7 +87,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Command Devices with Kuiper Rules Engine
+              Command Devices with eKuiper Rules Engine
             
           </span>
         </div>
@@ -1066,8 +1066,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../microservices/support/Kuiper/Ch-Kuiper/" title="Kuiper Rules Engine" class="md-nav__link">
-      Kuiper Rules Engine
+    <a href="../../microservices/support/eKuiper/Ch-eKuiper/" title="eKuiper Rules Engine" class="md-nav__link">
+      eKuiper Rules Engine
     </a>
   </li>
 
@@ -1508,14 +1508,14 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Command Devices with Kuiper Rules Engine
+        Command Devices with eKuiper Rules Engine
         <span class="md-nav__icon md-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z" /></svg>
         </span>
       </label>
     
-    <a href="./" title="Command Devices with Kuiper Rules Engine" class="md-nav__link md-nav__link--active">
-      Command Devices with Kuiper Rules Engine
+    <a href="./" title="Command Devices with eKuiper Rules Engine" class="md-nav__link md-nav__link--active">
+      Command Devices with eKuiper Rules Engine
     </a>
     
       
@@ -1561,8 +1561,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#start-kuiper-and-create-an-edgex-stream" class="md-nav__link">
-    Start Kuiper and Create an EdgeX Stream
+  <a href="#start-ekuiper-and-create-an-edgex-stream" class="md-nav__link">
+    Start eKuiper and Create an EdgeX Stream
   </a>
   
 </li>
@@ -1602,8 +1602,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#watch-the-kuiper-logs" class="md-nav__link">
-    Watch the Kuiper Logs
+  <a href="#watch-the-ekuiper-logs" class="md-nav__link">
+    Watch the eKuiper Logs
   </a>
   
 </li>
@@ -2449,8 +2449,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#start-kuiper-and-create-an-edgex-stream" class="md-nav__link">
-    Start Kuiper and Create an EdgeX Stream
+  <a href="#start-ekuiper-and-create-an-edgex-stream" class="md-nav__link">
+    Start eKuiper and Create an EdgeX Stream
   </a>
   
 </li>
@@ -2490,8 +2490,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#watch-the-kuiper-logs" class="md-nav__link">
-    Watch the Kuiper Logs
+  <a href="#watch-the-ekuiper-logs" class="md-nav__link">
+    Watch the eKuiper Logs
   </a>
   
 </li>
@@ -2530,107 +2530,121 @@
                   
                 
                 
-                <h1 id="command-devices-with-kuiper-rules-engine">Command Devices with Kuiper Rules Engine</h1>
+                <h1 id="command-devices-with-ekuiper-rules-engine">Command Devices with eKuiper Rules Engine</h1>
 <h2 id="overview">Overview</h2>
-<p>This document describes how to actuate a <a href="../../general/Definitions/#device">device</a> with rules trigger by the Kuiper rules engine. To make the example simple, the virtual device <a href="https://github.com/edgexfoundry/device-virtual-go">device-virtual</a> is used as the actuated device.  The Kuiper rules engine analyzes the data sent from device-virtual services, and then sends a command to virtual device based a rule firing in Kuiper based on that analysis.  It should be noted that an <a href="../../microservices/application/ApplicationServices/">application service</a> is used to route core data through the rules engine.</p>
+<p>This document describes how to actuate a <a href="../../general/Definitions/#device">device</a> with rules trigger by the eKuiper rules engine. To make the example simple, the virtual device <a href="https://github.com/edgexfoundry/device-virtual-go">device-virtual</a> is used as the actuated device.  The eKuiper rules engine analyzes the data sent from device-virtual services, and then sends a command to virtual device based a rule firing in eKuiper based on that analysis.  It should be noted that an <a href="../../microservices/application/ApplicationServices/">application service</a> is used to route core data through the rules engine.</p>
 <h3 id="use-case-scenarios">Use Case Scenarios</h3>
-<p>Rules will be created in Kuiper to watch for two circumstances:</p>
+<p>Rules will be created in eKuiper to watch for two circumstances:</p>
 <ol>
 <li>monitor for events coming from the <code>Random-UnsignedInteger-Device</code> device (one of the default virtual device managed devices), and if a <code>uint8</code> reading value is found larger than <code>20</code> in the event, then send a command to <code>Random-Boolean-Device</code> device to start generating random numbers (specifically - set random generation bool to true).</li>
 <li>monitor for events coming from the <code>Random-Integer-Device</code> device (another of the default virtual device managed devices), and if the average for <code>int8</code> reading values (within 20 seconds) is larger than 0, then send a command to <code>Random-Boolean-Device</code> device to stop generating random numbers (specifically - set random generation bool to false).</li>
 </ol>
-<p>These use case scenarios do not have any real business meaning, but easily demonstrate the features of EdgeX automatic actuation accomplished via the Kuiper rule engine.</p>
+<p>These use case scenarios do not have any real business meaning, but easily demonstrate the features of EdgeX automatic actuation accomplished via the eKuiper rule engine.</p>
 <h3 id="prerequisite-knowledge">Prerequisite Knowledge</h3>
-<p>This document will not cover basic operations of EdgeX or EMQ X Kuiper.  Readers should have basic knowledge of:</p>
+<p>This document will not cover basic operations of EdgeX or LF Edge eKuiper.  Readers should have basic knowledge of:</p>
 <ul>
 <li>Get and start EdgeX.  Refer to <a href="../../getting-started/quick-start/">Quick Start</a> for how to get and start EdgeX with the virtual device service.</li>
-<li>Run the Kuiper Rules Engine.  Refer to <a href="../../microservices/support/Kuiper/Ch-Kuiper/">EdgeX Kuiper Rule Engine Tutorial</a> to understand the basics of Kuiper and EdgeX. </li>
+<li>Run the eKuiper Rules Engine.  Refer to <a href="../../microservices/support/eKuiper/Ch-eKuiper/">EdgeX eKuiper Rule Engine Tutorial</a> to understand the basics of eKuiper and EdgeX. </li>
 </ul>
-<h2 id="start-kuiper-and-create-an-edgex-stream">Start Kuiper and Create an EdgeX Stream</h2>
-<p>Make sure you read the <a href="https://github.com/emqx/kuiper/blob/master/docs/en_US/edgex/edgex_rule_engine_tutorial.md">EdgeX Kuiper Rule Engine Tutorial</a> and successfully run Kuiper with EdgeX. </p>
-<p>First create a stream that can consume streaming data from the EdgeX application service (rules engine profile). This step is not required if you already finished the <a href="https://github.com/emqx/kuiper/blob/master/docs/en_US/edgex/edgex_rule_engine_tutorial.md">EdgeX Kuiper Rule Engine Tutorial</a>. </p>
+<h2 id="start-ekuiper-and-create-an-edgex-stream">Start eKuiper and Create an EdgeX Stream</h2>
+<p>Make sure you read the <a href="https://github.com/lf-edge/ekuiper/blob/master/docs/en_US/edgex/edgex_rule_engine_tutorial.md">EdgeX eKuiper Rule Engine Tutorial</a> and successfully run eKuiper with EdgeX. </p>
+<p>First create a stream that can consume streaming data from the EdgeX application service (rules engine profile). This step is not required if you already finished the <a href="https://github.com/lf-edge/ekuiper/blob/master/docs/en_US/edgex/edgex_rule_engine_tutorial.md">EdgeX eKuiper Rule Engine Tutorial</a>. </p>
 <div class="highlight"><pre><span></span><code>curl -X POST <span class="se">\</span>
-  http://<span class="nv">$kuiper_docker</span>:48075/streams <span class="se">\</span>
+  http://<span class="nv">$ekuiper_docker</span>:59720/streams <span class="se">\</span>
   -H <span class="s1">&#39;Content-Type: application/json&#39;</span> <span class="se">\</span>
   -d <span class="s1">&#39;{&quot;sql&quot;: &quot;create stream demo() WITH (FORMAT=\&quot;JSON\&quot;, TYPE=\&quot;edgex\&quot;)&quot;}&#39;</span>
 </code></pre></div>
 <h2 id="get-and-test-the-command-url">Get and Test the Command URL</h2>
 <p>Since both use case scenario rules will send commands to the <code>Random-Boolean-Device</code> virtual device, use the curl request below to get a list of available commands for this device.</p>
-<div class="highlight"><pre><span></span><code>curl http://localhost:48082/api/v1/device/name/Random-Boolean-Device <span class="p">|</span> jq
+<div class="highlight"><pre><span></span><code>curl http://127.0.0.1:59882/api/v2/device/name/Random-Boolean-Device <span class="p">|</span> jq
 </code></pre></div>
 <p>It should print results like those below.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;9b051411-ca20-4556-bd3e-7f52475764ff&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Random-Boolean-Device&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;adminState&quot;</span><span class="p">:</span> <span class="s2">&quot;UNLOCKED&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;operatingState&quot;</span><span class="p">:</span> <span class="s2">&quot;ENABLED&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;labels&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="s2">&quot;device-virtual-example&quot;</span>
-  <span class="p">],</span>
-  <span class="nt">&quot;commands&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;created&quot;</span><span class="p">:</span> <span class="mi">1589052044139</span><span class="p">,</span>
-      <span class="nt">&quot;modified&quot;</span><span class="p">:</span> <span class="mi">1589052044139</span><span class="p">,</span>
-      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;28d88bb3-e280-46f7-949f-37cc411757f5&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bool&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;get&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/device/{deviceId}/Bool&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;responses&quot;</span><span class="p">:</span> <span class="p">[</span>
+  <span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span> <span class="s2">&quot;v2&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;statusCode&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+  <span class="nt">&quot;deviceCoreCommand&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;deviceName&quot;</span><span class="p">:</span> <span class="s2">&quot;Random-Boolean-Device&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;profileName&quot;</span><span class="p">:</span> <span class="s2">&quot;Random-Boolean-Device&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;coreCommands&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;WriteBoolValue&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;set&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v2/device/name/Random-Boolean-Device/WriteBoolValue&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:59882&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;parameters&quot;</span><span class="p">:</span> <span class="p">[</span>
           <span class="p">{</span>
-            <span class="nt">&quot;code&quot;</span><span class="p">:</span> <span class="s2">&quot;200&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;expectedValues&quot;</span><span class="p">:</span> <span class="p">[</span>
-              <span class="s2">&quot;Bool&quot;</span>
-            <span class="p">]</span>
+            <span class="nt">&quot;resourceName&quot;</span><span class="p">:</span> <span class="s2">&quot;Bool&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;valueType&quot;</span><span class="p">:</span> <span class="s2">&quot;Bool&quot;</span>
           <span class="p">},</span>
           <span class="p">{</span>
-            <span class="nt">&quot;code&quot;</span><span class="p">:</span> <span class="s2">&quot;503&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;service unavailable&quot;</span>
+            <span class="nt">&quot;resourceName&quot;</span><span class="p">:</span> <span class="s2">&quot;EnableRandomization_Bool&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;valueType&quot;</span><span class="p">:</span> <span class="s2">&quot;Bool&quot;</span>
           <span class="p">}</span>
-        <span class="p">],</span>
-        <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:48082/api/v1/device/bcd18c02-b187-4f29-8265-8312dc5d794d/command/d6d3007d-c4ce-472f-a117-820b5410e498&quot;</span>
+        <span class="p">]</span>
       <span class="p">},</span>
-      <span class="nt">&quot;put&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/device/{deviceId}/Bool&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;responses&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;WriteBoolArrayValue&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;set&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v2/device/name/Random-Boolean-Device/WriteBoolArrayValue&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:59882&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;parameters&quot;</span><span class="p">:</span> <span class="p">[</span>
           <span class="p">{</span>
-            <span class="nt">&quot;code&quot;</span><span class="p">:</span> <span class="s2">&quot;200&quot;</span>
+            <span class="nt">&quot;resourceName&quot;</span><span class="p">:</span> <span class="s2">&quot;BoolArray&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;valueType&quot;</span><span class="p">:</span> <span class="s2">&quot;BoolArray&quot;</span>
           <span class="p">},</span>
           <span class="p">{</span>
-            <span class="nt">&quot;code&quot;</span><span class="p">:</span> <span class="s2">&quot;503&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;service unavailable&quot;</span>
+            <span class="nt">&quot;resourceName&quot;</span><span class="p">:</span> <span class="s2">&quot;EnableRandomization_BoolArray&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;valueType&quot;</span><span class="p">:</span> <span class="s2">&quot;Bool&quot;</span>
           <span class="p">}</span>
-        <span class="p">],</span>
-        <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:48082/api/v1/device/bcd18c02-b187-4f29-8265-8312dc5d794d/command/d6d3007d-c4ce-472f-a117-820b5410e498&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;parameterNames&quot;</span><span class="p">:</span> <span class="p">[</span>
-          <span class="s2">&quot;Bool&quot;</span><span class="p">,</span>
-          <span class="s2">&quot;EnableRandomization_Bool&quot;</span>
+        <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bool&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;get&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nt">&quot;set&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v2/device/name/Random-Boolean-Device/Bool&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:59882&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;parameters&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+            <span class="nt">&quot;resourceName&quot;</span><span class="p">:</span> <span class="s2">&quot;Bool&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;valueType&quot;</span><span class="p">:</span> <span class="s2">&quot;Bool&quot;</span>
+          <span class="p">}</span>
+        <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;BoolArray&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;get&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nt">&quot;set&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v2/device/name/Random-Boolean-Device/BoolArray&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:59882&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;parameters&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+            <span class="nt">&quot;resourceName&quot;</span><span class="p">:</span> <span class="s2">&quot;BoolArray&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;valueType&quot;</span><span class="p">:</span> <span class="s2">&quot;BoolArray&quot;</span>
+          <span class="p">}</span>
         <span class="p">]</span>
       <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>From this output, look for the URL associated to the <code>PUT</code> command (the second URL listed).  This is the command Kuiper will used to call on the device. There are two parameters for this command:</p>
+<p>From this output, look for the URL associated to the <code>PUT</code> command (the first URL listed).  This is the command eKuiper will use to call on the device. There are two parameters for this command:</p>
 <ul>
 <li><code>Bool</code>: Set the returned value when other services want to get device data. The parameter will be used only when <code>EnableRandomization_Bool</code> is set to false.</li>
 <li><code>EnableRandomization_Bool</code>: Enable/disable the randomization generation of bool values. If this value is set to true, then the 1st parameter will be ignored.</li>
 </ul>
 <p>You can test calling this command with its parameters using curl as shown below.</p>
 <div class="highlight"><pre><span></span><code>curl -X PUT <span class="se">\</span>
-  http://edgex-core-command:48082/api/v1/device/bcd18c02-b187-4f29-8265-8312dc5d794d/command/d6d3007d-c4ce-472f-a117-820b5410e498 <span class="se">\</span>
+  http://edgex-core-command:59882/api/v2/device/name/Random-Boolean-Device/WriteBoolValue <span class="se">\</span>
   -H <span class="s1">&#39;Content-Type: application/json&#39;</span> <span class="se">\</span>
   -d <span class="s1">&#39;{&quot;Bool&quot;:&quot;true&quot;, &quot;EnableRandomization_Bool&quot;: &quot;true&quot;}&#39;</span>
 </code></pre></div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The URL used in this example will not be the same as the URL for you command service.  EdgeX provides a different UUID for each command.  The example above shows you what to look for and how to make the request, but the URL will be unique to your system.</p>
-</div>
 <h2 id="create-rules">Create rules</h2>
-<p>Now that you have EdgeX and Kuiper running, the EdgeX stream defined, and you know the command to actuate <code>Random-Boolean-Device</code>, it is time to build the Kuiper rules.</p>
+<p>Now that you have EdgeX and eKuiper running, the EdgeX stream defined, and you know the command to actuate <code>Random-Boolean-Device</code>, it is time to build the eKuiper rules.</p>
 <h3 id="the-first-rule">The first rule</h3>
-<p>Again, the 1st rule is to monitor for events coming from the <code>Random-UnsignedInteger-Device</code> device (one of the default virtual device managed devices), and if a <code>uint8</code> reading value is found larger than <code>20</code> in the event, then send the command to <code>Random-Boolean-Device</code> device to start generating random numbers (specifically - set random generation bool to true).  Given the URL and parameters to the command, below is the curl command to declare the first rule in Kuiper.</p>
+<p>Again, the 1st rule is to monitor for events coming from the <code>Random-UnsignedInteger-Device</code> device (one of the default virtual device managed devices), and if a <code>uint8</code> reading value is found larger than <code>20</code> in the event, then send the command to <code>Random-Boolean-Device</code> device to start generating random numbers (specifically - set random generation bool to true).  Given the URL and parameters to the command, below is the curl command to declare the first rule in eKuiper.</p>
 <div class="highlight"><pre><span></span><code>curl -X POST <span class="se">\</span>
-  http://<span class="nv">$kuiper_server</span>:48075/rules <span class="se">\</span>
+  http://<span class="nv">$ekuiper_server</span>:59720/rules <span class="se">\</span>
   -H <span class="s1">&#39;Content-Type: application/json&#39;</span> <span class="se">\</span>
   -d <span class="s1">&#39;{</span>
 <span class="s1">  &quot;id&quot;: &quot;rule1&quot;,</span>
@@ -2638,7 +2652,7 @@
 <span class="s1">  &quot;actions&quot;: [</span>
 <span class="s1">    {</span>
 <span class="s1">      &quot;rest&quot;: {</span>
-<span class="s1">        &quot;url&quot;: &quot;http://edgex-core-command:48082/api/v1/device/bcd18c02-b187-4f29-8265-8312dc5d794d/command/d6d3007d-c4ce-472f-a117-820b5410e498&quot;,</span>
+<span class="s1">        &quot;url&quot;: &quot;http://edgex-core-command:59882/api/v2/device/name/Random-Boolean-Device/WriteBoolValue&quot;,</span>
 <span class="s1">        &quot;method&quot;: &quot;put&quot;,</span>
 <span class="s1">        &quot;dataTemplate&quot;: &quot;{\&quot;Bool\&quot;:\&quot;true\&quot;, \&quot;EnableRandomization_Bool\&quot;: \&quot;true\&quot;}&quot;,</span>
 <span class="s1">        &quot;sendSingle&quot;: true</span>
@@ -2651,17 +2665,17 @@
 <span class="s1">}&#39;</span>
 </code></pre></div>
 <h3 id="the-second-rule">The second rule</h3>
-<p>The 2nd rule is to monitor for events coming from the <code>Random-Integer-Device</code> device (another of the default virtual device managed devices), and if the average for <code>int8</code> reading values (within 20 seconds) is larger than 0, then send a command to <code>Random-Boolean-Device</code> device to stop generating random numbers (specifically - set random generation bool to false).  Here is the curl request to setup the second rule in Kuiper.  The same command URL is used as the same device action (<code>Random-Boolean-Device's PUT bool command</code>) is being actuated, but with different parameters.</p>
+<p>The 2nd rule is to monitor for events coming from the <code>Random-Integer-Device</code> device (another of the default virtual device managed devices), and if the average for <code>int8</code> reading values (within 20 seconds) is larger than 0, then send a command to <code>Random-Boolean-Device</code> device to stop generating random numbers (specifically - set random generation bool to false).  Here is the curl request to setup the second rule in eKuiper.  The same command URL is used as the same device action (<code>Random-Boolean-Device's PUT bool command</code>) is being actuated, but with different parameters.</p>
 <div class="highlight"><pre><span></span><code>curl -X POST <span class="se">\</span>
-  http://<span class="nv">$kuiper_server</span>:48075/rules <span class="se">\</span>
+  http://<span class="nv">$ekuiper_server</span>:59720/rules <span class="se">\</span>
   -H <span class="s1">&#39;Content-Type: application/json&#39;</span> <span class="se">\</span>
   -d <span class="s1">&#39;{</span>
 <span class="s1">  &quot;id&quot;: &quot;rule2&quot;,</span>
-<span class="s1">  &quot;sql&quot;: &quot;SELECT avg(int8) AS avg_int8 FROM demo WHERE int8 != nil GROUP BY  TUMBLINGWINDOW(ss, 20) HAVING avg(int8) &gt; 0&quot;,</span>
+<span class="s1">  &quot;sql&quot;: &quot;SELECT avg(int8) AS avg_int8 FROM demo WHERE int8 != nil GROUP BY TUMBLINGWINDOW(ss, 20) HAVING avg(int8) &gt; 0&quot;,</span>
 <span class="s1">  &quot;actions&quot;: [</span>
 <span class="s1">    {</span>
 <span class="s1">      &quot;rest&quot;: {</span>
-<span class="s1">        &quot;url&quot;: &quot;http://edgex-core-command:48082/api/v1/device/bcd18c02-b187-4f29-8265-8312dc5d794d/command/d6d3007d-c4ce-472f-a117-820b5410e498&quot;,</span>
+<span class="s1">        &quot;url&quot;: &quot;http://edgex-core-command:59882/api/v2/device/name/Random-Boolean-Device/WriteBoolValue&quot;,</span>
 <span class="s1">        &quot;method&quot;: &quot;put&quot;,</span>
 <span class="s1">        &quot;dataTemplate&quot;: &quot;{\&quot;Bool\&quot;:\&quot;false\&quot;, \&quot;EnableRandomization_Bool\&quot;: \&quot;false\&quot;}&quot;,</span>
 <span class="s1">        &quot;sendSingle&quot;: true</span>
@@ -2673,22 +2687,22 @@
 <span class="s1">  ]</span>
 <span class="s1">}&#39;</span>
 </code></pre></div>
-<h2 id="watch-the-kuiper-logs">Watch the Kuiper Logs</h2>
-<p>Both rules are now created in Kuiper.  Kuiper is busy analyzing the event data coming for the virtual devices looking for readings that match the rules you created.  You can watch the edgex-kuiper container logs for the rule triggering and command execution.</p>
+<h2 id="watch-the-ekuiper-logs">Watch the eKuiper Logs</h2>
+<p>Both rules are now created in eKuiper.  eKuiper is busy analyzing the event data coming for the virtual devices looking for readings that match the rules you created.  You can watch the edgex-kuiper container logs for the rule triggering and command execution.</p>
 <div class="highlight"><pre><span></span><code>docker logs edgex-kuiper
 </code></pre></div>
 <h2 id="explore-the-results">Explore the Results</h2>
-<p>You can also explore the Kuiper analysis that caused the commands to be sent to the service.  To see the the data from the analysis, use the SQL below to query Kuiper filtering data.</p>
+<p>You can also explore the eKuiper analysis that caused the commands to be sent to the service.  To see the the data from the analysis, use the SQL below to query eKuiper filtering data.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span> <span class="nb">int8</span><span class="p">,</span> <span class="ss">&quot;true&quot;</span> <span class="k">AS</span> <span class="n">randomization</span> <span class="k">FROM</span> <span class="n">demo</span> <span class="k">WHERE</span> <span class="n">uint8</span> <span class="o">&gt;</span> <span class="mi">20</span>
 </code></pre></div>
 <p>The output of the SQL should look similar to the results below.</p>
 <div class="highlight"><pre><span></span><code><span class="p">[{</span><span class="nt">&quot;int8&quot;</span><span class="p">:</span><span class="mi">-75</span><span class="p">,</span> <span class="nt">&quot;randomization&quot;</span><span class="p">:</span><span class="s2">&quot;true&quot;</span><span class="p">}]</span>
 </code></pre></div>
 <h2 id="extended-reading">Extended Reading</h2>
-<p>Use these resouces to learn more about the features of EMQ X Kuiper.</p>
+<p>Use these resouces to learn more about the features of LF Edge eKuiper.</p>
 <ul>
-<li><a href="https://github.com/emqx/kuiper/">Kuiper Github code repository</a></li>
-<li><a href="https://github.com/emqx/kuiper/blob/edgex/docs/en_US/reference.md">Kuiper reference guide</a></li>
+<li><a href="https://github.com/lf-edge/ekuiper/">eKuiper Github code repository</a></li>
+<li><a href="https://github.com/lf-edge/ekuiper/blob/edgex/docs/en_US/reference.md">eKuiper reference guide</a></li>
 </ul>
                 
               
