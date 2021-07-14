@@ -6,7 +6,7 @@ that data be used by an edge analytics system (like a rules engine) to actuate o
 
 ## Getting data to the rules engine
 
-By default, data is already passed from the core data service to application services (app services) via 0MQ message.  A preconfigured application service is provided with the EdgeX default Docker Compose files that gets this data and routes it to the [Kuiper rules engine](../microservices/support/Kuiper/Ch-Kuiper.md).  The application service is called `app-service-rules` (see below).  More specifically, it is an [app service configurable](../microservices/application/AppServiceConfigurable.md).
+By default, data is already passed from the core data service to application services (app services) via 0MQ message.  A preconfigured application service is provided with the EdgeX default Docker Compose files that gets this data and routes it to the [eKuiper rules engine](../microservices/support/eKuiper/Ch-eKuiper.md).  The application service is called `app-service-rules` (see below).  More specifically, it is an [app service configurable](../microservices/application/AppServiceConfigurable.md).
 
 ``` yaml
   app-service-rules:
@@ -36,7 +36,7 @@ The log level of any EdgeX micro service is set to `INFO` by default.  If you tu
 
 #### Set the log level
 
-To set the log level of any service, open the [Consul UI](../microservices/configuration/Ch-Configuration.md#web-user-interface) in a browser by visiting `http://[host]:8500`.  When the Consul UI opens, click on the Key/Value tab on the top of the screen.
+To set the log level of any service, open the [Consul UI](../microservices/configuration/ConfigurationAndRegistry.md#web-user-interface) in a browser by visiting `http://[host]:8500`.  When the Consul UI opens, click on the Key/Value tab on the top of the screen.
 
 ![image](EdgeX_WalkthroughConsulKeyValue.png)
 

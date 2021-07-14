@@ -88,7 +88,7 @@ The two following High Level Diagrams show:
 
 ## Configuration Properties
 
-Please refer to the general [Configuration documentation](../../configuration/Ch-Configuration.md#configuration-properties) for configuration properties common to all services.
+Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services.
 
 === "Service"
     |Property|Default Value|Description|

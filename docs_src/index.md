@@ -1,7 +1,11 @@
 # Introduction
 
+!!! caution "Disclaimer"
+    Updates to these pages for EdgeX 2.0 are still in progress. If you don't see a `what's new in EdgeX 2.0` box (like the one below) on a page, it has likely not been updated yet. Once all updates are complete, this disclaimer will be removed.
+
 !!! edgey "EdgeX 2.0"
     Want to know what's new in EdgeX 2.0 (Ireland)?  If you are already familiar with EdgeX, look for the EdgeX 2.0 emoji (`Edgey` - the EdgeX mascot) throughout the documentation - [like the one on this page](#the-ireland-release) outlining what's in the Ireland release.  These sections will give you a summary of what's new in each area of the documentation.
+
 
 EdgeX Foundry is an open source, vendor neutral, flexible, interoperable, software platform at the
 edge of the network, that interacts with the physical world of [devices](./general/Definitions.md#Device), sensors, actuators, and other IoT objects. In simple terms, EdgeX is edge middleware - serving  between physical sensing and actuating "things" and our information technology (IT) systems.
@@ -114,14 +118,14 @@ Core services provide intermediary communications between the things and the IT 
 ### Supporting Services Layer
 ![image](./general/EdgeX_SupportingServicesLayer.png)
 
-The supporting services encompass a wide range of micro services to include edge analytics (also known as local analytics). Normal software application duties such as logging, scheduling, and data clean up (also known as scrubbing in EdgeX) are performed by micro services in the supporting services layer.
+The supporting services encompass a wide range of micro services to include edge analytics (also known as local analytics). Normal software application duties such as scheduler, and data clean up (also known as scrubbing in EdgeX) are performed by micro services in the supporting services layer.
 
 These services often require some amount of core services in order to function.  In all cases, supporting service can be considered optional – that is they can be left out of an EdgeX deployment depending on use case needs and system resources.
 
 Supporting services include:
 
 - Rules Engine:  the reference implementation edge analytics service that performs if-then conditional actuation at the edge based on sensor data collected by the EdgeX instance.  This service may be replaced or augmented by use case specific analytics capability.
-- Scheduling:  an internal EdgeX “clock” that can kick off operations in any EdgeX service.  At a configuration specified time, the service will call on any EdgeX service API URL via REST to trigger an operation.  For example, the scheduling service periodically calls on core data APIs to clean up old sensed events that have been successfully exported out of EdgeX.
+- Scheduler:  an internal EdgeX “clock” that can kick off operations in any EdgeX service.  At a configuration specified time, the service will call on any EdgeX service API URL via REST to trigger an operation.  For example, the scheduler service periodically calls on core data APIs to clean up old sensed events that have been successfully exported out of EdgeX.
 - Alerts and Notifications:  provides EdgeX services with a central facility to send out an alert or notification.  These are notices sent to another system or to a person monitoring the EdgeX instance (internal service communications are often handled more directly).
 
 ### Application Services Layer
@@ -213,7 +217,7 @@ Local analytics allows systems to operate independently, at least for some stret
 
 EdgeX is built to act locally on data it collects from the edge.  In other words, events are processed by local analytics and can be used to trigger action back down on a sensor/device.
 
-Just as application services prepare data for consumption by north side cloud systems or applications, application services can process and get EdgeX events (and the sensor data they contain) to any analytics package (see step 4).  By default, EdgeX ships with a simple rules engine (the default EdgeX rules engine is [Kuiper](https://www.emqx.io/products/kuiper) – an open source rules engine by EMQ X and now a sister project in LF Edge).  Your own analytics package (or ML agent) could replace or augment the local rules engine.
+Just as application services prepare data for consumption by north side cloud systems or applications, application services can process and get EdgeX events (and the sensor data they contain) to any analytics package (see step 4).  By default, EdgeX ships with a simple rules engine (the default EdgeX rules engine is [eKuiper](https://www.emqx.io/products/kuiper) – an open source rules engine and now a sister project in LF Edge).  Your own analytics package (or ML agent) could replace or augment the local rules engine.
 
 ![image](./general/EdgeX_step4.png)
 

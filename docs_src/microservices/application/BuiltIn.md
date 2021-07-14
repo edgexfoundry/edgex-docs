@@ -1,107 +1,19 @@
-# Built-In Transforms/Functions
+# Built-In Pipeline Functions
 
-All transforms define a type and a `New` function which is used to initialize an instance of the type with the  required parameters. These instances returned by these `New` functions give access to their appropriate pipeline function pointers when setting up the function pipeline.
+All pipeline functions define a type and a factory function which is used to initialize an instance of the type with the  required options. The instances returned by these factory functions give access to their appropriate pipeline function pointers when setting up the function pipeline.
 
 !!! example
     ``` go
-    NewFilter([] {"Device1", "Device2"}).FilterByDeviceName
+    NewFilterFor([] {"Device1", "Device2"}).FilterByDeviceName
     ```
 
-
-## Filtering
-
-There are two basic types of filtering included in the SDK to add to your pipeline. There is also an option to `Filter Out` specific items. These provided filter functions return a type of events.Model. If filtering results in no remaining data, the pipeline execution for that pass is terminated. If no values are provided for filtering, then data flows through unfiltered.
-
-| Factory Method                   | Description |
-|----------------------------------|-------------|
-| NewFilter([]string filterValues)  | This function returns a `Filter` instance initialized with the passed in filter values. This `Filter` instance is used to access the following filter functions that will operate using the specified filter values. |
-
-
-``` go
-type Filter struct {
-    // Holds the values to be filtered
-    FilterValues []string
-    // Determines if items in FilterValues should be filtered out. If set to true all items found in the filter will be removed. If set to false all items found in the filter will be returned. If FilterValues is empty then all items will be returned.
-	FilterOut    bool
-}
-```
-
-### By Device Name
-`FilterByDeviceName` - This function will filter the event data down to the specified device names and return the filtered data to the pipeline.
-
-``` go
-NewFilter([] {"Device1", "Device2"}).FilterByDeviceName
-```
-
-
-### By Value Descriptor
-`FilterByValueDescriptor` - This function will filter the event data down to the specified device value descriptor and return the filtered data to the pipeline.
-
-``` go
-NewFilter([] {"ValueDescriptor1", "ValueDescriptor2"}).FilterByValueDescriptor
-```
-
-
-### JSON Logic
-| Factory Method                   | Description |
-|----------------------------------|-------------|
-| NewJSONLogic(rule string) | This function returns a `JSONLogic` instance initialized with the passed in JSON rule. The rule passed in should be a JSON string conforming to the specification here: http://jsonlogic.com/operations.html. |
-
-`Evaluate` - This is the function that will be used in the pipeline to apply the JSON rule to data coming in on the pipeline. If the condition of your rule is met, then the pipeline will continue and the data will continue to flow to the next function in the pipeline. If the condition of your rule is NOT met, then pipeline execution stops. 
-
-
-``` go
-NewJSONLogic("{ \"in\" : [{ \"var\" : \"device\" }, [\"Random-Integer-Device\",\"Random-Float-Device\"] ] }").Evaluate
-```
-
-!!! note
-    Only  operations that return true or false are supported. See http://jsonlogic.com/operations.html# for the complete list of operations paying attention to return values. Any operator that returns manipulated data is currently not supported. For more advanced scenarios checkout [EMQ X Kuiper](https://github.com/emqx/kuiper).
-
-!!! tip
-    Leverage http://jsonlogic.com/play.html to get your rule right before implementing in code. JSON can be a bit tricky to get right in code with all the escaped double quotes.
-
-## Encryption
-There is one encryption transform included in the SDK that can be added to your pipeline. 
-
-| Factory Method                   | Description |
-|----------------------------------|-------------|
-| NewEncryption(key string, initializationVector string) | This function returns a `Encryption` instance initialized with the passed in key and initialization vector. This `Encryption` instance is used to access the following encryption function that will use the specified key and initialization vector. |
-
-### AES
-`EncryptWithAES` - This function receives a either a `string`, `[]byte`, or `json.Marshaller` type and encrypts it using AES encryption and returns a `[]byte` to the pipeline.
-
-``` go
-NewEncryption("key", "initializationVector").EncryptWithAES
-```
-
-## Tags
-
-There is one Tags transform included in the SDK that can be added to your pipeline. 
-
-| Factory Method                       | Description                                                  |
-| ------------------------------------ | ------------------------------------------------------------ |
-| NewTags(tags map[string]string) Tags | This function returns a `Tags` instance initialized with the passed in collection of tag key/value pairs. This `Tags` instance is used to access the following Tags function that will use the specified collection of tag key/value pairs. |
-
-### AddTags
-
-`AddTags` - This function receives an Edgex `Event` type and adds the collection of specified tags to the Event's `Tags` collection.
-
-``` go
-var myTags = map[string]string{
-	"GatewayId": "HoustonStore000123",
-	"Latitude":  "29.630771",
-	"Longitude": "-95.377603",
-}
-NewTags(myTags).AddTags
-```
-
-## Batch
+## Batching
 
 Included in the SDK is an in-memory batch function that will hold on to your data before continuing the pipeline. There are three functions provided for batching each with their own strategy.
 
 
-| Factory Method                   | Description | 
-|----------------------------------|-------------|
+| Factory Method | Description |
+| -------------- | ----------- |
 |NewBatchByTime(timeInterval string) | This function returns a `BatchConfig` instance with time being the strategy that is used for determining when to release the batched data and continue the pipeline. `timeInterval` is the duration to wait (i.e. `10s`). The time begins after the first piece of data is received. If no data has been received no data will be sent forward. 
 ``` go
 // Example: 
@@ -117,101 +29,199 @@ NewBatchByCount(10).Batch
 // Example:
 NewBatchByTimeAndCount("30s", 10).Batch
 ```
-`Batch` - This function will apply the selected strategy in your pipeline.
+### Batch
+
+`Batch` - This pipeline function will apply the selected strategy in your pipeline.
 
 !!! warning
     Keep memory usage in mind as you determine the thresholds for both time and count. The larger they are the more memory is required and could lead to performance issue. 
 
-## Conversion
-There are two conversions included in the SDK that can be added to your pipeline. These transforms return a `string`.
+## Compression
 
-| Factory Method                   | Description |
-|----------------------------------|-------------|
-| NewConversion() | This function returns a `Conversion` instance that is used to access the conversion functions. |
-
-
-### XML
-`TransformToXML`  - This function receives an `events.Model` type, converts it to XML format and returns the XML string to the pipeline. 
-```go
-NewConversion().TransformToXML
-```
-
-### JSON
-`TransformToJSON` - This function receives an `events.Model` type and converts it to JSON format and returns the JSON string to the pipeline.
-```go
-NewConversion().TransformToJSON
-```
-
-## Compressions
 There are two compression types included in the SDK that can be added to your pipeline. These transforms return a `[]byte`.
 
-| Factory Method                   | Description | 
-|----------------------------------|-------------|
-| NewCompression() | This function returns a `Compression` instance that is used to access the compression functions.
+| Factory Method   | Description                                                  |
+| ---------------- | ------------------------------------------------------------ |
+| NewCompression() | This factory function returns a `Compression` instance that is used to access the compression functions. |
 
 ### GZIP
-`CompressWithGZIP`  - This function receives either a `string`,`[]byte`, or `json.Marshaler` type, GZIP compresses the data, converts result to base64 encoded string, which is returned as a `[]byte` to the pipeline.
-```go
-NewCompression().CompressWithGZIP
-```
+
+`CompressWithGZIP`  - This pipeline function receives either a `string`,`[]byte`, or `json.Marshaler` type, GZIP compresses the data, converts result to base64 encoded string, which is returned as a `[]byte` to the pipeline.
+
+!!! example
+    ```go
+    NewCompression().CompressWithGZIP
+    ```
 
 ### ZLIB
-`CompressWithZLIB` - This function receives either a `string`,`[]byte`, or `json.Marshaler` type, ZLIB compresses the data, converts result to base64 encoded string, which is returned as a `[]byte` to the pipeline.
+
+`CompressWithZLIB` - This pipeline function receives either a `string`,`[]byte`, or `json.Marshaler` type, ZLIB compresses the data, converts result to base64 encoded string, which is returned as a `[]byte` to the pipeline.
+
+!!! example
+    ```go
+    NewCompression().CompressWithZLIB
+    ```
+
+## Conversion
+
+There are two conversions included in the SDK that can be added to your pipeline. These transforms return a `string`.
+
+| Factory Method  | Description                                                  |
+| --------------- | ------------------------------------------------------------ |
+| NewConversion() | This factory function returns a `Conversion` instance that is used to access the conversion functions. |
+
+### JSON
+
+`TransformToJSON` - This pipeline function receives an `dtos.Event` type and converts it to JSON format and returns the JSON string to the pipeline.
+
+!!! example
+    ```go
+    NewConversion().TransformToJSON
+    ```
+
+### XML
+
+`TransformToXML`  - This pipeline function receives an `dtos.Event` type, converts it to XML format and returns the XML string to the pipeline. 
+
+!!! example
+    ```go
+    NewConversion().TransformToXML
+    ```
+
+## Core Data 
+
+There is one Core Data function that enables interactions with the Core Data REST API
+
+| Factory Method                                               | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| NewCoreDataSimpleReading(profileName string, deviceName string, resourceName string, valueType string) | This factory function returns a `CoreData` instance configured to push a simple reading. The`CoreData` instance is used to access core data functions. |
+| NewCoreDataBinaryReading(profileName string, deviceName string, resourceName string, mediaType string) | This factory function returns a `CoreData` instance configured to push a binary reading. The `CoreData` instance is used to access core data functions. |
+
+!!! edgey "EdgeX 2.0"
+    For EdgeX 2.0 the `NewCoreData` factory function has been replaced with the `NewCoreDataSimpleReading` and `NewCoreDataBinaryReading` functions 
+
+### Push to Core Data
+
+`PushToCoreData` - This pipeline function provides the capability to push a new Event/Reading to Core Data. The data passed into this function from the pipeline is wrapped in an EdgeX Event with the Event and Reading metadata specified from the factory function options. The function returns the new EdgeX Event with ID populated.
+
+!!! example
+    ```go
+    NewCoreDataSimpleReading("my-profile", "my-device", "my-resource", "string").PushToCoreData
+    ```
+
+## Encryption
+
+There is one encryption transform included in the SDK that can be added to your pipeline. 
+
+| Factory Method                                               | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| NewEncryption(key string, initializationVector string)       | This function returns a `Encryption` instance initialized with the passed in `key` and `initialization vector`. This `Encryption` instance is used to access the following encryption function that will use the specified `key` and `initialization vector`. |
+| NewEncryptionWithSecrets(secretPath string, secretName string, initializationVector string) | This function returns a `Encryption` instance initialized with the passed in `secret path`, `Secret name` and `initialization vector`. This `Encryption` instance is used to access the following encryption function that will use the encryption key from the Secret Store and the passed in `initialization vector`. It uses the passed in`secret path` and `secret name` to pull the encryption key from the Secret Store |
+
+!!! edgey "EdgeX 2.0"
+    New for EdgeX 2.0 is the ability to pull the encryption key from the Secret Store. The encryption key must be seeded into the Secret Store using the `/api/v2/secret` endpoint on the running instance of the Application Service prior to the Encryption function executing. See [App Functions SDK swagger](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/app-functions-sdk/2.0.0#/default/post_secret) for more details on this endpoint.
+
+### AES
+
+`EncryptWithAES` - This pipeline function receives either a `string`, `[]byte`, or `json.Marshaller` type and encrypts it using AES encryption and returns a `[]byte` to the pipeline.
+
+!!! example
+    ```go
+    NewEncryption("key", "initializationVector").EncryptWithAES
+    or
+    NewEncryptionWithSecrets("aes", "aes-key", "initializationVector").EncryptWithAES)
+    ```
+
+## Export
+
+There are two export functions included in the SDK that can be added to your pipeline. 
+
+### HTTP Export
+
+!!! edgey "EdgeX 2.0"
+    For EdgeX 2.0 the signature of the `NewHTTPSenderWithSecretHeader` factory function has changed. See below for details.
+
+| Factory Method                                               | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| NewHTTPSender(url string, mimeType string, persistOnError bool) | This factory function returns a `HTTPSender` instance initialized with the passed in url, mime type and persistOnError values. |
+| NewHTTPSenderWithSecretHeader(url string, mimeType string, persistOnError bool, headerName string, secretPath string, secretName string) | This factory function returns a `HTTPSender` instance similar to the above function however will set up the `HTTPSender` to add a header  to the HTTP request using the `headerName ` for the field name and the `secretPath` and `secretName` to pull the header field value from the Secret Store. |
+| NewHTTPSenderWithOptions(options HTTPSenderOptions)          | This factory function returns a `HTTPSender`using the passed in `options` to configure it. |
+
+!!! edgey "EdgeX 2.0"
+    New in EdgeX 2.0 is the ability to chain multiple instances of the HTTP exports to accomplish exporting to multiple destinations. The new `NewHTTPSenderWithOptions` factory function was added to allow for configuring all the options, including the new `ContinueOnSendError` and `ReturnInputData` options that enable this chaining. 
+
 ```go
-NewCompression().CompressWithZLIB
+// HTTPSenderOptions contains all options available to the sender
+type HTTPSenderOptions struct {
+	// URL of destination
+	URL string
+	// MimeType to send to destination
+	MimeType string
+	// PersistOnError enables use of store & forward loop if true
+	PersistOnError bool
+	// HTTPHeaderName to use for passing configured secret
+	HTTPHeaderName string
+	// SecretPath to search for configured secret
+	SecretPath string
+	// SecretName for configured secret
+	SecretName string
+	// URLFormatter specifies custom formatting behavior to be applied to configured URL.
+	// If nothing specified, default behavior is to attempt to replace placeholders in the
+	// form '{some-context-key}' with the values found in the context storage.
+	URLFormatter StringValuesFormatter
+	// ContinueOnSendError allows execution of subsequent chained senders after errors if true
+	ContinueOnSendError bool
+	// ReturnInputData enables chaining multiple HTTP senders if true
+	ReturnInputData bool
+}
 ```
 
-## CoreData Functions
-These are functions that enable interactions with the CoreData REST API. 
+#### HTTP POST
 
-| Factory Method                   | Description | 
-|----------------------------------|-------------|
-| NewCoreData() | This function returns a `CoreData` instance. This `CoreData` instance is used to access core data functions.
-
-### Push to Core
-`PushToCore` - This function provides the PushToCore function from the context as a First-Class Transform that can be called in your pipeline. [See Definition Above](#.PushToCore()). The data passed into this function from the pipeline is wrapped in an EdgeX event with the `deviceName` and `readingName` that were set upon the `CoreData` instance and then sent to Core Data service to be added as an event. Returns the new EdgeX event with ID populated.
-```go
-NewCoreData().PushToCore
-```
-
-!!! note
-    If validation is turned on in Core Services then your `deviceName` and `readingName` must exist in the Core Metadata service and be properly registered in EdgeX. 
-
-## Export Functions
-There are a few export functions included in the SDK that can be added to your pipeline. 
-
-### HTTP
-`HTTPPost` - This function receives either a `string`,`[]byte`, or `json.Marshaler` type from the previous function in the pipeline and posts it to the configured endpoint. If no previous function exists, then the event that triggered the pipeline, marshaled to json, will be used. If the post fails and `persistOnError`is `true` and `Store and Forward` is enabled, the data will be stored for later retry. See [Store and Forward](#store-and-forward) for more details. 
-
-`HTTPPut` - This function operates the same as `HTTPPost` but uses the `PUT` method rather than `POST`. 
-
-| Factory Method                   | Description |
-|----------------------------------|-------------|
-|NewHTTPSender(url string, mimeType string, persistOnError bool)| This function returns a `HTTPSender` instance initialized with the passed in url, mime type and persistOnError values. |
-| NewHTTPSenderWithSecretHeader(url string, mimeType string, persistOnError bool, httpHeaderSecretName string, secretPath string) | This function returns a `HTTPSender` instance similar to the above function however will set up the `HTTPSender` to add a header to the HTTP request using the `httpHeaderSecretName` as both the header key  and the key to search for in the secret provider at `secretPath` leveraging secure storage of secrets. |
+`HTTPPost` - This pipeline function receives either a `string`, `[]byte`, or `json.Marshaler` type from the previous function in the pipeline and posts it to the configured endpoint and returns the HTTP response. If no previous function exists, then the event that triggered the pipeline, marshaled to json, will be used. If the post fails and `persistOnError=true` and `Store and Forward` is enabled, the data will be stored for later retry. See [Store and Forward](#store-and-forward) for more details. If `ReturnInputData=true`  the function will return the data that it received instead of the HTTP response. This allows the following function in the pipeline to be another HTTP Export which receives the same data but is configured to send to a different endpoint. When chaining for multiple HTTP Exports you need to decide how to handle errors. Do you want to stop execution of the pipeline or continue so that the next HTTP Export function can attempt to export to its endpoint. This is where `ContinueOnSendError` comes in. If set to `true` the error is logged and the function returns the received data for the next function to use. `ContinueOnSendError=true` can only be used when `ReturnInputData=true` and cannot be use when `PersistOnError=true`.
 
 !!! example
     **POST**              
     NewHTTPSender("https://myendpoint.com","application/json",false).HTTPPost 
-    //assumes TransformToJSON was used before this transform in the pipeline
 
     **PUT**                   
     NewHTTPSender("https://myendpoint.com","application/json",false).HTTPPut 
-    //assumes TransformToJSON was used before this transform in the pipeline
-
+        
     **POST with secure header**
-    NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,"Authentication","/jwt").HTTPPost 
-    //assumes TransformToJSON was used before this transform in the pipeline and /jwt has been seeded into the secret provider with a key of Authentication
-
+    NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,"Authentication","/jwt","AuthToken").HTTPPost 
+    
     ** PUT with secure header**
-    NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,"Authentication","/jwt").HTTPPPut 
-    //assumes TransformToJSON was used before this transform in the pipeline and /jwt has been seeded into the secret provider with a key of Authentication
+    NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,"Authentication","/jwt","AuthToken").HTTPPPut 
 
-### MQTT
+#### HTTP PUT
 
-| Factory Method                   | Description |
-|----------------------------------|-------------|
-| NewMQTTSecretSender(mqttConfig MQTTSecretConfig, persistOnError bool) | This function returns a `MQTTSecretSender` instance initialized with the options specified in the `MQTTSecretConfig`. |
+`HTTPPut` - This pipeline function operates the same as `HTTPPost` but uses the `PUT` method rather than `POST`. 
+
+#### URL Formatting
+
+!!! edgey "EdgeX 2.0"
+    URL Formatting is new in EdgeX 2.0
+
+The configured URL is dynamically formatted prior to the POST/PUT request. The default formatter (used if `URLFormatter` is nil) simply replaces any placeholder text, `{key-name}`, in the configured URL with matching values from the new `Context Storage`. An error will occur if a specified placeholder does not exist in the `Context Storage`. See the [Context Storage](../AppFunctionContextAPI/#context-storage) documentation for more details on seeded values and storing your own values.
+
+The `URLFormatter` option allows you to override the default formatter with your own custom URL formatting scheme.
+
+!!! example
+    Export the Events to  different endpoints base on their device name              
+    `Url="http://myhost.com/edgex-events/{devicename}"` 
+
+### MQTT Export
+
+!!! edgey "EdgeX 2.0"
+    New for EdgeX 2.0 is the the new `NewMQTTSecretSenderWithTopicFormatter` factory function. The deprecated `NewMQTTSender` factory function has been removed.
+
+| Factory Method                                               | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| NewMQTTSecretSender(mqttConfig MQTTSecretConfig, persistOnError bool) | This factory function returns a `MQTTSecretSender` instance initialized with the options specified in the `MQTTSecretConfig` and `persistOnError `. |
+| NewMQTTSecretSenderWithTopicFormatter(mqttConfig MQTTSecretConfig, persistOnError bool, topicFormatter StringValuesFormatter) | This factory function returns a `MQTTSecretSender` instance initialized with the options specified in the `MQTTSecretConfig`, `persistOnError ` and `topicFormatter `. See [Topic Formatting](#topic-formatting) below for more details. |
+
+!!! edgey "EdgeX 2.0"
+    New in EdgeX 2.0 the `KeepAlive` and `ConnectTimeout`  **MQTTSecretConfig** settings have been added.
 
 ```go
   type MQTTSecretConfig struct {
@@ -223,6 +233,10 @@ There are a few export functions included in the SDK that can be added to your p
     SecretPath string
     // AutoReconnect indicated whether or not to retry connection if disconnected
     AutoReconnect bool
+	// KeepAlive is the interval duration between client sending keepalive ping to broker
+	KeepAlive string
+	// ConnectTimeout is the duration for timing out on connecting to the broker
+	ConnectTimeout string
     // Topic that you wish to publish to
     Topic string
     // QoS for MQTT Connection
@@ -238,7 +252,8 @@ There are a few export functions included in the SDK that can be added to your p
     AuthMode string
   }
 ```
-Secrets in the secret provider may be located at any path however they must have some or all the follow keys at the specified `SecretPath`. 
+
+Secrets in the Secret Store may be located at any path however they must have some or all the follow keys at the specified `SecretPath`. 
 
 - `username` - username to connect to the broker
 - `password` - password used to connect to the broker
@@ -246,49 +261,151 @@ Secrets in the secret provider may be located at any path however they must have
 - `clientcert` - client cert in PEM format
 - `cacert` - ca cert in PEM format
 
-What `AuthMode` you choose depends on what values are used. For example, if "none" is specified as auth mode all keys will be ignored. Similarly, if `AuthMode` is set to "clientcert" username and password will be ignored.
+The `AuthMode` setting you choose depends on what secret values above are used. For example, if "none" is specified as auth mode all keys will be ignored. Similarly, if `AuthMode` is set to "clientcert" username and password will be ignored.
 
+#### Topic Formatting
 
-| Factory Method                   | Description |
-|----------------------------------|-------------|
-| **DEPRECATED** NewMQTTSender(logging logger.LoggingClient, addr models.Addressable, keyCertPair *KeyCertPair, mqttConfig MqttConfig, persistOnError bool) | This function returns a `MQTTSender` instance initialized with the passed in MQTT configuration . This `MQTTSender` instance is used to access the following  function that will use the specified MQTT configuration |
+!!! edgey "EdgeX 2.0"
+    Topic Formatting is new in EdgeX 2.0
 
-    - `KeyCertPair` - This structure holds the Key and Certificate information for when using secure **TLS** connection to the broker. Can be `nil` if not using secure **TLS** connection. 
-    
-    - `MqttConfig` - This structure holds addition MQTT configuration settings. 
+The configured Topic is dynamically formatted prior to publishing . The default formatter (used if `topicFormatter ` is nil) simply replaces any placeholder text, `{key-name}`, in the configured `Topic` with matching values from the new `Context Storage`. An error will occur if a specified placeholder does not exist in the `Context Storage`. See the [Context Storage](../AppFunctionContextAPI/#context-storage) documentation for more details on seeded values and storing your own values.
 
-```go
-Qos            byte
-Retain         bool
-AutoReconnect  bool
-SkipCertVerify bool
-User           string
-Password       string
-```
+The `topicFormatter` option allows you to override the default formatter with your own custom topic formatting scheme.
 
-!!! note
-    The `GO` complier will default these to `0`, `false` and `""`, so you only need to set the fields that your usage requires that differ from the default.
+## Filtering
 
-`MQTTSend` - This function receives either a `string`,`[]byte`, or `json.Marshaler` type from the previous function in the pipeline and sends it to the specified MQTT broker. If no previous function exists, then the event that triggered the pipeline, marshaled to json, will be used. If the send fails and `persistOnError`is `true` and `Store and Forward` is enabled, the data will be stored for later retry. See [Store and Forward](#store-and-forward) for more details.
-
-## Output Functions
-
-There is one output function included in the SDK that can be added to your pipeline. 
+There are four basic types of filtering included in the SDK to add to your pipeline. There is also an option to `Filter Out` specific items. These provided filter functions return a type of `dtos.Event`. If filtering results in no remaining data, the pipeline execution for that pass is terminated. If no values are provided for filtering, then data flows through unfiltered.
 
 | Factory Method                   | Description |
 |----------------------------------|-------------|
-| NewOutput() | This function returns a `Output` instance that is used to access the following output function |
+| NewFilterFor([]string filterValues) | This factory function returns a `Filter` instance initialized with the passed in filter values with `FilterOut` set to `false`. This `Filter` instance is used to access the following filter functions that will operate using the specified filter values. |
+| NewFilterOut([]string filterValues) | This factory function returns a `Filter` instance initialized with the passed in filter values with `FilterOut` set to `true`. This `Filter` instance is used to access the following filter functions that will operate using the specified filter values. |
 
-### Content Type
-`ResponseContentType` - This property is used to set the content-type of the response.
+
+
+!!! edgey "EdgeX 2.0" 
+    For EdgeX 2.0 the `NewFilter` factory function has been renamed to `NewFilterFor` and the new `NewFilterOut` factory function has been added.
+
 
 ``` go
-output := NewOutput()
-output.ResponseContentType = "application/json"
+type Filter struct {
+    // Holds the values to be filtered
+    FilterValues []string
+    // Determines if items in FilterValues should be filtered out. If set to true all items found in the filter will be removed. If set to false all items found in the filter will be returned. If FilterValues is empty then all items will be returned.
+	FilterOut    bool
+}
 ```
 
-`SetOutput` - This function receives either a `string`,`[]byte`, or `json.Marshaler` type from the previous function in the pipeline and sets it as the output data for the pipeline to return to the configured trigger. If configured to use message bus, the data will be published to the message bus as determined by the `MessageBus` and `Binding` configuration. If configured to use HTTP trigger the data is returned as the HTTP response. 
 
+
+!!! edgey "EdgeX 2.0"
+    New for EdgeX 2.0 are the `FilterByProfileName` and `FilterBySourceName` pipeline functions. The `FilterByValueDescriptor` pipeline function has been renamed to `FilterByResourceName`
+
+
+
+### By Profile Name
+
+`FilterByProfileName` - This pipeline function will filter the event data down to **Events** that either have (For) or don't have (Out) the specified profiles names.  
+
+!!! example
+    ``` go
+    NewFilterFor([] {"Profile1", "Profile2"}).FilterByProfileName
+    ```
+
+### By Device Name
+
+`FilterByDeviceName` - This pipeline function will filter the event data down to **Events** that either have (For) or don't have (Out) the specified device names.  
+
+!!! example
+    ``` go
+    NewFilterFor([] {"Device1", "Device2"}).FilterByDeviceName
+    ```
+
+### By Source Name
+
+`FilterBySourceName` - This pipeline function will filter the event data down to **Events** that either have (For) or don't have (Out) the specified source names.  Source name is either the `resource name` or `command name` responsible for the Event creation.
+
+!!! example
+    ``` go
+    NewFilterFor([] {"Source1", "Source2"}).FilterBySourceName
+    ```
+
+
+### By Resource Name
+
+`FilterByResourceName` - This pipeline function will filter the Event's reading data down to **Readings** that either have (For) or don't have (Out) the specified resource names.  If the result of filtering is zero Readings remaining, the function terminates pipeline execution.
+
+!!! example
+    ``` go
+    NewFilterFor([] {"Resource1", "Resource2"}).FilterByResourceName
+    ```
+
+
+## JSON Logic
+| Factory Method                   | Description |
+|----------------------------------|-------------|
+| NewJSONLogic(rule string) | This factory function returns a `JSONLogic` instance initialized with the passed in JSON rule. The rule passed in should be a JSON string conforming to the specification here: http://jsonlogic.com/operations.html. |
+
+### Evaluate
+
+`Evaluate` - This is the pipeline function that will be used in the pipeline to apply the JSON rule to data coming in on the pipeline. If the condition of your rule is met, then the pipeline will continue and the data will continue to flow to the next function in the pipeline. If the condition of your rule is NOT met, then pipeline execution stops. 
+
+!!! example
+    ``` go
+    NewJSONLogic("{ \"in\" : [{ \"var\" : \"device\" }, 
+                  [\"Random-Integer-Device\",\"Random-Float-Device\"] ] }").Evaluate
+    ```
 
 !!! note
-    Calling Complete() from the Context API in a custom function can be used in place of adding this function to your pipeline
+    Only  operations that return true or false are supported. See http://jsonlogic.com/operations.html# for the complete list of operations paying attention to return values. Any operator that returns manipulated data is currently not supported. For more advanced scenarios checkout [LF Edge eKuiper](https://github.com/lf-edge/ekuiper).
+
+!!! tip
+    Leverage http://jsonlogic.com/play.html to get your rule right before implementing in code. JSON can be a bit tricky to get right in code with all the escaped double quotes.
+
+## Response Data
+
+There is one response data function included in the SDK that can be added to your pipeline. 
+
+| Factory Method    | Description                                                  |
+| ----------------- | ------------------------------------------------------------ |
+| NewResponseData() | This factory function returns a `ResponseData` instance that is used to access the following pipeline function below. |
+
+### Content Type
+
+`ResponseContentType` - This property is used to set the content-type of the response.
+
+!!! example
+    ``` go
+    responseData := NewResponseData()
+    responseData.ResponseContentType = "application/json"
+    ```
+
+### Set Response Data
+
+`SetResponseData` - This pipeline function receives either a `string`,`[]byte`, or `json.Marshaler` type from the previous function in the pipeline and sets it as the response data that the pipeline returns to the configured trigger. If configured to use the`EdgeXMessageBus`trigger, the data will be published back to the EdgeX MessageBus as determined by the configuration. Similar, if  configured to use the`ExternalMQTT` trigger, the data will be published back to the external MQTT Broker as determined by the configuration. If configured to use `HTTP` trigger the data is returned as the HTTP response. 
+
+!!! note
+    Calling `SetResponseData()` and `SetResponseContentType()` from the Context API in a custom function can be used in place of adding this function to your pipeline.
+
+## Tags
+
+There is one Tags transform included in the SDK that can be added to your pipeline. 
+
+| Factory Method                       | Description                                                  |
+| ------------------------------------ | ------------------------------------------------------------ |
+| NewTags(tags map[string]string) Tags | This factory function returns a `Tags` instance initialized with the passed in collection of tag key/value pairs. This `Tags` instance is used to access the following Tags function that will use the specified collection of tag key/value pairs. |
+
+### Add Tags
+
+`AddTags` - This pipeline function receives an Edgex `Event` type and adds the collection of specified tags to the Event's `Tags` collection.
+
+!!! example
+    ``` go
+    var myTags = map[string]string{
+    	"GatewayId": "HoustonStore000123",
+    	"Latitude":  "29.630771",
+    	"Longitude": "-95.377603",
+    }
+    NewTags(myTags).AddTags
+    ```
+
