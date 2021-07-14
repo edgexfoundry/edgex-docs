@@ -2335,22 +2335,29 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#phase-1" class="md-nav__link">
-    Phase 1
+  <a href="#phase-1-completed-in-ireland-release" class="md-nav__link">
+    Phase 1 (completed in Ireland release)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#phase-2" class="md-nav__link">
-    Phase 2
+  <a href="#phase-2-completed-in-ireland-release" class="md-nav__link">
+    Phase 2 (completed in Ireland release)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#phase-3" class="md-nav__link">
-    Phase 3
+  <a href="#phase-3-for-jakarta-release" class="md-nav__link">
+    Phase 3 (for Jakarta release)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unintended-consequences-and-mitigation-for-jakarta-stabilization-release" class="md-nav__link">
+    Unintended consequences and mitigation (for Jakarta stabilization release)
   </a>
   
 </li>
@@ -2455,7 +2462,7 @@ both of which are breaking changes.
 Phase 3 is a refinement of access control; presuming the existing services
 are "well-behaved", that is, they do not access configuration of other services,
 Phase 3 will not introduce any breaking changes on top of the Phase 2 breaking changes.</p>
-<h3 id="phase-1">Phase 1</h3>
+<h3 id="phase-1-completed-in-ireland-release">Phase 1 (completed in Ireland release)</h3>
 <ul>
 <li>Vault bootstrapper will install Vault Consul secrets engine.</li>
 <li>Secretstore-setup will create a Vault token for consul secrets engine configuration.</li>
@@ -2468,35 +2475,58 @@ Phase 3 will not introduce any breaking changes on top of the Phase 2 breaking c
   with the global-management policy and install it into the agent.
   During phase 2, it will be changed to a specific, limited, policy.
   (This change should not be visible to Consul API clients.)</li>
-<li>Create a global management token (stored in a file) for use in remote configuration.
-  This token will be used by the API gateway for proxy authentication,
+<li>The bootstrap management token will also be stored persistently
+  to be used by the API gateway for proxy authentication,
   and will also be needed for local access to Consul's web user interface.</li>
 <li>(Docker-only) Open a port to signal that Consul bootstrapping is completed.
   (Integrate with <code>ready_to_run</code> signal.)</li>
 </ul>
-<h3 id="phase-2">Phase 2</h3>
+<h3 id="phase-2-completed-in-ireland-release">Phase 2 (completed in Ireland release)</h3>
 <ul>
 <li>Consul bootstrapper will install a role in Vault that creates global-management tokens in Consul with no TTL.</li>
 <li>Registry and configuration client libraries will be modified to accept a Consul access token.</li>
 <li>go-mod-bootstrap will have contain the necessary glue logic to
   request a service-specifc Consul access token from Vault
-  and persist it as a service-specific secret.</li>
+  every time the service is started.</li>
 <li>Consul configuration will be changed to a default "deny" policy
   once all services have been changed to authenticated access mode.</li>
 <li>The agent tokens' policy will be changed to a specific agent policy
   instead of the global-management policy.</li>
 </ul>
-<h3 id="phase-3">Phase 3</h3>
+<h3 id="phase-3-for-jakarta-release">Phase 3 (for Jakarta release)</h3>
 <ul>
 <li>Introduce per-service roles and ACL policies that give each service
   access to its own subset of the Consul key-value store
   and to register in the service registry.</li>
-<li>Vault configuration will be changed to request two (2) hour expiring Consul access tokens
-  instead of non-expiring global management tokens.</li>
 <li>Consul access tokens will be scoped to the needs of the particular service
   (ability to update that service's registry data, an access that services's KV store).</li>
+<li>Create a separate management token (non-bootstrap) for API gateway proxy authentication
+  and Consul UI access that is different from boostrap management token stored in Vault.
+  This token will need to be requested outside of Vault in order for it to be non-expiring.</li>
 <li>Glue logic will ensure that expired Consul tokens are replaced with fresh ones
   (token freshness can be pre-checked by a request made to <code>/acl/token/self</code>).</li>
+</ul>
+<h3 id="unintended-consequences-and-mitigation-for-jakarta-stabilization-release">Unintended consequences and mitigation (for Jakarta stabilization release)</h3>
+<ul>
+<li>Consul token lifetime will be tied to the Vault token lifetime.
+  Vault deliberately revokes any Consul tokens that it issues
+  in order to ensure that they don't outlive the parent token's lifetime.
+  If Consul is not fully initialized when token revokation is attempted,
+  Vault will be unable to revoke these tokens.</li>
+</ul>
+<p>Migtigations:</p>
+<ul>
+<li>Consul will be started concurrently with Vault to give time for Consul to fully initialize.</li>
+<li>secretstore-setup will delay starting until Consul has completed leader election.</li>
+<li>secretstore-setup will be modified to less aggressively revoke tokens.
+    Alternatives include
+    <a href="https://www.vaultproject.io/api/auth/token#revoke-token-and-orphan-children">revoke-and-orphan</a>
+    which should leave the Consul tokens intact if the secret store is restarted
+    but may leave garbage tokens in the Consul database, or
+    <a href="https://www.vaultproject.io/api/auth/token#tidy-tokens">tidy-tokens</a>
+    which cleans up invalid entries in the token database, or
+    simply leave Vault to its own devices and let Vault clean itself up.
+    Testing will be performed and an appropriate mechanism selected.</li>
 </ul>
 <h2 id="references">References</h2>
 <ul>
