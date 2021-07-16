@@ -2420,29 +2420,29 @@
 <li>You need the latest development container image (the work in progress)</li>
 <li>You are working in a Windows or non-Linux environment and you are unable to build a container without some issues.</li>
 </ol>
-<p>A set of Docker Compose files have been created to allow you to get and use the latest EdgeX service images from Nexus.  Find these <a href="https://github.com/edgexfoundry/developer-scripts/tree/master/releases/nightly-build/compose-files">Nexus "Nightly Build" Compose files</a> in GitHub.  The EdgeX development team provides these Docker Compose files.  As with the EdgeX release Compose files, you will find several different Docker Compose files that allow you to get the type of EdgeX instance setup based on: </p>
+<p>A set of Docker Compose files have been created to allow you to get and use the latest EdgeX service images from Nexus.  Find these <a href="https://github.com/edgexfoundry/edgex-compose">Nexus "Nightly Build" Compose files</a> in the <code>main</code> branch of the <code>edgex-compose</code> respository in GitHub.  The EdgeX development team provides these Docker Compose files.  As with the EdgeX release Compose files, you will find several different Docker Compose files that allow you to get the type of EdgeX instance setup based on: </p>
 <ul>
 <li>your hardware (x86 or ARM)</li>
-<li>the database you want to use (Mongo or Redis)</li>
 <li>your desire to have security services on or off</li>
+<li>your desire to run with the EdgeX GUI included</li>
 </ul>
 <p><img alt="image" src="../EdgeX_GettingStartedNexusCompose.png" /></p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>The "Nightly Build" images are provided as is and may not always function properly or with other EdgeX services.  Use with caution and typically only if you are a developer/contributor to EdgeX. These images represent the latest development work and may not have been thoroughly tested or integrated.</p>
+<p>The "Nightly Build" images are provided as-is and may not always function properly or with other EdgeX services.  Use with caution and typically only if you are a developer/contributor to EdgeX. These images represent the latest development work and may not have been thoroughly tested or integrated.</p>
 </div>
 <h2 id="using-nexus-images">Using Nexus Images</h2>
-<p>The operations to pull the images and run the Nexus Repository is the same as when using EdgeX images from Docker Hub (see <a href="../Ch-GettingStartedUsers/#run-edgex-foundry">Getting Started with Docker</a>).</p>
-<p>To get containers from the Nexus Repository, in a command terminal, change directories to the location of your downloaded Nexus Docker Compose yaml.  Rename the file to docker-compose.yml.  Then run the following command in the terminal to pull (fetch) and then start the EdgeX Nexus-image containers.</p>
+<p>The operations to pull the images and run the Nexus Repository containers are the same as when using EdgeX images from Docker Hub (see <a href="../Ch-GettingStartedUsers/#run-edgex-foundry">Getting Started with Docker</a>).</p>
+<p>To get container images from the Nexus Repository, in a command terminal, change directories to the location of your downloaded Nexus Docker Compose yaml.  Rename the file to docker-compose.yml.  Then run the following command in the terminal to pull (fetch) and then start the EdgeX Nexus-image containers.</p>
 <div class="highlight"><pre><span></span><code>docker-compose up -d
 </code></pre></div>
 <h2 id="using-a-single-nexus-image">Using a Single Nexus Image</h2>
-<p>In some cases, you may only need to use a single image from Nexus while other EdgeX services are created from the Docker Hub images.  In this case, you can simply replace the image location for the selected image in your original Docker Compose file.  The address of Nexus is <strong>nexus3.edgexfoundry.org</strong> at port <strong>10004</strong>.  So, if you wished to use the EdgeX core data image from Nexus, you would replace the name and location of the core data image "edgexfoundry/docker-core-data-go:1.2.1" with "nexus3.edgexfoundry.org:10004/docker-core-data-go:master" in the Compose file.</p>
+<p>In some cases, you may only need to use a single image from Nexus while other EdgeX services are created from the Docker Hub images.  In this case, you can simply replace the image location for the selected image in your original Docker Compose file.  The address of Nexus is <strong>nexus3.edgexfoundry.org</strong> at port <strong>10004</strong>.  So, if you wished to use the EdgeX core data image from Nexus, you would replace the name and location of the core data image <code>edgexfoundry/core-data:2.0.0</code> with <code>nexus3.edgexfoundry.org:10004/core-data:latest</code> in the Compose file.</p>
 <p><img alt="image" src="../EdgeX_GettingStartedChangeToNexus.png" />
 <img alt="image" src="../EdgeX_GettingStartedNexusComposeNew.png" /></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The example above replaces the Geneva core data service from Docker Hub with the latest core data image in Nexus. </p>
+<p>The example above replaces the Ireland core data service from Docker Hub with the latest core data image in Nexus. </p>
 </div>
                 
               
