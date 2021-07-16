@@ -1,6 +1,6 @@
 # MQTT
 
-EdgeX - Edinburgh Release
+EdgeX - Ireland Release
 
 ## Overview
 
@@ -16,581 +16,466 @@ that implements the MQTT protocol versions 5.0, 3.1.1 and 3.1.
 
 Run Mosquitto using the following docker command:
 
-    docker run -d --rm --name broker -p 1883:1883 eclipse-mosquitto
+    docker run -d --rm --name broker -p 1883:1883 eclipse-mosquitto:1.6
 
 ## Run an MQTT Device Simulator
 
-![MQTT Device Service](MQTTDeviceService.png)
+![MQTT Device Service](EdgeX_ExamplesMQTTDeviceSimulator.png)
 
 This simulator has three behaviors:
 
-1.  Publish random number data every 15 seconds
-2.  Receive the reading request, then return the response
-3.  Receive the put request, then change the device value
+1.  Publish random number data every 15 seconds.
+    
+    The simulator publishes the data to the MQTT broker with topic `DataTopic` and the message is similar to the following:
+    ```
+    {"name":"MQTT-Test-Device", "cmd":"randnum", "method":"get", "randnum":4161.3549}
+    ```
+    
+2.  Receive the reading request, then return the response.
 
-We created the following script to simulate the MQTT device:
+    1. The simulator receives the request from the MQTT broker, the topic is `CommandTopic` and the message is similar to the following:
+        ```   
+        {"cmd":"randnum", "method":"get", "uuid":"293d7a00-66e1-4374-ace0-07520103c95f"}
+        ```
+    2. The simulator returns the response to the MQTT broker, the topic is `ResponseTopic` and the message is similar to the following:
+        ```   
+        {"cmd":"randnum", "method":"get", "uuid":"293d7a00-66e1-4374-ace0-07520103c95f", "randnum":42.0}
+        ```
+3.  Receive the set request, then change the device value.
 
-    // mock-device.js
-    function getRandomFloat(min, max) {
-        return Math.random() * (max - min) + min;
+    1. The simulator receives the request from the MQTT broker, the topic is `CommandTopic` and the message is similar to the following:
+        ```   
+        {"cmd":"message", "method":"set", "uuid":"293d7a00-66e1-4374-ace0-07520103c95f", "message":"test message..."}
+        ```
+    2. The simulator changes the device value and returns the response to the MQTT broker, the topic is `ResponseTopic` and the message is similar to the following:
+        ```   
+        {"cmd":"message", "method":"set", "uuid":"293d7a00-66e1-4374-ace0-07520103c95f"}
+        ```
+
+To simulate the MQTT device, create a javascript, named `mock-device.js`, with the
+following content:
+```
+function getRandomFloat(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
+const deviceName = "MQTT-Test-Device";
+let message = "test-message";
+
+// DataSender sends async value to MQTT broker every 15 seconds
+schedule('*/15 * * * * *', ()=>{
+    let body = {
+        "name": deviceName,
+        "cmd": "randnum",
+        "randnum": getRandomFloat(25,29).toFixed(1)
+    };
+    publish( 'DataTopic', JSON.stringify(body));
+});
+
+// CommandHandler receives commands and sends response to MQTT broker
+// 1. Receive the reading request, then return the response
+// 2. Receive the set request, then change the device value
+subscribe( "CommandTopic" , (topic, val) => {
+    var data = val;
+        if (data.method == "set") {
+        message = data[data.cmd]
+    }else{
+        switch(data.cmd) {
+            case "ping":
+              data.ping = "pong";
+              break;
+            case "message":
+              data.message = message;
+              break;
+            case "randnum":
+                data.randnum = 12.123;
+                break;
+          }
     }
-
-    const deviceName = "MQ_DEVICE";
-    let message = "test-message";
-
-    // 1. Publish random number every 15 seconds
-    schedule('*/15 * * * * *', ()=>{
-        let body = {
-            "name": deviceName,
-               "cmd": "randnum",
-            "randnum": getRandomFloat(25,29).toFixed(1)
-        };
-        publish( 'DataTopic', JSON.stringify(body));
-    });
-
-    // 2. Receive the reading request, then return the response
-    // 3. Receive the put request, then change the device value
-    subscribe( "CommandTopic" , (topic, val) => {
-        var data = val;
-            if (data.method == "set") {
-            message = data[data.cmd]
-        }else{
-            switch(data.cmd) {
-                case "ping":
-                  data.ping = "pong";
-                  break;
-                case "message":
-                  data.message = message;
-                  break;
-                case "randnum":
-                    data.randnum = 12.123;
-                    break;
-              }
-        }
-        publish( "ResponseTopic", JSON.stringify(data));
-    });
+    publish( "ResponseTopic", JSON.stringify(data));
+});
+```
 
 To run the device simulator, enter the commands shown below with the
 following changes:
 
-1.  Replace the /path/to/mqtt-scripts in the example mv command with the
+- Replace the `/path/to/mqtt-scripts` in the example mv command with the
     correct path
+```
+$ mv mock-device.js /path/to/mqtt-scripts
+$ docker run -d --restart=always --name=mqtt-scripts \
+    -v /path/to/mqtt-scripts:/scripts  \
+    dersimn/mqtt-scripts --url mqtt://172.17.0.1 --dir /scripts
+```
+> The address `172.17.0.1` is point to the host of MQTT broker via the docker bridge network.
 
-2.  Replace the mqtt-broker-ip in the example docker run command with
-    the correct broker IP:
+## Prepare the Custom Configuration 
 
-        mv mock-device.js /path/to/mqtt-scripts
-        docker run -d --restart=always --name=mqtt-scripts \
-          -v /path/to/mqtt-scripts:/scripts  \
-          dersimn/mqtt-scripts --url mqtt://mqtt-broker-ip --dir /scripts
+In this section, we create folders that contains files required for deployment:
+```
+- custom-config
+  |- profiles
+     |- mqtt.test.device.profile.yml
+  |- devices
+     |- mqtt.test.device.config.toml
+```
 
-### Setup
-
-In this section, we create a folder that contains files required for
-deployment:
-
-    - device-service-demo
-      |- docker-compose.yml
-      |- mqtt
-         |- configuration.toml
-         |- mqtt.test.device.profile.yml
-
-## Device Profile (mqtt.test.device.profile.yml)
+### Device Profile
 
 The DeviceProfile defines the device's values and operation method,
 which can be Read or Write.
 
-Create a device profile, named mqtt.test.device.profile.yml, with the
+Create a device profile, named `mqtt.test.device.profile.yml`, with the
 following content:
+```
+name: "MQTT-Test-Device-Profile"
+manufacturer: "iot"
+model: "MQTT-DEVICE"
+description: "Test device profile"
+labels:
+  - "mqtt"
+  - "test"
+deviceResources:
+  -
+    name: randnum
+    isHidden: true
+    description: "device random number"
+    properties:
+      valueType: "Float32"
+      readWrite: "R"
+  -
+    name: ping
+    isHidden: true
+    description: "device awake"
+    properties:
+      valueType: "String"
+      readWrite: "R"
+  -
+    name: message
+    isHidden: false
+    description: "device message"
+    properties:
+      valueType: "String"
+      readWrite: "RW"
 
-    # mqtt.test.device.profile.yml
-    name: "Test.Device.MQTT.Profile"
-    manufacturer: "iot"
-    model: "MQTT-DEVICE"
-    description: "Test device profile"
-    labels:
-      - "mqtt"
-      - "test"
-    deviceResources:
-      -
-        name: randnum
-        description: "device random number"
-        properties:
-          value:
-            { type: "Float64", size: "4", readWrite: "R", floatEncoding: "eNotation"  }
-          units:
-            { type: "String", readWrite: "R", defaultValue: "" }
-      -
-        name: ping
-        description: "device awake"
-        properties:
-          value:
-            { type: "String", size: "0", readWrite: "R", defaultValue: "pong" }
-          units:
-            { type: "String", readWrite: "R", defaultValue: "" }
-      -
-        name: message
-        description: "device message"
-        properties:
-          value:
-            { type: "String", size: "0", readWrite: "W" ,scale: "", offset: "", base: ""  }
-          units:
-            { type: "String", readWrite: "R", defaultValue: "" }
+deviceCommands:
+  -
+    name: values
+    readWrite: "R"
+    isHidden: false
+    resourceOperations:
+        - { deviceResource: "randnum" }
+        - { deviceResource: "ping" }
+        - { deviceResource: "message" }
+```
 
-    deviceCommands:
-      -
-        name: testrandnum
-        get:
-        - { index: "1", operation: "get", object: "randnum", parameter: "randnum" }
-      -
-        name: testping
-        get:
-        - { index: "1", operation: "get", object: "ping", parameter: "ping" }
-      -
-        name: testmessage
-        get:
-        - { index: "1", operation: "get", object: "message", parameter: "message" }
-        set:
-        - { index: "1", operation: "set", object: "message", parameter: "message" }
-
-    coreCommands:
-      -
-        name: testrandnum
-        get:
-          path: "/api/v1/device/{deviceId}/testrandnum"
-          responses:
-          -
-            code: "200"
-            description: "get the random value"
-            expectedValues: ["randnum"]
-          -
-            code: "503"
-            description: "service unavailable"
-            expectedValues: []
-      -
-        name: testping
-        get:
-          path: "/api/v1/device/{deviceId}/testping"
-          responses:
-          -
-            code: "200"
-            description: "ping the device"
-            expectedValues: ["ping"]
-          -
-            code: "503"
-            description: "service unavailable"
-            expectedValues: []
-      -
-        name: testmessage
-        get:
-          path: "/api/v1/device/{deviceId}/testmessage"
-          responses:
-          -
-            code: "200"
-            description: "get the message"
-            expectedValues: ["message"]
-          -
-            code: "503"
-            description: "service unavailable"
-            expectedValues: []
-        put:
-          path: "/api/v1/device/{deviceId}/testmessage"
-          parameterNames: ["message"]
-          responses:
-          -
-            code: "204"
-            description: "set the message."
-            expectedValues: []
-          -
-            code: "503"
-            description: "service unavailable"
-            expectedValues: []
-
-## Device Service Configuration (configuration.toml)
+### Device Configuration
 
 Use this configuration file to define devices and schedule jobs.
 device-mqtt generates a relative instance on start-up.
 
-MQTT is subscribe/publish pattern, so we must define the MQTT connection
-information in the \[DeviceList.Protocols\] section of the configuration
-file.
+Create the device configuration file, named `mqtt.test.device.config.toml`, as shown below:
 
-Create the configuration file, named configuration.toml, as shown below
-replacing the host IP with your host address:
+```
+# Pre-define Devices
+[[DeviceList]]
+  Name = 'MQTT-Test-Device'
+  ProfileName = 'MQTT-Test-Device-Profile'
+  Description = 'MQTT device is created for test purpose'
+  Labels = [ 'MQTT', 'test' ]
+  [DeviceList.Protocols]
+    [DeviceList.Protocols.mqtt]
+       CommandTopic = 'CommandTopic'
+    [[DeviceList.AutoEvents]]
+       Interval = '30s'
+       OnChange = false
+       SourceName = 'message'
+```
 
-    # configuration.toml
-    [Writable]
-    LogLevel = 'DEBUG'
+- `CommandTopic` is used to publish the GET or SET command request
 
-    [Service]
-    Host = "edgex-device-mqtt"
-    Port = 49982
-    ConnectRetries = 3
-    Labels = []
-    OpenMsg = "device mqtt started"
-    Timeout = 5000
-    EnableAsyncReadings = true
-    AsyncBufferSize = 16
+## Prepare docker-compose file
 
-    [Registry]
-    Host = "edgex-core-consul"
-    Port = 8500
-    CheckInterval = "10s"
-    FailLimit = 3
-    FailWaitTime = 10
-    Type = "consul"
+1. Clone edgex-compose
+```
+$ git clone git@github.com:edgexfoundry/edgex-compose.git
+$ git checkout ireland
+```
+2. Generate the docker-compose.yml file
+```
+$ cd edgex-compose/compose-builder
+$ make gen ds-mqtt
+```
+Check the generated file
+```
+$ ls | grep 'docker-compose.yml'
+docker-compose.yml
+```
 
-    [Logging]
-    EnableRemote = false
-    File = "./device-mqtt.log"
+### Mount the custom-config
 
-    [Clients]
-      [Clients.Data]
-      Name = "edgex-core-data"
-      Protocol = "http"
-      Host = "edgex-core-data"
-      Port = 48080
-      Timeout = 50000
+Open the `docker-compose.yml` file and then add volumes path and environment as shown below:
 
-      [Clients.Metadata]
-      Name = "edgex-core-metadata"
-      Protocol = "http"
-      Host = "edgex-core-metadata"
-      Port = 48081
-      Timeout = 50000
+- Replace the `/path/to/custom-config` in the example with the correct path
 
-      [Clients.Logging]
-      Name = "edgex-support-logging"
-      Protocol = "http"
-      Host ="edgex-support-logging"
-      Port = 48061
+```
+ device-mqtt:
+    ...
+    environment:
+      ...
+      DEVICE_DEVICESDIR: /custom-config/devices
+      DEVICE_PROFILESDIR: /custom-config/profiles
+      MQTTBROKERINFO_HOST: 172.17.0.1
+    volumes:
+    ...
+    - /path/to/custom-config:/custom-config
+```
 
-    [Device]
-      DataTransform = true
-      InitCmd = ""
-      InitCmdArgs = ""
-      MaxCmdOps = 128
-      MaxCmdValueLen = 256
-      RemoveCmd = ""
-      RemoveCmdArgs = ""
-      ProfilesDir = "/custom-config"
+> The address `172.17.0.1` is point to the MQTT broker via the docker bridge network.
 
-    # Pre-define Devices
-    [[DeviceList]]
-      Name = "MQ_DEVICE"
-      Profile = "Test.Device.MQTT.Profile"
-      Description = "General MQTT device"
-      Labels = [ "MQTT"]
-      [DeviceList.Protocols]
-        [DeviceList.Protocols.mqtt]
-           Schema = "tcp"
-           Host = "192.168.16.68"
-           Port = "1883"
-           ClientId = "CommandPublisher"
-           User = ""
-           Password = ""
-           Topic = "CommandTopic"
-      [[DeviceList.AutoEvents]]
-        Frequency = "30s"
-        OnChange = false
-        Resource = "testrandnum"
-
-    # Driver configs
-    [Driver]
-    IncomingSchema = "tcp"
-    IncomingHost = "192.168.16.68"
-    IncomingPort = "1883"
-    IncomingUser = ""
-    IncomingPassword = ""
-    IncomingQos = "0"
-    IncomingKeepAlive = "3600"
-    IncomingClientId = "IncomingDataSubscriber"
-    IncomingTopic = "DataTopic"
-    ResponseSchema = "tcp"
-    ResponseHost = "192.168.16.68"
-    ResponsePort = "1883"
-    ResponseUser = ""
-    ResponsePassword = ""
-    ResponseQos = "0"
-    ResponseKeepAlive = "3600"
-    ResponseClientId = "CommandResponseSubscriber"
-    ResponseTopic = "ResponseTopic"
-    In the Driver configs section:
-
--   IncomingXxx defines the DataTopic for receiving an async value from
-    the device
--   ResponseXxx defines the ResponseTopic for receiving a command
-    response from the device
-
-## Add Device Service to docker-compose File (docker-compose.yml)
-
-Download the `Geneva` release docker-compose file from
-<https://github.com/edgexfoundry/developer-scripts/blob/master/releases/geneva/compose-files/docker-compose-geneva-redis.yml>.
-
-!!! Note
-    This example uses the Geneva Release.  There are later EdgeX releases.
-
-Because we deploy EdgeX using docker-compose, we must add device-mqtt to
-the docker-compose file. If you have prepared configuration files, you
-can mount them using volumes and change the entrypoint for device-mqtt
-internal use.
-
-This is illustrated in the following docker-compose file snippet:
-
-    device-mqtt:
-      image: edgexfoundry/docker-device-mqtt-go:1.0.0
-      ports:
-        - "49982:49982"
-      container_name: edgex-device-mqtt
-      hostname: edgex-device-mqtt
-      networks:
-        - edgex-network
-      volumes:
-        - db-data:/data/db
-        - log-data:/edgex/logs
-        - consul-config:/consul/config
-        - consul-data:/consul/data
-        - ./mqtt:/custom-config
-      depends_on:
-        - data
-        - command
-      entrypoint:
-        - /device-mqtt
-        - --registry=consul://edgex-core-consul:8500
-        - --confdir=/custom-config
-
-When using Device Services, the user has to provide the registry URL in
-\--registry argument.
-
-### Start EdgeX Foundry on Docker
-
-Once the following folder has been populated, we can deploy EdgeX:
-
-    - device-service-demo
-      |- docker-compose.yml
-      |- mqtt
-         |- configuration.toml
-         |- mqtt.test.device.profile.yml
+## Start EdgeX Foundry on Docker
 
 Deploy EdgeX using the following commands:
+```
+$ cd edgex-compose/compose-builder
+$ docker-compose pull
+$ docker-compose up -d
+```
 
-    cd path/to/device-service-demo
-    docker-compose pull
-    docker-compose up -d
-
-After the services start, check the consul dashboard as follows:
-
-> ![Consul Dashboard](consul_MQTT.png)
-
-### Execute Commands
+## Execute Commands
 
 Now we're ready to run some commands.
 
-## Find Executable Commands
+### Find Executable Commands
 
 Use the following query to find executable commands:
 
-    $ curl http://your-edgex-server-ip:48082/api/v1/device | json_pp
-      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                     Dload  Upload   Total   Spent    Left  Speed
-    100  1972  100  1972    0     0  64349      0 --:--:-- --:--:-- --:--:-- 65733
-    [
-       {
-          "location" : null,
-          "adminState" : "UNLOCKED",
-          "commands" : [
-             {
-                ...
-             },
-             {
-                ...
-             },
-             {
-                "get" : {
-                   "responses" : [
-                      {
-                         "code" : "503",
-                         "description" : "service unavailable"
-                      }
-                   ],
-                   "path" : "/api/v1/device/{deviceId}/testmessage",
-                   "url" : "http://edgex-core-command:48082/api/v1/device/ddb2f5cf-eec2-4345-86ee-f0d87e6f77ff/command/0c257a37-2f72-4d23-b2b1-2c08e895060a"
-                },
-                "modified" : 1559195042046,
-                "name" : "testmessage",
-                "put" : {
-                   "parameterNames" : [
-                      "message"
-                   ],
-                   "path" : "/api/v1/device/{deviceId}/testmessage",
-                   "url" : "http://edgex-core-command:48082/api/v1/device/ddb2f5cf-eec2-4345-86ee-f0d87e6f77ff/command/0c257a37-2f72-4d23-b2b1-2c08e895060a"
-                },
-                "created" : 1559195042046,
-                "id" : "0c257a37-2f72-4d23-b2b1-2c08e895060a"
-             }
-          ],
-          "lastReported" : 0,
-          "operatingState" : "ENABLED",
-          "name" : "MQ_DEVICE",
-          "lastConnected" : 0,
-          "id" : "ddb2f5cf-eec2-4345-86ee-f0d87e6f77ff",
-          "labels" : [
-             "MQTT"
-          ]
-       }
-    ]
+```
+$ curl http://localhost:59882/api/v2/device/all | json_pp
 
-## Execute put Command
+{
+   "deviceCoreCommands" : [
+      {
+         "profileName" : "MQTT-Test-Device-Profile",
+         "deviceName" : "MQTT-Test-Device",
+         "coreCommands" : [
+            {
+               "url" : "http://edgex-core-command:59882",
+               "parameters" : [
+                  {
+                     "resourceName" : "randnum",
+                     "valueType" : "Float32"
+                  },
+                  {
+                     "resourceName" : "ping",
+                     "valueType" : "String"
+                  },
+                  {
+                     "resourceName" : "message",
+                     "valueType" : "String"
+                  }
+               ],
+               "get" : true,
+               "name" : "values",
+               "path" : "/api/v2/device/name/MQTT-Test-Device/values"
+            },
+            {
+               "url" : "http://edgex-core-command:59882",
+               "parameters" : [
+                  {
+                     "valueType" : "String",
+                     "resourceName" : "message"
+                  }
+               ],
+               "get" : true,
+               "set" : true,
+               "path" : "/api/v2/device/name/MQTT-Test-Device/message",
+               "name" : "message"
+            }
+         ]
+      }
+   ],
+   "apiVersion" : "v2",
+   "statusCode" : 200
+}
+```
 
-Execute a put command according to the url and parameterNames, replacing
-\[host\] with the server IP when running the edgex-core-command. This
-can be done in either of the following ways:
+### Execute SET Command
 
-    $ curl http://your-edgex-server-ip:48082/api/v1/device/ddb2f5cf-eec2-4345-86ee-f0d87e6f77ff/command/0c257a37-2f72-4d23-b2b1-2c08e895060a \
-        -H "Content-Type:application/json" -X PUT  \
-        -d '{"message":"Hello!"}'
+Execute a SET command according to the url and parameterNames, replacing
+\[host\] with the server IP when running the SET command.
 
-or
+```
+$ curl http://localhost:59882/api/v2/device/name/MQTT-Test-Device/message \
+    -H "Content-Type:application/json" -X PUT  \
+    -d '{"message":"Hello!"}'
+```
 
-> \$ curl
-> "<http://your-edgex-server-ip:48082/api/v1/device/name/MQ_DEVICE/command/testmessage>"
-> -H "Content-Type:application/json" -X PUT -d
-> '{"message":"Hello!"}'
+### Execute GET Command
 
-## Execute get Command
+Execute a GET command as follows:
 
-Execute a get command as follows:
+```
+$ curl http://localhost:59882/api/v2/device/name/MQTT-Test-Device/message | json_pp
 
-    $ curl "http://your-edgex-server-ip:48082/api/v1/device/name/MQ_DEVICE/command/testmessage" | json_pp
-      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                     Dload  Upload   Total   Spent    Left  Speed
-    100   139  100   139    0     0    132      0  0:00:01  0:00:01 --:--:--   132
-    {
-       "readings" : [
-          {
-             "name" : "message",
-             "device" : "MQ_DEVICE",
-             "value" : "Hello!",
-             "origin" : 1559196276732
-          }
-       ],
-       "device" : "MQ_DEVICE",
-       "origin" : 1559196276738
-    }
+{
+   "event" : {
+      "origin" : 1624417689920618131,
+      "readings" : [
+         {
+            "resourceName" : "message",
+            "binaryValue" : null,
+            "profileName" : "MQTT-Test-Device-Profile",
+            "deviceName" : "MQTT-Test-Device",
+            "id" : "a3bb78c5-e76f-49a2-ad9d-b220a86c3e36",
+            "value" : "Hello!",
+            "valueType" : "String",
+            "origin" : 1624417689920615828,
+            "mediaType" : ""
+         }
+      ],
+      "sourceName" : "message",
+      "deviceName" : "MQTT-Test-Device",
+      "apiVersion" : "v2",
+      "profileName" : "MQTT-Test-Device-Profile",
+      "id" : "e0b29735-8b39-44d1-8f68-4d7252e14cc7"
+   },
+   "apiVersion" : "v2",
+   "statusCode" : 200
+}
+
+```
 
 ## Schedule Job
 
-The schedule job is defined in the \[\[DeviceList.AutoEvents\]\] section
-of the TOML configuration file:
+The schedule job is defined in the `[[DeviceList.AutoEvents]]` section of the device configuration file:
 
-    # Pre-define Devices
-    [[DeviceList]]
-      Name = "MQ_DEVICE"
-      Profile = "Test.Device.MQTT.Profile"
-      Description = "General MQTT device"
-      Labels = [ "MQTT"]
-      [DeviceList.Protocols]
-        [DeviceList.Protocols.mqtt]
-           Schema = "tcp"
-           Host = "192.168.16.68"
-           Port = "1883"
-           ClientId = "CommandPublisher"
-           User = ""
-           Password = ""
-           Topic = "CommandTopic"
-      [[DeviceList.AutoEvents]]
-        Frequency = "30s"
-        OnChange = false
-        Resource = "testrandnum"
+```
+    [[DeviceList.AutoEvents]]
+       Interval = '30s'
+       OnChange = false
+       SourceName = 'message'
+```
 
 After the service starts, query core-data's reading API. The results
 show that the service auto-executes the command every 30 secs, as shown
 below:
 
-    $ curl http://your-edgex-server-ip:48080/api/v1/reading | json_pp
-      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                     Dload  Upload   Total   Spent    Left  Speed
-    100  1613  100  1613    0     0   372k      0 --:--:-- --:--:-- --:--:--  393k
-    [
-       {
-          "value" : "1.212300e+01",
-          "origin" : 1559197206092,
-          "modified" : 1559197206104,
-          "id" : "59f2a768-ad72-49a1-9df9-700d8599a890",
-          "created" : 1559197206104,
-          "device" : "MQ_DEVICE",
-          "name" : "randnum"
-       },
-       {
-          ...
-       },
-       {
-          "name" : "randnum",
-          "device" : "MQ_DEVICE",
-          "modified" : 1559197175109,
-          "created" : 1559197175109,
-          "id" : "f9dc39e0-5326-45d0-831d-fd0cd106fe2f",
-          "origin" : 1559197175098,
-          "value" : "1.212300e+01"
-       },
-    ]
+```
+$ curl http://localhost:59880/api/v2/reading/resourceName/message | json_pp
 
-### Async Device Reading
+{
+   "statusCode" : 200,
+   "readings" : [
+      {
+         "value" : "test-message",
+         "id" : "e91b8ca6-c5c4-4509-bb61-bd4b09fe835c",
+         "mediaType" : "",
+         "binaryValue" : null,
+         "resourceName" : "message",
+         "origin" : 1624418361324331392,
+         "profileName" : "MQTT-Test-Device-Profile",
+         "deviceName" : "MQTT-Test-Device",
+         "valueType" : "String"
+      },
+      {
+         "mediaType" : "",
+         "binaryValue" : null,
+         "resourceName" : "message",
+         "value" : "test-message",
+         "id" : "1da58cb7-2bf4-47f0-bbb8-9519797149a2",
+         "deviceName" : "MQTT-Test-Device",
+         "valueType" : "String",
+         "profileName" : "MQTT-Test-Device-Profile",
+         "origin" : 1624418330822988843
+      },
+      ...
+   ],
+   "apiVersion" : "v2"
+}
 
-> ![Async Device Reading](asyncreading.png)
 
-`device-mqtt` subscribes to a `DataTopic`, which is *wait* *for*
-*real*device\* *to* *send* *value* *to* *broker*, then `device-mqtt`
-parses the value and sends it back to `core-data`.
+```
+
+## Async Device Reading
+
+The `device-mqtt` subscribes to a `DataTopic`, which is wait for the [real device to send value to MQTT broker](#run-an-mqtt-device-simulator), then `device-mqtt`
+parses the value and forward to the northbound.
 
 The data format contains the following values:
 
 -   name = device name
 -   cmd = deviceResource name
--   method = get or put
+-   method = get or set
 -   cmd = device reading
-
-You must define this connection information in the driver configuration
-file, as follows:
-
-    [Driver]
-    IncomingSchema = "tcp"
-    IncomingHost = "192.168.16.68"
-    IncomingPort = "1883"
-    IncomingUser = ""
-    IncomingPassword = ""
-    IncomingQos = "0"
-    IncomingKeepAlive = "3600"
-    IncomingClientId = "IncomingDataSubscriber"
-    IncomingTopic = "DataTopic"
 
 The following results show that the mock device sent the reading every
 15 secs:
 
-    $ curl http://your-edgex-server-ip:48080/api/v1/reading | json_pp
-      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                     Dload  Upload   Total   Spent    Left  Speed
-    100   539  100   539    0     0   169k      0 --:--:-- --:--:-- --:--:--  175k
-    [
-       {
-          ...
-       },
-       {
-          "name" : "randnum",
-          "created" : 1559197140013,
-          "origin" : 1559197140006,
-          "modified" : 1559197140013,
-          "id" : "286cc305-42f6-4bca-ad41-3af52301c9f7",
-          "value" : "2.830000e+01",
-          "device" : "MQ_DEVICE"
-       },
-       {
-          "modified" : 1559197125011,
-          "name" : "randnum",
-          "created" : 1559197125011,
-          "origin" : 1559197125004,
-          "device" : "MQ_DEVICE",
-          "value" : "2.690000e+01",
-          "id" : "c243e8c6-a904-4102-baff-8a5e4829c4f6"
-       }
-    ]
+```
+$ curl http://localhost:59880/api/v2/reading/resourceName/randnum | json_pp
+
+{
+   "readings" : [
+      {
+         "origin" : 1624418475007110946,
+         "valueType" : "Float32",
+         "deviceName" : "MQTT-Test-Device",
+         "id" : "9b3d337e-8a8a-4a6c-8018-b4908b57abb8",
+         "binaryValue" : null,
+         "resourceName" : "randnum",
+         "profileName" : "MQTT-Test-Device-Profile",
+         "mediaType" : "",
+         "value" : "2.630000e+01"
+      },
+      {
+         "deviceName" : "MQTT-Test-Device",
+         "valueType" : "Float32",
+         "id" : "06918cbb-ada0-4752-8877-0ef8488620f6",
+         "origin" : 1624418460007833720,
+         "mediaType" : "",
+         "profileName" : "MQTT-Test-Device-Profile",
+         "value" : "2.570000e+01",
+         "resourceName" : "randnum",
+         "binaryValue" : null
+      },
+      ...
+   ],
+   "statusCode" : 200,
+   "apiVersion" : "v2"
+}
+```
+
+## MQTT Device Service Configuration
+
+MQTT Device Service has the following configurations to implement the MQTT protocol.
+
+| Configuration                        | Default Value | Description                                                  |
+| ------------------------------------ | ------------- | ------------------------------------------------------------ |
+| MQTTBrokerInfo.Schema                | tcp           | The URL schema |
+| MQTTBrokerInfo.Host                  | 0.0.0.0       | The URL host |
+| MQTTBrokerInfo.Port                  | 1883          | The URL port |
+| MQTTBrokerInfo.Qos                   | 0             | Quality of Service 0 (At most once), 1 (At least once) or 2 (Exactly once) |
+| MQTTBrokerInfo.KeepAlive             | 3600          | Seconds between client ping when no active data flowing to avoid client being disconnected. Must be greater then 2 |
+| MQTTBrokerInfo.ClientId              | device-mqtt   | ClientId to connect to the broker with |
+| MQTTBrokerInfo.CredentialsRetryTime  | 120           | The retry times to get the credential |
+| MQTTBrokerInfo.CredentialsRetryWait  | 1             | The wait time(seconds) when retry to get the credential  |
+| MQTTBrokerInfo.ConnEstablishingRetry | 10            | The retry times to establish the MQTT connection    | 
+| MQTTBrokerInfo.ConnRetryWaitTime     | 5             | The wait time(seconds) when retry to establish the MQTT connection   |
+| MQTTBrokerInfo.AuthMode              | none          | Indicates what to use when connecting to the broker. Must be one of "none" , "usernamepassword" |
+| MQTTBrokerInfo.CredentialsPath       | credentials   | Name of the path in secret provider to retrieve your secrets. Must be non-blank. |\
+| MQTTBrokerInfo.IncomingTopic         | DataTopic     | IncomingTopic is used to receive the async value |
+| MQTTBrokerInfo.responseTopic         | ResponseTopic | ResponseTopic is used to receive the command response from the device |
+| MQTTBrokerInfo.Writable.ResponseFetchInterval | 500  | ResponseFetchInterval specifies the retry interval(milliseconds) to fetch the command response from the MQTT broker |
+
+The user can override these configurations by `environment variable` to meet their requirement, for example:
+
+```
+# docker-compose.yml
+
+ device-mqtt:
+    ...
+    environment:
+      ...
+      MQTTBROKERINFO_HOST: 172.17.0.1
+```
