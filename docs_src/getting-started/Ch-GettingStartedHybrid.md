@@ -8,20 +8,17 @@ EdgeX environment up and running via Docker containers. How would you set up thi
 ## Get and Run the EdgeX Docker Containers
 
 1.  If you haven't already, follow the [Getting Started with Docker](./Ch-GettingStartedUsers.md) guide to set up your environment (Docker, Docker Compose, etc.) before continuing.
-2.  Since we plan to work with the virtual device service in this example, you don't need or want to run all the EdgeX micro services. You just need the few
-    that the virtual device service will be communicating with or that will be required to run a minimal EdgeX environment. So you will need to run
-    Consul, Redis, Core Data, Core Metadata, Support Notifications, and Core Command. 
+2.  Since we plan to work with the virtual device service in this example, you don't need or want to run the virtual device service. You will run all the other services via Docker Compose. 
 
-    Based on the instructions found in the [Getting Started with Docker](Ch-GettingStartedUsers.md#Get-Run-EdgeX-Foundry), locate and download the appropriate Docker Compose file for your development environment.  Next, issue the following commands to start just this set of EdgeX containers - providing a minimal functioning EdgeX environment. 
-    ``` bash {}
-    docker-compose up -d consul
-    docker-compose up -d database
-    docker-compose up -d notifications
-    docker-compose up -d metadata
-    docker-compose up -d data
-    docker-compose up -d command
+    Based on the instructions found in the [Getting Started with Docker](Ch-GettingStartedUsers.md#Get-Run-EdgeX-Foundry), locate and download the appropriate Docker Compose file for your development environment.  Next, issue the following commands to start the EdgeX containers and then stop the virtual device service (which is the service you are working on in this example). 
 
+    ``` bash
+    docker-compose up -d 
+    docker-compose stop device-virtual
     ```
+    
+    ![image](EdgeX_GettingStartedHybridRunContainers.png)
+    *Run the EdgeX containers and then stop the service container that you are going to work on - in this case the virtual device service container.*
 
     !!! Note
         These notes assume you are working with the EdgeX Ireland release.  It also assumes you have downloaded the appropriate Docker Compose file and have named it `docker-compose.yml` so you don't have to specify the file name each time you run a Docker Compose command.  Some versions of EdgeX may require other or additional containers to run.
@@ -29,7 +26,7 @@ EdgeX environment up and running via Docker containers. How would you set up thi
     !!! Tip
         You can also use the EdgeX Compose Builder tool to create a custom Docker Compose file with just the services you want.  See the [Compose Builder documentation](./Ch-GettingStartedUsers.md#generate-a-custom-docker-compose-file) on and checkout the [Compose Builder tool in GitHub](https://github.com/edgexfoundry/edgex-compose/tree/main/compose-builder).
     
-3.  Run the command below to confirm that all the containers have started.
+3.  Run the command below to confirm that all the containers have started and that the virtual device container is no longer running.
     ``` bash
     docker-compose ps
     ```
@@ -80,15 +77,21 @@ export EDGEX_SECURITY_SECRET_STORE=false
 
 ### Check the results
 
-At this time, your virtual device micro service should be communicating with the other EdgeX micro services running in their Docker containers. Give the virtual device a few seconds or so to
-initialize itself and start sending data to Core Data. To check that it is working properly, open a browser and point your browser to Core Data
-to check that events are being deposited. You can do this by calling on the Core Data API that checks the count of events in Core Data
+At this time, your virtual device micro service should be communicating with the other EdgeX micro services running in their Docker containers. Because Core Metadata callbacks do not work in the hybrid environment, the virtual device service will not receive the Add Device callbacks on the inital run after creating them in Core Metadata.  The simple work around for this issue is to stop (`Ctrl-c` from the terminal) and restart the virtual device service (again with `./device-virtual` execution).
+
+![image](EdgeX_GettingStartedHybridDeviceVirtualLog.png)
+*The virtual device service log after stopping and restarting.*
+
+
+Give the virtual device a few seconds or so to initialize itself and start sending data to Core Data. To check that it is working properly, open a browser and point your browser to Core Data
+to check that events are being deposited. You can do this by calling on the Core Data API that checks the count of events in Core Data.
 
 ```
 http://localhost:59880/api/v2/event/count
 ```
 
 ![image](EdgeX_GettingStartedHybridResults.png)
+
 *For this example, you can check that the virtual device service is sending data into Core Data by checking the event count.*
 
 !!! Note
