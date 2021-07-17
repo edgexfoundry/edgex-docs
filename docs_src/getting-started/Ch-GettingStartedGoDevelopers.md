@@ -78,7 +78,7 @@ git clone https://github.com/edgexfoundry/edgex-go.git
     -   <https://wiki.edgexfoundry.org/display/FA/Contributor%27s+Guide+-+Go+Lang>
     -   <https://wiki.edgexfoundry.org/display/FA/Contributor+Process?searchId=AW768BAW7>
 
-    Furthermore, this pulls and works with the latest code from the `main` branch.  The `main` branch contains code that is "work in progress" for the upcoming release.  If you want to work with a specific release, download code from the specific release branch or tag(e.g. `v2.0.0`, `hanoi`, `v1.3.11`, etc.)
+    Furthermore, this pulls and works with the latest code from the `main` branch.  The `main` branch contains code that is "work in progress" for the upcoming release.  If you want to work with a specific release, checkout code from the specific release branch or tag(e.g. `v2.0.0`, `hanoi`, `v1.3.11`, etc.)
 
 ## Build EdgeX Foundry
 
@@ -151,6 +151,9 @@ cd ../core-data/
 cd ../core-command/
 ./core-command &
 ```
+
+!!! Tip
+    You can run some services via Docker containers while working on specific services in Go.  See [Working in a Hybrid Environment](./Ch-GettingStartedHybrid.md) for more details.
 
 While the EdgeX services are running you can make EdgeX API calls to `localhost`.
 
