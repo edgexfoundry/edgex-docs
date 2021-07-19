@@ -87,14 +87,12 @@ Do the following to use this tool to generate a custom Compose file:
    ```
    git clone https://github.com/edgexfoundry/edgex-compose.git
    ```
-
 2. Change directories to the clone and checkout the appropriate release branch.  Checkout of the Ireland release branch is shown here.
 
    ```
    cd edgex-compose/
    git checkout Ireland
    ```
-
 3. Change directories to the compose-builder folder and then use the `make gen <options>` command to generate your custom compose file. The generated Docker Compose file is named `docker-compose.yaml`.  Here are some examples:
 
    ```

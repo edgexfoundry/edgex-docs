@@ -23,7 +23,7 @@ The following tables (organized by type of service) capture the default service 
     |app-http-export|59704|
     |app-functional-tests|59705|
     |app-rfid-llrp-inventory|59711|
-    |rules engine/Kuiper|59720|
+    |rules engine/eKuiper|59720|
 === "Device"
     |Services Name|	Port Definition|
     |---|---|

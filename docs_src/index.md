@@ -217,7 +217,7 @@ Local analytics allows systems to operate independently, at least for some stret
 
 EdgeX is built to act locally on data it collects from the edge.  In other words, events are processed by local analytics and can be used to trigger action back down on a sensor/device.
 
-Just as application services prepare data for consumption by north side cloud systems or applications, application services can process and get EdgeX events (and the sensor data they contain) to any analytics package (see step 4).  By default, EdgeX ships with a simple rules engine (the default EdgeX rules engine is [Kuiper](https://www.emqx.io/products/kuiper) – an open source rules engine by EMQ X and now a sister project in LF Edge).  Your own analytics package (or ML agent) could replace or augment the local rules engine.
+Just as application services prepare data for consumption by north side cloud systems or applications, application services can process and get EdgeX events (and the sensor data they contain) to any analytics package (see step 4).  By default, EdgeX ships with a simple rules engine (the default EdgeX rules engine is [eKuiper](https://www.emqx.io/products/kuiper) – an open source rules engine and now a sister project in LF Edge).  Your own analytics package (or ML agent) could replace or augment the local rules engine.
 
 ![image](./general/EdgeX_step4.png)
 
