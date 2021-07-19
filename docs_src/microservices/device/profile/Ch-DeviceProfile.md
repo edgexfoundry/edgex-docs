@@ -35,20 +35,21 @@ BACnet device service may need an Object Identifier and a Property Identifier
 whereas a Bluetooth device service could use a UUID to identify a value.
 
 The `Properties` of a deviceResource describe the value and optionally request
-some simple processing to be performed on it. Each device resource
-is given two properties, `value` and `units`. The following fields are
-available in the `value` property:
+some simple processing to be performed on it. The following fields are available:
 
-* type - Required. The data type of the value. Supported types are `bool`,
+* valueType - Required. The data type of the value. Supported types are `bool`,
 `int8` - `int64`, `uint8` - `uint64`, `float32`, `float64`, `string`, `binary`
 and arrays of the primitive types (ints, floats, bool). Arrays are specified
 as eg. `float32array`, `boolarray` etc.
 * readWrite - `R`, `RW`, or `W` indicating whether the value is readable or
 writable.
-* defaultValue - a value used for PUT requests which do not specify one.
+* units - indicate the units of the value, eg Amperes, degrees C, etc.
+* minimum - minimum value a SET command is allowed, out of range will result in error.
+* maximum - maximum value a SET command is allowed, out of range will result in error.
+* defaultValue - a value used for SET command which do not specify one.
 * assertion - a string value to which a reading (after processing) is compared.
  If the reading is not the same as the assertion value, the device's operating
-state will be set to disbled. This can be useful for health checks.
+state will be set to disable. This can be useful for health checks.
 * base - a value to be raised to the power of the raw reading before it is returned.
 * scale - a factor by which to multiply a reading before it is returned.
 * offset - a value to be added to a reading before it is returned.
@@ -59,49 +60,27 @@ The processing defined by base, scale, offset, mask and shift is applied in
 that order. This is done within the SDK. A reverse transformation is applied
 by the SDK to incoming data on set operations (NB mask transforms on set are NYI)
 
-The `units` property is used to indicate the units of the value, eg Amperes,
-degrees C, etc. It should have a `defaultValue` that specifies the units.
-
 DeviceCommands
 --------------
 
 DeviceCommands define access to reads and writes for multiple simultaneous
-device resources. Each named deviceCommand should contain a number of get
-and/or set `resourceOperations`, describing the read or write respectively.
+device resources. Each named deviceCommand should contain a number of
+`resourceOperations`.
 
 DeviceCommands may be useful when readings are logically related, for example
 with a 3-axis accelerometer it is helpful to read all axes together.
 
 A resourceOperation consists of the following properties:
 
-* index - a number, used to define an order in which the resource is processed.
-and set operations is not supported.
 * deviceResource - the name of the deviceResource to access.
-* parameter - optional, a value that will be used if a PUT request does not
+* defaultValue - optional, a value that will be used if a SET command does not
 specify one.
 * mappings - optional, allows readings of String type to be re-mapped.
 
 The device service allows access to deviceCommands via the same `device` REST
-endpoint as is used to access deviceResources. If a deviceCommand and
-deviceResource have the same name, it will be the deviceCommand which is
-available.
+endpoint as is used to access deviceResources.
 
-CoreCommands
-------------
 
-CoreCommands specify the commands which are available via the core-command
-micro service, for reading and writing to the device. Both deviceResources and
-deviceCommands may be represented by coreCommands (the name of the coreCommand
-refers to the name of the deviceCommand or deviceResource).
-
-Commands may allow get or put methods (or both). For a get type, the returned
-values are specified in the `expectedValues` field, for a put type, the
-parameters to be given are specified in `parameterNames`. In either case, the
-different http response codes that the service may generate are indicated.
-
-Core Commands may be thought of as defining the outward-facing API for the
-device. A typical setup would prevent external access to the device service
-itself, so use of the full range of device resources and device commands would
-only be available to other components within the EdgeX deployment. Only those
-that has corresponding coreCommands would be available externally (via
-core-command).
+!!! edgey "EdgeX 2.0"
+For the EdgeX 2.0 (Ireland) release coreCommands section is removed and both deviceResources and deviceCommands are available via the Core Command Service by default.
+Set `isHidden` field to true under deviceResource or deviceCommand to disable the outward-facing API.
