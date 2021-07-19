@@ -2657,17 +2657,13 @@ Compose.</p>
 <ol>
 <li>Clone the edgex-compose repository.</li>
 </ol>
-<div class="highlight"><pre><span></span><code>git clone https://github.com/edgexfoundry/edgex-compose.git
+<p><div class="highlight"><pre><span></span><code>git clone https://github.com/edgexfoundry/edgex-compose.git
 </code></pre></div>
-<ol>
-<li>Change directories to the clone and checkout the appropriate release branch.  Checkout of the Ireland release branch is shown here.</li>
-</ol>
-<div class="highlight"><pre><span></span><code>cd edgex-compose/
+2. Change directories to the clone and checkout the appropriate release branch.  Checkout of the Ireland release branch is shown here.</p>
+<p><div class="highlight"><pre><span></span><code>cd edgex-compose/
 git checkout Ireland
 </code></pre></div>
-<ol>
-<li>Change directories to the compose-builder folder and then use the <code>make gen &lt;options&gt;</code> command to generate your custom compose file. The generated Docker Compose file is named <code>docker-compose.yaml</code>.  Here are some examples:</li>
-</ol>
+3. Change directories to the compose-builder folder and then use the <code>make gen &lt;options&gt;</code> command to generate your custom compose file. The generated Docker Compose file is named <code>docker-compose.yaml</code>.  Here are some examples:</p>
 <div class="highlight"><pre><span></span><code>cd compose-builder/
 make gen ds-mqtt mqtt-broker
   - Generates secure Compose file configured to use MQTT for the message bus, adds then MQTT broker and the Device MQTT services. 
