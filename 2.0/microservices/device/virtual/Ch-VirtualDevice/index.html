@@ -2444,107 +2444,43 @@ when executing functional or performance tests without having any real devices.<
 <h2 id="using-the-virtual-device-service">Using the Virtual Device Service</h2>
 <p>The virtual device service contains 4 pre-defined devices as random value generators:</p>
 <ul>
-<li><a href="https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/device.virtual.bool.yaml">Random-Boolean-Device</a></li>
-<li><a href="https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/device.virtual.int.yaml">Random-Integer-Device</a></li>
-<li><a href="https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/device.virtual.uint.yaml">Random-UnsignedInteger-Device</a></li>
-<li><a href="https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/device.virtual.float.yaml">Random-Float-Device</a></li>
-<li><a href="https://github.com/edgexfoundry/device-virtual-go/blob/master/cmd/res/device.virtual.binary.yaml">Random-Binary-Device</a></li>
+<li><a href="https://github.com/edgexfoundry/device-virtual-go/blob/v2.0.0/cmd/res/profiles/device.virtual.bool.yaml">Random-Boolean-Device</a></li>
+<li><a href="https://github.com/edgexfoundry/device-virtual-go/blob/v2.0.0/cmd/res/profiles/device.virtual.int.yaml">Random-Integer-Device</a></li>
+<li><a href="https://github.com/edgexfoundry/device-virtual-go/blob/v2.0.0/cmd/res/profiles/device.virtual.uint.yaml">Random-UnsignedInteger-Device</a></li>
+<li><a href="https://github.com/edgexfoundry/device-virtual-go/blob/v2.0.0/cmd/res/profiles/device.virtual.float.yaml">Random-Float-Device</a></li>
+<li><a href="https://github.com/edgexfoundry/device-virtual-go/blob/v2.0.0/cmd/res/profiles/device.virtual.binary.yaml">Random-Binary-Device</a></li>
 </ul>
-<p>These devices are created by the virtual device service in core metadata when the service first initializes.  These devices are defined by device profiles that ship with the virtual device service.  Each virtual device causes the generation of one to many values of the type specified by the device name.  For example, Random-Integer-Device generates integer values:  Int8, Int16, Int32 and Int64.  As with all devices, the deviceResources in the associated device profile of the device defind what values are produced by the device service. In the case of Random-Integer-Device, the Int8, Int16, Int32 and Int64 values are defined as deviceResources.</p>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span>
-  <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;Int8&quot;</span>
-  <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Generate</span><span class="nv"> </span><span class="s">random</span><span class="nv"> </span><span class="s">int8</span><span class="nv"> </span><span class="s">value&quot;</span>
-  <span class="nt">properties</span><span class="p">:</span>
-    <span class="nt">value</span><span class="p">:</span>
-      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;Int8&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;0&quot;</span> <span class="p p-Indicator">}</span>
-    <span class="nt">units</span><span class="p">:</span>
-      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;String&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;random</span><span class="nv"> </span><span class="s">int8</span><span class="nv"> </span><span class="s">value&quot;</span> <span class="p p-Indicator">}</span>
-<span class="p p-Indicator">-</span>
-  <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;Int16&quot;</span>
-  <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Generate</span><span class="nv"> </span><span class="s">random</span><span class="nv"> </span><span class="s">int16</span><span class="nv"> </span><span class="s">value&quot;</span>
-  <span class="nt">properties</span><span class="p">:</span>
-    <span class="nt">value</span><span class="p">:</span>
-      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;Int16&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;0&quot;</span> <span class="p p-Indicator">}</span>
-    <span class="nt">units</span><span class="p">:</span>
-      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;String&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;random</span><span class="nv"> </span><span class="s">int16</span><span class="nv"> </span><span class="s">value&quot;</span> <span class="p p-Indicator">}</span>
-<span class="p p-Indicator">-</span>
-  <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;Int32&quot;</span>
-  <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Generate</span><span class="nv"> </span><span class="s">random</span><span class="nv"> </span><span class="s">int32</span><span class="nv"> </span><span class="s">value&quot;</span>
-  <span class="nt">properties</span><span class="p">:</span>
-    <span class="nt">value</span><span class="p">:</span>
-      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;Int32&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;0&quot;</span> <span class="p p-Indicator">}</span>
-    <span class="nt">units</span><span class="p">:</span>
-      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;String&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;random</span><span class="nv"> </span><span class="s">int32</span><span class="nv"> </span><span class="s">value&quot;</span> <span class="p p-Indicator">}</span>
-<span class="p p-Indicator">-</span>
-  <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;Int64&quot;</span>
-  <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Generate</span><span class="nv"> </span><span class="s">random</span><span class="nv"> </span><span class="s">int64</span><span class="nv"> </span><span class="s">value&quot;</span>
-  <span class="nt">properties</span><span class="p">:</span>
-    <span class="nt">value</span><span class="p">:</span>
-      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;Int64&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;0&quot;</span> <span class="p p-Indicator">}</span>
-    <span class="nt">units</span><span class="p">:</span>
-      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;String&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;random</span><span class="nv"> </span><span class="s">int64</span><span class="nv"> </span><span class="s">value&quot;</span> <span class="p p-Indicator">}</span>
-</code></pre></div>
-<p>Additionally, there is an accompanying deviceResource for each of the generated value deviceResource. Each deviceResources has an associated EnableRandomization_X deviceResource.  In the case of the integer deviceResources above, there are the associated EnableRandomization_IntX deviceResources below.  The EnableRandomization deviceResources are boolean values, and when set to true, the associated simulated sensor value is generated by the device service.  When the EnableRandomization_IntX value is set to false, then the associated simulator sensor value is fixed.</p>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span>
-  <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;EnableRandomization_Int8&quot;</span>
-  <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;used</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">decide</span><span class="nv"> </span><span class="s">whether</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">re-generate</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">random</span><span class="nv"> </span><span class="s">value&quot;</span>
-  <span class="nt">properties</span><span class="p">:</span>
-    <span class="nt">value</span><span class="p">:</span>
-      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;Bool&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;W&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;true&quot;</span> <span class="p p-Indicator">}</span>
-    <span class="nt">units</span><span class="p">:</span>
-      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;String&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;Random&quot;</span> <span class="p p-Indicator">}</span>
-<span class="p p-Indicator">-</span>
-  <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;EnableRandomization_Int16&quot;</span>
-  <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;used</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">decide</span><span class="nv"> </span><span class="s">whether</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">re-generate</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">random</span><span class="nv"> </span><span class="s">value&quot;</span>
-  <span class="nt">properties</span><span class="p">:</span>
-    <span class="nt">value</span><span class="p">:</span>
-      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;Bool&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;W&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;true&quot;</span> <span class="p p-Indicator">}</span>
-    <span class="nt">units</span><span class="p">:</span>
-      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;String&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;Random&quot;</span> <span class="p p-Indicator">}</span>
-<span class="p p-Indicator">-</span>
-  <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;EnableRandomization_Int32&quot;</span>
-  <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;used</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">decide</span><span class="nv"> </span><span class="s">whether</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">re-generate</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">random</span><span class="nv"> </span><span class="s">value&quot;</span>
-  <span class="nt">properties</span><span class="p">:</span>
-    <span class="nt">value</span><span class="p">:</span>
-      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;Bool&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;W&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;true&quot;</span> <span class="p p-Indicator">}</span>
-    <span class="nt">units</span><span class="p">:</span>
-      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;String&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;Random&quot;</span> <span class="p p-Indicator">}</span>
-<span class="p p-Indicator">-</span>
-  <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;EnableRandomization_Int64&quot;</span>
-  <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;used</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">decide</span><span class="nv"> </span><span class="s">whether</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">re-generate</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">random</span><span class="nv"> </span><span class="s">value&quot;</span>
-  <span class="nt">properties</span><span class="p">:</span>
-    <span class="nt">value</span><span class="p">:</span>
-      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;Bool&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;W&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;true&quot;</span> <span class="p p-Indicator">}</span>
-    <span class="nt">units</span><span class="p">:</span>
-      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;String&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;Random&quot;</span> <span class="p p-Indicator">}</span>
-</code></pre></div>
+<p>These devices are created by the virtual device service in core metadata when the service first initializes. These devices are defined by device profiles that ship with the virtual device service.  Each virtual device causes the generation of one to many values of the type specified by the device name.  For example, Random-Integer-Device generates integer values:  Int8, Int16, Int32 and Int64.  As with all devices, the deviceResources in the associated device profile of the device defind what values are produced by the device service.  In the case of Random-Integer-Device, the Int8, Int16, Int32 and Int64 values are defined as deviceResources (see the <a href="https://github.com/edgexfoundry/device-virtual-go/blob/v2.0.0/cmd/res/profiles/device.virtual.int.yaml#L41-L72">device profile</a>). </p>
+<p>Additionally, there is an accompanying deviceResource for each of the generated value deviceResource. Each deviceResources has an associated EnableRandomization_X deviceResource.  In the case of the integer deviceResources above, there are the associated EnableRandomization_IntX deviceResources (see the <a href="https://github.com/edgexfoundry/device-virtual-go/blob/v2.0.0/cmd/res/profiles/device.virtual.int.yaml#L9-L40">device profile</a>).  The EnableRandomization deviceResources are boolean values, and when set to true, the associated simulated sensor value is generated by the device service.  When the EnableRandomization_IntX value is set to false, then the associated simulator sensor value is fixed.</p>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
 <p>The Enable_Randomization attribute of resource is automatically set to false when you use a <code>PUT</code> command to set a specified generated value.  Furtehr, the minimum and maximum values of generated value deviceResource can be specified in the device profile. Below, Int8 is set to be between -100 and 100.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">deviceResources</span><span class="p">:</span>
   <span class="p p-Indicator">-</span>
     <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;Int8&quot;</span>
+    <span class="nt">isHidden</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
     <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Generate</span><span class="nv"> </span><span class="s">random</span><span class="nv"> </span><span class="s">int8</span><span class="nv"> </span><span class="s">value&quot;</span>
     <span class="nt">properties</span><span class="p">:</span>
-      <span class="nt">value</span><span class="p">:</span>
-        <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;Int8&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> minimum</span><span class="p">:</span> <span class="s">&quot;-100&quot;</span><span class="p p-Indicator">,</span><span class="nt"> maximum</span><span class="p">:</span> <span class="s">&quot;100&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;0&quot;</span> <span class="p p-Indicator">}</span>
-      <span class="nt">units</span><span class="p">:</span>
-        <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;String&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;random</span><span class="nv"> </span><span class="s">int8</span><span class="nv"> </span><span class="s">value&quot;</span> <span class="p p-Indicator">}</span>
+      <span class="nt">valueType</span><span class="p">:</span> <span class="s">&quot;Int8&quot;</span>
+      <span class="nt">readWrite</span><span class="p">:</span> <span class="s">&quot;RW&quot;</span>
+      <span class="nt">minimum</span><span class="p">:</span> <span class="s">&quot;-100&quot;</span>
+      <span class="nt">maximum</span><span class="p">:</span> <span class="s">&quot;100&quot;</span>
+      <span class="nt">defaultValue</span><span class="p">:</span> <span class="s">&quot;0&quot;</span>
 </code></pre></div>
 </div>
 <p>For the binary deviceResources, values are generated by the function rand.Read(p []byte) in Golang math package. The []byte size is fixed to MaxBinaryBytes/1000.</p>
 <h2 id="core-command-and-the-virtual-device-service">Core Command and the Virtual Device Service</h2>
 <p>Use the following core command service APIs to execute commands against the virtual device service for the specified devices.  Both <code>GET</code> and <code>PUT</code> commands can be issued with these APIs.  <code>GET</code> command request the next generated value while <code>PUT</code> commands will allow you to disable randomization (EnableRandomization) and set the fixed values to be returned by the device.</p>
 <ul>
-<li>http://[host]:48082/api/v1/device/name/Random-Boolean-Device</li>
-<li>http://[host]:48082/api/v1/device/name/Random-Integer-Device</li>
-<li>http://[host]:48082/api/v1/device/name/Random-UnsignedInteger-Device</li>
-<li>http://[host]:48082/api/v1/device/name/Random-Float-Device</li>
-<li>http://[host]:48082/api/v1/device/name/Random-Binary-Device</li>
+<li>http://[host]:59882/api/v2/device/name/Random-Boolean-Device</li>
+<li>http://[host]:59882/api/v2/device/name/Random-Integer-Device</li>
+<li>http://[host]:59882/api/v2/device/name/Random-UnsignedInteger-Device</li>
+<li>http://[host]:59882/api/v2/device/name/Random-Float-Device</li>
+<li>http://[host]:59882/api/v2/device/name/Random-Binary-Device</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Port 48082 is the default port for the core command service.</p>
+<p>Port 59882 is the default port for the core command service.</p>
 </div>
 <h2 id="configuration-properties">Configuration Properties</h2>
 <p>Please refer to the general <a href="../../../configuration/CommonConfiguration/">Common Configuration documentation</a> for configuration properties common to all services.</p>
@@ -2570,7 +2506,7 @@ when executing functional or performance tests without having any real devices.<
 <td>name of the virtual device</td>
 </tr>
 <tr>
-<td>Profile</td>
+<td>ProfileName</td>
 <td>'Random-Integer-Device'</td>
 <td>device profile that defines the resources and commands of the virtual device</td>
 </tr>
@@ -2626,7 +2562,7 @@ when executing functional or performance tests without having any real devices.<
 <td>properties used to define how often an event/reading is schedule for collection to send to core data from the virtual device</td>
 </tr>
 <tr>
-<td>Frequency</td>
+<td>Interval</td>
 <td>'15s'</td>
 <td>every 15 seconds</td>
 </tr>
@@ -2636,7 +2572,7 @@ when executing functional or performance tests without having any real devices.<
 <td>collect data regardless of change</td>
 </tr>
 <tr>
-<td>Resource</td>
+<td>SourceName</td>
 <td>'Int8'</td>
 <td>deviceResource to collect - in this case the Int8 resource</td>
 </tr>
@@ -2645,7 +2581,7 @@ when executing functional or performance tests without having any real devices.<
 </div>
 </div>
 <h2 id="api-reference">API Reference</h2>
-<p><a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/1.2.1">Device Service - SDK- API Reference</a></p>
+<p><a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.0.0">Device Service - SDK- API Reference</a></p>
                 
               
               
