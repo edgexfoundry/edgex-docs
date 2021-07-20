@@ -1530,6 +1530,20 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    Dependencies
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-apis" class="md-nav__link">
+    New APIs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#main" class="md-nav__link">
     main()
   </a>
@@ -2644,6 +2658,20 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    Dependencies
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-apis" class="md-nav__link">
+    New APIs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#main" class="md-nav__link">
     main()
   </a>
@@ -2852,24 +2880,24 @@
     <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&quot;http&quot;</span>
     <span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
     <span class="n">Port</span> <span class="o">=</span> <span class="mi">59881</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>    # Used for Event client which is used by PushToCoreData function
-    [Clients.core-data]
-    Protocol = &quot;http&quot;
-    Host = &quot;localhost&quot;
-    Port = 59880
 
-    # Used for Command client
-    [Clients.core-command]
-    Protocol = &quot;http&quot;
-    Host = &quot;localhost&quot;
-    Port = 59882
+    <span class="c1"># Used for Event client which is used by PushToCoreData function</span>
+    <span class="k">[Clients.core-data]</span>
+    <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&quot;http&quot;</span>
+    <span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
+    <span class="n">Port</span> <span class="o">=</span> <span class="mi">59880</span>
 
-    # Used for Notification and Subscription clients
-    [Clients.support-notifications]
-    Protocol = &quot;http&quot;
-    Host = &quot;localhost&quot;
-    Port = 59860
+    <span class="c1"># Used for Command client</span>
+    <span class="k">[Clients.core-command]</span>
+    <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&quot;http&quot;</span>
+    <span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
+    <span class="n">Port</span> <span class="o">=</span> <span class="mi">59882</span>
+
+    <span class="c1"># Used for Notification and Subscription clients</span>
+    <span class="k">[Clients.support-notifications]</span>
+    <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&quot;http&quot;</span>
+    <span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
+    <span class="n">Port</span> <span class="o">=</span> <span class="mi">59860</span>
 </code></pre></div>
 </div>
 <h4 id="trigger">Trigger</h4>
@@ -2939,7 +2967,33 @@
 </code></pre></div>
 </div>
 <h3 id="code">Code</h3>
-<p>The first changes you will encounter in your code are that the <code>AppFunctionsSDK</code> and <code>Context</code> structs have been abstracted into the new <code>ApplicationService</code> and <code>AppFunctionContext</code> APIs. See the <a href="../ApplicationServiceAPI">Application Service API</a> and <a href="../AppFunctionContextAPI">App Function Context API</a> sections for complete details on these new APIs.</p>
+<h4 id="dependencies">Dependencies</h4>
+<p>You first need to update the <code>go.mod</code> file to specify <code>go 1.16</code> and the V2 versions of the App Functions SDK and any EdgeX go-mods directly used by your service. Note the extra <code>/v2</code> for the modules.</p>
+<div class="admonition example">
+<p class="admonition-title">Example go.mod for V2</p>
+<div class="highlight"><pre><span></span><code><span class="nx">module</span> <span class="p">&lt;</span><span class="nx">your</span> <span class="nx">service</span><span class="p">&gt;</span>
+
+<span class="k">go</span> <span class="mf">1.16</span>
+
+<span class="nx">require</span> <span class="p">(</span>
+    <span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">edgexfoundry</span><span class="o">/</span><span class="nx">app</span><span class="o">-</span><span class="nx">functions</span><span class="o">-</span><span class="nx">sdk</span><span class="o">-</span><span class="k">go</span><span class="o">/</span><span class="nx">v2</span> <span class="nx">v2</span><span class="mf">.0.0</span>
+    <span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">edgexfoundry</span><span class="o">/</span><span class="k">go</span><span class="o">-</span><span class="nx">mod</span><span class="o">-</span><span class="nx">core</span><span class="o">-</span><span class="nx">contracts</span><span class="o">/</span><span class="nx">v2</span> <span class="nx">v2</span><span class="mf">.0.0</span>
+<span class="p">)</span>
+</code></pre></div>
+</div>
+<p>Once that is complete then the import statements for these dependencies must be updated to include the <code>/v2</code> in the path. </p>
+<div class="admonition example">
+<p class="admonition-title">Example import statements for V2</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="p">(</span>
+    <span class="o">...</span>
+
+    <span class="s">&quot;github.com/edgexfoundry/app-functions-sdk-go/v2/pkg/interfaces&quot;</span>
+    <span class="s">&quot;github.com/edgexfoundry/go-mod-core-contracts/v2/dtos&quot;</span>
+<span class="p">)</span>
+</code></pre></div>
+</div>
+<h4 id="new-apis">New APIs</h4>
+<p>Next changes you will encounter in your code are that the <code>AppFunctionsSDK</code> and <code>Context</code> structs have been abstracted into the new <code>ApplicationService</code> and <code>AppFunctionContext</code> APIs. See the <a href="../ApplicationServiceAPI">Application Service API</a> and <a href="../AppFunctionContextAPI">App Function Context API</a> sections for complete details on these new APIs. The following sections cover migrating your code for these new APIs.</p>
 <h4 id="main">main()</h4>
 <p>The following changes to your <code>main()</code> function will be necessary.</p>
 <h5 id="create-and-initialize">Create and Initialize</h5>
@@ -3035,7 +3089,7 @@
 <h5 id="pushtocore">PushToCore</h5>
 <p>The <code>PushToCore</code> API replaces the <code>PushToCoreData</code> function. The API signature has changed. See the <a href="../AppFunctionContextAPI/#pushtocore">PushToCore</a> section for more details.</p>
 <h5 id="new-capabilities">New Capabilities</h5>
-<p>Some new capabilities have been added to the new AppFunctionContext API. See the <a href="../AppFunctionContextAPI">App Function Context</a> API section for complete details.</p>
+<p>Some new capabilities have been added to the new <code>AppFunctionContext</code> API. See the <a href="../AppFunctionContextAPI">App Function Context</a> API section for complete details.</p>
 <h2 id="app-service-configurable-profiles">App Service Configurable Profiles</h2>
 <p>Custom profiles used with App Service Configurable are configuration files. These follow the same migration above for custom  <a href="#configuration">Application Service configuration</a>, except for the Configurable Functions Pipeline items.  The following are the changes for the Configurable Functions Pipeline:</p>
 <ol>
