@@ -1269,13 +1269,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#corecommands" class="md-nav__link">
-    CoreCommands
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -2407,13 +2400,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#corecommands" class="md-nav__link">
-    CoreCommands
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -2460,20 +2446,21 @@ will have its own set of named values that are required here, for example a
 BACnet device service may need an Object Identifier and a Property Identifier
 whereas a Bluetooth device service could use a UUID to identify a value.</p>
 <p>The <code>Properties</code> of a deviceResource describe the value and optionally request
-some simple processing to be performed on it. Each device resource
-is given two properties, <code>value</code> and <code>units</code>. The following fields are
-available in the <code>value</code> property:</p>
+some simple processing to be performed on it. The following fields are available:</p>
 <ul>
-<li>type - Required. The data type of the value. Supported types are <code>bool</code>,
+<li>valueType - Required. The data type of the value. Supported types are <code>bool</code>,
 <code>int8</code> - <code>int64</code>, <code>uint8</code> - <code>uint64</code>, <code>float32</code>, <code>float64</code>, <code>string</code>, <code>binary</code>
 and arrays of the primitive types (ints, floats, bool). Arrays are specified
 as eg. <code>float32array</code>, <code>boolarray</code> etc.</li>
 <li>readWrite - <code>R</code>, <code>RW</code>, or <code>W</code> indicating whether the value is readable or
 writable.</li>
-<li>defaultValue - a value used for PUT requests which do not specify one.</li>
+<li>units - indicate the units of the value, eg Amperes, degrees C, etc.</li>
+<li>minimum - minimum value a SET command is allowed, out of range will result in error.</li>
+<li>maximum - maximum value a SET command is allowed, out of range will result in error.</li>
+<li>defaultValue - a value used for SET command which do not specify one.</li>
 <li>assertion - a string value to which a reading (after processing) is compared.
  If the reading is not the same as the assertion value, the device's operating
-state will be set to disbled. This can be useful for health checks.</li>
+state will be set to disable. This can be useful for health checks.</li>
 <li>base - a value to be raised to the power of the raw reading before it is returned.</li>
 <li>scale - a factor by which to multiply a reading before it is returned.</li>
 <li>offset - a value to be added to a reading before it is returned.</li>
@@ -2483,42 +2470,26 @@ state will be set to disbled. This can be useful for health checks.</li>
 <p>The processing defined by base, scale, offset, mask and shift is applied in
 that order. This is done within the SDK. A reverse transformation is applied
 by the SDK to incoming data on set operations (NB mask transforms on set are NYI)</p>
-<p>The <code>units</code> property is used to indicate the units of the value, eg Amperes,
-degrees C, etc. It should have a <code>defaultValue</code> that specifies the units.</p>
 <h2 id="devicecommands">DeviceCommands</h2>
 <p>DeviceCommands define access to reads and writes for multiple simultaneous
-device resources. Each named deviceCommand should contain a number of get
-and/or set <code>resourceOperations</code>, describing the read or write respectively.</p>
+device resources. Each named deviceCommand should contain a number of
+<code>resourceOperations</code>.</p>
 <p>DeviceCommands may be useful when readings are logically related, for example
 with a 3-axis accelerometer it is helpful to read all axes together.</p>
 <p>A resourceOperation consists of the following properties:</p>
 <ul>
-<li>index - a number, used to define an order in which the resource is processed.
-and set operations is not supported.</li>
 <li>deviceResource - the name of the deviceResource to access.</li>
-<li>parameter - optional, a value that will be used if a PUT request does not
+<li>defaultValue - optional, a value that will be used if a SET command does not
 specify one.</li>
 <li>mappings - optional, allows readings of String type to be re-mapped.</li>
 </ul>
 <p>The device service allows access to deviceCommands via the same <code>device</code> REST
-endpoint as is used to access deviceResources. If a deviceCommand and
-deviceResource have the same name, it will be the deviceCommand which is
-available.</p>
-<h2 id="corecommands">CoreCommands</h2>
-<p>CoreCommands specify the commands which are available via the core-command
-micro service, for reading and writing to the device. Both deviceResources and
-deviceCommands may be represented by coreCommands (the name of the coreCommand
-refers to the name of the deviceCommand or deviceResource).</p>
-<p>Commands may allow get or put methods (or both). For a get type, the returned
-values are specified in the <code>expectedValues</code> field, for a put type, the
-parameters to be given are specified in <code>parameterNames</code>. In either case, the
-different http response codes that the service may generate are indicated.</p>
-<p>Core Commands may be thought of as defining the outward-facing API for the
-device. A typical setup would prevent external access to the device service
-itself, so use of the full range of device resources and device commands would
-only be available to other components within the EdgeX deployment. Only those
-that has corresponding coreCommands would be available externally (via
-core-command).</p>
+endpoint as is used to access deviceResources.</p>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+</div>
+<p>For the EdgeX 2.0 (Ireland) release coreCommands section is removed and both deviceResources and deviceCommands are available via the Core Command Service by default.
+Set <code>isHidden</code> field to true under deviceResource or deviceCommand to disable the outward-facing API.</p>
                 
               
               
