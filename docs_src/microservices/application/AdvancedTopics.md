@@ -81,56 +81,29 @@ If the target type is set to `&[]byte` the incoming data will not be un-marshale
 
 ### Command Line Options
 
-The following command line options are available
+See the [Common Command Line Options](../../configuration/CommonComandLineOptions) for the set of command line options common to all EdgeX services. The following command line options are specific to Application Services.
 
-| Options                    | Description                                                  |
-| -------------------------- | ------------------------------------------------------------ |
-| -cp<br /> --configProvider | Indicates to use Configuration Provider service at specified URL.<br/>URL Format: `{type}.{protocol}://{host}:{port} ex: consul.http://localhost:8500` |
-| -r<br /> --registry        | Indicates service should use the Registry. Connection information is pulled from the `[Registry]` configuration section. |
-| -c<br />--confdir          | Specify local configuration directory. Default is `./res`    |
-| -f<br />--file <name>      | Indicates the name of the local configuration file. Default is `configuration.toml` |
-| -p<br />--profile <name>   | Indicates configuration profile other than default. Default is no profile name resulting in using `./res/configuration.toml` if `-f` and `-c` are not used. |
-| -s<br />--skipVersionCheck | Indicates the service should skip the Core Service's version compatibility check. |
-| -sk<br />--serviceKey      | Overrides the service key used with Registry and Configuration Providers and for security services. If the name provided contains the placeholder text `<profile>`, this text will be replaced with the name of the profile used. If profile not set, the `<profile>` is simply removed. |
-| -o<br />--overwrite        | Overwrite configuration in provider with local configuration<br/>*** Use with cation *** This will clobber existing settings in provider,<br/>problematic if those settings were edited by hand intentionally |
-| -h<br />--help             | Show the help message                                        |
+#### Skip Version Check
 
-!!! example - "Example - Command-line Options"
-    `simple-filter-xml -c=./res -p=http-export`    
-    or    
-    `simple-filter-xml --confdir=./res -p=http-export -cp=consul.http://localhost:8500 --registry`
+`-s/--skipVersionCheck`
 
-### Environment Variable Overrides
+Indicates the service should skip the Core Service's version compatibility check.
 
-!!! edgey "EdgeX 2.0"
-    The deprecated lowercase `edgex_registry` and `edgex_service` environment variables have been removed for EdgeX 2.0
+#### Service Key
 
-Any of the configuration settings from the `configuration.toml` file can be overridden by environment variables. The environment variable names have the following format:
+`-sk/--serviceKey`
 
-```toml
-<TOM-SECTION-NAME>_<TOML-KEY-NAME>
-<TOML-SECTION-NAME>_<TOML-SUB-SECTION-NAME>_<TOML-KEY-NAME>
-```
+Sets the service key that is used with Registry, Configuration Provider and security services. The default service key is set by the application service. If the name provided contains the placeholder text `<profile>`, this text will be replaced with the name of the profile used. If profile is not set, the `<profile>` text is simply removed
 
-!!! edgey "EdgeX 2.0"
-    With EdgeX 2.0 the use of CamelCase environment variable names is no longer supported. Instead the variable names must be all uppercase as in the example below. Also the using of dash `-` in the TOML-NAME is converted to an underscore `_` in the environment variable name.
+Can be overridden with [EDGEX_SERVICE_KEY](#edgex_service_key) environment variable.
 
-!!! example "Example - Environment Overrides"
+### Environment Variables
 
-    ``` toml   
-    TOML   : [Writable]    
-    		 LogLevel = 'INFO'    
-    ENVVAR : WRITABLE_LOGLEVEL=DEBUG    
-    
-    TOML   : [Clients]
-      			[Clients.core-data]
-      			Host = 'localhost'
-    ENVVAR : CLIENTS_CORE_DATA_HOST=edgex-core-data    
-    ```    
+See the [Common Environment Variables](../../configuration/CommonEnvironmentVariables) section for the list of environment variables common to all EdgeX Services. The remaining in this section are specific to Application Services.
 
 #### EDGEX_SERVICE_KEY
 
-Overrides the service key used with Registry, Configuration Providers and security services. Default is set by the application service. App Service Configurable defaults to the specified profile name with the `app-` prefix.  Also overrides any value set with the -sk/--serviceKey in the command-line option.
+This environment variable overrides the [`-sk/--serviceKey` command-line option](#service-key) and the default set by the application service.
 
 !!! note
     If the name provided contains the text `<profile>`, this text will be replaced with the name of the profile used.
@@ -140,65 +113,8 @@ Overrides the service key used with Registry, Configuration Providers and securi
     `profile: http-export`    
      then service key will be `app-http-export-mycloud`    
 
-
-#### EDGEX_CONFIGURATION_PROVIDER
-
-This environment variable overrides the Configuration Provider connection information. The value is in the format of a URL.
-
-!!! example "Example - Configuration Provider"
-
-    ``` bash   
-    EDGEX_CONFIGURATION_PROVIDER=consul.http://edgex-core-consul:8500
-    
-    This sets the Configration Provider information fields as follows:
-        Type: consul
-        Host: edgex-core-consul
-        Port: 8500
-        Protocol: http
-    ```
-
-#### EDGEX_PROFILE
-
 !!! edgey "EdgeX 2.0"
-    The deprecate lower case version `edgex_profile` has been removed for EdgeX 2.0
-
-This environment variable overrides the command line `profile` argument. It will set the `profile` or replace the value passed via the `-p` or `--profile`, if one exists. This is useful when running multiple instances of an Application Service such as App Service Configurable.
-
-!!! example "Example - Using docker-compose"
-    ```yaml
-    app-service-rules:
-        image: edgexfoundry/docker-app-service-configurable:2.0.0
-        environment: 
-          EDGEX_PROFILE: "rules-engine"
-        ports:
-          - "59701:59701"
-        container_name: edgex-app-rules-engine
-        hostname: edgex-app-rules-engine
-        networks:
-          edgex-network:
-        depends_on:
-          - consul
-          - metadata
-          - command
-    ```
-
-This sets the `profile` so that the application service uses the `rules-engine` configuration profile which resides at `./res/rules-engine/configuration.toml`
-
-#### EDGEX_STARTUP_DURATION
-
-This environment variable overrides the default duration, 60 seconds, for a service to complete the start-up, aka bootstrap, phase of execution
-
-#### EDGEX_STARTUP_INTERVAL
-
-This environment variable overrides the retry interval or sleep time before a failure is retried during the start-up, aka bootstrap, phase of execution.
-
-#### EDGEX_CONF_DIR
-
-This environment variable overrides the configuration directory where the configuration file resides. Default is `./res` and also overrides any value set with the `-c/--confdir` command-line option.
-
-#### EDGEX_CONFIG_FILE
-
-This environment variable overrides the configuration file name. Default is `configutation.toml` and also overrides any value set with the -f/--file command-line option.
+    The deprecated lowercase ``edgex_service` environment variable specific have been removed for EdgeX 2.0
 
 ### Custom Configuration
 
