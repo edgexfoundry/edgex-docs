@@ -876,6 +876,30 @@
 
 
   <li class="md-nav__item">
+    <a href="../../configuration/CommonCommandLineOptions/" title="Common Command Line Options" class="md-nav__link">
+      Common Command Line Options
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/CommonEnvironmentVariables/" title="Common Environment Variables" class="md-nav__link">
+      Common Environment Variables
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../configuration/ConfigurationAndRegistry/" title="Configuration and Registry Providers" class="md-nav__link">
       Configuration and Registry Providers
     </a>
@@ -1439,61 +1463,39 @@
     Command Line Options
   </a>
   
+    <nav class="md-nav" aria-label="Command Line Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#skip-version-check" class="md-nav__link">
+    Skip Version Check
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-key" class="md-nav__link">
+    Service Key
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#environment-variable-overrides" class="md-nav__link">
-    Environment Variable Overrides
+  <a href="#environment-variables" class="md-nav__link">
+    Environment Variables
   </a>
   
-    <nav class="md-nav" aria-label="Environment Variable Overrides">
+    <nav class="md-nav" aria-label="Environment Variables">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#edgex_service_key" class="md-nav__link">
     EDGEX_SERVICE_KEY
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#edgex_configuration_provider" class="md-nav__link">
-    EDGEX_CONFIGURATION_PROVIDER
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#edgex_profile" class="md-nav__link">
-    EDGEX_PROFILE
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#edgex_startup_duration" class="md-nav__link">
-    EDGEX_STARTUP_DURATION
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#edgex_startup_interval" class="md-nav__link">
-    EDGEX_STARTUP_INTERVAL
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#edgex_conf_dir" class="md-nav__link">
-    EDGEX_CONF_DIR
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#edgex_config_file" class="md-nav__link">
-    EDGEX_CONFIG_FILE
   </a>
   
 </li>
@@ -2581,61 +2583,39 @@
     Command Line Options
   </a>
   
+    <nav class="md-nav" aria-label="Command Line Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#skip-version-check" class="md-nav__link">
+    Skip Version Check
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-key" class="md-nav__link">
+    Service Key
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#environment-variable-overrides" class="md-nav__link">
-    Environment Variable Overrides
+  <a href="#environment-variables" class="md-nav__link">
+    Environment Variables
   </a>
   
-    <nav class="md-nav" aria-label="Environment Variable Overrides">
+    <nav class="md-nav" aria-label="Environment Variables">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#edgex_service_key" class="md-nav__link">
     EDGEX_SERVICE_KEY
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#edgex_configuration_provider" class="md-nav__link">
-    EDGEX_CONFIGURATION_PROVIDER
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#edgex_profile" class="md-nav__link">
-    EDGEX_PROFILE
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#edgex_startup_duration" class="md-nav__link">
-    EDGEX_STARTUP_DURATION
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#edgex_startup_interval" class="md-nav__link">
-    EDGEX_STARTUP_INTERVAL
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#edgex_conf_dir" class="md-nav__link">
-    EDGEX_CONF_DIR
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#edgex_config_file" class="md-nav__link">
-    EDGEX_CONFIG_FILE
   </a>
   
 </li>
@@ -2858,86 +2838,18 @@ You can access the <code>interfaces.ApplicationService</code> API for resources 
 <p>The SDK supports un-marshaling JSON or CBOR encoded data into an instance of the target type. If your incoming data is not JSON or CBOR encoded, you then need to set the <code>TargetType</code> to  <code>&amp;[]byte</code>.</p>
 <p>If the target type is set to <code>&amp;[]byte</code> the incoming data will not be un-marshaled.  The content type, if set, will be set on the <code>interfaces.AppFunctionContext</code> and can be access via the <code>InputContentType()</code> API.   Your first function will be responsible for decoding the data or not.</p>
 <h3 id="command-line-options">Command Line Options</h3>
-<p>The following command line options are available</p>
-<table>
-<thead>
-<tr>
-<th>Options</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>-cp<br /> --configProvider</td>
-<td>Indicates to use Configuration Provider service at specified URL.<br/>URL Format: <code>{type}.{protocol}://{host}:{port} ex: consul.http://localhost:8500</code></td>
-</tr>
-<tr>
-<td>-r<br /> --registry</td>
-<td>Indicates service should use the Registry. Connection information is pulled from the <code>[Registry]</code> configuration section.</td>
-</tr>
-<tr>
-<td>-c<br />--confdir</td>
-<td>Specify local configuration directory. Default is <code>./res</code></td>
-</tr>
-<tr>
-<td>-f<br />--file <name></td>
-<td>Indicates the name of the local configuration file. Default is <code>configuration.toml</code></td>
-</tr>
-<tr>
-<td>-p<br />--profile <name></td>
-<td>Indicates configuration profile other than default. Default is no profile name resulting in using <code>./res/configuration.toml</code> if <code>-f</code> and <code>-c</code> are not used.</td>
-</tr>
-<tr>
-<td>-s<br />--skipVersionCheck</td>
-<td>Indicates the service should skip the Core Service's version compatibility check.</td>
-</tr>
-<tr>
-<td>-sk<br />--serviceKey</td>
-<td>Overrides the service key used with Registry and Configuration Providers and for security services. If the name provided contains the placeholder text <code>&lt;profile&gt;</code>, this text will be replaced with the name of the profile used. If profile not set, the <code>&lt;profile&gt;</code> is simply removed.</td>
-</tr>
-<tr>
-<td>-o<br />--overwrite</td>
-<td>Overwrite configuration in provider with local configuration<br/><strong><em> Use with cation </em></strong> This will clobber existing settings in provider,<br/>problematic if those settings were edited by hand intentionally</td>
-</tr>
-<tr>
-<td>-h<br />--help</td>
-<td>Show the help message</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition example -">
-<p class="admonition-title">Example - Command-line Options</p>
-<p><code>simple-filter-xml -c=./res -p=http-export</code>  <br />
-or  <br />
-<code>simple-filter-xml --confdir=./res -p=http-export -cp=consul.http://localhost:8500 --registry</code></p>
-</div>
-<h3 id="environment-variable-overrides">Environment Variable Overrides</h3>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>The deprecated lowercase <code>edgex_registry</code> and <code>edgex_service</code> environment variables have been removed for EdgeX 2.0</p>
-</div>
-<p>Any of the configuration settings from the <code>configuration.toml</code> file can be overridden by environment variables. The environment variable names have the following format:</p>
-<div class="highlight"><pre><span></span><code><span class="err">&lt;</span><span class="n">TOM-SECTION-NAME</span><span class="err">&gt;</span><span class="n">_</span><span class="err">&lt;</span><span class="n">TOML-KEY-NAME</span><span class="err">&gt;</span>
-<span class="err">&lt;</span><span class="n">TOML-SECTION-NAME</span><span class="err">&gt;</span><span class="n">_</span><span class="err">&lt;</span><span class="n">TOML-SUB-SECTION-NAME</span><span class="err">&gt;</span><span class="n">_</span><span class="err">&lt;</span><span class="n">TOML-KEY-NAME</span><span class="err">&gt;</span>
-</code></pre></div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>With EdgeX 2.0 the use of CamelCase environment variable names is no longer supported. Instead the variable names must be all uppercase as in the example below. Also the using of dash <code>-</code> in the TOML-NAME is converted to an underscore <code>_</code> in the environment variable name.</p>
-</div>
-<div class="admonition example">
-<p class="admonition-title">Example - Environment Overrides</p>
-<div class="highlight"><pre><span></span><code><span class="n">TOML</span>   <span class="p">:</span> <span class="p">[</span><span class="n">Writable</span><span class="p">]</span>    
-         <span class="n">LogLevel</span> <span class="o">=</span> <span class="s">&#39;INFO&#39;</span>    
-<span class="n">ENVVAR</span> <span class="p">:</span> <span class="n">WRITABLE_LOGLEVEL</span><span class="o">=</span><span class="n">DEBUG</span>    
-
-<span class="n">TOML</span>   <span class="p">:</span> <span class="k">[Clients]</span>
-            <span class="k">[Clients.core-data]</span>
-            <span class="n">Host</span> <span class="o">=</span> <span class="s">&#39;localhost&#39;</span>
-<span class="n">ENVVAR</span> <span class="p">:</span> <span class="n">CLIENTS_CORE_DATA_HOST</span><span class="o">=</span><span class="n">edgex-core-data</span>    
-</code></pre></div>
-</div>
+<p>See the <a href="../../configuration/CommonComandLineOptions">Common Command Line Options</a> for the set of command line options common to all EdgeX services. The following command line options are specific to Application Services.</p>
+<h4 id="skip-version-check">Skip Version Check</h4>
+<p><code>-s/--skipVersionCheck</code></p>
+<p>Indicates the service should skip the Core Service's version compatibility check.</p>
+<h4 id="service-key">Service Key</h4>
+<p><code>-sk/--serviceKey</code></p>
+<p>Sets the service key that is used with Registry, Configuration Provider and security services. The default service key is set by the application service. If the name provided contains the placeholder text <code>&lt;profile&gt;</code>, this text will be replaced with the name of the profile used. If profile is not set, the <code>&lt;profile&gt;</code> text is simply removed</p>
+<p>Can be overridden with <a href="#edgex_service_key">EDGEX_SERVICE_KEY</a> environment variable.</p>
+<h3 id="environment-variables">Environment Variables</h3>
+<p>See the <a href="../../configuration/CommonEnvironmentVariables">Common Environment Variables</a> section for the list of environment variables common to all EdgeX Services. The remaining in this section are specific to Application Services.</p>
 <h4 id="edgex_service_key">EDGEX_SERVICE_KEY</h4>
-<p>Overrides the service key used with Registry, Configuration Providers and security services. Default is set by the application service. App Service Configurable defaults to the specified profile name with the <code>app-</code> prefix.  Also overrides any value set with the -sk/--serviceKey in the command-line option.</p>
+<p>This environment variable overrides the <a href="#service-key"><code>-sk/--serviceKey</code> command-line option</a> and the default set by the application service.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If the name provided contains the text <code>&lt;profile&gt;</code>, this text will be replaced with the name of the profile used.</p>
@@ -2948,52 +2860,10 @@ or  <br />
 <code>profile: http-export</code>  <br />
  then service key will be <code>app-http-export-mycloud</code>    </p>
 </div>
-<h4 id="edgex_configuration_provider">EDGEX_CONFIGURATION_PROVIDER</h4>
-<p>This environment variable overrides the Configuration Provider connection information. The value is in the format of a URL.</p>
-<div class="admonition example">
-<p class="admonition-title">Example - Configuration Provider</p>
-<div class="highlight"><pre><span></span><code><span class="nv">EDGEX_CONFIGURATION_PROVIDER</span><span class="o">=</span>consul.http://edgex-core-consul:8500
-
-This sets the Configration Provider information fields as follows:
-    Type: consul
-    Host: edgex-core-consul
-    Port: <span class="m">8500</span>
-    Protocol: http
-</code></pre></div>
-</div>
-<h4 id="edgex_profile">EDGEX_PROFILE</h4>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
-<p>The deprecate lower case version <code>edgex_profile</code> has been removed for EdgeX 2.0</p>
+<p>The deprecated lowercase <code>`edgex_service</code> environment variable specific have been removed for EdgeX 2.0</p>
 </div>
-<p>This environment variable overrides the command line <code>profile</code> argument. It will set the <code>profile</code> or replace the value passed via the <code>-p</code> or <code>--profile</code>, if one exists. This is useful when running multiple instances of an Application Service such as App Service Configurable.</p>
-<div class="admonition example">
-<p class="admonition-title">Example - Using docker-compose</p>
-<div class="highlight"><pre><span></span><code><span class="nt">app-service-rules</span><span class="p">:</span>
-    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgexfoundry/docker-app-service-configurable:2.0.0</span>
-    <span class="nt">environment</span><span class="p">:</span> 
-      <span class="nt">EDGEX_PROFILE</span><span class="p">:</span> <span class="s">&quot;rules-engine&quot;</span>
-    <span class="nt">ports</span><span class="p">:</span>
-      <span class="p p-Indicator">-</span> <span class="s">&quot;59701:59701&quot;</span>
-    <span class="nt">container_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-app-rules-engine</span>
-    <span class="nt">hostname</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-app-rules-engine</span>
-    <span class="nt">networks</span><span class="p">:</span>
-      <span class="nt">edgex-network</span><span class="p">:</span>
-    <span class="nt">depends_on</span><span class="p">:</span>
-      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">consul</span>
-      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">metadata</span>
-      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">command</span>
-</code></pre></div>
-</div>
-<p>This sets the <code>profile</code> so that the application service uses the <code>rules-engine</code> configuration profile which resides at <code>./res/rules-engine/configuration.toml</code></p>
-<h4 id="edgex_startup_duration">EDGEX_STARTUP_DURATION</h4>
-<p>This environment variable overrides the default duration, 60 seconds, for a service to complete the start-up, aka bootstrap, phase of execution</p>
-<h4 id="edgex_startup_interval">EDGEX_STARTUP_INTERVAL</h4>
-<p>This environment variable overrides the retry interval or sleep time before a failure is retried during the start-up, aka bootstrap, phase of execution.</p>
-<h4 id="edgex_conf_dir">EDGEX_CONF_DIR</h4>
-<p>This environment variable overrides the configuration directory where the configuration file resides. Default is <code>./res</code> and also overrides any value set with the <code>-c/--confdir</code> command-line option.</p>
-<h4 id="edgex_config_file">EDGEX_CONFIG_FILE</h4>
-<p>This environment variable overrides the configuration file name. Default is <code>configutation.toml</code> and also overrides any value set with the -f/--file command-line option.</p>
 <h3 id="custom-configuration">Custom Configuration</h3>
 <p>Applications can specify custom configuration in the TOML file in two ways. </p>
 <h4 id="application-settings">Application Settings</h4>
