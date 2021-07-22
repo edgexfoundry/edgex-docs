@@ -176,7 +176,7 @@ The following changes to your `main()` function will be necessary.
 
 ##### Create and Initialize
 
-Your `main()` will change to use a factory function to create and initialize the Application Service instance, rather than create instance of `AppFunctionsSDK` and call Initialize()` 
+Your `main()` will change to use a factory function to create and initialize the Application Service instance, rather than create instance of `AppFunctionsSDK` and call `Initialize()` 
 
 !!! example "Example - Create Application Service instance"
 

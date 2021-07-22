@@ -434,7 +434,7 @@ Please refer to the function's detailed documentation by clicking the function n
 - `BrokerAddress` - URL specify the address of the MQTT Broker
 - `Topic` - Topic to publish the data
 - `ClientId` - Id to use when connection to the MQTT Broker
-- `Qos` - MQTT Quality of Service setting to use (0, 1 or 2). Please refer [**here**](https://www.eclipse.org/paho/files/mqttdoc/MQTTClient/html/qos.html) for more details on QOS values
+- `Qos` - MQTT Quality of Service (QOS) setting to use (0, 1 or 2). Please refer [**here**](https://www.eclipse.org/paho/files/mqttdoc/MQTTClient/html/qos.html) for more details on QOS values
 - `AutoReconnect` - Boolean specifying if reconnect should be automatic if connection to MQTT broker is lost
 - `Retain` - Boolean  specifying if the MQTT Broker should save the last message published as the “Last Good Message” on that topic.
 - `SkipVerify` - Boolean indicating if the certificate verification should be skipped. 
