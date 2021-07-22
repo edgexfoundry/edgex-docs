@@ -2344,7 +2344,11 @@
 <p>Each EdgeX micro service requires configuration (i.e. - a repository of initialization and operating values).  The configuration is initially provided by a <a href="https://github.com/toml-lang/toml">TOML file</a> but a service can utilize the centralized configuration management provided by EdgeX for its configuration. </p>
 <p>See the <a href="../../microservices/configuration/ConfigurationAndRegistry/">Configuration and Registry documentation</a> for more details about initialization of services and the use of the configuration service.  </p>
 <p>Please refer to the EdgeX Foundry <a href="https://github.com/edgexfoundry/edgex-docs/blob/master/docs_src/design/adr/0005-Service-Self-Config.md">architectural decision record</a> for details (and design decisions) behind the configuration in EdgeX.</p>
-<p>Please refer to the general <a href="../../microservices/configuration/ConfigurationAndRegistry/">Configuration documentation</a> for configuration properties common to all services.  Find service specific configuration references in the tabs below.</p>
+<p>Please refer to the general <a href="../../microservices/configuration/CommonConfiguration/">Common Configuration documentation</a> for configuration properties common to all services.  Find service specific configuration references in the tabs below.</p>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>For EdgeX 2.0 the <a href="../../microservices/configuration/CommonConfiguration/#service">Service configuration</a> section has been standardized across all EdgeX services.</p>
+</div>
 <div class="tabbed-set" data-tabs="1:6"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Core</label><div class="tabbed-content">
 <table>
 <thead>
@@ -2356,15 +2360,15 @@
 <tbody>
 <tr>
 <td>core-data</td>
-<td><a href="../../microservices/core/data/Ch-CoreData/">Core Data Configuration</a></td>
+<td><a href="../../microservices/core/data/Ch-CoreData/#configuration-properties">Core Data Configuration</a></td>
 </tr>
 <tr>
 <td>core-metadata</td>
-<td><a href="../../microservices/core/metadata/Ch-Metadata/">Core Metadata Configuration</a></td>
+<td><a href="../../microservices/core/metadata/Ch-Metadata/#configuration-properties">Core Metadata Configuration</a></td>
 </tr>
 <tr>
 <td>core-command</td>
-<td><a href="../../microservices/core/command/Ch-Command/">Core Command Configuration</a></td>
+<td><a href="../../microservices/core/command/Ch-Command/#configuration-properties">Core Command Configuration</a></td>
 </tr>
 </tbody>
 </table>
@@ -2380,11 +2384,11 @@
 <tbody>
 <tr>
 <td>support-notifications</td>
-<td><a href="../../microservices/support/notifications/Ch-AlertsNotifications/">Support Notifications Configuration</a></td>
+<td><a href="../../microservices/support/notifications/Ch-AlertsNotifications/#configuration-properties">Support Notifications Configuration</a></td>
 </tr>
 <tr>
 <td>support-scheduler</td>
-<td><a href="../../microservices/support/scheduler/Ch-Scheduler/">Support Scheduler Configuration</a></td>
+<td><a href="../../microservices/support/scheduler/Ch-Scheduler/#configuration-properties">Support Scheduler Configuration</a></td>
 </tr>
 </tbody>
 </table>
@@ -2404,7 +2408,7 @@
 </tr>
 <tr>
 <td>app-service-configurable</td>
-<td><a href="../../microservices/application/AppServiceConfigurable/#environment-variable-overrides-for-docker">Configurable Application Service Configuration</a></td>
+<td><a href="../../microservices/application/AppServiceConfigurable/#getting-started">Configurable Application Service Configuration</a></td>
 </tr>
 <tr>
 <td>eKuiper rules engine/eKuiper</td>
@@ -2424,11 +2428,11 @@
 <tbody>
 <tr>
 <td>device-service</td>
-<td><a href="../../microservices/device/Ch-DeviceServices/">General Device Service Configuration</a></td>
+<td><a href="../../microservices/device/Ch-DeviceServices/#configuration-properties">General Device Service Configuration</a></td>
 </tr>
 <tr>
 <td>device-virtual</td>
-<td><a href="../../microservices/device/virtual/Ch-VirtualDevice/">Virtual Device Service Configuration</a></td>
+<td><a href="../../microservices/device/virtual/Ch-VirtualDevice/#configuration-properties">Virtual Device Service Configuration</a></td>
 </tr>
 </tbody>
 </table>
@@ -2446,6 +2450,10 @@
 <td>API Gateway</td>
 <td><a href="../../security/Ch-APIGateway/#configuring-api-gateway">Kong Configuration</a></td>
 </tr>
+<tr>
+<td>Add-on Services</td>
+<td><a href="../../security/Ch-Configuring-Add-On-Services/">Configuring Add-on Service</a></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -2460,7 +2468,7 @@
 <tbody>
 <tr>
 <td>system management</td>
-<td><a href="../../microservices/system-management/agent/Ch_SysMgmtAgent/">System Management Agent Configuration</a></td>
+<td><a href="../../microservices/system-management/agent/Ch_SysMgmtAgent/#configuration-properties">System Management Agent Configuration</a></td>
 </tr>
 </tbody>
 </table>

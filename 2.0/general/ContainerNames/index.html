@@ -2342,28 +2342,36 @@
                 
                 <h1 id="edgex-container-names">EdgeX Container Names</h1>
 <p>The following table provides the list of the default EdgeX Docker image names to the Docker container name and Docker Compose names.</p>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>For EdgeX 2.0 the EdgeX docker image names have been simplified and made consistent across all EdgeX services.</p>
+</div>
 <div class="tabbed-set" data-tabs="1:6"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Core</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
 <th>Docker image name</th>
 <th>Docker container name</th>
+<th>Docker network hostname</th>
 <th>Docker Compose service name</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>docker-core-data-go</td>
+<td>edgexfoundry/core-data</td>
+<td>edgex-core-data</td>
 <td>edgex-core-data</td>
 <td>data</td>
 </tr>
 <tr>
-<td>docker-core-metadata-go</td>
+<td>edgexfoundry/core-metadata</td>
+<td>edgex-core-metadata</td>
 <td>edgex-core-metadata</td>
 <td>metadata</td>
 </tr>
 <tr>
-<td>docker-core-command-go</td>
+<td>edgexfoundry/core-command</td>
+<td>edgex-core-command</td>
 <td>edgex-core-command</td>
 <td>command</td>
 </tr>
@@ -2376,22 +2384,20 @@
 <tr>
 <th>Docker image name</th>
 <th>Docker container name</th>
+<th>Docker network hostname</th>
 <th>Docker Compose service name</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>docker-support-notifications-go</td>
+<td>edgexfoundry/support-notifications</td>
+<td>edgex-support-notifications</td>
 <td>edgex-support-notifications</td>
 <td>notifications</td>
 </tr>
 <tr>
-<td>docker-support-logging-go</td>
-<td>edgex-support-logging</td>
-<td>logging</td>
-</tr>
-<tr>
-<td>docker-support-scheduler-go</td>
+<td>edgexfoundry/support-scheduler</td>
+<td>edgex-support-scheduler</td>
 <td>edgex-support-scheduler</td>
 <td>scheduler</td>
 </tr>
@@ -2404,17 +2410,32 @@
 <tr>
 <th>Docker image name</th>
 <th>Docker container name</th>
+<th>Docker network hostname</th>
 <th>Docker Compose service name</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>docker-app-service-configurable</td>
-<td>edgex-app-service-configurable-rules</td>
+<td>edgexfoundry/app-service-configurable</td>
+<td>edgex-app-rules-engine</td>
+<td>edgex-app-rules-engine</td>
 <td>app-service-rules</td>
 </tr>
 <tr>
+<td>edgexfoundry/app-service-configurable</td>
+<td>edgex-app-http-export</td>
+<td>edgex-app-http-export</td>
+<td>app-service-http-export</td>
+</tr>
+<tr>
+<td>edgexfoundry/app-service-configurable</td>
+<td>edgex-app-mqtt-export</td>
+<td>edgex-app-mqtt-export</td>
+<td>app-service-mqtt-export</td>
+</tr>
+<tr>
 <td>emqx/kuiper</td>
+<td>edgex-kuiper</td>
 <td>edgex-kuiper</td>
 <td>rulesengine</td>
 </tr>
@@ -2427,39 +2448,64 @@
 <tr>
 <th>Docker image name</th>
 <th>Docker container name</th>
+<th>Docker network hostname</th>
 <th>Docker Compose service name</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>docker-device-virtual-go</td>
+<td>edgexfoundry/device-virtual</td>
+<td>edgex-device-virtual</td>
 <td>edgex-device-virtual</td>
 <td>device-virtual</td>
 </tr>
 <tr>
-<td>docker-device-random-go</td>
-<td>edgex-device-random</td>
-<td>device-random</td>
-</tr>
-<tr>
-<td>docker-device-mqtt-go</td>
+<td>edgexfoundry/device-mqtt</td>
+<td>edgex-device-mqtt</td>
 <td>edgex-device-mqtt</td>
 <td>device-mqtt</td>
 </tr>
 <tr>
-<td>docker-device-rest-go</td>
+<td>edgexfoundry/device-rest</td>
+<td>edgex-device-rest</td>
 <td>edgex-device-rest</td>
 <td>device-rest</td>
 </tr>
 <tr>
-<td>docker-device-modbus-go</td>
+<td>edgexfoundry/device-modbus</td>
+<td>edgex-device-modbus</td>
 <td>edgex-device-modbus</td>
 <td>device-modbus</td>
 </tr>
 <tr>
-<td>docker-device-snmp-go</td>
+<td>edgexfoundry/device-snmp</td>
+<td>edgex-device-snmp</td>
 <td>edgex-device-snmp</td>
 <td>device-snmp</td>
+</tr>
+<tr>
+<td>edgexfoundry/device-bacnet</td>
+<td>edgex-device-bacnet</td>
+<td>edgex-device-bacnet</td>
+<td>device-bacnet</td>
+</tr>
+<tr>
+<td>edgexfoundry/device-camera</td>
+<td>edgex-device-camera</td>
+<td>edgex-device-camera</td>
+<td>device-camera</td>
+</tr>
+<tr>
+<td>edgexfoundry/device-grove</td>
+<td>edgex-device-grove</td>
+<td>edgex-device-grove</td>
+<td>device-grove</td>
+</tr>
+<tr>
+<td>edgexfoundry/device-coap</td>
+<td>edgex-device-coap</td>
+<td>edgex-device-coap</td>
+<td>device-coap</td>
 </tr>
 </tbody>
 </table>
@@ -2470,6 +2516,7 @@
 <tr>
 <th>Docker image name</th>
 <th>Docker container name</th>
+<th>Docker network hostname</th>
 <th>Docker Compose service name</th>
 </tr>
 </thead>
@@ -2477,22 +2524,38 @@
 <tr>
 <td>vault</td>
 <td>edgex-vault</td>
+<td>edgex-vault</td>
 <td>vault</td>
 </tr>
 <tr>
 <td>postgress</td>
-<td>kong-db</td>
+<td>edgex-kong-db</td>
+<td>edgex-kong-db</td>
 <td>kong-db</td>
 </tr>
 <tr>
 <td>kong</td>
-<td>kong</td>
+<td>edgex-kong</td>
+<td>edgex-kong</td>
 <td>kong</td>
 </tr>
 <tr>
-<td>docker-edgex-security-proxy-setup-go</td>
-<td>edgex-proxy</td>
-<td>edgex-proxy</td>
+<td>edgexfoundry/security-proxy-setup</td>
+<td>edgex-security-proxy-setup</td>
+<td>edgex-security-proxy-setup</td>
+<td>proxy-setup</td>
+</tr>
+<tr>
+<td>edgexfoundry/security-secretstore-setup</td>
+<td>edgex-security-secretstore-setup</td>
+<td>edgex-security-secretstore-setup</td>
+<td>secretstore-setup</td>
+</tr>
+<tr>
+<td>edgexfoundry/security-bootstrapper</td>
+<td>edgex-security-bootstrapper</td>
+<td>edgex-security-bootstrapper</td>
+<td>security-bootstrapper</td>
 </tr>
 </tbody>
 </table>
@@ -2503,27 +2566,26 @@
 <tr>
 <th>Docker image name</th>
 <th>Docker container name</th>
+<th>Docker network hostname</th>
 <th>Docker Compose service name</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>docker-edgex-consul</td>
+<td>consul</td>
+<td>edgex-core-consul</td>
 <td>edgex-core-consul</td>
 <td>consul</td>
 </tr>
 <tr>
-<td>mongo</td>
-<td>edgex-mongo</td>
-<td>mongo</td>
-</tr>
-<tr>
 <td>redis</td>
 <td>edgex-redis</td>
-<td>redis</td>
+<td>edgex-redis</td>
+<td>database</td>
 </tr>
 <tr>
-<td>docker-sys-mgmt-agent-go</td>
+<td>edgexfoundry/sys-mgmt-agent</td>
+<td>edgex-sys-mgmt-agent</td>
 <td>edgex-sys-mgmt-agent</td>
 <td>system</td>
 </tr>
