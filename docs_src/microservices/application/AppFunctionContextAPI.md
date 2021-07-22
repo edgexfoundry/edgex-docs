@@ -40,22 +40,22 @@ type AppFunctionContext interface {
 ### SetResponseData
 `SetResponseData(data []byte)` 
 
-This method sets the response data that will be returned to the trigger when pipeline execution is complete.
+This API sets the response data that will be returned to the trigger when pipeline execution is complete.
 
 ### ResponseData
 `ResponseData()` 
 
-This method returns the data that will be returned to the trigger when pipeline execution is complete.
+This API returns the data that will be returned to the trigger when pipeline execution is complete.
 
 ### SetResponseContentType
 `SetResponseContentType(string)` 
 
-This method sets the content type that will be returned to the trigger when pipeline execution is complete.
+This API sets the content type that will be returned to the trigger when pipeline execution is complete.
 
 ### ResponseContentType
 `ResponseContentType()` 
 
-This method returns the content type that will be returned to the trigger when pipeline execution is complete.
+This API returns the content type that will be returned to the trigger when pipeline execution is complete.
 
 ## Clients
 
@@ -117,29 +117,29 @@ Returns a `DeviceClient` to leverage Core Metadata's `Device` API. See [interfac
 
 Each of the clients above is only initialized if the Clients section of the configuration contains an entry for the service associated with the Client API. If it isn't in the configuration the client will be `nil`. Your code must check for `nil` to avoid panic in case it is missing from the configuration. Only add the clients to your configuration that your Application Service will actually be using. All application services need `Core-Data` for version compatibility check done on start-up. The following is an example `Clients` section of a configuration.toml with all supported clients specified:
 
-```
-[Clients]
-
-  [Clients.core-data]
-  Protocol = 'http'
-  Host = 'localhost'
-  Port = 59880
+!!! example "Example - Client Configuration Section"
+    ```
+    [Clients]
+      [Clients.core-data]
+      Protocol = 'http'
+      Host = 'localhost'
+      Port = 59880
   
-  [Clients.core-metadata]
-  Protocol = 'http'
-  Host = 'localhost'
-  Port = 59881
+      [Clients.core-metadata]
+      Protocol = 'http'
+      Host = 'localhost'
+      Port = 59881
 
-  [Clients.core-command]
-  Protocol = 'http'
-  Host = 'localhost'
-  Port = 59882
+      [Clients.core-command]
+      Protocol = 'http'
+      Host = 'localhost'
+      Port = 59882
 
-  [Clients.support-notifications]
-  Protocol = 'http'
-  Host = 'localhost'
-  Port = 59860
-```
+      [Clients.support-notifications]
+      Protocol = 'http'
+      Host = 'localhost'
+      Port = 59860
+    ```
 
 ## Context Storage
 The context API exposes a map-like interface that can be used to store custom data specific to a given pipeline execution.  This data is persisted for retry if needed.  Currently only strings are supported, and keys are treated as case-insensitive.  
@@ -159,27 +159,27 @@ Storage can be accessed using the following methods:
 ### AddValue
 `AddValue(key string, value string)` 
 
-This method stores a value for access within a pipeline execution
+This API stores a value for access within a pipeline execution
 
 ### RemoveValue
 `RemoveValue(key string)`
 
-This method deletes a value stored in the context at the given key
+This API  deletes a value stored in the context at the given key
 
 ### GetValue
 `GetValue(key string) (string, bool)`
 
-This method attempts to retrieve a value stored in the context at the given key
+This API attempts to retrieve a value stored in the context at the given key
 
 ### GetAllValues
 `GetAllValues() map[string]string`
 
-This method returns a read-only copy of all data stored in the context
+This API returns a read-only copy of all data stored in the context
 
 ### ApplyValues
 `ApplyValues(format string) (string, error)` 
 
-This method will replace placeholders of the form `{context-key-name}` with the value found in the context at `context-key-name`.  Note that key matching is case insensitive.  An error will be returned if any placeholders in the provided string do NOT have a corresponding entry in the context storage map.
+This API will replace placeholders of the form `{context-key-name}` with the value found in the context at `context-key-name`.  Note that key matching is case insensitive.  An error will be returned if any placeholders in the provided string do NOT have a corresponding entry in the context storage map.
 
 ## Secrets
 
@@ -187,34 +187,34 @@ This method will replace placeholders of the form `{context-key-name}` with the 
 
 `GetSecret(path string, keys ...string)`
 
-This method is used to retrieve secrets from the secret store. `path` specifies the type or location of the secrets to retrieve. If specified, it is appended to the base path from the exclusive secret store configuration. `keys` specifies the list of secrets to be retrieved. If no keys are provided then all the keys associated with the specified path will be returned.
+This API is used to retrieve secrets from the secret store. `path` specifies the type or location of the secrets to retrieve. If specified, it is appended to the base path from the exclusive secret store configuration. `keys` specifies the list of secrets to be retrieved. If no keys are provided then all the keys associated with the specified path will be returned.
 
 ### SecretsLastUpdated
 `SecretsLastUpdated()`
 
-This method returns that timestamp for when the secrets in the SecretStore where last updated.  Useful when a connection to external source needs to be redone when the credentials have been updated.
+This API returns that timestamp for when the secrets in the SecretStore where last updated.  Useful when a connection to external source needs to be redone when the credentials have been updated.
 
 ## Miscellaneous
 
 ### CorrelationID()
 `CorrelationID()`
 
-This method returns the ID used to track the EdgeX event through entire EdgeX framework.
+This API returns the ID used to track the EdgeX event through entire EdgeX framework.
 
 ### InputContentType()
 `InputContentType()`
 
-This method returns the content type of the data that initiated the pipeline execution. Only useful when the TargetType for the pipeline is []byte, otherwise the data will be the type specified by TargetType.
+This API returns the content type of the data that initiated the pipeline execution. Only useful when the TargetType for the pipeline is []byte, otherwise the data will be the type specified by TargetType.
 
 ### GetDeviceResource()
 `GetDeviceResource(profileName string, resourceName string) (dtos.DeviceResource, error)`
 
-This method retrieves the DeviceResource for the given profile / resource name. Results are cached to minimize HTTP traffic to core-metadata.
+This API retrieves the DeviceResource for the given profile / resource name. Results are cached to minimize HTTP traffic to core-metadata.
 
 ### PushToCore()
 `PushToCore(event dtos.Event)`
 
-This method is used to push data to EdgeX Core Data so that it can be shared with other applications that are subscribed to the message bus that core-data publishes to. This function will return the new EdgeX Event with the ID populated, along with any error encountered.  Note that CorrelationId will not be available.
+This API is used to push data to EdgeX Core Data so that it can be shared with other applications that are subscribed to the message bus that core-data publishes to. This function will return the new EdgeX Event with the ID populated, along with any error encountered.  Note that CorrelationId will not be available.
 
 !!! note
     If validation is turned on in CoreServices then your deviceName and readingName must exist in the CoreMetadata and be properly registered in EdgeX.
