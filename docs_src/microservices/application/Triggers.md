@@ -18,7 +18,7 @@ There are 4 types of `Triggers` supported in the App Functions SDK which are dis
 
 An EdgeX MessageBus trigger will execute the pipeline every time data is received from the configured Edgex MessageBus `SubscribeTopics`.  The EdgeX MessageBus is the central message bus internal to EdgeX and has a specific message envelope that wraps all data published to this message bus.
 
-There currently are three implementations of the EdgeX MessageBus available to be used. These are `Redis Pub/Sub`(default), `MQTT` and `ZeroMQ`. The implementation type is selected via the `[Trigger.EdgexMessageBus]` configuration described below.
+There currently are three implementations of the EdgeX MessageBus available to be used. These are `Redis Pub/Sub`(default), `MQTT` and `ZeroMQ`(ZMQ). The implementation type is selected via the `[Trigger.EdgexMessageBus]` configuration described below.
 
 ### Type Configuration 
 
