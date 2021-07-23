@@ -12,7 +12,8 @@ The migration of any Device Service's configuration starts with migrating config
 #### Device
 1. Remove `ImitCmd`, `ImitCmdArgs`, `RemoveCmd` and `RemoveCmdArgs`
 2. Add `UseMessageBus` to determine events should be published to MessageBus or sent by REST call.
-3. Add `DevicesDir` and `ProfilesDir` as an indication of where to load the device profiles and pre-defined devices. Convention is to put them under `/res` folder:
+3. For C-based Device Services (eg, BACnet, Grove, CoAP): `UpdateLastConnected`, `MaxCmdOps`, `DataTransform`, `Discovery` and `MaxCmdResultLen` are dynamic settings - move these to `[Writable.Device]`
+4. Add `DevicesDir` and `ProfilesDir` as an indication of where to load the device profiles and pre-defined devices. Convention is to put them under `/res` folder:
    
 !!! example "Example configuration"
     ```toml
@@ -66,7 +67,7 @@ PublishTopicPrefix = 'edgex/events/device' # /<device-profile-name>/<device-name
 
 See the [Device Service MessageQueue](../../design/adr/013-Device-Service-Events-Message-Bus.md#device-services) section for details.
 
-### Code
+### Code (Golang)
 
 #### Dependencies
 You first need to update the `go.mod` file to specify `go 1.16` and the V2 versions of the Device SDK and any EdgeX go-mods directly used by your service. Note the extra `/v2` for the modules.
@@ -117,6 +118,52 @@ The 3rd argument in the function must be able to cast into the Type defined in 2
 See [Data formats](../../design/adr/device-service/0011-DeviceService-Rest-API.md#data-formats) for supported data type in EdgeX.
 
 Device Service also supports [Event Tagging](../general/index.md), the tags on the CommandValue will be copied to Event.
+
+### Code (C)
+
+#### Dependencies
+
+The CSDK now has additional dependencies on the Redis client library (hiredis, hiredis-dev) and Paho MQTT (paho-mqtt-c-dev)
+
+#### Attribute and Protocols processing
+
+Four new callback functions are defined and implementations of them are required. Their purpose is to take the parsing of attributes and protocols out of the get/put handlers so that it is not done for every single request.
+
+The device service implementation should define a structure to hold the attributes of a resource in a form suitable for use with whatever access library is being used to communicate with the devices. A function should then be written which allocates and populates this structure, given a set of resource attributes held in a string map. Another function should be written which frees an instance of the structure and any associated elements.
+
+A similar pair of functions should be written to process ProtocolProperties to address a device.
+
+```
+devsdk_address_t xxx_create_address (void *impl, const devsdk_protocols *protocols, iot_data_t **exception);
+void xxx_free_address (void *impl, devsdk_address_t address);
+devsdk_resource_attr_t xxx_create_resource_attr (void *impl, const iot_data_t *attributes, iot_data_t **exception);
+void xxx_free_resource_attr (void *impl, devsdk_resource_attr_t attr);
+```
+
+In the event of an attribute or protocol set being invalid, the create function should return `NULL` and allocate a string value into the exception parameter indicating the nature of the problem - this will be logged by the SDK.
+
+#### Get and Put handlers
+
+* The `devname` and `protocols` parameters are replaced by an object of type `devsdk_device_t`; this contains `name` (`char *`) and `address` (`devsdk_address_t` - see above) fields
+* The resource `name`, `type` and `attributes` (the latter now represented as `devsdk_resource_attr_t`) in a `devsdk_commandrequest` are now held in a `devsdk_resource_t` structure
+* `qparams` is renamed to `options` and is now an `iot_data_t` map (string/string)
+* `options` is also added to the put handler parameters
+
+#### Callback function list
+
+The callback list structure has been made opaque. An instance of it to pass into the `devsdk_service_new` function is created by calling `devsdk_callbacks_init`. This takes as parameters the mandatory callback functions (init, get/set handlers, stop, create/free addr and create/free resource attr). Services which implement optional callbacks should set these using the relevant population functions:
+
+```
+* devsdk_callbacks_set_discovery
+* devsdk_callbacks_set_reconfiguration
+* devsdk_callbacks_set_listeners
+* devsdk_callbacks_set_autoevent_handlers
+```
+
+#### Misc
+
+* `edgex_free_device()` now takes the `devsdk_service_t` as its first parameter
+* Reflecting changes in the device profile (see below), the `edgex_deviceresource` struct now contains an `edgex_propertyvalue` directly, rather than via an `edgex_profileproperty`. The `edgex_propertyvalue` contains a new field `char *units` which replaces the old `edgex_units` structure.
 
 ### Device Profiles
 See [Device Profile Reference](profile/Ch-DeviceProfileRef.md) for details, SDK now allows both YAML and JSON format.
@@ -214,4 +261,4 @@ Notice that we renamed some fields:
 
 - `Profle` is renamed to `ProfileName`  
 - `Frequency` is renamed to `Interval`  
-- `Resource` is renamed to `SourceName`  
+- `Resource` is renamed to `SourceName`
