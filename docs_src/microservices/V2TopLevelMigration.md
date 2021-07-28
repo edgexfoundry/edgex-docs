@@ -3,7 +3,7 @@
 !!! edgey "EdgeX 2.0"
     Many backward breaking changes occurred in the EdgeX 2.0 (Ireland) release which may require some migration depending on your use case.
 
-This section describes how to migrate from EdgeX 1.x to Edgex 2.0 at a high level and refers the reader to the appropriate detail documents. The areas to consider for migrating are:
+This section describes how to migrate from EdgeX 1.x to EdgeX 2.0 at a high level and refers the reader to the appropriate detail documents. The areas to consider for migrating are:
 
 - [Compose File](#compose-file)
 - [Database](#database)
@@ -33,7 +33,7 @@ The Event/Reading data stored by Core Data is considered transient and of little
 
 ### Core Metadata
 
-The data stored by Core Metadata will be recreated when the V2 versions of the Device Services start-up. The staticly declared devices will automatically be created and device discovery will find and add existing devices. Any devices created manually via the V1 REST API will have to be recreated using the V2 REST API.
+The data stored by Core Metadata will be recreated when the V2 versions of the Device Services start-up. The statically declared devices will automatically be created and device discovery will find and add existing devices. Any devices created manually via the V1 REST API will have to be recreated using the V2 REST API.
 
 ### Core Command
 
@@ -49,7 +49,7 @@ The statically declared `Interval` and `IntervalAction` will be created automati
 
 ### Application Services
 
-Application services use the database only when the [Store and Forward](../application/AdvancedTopics/#store-and-forward) capability is enable. If you do not use this capability you can skip this section. This data collection only has data when that data could not be exported. It is recommended to not upgrade to V2 while the Store and Forward data collection is not empty or you are certain the data is no longer needed. You can determine if the Store and Forward data collection is empty by setting the Application Service's log level to `DEBUG`  and look for the following message which is logged every `RetryInterval`:
+Application services use the database only when the [Store and Forward](../application/AdvancedTopics/#store-and-forward) capability is enabled. If you do not use this capability you can skip this section. This data collection only has data when that data could not be exported. It is recommended not to upgrade to V2 while the Store and Forward data collection is not empty or you are certain the data is no longer needed. You can determine if the Store and Forward data collection is empty by setting the Application Service's log level to `DEBUG`  and look for the following message which is logged every `RetryInterval`:
 
 ```tex
 msg=" 0 stored data items found for retrying"
@@ -95,4 +95,3 @@ If you have custom Device Services they will need to be migrated to the V2 versi
 ## Custom Applications Service
 
  If you have custom Application Services they will need to be migrated to the V2 version of the App Functions SDK. See [Application Services V2 Migration Guide](../application/V2Migration) for complete details.
-
