@@ -44,6 +44,9 @@ Begin by copying the template example source into a new directory
 
 ![image](EdgeX_GettingStartedSDKCopyFilesC.png)
 
+!!! edgey "EdgeX 2.0"
+    In EdgeX 2.0 the profiles have been moved to their own `res/profiles` directory and device definitions have been moved out of the configuration file into the `res/devices` directory.
+
 ## Build your Device Service
 
 Now you are ready to build your new device service using the C SDK you

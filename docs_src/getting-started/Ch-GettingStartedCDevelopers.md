@@ -25,6 +25,9 @@ You can install these on Ubuntu by running:
 sudo apt-get install libcurl4-openssl-dev libmicrohttpd-dev libyaml-dev libcbor-dev libpaho-mqtt uuid-dev libhiredis-dev
 ```
 
+!!! edgey "EdgeX 2.0"
+    For EdgeX 2.0 the C SDK now supports MQTT and Redis implementations of the EdgeX MessageBus
+
 CMake is required to build the SDKs.  Version 3 or better is required.  You can install CMake on Ubuntu by running:
 ``` bash
 sudo apt install cmake
