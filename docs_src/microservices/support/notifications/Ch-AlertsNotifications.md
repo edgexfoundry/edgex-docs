@@ -36,7 +36,7 @@ on.
 
 !!! Warning
     Currently in EdgeX Foundry, e-mail and REST callback channels are provided.
-  
+
 When the notifications service receives notifications from any interface, 
 the notifications are passed to the Notifications Handler internally. 
 The Notifications Handler persists the received notifications first, 
@@ -133,7 +133,7 @@ This diagram is drawn by [diagrams.net](https://app.diagrams.net/) with the sour
 
 ## Configuration Properties
 
-Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services.
+Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services. Below are only the additional settings and sections that are not common to all EdgeX Services.
 
 !!! edgey "Edgex 2.0" 
     For EdgeX 2.0, the SMTP username and password can be set in the Writable.InsecureSecrets.SMTP.Secrets as an insecure secret,
@@ -147,21 +147,11 @@ Please refer to the general [Common Configuration documentation](../../configura
     |ResendInterval|'5s'|Sets the retry interval for attempts to send notifications.|
     |Writable.InsecureSecrets.SMTP.Secrets username|username@mail.example.com|The email to send alerts and notifications|
     |Writable.InsecureSecrets.SMTP.Secrets password||The email password|
-=== "Service"
-    |Property|Default Value|Description|
-    |---|---|---|
-    |MaxResultCount|50000|Maximum number of objects (example: notifications) that are to be returned on any query of notifications database via its API|
 === "Databases/Databases.Primary"
     |Property|Default Value|Description|
     |---|---|---|
     |||Properties used by the service to access the database|
-    |Host|'localhost'|Host running the notifications persistence database|
     |Name|'notifications'|Document store or database name|
-    |Password|'password'|Password used to access the database|
-    |Username|'notifications'|Username used to access the database|
-    |Port|6379|Port for accessing the database service - the Redis port by default|
-    |Timeout|5000|Database connection timeout in milliseconds|
-    |Type|'redisdb'|Database to use - either redisdb or mongodb|
 === "Smtp"
     |Property|Default Value|Description|
     |---|---|---|
@@ -214,5 +204,26 @@ Then, use the following settings for the mail server properties:
     Smtp Sender=${Yahoo account}
     Smtp Password=${Yahoo password or App password}
 
+### V2 Configuration Migration Guide
+
+Refer to the [Common Configuration Migration Guide](../../../configuration/V2MigrationCommonConfig) for details on migrating the common configuration sections such as `Service`.
+
+#### Writable
+
+The `Writable.InsecureSecrets.SMTP` section has been added.
+
+!!! example "Example Writable.InsecureSecrets.SMTP section"
+
+    ```toml
+        [Writable.InsecureSecrets.SMTP]
+        path = "smtp"
+          [Writable.InsecureSecrets.SMTP.Secrets]
+          username = "username@mail.example.com"
+          password = ""
+    ```
+
+
+
 ## API Reference
+
 [Support Notifications API Reference](../../../api/support/Ch-APISupportNotifications.md)
