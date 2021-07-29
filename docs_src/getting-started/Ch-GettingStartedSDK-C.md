@@ -13,14 +13,14 @@ The next step is to download and build the EdgeX device service SDK for C.
 
 1.  First, clone the device-sdk-c from Github:
     ``` bash
-    git clone -b v1.2.1 https://github.com/edgexfoundry/device-sdk-c.git
+    git clone -b v2.0.0 https://github.com/edgexfoundry/device-sdk-c.git
     cd ./device-sdk-c
     ```
 
     ![image](EdgeX_GettingStartedSDKCloneC.png)
 
     !!! Note
-        The clone command above has you pull v1.2.1 of the C SDK which is the version compatible with the Geneva release.  There are later releases of EdgeX.  While backward compatible, it is always a good idea to pull and use the latest version associated with the major version of EdgeX you are using.
+        The clone command above has you pull v2.0.0 of the C SDK which is the version compatible with the Ireland release.
 
 2.  Then, build the device-sdk-c:
     ``` bash
@@ -36,12 +36,16 @@ values.
 Begin by copying the template example source into a new directory
     named `example-device-c`:
     ``` bash
-    mkdir -p ../example-device-c/res
+    mkdir -p ../example-device-c/res/profiles
+    mkdir -p ../example-device-c/res/devices
     cp ./src/c/examples/template.c ../example-device-c
     cd ../example-device-c
     ```
 
 ![image](EdgeX_GettingStartedSDKCopyFilesC.png)
+
+!!! edgey "EdgeX 2.0"
+    In EdgeX 2.0 the profiles have been moved to their own `res/profiles` directory and device definitions have been moved out of the configuration file into the `res/devices` directory.
 
 ## Build your Device Service
 
@@ -50,11 +54,11 @@ compiled in an earlier step.
 
 1.  Tell the compiler where to find the C SDK files:
     ``` bash
-    export CSDK_DIR=../device-sdk-c/build/release/_CPack_Packages/Linux/TGZ/csdk-1.2.1
+    export CSDK_DIR=../device-sdk-c/build/release/_CPack_Packages/Linux/TGZ/csdk-2.0.0
     ```
 
     !!! Note
-        The exact path to your compiled CSDK_DIR may differ depending on the tagged version number on the SDK.  The version of the SDK can be found in the VERSION file located in the ./device-sdk-c/VERSION file.  In the example above, the Geneva release of 1.2.1 is used.
+        The exact path to your compiled CSDK_DIR may differ depending on the tagged version number on the SDK.  The version of the SDK can be found in the VERSION file located in the ./device-sdk-c/VERSION file.  In the example above, the Ireland release of 2.0.0 is used.
 
 2.  Now build your device service executable:
 
@@ -78,11 +82,9 @@ for (uint32_t i = 0; i < nreadings; i++)
 {
     /* Log the attributes for each requested resource */
     iot_log_debug (driver->lc, "  Requested reading %u:", i);
-    dump_nvpairs (driver->lc, requests[i].attributes);
+    dump_attributes (driver->lc, requests[i].resource->attrs);
     /* Fill in a result regardless */
-    readings[i].type = String;
-    /* NB String (and binary) readings get deallocated in the SDK */
-    readings[i].value.string_result = strdup ("Template result");
+    readings[i].value = iot_data_alloc_string ("Template result", IOT_DATA_REF);
 }
 return true;
 ```
@@ -92,25 +94,23 @@ with this code:
 ``` c
 for (uint32_t i = 0; i < nreadings; i++)
 {
-    const char *rdtype = edgex_nvpairs_value (requests[i].attributes, "type");
+    const char *rdtype = iot_data_string_map_get_string (requests[i].resource->attrs, "type");
     if (rdtype)
     {
         if (strcmp (rdtype, "random") == 0)
         {
-        /* Set the resulting reading type as Uint64 */
-        readings[i].type = Edgex_Uint64;
         /* Set the reading as a random value between 0 and 100 */
-        readings[i].value.ui64_result = rand() % 100;
+        readings[i].value = iot_data_alloc_i32 (rand() % 100);
         }
         else
         {
-        iot_log_error (driver->lc, "Unknown sensor type \"%s\" requested", rdtype);
+        *exception = iot_data_alloc_string ("Unknown sensor type requested", IOT_DATA_REF);
         return false;
         }
     }
     else
     {
-        iot_log_error (driver->lc, "Unable to read value, no \"type\" attribute given");
+        *exception = iot_data_alloc_string ("Unable to read value, no \"type\" attribute given", IOT_DATA_REF);
         return false;
     }
 }
@@ -124,20 +124,31 @@ EdgeX. General characteristics about the type of device, the data these devices 
 
 Follow these steps to create a device profile for the simple random number generating device service.
 
-1.  Explore the files in the device-sdk-c/src/c/examples/res folder.   Note the example TemplateProfile.yaml device profile that is already in this folder.  Open the file with your favorite editor and explore its contents.  Note how `deviceResources` in the file represent properties of a device (properties like SensorOne, SensorTwo and Switch).  Similarly, `coreCommands` specify commands that get issued to the device.
+1.  Explore the files in the device-sdk-c/src/c/examples/res/profiles folder.   Note the example TemplateProfile.json device profile that is already in this folder.  Open the file with your favorite editor and explore its contents.  Note how `deviceResources` in the file represent properties of a device (properties like SensorOne, SensorTwo and Switch).
 
     ![image](EdgeX_SampleDeviceProfile_DeviceResourcesC.png)
 
-2.  A pre-created device profile for the random number device is provided in this documentation.  Download **[random-generator-device.yaml](random-generator-device.yaml)** and save the file to the `./res` folder.
+2.  A pre-created device profile for the random number device is provided in this documentation.  This is supplied in the alternative file format .yaml. Download **[random-generator-device.yaml](random-generator-device.yaml)** and save the file to the `./res/profiles` folder.
 
-3.  Open the random-generator-device.yaml file in a text editor. In this device profile, the device described has a deviceResource:  `randomnumber`.  Note how the association of a type to the deviceResource.  In this case, the device profile informs EdgeX that `randomnumber` will be a INT32.  In real world IoT situations, this deviceResource list could be extensive and filled with many deviceResources all different types of data.  Note also how the device profile describes a REST command (GET Random) to call to get the random number from the device service.
+3.  Open the random-generator-device.yaml file in a text editor. In this device profile, the device described has a deviceResource:  `RandomNumber`.  Note how the association of a type to the deviceResource.  In this case, the device profile informs EdgeX that `RandomNumber` will be a Int32.  In real world IoT situations, this deviceResource list could be extensive and filled with many deviceResources all different types of data.
+
+## Creating your Device
+
+Device Service accepts pre-defined devices to be added to EdgeX during device service startup.
+
+Follow these steps to create a pre-defined device for the simple random number generating device service.
+
+1.  Explore the files in the cmd/device-simple/res/devices folder.   Note the example simple-device.json that is already in this folder.  Open the file with your favorite editor and explore its contents.  Note how the file contents represent an actual device with its properties (properties like Name, ProfileName, AutoEvents).
+
+2.  A pre-created device for the random number device is provided in this documentation.  Download **[random-generator-device.json](random-generator-device.json)** and save the file to the `~/edgexfoundry/device-simple/cmd/device-simple/res/devices` folder.
+
+3.  Open the random-generator-device.json file in a text editor. In this example, the device described has a profileName:  `RandNum-Device`.  In this case, the device informs EdgeX that it will be using the device profile we created in [Creating your Device Profile](./Ch-GettingStartedSDK-C.md#creating-your-device-profile)
+
 
 ## Configuring your Device Service
 
 Now update the configuration for the new device service.    This documentation provides a new configuration.toml file.  This configuration file:
 - changes the port the service operates on so as not to conflict with other device services
-- alters the the auto event frequency, which determines when the device service collects data from the simulated device (every 10 seconds)
-- sets up the initial provisioning of the random number generating device when the service starts
 
 Download  **[configuration.toml](configuration.toml)** and save the file to the ./res folder.
 
@@ -197,13 +208,13 @@ sends to EdgeX.
     service directly:
 
     ``` bash
-    curl 0:49992/api/v1/device/name/RandNum-Device01/randomnumber
+    curl 0:59992/api/v2/device/name/RandNum-Device01/RandomNumber
     ```
 
 6.  Using a browser, enter the following URL to see the event/reading
     data that the service is generating and sending to EdgeX:
 
-    <http://localhost:48080/api/v1/event/device/RandNum-Device01/100>
+    <http://localhost:59880/api/v2/event/device/RandNum-Device01/100>
 
     This request asks core data to provide the last 100 events/readings associated to the RandNum-Device-01.
 
