@@ -4,7 +4,7 @@
 
 ## Overview
 
-[LF Edge eKuiper](https://www.emqx.io/products/kuiper) is the new EdgeX reference implementation rules engine (or [edge analytics](../../../general/Definitions.md#edge-analytics)) implementation (replacing the Support Rules Engine - which wrapped the Java Drools engine).
+[LF Edge eKuiper](https://www.emqx.io/products/kuiper) is the EdgeX reference implementation rules engine (or [edge analytics](../../../general/Definitions.md#edge-analytics)) implementation.
 
 ## What is LF Edge eKuiper?
 
