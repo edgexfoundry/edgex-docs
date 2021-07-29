@@ -33,7 +33,7 @@ The Event/Reading data stored by Core Data is considered transient and of little
 
 ### Core Metadata
 
-The data stored by Core Metadata will be recreated when the V2 versions of the Device Services start-up. The statically declared devices will automatically be created and device discovery will find and add existing devices. Any devices created manually via the V1 REST API will have to be recreated using the V2 REST API.
+Most of the data stored by Core Metadata will be recreated when the V2 versions of the Device Services start-up. The statically declared devices will automatically be created and device discovery will find and add existing devices. Any device profiles, devices, provision watchers created manually via the V1 REST API will have to be recreated using the V2 REST API. Any manually-applied `AdministrativeState` settings will also need to be re-applied.
 
 ### Core Command
 
