@@ -39,10 +39,6 @@ The client used for the version validation check has changed to being from Core 
         Host = "localhost"
         Port = 59881
         
-    ```
-
-    ```
-    
         # Used for Event client which is used by PushToCoreData function
         [Clients.core-data]
         Protocol = "http"
@@ -140,7 +136,39 @@ The HTTP trigger configuration has not changed beyond the renaming of `Binding` 
 
 ### Code
 
-The first changes you will encounter in your code are that the `AppFunctionsSDK` and `Context` structs have been abstracted into the new `ApplicationService` and `AppFunctionContext` APIs. See the [Application Service API](../ApplicationServiceAPI) and [App Function Context API](../AppFunctionContextAPI) sections for complete details on these new APIs.
+#### Dependencies
+
+You first need to update the `go.mod` file to specify `go 1.16` and the V2 versions of the App Functions SDK and any EdgeX go-mods directly used by your service. Note the extra `/v2` for the modules.
+
+!!! example "Example go.mod for V2"
+
+    ```go
+    module <your service>
+    
+    go 1.16
+    
+    require (
+    	github.com/edgexfoundry/app-functions-sdk-go/v2 v2.0.0
+    	github.com/edgexfoundry/go-mod-core-contracts/v2 v2.0.0
+    )
+    ```
+
+Once that is complete then the import statements for these dependencies must be updated to include the `/v2` in the path. 
+
+!!! example "Example import statements for V2"
+
+    ```go
+    import (
+    	...
+        
+    	"github.com/edgexfoundry/app-functions-sdk-go/v2/pkg/interfaces"
+    	"github.com/edgexfoundry/go-mod-core-contracts/v2/dtos"
+    )
+    ```
+
+#### New APIs
+
+Next changes you will encounter in your code are that the `AppFunctionsSDK` and `Context` structs have been abstracted into the new `ApplicationService` and `AppFunctionContext` APIs. See the [Application Service API](../ApplicationServiceAPI) and [App Function Context API](../AppFunctionContextAPI) sections for complete details on these new APIs. The following sections cover migrating your code for these new APIs.
 
 #### main()
 
@@ -148,7 +176,7 @@ The following changes to your `main()` function will be necessary.
 
 ##### Create and Initialize
 
-Your `main()` will change to use a factory function to create and initialize the Application Service instance, rather than create instance of `AppFunctionsSDK` and call Initialize()` 
+Your `main()` will change to use a factory function to create and initialize the Application Service instance, rather than create instance of `AppFunctionsSDK` and call `Initialize()` 
 
 !!! example "Example - Create Application Service instance"
 
@@ -278,7 +306,7 @@ The `PushToCore` API replaces the `PushToCoreData` function. The API signature h
 
 ##### New Capabilities
 
-Some new capabilities have been added to the new AppFunctionContext API. See the [App Function Context](../AppFunctionContextAPI) API section for complete details.
+Some new capabilities have been added to the new `AppFunctionContext` API. See the [App Function Context](../AppFunctionContextAPI) API section for complete details.
 
 ## App Service Configurable Profiles
 

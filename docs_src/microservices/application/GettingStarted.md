@@ -12,7 +12,7 @@ The `App Functions SDK` has a full suite of built-in features that are accessibl
 
 Custom Application Services are needed when use case needs can not be meet with just the built-in functionality. This is when you must develop you own custom Application Service use the `App Functions SDK`. Typically this is triggered by the use case needing an custom `Pipeline Function` . See the [App Functions SDK](./ApplicationFunctionsSDK.md) section for all the details on the features you custom Application Service can take advantage of.
 
-#### Template
+### Template
 
 To help accelerate the creation of your custom Application Service the `App Functions SDK` contains a template for new custom Application Services. This template has TODO's in the code and a README that walk you through the creation of your new custom Application Service. See the template [README](https://github.com/edgexfoundry/app-functions-sdk-go/tree/master/app-service-template#readme) for more details.
 
