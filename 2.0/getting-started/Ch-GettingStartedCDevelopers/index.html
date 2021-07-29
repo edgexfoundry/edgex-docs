@@ -2434,11 +2434,18 @@ guide</a>, to build EdgeX C services, you will need the following:</p>
 <li>libcurl</li>
 <li>libyaml</li>
 <li>libcbor</li>
+<li>paho</li>
+<li>libuuid</li>
+<li>hiredis</li>
 </ul>
 <p>You can install these on Ubuntu by running:
-<div class="highlight"><pre><span></span><code>sudo apt-get install libcurl4-openssl-dev libmicrohttpd-dev libyaml-dev libcbor-dev
+<div class="highlight"><pre><span></span><code>sudo apt-get install libcurl4-openssl-dev libmicrohttpd-dev libyaml-dev libcbor-dev libpaho-mqtt uuid-dev libhiredis-dev
 </code></pre></div></p>
-<p>CMake is required to build the SDKs.  Version 3 or better is required.  You can install CMAKE on Ubuntu by running:
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>For EdgeX 2.0 the C SDK now supports MQTT and Redis implementations of the EdgeX MessageBus</p>
+</div>
+<p>CMake is required to build the SDKs.  Version 3 or better is required.  You can install CMake on Ubuntu by running:
 <div class="highlight"><pre><span></span><code>sudo apt install cmake
 </code></pre></div></p>
 <p>Check that your C development environment includes the following:</p>
@@ -2446,11 +2453,13 @@ guide</a>, to build EdgeX C services, you will need the following:</p>
 <li>a version of GCC supporting C11</li>
 <li>CMake version 3 or greater</li>
 <li>Development libraries and headers for:<ul>
-<li>curl (version 7.32 or later)</li>
+<li>curl (version 7.56 or later)</li>
 <li>microhttpd (version 0.9)</li>
 <li>libyaml (version 0.1.6 or later)</li>
 <li>libcbor (version 0.5)</li>
 <li>libuuid (from util-linux v2.x)</li>
+<li>paho (version 1.3.x)</li>
+<li>hiredis (version 0.14)</li>
 </ul>
 </li>
 </ul>

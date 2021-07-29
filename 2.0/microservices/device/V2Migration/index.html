@@ -2353,11 +2353,11 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#code" class="md-nav__link">
-    Code
+  <a href="#code-golang" class="md-nav__link">
+    Code (Golang)
   </a>
   
-    <nav class="md-nav" aria-label="Code">
+    <nav class="md-nav" aria-label="Code (Golang)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2370,6 +2370,54 @@
           <li class="md-nav__item">
   <a href="#commandvalue" class="md-nav__link">
     CommandValue
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-c" class="md-nav__link">
+    Code (C)
+  </a>
+  
+    <nav class="md-nav" aria-label="Code (C)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dependencies_1" class="md-nav__link">
+    Dependencies
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attribute-and-protocols-processing" class="md-nav__link">
+    Attribute and Protocols processing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-and-put-handlers" class="md-nav__link">
+    Get and Put handlers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#callback-function-list" class="md-nav__link">
+    Callback function list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#misc" class="md-nav__link">
+    Misc
   </a>
   
 </li>
@@ -2457,6 +2505,7 @@
 <ol>
 <li>Remove <code>ImitCmd</code>, <code>ImitCmdArgs</code>, <code>RemoveCmd</code> and <code>RemoveCmdArgs</code></li>
 <li>Add <code>UseMessageBus</code> to determine events should be published to MessageBus or sent by REST call.</li>
+<li>For C-based Device Services (eg, BACnet, Grove, CoAP): <code>UpdateLastConnected</code>, <code>MaxCmdOps</code>, <code>DataTransform</code>, <code>Discovery</code> and <code>MaxCmdResultLen</code> are dynamic settings - move these to <code>[Writable.Device]</code></li>
 <li>Add <code>DevicesDir</code> and <code>ProfilesDir</code> as an indication of where to load the device profiles and pre-defined devices. Convention is to put them under <code>/res</code> folder:</li>
 </ol>
 <div class="admonition example">
@@ -2509,7 +2558,7 @@ A <code>MessageQueue</code> section is added in configuration to specify the det
   <span class="n">SkipCertVerify</span> <span class="o">=</span> <span class="s">&quot;false&quot;</span> <span class="c1"># Only used if Cert/Key file or Cert/Key PEMblock are specified</span>
 </code></pre></div>
 <p>See the <a href="../../../design/adr/013-Device-Service-Events-Message-Bus/#device-services">Device Service MessageQueue</a> section for details.</p>
-<h3 id="code">Code</h3>
+<h3 id="code-golang">Code (Golang)</h3>
 <h4 id="dependencies">Dependencies</h4>
 <p>You first need to update the <code>go.mod</code> file to specify <code>go 1.16</code> and the V2 versions of the Device SDK and any EdgeX go-mods directly used by your service. Note the extra <code>/v2</code> for the modules.</p>
 <div class="admonition example">
@@ -2553,6 +2602,38 @@ In V2 we refactor all those API functions to create CommandValue of different ty
 <p>The 3rd argument in the function must be able to cast into the Type defined in 2nd argument otherwise there will be error.
 See <a href="../../../design/adr/device-service/0011-DeviceService-Rest-API/#data-formats">Data formats</a> for supported data type in EdgeX.</p>
 <p>Device Service also supports <a href="../../general/">Event Tagging</a>, the tags on the CommandValue will be copied to Event.</p>
+<h3 id="code-c">Code (C)</h3>
+<h4 id="dependencies_1">Dependencies</h4>
+<p>The CSDK now has additional dependencies on the Redis client library (hiredis, hiredis-dev) and Paho MQTT (paho-mqtt-c-dev)</p>
+<h4 id="attribute-and-protocols-processing">Attribute and Protocols processing</h4>
+<p>Four new callback functions are defined and implementations of them are required. Their purpose is to take the parsing of attributes and protocols out of the get/put handlers so that it is not done for every single request.</p>
+<p>The device service implementation should define a structure to hold the attributes of a resource in a form suitable for use with whatever access library is being used to communicate with the devices. A function should then be written which allocates and populates this structure, given a set of resource attributes held in a string map. Another function should be written which frees an instance of the structure and any associated elements.</p>
+<p>A similar pair of functions should be written to process ProtocolProperties to address a device.</p>
+<div class="highlight"><pre><span></span><code>devsdk_address_t xxx_create_address (void *impl, const devsdk_protocols *protocols, iot_data_t **exception);
+void xxx_free_address (void *impl, devsdk_address_t address);
+devsdk_resource_attr_t xxx_create_resource_attr (void *impl, const iot_data_t *attributes, iot_data_t **exception);
+void xxx_free_resource_attr (void *impl, devsdk_resource_attr_t attr);
+</code></pre></div>
+<p>In the event of an attribute or protocol set being invalid, the create function should return <code>NULL</code> and allocate a string value into the exception parameter indicating the nature of the problem - this will be logged by the SDK.</p>
+<h4 id="get-and-put-handlers">Get and Put handlers</h4>
+<ul>
+<li>The <code>devname</code> and <code>protocols</code> parameters are replaced by an object of type <code>devsdk_device_t</code>; this contains <code>name</code> (<code>char *</code>) and <code>address</code> (<code>devsdk_address_t</code> - see above) fields</li>
+<li>The resource <code>name</code>, <code>type</code> and <code>attributes</code> (the latter now represented as <code>devsdk_resource_attr_t</code>) in a <code>devsdk_commandrequest</code> are now held in a <code>devsdk_resource_t</code> structure</li>
+<li><code>qparams</code> is renamed to <code>options</code> and is now an <code>iot_data_t</code> map (string/string)</li>
+<li><code>options</code> is also added to the put handler parameters</li>
+</ul>
+<h4 id="callback-function-list">Callback function list</h4>
+<p>The callback list structure has been made opaque. An instance of it to pass into the <code>devsdk_service_new</code> function is created by calling <code>devsdk_callbacks_init</code>. This takes as parameters the mandatory callback functions (init, get/set handlers, stop, create/free addr and create/free resource attr). Services which implement optional callbacks should set these using the relevant population functions:</p>
+<div class="highlight"><pre><span></span><code>* devsdk_callbacks_set_discovery
+* devsdk_callbacks_set_reconfiguration
+* devsdk_callbacks_set_listeners
+* devsdk_callbacks_set_autoevent_handlers
+</code></pre></div>
+<h4 id="misc">Misc</h4>
+<ul>
+<li><code>edgex_free_device()</code> now takes the <code>devsdk_service_t</code> as its first parameter</li>
+<li>Reflecting changes in the device profile (see below), the <code>edgex_deviceresource</code> struct now contains an <code>edgex_propertyvalue</code> directly, rather than via an <code>edgex_profileproperty</code>. The <code>edgex_propertyvalue</code> contains a new field <code>char *units</code> which replaces the old <code>edgex_units</code> structure.</li>
+</ul>
 <h3 id="device-profiles">Device Profiles</h3>
 <p>See <a href="../profile/Ch-DeviceProfileRef/">Device Profile Reference</a> for details, SDK now allows both YAML and JSON format.</p>
 <h4 id="device-resource">Device Resource</h4>
@@ -2638,7 +2719,7 @@ and deviceCommand is able to be called via Command Service REST API. Set <code>i
 <ul>
 <li><code>Profle</code> is renamed to <code>ProfileName</code>  </li>
 <li><code>Frequency</code> is renamed to <code>Interval</code>  </li>
-<li><code>Resource</code> is renamed to <code>SourceName</code>  </li>
+<li><code>Resource</code> is renamed to <code>SourceName</code></li>
 </ul>
                 
               

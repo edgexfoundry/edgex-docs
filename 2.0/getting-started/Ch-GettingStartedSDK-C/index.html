@@ -652,6 +652,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#creating-your-device" class="md-nav__link">
+    Creating your Device
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configuring-your-device-service" class="md-nav__link">
     Configuring your Device Service
   </a>
@@ -2466,6 +2473,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#creating-your-device" class="md-nav__link">
+    Creating your Device
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configuring-your-device-service" class="md-nav__link">
     Configuring your Device Service
   </a>
@@ -2516,13 +2530,13 @@ random number as a means to simulate getting data from an actual device. In this
 <ol>
 <li>
 <p>First, clone the device-sdk-c from Github:
-    <div class="highlight"><pre><span></span><code>git clone -b v1.2.1 https://github.com/edgexfoundry/device-sdk-c.git
+    <div class="highlight"><pre><span></span><code>git clone -b v2.0.0 https://github.com/edgexfoundry/device-sdk-c.git
 <span class="nb">cd</span> ./device-sdk-c
 </code></pre></div></p>
 <p><img alt="image" src="../EdgeX_GettingStartedSDKCloneC.png" /></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The clone command above has you pull v1.2.1 of the C SDK which is the version compatible with the Geneva release.  There are later releases of EdgeX.  While backward compatible, it is always a good idea to pull and use the latest version associated with the major version of EdgeX you are using.</p>
+<p>The clone command above has you pull v2.0.0 of the C SDK which is the version compatible with the Ireland release.</p>
 </div>
 </li>
 <li>
@@ -2537,22 +2551,27 @@ C SDK as a starting point for a new device service.  You modify the device servi
 values.</p>
 <p>Begin by copying the template example source into a new directory
     named <code>example-device-c</code>:
-    <div class="highlight"><pre><span></span><code>mkdir -p ../example-device-c/res
+    <div class="highlight"><pre><span></span><code>mkdir -p ../example-device-c/res/profiles
+mkdir -p ../example-device-c/res/devices
 cp ./src/c/examples/template.c ../example-device-c
 <span class="nb">cd</span> ../example-device-c
 </code></pre></div></p>
 <p><img alt="image" src="../EdgeX_GettingStartedSDKCopyFilesC.png" /></p>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>In EdgeX 2.0 the profiles have been moved to their own <code>res/profiles</code> directory and device definitions have been moved out of the configuration file into the <code>res/devices</code> directory.</p>
+</div>
 <h2 id="build-your-device-service">Build your Device Service</h2>
 <p>Now you are ready to build your new device service using the C SDK you
 compiled in an earlier step.</p>
 <ol>
 <li>
 <p>Tell the compiler where to find the C SDK files:
-    <div class="highlight"><pre><span></span><code><span class="nb">export</span> <span class="nv">CSDK_DIR</span><span class="o">=</span>../device-sdk-c/build/release/_CPack_Packages/Linux/TGZ/csdk-1.2.1
+    <div class="highlight"><pre><span></span><code><span class="nb">export</span> <span class="nv">CSDK_DIR</span><span class="o">=</span>../device-sdk-c/build/release/_CPack_Packages/Linux/TGZ/csdk-2.0.0
 </code></pre></div></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The exact path to your compiled CSDK_DIR may differ depending on the tagged version number on the SDK.  The version of the SDK can be found in the VERSION file located in the ./device-sdk-c/VERSION file.  In the example above, the Geneva release of 1.2.1 is used.</p>
+<p>The exact path to your compiled CSDK_DIR may differ depending on the tagged version number on the SDK.  The version of the SDK can be found in the VERSION file located in the ./device-sdk-c/VERSION file.  In the example above, the Ireland release of 2.0.0 is used.</p>
 </div>
 </li>
 <li>
@@ -2572,36 +2591,32 @@ random numbers, you need to modify your <code>template.c</code> method
 <span class="p">{</span>
     <span class="cm">/* Log the attributes for each requested resource */</span>
     <span class="n">iot_log_debug</span> <span class="p">(</span><span class="n">driver</span><span class="o">-&gt;</span><span class="n">lc</span><span class="p">,</span> <span class="s">&quot;  Requested reading %u:&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
-    <span class="n">dump_nvpairs</span> <span class="p">(</span><span class="n">driver</span><span class="o">-&gt;</span><span class="n">lc</span><span class="p">,</span> <span class="n">requests</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">attributes</span><span class="p">);</span>
+    <span class="n">dump_attributes</span> <span class="p">(</span><span class="n">driver</span><span class="o">-&gt;</span><span class="n">lc</span><span class="p">,</span> <span class="n">requests</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">resource</span><span class="o">-&gt;</span><span class="n">attrs</span><span class="p">);</span>
     <span class="cm">/* Fill in a result regardless */</span>
-    <span class="n">readings</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">type</span> <span class="o">=</span> <span class="n">String</span><span class="p">;</span>
-    <span class="cm">/* NB String (and binary) readings get deallocated in the SDK */</span>
-    <span class="n">readings</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">value</span><span class="p">.</span><span class="n">string_result</span> <span class="o">=</span> <span class="n">strdup</span> <span class="p">(</span><span class="s">&quot;Template result&quot;</span><span class="p">);</span>
+    <span class="n">readings</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">value</span> <span class="o">=</span> <span class="n">iot_data_alloc_string</span> <span class="p">(</span><span class="s">&quot;Template result&quot;</span><span class="p">,</span> <span class="n">IOT_DATA_REF</span><span class="p">);</span>
 <span class="p">}</span>
 <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
 </code></pre></div>
 <p>with this code:</p>
 <div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="p">(</span><span class="kt">uint32_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nreadings</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">rdtype</span> <span class="o">=</span> <span class="n">edgex_nvpairs_value</span> <span class="p">(</span><span class="n">requests</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">attributes</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">);</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">rdtype</span> <span class="o">=</span> <span class="n">iot_data_string_map_get_string</span> <span class="p">(</span><span class="n">requests</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">resource</span><span class="o">-&gt;</span><span class="n">attrs</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">rdtype</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span> <span class="p">(</span><span class="n">rdtype</span><span class="p">,</span> <span class="s">&quot;random&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
         <span class="p">{</span>
-        <span class="cm">/* Set the resulting reading type as Uint64 */</span>
-        <span class="n">readings</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">type</span> <span class="o">=</span> <span class="n">Edgex_Uint64</span><span class="p">;</span>
         <span class="cm">/* Set the reading as a random value between 0 and 100 */</span>
-        <span class="n">readings</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">value</span><span class="p">.</span><span class="n">ui64_result</span> <span class="o">=</span> <span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">100</span><span class="p">;</span>
+        <span class="n">readings</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">value</span> <span class="o">=</span> <span class="n">iot_data_alloc_i32</span> <span class="p">(</span><span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">100</span><span class="p">);</span>
         <span class="p">}</span>
         <span class="k">else</span>
         <span class="p">{</span>
-        <span class="n">iot_log_error</span> <span class="p">(</span><span class="n">driver</span><span class="o">-&gt;</span><span class="n">lc</span><span class="p">,</span> <span class="s">&quot;Unknown sensor type </span><span class="se">\&quot;</span><span class="s">%s</span><span class="se">\&quot;</span><span class="s"> requested&quot;</span><span class="p">,</span> <span class="n">rdtype</span><span class="p">);</span>
+        <span class="o">*</span><span class="n">exception</span> <span class="o">=</span> <span class="n">iot_data_alloc_string</span> <span class="p">(</span><span class="s">&quot;Unknown sensor type requested&quot;</span><span class="p">,</span> <span class="n">IOT_DATA_REF</span><span class="p">);</span>
         <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
         <span class="p">}</span>
     <span class="p">}</span>
     <span class="k">else</span>
     <span class="p">{</span>
-        <span class="n">iot_log_error</span> <span class="p">(</span><span class="n">driver</span><span class="o">-&gt;</span><span class="n">lc</span><span class="p">,</span> <span class="s">&quot;Unable to read value, no </span><span class="se">\&quot;</span><span class="s">type</span><span class="se">\&quot;</span><span class="s"> attribute given&quot;</span><span class="p">);</span>
+        <span class="o">*</span><span class="n">exception</span> <span class="o">=</span> <span class="n">iot_data_alloc_string</span> <span class="p">(</span><span class="s">&quot;Unable to read value, no </span><span class="se">\&quot;</span><span class="s">type</span><span class="se">\&quot;</span><span class="s"> attribute given&quot;</span><span class="p">,</span> <span class="n">IOT_DATA_REF</span><span class="p">);</span>
         <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -2613,21 +2628,33 @@ EdgeX. General characteristics about the type of device, the data these devices 
 <p>Follow these steps to create a device profile for the simple random number generating device service.</p>
 <ol>
 <li>
-<p>Explore the files in the device-sdk-c/src/c/examples/res folder.   Note the example TemplateProfile.yaml device profile that is already in this folder.  Open the file with your favorite editor and explore its contents.  Note how <code>deviceResources</code> in the file represent properties of a device (properties like SensorOne, SensorTwo and Switch).  Similarly, <code>coreCommands</code> specify commands that get issued to the device.</p>
+<p>Explore the files in the device-sdk-c/src/c/examples/res/profiles folder.   Note the example TemplateProfile.json device profile that is already in this folder.  Open the file with your favorite editor and explore its contents.  Note how <code>deviceResources</code> in the file represent properties of a device (properties like SensorOne, SensorTwo and Switch).</p>
 <p><img alt="image" src="../EdgeX_SampleDeviceProfile_DeviceResourcesC.png" /></p>
 </li>
 <li>
-<p>A pre-created device profile for the random number device is provided in this documentation.  Download <strong><a href="../random-generator-device.yaml">random-generator-device.yaml</a></strong> and save the file to the <code>./res</code> folder.</p>
+<p>A pre-created device profile for the random number device is provided in this documentation.  This is supplied in the alternative file format .yaml. Download <strong><a href="../random-generator-device.yaml">random-generator-device.yaml</a></strong> and save the file to the <code>./res/profiles</code> folder.</p>
 </li>
 <li>
-<p>Open the random-generator-device.yaml file in a text editor. In this device profile, the device described has a deviceResource:  <code>randomnumber</code>.  Note how the association of a type to the deviceResource.  In this case, the device profile informs EdgeX that <code>randomnumber</code> will be a INT32.  In real world IoT situations, this deviceResource list could be extensive and filled with many deviceResources all different types of data.  Note also how the device profile describes a REST command (GET Random) to call to get the random number from the device service.</p>
+<p>Open the random-generator-device.yaml file in a text editor. In this device profile, the device described has a deviceResource:  <code>RandomNumber</code>.  Note how the association of a type to the deviceResource.  In this case, the device profile informs EdgeX that <code>RandomNumber</code> will be a Int32.  In real world IoT situations, this deviceResource list could be extensive and filled with many deviceResources all different types of data.</p>
+</li>
+</ol>
+<h2 id="creating-your-device">Creating your Device</h2>
+<p>Device Service accepts pre-defined devices to be added to EdgeX during device service startup.</p>
+<p>Follow these steps to create a pre-defined device for the simple random number generating device service.</p>
+<ol>
+<li>
+<p>Explore the files in the cmd/device-simple/res/devices folder.   Note the example simple-device.json that is already in this folder.  Open the file with your favorite editor and explore its contents.  Note how the file contents represent an actual device with its properties (properties like Name, ProfileName, AutoEvents).</p>
+</li>
+<li>
+<p>A pre-created device for the random number device is provided in this documentation.  Download <strong><a href="../random-generator-device.json">random-generator-device.json</a></strong> and save the file to the <code>~/edgexfoundry/device-simple/cmd/device-simple/res/devices</code> folder.</p>
+</li>
+<li>
+<p>Open the random-generator-device.json file in a text editor. In this example, the device described has a profileName:  <code>RandNum-Device</code>.  In this case, the device informs EdgeX that it will be using the device profile we created in <a href="./#creating-your-device-profile">Creating your Device Profile</a></p>
 </li>
 </ol>
 <h2 id="configuring-your-device-service">Configuring your Device Service</h2>
 <p>Now update the configuration for the new device service.    This documentation provides a new configuration.toml file.  This configuration file:
-- changes the port the service operates on so as not to conflict with other device services
-- alters the the auto event frequency, which determines when the device service collects data from the simulated device (every 10 seconds)
-- sets up the initial provisioning of the random number generating device when the service starts</p>
+- changes the port the service operates on so as not to conflict with other device services</p>
 <p>Download  <strong><a href="../configuration.toml">configuration.toml</a></strong> and save the file to the ./res folder.</p>
 <h2 id="rebuild-your-device-service">Rebuild your Device Service</h2>
 <p>Now you have your new device service, modified to return a random
@@ -2673,13 +2700,13 @@ sends to EdgeX.</p>
 <li>
 <p>You can manually generate an event using curl to query the device
     service directly:</p>
-<div class="highlight"><pre><span></span><code>curl <span class="m">0</span>:49992/api/v1/device/name/RandNum-Device01/randomnumber
+<div class="highlight"><pre><span></span><code>curl <span class="m">0</span>:59992/api/v2/device/name/RandNum-Device01/RandomNumber
 </code></pre></div>
 </li>
 <li>
 <p>Using a browser, enter the following URL to see the event/reading
     data that the service is generating and sending to EdgeX:</p>
-<p><a href="http://localhost:48080/api/v1/event/device/RandNum-Device01/100">http://localhost:48080/api/v1/event/device/RandNum-Device01/100</a></p>
+<p><a href="http://localhost:59880/api/v2/event/device/RandNum-Device01/100">http://localhost:59880/api/v2/event/device/RandNum-Device01/100</a></p>
 <p>This request asks core data to provide the last 100 events/readings associated to the RandNum-Device-01.</p>
 </li>
 </ol>
