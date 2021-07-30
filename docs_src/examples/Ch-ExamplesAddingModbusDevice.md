@@ -490,7 +490,7 @@ $ curl http://your-edgex-server-ip:48082/api/v1/device/56dcf3ad-52d8-4d12-a2d0-a
 ```
 
 Aside from using device id and command id in the URL, use the following API with device name and command is another approach.
-Refer to [Core Command API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-command/1.2.0#/default/put_v1_device_name__name__command__commandname_) for more details.
+Refer to [Core Command API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-command/1.2.1#/default/put_v1_device_name__name__command__commandname_) for more details.
 ```
 $ curl "http://your-edgex-server-ip:48082/api/v1/device/name/Modbus-TCP-Device/command/Configuration" \
     -H "Content-Type:application/json" -X PUT  \

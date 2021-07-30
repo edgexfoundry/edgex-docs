@@ -12,7 +12,7 @@ to the device.
 
 ## Device
 
-See [core metadata API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/1.2.0) for more details.
+See [core metadata API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/1.2.1) for more details.
 
 For the sake of this demonstration, the call to core metadata will
 provision the human/dog counting monitor camera as if the device service

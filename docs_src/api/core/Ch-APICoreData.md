@@ -13,5 +13,5 @@ as north-bound integration. The database is secure. Direct access to the
 database is restricted to the Core Data service APIs. Core Data also
 provides the REST API to create and register a new device.
 
-[Core Data V1 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-data)
+[Core Data V1 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-data/1.2.1)
 <!-- [Core Data API HTML Documentation](core-data.html) -->
