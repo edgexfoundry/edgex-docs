@@ -2,6 +2,9 @@
 
 ![image](../EdgeX_SystemManagement.png)
 
+!!! Warning
+    The System Management services (inclusive of the Executor) are deprecated with the Ireland (EdgeX 2.0) release.  See the notes on the [System Management Microservice](../Ch_SystemManagement.md) page.  Use this functionality with caution.
+
 ## Introduction
 The executable applications that the system management agent (SMA) micro service calls on for some management requests are referred to as the “executors”.  In particular, executors take care of service operations (start, stop, and restart functionality) as well as providing service metrics (CPU and memory usage).  How the executor performs its duties is left for the implementer and is generally dictated by the available operating system, platform environment (existence and use of Docker for example) and associated programming language resources.  EdgeX provides the executor interface and a reference implementation executor for use in Docker container runtime environments.
 
