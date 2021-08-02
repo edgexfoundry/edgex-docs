@@ -2436,6 +2436,10 @@
                 
                 <h1 id="system-management-executor-sme">System Management Executor (SME)</h1>
 <p><img alt="image" src="../../EdgeX_SystemManagement.png" /></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The System Management services (inclusive of the Executor) are deprecated with the Ireland (EdgeX 2.0) release.  See the notes on the <a href="../../Ch_SystemManagement/">System Management Microservice</a> page.  Use this functionality with caution.</p>
+</div>
 <h2 id="introduction">Introduction</h2>
 <p>The executable applications that the system management agent (SMA) micro service calls on for some management requests are referred to as the “executors”.  In particular, executors take care of service operations (start, stop, and restart functionality) as well as providing service metrics (CPU and memory usage).  How the executor performs its duties is left for the implementer and is generally dictated by the available operating system, platform environment (existence and use of Docker for example) and associated programming language resources.  EdgeX provides the executor interface and a reference implementation executor for use in Docker container runtime environments.</p>
 <p>The executor design allows use of other orchestrating software (example: Kubernetes or Swarm), scripts, OS specific technology (snaps or sysd), etc. to be used without having to build anything into the SMA – allowing for a more scalable solution in EdgeX but still allowing use of all sorts of implementation technology outside of EdgeX.  The SMA will be informed of what executor to use for metrics and start/stop/restart functionality through a configuration option – ExecutorPath.  The ExecutorPath will specify the location (which may be platform dependent) and executable to be called.</p>
