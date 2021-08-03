@@ -7,6 +7,9 @@ To cause a machine or device to operate.  In EdgeX terms, to command a device or
 ## Brownfield and Greenfield
 Brownfield refers to older legacy equipment (nodes, devices, sensors) in an edge/IoT deployment, which typically uses older protocols.  Greenfield refers to, typically, new equipment with modern protocols.
 
+## CBOR
+An acronym for "concise binary object representation."  A binary data serialization format used by EdgeX to transport binary sensed data (like an image).  The user can also choose to send all data via CBOR for efficiency purposes, but at the expense of having EdgeX convert the CBOR into another format whenever the data needs to be understood and inspected or to persist the data. 
+
 ## Containerized
 EdgeX micro services and infrastructure (i.e. databases, registry, etc.) are built as executable programs, put into Docker images, and made available via Docker Hub (and Nexus repository for nightly builds).  A service (or infrastructure element) that is available in Docker Hub (or Nexus) is said to be containerized.  Docker images can be quickly downloaded and new Docker containers created from the images.
 
@@ -59,6 +62,9 @@ Usually, the Origin and Created time stamps are the same or very close to the sa
 
 ## Reference Implementation
 Default and example implementation(s) offered by the EdgeX community.  Other implementations may be offered by 3rd parties or for specialization.
+
+## Resource
+A piece of information or data available from a sensor or "thing".  For example, a thermostat would have temperature and humidity resources.  A resource has a name (ResourceName) to identify it ("temperature" or "humidity" in this example) and a value (the sensed data - like 72 degrees).  A resource may also have additional properties or attributes associated with it.  The data type of the value (e.g., integer, float, string, etc.) would be an example of a resource property.
 
 ## Rules Engine
 Rules engines are important to the IoT edge system.
