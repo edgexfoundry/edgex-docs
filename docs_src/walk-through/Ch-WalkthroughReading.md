@@ -7,7 +7,7 @@ were the camera's device and device service.  That is, you will report human and
 
 ## Send an Event/Reading
 
-See [core data API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-data/1.2.0) for more details.
+See [core data API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-data/1.2.1) for more details.
 
 Data is submitted to core data as an `Event` object. An event is a collection of
 sensor readings from a device (associated to a device by its ID or name)

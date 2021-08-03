@@ -8,7 +8,7 @@ For a description of the architecture, see
 
 The following API RESTful Web Service(s) for EdgeX Foundry.
 
-[Scheduling V1 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-scheduler)
+[Scheduling V1 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-scheduler/1.2.1)
 <!-- [Scheduling API HTML Documentation](support-scheduler.html) -->
 
 ## Description

@@ -22,5 +22,5 @@ into two groups for each device:
     setting the speed in RPMs of a motor, or setting the brightness of a
     dimmer light.
 
-[Core Command V1 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-command)
+[Core Command V1 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-command/1.2.1)
 <!-- [Core Command API HTML Documentation](core-command.html) -->

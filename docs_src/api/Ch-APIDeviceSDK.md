@@ -24,6 +24,6 @@ The Device Service SDK supports:
 -   Cached responses to queries
 
 
-[Device SDK V1 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk)
+[Device SDK V1 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/1.2.1)
 
 <!-- [Device SDK API HTML Documentation](device-sdk.html) -->

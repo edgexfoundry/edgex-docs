@@ -17,5 +17,5 @@ and so forth). Non-device metadata may need to be held in a different
 database and/or managed by another service--depending upon
 implementation.
 
-[Core Metadata V1 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata)
+[Core Metadata V1 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/1.2.1)
 <!-- [Core Metadata API HTML Documentation](core-metadata.html) -->

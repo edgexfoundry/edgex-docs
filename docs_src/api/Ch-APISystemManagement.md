@@ -12,5 +12,5 @@ proxy for system management service API calls into each micro service.
 In the future, the SMA may also offer the management API in other remote
 management/control system protocols like LWM2M, OMA DM, etc.
 
-[System Management V1 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/system-agent/)
+[System Management V1 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/system-agent/1.2.1)
 <!-- [System Management API HTML Documentation](system-agent.html) -->
