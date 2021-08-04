@@ -39,7 +39,7 @@ The following sections describe what you need to be aware for the different serv
 
 The Event/Reading data stored by Core Data is considered transient and of little value once it has become old. The V2 versions of these data collections will be empty until new Events/Readings are received from V2 Device Services. 
 
-The V1 ValueDescriptors have be remove in V2.
+The V1 ValueDescriptors have been removed in V2.
 
 ### Core Metadata
 
@@ -76,7 +76,17 @@ Now when the V2 EdgeX services are started the database will be cleared of the o
 
 #### Snaps
 
-TBD 
+There is not an upgrade path for the EdgeX Snap packages. You must uninstall the current EdgeX V1 snap package and then install the new EdgeX V2 snap package. This will result in starting fresh with EdgeX V2 and all V1 data removed.
+
+#### Local
+
+If you are running EdgeX locally, i.e. not in Docker or snaps and in **non-secure** mode you can use the Redis CLI to clear the database. The CLI would have been installed when you installed Redis locally. Run the following command to clear the database:
+
+```
+redis-cli FLUSHDB
+```
+
+This will not work if running EdgeX V1 in running in secure mode since you will not have the random generated Redis password unless you created an Admin password when you installed Redis.
 
 ## Custom Configuration
 
@@ -115,13 +125,21 @@ The following are where you can find the configuration migration specifics for i
 
 ### Custom Environment Overrides
 
-If you have custom [environment overrides](../microservices/configuration/CommonEnvironmentVariables/#environment-overrides) for configuration impacted by the V2 changes you will also need to migrate your overrides to use the new name or value depending on what has changed. Refer to the links above and/or below for details for migration common and/or the service specific configuration to determine if your overrides require migrating.
+If you have custom [environment overrides](../microservices/configuration/CommonEnvironmentVariables/#environment-overrides) for configuration impacted by the V2 changes you will also need to migrate your overrides to use the new name or value depending on what has changed. Refer to the links above and/or below for details for migration of common and/or the service specific configuration to determine if your overrides require migrating.
 
 ## Custom Device Service
 
 If you have custom Device Services they will need to be migrated to the V2 version of the Device SDK.  See [Device Service V2 Migration Guide](../microservices/device/V2Migration) for complete details.
 
+## Custom Device Profile
+
+If you have custom V1 Device Profile(s) for one of the EdgeX Device Services they will need to be migrated to the V2 version of Device Profiles.  See [Device Service V2 Migration Guide](../microservices/device/V2Migration#device-profiles) for complete details.
+
 ## Custom Applications Service
 
  If you have custom Application Services they will need to be migrated to the V2 version of the App Functions SDK. See [Application Services V2 Migration Guide](../microservices/application/V2Migration) for complete details.
+
+## Security Settings
+
+If you have an add-on service running in secure mode you will need to set addition security service environment variables in EdgeX V2. See [Configuring Add-on Service](../security/Ch-Configuring-Add-On-Services) for more details.
 
