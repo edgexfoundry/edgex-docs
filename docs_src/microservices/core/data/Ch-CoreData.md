@@ -19,7 +19,7 @@ Other services and systems, both within EdgeX Foundry and outside of EdgeX Found
 
 Sensor data can be sent to core data via two different means:
 
-1. Services (like devices services) and other systems can put sensor data on a message bus topic and core data can be configured to subscribed to that topic.  This is the default means of getting data to core data.  Any service (like an application service or rules engine service) or 3rd system could also subscribe to the same topic.  If the sensor data does not need to persisted locally, core data does not have to subscribe to the message bus topic - making core data completely optional.  By default, the message bus is implemented using Redis Streams.  MQTT can be used as an alternate message bus implementation.  
+1. Services (like devices services) and other systems can put sensor data on a message bus topic and core data can be configured to subscribed to that topic.  This is the default means of getting data to core data.  Any service (like an application service or rules engine service) or 3rd system could also subscribe to the same topic.  If the sensor data does not need to persisted locally, core data does not have to subscribe to the message bus topic - making core data completely optional.  By default, the message bus is implemented using Redis Pub/Sub.  MQTT can be used as an alternate message bus implementation.  
 
     ![image](EdgeX_CoreDataSubscriber.png)
 
@@ -28,7 +28,7 @@ Sensor data can be sent to core data via two different means:
     ![image](EdgeX_CoreDataRESTEndpoint.png)
 
 
-Core data moves data to the application service (and [edge analytcs](../../../general/Definitions.md#edge-analytics)) via Redis Streams by default. MQTT or ZeroMQ can alternately be used.  Use of MQTT requires the installation of a broker such as ActiveMQ.  A messaging infrastructure abstraction is in place that allows for other message bus (e.g., AMQP) implementations to be created and used.
+Core data moves data to the application service (and [edge analytcs](../../../general/Definitions.md#edge-analytics)) via Redis Pub/Sub by default. MQTT or ZeroMQ can alternately be used.  Use of MQTT requires the installation of a broker such as ActiveMQ.  A messaging infrastructure abstraction is in place that allows for other message bus (e.g., AMQP) implementations to be created and used.
 
 ## Core Data "Streaming"
 
@@ -51,6 +51,9 @@ An event must have at least one reading.  Events are associated to a sensor or d
 
 In the diagram below, an example event/reading collection is depicted.  The event coming from the “motor123” device has two readings (or sensed values).  The first reading indicates that the motor123 device reported the pressure of the motor was 1300 (the unit of measure might be something like PSI).
 
+!!! edgey "EdgeX 2.0"
+    In EdgeX 2.0, Value Descriptors have been removed.  The ResourceName in a reading provides an indication of the data read.  The other properties of that were in Value Descriptor (min, max, default value, unit of measure, etc.) can all be obtained from the Resource (in core metadata's resource properties associated to each Resource which are associated to a device profile) by ResourceName.  ValueType property is also provided in the Reading so that the data type of the value is immediately available without having to do a lookup in core metadata.
+
 ![image](EdgeX_Event-Reading.png)
 
 The value type property (shown as type above) on the reading lets the consumer of the information know that the value is an integer, base 64.  The second reading indicates that the motor123 device also reported the temperature of the motor was 120 at the same time it reported the pressure (perhaps in degrees Fahrenheit).
@@ -60,6 +63,9 @@ The value type property (shown as type above) on the reading lets the consumer o
 The following diagram shows the Data Model for core data.  Device services send Event objects containing a collection or Readings to core data when a device captures a sensor reading.
 
 ![image](EdgeX_CoreDataModel.png)
+
+!!! edgey "EdgeX 2.0"
+    Note that ValueDescriptor has been removed from this model as Value Descriptors have been removed in EdgeX 2 (see note above for more details). 
 
 ## Data Dictionary
 
