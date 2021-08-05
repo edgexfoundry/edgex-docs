@@ -2276,6 +2276,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#cbor" class="md-nav__link">
+    CBOR
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#containerized" class="md-nav__link">
     Containerized
   </a>
@@ -2334,6 +2341,13 @@
         <li class="md-nav__item">
   <a href="#reference-implementation" class="md-nav__link">
     Reference Implementation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resource" class="md-nav__link">
+    Resource
   </a>
   
 </li>
@@ -2473,6 +2487,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#cbor" class="md-nav__link">
+    CBOR
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#containerized" class="md-nav__link">
     Containerized
   </a>
@@ -2531,6 +2552,13 @@
         <li class="md-nav__item">
   <a href="#reference-implementation" class="md-nav__link">
     Reference Implementation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resource" class="md-nav__link">
+    Resource
   </a>
   
 </li>
@@ -2596,6 +2624,8 @@
 <p>To cause a machine or device to operate.  In EdgeX terms, to command a device or sensor under management of EdgeX to do something (example: stop a motor) or to reconfigure itself (example: set a thermostat's cooling point).</p>
 <h2 id="brownfield-and-greenfield">Brownfield and Greenfield</h2>
 <p>Brownfield refers to older legacy equipment (nodes, devices, sensors) in an edge/IoT deployment, which typically uses older protocols.  Greenfield refers to, typically, new equipment with modern protocols.</p>
+<h2 id="cbor">CBOR</h2>
+<p>An acronym for "concise binary object representation."  A binary data serialization format used by EdgeX to transport binary sensed data (like an image).  The user can also choose to send all data via CBOR for efficiency purposes, but at the expense of having EdgeX convert the CBOR into another format whenever the data needs to be understood and inspected or to persist the data. </p>
 <h2 id="containerized">Containerized</h2>
 <p>EdgeX micro services and infrastructure (i.e. databases, registry, etc.) are built as executable programs, put into Docker images, and made available via Docker Hub (and Nexus repository for nightly builds).  A service (or infrastructure element) that is available in Docker Hub (or Nexus) is said to be containerized.  Docker images can be quickly downloaded and new Docker containers created from the images.</p>
 <h2 id="contributordeveloper">Contributor/Developer</h2>
@@ -2631,6 +2661,8 @@
 <p>Usually, the Origin and Created time stamps are the same or very close to the same. On occasion the sensor may be a long way from the gateway or even in a different time zone, and the Origin and Created time stamps may be quite different.</p>
 <h2 id="reference-implementation">Reference Implementation</h2>
 <p>Default and example implementation(s) offered by the EdgeX community.  Other implementations may be offered by 3rd parties or for specialization.</p>
+<h2 id="resource">Resource</h2>
+<p>A piece of information or data available from a sensor or "thing".  For example, a thermostat would have temperature and humidity resources.  A resource has a name (ResourceName) to identify it ("temperature" or "humidity" in this example) and a value (the sensed data - like 72 degrees).  A resource may also have additional properties or attributes associated with it.  The data type of the value (e.g., integer, float, string, etc.) would be an example of a resource property.</p>
 <h2 id="rules-engine">Rules Engine</h2>
 <p>Rules engines are important to the IoT edge system.</p>
 <p>A rules engine is a software system that is connected to a collection of data (either database or data stream). The rules engine examines various elements of the data and monitors the data, and then triggers some action based on the results of the monitoring of the data it. </p>
