@@ -6,7 +6,7 @@ type. Also recall that the device (the `countcamera1` in this walkthrough) was a
 the device profile (again, the camera monitor profile) when the device was
 provisioned.
 
-See [core command API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-command/1.2.0) for more details.
+See [core command API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-command/2.0.0) for more details.
 
 With the setup complete, you can ask the [core command micro
 service](../microservices/core/command/Ch-Command.md) for the list of commands associated to the device (the
@@ -42,7 +42,7 @@ Explore all of the URLs returned as part of this response! These are the URLs th
 
 ## Check the Value Descriptors
 
-See [core data API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-data/1.2.0) for more details.
+See [core data API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-data/2.0.0) for more details.
 
 See that the value descriptors are in core data. There should be a total
 of 4 value descriptors in core data. Note that value descriptors are
