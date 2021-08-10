@@ -342,25 +342,34 @@ Sequence diagrams for some of the more critical or complex events regarding meta
 
 ## Configuration Properties
 
-Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services.
+Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services. Below are only the additional settings and sections that are not common to all EdgeX Services.
 
-=== "Service"
-    |Property|Default Value|Description|
-    |---|---|---|
-    |StartupMsg|This is the Core Metadata Microservice|Core metadata's bootstrap log entry startup message|
 === "Databases/Databases.Primary"
-    |Property|Default Value|Description|
-    |---|---|---|
-    |Name|'metadata'|Document store or database name|
+|Property|Default Value|Description|
+|---|---|---|
+|||Properties used by the service to access the database|
+|Name|'metadata'|Document store or database name|
 === "Notifications"
-    |Property|Default Value|Description|
-    |---|---|---|
-    |||Configuration to post device changes through the notifiction service|
-    |PostDeviceChanges|true|Whether to send out notification when a device has been added, changed, or removed|
-    |Content|'Metadata notice: '|Start of the notification message from metadata (on device changes by default)|
-    |Sender|'core-metadata'|Sender of any notification messages sent on device change|
-    |Description|'Metadata device notice'|Message description of any notification messages sent on device change|
-    |Label|'metadata'|Label to put on messages for any notification messages sent on device change|
+|Property|Default Value|Description|
+|---|---|---|
+|||Configuration to post device changes through the notifiction service|
+|PostDeviceChanges|true|Whether to send out notification when a device has been added, changed, or removed|
+|Slug|'device-change-'|Notification service slug to use in sending notification messages|
+|Content|'Device update: '|Start of the notification message when sending notification messages on device change|
+|Sender|'core-metadata'|Sender of any notification messages sent on device change|
+|Description|'Metadata device notice'|Message description of any notification messages sent on device change|
+|Label|'metadata'|Label to put on messages for any notification messages sent on device change|
+
+
+
+### V2 Configuration Migration Guide
+
+Refer to the [Common Configuration Migration Guide](../../../configuration/V2MigrationCommonConfig) for details on migrating the common configuration sections such as `Service`.
+
+#### Writable
+
+The `EnableValueDescriptorManagement` setting has been removed
 
 ## API Reference
+
 [Core Metadata API Reference](../../../api/core/Ch-APICoreMetadata.md)

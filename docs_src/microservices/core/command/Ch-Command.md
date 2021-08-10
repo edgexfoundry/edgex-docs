@@ -87,18 +87,12 @@ The two following High Level Diagrams show:
 
 ## Configuration Properties
 
-Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services.
+Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services. Core Command no longer has any additional settings.
 
-=== "Service"
-    |Property|Default Value|Description|
-    |---|---|---|
-    |StartupMsg|'This is the Core Command Microservice'|Command's bootstrap log entry startup message|
-    |Port|59882|Default micro service port for core command|
-=== "Databases/Databases.Primary"
-    |Property|Default Value|Description|
-    |---|---|---|
-    ||Properties used by the service to access the database.  See common configuration for common configuration in this area|
-    |Name|'metadata'|Document store or database name|
+### V2 Configuration Migration Guide
+
+Refer to the [Common Configuration Migration Guide](../../../configuration/V2MigrationCommonConfig) for details on migrating the common configuration sections such as `Service`.
 
 ## API Reference
+
 [Core Command API Reference](../../../api/core/Ch-APICoreCommand.md)
