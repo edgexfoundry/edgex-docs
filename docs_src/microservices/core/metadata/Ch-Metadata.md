@@ -29,7 +29,7 @@ Device profiles define general characteristics about devices, the data they prov
 !!! edgey "EdgeX 2.0"
     The device profile was greatly simplified in EdgeX 2.0 (Ireland).  There are now just two sections of the document (deviceResources and deviceCommands) versus the three (deviceResources, deviceCommands and coreCommands) of EdgeX 1.x profiles.  Device resources and device commands are made available through the core command service with the `isHidden` property on either is set to fault.  This makes a core command section no longer necessary in EdgeX 2.
     
-    However, this does mean that EdgeX 2 profiles are not backward compatible and EdgeX 1.x profiles must be migrated.  See the migration guides for details.
+    However, this does mean that EdgeX 2 profiles are not backward compatible and EdgeX 1.x profiles must be migrated.  When available (coming soon) see the migration guides for details.
 
 #### Device Profile Details
 
