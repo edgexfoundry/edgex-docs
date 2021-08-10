@@ -9,7 +9,10 @@ This section describes how to migrate from EdgeX 1.x to EdgeX 2.0 at a high leve
 - [Database](#database)
 - [Custom Configuration](#custom-configuration)
 - [Custom Device Service](#custom-device-service)
+- [Custom Device Profile](#custom-device-profile)
+- [Custom Pre-Defined Device](#custom-pre-defined-device)
 - [Custom Applications Service](#custom-applications-service)
+- [Security](#security)
 
 ## Custom Compose File
 
@@ -76,7 +79,7 @@ Now when the V2 EdgeX services are started the database will be cleared of the o
 
 #### Snaps
 
-There is not an upgrade path for the EdgeX Snap packages. You must uninstall the current EdgeX V1 snap package and then install the new EdgeX V2 snap package. This will result in starting fresh with EdgeX V2 and all V1 data removed.
+Because there are no tools to migrate EdgeX configuration and database, it's not possible to update the edgexfoundry snap from a V1 version to a V2 version. You must remove the V1 snap first, and then install a V2 version of the snap (available from the 2.0 track in the Snap Store). This will result in starting fresh with EdgeX V2 and all V1 data removed.
 
 #### Local
 
@@ -100,7 +103,7 @@ If you have customized any EdgeX service's configuration  (core, support, device
 The same applies for custom device and application service once they have been migrated following the guides referenced in the [Custom Device Service](custom-device-service) and [Custom Applications Service](custom-applications-service) sections below.
 
 !!! warning
-    If the Consul data is not cleared prior to running the V2 services,  the V1 configuration will remain and be taking up useful memory.  The configuration data in Consul can be cleared by deleting the `.../kv/edgex/` node with this curl command:
+    If the Consul data is not cleared prior to running the V2 services,  the V1 configuration will remain and be taking up useful memory.  The configuration data in Consul can be cleared by deleting the `.../kv/edgex/` node with the curl command below prior to starting EdgeX 2.0. Consul is secured in EdgeX 2.0 secure-mode which will make running  the command below require an access token if not done prior.
 
     ````
     curl --request DELETE http://localhost:8500/v1/kv/edgex?recurse=true`
@@ -135,11 +138,28 @@ If you have custom Device Services they will need to be migrated to the V2 versi
 
 If you have custom V1 Device Profile(s) for one of the EdgeX Device Services they will need to be migrated to the V2 version of Device Profiles.  See [Device Service V2 Migration Guide](../microservices/device/V2Migration#device-profiles) for complete details.
 
+## Custom Pre-Defined Device
+
+If you have custom V1 Pre-Defined Device(s) for one of the EdgeX Device Services they will need to be migrated to the V2 version of Pre-Defined Devices.  See [Device Service V2 Migration Guide](../microservices/device/V2Migration/#pre-defined-devices) for complete details.
+
 ## Custom Applications Service
 
  If you have custom Application Services they will need to be migrated to the V2 version of the App Functions SDK. See [Application Services V2 Migration Guide](../microservices/application/V2Migration) for complete details.
 
-## Security Settings
+## Security
+
+### Settings
 
 If you have an add-on service running in secure mode you will need to set addition security service environment variables in EdgeX V2. See [Configuring Add-on Service](../security/Ch-Configuring-Add-On-Services) for more details.
 
+### API Gateway configuration
+
+The API gateway has different tools to set TLS and acquire access tokens. See [Configuring API Gateway](../security/Ch-APIGateway/#configuring-api-gateway) section for complete details.
+
+### Secure Consul
+
+Consul is now secured when running EdgeX 2.0 in secured mode. See [Secure Consul](../security/Ch-Secure-Consul) section for complete details.
+
+### Secured API Gateway Admin Port 
+
+The API Gateway Admin port is now secured when running EdgeX 2.0 in secured mode. See API Gateway Admin Port (TBD) section for complete details.
