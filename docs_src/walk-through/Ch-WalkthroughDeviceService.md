@@ -17,7 +17,7 @@ service exchange is not explored here.
 
 ## Device Service
 
-See [core metadata API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/1.2.0) for more details.
+See [core metadata API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/2.0.0) for more details.
 
 At this point in your walkthrough, the device service must create a representative instance of itself in core
 metadata. It is in this registration that the device service is
