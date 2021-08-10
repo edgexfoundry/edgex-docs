@@ -21,55 +21,54 @@ The command micro service exposes the commands in a common, normalized
 way to simplify communications with the devices. There are two types of commands that can be sent to a device.
 
 - a GET command requests data from the device.  This is often used to request the latest sensor reading from the device.  
-- PUT commands request to take action or [actuate](../../../general/Definitions.md#actuate) the device or to set some configuration on the device.
+- SET commands request to take action or [actuate](../../../general/Definitions.md#actuate) the device or to set some configuration on the device.
 
-In most cases, GET commands are simple requests for the latest sensor reading from the device.  Therefore, the request is often parameter-less (requiring no parameters or body in the request).  As of the Geneva release, GET requests do allow query parameters to be added to the GET command requests (i.e. `/api/v1/device/{deviceID}/command/{commandID}?param1=value&param2=value`).  PUT commands often require a request body where the body provides a key/value pair array of values used as parameters in the request (i.e. `{"additionalProp1": "string", "additionalProp2": "string"}`).
+In most cases, GET commands are simple requests for the latest sensor reading from the device.  Therefore, the request is often parameter-less (requiring no parameters or body in the request).  SET commands require a request body where the body provides a key/value pair array of values used as parameters in the request (i.e. `{"additionalProp1": "string", "additionalProp2": "string"}`).
 
-The command micro service gets its knowledge about the devices from the metadata service. The command service always relays
-commands (GET or PUT) to the devices through the device service.  The command service never communicates directly to a device.
-Therefore, the command micro service is a proxy service for command or action
-requests from the north side of EdgeX (such as analytic or application services) to the protocol-specific device service and associated device.
+The command micro service gets its knowledge about the devices from the metadata service. The command service always relays commands (GET or SET) to the devices through the device service.  The command service never communicates directly to a device. Therefore, the command micro service is a proxy service for command or action requests from the north side of EdgeX (such as analytic or application services) to the protocol-specific device service and associated device.
 
-While not current part of its duties, the command service could provide a layer of protection around device.  Additional security could be added that would not allow unwarranted interaction with the devices (via device service).  The command service could also regulate the number of requests on a device do not overwhelm the device - perhaps even caching responses so as to avoid waking a device unless necessary.
+While not currently part of its duties, the command service could provide a layer of protection around device.  Additional security could be added that would not allow unwarranted interaction with the devices (via device service).  The command service could also regulate the number of requests on a device do not overwhelm the device - perhaps even caching responses so as to avoid waking a device unless necessary.
 
 ## Data Model
-![image](../metadata/EdgeX_MetadataModel_Commands.png)
+
+![image](EdgeX_CoreCommandModel.png)
+
+!!! edgey "EdgeX 2.0"
+    While the general concepts of core command's GET/PUT requests are the same, the core command request/response models has changed significantly in EdgeX 2.0.  Consult the API documentation for details.
 
 ## Data Dictionary
 
-=== "Action" 
-    |Property|Description| 
-    |---|---| 
-    ||Action describes state related to the capabilities of a device| 
-    |Path|Path used by service for action on a device or sensor| 
-    |Responses|Responses from get or put requests to service| 
-    |URL|Url for requests from command service| 
-=== "Command" 
-    |Property|Description| 
-    |---|---| 
-    ||defines a specific read/write operation targeting a device; the REST description of an interface.| 
-    |Id|Unique identifier such as a UUID| 
-    |Name|Unique name (on a profile) given to the Command| 
-    |Get|Get or read Command| 
-    |Put|Put or write Command| 
-=== "Get" 
-    |Property|Description| 
-    |---|---| 
-    ||a get command| 
-    |Action|an action object|
-=== "Put" 
-    |Property|Description| 
-    |---|---| 
-    ||a put command| 
-    |Action|an action object| 
-    |ParameterNames|| 
-=== "Response" 
-    |Property|Description| 
-    |---|---| 
-    ||A description of a possible REST response for a Command| 
-    |Code|typically an HTTP response code| 
-    |Description|| 
-    |ExpectedValues|list of value descriptors for response type|
+=== "DeviceProfile"
+    |Property|Description|
+    |---|---|
+    |Id|uniquely identifies the device, a UUID for example|
+    |Description||
+    |Name|Name for identifying a device|
+    |Manufacturer| Manufacturer of the device|
+	|Model|Model of the device|
+	|Labels|Labels used to search for groups of profiles|
+	|DeviceResources|deviceResource collection|
+	|DeviceCommands|collect of deviceCommand|
+=== "DeviceCoreCommand"
+    |Property|Description|
+    |---|---|
+    |DeviceName|reference to a device by name|
+    |ProfileName|reference to a device profile by name|
+    |CoreCommands|array of core commands|
+=== "CoreCommand"
+    |Property|Description|
+    |---|---|
+    |Name||
+    |Get|bool indicating a get command|
+    |Set|bool indicating a set command|
+    |Path||
+    |Url||
+    |Parameters|array of core command parameters|
+=== "CoreCommandParameters"
+    |Property|Description|
+    |---|---|
+    |ResourceName||
+    |ValueType||
 
 ## High Level Interaction Diagrams
 
@@ -93,18 +92,13 @@ Please refer to the general [Common Configuration documentation](../../configura
 === "Service"
     |Property|Default Value|Description|
     |---|---|---|
-    |MaxResultCount|50000|Maximum number of objects (example: devices) that are to be returned on any query of command via its API|
+    |StartupMsg|'This is the Core Command Microservice'|Command's bootstrap log entry startup message|
+    |Port|59882|Default micro service port for core command|
 === "Databases/Databases.Primary"
     |Property|Default Value|Description|
     |---|---|---|
-    |||Properties used by the service to access the database|
-    |Host|'localhost'|Host running the metadata persistence database|
+    ||Properties used by the service to access the database.  See common configuration for common configuration in this area|
     |Name|'metadata'|Document store or database name|
-    |Password|'password'|Password used to access the database|
-    |Username|'core'|Username used to access the database|
-    |Port|6379|Port for accessing the database service - the Redis port by default|
-    |Timeout|5000|Database connection timeout in milliseconds|
-    |Type|'redisdb'|Database to use - either redisdb or mongodb|
 
 ## API Reference
 [Core Command API Reference](../../../api/core/Ch-APICoreCommand.md)
