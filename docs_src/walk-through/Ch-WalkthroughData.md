@@ -47,7 +47,7 @@ differences will become clear.
 
 ## Addressables
 
-See [core metadata API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/1.2.0) for more details.
+See [core metadata API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/2.0.0) for more details.
 
 The device service will often establish at least two `Addressable` objects
 with the core metadata micro service. An `Addressable` is a flexible EdgeX
@@ -95,7 +95,7 @@ Use either the Postman or Curl tab below to begin your API walkthrough starting 
 
 ## Value Descriptors
 
-See [core data API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-data/1.2.0) for more details.
+See [core data API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-data/2.0.0) for more details.
 
 Next, the device service needs to inform EdgeX about the type of data it
 will be sending on the behalf of the devices. If you are given the
