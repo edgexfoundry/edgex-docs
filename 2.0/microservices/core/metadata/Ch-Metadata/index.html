@@ -2549,33 +2549,28 @@
                 <h1 id="metadata">Metadata</h1>
 <p><img alt="image" src="../EdgeX_Metadata.png" /></p>
 <h2 id="introduction">Introduction</h2>
-<p>The core metadata micro service has the knowledge about the <a href="../../../../general/Definitions/#device">devices</a> and
-sensors and how to communicate with them used by the other
-services, such as core data, core command, and so forth.</p>
+<p>The core metadata micro service has the knowledge about the <a href="../../../../general/Definitions/#device">devices</a> and sensors and how to communicate with them used by the other services, such as core data, core command, and so forth.</p>
 <p>Specifically, metadata has the following abilities:</p>
 <ul>
-<li>Manages information about the devices connected to, and
-    operated by, EdgeX Foundry</li>
+<li>Manages information about the devices connected to, and operated by, EdgeX Foundry</li>
 <li>Knows the type, and organization of data reported by the devices</li>
 <li>Knows how to command the devices</li>
 </ul>
 <p>Although metadata has the knowledge, it does not do the following activities:</p>
 <ul>
-<li>It is not responsible for actual data collection from
-    devices, which is performed by device services and core
-    data</li>
-<li>It is not responsible for issuing commands to the
-    devices, which is performed by core command and device
+<li>It is not responsible for actual data collection from devices, which is performed by device services and core data</li>
+<li>It is not responsible for issuing commands to the devices, which is performed by core command and device
     services</li>
 </ul>
 <h2 id="data-models">Data Models</h2>
 <p>To understand metadata, its important to understand the EdgeX data objects it manages.  Metadata stores its knowledge in a local persistence database.  <a href="https://redis.io/">Redis</a> is used by default, but a database abstraction layer allows for other databases to be used.</p>
-<div class="admonition note">
-<p class="admonition-title">Note<p>EdgeX has used <a href="https://www.mongodb.com/">MongoDB</a> in the past. Through the Geneva release, MongoDB is still supported but is considered deprecated.  Alternate (both open source and commercial) implementations have also been provided in the past. </p>
-</p>
-</div>
 <h3 id="device-profile">Device Profile</h3>
 <p>Device profiles define general characteristics about devices, the data they provide, and how to command them. Think of a device profile as a template of a type or classification of device. For example, a device profile for BACnet thermostats provides general characteristics for the types of data a BACnet thermostat sends, such as current temperature and humidity level. It also defines which types of commands or actions EdgeX can send to the BACnet thermostat.  Examples might include actions that set the cooling or heating point.  Device profiles are typically specified in YAML file and uploaded to EdgeX.  More details are provided below.</p>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>The device profile was greatly simplified in EdgeX 2.0 (Ireland).  There are now just two sections of the document (deviceResources and deviceCommands) versus the three (deviceResources, deviceCommands and coreCommands) of EdgeX 1.x profiles.  Device resources and device commands are made available through the core command service with the <code>isHidden</code> property on either is set to fault.  This makes a core command section no longer necessary in EdgeX 2.</p>
+<p>However, this does mean that EdgeX 2 profiles are not backward compatible and EdgeX 1.x profiles must be migrated.  When available (coming soon) see the migration guides for details.</p>
+</div>
 <h4 id="device-profile-details">Device Profile Details</h4>
 <p><img alt="image" src="../EdgeX_MetadataModel_Profile.png" />
 <em>Metadata device profile object model</em></p>
@@ -2598,32 +2593,39 @@ services, such as core data, core command, and so forth.</p>
 <p>Labels provided a way to tag, organize or categorize the various profiles.  They serve no real purpose inside of EdgeX.</p>
 </div>
 <input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Device Resources</label><div class="tabbed-content">
-<p>A device resource (deviceResource in the YAML file) specifies a sensor value within a device that may be read from or written to either individually or as part of a device command (see below).  Think of a device resource as a specific value that can be obtained from the underlying device or a value that can be set to the underlying device.  In a thermostat, a device resource may be a temperature or humidity (values sensed from the devices) or cooling point or heating point (values that can be set/actuated to allow the thermostat to determine when associated heat/cooling systems are turned on or off).  A device resource has a name for identification and a description for informational purposes.</p>
+<p>A device resource (in the deviceResources section of the YAML file) specifies a sensor value within a device that may be read from or written to either individually or as part of a device command (see below).  Think of a device resource as a specific value that can be obtained from the underlying device or a value that can be set to the underlying device.  In a thermostat, a device resource may be a temperature or humidity (values sensed from the devices) or cooling point or heating point (values that can be set/actuated to allow the thermostat to determine when associated heat/cooling systems are turned on or off).  A device resource has a name for identification and a description for informational purposes.</p>
+<p>The properties section of a device resource has also been greatly simplified.  See details below.</p>
 <p>Back to the BACnet example, here are two device resources.  One will be used to get the temperature (read) the current temperature and the other to set (write or actuate) the active cooling set point.  The device resource name must be provided and it must also be unique in any EdgeX deployment.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Temperature</span>
 <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Get</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">current</span><span class="nv"> </span><span class="s">temperature&quot;</span>
+<span class="nt">isHidden</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
 
 <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ActiveCoolingSetpoint</span>
 <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;The</span><span class="nv"> </span><span class="s">active</span><span class="nv"> </span><span class="s">cooling</span><span class="nv"> </span><span class="s">set</span><span class="nv"> </span><span class="s">point&quot;</span>
+<span class="nt">isHidden</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
 </code></pre></div>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p><code>isHidden</code> is new in EdgeX 2.0.  While made explicit in this example, it is false by default when not specified.  <code>isHidden</code> indicates whether to expose the device resource to the core command service.</p>
+</div>
 <p>The device service allows access to the device resources via REST endpoint.  Values specified in the device resources section of the device profile can be accessed through the following URL patterns:</p>
 <ul>
-<li>http://<device-service>:<port>/api/v1/device/<DeviceID>/<DeviceResourceName></li>
-<li>http://<device-service>:<port>/api/v1/device/name/<DeviceName>/<DeviceResourceName></li>
+<li>http://<device-service>:<port>/api/v2/device/name/<DeviceName>/<DeviceResourceName></li>
 </ul>
-<p>The <DeviceID> is the physical identifier for the device, which is generated when the device is created in EdgeX.</p>
 </div>
 <input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">Attributes</label><div class="tabbed-content">
-<p>The attributes associated to a device resource are the specific parameters required by the device service to access the particular value.   In other words, attributes are “inward facing” and are used by the device service to determine how to speak to the device to either get or set some of its values. Attributes are detailed protocol and/or device specific information that informs the device service how to communication with the device to get (or set) values of interest.</p>
+<p>The attributes associated to a device resource are the specific parameters required by the device service to access the particular value.   In other words, attributes are “inward facing” and are used by the device service to determine how to speak to the device to either read or write (get or set) some of its values. Attributes are detailed protocol and/or device specific information that informs the device service how to communication with the device to get (or set) values of interest.</p>
 <p>Returning to the BACnet device profile example, below are the complete device resource sections for Temperature and ActiveCoolingSetPoint – inclusive of the attributes – for the example device.</p>
 <div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span>
     <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Temperature</span>
     <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Get</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">current</span><span class="nv"> </span><span class="s">temperature&quot;</span>
+    <span class="nt">isHidden</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
     <span class="nt">attributes</span><span class="p">:</span> 
         <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;analogValue&quot;</span><span class="p p-Indicator">,</span><span class="nt"> instance</span><span class="p">:</span> <span class="s">&quot;1&quot;</span><span class="p p-Indicator">,</span><span class="nt"> property</span><span class="p">:</span> <span class="s">&quot;presentValue&quot;</span><span class="p p-Indicator">,</span><span class="nt"> index</span><span class="p">:</span> <span class="s">&quot;none&quot;</span>  <span class="p p-Indicator">}</span>
 <span class="p p-Indicator">-</span>
     <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ActiveCoolingSetpoint</span>
     <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;The</span><span class="nv"> </span><span class="s">active</span><span class="nv"> </span><span class="s">cooling</span><span class="nv"> </span><span class="s">set</span><span class="nv"> </span><span class="s">point&quot;</span>
+    <span class="nt">isHidden</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
     <span class="nt">attributes</span><span class="p">:</span>
         <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;analogValue&quot;</span><span class="p p-Indicator">,</span><span class="nt"> instance</span><span class="p">:</span> <span class="s">&quot;3&quot;</span><span class="p p-Indicator">,</span><span class="nt"> property</span><span class="p">:</span> <span class="s">&quot;presentValue&quot;</span><span class="p p-Indicator">,</span><span class="nt"> index</span><span class="p">:</span> <span class="s">&quot;none&quot;</span>  <span class="p p-Indicator">}</span>
 </code></pre></div>
@@ -2635,16 +2637,18 @@ services, such as core data, core command, and so forth.</p>
 <span class="nt">attributes</span><span class="p">:</span> 
     <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;analogValue&quot;</span><span class="p p-Indicator">,</span><span class="nt"> instance</span><span class="p">:</span> <span class="s">&quot;1&quot;</span><span class="p p-Indicator">,</span><span class="nt"> property</span><span class="p">:</span> <span class="s">&quot;presentValue&quot;</span><span class="p p-Indicator">,</span><span class="nt"> index</span><span class="p">:</span> <span class="s">&quot;none&quot;</span>  <span class="p p-Indicator">}</span>
 <span class="nt">properties</span><span class="p">:</span> 
-    <span class="nt">value</span><span class="p">:</span>
-        <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;Float32&quot;</span><span class="p p-Indicator">,</span><span class="nt"> floatEncoding</span><span class="p">:</span> <span class="s">&quot;eNotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span> <span class="p p-Indicator">}</span>
-    <span class="nt">units</span><span class="p">:</span>
-        <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;String&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;Degrees</span><span class="nv"> </span><span class="s">Fahrenheit&quot;</span> <span class="p p-Indicator">}</span>
+    <span class="nt">valueType</span><span class="p">:</span> <span class="s">&quot;Float32&quot;</span>
+    <span class="nt">readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span>
+    <span class="nt">units</span><span class="p">:</span> <span class="s">&quot;Degrees</span><span class="nv"> </span><span class="s">Fahrenheit&quot;</span>
 </code></pre></div>
-<p>The 'value' property of properties gives more detail about the value collected or set.  In this case giving the details of the temperature value to be set.  The value provides details such as the type of the data collected or set, whether the value can be read, written or both.</p>
+<p>The 'valueType' property of properties gives more detail about the value collected or set.  In this case giving the details of the temperature value to be set.  The value provides details such as the type of the data collected or set, whether the value can be read, written or both.</p>
 <p>The following fields are available in the value property:</p>
 <ul>
-<li>type - Required. The data type of the value. Supported types are bool, int8 - int64, uint8 - uint64, float32, float64, string, binary and arrays of the primitive types (ints, floats, bool). Arrays are specified as eg. float32array, boolarray etc.</li>
+<li>valueType - Required. The data type of the value. Supported types are bool, int8 - int64, uint8 - uint64, float32, float64, string, binary and arrays of the primitive types (ints, floats, bool). Arrays are specified as eg. float32array, boolarray etc.</li>
 <li>readWrite - R, RW, or W indicating whether the value is readable or writable.</li>
+<li>units - gives more detail about the unit of measure associated with the value. In this case, the temperature unit of measure is in degrees Fahrenheit.</li>
+<li>min - minimum allowed value </li>
+<li>max - maximum allowed value</li>
 <li>defaultValue - a value used for PUT requests which do not specify one.</li>
 <li>base - a value to be raised to the power of the raw reading before it is returned.</li>
 <li>scale - a factor by which to multiply a reading before it is returned.</li>
@@ -2653,43 +2657,47 @@ services, such as core data, core command, and so forth.</p>
 <li>shift - a number of bits by which an integer reading will be shifted right.</li>
 </ul>
 <p>The processing defined by base, scale, offset, mask and shift is applied in that order. This is done within the SDK. A reverse transformation is applied by the SDK to incoming data on set operations (NB mask transforms on set are NYI)</p>
-<p>The 'units' property gives more detail about the unit of measure associated with the value. In this case, the temperature unit of measure is in degrees Fahrenheit.  The unit of measure can also have a type (although it is most often just a String), a default value, whether the unit can be read, written or both (although it is most often set to read only).</p>
 </div>
 <input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><label for="__tabbed_1_5">Device Commands</label><div class="tabbed-content">
-<p>Device commands (deviceCommand in YAML) define access to reads and writes for multiple simultaneous device resources. Device commands are optional.  Each named device command should contain a number of get and/or set resource operations, describing the read or write respectively.</p>
+<p>Device commands (in the deviceCommands section of the YAML file) define access to reads and writes for multiple simultaneous device resources. Device commands are optional.  Each named device command should contain a number of get and/or set resource operations, describing the read or write respectively.</p>
 <p>Device commands may be useful when readings are logically related, for example with a 3-axis accelerometer it is helpful to read all axes (X, Y and Z) together.</p>
-<p>A resource operation consists of the following properties:</p>
+<p>A device command consists of the following properties:</p>
 <ul>
-<li>index - a number, used to define an order in which the resource is processed.</li>
-<li>operation - get or set (mixing of get and set operations is not supported)</li>
-<li>deviceResource - the name of the device resource to access.</li>
+<li>name - the name of the command</li>
+<li>readWrite - R, RW, or W indicating whether the operation is readable or writable.</li>
+<li>isHidden - indicates whether to expose the device command to the core command service (optional and false by default)</li>
+<li>resourceOperations - the list of included device resource operations included in the command.</li>
+</ul>
+<p>Each resourceOperation will specify:</p>
+<ul>
+<li>the deviceResource - the name of the device resource</li>
+<li>defaultValue - optional, a value to return when the operation does not provide one</li>
 <li>parameter - optional, a value that will be used if a PUT request does not specify one.</li>
 <li>mappings - optional, allows readings of String type to be re-mapped.</li>
 </ul>
 <p>The device commands can also be accessed through a device service’s REST API in a similar manner as described for device resources.</p>
 <ul>
-<li>http://<device-service>:<port>/api/v1/device/<DeviceID>/<DeviceCommandName></li>
-<li>http://<device-service>:<port>/api/v1/device/name/<DeviceName>/<DeviceCommandName></li>
+<li>http://<device-service>:<port>/api/v2/device/name/<DeviceName>/<DeviceCommandName></li>
 </ul>
 <p>If a device command and device resource have the same name, it will be the device command which is available.</p>
 </div>
 <input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><label for="__tabbed_1_6">Core Commands</label><div class="tabbed-content">
-<p>Core commands (coreCommands in the YAML) are associated to either a device resource or a device command by name.  Core commands are also optional.  Core commands are available through the core command service’s REST API for reading and writing to a device.  In other words, core commands specify which of the device service’s device resource or device commands are seen and available via the EdgeX core command service. </p>
-<p>Other services (such as the rules engine) or external clients of EdgeX, should make requests of device services through the core command service, and when they do, they are calling on the device service’s core commands (which under the covers calls on the device resource or device commands of the device service).  Direct access to the device commands or device resources of a device service is frowned upon.  Core commands, made available through the EdgeX command service allows the EdgeX adopter to add additional security or controls on who/what/when things are triggered and called on an actual device.</p>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>Core commands have been removed in EdgeX 2.  Use <code>isHidden</code> with a value of false to service device resources and device commands to the command service.</p>
+</div>
+<p>Device resources or device commands that are not hidden are seen and available via the EdgeX core command service.  </p>
+<p>Other services (such as the rules engine) or external clients of EdgeX, should make requests of device services through the core command service, and when they do, they are calling on the device service’s unhidden device commands or device resources.  Direct access to the device commands or device resources of a device service is frowned upon.  Commands, made available through the EdgeX command service, allow the EdgeX adopter to add additional security or controls on who/what/when things are triggered and called on an actual device.</p>
 <p><img alt="image" src="../EdgeX_DS_Access.png" /></p>
-<p>Core commands provide the command service with information about which device commands are accessible.  Other services or external systems should access device services (and devices) through the core command service which call on core commands.</p>
-<p>Core commands support both get and/or put methods. For a get, the returned values are specified in the expectedValues field of the device profile.  For a put, the parameters to be given are specified in the parameterNames field of the device profile. Both fields are arrays and specify the device resources to be read or written to.  In either case, the different HTTP status codes that the device service generates are shown as response indicators.</p>
-<p><img alt="image" src="../EdgeX_MetadataModel_Commands.png" />
-<em>Metadata's command object model</em></p>
 </div>
 </div>
 <h3 id="device">Device</h3>
-<p>Data about actual devices is another type of information that the metadata micro service stores and manages. Each device managed by EdgeX Foundry registers with metadata (via its owning device service.  Each device must have a unique ID associated to it. </p>
-<p>Metadata stores information about a device (such as its address)  against the identifier in its database. Each device is also associated to a device profile. This association enables metadata to apply knowledge provided by the device profile to each device. For example, a thermostat profile would say that it reports temperature values in Celsius.  Associating a particular thermostat (the thermostat in the lobby for example) to the thermostat profile allows metadata to know that the lobby thermostat reports temperature value in Celsius. </p>
+<p>Data about actual devices is another type of information that the metadata micro service stores and manages. Each device managed by EdgeX Foundry registers with metadata (via its owning device service.  Each device must have a unique name associated to it. </p>
+<p>Metadata stores information about a device (such as its address) against the name in its database. Each device is also associated to a device profile. This association enables metadata to apply knowledge provided by the device profile to each device. For example, a thermostat profile would say that it reports temperature values in Celsius.  Associating a particular thermostat (the thermostat in the lobby for example) to the thermostat profile allows metadata to know that the lobby thermostat reports temperature value in Celsius. </p>
 <p><img alt="image" src="../EdgeX_Metadata2.png" /></p>
 <h3 id="device-service">Device Service</h3>
 <p>Metadata also stores and manages information about the device services.  Device services serve as EdgeX's interfaces to the actual devices and sensors.</p>
-<p>Device services are other micro services that communicate with  devices via the protocol of that device.  For example, a Modbus device service facilitates communications among all types of Modbus devices.  Examples of Modbus devices include motor controllers, proximity sensors, thermostats, and power meters.  Device services simplify communications with the device for the rest of EdgeX.</p>
+<p>Device services are other micro services that communicate with devices via the protocol of that device.  For example, a Modbus device service facilitates communications among all types of Modbus devices.  Examples of Modbus devices include motor controllers, proximity sensors, thermostats, and power meters.  Device services simplify communications with the device for the rest of EdgeX.</p>
 <p>When a device service starts, it registers itself with metadata.  When EdgeX provisions a new devices the device gets associated to its owning device service.  That association is also stored in metadata.</p>
 <p><img alt="image" src="../EdgeX_Metadata3.png" /></p>
 <p><strong>Metadata Device, Device Service and Device Profile Model</strong></p>
@@ -2702,7 +2710,7 @@ services, such as core data, core command, and so forth.</p>
 <p><img alt="image" src="../EdgeX_MetadataModel_ProvisionWatcher.png" />
 <em>Metadata's provision watcher object model</em></p>
 <h2 id="data-dictionary">Data Dictionary</h2>
-<div class="tabbed-set" data-tabs="2:18"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Action</label><div class="tabbed-content">
+<div class="tabbed-set" data-tabs="2:10"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">BaseAddress</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2713,24 +2721,24 @@ services, such as core data, core command, and so forth.</p>
 <tbody>
 <tr>
 <td></td>
-<td>Action describes state related to the capabilities of a device</td>
+<td>The metadata base structure for common information needed to make a request to an EdgeX Foundry target.</td>
 </tr>
 <tr>
-<td>Path</td>
-<td>Path used by service for action on a device or sensor</td>
+<td>Type</td>
+<td>REST or MQTT</td>
 </tr>
 <tr>
-<td>Responses</td>
-<td>Responses from get or put requests to service</td>
+<td>Host</td>
+<td>Target's address string - such as an IP address</td>
 </tr>
 <tr>
-<td>URL</td>
-<td>Url for requests from command service</td>
+<td>Port</td>
+<td>Port for the target address</td>
 </tr>
 </tbody>
 </table>
 </div>
-<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Addressable</label><div class="tabbed-content">
+<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">RESTAddress</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2741,39 +2749,35 @@ services, such as core data, core command, and so forth.</p>
 <tbody>
 <tr>
 <td></td>
-<td>The metadata required to make a request to an EdgeX Foundry target. For example, the Addressable could be HTTP and URL address</td>
+<td>Structure extending BaseAddress, used to make a request of EdgeX Foundry targets via REST.</td>
 </tr>
 <tr>
-<td>Id</td>
-<td>Unique identifier for the Addressable, such as a UUID</td>
-</tr>
-<tr>
-<td>Name</td>
-<td>Unique name given to the Addressable</td>
-</tr>
-<tr>
-<td>Protocol</td>
-<td>Protocol for the address (HTTP/TCP)</td>
+<td>Path</td>
+<td>URI path beyond the host and port</td>
 </tr>
 <tr>
 <td>HTTPMethod</td>
 <td>Method for connecting (i.e. POST)</td>
 </tr>
+</tbody>
+</table>
+</div>
+<input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><label for="__tabbed_2_3">MQTTPubAddress</label><div class="tabbed-content">
+<table>
+<thead>
 <tr>
-<td>Address</td>
-<td>Address of the addressable</td>
+<th>Property</th>
+<th>Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
-<td>Port</td>
-<td>Port for the address</td>
-</tr>
-<tr>
-<td>Path</td>
-<td>Path for callbacks</td>
+<td></td>
+<td>Structure extending BaseAddress, used to make a request of EdgeX Foundry targets via MQTT.</td>
 </tr>
 <tr>
 <td>Publisher</td>
-<td>For message bus protocols</td>
+<td>Publisher name</td>
 </tr>
 <tr>
 <td>User</td>
@@ -2781,16 +2785,36 @@ services, such as core data, core command, and so forth.</p>
 </tr>
 <tr>
 <td>Password</td>
-<td>Password of the user for authentication for the addressable</td>
+<td>Password of the user for authentication</td>
 </tr>
 <tr>
 <td>Topic</td>
-<td>Topic for message bus addressables</td>
+<td>Topic for message bus</td>
+</tr>
+<tr>
+<td>QoS</td>
+<td>Quality of service level for message publishing; value 0, 1, or 2</td>
+</tr>
+<tr>
+<td>KeepAlive</td>
+<td>Maximum time interval in seconds with no comms before closing</td>
+</tr>
+<tr>
+<td>Retained</td>
+<td>Flag to have the broker store the last rec'd message for future subscribers</td>
+</tr>
+<tr>
+<td>AutoReconnect</td>
+<td>Indication to reconnect on failed connection</td>
+</tr>
+<tr>
+<td>ConnectTimeout</td>
+<td>Maximum time interval the client will wait for the connection to the MQTT server to be established</td>
 </tr>
 </tbody>
 </table>
 </div>
-<input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><label for="__tabbed_2_3">AutoEvent</label><div class="tabbed-content">
+<input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><label for="__tabbed_2_4">AutoEvent</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2804,125 +2828,21 @@ services, such as core data, core command, and so forth.</p>
 <td>AutoEvent supports auto-generated events sourced from a device service</td>
 </tr>
 <tr>
-<td>Frequency</td>
-<td>Frequency indicates how often the specific resource needs to be polled.</td>
+<td>Interval</td>
+<td>How often the specific resource needs to be polled.</td>
 </tr>
 <tr>
 <td>OnChange</td>
 <td>indicates whether the device service will generate an event only</td>
 </tr>
 <tr>
-<td>Resource</td>
+<td>SourceName</td>
 <td>the name of the resource in the device profile which describes the event to generate</td>
 </tr>
 </tbody>
 </table>
 </div>
-<input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><label for="__tabbed_2_4">CallBackAlert</label><div class="tabbed-content">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>An action to take when a callback fires</td>
-</tr>
-<tr>
-<td>Id</td>
-<td>Unique identifier such as a UUID</td>
-</tr>
-<tr>
-<td>ActionType</td>
-<td>Frequency indicates how often the specific resource needs to be polled.</td>
-</tr>
-</tbody>
-</table>
-</div>
-<input id="__tabbed_2_5" name="__tabbed_2" type="radio" /><label for="__tabbed_2_5">Command</label><div class="tabbed-content">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>defines a specific read/write operation targeting a device; the REST description of an interface.</td>
-</tr>
-<tr>
-<td>Id</td>
-<td>Unique identifier such as a UUID</td>
-</tr>
-<tr>
-<td>Name</td>
-<td>Unique name (on a profile) given to the Command</td>
-</tr>
-<tr>
-<td>Get</td>
-<td>Get or read Command</td>
-</tr>
-<tr>
-<td>Put</td>
-<td>Put or write Command</td>
-</tr>
-</tbody>
-</table>
-</div>
-<input id="__tabbed_2_6" name="__tabbed_2" type="radio" /><label for="__tabbed_2_6">CommandResponse</label><div class="tabbed-content">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Id</td>
-<td>Unique identifier such as a UUID</td>
-</tr>
-<tr>
-<td>Name</td>
-<td>name given to the CommandResponse</td>
-</tr>
-<tr>
-<td>AdminState</td>
-<td>Admin state (locked/unlocked)</td>
-</tr>
-<tr>
-<td>OperatingState</td>
-<td>Operating state (enabled/disabled)</td>
-</tr>
-<tr>
-<td>LastConnected</td>
-<td>Time (milliseconds) that the device last provided any feedback or responded to any request</td>
-</tr>
-<tr>
-<td>LastReported</td>
-<td></td>
-</tr>
-<tr>
-<td>Labels</td>
-<td>Other labels applied to the device to help with searching</td>
-</tr>
-<tr>
-<td>Location</td>
-<td>Device service specific location (interface{} is an empty interface so it can be anything)</td>
-</tr>
-<tr>
-<td>Commands</td>
-<td>array of commands</td>
-</tr>
-</tbody>
-</table>
-</div>
-<input id="__tabbed_2_7" name="__tabbed_2" type="radio" /><label for="__tabbed_2_7">Device</label><div class="tabbed-content">
+<input id="__tabbed_2_5" name="__tabbed_2" type="radio" /><label for="__tabbed_2_5">Device</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2976,11 +2896,11 @@ services, such as core data, core command, and so forth.</p>
 <td>Device service specific location (interface{} is an empty interface so it can be anything)</td>
 </tr>
 <tr>
-<td>Service</td>
+<td>ServiceName</td>
 <td>Associated Device Service - One per device</td>
 </tr>
 <tr>
-<td>Profile</td>
+<td>ProfileName</td>
 <td></td>
 </tr>
 <tr>
@@ -2990,7 +2910,7 @@ services, such as core data, core command, and so forth.</p>
 </tbody>
 </table>
 </div>
-<input id="__tabbed_2_8" name="__tabbed_2" type="radio" /><label for="__tabbed_2_8">DeviceProfile</label><div class="tabbed-content">
+<input id="__tabbed_2_6" name="__tabbed_2" type="radio" /><label for="__tabbed_2_6">DeviceProfile</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -3035,14 +2955,10 @@ services, such as core data, core command, and so forth.</p>
 <td>DeviceCommands</td>
 <td>collect of deviceCommand</td>
 </tr>
-<tr>
-<td>CoreCommands</td>
-<td>List of commands to Get/Put information for devices associated with this profile</td>
-</tr>
 </tbody>
 </table>
 </div>
-<input id="__tabbed_2_9" name="__tabbed_2" type="radio" /><label for="__tabbed_2_9">DeviceResource</label><div class="tabbed-content">
+<input id="__tabbed_2_7" name="__tabbed_2" type="radio" /><label for="__tabbed_2_7">DeviceResource</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -3078,7 +2994,7 @@ services, such as core data, core command, and so forth.</p>
 </tbody>
 </table>
 </div>
-<input id="__tabbed_2_10" name="__tabbed_2" type="radio" /><label for="__tabbed_2_10">DeviceService</label><div class="tabbed-content">
+<input id="__tabbed_2_8" name="__tabbed_2" type="radio" /><label for="__tabbed_2_8">DeviceService</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -3108,15 +3024,11 @@ services, such as core data, core command, and so forth.</p>
 <td>ime (milliseconds) that the device service reported data to the core microservice</td>
 </tr>
 <tr>
-<td>OperatingState</td>
-<td>operational state - ether enabled or disabled</td>
-</tr>
-<tr>
 <td>Labels</td>
 <td></td>
 </tr>
 <tr>
-<td>Addressable</td>
+<td>BaseAddress</td>
 <td>address (MQTT topic, HTTP address, serial bus, etc.) for reaching the service</td>
 </tr>
 <tr>
@@ -3126,7 +3038,7 @@ services, such as core data, core command, and so forth.</p>
 </tbody>
 </table>
 </div>
-<input id="__tabbed_2_11" name="__tabbed_2" type="radio" /><label for="__tabbed_2_11">Get</label><div class="tabbed-content">
+<input id="__tabbed_2_9" name="__tabbed_2" type="radio" /><label for="__tabbed_2_9">ResourceProperties</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -3137,83 +3049,11 @@ services, such as core data, core command, and so forth.</p>
 <tbody>
 <tr>
 <td></td>
-<td>a get command</td>
+<td>The transformation and constraint properties for a device resource.</td>
 </tr>
 <tr>
-<td>Action</td>
-<td>an action object</td>
-</tr>
-</tbody>
-</table>
-</div>
-<input id="__tabbed_2_12" name="__tabbed_2" type="radio" /><label for="__tabbed_2_12">ProfileProperty</label><div class="tabbed-content">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>The transformation, constraint, and unit properties for a class of Device data.</td>
-</tr>
-<tr>
-<td>PropertyValue</td>
-<td>value</td>
-</tr>
-<tr>
-<td>Units</td>
-<td>units of measure for the value</td>
-</tr>
-</tbody>
-</table>
-</div>
-<input id="__tabbed_2_13" name="__tabbed_2" type="radio" /><label for="__tabbed_2_13">ProfileResource</label><div class="tabbed-content">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>The set of operations that is executed by a Service for a particular Command.</td>
-</tr>
-<tr>
-<td>Name</td>
-<td></td>
-</tr>
-<tr>
-<td>Get</td>
-<td>list of get resource operations</td>
-</tr>
-<tr>
-<td>Set</td>
-<td>list of set resource operations</td>
-</tr>
-</tbody>
-</table>
-</div>
-<input id="__tabbed_2_14" name="__tabbed_2" type="radio" /><label for="__tabbed_2_14">ProfileValue</label><div class="tabbed-content">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>The transformation and constraint properties for a class of data.</td>
-</tr>
-<tr>
-<td>Type</td>
-<td>ValueDescriptor Type of property after transformations</td>
+<td>ValueType</td>
+<td>Type of the value</td>
 </tr>
 <tr>
 <td>ReadWrite</td>
@@ -3230,10 +3070,6 @@ services, such as core data, core command, and so forth.</p>
 <tr>
 <td>DefaultValue</td>
 <td>Default value set to this property if no argument is passed</td>
-</tr>
-<tr>
-<td>Size</td>
-<td>Size of this property in its type  (i.e. bytes for numeric types, characters for string types)</td>
 </tr>
 <tr>
 <td>Mask</td>
@@ -3260,21 +3096,13 @@ services, such as core data, core command, and so forth.</p>
 <td>Required value of the property, set for checking error state.  Failing an assertion condition will mark the device with an error state</td>
 </tr>
 <tr>
-<td>Precision</td>
-<td></td>
-</tr>
-<tr>
-<td>FloatEncoding</td>
-<td>FloatEncoding indicates the representation of floating value of reading.  It should be 'Base64' or 'eNotation'</td>
-</tr>
-<tr>
 <td>MediaType</td>
 <td></td>
 </tr>
 </tbody>
 </table>
 </div>
-<input id="__tabbed_2_15" name="__tabbed_2" type="radio" /><label for="__tabbed_2_15">ProvisionWatcher</label><div class="tabbed-content">
+<input id="__tabbed_2_10" name="__tabbed_2" type="radio" /><label for="__tabbed_2_10">ProvisionWatcher</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -3296,6 +3124,10 @@ services, such as core data, core command, and so forth.</p>
 <td>unique name and identifier of the provision watcher</td>
 </tr>
 <tr>
+<td>Labels</td>
+<td></td>
+</tr>
+<tr>
 <td>Identifiers</td>
 <td>set of key value pairs that identify property (MAC, HTTP,...) and value to watch for (00-05-1B-A1-99-99, 10.0.0.1,...)</td>
 </tr>
@@ -3304,96 +3136,20 @@ services, such as core data, core command, and so forth.</p>
 <td>set of key-values pairs that identify devices which will not be added despite matching on Identifiers</td>
 </tr>
 <tr>
-<td>Profile</td>
-<td>device profile that should be applied to the devices available at the identifier addresses</td>
+<td>ProfileName</td>
+<td>Name of the device profile that should be applied to the devices available at the identifier addresses</td>
 </tr>
 <tr>
-<td>Service</td>
-<td>device service that new devices will be associated to</td>
+<td>ServiceName</td>
+<td>Name of the device service that new devices will be associated to</td>
 </tr>
 <tr>
 <td>AdminState</td>
 <td>administrative state for new devices - either unlocked or locked</td>
 </tr>
-</tbody>
-</table>
-</div>
-<input id="__tabbed_2_16" name="__tabbed_2" type="radio" /><label for="__tabbed_2_16">Put</label><div class="tabbed-content">
-<table>
-<thead>
 <tr>
-<th>Property</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>a put command</td>
-</tr>
-<tr>
-<td>Action</td>
-<td>an action object</td>
-</tr>
-<tr>
-<td>ParameterNames</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</div>
-<input id="__tabbed_2_17" name="__tabbed_2" type="radio" /><label for="__tabbed_2_17">Response</label><div class="tabbed-content">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>A description of a possible REST response for a Command</td>
-</tr>
-<tr>
-<td>Code</td>
-<td>typically an HTTP response code</td>
-</tr>
-<tr>
-<td>Description</td>
-<td></td>
-</tr>
-<tr>
-<td>ExpectedValues</td>
-<td>list of value descriptors for response type</td>
-</tr>
-</tbody>
-</table>
-</div>
-<input id="__tabbed_2_18" name="__tabbed_2" type="radio" /><label for="__tabbed_2_18">Units</label><div class="tabbed-content">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>The unit metadata about a class of Device data.</td>
-</tr>
-<tr>
-<td>Type</td>
-<td>ValueDescriptor Type of units after transformations - typically string</td>
-</tr>
-<tr>
-<td>ReadWrite</td>
-<td>Read/Write Permissions set for this units - typically read</td>
-</tr>
-<tr>
-<td>DefaultValue</td>
-<td>Default value set to this units if no argument is passed</td>
+<td>AutoEvents</td>
+<td>Associated auto events to this watcher</td>
 </tr>
 </tbody>
 </table>
@@ -3414,7 +3170,7 @@ services, such as core data, core command, and so forth.</p>
 <em>What happens on a device service startup?</em></p>
 <h2 id="configuration-properties">Configuration Properties</h2>
 <p>Please refer to the general <a href="../../../configuration/CommonConfiguration/">Common Configuration documentation</a> for configuration properties common to all services.</p>
-<div class="tabbed-set" data-tabs="3:4"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">Writable</label><div class="tabbed-content">
+<div class="tabbed-set" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">Service</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -3425,19 +3181,14 @@ services, such as core data, core command, and so forth.</p>
 </thead>
 <tbody>
 <tr>
-<td></td>
-<td></td>
-<td>Writable properties can be set and will dynamically take effect without service restart</td>
-</tr>
-<tr>
-<td>EnableValueDescriptorManagement</td>
-<td>false</td>
-<td></td>
+<td>StartupMsg</td>
+<td>This is the Core Metadata Microservice</td>
+<td>Core metadata's bootstrap log entry startup message</td>
 </tr>
 </tbody>
 </table>
 </div>
-<input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><label for="__tabbed_3_2">Service</label><div class="tabbed-content">
+<input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><label for="__tabbed_3_2">Databases/Databases.Primary</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -3447,68 +3198,15 @@ services, such as core data, core command, and so forth.</p>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>MaxResultCount</td>
-<td>50000</td>
-<td>Maximum number of objects (example: devices) that are to be returned on any query of metadata via its API</td>
-</tr>
-</tbody>
-</table>
-</div>
-<input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><label for="__tabbed_3_3">Databases/Databases.Primary</label><div class="tabbed-content">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Default Value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td></td>
-<td>Properties used by the service to access the database</td>
-</tr>
-<tr>
-<td>Host</td>
-<td>'localhost'</td>
-<td>Host running the metadata persistence database</td>
-</tr>
 <tr>
 <td>Name</td>
 <td>'metadata'</td>
 <td>Document store or database name</td>
 </tr>
-<tr>
-<td>Password</td>
-<td>'password'</td>
-<td>Password used to access the database</td>
-</tr>
-<tr>
-<td>Username</td>
-<td>'core'</td>
-<td>Username used to access the database</td>
-</tr>
-<tr>
-<td>Port</td>
-<td>6379</td>
-<td>Port for accessing the database service - the Redis port by default</td>
-</tr>
-<tr>
-<td>Timeout</td>
-<td>5000</td>
-<td>Database connection timeout in milliseconds</td>
-</tr>
-<tr>
-<td>Type</td>
-<td>'redisdb'</td>
-<td>Database to use - either redisdb or mongodb</td>
-</tr>
 </tbody>
 </table>
 </div>
-<input id="__tabbed_3_4" name="__tabbed_3" type="radio" /><label for="__tabbed_3_4">Notifications</label><div class="tabbed-content">
+<input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><label for="__tabbed_3_3">Notifications</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -3529,14 +3227,9 @@ services, such as core data, core command, and so forth.</p>
 <td>Whether to send out notification when a device has been added, changed, or removed</td>
 </tr>
 <tr>
-<td>Slug</td>
-<td>'device-change-'</td>
-<td>Notification service slug to use in sending notification messages</td>
-</tr>
-<tr>
 <td>Content</td>
-<td>'Device update: '</td>
-<td>Start of the notification message when sending notification messages on device change</td>
+<td>'Metadata notice: '</td>
+<td>Start of the notification message from metadata (on device changes by default)</td>
 </tr>
 <tr>
 <td>Sender</td>
