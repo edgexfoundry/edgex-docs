@@ -3,7 +3,7 @@
 !!! edgey "EdgeX 2.0"
     Many backward breaking changes occurred in the EdgeX 2.0 (Ireland) release which may require some migration depending on your use case.
 
-This section describes how to migrate from EdgeX 1.x to EdgeX 2.0 at a high level and refers the reader to the appropriate detail documents. The areas to consider for migrating are:
+This section describes how to migrate from V1 to V2  at a high level and refers the reader to the appropriate detail documents. The areas to consider for migrating are:
 
 - [Custom Compose File](#custom-compose-file)
 - [Database](#database)
@@ -17,7 +17,7 @@ This section describes how to migrate from EdgeX 1.x to EdgeX 2.0 at a high leve
 
 ## Custom Compose File
 
-The compose files for V2 have many changes from their V1 counter parts. If you have customized a V1 compose file to add additional services or tweak overrides,  it is highly recommended that you start with the appropriate V2 compose file and re-add your customizations. It is very likely that the sections for your additional services will need to be migrated to have the proper environment overrides. Best approach is to use one of the V2 service sections that closest matches your service  as a template.
+The compose files for V2 have many changes from their V1 counter parts. If you have customized a V1 compose file to add additional services and/or add or modify configuration overrides,  it is highly recommended that you start with the appropriate V2 compose file and re-add your customizations. It is very likely that the sections for your additional services will need to be migrated to have the proper environment overrides. Best approach is to use one of the V2 service sections that closest matches your service  as a template.
 
 The latest V2 compose files can be found here: [https://github.com/edgexfoundry/edgex-compose/tree/ireland](https://github.com/edgexfoundry/edgex-compose/tree/ireland)
 
@@ -35,7 +35,7 @@ There currently is no migration path for the data stored in the database. The V2
     Since the V1 data and V2 data are stored separately, one could create a migration tool and upstream it to the EdgeX community.
 
 !!! warning
-    If the database is not cleared before starting the V2 services, the old V1 data will still reside in the database taking up useful memory. It is recommended that you first wipe the database clean before starting EdgeX 2.0 Services. That is unless you create a DB migration tool. See [Clearing Redis Database](#clearing-redis-database) section below for details on how to clear the Redis database.
+    If the database is not cleared before starting the V2 services, the old V1 data will still reside in the database taking up useful memory. It is recommended that you first wipe the database clean before starting V2 Services. That is unless you create a DB migration tool, in which case you will not want to clear the V1 data until it has been migrated. See [Clearing Redis Database](#clearing-redis-database) section below for details on how to clear the Redis database.
 
 The following sections describe what you need to be aware for the different services that create data in the database.
 
@@ -47,7 +47,7 @@ The V1 ValueDescriptors have been removed in V2.
 
 ### Core Metadata
 
-Most of the data stored by Core Metadata will be recreated when the V2 versions of the Device Services start-up. The statically declared devices will automatically be created and device discovery will find and add existing devices. Any device profiles, devices, provision watchers created manually via the V1 REST API will have to be recreated using the V2 REST API. Any manually-applied `AdministrativeState` settings will also need to be re-applied.
+Most of the data stored by Core Metadata will be recreated when the V2 versions of the Device Services start-up. The statically declared devices will automatically be created and device discovery will find and add existing devices. Any device profiles, devices, provision watchers created manually via the V1 REST APIs will have to be recreated using the V2 REST API. Any manually-applied `AdministrativeState` settings will also need to be re-applied.
 
 ### Support Notifications
 
