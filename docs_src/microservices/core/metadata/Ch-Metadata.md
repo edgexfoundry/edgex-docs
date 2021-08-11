@@ -29,7 +29,8 @@ Device profiles define general characteristics about devices, the data they prov
 !!! edgey "EdgeX 2.0"
     The device profile was greatly simplified in EdgeX 2.0 (Ireland).  There are now just two sections of the document (deviceResources and deviceCommands) versus the three (deviceResources, deviceCommands and coreCommands) of EdgeX 1.x profiles.  Device resources and device commands are made available through the core command service with the `isHidden` property on either is set to fault.  This makes a core command section no longer necessary in EdgeX 2.
     
-    However, this does mean that EdgeX 2 profiles are not backward compatible and EdgeX 1.x profiles must be migrated.  When available (coming soon) see the migration guides for details.
+
+    However, this does mean that EdgeX 2 profiles are not backward compatible and EdgeX 1.x profiles must be migrated. See [Device Service V2 Migration Guide](../../../device/V2Migration#device-profiles) for complete details.
 
 #### Device Profile Details
 
@@ -39,14 +40,14 @@ Device profiles define general characteristics about devices, the data they prov
 === "General Properties"
 
     A device profile has a number of high level properties to give the profile context and identification. Its name field is required and must be unique in an EdgeX deployment. Other fields are optional - they are not used by device services but may be populated for informational purposes:
-
+    
     - Description
     - Manufacturer
     - Model
     - Labels
-
+    
     Here is an example general information section for a sample KMC 9001 BACnet thermostat device profile provided with the BACnet device service (you can find the [profile](https://github.com/edgexfoundry/device-bacnet-c/blob/master/profiles/BAC-9001.yaml) in Github) .  Only the name is required in this section of the device profile.  The name of the device profile must be unique in any EdgeX deployment.  The manufacturer, model and labels are all optional bits of information that allow better queries of the device profiles in the system.
-
+    
     ``` YAML
     name: "BAC-9001"
     manufacturer: "KMC"
@@ -55,40 +56,40 @@ Device profiles define general characteristics about devices, the data they prov
         - "B-AAC"
     description: "KMC BAC-9001 BACnet thermostat"
     ``` 
-
+    
     Labels provided a way to tag, organize or categorize the various profiles.  They serve no real purpose inside of EdgeX.
 
 === "Device Resources"
 
     A device resource (in the deviceResources section of the YAML file) specifies a sensor value within a device that may be read from or written to either individually or as part of a device command (see below).  Think of a device resource as a specific value that can be obtained from the underlying device or a value that can be set to the underlying device.  In a thermostat, a device resource may be a temperature or humidity (values sensed from the devices) or cooling point or heating point (values that can be set/actuated to allow the thermostat to determine when associated heat/cooling systems are turned on or off).  A device resource has a name for identification and a description for informational purposes.
-
+    
     The properties section of a device resource has also been greatly simplified.  See details below.
-
+    
     Back to the BACnet example, here are two device resources.  One will be used to get the temperature (read) the current temperature and the other to set (write or actuate) the active cooling set point.  The device resource name must be provided and it must also be unique in any EdgeX deployment.
-
+    
     ``` YAML
     name: Temperature
     description: "Get the current temperature"
     isHidden: false
-
+    
     name: ActiveCoolingSetpoint
     description: "The active cooling set point"
     isHidden: false
     ```
-
+    
     !!! edgey "EdgeX 2.0"
         `isHidden` is new in EdgeX 2.0.  While made explicit in this example, it is false by default when not specified.  `isHidden` indicates whether to expose the device resource to the core command service.
-
+    
     The device service allows access to the device resources via REST endpoint.  Values specified in the device resources section of the device profile can be accessed through the following URL patterns:
-
+    
     -  http://<device-service>:<port>/api/v2/device/name/<DeviceName>/<DeviceResourceName>
 
 === "Attributes"
 
     The attributes associated to a device resource are the specific parameters required by the device service to access the particular value.   In other words, attributes are “inward facing” and are used by the device service to determine how to speak to the device to either read or write (get or set) some of its values. Attributes are detailed protocol and/or device specific information that informs the device service how to communication with the device to get (or set) values of interest.
-
+    
     Returning to the BACnet device profile example, below are the complete device resource sections for Temperature and ActiveCoolingSetPoint – inclusive of the attributes – for the example device.
-
+    
     ``` YAML
     -
         name: Temperature
@@ -107,7 +108,7 @@ Device profiles define general characteristics about devices, the data they prov
 === "Properties"
 
     The properties of a device resource describe the value obtained or set on the device.  The properties can optionally inform the device service of some simple processing to be performed on the value.  Again, using the BACnet profile as an example, here are the properties associated to the thermostat's temperature device resource.
-
+    
     ``` YAML
     name: Temperature
     description: "Get the current temperature"
@@ -118,11 +119,11 @@ Device profiles define general characteristics about devices, the data they prov
         readWrite: "R"
         units: "Degrees Fahrenheit"
     ```
-
+    
     The 'valueType' property of properties gives more detail about the value collected or set.  In this case giving the details of the temperature value to be set.  The value provides details such as the type of the data collected or set, whether the value can be read, written or both.
-
+    
     The following fields are available in the value property:
-
+    
     - valueType - Required. The data type of the value. Supported types are bool, int8 - int64, uint8 - uint64, float32, float64, string, binary and arrays of the primitive types (ints, floats, bool). Arrays are specified as eg. float32array, boolarray etc.
     - readWrite - R, RW, or W indicating whether the value is readable or writable.
     - units - gives more detail about the unit of measure associated with the value. In this case, the temperature unit of measure is in degrees Fahrenheit.
@@ -134,45 +135,45 @@ Device profiles define general characteristics about devices, the data they prov
     - offset - a value to be added to a reading before it is returned.
     - mask - a binary mask which will be applied to an integer reading.
     - shift - a number of bits by which an integer reading will be shifted right.
-
+    
     The processing defined by base, scale, offset, mask and shift is applied in that order. This is done within the SDK. A reverse transformation is applied by the SDK to incoming data on set operations (NB mask transforms on set are NYI)
- 
+
 
 === "Device Commands"
 
     Device commands (in the deviceCommands section of the YAML file) define access to reads and writes for multiple simultaneous device resources. Device commands are optional.  Each named device command should contain a number of get and/or set resource operations, describing the read or write respectively.
-
+    
     Device commands may be useful when readings are logically related, for example with a 3-axis accelerometer it is helpful to read all axes (X, Y and Z) together.
-
+    
     A device command consists of the following properties:
-
+    
     - name - the name of the command
     - readWrite - R, RW, or W indicating whether the operation is readable or writable.
     - isHidden - indicates whether to expose the device command to the core command service (optional and false by default)
     - resourceOperations - the list of included device resource operations included in the command.
-
+    
     Each resourceOperation will specify:
-
+    
     - the deviceResource - the name of the device resource
     - defaultValue - optional, a value to return when the operation does not provide one
     - parameter - optional, a value that will be used if a PUT request does not specify one.
     - mappings - optional, allows readings of String type to be re-mapped.
-
+    
     The device commands can also be accessed through a device service’s REST API in a similar manner as described for device resources.
-
+    
     - http://<device-service>:<port>/api/v2/device/name/<DeviceName>/<DeviceCommandName>
-
+    
     If a device command and device resource have the same name, it will be the device command which is available.
 
 === "Core Commands"
 
     !!! edgey "EdgeX 2.0"
         Core commands have been removed in EdgeX 2.  Use `isHidden` with a value of false to service device resources and device commands to the command service.
-
+    
     Device resources or device commands that are not hidden are seen and available via the EdgeX core command service.  
-
+    
     Other services (such as the rules engine) or external clients of EdgeX, should make requests of device services through the core command service, and when they do, they are calling on the device service’s unhidden device commands or device resources.  Direct access to the device commands or device resources of a device service is frowned upon.  Commands, made available through the EdgeX command service, allow the EdgeX adopter to add additional security or controls on who/what/when things are triggered and called on an actual device.
-
+    
     ![image](EdgeX_DS_Access.png)
 
 ### Device
@@ -342,25 +343,34 @@ Sequence diagrams for some of the more critical or complex events regarding meta
 
 ## Configuration Properties
 
-Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services.
+Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services. Below are only the additional settings and sections that are not common to all EdgeX Services.
 
-=== "Service"
-    |Property|Default Value|Description|
-    |---|---|---|
-    |StartupMsg|This is the Core Metadata Microservice|Core metadata's bootstrap log entry startup message|
 === "Databases/Databases.Primary"
-    |Property|Default Value|Description|
-    |---|---|---|
-    |Name|'metadata'|Document store or database name|
+|Property|Default Value|Description|
+|---|---|---|
+|||Properties used by the service to access the database|
+|Name|'metadata'|Document store or database name|
 === "Notifications"
-    |Property|Default Value|Description|
-    |---|---|---|
-    |||Configuration to post device changes through the notifiction service|
-    |PostDeviceChanges|true|Whether to send out notification when a device has been added, changed, or removed|
-    |Content|'Metadata notice: '|Start of the notification message from metadata (on device changes by default)|
-    |Sender|'core-metadata'|Sender of any notification messages sent on device change|
-    |Description|'Metadata device notice'|Message description of any notification messages sent on device change|
-    |Label|'metadata'|Label to put on messages for any notification messages sent on device change|
+|Property|Default Value|Description|
+|---|---|---|
+|||Configuration to post device changes through the notifiction service|
+|PostDeviceChanges|true|Whether to send out notification when a device has been added, changed, or removed|
+|Slug|'device-change-'|Notification service slug to use in sending notification messages|
+|Content|'Device update: '|Start of the notification message when sending notification messages on device change|
+|Sender|'core-metadata'|Sender of any notification messages sent on device change|
+|Description|'Metadata device notice'|Message description of any notification messages sent on device change|
+|Label|'metadata'|Label to put on messages for any notification messages sent on device change|
+
+
+
+### V2 Configuration Migration Guide
+
+Refer to the [Common Configuration Migration Guide](../../../configuration/V2MigrationCommonConfig) for details on migrating the common configuration sections such as `Service`.
+
+#### Writable
+
+The `EnableValueDescriptorManagement` setting has been removed
 
 ## API Reference
+
 [Core Metadata API Reference](../../../api/core/Ch-APICoreMetadata.md)

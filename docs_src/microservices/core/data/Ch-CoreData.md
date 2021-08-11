@@ -110,47 +110,82 @@ The two following High Level Interaction Diagrams show:
 
 ## Configuration Properties
 
-Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services.
+Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services. Below are only the additional settings and sections that are not common to all EdgeX Services.
 
 === "Writable"
-    |Property|Default Value|Description|
-    |---|---|---|
-    ||Writable properties can be set and will dynamically take effect without service restart|
-    |PersistData|true|When true, core data persists all sensor data sent to it in its associated database|
-=== "Service"
-    |Property|Default Value|Description|
-    |---|---|---|
-    |Port|59880|Default micro service port for core data|
-    |StartupMsg|This is the Core Data Microservice|Core data's bootstrap log entry startup message|
+|Property|Default Value|Description|
+|---|---|---|
+||Writable properties can be set and will dynamically take effect without service restart|
+|PersistData|true|When true, core data persists all sensor data sent to it in its associated database|
 === "Databases/Databases.Primary"
-    |Property|Default Value|Description|
-    |---|---|---|
-    ||Properties used by the service to access the database.  See common configuration for common configuration in this area|
-    |Name|'coredata'|Document store or database name|
+|Property|Default Value|Description|
+|---|---|---|
+|Name|'coredata'|Document store or database name|
 === "MessageQueue"
-    |Property|Default Value|Description|
-    |---|---|---|
-    ||Entries in the MessageQueue section of the configuration allow for publication of events to a message bus|
-    |Protocol|'redis'|Indicates type of message bus (either redis, zero, or tcp for mqtt)|
-    |Host |'localhost'| Indicates the host of the messaging broker, if applicable.|
-    |Port | 6379 | Indicates the port to use when publishing a message.|
-    |Type | redis | Indicates the type of messaging library to use. Currently this is Redis by default. Refer to the [go-mod-messaging](https://github.com/edgexfoundry/go-mod-messaging) module for more information. |
-    |AuthMode|'usernamepassword'|The type of authentication mode used to connect to the message bus; required for redis message bus|
-    |SecretName|'redisdb'|Key to the secret store (insecure or secure) for the auth mode credentials|
-    |PublishTopicPrefix|'edgex/events/core/' #|The prefix added to `/<device-profile-name>/<device-name>` to provide the message bus topic destination.| 
-    |SubscribeEnabled|true|Indicates whether core data should subscribe to message from the message bus.  Alternate is to receive device sensor data via REST calls|
-    |SubscribeTopic|'edgex/events/device/#'|The topic to subscribe to for new event/reading messages.| 
+|Property|Default Value|Description|
+|---|---|---|
+||Entries in the MessageQueue section of the configuration allow for publication of events to a message bus|
+|Protocol | redis| Indicates the connectivity protocol to use to use the bus.|
+|Host | localhost | Indicates the host of the messaging broker, if applicable.|
+|Port | 6379| Indicates the port to use when publishing a message.|
+|Type | redis| Indicates the type of messaging library to use. Currently this is Redis by default. Refer to the [go-mod-messaging](https://github.com/edgexfoundry/go-mod-messaging) module for more information. |
+|PublishTopicPrefix | edgex/events/core| Indicates the base topic to which messages should be published. /`<device-profile-name>/<device-name>` will be added to this Publish Topic prefix|
 === "MessageQueue.Optional"
-    |Property|Default Value|Description|
-    |---|---|---|
-    ||Configuration and connection parameters for use with MQTT message bus - in place of Redis or 0MQ |
-    |ClientId|'core-data'|Client ID used to put messages on the bus|
-    |Qos|'0'| Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)|
-    |KeepAlive |'10'| Period of time in seconds to keep the connection alive when there is no messages flowing (must be 2 or greater)|
-    |Retained|false|Whether to retain messages|
-    |AutoReconnect |true |Whether to reconnect to the message bus on connection loss|
-    |ConnectTimeout|5|Message bus connection timeout in seconds|
-    |SkipCertVerify|false|TLS configuration - Only used if Cert/Key file or Cert/Key PEMblock are specified|
+|Property|Default Value|Description|
+|---|---|---|
+||Configuration and connection parameters for use with MQTT message bus - in place of Redis|
+|ClientId|'core-data'|Client ID used to put messages on the bus|
+|Qos|'0'| Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)|
+|KeepAlive |'10'| Period of time in seconds to keep the connection alive when there is no messages flowing (must be 2 or greater)|
+|Retained|false|Whether to retain messages|
+|AutoReconnect |true |Whether to reconnect to the message bus on connection loss|
+|ConnectTimeout|5|Message bus connection timeout in seconds|
+|SkipCertVerify|false|TLS configuration - Only used if Cert/Key file or Cert/Key PEMblock are specified|
+
+### V2 Configuration Migration Guide
+
+Refer to the [Common Configuration Migration Guide](../../../configuration/V2MigrationCommonConfig) for details on migrating the common configuration sections such as `Service`.
+
+#### Writable
+
+The following settings have been removed from the `Writable` section
+
+- DeviceUpdateLastConnected
+- MetaDataCheck
+- ServiceUpdateLastConnected
+- ValidateCheck
+- ChecksumAlgo
+
+#### MessageQueue
+
+The following `MessageQueue` setting values have changed:
+
+- Host - Override value for docker is now `edgex-redis`
+- Protocol = "redis"
+- Port = 6379
+- Type = 'redis'
+
+The following setting has been removed from the `MessageQueue` section
+
+- Topic
+
+The following new settings have been added to  `MessageQueue` section
+
+- PublishTopicPrefix = 'edgex/events/core'
+- SubscribeTopic = 'edgex/events/device/#'
+
+- AuthMode = 'usernamepassword'
+- SecretName = 'redisdb'
+- PublishTopicPrefix = 'edgex/events/core'
+- SubscribeEnabled = true
+
+#### MessageQueue.Optional
+
+The following settings have been removed from `MessageQueue.Optional` section for when using MQTT for the MessageBus. Secure MessageBus using MQTT is not yet supported and will be retrieved from the Secret Store in a future release.
+
+- Username
+- Password
 
 ## API Reference
+
 [Core Data API Reference](../../../api/core/Ch-APICoreData.md)

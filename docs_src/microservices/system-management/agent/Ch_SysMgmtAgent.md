@@ -28,9 +28,9 @@ for the respective calls.  The tabs below provide the API path and corresponding
 === "Metrics of a service"
 
     Example request: /api/v2/system/metrics?services=core-command,core-data
-
+    
     Corresponding response, in JSON format:
-
+    
     ``` json
     [
         {
@@ -73,9 +73,9 @@ for the respective calls.  The tabs below provide the API path and corresponding
 === "Configuration of a service"
 
     Example request: /api/v2/system/config?services=core-command,core-data
-
+    
     Corresponding response, in JSON format:
-
+    
     ``` json
     [
         {
@@ -243,9 +243,9 @@ for the respective calls.  The tabs below provide the API path and corresponding
 === "Start a service"
 
     Example request: /api/v2/system/operation
-
+    
     Example (POST) body accompanying the "start" request:
-
+    
     ``` json
     [{
     "requestId": "e6e8a2f4-eb14-4649-9e2b-175247911369",
@@ -254,7 +254,7 @@ for the respective calls.  The tabs below provide the API path and corresponding
     "serviceName": "core-data"
     }]
     ```
-
+    
     Corresponding response, in JSON format, on success:
     
     ``` json
@@ -264,9 +264,9 @@ for the respective calls.  The tabs below provide the API path and corresponding
 === "Stop a service"
 
     Example request: /api/v2/system/operation
-
+    
     Example (POST) body accompanying the "stop" request:
-
+    
     ``` json
     [{
     "requestId": "e6e8a2f4-eb14-4649-9e2b-175247911369",
@@ -275,7 +275,7 @@ for the respective calls.  The tabs below provide the API path and corresponding
     "serviceName": "core-data"
     }]
     ```
-
+    
     Corresponding response, in JSON format, on success: 
     
     ``` json
@@ -285,9 +285,9 @@ for the respective calls.  The tabs below provide the API path and corresponding
 === "Restart a service"
 
     Example request: /api/v2/system/operation
-
+    
     Example (POST) body accompanying the "restart" request:
-
+    
     ``` json
     [{
     "requestId": "e6e8a2f4-eb14-4649-9e2b-175247911369",
@@ -296,9 +296,9 @@ for the respective calls.  The tabs below provide the API path and corresponding
     "serviceName": "core-data"
     }]
     ```
-
+    
     Corresponding response, in JSON format, on success: 
-
+    
     ``` json
     [{"apiVersion":"v2","requestId":"e6e8a2f4-eb14-4649-9e2b-175247911369","statusCode":200,"serviceName":"core-data"}]
     ```
@@ -307,9 +307,9 @@ for the respective calls.  The tabs below provide the API path and corresponding
 
     Example request:
     /api/v2/system/health?services=device-virtual,core-data
-
+    
     Corresponding response, in JSON format:
-
+    
     ``` json
     [
         {
@@ -327,27 +327,26 @@ for the respective calls.  The tabs below provide the API path and corresponding
 
 ## Configuration Properties
 
-!!! edgey "EdgeX 2.0"
-    For EdgeX 2.0 the Writable.ResendLimit Service.FormatSpecifier for metrics data output have been removed.
+Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services. Below are only the additional settings and sections that are not common to all EdgeX Services.
 
-Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services.
-
-=== "Writable"
-    |Property|Default Value|Description|
-    |---|---|---|
-    |||Writable properties can be set and will dynamically take effect without service restart|
-    |ResendLimit|2|Number of attempts to perform a system management operation before raising an error|
 === "General"
     |Property|Default Value|Description|
     |---|---|---|
     |||general system management configuration properties|
     |ExecutorPath|'../sys-mgmt-executor/sys-mgmt-executor'|path to the executor to use for system management requests other than configuration|
     |MetricsMechanism|'direct-service'|either direct-service or executor to advise the SMA where to go for service metrics information|
-=== "Service"
-    |Property|Default Value|Description|
-    |---|---|---|
-    |||these keys represent the system management service configuration settings|
-    |FormatSpecifier|'%(\\d+\\$)?([-#+ 0(\\<]*)?(\\d+)?(\\.\\d+)?([tT])?([a-zA-Z%])'|metrics data output format specifier|
+
+### V2 Configuration Migration Guide
+
+Refer to the [Common Configuration Migration Guide](../../../configuration/V2MigrationCommonConfig) for details on migrating the common configuration sections such as `Service`.
+
+#### Writable
+
+The `ResendLimit` setting has been removed from the `Writable` section
+
+#### Service
+
+The `FormatSpecifier` setting has been removed from the `Service` section
 
 ## API Reference
 [System Management API Reference](../../../api/management/Ch-APISystemManagement.md)

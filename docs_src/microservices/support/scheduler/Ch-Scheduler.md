@@ -83,32 +83,38 @@ The action triggered by the service when the associated interval occurs
 
 ## Configuration Properties
 
-Please refer to the general [Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services.
+Please refer to the general [Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services. Below are only the additional settings and sections that are not common to all EdgeX Services.
 
-### ScheduleIntervalTime
-|Property|Default Value|Description|
-|---|---|---|
-|ScheduleIntervalTime|500|the time, in milliseconds, to trigger any applicable interval actions|
-### Intervals/Intervals.Midnight
-Default intervals for use with default interval actions
-|Property|Default Value|Description|
-|---|---|---|
-|Name|midnight|Name of the every day at midnight interval|
-|Start|20180101T000000|Indicates the start time for the midnight interval which is a midnight, Jan 1, 2018 which effectively sets the start time as of right now since this is in the past|
-|Interval|24h|defines a frequency of every 24 hours|
-### IntervalActions.IntervalActions.ScrubAged
-Configuration of the core data clean old events operation which is to kick off every midnight
-|Property|Default Value|Description|
-|---|---|---|
-|Name|scrub-aged-events|name of the interval action|
-|Host|localhost|run the request on core data assumed to be on the localhost|
-|Port|59880|run the request against the default core data port|
-|Protocol|http|Make a RESTful request to core data|
-|Method|DELETE|Make a RESTful delete operation request to core data|
-|Target|core-data|target core data|
-|Path|/api/v2/event/age/604800000000000|request core data's remove old events API with parameter of 7 days |
-|Interval|midnight|run the operation every midnight as specified by the configuration defined interval|
+=== "ScheduleIntervalTime"
+    |Property|Default Value|Description|
+    |---|---|---|
+    |ScheduleIntervalTime|500|the time, in milliseconds, to trigger any applicable interval actions|
+=== "Intervals/Intervals.Midnight"
+    |Property|Default Value|Description|
+    |---|---|---|
+    ||Default intervals for use with default interval actions|
+    |Name|midnight|Name of the every day at midnight interval|
+    |Start|20180101T000000|Indicates the start time for the midnight interval which is a midnight, Jan 1, 2018 which effectively sets the start time as of right now since this is in the past|
+    |Interval|24h|defines a frequency of every 24 hours|
+=== "IntervalActions.IntervalActions.ScrubAged"
+    |Property|Default Value|Description|
+    |---|---|---|
+    ||Configuration of the core data clean old events operation which is to kick off every midnight|
+    |Name|scrub-aged-events|name of the interval action|
+    |Host|localhost|run the request on core data assumed to be on the localhost|
+    |Port|59880|run the request against the default core data port|
+    |Protocol|http|Make a RESTful request to core data|
+    |Method|DELETE|Make a RESTful delete operation request to core data|
+    |Target|core-data|target core data|
+    |Path|/api/v2/event/age/604800000000000|request core data's remove old events API with parameter of 7 days |
+    |Interval|midnight|run the operation every midnight as specified by the configuration defined interval|
 
+
+
+### V2 Configuration Migration Guide
+
+Refer to the [Common Configuration Migration Guide](../../../configuration/V2MigrationCommonConfig) for details on migrating the common configuration sections such as `Service`.
 
 ## API Reference
+
 [Support Scheduler API Reference](../../../api/support/Ch-APISupportScheduler.md )
