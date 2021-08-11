@@ -903,43 +903,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#writable" class="md-nav__link">
-    Writable
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#service" class="md-nav__link">
-    Service
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#databasesprimary" class="md-nav__link">
-    Databases.Primary
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#registry" class="md-nav__link">
-    Registry
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#clientsservice-key" class="md-nav__link">
-    Clients.[service-key]
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#secretstore" class="md-nav__link">
-    SecretStore
+  <a href="#configuration-properties" class="md-nav__link">
+    Configuration Properties
   </a>
   
 </li>
@@ -2398,43 +2363,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#writable" class="md-nav__link">
-    Writable
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#service" class="md-nav__link">
-    Service
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#databasesprimary" class="md-nav__link">
-    Databases.Primary
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#registry" class="md-nav__link">
-    Registry
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#clientsservice-key" class="md-nav__link">
-    Clients.[service-key]
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#secretstore" class="md-nav__link">
-    SecretStore
+  <a href="#configuration-properties" class="md-nav__link">
+    Configuration Properties
   </a>
   
 </li>
@@ -2467,12 +2397,13 @@
                 
                 
                 <h1 id="common-configuration">Common Configuration</h1>
-<p>The following tables document configuration properties that are common to all services in the EdgeX Foundry platform. Service-specific properties can be found on the respective documentation page for each service.</p>
+<p>The tables in each of the tabs below document configuration properties that are common to all services in the EdgeX Foundry platform. Service-specific properties can be found on the respective documentation page for each service.</p>
+<h2 id="configuration-properties">Configuration Properties</h2>
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 2.0</p>
 <p>For EdgeX 2.0 the <code>Logging</code> and <code>Startup</code> sections have been removed. <code>Startup</code> has been replaced with the <code>EDGEX_STARTUP_DURATION</code> (default is 60 secs) and <code>EDGEX_STARTUP_INTERVAL</code> (default is 1 sec) environment variables.</p>
 </div>
-<h2 id="writable">Writable</h2>
+<div class="tabbed-set" data-tabs="1:6"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Writable</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2503,7 +2434,8 @@
 <p class="admonition-title">Edgex 2.0</p>
 <p>For EdgeX 2.0 the For EdgeX 2.0 the <code>Writable.InsecureSecrets</code> configuration section is new. </p>
 </div>
-<h2 id="service">Service</h2>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Service</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2559,7 +2491,8 @@
 <p class="admonition-title">Edgex 2.0</p>
 <p>For EdgeX 2.0 <code>Protocol</code> and <code>BootTimeout</code>  have been removed. <code>CheckInterval</code> and  <code>Timeout</code> have been renamed to <code>HealthCheckInterval</code> and <code>RequestTimeout</code> respectively. <code>MaxRequestSize</code> was added for all services.</p>
 </div>
-<h2 id="databasesprimary">Databases.Primary</h2>
+</div>
+<input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">Databases.Primary</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2605,7 +2538,8 @@
 <p class="admonition-title">Edgex 2.0</p>
 <p>For EdgeX 2.0 <code>mongodb</code> has been remove as a supported DB. The credentials <code>username</code> and <code>password</code> have been removed and are now in the <code>Writable.InsecureSecrets.DB</code> section.</p>
 </div>
-<h2 id="registry">Registry</h2>
+</div>
+<input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><label for="__tabbed_1_4">Registry</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2637,7 +2571,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="clientsservice-key">Clients.[service-key]</h2>
+</div>
+<input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><label for="__tabbed_1_5">Clients.[service-key]</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2673,7 +2608,8 @@
 <p class="admonition-title">Edgex 2.0</p>
 <p>For EdgeX 2.0 the map keys have changed to be the service's service-key, i.e. <code>Metadata</code> changed to <code>core-metadata</code></p>
 </div>
-<h2 id="secretstore">SecretStore</h2>
+</div>
+<input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><label for="__tabbed_1_6">SecretStore</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2743,6 +2679,8 @@
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 2.0</p>
 <p>For EdgeX 2.0 the <code>Protocol</code> default has changed to <code>HTTP</code> which no longer requires <code>RootCaCertPath</code> and <code>ServerName</code> to be set. <code>Path</code> has been reduce to the sub-path for the service since the based path is fixed. <code>TokenFile</code> default value has changed and requires the <code>service-key</code> be used in the path.</p>
+</div>
+</div>
 </div>
 <h2 id="writable-vs-readable-settings">Writable vs Readable Settings</h2>
 <p>Within a given service's configuration, there are keys whose values can be edited and change the behavior of the service while it is running
