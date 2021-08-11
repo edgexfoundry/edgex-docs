@@ -335,6 +335,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../V2TopLevelMigration/" title="V2 Migration Guide" class="md-nav__link">
+      V2 Migration Guide
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -1177,6 +1189,26 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#v2-configuration-migration-guide" class="md-nav__link">
+    V2 Configuration Migration Guide
+  </a>
+  
+    <nav class="md-nav" aria-label="V2 Configuration Migration Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#writable" class="md-nav__link">
+    Writable
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1360,6 +1392,18 @@
   <li class="md-nav__item">
     <a href="../../../device/virtual/Ch-VirtualDevice/" title="Virtual Device" class="md-nav__link">
       Virtual Device
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../device/V2Migration/" title="V2 Migration Guide" class="md-nav__link">
+      V2 Migration Guide
     </a>
   </li>
 
@@ -2526,6 +2570,26 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#v2-configuration-migration-guide" class="md-nav__link">
+    V2 Configuration Migration Guide
+  </a>
+  
+    <nav class="md-nav" aria-label="V2 Configuration Migration Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#writable" class="md-nav__link">
+    Writable
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2836,13 +2900,13 @@ If the properties are not provided, use the default values in the configuration 
 </div>
 </div>
 <h2 id="configuration-properties">Configuration Properties</h2>
-<p>Please refer to the general <a href="../../../configuration/CommonConfiguration/">Common Configuration documentation</a> for configuration properties common to all services.</p>
+<p>Please refer to the general <a href="../../../configuration/CommonConfiguration/">Common Configuration documentation</a> for configuration properties common to all services. Below are only the additional settings and sections that are not common to all EdgeX Services.</p>
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 2.0</p>
 <p>For EdgeX 2.0, the SMTP username and password can be set in the Writable.InsecureSecrets.SMTP.Secrets as an insecure secret,
 or be stored in the Smtp.SecretPath for security. </p>
 </div>
-<div class="tabbed-set" data-tabs="2:4"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Writable</label><div class="tabbed-content">
+<div class="tabbed-set" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Writable</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2880,25 +2944,7 @@ or be stored in the Smtp.SecretPath for security. </p>
 </tbody>
 </table>
 </div>
-<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Service</label><div class="tabbed-content">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Default Value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>MaxResultCount</td>
-<td>50000</td>
-<td>Maximum number of objects (example: notifications) that are to be returned on any query of notifications database via its API</td>
-</tr>
-</tbody>
-</table>
-</div>
-<input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><label for="__tabbed_2_3">Databases/Databases.Primary</label><div class="tabbed-content">
+<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Databases/Databases.Primary</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2914,44 +2960,14 @@ or be stored in the Smtp.SecretPath for security. </p>
 <td>Properties used by the service to access the database</td>
 </tr>
 <tr>
-<td>Host</td>
-<td>'localhost'</td>
-<td>Host running the notifications persistence database</td>
-</tr>
-<tr>
 <td>Name</td>
 <td>'notifications'</td>
 <td>Document store or database name</td>
 </tr>
-<tr>
-<td>Password</td>
-<td>'password'</td>
-<td>Password used to access the database</td>
-</tr>
-<tr>
-<td>Username</td>
-<td>'notifications'</td>
-<td>Username used to access the database</td>
-</tr>
-<tr>
-<td>Port</td>
-<td>6379</td>
-<td>Port for accessing the database service - the Redis port by default</td>
-</tr>
-<tr>
-<td>Timeout</td>
-<td>5000</td>
-<td>Database connection timeout in milliseconds</td>
-</tr>
-<tr>
-<td>Type</td>
-<td>'redisdb'</td>
-<td>Database to use - either redisdb or mongodb</td>
-</tr>
 </tbody>
 </table>
 </div>
-<input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><label for="__tabbed_2_4">Smtp</label><div class="tabbed-content">
+<input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><label for="__tabbed_2_3">Smtp</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -3039,6 +3055,19 @@ Smtp Sender=<span class="cp">${</span><span class="n">Yahoo</span> <span class="
 Smtp Password=<span class="cp">${</span><span class="n">Yahoo</span> <span class="n">password</span> <span class="ow">or</span> <span class="n">App</span> <span class="n">password</span><span class="cp">}</span>
 </code></pre></div>
 
+<h3 id="v2-configuration-migration-guide">V2 Configuration Migration Guide</h3>
+<p>Refer to the <a href="../../../configuration/V2MigrationCommonConfig">Common Configuration Migration Guide</a> for details on migrating the common configuration sections such as <code>Service</code>.</p>
+<h4 id="writable">Writable</h4>
+<p>The <code>Writable.InsecureSecrets.SMTP</code> section has been added.</p>
+<div class="admonition example">
+<p class="admonition-title">Example Writable.InsecureSecrets.SMTP section</p>
+<div class="highlight"><pre><span></span><code>    <span class="k">[Writable.InsecureSecrets.SMTP]</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&quot;smtp&quot;</span>
+      <span class="k">[Writable.InsecureSecrets.SMTP.Secrets]</span>
+      <span class="n">username</span> <span class="o">=</span> <span class="s">&quot;username@mail.example.com&quot;</span>
+      <span class="n">password</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+</code></pre></div>
+</div>
 <h2 id="api-reference">API Reference</h2>
 <p><a href="../../../../api/support/Ch-APISupportNotifications/">Support Notifications API Reference</a></p>
                 

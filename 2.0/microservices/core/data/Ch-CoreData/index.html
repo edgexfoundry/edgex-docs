@@ -335,6 +335,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../V2TopLevelMigration/" title="V2 Migration Guide" class="md-nav__link">
+      V2 Migration Guide
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -1051,6 +1063,46 @@
     Configuration Properties
   </a>
   
+    <nav class="md-nav" aria-label="Configuration Properties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v2-configuration-migration-guide" class="md-nav__link">
+    V2 Configuration Migration Guide
+  </a>
+  
+    <nav class="md-nav" aria-label="V2 Configuration Migration Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#writable" class="md-nav__link">
+    Writable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#messagequeue" class="md-nav__link">
+    MessageQueue
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#messagequeueoptional" class="md-nav__link">
+    MessageQueue.Optional
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1321,6 +1373,18 @@
   <li class="md-nav__item">
     <a href="../../../device/virtual/Ch-VirtualDevice/" title="Virtual Device" class="md-nav__link">
       Virtual Device
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../device/V2Migration/" title="V2 Migration Guide" class="md-nav__link">
+      V2 Migration Guide
     </a>
   </li>
 
@@ -2451,6 +2515,46 @@
     Configuration Properties
   </a>
   
+    <nav class="md-nav" aria-label="Configuration Properties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v2-configuration-migration-guide" class="md-nav__link">
+    V2 Configuration Migration Guide
+  </a>
+  
+    <nav class="md-nav" aria-label="V2 Configuration Migration Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#writable" class="md-nav__link">
+    Writable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#messagequeue" class="md-nav__link">
+    MessageQueue
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#messagequeueoptional" class="md-nav__link">
+    MessageQueue.Optional
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2641,8 +2745,9 @@ latency through this layer and storage needs at the network edge.  But the cost 
 <p><strong>Core Data Request Event / Reading for a Device</strong></p>
 <p><img alt="image" src="../EdgeX_CoreDataEventReading.png" /></p>
 <h2 id="configuration-properties">Configuration Properties</h2>
-<p>Please refer to the general <a href="../../../configuration/CommonConfiguration/">Common Configuration documentation</a> for configuration properties common to all services.</p>
-<div class="tabbed-set" data-tabs="2:5"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Writable</label><div class="tabbed-content">
+<p>Please refer to the general <a href="../../../configuration/CommonConfiguration/">Common Configuration documentation</a> for configuration properties common to all services. Below are only the additional settings and sections that are not common to all EdgeX Services.</p>
+<div class="tabbed-set" data-tabs="2:1"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Writable</label><div class="tabbed-content"></div>
+</div>
 <table>
 <thead>
 <tr>
@@ -2664,8 +2769,8 @@ latency through this layer and storage needs at the network edge.  But the cost 
 </tr>
 </tbody>
 </table>
+<div class="tabbed-set" data-tabs="3:1"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">Databases/Databases.Primary</label><div class="tabbed-content"></div>
 </div>
-<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Service</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2675,34 +2780,6 @@ latency through this layer and storage needs at the network edge.  But the cost 
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>Port</td>
-<td>59880</td>
-<td>Default micro service port for core data</td>
-</tr>
-<tr>
-<td>StartupMsg</td>
-<td>This is the Core Data Microservice</td>
-<td>Core data's bootstrap log entry startup message</td>
-</tr>
-</tbody>
-</table>
-</div>
-<input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><label for="__tabbed_2_3">Databases/Databases.Primary</label><div class="tabbed-content">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Default Value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>Properties used by the service to access the database.  See common configuration for common configuration in this area</td>
-<td></td>
-</tr>
 <tr>
 <td>Name</td>
 <td>'coredata'</td>
@@ -2710,8 +2787,8 @@ latency through this layer and storage needs at the network edge.  But the cost 
 </tr>
 </tbody>
 </table>
+<div class="tabbed-set" data-tabs="4:1"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><label for="__tabbed_4_1">MessageQueue</label><div class="tabbed-content"></div>
 </div>
-<input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><label for="__tabbed_2_4">MessageQueue</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2728,12 +2805,12 @@ latency through this layer and storage needs at the network edge.  But the cost 
 </tr>
 <tr>
 <td>Protocol</td>
-<td>'redis'</td>
-<td>Indicates type of message bus (either redis, zero, or tcp for mqtt)</td>
+<td>redis</td>
+<td>Indicates the connectivity protocol to use to use the bus.</td>
 </tr>
 <tr>
 <td>Host</td>
-<td>'localhost'</td>
+<td>localhost</td>
 <td>Indicates the host of the messaging broker, if applicable.</td>
 </tr>
 <tr>
@@ -2747,34 +2824,14 @@ latency through this layer and storage needs at the network edge.  But the cost 
 <td>Indicates the type of messaging library to use. Currently this is Redis by default. Refer to the <a href="https://github.com/edgexfoundry/go-mod-messaging">go-mod-messaging</a> module for more information.</td>
 </tr>
 <tr>
-<td>AuthMode</td>
-<td>'usernamepassword'</td>
-<td>The type of authentication mode used to connect to the message bus; required for redis message bus</td>
-</tr>
-<tr>
-<td>SecretName</td>
-<td>'redisdb'</td>
-<td>Key to the secret store (insecure or secure) for the auth mode credentials</td>
-</tr>
-<tr>
 <td>PublishTopicPrefix</td>
-<td>'edgex/events/core/' #</td>
-<td>The prefix added to <code>/&lt;device-profile-name&gt;/&lt;device-name&gt;</code> to provide the message bus topic destination.</td>
-</tr>
-<tr>
-<td>SubscribeEnabled</td>
-<td>true</td>
-<td>Indicates whether core data should subscribe to message from the message bus.  Alternate is to receive device sensor data via REST calls</td>
-</tr>
-<tr>
-<td>SubscribeTopic</td>
-<td>'edgex/events/device/#'</td>
-<td>The topic to subscribe to for new event/reading messages.</td>
+<td>edgex/events/core</td>
+<td>Indicates the base topic to which messages should be published. /<code>&lt;device-profile-name&gt;/&lt;device-name&gt;</code> will be added to this Publish Topic prefix</td>
 </tr>
 </tbody>
 </table>
+<div class="tabbed-set" data-tabs="5:1"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><label for="__tabbed_5_1">MessageQueue.Optional</label><div class="tabbed-content"></div>
 </div>
-<input id="__tabbed_2_5" name="__tabbed_2" type="radio" /><label for="__tabbed_2_5">MessageQueue.Optional</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2786,7 +2843,7 @@ latency through this layer and storage needs at the network edge.  But the cost 
 <tbody>
 <tr>
 <td></td>
-<td>Configuration and connection parameters for use with MQTT message bus - in place of Redis or 0MQ</td>
+<td>Configuration and connection parameters for use with MQTT message bus - in place of Redis</td>
 <td></td>
 </tr>
 <tr>
@@ -2826,8 +2883,48 @@ latency through this layer and storage needs at the network edge.  But the cost 
 </tr>
 </tbody>
 </table>
-</div>
-</div>
+<h3 id="v2-configuration-migration-guide">V2 Configuration Migration Guide</h3>
+<p>Refer to the <a href="../../../configuration/V2MigrationCommonConfig">Common Configuration Migration Guide</a> for details on migrating the common configuration sections such as <code>Service</code>.</p>
+<h4 id="writable">Writable</h4>
+<p>The following settings have been removed from the <code>Writable</code> section</p>
+<ul>
+<li>DeviceUpdateLastConnected</li>
+<li>MetaDataCheck</li>
+<li>ServiceUpdateLastConnected</li>
+<li>ValidateCheck</li>
+<li>ChecksumAlgo</li>
+</ul>
+<h4 id="messagequeue">MessageQueue</h4>
+<p>The following <code>MessageQueue</code> setting values have changed:</p>
+<ul>
+<li>Host - Override value for docker is now <code>edgex-redis</code></li>
+<li>Protocol = "redis"</li>
+<li>Port = 6379</li>
+<li>Type = 'redis'</li>
+</ul>
+<p>The following setting has been removed from the <code>MessageQueue</code> section</p>
+<ul>
+<li>Topic</li>
+</ul>
+<p>The following new settings have been added to  <code>MessageQueue</code> section</p>
+<ul>
+<li>PublishTopicPrefix = 'edgex/events/core'</li>
+<li>
+<p>SubscribeTopic = 'edgex/events/device/#'</p>
+</li>
+<li>
+<p>AuthMode = 'usernamepassword'</p>
+</li>
+<li>SecretName = 'redisdb'</li>
+<li>PublishTopicPrefix = 'edgex/events/core'</li>
+<li>SubscribeEnabled = true</li>
+</ul>
+<h4 id="messagequeueoptional">MessageQueue.Optional</h4>
+<p>The following settings have been removed from <code>MessageQueue.Optional</code> section for when using MQTT for the MessageBus. Secure MessageBus using MQTT is not yet supported and will be retrieved from the Secret Store in a future release.</p>
+<ul>
+<li>Username</li>
+<li>Password</li>
+</ul>
 <h2 id="api-reference">API Reference</h2>
 <p><a href="../../../../api/core/Ch-APICoreData/">Core Data API Reference</a></p>
                 

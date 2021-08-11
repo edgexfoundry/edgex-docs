@@ -335,6 +335,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../V2TopLevelMigration/" title="V2 Migration Guide" class="md-nav__link">
+      V2 Migration Guide
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -1096,6 +1108,32 @@
     Configuration Properties
   </a>
   
+    <nav class="md-nav" aria-label="Configuration Properties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v2-configuration-migration-guide" class="md-nav__link">
+    V2 Configuration Migration Guide
+  </a>
+  
+    <nav class="md-nav" aria-label="V2 Configuration Migration Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#writable" class="md-nav__link">
+    Writable
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1354,6 +1392,18 @@
   <li class="md-nav__item">
     <a href="../../../device/virtual/Ch-VirtualDevice/" title="Virtual Device" class="md-nav__link">
       Virtual Device
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../device/V2Migration/" title="V2 Migration Guide" class="md-nav__link">
+      V2 Migration Guide
     </a>
   </li>
 
@@ -2517,6 +2567,32 @@
     Configuration Properties
   </a>
   
+    <nav class="md-nav" aria-label="Configuration Properties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v2-configuration-migration-guide" class="md-nav__link">
+    V2 Configuration Migration Guide
+  </a>
+  
+    <nav class="md-nav" aria-label="V2 Configuration Migration Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#writable" class="md-nav__link">
+    Writable
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2569,7 +2645,7 @@
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
 <p>The device profile was greatly simplified in EdgeX 2.0 (Ireland).  There are now just two sections of the document (deviceResources and deviceCommands) versus the three (deviceResources, deviceCommands and coreCommands) of EdgeX 1.x profiles.  Device resources and device commands are made available through the core command service with the <code>isHidden</code> property on either is set to fault.  This makes a core command section no longer necessary in EdgeX 2.</p>
-<p>However, this does mean that EdgeX 2 profiles are not backward compatible and EdgeX 1.x profiles must be migrated.  When available (coming soon) see the migration guides for details.</p>
+<p>However, this does mean that EdgeX 2 profiles are not backward compatible and EdgeX 1.x profiles must be migrated. See <a href="../../../device/V2Migration#device-profiles">Device Service V2 Migration Guide</a> for complete details.</p>
 </div>
 <h4 id="device-profile-details">Device Profile Details</h4>
 <p><img alt="image" src="../EdgeX_MetadataModel_Profile.png" />
@@ -3169,26 +3245,9 @@
 <p><img alt="image" src="../EdgeX_MetadataDeviceStartup.png" />
 <em>What happens on a device service startup?</em></p>
 <h2 id="configuration-properties">Configuration Properties</h2>
-<p>Please refer to the general <a href="../../../configuration/CommonConfiguration/">Common Configuration documentation</a> for configuration properties common to all services.</p>
-<div class="tabbed-set" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">Service</label><div class="tabbed-content">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Default Value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>StartupMsg</td>
-<td>This is the Core Metadata Microservice</td>
-<td>Core metadata's bootstrap log entry startup message</td>
-</tr>
-</tbody>
-</table>
+<p>Please refer to the general <a href="../../../configuration/CommonConfiguration/">Common Configuration documentation</a> for configuration properties common to all services. Below are only the additional settings and sections that are not common to all EdgeX Services.</p>
+<div class="tabbed-set" data-tabs="3:1"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">Databases/Databases.Primary</label><div class="tabbed-content"></div>
 </div>
-<input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><label for="__tabbed_3_2">Databases/Databases.Primary</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -3198,6 +3257,11 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td></td>
+<td></td>
+<td>Properties used by the service to access the database</td>
+</tr>
 <tr>
 <td>Name</td>
 <td>'metadata'</td>
@@ -3205,8 +3269,8 @@
 </tr>
 </tbody>
 </table>
+<div class="tabbed-set" data-tabs="4:1"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><label for="__tabbed_4_1">Notifications</label><div class="tabbed-content"></div>
 </div>
-<input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><label for="__tabbed_3_3">Notifications</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -3227,9 +3291,14 @@
 <td>Whether to send out notification when a device has been added, changed, or removed</td>
 </tr>
 <tr>
+<td>Slug</td>
+<td>'device-change-'</td>
+<td>Notification service slug to use in sending notification messages</td>
+</tr>
+<tr>
 <td>Content</td>
-<td>'Metadata notice: '</td>
-<td>Start of the notification message from metadata (on device changes by default)</td>
+<td>'Device update: '</td>
+<td>Start of the notification message when sending notification messages on device change</td>
 </tr>
 <tr>
 <td>Sender</td>
@@ -3248,8 +3317,10 @@
 </tr>
 </tbody>
 </table>
-</div>
-</div>
+<h3 id="v2-configuration-migration-guide">V2 Configuration Migration Guide</h3>
+<p>Refer to the <a href="../../../configuration/V2MigrationCommonConfig">Common Configuration Migration Guide</a> for details on migrating the common configuration sections such as <code>Service</code>.</p>
+<h4 id="writable">Writable</h4>
+<p>The <code>EnableValueDescriptorManagement</code> setting has been removed</p>
 <h2 id="api-reference">API Reference</h2>
 <p><a href="../../../../api/core/Ch-APICoreMetadata/">Core Metadata API Reference</a></p>
                 
