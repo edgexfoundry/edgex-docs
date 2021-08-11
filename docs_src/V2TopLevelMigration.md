@@ -13,6 +13,7 @@ This section describes how to migrate from EdgeX 1.x to EdgeX 2.0 at a high leve
 - [Custom Pre-Defined Device](#custom-pre-defined-device)
 - [Custom Applications Service](#custom-applications-service)
 - [Security](#security)
+- [eKuiper Rules](#ekuiper-rules)
 
 ## Custom Compose File
 
@@ -163,3 +164,50 @@ Consul is now secured when running EdgeX 2.0 in secured mode. See [Secure Consul
 ### Secured API Gateway Admin Port 
 
 The API Gateway Admin port is now secured when running EdgeX 2.0 in secured mode. See API Gateway Admin Port (TBD) section for complete details.
+
+## eKuiper Rules
+
+If you have rules defined in the eKuiper rules engine that utilize the `meta()` directive, you will need to migrate your rule(s) to use the new V2  `meta` names. The following are the `meta` names that have changed, added or removed.
+
+- device => deviceName
+- name => resourceName
+- profileName (**new**)
+- pushed (**removed**)
+- created (**removed** - use origin) 
+- modified (**removed** - use origin) 
+- floatEncoding (**removed**)
+
+!!! example "Example V1 to V2 rule migration"
+
+    ```
+    V1 Rule:
+    {
+      "id": "ruleInt64",
+      "sql": "SELECT Int64 FROM demo WHERE meta(device) = \"Random-Integer-Device\" ",
+      "actions": [
+        {
+          "mqtt": {
+            "server": "tcp://edgex-mqtt-broker:1883",
+            "topic": "result",
+            "clientId": "demo_001"
+          }
+        }
+      ]
+    }
+    
+    V2 Rule:
+    {
+      "id": "ruleInt64",
+      "sql": "SELECT Int64 FROM demo WHERE meta(deviceName) = \"Random-Integer-Device\" ",
+      "actions": [
+        {
+          "mqtt": {
+            "server": "tcp://edgex-mqtt-broker:1883",
+            "topic": "result",
+            "clientId": "demo_001"
+          }
+        }
+      ]
+    }
+    ```
+
