@@ -47,10 +47,10 @@ parameters used for Vault token generation.
     Port = 8200 
 
     [TokenFileProvider]
-    PrivilegedTokenPath = /run/edgex/secrets/security-file-token-provider/secrets-token.json
-    ConfigFile = token-config.json
-    OutputDir = /run/edgex/secrets/
-    OutputFilename = secrets-token.json
+    PrivilegedTokenPath = "/run/edgex/secrets/security-file-token-provider/secrets-token.json"
+    ConfigFile = "token-config.json"
+    OutputDir = "/run/edgex/secrets/"
+    OutputFilename = "secrets-token.json"
 
 ## secrets-token.json
 

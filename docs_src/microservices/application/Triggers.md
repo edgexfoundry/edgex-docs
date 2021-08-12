@@ -38,16 +38,16 @@ The `Type=` is set to `edgex-messagebus` trigger type. The Context function `ctx
 The other piece of configuration required are the connection settings:
 ```toml
 [Trigger.EdgexMessageBus]
-Type = 'redis' # message bus type (i.e 'redis`, `mqtt` or `zero` for ZeroMQ)
+Type = "redis" # message bus type (i.e "redis`, `mqtt` or `zero` for ZeroMQ)
     [Trigger.EdgexMessageBus.SubscribeHost]
-        Host = 'localhost'
+        Host = "localhost"
         Port = 6379
-        Protocol = 'redis'
+        Protocol = "redis"
         SubscribeTopics="edgex/events/#"
     [Trigger.EdgexMessageBus.PublishHost]
-        Host = 'localhost'
+        Host = "localhost"
         Port = 6379
-        Protocol = 'redis'
+        Protocol = "redis"
         PublishTopic="" # optional if publishing response back to the MessageBus
 ```
 
@@ -98,8 +98,8 @@ Type = "mqtt"
     AutoReconnect  = "true"
     ConnectTimeout = "30" # Seconds
     SkipCertVerify = "false"
-    authmode = 'none'  # change to 'usernamepassword', 'clientcert', or 'cacert' for secure MQTT messagebus.
-    secretname = 'mqtt-bus'
+    authmode = "none"  # change to "usernamepassword", "clientcert", or "cacert" for secure MQTT messagebus.
+    secretname = "mqtt-bus"
 
 ```
 
