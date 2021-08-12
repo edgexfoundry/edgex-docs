@@ -83,5 +83,6 @@ Consul has UI which allows you to view the health of registered services and vie
 
 > [https://learn.hashicorp.com/tutorials/consul/get-started-explore-the-ui](https://learn.hashicorp.com/tutorials/consul/get-started-explore-the-ui)
 
-
+!!! edgey "EdgeX 2.0"
+    Please note that as of EdgeX 2, Consul can be secured.  When EdgeX is running in secure mode with [secure Consul](https://docs.edgexfoundry.org/2.0/security/Ch-Secure-Consul/), you must provide  Consul's access token to get to the UI referenced above.  See [How to get Consul ACL token](https://docs.edgexfoundry.org/2.0/security/Ch-Secure-Consul/#how-to-get-consul-acl-token) for details.
 
