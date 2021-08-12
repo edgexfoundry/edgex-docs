@@ -1,5 +1,8 @@
 # EdgeX Demonstration API Walk Through
 
+!!! edgey "EdgeX 2.0"
+    Warning! This API walk through tutorial has not yet been updated to the Ireland Release / EdgeX 2.  This tutorial is still based on Hanoi (EdgeX 1.x) release APIs and services.
+
 In order to better appreciate the EdgeX Foundry micro services (what
 they do and how they work), how they inter-operate with each other, and
 some of the more important API calls that each micro service has to

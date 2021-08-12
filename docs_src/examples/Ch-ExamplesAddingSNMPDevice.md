@@ -1,5 +1,8 @@
 # SNMP
 
+!!! edgey "EdgeX 2.0"
+    Warning! This tutorial has not yet been updated to the Ireland Release / EdgeX 2.  This tutorial is still based on Hanoi (EdgeX 1.x) release APIs and services.
+
 EdgeX - Barcelona Release
 
 Ubuntu Desktop 16.04 with Docker/Docker-Compose
