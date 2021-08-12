@@ -15,7 +15,7 @@ Once the functions have been identified, we'll go ahead and build out the config
 !!! example "Example - Writable.Pipeline"
     ```toml
     [Writable]
-      LogLevel = 'DEBUG'
+      LogLevel = "DEBUG"
       [Writable.Pipeline]
         ExecutionOrder = "FilterByDeviceName, Transform, HTTPExport"
         [Writable.Pipeline.Functions.FilterByDeviceName]
@@ -160,7 +160,7 @@ The default `TargetType` for data flowing into the functions pipeline is an Edge
 !!! example "Example - Configure the functions pipeline to **compress**, **encrypt** and then **export** the `[]byte` data via HTTP "
     ```toml
     [Writable]
-      LogLevel = 'DEBUG'
+      LogLevel = "DEBUG"
       [Writable.Pipeline]
         UseTargetTypeOfByteArray = true
         ExecutionOrder = "Compress, Encrypt, HTTPExport"
@@ -228,7 +228,7 @@ Please refer to the function's detailed documentation by clicking the function n
     ```toml
         [Writable.Pipeline.Functions.BatchByCount]
           [Writable.Pipeline.Functions.BatchByCount.Parameters]
-          Mode = "bytimecount" # can be 'bycount', 'bytime' or 'bytimecount'
+          Mode = "bytimecount" # can be "bycount", "bytime" or "bytimecount"
           BatchThreshold = "30"
           TimeInterval = "60s"
     ```
