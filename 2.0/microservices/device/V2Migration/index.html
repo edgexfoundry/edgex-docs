@@ -2722,8 +2722,8 @@
 <div class="admonition example">
 <p class="admonition-title">Example configuration</p>
 <div class="highlight"><pre><span></span><code><span class="p">[</span><span class="n">Device</span><span class="p">]</span> 
-<span class="n">DevicesDir</span> <span class="o">=</span> <span class="s">&#39;./res/devices&#39;</span>
-<span class="n">ProfilesDir</span> <span class="o">=</span> <span class="s">&#39;./res/profiles&#39;</span>
+<span class="n">DevicesDir</span> <span class="o">=</span> <span class="s">&quot;./res/devices&quot;</span>
+<span class="n">ProfilesDir</span> <span class="o">=</span> <span class="s">&quot;./res/profiles&quot;</span>
 <span class="p">...</span> 
 </code></pre></div>
 </div>
@@ -2749,13 +2749,13 @@ A <code>MessageQueue</code> section is added in configuration to specify the det
 <p class="admonition-title">MessageQueue Example</p>
 </div>
 <div class="highlight"><pre><span></span><code><span class="k">[MessageQueue]</span>
-<span class="n">Protocol</span> <span class="o">=</span> <span class="s">&#39;redis&#39;</span>
-<span class="n">Host</span> <span class="o">=</span> <span class="s">&#39;localhost&#39;</span>
+<span class="n">Protocol</span> <span class="o">=</span> <span class="s">&quot;redis&quot;</span>
+<span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
 <span class="n">Port</span> <span class="o">=</span> <span class="mi">6379</span>
-<span class="n">Type</span> <span class="o">=</span> <span class="s">&#39;redis&#39;</span>
-<span class="n">AuthMode</span> <span class="o">=</span> <span class="s">&#39;usernamepassword&#39;</span>  <span class="c1"># required for redis messagebus (secure or insecure).</span>
+<span class="n">Type</span> <span class="o">=</span> <span class="s">&quot;redis&quot;</span>
+<span class="n">AuthMode</span> <span class="o">=</span> <span class="s">&quot;usernamepassword&quot;</span>  <span class="c1"># required for redis messagebus (secure or insecure).</span>
 <span class="n">SecretName</span> <span class="o">=</span> <span class="s">&quot;redisdb&quot;</span>
-<span class="n">PublishTopicPrefix</span> <span class="o">=</span> <span class="s">&#39;edgex/events/device&#39;</span> <span class="c1"># /&lt;device-profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt; will be added to this Publish Topic prefix</span>
+<span class="n">PublishTopicPrefix</span> <span class="o">=</span> <span class="s">&quot;edgex/events/device&quot;</span> <span class="c1"># /&lt;device-profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt; will be added to this Publish Topic prefix</span>
   <span class="k">[MessageQueue.Optional]</span>
   <span class="c1"># Default MQTT Specific options that need to be here to enable environment variable overrides of them</span>
   <span class="c1"># Client Identifiers</span>
@@ -2908,22 +2908,22 @@ and deviceCommand is able to be called via Command Service REST API. Set <code>i
 <div class="admonition example">
 <p class="admonition-title">Pre-defined devices</p>
 <div class="highlight"><pre><span></span><code><span class="k">[[DeviceList]]</span>
-<span class="n">Name</span> <span class="o">=</span> <span class="s">&#39;Simple-Device01&#39;</span>
-<span class="n">ProfileName</span> <span class="o">=</span> <span class="s">&#39;Simple-Device&#39;</span>
-<span class="n">Description</span> <span class="o">=</span> <span class="s">&#39;Example of Simple Device&#39;</span>
-<span class="n">Labels</span> <span class="o">=</span> <span class="k">[ &#39;industrial&#39; ]</span>
+<span class="n">Name</span> <span class="o">=</span> <span class="s">&quot;Simple-Device01&quot;</span>
+<span class="n">ProfileName</span> <span class="o">=</span> <span class="s">&quot;Simple-Device&quot;</span>
+<span class="n">Description</span> <span class="o">=</span> <span class="s">&quot;Example of Simple Device&quot;</span>
+<span class="n">Labels</span> <span class="o">=</span> <span class="k">[ &quot;industrial&quot; ]</span>
   <span class="k">[DeviceList.Protocols]</span>
     <span class="k">[DeviceList.Protocols.other]</span>
-    <span class="n">Address</span> <span class="o">=</span> <span class="s">&#39;simple01&#39;</span>
-    <span class="n">Port</span> <span class="o">=</span> <span class="s">&#39;300&#39;</span>
+    <span class="n">Address</span> <span class="o">=</span> <span class="s">&quot;simple01&quot;</span>
+    <span class="n">Port</span> <span class="o">=</span> <span class="s">&quot;300&quot;</span>
   <span class="k">[[DeviceList.AutoEvents]]</span>
-  <span class="n">Interval</span> <span class="o">=</span> <span class="s">&#39;10s&#39;</span>
+  <span class="n">Interval</span> <span class="o">=</span> <span class="s">&quot;10s&quot;</span>
   <span class="n">OnChange</span> <span class="o">=</span> <span class="kc">false</span>
-  <span class="n">SourceName</span> <span class="o">=</span> <span class="s">&#39;Switch&#39;</span>
+  <span class="n">SourceName</span> <span class="o">=</span> <span class="s">&quot;Switch&quot;</span>
   <span class="k">[[DeviceList.AutoEvents]]</span>
-  <span class="n">Interval</span> <span class="o">=</span> <span class="s">&#39;30s&#39;</span>
+  <span class="n">Interval</span> <span class="o">=</span> <span class="s">&quot;30s&quot;</span>
   <span class="n">OnChange</span> <span class="o">=</span> <span class="kc">false</span>
-  <span class="n">SourceName</span> <span class="o">=</span> <span class="s">&#39;Image&#39;</span>
+  <span class="n">SourceName</span> <span class="o">=</span> <span class="s">&quot;Image&quot;</span>
 </code></pre></div>
 </div>
 <p>Notice that we renamed some fields:  </p>

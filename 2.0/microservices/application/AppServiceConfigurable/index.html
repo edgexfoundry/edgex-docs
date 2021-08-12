@@ -2697,7 +2697,7 @@
 <div class="admonition example">
 <p class="admonition-title">Example - Writable.Pipeline</p>
 <div class="highlight"><pre><span></span><code><span class="k">[Writable]</span>
-  <span class="n">LogLevel</span> <span class="o">=</span> <span class="s">&#39;DEBUG&#39;</span>
+  <span class="n">LogLevel</span> <span class="o">=</span> <span class="s">&quot;DEBUG&quot;</span>
   <span class="k">[Writable.Pipeline]</span>
     <span class="n">ExecutionOrder</span> <span class="o">=</span> <span class="s">&quot;FilterByDeviceName, Transform, HTTPExport&quot;</span>
     <span class="k">[Writable.Pipeline.Functions.FilterByDeviceName]</span>
@@ -2849,7 +2849,7 @@
 <div class="admonition example">
 <p class="admonition-title">Example - Configure the functions pipeline to <strong>compress</strong>, <strong>encrypt</strong> and then <strong>export</strong> the <code>[]byte</code> data via HTTP </p>
 <div class="highlight"><pre><span></span><code><span class="k">[Writable]</span>
-  <span class="n">LogLevel</span> <span class="o">=</span> <span class="s">&#39;DEBUG&#39;</span>
+  <span class="n">LogLevel</span> <span class="o">=</span> <span class="s">&quot;DEBUG&quot;</span>
   <span class="k">[Writable.Pipeline]</span>
     <span class="n">UseTargetTypeOfByteArray</span> <span class="o">=</span> <span class="kc">true</span>
     <span class="n">ExecutionOrder</span> <span class="o">=</span> <span class="s">&quot;Compress, Encrypt, HTTPExport&quot;</span>
@@ -2911,7 +2911,7 @@
 <p class="admonition-title">Example</p>
 <div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.BatchByCount]</span>
       <span class="k">[Writable.Pipeline.Functions.BatchByCount.Parameters]</span>
-      <span class="n">Mode</span> <span class="o">=</span> <span class="s">&quot;bytimecount&quot;</span> <span class="c1"># can be &#39;bycount&#39;, &#39;bytime&#39; or &#39;bytimecount&#39;</span>
+      <span class="n">Mode</span> <span class="o">=</span> <span class="s">&quot;bytimecount&quot;</span> <span class="c1"># can be &quot;bycount&quot;, &quot;bytime&quot; or &quot;bytimecount&quot;</span>
       <span class="n">BatchThreshold</span> <span class="o">=</span> <span class="s">&quot;30&quot;</span>
       <span class="n">TimeInterval</span> <span class="o">=</span> <span class="s">&quot;60s&quot;</span>
 </code></pre></div>

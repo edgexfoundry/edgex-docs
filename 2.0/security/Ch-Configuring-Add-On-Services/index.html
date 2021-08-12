@@ -2528,16 +2528,16 @@ when the entrypoint script is overridden.  In this case, we also override the <c
 the proper <code>[SecretStore]</code> section.</p>
 <p>Example:</p>
 <div class="highlight"><pre><span></span><code><span class="k">[SecretStore]</span>
-<span class="n">Type</span> <span class="o">=</span> <span class="s">&#39;vault&#39;</span>
-<span class="n">Host</span> <span class="o">=</span> <span class="s">&#39;localhost&#39;</span>
+<span class="n">Type</span> <span class="o">=</span> <span class="s">&quot;vault&quot;</span>
+<span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
 <span class="n">Port</span> <span class="o">=</span> <span class="mi">8200</span>
-<span class="n">Path</span> <span class="o">=</span> <span class="s">&#39;device-camera/&#39;</span>
-<span class="n">Protocol</span> <span class="o">=</span> <span class="s">&#39;http&#39;</span>
-<span class="n">RootCaCertPath</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
-<span class="n">ServerName</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
-<span class="n">TokenFile</span> <span class="o">=</span> <span class="s">&#39;/tmp/edgex/secrets/device-camera/secrets-token.json&#39;</span>
+<span class="n">Path</span> <span class="o">=</span> <span class="s">&quot;device-camera/&quot;</span>
+<span class="n">Protocol</span> <span class="o">=</span> <span class="s">&quot;http&quot;</span>
+<span class="n">RootCaCertPath</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+<span class="n">ServerName</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+<span class="n">TokenFile</span> <span class="o">=</span> <span class="s">&quot;/tmp/edgex/secrets/device-camera/secrets-token.json&quot;</span>
   <span class="k">[SecretStore.Authentication]</span>
-  <span class="n">AuthType</span> <span class="o">=</span> <span class="s">&#39;X-Vault-Token&#39;</span>
+  <span class="n">AuthType</span> <span class="o">=</span> <span class="s">&quot;X-Vault-Token&quot;</span>
 </code></pre></div>
 <p>Note that the service key <code>device-camera</code> must be used for the <code>Path</code> and in the <code>TokenFile</code> path
 to keep it consistent and easier to maintain.

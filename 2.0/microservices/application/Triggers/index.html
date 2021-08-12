@@ -2706,16 +2706,16 @@ The <code>Type=</code> is set to <code>edgex-messagebus</code> trigger type. The
 <h3 id="messagebus-connection-configuration">MessageBus Connection Configuration</h3>
 <p>The other piece of configuration required are the connection settings:
 <div class="highlight"><pre><span></span><code><span class="k">[Trigger.EdgexMessageBus]</span>
-<span class="n">Type</span> <span class="o">=</span> <span class="s">&#39;redis&#39;</span> <span class="c1"># message bus type (i.e &#39;redis`, `mqtt` or `zero` for ZeroMQ)</span>
+<span class="n">Type</span> <span class="o">=</span> <span class="s">&quot;redis&quot;</span> <span class="c1"># message bus type (i.e &quot;redis`, `mqtt` or `zero` for ZeroMQ)</span>
     <span class="k">[Trigger.EdgexMessageBus.SubscribeHost]</span>
-        <span class="n">Host</span> <span class="o">=</span> <span class="s">&#39;localhost&#39;</span>
+        <span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
         <span class="n">Port</span> <span class="o">=</span> <span class="mi">6379</span>
-        <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&#39;redis&#39;</span>
+        <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&quot;redis&quot;</span>
         <span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#&quot;</span>
     <span class="k">[Trigger.EdgexMessageBus.PublishHost]</span>
-        <span class="n">Host</span> <span class="o">=</span> <span class="s">&#39;localhost&#39;</span>
+        <span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
         <span class="n">Port</span> <span class="o">=</span> <span class="mi">6379</span>
-        <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&#39;redis&#39;</span>
+        <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&quot;redis&quot;</span>
         <span class="n">PublishTopic</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="c1"># optional if publishing response back to the MessageBus</span>
 </code></pre></div></p>
 <div class="admonition edgey">
@@ -2762,8 +2762,8 @@ zero  - for ZeroMQ (No Broker/Service required. Core Data must be configured to 
     <span class="n">AutoReconnect</span>  <span class="o">=</span> <span class="s">&quot;true&quot;</span>
     <span class="n">ConnectTimeout</span> <span class="o">=</span> <span class="s">&quot;30&quot;</span> <span class="c1"># Seconds</span>
     <span class="n">SkipCertVerify</span> <span class="o">=</span> <span class="s">&quot;false&quot;</span>
-    <span class="n">authmode</span> <span class="o">=</span> <span class="s">&#39;none&#39;</span>  <span class="c1"># change to &#39;usernamepassword&#39;, &#39;clientcert&#39;, or &#39;cacert&#39; for secure MQTT messagebus.</span>
-    <span class="n">secretname</span> <span class="o">=</span> <span class="s">&#39;mqtt-bus&#39;</span>
+    <span class="n">authmode</span> <span class="o">=</span> <span class="s">&quot;none&quot;</span>  <span class="c1"># change to &quot;usernamepassword&quot;, &quot;clientcert&quot;, or &quot;cacert&quot; for secure MQTT messagebus.</span>
+    <span class="n">secretname</span> <span class="o">=</span> <span class="s">&quot;mqtt-bus&quot;</span>
 </code></pre></div>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>

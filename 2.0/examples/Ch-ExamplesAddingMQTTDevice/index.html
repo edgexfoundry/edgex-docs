@@ -2700,45 +2700,45 @@ that implements the MQTT protocol versions 5.0, 3.1.1 and 3.1.</p>
 </ol>
 <p>To simulate the MQTT device, create a javascript, named <code>mock-device.js</code>, with the
 following content:
-<div class="highlight"><pre><span></span><code>function getRandomFloat(min, max) {
-    return Math.random() * (max - min) + min;
-}
+<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">getRandomFloat</span><span class="p">(</span><span class="nx">min</span><span class="p">,</span> <span class="nx">max</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="p">(</span><span class="nx">max</span> <span class="o">-</span> <span class="nx">min</span><span class="p">)</span> <span class="o">+</span> <span class="nx">min</span><span class="p">;</span>
+<span class="p">}</span>
 
-const deviceName = &quot;MQTT-Test-Device&quot;;
-let message = &quot;test-message&quot;;
+<span class="kd">const</span> <span class="nx">deviceName</span> <span class="o">=</span> <span class="s2">&quot;MQTT-Test-Device&quot;</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">message</span> <span class="o">=</span> <span class="s2">&quot;test-message&quot;</span><span class="p">;</span>
 
-// DataSender sends async value to MQTT broker every 15 seconds
-schedule(&#39;*/15 * * * * *&#39;, ()=&gt;{
-    let body = {
-        &quot;name&quot;: deviceName,
-        &quot;cmd&quot;: &quot;randnum&quot;,
-        &quot;randnum&quot;: getRandomFloat(25,29).toFixed(1)
-    };
-    publish( &#39;DataTopic&#39;, JSON.stringify(body));
-});
+<span class="c1">// DataSender sends async value to MQTT broker every 15 seconds</span>
+<span class="nx">schedule</span><span class="p">(</span><span class="s1">&#39;*/15 * * * * *&#39;</span><span class="p">,</span> <span class="p">()=&gt;{</span>
+    <span class="kd">let</span> <span class="nx">body</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="nx">deviceName</span><span class="p">,</span>
+        <span class="s2">&quot;cmd&quot;</span><span class="o">:</span> <span class="s2">&quot;randnum&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;randnum&quot;</span><span class="o">:</span> <span class="nx">getRandomFloat</span><span class="p">(</span><span class="mf">25</span><span class="p">,</span><span class="mf">29</span><span class="p">).</span><span class="nx">toFixed</span><span class="p">(</span><span class="mf">1</span><span class="p">)</span>
+    <span class="p">};</span>
+    <span class="nx">publish</span><span class="p">(</span> <span class="s1">&#39;DataTopic&#39;</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">body</span><span class="p">));</span>
+<span class="p">});</span>
 
-// CommandHandler receives commands and sends response to MQTT broker
-// 1. Receive the reading request, then return the response
-// 2. Receive the set request, then change the device value
-subscribe( &quot;CommandTopic&quot; , (topic, val) =&gt; {
-    var data = val;
-        if (data.method == &quot;set&quot;) {
-        message = data[data.cmd]
-    }else{
-        switch(data.cmd) {
-            case &quot;ping&quot;:
-              data.ping = &quot;pong&quot;;
-              break;
-            case &quot;message&quot;:
-              data.message = message;
-              break;
-            case &quot;randnum&quot;:
-                data.randnum = 12.123;
-                break;
-          }
-    }
-    publish( &quot;ResponseTopic&quot;, JSON.stringify(data));
-});
+<span class="c1">// CommandHandler receives commands and sends response to MQTT broker</span>
+<span class="c1">// 1. Receive the reading request, then return the response</span>
+<span class="c1">// 2. Receive the set request, then change the device value</span>
+<span class="nx">subscribe</span><span class="p">(</span> <span class="s2">&quot;CommandTopic&quot;</span> <span class="p">,</span> <span class="p">(</span><span class="nx">topic</span><span class="p">,</span> <span class="nx">val</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">val</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">method</span> <span class="o">==</span> <span class="s2">&quot;set&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">message</span> <span class="o">=</span> <span class="nx">data</span><span class="p">[</span><span class="nx">data</span><span class="p">.</span><span class="nx">cmd</span><span class="p">]</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="k">switch</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">cmd</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">case</span> <span class="s2">&quot;ping&quot;</span><span class="o">:</span>
+              <span class="nx">data</span><span class="p">.</span><span class="nx">ping</span> <span class="o">=</span> <span class="s2">&quot;pong&quot;</span><span class="p">;</span>
+              <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="s2">&quot;message&quot;</span><span class="o">:</span>
+              <span class="nx">data</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="nx">message</span><span class="p">;</span>
+              <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="s2">&quot;randnum&quot;</span><span class="o">:</span>
+                <span class="nx">data</span><span class="p">.</span><span class="nx">randnum</span> <span class="o">=</span> <span class="mf">12.123</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+          <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nx">publish</span><span class="p">(</span> <span class="s2">&quot;ResponseTopic&quot;</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
+<span class="p">});</span>
 </code></pre></div></p>
 <p>To run the device simulator, enter the commands shown below with the
 following changes:</p>
@@ -2767,63 +2767,63 @@ $ docker run -d --restart=always --name=mqtt-scripts \
 which can be Read or Write.</p>
 <p>Create a device profile, named <code>mqtt.test.device.profile.yml</code>, with the
 following content:
-<div class="highlight"><pre><span></span><code>name: &quot;MQTT-Test-Device-Profile&quot;
-manufacturer: &quot;iot&quot;
-model: &quot;MQTT-DEVICE&quot;
-description: &quot;Test device profile&quot;
-labels:
-  - &quot;mqtt&quot;
-  - &quot;test&quot;
-deviceResources:
-  -
-    name: randnum
-    isHidden: true
-    description: &quot;device random number&quot;
-    properties:
-      valueType: &quot;Float32&quot;
-      readWrite: &quot;R&quot;
-  -
-    name: ping
-    isHidden: true
-    description: &quot;device awake&quot;
-    properties:
-      valueType: &quot;String&quot;
-      readWrite: &quot;R&quot;
-  -
-    name: message
-    isHidden: false
-    description: &quot;device message&quot;
-    properties:
-      valueType: &quot;String&quot;
-      readWrite: &quot;RW&quot;
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span> <span class="s">&quot;MQTT-Test-Device-Profile&quot;</span>
+<span class="nt">manufacturer</span><span class="p">:</span> <span class="s">&quot;iot&quot;</span>
+<span class="nt">model</span><span class="p">:</span> <span class="s">&quot;MQTT-DEVICE&quot;</span>
+<span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Test</span><span class="nv"> </span><span class="s">device</span><span class="nv"> </span><span class="s">profile&quot;</span>
+<span class="nt">labels</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="s">&quot;mqtt&quot;</span>
+  <span class="p p-Indicator">-</span> <span class="s">&quot;test&quot;</span>
+<span class="nt">deviceResources</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">randnum</span>
+    <span class="nt">isHidden</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;device</span><span class="nv"> </span><span class="s">random</span><span class="nv"> </span><span class="s">number&quot;</span>
+    <span class="nt">properties</span><span class="p">:</span>
+      <span class="nt">valueType</span><span class="p">:</span> <span class="s">&quot;Float32&quot;</span>
+      <span class="nt">readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span>
+  <span class="p p-Indicator">-</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ping</span>
+    <span class="nt">isHidden</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;device</span><span class="nv"> </span><span class="s">awake&quot;</span>
+    <span class="nt">properties</span><span class="p">:</span>
+      <span class="nt">valueType</span><span class="p">:</span> <span class="s">&quot;String&quot;</span>
+      <span class="nt">readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span>
+  <span class="p p-Indicator">-</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">message</span>
+    <span class="nt">isHidden</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;device</span><span class="nv"> </span><span class="s">message&quot;</span>
+    <span class="nt">properties</span><span class="p">:</span>
+      <span class="nt">valueType</span><span class="p">:</span> <span class="s">&quot;String&quot;</span>
+      <span class="nt">readWrite</span><span class="p">:</span> <span class="s">&quot;RW&quot;</span>
 
-deviceCommands:
-  -
-    name: values
-    readWrite: &quot;R&quot;
-    isHidden: false
-    resourceOperations:
-        - { deviceResource: &quot;randnum&quot; }
-        - { deviceResource: &quot;ping&quot; }
-        - { deviceResource: &quot;message&quot; }
+<span class="nt">deviceCommands</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">values</span>
+    <span class="nt">readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span>
+    <span class="nt">isHidden</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+    <span class="nt">resourceOperations</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span> <span class="s">&quot;randnum&quot;</span> <span class="p p-Indicator">}</span>
+        <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span> <span class="s">&quot;ping&quot;</span> <span class="p p-Indicator">}</span>
+        <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span> <span class="s">&quot;message&quot;</span> <span class="p p-Indicator">}</span>
 </code></pre></div></p>
 <h3 id="device-configuration">Device Configuration</h3>
 <p>Use this configuration file to define devices and schedule jobs.
 device-mqtt generates a relative instance on start-up.</p>
 <p>Create the device configuration file, named <code>mqtt.test.device.config.toml</code>, as shown below:</p>
-<div class="highlight"><pre><span></span><code># Pre-define Devices
-[[DeviceList]]
-  Name = &#39;MQTT-Test-Device&#39;
-  ProfileName = &#39;MQTT-Test-Device-Profile&#39;
-  Description = &#39;MQTT device is created for test purpose&#39;
-  Labels = [ &#39;MQTT&#39;, &#39;test&#39; ]
-  [DeviceList.Protocols]
-    [DeviceList.Protocols.mqtt]
-       CommandTopic = &#39;CommandTopic&#39;
-    [[DeviceList.AutoEvents]]
-       Interval = &#39;30s&#39;
-       OnChange = false
-       SourceName = &#39;message&#39;
+<div class="highlight"><pre><span></span><code><span class="c1"># Pre-define Devices</span>
+<span class="k">[[DeviceList]]</span>
+  <span class="n">Name</span> <span class="o">=</span> <span class="s">&quot;MQTT-Test-Device&quot;</span>
+  <span class="n">ProfileName</span> <span class="o">=</span> <span class="s">&quot;MQTT-Test-Device-Profile&quot;</span>
+  <span class="n">Description</span> <span class="o">=</span> <span class="s">&quot;MQTT device is created for test purpose&quot;</span>
+  <span class="n">Labels</span> <span class="o">=</span> <span class="k">[ &quot;MQTT&quot;, &quot;test&quot; ]</span>
+  <span class="k">[DeviceList.Protocols]</span>
+    <span class="k">[DeviceList.Protocols.mqtt]</span>
+       <span class="n">CommandTopic</span> <span class="o">=</span> <span class="s">&quot;CommandTopic&quot;</span>
+    <span class="k">[[DeviceList.AutoEvents]]</span>
+       <span class="n">Interval</span> <span class="o">=</span> <span class="s">&quot;30s&quot;</span>
+       <span class="n">OnChange</span> <span class="o">=</span> <span class="kc">false</span>
+       <span class="n">SourceName</span> <span class="o">=</span> <span class="s">&quot;message&quot;</span>
 </code></pre></div>
 <ul>
 <li><code>CommandTopic</code> is used to publish the GET or SET command request</li>
@@ -2848,16 +2848,16 @@ docker-compose.yml
 <ul>
 <li>Replace the <code>/path/to/custom-config</code> in the example with the correct path</li>
 </ul>
-<div class="highlight"><pre><span></span><code> device-mqtt:
-    ...
-    environment:
-      ...
-      DEVICE_DEVICESDIR: /custom-config/devices
-      DEVICE_PROFILESDIR: /custom-config/profiles
-      MQTTBROKERINFO_HOST: 172.17.0.1
-    volumes:
-    ...
-    - /path/to/custom-config:/custom-config
+<div class="highlight"><pre><span></span><code> <span class="nt">device-mqtt</span><span class="p">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">...</span>
+    <span class="l l-Scalar l-Scalar-Plain">environment</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">...</span>
+      <span class="l l-Scalar l-Scalar-Plain">DEVICE_DEVICESDIR</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/custom-config/devices</span>
+      <span class="nt">DEVICE_PROFILESDIR</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/custom-config/profiles</span>
+      <span class="nt">MQTTBROKERINFO_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">172.17.0.1</span>
+    <span class="nt">volumes</span><span class="p">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">...</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">/path/to/custom-config:/custom-config</span>
 </code></pre></div>
 <blockquote>
 <p>The address <code>172.17.0.1</code> is point to the MQTT broker via the docker bridge network.</p>
@@ -2872,53 +2872,53 @@ $ docker-compose up -d
 <p>Now we're ready to run some commands.</p>
 <h3 id="find-executable-commands">Find Executable Commands</h3>
 <p>Use the following query to find executable commands:</p>
-<div class="highlight"><pre><span></span><code>$ curl http://localhost:59882/api/v2/device/all | json_pp
+<div class="highlight"><pre><span></span><code><span class="err">$</span> <span class="err">curl</span> <span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="err">//localhos</span><span class="kc">t</span><span class="p">:</span><span class="mi">59882</span><span class="err">/api/v</span><span class="mi">2</span><span class="err">/device/all</span> <span class="err">|</span> <span class="err">jso</span><span class="kc">n</span><span class="err">_pp</span>
 
-{
-   &quot;deviceCoreCommands&quot; : [
-      {
-         &quot;profileName&quot; : &quot;MQTT-Test-Device-Profile&quot;,
-         &quot;deviceName&quot; : &quot;MQTT-Test-Device&quot;,
-         &quot;coreCommands&quot; : [
-            {
-               &quot;url&quot; : &quot;http://edgex-core-command:59882&quot;,
-               &quot;parameters&quot; : [
-                  {
-                     &quot;resourceName&quot; : &quot;randnum&quot;,
-                     &quot;valueType&quot; : &quot;Float32&quot;
-                  },
-                  {
-                     &quot;resourceName&quot; : &quot;ping&quot;,
-                     &quot;valueType&quot; : &quot;String&quot;
-                  },
-                  {
-                     &quot;resourceName&quot; : &quot;message&quot;,
-                     &quot;valueType&quot; : &quot;String&quot;
-                  }
-               ],
-               &quot;get&quot; : true,
-               &quot;name&quot; : &quot;values&quot;,
-               &quot;path&quot; : &quot;/api/v2/device/name/MQTT-Test-Device/values&quot;
-            },
-            {
-               &quot;url&quot; : &quot;http://edgex-core-command:59882&quot;,
-               &quot;parameters&quot; : [
-                  {
-                     &quot;valueType&quot; : &quot;String&quot;,
-                     &quot;resourceName&quot; : &quot;message&quot;
-                  }
-               ],
-               &quot;get&quot; : true,
-               &quot;set&quot; : true,
-               &quot;path&quot; : &quot;/api/v2/device/name/MQTT-Test-Device/message&quot;,
-               &quot;name&quot; : &quot;message&quot;
-            }
-         ]
-      }
-   ],
-   &quot;apiVersion&quot; : &quot;v2&quot;,
-   &quot;statusCode&quot; : 200
-}
+<span class="p">{</span>
+   <span class="nt">&quot;deviceCoreCommands&quot;</span> <span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+         <span class="nt">&quot;profileName&quot;</span> <span class="p">:</span> <span class="s2">&quot;MQTT-Test-Device-Profile&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;deviceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;MQTT-Test-Device&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;coreCommands&quot;</span> <span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+               <span class="nt">&quot;url&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:59882&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;parameters&quot;</span> <span class="p">:</span> <span class="p">[</span>
+                  <span class="p">{</span>
+                     <span class="nt">&quot;resourceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;randnum&quot;</span><span class="p">,</span>
+                     <span class="nt">&quot;valueType&quot;</span> <span class="p">:</span> <span class="s2">&quot;Float32&quot;</span>
+                  <span class="p">},</span>
+                  <span class="p">{</span>
+                     <span class="nt">&quot;resourceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;ping&quot;</span><span class="p">,</span>
+                     <span class="nt">&quot;valueType&quot;</span> <span class="p">:</span> <span class="s2">&quot;String&quot;</span>
+                  <span class="p">},</span>
+                  <span class="p">{</span>
+                     <span class="nt">&quot;resourceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;message&quot;</span><span class="p">,</span>
+                     <span class="nt">&quot;valueType&quot;</span> <span class="p">:</span> <span class="s2">&quot;String&quot;</span>
+                  <span class="p">}</span>
+               <span class="p">],</span>
+               <span class="nt">&quot;get&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+               <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;values&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;path&quot;</span> <span class="p">:</span> <span class="s2">&quot;/api/v2/device/name/MQTT-Test-Device/values&quot;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+               <span class="nt">&quot;url&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:59882&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;parameters&quot;</span> <span class="p">:</span> <span class="p">[</span>
+                  <span class="p">{</span>
+                     <span class="nt">&quot;valueType&quot;</span> <span class="p">:</span> <span class="s2">&quot;String&quot;</span><span class="p">,</span>
+                     <span class="nt">&quot;resourceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;message&quot;</span>
+                  <span class="p">}</span>
+               <span class="p">],</span>
+               <span class="nt">&quot;get&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+               <span class="nt">&quot;set&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+               <span class="nt">&quot;path&quot;</span> <span class="p">:</span> <span class="s2">&quot;/api/v2/device/name/MQTT-Test-Device/message&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;message&quot;</span>
+            <span class="p">}</span>
+         <span class="p">]</span>
+      <span class="p">}</span>
+   <span class="p">],</span>
+   <span class="nt">&quot;apiVersion&quot;</span> <span class="p">:</span> <span class="s2">&quot;v2&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;statusCode&quot;</span> <span class="p">:</span> <span class="mi">200</span>
+<span class="p">}</span>
 </code></pre></div>
 <h3 id="execute-set-command">Execute SET Command</h3>
 <p>Execute a SET command according to the url and parameterNames, replacing
@@ -2929,75 +2929,75 @@ $ docker-compose up -d
 </code></pre></div>
 <h3 id="execute-get-command">Execute GET Command</h3>
 <p>Execute a GET command as follows:</p>
-<div class="highlight"><pre><span></span><code>$ curl http://localhost:59882/api/v2/device/name/MQTT-Test-Device/message | json_pp
+<div class="highlight"><pre><span></span><code><span class="err">$</span> <span class="err">curl</span> <span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="err">//localhos</span><span class="kc">t</span><span class="p">:</span><span class="mi">59882</span><span class="err">/api/v</span><span class="mi">2</span><span class="err">/device/</span><span class="kc">na</span><span class="err">me/MQTT</span><span class="mi">-</span><span class="err">Tes</span><span class="kc">t</span><span class="mi">-</span><span class="err">Device/message</span> <span class="err">|</span> <span class="err">jso</span><span class="kc">n</span><span class="err">_pp</span>
 
-{
-   &quot;event&quot; : {
-      &quot;origin&quot; : 1624417689920618131,
-      &quot;readings&quot; : [
-         {
-            &quot;resourceName&quot; : &quot;message&quot;,
-            &quot;binaryValue&quot; : null,
-            &quot;profileName&quot; : &quot;MQTT-Test-Device-Profile&quot;,
-            &quot;deviceName&quot; : &quot;MQTT-Test-Device&quot;,
-            &quot;id&quot; : &quot;a3bb78c5-e76f-49a2-ad9d-b220a86c3e36&quot;,
-            &quot;value&quot; : &quot;Hello!&quot;,
-            &quot;valueType&quot; : &quot;String&quot;,
-            &quot;origin&quot; : 1624417689920615828,
-            &quot;mediaType&quot; : &quot;&quot;
-         }
-      ],
-      &quot;sourceName&quot; : &quot;message&quot;,
-      &quot;deviceName&quot; : &quot;MQTT-Test-Device&quot;,
-      &quot;apiVersion&quot; : &quot;v2&quot;,
-      &quot;profileName&quot; : &quot;MQTT-Test-Device-Profile&quot;,
-      &quot;id&quot; : &quot;e0b29735-8b39-44d1-8f68-4d7252e14cc7&quot;
-   },
-   &quot;apiVersion&quot; : &quot;v2&quot;,
-   &quot;statusCode&quot; : 200
-}
+<span class="p">{</span>
+   <span class="nt">&quot;event&quot;</span> <span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;origin&quot;</span> <span class="p">:</span> <span class="mi">1624417689920618131</span><span class="p">,</span>
+      <span class="nt">&quot;readings&quot;</span> <span class="p">:</span> <span class="p">[</span>
+         <span class="p">{</span>
+            <span class="nt">&quot;resourceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;message&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;binaryValue&quot;</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="nt">&quot;profileName&quot;</span> <span class="p">:</span> <span class="s2">&quot;MQTT-Test-Device-Profile&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;deviceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;MQTT-Test-Device&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;id&quot;</span> <span class="p">:</span> <span class="s2">&quot;a3bb78c5-e76f-49a2-ad9d-b220a86c3e36&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;value&quot;</span> <span class="p">:</span> <span class="s2">&quot;Hello!&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;valueType&quot;</span> <span class="p">:</span> <span class="s2">&quot;String&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;origin&quot;</span> <span class="p">:</span> <span class="mi">1624417689920615828</span><span class="p">,</span>
+            <span class="nt">&quot;mediaType&quot;</span> <span class="p">:</span> <span class="s2">&quot;&quot;</span>
+         <span class="p">}</span>
+      <span class="p">],</span>
+      <span class="nt">&quot;sourceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;message&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;deviceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;MQTT-Test-Device&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;apiVersion&quot;</span> <span class="p">:</span> <span class="s2">&quot;v2&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;profileName&quot;</span> <span class="p">:</span> <span class="s2">&quot;MQTT-Test-Device-Profile&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;id&quot;</span> <span class="p">:</span> <span class="s2">&quot;e0b29735-8b39-44d1-8f68-4d7252e14cc7&quot;</span>
+   <span class="p">},</span>
+   <span class="nt">&quot;apiVersion&quot;</span> <span class="p">:</span> <span class="s2">&quot;v2&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;statusCode&quot;</span> <span class="p">:</span> <span class="mi">200</span>
+<span class="p">}</span>
 </code></pre></div>
 <h2 id="schedule-job">Schedule Job</h2>
 <p>The schedule job is defined in the <code>[[DeviceList.AutoEvents]]</code> section of the device configuration file:</p>
-<div class="highlight"><pre><span></span><code>    [[DeviceList.AutoEvents]]
-       Interval = &#39;30s&#39;
-       OnChange = false
-       SourceName = &#39;message&#39;
+<div class="highlight"><pre><span></span><code>    <span class="k">[[DeviceList.AutoEvents]]</span>
+       <span class="n">Interval</span> <span class="o">=</span> <span class="s">&quot;30s&quot;</span>
+       <span class="n">OnChange</span> <span class="o">=</span> <span class="kc">false</span>
+       <span class="n">SourceName</span> <span class="o">=</span> <span class="s">&quot;message&quot;</span>
 </code></pre></div>
 <p>After the service starts, query core-data's reading API. The results
 show that the service auto-executes the command every 30 secs, as shown
 below:</p>
-<div class="highlight"><pre><span></span><code>$ curl http://localhost:59880/api/v2/reading/resourceName/message | json_pp
+<div class="highlight"><pre><span></span><code><span class="err">$</span> <span class="err">curl</span> <span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="err">//localhos</span><span class="kc">t</span><span class="p">:</span><span class="mi">59880</span><span class="err">/api/v</span><span class="mi">2</span><span class="err">/readi</span><span class="kc">n</span><span class="err">g/resourceName/message</span> <span class="err">|</span> <span class="err">jso</span><span class="kc">n</span><span class="err">_pp</span>
 
-{
-   &quot;statusCode&quot; : 200,
-   &quot;readings&quot; : [
-      {
-         &quot;value&quot; : &quot;test-message&quot;,
-         &quot;id&quot; : &quot;e91b8ca6-c5c4-4509-bb61-bd4b09fe835c&quot;,
-         &quot;mediaType&quot; : &quot;&quot;,
-         &quot;binaryValue&quot; : null,
-         &quot;resourceName&quot; : &quot;message&quot;,
-         &quot;origin&quot; : 1624418361324331392,
-         &quot;profileName&quot; : &quot;MQTT-Test-Device-Profile&quot;,
-         &quot;deviceName&quot; : &quot;MQTT-Test-Device&quot;,
-         &quot;valueType&quot; : &quot;String&quot;
-      },
-      {
-         &quot;mediaType&quot; : &quot;&quot;,
-         &quot;binaryValue&quot; : null,
-         &quot;resourceName&quot; : &quot;message&quot;,
-         &quot;value&quot; : &quot;test-message&quot;,
-         &quot;id&quot; : &quot;1da58cb7-2bf4-47f0-bbb8-9519797149a2&quot;,
-         &quot;deviceName&quot; : &quot;MQTT-Test-Device&quot;,
-         &quot;valueType&quot; : &quot;String&quot;,
-         &quot;profileName&quot; : &quot;MQTT-Test-Device-Profile&quot;,
-         &quot;origin&quot; : 1624418330822988843
-      },
-      ...
-   ],
-   &quot;apiVersion&quot; : &quot;v2&quot;
-}
+<span class="p">{</span>
+   <span class="nt">&quot;statusCode&quot;</span> <span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+   <span class="nt">&quot;readings&quot;</span> <span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+         <span class="nt">&quot;value&quot;</span> <span class="p">:</span> <span class="s2">&quot;test-message&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;id&quot;</span> <span class="p">:</span> <span class="s2">&quot;e91b8ca6-c5c4-4509-bb61-bd4b09fe835c&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;mediaType&quot;</span> <span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;binaryValue&quot;</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+         <span class="nt">&quot;resourceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;message&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;origin&quot;</span> <span class="p">:</span> <span class="mi">1624418361324331392</span><span class="p">,</span>
+         <span class="nt">&quot;profileName&quot;</span> <span class="p">:</span> <span class="s2">&quot;MQTT-Test-Device-Profile&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;deviceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;MQTT-Test-Device&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;valueType&quot;</span> <span class="p">:</span> <span class="s2">&quot;String&quot;</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+         <span class="nt">&quot;mediaType&quot;</span> <span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;binaryValue&quot;</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+         <span class="nt">&quot;resourceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;message&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;value&quot;</span> <span class="p">:</span> <span class="s2">&quot;test-message&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;id&quot;</span> <span class="p">:</span> <span class="s2">&quot;1da58cb7-2bf4-47f0-bbb8-9519797149a2&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;deviceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;MQTT-Test-Device&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;valueType&quot;</span> <span class="p">:</span> <span class="s2">&quot;String&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;profileName&quot;</span> <span class="p">:</span> <span class="s2">&quot;MQTT-Test-Device-Profile&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;origin&quot;</span> <span class="p">:</span> <span class="mi">1624418330822988843</span>
+      <span class="p">},</span>
+      <span class="err">...</span>
+   <span class="p">],</span>
+   <span class="nt">&quot;apiVersion&quot;</span> <span class="p">:</span> <span class="s2">&quot;v2&quot;</span>
+<span class="p">}</span>
 </code></pre></div>
 <h2 id="async-device-reading">Async Device Reading</h2>
 <p>The <code>device-mqtt</code> subscribes to a <code>DataTopic</code>, which is wait for the <a href="#run-an-mqtt-device-simulator">real device to send value to MQTT broker</a>, then <code>device-mqtt</code>
@@ -3011,37 +3011,37 @@ parses the value and forward to the northbound.</p>
 </ul>
 <p>The following results show that the mock device sent the reading every
 15 secs:</p>
-<div class="highlight"><pre><span></span><code>$ curl http://localhost:59880/api/v2/reading/resourceName/randnum | json_pp
+<div class="highlight"><pre><span></span><code><span class="err">$</span> <span class="err">curl</span> <span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="err">//localhos</span><span class="kc">t</span><span class="p">:</span><span class="mi">59880</span><span class="err">/api/v</span><span class="mi">2</span><span class="err">/readi</span><span class="kc">n</span><span class="err">g/resourceName/ra</span><span class="kc">n</span><span class="err">d</span><span class="kc">nu</span><span class="err">m</span> <span class="err">|</span> <span class="err">jso</span><span class="kc">n</span><span class="err">_pp</span>
 
-{
-   &quot;readings&quot; : [
-      {
-         &quot;origin&quot; : 1624418475007110946,
-         &quot;valueType&quot; : &quot;Float32&quot;,
-         &quot;deviceName&quot; : &quot;MQTT-Test-Device&quot;,
-         &quot;id&quot; : &quot;9b3d337e-8a8a-4a6c-8018-b4908b57abb8&quot;,
-         &quot;binaryValue&quot; : null,
-         &quot;resourceName&quot; : &quot;randnum&quot;,
-         &quot;profileName&quot; : &quot;MQTT-Test-Device-Profile&quot;,
-         &quot;mediaType&quot; : &quot;&quot;,
-         &quot;value&quot; : &quot;2.630000e+01&quot;
-      },
-      {
-         &quot;deviceName&quot; : &quot;MQTT-Test-Device&quot;,
-         &quot;valueType&quot; : &quot;Float32&quot;,
-         &quot;id&quot; : &quot;06918cbb-ada0-4752-8877-0ef8488620f6&quot;,
-         &quot;origin&quot; : 1624418460007833720,
-         &quot;mediaType&quot; : &quot;&quot;,
-         &quot;profileName&quot; : &quot;MQTT-Test-Device-Profile&quot;,
-         &quot;value&quot; : &quot;2.570000e+01&quot;,
-         &quot;resourceName&quot; : &quot;randnum&quot;,
-         &quot;binaryValue&quot; : null
-      },
-      ...
-   ],
-   &quot;statusCode&quot; : 200,
-   &quot;apiVersion&quot; : &quot;v2&quot;
-}
+<span class="p">{</span>
+   <span class="nt">&quot;readings&quot;</span> <span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+         <span class="nt">&quot;origin&quot;</span> <span class="p">:</span> <span class="mi">1624418475007110946</span><span class="p">,</span>
+         <span class="nt">&quot;valueType&quot;</span> <span class="p">:</span> <span class="s2">&quot;Float32&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;deviceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;MQTT-Test-Device&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;id&quot;</span> <span class="p">:</span> <span class="s2">&quot;9b3d337e-8a8a-4a6c-8018-b4908b57abb8&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;binaryValue&quot;</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+         <span class="nt">&quot;resourceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;randnum&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;profileName&quot;</span> <span class="p">:</span> <span class="s2">&quot;MQTT-Test-Device-Profile&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;mediaType&quot;</span> <span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;value&quot;</span> <span class="p">:</span> <span class="s2">&quot;2.630000e+01&quot;</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+         <span class="nt">&quot;deviceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;MQTT-Test-Device&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;valueType&quot;</span> <span class="p">:</span> <span class="s2">&quot;Float32&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;id&quot;</span> <span class="p">:</span> <span class="s2">&quot;06918cbb-ada0-4752-8877-0ef8488620f6&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;origin&quot;</span> <span class="p">:</span> <span class="mi">1624418460007833720</span><span class="p">,</span>
+         <span class="nt">&quot;mediaType&quot;</span> <span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;profileName&quot;</span> <span class="p">:</span> <span class="s2">&quot;MQTT-Test-Device-Profile&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;value&quot;</span> <span class="p">:</span> <span class="s2">&quot;2.570000e+01&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;resourceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;randnum&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;binaryValue&quot;</span> <span class="p">:</span> <span class="kc">null</span>
+      <span class="p">},</span>
+      <span class="err">...</span>
+   <span class="p">],</span>
+   <span class="nt">&quot;statusCode&quot;</span> <span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+   <span class="nt">&quot;apiVersion&quot;</span> <span class="p">:</span> <span class="s2">&quot;v2&quot;</span>
+<span class="p">}</span>
 </code></pre></div>
 <h2 id="mqtt-device-service-configuration">MQTT Device Service Configuration</h2>
 <p>MQTT Device Service has the following configurations to implement the MQTT protocol.</p>
@@ -3132,13 +3132,13 @@ parses the value and forward to the northbound.</p>
 </tbody>
 </table>
 <p>The user can override these configurations by <code>environment variable</code> to meet their requirement, for example:</p>
-<div class="highlight"><pre><span></span><code># docker-compose.yml
+<div class="highlight"><pre><span></span><code><span class="c1"># docker-compose.yml</span>
 
- device-mqtt:
-    ...
-    environment:
-      ...
-      MQTTBROKERINFO_HOST: 172.17.0.1
+ <span class="nt">device-mqtt</span><span class="p">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">...</span>
+    <span class="l l-Scalar l-Scalar-Plain">environment</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">...</span>
+      <span class="l l-Scalar l-Scalar-Plain">MQTTBROKERINFO_HOST</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">172.17.0.1</span>
 </code></pre></div>
                 
               

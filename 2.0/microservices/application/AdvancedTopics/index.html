@@ -2934,7 +2934,7 @@ You can access the <code>interfaces.ApplicationService</code> API for resources 
 <p class="admonition-title">Example - Store and Forward configuration</p>
 <div class="highlight"><pre><span></span><code><span class="k">[Writable.StoreAndForward]</span>
 <span class="n">Enabled</span> <span class="o">=</span> <span class="kc">false</span>
-<span class="n">RetryInterval</span> <span class="o">=</span> <span class="s">&#39;5m&#39;</span>
+<span class="n">RetryInterval</span> <span class="o">=</span> <span class="s">&quot;5m&quot;</span>
 <span class="n">MaxRetryCount</span> <span class="o">=</span> <span class="mi">10</span>
 </code></pre></div>
 </div>
@@ -2949,7 +2949,7 @@ You can access the <code>interfaces.ApplicationService</code> API for resources 
 <span class="n">Type</span> <span class="o">=</span> <span class="s">&quot;redisdb&quot;</span>
 <span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
 <span class="n">Port</span> <span class="o">=</span> <span class="mi">6379</span>
-<span class="n">Timeout</span> <span class="o">=</span> <span class="s">&#39;30s&#39;</span>
+<span class="n">Timeout</span> <span class="o">=</span> <span class="s">&quot;30s&quot;</span>
 </code></pre></div>
 </div>
 <div class="admonition edgey">
@@ -2992,16 +2992,16 @@ You can access the <code>interfaces.ApplicationService</code> API for resources 
 <div class="admonition example">
 <p class="admonition-title">Example - SecretStore configuration</p>
 <div class="highlight"><pre><span></span><code><span class="k">[SecretStore]</span>
-<span class="n">Type</span> <span class="o">=</span> <span class="s">&#39;vault&#39;</span>
-<span class="n">Host</span> <span class="o">=</span> <span class="s">&#39;localhost&#39;</span>
+<span class="n">Type</span> <span class="o">=</span> <span class="s">&quot;vault&quot;</span>
+<span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
 <span class="n">Port</span> <span class="o">=</span> <span class="mi">8200</span>
-<span class="n">Path</span> <span class="o">=</span> <span class="s">&#39;app-sample/&#39;</span>
-<span class="n">Protocol</span> <span class="o">=</span> <span class="s">&#39;http&#39;</span>
-<span class="n">RootCaCertPath</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
-<span class="n">ServerName</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
-<span class="n">TokenFile</span> <span class="o">=</span> <span class="s">&#39;/tmp/edgex/secrets/app-sample/secrets-token.json&#39;</span>
+<span class="n">Path</span> <span class="o">=</span> <span class="s">&quot;app-sample/&quot;</span>
+<span class="n">Protocol</span> <span class="o">=</span> <span class="s">&quot;http&quot;</span>
+<span class="n">RootCaCertPath</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+<span class="n">ServerName</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+<span class="n">TokenFile</span> <span class="o">=</span> <span class="s">&quot;/tmp/edgex/secrets/app-sample/secrets-token.json&quot;</span>
   <span class="k">[SecretStore.Authentication]</span>
-  <span class="n">AuthType</span> <span class="o">=</span> <span class="s">&#39;X-Vault-Token&#39;</span>
+  <span class="n">AuthType</span> <span class="o">=</span> <span class="s">&quot;X-Vault-Token&quot;</span>
 </code></pre></div>
 </div>
 <div class="admonition edgey">
@@ -3034,16 +3034,16 @@ You can access the <code>interfaces.ApplicationService</code> API for resources 
 <p class="admonition-title">Example - InsecureSecrets Configuration</p>
 <div class="highlight"><pre><span></span><code>   <span class="p">[</span><span class="n">Writable</span><span class="p">.</span><span class="n">InsecureSecrets</span><span class="p">]</span>    
       <span class="k">[Writable.InsecureSecrets.AWS]</span>
-        <span class="n">Path</span> <span class="o">=</span> <span class="s">&#39;aws&#39;</span>
+        <span class="n">Path</span> <span class="o">=</span> <span class="s">&quot;aws&quot;</span>
           <span class="k">[Writable.InsecureSecrets.AWS.Secrets]</span>
-          <span class="n">username</span> <span class="o">=</span> <span class="s">&#39;aws-user&#39;</span>
-          <span class="n">password</span> <span class="o">=</span> <span class="s">&#39;aws-pw&#39;</span>
+          <span class="n">username</span> <span class="o">=</span> <span class="s">&quot;aws-user&quot;</span>
+          <span class="n">password</span> <span class="o">=</span> <span class="s">&quot;aws-pw&quot;</span>
 
       <span class="k">[Writable.InsecureSecrets.DB]</span>
-        <span class="n">Path</span> <span class="o">=</span> <span class="s">&#39;redisdb&#39;</span>
+        <span class="n">Path</span> <span class="o">=</span> <span class="s">&quot;redisdb&quot;</span>
           <span class="k">[Writable.InsecureSecrets.DB.Secrets]</span>
-          <span class="n">username</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
-          <span class="n">password</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+          <span class="n">username</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+          <span class="n">password</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
 </code></pre></div>
 </div>
 <h4 id="getting-secrets">Getting Secrets</h4>
