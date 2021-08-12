@@ -140,12 +140,12 @@ Any configuration setting from a service's `configuration.toml` file can be over
 ~~~toml
 ``` toml   
 TOML   : [Writable]    
-		 LogLevel = 'INFO'    
+		 LogLevel = "INFO"    
 ENVVAR : WRITABLE_LOGLEVEL=DEBUG    
 
 TOML   : [Clients]
   			[Clients.core-data]
-  			Host = 'localhost'
+  			Host = "localhost"
 ENVVAR : CLIENTS_CORE_DATA_HOST=edgex-core-data    
 ```    
 ~~~

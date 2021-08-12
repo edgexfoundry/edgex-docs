@@ -112,7 +112,7 @@ This new topic approach will be enabled via each publisher's `PublishTopic` havi
 
 ```toml
 
-PublishTopicPrefix = 'edgex/events' # /<device-profile-name>/<device-name>/<source-name> will be added to this Publish Topic prefix
+PublishTopicPrefix = "edgex/events" # /<device-profile-name>/<device-name>/<source-name> will be added to this Publish Topic prefix
 ```
 
 See [Configuration](#configuration) section below for details. 
@@ -130,11 +130,11 @@ A  MessageQueue section will be added, which is similar to that used in Core Dat
 ```toml
 [MessageQueue]
 Enabled = true
-Protocol = 'tcp'
-Host = 'localhost'
+Protocol = "tcp"
+Host = "localhost"
 Port = 1883
-Type = 'mqtt'
-PublishTopicPrefix = 'edgex/events' # /<device-profile-name>/<device-name>/<source-name> will be added to this Publish Topic prefix
+Type = "mqtt"
+PublishTopicPrefix = "edgex/events" # /<device-profile-name>/<device-name>/<source-name> will be added to this Publish Topic prefix
 [MessageQueue.Optional]
     # Default MQTT Specific options that need to be here to enable environment variable overrides of them
     # Client Identifiers
@@ -160,13 +160,13 @@ The `MessageQueue` section will be  changed so that the `Topic` property changes
 
 ```toml
 [MessageQueue]
-Protocol = 'tcp'
-Host = 'localhost'
+Protocol = "tcp"
+Host = "localhost"
 Port = 1883
-Type = 'mqtt'
-PublishTopicPrefix = 'edgex/events' # /<device-profile-name>/<device-name>/<source-name> will be added to this Publish Topic prefix
+Type = "mqtt"
+PublishTopicPrefix = "edgex/events" # /<device-profile-name>/<device-name>/<source-name> will be added to this Publish Topic prefix
 SubscribeEnabled = true
-SubscribeTopic = 'edgex/events/#'
+SubscribeTopic = "edgex/events/#"
 [MessageQueue.Optional]
     # Default MQTT Specific options that need to be here to enable evnironment variable overrides of them
     # Client Identifiers

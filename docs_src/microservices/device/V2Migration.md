@@ -18,8 +18,8 @@ The migration of any Device Service's configuration starts with migrating config
 !!! example "Example configuration"
     ```toml
     [Device] 
-    DevicesDir = './res/devices'
-    ProfilesDir = './res/profiles'
+    DevicesDir = "./res/devices"
+    ProfilesDir = "./res/profiles"
     ... 
     ```
  
@@ -45,13 +45,13 @@ A `MessageQueue` section is added in configuration to specify the detail of it.
 !!! example "MessageQueue Example"
 ```toml
 [MessageQueue]
-Protocol = 'redis'
-Host = 'localhost'
+Protocol = "redis"
+Host = "localhost"
 Port = 6379
-Type = 'redis'
-AuthMode = 'usernamepassword'  # required for redis messagebus (secure or insecure).
+Type = "redis"
+AuthMode = "usernamepassword"  # required for redis messagebus (secure or insecure).
 SecretName = "redisdb"
-PublishTopicPrefix = 'edgex/events/device' # /<device-profile-name>/<device-name>/<source-name> will be added to this Publish Topic prefix
+PublishTopicPrefix = "edgex/events/device" # /<device-profile-name>/<device-name>/<source-name> will be added to this Publish Topic prefix
   [MessageQueue.Optional]
   # Default MQTT Specific options that need to be here to enable environment variable overrides of them
   # Client Identifiers
@@ -239,22 +239,22 @@ In V2 pre-defined devices are in their own file, SDK allows both TOML and JSON f
 !!! example "Pre-defined devices"
     ```toml
     [[DeviceList]]
-    Name = 'Simple-Device01'
-    ProfileName = 'Simple-Device'
-    Description = 'Example of Simple Device'
-    Labels = [ 'industrial' ]
+    Name = "Simple-Device01"
+    ProfileName = "Simple-Device"
+    Description = "Example of Simple Device"
+    Labels = [ "industrial" ]
       [DeviceList.Protocols]
         [DeviceList.Protocols.other]
-        Address = 'simple01'
-        Port = '300'
+        Address = "simple01"
+        Port = "300"
       [[DeviceList.AutoEvents]]
-      Interval = '10s'
+      Interval = "10s"
       OnChange = false
-      SourceName = 'Switch'
+      SourceName = "Switch"
       [[DeviceList.AutoEvents]]
-      Interval = '30s'
+      Interval = "30s"
       OnChange = false
-      SourceName = 'Image'
+      SourceName = "Image"
     ```
 
 Notice that we renamed some fields:  
