@@ -166,7 +166,7 @@ The Store and Forward capability allows for export functions to persist data on 
     ```toml
     [Writable.StoreAndForward]
     Enabled = false
-    RetryInterval = '5m'
+    RetryInterval = "5m"
     MaxRetryCount = 10
     ```
 
@@ -181,7 +181,7 @@ Database configuration section describes which database type to use and the info
     Type = "redisdb"
     Host = "localhost"
     Port = 6379
-    Timeout = '30s'
+    Timeout = "30s"
     ```
 
 !!! edgey "EdgeX 2.0"
@@ -226,16 +226,16 @@ All instances of App Services running in secure mode require a SecretStore to be
 !!! example "Example - SecretStore configuration"
     ```toml
     [SecretStore]
-    Type = 'vault'
-    Host = 'localhost'
+    Type = "vault"
+    Host = "localhost"
     Port = 8200
-    Path = 'app-sample/'
-    Protocol = 'http'
-    RootCaCertPath = ''
-    ServerName = ''
-    TokenFile = '/tmp/edgex/secrets/app-sample/secrets-token.json'
+    Path = "app-sample/"
+    Protocol = "http"
+    RootCaCertPath = ""
+    ServerName = ""
+    TokenFile = "/tmp/edgex/secrets/app-sample/secrets-token.json"
       [SecretStore.Authentication]
-      AuthType = 'X-Vault-Token'
+      AuthType = "X-Vault-Token"
     ```
 
 !!! edgey "EdgeX 2.0"
@@ -271,16 +271,16 @@ When running in insecure mode, the secrets are stored and retrieved from the *Wr
     ```toml
        [Writable.InsecureSecrets]    
           [Writable.InsecureSecrets.AWS]
-            Path = 'aws'
+            Path = "aws"
               [Writable.InsecureSecrets.AWS.Secrets]
-              username = 'aws-user'
-              password = 'aws-pw'
+              username = "aws-user"
+              password = "aws-pw"
           
           [Writable.InsecureSecrets.DB]
-            Path = 'redisdb'
+            Path = "redisdb"
               [Writable.InsecureSecrets.DB.Secrets]
-              username = ''
-              password = ''
+              username = ""
+              password = ""
     ```
 
 #### Getting Secrets
