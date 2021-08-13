@@ -83,7 +83,7 @@ nano temperature.profile.yml
 ```
 
 Fill in the device profile according to the [Modbus Register Table](#modbus-register-table), as shown below:
-```
+```yaml
 name: "Ethernet-Temperature-Sensor"
 manufacturer: "Audon Electronics"
 model: "Temperature"
@@ -168,7 +168,7 @@ For example: `{ primaryTable: "INPUT_REGISTERS", startingAddress: "4", isByteSwa
 
 We only support `Int16` and `Uint16` for rawType. The corresponding value type must be `Float32` and `Float64`.
 For example:
-```
+```yaml
 deviceResources:
   -
     name: "Temperature"
@@ -199,23 +199,23 @@ cd custom-config
 nano device.config.toml
 ```
 Fill in the device.config.toml file, as shown below:
-```
+```toml
 [[DeviceList]]
-    Name = 'Modbus-TCP-Temperature-Sensor'
-    ProfileName = 'Ethernet-Temperature-Sensor'
-    Description = 'This device is a product for monitoring the temperature via the ethernet'
-    labels = [ 'temperature','modbus TCP' ]
+    Name = "Modbus-TCP-Temperature-Sensor"
+    ProfileName = "Ethernet-Temperature-Sensor"
+    Description = "This device is a product for monitoring the temperature via the ethernet"
+    labels = [ "temperature","modbus TCP" ]
     [DeviceList.Protocols]
         [DeviceList.Protocols.modbus-tcp]
-            Address = '172.17.0.1'
-            Port = '502'
-            UnitID = '1'
+            Address = "172.17.0.1"
+            Port = "502"
+            UnitID = "1"
             Timeout = "5"
             IdleTimeout = "5"
         [[DeviceList.AutoEvents]]
-        Interval = '30s'
+        Interval = "30s"
         OnChange = false
-        SourceName = 'Temperature'
+        SourceName = "Temperature"
 ```
 > The address `172.17.0.1` is point to the docker bridge network which means it can forward the request from docker network to the host.
 
@@ -256,7 +256,7 @@ Add prepared configuration files to docker-compose file, you can mount them usin
 volumes and change the environment for device-modbus internal use.
 
 Open the `docker-compose.yml` file and then add volumes path and environment as shown below:
-```
+```yaml
  device-modbus:
     ...
     environment:
@@ -359,7 +359,7 @@ Now we're ready to run some commands.
 ### Find Executable Commands
 
 Use the following query to find executable commands:
-```
+```json
 $ curl http://localhost:59882/api/v2/device/all | json_pp
 
 {
@@ -433,7 +433,7 @@ $ curl http://localhost:59882/api/v2/device/name/Modbus-TCP-Temperature-Sensor/A
 
 Replace *\<host\>* with the server IP when running the GET command.
 
-```
+```json
 $ curl http://localhost:59882/api/v2/device/name/Modbus-TCP-Temperature-Sensor/AlarmThreshold | json_pp
 
 {
@@ -477,16 +477,16 @@ $ curl http://localhost:59882/api/v2/device/name/Modbus-TCP-Temperature-Sensor/A
 
 ## AutoEvent
 The AutoEvent is defined in the [[DeviceList.AutoEvents]] section of the device configuration file:
-```
+```toml
 [[DeviceList.AutoEvents]]
-Interval = '30s'
+Interval = "30s"
 OnChange = false
-SourceName = 'Temperature'
+SourceName = "Temperature"
 ```
 After service startup, query core-data's API. The results show
 that the service auto-executes the command every 30 seconds.
 
-```
+```json
 $ curl http://localhost:59880/api/v2/event/device/name/Modbus-TCP-Temperature-Sensor | json_pp
 
 {
@@ -590,7 +590,7 @@ This section describes how to connect the Modbus RTU device. We use Ubuntu OS an
     ```
     $ nano modbus.rtu.demo.profile.yml
     ```
-    ```
+    ```yaml
     name: "Modbus-RTU-IO-Module"
     manufacturer: "icpdas"
     model: "M-7055"
@@ -646,7 +646,7 @@ This section describes how to connect the Modbus RTU device. We use Ubuntu OS an
 
 3. Create the device entity to the EdgeX.
     You can find the Modbus RTU setting on the device or the user manual.
-    ```
+    ```json
     $ curl http://localhost:59881/api/v2/device -H "Content-Type:application/json" -X POST \
       -d '[
             {

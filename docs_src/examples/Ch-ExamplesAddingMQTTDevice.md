@@ -54,7 +54,7 @@ This simulator has three behaviors:
 
 To simulate the MQTT device, create a javascript, named `mock-device.js`, with the
 following content:
-```
+```javascript
 function getRandomFloat(min, max) {
     return Math.random() * (max - min) + min;
 }
@@ -127,7 +127,7 @@ which can be Read or Write.
 
 Create a device profile, named `mqtt.test.device.profile.yml`, with the
 following content:
-```
+```yaml
 name: "MQTT-Test-Device-Profile"
 manufacturer: "iot"
 model: "MQTT-DEVICE"
@@ -176,20 +176,20 @@ device-mqtt generates a relative instance on start-up.
 
 Create the device configuration file, named `mqtt.test.device.config.toml`, as shown below:
 
-```
+```toml
 # Pre-define Devices
 [[DeviceList]]
-  Name = 'MQTT-Test-Device'
-  ProfileName = 'MQTT-Test-Device-Profile'
-  Description = 'MQTT device is created for test purpose'
-  Labels = [ 'MQTT', 'test' ]
+  Name = "MQTT-Test-Device"
+  ProfileName = "MQTT-Test-Device-Profile"
+  Description = "MQTT device is created for test purpose"
+  Labels = [ "MQTT", "test" ]
   [DeviceList.Protocols]
     [DeviceList.Protocols.mqtt]
-       CommandTopic = 'CommandTopic'
+       CommandTopic = "CommandTopic"
     [[DeviceList.AutoEvents]]
-       Interval = '30s'
+       Interval = "30s"
        OnChange = false
-       SourceName = 'message'
+       SourceName = "message"
 ```
 
 - `CommandTopic` is used to publish the GET or SET command request
@@ -218,7 +218,7 @@ Open the `docker-compose.yml` file and then add volumes path and environment as 
 
 - Replace the `/path/to/custom-config` in the example with the correct path
 
-```
+```yaml
  device-mqtt:
     ...
     environment:
@@ -250,7 +250,7 @@ Now we're ready to run some commands.
 
 Use the following query to find executable commands:
 
-```
+```json
 $ curl http://localhost:59882/api/v2/device/all | json_pp
 
 {
@@ -315,7 +315,7 @@ $ curl http://localhost:59882/api/v2/device/name/MQTT-Test-Device/message \
 
 Execute a GET command as follows:
 
-```
+```json
 $ curl http://localhost:59882/api/v2/device/name/MQTT-Test-Device/message | json_pp
 
 {
@@ -350,18 +350,18 @@ $ curl http://localhost:59882/api/v2/device/name/MQTT-Test-Device/message | json
 
 The schedule job is defined in the `[[DeviceList.AutoEvents]]` section of the device configuration file:
 
-```
+```toml
     [[DeviceList.AutoEvents]]
-       Interval = '30s'
+       Interval = "30s"
        OnChange = false
-       SourceName = 'message'
+       SourceName = "message"
 ```
 
 After the service starts, query core-data's reading API. The results
 show that the service auto-executes the command every 30 secs, as shown
 below:
 
-```
+```json
 $ curl http://localhost:59880/api/v2/reading/resourceName/message | json_pp
 
 {
@@ -412,7 +412,7 @@ The data format contains the following values:
 The following results show that the mock device sent the reading every
 15 secs:
 
-```
+```json
 $ curl http://localhost:59880/api/v2/reading/resourceName/randnum | json_pp
 
 {
@@ -470,7 +470,7 @@ MQTT Device Service has the following configurations to implement the MQTT proto
 
 The user can override these configurations by `environment variable` to meet their requirement, for example:
 
-```
+```yaml
 # docker-compose.yml
 
  device-mqtt:

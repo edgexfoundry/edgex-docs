@@ -231,13 +231,13 @@ Core Data
 ```toml
 [Databases]
   [Databases.Primary]
-  Host = 'localhost'
-  Name = 'coredata'
-  Username = ''
-  Password = ''
+  Host = "localhost"
+  Name = "coredata"
+  Username = ""
+  Password = ""
   Port = 6379
   Timeout = 5000
-  Type = 'redisdb'
+  Type = "redisdb"
 ```
 
 Application Services
@@ -247,8 +247,8 @@ Application Services
 Type = "redisdb"
 Host = "localhost"
 Port = 6379
-Username = ''
-Password = ''
+Username = ""
+Password = ""
 Timeout = "30s"
 ```
 
