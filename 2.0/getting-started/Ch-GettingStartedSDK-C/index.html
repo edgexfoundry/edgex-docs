@@ -446,8 +446,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-GettingStartedSnapUsers/" title="Getting Started with Snap" class="md-nav__link">
-      Getting Started with Snap
+    <a href="../Ch-GettingStartedSnapUsers/" title="Getting Started with EdgeX Snaps" class="md-nav__link">
+      Getting Started with EdgeX Snaps
     </a>
   </li>
 
@@ -2589,40 +2589,40 @@ compiled in an earlier step.</p>
 the C SDK. In order to change it to a device service that generates
 random numbers, you need to modify your <code>template.c</code> method
 <strong>template_get_handler</strong>.  Replace the following code:</p>
-<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="p">(</span><span class="kt">uint32_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nreadings</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="cm">/* Log the attributes for each requested resource */</span>
-    <span class="n">iot_log_debug</span> <span class="p">(</span><span class="n">driver</span><span class="o">-&gt;</span><span class="n">lc</span><span class="p">,</span> <span class="s">&quot;  Requested reading %u:&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
-    <span class="n">dump_attributes</span> <span class="p">(</span><span class="n">driver</span><span class="o">-&gt;</span><span class="n">lc</span><span class="p">,</span> <span class="n">requests</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">resource</span><span class="o">-&gt;</span><span class="n">attrs</span><span class="p">);</span>
-    <span class="cm">/* Fill in a result regardless */</span>
-    <span class="n">readings</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">value</span> <span class="o">=</span> <span class="n">iot_data_alloc_string</span> <span class="p">(</span><span class="s">&quot;Template result&quot;</span><span class="p">,</span> <span class="n">IOT_DATA_REF</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">nreadings</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="cm">/* Log the attributes for each requested resource */</span><span class="w"></span>
+<span class="w">    </span><span class="n">iot_log_debug</span><span class="w"> </span><span class="p">(</span><span class="n">driver</span><span class="o">-&gt;</span><span class="n">lc</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;  Requested reading %u:&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">dump_attributes</span><span class="w"> </span><span class="p">(</span><span class="n">driver</span><span class="o">-&gt;</span><span class="n">lc</span><span class="p">,</span><span class="w"> </span><span class="n">requests</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">resource</span><span class="o">-&gt;</span><span class="n">attrs</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="cm">/* Fill in a result regardless */</span><span class="w"></span>
+<span class="w">    </span><span class="n">readings</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iot_data_alloc_string</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;Template result&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">IOT_DATA_REF</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 <p>with this code:</p>
-<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="p">(</span><span class="kt">uint32_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nreadings</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">rdtype</span> <span class="o">=</span> <span class="n">iot_data_string_map_get_string</span> <span class="p">(</span><span class="n">requests</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">resource</span><span class="o">-&gt;</span><span class="n">attrs</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">rdtype</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span> <span class="p">(</span><span class="n">rdtype</span><span class="p">,</span> <span class="s">&quot;random&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="p">{</span>
-        <span class="cm">/* Set the reading as a random value between 0 and 100 */</span>
-        <span class="n">readings</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">value</span> <span class="o">=</span> <span class="n">iot_data_alloc_i32</span> <span class="p">(</span><span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">100</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="k">else</span>
-        <span class="p">{</span>
-        <span class="o">*</span><span class="n">exception</span> <span class="o">=</span> <span class="n">iot_data_alloc_string</span> <span class="p">(</span><span class="s">&quot;Unknown sensor type requested&quot;</span><span class="p">,</span> <span class="n">IOT_DATA_REF</span><span class="p">);</span>
-        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">else</span>
-    <span class="p">{</span>
-        <span class="o">*</span><span class="n">exception</span> <span class="o">=</span> <span class="n">iot_data_alloc_string</span> <span class="p">(</span><span class="s">&quot;Unable to read value, no </span><span class="se">\&quot;</span><span class="s">type</span><span class="se">\&quot;</span><span class="s"> attribute given&quot;</span><span class="p">,</span> <span class="n">IOT_DATA_REF</span><span class="p">);</span>
-        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-<span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">nreadings</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">rdtype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iot_data_string_map_get_string</span><span class="w"> </span><span class="p">(</span><span class="n">requests</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">resource</span><span class="o">-&gt;</span><span class="n">attrs</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;type&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rdtype</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">strcmp</span><span class="w"> </span><span class="p">(</span><span class="n">rdtype</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;random&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="cm">/* Set the reading as a random value between 0 and 100 */</span><span class="w"></span>
+<span class="w">        </span><span class="n">readings</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iot_data_alloc_i32</span><span class="w"> </span><span class="p">(</span><span class="n">rand</span><span class="p">()</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">100</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">else</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="o">*</span><span class="n">exception</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iot_data_alloc_string</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;Unknown sensor type requested&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">IOT_DATA_REF</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">else</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="o">*</span><span class="n">exception</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iot_data_alloc_string</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;Unable to read value, no </span><span class="se">\&quot;</span><span class="s">type</span><span class="se">\&quot;</span><span class="s"> attribute given&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">IOT_DATA_REF</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 <h2 id="creating-your-device-profile">Creating your Device Profile</h2>
 <p>A device profile is a YAML file that describes a class of device to

@@ -444,8 +444,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../getting-started/Ch-GettingStartedSnapUsers/" title="Getting Started with Snap" class="md-nav__link">
-      Getting Started with Snap
+    <a href="../../getting-started/Ch-GettingStartedSnapUsers/" title="Getting Started with EdgeX Snaps" class="md-nav__link">
+      Getting Started with EdgeX Snaps
     </a>
   </li>
 
@@ -2702,7 +2702,7 @@ following content:
         <span class="s2">&quot;cmd&quot;</span><span class="o">:</span> <span class="s2">&quot;randnum&quot;</span><span class="p">,</span>
         <span class="s2">&quot;randnum&quot;</span><span class="o">:</span> <span class="nx">getRandomFloat</span><span class="p">(</span><span class="mf">25</span><span class="p">,</span><span class="mf">29</span><span class="p">).</span><span class="nx">toFixed</span><span class="p">(</span><span class="mf">1</span><span class="p">)</span>
     <span class="p">};</span>
-    <span class="nx">publish</span><span class="p">(</span> <span class="s1">&#39;DataTopic&#39;</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">body</span><span class="p">));</span>
+    <span class="nx">publish</span><span class="p">(</span> <span class="s1">&#39;DataTopic&#39;</span><span class="p">,</span> <span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">body</span><span class="p">));</span>
 <span class="p">});</span>
 
 <span class="c1">// CommandHandler receives commands and sends response to MQTT broker</span>
@@ -2725,7 +2725,7 @@ following content:
                 <span class="k">break</span><span class="p">;</span>
           <span class="p">}</span>
     <span class="p">}</span>
-    <span class="nx">publish</span><span class="p">(</span> <span class="s2">&quot;ResponseTopic&quot;</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
+    <span class="nx">publish</span><span class="p">(</span> <span class="s2">&quot;ResponseTopic&quot;</span><span class="p">,</span> <span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
 <span class="p">});</span>
 </code></pre></div></p>
 <p>To run the device simulator, enter the commands shown below with the
@@ -2804,7 +2804,7 @@ device-mqtt generates a relative instance on start-up.</p>
   <span class="n">Name</span> <span class="o">=</span> <span class="s">&quot;MQTT-Test-Device&quot;</span>
   <span class="n">ProfileName</span> <span class="o">=</span> <span class="s">&quot;MQTT-Test-Device-Profile&quot;</span>
   <span class="n">Description</span> <span class="o">=</span> <span class="s">&quot;MQTT device is created for test purpose&quot;</span>
-  <span class="n">Labels</span> <span class="o">=</span> <span class="k">[ &quot;MQTT&quot;, &quot;test&quot; ]</span>
+  <span class="n">Labels</span> <span class="o">=</span> <span class="p">[</span> <span class="s">&quot;MQTT&quot;</span><span class="p">,</span> <span class="s">&quot;test&quot;</span> <span class="p">]</span>
   <span class="k">[DeviceList.Protocols]</span>
     <span class="k">[DeviceList.Protocols.mqtt]</span>
        <span class="n">CommandTopic</span> <span class="o">=</span> <span class="s">&quot;CommandTopic&quot;</span>

@@ -444,8 +444,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../getting-started/Ch-GettingStartedSnapUsers/" title="Getting Started with Snap" class="md-nav__link">
-      Getting Started with Snap
+    <a href="../../getting-started/Ch-GettingStartedSnapUsers/" title="Getting Started with EdgeX Snaps" class="md-nav__link">
+      Getting Started with EdgeX Snaps
     </a>
   </li>
 
@@ -2530,15 +2530,15 @@ following format is used:</p>
 <p>Here is a snippet from a hypothetical Device Service's
 <code>HandleReadCommands()</code> method that produces an event that
 represents a JPEG image captured from a camera:</p>
-<div class="highlight"><pre><span></span><code>if req.DeviceResourceName == &quot;camera_snapshot&quot; {
-  data, err := cameraClient.GetSnapshot() // returns ([]byte, error)
-  check(err)
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="nx">req</span><span class="p">.</span><span class="nx">DeviceResourceName</span> <span class="o">==</span> <span class="s">&quot;camera_snapshot&quot;</span> <span class="p">{</span>
+  <span class="nx">data</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cameraClient</span><span class="p">.</span><span class="nx">GetSnapshot</span><span class="p">()</span> <span class="c1">// returns ([]byte, error)</span>
+  <span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
 
-  cv, err := sdkModels.NewCommandValue(reqs[i].DeviceResourceName, common.ValueTypeBinary, data)
-  check(err)
+  <span class="nx">cv</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">sdkModels</span><span class="p">.</span><span class="nx">NewCommandValue</span><span class="p">(</span><span class="nx">reqs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">DeviceResourceName</span><span class="p">,</span> <span class="nx">common</span><span class="p">.</span><span class="nx">ValueTypeBinary</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span>
+  <span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
 
-  responses[i] = cv
-}
+  <span class="nx">responses</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">cv</span>
+<span class="p">}</span>
 </code></pre></div>
 <h2 id="calling-device-service-command">Calling Device Service Command</h2>
 <p>Querying core-metadata for the Device's Commands and DeviceName provides
@@ -2554,35 +2554,35 @@ first need to be decoded from CBOR. The following is a simple Go program
 that reads in the CBOR response from a file containing the response from
 the previous HTTP request. The Go library recommended for parsing these
 events can be found at <a href="https://github.com/fxamacker/cbor/">https://github.com/fxamacker/cbor/</a></p>
-<div class="highlight"><pre><span></span><code>package main
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nx">main</span>
 
-import (
-    &quot;io/ioutil&quot;
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;io/ioutil&quot;</span>
 
-    &quot;github.com/edgexfoundry/go-mod-core-contracts/v2/dtos/requests&quot;
-    &quot;github.com/fxamacker/cbor/v2&quot;
-)
+    <span class="s">&quot;github.com/edgexfoundry/go-mod-core-contracts/v2/dtos/requests&quot;</span>
+    <span class="s">&quot;github.com/fxamacker/cbor/v2&quot;</span>
+<span class="p">)</span>
 
-func check(e error) {
-  if e != nil {
-      panic(e)
-  }
-}
+<span class="kd">func</span> <span class="nx">check</span><span class="p">(</span><span class="nx">e</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="nx">e</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+      <span class="nb">panic</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-func main() {
-    // Read in our cbor data
-    fileBytes, err := ioutil.ReadFile(&quot;/Users/johndoe/Desktop/image.cbor&quot;)
-    check(err)
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Read in our cbor data</span>
+    <span class="nx">fileBytes</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="s">&quot;/Users/johndoe/Desktop/image.cbor&quot;</span><span class="p">)</span>
+    <span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
 
-    // Decode into an EdgeX Event
-    eventRequest := &amp;requests.AddEventRequest{}
-    err = cbor.Unmarshal(fileBytes, eventRequest)
-    check(err)
+    <span class="c1">// Decode into an EdgeX Event</span>
+    <span class="nx">eventRequest</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">requests</span><span class="p">.</span><span class="nx">AddEventRequest</span><span class="p">{}</span>
+    <span class="nx">err</span> <span class="p">=</span> <span class="nx">cbor</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">fileBytes</span><span class="p">,</span> <span class="nx">eventRequest</span><span class="p">)</span>
+    <span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
 
-    // Grab binary data and write to a file
-    imgBytes := eventRequest.Event.Readings[0].BinaryValue
-    ioutil.WriteFile(&quot;/Users/johndoe/Desktop/image.jpeg&quot;, imgBytes, 0644)
-}
+    <span class="c1">// Grab binary data and write to a file</span>
+    <span class="nx">imgBytes</span> <span class="o">:=</span> <span class="nx">eventRequest</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">Readings</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">BinaryValue</span>
+    <span class="nx">ioutil</span><span class="p">.</span><span class="nx">WriteFile</span><span class="p">(</span><span class="s">&quot;/Users/johndoe/Desktop/image.jpeg&quot;</span><span class="p">,</span> <span class="nx">imgBytes</span><span class="p">,</span> <span class="mo">0644</span><span class="p">)</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>In the code above, the CBOR data is read into a byte array , an EdgeX Event struct is created, 
 and <code>cbor.Unmarshal</code> parses the CBOR-encoded data and stores the result in the Event struct. 
@@ -2594,24 +2594,24 @@ the Reading.</p>
 accepts a byte slice as binary data. Any arbitrary Go structure can be
 encoded in a binary reading by first encoding the structure into a byte
 slice using CBOR. The following illustrates this method:</p>
-<div class="highlight"><pre><span></span><code>// DeviceService HandleReadCommands() code:
-foo := struct {
-  X int
-  Y int
-  Z int
-  Bar string
-} {
-  X: 7,
-  Y: 3,
-  Z: 100,
-  Bar: &quot;Hello world!&quot;,
-}
+<div class="highlight"><pre><span></span><code><span class="c1">// DeviceService HandleReadCommands() code:</span>
+<span class="nx">foo</span> <span class="o">:=</span> <span class="kd">struct</span> <span class="p">{</span>
+  <span class="nx">X</span> <span class="kt">int</span>
+  <span class="nx">Y</span> <span class="kt">int</span>
+  <span class="nx">Z</span> <span class="kt">int</span>
+  <span class="nx">Bar</span> <span class="kt">string</span>
+<span class="p">}</span> <span class="p">{</span>
+  <span class="nx">X</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+  <span class="nx">Y</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="nx">Z</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+  <span class="nx">Bar</span><span class="p">:</span> <span class="s">&quot;Hello world!&quot;</span><span class="p">,</span>
+<span class="p">}</span>
 
-data, err := cbor.Marshal(&amp;foo)
-check(err)
+<span class="nx">data</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cbor</span><span class="p">.</span><span class="nx">Marshal</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">foo</span><span class="p">)</span>
+<span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
 
-cv, err := sdkModels.NewCommandValue(reqs[i].DeviceResourceName, common.ValueTypeBinary, data)
-responses[i] = cv
+<span class="nx">cv</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">sdkModels</span><span class="p">.</span><span class="nx">NewCommandValue</span><span class="p">(</span><span class="nx">reqs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">DeviceResourceName</span><span class="p">,</span> <span class="nx">common</span><span class="p">.</span><span class="nx">ValueTypeBinary</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span>
+<span class="nx">responses</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">cv</span>
 </code></pre></div>
 <p>This code takes the anonymous struct with fields X, Y, Z, and Bar (of
 different types) and serializes it into a byte slice using the same
@@ -2619,28 +2619,28 @@ different types) and serializes it into a byte slice using the same
 <code>NewCommandValue()</code>.</p>
 <p>When consuming these events, another level of decoding will need to take
 place to get the structure out of the binary payload.</p>
-<div class="highlight"><pre><span></span><code>func main() {
-    // Read in our cbor data
-    fileBytes, err := ioutil.ReadFile(&quot;/Users/johndoe/Desktop/foo.cbor&quot;)
-    check(err)
+<div class="highlight"><pre><span></span><code><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Read in our cbor data</span>
+    <span class="nx">fileBytes</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="s">&quot;/Users/johndoe/Desktop/foo.cbor&quot;</span><span class="p">)</span>
+    <span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
 
-    // Decode into an EdgeX Event
-    eventRequest := &amp;requests.AddEventRequest{}
-    err = cbor.Unmarshal(fileBytes, eventRequest)
-    check(err)
+    <span class="c1">// Decode into an EdgeX Event</span>
+    <span class="nx">eventRequest</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">requests</span><span class="p">.</span><span class="nx">AddEventRequest</span><span class="p">{}</span>
+    <span class="nx">err</span> <span class="p">=</span> <span class="nx">cbor</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">fileBytes</span><span class="p">,</span> <span class="nx">eventRequest</span><span class="p">)</span>
+    <span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
 
-    // Decode into arbitrary type
-    foo := struct {
-        X   int
-        Y   int
-        Z   int
-        Bar string
-    }{}
+    <span class="c1">// Decode into arbitrary type</span>
+    <span class="nx">foo</span> <span class="o">:=</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">X</span>   <span class="kt">int</span>
+        <span class="nx">Y</span>   <span class="kt">int</span>
+        <span class="nx">Z</span>   <span class="kt">int</span>
+        <span class="nx">Bar</span> <span class="kt">string</span>
+    <span class="p">}{}</span>
 
-    err = cbor.Unmarshal(eventRequest.Event.Readings[0].BinaryValue, &amp;foo)
-    check(err)
-    fmt.Println(foo)
-}
+    <span class="nx">err</span> <span class="p">=</span> <span class="nx">cbor</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">eventRequest</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">Readings</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">BinaryValue</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">foo</span><span class="p">)</span>
+    <span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>This code takes a command response in the same format as the previous
 example, but uses the <code>cbor</code> library to decode the CBOR
