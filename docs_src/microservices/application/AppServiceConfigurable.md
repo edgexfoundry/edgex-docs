@@ -99,7 +99,7 @@ EdgeX services no longer have docker specific profiles. They now rely on environ
 
 ## Deploying Multiple Instances using profiles
 
-App Service Configurable was designed to be deployed as multiple instances for different purposes. Since the function pipeline is specified in the `configuration.toml` file, we can use this as a way to run each instance with a different function pipeline. App Service Configurable does not have the standard default configuration at `/res/configuration.toml`. This default configuration has been moved to the `sample` profile. This forces you to specify the profile for the configuration you would like to run. The profile is specified using the `-p/--profile=[profilename]` command line option or the `EDGEX_PROFILE=[profilename]` environment variable override. The profile name selected is used in the service key (`ap-[profile name]`) to make each instance unique, e.g. `AppService-sample` when specifying `sample` as the profile.
+App Service Configurable was designed to be deployed as multiple instances for different purposes. Since the function pipeline is specified in the `configuration.toml` file, we can use this as a way to run each instance with a different function pipeline. App Service Configurable does not have the standard default configuration at `/res/configuration.toml`. This default configuration has been moved to the `sample` profile. This forces you to specify the profile for the configuration you would like to run. The profile is specified using the `-p/--profile=[profilename]` command line option or the `EDGEX_PROFILE=[profilename]` environment variable override. The profile name selected is used in the service key (`app-[profile name]`) to make each instance unique, e.g. `AppService-sample` when specifying `sample` as the profile.
 
 !!! edgey "Edgex 2.0"
     Default service key for App Service Configurable instances has changed in Edgex 2.0 from `AppService-[profile name]` to `app-[profile name]`
@@ -226,15 +226,15 @@ Please refer to the function's detailed documentation by clicking the function n
 
 !!! example
     ```toml
-        [Writable.Pipeline.Functions.BatchByCount]
-          [Writable.Pipeline.Functions.BatchByCount.Parameters]
+        [Writable.Pipeline.Functions.Batch]
+          [Writable.Pipeline.Functions.Batch.Parameters]
           Mode = "bytimecount" # can be "bycount", "bytime" or "bytimecount"
           BatchThreshold = "30"
           TimeInterval = "60s"
     ```
 
 !!! edgey "EdgeX 2.0"
-    For EdgeX 2.0 the `BatchByCount`, `BatchByCount`, and `BatchByTimeCount` configurable pipeline functions have been replaced by single `Batch` configurable pipeline function with additional `Mode` parameter.
+    For EdgeX 2.0 the `BatchByCount`, `BatchByTime`, and `BatchByTimeCount` configurable pipeline functions have been replaced by single `Batch` configurable pipeline function with additional `Mode` parameter.
 
 ### [Compress](../BuiltIn/#compression)
 
@@ -257,12 +257,12 @@ Please refer to the function's detailed documentation by clicking the function n
 
 - `Key` -  (optional) Encryption key used for the encryption. Required if not using Secret Store for the encryption key data
 - `InitVector` - Initialization vector used for the encryption.
-- `SecretPath` - (optional) Path in the `Secret Store` where the encryption key is located. Required if Key not specified.
-- `SecretName` - (optional) name of the secret for the encryption key in the `Secret Store`.  Required if Key not specified.
+- `SecretPath` - (optional) Path in the `Secret Store` where the encryption key is located. Required if `Key` not specified.
+- `SecretName` - (optional) Name of the secret for the encryption key in the `Secret Store`.  Required if `Key` not specified.
 
 !!! example
     ```toml
-        # Encrypt with key specified in configuation
+        # Encrypt with key specified in configuration
         [Writable.Pipeline.Functions.Encrypt]
           [Writable.Pipeline.Functions.Encrypt.Parameters]
           Algorithm = "aes" 
@@ -364,8 +364,7 @@ Please refer to the function's detailed documentation by clicking the function n
 - `ContinueOnSendError` - For chained multi destination exports, if true continues after send error so next export function executes.
 - `ReturnInputData` - For chained multi destination exports if true, passes the input data to next export function.
 - `HeaderName` - (Optional) Name of the header key to add to the HTTP header
-- `SecretPath` - (Optional) Path in the secret in the `Secret Store` where to header value is stored.
-
+- `SecretPath` - (Optional) Path of the secret in the `Secret Store` where the header value is stored.
 - `SecretName` - (Optional) Name of the secret for the header value in the `Secret Store`.
 
 !!! example
@@ -433,7 +432,7 @@ Please refer to the function's detailed documentation by clicking the function n
 
 - `BrokerAddress` - URL specify the address of the MQTT Broker
 - `Topic` - Topic to publish the data
-- `ClientId` - Id to use when connection to the MQTT Broker
+- `ClientId` - Id to use when connecting to the MQTT Broker
 - `Qos` - MQTT Quality of Service (QOS) setting to use (0, 1 or 2). Please refer [**here**](https://www.eclipse.org/paho/files/mqttdoc/MQTTClient/html/qos.html) for more details on QOS values
 - `AutoReconnect` - Boolean specifying if reconnect should be automatic if connection to MQTT broker is lost
 - `Retain` - Boolean  specifying if the MQTT Broker should save the last message published as the “Last Good Message” on that topic.
@@ -444,21 +443,24 @@ Please refer to the function's detailed documentation by clicking the function n
     - `usernamepassword` - Use username and password authentication. The Secret Store (Vault or [InsecureSecrets](../GeneralAppServiceConfig/#writable-insecuresecrets)) must contain the `username` and `password` secrets.
     - `clientcert` - Use Client Certificate authentication. The Secret Store (Vault or [InsecureSecrets](../GeneralAppServiceConfig/#writable-insecuresecrets)) must contain the `clientkey` and `clientcert` secrets.
     - `cacert` - Use CA Certificate authentication. The Secret Store (Vault or [InsecureSecrets](../GeneralAppServiceConfig/#writable-insecuresecrets)) must contain the `cacert` secret.
-- `SecretPath` - Path in the secret store where to authorization secrets are stored. 
+- `SecretPath` - Path in the secret store where authentication secrets are stored.
+
+!!! note
+        `Authmode=cacert` is only needed when client authentication (e.g. `usernamepassword`) is not required, but a CA Cert is needed to validate the broker's SSL/TLS cert.
 
 !!! example
     ```toml
         # Simple MQTT Export
-        [Writable.Pipeline.Functions.MQTTSecretSend]
-          [Writable.Pipeline.Functions.MQTTSecretSend.Parameters]
+        [Writable.Pipeline.Functions.MQTTExport]
+          [Writable.Pipeline.Functions.MQTTExport.Parameters]
           BrokerAddress = "tcps://localhost:8883"
           Topic = "mytopic"
           ClientId = "myclientid"
     ```
     ```toml
         # MQTT Export with auth credentials pull from the Secret Store
-        [Writable.Pipeline.Functions.MQTTSecretSend]
-          [Writable.Pipeline.Functions.MQTTSecretSend.Parameters]
+        [Writable.Pipeline.Functions.MQTTExport]
+          [Writable.Pipeline.Functions.MQTTExport.Parameters]
           BrokerAddress = "tcps://my-broker-host.com:8883"
           Topic = "mytopic"
           ClientId = "myclientid"

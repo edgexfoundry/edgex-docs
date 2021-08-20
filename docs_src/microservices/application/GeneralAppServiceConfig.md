@@ -75,7 +75,7 @@ The tabs below provide additional configuration which are applicable to Applicat
 
     |Configuration  |     Default Value     | Description |
     | --- | --- | -- |
-    | Type | redisdb** | Indicates the type of database used. `redisdb` and `mongodb` are the only valid types. |
+    | Type | redisdb** | Indicates the type of database used. `redisdb` is the only valid type. |
     | Host | localhost** | Indicates the hostname for the database |
     | Port | 6379** | Indicates the port number for the database |
     | Timeout | "30s"** | Indicates the connection timeout for the database |
@@ -93,7 +93,7 @@ The tabs below provide additional configuration which are applicable to Applicat
 
     |Configuration  |     Default Value     | Description |
     | --- | --- | -- |
-    | Type | edgex-messagebus** | Indicates the `Trigger` binding type. valid values are `edgex-messagebus`, `external-mqtt` or `http` |
+    | Type | edgex-messagebus** | Indicates the `Trigger` binding type. valid values are `edgex-messagebus`, `external-mqtt`, `http`, or `<custom>` |
 
 === "Trigger EdgeXMessageBus"
 
@@ -112,7 +112,7 @@ The tabs below provide additional configuration which are applicable to Applicat
     | Protocol | redis** | Indicates the protocol number for subscribing to the MessageBus |
     | SubscribeTopics | edgex/events/#** | MessageBus topic(s) to subscribe to. This is a comma separated list of topics. Supports filtering by subscribe topics. See [EdgeXMessageBus](Triggers.md#edgex-message-bus) Trigger for more details. |
     | **PublishHost** | ... | This section defines the connection information for publishing to the MessageBus |
-    | Host | "*" ** | Indicates the hostname for publishing to the Message Bus |
+    | Host | localhost** | Indicates the hostname for publishing to the Message Bus |
     | Port | 6379** | Indicates the port number for publishing to the Message Bus |
     | Protocol | redis** | Indicates the protocol number for publishing to the Message Bus |
     | PublishTopic | blank** | Indicates the topic in which to publish the function pipeline response data, if any. Supports dynamic topic places holders. See [EdgeXMessageBus](Triggers.md#edgex-message-bus) Trigger for more details. |
@@ -143,6 +143,9 @@ The tabs below provide additional configuration which are applicable to Applicat
     | SkipCertVerify | false**       | Indicates if the certificate verification should be skipped  |
     | SecretPath | blank**       | Name of the path in secret provider to retrieve your secrets. Must be non-blank. |
     | AuthMode | blank**       | Indicates what to use when connecting to the broker. Must be one of "none", "cacert" , "usernamepassword", "clientcert". <br />If a CA Cert exists in the SecretPath then it will be used for all modes except "none". |
+
+!!! note
+        `Authmode=cacert` is only needed when client authentication (e.g. `usernamepassword`) is not required, but a CA Cert is needed to validate the broker's SSL/TLS cert.
 
 === "Application Settings"
 
