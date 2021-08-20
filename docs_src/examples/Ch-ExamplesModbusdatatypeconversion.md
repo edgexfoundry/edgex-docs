@@ -20,28 +20,33 @@ to the `valueType` defined in the `properties` of the device resources.
 The following extract from a device profile defines the `rawType` as
 Int16 and the `valueType` as Float32:
 
-``` yaml
-deviceResources:
-  - name: "humidity"
-    description: "The response value is the result of the original value multiplied by 100."
-    attributes:
-      { primaryTable: "HOLDING_REGISTERS", startingAddress: "1", rawType: "Int16" }
-    properties:
-      valueType: "Float32"
-      readWrite: "R"
-      scale: "0.01"
-      units: "%RH"
+!!! edgey "EdgeX 2.0"
+    For EdgeX 2.0 the device profile has many changes. Please see [Device Profile](../microservices/device/profile/Ch-DeviceProfile.md) section for more details.
 
-  - name: "temperature"
-    description: "The response value is the result of the original value multiplied by 100."
-    attributes:
-      { primaryTable: "HOLDING_REGISTERS", startingAddress: "2", rawType: "Int16" }
-    properties:
-      valueType: "Float32"
-      readWrite: "R"
-      scale: "0.01"
-      units: "degrees Celsius"
-```
+!!! example "Example - Device Profile"
+
+    ``` yaml
+    deviceResources:
+      - name: "humidity"
+        description: "The response value is the result of the original value multiplied by 100."
+        attributes:
+          { primaryTable: "HOLDING_REGISTERS", startingAddress: "1", rawType: "Int16" }
+        properties:
+          valueType: "Float32"
+          readWrite: "R"
+          scale: "0.01"
+          units: "%RH"
+    
+      - name: "temperature"
+        description: "The response value is the result of the original value multiplied by 100."
+        attributes:
+          { primaryTable: "HOLDING_REGISTERS", startingAddress: "2", rawType: "Int16" }
+        properties:
+          valueType: "Float32"
+          readWrite: "R"
+          scale: "0.01"
+          units: "degrees Celsius"
+    ```
 ## Read Command
 
 A Read command is executed as follows:
