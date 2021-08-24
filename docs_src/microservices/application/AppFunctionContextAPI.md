@@ -32,6 +32,7 @@ type AppFunctionContext interface {
     GetValue(key string) (string, bool)
     GetAllValues() map[string]string
     ApplyValues(format string) (string, error)
+    PipelineId() string
 }
 ```
 
@@ -124,17 +125,17 @@ Each of the clients above is only initialized if the Clients section of the conf
       Protocol = 'http'
       Host = 'localhost'
       Port = 59880
-  
+
       [Clients.core-metadata]
       Protocol = 'http'
       Host = 'localhost'
       Port = 59881
-
+    
       [Clients.core-command]
       Protocol = 'http'
       Host = 'localhost'
       Port = 59882
-
+    
       [Clients.support-notifications]
       Protocol = 'http'
       Host = 'localhost'
@@ -201,7 +202,14 @@ This API returns that timestamp for when the secrets in the SecretStore where la
 
 This API returns the ID used to track the EdgeX event through entire EdgeX framework.
 
+### PipelineId
+
+`PipelineId() string`
+
+This API returns the ID of the pipeline currently executing. Useful when logging messages from pipeline functions so the message contain the ID of the pipeline that executed the pipeline function.
+
 ### InputContentType()
+
 `InputContentType()`
 
 This API returns the content type of the data that initiated the pipeline execution. Only useful when the TargetType for the pipeline is []byte, otherwise the data will be the type specified by TargetType.
