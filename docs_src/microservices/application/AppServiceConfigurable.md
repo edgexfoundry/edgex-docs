@@ -53,7 +53,7 @@ The above pipeline configuration in [Getting Started](#getting-started) section 
 - ExecutionOrder - This is the list of functions, in order, that the pipeline will execute. Same as `ExecutionOrder` in the above example in the  [Getting Started](#getting-started) section
 
 !!! example "Example - Writable.Pipeline.PerTopicPipelines"
-    In this example Events from the device  `Random-Float-Device` are transformed to JSON and then HTTP exported. While Events for the source `Int8` are transformed to XML and then HTTP exported to same endpoint. Note the custom naming for `TransformJson` and `TransformXml`. This is taking advantage of the [Multiple Instances of a Function](#multiple-instances-of-a-function) described below.
+    In this example Events from the device  `Random-Float-Device` are transformed to JSON and then HTTP exported. At the same time, Events for the source `Int8`  are transformed to XML and then HTTP exported to same endpoint. Note the custom naming for `TransformJson` and `TransformXml`. This is taking advantage of the [Multiple Instances of a Function](#multiple-instances-of-a-function) described below.
 
     ```toml
     [Writable]
