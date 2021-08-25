@@ -15,6 +15,7 @@ The migration of any Device Service's configuration starts with migrating config
 3. For C-based Device Services (eg, BACnet, Grove, CoAP): `UpdateLastConnected`, `MaxCmdOps`, `DataTransform`, `Discovery` and `MaxCmdResultLen` are dynamic settings - move these to `[Writable.Device]`
 4. Add `DevicesDir` and `ProfilesDir` as an indication of where to load the device profiles and pre-defined devices. Convention is to put them under `/res` folder:
    
+
 !!! example "Example configuration"
     ```toml
     [Device] 
@@ -22,7 +23,7 @@ The migration of any Device Service's configuration starts with migrating config
     ProfilesDir = "./res/profiles"
     ... 
     ```
- 
+
 !!! example "Example Project Structure"
     ```
     +- res
@@ -262,3 +263,204 @@ Notice that we renamed some fields:
 - `Profle` is renamed to `ProfileName`  
 - `Frequency` is renamed to `Interval`  
 - `Resource` is renamed to `SourceName`
+
+## Device MQTT
+
+The Device MQTT service specific `[Driver]` and `[DeviceList.Protocols.mqtt]` sections have changed for V2. The MQTT Broker connection configuration has been consolidated to just one MQTT Client and now supports SecretStore for the authentication credentials.
+
+### Driver => MQTTBrokerInfo
+
+The `[Driver]` section has been replaced with the new `[MQTTBrokerInfo]`structured custom configuration section. The setting under `[MQTTBrokerInfo.Writable]`can be dynamically updated from Consul without needing to restart the service.
+
+!!! example "Example - V1 Driver configuration"
+    ```toml
+    # Driver configs
+    [Driver]
+    IncomingSchema = 'tcp'
+    IncomingHost = '0.0.0.0'
+    IncomingPort = '1883'
+    IncomingUser = 'admin'
+    IncomingPassword = 'public'
+    IncomingQos = '0'
+    IncomingKeepAlive = '3600'
+    IncomingClientId = 'IncomingDataSubscriber'
+    IncomingTopic = 'DataTopic'
+    ResponseSchema = 'tcp'
+    ResponseHost = '0.0.0.0'
+    ResponsePort = '1883'
+    ResponseUser = 'admin'
+    ResponsePassword = 'public'
+    ResponseQos = '0'
+    ResponseKeepAlive = '3600'
+    ResponseClientId = 'CommandResponseSubscriber'
+    ResponseTopic = 'ResponseTopic'
+    ConnEstablishingRetry = '10'
+    ConnRetryWaitTime = '5'
+    ```
+
+!!! example "Example - V2 MQTTBrokerInfo configuration section"
+    ```toml
+    [MQTTBrokerInfo]
+    Schema = "tcp"
+    Host = "0.0.0.0"
+    Port = 1883
+    Qos = 0
+    KeepAlive = 3600
+    ClientId = "device-mqtt"
+    
+    CredentialsRetryTime = 120 # Seconds
+    CredentialsRetryWait = 1 # Seconds
+    ConnEstablishingRetry = 10
+    ConnRetryWaitTime = 5
+    
+    # AuthMode is the MQTT broker authentication mechanism. 
+    # Currently, "none" and "usernamepassword" is the only AuthMode
+    # supported by this service, and the secret keys are "username" and "password".
+    AuthMode = "none"
+    CredentialsPath = "credentials"
+    
+    IncomingTopic = "DataTopic"
+    responseTopic = "ResponseTopic"
+    
+        [MQTTBrokerInfo.Writable]
+        # ResponseFetchInterval specifies the retry 
+        # interval(milliseconds) to fetch the command response from the MQTT broker
+        ResponseFetchInterval = 500
+    ```
+
+### DeviceList.Protocols.mqtt
+
+Now that there is a single MQTT Broker connection, the configuration in `[DeviceList.Protocols.mqtt]` for each device has been greatly simplified to just the CommandTopic the device is subscribed. Note that this topic needs to be a unique topic for each device defined.
+
+!!! example "Example - V1 DeviceList.Protocols.mqtt device configuration section"
+    ```toml
+    [DeviceList.Protocols]
+      [DeviceList.Protocols.mqtt]
+       Schema = 'tcp'
+       Host = '0.0.0.0'
+       Port = '1883'
+       ClientId = 'CommandPublisher'
+       User = 'admin'
+       Password = 'public'
+       Topic = 'CommandTopic'
+    ```
+
+!!! example "Example - V2 DeviceList.Protocols.mqtt device configuration section"
+    ```toml
+      [DeviceList.Protocols]
+        [DeviceList.Protocols.mqtt]
+           CommandTopic = 'CommandTopic'
+    ```
+
+### SecretStore
+
+#### Secure
+
+See the [Secret API reference](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.0.0#/default/post_secret) for injecting authentication credentials into a Device Service's secure SecretStore. 
+
+!!! example - "Example - Authentication credentials injected via Device MQTT's `Secret` endpoint"
+    ```bash
+    curl -X POST http://localhost:59982/api/v2/secret  -H 'Content-Type: application/json' -d '{ "apiVersion": "v2", "requestId": "e6e8a2f4-eb14-4649-9e2b-175247911369", "path": "credentials", "secretData": [  {   "key": "username", "value": "mqtt-user"  }, {  "key": "password", "value": "mqtt-password" } ]}'  
+    ```
+
+!!! note
+    The service has to be running for this endpoint to be available.  The following `[MQTTBrokerInfo]` settings from above allow a window of time to inject the credentials.
+    ```toml
+    CredentialsRetryTime = 120 # Seconds
+    CredentialsRetryWait = 1 # Seconds
+    ```
+
+#### Non Secure
+
+For non-secure mode the authentication credentials need to be added to the [InsecureSecrets] configuration section. 
+
+!!! example - "Example - Authentication credentials in Device MQTT's `[InsecureSecrets]` configuration section"
+    ```toml
+    [Writable.InsecureSecrets]
+      [Writable.InsecureSecrets.MQTT]
+      path = "credentials"
+        [Writable.InsecureSecrets.MQTT.Secrets]
+        username = "mqtt-user"
+        password = "mqtt-password"
+    ```
+
+## Device Camera
+
+The Device Camera service specific `[Driver]` and `[DeviceList.Protocols.HTTP]` sections have changed for V2 due to the addition of the SecretStore capability and per camera credentials. The plain text camera credentials have been replaced with settings describing where to pull them from the SecretStore for each camera device specified.
+
+### Driver
+
+!!! example "Example V1 Driver configuration section"
+    ```toml
+    [Driver]
+    User = 'service'
+    Password = 'Password!1'
+    # Assign AuthMethod to 'digest' | 'basic' | 'none'
+    # AuthMethod specifies the authentication method used when
+    # requesting still images from the URL returned by the ONVIF
+    # "GetSnapshotURI" command.  All ONVIF requests will be
+    # carried out using digest auth.
+    AuthMethod = 'basic'
+    ```
+
+!!! example "Example V2 Driver configuration section"
+    ```toml
+    [Driver]
+    CredentialsRetryTime = '120' # Seconds
+    CredentialsRetryWait = '1' # Seconds
+    ```
+
+### DeviceList.Protocols.HTTP
+
+!!! example "Example V1 DeviceList.Protocols.HTTP device configuration section"
+    ```toml
+    [DeviceList.Protocols]
+      [DeviceList.Protocols.HTTP]
+      Address = '192.168.2.105'
+    ```
+
+!!! example "Example V2 DeviceList.Protocols.HTTP device configuration section"
+    ```toml
+    [DeviceList.Protocols]
+      [DeviceList.Protocols.HTTP]
+      Address = '192.168.2.105'
+      # Assign AuthMethod to 'digest' | 'usernamepassword' | 'none'
+      # AuthMethod specifies the authentication method used when
+      # requesting still images from the URL returned by the ONVIF
+      # "GetSnapshotURI" command.  All ONVIF requests will be
+      # carried out using digest auth.
+      AuthMethod = 'usernamepassword'
+      CredentialsPath = 'credentials001'
+    ```
+
+### SecretStore
+
+#### secure
+
+See the [Secret API reference](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.0.0#/default/post_secret) for injecting authentication credentials into a Device Service's secure SecretStore. An entry is required for each camera that is configured with `AuthMethod = 'usernamepassword'`
+
+!!! example - "Example - Authentication credentials injected via Device Camera's `Secret` endpoint"
+    ```bash
+    curl -X POST http://localhost:59985/api/v2/secret  -H 'Content-Type: application/json' -d '{ "apiVersion": "v2", "requestId": "e6e8a2f4-eb14-4649-9e2b-175247911369", "path": "credentials001", "secretData": [  {   "key": "username", "value": "camera-user"  }, {  "key": "password", "value": "camera-password" } ]}'  
+    ```
+
+!!! note
+    The service has to be running for this endpoint to be available.  The following `[Driver]` settings from above allow a window of time to inject the credentials.
+
+    ```toml
+    CredentialsRetryTime = 120 # Seconds
+    CredentialsRetryWait = 1 # Seconds
+    ```
+
+#### Non Secure
+
+For non-secure mode the authentication credentials need to be added to the [InsecureSecrets] configuration section. An entry is required for each camera that is configured with `AuthMethod = 'usernamepassword'`
+
+!!! example - "Example - Authentication credentials in Device Camera's `[InsecureSecrets]` configuration section"
+    ```toml
+    [Writable.InsecureSecrets.Camera001]
+    path = "credentials001"
+      [Writable.InsecureSecrets.Camera001.Secrets]
+      username = "camera-user"
+      password = "camera-password"
+    ```
