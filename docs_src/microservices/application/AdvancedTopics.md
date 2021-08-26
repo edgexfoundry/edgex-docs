@@ -185,7 +185,7 @@ Database configuration section describes which database type to use and the info
     ```
 
 !!! edgey "EdgeX 2.0"
-    The deprecated support for Mongo DB has been remove in EdgeX 2.0
+    Support for Mongo DB has been removed in EdgeX 2.0
 
 
 #### How it works
