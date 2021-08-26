@@ -2765,7 +2765,7 @@
 <p><strong>App Service Configurable</strong> is designed to be run multiple times each with different profiles. This is why in the above example the name <code>edgex-app-rules-engine</code> is used for the instance running the <code>rules-engine</code> profile.</p>
 </div>
 <h2 id="deploying-multiple-instances-using-profiles">Deploying Multiple Instances using profiles</h2>
-<p>App Service Configurable was designed to be deployed as multiple instances for different purposes. Since the function pipeline is specified in the <code>configuration.toml</code> file, we can use this as a way to run each instance with a different function pipeline. App Service Configurable does not have the standard default configuration at <code>/res/configuration.toml</code>. This default configuration has been moved to the <code>sample</code> profile. This forces you to specify the profile for the configuration you would like to run. The profile is specified using the <code>-p/--profile=[profilename]</code> command line option or the <code>EDGEX_PROFILE=[profilename]</code> environment variable override. The profile name selected is used in the service key (<code>ap-[profile name]</code>) to make each instance unique, e.g. <code>AppService-sample</code> when specifying <code>sample</code> as the profile.</p>
+<p>App Service Configurable was designed to be deployed as multiple instances for different purposes. Since the function pipeline is specified in the <code>configuration.toml</code> file, we can use this as a way to run each instance with a different function pipeline. App Service Configurable does not have the standard default configuration at <code>/res/configuration.toml</code>. This default configuration has been moved to the <code>sample</code> profile. This forces you to specify the profile for the configuration you would like to run. The profile is specified using the <code>-p/--profile=[profilename]</code> command line option or the <code>EDGEX_PROFILE=[profilename]</code> environment variable override. The profile name selected is used in the service key (<code>app-[profile name]</code>) to make each instance unique, e.g. <code>AppService-sample</code> when specifying <code>sample</code> as the profile.</p>
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 2.0</p>
 <p>Default service key for App Service Configurable instances has changed in Edgex 2.0 from <code>AppService-[profile name]</code> to <code>app-[profile name]</code></p>
@@ -2897,8 +2897,8 @@
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.BatchByCount]</span>
-      <span class="k">[Writable.Pipeline.Functions.BatchByCount.Parameters]</span>
+<div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.Batch]</span>
+      <span class="k">[Writable.Pipeline.Functions.Batch.Parameters]</span>
       <span class="n">Mode</span> <span class="o">=</span> <span class="s">&quot;bytimecount&quot;</span> <span class="c1"># can be &quot;bycount&quot;, &quot;bytime&quot; or &quot;bytimecount&quot;</span>
       <span class="n">BatchThreshold</span> <span class="o">=</span> <span class="s">&quot;30&quot;</span>
       <span class="n">TimeInterval</span> <span class="o">=</span> <span class="s">&quot;60s&quot;</span>
@@ -2906,7 +2906,7 @@
 </div>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the <code>BatchByCount</code>, <code>BatchByCount</code>, and <code>BatchByTimeCount</code> configurable pipeline functions have been replaced by single <code>Batch</code> configurable pipeline function with additional <code>Mode</code> parameter.</p>
+<p>For EdgeX 2.0 the <code>BatchByCount</code>, <code>BatchByTime</code>, and <code>BatchByTimeCount</code> configurable pipeline functions have been replaced by single <code>Batch</code> configurable pipeline function with additional <code>Mode</code> parameter.</p>
 </div>
 <h3 id="compress"><a href="../BuiltIn/#compression">Compress</a></h3>
 <p><strong>Parameters</strong></p>
@@ -2929,12 +2929,12 @@
 <ul>
 <li><code>Key</code> -  (optional) Encryption key used for the encryption. Required if not using Secret Store for the encryption key data</li>
 <li><code>InitVector</code> - Initialization vector used for the encryption.</li>
-<li><code>SecretPath</code> - (optional) Path in the <code>Secret Store</code> where the encryption key is located. Required if Key not specified.</li>
-<li><code>SecretName</code> - (optional) name of the secret for the encryption key in the <code>Secret Store</code>.  Required if Key not specified.</li>
+<li><code>SecretPath</code> - (optional) Path in the <code>Secret Store</code> where the encryption key is located. Required if <code>Key</code> not specified.</li>
+<li><code>SecretName</code> - (optional) Name of the secret for the encryption key in the <code>Secret Store</code>.  Required if <code>Key</code> not specified.</li>
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<p><div class="highlight"><pre><span></span><code>    <span class="c1"># Encrypt with key specified in configuation</span>
+<p><div class="highlight"><pre><span></span><code>    <span class="c1"># Encrypt with key specified in configuration</span>
     <span class="k">[Writable.Pipeline.Functions.Encrypt]</span>
       <span class="k">[Writable.Pipeline.Functions.Encrypt.Parameters]</span>
       <span class="n">Algorithm</span> <span class="o">=</span> <span class="s">&quot;aes&quot;</span> 
@@ -3032,12 +3032,8 @@
 <li><code>ContinueOnSendError</code> - For chained multi destination exports, if true continues after send error so next export function executes.</li>
 <li><code>ReturnInputData</code> - For chained multi destination exports if true, passes the input data to next export function.</li>
 <li><code>HeaderName</code> - (Optional) Name of the header key to add to the HTTP header</li>
-<li>
-<p><code>SecretPath</code> - (Optional) Path in the secret in the <code>Secret Store</code> where to header value is stored.</p>
-</li>
-<li>
-<p><code>SecretName</code> - (Optional) Name of the secret for the header value in the <code>Secret Store</code>.</p>
-</li>
+<li><code>SecretPath</code> - (Optional) Path of the secret in the <code>Secret Store</code> where the header value is stored.</li>
+<li><code>SecretName</code> - (Optional) Name of the secret for the header value in the <code>Secret Store</code>.</li>
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
@@ -3105,7 +3101,7 @@
 <ul>
 <li><code>BrokerAddress</code> - URL specify the address of the MQTT Broker</li>
 <li><code>Topic</code> - Topic to publish the data</li>
-<li><code>ClientId</code> - Id to use when connection to the MQTT Broker</li>
+<li><code>ClientId</code> - Id to use when connecting to the MQTT Broker</li>
 <li><code>Qos</code> - MQTT Quality of Service (QOS) setting to use (0, 1 or 2). Please refer <a href="https://www.eclipse.org/paho/files/mqttdoc/MQTTClient/html/qos.html"><strong>here</strong></a> for more details on QOS values</li>
 <li><code>AutoReconnect</code> - Boolean specifying if reconnect should be automatic if connection to MQTT broker is lost</li>
 <li><code>Retain</code> - Boolean  specifying if the MQTT Broker should save the last message published as the “Last Good Message” on that topic.</li>
@@ -3118,20 +3114,24 @@
 <li><code>cacert</code> - Use CA Certificate authentication. The Secret Store (Vault or <a href="../GeneralAppServiceConfig/#writable-insecuresecrets">InsecureSecrets</a>) must contain the <code>cacert</code> secret.</li>
 </ul>
 </li>
-<li><code>SecretPath</code> - Path in the secret store where to authorization secrets are stored. </li>
+<li><code>SecretPath</code> - Path in the secret store where authentication secrets are stored.</li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Note<p><code>Authmode=cacert</code> is only needed when client authentication (e.g. <code>usernamepassword</code>) is not required, but a CA Cert is needed to validate the broker's SSL/TLS cert.</p>
+</p>
+</div>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <p><div class="highlight"><pre><span></span><code>    <span class="c1"># Simple MQTT Export</span>
-    <span class="k">[Writable.Pipeline.Functions.MQTTSecretSend]</span>
-      <span class="k">[Writable.Pipeline.Functions.MQTTSecretSend.Parameters]</span>
+    <span class="k">[Writable.Pipeline.Functions.MQTTExport]</span>
+      <span class="k">[Writable.Pipeline.Functions.MQTTExport.Parameters]</span>
       <span class="n">BrokerAddress</span> <span class="o">=</span> <span class="s">&quot;tcps://localhost:8883&quot;</span>
       <span class="n">Topic</span> <span class="o">=</span> <span class="s">&quot;mytopic&quot;</span>
       <span class="n">ClientId</span> <span class="o">=</span> <span class="s">&quot;myclientid&quot;</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>    <span class="c1"># MQTT Export with auth credentials pull from the Secret Store</span>
-    <span class="k">[Writable.Pipeline.Functions.MQTTSecretSend]</span>
-      <span class="k">[Writable.Pipeline.Functions.MQTTSecretSend.Parameters]</span>
+    <span class="k">[Writable.Pipeline.Functions.MQTTExport]</span>
+      <span class="k">[Writable.Pipeline.Functions.MQTTExport.Parameters]</span>
       <span class="n">BrokerAddress</span> <span class="o">=</span> <span class="s">&quot;tcps://my-broker-host.com:8883&quot;</span>
       <span class="n">Topic</span> <span class="o">=</span> <span class="s">&quot;mytopic&quot;</span>
       <span class="n">ClientId</span> <span class="o">=</span> <span class="s">&quot;myclientid&quot;</span>

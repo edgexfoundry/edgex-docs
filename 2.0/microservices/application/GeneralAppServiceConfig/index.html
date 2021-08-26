@@ -2553,7 +2553,7 @@
 </div>
 <h2 id="not-writable">Not Writable</h2>
 <p>The tabs below provide additional configuration which are applicable to Application Services that require the service to be restarted after value(s) are changed.</p>
-<div class="tabbed-set" data-tabs="2:8"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">HttpServer</label><div class="tabbed-content">
+<div class="tabbed-set" data-tabs="2:6"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">HttpServer</label><div class="tabbed-content">
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
 <p>New for EdgeX 2.0. These setting previously were in the <code>Service</code> configuration section specific to Application Services. Now the <code>Service</code> configuration is the same for all EdgeX services. See the general <a href="../../configuration/CommonConfiguration">Configuration documentation</a> for more details on the common <code>Service</code> configuration.</p>
@@ -2605,7 +2605,7 @@
 <tr>
 <td>Type</td>
 <td>redisdb**</td>
-<td>Indicates the type of database used. <code>redisdb</code> and <code>mongodb</code> are the only valid types.</td>
+<td>Indicates the type of database used. <code>redisdb</code> is the only valid type.</td>
 </tr>
 <tr>
 <td>Host</td>
@@ -2646,7 +2646,7 @@
 <tr>
 <td>Type</td>
 <td>edgex-messagebus**</td>
-<td>Indicates the <code>Trigger</code> binding type. valid values are <code>edgex-messagebus</code>, <code>external-mqtt</code> or <code>http</code></td>
+<td>Indicates the <code>Trigger</code> binding type. valid values are <code>edgex-messagebus</code>, <code>external-mqtt</code>, <code>http</code>, or <code>&lt;custom&gt;</code></td>
 </tr>
 </tbody>
 </table>
@@ -2704,7 +2704,7 @@ Only used for <code>edgex-messagebus</code> binding type</p>
 </tr>
 <tr>
 <td>Host</td>
-<td>"<em>" </em>*</td>
+<td>localhost**</td>
 <td>Indicates the hostname for publishing to the Message Bus</td>
 </tr>
 <tr>
@@ -2813,13 +2813,18 @@ Only used for <code>external-mqtt</code> trigger binding type</p>
 </tbody>
 </table>
 </div>
-<input id="__tabbed_2_7" name="__tabbed_2" type="radio" /><label for="__tabbed_2_7">Application Settings</label><div class="tabbed-content">
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note<p><code>Authmode=cacert</code> is only needed when client authentication (e.g. <code>usernamepassword</code>) is not required, but a CA Cert is needed to validate the broker's SSL/TLS cert.</p>
+</p>
+</div>
+<div class="tabbed-set" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">Application Settings</label><div class="tabbed-content">
 <p><code>[ApplicationSettings]</code> - Is used for custom application settings and is accessed via the ApplicationSettings() API. The ApplicationSettings API returns a <code>map[string] string</code> containing the contents on the ApplicationSetting section of the <code>configuration.toml</code> file.</p>
 <div class="highlight"><pre><span></span><code><span class="k">[ApplicationSettings]</span>
 <span class="n">ApplicationName</span> <span class="o">=</span> <span class="s">&quot;My Application Service&quot;</span>
 </code></pre></div>
 </div>
-<input id="__tabbed_2_8" name="__tabbed_2" type="radio" /><label for="__tabbed_2_8">Custom Structured Configuration</label><div class="tabbed-content">
+<input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><label for="__tabbed_3_2">Custom Structured Configuration</label><div class="tabbed-content">
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
 <p>New for EdgeX 2.0</p>
