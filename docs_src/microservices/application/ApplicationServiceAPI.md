@@ -23,7 +23,8 @@ type ApplicationService interface {
 	GetAppSettingStrings(setting string) ([]string, error)
 	LoadCustomConfig(config UpdatableConfig, sectionName string) error
 	ListenForCustomConfigChanges(configToWatch interface{}, sectionName string, changedCallback func(interface{})) error
-	SetFunctionsPipeline(transforms ...AppFunction) error
+	SetFunctionsPipeline(transforms ...AppFunction) error *** DEPRECATED ***
+    SetDefaultFunctionsPipeline(transforms ...AppFunction) error
 	AddFunctionsPipelineByTopic(id string, topic string, transforms ...AppFunction) error
 	LoadConfigurablePipeline() ([]AppFunction, error) *** DEPRECATED by LoadConfigurableFunctionPipelines ***
 	LoadConfigurableFunctionPipelines() (map[string]FunctionPipeline, error)
@@ -62,13 +63,13 @@ This factory function returns an `interfaces.ApplicationService` using the defau
 !!! example "Example - NewAppService"
 
     ```go
-    	const serviceKey = "app-myservice"
-    	...
+    const serviceKey = "app-myservice"
+    ...
     
-    	service, ok := pkg.NewAppService(serviceKey)
-    	if !ok {
-    		os.Exit(-1)
-    	}
+    service, ok := pkg.NewAppService(serviceKey)
+    if !ok {
+        os.Exit(-1)
+    }
     ```
 
 ### NewAppServiceWithTargetType
@@ -81,13 +82,13 @@ See the [Target Type](../AdvancedTopics/#target-type) advanced topic for more de
 
 !!! example "Example - NewAppServiceWithTargetType"
     ``` go
-    	const serviceKey = "app-myservice"
-    	...
+    const serviceKey = "app-myservice"
+    ...
     
-    	service, ok := pkg.NewAppServiceWithTargetType(serviceKey, &[]byte{})
-    	if !ok {
-    		os.Exit(-1)
-    	}
+    service, ok := pkg.NewAppServiceWithTargetType(serviceKey, &[]byte{})
+    if !ok {
+        os.Exit(-1)
+    }
     ```
 
 ## Custom Configuration APIs
@@ -294,17 +295,24 @@ type FunctionPipeline struct {
 
 `SetFunctionsPipeline(transforms ...AppFunction) error`
 
-This API sets up the default functions pipeline with the specified list of Application Functions. Note that the functions are executed in the order provided in the list.  An error is returned if the list is empty. Useful when only one functions pipeline is needed
+This API has been deprecated (Replaced by SetDefaultFunctionsPipeline) and will be removed in a future release. Functions the same as SetDefaultFunctionsPipeline.
 
-!!! example "Example - SetFunctionsPipeline"
+### SetDefaultFunctionsPipeline
+
+`SetDefaultFunctionsPipeline(transforms ...AppFunction) error`
+
+This API sets the default functions pipeline with the specified list of Application Functions.  This pipeline is executed for all messages received from the configured trigger. Note that the functions are executed in the order provided in the list.  An error is returned if the list is empty.
+
+!!! example "Example - SetDefaultFunctionsPipeline"
     ```go
     sample := functions.NewSample()
-    err = service.SetFunctionsPipeline(transforms.NewFilterFor(deviceNames).FilterByDeviceName,
-                                       sample.LogEventDetails,
-                                       sample.ConvertEventToXML,
-                                       sample.OutputXML)
+    err = service.SetDefaultFunctionsPipeline(
+        transforms.NewFilterFor(deviceNames).FilterByDeviceName,
+        sample.LogEventDetails,
+        sample.ConvertEventToXML,
+        sample.OutputXML)
     if err != nil {
-        ...
+        app.lc.Errorf("SetDefaultFunctionsPipeline returned error: %s", err.Error())
         return -1
     }
     ```
@@ -349,29 +357,28 @@ This API loads the function pipelines (default and per topic) from configuration
 
 !!! example "Example - LoadConfigurableFunctionPipelines"
     ```go
-    	configuredPipelines, err := service.LoadConfigurableFunctionPipelines()
-    	if err != nil {
-    		...
-    		os.Exit(-1)
-    	}
+    configuredPipelines, err := service.LoadConfigurableFunctionPipelines()
+    if err != nil {
+        ...
+        os.Exit(-1)
+    }
     
-    	...
+    ...
     
-    	for _, pipeline := range configuredPipelines {
-    		switch pipeline.Id {
-    		case interfaces.DefaultPipelineId:
-    			if err = service.SetFunctionsPipeline(pipeline.Transforms...); err != nil {
-    				...
-    				os.Exit(-1)
-    			}
-    		default:
-    			if err = service.AddFunctionsPipelineForTopic(pipeline.Id, pipeline.Topic, pipeline.Transforms...); err != nil {
-    				...
-    				os.Exit(-1)
-    			}
-    		}
-    	}
-    
+    for _, pipeline := range configuredPipelines {
+        switch pipeline.Id {
+        case interfaces.DefaultPipelineId:
+            if err = service.SetFunctionsPipeline(pipeline.Transforms...); err != nil {
+                ...
+                os.Exit(-1)
+            }
+        default:
+            if err = service.AddFunctionsPipelineForTopic(pipeline.Id, pipeline.Topic, pipeline.Transforms...); err != nil {
+                ...
+                os.Exit(-1)
+            }
+        }
+    }
     ```
 
 ### MakeItRun
