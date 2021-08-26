@@ -124,8 +124,8 @@ The following are where you can find the configuration migration specifics for i
 - [System Management Agent](../microservices/system-management/agent/Ch_SysMgmtAgent/#v2-configuration-migration-guide)  (DEPRECATED)
 - [Application Services](../microservices/application/V2Migration/#configuration)
 - [Device Services (common)](../microservices/device/V2Migration/#configuration)
-- Device MQTT (TBD)
-- Device Camera (TBD)
+- [Device MQTT](../microservices/device/V2Migration/#device-mqtt)
+- [Device Camera](../microservices/device/V2Migration/#device-camera)
 
 ### Custom Environment Overrides
 
