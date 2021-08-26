@@ -14,7 +14,8 @@ type ApplicationService interface {
 	GetAppSettingStrings(setting string) ([]string, error)
 	LoadCustomConfig(config UpdatableConfig, sectionName string) error
 	ListenForCustomConfigChanges(configToWatch interface{}, sectionName string, changedCallback func(interface{})) error
-	SetFunctionsPipeline(transforms ...AppFunction) error
+	SetFunctionsPipeline(transforms ...AppFunction) error *** DEPRECATED ***
+    SetDefaultFunctionsPipeline(transforms ...AppFunction) error
 	LoadConfigurablePipeline() ([]AppFunction, error)
 	MakeItRun() error
 	MakeItStop()
@@ -34,7 +35,6 @@ type ApplicationService interface {
 	BuildContext(correlationId string, contentType string) AppFunctionContext
 	AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error
 	RegisterCustomTriggerFactory(name string, factory func(TriggerConfig) (Trigger, error)) error
-
 }
 ```
 
@@ -264,18 +264,24 @@ The following `ApplicationService` APIs allow your service to set the Functions 
 
 `SetFunctionsPipeline(transforms ...AppFunction) error`
 
-This API sets up the functions pipeline with the specified list of Application Functions. Note that the functions are executed in the order provided in the list.  An error is returned if the list is empty.
+This API has been deprecated (Replaced by SetDefaultFunctionsPipeline) and will be removed in a future release. Functions the same as SetDefaultFunctionsPipeline.
 
-!!! example "Example - SetFunctionsPipeline"
+### SetDefaultFunctionsPipeline
+
+`SetDefaultFunctionsPipeline(transforms ...AppFunction) error`
+
+This API sets the default functions pipeline with the specified list of Application Functions.  This pipeline is executed for all messages received from the configured trigger. Note that the functions are executed in the order provided in the list.  An error is returned if the list is empty.
+
+!!! example "Example - SetDefaultFunctionsPipeline"
     ```go
     sample := functions.NewSample()
-    err = service.SetFunctionsPipeline(
+    err = service.SetDefaultFunctionsPipeline(
         transforms.NewFilterFor(deviceNames).FilterByDeviceName,
         sample.LogEventDetails,
         sample.ConvertEventToXML,
         sample.OutputXML)
     if err != nil {
-        app.lc.Errorf("SetFunctionsPipeline returned error: %s", err.Error())
+        app.lc.Errorf("SetDefaultFunctionsPipeline returned error: %s", err.Error())
         return -1
     }
     ```
