@@ -4,120 +4,22 @@ EdgeX - Ireland Release
 
 ## Overview
 
-In this example, we use the simulator instead of real device. This
-provides a straight-forward way to test the device-mqtt features.
+In this example, we use a script to simulate a custom-defined MQTT device,
+instead of a real device. This provides a straight-forward way to test the
+device-mqtt features using an MQTT-broker.
 
 ![MQTT Overview](MQTT_Example_Overview.png)
 
-## Run an MQTT Broker
+## Prepare the Custom Device Configuration 
 
-Eclipse Mosquitto is an open source (EPL/EDL licensed) message broker
-that implements the MQTT protocol versions 5.0, 3.1.1 and 3.1.
-
-Run Mosquitto using the following docker command:
-
-    docker run -d --rm --name broker -p 1883:1883 eclipse-mosquitto:1.6
-
-## Run an MQTT Device Simulator
-
-![MQTT Device Service](EdgeX_ExamplesMQTTDeviceSimulator.png)
-
-This simulator has three behaviors:
-
-1.  Publish random number data every 15 seconds.
-    
-    The simulator publishes the data to the MQTT broker with topic `DataTopic` and the message is similar to the following:
-    ```
-    {"name":"MQTT-Test-Device", "cmd":"randnum", "method":"get", "randnum":4161.3549}
-    ```
-    
-2.  Receive the reading request, then return the response.
-
-    1. The simulator receives the request from the MQTT broker, the topic is `CommandTopic` and the message is similar to the following:
-        ```   
-        {"cmd":"randnum", "method":"get", "uuid":"293d7a00-66e1-4374-ace0-07520103c95f"}
-        ```
-    2. The simulator returns the response to the MQTT broker, the topic is `ResponseTopic` and the message is similar to the following:
-        ```   
-        {"cmd":"randnum", "method":"get", "uuid":"293d7a00-66e1-4374-ace0-07520103c95f", "randnum":42.0}
-        ```
-3.  Receive the set request, then change the device value.
-
-    1. The simulator receives the request from the MQTT broker, the topic is `CommandTopic` and the message is similar to the following:
-        ```   
-        {"cmd":"message", "method":"set", "uuid":"293d7a00-66e1-4374-ace0-07520103c95f", "message":"test message..."}
-        ```
-    2. The simulator changes the device value and returns the response to the MQTT broker, the topic is `ResponseTopic` and the message is similar to the following:
-        ```   
-        {"cmd":"message", "method":"set", "uuid":"293d7a00-66e1-4374-ace0-07520103c95f"}
-        ```
-
-To simulate the MQTT device, create a javascript, named `mock-device.js`, with the
-following content:
-```javascript
-function getRandomFloat(min, max) {
-    return Math.random() * (max - min) + min;
-}
-
-const deviceName = "MQTT-Test-Device";
-let message = "test-message";
-
-// DataSender sends async value to MQTT broker every 15 seconds
-schedule('*/15 * * * * *', ()=>{
-    let body = {
-        "name": deviceName,
-        "cmd": "randnum",
-        "randnum": getRandomFloat(25,29).toFixed(1)
-    };
-    publish( 'DataTopic', JSON.stringify(body));
-});
-
-// CommandHandler receives commands and sends response to MQTT broker
-// 1. Receive the reading request, then return the response
-// 2. Receive the set request, then change the device value
-subscribe( "CommandTopic" , (topic, val) => {
-    var data = val;
-        if (data.method == "set") {
-        message = data[data.cmd]
-    }else{
-        switch(data.cmd) {
-            case "ping":
-              data.ping = "pong";
-              break;
-            case "message":
-              data.message = message;
-              break;
-            case "randnum":
-                data.randnum = 12.123;
-                break;
-          }
-    }
-    publish( "ResponseTopic", JSON.stringify(data));
-});
-```
-
-To run the device simulator, enter the commands shown below with the
-following changes:
-
-- Replace the `/path/to/mqtt-scripts` in the example mv command with the
-    correct path
-```
-$ mv mock-device.js /path/to/mqtt-scripts
-$ docker run -d --restart=always --name=mqtt-scripts \
-    -v /path/to/mqtt-scripts:/scripts  \
-    dersimn/mqtt-scripts --url mqtt://172.17.0.1 --dir /scripts
-```
-> The address `172.17.0.1` is point to the host of MQTT broker via the docker bridge network.
-
-## Prepare the Custom Configuration 
-
-In this section, we create folders that contains files required for deployment:
+In this section, we create folders that contain files required for deployment
+of a customized device configuration to work with the existing device service:
 ```
 - custom-config
   |- profiles
-     |- mqtt.test.device.profile.yml
+     |- my.custom.device.profile.yml
   |- devices
-     |- mqtt.test.device.config.toml
+     |- my.custom.device.config.toml
 ```
 
 ### Device Profile
@@ -125,10 +27,10 @@ In this section, we create folders that contains files required for deployment:
 The DeviceProfile defines the device's values and operation method,
 which can be Read or Write.
 
-Create a device profile, named `mqtt.test.device.profile.yml`, with the
+Create a device profile, named `my.custom.device.profile.yml`, with the
 following content:
 ```yaml
-name: "MQTT-Test-Device-Profile"
+name: "my-custom-device-profile"
 manufacturer: "iot"
 model: "MQTT-DEVICE"
 description: "Test device profile"
@@ -174,13 +76,13 @@ deviceCommands:
 Use this configuration file to define devices and schedule jobs.
 device-mqtt generates a relative instance on start-up.
 
-Create the device configuration file, named `mqtt.test.device.config.toml`, as shown below:
+Create the device configuration file, named `my.custom.device.config.toml`, as shown below:
 
 ```toml
 # Pre-define Devices
 [[DeviceList]]
-  Name = "MQTT-Test-Device"
-  ProfileName = "MQTT-Test-Device-Profile"
+  Name = "my-custom-device"
+  ProfileName = "my-custom-device-profile"
   Description = "MQTT device is created for test purpose"
   Labels = [ "MQTT", "test" ]
   [DeviceList.Protocols]
@@ -201,10 +103,10 @@ Create the device configuration file, named `mqtt.test.device.config.toml`, as s
 $ git clone git@github.com:edgexfoundry/edgex-compose.git
 $ git checkout ireland
 ```
-2. Generate the docker-compose.yml file
+2. Generate the docker-compose.yml file (notice this includes mqtt-broker)
 ```
 $ cd edgex-compose/compose-builder
-$ make gen ds-mqtt
+$ make gen ds-mqtt mqtt-broker no-secty ui
 ```
 Check the generated file
 ```
@@ -225,13 +127,10 @@ Open the `docker-compose.yml` file and then add volumes path and environment as 
       ...
       DEVICE_DEVICESDIR: /custom-config/devices
       DEVICE_PROFILESDIR: /custom-config/profiles
-      MQTTBROKERINFO_HOST: 172.17.0.1
     volumes:
     ...
     - /path/to/custom-config:/custom-config
 ```
-
-> The address `172.17.0.1` is point to the MQTT broker via the docker bridge network.
 
 ## Start EdgeX Foundry on Docker
 
@@ -241,6 +140,97 @@ $ cd edgex-compose/compose-builder
 $ docker-compose pull
 $ docker-compose up -d
 ```
+
+## Run an MQTT Device Simulator
+
+![MQTT Device Service](EdgeX_ExamplesMQTTDeviceSimulator.png)
+
+Using the detailed script below as a simulator, there are three behaviors:
+
+1.  Publish random number data every 15 seconds.
+
+    The simulator publishes the data to the MQTT broker with topic `DataTopic` and the message is similar to the following:
+    ```
+    {"name":"my-custom-device", "cmd":"randnum", "method":"get", "randnum":4161.3549}
+    ```
+
+2.  Receive the reading request, then return the response.
+
+    1. The simulator receives the request from the MQTT broker, the topic is `CommandTopic` and the message is similar to the following:
+        ```   
+        {"cmd":"randnum", "method":"get", "uuid":"293d7a00-66e1-4374-ace0-07520103c95f"}
+        ```
+    2. The simulator returns the response to the MQTT broker, the topic is `ResponseTopic` and the message is similar to the following:
+        ```   
+        {"cmd":"randnum", "method":"get", "uuid":"293d7a00-66e1-4374-ace0-07520103c95f", "randnum":42.0}
+        ```
+3.  Receive the set request, then change the device value.
+
+    1. The simulator receives the request from the MQTT broker, the topic is `CommandTopic` and the message is similar to the following:
+        ```   
+        {"cmd":"message", "method":"set", "uuid":"293d7a00-66e1-4374-ace0-07520103c95f", "message":"test message..."}
+        ```
+    2. The simulator changes the device value and returns the response to the MQTT broker, the topic is `ResponseTopic` and the message is similar to the following:
+        ```   
+        {"cmd":"message", "method":"set", "uuid":"293d7a00-66e1-4374-ace0-07520103c95f"}
+        ```
+
+To implement the simulated custom-defined MQTT device, create a javascript, named `mock-device.js`, with the
+following content:
+```
+function getRandomFloat(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
+const deviceName = "my-custom-device";
+let message = "test-message";
+
+// DataSender sends async value to MQTT broker every 15 seconds
+schedule('*/15 * * * * *', ()=>{
+    let body = {
+        "name": deviceName,
+        "cmd": "randnum",
+        "randnum": getRandomFloat(25,29).toFixed(1)
+    };
+    publish( 'DataTopic', JSON.stringify(body));
+});
+
+// CommandHandler receives commands and sends response to MQTT broker
+// 1. Receive the reading request, then return the response
+// 2. Receive the set request, then change the device value
+subscribe( "CommandTopic" , (topic, val) => {
+    var data = val;
+        if (data.method == "set") {
+        message = data[data.cmd]
+    }else{
+        switch(data.cmd) {
+            case "ping":
+              data.ping = "pong";
+              break;
+            case "message":
+              data.message = message;
+              break;
+            case "randnum":
+                data.randnum = 12.123;
+                break;
+          }
+    }
+    publish( "ResponseTopic", JSON.stringify(data));
+});
+```
+
+To run the device simulator, enter the commands shown below with the
+following changes:
+
+- Replace the `/path/to/mqtt-scripts` in the example mv command with the
+  correct path
+```
+$ mv mock-device.js /path/to/mqtt-scripts
+$ docker run -d --restart=always --name=mqtt-scripts \
+    -v /path/to/mqtt-scripts:/scripts  \
+    dersimn/mqtt-scripts --url mqtt://172.17.0.1 --dir /scripts
+```
+> The address `172.17.0.1` is point to the host of MQTT broker via the docker bridge network.
 
 ## Execute Commands
 
@@ -256,8 +246,8 @@ $ curl http://localhost:59882/api/v2/device/all | json_pp
 {
    "deviceCoreCommands" : [
       {
-         "profileName" : "MQTT-Test-Device-Profile",
-         "deviceName" : "MQTT-Test-Device",
+         "profileName" : "my-custom-device-profile",
+         "deviceName" : "my-custom-device",
          "coreCommands" : [
             {
                "url" : "http://edgex-core-command:59882",
@@ -277,7 +267,7 @@ $ curl http://localhost:59882/api/v2/device/all | json_pp
                ],
                "get" : true,
                "name" : "values",
-               "path" : "/api/v2/device/name/MQTT-Test-Device/values"
+               "path" : "/api/v2/device/name/my-custom-device/values"
             },
             {
                "url" : "http://edgex-core-command:59882",
@@ -289,7 +279,7 @@ $ curl http://localhost:59882/api/v2/device/all | json_pp
                ],
                "get" : true,
                "set" : true,
-               "path" : "/api/v2/device/name/MQTT-Test-Device/message",
+               "path" : "/api/v2/device/name/my-custom-device/message",
                "name" : "message"
             }
          ]
@@ -306,7 +296,7 @@ Execute a SET command according to the url and parameterNames, replacing
 \[host\] with the server IP when running the SET command.
 
 ```
-$ curl http://localhost:59882/api/v2/device/name/MQTT-Test-Device/message \
+$ curl http://localhost:59882/api/v2/device/name/my-custom-device/message \
     -H "Content-Type:application/json" -X PUT  \
     -d '{"message":"Hello!"}'
 ```
@@ -316,7 +306,7 @@ $ curl http://localhost:59882/api/v2/device/name/MQTT-Test-Device/message \
 Execute a GET command as follows:
 
 ```json
-$ curl http://localhost:59882/api/v2/device/name/MQTT-Test-Device/message | json_pp
+$ curl http://localhost:59882/api/v2/device/name/my-custom-device/message | json_pp
 
 {
    "event" : {
@@ -325,8 +315,8 @@ $ curl http://localhost:59882/api/v2/device/name/MQTT-Test-Device/message | json
          {
             "resourceName" : "message",
             "binaryValue" : null,
-            "profileName" : "MQTT-Test-Device-Profile",
-            "deviceName" : "MQTT-Test-Device",
+            "profileName" : "my-custom-device-profile",
+            "deviceName" : "my-custom-device",
             "id" : "a3bb78c5-e76f-49a2-ad9d-b220a86c3e36",
             "value" : "Hello!",
             "valueType" : "String",
@@ -335,9 +325,9 @@ $ curl http://localhost:59882/api/v2/device/name/MQTT-Test-Device/message | json
          }
       ],
       "sourceName" : "message",
-      "deviceName" : "MQTT-Test-Device",
+      "deviceName" : "my-custom-device",
       "apiVersion" : "v2",
-      "profileName" : "MQTT-Test-Device-Profile",
+      "profileName" : "my-custom-device-profile",
       "id" : "e0b29735-8b39-44d1-8f68-4d7252e14cc7"
    },
    "apiVersion" : "v2",
@@ -374,8 +364,8 @@ $ curl http://localhost:59880/api/v2/reading/resourceName/message | json_pp
          "binaryValue" : null,
          "resourceName" : "message",
          "origin" : 1624418361324331392,
-         "profileName" : "MQTT-Test-Device-Profile",
-         "deviceName" : "MQTT-Test-Device",
+         "profileName" : "my-custom-device-profile",
+         "deviceName" : "my-custom-device",
          "valueType" : "String"
       },
       {
@@ -384,17 +374,15 @@ $ curl http://localhost:59880/api/v2/reading/resourceName/message | json_pp
          "resourceName" : "message",
          "value" : "test-message",
          "id" : "1da58cb7-2bf4-47f0-bbb8-9519797149a2",
-         "deviceName" : "MQTT-Test-Device",
+         "deviceName" : "my-custom-device",
          "valueType" : "String",
-         "profileName" : "MQTT-Test-Device-Profile",
+         "profileName" : "my-custom-device-profile",
          "origin" : 1624418330822988843
       },
       ...
    ],
    "apiVersion" : "v2"
 }
-
-
 ```
 
 ## Async Device Reading
@@ -420,21 +408,21 @@ $ curl http://localhost:59880/api/v2/reading/resourceName/randnum | json_pp
       {
          "origin" : 1624418475007110946,
          "valueType" : "Float32",
-         "deviceName" : "MQTT-Test-Device",
+         "deviceName" : "my-custom-device",
          "id" : "9b3d337e-8a8a-4a6c-8018-b4908b57abb8",
          "binaryValue" : null,
          "resourceName" : "randnum",
-         "profileName" : "MQTT-Test-Device-Profile",
+         "profileName" : "my-custom-device-profile",
          "mediaType" : "",
          "value" : "2.630000e+01"
       },
       {
-         "deviceName" : "MQTT-Test-Device",
+         "deviceName" : "my-custom-device",
          "valueType" : "Float32",
          "id" : "06918cbb-ada0-4752-8877-0ef8488620f6",
          "origin" : 1624418460007833720,
          "mediaType" : "",
-         "profileName" : "MQTT-Test-Device-Profile",
+         "profileName" : "my-custom-device-profile",
          "value" : "2.570000e+01",
          "resourceName" : "randnum",
          "binaryValue" : null
@@ -477,5 +465,6 @@ The user can override these configurations by `environment variable` to meet the
     ...
     environment:
       ...
-      MQTTBROKERINFO_HOST: 172.17.0.1
+      DEVICE_DEVICESDIR: /custom-config/devices
+      DEVICE_PROFILESDIR: /custom-config/profiles
 ```
