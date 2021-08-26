@@ -1425,74 +1425,6 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#custom-configuration-apis" class="md-nav__link">
-    Custom Configuration APIs
-  </a>
-  
-    <nav class="md-nav" aria-label="Custom Configuration APIs">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#applicationsettings" class="md-nav__link">
-    ApplicationSettings
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#getappsetting" class="md-nav__link">
-    GetAppSetting
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#getappsettingstrings" class="md-nav__link">
-    GetAppSettingStrings
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#loadcustomconfig" class="md-nav__link">
-    LoadCustomConfig
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#listenforcustomconfigchanges" class="md-nav__link">
-    ListenForCustomConfigChanges
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#function-pipeline-apis" class="md-nav__link">
-    Function Pipeline APIs
-  </a>
-  
-    <nav class="md-nav" aria-label="Function Pipeline APIs">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#setfunctionspipeline" class="md-nav__link">
-    SetFunctionsPipeline
-  </a>
-  
-</li>
-        
           <li class="md-nav__item">
   <a href="#loadconfigurablepipeline" class="md-nav__link">
     LoadConfigurablePipeline
@@ -2664,74 +2596,6 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#custom-configuration-apis" class="md-nav__link">
-    Custom Configuration APIs
-  </a>
-  
-    <nav class="md-nav" aria-label="Custom Configuration APIs">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#applicationsettings" class="md-nav__link">
-    ApplicationSettings
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#getappsetting" class="md-nav__link">
-    GetAppSetting
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#getappsettingstrings" class="md-nav__link">
-    GetAppSettingStrings
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#loadcustomconfig" class="md-nav__link">
-    LoadCustomConfig
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#listenforcustomconfigchanges" class="md-nav__link">
-    ListenForCustomConfigChanges
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#function-pipeline-apis" class="md-nav__link">
-    Function Pipeline APIs
-  </a>
-  
-    <nav class="md-nav" aria-label="Function Pipeline APIs">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#setfunctionspipeline" class="md-nav__link">
-    SetFunctionsPipeline
-  </a>
-  
-</li>
-        
           <li class="md-nav__item">
   <a href="#loadconfigurablepipeline" class="md-nav__link">
     LoadConfigurablePipeline
@@ -2946,35 +2810,35 @@
 <p>The <code>ApplicationService</code> API is the central API for creating an EdgeX Application Service.</p>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the <code>ApplicationService</code> API and factory functions replace direct access to the <code>AppFunctionsSDK</code> struct. </p>
 </div>
+<p>For EdgeX 2.0 the <code>ApplicationService</code> API and factory functions replace direct access to the <code>AppFunctionsSDK</code> struct.</p>
 <p>The new <code>ApplicationService</code> API is as follows:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">ApplicationService</span> <span class="kd">interface</span> <span class="p">{</span>
-    <span class="nx">ApplicationSettings</span><span class="p">()</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span>
-    <span class="nx">GetAppSetting</span><span class="p">(</span><span class="nx">setting</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
-    <span class="nx">GetAppSettingStrings</span><span class="p">(</span><span class="nx">setting</span> <span class="kt">string</span><span class="p">)</span> <span class="p">([]</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
-    <span class="nx">LoadCustomConfig</span><span class="p">(</span><span class="nx">config</span> <span class="nx">UpdatableConfig</span><span class="p">,</span> <span class="nx">sectionName</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
-    <span class="nx">ListenForCustomConfigChanges</span><span class="p">(</span><span class="nx">configToWatch</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">sectionName</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">changedCallback</span> <span class="kd">func</span><span class="p">(</span><span class="kd">interface</span><span class="p">{}))</span> <span class="kt">error</span>
-    <span class="nx">SetFunctionsPipeline</span><span class="p">(</span><span class="nx">transforms</span> <span class="o">...</span><span class="nx">AppFunction</span><span class="p">)</span> <span class="kt">error</span>
-    <span class="nx">LoadConfigurablePipeline</span><span class="p">()</span> <span class="p">([]</span><span class="nx">AppFunction</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
-    <span class="nx">MakeItRun</span><span class="p">()</span> <span class="kt">error</span>
-    <span class="nx">MakeItStop</span><span class="p">()</span>
-    <span class="nx">GetSecret</span><span class="p">(</span><span class="nx">path</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">keys</span> <span class="o">...</span><span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
-    <span class="nx">StoreSecret</span><span class="p">(</span><span class="nx">path</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">secretData</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> 
-    <span class="nx">LoggingClient</span><span class="p">()</span> <span class="nx">logger</span><span class="p">.</span><span class="nx">LoggingClient</span>
-    <span class="nx">EventClient</span><span class="p">()</span> <span class="nx">interfaces</span><span class="p">.</span><span class="nx">EventClient</span>
-    <span class="nx">CommandClient</span><span class="p">()</span> <span class="nx">interfaces</span><span class="p">.</span><span class="nx">CommandClient</span>
-    <span class="nx">NotificationClient</span><span class="p">()</span> <span class="nx">interfaces</span><span class="p">.</span><span class="nx">NotificationClient</span>
-    <span class="nx">SubscriptionClient</span><span class="p">()</span> <span class="nx">interfaces</span><span class="p">.</span><span class="nx">SubscriptionClient</span>
-    <span class="nx">DeviceServiceClient</span><span class="p">()</span> <span class="nx">interfaces</span><span class="p">.</span><span class="nx">DeviceServiceClient</span>
-    <span class="nx">DeviceProfileClient</span><span class="p">()</span> <span class="nx">interfaces</span><span class="p">.</span><span class="nx">DeviceProfileClient</span>
-    <span class="nx">DeviceClient</span><span class="p">()</span> <span class="nx">interfaces</span><span class="p">.</span><span class="nx">DeviceClient</span>
-    <span class="nx">RegistryClient</span><span class="p">()</span> <span class="nx">registry</span><span class="p">.</span><span class="nx">Client</span>
-    <span class="nx">AddBackgroundPublisher</span><span class="p">(</span><span class="nx">capacity</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="nx">BackgroundPublisher</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
-    <span class="nx">AddBackgroundPublisherWithTopic</span><span class="p">(</span><span class="nx">capacity</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">topic</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">BackgroundPublisher</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
-    <span class="nx">BuildContext</span><span class="p">(</span><span class="nx">correlationId</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">contentType</span> <span class="kt">string</span><span class="p">)</span> <span class="nx">AppFunctionContext</span>
-    <span class="nx">AddRoute</span><span class="p">(</span><span class="nx">route</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">handler</span> <span class="kd">func</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">),</span> <span class="nx">methods</span> <span class="o">...</span><span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
-    <span class="nx">RegisterCustomTriggerFactory</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">factory</span> <span class="kd">func</span><span class="p">(</span><span class="nx">TriggerConfig</span><span class="p">)</span> <span class="p">(</span><span class="nx">Trigger</span><span class="p">,</span> <span class="kt">error</span><span class="p">))</span> <span class="kt">error</span>
+<span class="nx">ApplicationSettings</span><span class="p">()</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span>
+<span class="nx">GetAppSetting</span><span class="p">(</span><span class="nx">setting</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+<span class="nx">GetAppSettingStrings</span><span class="p">(</span><span class="nx">setting</span> <span class="kt">string</span><span class="p">)</span> <span class="p">([]</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+<span class="nx">LoadCustomConfig</span><span class="p">(</span><span class="nx">config</span> <span class="nx">UpdatableConfig</span><span class="p">,</span> <span class="nx">sectionName</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
+<span class="nx">ListenForCustomConfigChanges</span><span class="p">(</span><span class="nx">configToWatch</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">sectionName</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">changedCallback</span> <span class="kd">func</span><span class="p">(</span><span class="kd">interface</span><span class="p">{}))</span> <span class="kt">error</span>
+<span class="nx">SetFunctionsPipeline</span><span class="p">(</span><span class="nx">transforms</span> <span class="o">...</span><span class="nx">AppFunction</span><span class="p">)</span> <span class="kt">error</span>
+<span class="nx">LoadConfigurablePipeline</span><span class="p">()</span> <span class="p">([]</span><span class="nx">AppFunction</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+<span class="nx">MakeItRun</span><span class="p">()</span> <span class="kt">error</span>
+<span class="nx">MakeItStop</span><span class="p">()</span>
+<span class="nx">GetSecret</span><span class="p">(</span><span class="nx">path</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">keys</span> <span class="o">...</span><span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+<span class="nx">StoreSecret</span><span class="p">(</span><span class="nx">path</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">secretData</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
+<span class="nx">LoggingClient</span><span class="p">()</span> <span class="nx">logger</span><span class="p">.</span><span class="nx">LoggingClient</span>
+<span class="nx">EventClient</span><span class="p">()</span> <span class="nx">interfaces</span><span class="p">.</span><span class="nx">EventClient</span>
+<span class="nx">CommandClient</span><span class="p">()</span> <span class="nx">interfaces</span><span class="p">.</span><span class="nx">CommandClient</span>
+<span class="nx">NotificationClient</span><span class="p">()</span> <span class="nx">interfaces</span><span class="p">.</span><span class="nx">NotificationClient</span>
+<span class="nx">SubscriptionClient</span><span class="p">()</span> <span class="nx">interfaces</span><span class="p">.</span><span class="nx">SubscriptionClient</span>
+<span class="nx">DeviceServiceClient</span><span class="p">()</span> <span class="nx">interfaces</span><span class="p">.</span><span class="nx">DeviceServiceClient</span>
+<span class="nx">DeviceProfileClient</span><span class="p">()</span> <span class="nx">interfaces</span><span class="p">.</span><span class="nx">DeviceProfileClient</span>
+<span class="nx">DeviceClient</span><span class="p">()</span> <span class="nx">interfaces</span><span class="p">.</span><span class="nx">DeviceClient</span>
+<span class="nx">RegistryClient</span><span class="p">()</span> <span class="nx">registry</span><span class="p">.</span><span class="nx">Client</span>
+<span class="nx">AddBackgroundPublisher</span><span class="p">(</span><span class="nx">capacity</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="nx">BackgroundPublisher</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+<span class="nx">AddBackgroundPublisherWithTopic</span><span class="p">(</span><span class="nx">capacity</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">topic</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">BackgroundPublisher</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+<span class="nx">BuildContext</span><span class="p">(</span><span class="nx">correlationId</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">contentType</span> <span class="kt">string</span><span class="p">)</span> <span class="nx">AppFunctionContext</span>
+<span class="nx">AddRoute</span><span class="p">(</span><span class="nx">route</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">handler</span> <span class="kd">func</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">),</span> <span class="nx">methods</span> <span class="o">...</span><span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
+<span class="nx">RegisterCustomTriggerFactory</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">factory</span> <span class="kd">func</span><span class="p">(</span><span class="nx">TriggerConfig</span><span class="p">)</span> <span class="p">(</span><span class="nx">Trigger</span><span class="p">,</span> <span class="kt">error</span><span class="p">))</span> <span class="kt">error</span>
 
 <span class="p">}</span>
 </code></pre></div>
@@ -3000,220 +2864,261 @@
 <p>See the <a href="../AdvancedTopics/#target-type">Target Type</a> advanced topic for more details.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - NewAppServiceWithTargetType</p>
-<div class="highlight"><pre><span></span><code>    <span class="kd">const</span> <span class="nx">serviceKey</span> <span class="p">=</span> <span class="s">&quot;app-myservice&quot;</span>
-    <span class="o">...</span>
-
-    <span class="nx">service</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">pkg</span><span class="p">.</span><span class="nx">NewAppServiceWithTargetType</span><span class="p">(</span><span class="nx">serviceKey</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">[]</span><span class="kt">byte</span><span class="p">{})</span>
-    <span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
-        <span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="p">}</span>
-</code></pre></div>
 </div>
-<h2 id="custom-configuration-apis">Custom Configuration APIs</h2>
-<p>The following <code>ApplicationService</code> APIs allow your service to access their custom configuration from the TOML file and/or Configuration Provider. See the <a href="../AdvancedTopics/#custom-configuration">Custom Configuration</a> advanced topic for more details.</p>
-<h3 id="applicationsettings">ApplicationSettings</h3>
-<p><code>ApplicationSettings() map[string]string</code></p>
-<p>This API returns the complete key/value map of custom settings</p>
-<div class="admonition example">
-<p class="admonition-title">Example - ApplicationSettings</p>
-<div class="highlight"><pre><span></span><code><span class="k">[ApplicationSettings]</span>
-<span class="n">Greeting</span> <span class="o">=</span> <span class="s">&quot;Hello World&quot;</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="nx">appSettings</span> <span class="o">:=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">ApplicationSettings</span><span class="p">()</span>
-<span class="nx">greeting</span> <span class="o">:=</span> <span class="nx">appSettings</span><span class="p">[</span><span class="s">&quot;Greeting&quot;</span><span class="p">]</span>
-<span class="nx">service</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="nx">greeting</span><span class="p">)</span>
-</code></pre></div>
-</div>
-<h3 id="getappsetting">GetAppSetting</h3>
-<p><code>GetAppSetting(setting string) (string, error)</code></p>
-<p>This API is a convenience API that returns a single setting from the <code>[ApplicationSetting]</code>
- section of the service configuration. An error is returned if the specified setting is not found.</p>
-<div class="admonition example">
-<p class="admonition-title">Example - GetAppSetting</p>
-<div class="highlight"><pre><span></span><code><span class="k">[ApplicationSettings]</span>
-<span class="n">Greeting</span> <span class="o">=</span> <span class="s">&quot;Hello World&quot;</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="nx">greeting</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">GetAppSetting</span><span class="p">[</span><span class="s">&quot;Greeting&quot;</span><span class="p">]</span>
-<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-    <span class="o">...</span>
-<span class="p">}</span>
-<span class="nx">service</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="nx">greeting</span><span class="p">)</span>
-</code></pre></div>
-</div>
-<h3 id="getappsettingstrings">GetAppSettingStrings</h3>
-<p><code>GetAppSettingStrings(setting string) ([]string, error)</code></p>
-<p>This API is a convenience API that parses the string value for the specified custom application setting as a comma separated list. It returns the list of strings. An error is returned if the specified setting is not found.</p>
-<div class="admonition example">
-<p class="admonition-title">Example - GetAppSettingStrings</p>
-<div class="highlight"><pre><span></span><code><span class="k">[ApplicationSettings]</span>
-<span class="n">Greetings</span> <span class="o">=</span> <span class="s">&quot;Hello World, Welcome World, Hi World&quot;</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="nx">greetings</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">GetAppSettingStrings</span><span class="p">[</span><span class="s">&quot;Greetings&quot;</span><span class="p">]</span>
-<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-    <span class="o">...</span>
-<span class="p">}</span>
-<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">greeting</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">greetings</span> <span class="p">{</span>
-  <span class="nx">service</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="nx">greeting</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div>
-</div>
-<h3 id="loadcustomconfig">LoadCustomConfig</h3>
-<p><code>LoadCustomConfig(config UpdatableConfig, sectionName string) error</code></p>
-<p>This API loads the service's Structured Custom Configuration from local file or the Configuration Provider (if enabled). The Configuration Provider will also be seeded with the custom configuration if service is using the Configuration Provider. The <code>UpdateFromRaw</code> API (<code>UpdatableConfig</code> interface) will be called on the custom configuration when the configuration is loaded from the Configuration Provider. The custom config must implement the <code>UpdatableConfig</code> interface.</p>
-<div class="admonition example">
-<p class="admonition-title">Example - LoadCustomConfig</p>
-<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="n">AppCustom</span><span class="p">]</span> <span class="c1"># Can be any name you choose</span>
-<span class="n">ResourceNames</span> <span class="o">=</span> <span class="s">&quot;Boolean, Int32, Uint32, Float32, Binary&quot;</span>
-<span class="n">SomeValue</span> <span class="o">=</span> <span class="mi">123</span>
-  <span class="k">[AppCustom.SomeService]</span>
-  <span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
-  <span class="n">Port</span> <span class="o">=</span> <span class="mi">9080</span>
-  <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&quot;http&quot;</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">ServiceConfig</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">AppCustom</span> <span class="nx">AppCustomConfig</span>
-<span class="p">}</span>
-
-<span class="kd">type</span> <span class="nx">AppCustomConfig</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">ResourceNames</span> <span class="kt">string</span>
-    <span class="nx">SomeValue</span>     <span class="kt">int</span>
-    <span class="nx">SomeService</span>   <span class="nx">HostInfo</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">ServiceConfig</span><span class="p">)</span> <span class="nx">UpdateFromRaw</span><span class="p">(</span><span class="nx">rawConfig</span> <span class="kd">interface</span><span class="p">{})</span> <span class="kt">bool</span> <span class="p">{</span>
-    <span class="nx">configuration</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">rawConfig</span><span class="p">.(</span><span class="o">*</span><span class="nx">ServiceConfig</span><span class="p">)</span>
-    <span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="kc">false</span> <span class="c1">//errors.New(&quot;unable to cast raw config to type &#39;ServiceConfig&#39;&quot;)</span>
-    <span class="p">}</span>
-
-    <span class="o">*</span><span class="nx">c</span> <span class="p">=</span> <span class="o">*</span><span class="nx">configuration</span>
-
-    <span class="k">return</span> <span class="kc">true</span>
-<span class="p">}</span>
-
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">serviceKey</span> <span class="p">=</span> <span class="s">&quot;app-myservice&quot;</span>
 <span class="o">...</span>
 
-<span class="nx">serviceConfig</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">ServiceConfig</span><span class="p">{}</span>
-<span class="nx">err</span> <span class="o">:=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">LoadCustomConfig</span><span class="p">(</span><span class="nx">serviceConfig</span><span class="p">,</span> <span class="s">&quot;AppCustom&quot;</span><span class="p">)</span>
-<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-  <span class="o">...</span>
-<span class="p">}</span>
-</code></pre></div>
-</div>
-<p>See the <a href="https://github.com/edgexfoundry/app-functions-sdk-go/blob/v2.0.0/app-service-template/main.go#L74-L98">App Service Template</a> for a complete example of using Structured Custom Configuration </p>
-<h3 id="listenforcustomconfigchanges">ListenForCustomConfigChanges</h3>
-<p><code>ListenForCustomConfigChanges(configToWatch interface{}, sectionName string, changedCallback func(interface{})) error</code></p>
-<p>This API starts a listener on the Configuration Provider for changes to the specified section of the custom configuration. When changes are received from the Configuration Provider the provided <code>changedCallback</code> function is called with the updated section of configuration. The service must then implement the code to copy the updates into it's copy of the configuration and respond to the updates if needed.</p>
-<div class="admonition example">
-<p class="admonition-title">Example - ListenForCustomConfigChanges</p>
-<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="n">AppCustom</span><span class="p">]</span> <span class="c1"># Can be any name you choose</span>
-<span class="n">ResourceNames</span> <span class="o">=</span> <span class="s">&quot;Boolean, Int32, Uint32, Float32, Binary&quot;</span>
-<span class="n">SomeValue</span> <span class="o">=</span> <span class="mi">123</span>
-  <span class="k">[AppCustom.SomeService]</span>
-  <span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
-  <span class="n">Port</span> <span class="o">=</span> <span class="mi">9080</span>
-  <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&quot;http&quot;</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="o">...</span>
+        <span class="nx">service</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">pkg</span><span class="p">.</span><span class="nx">NewAppServiceWithTargetType</span><span class="p">(</span><span class="nx">serviceKey</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">[]</span><span class="kt">byte</span><span class="p">{})</span>
+        <span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+            <span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="s">```</span>
 
-<span class="nx">err</span> <span class="o">:=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">ListenForCustomConfigChanges</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">serviceConfig</span><span class="p">.</span><span class="nx">AppCustom</span><span class="p">,</span> <span class="s">&quot;AppCustom&quot;</span><span class="p">,</span> <span class="nx">ProcessConfigUpdates</span><span class="p">)</span>
-<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-    <span class="nx">app</span><span class="p">.</span><span class="nx">lc</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;unable to watch custom writable configuration: %s&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
-<span class="p">}</span>
+<span class="s">## Custom Configuration APIs</span>
 
-<span class="o">...</span>
+<span class="s">The following `</span><span class="nx">ApplicationService</span><span class="s">` APIs allow your service to access their custom configuration from the TOML file and/or Configuration Provider. See the [Custom Configuration](../AdvancedTopics/#custom-configuration) advanced topic for more details.</span>
 
-<span class="kd">func</span> <span class="p">(</span><span class="nx">app</span> <span class="o">*</span><span class="nx">myApp</span><span class="p">)</span> <span class="nx">ProcessConfigUpdates</span><span class="p">(</span><span class="nx">rawWritableConfig</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
-    <span class="nx">updated</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">rawWritableConfig</span><span class="p">.(</span><span class="o">*</span><span class="nx">config</span><span class="p">.</span><span class="nx">AppCustomConfig</span><span class="p">)</span>
-    <span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+<span class="s">### ApplicationSettings</span>
+
+<span class="s">`</span><span class="nx">ApplicationSettings</span><span class="p">()</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="s">`</span>
+
+<span class="s">This API returns the complete key/value map of custom settings</span>
+
+<span class="s">!!! example &quot;Example - ApplicationSettings&quot;</span>
+
+<span class="s">    ```</span><span class="nx">toml</span>
+    <span class="p">[</span><span class="nx">ApplicationSettings</span><span class="p">]</span>
+    <span class="nx">Greeting</span> <span class="p">=</span> <span class="s">&quot;Hello World&quot;</span>
+    <span class="s">```</span>
+
+<span class="s">    ```</span><span class="k">go</span>
+    <span class="nx">appSettings</span> <span class="o">:=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">ApplicationSettings</span><span class="p">()</span>
+    <span class="nx">greeting</span> <span class="o">:=</span> <span class="nx">appSettings</span><span class="p">[</span><span class="s">&quot;Greeting&quot;</span><span class="p">]</span>
+    <span class="nx">service</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="nx">greeting</span><span class="p">)</span>
+    <span class="s">```</span>
+
+<span class="s">### GetAppSetting</span>
+
+<span class="s">`</span><span class="nx">GetAppSetting</span><span class="p">(</span><span class="nx">setting</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span><span class="s">`</span>
+
+<span class="s">This API is a convenience API that returns a single setting from the `</span><span class="p">[</span><span class="nx">ApplicationSetting</span><span class="p">]</span><span class="s">`</span>
+<span class="s">section of the service configuration. An error is returned if the specified setting is not found.</span>
+
+<span class="s">!!! example &quot;Example - GetAppSetting&quot;</span>
+
+<span class="s">    ```</span><span class="nx">toml</span>
+    <span class="p">[</span><span class="nx">ApplicationSettings</span><span class="p">]</span>
+    <span class="nx">Greeting</span> <span class="p">=</span> <span class="s">&quot;Hello World&quot;</span>
+    <span class="s">```</span>
+
+<span class="s">    ```</span><span class="k">go</span>
+    <span class="nx">greeting</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">GetAppSetting</span><span class="p">[</span><span class="s">&quot;Greeting&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
         <span class="o">...</span>
-        <span class="k">return</span>
+    <span class="p">}</span>
+    <span class="nx">service</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="nx">greeting</span><span class="p">)</span>
+    <span class="s">```</span>
+
+<span class="s">### GetAppSettingStrings</span>
+
+<span class="s">`</span><span class="nx">GetAppSettingStrings</span><span class="p">(</span><span class="nx">setting</span> <span class="kt">string</span><span class="p">)</span> <span class="p">([]</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span><span class="s">`</span>
+
+<span class="s">This API is a convenience API that parses the string value for the specified custom application setting as a comma separated list. It returns the list of strings. An error is returned if the specified setting is not found.</span>
+
+<span class="s">!!! example &quot;Example - GetAppSettingStrings&quot;</span>
+
+<span class="s">    ```</span><span class="nx">toml</span>
+    <span class="p">[</span><span class="nx">ApplicationSettings</span><span class="p">]</span>
+    <span class="nx">Greetings</span> <span class="p">=</span> <span class="s">&quot;Hello World, Welcome World, Hi World&quot;</span>
+    <span class="s">```</span>
+
+<span class="s">    ```</span><span class="k">go</span>
+    <span class="nx">greetings</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">GetAppSettingStrings</span><span class="p">[</span><span class="s">&quot;Greetings&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="o">...</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">greeting</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">greetings</span> <span class="p">{</span>
+      <span class="nx">service</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="nx">greeting</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="s">```</span>
+
+<span class="s">### LoadCustomConfig</span>
+
+<span class="s">`</span><span class="nx">LoadCustomConfig</span><span class="p">(</span><span class="nx">config</span> <span class="nx">UpdatableConfig</span><span class="p">,</span> <span class="nx">sectionName</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span><span class="s">`</span>
+
+<span class="s">This API loads the service&#39;s Structured Custom Configuration from local file or the Configuration Provider (if enabled). The Configuration Provider will also be seeded with the custom configuration if service is using the Configuration Provider. The `</span><span class="nx">UpdateFromRaw</span><span class="s">` API (`</span><span class="nx">UpdatableConfig</span><span class="s">` interface) will be called on the custom configuration when the configuration is loaded from the Configuration Provider. The custom config must implement the `</span><span class="nx">UpdatableConfig</span><span class="s">` interface.</span>
+
+<span class="s">!!! example &quot;Example - LoadCustomConfig&quot;</span>
+
+<span class="s">    ```</span><span class="nx">toml</span>
+    <span class="p">[</span><span class="nx">AppCustom</span><span class="p">]</span> <span class="err">#</span> <span class="nx">Can</span> <span class="nx">be</span> <span class="nx">any</span> <span class="nx">name</span> <span class="nx">you</span> <span class="nx">choose</span>
+    <span class="nx">ResourceNames</span> <span class="p">=</span> <span class="s">&quot;Boolean, Int32, Uint32, Float32, Binary&quot;</span>
+    <span class="nx">SomeValue</span> <span class="p">=</span> <span class="mi">123</span>
+      <span class="p">[</span><span class="nx">AppCustom</span><span class="p">.</span><span class="nx">SomeService</span><span class="p">]</span>
+      <span class="nx">Host</span> <span class="p">=</span> <span class="s">&quot;localhost&quot;</span>
+      <span class="nx">Port</span> <span class="p">=</span> <span class="mi">9080</span>
+      <span class="nx">Protocol</span> <span class="p">=</span> <span class="s">&quot;http&quot;</span>
+    <span class="s">```</span>
+
+<span class="s">    ```</span><span class="k">go</span>
+    <span class="kd">type</span> <span class="nx">ServiceConfig</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">AppCustom</span> <span class="nx">AppCustomConfig</span>
     <span class="p">}</span>
 
-    <span class="nx">previous</span> <span class="o">:=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">serviceConfig</span><span class="p">.</span><span class="nx">AppCustom</span>
-    <span class="nx">app</span><span class="p">.</span><span class="nx">serviceConfig</span><span class="p">.</span><span class="nx">AppCustom</span> <span class="p">=</span> <span class="o">*</span><span class="nx">updated</span>
-
-    <span class="k">if</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">DeepEqual</span><span class="p">(</span><span class="nx">previous</span><span class="p">,</span> <span class="nx">updated</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">app</span><span class="p">.</span><span class="nx">lc</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="s">&quot;No changes detected&quot;</span><span class="p">)</span>
-        <span class="k">return</span>
+    <span class="kd">type</span> <span class="nx">AppCustomConfig</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">ResourceNames</span> <span class="kt">string</span>
+        <span class="nx">SomeValue</span>     <span class="kt">int</span>
+        <span class="nx">SomeService</span>   <span class="nx">HostInfo</span>
     <span class="p">}</span>
 
-    <span class="k">if</span> <span class="nx">previous</span><span class="p">.</span><span class="nx">SomeValue</span> <span class="o">!=</span> <span class="nx">updated</span><span class="p">.</span><span class="nx">SomeValue</span> <span class="p">{</span>
-        <span class="nx">app</span><span class="p">.</span><span class="nx">lc</span><span class="p">.</span><span class="nx">Infof</span><span class="p">(</span><span class="s">&quot;AppCustom.SomeValue changed to: %d&quot;</span><span class="p">,</span> <span class="nx">updated</span><span class="p">.</span><span class="nx">SomeValue</span><span class="p">)</span>
+    <span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">ServiceConfig</span><span class="p">)</span> <span class="nx">UpdateFromRaw</span><span class="p">(</span><span class="nx">rawConfig</span> <span class="kd">interface</span><span class="p">{})</span> <span class="kt">bool</span> <span class="p">{</span>
+        <span class="nx">configuration</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">rawConfig</span><span class="p">.(</span><span class="o">*</span><span class="nx">ServiceConfig</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">false</span> <span class="c1">//errors.New(&quot;unable to cast raw config to type &#39;ServiceConfig&#39;&quot;)</span>
+        <span class="p">}</span>
+
+        <span class="o">*</span><span class="nx">c</span> <span class="p">=</span> <span class="o">*</span><span class="nx">configuration</span>
+
+        <span class="k">return</span> <span class="kc">true</span>
     <span class="p">}</span>
-    <span class="k">if</span> <span class="nx">previous</span><span class="p">.</span><span class="nx">ResourceNames</span> <span class="o">!=</span> <span class="nx">updated</span><span class="p">.</span><span class="nx">ResourceNames</span> <span class="p">{</span>
-        <span class="nx">app</span><span class="p">.</span><span class="nx">lc</span><span class="p">.</span><span class="nx">Infof</span><span class="p">(</span><span class="s">&quot;AppCustom.ResourceNames changed to: %s&quot;</span><span class="p">,</span> <span class="nx">updated</span><span class="p">.</span><span class="nx">ResourceNames</span><span class="p">)</span>
+
+    <span class="o">...</span>
+
+    <span class="nx">serviceConfig</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">ServiceConfig</span><span class="p">{}</span>
+    <span class="nx">err</span> <span class="o">:=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">LoadCustomConfig</span><span class="p">(</span><span class="nx">serviceConfig</span><span class="p">,</span> <span class="s">&quot;AppCustom&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+      <span class="o">...</span>
     <span class="p">}</span>
-    <span class="k">if</span> <span class="p">!</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">DeepEqual</span><span class="p">(</span><span class="nx">previous</span><span class="p">.</span><span class="nx">SomeService</span><span class="p">,</span> <span class="nx">updated</span><span class="p">.</span><span class="nx">SomeService</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">app</span><span class="p">.</span><span class="nx">lc</span><span class="p">.</span><span class="nx">Infof</span><span class="p">(</span><span class="s">&quot;AppCustom.SomeService changed to: %v&quot;</span><span class="p">,</span> <span class="nx">updated</span><span class="p">.</span><span class="nx">SomeService</span><span class="p">)</span>
+    <span class="s">```</span>
+
+<span class="s">See the [App Service Template](https://github.com/edgexfoundry/app-functions-sdk-go/blob/v2.0.0/app-service-template/main.go#L74-L98) for a complete example of using Structured Custom Configuration</span>
+
+<span class="s">### ListenForCustomConfigChanges</span>
+
+<span class="s">`</span><span class="nx">ListenForCustomConfigChanges</span><span class="p">(</span><span class="nx">configToWatch</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">sectionName</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">changedCallback</span> <span class="kd">func</span><span class="p">(</span><span class="kd">interface</span><span class="p">{}))</span> <span class="kt">error</span><span class="s">`</span>
+
+<span class="s">This API starts a listener on the Configuration Provider for changes to the specified section of the custom configuration. When changes are received from the Configuration Provider the provided `</span><span class="nx">changedCallback</span><span class="s">` function is called with the updated section of configuration. The service must then implement the code to copy the updates into it&#39;s copy of the configuration and respond to the updates if needed.</span>
+
+<span class="s">!!! example &quot;Example - ListenForCustomConfigChanges&quot;</span>
+
+<span class="s">    ```</span><span class="nx">toml</span>
+    <span class="p">[</span><span class="nx">AppCustom</span><span class="p">]</span> <span class="err">#</span> <span class="nx">Can</span> <span class="nx">be</span> <span class="nx">any</span> <span class="nx">name</span> <span class="nx">you</span> <span class="nx">choose</span>
+    <span class="nx">ResourceNames</span> <span class="p">=</span> <span class="s">&quot;Boolean, Int32, Uint32, Float32, Binary&quot;</span>
+    <span class="nx">SomeValue</span> <span class="p">=</span> <span class="mi">123</span>
+      <span class="p">[</span><span class="nx">AppCustom</span><span class="p">.</span><span class="nx">SomeService</span><span class="p">]</span>
+      <span class="nx">Host</span> <span class="p">=</span> <span class="s">&quot;localhost&quot;</span>
+      <span class="nx">Port</span> <span class="p">=</span> <span class="mi">9080</span>
+      <span class="nx">Protocol</span> <span class="p">=</span> <span class="s">&quot;http&quot;</span>
+    <span class="s">```</span>
+
+<span class="s">    ```</span><span class="k">go</span>
+    <span class="o">...</span>
+
+    <span class="nx">err</span> <span class="o">:=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">ListenForCustomConfigChanges</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">serviceConfig</span><span class="p">.</span><span class="nx">AppCustom</span><span class="p">,</span> <span class="s">&quot;AppCustom&quot;</span><span class="p">,</span> <span class="nx">ProcessConfigUpdates</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">app</span><span class="p">.</span><span class="nx">lc</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;unable to watch custom writable configuration: %s&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-</div>
-<p>See the <a href="https://github.com/edgexfoundry/app-functions-sdk-go/blob/v2.0.0/app-service-template/main.go#L74-L98">App Service Template</a> for a complete example of using Structured Custom Configuration </p>
-<h2 id="function-pipeline-apis">Function Pipeline APIs</h2>
-<p>The following <code>ApplicationService</code> APIs allow your service to set the Functions Pipeline and start and stop the Functions Pipeline.</p>
-<h3 id="setfunctionspipeline">SetFunctionsPipeline</h3>
-<p><code>SetFunctionsPipeline(transforms ...AppFunction) error</code></p>
-<p>This API sets up the functions pipeline with the specified list of Application Functions. Note that the functions are executed in the order provided in the list.  An error is returned if the list is empty.</p>
-<div class="admonition example">
-<p class="admonition-title">Example - SetFunctionsPipeline</p>
-<div class="highlight"><pre><span></span><code><span class="nx">sample</span> <span class="o">:=</span> <span class="nx">functions</span><span class="p">.</span><span class="nx">NewSample</span><span class="p">()</span>
+
+    <span class="o">...</span>
+
+    <span class="kd">func</span> <span class="p">(</span><span class="nx">app</span> <span class="o">*</span><span class="nx">myApp</span><span class="p">)</span> <span class="nx">ProcessConfigUpdates</span><span class="p">(</span><span class="nx">rawWritableConfig</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
+        <span class="nx">updated</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">rawWritableConfig</span><span class="p">.(</span><span class="o">*</span><span class="nx">config</span><span class="p">.</span><span class="nx">AppCustomConfig</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+            <span class="o">...</span>
+            <span class="k">return</span>
+        <span class="p">}</span>
+
+        <span class="nx">previous</span> <span class="o">:=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">serviceConfig</span><span class="p">.</span><span class="nx">AppCustom</span>
+        <span class="nx">app</span><span class="p">.</span><span class="nx">serviceConfig</span><span class="p">.</span><span class="nx">AppCustom</span> <span class="p">=</span> <span class="o">*</span><span class="nx">updated</span>
+
+        <span class="k">if</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">DeepEqual</span><span class="p">(</span><span class="nx">previous</span><span class="p">,</span> <span class="nx">updated</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">app</span><span class="p">.</span><span class="nx">lc</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="s">&quot;No changes detected&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="nx">previous</span><span class="p">.</span><span class="nx">SomeValue</span> <span class="o">!=</span> <span class="nx">updated</span><span class="p">.</span><span class="nx">SomeValue</span> <span class="p">{</span>
+            <span class="nx">app</span><span class="p">.</span><span class="nx">lc</span><span class="p">.</span><span class="nx">Infof</span><span class="p">(</span><span class="s">&quot;AppCustom.SomeValue changed to: %d&quot;</span><span class="p">,</span> <span class="nx">updated</span><span class="p">.</span><span class="nx">SomeValue</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="nx">previous</span><span class="p">.</span><span class="nx">ResourceNames</span> <span class="o">!=</span> <span class="nx">updated</span><span class="p">.</span><span class="nx">ResourceNames</span> <span class="p">{</span>
+            <span class="nx">app</span><span class="p">.</span><span class="nx">lc</span><span class="p">.</span><span class="nx">Infof</span><span class="p">(</span><span class="s">&quot;AppCustom.ResourceNames changed to: %s&quot;</span><span class="p">,</span> <span class="nx">updated</span><span class="p">.</span><span class="nx">ResourceNames</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">!</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">DeepEqual</span><span class="p">(</span><span class="nx">previous</span><span class="p">.</span><span class="nx">SomeService</span><span class="p">,</span> <span class="nx">updated</span><span class="p">.</span><span class="nx">SomeService</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">app</span><span class="p">.</span><span class="nx">lc</span><span class="p">.</span><span class="nx">Infof</span><span class="p">(</span><span class="s">&quot;AppCustom.SomeService changed to: %v&quot;</span><span class="p">,</span> <span class="nx">updated</span><span class="p">.</span><span class="nx">SomeService</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="s">```</span>
+
+<span class="s">See the [App Service Template](https://github.com/edgexfoundry/app-functions-sdk-go/blob/v2.0.0/app-service-template/main.go#L74-L98) for a complete example of using Structured Custom Configuration</span>
+
+<span class="s">## Function Pipeline APIs</span>
+
+<span class="s">The following `</span><span class="nx">ApplicationService</span><span class="s">` APIs allow your service to set the Functions Pipeline and start and stop the Functions Pipeline.</span>
+
+<span class="s">### SetFunctionsPipeline</span>
+
+<span class="s">`</span><span class="nx">SetFunctionsPipeline</span><span class="p">(</span><span class="nx">transforms</span> <span class="o">...</span><span class="nx">AppFunction</span><span class="p">)</span> <span class="kt">error</span><span class="s">`</span>
+
+<span class="s">This API sets up the functions pipeline with the specified list of Application Functions. Note that the functions are executed in the order provided in the list.  An error is returned if the list is empty.</span>
+
+<span class="s">!!! example &quot;Example - SetFunctionsPipeline&quot;</span>
+<span class="s">```</span><span class="k">go</span>
+<span class="nx">sample</span> <span class="o">:=</span> <span class="nx">functions</span><span class="p">.</span><span class="nx">NewSample</span><span class="p">()</span>
 <span class="nx">err</span> <span class="p">=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">SetFunctionsPipeline</span><span class="p">(</span>
-    <span class="nx">transforms</span><span class="p">.</span><span class="nx">NewFilterFor</span><span class="p">(</span><span class="nx">deviceNames</span><span class="p">).</span><span class="nx">FilterByDeviceName</span><span class="p">,</span>
-    <span class="nx">sample</span><span class="p">.</span><span class="nx">LogEventDetails</span><span class="p">,</span>
-    <span class="nx">sample</span><span class="p">.</span><span class="nx">ConvertEventToXML</span><span class="p">,</span>
-    <span class="nx">sample</span><span class="p">.</span><span class="nx">OutputXML</span><span class="p">)</span>
+<span class="nx">transforms</span><span class="p">.</span><span class="nx">NewFilterFor</span><span class="p">(</span><span class="nx">deviceNames</span><span class="p">).</span><span class="nx">FilterByDeviceName</span><span class="p">,</span>
+<span class="nx">sample</span><span class="p">.</span><span class="nx">LogEventDetails</span><span class="p">,</span>
+<span class="nx">sample</span><span class="p">.</span><span class="nx">ConvertEventToXML</span><span class="p">,</span>
+<span class="nx">sample</span><span class="p">.</span><span class="nx">OutputXML</span><span class="p">)</span>
 <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-    <span class="nx">app</span><span class="p">.</span><span class="nx">lc</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;SetFunctionsPipeline returned error: %s&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
-    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">lc</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;SetFunctionsPipeline returned error: %s&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
+<span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
 <span class="p">}</span>
 </code></pre></div>
-</div>
 <h3 id="loadconfigurablepipeline">LoadConfigurablePipeline</h3>
 <p><code>LoadConfigurablePipeline() ([]AppFunction, error)</code></p>
-<p>This API loads the function pipeline from configuration.  An error is returned if the configuration is not valid, i.e. missing required function parameters, invalid function name, etc.  </p>
+<p>This API loads the function pipeline from configuration.  An error is returned if the configuration is not valid, i.e. missing required function parameters, invalid function name, etc.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This API is useful only if the Functions Pipeline is always defined in configuration as is with App Service Configurable.</p>
 </div>
+<p>This API is useful only if the Functions Pipeline is always defined in configuration as is with App Service Configurable.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - LoadConfigurablePipeline</p>
-<div class="highlight"><pre><span></span><code><span class="nx">transforms</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">LoadConfigurablePipeline</span><span class="p">()</span>
-<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-   <span class="nx">lc</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;failed to create function pipeline from configuration: %s&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
-   <span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="k">if</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">SetFunctionsPipeline</span><span class="p">(</span><span class="nx">transforms</span><span class="o">...</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-   <span class="nx">lc</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;Unable to Set the Functions Pipeline: %s&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
-   <span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div>
 </div>
+<p>```go
+transforms, err := service.LoadConfigurablePipeline()
+if err != nil {
+lc.Errorf("failed to create function pipeline from configuration: %s", err.Error())
+os.Exit(-1)
+}</p>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="nv">err</span> <span class="o">=</span> <span class="nv">service</span>.<span class="nv">SetFunctionsPipeline</span><span class="ss">(</span><span class="nv">transforms</span>...<span class="ss">)</span><span class="c1">; err != nil {</span>
+   <span class="nv">lc</span>.<span class="nv">Errorf</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">Unable to Set the Functions Pipeline: %s</span><span class="s2">&quot;</span>, <span class="nv">err</span>.<span class="nv">Error</span><span class="ss">())</span>
+   <span class="nv">os</span>.<span class="k">Exit</span><span class="ss">(</span><span class="o">-</span><span class="mi">1</span><span class="ss">)</span>
+}
+```
+</code></pre></div>
+
 <h3 id="makeitrun">MakeItRun</h3>
 <p><code>MakeItRun() error</code></p>
 <p>This API starts the configured trigger to allow the Functions Pipeline to execute when the trigger receives data. The internal webserver is also started. This is a long running API which does not return until the service is stopped or MakeItStop() is called. An error is returned if the trigger can not be create or initialized or if the internal webserver encounters an error.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - MakeItRun</p>
-<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">MakeItRun</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-   <span class="nx">app</span><span class="p">.</span><span class="nx">lc</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;MakeItRun returned error: %s&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
-   <span class="nx">os</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="c1">// Do any required cleanup here, if needed</span>
-
-<span class="nx">os</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-</code></pre></div>
+<p>```go
+if err := service.MakeItRun(); err != nil {
+   app.lc.Errorf("MakeItRun returned error: %s", err.Error())
+   os.exit(-1)
+}</p>
+<p>// Do any required cleanup here, if needed</p>
+<p>os.exit(0)
+```</p>
 </div>
 <h3 id="makeitstop">MakeItStop</h3>
 <p><code>MakeItStop()</code></p>
 <p>This API  stops the configured trigger so that the functions pipeline no longer executes. The internal webserver continues to accept requests. See <a href="../AdvancedTopics/#stopping-the-service">Stopping the Service</a> advanced topic for more details</p>
 <div class="admonition example">
 <p class="admonition-title">Example - MakeItStop</p>
-<div class="highlight"><pre><span></span><code><span class="nx">service</span><span class="p">.</span><span class="nx">MakeItStop</span><span class="p">()</span>
-<span class="o">...</span>
-</code></pre></div>
+<p><code>go
+service.MakeItStop()
+...</code></p>
 </div>
 <h2 id="secrets-apis">Secrets APIs</h2>
 <p>The following <code>ApplicationService</code> APIs allow your service retrieve and store secrets from/to the service's SecretStore. See the <a href="../AdvancedTopics/#secrets">Secrets</a> advanced topic for more details about using secrets.</p>
@@ -3222,14 +3127,14 @@
 <p>This API returns the secret data from the secret store (secure or insecure) for the specified path. An error is returned if the path is not found or any of the keys (if specified) are not found. Omit keys if all secret data for the specified path is required.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - GetSecret</p>
-<div class="highlight"><pre><span></span><code><span class="nx">secretData</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">GetSecret</span><span class="p">(</span><span class="s">&quot;mqtt&quot;</span><span class="p">)</span>
-<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-   <span class="o">...</span>
-<span class="p">}</span>
-<span class="nx">username</span> <span class="o">:=</span> <span class="nx">secretData</span><span class="p">[</span><span class="s">&quot;user&quot;</span><span class="p">]</span>
-<span class="nx">password</span> <span class="o">:=</span> <span class="nx">secretData</span><span class="p">[</span><span class="s">&quot;password&quot;</span><span class="p">]</span>
-<span class="o">...</span>
-</code></pre></div>
+<p><code>go
+secretData, err := service.GetSecret("mqtt")
+if err != nil {
+   ...
+}
+username := secretData["user"]
+password := secretData["password"]
+...</code></p>
 </div>
 <h3 id="storesecret">StoreSecret</h3>
 <p><code>StoreSecret(path string, secretData map[string]string) error</code></p>
@@ -3243,33 +3148,34 @@ An error is returned if:</p>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Typically Application Services only needs to retrieve secrets via the code. The <code>/secret</code> REST API is used to seed secrets into the service's SecretStore.</p>
 </div>
+<p>Typically Application Services only needs to retrieve secrets via the code. The <code>/secret</code> REST API is used to seed secrets into the service's SecretStore.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - StoreSecret</p>
-<div class="highlight"><pre><span></span><code><span class="nx">secretData</span> <span class="o">:=</span> <span class="nx">generateMqttCredentials</span><span class="p">()</span>
-<span class="nx">err</span> <span class="o">:=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">StoreSecret</span><span class="p">(</span><span class="s">&quot;mqtt&quot;</span><span class="p">,</span> <span class="nx">secretData</span><span class="p">)</span>
-<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-   <span class="o">...</span>
-<span class="p">}</span>
-<span class="o">...</span>
-</code></pre></div>
+<p>```go</p>
+<p>secretData := generateMqttCredentials()
+err := service.StoreSecret("mqtt", secretData)
+if err != nil {
+   ...
+}
+...
+```</p>
 </div>
 <h2 id="client-apis">Client APIs</h2>
 <p>The following <code>ApplicationService</code> APIs allow your service access the various EdgeX clients and their APIs.</p>
 <h3 id="loggingclient">LoggingClient</h3>
 <p><code>LoggingClient() logger.LoggingClient</code></p>
-<p>This API returns the LoggingClient instance which the service uses to log messages. See the <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/v2.0.0/clients/logger/logger.go#L35-L61">LoggingClient interface</a> for more details. </p>
+<p>This API returns the LoggingClient instance which the service uses to log messages. See the <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/v2.0.0/clients/logger/logger.go#L35-L61">LoggingClient interface</a> for more details.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - LoggingClient</p>
-<div class="highlight"><pre><span></span><code><span class="nx">service</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">().</span><span class="nx">Info</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
-<span class="nx">service</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">().</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;Some error occurred: %w&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-</code></pre></div>
+<p><code>go
+service.LoggingClient().Info("Hello World")
+service.LoggingClient().Errorf("Some error occurred: %w", err)</code></p>
 </div>
 <h3 id="registryclient">RegistryClient</h3>
 <p><code>RegistryClient() registry.Client</code></p>
 <p>This API returns the Registry Client. Note the registry must been enabled, otherwise this will return nil.
-See the <a href="https://github.com/edgexfoundry/go-mod-registry/blob/v2.0.0/registry/interface.go#L23-L40">Registry Client interface</a> for more details. Useful if service needs to add additional health checks or needs to get endpoint of another registered service. </p>
+See the <a href="https://github.com/edgexfoundry/go-mod-registry/blob/v2.0.0/registry/interface.go#L23-L40">Registry Client interface</a> for more details. Useful if service needs to add additional health checks or needs to get endpoint of another registered service.</p>
 <h3 id="eventclient">EventClient</h3>
 <p><code>EventClient() interfaces.EventClient</code></p>
 <p>This API returns the Event Client. Note if Core Data is not specified in the Clients configuration, this will return nil. See the <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/v2.0.0/clients/interfaces/event.go#L18-L43">Event Client interface</a> for more details. Useful for adding, deleting  or querying Events.</p>
@@ -3298,7 +3204,7 @@ See the <a href="https://github.com/edgexfoundry/go-mod-registry/blob/v2.0.0/reg
 <p>This API adds and returns a BackgroundPublisher which is used to publish asynchronously to the Edgex MessageBus. Not valid for use with the HTTP or External MQTT triggers</p>
 <h3 id="addbackgroundpublisherwithtopic">AddBackgroundPublisherWithTopic</h3>
 <p><code>AddBackgroundPublisherWithTopic(capacity int, topic string) (BackgroundPublisher, error)</code></p>
-<p>This API adds and returns a BackgroundPublisher which is used to publish asynchronously to the Edgex MessageBus on the specified topic. Not valid for use with the HTTP or External MQTT triggers. </p>
+<p>This API adds and returns a BackgroundPublisher which is used to publish asynchronously to the Edgex MessageBus on the specified topic. Not valid for use with the HTTP or External MQTT triggers.</p>
 <h3 id="buildcontext">BuildContext</h3>
 <p><code>BuildContext(correlationId string, contentType string) AppFunctionContext</code></p>
 <p>This API allows external callers that may need a context (eg background publishers) to easily create one.</p>
