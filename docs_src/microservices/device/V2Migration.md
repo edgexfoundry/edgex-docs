@@ -435,7 +435,7 @@ The Device Camera service specific `[Driver]` and `[DeviceList.Protocols.HTTP]` 
 
 ### SecretStore
 
-#### secure
+#### Secure
 
 See the [Secret API reference](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.0.0#/default/post_secret) for injecting authentication credentials into a Device Service's secure SecretStore. An entry is required for each camera that is configured with `AuthMethod = 'usernamepassword'`
 
