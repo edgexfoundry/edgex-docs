@@ -1,33 +1,43 @@
 # Exporting your device data
 
-Great, so the data sent by the camera device makes it way to core data.
+Great, so the data sent by the camera device makes its way to core data.
 How can that data be sent to an enterprise system or the Cloud? How can
 that data be used by an edge analytics system (like a rules engine) to actuate on a device?
 
 ## Getting data to the rules engine
 
-By default, data is already passed from the core data service to application services (app services) via 0MQ message.  A preconfigured application service is provided with the EdgeX default Docker Compose files that gets this data and routes it to the [eKuiper rules engine](../microservices/support/eKuiper/Ch-eKuiper.md).  The application service is called `app-service-rules` (see below).  More specifically, it is an [app service configurable](../microservices/application/AppServiceConfigurable.md).
+By default, data is already passed from the core data service to application services (app services) via Redis Pub/Sub messaging.  Alternately, the data can be supplied between the two via MQTT.  A preconfigured application service is provided with the EdgeX default Docker Compose files that gets this data and routes it to the [eKuiper rules engine](../microservices/support/eKuiper/Ch-eKuiper.md).  The application service is called `app-service-rules` (see below).  More specifically, it is an [app service configurable](../microservices/application/AppServiceConfigurable.md).
 
 ``` yaml
   app-service-rules:
-    image: edgexfoundry/docker-app-service-configurable:1.2.0
-    ports:
-      - "127.0.0.1:48100:48100"
-    container_name: edgex-app-service-configurable-rules
-    hostname: edgex-app-service-configurable-rules
-    networks:
-      - edgex-network
-    environment:
-      <<: *common-variables
-      edgex_profile: rules-engine
-      Service_Host: edgex-app-service-configurable-rules
-      Service_Port: 48100
-      MessageBus_SubscribeHost_Host: edgex-core-data
-      Binding_PublishTopic: events
+    container_name: edgex-app-rules-engine
     depends_on:
-      - consul
-#      - logging  # uncomment if re-enabled remote logging
-      - data
+    - consul
+    - data
+    environment:
+      CLIENTS_CORE_COMMAND_HOST: edgex-core-command
+      CLIENTS_CORE_DATA_HOST: edgex-core-data
+      CLIENTS_CORE_METADATA_HOST: edgex-core-metadata
+      CLIENTS_SUPPORT_NOTIFICATIONS_HOST: edgex-support-notifications
+      CLIENTS_SUPPORT_SCHEDULER_HOST: edgex-support-scheduler
+      DATABASES_PRIMARY_HOST: edgex-redis
+      EDGEX_PROFILE: rules-engine
+      EDGEX_SECURITY_SECRET_STORE: "false"
+      MESSAGEQUEUE_HOST: edgex-redis
+      REGISTRY_HOST: edgex-core-consul
+      SERVICE_HOST: edgex-app-rules-engine
+      TRIGGER_EDGEXMESSAGEBUS_PUBLISHHOST_HOST: edgex-redis
+      TRIGGER_EDGEXMESSAGEBUS_SUBSCRIBEHOST_HOST: edgex-redis
+    hostname: edgex-app-rules-engine
+    image: edgexfoundry/app-service-configurable:2.0.1
+    networks:
+      edgex-network: {}
+    ports:
+    - 127.0.0.1:59701:59701/tcp
+    read_only: true
+    security_opt:
+    - no-new-privileges:true
+    user: 2002:2001
 ```
 
 ### Seeing the data export
@@ -40,7 +50,7 @@ To set the log level of any service, open the [Consul UI](../microservices/confi
 
 ![image](EdgeX_WalkthroughConsulKeyValue.png)
 
-On the Key/Value display page, click on `edgex` > `appservices` > `1.0` > `AppService-rules-engine` > `Writable` > `LogLevel`.  In the Value entry field that presents itself, replace `INFO` with `DEBUG` and hit the `Save` button.
+On the Key/Value display page, click on `edgex` > `appservices` > `2.0` > `app-rules-engine` > `Writable` > `LogLevel`.  In the Value entry field that presents itself, replace `INFO` with `DEBUG` and hit the `Save` button.
 
 ![image](EdgeX_WalkthroughConsulSetLogLevel.png)
 
@@ -49,7 +59,7 @@ On the Key/Value display page, click on `edgex` > `appservices` > `1.0` > `AppSe
 The log level change will be picked up by the application service.  In a terminal window, execute the Docker command below to view the service log.
 
 ``` shell
-docker logs -f edgex-app-service-configurable-rules
+docker logs -f edgex-app-rules-engine
 ```
 
 Now push another event/reading into core data as you did earlier (see [Send Event](./Ch-WalkthroughReading.md#walkthrough-send-event)).  You should see each new event/reading created by acknowledged by the app service.  With the right application service and rules engine configuration, the event/reading data is sent to the rules engine where it can then be used to trigger commands just as you did manually in this walkthrough.

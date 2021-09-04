@@ -47,5 +47,5 @@ EdgeX and how the device service works under the covers to communicate
 with the camera Device is immaterial for the point of this
 demonstration.
 
-[<Back](Ch-WalkthroughSetup.md){: .md-button } [Next>](Ch-WalkthroughData.md){: .md-button }
+[<Back](Ch-WalkthroughSetup.md){: .md-button } [Next>](Ch-WalkthroughDeviceProfile.md){: .md-button }
 

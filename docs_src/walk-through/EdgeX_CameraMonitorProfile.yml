@@ -1,4 +1,4 @@
-name: "camera monitor profile"
+name: "camera-monitor-profile"
 manufacturer: "IOTech"
 model: "Cam12345"
 labels: 
@@ -8,116 +8,43 @@ description: "Human and canine camera monitor profile"
 deviceResources:
 -
   name: "HumanCount"
+  isHidden: false  #is hidden is false by default so this is just making it explicit for purpose of the walkthrough demonstration
   description: "Number of people on camera"
   properties:
-    value:
-      { type: "Int16", readWrite: "R", minimum: "0", maximum: "1000", defaultValue: "0" }
-    units:
-      { type: "String", readWrite: "R", defaultValue: "count" }
+    valueType:  "Int16"
+    readWrite: "R"  #designates that this property can only be read and not set
+    defaultValue: "0"
 -
   name: "CanineCount"
+  isHidden: false
   description: "Number of dogs on camera"
   properties:
-    value:
-      { type: "Int16", readWrite: "R", minimum: 0, maximum: "1000", defaultValue: "0" }
-    units:
-      { type: "String", readWrite: "R", defaultValue: "dog count" }
+    valueType:  "Int16"
+    readWrite: "R"  #designates that this property can only be read and not set
+    defaultValue: "0"
 -
   name: "ScanDepth"
-  description: "Get the scan depth"
+  isHidden: false
+  description: "Get/set the scan depth"
   properties:
-    value:
-      { type: "Int16", readWrite: "R", minimum: 0, maximum: "100", defaultValue: "0" }
-    units:
-      { type: "String", readWrite: "R", defaultValue: "depth" }
+    valueType:  "Int16"
+    readWrite: "RW"  #designates that this property can be read or set
+    defaultValue: "0"
+
 -
   name: "SnapshotDuration"
+  isHidden: false
   description: "Get the snaphot duration"
   properties:
-    value:
-      { type: "Int16", readWrite: "R", minimum: 0, maximum: "60", defaultValue: "0" }
-    units:
-      { type: "String", readWrite: "R", defaultValue: "duration" }
+    valueType:  "Int16"
+    readWrite: "RW"  #designates that this property can be read or set
+    defaultValue: "0"
 
 deviceCommands:
 -
-  name: "People"
-  get:
-  - { operation: "get", deviceResource: "HumanCount" }
--
-  name: "Dogs"
-  get:
-  - { operation: "get", deviceResource: "CanineCount" }
--
-  name: "Depth"
-  get:
-  - { operation: "get", deviceResource: "ScanDepth" }
-  set:
-  - { operation: "set", deviceResource: "ScanDepth", parameter: "0" }
--
-  name: "Duration"
-  get:
-  - { operation: "get", deviceResource: "SnapshotDuration" }
-  set:
-  - { operation: "set", deviceResource: "SnapshotDuration", parameter: "0" }
-  
-coreCommands: 
-- 
-  name: People
-  get: 
-    path: "/api/v1/devices/{deviceId}/People"
-    responses:
-    - 
-      code: "200"
-      description: "Number of people on camera"
-      expectedValues: ["HumanCount"]
-- 
-  name: Dogs
-  get: 
-    path: "/api/v1/devices/{deviceId}/Dogs"
-    responses:
-    - 
-      code: "200"
-      description: "Number of dogs on camera"
-      expectedValues: ["CanineCount"]
-- 
-  name: Depth
-  get:
-    path: "/api/v1/devices/{deviceId}/Depth"
-    responses:
-    -
-      code: "200"
-      description: "Get the scan depth"
-      expectedValues: ["ScanDepth"]
-  put:
-    path: "/api/v1/devices/{deviceId}/Depth"
-    parameterNames: ["ScanDepth"]
-    responses:
-    - 
-      code: "200"
-      description: "Set the scan depth."
-- 
-  name: Duration
-  get:
-    path: "/api/v1/devices/{deviceId}/Duration"
-    responses:
-    -
-      code: "200"
-      description: "Get the snaphot duration"
-      expectedValues: ["SnapshotDuration"]
-  put:
-    path: "/api/v1/devices/{deviceId}/Duration"
-    parameterNames: ["SnapshotDuration"]
-    responses:
-    - 
-      code: "200"
-      description: "Set the snapshot duration."
-- 
-  name: Counts
-  get:
-    path: "/api/v1/devices/{deviceId}/Counts"
-    responses:
-    -
-      code: "200"
-      description: "Get the people and dog counts"
-      expectedValues: ["HumanCount","CanineCount"]
+  name: "Counts"
+  readWrite: "R"
+  isHidden: false
+  resourceOperations:
+  - { deviceResource: "HumanCount" }
+  - { deviceResource: "CanineCount" }
