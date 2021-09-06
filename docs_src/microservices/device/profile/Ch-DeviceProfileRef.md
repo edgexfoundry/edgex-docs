@@ -54,6 +54,7 @@ Field Name | Type | Required? | Notes
 :--- | :--- | :--- | :---
 name | String | Y | Must be unique in this profile. A DeviceCommand with a single DeviceResource is redundant unless renaming and/or restricting R/W access. For example DeviceResource is RW, but DeviceCommand is read-only.
 isHidden | Bool | N | Expose the DeviceCommand to Command Service or not, default false
+readWrite | Enum | Y | `R`, `W`, `RW`
 resourceOperations | Array of ResourceOperation | Y |
 
 ResourceOperation
