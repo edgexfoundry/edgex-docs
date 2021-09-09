@@ -1307,29 +1307,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#operating-state-and-admin-state" class="md-nav__link">
-    Operating State and Admin State
-  </a>
-  
-    <nav class="md-nav" aria-label="Operating State and Admin State">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#admin-state" class="md-nav__link">
     Admin State
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#operating-state" class="md-nav__link">
-    Operating State
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -2552,29 +2532,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#operating-state-and-admin-state" class="md-nav__link">
-    Operating State and Admin State
-  </a>
-  
-    <nav class="md-nav" aria-label="Operating State and Admin State">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#admin-state" class="md-nav__link">
     Admin State
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#operating-state" class="md-nav__link">
-    Operating State
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -2687,12 +2647,8 @@ and role of a device service.</p>
 <h3 id="dynamic-provisioning">Dynamic Provisioning</h3>
 <p>In dynamic discovery (also known as automatic provisioning), a device service is given some general information about where to look and general parameters for a device (or devices).  For example, the device service may be given a range of BLE address space and told to look for devices of a certain nature in this range.  However, the device service does not know that the device is physically there – and the device may not be there at start up.  It must continually scan during its operations (typically on some sort of schedule) for new devices within the guides of the location and device parameters provided by configuration. </p>
 <p>Not all device services support dynamic discovery.  If it does support dynamic discovery, the configuration about what and where to look (in other words, where to scan) for new devices is specified by a provision watcher.  A provision watcher is created via a call to the <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/2.0.0#/default/post_provisionwatcher">core metadata provision watcher API</a> (and is stored in the metadata database).  In addition to providing details about what devices to look for during a scan, a provision watcher may also contain “blocking” indicators, which define parameters about devices that are not to be automatically provisioned.  This allows the scope of a device scan to be narrowed or allow specific devices to be avoided.  </p>
-<h2 id="operating-state-and-admin-state">Operating State and Admin State</h2>
-<p>There are two states which the device service uses to indicate the status or availability of a device.  Both states are stored in metadata and associated to each device.</p>
-<h3 id="admin-state">Admin State</h3>
+<h2 id="admin-state">Admin State</h2>
 <p>The <strong>adminState</strong> is either <code>LOCKED</code> or <code>UNLOCKED</code> for each device.  This is an administrative condition applied to the device.  This state is periodically set by an administrator of the system – perhaps for system maintenance or upgrade of the sensor.  When <code>LOCKED</code>, requests to the device via the device service are stopped and an indication that the device is locked (HTTP 423 status code) is returned to the caller.</p>
-<h3 id="operating-state">Operating State</h3>
-<p>The <strong>operatingState</strong> is either <code>ENABLED</code> of <code>DISABLED</code>.  This is an indication of the operations of the device.  If the device appears to be unresponsive or not sending its sensor data as requested, the device service may choose to set the operatingState to <code>DISABLED</code> to indicate to the system and to users that the device is not operating according to expectations.</p>
 <h2 id="sensor-reading-schedule">Sensor Reading Schedule</h2>
 <p>Data collected from devices by a device service is marshalled into EdgeX event and reading objects (delivered as JSON objects in service REST calls).  This is one of the primary responsibilities of a device service.  Typically, a configurable schedule - called an <strong>auto event schedule</strong> - determines when a device service sends data to core data via core data’s REST API (future EdgeX implementations may afford alternate means to send the data to core data or to send sensor data to other services).</p>
 <h2 id="test-and-demonstration-device-services">Test and Demonstration Device Services</h2>
