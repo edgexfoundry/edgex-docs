@@ -136,5 +136,44 @@ Please refer to the general [Common Configuration documentation](../configuratio
     |OnChange|false|collect only when a change is detected|
     |Resource|''|resource to collect|
 
+### Custom Configuration
+
+Device services can have custom configuration in one of two ways. See the table below for details.
+
+=== "Driver"
+
+    `[Driver]` - The Driver section used for simple custom settings and is accessed via the SDK's DriverConfigs() API. The DriverConfigs API returns a `map[string] string` containing the contents on the `Driver` section of the `configuration.toml` file.
+    
+    ```toml
+    [Driver]
+    MySetting = "My Value"
+    ```
+
+=== "Custom Structured Configuration"
+
+    !!! edgey "EdgeX 2.0"
+        New for EdgeX 2.0
+    
+    Device Services can now define their own custom structured configuration section in the `configuration.toml` file. Any additional sections in the TOML are ignored by the SDK when it parses the file for the SDK defined sections. 
+    
+    This feature allows a Device Service to define and watch it's own structured section in the service's TOML configuration file.
+    
+    The `SDK` API provides the follow APIs to enable structured custom configuration:
+    
+    - `LoadCustomConfig(config UpdatableConfig, sectionName string) error`
+        
+        Loads the service's custom configuration from local file or the Configuration Provider (if enabled). The Configuration Provider will also be seeded with the custom configuration the first time the service is started, if service is using the Configuration Provider. The `UpdateFromRaw` interface will be called on the custom configuration when the configuration is loaded from the Configuration Provider.
+    
+    - `ListenForCustomConfigChanges(configToWatch interface{}, sectionName string, changedCallback func(interface{})) error`
+        
+        Starts a listener on the Configuration Provider for changes to the specified section of the custom configuration. When changes are received from the Configuration Provider the UpdateWritableFromRaw interface will be called on the custom configuration to apply the updates and then signal that the changes occurred via changedCallback.
+    
+    See the [Device MQTT Service](https://github.com/edgexfoundry/device-mqtt-go/tree/v2.0.0) for an example of using the new Structured Custom Configuration capability.
+    
+    - [See here for defining the structured custom configuration](https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/internal/driver/config.go#L21-L72)
+    - [See here for custom section on the configuration.toml file](https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/cmd/res/configuration.toml#L86-L108)
+    - [See here for loading, validating and watching the configuration](https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/internal/driver/driver.go#L54-L69)
+
 ## API Reference
+
 [Device Service - SDK- API Reference](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.0.0)
