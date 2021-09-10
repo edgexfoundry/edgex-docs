@@ -10,42 +10,8 @@ device-mqtt features using an MQTT-broker.
 
 ![MQTT Overview](MQTT_Example_Overview.png)
 
-## Enabling Multi-Level Topics
-Multi-Level Topics move metadata (i.e. device name, command name,... etc) from the payload into the MQTT topics. 
-
-To use the optional setting for MQTT device services with multi-level
-topics, make the following changes in the device service configuration files:
-
-1. Modify these lines in `configuration.toml`:
-    ``` toml
-    # Comment out/remove when using multi-level topics
-    #IncomingTopic = "DataTopic"
-    #ResponseTopic = "ResponseTopic"
-    #UseTopicLevels = false
-    
-    # Uncomment to use multi-level topics
-    IncomingTopic = "incoming/data/#"
-    ResponseTopic = "command/response/#"
-    UseTopicLevels = true
-    ```
-    
-    !!! note
-        If you have previously run Device MQTT, you will need to remove the services configuration from Consul. This can be done with:
-    
-    ​    `curl --request DELETE http://localhost:8500/v1/kv/edgex/devices/2.0/device-mqtt?recurse=true`
-    
-2. In  `my.custom.device.config.toml`:
-    ``` toml
-    [DeviceList.Protocols]
-     [DeviceList.Protocols.mqtt]
-        # Comment out/remove below to use multi-level topics
-        # CommandTopic = "CommandTopic"
-        # Uncomment below to use multi-level topics
-        CommandTopic = "command/my-custom-device"
-    ```
-
 !!! note 
-    Notice the sections marked with **Using Multi-level Topic:** for relevant input/output throughout this example.
+    Multi-Level Topics move metadata (i.e. device name, command name,... etc) from the payload into the MQTT topics. Notice the sections marked with **Using Multi-level Topic:** for relevant input/output throughout this example.
 
 ## Prepare the Custom Device Configuration
 
@@ -59,6 +25,35 @@ of a customized device configuration to work with the existing device service:
   |- profiles
      |- my.custom.device.profile.yml
 ```
+
+### Device Configuration
+
+Use this configuration file to define devices and schedule jobs.
+device-mqtt generates a relative instance on start-up.
+
+Create the device configuration file, named `my.custom.device.config.toml`, as shown below:
+
+```toml
+# Pre-define Devices
+[[DeviceList]]
+  Name = "my-custom-device"
+  ProfileName = "my-custom-device-profile"
+  Description = "MQTT device is created for test purpose"
+  Labels = [ "MQTT", "test" ]
+  [DeviceList.Protocols]
+    [DeviceList.Protocols.mqtt]
+       # Comment out/remove below to use multi-level topics
+       CommandTopic = "CommandTopic"
+       # Uncomment below to use multi-level topics
+       # CommandTopic = "command/my-custom-device"
+    [[DeviceList.AutoEvents]]
+       Interval = "30s"
+       OnChange = false
+       SourceName = "message"
+```
+
+!!! note
+    `CommandTopic` is used to publish the GET or SET command request 
 
 ### Device Profile
 
@@ -108,75 +103,102 @@ deviceCommands:
         - { deviceResource: "randnum" }
         - { deviceResource: "ping" }
         - { deviceResource: "message" }
-```
-
-### Device Configuration
-
-Use this configuration file to define devices and schedule jobs.
-device-mqtt generates a relative instance on start-up.
-
-Create the device configuration file, named `my.custom.device.config.toml`, as shown below:
-```toml
-# Pre-define Devices
-[[DeviceList]]
-  Name = "my-custom-device"
-  ProfileName = "my-custom-device-profile"
-  Description = "MQTT device is created for test purpose"
-  Labels = [ "MQTT", "test" ]
-  [DeviceList.Protocols]
-    [DeviceList.Protocols.mqtt]
-       # Comment out/remove below to use multi-level topics
-       CommandTopic = "CommandTopic"
-       # Uncomment below to use multi-level topics
-       # CommandTopic = "command/my-custom-device"
-    [[DeviceList.AutoEvents]]
-       Interval = "30s"
-       OnChange = false
-       SourceName = "message"
-```
-
-!!! note
-    `CommandTopic` is used to publish the GET or SET command request 
     
-    **Using Multi-level Topic:** Remember to set `CommandTopic = "command/my-custom-device"`.
+```
 
 ## Prepare docker-compose file
 
 1. Clone edgex-compose
-```
-$ git clone git@github.com:edgexfoundry/edgex-compose.git
-$ git checkout jakarta
-```
+    ```
+    $ git clone git@github.com:edgexfoundry/edgex-compose.git
+    $ git checkout main
+    ```
+    !!! note
+        Use **main** branch until **jakarta** is released.
 2. Generate the docker-compose.yml file (notice this includes mqtt-broker)
-```
-$ cd edgex-compose/compose-builder
-$ make gen ds-mqtt mqtt-broker no-secty ui
-```
-Check the generated file
-```
-$ ls | grep 'docker-compose.yml'
-docker-compose.yml
-```
+    ```
+    $ cd edgex-compose/compose-builder
+    $ make gen ds-mqtt mqtt-broker no-secty ui
+    ```
+3. Check the generated file
+    ```
+    $ ls | grep 'docker-compose.yml'
+    docker-compose.yml
+    ```
 
 ### Mount the custom-config
 
-Open the `docker-compose.yml` file and then add volumes path and environment as shown below:
+Open the `edgex-compose/compose-builder/docker-compose.yml` file and then add volumes path and environment as shown below:
 
 
 ```yaml
+ # docker-compose.yml
+
  device-mqtt:
     ...
     environment:
-      ...
       DEVICE_DEVICESDIR: /custom-config/devices
       DEVICE_PROFILESDIR: /custom-config/profiles
+      ...
     volumes:
+     - /path/to/custom-config:/custom-config
     ...
-    - /path/to/custom-config:/custom-config
 ```
 
 !!! note
     Replace the `/path/to/custom-config` in the example with the correct path
+
+## Enabling Multi-Level Topics
+
+To use the optional setting for MQTT device services with multi-level
+topics, make the following changes in the device service configuration files:
+
+1. There are two ways to set the environment variables for multi-level topics. 
+
+   1. If the code is built with compose builder, modify the docker-compose.yml file in edgex-compose/compose-builder:
+
+      ```yaml
+      # docker-compose.yml
+      
+      device-mqtt:
+        ... 
+        environment:
+          MQTTBROKERINFO_INCOMINGTOPIC: "incoming/data/#"
+          MQTTBROKERINFO_RESPONSETOPIC: "command/response/#"
+          MQTTBROKERINFO_USETOPICLEVELS: "true"
+          ...
+      ```
+
+   2. Otherwise if the device service is built locally, modify these lines in `configuration.toml`:
+
+      ``` toml
+      # Comment out/remove when using multi-level topics
+      #IncomingTopic = "DataTopic"
+      #ResponseTopic = "ResponseTopic"
+      #UseTopicLevels = false
+      
+      # Uncomment to use multi-level topics
+      IncomingTopic = "incoming/data/#"
+      ResponseTopic = "command/response/#"
+      UseTopicLevels = true
+      ```
+
+      !!! note
+          If you have previously run Device MQTT locally, you will need to remove the services configuration from Consul. This can be done with:
+      `curl --request DELETE http://localhost:8500/v1/kv/edgex/devices/2.0/device-mqtt?recurse=true`
+
+2. In  `my.custom.device.config.toml`:
+
+   ``` toml
+   [DeviceList.Protocols]
+    [DeviceList.Protocols.mqtt]
+       # Comment out/remove below to use multi-level topics
+       # CommandTopic = "CommandTopic"
+       # Uncomment below to use multi-level topics
+       CommandTopic = "command/my-custom-device"
+   ```
+
+
 
 ## Start EdgeX Foundry on Docker
 
@@ -278,7 +300,7 @@ To implement the simulated custom-defined MQTT device, create a javascript, name
 
     const deviceName = "my-custom-device";
     let message = "test-message";
-
+    
     // DataSender sends async value to MQTT broker every 15 seconds
     schedule('*/15 * * * * *', ()=>{
         let body = {
@@ -288,7 +310,7 @@ To implement the simulated custom-defined MQTT device, create a javascript, name
         };
         publish( 'DataTopic', JSON.stringify(body));
     });
-
+    
     // CommandHandler receives commands and sends response to MQTT broker
     // 1. Receive the reading request, then return the response
     // 2. Receive the set request, then change the device value
@@ -320,13 +342,13 @@ To implement the simulated custom-defined MQTT device, create a javascript, name
 
     const deviceName = "my-custom-device";
     let message = "test-message";
-
+    
     // DataSender sends async value to MQTT broker every 15 seconds
     schedule('*/15 * * * * *', ()=>{
         let body = getRandomFloat(25,29).toFixed(1);
         publish( 'incoming/data/my-custom-device/randnum', body);
     });
-
+    
     // CommandHandler receives commands and sends response to MQTT broker
     // 1. Receive the reading request, then return the response
     // 2. Receive the set request, then change the device value
@@ -337,7 +359,7 @@ To implement the simulated custom-defined MQTT device, create a javascript, name
         var uuid = words[4];
         var response = {};
         var data = val;
-
+    
         if (method == "set") {
             message = data[cmd]
         }else{
