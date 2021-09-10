@@ -141,7 +141,7 @@ Open the `edgex-compose/compose-builder/docker-compose.yml` file and then add vo
       DEVICE_PROFILESDIR: /custom-config/profiles
       ...
     volumes:
-     - /path/to/custom-config:/custom-config
+    - /path/to/custom-config:/custom-config
     ...
 ```
 
@@ -197,6 +197,10 @@ topics, make the following changes in the device service configuration files:
        # Uncomment below to use multi-level topics
        CommandTopic = "command/my-custom-device"
    ```
+   !!! note
+          If you have run Device-MQTT before, you will need to delete the previously registered device(s) using a command similar to the one below:
+          `curl --request DELETE http://localhost:59881/api/v2/device/name/MQTT-test-device`
+          For more APIs see: https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/2.0.0
 
 
 
