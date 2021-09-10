@@ -261,16 +261,16 @@ The trigger factory function is bound to an instance of a trigger configuration 
 ```go
 type TriggerConfig struct {
 	Logger           logger.LoggingClient
-	ContextBuilder   TriggerContextBuilder
-	MessageProcessor TriggerMessageProcessor
+	ContextBuilder   TriggerContextBuilder //deprecated
+	MessageProcessor TriggerMessageProcessor //deprecated
 	ConfigLoader     TriggerConfigLoader
+	ProcessMessage   MessageProcessor
 }
 ```
 
-This type carries a pointer to the internal edgex logger, along with three functions:
+This type carries a pointer to the internal edgex logger, along with two functions:
 
-- `ContextBuilder` builds an `interfaces.AppFunctionContext` from a message envelope you construct.
-- `MessageProcessor` exposes a function that sends your message envelope and context built above into the edgex function pipeline.
+- `ProcessMessage` exposes a function that sends your message envelope and context built above into the edgex function pipeline.
 - `ConfigLoader` exposes a function that loads your custom config struct.  By default this is done from the primary EdgeX configuration pipeline, and only loads root-level elements.
 
 If you need to override these functions it can be done in the factory function registered with the service.
@@ -328,9 +328,7 @@ func (t *stdinTrigger) Initialize(wg *sync.WaitGroup, ctx context.Context, _ <-c
                         Payload: m,
                     }
 
-                    ctx := t.tc.ContextBuilder(env)
-
-                    err := t.tc.MessageProcessor(ctx, env)
+                    err := t.tc.ProcessMessage(env)
 
                     if err != nil {
                         t.tc.Logger.Error(err.Error())
