@@ -155,52 +155,51 @@ topics, make the following changes in the device service configuration files:
 
 1. There are two ways to set the environment variables for multi-level topics. 
 
-   1. If the code is built with compose builder, modify the docker-compose.yml file in edgex-compose/compose-builder:
+    1. If the code is built with compose builder, modify the docker-compose.yml file in edgex-compose/compose-builder:
 
-      ```yaml
-      # docker-compose.yml
+        ```yaml
+        # docker-compose.yml
       
-      device-mqtt:
-        ... 
-        environment:
-          MQTTBROKERINFO_INCOMINGTOPIC: "incoming/data/#"
-          MQTTBROKERINFO_RESPONSETOPIC: "command/response/#"
-          MQTTBROKERINFO_USETOPICLEVELS: "true"
-          ...
-      ```
+        device-mqtt:
+          ... 
+          environment:
+            MQTTBROKERINFO_INCOMINGTOPIC: "incoming/data/#"
+            MQTTBROKERINFO_RESPONSETOPIC: "command/response/#"
+            MQTTBROKERINFO_USETOPICLEVELS: "true"
+            ...
+        ```
 
-   2. Otherwise if the device service is built locally, modify these lines in `configuration.toml`:
+    2. Otherwise if the device service is built locally, modify these lines in `configuration.toml`:
 
-      ``` toml
-      # Comment out/remove when using multi-level topics
-      #IncomingTopic = "DataTopic"
-      #ResponseTopic = "ResponseTopic"
-      #UseTopicLevels = false
+        ``` toml
+        # Comment out/remove when using multi-level topics
+        #IncomingTopic = "DataTopic"
+        #ResponseTopic = "ResponseTopic"
+        #UseTopicLevels = false
+        
+        # Uncomment to use multi-level topics
+        IncomingTopic = "incoming/data/#"
+        ResponseTopic = "command/response/#"
+        UseTopicLevels = true
+        ```
       
-      # Uncomment to use multi-level topics
-      IncomingTopic = "incoming/data/#"
-      ResponseTopic = "command/response/#"
-      UseTopicLevels = true
-      ```
-
-      !!! note
-          If you have previously run Device MQTT locally, you will need to remove the services configuration from Consul. This can be done with:
-      `curl --request DELETE http://localhost:8500/v1/kv/edgex/devices/2.0/device-mqtt?recurse=true`
+        !!! note
+            If you have previously run Device MQTT locally, you will need to remove the services configuration from Consul. This can be done with: `curl --request DELETE http://localhost:8500/v1/kv/edgex/devices/2.0/device-mqtt?recurse=true`
+              
 
 2. In  `my.custom.device.config.toml`:
 
-   ``` toml
-   [DeviceList.Protocols]
-    [DeviceList.Protocols.mqtt]
-       # Comment out/remove below to use multi-level topics
-       # CommandTopic = "CommandTopic"
-       # Uncomment below to use multi-level topics
-       CommandTopic = "command/my-custom-device"
-   ```
-   !!! note
-          If you have run Device-MQTT before, you will need to delete the previously registered device(s) using a command similar to the one below:
-          `curl --request DELETE http://localhost:59881/api/v2/device/name/MQTT-test-device`
-          For more APIs see: https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/2.0.0
+    ``` toml
+    [DeviceList.Protocols]
+     [DeviceList.Protocols.mqtt]
+        # Comment out/remove below to use multi-level topics
+        # CommandTopic = "CommandTopic"
+        # Uncomment below to use multi-level topics
+        CommandTopic = "command/my-custom-device"
+    ```
+    
+    !!! note 
+        If you have run Device-MQTT before, you will need to delete the previously registered device(s) by replacing <device-name> in the command below: `curl --request DELETE http://localhost:59881/api/v2/device/name/<device-name>` where `<device-name>` can be found by running: `curl --request GET http://localhost:59881/api/v2/device/all | json_pp`
 
 
 
