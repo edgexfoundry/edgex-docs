@@ -152,6 +152,12 @@ Now update the configuration for the new device service.    This documentation p
 
 Download  **[configuration.toml](configuration.toml)** and save the file to the ./res folder.
 
+### Custom Structured Configuration
+
+C Device Services support structured custom configuration as part of the `[Driver]` section in the configuration.toml file.
+
+Details TBD
+
 ## Rebuild your Device Service
 
 Now you have your new device service, modified to return a random
@@ -217,5 +223,4 @@ sends to EdgeX.
     <http://localhost:59880/api/v2/event/device/name/RandNum-Device01?limit=100>
 
     This request asks core data to provide the last 100 events/readings associated to the RandNum-Device-01.
-
 
