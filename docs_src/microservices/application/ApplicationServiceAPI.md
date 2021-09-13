@@ -25,7 +25,7 @@ type ApplicationService interface {
 	ListenForCustomConfigChanges(configToWatch interface{}, sectionName string, changedCallback func(interface{})) error
 	SetFunctionsPipeline(transforms ...AppFunction) error *** DEPRECATED ***
     SetDefaultFunctionsPipeline(transforms ...AppFunction) error
-	AddFunctionsPipelineByTopic(id string, topic string, transforms ...AppFunction) error
+	AddFunctionsPipelineByTopics(id string, topics []string, transforms ...AppFunction) error
 	LoadConfigurablePipeline() ([]AppFunction, error) *** DEPRECATED by LoadConfigurableFunctionPipelines ***
 	LoadConfigurableFunctionPipelines() (map[string]FunctionPipeline, error)
 	MakeItRun() error
@@ -46,7 +46,6 @@ type ApplicationService interface {
 	BuildContext(correlationId string, contentType string) AppFunctionContext
 	AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error
 	RegisterCustomTriggerFactory(name string, factory func(TriggerConfig) (Trigger, error)) error
-
 }
 ```
 
@@ -317,16 +316,17 @@ This API sets the default functions pipeline with the specified list of Applicat
     }
     ```
 
-### AddFunctionsPipelineForTopic
+### AddFunctionsPipelineForTopics
 
-`AddFunctionsPipelineForTopic(id string, topic string, transforms ...AppFunction) error`
+`AddFunctionsPipelineForTopics(id string, topics []string, transforms ...AppFunction) error`
 
-This API adds a functions pipeline with the specified unique ID and list of functions (transforms) to be executed when the received topic matches the pipeline topic. See the [Pipeline Per Topic](../AdvancedTopics/#pipeline-per-topic) section for more details.
+This API adds a functions pipeline with the specified unique ID and list of functions (transforms) to be executed when the received topic matches one of the specified pipeline topics. See the [Pipeline Per Topic](../AdvancedTopics/#pipeline-per-topic) section for more details.
 
-!!! example "Example - AddFunctionsPipelineForTopic"
+!!! example "Example - AddFunctionsPipelineForTopics"
     ```go
     sample := functions.NewSample()
-    err = service.AddFunctionsPipelineForTopic("Floats-Pipeline", "edgex/events/#/#/Random-Float-Device/#",
+    err = service.AddFunctionsPipelineForTopic("Floats-Pipeline", 
+                                               []string{"edgex/events/#/#/Random-Float-Device/#"},
                                                transforms.NewFilterFor(deviceNames).FilterByDeviceName,
                                                sample.LogEventDetails,
                                                sample.ConvertEventToXML,

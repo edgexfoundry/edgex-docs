@@ -370,25 +370,25 @@ Application Services will listen for SIGTERM / SIGINT signals from the OS and st
 
 When messages are received via the EdgeX MessageBus or External MQTT triggers, the topic that the data was received on is seeded into the new Context Storage on the `AppFunctionContext` with the key `receivedtopic`. This make the `Received Topic` available to all functions in the pipeline. The SDK provides the `interfaces.RECEIVEDTOPIC` constant for this key. See the [Context Storage](AppFunctionContextAPI.md#context-storage) section for more details on extracting values.
 
-### Pipeline Per Topic
+### Pipeline Per Topics
 
 !!! edgey "EdgeX 2.1"
-    Pipeline Per Topic is new for EdgeX 2.1
+    Pipeline Per Topics is new for EdgeX 2.1
 
-The `Pipeline Per Topic` feature allows for multiple function pipelines to be defined. Each will execute only when the pipeline topic matches the received topic. The pipeline topic can have wildcards (`#`) allowing it to match a variety of received topics. Each pipeline has its own set of functions (transforms) that are executed on the received message. If just `#` is used for the pipeline topic, it will match all received topics and the specified functions pipeline will execute on every message received. 
+The `Pipeline Per Topics` feature allows for multiple function pipelines to be defined. Each will execute only when one of the specified pipeline topics matches the received topic. The pipeline topics can have wildcards (`#`) allowing the topic to match a variety of received topics. Each pipeline has its own set of functions (transforms) that are executed on the received message. If the `#` wildcard is used by itself for a pipeline topic, it will match all received topics and the specified functions pipeline will execute on every message received. 
 
 !!! note
-    The `Pipeline Per Topic` feature can only be used with the EdgeX MessageBus or External MessageBus triggers.
+    The `Pipeline Per Topics` feature is targeted for EdgeX MessageBus and External MQTT triggers, but can be used with Custom or HTTP triggers. When used with the HTTP trigger the incoming topic will always be `blank`, so the pipeline's topics must contain a single topic set to the `#` wildcard so that all messages received are processed by the pipeline.
 
 !!! example "Example pipeline topics with wildcards"
     ```
-    "#"                             - Matches all messages published
-    "edegex/events/#"               - Matches all messages published with the based topic `edegex/events/`
-    "edegex/events/core/#"          - Matches all messages published just from Core Data
-    "edegex/events/device/#"        - Matches all messages published just from Device services
-    "edegex/events/#/my-profile/#"  - Matches all messages published from Core Data or Device services for `my-profile`
-    "edegex/events/#/#/my-device/#" - Matches all messages published from Core Data or Device services for `my-device`
-    "edegex/events/#/#/#/my-source" - Matches all messages published from Core Data or Device services for `my-source`
+    "#"                             - Matches all messages received
+    "edegex/events/#"               - Matches all messages received with the based topic `edegex/events/`
+    "edegex/events/core/#"          - Matches all messages received just from Core Data
+    "edegex/events/device/#"        - Matches all messages received just from Device services
+    "edegex/events/#/my-profile/#"  - Matches all messages received from Core Data or Device services for `my-profile`
+    "edegex/events/#/#/my-device/#" - Matches all messages received from Core Data or Device services for `my-device`
+    "edegex/events/#/#/#/my-source" - Matches all messages received from Core Data or Device services for `my-source`
     ```
 
 Refer to the [Filter By Topics](../Triggers/#filter-by-topics) section for details on the structure of the received topic.
@@ -396,13 +396,13 @@ Refer to the [Filter By Topics](../Triggers/#filter-by-topics) section for detai
 All pipeline function capabilities such as Store and Forward, Batching, etc. can be used with one or more of the multiple function pipelines. Store and Forward uses the Pipeline's ID to find and restart the pipeline on retries.
 
 !!! example "Example - Adding multiple function pipelines"
-    This example adds two pipelines. One to process data from the `Random-Float-Device` device and one to process data from the `Int32` source. 
+    This example adds two pipelines. One to process data from the `Random-Float-Device` device and one to process data from the `Int32` and `Int64` sources. 
 
     ```go
         sample := functions.NewSample()
-        err = service.AddFunctionsPipelineForTopic(
+        err = service.AddFunctionsPipelineForTopics(
     			"Floats-Pipeline", 
-    			"edgex/events/#/#/Random-Float-Device/#", 
+    			[]string{"edgex/events/#/#/Random-Float-Device/#"}, 
     			transforms.NewFilterFor(deviceNames).FilterByDeviceName,
     			sample.LogEventDetails,
     			sample.ConvertEventToXML,
@@ -412,9 +412,9 @@ All pipeline function capabilities such as Store and Forward, Batching, etc. can
             return -1
         }
         
-        err = app.service.AddFunctionsPipelineForTopic(
+        err = app.service.AddFunctionsPipelineForTopics(
     			"Int32-Pipleine", 
-    			"edgex/events/#/#/#/Int32",
+    			[]string{"edgex/events/#/#/#/Int32", "edgex/events/#/#/#/Int64"},
     		    transforms.NewFilterFor(deviceNames).FilterByDeviceName,
     		    sample.LogEventDetails,
     		    sample.ConvertEventToXML,

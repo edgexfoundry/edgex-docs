@@ -41,15 +41,15 @@ Next, each function and its required information is listed. Each function typica
 
 That's it! Now we can run/deploy this service and the functions pipeline will process the data with functions we've defined.
 
-## Pipeline Per Topic
+## Pipeline Per Topics
 
 !!! edgey "EdgeX 2.1"
-    Pipeline Per Topic is new for EdgeX 2.1
+    Pipeline Per Topics is new for EdgeX 2.1
 
-The above pipeline configuration in [Getting Started](#getting-started) section is the preferred way if your use case only requires a single functions pipeline. For use cases that require multiple functions pipelines in order to process the data differently based on the `profile`, `device` or `source` for the Event, there is the Pipeline Per Topic feature. This feature allows multiple pipelines to be configured in the `[Writable.Pipeline.PerTopicPipelines]`section. This section is a map of pipelines. The map key must be unique , but is used so can be any value. Each pipleline is defined by the following configuration settings:
+The above pipeline configuration in [Getting Started](#getting-started) section is the preferred way if your use case only requires a single functions pipeline. For use cases that require multiple functions pipelines in order to process the data differently based on the `profile`, `device` or `source` for the Event, there is the Pipeline Per Topics feature. This feature allows multiple pipelines to be configured in the `[Writable.Pipeline.PerTopicPipelines]`section. This section is a map of pipelines. The map key must be unique , but isn't used so can be any value. Each pipleline is defined by the following configuration settings:
 
 - Id - This is the unique ID given to each pipeline
-- Topic - This is the MessageBus topic that controls when the pipeline is executed. See [Pipeline Per Topic](../AdvancedTopics/#pipeline-per-topic)  for details on using wildcards in the topic.
+- Topics - Comma separated list of topics that control when the pipeline is executed. See [Pipeline Per Topics](../AdvancedTopics/#pipeline-per-topics)  for details on using wildcards in the topic.
 - ExecutionOrder - This is the list of functions, in order, that the pipeline will execute. Same as `ExecutionOrder` in the above example in the  [Getting Started](#getting-started) section
 
 !!! example "Example - Writable.Pipeline.PerTopicPipelines"
@@ -62,7 +62,7 @@ The above pipeline configuration in [Getting Started](#getting-started) section 
         [Writable.Pipeline.PerTopicPipelines]
           [Writable.Pipeline.PerTopicPipelines.float]
           Id = "float-pipeline"
-          Topic = "edgex/events/device/#/Random-Float-Device/#"
+          Topics = "edgex/events/device/#/Random-Float-Device/#, edgex/events/device/#/Random-Integer-Device/#"
           ExecutionOrder = "TransformJson, HTTPExport"
           [Writable.Pipeline.PerTopicPipelines.int8]
           Id = "int8-pipeline"
@@ -86,7 +86,7 @@ The above pipeline configuration in [Getting Started](#getting-started) section 
     ```
 
 !!! note
-    Pipeline Per Topic is only available when using the Edgex MessageBus Trigger or the External MTT Trigger. 
+    The `Pipeline Per Topics` feature is targeted for EdgeX MessageBus and External MQTT triggers, but can be used with Custom or HTTP triggers. When used with the HTTP trigger the incoming topic will always be `blank`, so the pipeline's topics must contain a single topic set to the `#` wildcard so that all messages received are processed by the pipeline.
 
 ## Environment Variable Overrides For Docker
 
