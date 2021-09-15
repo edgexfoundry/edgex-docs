@@ -677,6 +677,19 @@
     Configuring your Device Service
   </a>
   
+    <nav class="md-nav" aria-label="Configuring your Device Service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-structured-configuration" class="md-nav__link">
+    Custom Structured Configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2486,6 +2499,19 @@
     Configuring your Device Service
   </a>
   
+    <nav class="md-nav" aria-label="Configuring your Device Service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-structured-configuration" class="md-nav__link">
+    Custom Structured Configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2659,6 +2685,21 @@ EdgeX. General characteristics about the type of device, the data these devices 
 <p>Now update the configuration for the new device service.    This documentation provides a new configuration.toml file.  This configuration file:
 - changes the port the service operates on so as not to conflict with other device services</p>
 <p>Download  <strong><a href="../configuration.toml">configuration.toml</a></strong> and save the file to the ./res folder.</p>
+<h3 id="custom-structured-configuration">Custom Structured Configuration</h3>
+<p>C Device Services support structured custom configuration as part of the <code>[Driver]</code> section in the configuration.toml file.</p>
+<p>View the <code>main</code> function of <code>template.c</code>. The <code>confparams</code> variable is initialized with default values for three test parameters. These values may be overridden by entries in the configuration file or by environment variables in the usual way. The resulting configuration is passed to the <code>init</code> function when the service starts.</p>
+<p>Configuration parameters <code>X</code>, <code>Y/Z</code> and <code>Writable/Q</code> correspond to configuration file entries as follows:
+<div class="highlight"><pre><span></span><code>[Writable]
+  [Writable.Driver]
+    Q = &quot;foo&quot;
+
+[Driver]
+  X = &quot;bar&quot;
+  [Driver.Y]
+    Z = &quot;baz&quot;
+</code></pre></div></p>
+<p>Entries in the writable section can be changed dynamically if using the registry; the <code>reconfigure</code> callback will be invoked with the new configuration when changes are made.</p>
+<p>In addition to strings, configuration entries may be integer, float or boolean typed. Use the different <code>iot_data_alloc_</code> functions when setting up the defaults as appropriate.</p>
 <h2 id="rebuild-your-device-service">Rebuild your Device Service</h2>
 <p>Now you have your new device service, modified to return a random
 number, a device profile that will tell EdgeX how to read that random

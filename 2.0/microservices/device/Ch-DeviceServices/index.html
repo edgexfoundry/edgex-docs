@@ -1332,6 +1332,19 @@
     Configuration Properties
   </a>
   
+    <nav class="md-nav" aria-label="Configuration Properties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-configuration" class="md-nav__link">
+    Custom Configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2557,6 +2570,19 @@
     Configuration Properties
   </a>
   
+    <nav class="md-nav" aria-label="Configuration Properties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-configuration" class="md-nav__link">
+    Custom Configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2789,6 +2815,19 @@ and role of a device service.</p>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<h3 id="custom-configuration">Custom Configuration</h3>
+<p>Device services can have custom configuration in one of two ways. See the table below for details.</p>
+<div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Driver</label><div class="tabbed-content">
+<p><code>[Driver]</code> - The Driver section used for simple custom settings and is accessed via the SDK's DriverConfigs() API. The DriverConfigs API returns a <code>map[string] string</code> containing the contents on the <code>Driver</code> section of the <code>configuration.toml</code> file.</p>
+<div class="highlight"><pre><span></span><code><span class="k">[Driver]</span>
+<span class="n">MySetting</span> <span class="o">=</span> <span class="s">&quot;My Value&quot;</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Custom Structured Configuration</label><div class="tabbed-content">
+<p>For Go Device Services see <a href="../../../getting-started/Ch-GettingStartedSDK-Go/#custom-structured-configuration">Go Custom Structured Configuration</a> for more details.</p>
+<p>For C Device Service see <a href="../../../getting-started/Ch-GettingStartedSDK-C/#custom-structured-configuration">C Custom Structured Configuration</a> for more details.</p>
 </div>
 </div>
 <h2 id="api-reference">API Reference</h2>

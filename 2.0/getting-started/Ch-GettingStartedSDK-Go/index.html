@@ -689,6 +689,19 @@
     Configuring your Device Service
   </a>
   
+    <nav class="md-nav" aria-label="Configuring your Device Service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-structured-configuration" class="md-nav__link">
+    Custom Structured Configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2486,6 +2499,19 @@
     Configuring your Device Service
   </a>
   
+    <nav class="md-nav" aria-label="Configuring your Device Service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-structured-configuration" class="md-nav__link">
+    Custom Structured Configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2738,6 +2764,30 @@ EdgeX. General characteristics about the type of device, the data these devices 
 <p class="admonition-title">Warning</p>
 <p>In the configuration.toml, change the host address (around line 14) to the IP address of the system host.  This allows core metadata to callback to your new device service when a new device is created.  Because the rest of EdgeX, to include core metadata, will be running in Docker, the IP address of the host system on the Docker network must be provided to allow metadata in Docker to call out from Docker to the new device service running on your host system.</p>
 </div>
+<h3 id="custom-structured-configuration">Custom Structured Configuration</h3>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>New for EdgeX 2.0</p>
+</div>
+<p>Go Device Services can now define their own custom structured configuration section in the <code>configuration.toml</code> file. Any additional sections in the TOML are ignored by the SDK when it parses the file for the SDK defined sections. </p>
+<p>This feature allows a Device Service to define and watch it's own structured section in the service's TOML configuration file.</p>
+<p>The <code>SDK</code> API provides the follow APIs to enable structured custom configuration:</p>
+<ul>
+<li>
+<p><code>LoadCustomConfig(config UpdatableConfig, sectionName string) error</code></p>
+<p>Loads the service's custom configuration from local file or the Configuration Provider (if enabled). The Configuration Provider will also be seeded with the custom configuration the first time the service is started, if service is using the Configuration Provider. The <code>UpdateFromRaw</code> interface will be called on the custom configuration when the configuration is loaded from the Configuration Provider.</p>
+</li>
+<li>
+<p><code>ListenForCustomConfigChanges(configToWatch interface{}, sectionName string, changedCallback func(interface{})) error</code></p>
+<p>Starts a listener on the Configuration Provider for changes to the specified section of the custom configuration. When changes are received from the Configuration Provider the UpdateWritableFromRaw interface will be called on the custom configuration to apply the updates and then signal that the changes occurred via changedCallback.</p>
+</li>
+</ul>
+<p>See the <a href="https://github.com/edgexfoundry/device-mqtt-go/tree/v2.0.0">Device MQTT Service</a> for an example of using the new Structured Custom Configuration capability.</p>
+<ul>
+<li><a href="https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/internal/driver/config.go#L21-L72">See here for defining the structured custom configuration</a></li>
+<li><a href="https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/cmd/res/configuration.toml#L86-L108">See here for custom section on the configuration.toml file</a></li>
+<li><a href="https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/internal/driver/driver.go#L54-L69">See here for loading, validating and watching the configuration</a></li>
+</ul>
 <h2 id="rebuild-your-device-service">Rebuild your Device Service</h2>
 <p>Just as you did in the <a href="./#build-your-device-service">Build your Device Service</a> step above, build the device-simple service, which creates the executable program that is your device service.  In a terminal window, make sure you are in the device-simple folder (the folder containing the Makefile).  Build the service by issuing the following command:</p>
 <p><div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/edgexfoundry/device-simple
