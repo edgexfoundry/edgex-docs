@@ -117,6 +117,8 @@ for (uint32_t i = 0; i < nreadings; i++)
 return true;
 ```
 
+Here the reading value is set to a random signed integer. Various `iot_data_alloc_` functions are defined in the `iot/data.h` header allowing readings of different types to be generated.
+
 ## Creating your Device Profile
 
 A device profile is a YAML file that describes a class of device to
