@@ -132,7 +132,7 @@ Again, because no device service (or device) actually exists, core
 command will respond with a `Could not get a response` error. However,
 checking the logging output will prove that the core command micro
 service did receive the request and attempted to call on the
-non-existent device service (at the address provided for the device - defined in the `Protocol` area - earlier in this walkthrough) to issue the actuating command.  To see the core command service log issue the following Docker command :
+non-existent device service (at the address provided for the device service - defined earlier in this walkthrough) to issue the actuating command.  To see the core command service log issue the following Docker command :
 
 ``` shell
 docker logs edgex-core-command

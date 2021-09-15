@@ -89,7 +89,7 @@ Use either the Postman or Curl tab below to walkthrough creating the `Device`.
 
 Ensure the monitor camera is among the devices known to core metadata.  If you make a GET call to the `http://localhost:59881/api/v2/device/all` URL (with Postman or curl) you will get a listing (in JSON) of all the devices currently defined in your instance of EdgeX that should include the one you just added.
 
-There are many additional APIs on core metadata to retrieve a `DeviceProfile`, `Device`, `DeviceService`, etc. As an example, here is one to find
+There are many [additional APIs on core metadata](https://app.swaggerhub.com/apis/EdgeXFoundry1/core-metadata/2.0.0) to retrieve a `DeviceProfile`, `Device`, `DeviceService`, etc. As an example, here is one to find
 all devices associated to a given `DeviceProfile`.
 
 ``` shell

@@ -23,7 +23,7 @@ profile file (find the example profile here) to create the Camera Monitor profil
 If you explore the [sample profile](./EdgeX_CameraMonitorProfile.yml), you will see that the profile begins with some general information.
 
 ``` yaml
-  name: "camera monitor profile"
+  name: "camera-monitor-profile"
   manufacturer: "IOTech"
   model: "Cam12345"
   labels: 
@@ -99,6 +99,10 @@ In this walkthrough example, there are two pieces of data we want to be able to 
     - { deviceResource: "HumanCount" }
     - { deviceResource: "CanineCount" }
 ```
+
+!!! edgey "EdgeX 2.0"
+
+    As of the Ireland release, device commands are automatically created by EdgeX for any device resource that are not specified as hidden (that is where isHidden is set to false or is simply left off the device resource) in the profile.  Therefore, you would not define a device command to provide access to a single device resource unless you need to restrict the read/write access to that device resource.
 
 ### Walkthrough - Device Profile
 

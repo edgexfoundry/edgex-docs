@@ -62,7 +62,7 @@ The log level change will be picked up by the application service.  In a termina
 docker logs -f edgex-app-rules-engine
 ```
 
-Now push another event/reading into core data as you did earlier (see [Send Event](./Ch-WalkthroughReading.md#walkthrough-send-event)).  You should see each new event/reading created by acknowledged by the app service.  With the right application service and rules engine configuration, the event/reading data is sent to the rules engine where it can then be used to trigger commands just as you did manually in this walkthrough.
+Now push another event/reading into core data as you did earlier (see [Send Event](./Ch-WalkthroughReading.md#walkthrough-send-event)).  You should see each new event/reading created by acknowledged by the app service.  With the right application service and rules engine configuration, the event/reading data is published to the rules engine topic where it can then be picked up and used by the rules engine service to trigger commands just as you did manually in this walkthrough.
 
 ![image](EdgeX_WalkthroughAppServiceLog.png)
 
