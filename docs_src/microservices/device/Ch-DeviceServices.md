@@ -89,17 +89,9 @@ In dynamic discovery (also known as automatic provisioning), a device service is
 
 Not all device services support dynamic discovery.  If it does support dynamic discovery, the configuration about what and where to look (in other words, where to scan) for new devices is specified by a provision watcher.  A provision watcher is created via a call to the [core metadata provision watcher API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/2.0.0#/default/post_provisionwatcher) (and is stored in the metadata database).  In addition to providing details about what devices to look for during a scan, a provision watcher may also contain “blocking” indicators, which define parameters about devices that are not to be automatically provisioned.  This allows the scope of a device scan to be narrowed or allow specific devices to be avoided.  
 
-## Operating State and Admin State
-
-There are two states which the device service uses to indicate the status or availability of a device.  Both states are stored in metadata and associated to each device.
-
-### Admin State
+## Admin State
 
 The **adminState** is either `LOCKED` or `UNLOCKED` for each device.  This is an administrative condition applied to the device.  This state is periodically set by an administrator of the system – perhaps for system maintenance or upgrade of the sensor.  When `LOCKED`, requests to the device via the device service are stopped and an indication that the device is locked (HTTP 423 status code) is returned to the caller.
-
-### Operating State
-
-The **operatingState** is either `ENABLED` of `DISABLED`.  This is an indication of the operations of the device.  If the device appears to be unresponsive or not sending its sensor data as requested, the device service may choose to set the operatingState to `DISABLED` to indicate to the system and to users that the device is not operating according to expectations.
 
 ## Sensor Reading Schedule
 
@@ -144,5 +136,24 @@ Please refer to the general [Common Configuration documentation](../configuratio
     |OnChange|false|collect only when a change is detected|
     |Resource|''|resource to collect|
 
+### Custom Configuration
+
+Device services can have custom configuration in one of two ways. See the table below for details.
+
+=== "Driver"
+
+    `[Driver]` - The Driver section used for simple custom settings and is accessed via the SDK's DriverConfigs() API. The DriverConfigs API returns a `map[string] string` containing the contents on the `Driver` section of the `configuration.toml` file.
+    
+    ```toml
+    [Driver]
+    MySetting = "My Value"
+    ```
+
+=== "Custom Structured Configuration"
+    For Go Device Services see [Go Custom Structured Configuration](../../../getting-started/Ch-GettingStartedSDK-Go/#custom-structured-configuration) for more details.
+    
+    For C Device Service see [C Custom Structured Configuration](../../../getting-started/Ch-GettingStartedSDK-C/#custom-structured-configuration) for more details.
+
 ## API Reference
+
 [Device Service - SDK- API Reference](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.0.0)
