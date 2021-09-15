@@ -1702,18 +1702,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-WalkthroughData/" title="Defining your data" class="md-nav__link">
-      Defining your data
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../Ch-WalkthroughDeviceProfile/" title="Defining your device" class="md-nav__link">
       Defining your device
     </a>
@@ -2461,8 +2449,7 @@
                 
                 
                 <h1 id="register-your-device-service">Register your device service</h1>
-<p>Once the reference information is established by the device service in
-core data and core metadata, the device service can register or define
+<p>Our next task in this walkthrough is to have the device service register or define
 itself in EdgeX. That is, it can proclaim to EdgeX that "I have arrived
 and am functional."</p>
 <h2 id="register-with-core-configuration-and-registration">Register with Core Configuration and Registration</h2>
@@ -2477,41 +2464,46 @@ service exchange is not explored here.</p>
 <p>See <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/2.0.0">core metadata API</a> for more details.</p>
 <p>At this point in your walkthrough, the device service must create a representative instance of itself in core
 metadata. It is in this registration that the device service is
-associated to the <code>Addressable</code> that was <a href="../Ch-WalkthroughData/#walk-through-addressables">created earlier in this walkthrough</a>. </p>
-<p>The name of the device service must be unique across all of EdgeX. Note
-the admin and operating states. The administrative state (aka admin
-state) provides control of the device service by man or other systems.
-It can be set to <code>locked</code> or <code>unlocked</code>. When a device service is set to
-<code>locked</code>, it is not suppose to respond to any command requests nor send
-data from the devices. </p>
-<p>The operating state (aka op state) provides an
-indication on the part of EdgeX about the internal operating status of
-the device service. The operating state is not set externally (as by
-another system or man), it is a signal from within EdgeX (and
-potentially the device service itself) about the condition of the
-service. The operating state of the device service may be either <code>enabled</code>
-or <code>disabled</code>. When the operating state of the device service is <code>disabled</code>,
-it is either experiencing some difficulty or going through some process
-(for example an upgrade) which does not allow it to function in its
-normal capacity.</p>
+given an address that allows core command or any EdgeX service to communicate with it. </p>
+<p>The name of the device service must be unique across all of EdgeX.  When registering a device service, the initial admin state can be provided. The administrative state (aka admin state) provides control of the device service by man or other systems.
+It can be set to <code>LOCKED</code> or <code>UNLOCKED</code>. When a device service is set to
+<code>LOCKED</code>, it is not suppose to respond to any command requests nor send
+data from the devices. See <a href="../../microservices/device/Ch-DeviceServices/#admin-state">Admin State documentation</a> for more details.</p>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0<p>As of Ireland/V2, device service names may only contain unreserved characters which are ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_~</p>
+</p>
+</div>
 <h3 id="walkthrough-device-service">Walkthrough - Device Service</h3>
 <p>Use either the Postman or Curl tab below to walkthrough creating the <code>DeviceService</code>.</p>
 <div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Postman</label><div class="tabbed-content">
-<p>Make a POST request to <code>http://localhost:48081/api/v1/deviceservice</code> with the following body:</p>
-<div class="highlight"><pre><span></span><code><span class="err">BODY</span><span class="p">:</span> <span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;camera control device service&quot;</span><span class="p">,</span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;Manage human and dog counting cameras&quot;</span><span class="p">,</span><span class="nt">&quot;labels&quot;</span><span class="p">:[</span><span class="s2">&quot;camera&quot;</span><span class="p">,</span><span class="s2">&quot;counter&quot;</span><span class="p">],</span><span class="nt">&quot;adminState&quot;</span><span class="p">:</span><span class="s2">&quot;unlocked&quot;</span><span class="p">,</span><span class="nt">&quot;operatingState&quot;</span><span class="p">:</span><span class="s2">&quot;enabled&quot;</span><span class="p">,</span><span class="nt">&quot;addressable&quot;</span><span class="p">:</span>  
-<span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;camera control&quot;</span><span class="p">}}</span>
+<p>Make a POST request to <code>http://localhost:59881/api/v2/deviceservice</code> with the following body:</p>
+<div class="highlight"><pre><span></span><code><span class="err">BODY</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span> <span class="s2">&quot;v2&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;service&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;camera-control-device-service&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Manage human and dog counting cameras&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;adminState&quot;</span><span class="p">:</span> <span class="s2">&quot;UNLOCKED&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;labels&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;camera&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;counter&quot;</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;baseAddress&quot;</span><span class="p">:</span> <span class="s2">&quot;camera-device-service:59990&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
 </code></pre></div>
-<p>Be sure that you are POSTing <strong>raw</strong> data, not form-encoded data.  If your API call is successful, you will get a generated ID (a UUID) for your new <code>DeviceService</code> in the response area.</p>
+<p>Be sure that you are POSTing <strong>raw</strong> data, not form-encoded data.  If your API call is successful, you will get a generated ID for your new <code>DeviceService</code> in the response area.</p>
 </div>
 <input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Curl</label><div class="tabbed-content">
 <p>Make a curl POST request as shown below.</p>
-<div class="highlight"><pre><span></span><code>curl -X POST -d <span class="s1">&#39;{&quot;name&quot;:&quot;camera control device service&quot;,&quot;description&quot;:&quot;Manage human and dog counting cameras&quot;,&quot;labels&quot;:[&quot;camera&quot;,&quot;counter&quot;],&quot;adminState&quot;:&quot;unlocked&quot;,&quot;operatingState&quot;:&quot;enabled&quot;,&quot;addressable&quot;: {&quot;name&quot;:&quot;camera control&quot;}}&#39;</span> localhost:48081/api/v1/deviceservice
+<div class="highlight"><pre><span></span><code>curl -X <span class="s1">&#39;POST&#39;</span> <span class="s1">&#39;http://localhost:59881/api/v2/deviceservice&#39;</span> -d <span class="s1">&#39;[{&quot;apiVersion&quot;: &quot;v2&quot;,&quot;service&quot;: {&quot;name&quot;: &quot;camera-control-device-service&quot;,&quot;description&quot;: &quot;Manage human and dog counting cameras&quot;, &quot;adminState&quot;: &quot;UNLOCKED&quot;, &quot;labels&quot;: [&quot;camera&quot;,&quot;counter&quot;], &quot;baseAddress&quot;: &quot;camera-device-service:59990&quot;}}]&#39;</span>
 </code></pre></div>
-<p>If your API call is successful, you will get a generated ID (a UUID) for your new <code>DeviceService</code>.</p>
+<p>If your API call is successful, you will get a generated ID for your new <code>DeviceService</code>.</p>
 </div>
 </div>
 <h4 id="test-the-get-api">Test the GET API</h4>
-<p>If you make a GET call to the <code>http://localhost:48081/api/v1/deviceservice</code> URL (with Postman or curl) you will get a listing (in JSON) of all the device services currently defined
+<p>If you make a GET call to the <code>http://localhost:59881/api/v2/deviceservice/all</code> URL (with Postman or curl) you will get a listing (in JSON) of all the device services currently defined
 in your instance of EdgeX, including the one you just added.</p>
 <p><a class="md-button" href="../Ch-WalkthroughDeviceProfile/">&lt;Back</a> <a class="md-button" href="../Ch-WalkthroughProvision/">Next&gt;</a></p>
                 

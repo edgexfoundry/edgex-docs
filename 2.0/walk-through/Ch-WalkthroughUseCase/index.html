@@ -1751,18 +1751,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-WalkthroughData/" title="Defining your data" class="md-nav__link">
-      Defining your data
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../Ch-WalkthroughDeviceProfile/" title="Defining your device" class="md-nav__link">
       Defining your device
     </a>
@@ -2432,8 +2420,12 @@ the user to set based on use case needs.</p>
 managed by a <a href="../../microservices/device/Ch-DeviceServices/">device service</a>. The device service
 communicates with the underlying hardware - in this case the camera - in
 the protocol of choice for that <code>Device</code>. The device service collects the
-data from the devices it manages and passes that data into EdgeX (into
-<a href="../../microservices/core/data/Ch-CoreData/">core data</a>). In this case, the device service would be collecting the
+data from the devices it manages and passes that data into the rest of EdgeX.</p>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>As of the Ireland release, a device service will, by default, publish data into a message bus which can be subscribed to by core data and/or application services.  You'll learn more about these later in this walkthrough.  Alternately, a device service can send data directly to core data.</p>
+</div>
+<p>In this case, the device service would be collecting the
 count of humans and dogs that the camera sees. The device service also
 serves to translate the request for actuation from EdgeX and the rest of
 the world into protocol requests that the physical device would
@@ -2446,7 +2438,7 @@ understood.</p>
 EdgeX and how the device service works under the covers to communicate
 with the camera Device is immaterial for the point of this
 demonstration.</p>
-<p><a class="md-button" href="../Ch-WalkthroughSetup/">&lt;Back</a> <a class="md-button" href="../Ch-WalkthroughData/">Next&gt;</a></p>
+<p><a class="md-button" href="../Ch-WalkthroughSetup/">&lt;Back</a> <a class="md-button" href="../Ch-WalkthroughDeviceProfile/">Next&gt;</a></p>
                 
               
               
@@ -2480,13 +2472,13 @@ demonstration.</p>
           </a>
         
         
-          <a href="../Ch-WalkthroughData/" title="Defining your data" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../Ch-WalkthroughDeviceProfile/" title="Defining your device" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Defining your data
+                Defining your device
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">

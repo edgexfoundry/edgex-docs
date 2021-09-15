@@ -1702,18 +1702,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-WalkthroughData/" title="Defining your data" class="md-nav__link">
-      Defining your data
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../Ch-WalkthroughDeviceProfile/" title="Defining your device" class="md-nav__link">
       Defining your device
     </a>
@@ -2464,36 +2452,69 @@ discovered it (by some unknown means) and provisioned the device as part
 of some startup process. To create a <code>Device</code>, it must be associated to a
 <a href="../Ch-WalkthroughDeviceProfile/"><code>DeviceProfile</code></a>, a
 <a href="../Ch-WalkthroughDeviceService/"><code>DeviceService</code></a>, and
-contain one or more <a href="../Ch-WalkthroughData/#addressables">Protocols</a>
-defining its address. </p>
+contain one or more <code>Protocols</code> that define how and where to communicate with the device (possibly providing its address). </p>
+<p>When creating a device, you specify both the admin state (just as you did for a device service) and an operating state. The operating state (aka op state) provides an indication on the part of EdgeX about the internal operating status of the device. The operating state is not set externally (as by another system or man), it is a signal from within EdgeX (and potentially the device service itself) about the condition of the device. The operating state of the device may be either <code>UP</code> or <code>DOWN</code> (it may alsy be <code>UNKNOWN</code> if the state cannot be determined). When the operating state of the device is <code>DOWN</code>, it is either experiencing some difficulty or going through some process (for example an upgrade) which does not allow it to function in its normal capacity.</p>
 <h3 id="walkthrough-device">Walkthrough - Device</h3>
 <p>Use either the Postman or Curl tab below to walkthrough creating the <code>Device</code>.</p>
 <div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Postman</label><div class="tabbed-content">
-<p>Make a POST request to <code>http://localhost:48081/api/v1/device</code> with the following body:</p>
-<div class="highlight"><pre><span></span><code><span class="err">BODY</span><span class="p">:</span> <span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;countcamera1&quot;</span><span class="p">,</span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;human and dog counting camera #1&quot;</span><span class="p">,</span><span class="nt">&quot;adminState&quot;</span><span class="p">:</span><span class="s2">&quot;unlocked&quot;</span><span class="p">,</span><span class="nt">&quot;operatingState&quot;</span><span class="p">:</span><span class="s2">&quot;enabled&quot;</span><span class="p">,</span><span class="nt">&quot;protocols&quot;</span><span class="p">:{</span><span class="nt">&quot;camera protocol&quot;</span><span class="p">:{</span><span class="nt">&quot;camera address&quot;</span><span class="p">:</span><span class="s2">&quot;camera 1&quot;</span><span class="p">}},</span><span class="nt">&quot;labels&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;camera&quot;</span><span class="p">,</span><span class="s2">&quot;counter&quot;</span><span class="p">],</span><span class="nt">&quot;location&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nt">&quot;service&quot;</span><span class="p">:{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;camera control device service&quot;</span><span class="p">},</span><span class="nt">&quot;profile&quot;</span><span class="p">:{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;camera monitor profile&quot;</span><span class="p">}}</span>
+<p>Make a POST request to <code>http://localhost:59881/api/v2/device</code> with the following body:</p>
+<div class="highlight"><pre><span></span><code>    <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span> <span class="s2">&quot;v2&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;device&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;countcamera1&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;human and dog counting camera #1&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;adminState&quot;</span><span class="p">:</span> <span class="s2">&quot;UNLOCKED&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;operatingState&quot;</span><span class="p">:</span> <span class="s2">&quot;UP&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;labels&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;camera&quot;</span><span class="p">,</span><span class="s2">&quot;counter&quot;</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;location&quot;</span><span class="p">:</span> <span class="s2">&quot;{lat:45.45,long:47.80}&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;serviceName&quot;</span><span class="p">:</span> <span class="s2">&quot;camera-control-device-service&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;profileName&quot;</span><span class="p">:</span> <span class="s2">&quot;camera-monitor-profile&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;protocols&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;camera-protocol&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;camera-address&quot;</span><span class="p">:</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;port&quot;</span><span class="p">:</span> <span class="s2">&quot;1234&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;unitID&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;notify&quot;</span><span class="p">:</span> <span class="kc">false</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
 </code></pre></div>
-<p>Be sure that you are POSTing <strong>raw</strong> data, not form-encoded data.  If your API call is successful, you will get a generated ID (a UUID) for your new <code>DeviceService</code> in the response area.</p>
+<p>Be sure that you are POSTing <strong>raw</strong> data, not form-encoded data.  If your API call is successful, you will get a generated ID for your new <code>Device</code> in the response area.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <code>camera monitor profile</code> was created by the device profile uploaded in a previous walkthrough step. The <code>camera control device service</code> was created in the last walkthough step.</p>
+<p>The <code>camera-monitor-profile</code> was created by the device profile uploaded in a previous walkthrough step. The <code>camera-control-device-service</code> was created in the last walkthough step.  These names must match the previously created EdgeX objects in order to successfully provision your device.</p>
+</div>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>As of Ireland/V2, device names may only contain unreserved characters which are ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_~</p>
 </div>
 </div>
 <input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Curl</label><div class="tabbed-content">
 <p>Make a curl POST request as shown below.</p>
-<div class="highlight"><pre><span></span><code>curl -X POST -d <span class="s1">&#39;{&quot;name&quot;:&quot;countcamera1&quot;,&quot;description&quot;:&quot;human and dog counting camera #1&quot;,&quot;adminState&quot;:&quot;unlocked&quot;,&quot;operatingState&quot;:&quot;enabled&quot;,&quot;protocols&quot;:{&quot;camera protocol&quot;:{&quot;camera address&quot;:&quot;camera 1&quot;}},&quot;labels&quot;: [&quot;camera&quot;,&quot;counter&quot;],&quot;location&quot;:&quot;&quot;,&quot;service&quot;:{&quot;name&quot;:&quot;camera control device service&quot;},&quot;profile&quot;:{&quot;name&quot;:&quot;camera monitor profile&quot;}}&#39;</span> localhost:48081/api/v1/device
+<div class="highlight"><pre><span></span><code>curl -X <span class="s1">&#39;POST&#39;</span> <span class="s1">&#39;http://localhost:59881/api/v2/device&#39;</span> -d <span class="s1">&#39;[{&quot;apiVersion&quot;: &quot;v2&quot;, &quot;device&quot;: {&quot;name&quot;: &quot;countcamera1&quot;,&quot;description&quot;: &quot;human and dog counting camera #1&quot;,&quot;adminState&quot;: &quot;UNLOCKED&quot;,&quot;operatingState&quot;: &quot;UP&quot;,&quot;labels&quot;: [&quot;camera&quot;,&quot;counter&quot;],&quot;location&quot;: &quot;{lat:45.45,long:47.80}&quot;,&quot;serviceName&quot;: &quot;camera-control-device-service&quot;,&quot;profileName&quot;: &quot;camera-monitor-profile&quot;,&quot;protocols&quot;: {&quot;camera-protocol&quot;: {&quot;camera-address&quot;: &quot;localhost&quot;,&quot;port&quot;: &quot;1234&quot;,&quot;unitID&quot;: &quot;1&quot;}},&quot;notify&quot;: false}}]&#39;</span>
 </code></pre></div>
 <p>If your API call is successful, you will get a generated ID (a UUID) for your new <code>Device</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>camera-monitor-profile</code> was created by the device profile uploaded in a previous walkthrough step. The <code>camera-control-device-service</code> was created in the last walkthough step.  These names must match the previously created EdgeX objects in order to successfully provision your device.</p>
+</div>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>As of Ireland/V2, device names may only contain unreserved characters which are ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_~</p>
+</div>
 </div>
 </div>
 <h4 id="test-the-get-api">Test the GET API</h4>
-<p>Ensure the monitor camera is among the devices known to core metadata.  If you make a GET call to the <code>http://localhost:48081/api/v1/device</code> URL (with Postman or curl) you will get a listing (in JSON) of all the device services currently defined of devices in your instance of EdgeX that should include the one you just added.</p>
-<p>There are many additional APIs on core metadata to retrieve a <code>Device</code>, <code>DeviceService</code>, etc. As an example, here is one to find
+<p>Ensure the monitor camera is among the devices known to core metadata.  If you make a GET call to the <code>http://localhost:59881/api/v2/device/all</code> URL (with Postman or curl) you will get a listing (in JSON) of all the devices currently defined in your instance of EdgeX that should include the one you just added.</p>
+<p>There are many <a href="https://app.swaggerhub.com/apis/EdgeXFoundry1/core-metadata/2.0.0">additional APIs on core metadata</a> to retrieve a <code>DeviceProfile</code>, <code>Device</code>, <code>DeviceService</code>, etc. As an example, here is one to find
 all devices associated to a given <code>DeviceProfile</code>.</p>
-<div class="codehilite"><pre><span></span><code><span class="err">```</span> <span class="n">shell</span>
-<span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">http</span><span class="err">:</span><span class="c1">//localhost:48081/api/v1/device/profilename/camera+monitor+profile | json_pp</span>
-<span class="err">```</span>
+<div class="highlight"><pre><span></span><code>curl -X GET http://localhost:59881/api/v2/device/profile/name/camera-monitor-profile <span class="p">|</span> json_pp
 </code></pre></div>
-
 <p><a class="md-button" href="../Ch-WalkthroughDeviceService/">&lt;Back</a> <a class="md-button" href="../Ch-WalkthroughCommands/">Next&gt;</a></p>
                 
               
