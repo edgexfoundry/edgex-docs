@@ -136,5 +136,24 @@ Please refer to the general [Common Configuration documentation](../configuratio
     |OnChange|false|collect only when a change is detected|
     |Resource|''|resource to collect|
 
+### Custom Configuration
+
+Device services can have custom configuration in one of two ways. See the table below for details.
+
+=== "Driver"
+
+    `[Driver]` - The Driver section used for simple custom settings and is accessed via the SDK's DriverConfigs() API. The DriverConfigs API returns a `map[string] string` containing the contents on the `Driver` section of the `configuration.toml` file.
+    
+    ```toml
+    [Driver]
+    MySetting = "My Value"
+    ```
+
+=== "Custom Structured Configuration"
+    For Go Device Services see [Go Custom Structured Configuration](../../../getting-started/Ch-GettingStartedSDK-Go/#custom-structured-configuration) for more details.
+    
+    For C Device Service see [C Custom Structured Configuration](../../../getting-started/Ch-GettingStartedSDK-C/#custom-structured-configuration) for more details.
+
 ## API Reference
+
 [Device Service - SDK- API Reference](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.0.0)

@@ -154,6 +154,28 @@ Now update the configuration for the new device service.    This documentation p
 
 Download  **[configuration.toml](configuration.toml)** and save the file to the ./res folder.
 
+### Custom Structured Configuration
+
+C Device Services support structured custom configuration as part of the `[Driver]` section in the configuration.toml file.
+
+View the `main` function of `template.c`. The `confparams` variable is initialized with default values for three test parameters. These values may be overridden by entries in the configuration file or by environment variables in the usual way. The resulting configuration is passed to the `init` function when the service starts.
+
+Configuration parameters `X`, `Y/Z` and `Writable/Q` correspond to configuration file entries as follows:
+```
+[Writable]
+  [Writable.Driver]
+    Q = "foo"
+
+[Driver]
+  X = "bar"
+  [Driver.Y]
+    Z = "baz"
+```
+
+Entries in the writable section can be changed dynamically if using the registry; the `reconfigure` callback will be invoked with the new configuration when changes are made.
+
+In addition to strings, configuration entries may be integer, float or boolean typed. Use the different `iot_data_alloc_` functions when setting up the defaults as appropriate.
+
 ## Rebuild your Device Service
 
 Now you have your new device service, modified to return a random
@@ -219,5 +241,4 @@ sends to EdgeX.
     <http://localhost:59880/api/v2/event/device/name/RandNum-Device01?limit=100>
 
     This request asks core data to provide the last 100 events/readings associated to the RandNum-Device-01.
-
 
