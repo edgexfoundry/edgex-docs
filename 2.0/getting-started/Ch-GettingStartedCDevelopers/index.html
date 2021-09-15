@@ -2440,15 +2440,16 @@ guide</a>, to build EdgeX C services, you will need the following:</p>
 <li>libuuid</li>
 <li>hiredis</li>
 </ul>
-<p>You can install these on Ubuntu by running:
+<p>You can install these on Ubuntu (20.04 LTS) by running:
 <div class="highlight"><pre><span></span><code>sudo apt-get install libcurl4-openssl-dev libmicrohttpd-dev libyaml-dev libcbor-dev libpaho-mqtt uuid-dev libhiredis-dev
-</code></pre></div></p>
+</code></pre></div>
+Some of these supporting packages have dependencies of their own, which will be automatically installed when using package managers such as <code>apt</code>, <code>yum</code> etc.</p>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
 <p>For EdgeX 2.0 the C SDK now supports MQTT and Redis implementations of the EdgeX MessageBus</p>
 </div>
 <p>CMake is required to build the SDKs.  Version 3 or better is required.  You can install CMake on Ubuntu by running:
-<div class="highlight"><pre><span></span><code>sudo apt install cmake
+<div class="highlight"><pre><span></span><code>sudo apt-get install cmake
 </code></pre></div></p>
 <p>Check that your C development environment includes the following:</p>
 <ul>
