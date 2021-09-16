@@ -129,9 +129,8 @@ Use either the Postman or Curl tab below to walkthrough actuating the device.
 #### Check Command Service Log
 
 Again, because no device service (or device) actually exists, core
-command will respond with a `Could not get a response` error. However,
-checking the logging output will prove that the core command micro
-service did receive the request and attempted to call on the
+command will respond with a `Failed to send a http request` error. However,
+checking the logging output will prove that the core command micro service did receive the request and attempted to call on the
 non-existent device service (at the address provided for the device service - defined earlier in this walkthrough) to issue the actuating command.  To see the core command service log issue the following Docker command :
 
 ``` shell
@@ -140,13 +139,7 @@ docker logs edgex-core-command
 The last lines of the log entries should highlight the attempt to contact the non-existent device.
 
 ```
-level=ERROR ts=2021-09-03T22:16:38.869757074Z app=core-command source=http.go:38 X-Correlation-ID=b90e8bff-9306-44d1-bf38-0035ec7b8418 msg="failed to send a http request -> Put \"camera-device-service:59990/api/v2/device/name/countcamera1/ScanDepth?\": unsupported protocol scheme \"camera-device-service\""
-2021/09/03 22:16:38 http: panic serving 172.18.0.1:37644: invalid WriteHeader code 0
-goroutine 4924 [running]:
-net/http.(*conn).serve.func1(0xc0003408c0)
-	/usr/local/go/src/net/http/server.go:1824 +0x153
-panic(0x7db240, 0xc0001ca260)
-	/usr/local/go/src/runtime/panic.go:971 +0x499
+level=ERROR ts=2021-09-16T20:50:09.965368572Z app=core-command source=http.go:47 X-Correlation-ID=49cc97f5-1e84-4a46-9eb5-543ae8bd5284 msg="failed to send a http request -> Put \"camera-device-service:59990/api/v2/device/name/countcamera1/ScanDepth?\": unsupported protocol scheme \"camera-device-service\""
 ...
 ```
 
