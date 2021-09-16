@@ -32,6 +32,7 @@ type AppFunctionContext interface {
     GetValue(key string) (string, bool)
     GetAllValues() map[string]string
     ApplyValues(format string) (string, error)
+	Clone() AppFunctionContext
 }
 ```
 
@@ -196,13 +197,18 @@ This API returns that timestamp for when the secrets in the SecretStore where la
 
 ## Miscellaneous
 
+### Clone()
+`Clone() AppFunctionContext`
+
+This method returns a copy of the context that can be mutated independently where appropriate.  This can be useful when running operations that take AppFunctionContext in parallel.
+
 ### CorrelationID()
-`CorrelationID()`
+`CorrelationID() string`
 
 This API returns the ID used to track the EdgeX event through entire EdgeX framework.
 
 ### InputContentType()
-`InputContentType()`
+`InputContentType() string`
 
 This API returns the content type of the data that initiated the pipeline execution. Only useful when the TargetType for the pipeline is []byte, otherwise the data will be the type specified by TargetType.
 
