@@ -229,7 +229,7 @@ Using the detailed script below as a simulator, there are three behaviors:
     {"name":"my-custom-device", "cmd":"randnum", "method":"get", "randnum":4161.3549}
     ```
    **Using Multi-level Topic:**
-   The simulator publishes the data to the MQTT broker with topic `incoming/data/#` and the message is similar to the following:
+   The simulator publishes the data to the MQTT broker with topic `incoming/data/my-custom-device/randnum` and the message is similar to the following:
 
     ```
     {"randnum":4161.3549}
@@ -250,16 +250,16 @@ Using the detailed script below as a simulator, there are three behaviors:
 
     **Using Multi-level Topic:**
     
-    1. The simulator receives the request from the MQTT broker, the topic is `command/my-custom-device/randnum` and the message is similar to the following:
+    1. The simulator receives the request from the MQTT broker, the topic is `command/my-custom-device/randnum/get/293d7a00-66e1-4374-ace0-07520103c95f` and message is similar to the following:
     
         ```
-        {"message":"42.0"}
+        {"randnum":"42.0"}
         ```
     
     2. The simulator returns the response to the MQTT broker, the topic is `command/response/#` and the message is similar to the following:
     
         ```
-        {"message":"4.20e+01"}
+        {"randnum":"4.20e+01"}
         ```
     
 3. Receive the set request, then change the device value.
