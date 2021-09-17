@@ -250,7 +250,7 @@ Using the detailed script below as a simulator, there are three behaviors:
 
     **Using Multi-level Topic:**
     
-    1. The simulator receives the request from the MQTT broker, the topic is `command/my-custom-device/randnum/get/293d7a00-66e1-4374-ace0-07520103c95f` and message is similar to the following:
+    1. The simulator receives the request from the MQTT broker, the topic is `command/my-custom-device/randnum/get/293d7a00-66e1-4374-ace0-07520103c95f` and message returned is similar to the following:
     
         ```
         {"randnum":"42.0"}
@@ -280,7 +280,7 @@ Using the detailed script below as a simulator, there are three behaviors:
     
     **Using Multi-level Topic:**
     
-    1. The simulator receives the request from the MQTT broker, the topic is `command/my-custom-device/testmessage` and the message is similar to the following:
+    1. The simulator receives the request from the MQTT broker, the topic is `command/my-custom-device/testmessage/set/293d7a00-66e1-4374-ace0-07520103c95f` and the message is similar to the following:
     
         ```   
         {"message":"test message..."}
