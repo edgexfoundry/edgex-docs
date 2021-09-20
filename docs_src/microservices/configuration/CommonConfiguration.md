@@ -78,13 +78,11 @@ The tables in each of the tabs below document configuration properties that are 
     |Type | vault  | The type of the `SecretStore` service to use. Currenly only `vault` is supported.|
     |Host | localhost  | The host name or IP address associated with the `SecretStore` service|
     |Port | 8200  | The configured port on which the `SecretStore` service is listening|
-    |Path | /`<service-key>` | The service-specific path where the secrets are kept. This path will differ according to the given service. |
+    |Path | `<service-key>`/ | The service-specific path where the secrets are kept. This path will differ according to the given service. |
     |Protocol | http  | The protocol to be used when communicating with the `SecretStore` service|
     |RootCaCertPath | blank | Default is to not use HTTPS |
     |ServerName | blank | Not needed for HTTP |
-    |TokenFile | /tmp/edgex/secrets/`<service-key>`/secrets-token.json | Fully-qualified path to the location of the service's `SecretStore` acc token. This path will differ according to the given service. |
-    |AdditionalRetryAttempts | 10  | Number of attempts to retry retrieving secrets before failing to start the service |
-    |RetryWaitPeriod | 1s  | Amount of time to wait before attempting another connection to the `SecretStore` service|
+    |TokenFile | /tmp/edgex/secrets/`<service-key>`/secrets-token.json | Fully-qualified path to the location of the service's `SecretStore` access token. This path will differ according to the given service. |
     |Authentication AuthType | X-Vault-Token  | A header used to indicate how the given service will authenticate with the `SecretStore` service|
     
     !!! edgey "Edgex 2.0"
