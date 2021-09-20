@@ -2622,27 +2622,32 @@
 <tr>
 <td></td>
 <td></td>
-<td>these config values are used when security is enabled and Vault access is required for obtaining secrets, such as database credentials</td>
+<td>these config values are used when security is enabled and <code>SecretStore</code> service access is required for obtaining secrets, such as database credentials</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>vault</td>
+<td>The type of the <code>SecretStore</code> service to use. Currenly only <code>vault</code> is supported.</td>
 </tr>
 <tr>
 <td>Host</td>
 <td>localhost</td>
-<td>The host name or IP address associated with Vault</td>
+<td>The host name or IP address associated with the <code>SecretStore</code> service</td>
 </tr>
 <tr>
 <td>Port</td>
 <td>8200</td>
-<td>The configured port on which Vault is listening</td>
+<td>The configured port on which the <code>SecretStore</code> service is listening</td>
 </tr>
 <tr>
 <td>Path</td>
-<td>/<code>&lt;service-key&gt;</code></td>
+<td><code>&lt;service-key&gt;</code>/</td>
 <td>The service-specific path where the secrets are kept. This path will differ according to the given service.</td>
 </tr>
 <tr>
 <td>Protocol</td>
 <td>http</td>
-<td>The protocol to be used when communicating with Vault</td>
+<td>The protocol to be used when communicating with the <code>SecretStore</code> service</td>
 </tr>
 <tr>
 <td>RootCaCertPath</td>
@@ -2657,22 +2662,12 @@
 <tr>
 <td>TokenFile</td>
 <td>/tmp/edgex/secrets/<code>&lt;service-key&gt;</code>/secrets-token.json</td>
-<td>Fully-qualified path to the location of the Vault root token. This path will differ according to the given service.</td>
-</tr>
-<tr>
-<td>AdditionalRetryAttempts</td>
-<td>10</td>
-<td>Number of attempts to retry retrieving secrets before failing to start the service</td>
-</tr>
-<tr>
-<td>RetryWaitPeriod</td>
-<td>1s</td>
-<td>Amount of time to wait before attempting another connection to Vault</td>
+<td>Fully-qualified path to the location of the service's <code>SecretStore</code> access token. This path will differ according to the given service.</td>
 </tr>
 <tr>
 <td>Authentication AuthType</td>
 <td>X-Vault-Token</td>
-<td>A header used to indicate how the given service will authenticate with Vault</td>
+<td>A header used to indicate how the given service will authenticate with the <code>SecretStore</code> service</td>
 </tr>
 </tbody>
 </table>
