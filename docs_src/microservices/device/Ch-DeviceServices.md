@@ -110,31 +110,16 @@ Please refer to the general [Common Configuration documentation](../configuratio
 === "Device"
     |Property|Default Value|Description|
     |---|---|---|
-    |||properties that determine how the device service communicates with a device|
-    |DataTransform|true||
-    |InitCmd|''||
-    |InitCmdArgs|''||
-    |MaxCmdOps|128||
-    |MaxCmdValueLen|256||
-    |RemoveCmd|''||
-    |RemoveCmdArgs|''||
-    |ProfilesDir|'./res'|
-    |UpdateLastConnected|false||
-=== "DeviceList"   
-    |Property|Default Value|Description|
-    |---|---|---|
-    |||properties used in defining the static provisioning for the device service|
-    |Name|''|name of the device|
-    |Profile|''|device profile that defines the resources and commands of the device|
-    |Description|''|description of the device|
-    |Labels|['']|labels array used for searching for devices|
-=== "DeviceList/DeviceList.AutoEvents"
-    |Property|Default Value|Description|
-    |---|---|---|
-    |||properties used to define how often an event/reading is schedule for collection to send to core data from the device|
-    |Frequency|'10s'|how often should collection occur|
-    |OnChange|false|collect only when a change is detected|
-    |Resource|''|resource to collect|
+    |||Properties that determine how the device service communicates with a device|
+    |DataTransform|true|Controls whether transformations are applied to numeric readings|
+    |MaxCmdOps|128|Maximum number of resources in a device command (hence, readings in an event)|
+    |MaxCmdResultLen|256|Maximum JSON string length for command results|
+    |ProfilesDir|''|If set, directory containing profile definition files to upload to core-metadata|
+    |DevicesDir|''|If set, directory containing device definition files to upload to core-metadata|
+    |UpdateLastConnected|false|If true, update the LastConnected attribute of a device whenever it is successfully accessed|
+    |UseMessageBus|false|Controls whether events are published via MessageBus or core-data (REST)|
+    |Discovery/Enabled|true|Controls whether device discovery is enabled|
+    |Discovery/Interval|0|Interval between automatic discovery runs. Zero means do not run discovery automatically|
 
 ### Custom Configuration
 
