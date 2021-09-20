@@ -2670,7 +2670,7 @@ and role of a device service.</p>
 <p>The virtual device service (<a href="https://github.com/edgexfoundry/device-virtual-go">device-virtual-go</a>) is also used for demonstration, education and testing.  It is a more complex simulator in that it allows any type of data to be generated on a scheduled basis and used an embedded SQL database (ql) to provide simulated data.  Manipulating the data in the embedded database allows the service to mimic almost any type of sensing device.   More information on the <a href="../virtual/Ch-VirtualDevice/">virtual device service</a> is available in this documentation.</p>
 <h2 id="configuration-properties">Configuration Properties</h2>
 <p>Please refer to the general <a href="../../configuration/CommonConfiguration/">Common Configuration documentation</a> for configuration properties common to all services.</p>
-<div class="tabbed-set" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Device</label><div class="tabbed-content">
+<div class="tabbed-set" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Device</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2683,123 +2683,52 @@ and role of a device service.</p>
 <tr>
 <td></td>
 <td></td>
-<td>properties that determine how the device service communicates with a device</td>
+<td>Properties that determine how the device service communicates with a device</td>
 </tr>
 <tr>
 <td>DataTransform</td>
 <td>true</td>
-<td></td>
-</tr>
-<tr>
-<td>InitCmd</td>
-<td>''</td>
-<td></td>
-</tr>
-<tr>
-<td>InitCmdArgs</td>
-<td>''</td>
-<td></td>
+<td>Controls whether transformations are applied to numeric readings</td>
 </tr>
 <tr>
 <td>MaxCmdOps</td>
 <td>128</td>
-<td></td>
+<td>Maximum number of resources in a device command (hence, readings in an event)</td>
 </tr>
 <tr>
-<td>MaxCmdValueLen</td>
+<td>MaxCmdResultLen</td>
 <td>256</td>
-<td></td>
-</tr>
-<tr>
-<td>RemoveCmd</td>
-<td>''</td>
-<td></td>
-</tr>
-<tr>
-<td>RemoveCmdArgs</td>
-<td>''</td>
-<td></td>
+<td>Maximum JSON string length for command results</td>
 </tr>
 <tr>
 <td>ProfilesDir</td>
-<td>'./res'</td>
-<td></td>
+<td>''</td>
+<td>If set, directory containing profile definition files to upload to core-metadata</td>
+</tr>
+<tr>
+<td>DevicesDir</td>
+<td>''</td>
+<td>If set, directory containing device definition files to upload to core-metadata</td>
 </tr>
 <tr>
 <td>UpdateLastConnected</td>
 <td>false</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</div>
-<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">DeviceList</label><div class="tabbed-content">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Default Value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td></td>
-<td>properties used in defining the static provisioning for the device service</td>
+<td>If true, update the LastConnected attribute of a device whenever it is successfully accessed</td>
 </tr>
 <tr>
-<td>Name</td>
-<td>''</td>
-<td>name of the device</td>
-</tr>
-<tr>
-<td>Profile</td>
-<td>''</td>
-<td>device profile that defines the resources and commands of the device</td>
-</tr>
-<tr>
-<td>Description</td>
-<td>''</td>
-<td>description of the device</td>
-</tr>
-<tr>
-<td>Labels</td>
-<td>['']</td>
-<td>labels array used for searching for devices</td>
-</tr>
-</tbody>
-</table>
-</div>
-<input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">DeviceList/DeviceList.AutoEvents</label><div class="tabbed-content">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Default Value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td></td>
-<td>properties used to define how often an event/reading is schedule for collection to send to core data from the device</td>
-</tr>
-<tr>
-<td>Frequency</td>
-<td>'10s'</td>
-<td>how often should collection occur</td>
-</tr>
-<tr>
-<td>OnChange</td>
+<td>UseMessageBus</td>
 <td>false</td>
-<td>collect only when a change is detected</td>
+<td>Controls whether events are published via MessageBus or core-data (REST)</td>
 </tr>
 <tr>
-<td>Resource</td>
-<td>''</td>
-<td>resource to collect</td>
+<td>Discovery/Enabled</td>
+<td>true</td>
+<td>Controls whether device discovery is enabled</td>
+</tr>
+<tr>
+<td>Discovery/Interval</td>
+<td>0</td>
+<td>Interval between automatic discovery runs. Zero means do not run discovery automatically</td>
 </tr>
 </tbody>
 </table>
