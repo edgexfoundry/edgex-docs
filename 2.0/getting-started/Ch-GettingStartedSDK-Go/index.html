@@ -705,6 +705,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#retrieving-secrets" class="md-nav__link">
+    Retrieving Secrets
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#rebuild-your-device-service" class="md-nav__link">
     Rebuild your Device Service
   </a>
@@ -2503,6 +2510,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#retrieving-secrets" class="md-nav__link">
+    Retrieving Secrets
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#rebuild-your-device-service" class="md-nav__link">
     Rebuild your Device Service
   </a>
@@ -2776,6 +2790,8 @@ EdgeX. General characteristics about the type of device, the data these devices 
 <li><a href="https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/cmd/res/configuration.toml#L86-L108">See here for custom section on the configuration.toml file</a></li>
 <li><a href="https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/internal/driver/driver.go#L54-L69">See here for loading, validating and watching the configuration</a></li>
 </ul>
+<h2 id="retrieving-secrets">Retrieving Secrets</h2>
+<p>The Go Device SDK provides the <code>SecretProvider.GetSecret()</code> API to retrieve the Device Services secrets.  See the <a href="https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/internal/driver/config.go#L114">Device MQTT Service</a> for an example of using the <code>SecretProvider.GetSecret()</code> API. Note that this code implements a retry loop allowing time for the secret(s) to be push into the service's <code>SecretStore</code> via the /secret endpoint. See <a href="../../microservices/device/Ch-DeviceServices/#storing-secrets">Storing Secrets</a> section for more details.  </p>
 <h2 id="rebuild-your-device-service">Rebuild your Device Service</h2>
 <p>Just as you did in the <a href="./#build-your-device-service">Build your Device Service</a> step above, build the device-simple service, which creates the executable program that is your device service.  In a terminal window, make sure you are in the device-simple folder (the folder containing the Makefile).  Build the service by issuing the following command:</p>
 <p><div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/edgexfoundry/device-simple

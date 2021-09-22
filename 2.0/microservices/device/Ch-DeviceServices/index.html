@@ -1348,6 +1348,60 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#secrets" class="md-nav__link">
+    Secrets
+  </a>
+  
+    <nav class="md-nav" aria-label="Secrets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storing-secrets" class="md-nav__link">
+    Storing Secrets
+  </a>
+  
+    <nav class="md-nav" aria-label="Storing Secrets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#secure-mode" class="md-nav__link">
+    Secure Mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insecure-mode" class="md-nav__link">
+    Insecure Mode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retrieving-secrets" class="md-nav__link">
+    Retrieving Secrets
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#api-reference" class="md-nav__link">
     API Reference
   </a>
@@ -2574,6 +2628,60 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#secrets" class="md-nav__link">
+    Secrets
+  </a>
+  
+    <nav class="md-nav" aria-label="Secrets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storing-secrets" class="md-nav__link">
+    Storing Secrets
+  </a>
+  
+    <nav class="md-nav" aria-label="Storing Secrets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#secure-mode" class="md-nav__link">
+    Secure Mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insecure-mode" class="md-nav__link">
+    Insecure Mode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retrieving-secrets" class="md-nav__link">
+    Retrieving Secrets
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#api-reference" class="md-nav__link">
     API Reference
   </a>
@@ -2747,6 +2855,51 @@ and role of a device service.</p>
 <p>For C Device Service see <a href="../../../getting-started/Ch-GettingStartedSDK-C/#custom-structured-configuration">C Custom Structured Configuration</a> for more details.</p>
 </div>
 </div>
+<h2 id="secrets">Secrets</h2>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>New in EdgeX 2.0 the Device Services now have the capability to store and retrieve secure secrets. Note that currently this only applies to Go based Device Services. The C SDK currently does not have support for <code>secrets</code> which is planned for the Jakarta 2.1 release.</p>
+</div>
+<h4 id="configuration">Configuration</h4>
+<p>All instances of Device Services running in secure mode require a <code>SecretStore</code> to be created for the service by the Security Services. See <a href="../../../security/Ch-Configuring-Add-On-Services">Configuring Add-on Service</a> for details on configuring a <code>SecretStore</code> to be created for the Device Service. With the use of <code>Redis Pub/Sub</code> as the default EdgeX MessageBus all Device Services need the <code>redisdb</code> known secret added to their <code>SecretStore</code> so they can connect to the Secure EdgeX MessageBus. See the <a href="../../../security/Ch-Secure-MessageBus">Secure MessageBus</a> documentation for more details.</p>
+<p>Each Device Service also has detailed configuration to enable connection to it's exclusive <code>SecretStore</code></p>
+<div class="admonition example">
+<p class="admonition-title">Example - SecretStore configuration for Device MQTT</p>
+<div class="highlight"><pre><span></span><code><span class="k">[SecretStore]</span>
+<span class="n">Type</span> <span class="o">=</span> <span class="s">&quot;vault&quot;</span>
+<span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
+<span class="n">Port</span> <span class="o">=</span> <span class="mi">8200</span>
+<span class="n">Path</span> <span class="o">=</span> <span class="s">&quot;device-mqtt/&quot;</span>
+<span class="n">Protocol</span> <span class="o">=</span> <span class="s">&quot;http&quot;</span>
+<span class="n">RootCaCertPath</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+<span class="n">ServerName</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+<span class="n">TokenFile</span> <span class="o">=</span> <span class="s">&quot;/tmp/edgex/secrets/device-mqtt/secrets-token.json&quot;</span>
+  <span class="k">[SecretStore.Authentication]</span>
+  <span class="n">AuthType</span> <span class="o">=</span> <span class="s">&quot;X-Vault-Token&quot;</span>
+</code></pre></div>
+</div>
+<h4 id="storing-secrets">Storing Secrets</h4>
+<h5 id="secure-mode">Secure Mode</h5>
+<p>When running an Device Service in secure mode, secrets can be stored in the SecretStore by making an HTTP <code>POST</code> call to the <code>/api/v2/secret</code> API route on the Device Service. The secret data POSTed is stored to the <code>SecretStore</code> based on values in the <code>[SecretStore]</code> section of the configuration. Once a secret is stored, only the service that added the secret will be able to retrieve it.  See the <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.0.0#/default/post_secret">Secret API Reference</a> for more details and example.</p>
+<h5 id="insecure-mode">Insecure Mode</h5>
+<p>When running in insecure mode, the secrets are stored and retrieved from the <em>Writable.InsecureSecrets</em> section of the service's configuration.toml file. Insecure secrets and their paths can be configured as below.</p>
+<div class="admonition example">
+<p class="admonition-title">Example - InsecureSecrets Configuration</p>
+<div class="highlight"><pre><span></span><code>   <span class="p">[</span><span class="n">Writable</span><span class="p">.</span><span class="n">InsecureSecrets</span><span class="p">]</span>    
+     <span class="k">[Writable.InsecureSecrets.DB]</span>
+     <span class="n">path</span> <span class="o">=</span> <span class="s">&quot;redisdb&quot;</span>
+       <span class="k">[Writable.InsecureSecrets.DB.Secrets]</span>
+       <span class="n">username</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+       <span class="n">password</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+     <span class="k">[Writable.InsecureSecrets.MQTT]</span>
+     <span class="n">path</span> <span class="o">=</span> <span class="s">&quot;credentials&quot;</span>
+       <span class="k">[Writable.InsecureSecrets.MQTT.Secrets]</span>
+       <span class="n">username</span> <span class="o">=</span> <span class="s">&quot;mqtt-user&quot;</span>
+       <span class="n">password</span> <span class="o">=</span> <span class="s">&quot;mqtt-password&quot;</span>
+</code></pre></div>
+</div>
+<h4 id="retrieving-secrets">Retrieving Secrets</h4>
+<p>Device Services retrieve secrets from their <code>SecretStore</code> using the SDK API.  See <a href="../../getting-started/Ch-GettingStartedSDK-Go/#retrieving-secrets">Retrieving Secrets</a> for more details using the Go SDK. </p>
 <h2 id="api-reference">API Reference</h2>
 <p><a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.0.0">Device Service - SDK- API Reference</a></p>
                 
