@@ -5,6 +5,9 @@
 
 All EdgeX services now have the capability to specify a JSON file that contains the service's secrets which are seeded into the service's `SecretStore` during service start-up. This allows the secrets to be present in the service's `SecretStore` when the service needs to use them.
 
+!!! note
+    The service must already have a `SecretStore` configured. This is done by default for the Core/Support services. See [Configure the service's Secret Store](../Ch-Configuring-Add-On-Services/#configure-the-services-secret-store-to-use) section for details for add-on App and Device services 
+
 The new `SecretsFile` setting on the `SecretStore` configuration allows the service to specify the fully-qualified path to the location of the service's secrets file. Normally this setting is left blank when a service has no secrets to be seeded.
 
 !!! example "Example setting SecretsFilePath in TOML"
@@ -17,18 +20,18 @@ The new `SecretsFile` setting on the `SecretStore` configuration allows the serv
     ...
     ```
 
-This setting can also be overriding with the `SECRETSTORE_SECRETSFILE` environment variable in the docker-compose file and then volume mounted in to the service's container.
+This setting can also be overridden with the `SECRETSTORE_SECRETSFILE` environment variable. When EdgeX is deployed using Docker/docker-compose the setting can be overridden in the docker-compose file and the file can be volume mounted into the service's container.
 
-!!! example "Example setting SecretsFilePath via environment override"
+!!! example "Example setting SecretsFile via environment override"
     ```yaml
     environment:
-      SECRETSTORE_SECRETSFILEPATH: "/tmp/my-service/secrets.json"
+      SECRETSTORE_SECRETSFILE: "/tmp/my-service/secrets.json"
       ...
     volumes:
     - /tmp/my-service/secrets.json:/tmp/my-service/secrets.json
     ```
 
-During service start-up, after `SecretStore` initialization, the service's secrets JSON file is read, validated and the secrets stored into the service's `SecretStore`. The file is then rewrite without the sensitive secret data that was successfully stored. 
+During service start-up, after `SecretStore` initialization, the service's secrets JSON file is read, validated, and the secrets stored into the service's `SecretStore`. The file is then rewritten without the sensitive secret data that was successfully stored. 
 
 !!! Example "Example of initial service secrets JSON"
     ```json
