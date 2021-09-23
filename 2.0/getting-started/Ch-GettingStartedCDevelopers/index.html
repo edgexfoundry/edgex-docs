@@ -2428,15 +2428,21 @@ guide</a>, to build EdgeX C services, you will need the following:</p>
 <li>libuuid</li>
 <li>hiredis</li>
 </ul>
-<p>You can install these on Ubuntu (20.04 LTS) by running:
-<div class="highlight"><pre><span></span><code>sudo apt-get install libcurl4-openssl-dev libmicrohttpd-dev libyaml-dev libcbor-dev libpaho-mqtt uuid-dev libhiredis-dev
+<p>You can install these on Debian 11 (Bullseye) by running:
+<div class="highlight"><pre><span></span><code>sudo apt-get install libcurl4-openssl-dev libmicrohttpd-dev libyaml-dev libcbor-dev libpaho-mqtt-dev uuid-dev libhiredis-dev
 </code></pre></div>
 Some of these supporting packages have dependencies of their own, which will be automatically installed when using package managers such as <em>APT</em>, <em>DNF</em> etc.</p>
+<p><code>libpaho-mqtt-dev</code> is not included in Ubuntu prior to Groovy (20.10). IOTech provides a package for Focal (20.04 LTS) which may be installed as follows:</p>
+<div class="highlight"><pre><span></span><code>sudo curl -fsSL https://iotech.jfrog.io/artifactory/api/gpg/key/public -o /etc/apt/trusted.gpg.d/iotech-public.asc
+sudo <span class="nb">echo</span> <span class="s2">&quot;deb https://iotech.jfrog.io/iotech/debian-release </span><span class="k">$(</span>lsb_release -cs<span class="k">)</span><span class="s2"> main&quot;</span> <span class="p">|</span> tee -a /etc/apt/sources.list.d/iotech.list
+sudo apt-get update
+sudo apt-get install libpaho-mqtt
+</code></pre></div>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
 <p>For EdgeX 2.0 the C SDK now supports MQTT and Redis implementations of the EdgeX MessageBus</p>
 </div>
-<p>CMake is required to build the SDKs.  Version 3 or better is required.  You can install CMake on Ubuntu by running:
+<p>CMake is required to build the SDKs.  Version 3 or better is required.  You can install CMake on Debian by running:
 <div class="highlight"><pre><span></span><code>sudo apt-get install cmake
 </code></pre></div></p>
 <p>Check that your C development environment includes the following:</p>
