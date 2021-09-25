@@ -851,6 +851,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#adjust-kong-worker-processes-to-optimize-the-performance" class="md-nav__link">
+    Adjust Kong worker processes to optimize the performance
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2531,6 +2538,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#adjust-kong-worker-processes-to-optimize-the-performance" class="md-nav__link">
+    Adjust Kong worker processes to optimize the performance
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2858,6 +2872,18 @@ the TLS certificate would be registered under the external host name.)</p>
 <li>Use header of -H "Authorization: Bearer \&lt;access-token>" to
     specify the access token associated with the client that was
     generated when the client was added.</li>
+</ul>
+<h3 id="adjust-kong-worker-processes-to-optimize-the-performance">Adjust Kong worker processes to optimize the performance</h3>
+<p>The number of the Kong worker processes would impact the memory consumption and the API Gateway performance.<br />
+In order to reduce the memory consumption, the default value of it in EdgeX Foundry is one instead of auto (the original default value). 
+This setting is defined in the environment variable section of the docker-compose file.
+<div class="highlight"><pre><span></span><code>KONG_NGINX_WORKER_PROCESSES: &#39;1&#39;
+</code></pre></div>
+Users can adjust this value to meet their requirement, or remove this environment variable to adjust it automatically.
+Read the references for more details about this setting: </p>
+<ul>
+<li><a href="https://docs.konghq.com/gateway-oss/2.5.x/configuration/#nginx_worker_processes">https://docs.konghq.com/gateway-oss/2.5.x/configuration/#nginx_worker_processes</a></li>
+<li><a href="http://nginx.org/en/docs/ngx_core_module.html#worker_processes">http://nginx.org/en/docs/ngx_core_module.html#worker_processes</a></li>
 </ul>
                 
               
