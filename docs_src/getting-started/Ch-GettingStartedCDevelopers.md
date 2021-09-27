@@ -20,17 +20,27 @@ guide](./Ch-GettingStartedDevelopers.md), to build EdgeX C services, you will ne
 -   libuuid
 -   hiredis
 
-You can install these on Ubuntu by running:
+You can install these on Debian 11 (Bullseye) by running:
 ``` bash
-sudo apt-get install libcurl4-openssl-dev libmicrohttpd-dev libyaml-dev libcbor-dev libpaho-mqtt uuid-dev libhiredis-dev
+sudo apt-get install libcurl4-openssl-dev libmicrohttpd-dev libyaml-dev libcbor-dev libpaho-mqtt-dev uuid-dev libhiredis-dev
+```
+Some of these supporting packages have dependencies of their own, which will be automatically installed when using package managers such as *APT*, *DNF* etc.
+
+`libpaho-mqtt-dev` is not included in Ubuntu prior to Groovy (20.10). IOTech provides a package for Focal (20.04 LTS) which may be installed as follows:
+
+``` bash
+sudo curl -fsSL https://iotech.jfrog.io/artifactory/api/gpg/key/public -o /etc/apt/trusted.gpg.d/iotech-public.asc
+sudo echo "deb https://iotech.jfrog.io/iotech/debian-release $(lsb_release -cs) main" | tee -a /etc/apt/sources.list.d/iotech.list
+sudo apt-get update
+sudo apt-get install libpaho-mqtt
 ```
 
 !!! edgey "EdgeX 2.0"
     For EdgeX 2.0 the C SDK now supports MQTT and Redis implementations of the EdgeX MessageBus
 
-CMake is required to build the SDKs.  Version 3 or better is required.  You can install CMake on Ubuntu by running:
+CMake is required to build the SDKs.  Version 3 or better is required.  You can install CMake on Debian by running:
 ``` bash
-sudo apt install cmake
+sudo apt-get install cmake
 ```
 
 Check that your C development environment includes the following:

@@ -1,542 +1,209 @@
 # SNMP
 
-!!! edgey "EdgeX 2.0"
-    Warning! This tutorial has not yet been updated to the Ireland Release / EdgeX 2.0.  This tutorial is still based on Hanoi (EdgeX 1.x) release APIs and services.
+EdgeX - Ireland Release
 
-EdgeX - Barcelona Release
+## Overview
 
-Ubuntu Desktop 16.04 with Docker/Docker-Compose
+In this example, you add a new Patlite Signal Tower which communicates via SNMP.  This example demonstrates how to connect a device through the SNMP Device Service.
 
-Adding a new SNMP Device
+![image](EdgeX_Examples_Patlite.jpg)
 
-![image](EdgeX_ExamplesMoxaIO.JPG)
+Patlite Signal Tower, model NHL-FB2
 
-Moxa ioLogik E2210 Smart Ethernet Remote I/O with 12 DIs, 8 Dos
+## Setup
 
-## Project Components Needed
+### Hardware needed
 
-**Hardware needed**
+In order to exercise this example, you will need the following hardware
 
-X86 computer with native RS485 communication device or RS485 adapter
+- A computer able to run EdgeX Foundry
+- [A Patlite Signal Tower](https://www.patlite.com/) (NHL-FB2 model)
+- Both the computer and Patlite must be connected to the same ethernet network
 
-Moxa E2210 Ethernet IO
+### Software needed
 
-\-- <https://www.moxa.com/product/ioLogik-E2210.htm>
+In addition to the hardware, you will need the following software
 
-**Software needed**
+- Docker
+- Docker Compose
+- EdgeX Foundry V2 (Ireland release)
+- curl to run REST commands (you can also use a tool like Postman)
 
-Ubuntu Desktop 16.04 - new installation
+If you have not already done so, proceed to [Getting Started With Docker](../getting-started/Ch-GettingStartedUsers.md) for how to get these tools and run EdgeX Foundry.
 
-The following software was installed via the "apt-get install" command
-(ubuntu default)
+### Add the SNMP Device Service to your docker-compose.yml
 
--   git
--   curl
--   vim (or your favorite editor)
--   java (I used openjdk-8-jdk - 1.8.0\_131)
--   maven
--   docker
--   docker-compose
+The EdgeX docker-compose.yml file used to run EdgeX must include the SNMP device service for this example.  You can either:
 
-The following software was installed from 3rd parties
+- download and use the [docker-compose.yml](./docker-compose.yml) file provided with this example 
+- or use the [EdgeX Compose Builder tool](https://github.com/edgexfoundry/edgex-compose/tree/main/compose-builder) to create your own custom docker-compose.yml file adding device-snmp.
 
-Postman (Linux 64bit)
+See [Getting Started with Docker](../getting-started/Ch-GettingStartedUsers.md#run-edgex-foundry) if you need assistance running EdgeX once you have your Docker Compose file.
 
-\-- <https://www.getpostman.com/>
+## Add the SNMP Device Profile and Device
 
-EdgeX - barcelona-docker-compose.yaml
+SNMP devices, like the Patlite Signal Tower, provide a set of managed objects to get and set property information on the associated device.  Each managed object has an address call an object identifier (or OID) that you use to interact with the SNMP device's managed object.  You use the OID to query the state of the device or to set properties on the device.  In the case of the Patlite, there are managed object for the colored lights and the buzzer of the device.  You can read the current state of a colored light (get) or turn the light on (set) by making a call to the proper OIDs for the associated managed object.
 
-\--
-<https://github.com/edgexfoundry/developer-scripts/blob/master/releases/barcelona/compose-files/docker-compose-barcelona-0.2.1.yml>
+For example, on the NH series signal towers used in this example, a "get" call to the `1.3.6.1.4.1.20440.4.1.5.1.2.1.4.1` OID returns the current state of the `Red` signal light.  A return value of 1 would signal the light is off.  A return value of 2 says the light is on.  A return value of 3 says the light is flashing.  Read this [SNMP tutorial](https://www.manageengine.com/network-monitoring/what-is-snmp.html) to learn more about the basics of the SNMP protocol.  See the [Patlite NH Series User's Manual](https://www.patlite.com/support/enddata/manual/T95100146_G_EN.pdf) for more information on the SNMP OIDs and function calls and parameters needed for some requests.
 
-**SNMP - Device documentation**
+### Add the Patlite Device Profile
 
-Device: Moxa E2210 (Smart Ethernet Remote I/O with 12 DIs, 8 DOs)
+A device profile has been created for you to get and set the signal tower's three colored lights and to get and set the buzzer.  The [`patlite-snmp` device profile](patlite-snmp.yml) defines three [device resources](../general/Definitions.md#resource) for each of the lights and the buzzer.
 
-<https://www.moxa.com/product/ioLogik-E2210.htm>
+- Current State, a read request device resource to get the current state of the requested light or buzzer
+- Control State, a write request device resource to set the current state of the light or buzzer
+- Timer, a write request device resource used in combination with the control state to set the state after the number of seconds provided by the timer resource
 
-**Ensuring success**
+Note that the attributes of each device resource specify the SNMP OID that the device service will use to make a request of the signal tower.  For example, the device resource YAML below (taken from the profile) provides the means to get the current `Red` light state.  Note that a specific OID is provided that is unique to the `RED` light, current state property.
 
-Verify the following, prior to following the instruction on the
-following pages
+``` YAML
+-
+  name: "RedLightCurrentState"
+  isHidden: false
+  description: "red light current state"
+  attributes:
+    { oid: "1.3.6.1.4.1.20440.4.1.5.1.2.1.4.1", community: "private" }  
+  properties:
+    valueType:  "Int32"
+    readWrite: "R"
+    defaultValue: "1"
+```
 
-Do you know the IP address of the E2210?
+Below is the device resource definitions for the `Red` light control state and timer.  Again, unique OIDs are provided as attributes for each property.
 
-Do you know what port number of the E2210 is using?
+``` YAML
+-
+  name: "RedLightControlState"
+  isHidden: true
+  description: "red light state"
+  attributes:
+    { oid: "1.3.6.1.4.1.20440.4.1.5.1.2.1.2.1", community: "private" }  
+  properties:
+    valueType:  "Int32"
+    readWrite: "W"
+    defaultValue: "1"
+-
+  name: "RedLightTimer"
+  isHidden: true
+  description: "red light timer"
+  attributes:
+    { oid: "1.3.6.1.4.1.20440.4.1.5.1.2.1.3.1", community: "private" }  
+  properties:
+    valueType:  "Int32"
+    readWrite: "W"
+    defaultValue: "1"
+```
 
-Does the E2210 power on?
+In order to set the `Red` light on, one would need to send an SNMP request to set OID `1.3.6.1.4.1.20440.4.1.5.1.2.1.2.1` to a value of 2 (on state) along with a number of seconds delay to the time at OID `1.3.6.1.4.1.20440.4.1.5.1.2.1.3.1`.  Sending a zero value (0) to the timer would say you want to turn the light on immediately.
 
-With a separate utility, can you read(from)/write(to) the E2210?
+Because setting a light or buzzer requires both of the control state and timer OIDs to be set together (simultaneously), the device profile contains `deviceCommands` to set the light and timer device resources (and therefore their SNMP property OIDs) in a single operation.  Here is the device command to set the `Red` light.
 
-**Creating the Modbus yaml file**
+``` YAML
+-
+  name: "RedLight"
+  readWrite: "W"
+  isHidden: false
+  resourceOperations:
+  - { deviceResource: "RedLightControlState" }
+  - { deviceResource: "RedLightTimer" }
+```
 
-An example SNMP device yaml file can be found here: [SNMP device
-yaml](https://github.com/edgexfoundry/device-snmp/blob/master/src/main/resources/patlite.NHL-FBL.profile.yaml).
+You will need to upload this profile into core metadata.  Download the [Patlite device profile](patlite-snmp.yml) to a convenient directory.  Then, using the following `curl` command, request the profile be uploaded into core metadata.
 
-The SNMP device yaml file used in this example can be found here: [this
-example SNMP device
-yaml](https://github.com/chadbyoung/edgexfoundry-snmp-profiles/blob/master/moxa.e2210.profile.yaml).
+``` Shell
+curl -X 'POST' 'http://localhost:59881/api/v2/deviceprofile/uploadfile' --form 'file=@"/home/yourfilelocationhere/patlite-snmp.yml"'
+```
 
-When you are creating your yaml file you will need to know what command
-options are available to use, they can be found here:
+!!! Alert
+    Note that the curl command above assumes that core metadata is available at `localhost`.  Change `localhost` to the host address of your core metadata service.  
+    Also note that you will need to replace the `/home/yourfilelocationhere` path with the path where the profile resides.
 
-<https://github.com/edgexfoundry/core-domain/blob/master/src/main/java/org/edgexfoundry/domain/meta/PropertyValue.java>
 
-With your favorite file editor, open the file
+### Add the Patlite Device
 
-Modify the following fields
+With the Patlite device profile now in metadata, you can add the Patlite device in metadata.  When adding the device, you typically need to provide the name, description, labels and admin/op states of the device when creating it.  You will also need to associate the device to a device service (in this case the `device-snmp` device service).  You will ned to associate the new device to a profile - the patlite profile just added in the step above.  And you will need to provide the protocol information (such as the address and port of the device) to tell the device service where it can find the physical device.  If you wish the device service to automatically get readings from the device, you will also need to provide [AutoEvent](../design/legacy-requirements/device-service.md#autoevents) properties when creating the device.
 
--   name \<\-- A/a \~Z/z and 0 \~ 9 && this will be needed in the future
--   manufacturer \<\-- A/a \~Z/z and 0 \~ 9
--   model \<\-- A/a \~Z/z and 0 \~ 9
--   description \<\-- A/a \~Z/z and 0 \~ 9
--   labels \<\-- A/a \~Z/z and 0 \~ 9
+The curl command to POST the new Patlite device (named `patlite1`) into metadata is provide below.  You will need to change the protocol `Address` (currently `10.0.0.14`) and `Port` (currently `161`) to point to your Patlite on your network.  In this request to add a new device, AutoEvents are setup to collect the current state of the 3 lights and buzzer every 10 seconds. Notice the reference to the current state device resources in setting up the AutoEvents.
 
-deviceResources
 
--   name: \<\-- A/a \~Z/z and 0 \~ 9
--   description: \<\-- A/a \~Z/z and 0 \~ 9
--   attributes: only edit the text inside the parenthesis
--   value: only edit the text inside the parenthesis
--   units: only edit the text inside the parenthesis
+``` Shell
+curl -X 'POST' 'http://localhost:59881/api/v2/device' -d '[{"apiVersion": "v2", "device": {"name": "patlite1","description": "patlite #1","adminState": "UNLOCKED","operatingState": "UP","labels": ["patlite"],"serviceName": "device-snmp","profileName": "patlite-snmp-profile","protocols": {"TCP": {"Address": "10.0.0.14","Port": "161"}}, "AutoEvents":[{"Interval":"10s","OnChange":true,"SourceName":"RedLightCurrentState"}, {"Interval":"10s","OnChange":true,"SourceName":"GreenLightCurrentState"}, {"Interval":"10s","OnChange":true,"SourceName":"AmberLightCurrentState"}, {"Interval":"10s","OnChange":true,"SourceName":"BuzzerCurrentState"}]}}]'
+```
 
-resources
+!!! Info
+    Rather than making a REST API call into metadata to add the device, you could alternately provide device configuration files that define the device.  These device configuration files would then have to be provided to the service when it starts up.  Since you did not create a new Docker image containing the device configuration and just used the existing SNMP device service Docker image, it was easier to make simple API calls to add the profile and device.  However, this would mean the profile and device would need to be added each time metadata's database is cleaned out and reset.
 
--   name: \<\-- A/a \~Z/z and 0 \~ 9
--   get : only edit the text inside the parenthesis
--   set: only edit the text inside the parenthesis
 
-commands
+## Test
 
--   name: \<\-- A/a \~Z/z and 0 \~ 9
--   path: "/api/v1/device/{deviceId}/OnlyEditThisWord" \<\-- A/a \~Z/z
-    and 0 \~ 9
--   Code "200"
-    -   expectedvalues: \[make same as OnlyEditThisWord\]
--   Code "500"
-    -   Do not edit this section
+If the device service is up and running and the profile and device have been added correctly, you should now be able to interact with the Patlite via the core command service (and SNMP under the covers via the SNMP device service).
 
-**Bringing up EdgeX via Docker**
+### Get the Current State
 
-Starting with following system configuration:
+To get the current state of a light (in the example below the `Green` light), make a curl request like the following of the command service.
 
--   A fresh installation of Ubuntu Desktop 16.04 with all the available
-    system updates.
--   A working directory \> /home/tester/Development/edgex
+``` Shell
+curl 'http://localhost:59882/api/v2/device/name/patlite1/GreenLightCurrentState' | json_pp
+```
 
-**Verify your Docker installation**
+!!! Alert
+    Note that the curl command above assumes that the core command service is available at `localhost`.  Change the host address of your core command service if it is not available at `localhost`.  
 
-Verify that Docker is installed and working as expected.
+The results should look something like that below.
 
-\>\$ sudo docker run hello-world
+``` JSON
+{
+   "statusCode" : 200,
+   "apiVersion" : "v2",
+   "event" : {
+      "origin" : 1632188382048586660,
+      "deviceName" : "patlite1",
+      "sourceName" : "GreenLightCurrentState",
+      "id" : "1e2a7ba1-c273-46d1-b919-207aafbc60ba",
+      "profileName" : "patlite-snmp-profile",
+      "apiVersion" : "v2",
+      "readings" : [
+         {
+            "origin" : 1632188382048586660,
+            "resourceName" : "GreenLightCurrentState",
+            "deviceName" : "patlite1",
+            "id" : "a41ac1cf-703b-4572-bdef-8487e9a7100e",
+            "valueType" : "Int32",
+            "value" : "1",
+            "profileName" : "patlite-snmp-profile"
+         }
+      ]
+   }
+}
+```
 
-Verify that the image is on the system
+!!! Info
 
-\>\$ sudo docker ps -a
+    Note the `value` will be one of 4 numbers indicating the current state of the light
 
-**Download docker-compose file**
+    | Value | Description |
+    |-------|-------------|
+    | 1 | Off |
+    | 2 | On - solid and not flashing |
+    | 3 | Flashing on |
+    | 4 | Flashing quickly on |
 
--   Download the barcelona-docker-compose.yaml file from the EdgeX Wiki
--   Go to "<https://wiki.edgexfoundry.org/display/FA/Barcelona>"
--   Scroll to the bottom a look for the "barcelona-docker-compose.yml"
-    file. Once downloaded, rename the file to "docker-compose.yml"
--   Once the file is download, move the file into your desired working
-    directory.
--   Create a copy of the file and rename the copy "docker-compose.yml"
+### Set a light or buzzer on
 
-**Verify the version of dockerized EdgeX that you will be running**
+To turn a signal tower light or the buzzer on, you can issue a PUT device command via the core command service.  The example below turns on the `Green` light.
 
--   With your favorite file editor, open the docker-compose.yml file
--   Within the first couple of lines you will see the word "Version",
-    next to that you will see a number - it should be "2".
--   Version 2 refers to the Barcelona release
+``` Shell
+curl --location --request PUT 'http://localhost:59882/api/v2/device/name/patlite1/GreenLight' --header 'cont: application/json' --data-raw '{"GreenLightControlState":"2","GreenLightTimer":"0"}'
+```
 
-**Enable SNMP in the Docker Compose file**
+![image](EdgeX_Patlite_Green_On.jpg)
 
-With your favorite file editor, open the docker-compose file
+This command sets the light on (solid versus flashing) immediate (as denoted by the GreenLightTimer parameter is set to 0).  The timer value is the number of seconds delay in making the request to the light or buzzer.  Again, the control state can be set to one of four values as listed in the table above. 
 
-Find the section "device-snmp" section, which will be commented out with
-"\#" symbols.
+!!! Alert
+    Again note that the curl command above assumes that the core command service is available at `localhost`.  Change the host address of your core command service if it is not available at `localhost`. 
 
-Uncomment the entire section
 
-Save your changes and exit out of the editor Starting EdgeX Docker
-components
+## Observations
 
-Start EdgeX by using the following commands
-
-|Docker Command |	Description	| Suggested Wait Time After Completing|
-| --- | --- | --- |
-|docker-compose pull |	Pull down, but don’t start, all the EdgeX Foundry microservices	Docker Compose will indicate when all the containers have |been pulled successfully
-|docker-compose up -d volume |	Start the EdgeX Foundry file volume–must be done before the other services are started	| A couple of seconds|
-|docker-compose up -d config-seed |	Start and populate the configuration/registry microservice which all services must register with and get their configuration from	| 60 seconds |
-|docker-compose up -d mongo |	Start the NoSQL MongoDB container	| 10 seconds|
-|docker-compose up -d logging |	Start the logging microservice - used by all micro services that make log entries	| 1 minute|
-|docker-compose up -d notifications |	Start the notifications and alerts microservice–used by many of the microservices	| 30 seconds|
-|docker-compose up -d metadata |	Start the Core Metadata microservice	| 1 minute|
-|docker-compose up -d data |	Start the Core Data microservice	| 1 minute|
-|docker-compose up -d command |	Start the Core Command microservice	| 1 minute|
-|docker-compose up -d scheduler |	Start the scheduler microservice -used by many of the microservices	| 1 minute|
-|docker-compose up -d export |-client	Start the Export Client registration microservice	| 1 minute|
-|docker-compose up -d export |-distro	Start the Export Distribution microservice	| 1 minute|
-|docker-compose up -d rulesengine |	Start the Rules Engine microservice	| 1 minute|
-|docker-compose up -d device |-virtual	Start the virtual device service	| 1 minute|
-|docker-compose up -d device |-snmp	Start the SNMP device service	| 1 minute|
-
-Check the containers status
-
-Run a "docker ps -a" command to confirm that all the containers have
-been downloaded and started
-
-Show containers
-
-To get a list of all the EdgeX containers, you can use "docker-compose
-config \--services"
-
-Stop Containers
-
-To stop (but not remove) all containers, issue "docker-compose stop".
-
-To stop an individual container, you can use "docker-compose stop
-\[compose-container-name\]".
-
-Start Containers
-
-To start all the containers (after a stop) issue "docker-compose
-start" to re-start
-
-To start an individual container, you can use "docker-compose start
-\[compose-container-name\]" (after that container has been stopped).
-
-Delete Containers **\* DANGER**\*
-
-To stop all the containers running and DELETE them, you can use
-"docker-compose down"
-
-**EdgeX Foundry Container Logs**
-
-To view the log of any container, use the command:
-
-"docker-compose logs -f compose-container-name"
-
-(ex. docker-compose logs -f edgex-device-snmp)
-
-At this point the Dockerized version of EdgeX is running.
-
-**Adding the Device to EdgeX**
-
-**Importing APIs**
-
-In this section you will be using the program Postman to interact with
-EdgeX. You will also need to have the file "core-metadata.yaml" (OpenAPI)
-available to load into the Postman application. The file
-"core-metadata.yaml" can be found in [Github](https://github.com/edgexfoundry/edgex-go/blob/master/openapi/v1/core-metadata.yaml),
-
-**Viewing available APIs**
-
--   Open Postman
--   Click on the Import button
--   Add the file to the import dialog box - the application will take a
-    about 30 seconds to digest the file you added.
--   A `baseURL` environment variable will need to be setup in Postman to execute the APIs.  Set this to your EdgeX instance host and port(example:  `http://localhost:48081`)
--   If a list of API commands do not show up on the left hand side of
-    the application then click on the "Collections" tab to the right of
-    the "History" tab.
-
-**Create an addressable**
-
--   In the "Collections" tab, select the option "POST /addressable
-    action
--   Open the body tab
--   Modify its contents
-    -   name: moxa-e2210-address
-    -   protocol: HTTP (needs to be in ALL CAPS)
-    -   address: 192.168.1.103 (IPV4 address)
-    -   port: 161 (port \# of snmp)
-    -   path: empty (remove all text between parentheses)
-    -   publisher, user, password, topic - do not need to be modified
--   Press the "Send" button when you are finished
--   Note the addressable id
-
-**Upload the profile**
-
--   In the "Collections" tab select the option "POST
-    /deviceprofile/uploadfile
--   Open the body tab
-    -   Under "Key", look for the drop down menu for "text". Be sure to
-        write "file" in the open box.
-    -   Under "Value" click "Choose Files", locate your profile file.
--   Press Upload
--   Press the "Send" button when you are finished
--   Note the profile id
-
-**Post the device**
-
--   In the "Collections" tab select the option "POST /device
--   Click on the "Body" tab
--   Modify its contents
-    -   There are three components that are required to be modified.
-        They are:
-        -   "Service"
-        -   "Profile"
-        -   "Addressable"
-        -   The others can be modified, however they are not required
-            for operation
-    -   name: moxa-e2210-device
-    -   description: snmp smart ethernet io
-    -   addressable:
-        -   name: moxa-e2210-address (same as used in addressable)
-        -   labels: labels: "snmp", "rtu","io" (same as used in snmp
-            device profile)
-    -   service:
-        -   name: edgex-device-snmp
-    -   profile:
-        -   name: name: moxa-iologik-e2210 (same as used in snmp device
-            profile)
--   Press the "Send" button when you are finished
--   Note the addressable id
-
-**What if a Mistake is Made**
-
--   Get device id
--   Delete device id
--   Get device profile id
--   Delete device profile id
--   Get addressable id
--   Delete addressable id
-
-**Verify Device Added**
-
-Check the edgex-device-snmp logs to see if the device was added without
-issue
-
-"sudo docker logs -f \--tail 100 edgex-device-snmp"
-
-**Verify device is sending data**
-
-In the "Collections" tab select the option "GET /device
-
-Change the port number form "48081"
-<http://localhost:48081/api/v1/device> to port number "48082"
-<http://localhost:48082/api/v1/device>
-
-Press Send
-
-You should see something similar to
-
-    {
-
-                "id": "5a1d6f8ae4b0c3936013120f",
-
-                "name": "diStatus0",
-
-                "get": {
-
-                    "url": "http://localhost:48082/api/v1/device/5a1d7134e4b0c39360131212/command/5a1d6f8ae4b0c3936013120f", <-- This
-
-                    "responses": [
-
-                        {
-
-                            "code": "200",
-
-                            "description": "Get di 0 Status.",
-
-                            "expectedValues": [
-
-                                "diStatus0"
-
-                            ]
-
-                        },
-
-                        {
-
-                            "code": "503",
-
-                            "description": "service unavailable",
-
-                            "expectedValues": []
-
-                        }
-
-                    ]
-
-                },
-
-                "put": null
-
-     },
-
-Double click on the "url" and a new tab within Postman should open,
-Press Send
-
-If all went well you should see something similar to the following:
-
-{"diStatus0":"0"}
-
-If all did not go well the you will see an error or may "{ }" then you
-will need check the information you entered. If the data/result
-displayed was as expected, go ahead and proceed to creating a scheduled
-event
-
-**Creating a Scheduled Event**
-
-This is used to regularly get & push data to another service or for
-regularly viewing data.
-
-Gathering information for the addressable
-
-Got to <http://localhost:48082/api/v1/device>
-
-Look for the id or the device that you want to schedule an event for
-
-    [
-
-       {
-
-           "name": "moxa-e2210-device",
-
-           "id": "5a280a0be4b0c39393ec7780",  <--- This
-
-           "description": "snmp smart ethernet io",
-
-           "labels": [
-
-               "snmp",
-
-               "rtu",
-
-               "io"
-
-           ],
-
-           "adminState": "unlocked",
-
-In this case the id is "5a280a0be4b0c39393ec7780"
-
-Next you want to get the "name" of the command you want to schedule an
-event for
-
-    "commands": [
-
-               {
-
-                   "id": "5a2808e6e4b0c39393ec777c",
-
-                   "name": "serverModel",
-
-                   "get": {
-
-                       "url": "http://localhost:48082/api/v1/device/5a280a0be4b0c39393ec7780/command/5a2808e6e4b0c39393ec777c",
-
-                       "responses": [
-
-                           {
-
-                               "code": "200",
-
-                               "description": "Get server model number.",
-
-                               "expectedValues": [
-
-                                   "serverModel"
-
-                               ]
-
-                           },
-
-                           {
-
-                               "code": "503",
-
-                               "description": "service unavailable",
-
-                               "expectedValues": []
-
-                           }
-
-                       ]
-
-                   },
-
-                   "put": null
-
-               },
-
-               {
-
-                   "id": "5a2808e6e4b0c39393ec777d",
-
-                   "name": "diStatus0",  <--- This
-
-                   "get": {
-
-                       "url": "http://localhost:48082/api/v1/device/5a280a0be4b0c39393ec7780/command/5a2808e6e4b0c39393ec777d",
-
-                       "responses": [
-
-                           {
-
-                               "code": "200",
-
-                               "description": "Get di 0 Status.",
-
-                               "expectedValues": [
-
-                                   "diStatus0"
-
-                               ]
-
-In this example the name is "diStatus0".
-
-**Create addressable**
-
-In this section you will need to supply a path the the item you want to
-schedule.
-
-The path outline is:
-
-/api/v1/device/{device id}/{command name}
-
-In this case, the address would be
-
-    /api/v1/device/XXXX/diStatus0
-
-    /POST addressable
-
-        “name”: ”schedule-moxa-di”
-
-        “protocol”: “HTTP”
-
-        “address”: “edgex-device-snmp”
-
-        “port”: “xxxxx”
-
-        “path”: ”/api/v1/device/{device id}/{command name}”
-
-        “method”: “GET”  *** This will need to be added ***
-
-**Create a schedule**
-
-    /POST schedule
-
-        “name”: ”interval-moxa-di0”
-
-        “start”: null (remove parenthesis and replace)
-
-        “end”: null (remove parenthesis and replace)
-
-        “frequency”: “PT5S”
-
-**Create an event that will use the schedule**
-
-    /POST scheduleevent
-
-        “name”: “device-moxa-di0”
-
-        “addressable”:{“name”:”schedule-moxa-di”}
-
-        “schedule”: ”interval-moxa-di0”
-
-        “service”: “edgex-device-snmp” *** This will need to be added ***
+Did you notice that EdgeX obfuscates almost all information about SNMP, and managed objects and OIDs?  The power of EdgeX is to abstract away protocol differences so that to a user, getting data from a device or setting properties on a device such as this Patlite signal tower is as easy as making simple REST calls into the command service.  The only place that protocol information is really seen is in the device profile (where the attributes specify the SNMP OIDs).  Of course, the device service must be coded to deal with the protocol specifics and it must know how to translate the simple command REST calls into protocol specific requests of the device.  But even device service creation is made easier with the use of the SDKs which provide much of the boilerplate code found in almost every device service regardless of the underlying device protocol.
