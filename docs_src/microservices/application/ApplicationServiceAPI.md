@@ -3,38 +3,49 @@
 The `ApplicationService` API is the central API for creating an EdgeX Application Service.
 
 !!! edgey "EdgeX 2.0"
-For EdgeX 2.0 the `ApplicationService` API and factory functions replace direct access to the `AppFunctionsSDK ` struct.
+    For EdgeX 2.0 the `ApplicationService` API and factory functions replace direct access to the `AppFunctionsSDK ` struct. 
 
 The new `ApplicationService` API is as follows:
 
 ```go
-type ApplicationService interface {
-ApplicationSettings() map[string]string
-GetAppSetting(setting string) (string, error)
-GetAppSettingStrings(setting string) ([]string, error)
-LoadCustomConfig(config UpdatableConfig, sectionName string) error
-ListenForCustomConfigChanges(configToWatch interface{}, sectionName string, changedCallback func(interface{})) error
-SetFunctionsPipeline(transforms ...AppFunction) error
-LoadConfigurablePipeline() ([]AppFunction, error)
-MakeItRun() error
-MakeItStop()
-GetSecret(path string, keys ...string) (map[string]string, error)
-StoreSecret(path string, secretData map[string]string) error
-LoggingClient() logger.LoggingClient
-EventClient() interfaces.EventClient
-CommandClient() interfaces.CommandClient
-NotificationClient() interfaces.NotificationClient
-SubscriptionClient() interfaces.SubscriptionClient
-DeviceServiceClient() interfaces.DeviceServiceClient
-DeviceProfileClient() interfaces.DeviceProfileClient
-DeviceClient() interfaces.DeviceClient
-RegistryClient() registry.Client
-AddBackgroundPublisher(capacity int) (BackgroundPublisher, error)
-AddBackgroundPublisherWithTopic(capacity int, topic string) (BackgroundPublisher, error)
-BuildContext(correlationId string, contentType string) AppFunctionContext
-AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error
-RegisterCustomTriggerFactory(name string, factory func(TriggerConfig) (Trigger, error)) error
+type AppFunction = func(appCxt AppFunctionContext, data interface{}) (bool, interface{})
 
+type FunctionPipeline struct {
+	Id         string
+	Transforms []AppFunction
+	Topic      string
+	Hash       string
+}
+
+type ApplicationService interface {
+	ApplicationSettings() map[string]string
+	GetAppSetting(setting string) (string, error)
+	GetAppSettingStrings(setting string) ([]string, error)
+	LoadCustomConfig(config UpdatableConfig, sectionName string) error
+	ListenForCustomConfigChanges(configToWatch interface{}, sectionName string, changedCallback func(interface{})) error
+	SetFunctionsPipeline(transforms ...AppFunction) error *** DEPRECATED ***
+    SetDefaultFunctionsPipeline(transforms ...AppFunction) error
+	AddFunctionsPipelineByTopics(id string, topics []string, transforms ...AppFunction) error
+	LoadConfigurablePipeline() ([]AppFunction, error) *** DEPRECATED by LoadConfigurableFunctionPipelines ***
+	LoadConfigurableFunctionPipelines() (map[string]FunctionPipeline, error)
+	MakeItRun() error
+	MakeItStop()
+	GetSecret(path string, keys ...string) (map[string]string, error)
+	StoreSecret(path string, secretData map[string]string) error 
+	LoggingClient() logger.LoggingClient
+	EventClient() interfaces.EventClient
+	CommandClient() interfaces.CommandClient
+	NotificationClient() interfaces.NotificationClient
+	SubscriptionClient() interfaces.SubscriptionClient
+	DeviceServiceClient() interfaces.DeviceServiceClient
+	DeviceProfileClient() interfaces.DeviceProfileClient
+	DeviceClient() interfaces.DeviceClient
+	RegistryClient() registry.Client
+	AddBackgroundPublisher(capacity int) (BackgroundPublisher, error)
+	AddBackgroundPublisherWithTopic(capacity int, topic string) (BackgroundPublisher, error)
+	BuildContext(correlationId string, contentType string) AppFunctionContext
+	AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error
+	RegisterCustomTriggerFactory(name string, factory func(TriggerConfig) (Trigger, error)) error
 }
 ```
 
@@ -51,13 +62,13 @@ This factory function returns an `interfaces.ApplicationService` using the defau
 !!! example "Example - NewAppService"
 
     ```go
-    	const serviceKey = "app-myservice"
-    	...
+    const serviceKey = "app-myservice"
+    ...
     
-    	service, ok := pkg.NewAppService(serviceKey)
-    	if !ok {
-    		os.Exit(-1)
-    	}
+    service, ok := pkg.NewAppService(serviceKey)
+    if !ok {
+        os.Exit(-1)
+    }
     ```
 
 ### NewAppServiceWithTargetType
@@ -69,14 +80,14 @@ This factory function returns an `interfaces.ApplicationService` using the passe
 See the [Target Type](../AdvancedTopics/#target-type) advanced topic for more details.
 
 !!! example "Example - NewAppServiceWithTargetType"
-``` go
-const serviceKey = "app-myservice"
-...
-
-    	service, ok := pkg.NewAppServiceWithTargetType(serviceKey, &[]byte{})
-    	if !ok {
-    		os.Exit(-1)
-    	}
+    ``` go
+    const serviceKey = "app-myservice"
+    ...
+    
+    service, ok := pkg.NewAppServiceWithTargetType(serviceKey, &[]byte{})
+    if !ok {
+        os.Exit(-1)
+    }
     ```
 
 ## Custom Configuration APIs
@@ -107,7 +118,7 @@ This API returns the complete key/value map of custom settings
 `GetAppSetting(setting string) (string, error)`
 
 This API is a convenience API that returns a single setting from the `[ApplicationSetting]`
-section of the service configuration. An error is returned if the specified setting is not found.
+ section of the service configuration. An error is returned if the specified setting is not found.
 
 !!! example "Example - GetAppSetting"
 
@@ -196,7 +207,7 @@ This API loads the service's Structured Custom Configuration from local file or 
     }
     ```
 
-See the [App Service Template](https://github.com/edgexfoundry/app-functions-sdk-go/blob/v2.0.0/app-service-template/main.go#L74-L98) for a complete example of using Structured Custom Configuration
+See the [App Service Template](https://github.com/edgexfoundry/app-functions-sdk-go/blob/v2.0.0/app-service-template/main.go#L74-L98) for a complete example of using Structured Custom Configuration 
 
 ### ListenForCustomConfigChanges
 
@@ -221,7 +232,7 @@ This API starts a listener on the Configuration Provider for changes to the spec
     
     err := service.ListenForCustomConfigChanges(&serviceConfig.AppCustom, "AppCustom", ProcessConfigUpdates)
     if err != nil {
-    	app.lc.Errorf("unable to watch custom writable configuration: %s", err.Error())
+    	logger.Errorf("unable to watch custom writable configuration: %s", err.Error())
     }
     
     ...
@@ -237,69 +248,136 @@ This API starts a listener on the Configuration Provider for changes to the spec
     	app.serviceConfig.AppCustom = *updated
     
     	if reflect.DeepEqual(previous, updated) {
-    		app.lc.Info("No changes detected")
+    		logger.Info("No changes detected")
     		return
     	}
     
     	if previous.SomeValue != updated.SomeValue {
-    		app.lc.Infof("AppCustom.SomeValue changed to: %d", updated.SomeValue)
+    		logger.Infof("AppCustom.SomeValue changed to: %d", updated.SomeValue)
     	}
     	if previous.ResourceNames != updated.ResourceNames {
-    		app.lc.Infof("AppCustom.ResourceNames changed to: %s", updated.ResourceNames)
+    		logger.Infof("AppCustom.ResourceNames changed to: %s", updated.ResourceNames)
     	}
     	if !reflect.DeepEqual(previous.SomeService, updated.SomeService) {
-    		app.lc.Infof("AppCustom.SomeService changed to: %v", updated.SomeService)
+    		logger.Infof("AppCustom.SomeService changed to: %v", updated.SomeService)
     	}
     }
     
     ```
 
-See the [App Service Template](https://github.com/edgexfoundry/app-functions-sdk-go/blob/v2.0.0/app-service-template/main.go#L74-L98) for a complete example of using Structured Custom Configuration
+See the [App Service Template](https://github.com/edgexfoundry/app-functions-sdk-go/blob/v2.0.0/app-service-template/main.go#L74-L98) for a complete example of using Structured Custom Configuration 
 
 ## Function Pipeline APIs
 
 The following `ApplicationService` APIs allow your service to set the Functions Pipeline and start and stop the Functions Pipeline.
 
+### AppFunction
+
+`type AppFunction = func(appCxt AppFunctionContext, data interface{}) (bool, interface{})`
+
+This type defines the signature that all pipeline functions must implement.
+
+### FunctionPipeline
+
+This type defines the struct that contains the metadata for a functions pipeline instance.
+
+```go
+type FunctionPipeline struct {
+	Id         string
+	Transforms []AppFunction
+	Topic      string
+	Hash       string
+}
+```
+
 ### SetFunctionsPipeline
 
 `SetFunctionsPipeline(transforms ...AppFunction) error`
 
-This API sets up the functions pipeline with the specified list of Application Functions. Note that the functions are executed in the order provided in the list.  An error is returned if the list is empty.
+This API has been deprecated (Replaced by SetDefaultFunctionsPipeline) and will be removed in a future release. Functions the same as SetDefaultFunctionsPipeline.
 
-!!! example "Example - SetFunctionsPipeline"
-```go
-sample := functions.NewSample()
-err = service.SetFunctionsPipeline(
-transforms.NewFilterFor(deviceNames).FilterByDeviceName,
-sample.LogEventDetails,
-sample.ConvertEventToXML,
-sample.OutputXML)
-if err != nil {
-app.lc.Errorf("SetFunctionsPipeline returned error: %s", err.Error())
-return -1
-}
-```
+### SetDefaultFunctionsPipeline
+
+`SetDefaultFunctionsPipeline(transforms ...AppFunction) error`
+
+This API sets the default functions pipeline with the specified list of Application Functions.  This pipeline is executed for all messages received from the configured trigger. Note that the functions are executed in the order provided in the list.  An error is returned if the list is empty.
+
+!!! example "Example - SetDefaultFunctionsPipeline"
+    ```go
+    sample := functions.NewSample()
+    err = service.SetDefaultFunctionsPipeline(
+        transforms.NewFilterFor(deviceNames).FilterByDeviceName,
+        sample.LogEventDetails,
+        sample.ConvertEventToXML,
+        sample.OutputXML)
+    if err != nil {
+        app.lc.Errorf("SetDefaultFunctionsPipeline returned error: %s", err.Error())
+        return -1
+    }
+    ```
+
+### AddFunctionsPipelineForTopics
+
+`AddFunctionsPipelineForTopics(id string, topics []string, transforms ...AppFunction) error`
+
+This API adds a functions pipeline with the specified unique ID and list of functions (transforms) to be executed when the received topic matches one of the specified pipeline topics. See the [Pipeline Per Topic](../AdvancedTopics/#pipeline-per-topic) section for more details.
+
+!!! example "Example - AddFunctionsPipelineForTopics"
+    ```go
+    sample := functions.NewSample()
+    err = service.AddFunctionsPipelineForTopic("Floats-Pipeline", 
+                                               []string{"edgex/events/#/#/Random-Float-Device/#"},
+                                               transforms.NewFilterFor(deviceNames).FilterByDeviceName,
+                                               sample.LogEventDetails,
+                                               sample.ConvertEventToXML,
+                                               sample.OutputXML)
+    if err != nil {
+        ...
+        return -1
+    }
+    ```
 
 ### LoadConfigurablePipeline
 
 `LoadConfigurablePipeline() ([]AppFunction, error)`
 
-This API loads the function pipeline from configuration.  An error is returned if the configuration is not valid, i.e. missing required function parameters, invalid function name, etc.
+This API loads the default function pipeline from configuration.  An error is returned if the configuration is not valid, i.e. missing required function parameters, invalid function name, etc.  
+
+!!! warning
+    This API is `Deprecated`, has been replaced by `LoadConfigurableFunctionPipelines` below and will be removed in a future release.
+
+### LoadConfigurableFunctionPipelines
+
+`LoadConfigurableFunctionPipelines() (map[string]FunctionPipeline, error)`
+
+This API loads the function pipelines (default and per topic) from configuration.  An error is returned if the configuration is not valid, i.e. missing required function parameters, invalid function name, etc.
 
 !!! note
-This API is useful only if the Functions Pipeline is always defined in configuration as is with App Service Configurable.
+    This API is only useful if pipeline is always defined in configuration as is with App Service Configurable.
 
-!!! example "Example - LoadConfigurablePipeline"
-```go
-transforms, err := service.LoadConfigurablePipeline()
-if err != nil {
-lc.Errorf("failed to create function pipeline from configuration: %s", err.Error())
-os.Exit(-1)
-}
-
-    if err = service.SetFunctionsPipeline(transforms...); err != nil {
-       lc.Errorf("Unable to Set the Functions Pipeline: %s", err.Error())
-       os.Exit(-1)
+!!! example "Example - LoadConfigurableFunctionPipelines"
+    ```go
+    configuredPipelines, err := service.LoadConfigurableFunctionPipelines()
+    if err != nil {
+        ...
+        os.Exit(-1)
+    }
+    
+    ...
+    
+    for _, pipeline := range configuredPipelines {
+        switch pipeline.Id {
+        case interfaces.DefaultPipelineId:
+            if err = service.SetFunctionsPipeline(pipeline.Transforms...); err != nil {
+                ...
+                os.Exit(-1)
+            }
+        default:
+            if err = service.AddFunctionsPipelineForTopic(pipeline.Id, pipeline.Topic, pipeline.Transforms...); err != nil {
+                ...
+                os.Exit(-1)
+            }
+        }
     }
     ```
 
@@ -313,7 +391,7 @@ This API starts the configured trigger to allow the Functions Pipeline to execut
 
     ```go
     if err := service.MakeItRun(); err != nil {
-       app.lc.Errorf("MakeItRun returned error: %s", err.Error())
+       logger.Errorf("MakeItRun returned error: %s", err.Error())
        os.exit(-1)
     }
     
@@ -369,8 +447,8 @@ An error is returned if:
 - Secure secret provider is not properly initialized
 - Connection issues with Secret Store service.
 
-!!! note
-Typically Application Services only needs to retrieve secrets via the code. The `/secret` REST API is used to seed secrets into the service's SecretStore.
+!!! note 
+    Typically Application Services only needs to retrieve secrets via the code. The `/secret` REST API is used to seed secrets into the service's SecretStore.
 
 !!! example "Example - StoreSecret"
 
@@ -392,7 +470,7 @@ The following `ApplicationService` APIs allow your service access the various Ed
 
 `LoggingClient() logger.LoggingClient`
 
-This API returns the LoggingClient instance which the service uses to log messages. See the [LoggingClient interface](https://github.com/edgexfoundry/go-mod-core-contracts/blob/v2.0.0/clients/logger/logger.go#L35-L61) for more details.
+This API returns the LoggingClient instance which the service uses to log messages. See the [LoggingClient interface](https://github.com/edgexfoundry/go-mod-core-contracts/blob/v2.0.0/clients/logger/logger.go#L35-L61) for more details. 
 
 !!! example "Example - LoggingClient"
 
@@ -406,7 +484,7 @@ This API returns the LoggingClient instance which the service uses to log messag
 `RegistryClient() registry.Client`
 
 This API returns the Registry Client. Note the registry must been enabled, otherwise this will return nil.
-See the [Registry Client interface](https://github.com/edgexfoundry/go-mod-registry/blob/v2.0.0/registry/interface.go#L23-L40) for more details. Useful if service needs to add additional health checks or needs to get endpoint of another registered service.
+See the [Registry Client interface](https://github.com/edgexfoundry/go-mod-registry/blob/v2.0.0/registry/interface.go#L23-L40) for more details. Useful if service needs to add additional health checks or needs to get endpoint of another registered service. 
 
 ### EventClient
 
@@ -464,7 +542,7 @@ This API adds and returns a BackgroundPublisher which is used to publish asynchr
 
 `AddBackgroundPublisherWithTopic(capacity int, topic string) (BackgroundPublisher, error)`
 
-This API adds and returns a BackgroundPublisher which is used to publish asynchronously to the Edgex MessageBus on the specified topic. Not valid for use with the HTTP or External MQTT triggers.
+This API adds and returns a BackgroundPublisher which is used to publish asynchronously to the Edgex MessageBus on the specified topic. Not valid for use with the HTTP or External MQTT triggers. 
 
 ### BuildContext
 

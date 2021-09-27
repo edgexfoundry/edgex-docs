@@ -15,20 +15,21 @@ Once the functions have been identified, we'll go ahead and build out the config
 !!! example "Example - Writable.Pipeline"
     ```toml
     [Writable]
-      LogLevel = "DEBUG"
+    LogLevel = "DEBUG"
       [Writable.Pipeline]
         ExecutionOrder = "FilterByDeviceName, Transform, HTTPExport"
-        [Writable.Pipeline.Functions.FilterByDeviceName]
-          [Writable.Pipeline.Functions.FilterByDeviceName.Parameters]
+        [Writable.Pipeline.Functions]
+          [Writable.Pipeline.Functions.FilterByDeviceName]
+            [Writable.Pipeline.Functions.FilterByDeviceName.Parameters]
             FilterValues = "Random-Float-Device, Random-Integer-Device"
-        [Writable.Pipeline.Functions.Transform]
-          [Writable.Pipeline.Functions.Transform.Parameters]
-          Type = "xml"
-        [Writable.Pipeline.Functions.HTTPExport]
-          [Writable.Pipeline.Functions.HTTPExport.Parameters]
-          Method = "post" 
-          MimeType = "application/xml" 
-          Url = "http://my.api.net/edgexdata"
+          [Writable.Pipeline.Functions.Transform]
+            [Writable.Pipeline.Functions.Transform.Parameters]
+            Type = "xml"
+          [Writable.Pipeline.Functions.HTTPExport]
+            [Writable.Pipeline.Functions.HTTPExport.Parameters]
+            Method = "post" 
+            MimeType = "application/xml" 
+            Url = "http://my.api.net/edgexdata"
     ```
 
 The first line of note is `ExecutionOrder = "FilterByDeviceName, Transform, HTTPExport"`. This specifies the order in which to execute your functions. Each function specified here must also be placed in the `[Writeable.Pipeline.Functions]` section. 
@@ -39,6 +40,53 @@ Next, each function and its required information is listed. Each function typica
     By default, the configuration provided is set to use `EdgexMessageBus` as a trigger. This means you must have EdgeX Running with devices sending data in order to trigger the pipeline. You can also change the trigger to be HTTP. For more details on triggers, view the `Triggers`documentation located in the [Triggers](./Triggers.md) section.
 
 That's it! Now we can run/deploy this service and the functions pipeline will process the data with functions we've defined.
+
+## Pipeline Per Topics
+
+!!! edgey "EdgeX 2.1"
+    Pipeline Per Topics is new for EdgeX 2.1
+
+The above pipeline configuration in [Getting Started](#getting-started) section is the preferred way if your use case only requires a single functions pipeline. For use cases that require multiple functions pipelines in order to process the data differently based on the `profile`, `device` or `source` for the Event, there is the Pipeline Per Topics feature. This feature allows multiple pipelines to be configured in the `[Writable.Pipeline.PerTopicPipelines]`section. This section is a map of pipelines. The map key must be unique , but isn't used so can be any value. Each pipleline is defined by the following configuration settings:
+
+- Id - This is the unique ID given to each pipeline
+- Topics - Comma separated list of topics that control when the pipeline is executed. See [Pipeline Per Topics](../AdvancedTopics/#pipeline-per-topics)  for details on using wildcards in the topic.
+- ExecutionOrder - This is the list of functions, in order, that the pipeline will execute. Same as `ExecutionOrder` in the above example in the  [Getting Started](#getting-started) section
+
+!!! example "Example - Writable.Pipeline.PerTopicPipelines"
+    In this example Events from the device  `Random-Float-Device` are transformed to JSON and then HTTP exported. At the same time, Events for the source `Int8`  are transformed to XML and then HTTP exported to same endpoint. Note the custom naming for `TransformJson` and `TransformXml`. This is taking advantage of the [Multiple Instances of a Function](#multiple-instances-of-a-function) described below.
+
+    ```toml
+    [Writable]
+    LogLevel = "DEBUG"
+      [Writable.Pipeline]
+        [Writable.Pipeline.PerTopicPipelines]
+          [Writable.Pipeline.PerTopicPipelines.float]
+          Id = "float-pipeline"
+          Topics = "edgex/events/device/#/Random-Float-Device/#, edgex/events/device/#/Random-Integer-Device/#"
+          ExecutionOrder = "TransformJson, HTTPExport"
+          [Writable.Pipeline.PerTopicPipelines.int8]
+          Id = "int8-pipeline"
+          Topic = "edgex/events/device/#/#/Int8"
+          ExecutionOrder = "TransformXml, HTTPExport"  
+        [Writable.Pipeline.Functions]
+          [Writable.Pipeline.Functions.FilterByDeviceName]
+            [Writable.Pipeline.Functions.FilterByDeviceName.Parameters]
+            FilterValues = "Random-Float-Device, Random-Integer-Device"
+          [Writable.Pipeline.Functions.TransformJson]
+            [Writable.Pipeline.Functions.TransformJson.Parameters]
+            Type = "json"
+          [Writable.Pipeline.Functions.TransformXml]
+            [Writable.Pipeline.Functions.TransformXml.Parameters]
+            Type = "xml"        
+          [Writable.Pipeline.Functions.HTTPExport]
+            [Writable.Pipeline.Functions.HTTPExport.Parameters]
+            Method = "post" 
+            MimeType = "application/xml" 
+            Url = "http://my.api.net/edgexdata"
+    ```
+
+!!! note
+    The `Pipeline Per Topics` feature is targeted for EdgeX MessageBus and External MQTT triggers, but can be used with Custom or HTTP triggers. When used with the HTTP trigger the incoming topic will always be `blank`, so the pipeline's topics must contain a single topic set to the `#` wildcard so that all messages received are processed by the pipeline.
 
 ## Environment Variable Overrides For Docker
 
@@ -187,7 +235,7 @@ If along with this pipeline configuration, you also configured the `Trigger` to 
     Type="http"
     ```
 
-## Multiple Instances of Function
+## Multiple Instances of a Function
 
 !!! edgey "Edgex 2.0"
     New for EdgeX 2.0
