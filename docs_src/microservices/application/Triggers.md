@@ -271,7 +271,12 @@ This type carries a pointer to the internal edgex logger, along with three funct
 
 - `ContextBuilder` builds an `interfaces.AppFunctionContext` from a message envelope you construct.
 - `MessageProcessor` exposes a function that sends your message envelope and context built above into the edgex function pipeline.
+
+!!! note
+    The context passed in to `MessageProcessor` will be cloned for each pipeline configured to run.  If a nil context is passed a new one will be initialized from the message.
 - `ConfigLoader` exposes a function that loads your custom config struct.  By default this is done from the primary EdgeX configuration pipeline, and only loads root-level elements.
+
+
 
 If you need to override these functions it can be done in the factory function registered with the service.
 
