@@ -91,7 +91,7 @@ Do the following to use this tool to generate a custom Compose file:
 
    ```
    cd edgex-compose/
-   git checkout Ireland
+   git checkout ireland
    ```
 3. Change directories to the compose-builder folder and then use the `make gen <options>` command to generate your custom compose file. The generated Docker Compose file is named `docker-compose.yaml`.  Here are some examples:
 

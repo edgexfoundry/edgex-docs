@@ -110,31 +110,16 @@ Please refer to the general [Common Configuration documentation](../configuratio
 === "Device"
     |Property|Default Value|Description|
     |---|---|---|
-    |||properties that determine how the device service communicates with a device|
-    |DataTransform|true||
-    |InitCmd|''||
-    |InitCmdArgs|''||
-    |MaxCmdOps|128||
-    |MaxCmdValueLen|256||
-    |RemoveCmd|''||
-    |RemoveCmdArgs|''||
-    |ProfilesDir|'./res'|
-    |UpdateLastConnected|false||
-=== "DeviceList"   
-    |Property|Default Value|Description|
-    |---|---|---|
-    |||properties used in defining the static provisioning for the device service|
-    |Name|''|name of the device|
-    |Profile|''|device profile that defines the resources and commands of the device|
-    |Description|''|description of the device|
-    |Labels|['']|labels array used for searching for devices|
-=== "DeviceList/DeviceList.AutoEvents"
-    |Property|Default Value|Description|
-    |---|---|---|
-    |||properties used to define how often an event/reading is schedule for collection to send to core data from the device|
-    |Frequency|'10s'|how often should collection occur|
-    |OnChange|false|collect only when a change is detected|
-    |Resource|''|resource to collect|
+    |||Properties that determine how the device service communicates with a device|
+    |DataTransform|true|Controls whether transformations are applied to numeric readings|
+    |MaxCmdOps|128|Maximum number of resources in a device command (hence, readings in an event)|
+    |MaxCmdResultLen|256|Maximum JSON string length for command results|
+    |ProfilesDir|''|If set, directory containing profile definition files to upload to core-metadata|
+    |DevicesDir|''|If set, directory containing device definition files to upload to core-metadata|
+    |UpdateLastConnected|false|If true, update the LastConnected attribute of a device whenever it is successfully accessed|
+    |UseMessageBus|false|Controls whether events are published via MessageBus or core-data (REST)|
+    |Discovery/Enabled|true|Controls whether device discovery is enabled|
+    |Discovery/Interval|0|Interval between automatic discovery runs. Zero means do not run discovery automatically|
 
 ### Custom Configuration
 
@@ -152,7 +137,63 @@ Device services can have custom configuration in one of two ways. See the table 
 === "Custom Structured Configuration"
     For Go Device Services see [Go Custom Structured Configuration](../../../getting-started/Ch-GettingStartedSDK-Go/#custom-structured-configuration) for more details.
     
+
     For C Device Service see [C Custom Structured Configuration](../../../getting-started/Ch-GettingStartedSDK-C/#custom-structured-configuration) for more details.
+
+## Secrets
+
+!!! edgey "EdgeX 2.0"
+    New in EdgeX 2.0 the Device Services now have the capability to store and retrieve secure secrets. Note that currently this only applies to Go based Device Services. The C SDK currently does not have support for `secrets` which is planned for the Jakarta 2.1 release.
+
+#### Configuration
+
+All instances of Device Services running in secure mode require a `SecretStore` to be created for the service by the Security Services. See [Configuring Add-on Service](../../../security/Ch-Configuring-Add-On-Services) for details on configuring a `SecretStore` to be created for the Device Service. With the use of `Redis Pub/Sub` as the default EdgeX MessageBus all Device Services need the `redisdb` known secret added to their `SecretStore` so they can connect to the Secure EdgeX MessageBus. See the [Secure MessageBus](../../../security/Ch-Secure-MessageBus) documentation for more details.
+
+Each Device Service also has detailed configuration to enable connection to it's exclusive `SecretStore`
+
+!!! example "Example - SecretStore configuration for Device MQTT"
+    ```toml
+    [SecretStore]
+    Type = "vault"
+    Host = "localhost"
+    Port = 8200
+    Path = "device-mqtt/"
+    Protocol = "http"
+    RootCaCertPath = ""
+    ServerName = ""
+    TokenFile = "/tmp/edgex/secrets/device-mqtt/secrets-token.json"
+      [SecretStore.Authentication]
+      AuthType = "X-Vault-Token"
+    ```
+
+#### Storing Secrets
+
+##### Secure Mode
+
+When running an Device Service in secure mode, secrets can be stored in the SecretStore by making an HTTP `POST` call to the `/api/v2/secret` API route on the Device Service. The secret data POSTed is stored to the `SecretStore` based on values in the `[SecretStore]` section of the configuration. Once a secret is stored, only the service that added the secret will be able to retrieve it.  See the [Secret API Reference](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.0.0#/default/post_secret) for more details and example.
+
+##### Insecure Mode
+
+When running in insecure mode, the secrets are stored and retrieved from the *Writable.InsecureSecrets* section of the service's configuration.toml file. Insecure secrets and their paths can be configured as below.
+
+!!! example "Example - InsecureSecrets Configuration"
+    ```toml
+       [Writable.InsecureSecrets]    
+         [Writable.InsecureSecrets.DB]
+         path = "redisdb"
+           [Writable.InsecureSecrets.DB.Secrets]
+           username = ""
+           password = ""
+         [Writable.InsecureSecrets.MQTT]
+         path = "credentials"
+           [Writable.InsecureSecrets.MQTT.Secrets]
+           username = "mqtt-user"
+           password = "mqtt-password"
+    ```
+
+#### Retrieving Secrets
+
+Device Services retrieve secrets from their `SecretStore` using the SDK API.  See [Retrieving Secrets](../../getting-started/Ch-GettingStartedSDK-Go/#retrieving-secrets) for more details using the Go SDK. 
 
 ## API Reference
 
