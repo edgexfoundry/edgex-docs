@@ -26,9 +26,9 @@ The tables in each of the tabs below document configuration properties that are 
     |HealthCheckInterval|10s|The interval in seconds at which the service registry(Consul) will conduct a health check of this service.|
     |Host|localhost|Micro service host name|
     |Port|---|Micro service port number (specific for each service)|
-    |ServerBindAddr|'' (empty string)|The interface on which the service's REST server should listen. By default the server is to listen on the interface to which the `Host` option resolves (leaving it blank). A value of `0.0.0.0` means listen on all available interfaces.|
+    |ServerBindAddr|'' (empty string)|The interface on which the service's REST server should listen. By default the server is to listen on the interface to which the `Host` option resolves (leaving it blank). A value of `0.0.0.0` means listen on all available interfaces. App & Device service do not implement this setting|
     |StartupMsg|---|Message logged when service completes bootstrap start-up|
-    |MaxResultCount|50000|Read data limit per invocation|
+    |MaxResultCount|1024*|Read data limit per invocation. *Default value is for core/support services. Application and Device services do not implement this setting. |
     |MaxRequestSize|0|Defines the maximum size of http request body in bytes. 0 represents default to system max. Not all services actual implement this setting. Those that do not have a comment stating this fact.|
     |RequestTimeout         |5s                          | Specifies a timeout duration for handling requests |
     
