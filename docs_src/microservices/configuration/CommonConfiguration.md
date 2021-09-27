@@ -84,6 +84,8 @@ The tables in each of the tabs below document configuration properties that are 
     |ServerName | blank | Not needed for HTTP |
     |TokenFile | /tmp/edgex/secrets/`<service-key>`/secrets-token.json | Fully-qualified path to the location of the service's `SecretStore` access token. This path will differ according to the given service. |
     |SecretsFile| blank | Fully-qualified path to the location of the service's JSON secrets file  contains secrets to seed at start-up. See [Seeding Service Secrets](../../security/SeedingServiceSecrets.md) section for more details on seed a service's secrets. |
+    |DisableScrubSecretsFile| false | Controls if the secrets file is scrubbed (secret data remove) and rewritten after importing the secrets.|
+    
     |Authentication AuthType | X-Vault-Token  | A header used to indicate how the given service will authenticate with the `SecretStore` service|
     
     !!! edgey "Edgex 2.0"
