@@ -2589,20 +2589,13 @@ highlighted - yours will vary based on IDs.</p>
 </div>
 <h4 id="check-command-service-log">Check Command Service Log</h4>
 <p>Again, because no device service (or device) actually exists, core
-command will respond with a <code>Could not get a response</code> error. However,
-checking the logging output will prove that the core command micro
-service did receive the request and attempted to call on the
+command will respond with a <code>Failed to send a http request</code> error. However,
+checking the logging output will prove that the core command micro service did receive the request and attempted to call on the
 non-existent device service (at the address provided for the device service - defined earlier in this walkthrough) to issue the actuating command.  To see the core command service log issue the following Docker command :</p>
 <p><div class="highlight"><pre><span></span><code>docker logs edgex-core-command
 </code></pre></div>
 The last lines of the log entries should highlight the attempt to contact the non-existent device.</p>
-<div class="highlight"><pre><span></span><code>level=ERROR ts=2021-09-03T22:16:38.869757074Z app=core-command source=http.go:38 X-Correlation-ID=b90e8bff-9306-44d1-bf38-0035ec7b8418 msg=&quot;failed to send a http request -&gt; Put \&quot;camera-device-service:59990/api/v2/device/name/countcamera1/ScanDepth?\&quot;: unsupported protocol scheme \&quot;camera-device-service\&quot;&quot;
-2021/09/03 22:16:38 http: panic serving 172.18.0.1:37644: invalid WriteHeader code 0
-goroutine 4924 [running]:
-net/http.(*conn).serve.func1(0xc0003408c0)
-    /usr/local/go/src/net/http/server.go:1824 +0x153
-panic(0x7db240, 0xc0001ca260)
-    /usr/local/go/src/runtime/panic.go:971 +0x499
+<div class="highlight"><pre><span></span><code>level=ERROR ts=2021-09-16T20:50:09.965368572Z app=core-command source=http.go:47 X-Correlation-ID=49cc97f5-1e84-4a46-9eb5-543ae8bd5284 msg=&quot;failed to send a http request -&gt; Put \&quot;camera-device-service:59990/api/v2/device/name/countcamera1/ScanDepth?\&quot;: unsupported protocol scheme \&quot;camera-device-service\&quot;&quot;
 ...
 </code></pre></div>
 <p><a class="md-button" href="../Ch-WalkthroughProvision/">&lt;Back</a> <a class="md-button" href="../Ch-WalkthroughReading/">Next&gt;</a></p>
