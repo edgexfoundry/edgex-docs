@@ -2463,7 +2463,7 @@
 <tr>
 <td>ServerBindAddr</td>
 <td>'' (empty string)</td>
-<td>The interface on which the service's REST server should listen. By default the server is to listen on the interface to which the <code>Host</code> option resolves (leaving it blank). A value of <code>0.0.0.0</code> means listen on all available interfaces.</td>
+<td>The interface on which the service's REST server should listen. By default the server is to listen on the interface to which the <code>Host</code> option resolves (leaving it blank). A value of <code>0.0.0.0</code> means listen on all available interfaces. App &amp; Device service do not implement this setting</td>
 </tr>
 <tr>
 <td>StartupMsg</td>
@@ -2472,8 +2472,8 @@
 </tr>
 <tr>
 <td>MaxResultCount</td>
-<td>50000</td>
-<td>Read data limit per invocation</td>
+<td>1024*</td>
+<td>Read data limit per invocation. *Default value is for core/support services. Application and Device services do not implement this setting.</td>
 </tr>
 <tr>
 <td>MaxRequestSize</td>
