@@ -304,3 +304,18 @@ In summary the difference between the two commands are listed below:
     specify the access token associated with the client that was
     generated when the client was added.
 
+
+### Adjust Kong worker processes to optimize the performance
+
+The number of the Kong worker processes would impact the memory consumption and the API Gateway performance.  
+In order to reduce the memory consumption, the default value of it in EdgeX Foundry is one instead of auto (the original default value). 
+This setting is defined in the environment variable section of the docker-compose file.
+```
+KONG_NGINX_WORKER_PROCESSES: '1'
+```
+Users can adjust this value to meet their requirement, or remove this environment variable to adjust it automatically.
+Read the references for more details about this setting: 
+
+-   <https://docs.konghq.com/gateway-oss/2.5.x/configuration/#nginx_worker_processes>
+-   <http://nginx.org/en/docs/ngx_core_module.html#worker_processes>
+

@@ -30,8 +30,12 @@ In EdgeX, the camera must be represented by a `Device`. Each `Device` is
 managed by a [device service](../microservices/device/Ch-DeviceServices.md). The device service
 communicates with the underlying hardware - in this case the camera - in
 the protocol of choice for that `Device`. The device service collects the
-data from the devices it manages and passes that data into EdgeX (into
-[core data](../microservices/core/data/Ch-CoreData.md)). In this case, the device service would be collecting the
+data from the devices it manages and passes that data into the rest of EdgeX.
+
+!!! edgey "EdgeX 2.0"
+    As of the Ireland release, a device service will, by default, publish data into a message bus which can be subscribed to by core data and/or application services.  You'll learn more about these later in this walkthrough.  Alternately, a device service can send data directly to core data.
+
+In this case, the device service would be collecting the
 count of humans and dogs that the camera sees. The device service also
 serves to translate the request for actuation from EdgeX and the rest of
 the world into protocol requests that the physical device would
@@ -47,5 +51,5 @@ EdgeX and how the device service works under the covers to communicate
 with the camera Device is immaterial for the point of this
 demonstration.
 
-[<Back](Ch-WalkthroughSetup.md){: .md-button } [Next>](Ch-WalkthroughData.md){: .md-button }
+[<Back](Ch-WalkthroughSetup.md){: .md-button } [Next>](Ch-WalkthroughDeviceProfile.md){: .md-button }
 
