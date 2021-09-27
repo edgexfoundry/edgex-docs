@@ -14,7 +14,7 @@ All EdgeX services now have the capability to specify a JSON file that contains 
 
 The new `SecretsFile` setting on the `SecretStore` configuration allows the service to specify the fully-qualified path to the location of the service's secrets file. Normally this setting is left blank when a service has no secrets to be seeded.
 
-!!! example "Example - Setting SecretsFilePath in TOML"
+!!! example "Example - Setting SecretsFile in TOML"
 
     ```toml
     [SecretStore]
