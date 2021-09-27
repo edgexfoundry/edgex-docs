@@ -1623,6 +1623,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#pipelineid" class="md-nav__link">
+    PipelineId
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#inputcontenttype" class="md-nav__link">
     InputContentType()
   </a>
@@ -2798,6 +2805,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#pipelineid" class="md-nav__link">
+    PipelineId
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#inputcontenttype" class="md-nav__link">
     InputContentType()
   </a>
@@ -2882,6 +2896,7 @@
     <span class="nx">GetValue</span><span class="p">(</span><span class="nx">key</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span>
     <span class="nx">GetAllValues</span><span class="p">()</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span>
     <span class="nx">ApplyValues</span><span class="p">(</span><span class="nx">format</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+    <span class="nx">PipelineId</span><span class="p">()</span> <span class="kt">string</span>
 <span class="p">}</span>
 </code></pre></div>
 <h2 id="response-data">Response Data</h2>
@@ -2994,6 +3009,9 @@
 <h3 id="correlationid">CorrelationID()</h3>
 <p><code>CorrelationID()</code></p>
 <p>This API returns the ID used to track the EdgeX event through entire EdgeX framework.</p>
+<h3 id="pipelineid">PipelineId</h3>
+<p><code>PipelineId() string</code></p>
+<p>This API returns the ID of the pipeline currently executing. Useful when logging messages from pipeline functions so the message contain the ID of the pipeline that executed the pipeline function.</p>
 <h3 id="inputcontenttype">InputContentType()</h3>
 <p><code>InputContentType()</code></p>
 <p>This API returns the content type of the data that initiated the pipeline execution. Only useful when the TargetType for the pipeline is []byte, otherwise the data will be the type specified by TargetType.</p>

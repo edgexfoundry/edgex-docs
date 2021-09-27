@@ -2882,6 +2882,12 @@ edgex/events/device/&lt;profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;
 <ul>
 <li><code>ContextBuilder</code> builds an <code>interfaces.AppFunctionContext</code> from a message envelope you construct.</li>
 <li><code>MessageProcessor</code> exposes a function that sends your message envelope and context built above into the edgex function pipeline.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The context passed in to <code>MessageProcessor</code> will be cloned for each pipeline configured to run.  If a nil context is passed a new one will be initialized from the message.</p>
+</div>
+<ul>
 <li><code>ConfigLoader</code> exposes a function that loads your custom config struct.  By default this is done from the primary EdgeX configuration pipeline, and only loads root-level elements.</li>
 </ul>
 <p>If you need to override these functions it can be done in the factory function registered with the service.</p>
