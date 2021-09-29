@@ -803,6 +803,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../security/SeedingServiceSecrets/" title="Seeding Service Secrets" class="md-nav__link">
+      Seeding Service Secrets
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -2665,12 +2677,18 @@
 <td>Fully-qualified path to the location of the service's <code>SecretStore</code> access token. This path will differ according to the given service.</td>
 </tr>
 <tr>
-<td>Authentication AuthType</td>
-<td>X-Vault-Token</td>
-<td>A header used to indicate how the given service will authenticate with the <code>SecretStore</code> service</td>
+<td>SecretsFile</td>
+<td>blank</td>
+<td>Fully-qualified path to the location of the service's JSON secrets file  contains secrets to seed at start-up. See <a href="../../../security/SeedingServiceSecrets/">Seeding Service Secrets</a> section for more details on seed a service's secrets.</td>
+</tr>
+<tr>
+<td>DisableScrubSecretsFile</td>
+<td>false</td>
+<td>Controls if the secrets file is scrubbed (secret data remove) and rewritten after importing the secrets.</td>
 </tr>
 </tbody>
 </table>
+<p>|Authentication AuthType | X-Vault-Token  | A header used to indicate how the given service will authenticate with the <code>SecretStore</code> service|</p>
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 2.0</p>
 <p>For EdgeX 2.0 the <code>Protocol</code> default has changed to <code>HTTP</code> which no longer requires <code>RootCaCertPath</code> and <code>ServerName</code> to be set. <code>Path</code> has been reduce to the sub-path for the service since the based path is fixed. <code>TokenFile</code> default value has changed and requires the <code>service-key</code> be used in the path.</p>
