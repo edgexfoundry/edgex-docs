@@ -3,15 +3,13 @@
 ## Status
 
 ### Proposed
-- design for Ireland
-- implementation for Jakarta or later
 
 !!! Note
     This ADR initially incorporated metrics collection and control plane event processing.  The EdgeX architects felt the scope of the design was too large to cover under one ADR.  Control plane event processing will be covered under a separate ADR in the future.  For the purpose of distinction, metrics collection data and control plane events are defined below:
 
     **Metric (or telemetry) data** is defined as the count or rate of some action, resource, or circumstance in the EdgeX instance or specific service.  Examples of metrics include:
 
-    - the number of EdgeX Events sent from core data to an application service via ZeroMQ
+    - the number of EdgeX Events sent from core data to an application service
     - the number of requests on a service API
     - the average time it takes to process a message through an application service
     - The number of errors logged by a service
@@ -30,6 +28,9 @@
 ## Context
 
 [System Management services](../../../microservices/system-management/Ch_SystemManagement.md) (SMA and executors) currently provide a limited set of “metrics” to requesting clients (3rd party applications and systems external to EdgeX).  Namely, it provides requesting clients with service CPU and memory usage; both metrics about the resource utilization of the service itself versus metrics that are about what is happening inside of the service.  Arguably, the current system management metrics can be provided by the container engine and orchestration tools (example: by Docker engine) or by the underlying OS tooling.
+
+!!! Info
+    The SMA has been deprecated and will be removed in a future, yet named, release.
 
 Going forward, users of EdgeX will want to have more insights – that is more metrics telemetry – on what is happening directly in the services and the tasks that they are preforming.  In other words, users of EdgeX will want more telemetry on service activities to include:
 - sensor data collection (how much, how fast, etc.)
@@ -65,7 +66,7 @@ In general, EdgeX metrics are meant to provide external applications and systems
 
 ### Requirements
 
-- Services will push specified metrics collected for that service to a specified (by configuration) message endpoint (as supported by the EdgeX  message bus implementation - although ZeroMQ is not an option due to the fact that multiple publishers to a single topic is not allowed)
+- Services will push specified metrics collected for that service to a specified (by configuration) message endpoint (as supported by the EdgeX  message bus implementation; currently either Redis Pub/Sub or MQTT implementations are supported)
     - Each service will have configuration that specifies a message endpoint for the service metrics.  The metrics message topic communications may be secured or unsecured (just as application services provide the means to export to secured or unsecured message pipes today).
 - All services must document what metrics they offer.
 - All EdgeX services must implement a common metrics interface/contract that defines an API set about service metrics.
@@ -131,7 +132,7 @@ The following metrics apply to all (or most) services.
 
 Security metrics may be more difficult to ascertain as they are cross service metrics.  They may have to be dealt with per service.  Also, true threat detection based on metrics may be a feature best provided by 3rd party based on particular threats and security profile needs.
 
-- Number of logins and login failures per service and within a given time
+- Number of API requests denied due to wrong access token (Kong) per service and within a given time
 - Number of secrets accessed per service name
 - Count of any accesses and failures to the data persistence layer
 - Count of service start and restart attempts
@@ -187,15 +188,16 @@ type Bucket struct {
 
 #### Configuration
 - Configuration, not unlike that provided in core data or any device service, will specify what message bus locations where the metrics messages should be sent.
-- Metrics will be published to an /edgex/metrics/service-name topic where the service name will be added per service
-- Proposed configuration for each service for metric endpoints:
+- In fact, the message bus configuration will use (or reuse if the service is already using the message bus) the common message bus configuration as defined below.
+- Metrics will be published to an /edgex/metrics/[service-name] topic where the service name will be added per service
+- Common configuration for each service for message queue configuration - inclusive of metrics:
 
 ``` yaml
-[MetricsMessageQueue]
-Protocol = 'tcp'
+[MessageQueue]
+Protocol = 'redis'  ## or 'tcp'
 Host = 'localhost'
 Port = 5573
-Type = 'mqtt'
+Type = 'redis'  ## or 'mqtt'
 PublishTopicPrefix  = 'edgex/metrics' # /<service-name> will be added to this Publish Topic prefix
   [MessageQueue.Optional]
   # Default MQTT Specific options that need to be here to enable environment variable overrides of them
@@ -208,8 +210,6 @@ PublishTopicPrefix  = 'edgex/metrics' # /<service-name> will be added to this Pu
   AutoReconnect = "true"
   ConnectTimeout = "5" # Seconds
   SkipCertVerify = "false" # Only used if Cert/Key file or Cert/Key PEMblock are specified
-  ClientAuth = "none" # Valid values are: `none`, `usernamepassword` or `clientcert`
-  Secretpath = "messagebus"  # Path in secret store used if ClientAuth not `none`
 ```
 
 #### Library Support
@@ -219,9 +219,33 @@ go-mod-messaging should support the ability to put messages of any DTO and so th
 As each service would determine when and what metrics to collect and push to the message bus, this can be implemented by each service as needed.
 There may be a desire to add common functionality in support of the REST handlers for getting the list of supported metrics and for enabling/disabling the metrics collection.  This can be explored at implementation time.
 
+Use of [go-metrics](https://github.com/rcrowley/go-metrics) (a GoLang library to publish application metrics) would allow EdgeX to utilize (versus construct) a library utilized by over 7 thousand projects.  It provides the means to capture various types of metrics in a registry (a sophisticated map).  The metrics can then be published (`reported`) to a number of well known systems such as InfluxDB, Graphite, DataDog, and Syslog.  go-metrics is a Go library made from original Java package https://github.com/dropwizard/metrics.
+
+** Considerations in the use of go-metrics **
+- This is a Golang only library.  Using this library would not provide with any package to use for the C services.  If there are expectations for parity between the services, this may be more difficult to achieve given the features of go-metrics.
+- go-metrics will still require the EdgeX team to develop a bootstrapping apparatus to take the metrics configuration and register each of the metrics defined in the configuration in go-metrics.
+- go-metrics would also require the EdgeX team to develop the means to periodically extract the metrics data from the registry and ship it via message bus (something the current go-metrics library does not do).
+- While go-metrics offers the ability for data to be reported to other subsystems, it would required EdgeX to expose these capabilities (possibly through APIs) if a user wanted to export to these subsystems in addition to the message bus.
+
+** Community questions about go-metrics **
+Per the Monthly Architect's meeting of 9/20/21):
+
+- How it manages the telemetry data (persistence, in memory, database, etc.)?
+    - In memory - in a "registry"; essentially a key/value store where the key is the metric name
+- Does it offer a query API (in order to easily support the ADR suggested REST API)?
+    - Yes - metrics are stored in a "Registry" (MetricRegistry - essentially a map).  Get (or GetAll) methods provided to query for metrics
+- What does the go-metrics package do so that its features can become requirements for C side?
+    - About a dozen types of metrics collection (simple guage or counter to more sophisticated structures like Histograms) - all stored in a registry (map).
+- How is the data made available?
+    - Report out (export or publish) to various integrated packages (InfluxDB, Graphite, DataDog, Syslog, etc.).  Nothing to MQTT or other base message service.  This would have to be implemented from scratch.
+- Can the metric/telemetry count be reset if needed? Does this happen whenever it posts to the message bus?  How would this work for REST?
+    - Yes, you can unregister and re-register the metric.  A REST API would have to be constructed to call this capability.
+
+As an alternative to go-metrics, there is another library called [OpenCensus](https://opencensus.io/).  This is a multi-language metrics library, including Go and C++.  This library is more feature rich.  OpenCensus is also roughly 5x the size of the go-metrics library.
+
 #### Additional Open Questions
 
-- *Should consideration be given to allow metrics to be placed in different topics per name?  If so, we will have to add to the topic name like we do for device name in device servcies?*
+- *Should consideration be given to allow metrics to be placed in different topics per name?  If so, we will have to add to the topic name like we do for device name in device services?*
 - *Should consideration be given to incorporate alternate protocols/standards for metric collection such as https://opentelemetry.io/ or https://github.com/statsd/?*
 - *Should we provide a standard interface for the function that gets called by a schedule service (internal or external) to fetch and publish the desired metrics at the appointed time?*
     - *Do we dictate the use of the scheduler service for this or use the internal scheduler approach?*
@@ -233,12 +257,11 @@ There may be a desire to add common functionality in support of the REST handler
 ## Consequences
 
 - Should there be a *global* configuration option to turn all metrics off/on?
+    - * EdgeX doesn't yet have global config so this will have to be by service. *
 - Given the potential that each service publishes metrics to the same message topic, 0MQ is not implementation option unless each service uses a different 0MQ pipe (0MQ topics do not allow multiple publishers).  
-    - *Like the DS to App Services implementation, do we allow 0MQ to be used, but only if each service sends to a different 0MQ topic?*
+    - *Like the DS to App Services implementation, do we allow 0MQ to be used, but only if each service sends to a different 0MQ topic?  Probably not.*
 - We need to avoid service bloat.  EdgeX is not an enterprise system.  How can we implement in a concise and economical way?
-- The existing system management service (and associated executors) shall remain in place for now.  SMA reports on service CPU, memory, configuration and provides the means to start/stop/restart the services.  This is currently outside the scope of the new metric collection/monitoring.
-    - In the future, SMA could be configured to subscribe to the metric messages and provide those to clients (with REST calls in a pull vs push way).
-    - In the future, some of the SMA's functionality around CPU and memory collection as well as configuration reporting could be delegated to the service and removed from the SMA.  However, considerations for how a service collects its own CPU and memory usage in different languages, different environment (container vs native, etc) would have to considered.
+- SMA reports on service CPU, memory, configuration and provides the means to start/stop/restart the services.  This is currently outside the scope of the new metric collection/monitoring.
     - In the future, 3rd party mechanisms which offer the same capability as SMA may warrant all of SMA irrelevant.
 - The existing notifications service serves to send a notification via alternate protocol outside of EdgeX.  This communication service is provided as a generic communication instrument from any micro service and is independent of any type of data or concern.
     - In the future, the notification service could be configured to be a subscriber of the metric messages and trigger appropriate external notification (via email, SMTP, etc.).
@@ -248,3 +271,5 @@ Possible standards for implementation
 
 - [Open Telemetry](https://opentelemetry.io/)
 - [statsd](https://github.com/statsd/)
+- [go-metrics](https://github.com/rcrowley/go-metrics)
+- [OpenCensus](https://opencensus.io/)
