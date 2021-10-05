@@ -149,3 +149,28 @@ TOML   : [Clients]
 ENVVAR : CLIENTS_CORE_DATA_HOST=edgex-core-data    
 ```    
 ~~~
+
+### Notable Configuration Overrides
+
+This section describes environment variable overrides that have special utility,
+such as enabling a debug capability or facilitating code development.
+
+#### KONG_SSL_CIPHER_SUITE (edgex-kong service)
+
+This variable controls the TLS cipher suite and protocols supported by the EdgeX API Gateway as implemented by Kong.
+This variable, if unspecified, selects the `"intermediate"` cipher suite which supports
+TLSv1.2, TLSv1.3, and relatively modern TLS ciphers.
+The EdgeX framework by default overrides this value to `"modern"`,
+which currently enables only TLSv1.3 and a fixed cipher suite.
+The `"modern"` cipher suite is known to be incompatible with older web browsers,
+but since the target use of the API gateway is to support API clients, not browsers,
+this behavior was deemed acceptable by the EdgeX Security Working Group on September 8, 2021.
+
+#### TOKENFILEPROVIDER_DEFAULTTOKENTTL (security-secretstore-setup service)
+
+This variable controls the TTL of the default secretstore tokens that are created for EdgeX microservices.
+This variable defaults to `1h` (one hour) if unspecified.
+It is often useful when developing a new microservice to set this value to a higher value, such as `12h`.
+This higher value will allow the secret store token to remain valid long enough
+for a developer to get a new microservice working and into a state where it can renew its own token.
+(All secret store tokens in EdgeX expire if not renewed periodically.)
