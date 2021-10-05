@@ -1047,6 +1047,33 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#notable-configuration-overrides" class="md-nav__link">
+    Notable Configuration Overrides
+  </a>
+  
+    <nav class="md-nav" aria-label="Notable Configuration Overrides">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kong_ssl_cipher_suite-edgex-kong-service" class="md-nav__link">
+    KONG_SSL_CIPHER_SUITE (edgex-kong service)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tokenfileprovider_defaulttokenttl-security-secretstore-setup-service" class="md-nav__link">
+    TOKENFILEPROVIDER_DEFAULTTOKENTTL (security-secretstore-setup service)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2559,6 +2586,33 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#notable-configuration-overrides" class="md-nav__link">
+    Notable Configuration Overrides
+  </a>
+  
+    <nav class="md-nav" aria-label="Notable Configuration Overrides">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kong_ssl_cipher_suite-edgex-kong-service" class="md-nav__link">
+    KONG_SSL_CIPHER_SUITE (edgex-kong service)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tokenfileprovider_defaulttokenttl-security-secretstore-setup-service" class="md-nav__link">
+    TOKENFILEPROVIDER_DEFAULTTOKENTTL (security-secretstore-setup service)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2718,6 +2772,25 @@
 <span class="n">ENVVAR</span> <span class="p">:</span> <span class="n">CLIENTS_CORE_DATA_HOST</span><span class="o">=</span><span class="n">edgex-core-data</span>    
 <span class="err">```</span>    
 </code></pre></div>
+<h3 id="notable-configuration-overrides">Notable Configuration Overrides</h3>
+<p>This section describes environment variable overrides that have special utility,
+such as enabling a debug capability or facilitating code development.</p>
+<h4 id="kong_ssl_cipher_suite-edgex-kong-service">KONG_SSL_CIPHER_SUITE (edgex-kong service)</h4>
+<p>This variable controls the TLS cipher suite and protocols supported by the EdgeX API Gateway as implemented by Kong.
+This variable, if unspecified, selects the <code>"intermediate"</code> cipher suite which supports
+TLSv1.2, TLSv1.3, and relatively modern TLS ciphers.
+The EdgeX framework by default overrides this value to <code>"modern"</code>,
+which currently enables only TLSv1.3 and a fixed cipher suite.
+The <code>"modern"</code> cipher suite is known to be incompatible with older web browsers,
+but since the target use of the API gateway is to support API clients, not browsers,
+this behavior was deemed acceptable by the EdgeX Security Working Group on September 8, 2021.</p>
+<h4 id="tokenfileprovider_defaulttokenttl-security-secretstore-setup-service">TOKENFILEPROVIDER_DEFAULTTOKENTTL (security-secretstore-setup service)</h4>
+<p>This variable controls the TTL of the default secretstore tokens that are created for EdgeX microservices.
+This variable defaults to <code>1h</code> (one hour) if unspecified.
+It is often useful when developing a new microservice to set this value to a higher value, such as <code>12h</code>.
+This higher value will allow the secret store token to remain valid long enough
+for a developer to get a new microservice working and into a state where it can renew its own token.
+(All secret store tokens in EdgeX expire if not renewed periodically.)</p>
                 
               
               
