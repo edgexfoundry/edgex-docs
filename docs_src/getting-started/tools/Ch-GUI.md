@@ -262,24 +262,9 @@ When creating or editing the rule, if the stream referenced in the rule is not a
 
 ### AppService
 
-In the AppService page, you can configure existing configurable [application services](../../microservices/application/ApplicationServices.md) or add/delete application services.
+In the AppService page, you can configure existing configurable [application services](../../microservices/application/ApplicationServices.md).  The list of available configurable app services is determined by the UI automatically (based on a query for available app services from the registry service). 
 
 ![image](EdgeX_AppServiceList.png)
-
-#### Add or Delete an App Service
-
-"Adding" a new app service is about pointing the GUI to an app service that the GUI was unaware of.  If a new app service is created and added to the EdgeX instance, the GUI will not know this and must be informed of its existence.
-
-Push the `New App` button and the GUI will provide a form to specify the application service key or name (this is the name that the app service is registered with in Consul) and the port that the app service runs under.
-
-![image](EdgeX_AddAppService.png)
-
-From the App Service List, an application service can be "deleted".  In actuality, the service is not deleted, it is simply removed from the list of app services that the GUI manages.
-
-!!! Warning
-    If the app service key is incorrect, then it will not be found when the GUI tries to get its configuration and you will get an error message when trying to edit the configuration.
-
-    ![image](EdgeX_AppServiceNotFound.png)
 
 #### Configurable
 
