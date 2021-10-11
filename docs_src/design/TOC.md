@@ -19,3 +19,4 @@
 | [0017 Securing access to Consul](./adr/security/0017-consul-security.md)                       | Access control and authorization strategy for Consul    |
 | [0018 Service Registry](./adr/0018-Service-Registry.md)                                        | Service registry usage for EdgeX services               |
 | [0019 EdgeX-CLI V2](./adr/core/0019-EdgeX-CLI-V2.md)                                                | EdgeX-CLI V2 Implementation                             |
+| [0021 Device Profile Changes](./adr/device-service/0021-Profile-Changes.md)                      | Rules on changes to a Device Profile |
