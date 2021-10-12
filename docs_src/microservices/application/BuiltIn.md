@@ -391,9 +391,10 @@ There is one response data function included in the SDK that can be added to you
 
 There is one Tags transform included in the SDK that can be added to your pipeline. 
 
-| Factory Method                       | Description                                                  |
-| ------------------------------------ | ------------------------------------------------------------ |
-| NewTags(tags map[string]string) Tags | This factory function returns a `Tags` instance initialized with the passed in collection of tag key/value pairs. This `Tags` instance is used to access the following Tags function that will use the specified collection of tag key/value pairs. |
+| Factory Method                                   | Description                                                  |
+| ------------------------------------------------ | ------------------------------------------------------------ |
+| NewGenericTags(tags map[string]interface{}) Tags | This factory function returns a `Tags` instance initialized with the passed in collection of generic tag key/value pairs. This `Tags` instance is used to access the following Tags function that will use the specified collection of tag key/value pairs. This allows for generic complex complex values for the Tag values. |
+| NewTags(tags map[string]string) Tags             | This factory function returns a `Tags` instance initialized with the passed in collection of tag key/value pairs. This `Tags` instance is used to access the following Tags function that will use the specified collection of tag key/value pairs. **This factor function has been Deprecated. Use `NewGenericTags` instead**. |
 
 ### Add Tags
 
@@ -401,11 +402,15 @@ There is one Tags transform included in the SDK that can be added to your pipeli
 
 !!! example
     ``` go
-    var myTags = map[string]string{
-    	"GatewayId": "HoustonStore000123",
-    	"Latitude":  "29.630771",
-    	"Longitude": "-95.377603",
+    var myTags = map[string]interface{}{
+    	"MyValue" : 123,
+		"GatewayId": "HoustonStore000123",
+    	"Coordinates": map[string]float32 {
+    	   "Latitude": 29.630771,
+           "Longitude": "-95.377603",
+    	},
     }
-    NewTags(myTags).AddTags
+    
+    NewGenericTags(myTags).AddTags
     ```
 
