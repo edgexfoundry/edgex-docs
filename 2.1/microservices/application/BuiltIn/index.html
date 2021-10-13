@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-5.1.0">
     
     
       
@@ -3406,21 +3406,33 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 </thead>
 <tbody>
 <tr>
-<td>NewTags(tags map[string]string) Tags</td>
-<td>This factory function returns a <code>Tags</code> instance initialized with the passed in collection of tag key/value pairs. This <code>Tags</code> instance is used to access the following Tags function that will use the specified collection of tag key/value pairs.</td>
+<td>NewGenericTags(tags <code>map[string]interface{}</code>) Tags</td>
+<td>This factory function returns a <code>Tags</code> instance initialized with the passed in collection of generic tag key/value pairs. This <code>Tags</code> instance is used to access the following Tags function that will use the specified collection of tag key/value pairs. This allows for generic complex types for the Tag values.</td>
+</tr>
+<tr>
+<td>NewTags(tags <code>map[string]string</code>) Tags</td>
+<td>This factory function returns a <code>Tags</code> instance initialized with the passed in collection of tag key/value pairs. This <code>Tags</code> instance is used to access the following Tags function that will use the specified collection of tag key/value pairs. <strong>This factor function has been Deprecated. Use <code>NewGenericTags</code> instead</strong>.</td>
 </tr>
 </tbody>
 </table>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.1</p>
+<p>The Tags property on Events in Edgex 2.1 has changed from <code>map[string]string</code> to <code>map[string]interface{}</code>. The new NewGenericTags() factory function takes this new definition and replaces the deprecated NewTags() factory function. </p>
+</div>
 <h3 id="add-tags">Add Tags</h3>
 <p><code>AddTags</code> - This pipeline function receives an Edgex <code>Event</code> type and adds the collection of specified tags to the Event's <code>Tags</code> collection.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">myTags</span> <span class="p">=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">myTags</span> <span class="p">=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{</span>
+    <span class="s">&quot;MyValue&quot;</span> <span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
     <span class="s">&quot;GatewayId&quot;</span><span class="p">:</span> <span class="s">&quot;HoustonStore000123&quot;</span><span class="p">,</span>
-    <span class="s">&quot;Latitude&quot;</span><span class="p">:</span>  <span class="s">&quot;29.630771&quot;</span><span class="p">,</span>
-    <span class="s">&quot;Longitude&quot;</span><span class="p">:</span> <span class="s">&quot;-95.377603&quot;</span><span class="p">,</span>
+    <span class="s">&quot;Coordinates&quot;</span><span class="p">:</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">float32</span> <span class="p">{</span>
+       <span class="s">&quot;Latitude&quot;</span><span class="p">:</span> <span class="mf">29.630771</span><span class="p">,</span>
+       <span class="s">&quot;Longitude&quot;</span><span class="p">:</span> <span class="s">&quot;-95.377603&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
 <span class="p">}</span>
-<span class="nx">NewTags</span><span class="p">(</span><span class="nx">myTags</span><span class="p">).</span><span class="nx">AddTags</span>
+
+<span class="nx">NewGenericTags</span><span class="p">(</span><span class="nx">myTags</span><span class="p">).</span><span class="nx">AddTags</span>
 </code></pre></div>
 </div>
                 
