@@ -2,20 +2,20 @@
 
 The following table lists the EdgeX device services and protocols they support.
 
-| Device Service Repository | Protocol | Releases | Status | Comments |
-|----------------------------------------------------------------------|------------|-------------|----------|----------------|
-| [device-camera-go]( https://github.com/edgexfoundry/device-camera-go)| ONVIF | Delhi-Jakarta|Active| Not a full ONVIF implementation, but a good starter|
-| [device-rest-go]( https://github.com/edgexfoundry/device-rest-go) | REST | Edinburgh-Jakarta| Active| provides one-way communications only.  Allows posting of binary and JSON data via REST.  Events are single reading only.|
-| [device-rfid-llrp-go]( https://github.com/edgexfoundry/device-rfid-llrp-go) | LLRP | Jakarta| Active| Communications with RFID readers via LLRP |
-| [device-snmp-go]( https://github.com/edgexfoundry/device-snmp-go) | SNMP | | Edinburgh-Jakarta| Active| Basic implementation of SNMP protocol.  Async callbacks and traps not currently supported. |
-| [device-virtual-go]( https://github.com/edgexfoundry/device-virtual-go) | | Edinburgh - Jakarta|Active| Simulates sensor readings of type binary, Boolean, float, integer and unsigned integer |
-| [device-mqtt-go]( https://github.com/edgexfoundry/device-mqtt-go) | Fuji – Jakarta | Active | MQTT | Two way communications via multiple MQTT topics |
-| [device-modbus-go]( https://github.com/edgexfoundry/device-modbus-go) | Dehli – Jakarta | Active | Modbus| Supports Modbus over TCP or RTU |
-| [device-gpio]( https://github.com/edgexfoundry/device-gpio) | Hanoi – Jakarta | Active | GPIO | Linux only; uses sysfs ABI |
-| [device-grove-c]( https://github.com/edgexfoundry/device-grove-c) | Edinburg – Jakarta | Active | | Connects the Grove sensor on Grove Raspberry Pi using libmraa library; Linux only |
-| [device-bacnet-c]( https://github.com/edgexfoundry/device-bacnet-c) | Edinburg – Hanoi | Active | BACnet | Currently being updated for Ireland and Jakarta.  Supports BACnet via ethernet (IP) or serial (MSTP).  Uses the Steve Karag BACnet stack |
-| [device-coap-c]( https://github.com/edgexfoundry/device-coap-c) |Hanoi - Ireland | *Inactive* | CoAP | This service is in the process of being redeveloped and expanded for Jakarta – and will support Thread as a subset of functionality.  Currently supports CoAP-based REST and is one way communications (read-only) |
-| [device-uart]( https://github.com/edgexfoundry-holding/device-uart) | none | **in Development** | UART | Linux only; for connecting serial UART devices to EdgeX|
+| Device Service Repository | Protocol | Releases | Versions | Status | Comments |
+|---------------------------|----------|----------|----------|--------|----------|
+| [device-camera-go]( https://github.com/edgexfoundry/device-camera-go)| ONVIF | Delhi-Jakarta| 0.7 - 2.x | Active| Not a full ONVIF implementation, but a good starter|
+| [device-rest-go]( https://github.com/edgexfoundry/device-rest-go) | REST | Edinburgh-Jakarta| 1.0 - 2.x | Active| provides one-way communications only.  Allows posting of binary and JSON data via REST.  Events are single reading only.|
+| [device-rfid-llrp-go]( https://github.com/edgexfoundry/device-rfid-llrp-go) | LLRP | Hanoi | 1.3 | Active| Communications with RFID readers via LLRP.  Work ongoing to update to Ireland, 2.x |
+| [device-snmp-go]( https://github.com/edgexfoundry/device-snmp-go) | SNMP | Edinburgh-Jakarta| 1.0 and 2.x | Active| Basic implementation of SNMP protocol.  Async callbacks and traps not currently supported. |
+| [device-virtual-go]( https://github.com/edgexfoundry/device-virtual-go) | | Edinburgh - Jakarta| 1.0 and 2.x | Active| Simulates sensor readings of type binary, Boolean, float, integer and unsigned integer |
+| [device-mqtt-go]( https://github.com/edgexfoundry/device-mqtt-go) | MQTT | Fuji – Jakarta | 1.1 and 2.x | Active |  Two way communications via multiple MQTT topics |
+| [device-modbus-go]( https://github.com/edgexfoundry/device-modbus-go) | Modbus | Dehli – Jakarta | 0.7 - 2.x | Active | Supports Modbus over TCP or RTU |
+| [device-gpio]( https://github.com/edgexfoundry/device-gpio) | GPIO | Hanoi – Jakarta | 1.3 and 2.x | Active | Linux only; uses sysfs ABI |
+| [device-grove-c]( https://github.com/edgexfoundry/device-grove-c) | | Edinburg – Jakarta | 1.0 and 2.x | Active | Connects the Grove sensor on Grove Raspberry Pi using libmraa library; Linux and ARM only |
+| [device-bacnet-c]( https://github.com/edgexfoundry/device-bacnet-c) | BACnet | Edinburg – Hanoi | 1.0 and 2.x | Active | Currently being updated for Ireland and Jakarta.  Supports BACnet via ethernet (IP) or serial (MSTP).  Uses the Steve Karag BACnet stack |
+| [device-coap-c]( https://github.com/edgexfoundry/device-coap-c) | CoAP | Hanoi - Ireland | 1.3 and 2.x | *Inactive* | This service is in the process of being redeveloped and expanded for Jakarta – and will support Thread as a subset of functionality.  Currently supports CoAP-based REST and is one way communications (read-only) |
+| [device-uart]( https://github.com/edgexfoundry-holding/device-uart) | UART |  | 2.x | **in Development** | Linux only; for connecting serial UART devices to EdgeX|
 
 ## Device / Sensor List 
 The following table lists known sensors or devices that have been successfully connected to EdgeX.
