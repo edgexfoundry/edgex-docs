@@ -27,13 +27,13 @@ The table below outlines the current elements of the EdgeX device profile, and t
 | *Device Resource Properties* |||
 | Description | string | Anytime | As this property does not affect any functionality, this property can be change at any time – to include setting the string to an empty string. |
 | Name | string | Situational | When the device profile is not associated to any device, reading or event, this field can be modified.  It can never be blank and must be unique across the entire profile. |
-| IsHidden | bool | Situational | When the device profile is not associated to any device, reading or event, this field can be modified.  This field is optional but is false by default when not provided. |
+| IsHidden | bool | Anytime | This field allows the device resource to be exposed (default) via the command service.  This change does not affect the behavior but only visibility.  This field is optional but is false by default when not provided. |
 | Tag | string | Situational | As this property does not affect any functionality, this property can be change at any time – to include setting the string to an empty string. |
 | Properties | Resource Properties | Situational | When the device profile is not associated to any device, reading or event, this field can be modified.  Because the ValueType and ReadWrite properties of this field are required, it can never be empty. |
 | Attributes | map | Situational | When the device profile is not associated to any device, reading or event, this field can be modified.|
 | *Device Command Properties* ||||
 | Name | string | Situational | When the device profile is not associated to any device, reading or event, this field can be modified.  It can never be blank and must be unique across the entire profile. |
-| IsHidden | bool | Situational | When the device profile is not associated to any device, reading or event, this field can be modified.  This field is optional but is false by default when not provided.|
+| IsHidden | bool | Anytime | This field allows the device command to be exposed (default) via the command service.  This change does not affect the behavior but only visibility.  This field is optional but is false by default when not provided.|
 | ReadWrite | string | Situational | When the device profile is not associated to any device, reading or event, this field can be modified.  This field is required.  As the field is expected to be from an enumeration of R, W and RW, it can never be empty. |
 | ResourceOperations | array | Situational | When the device profile is not associated to any device, reading or event, this field can be modified.  This field is required and can never be empty. |
 
@@ -65,6 +65,13 @@ A provision watcher also has an association to a device profile.  However, the d
 A device profile cannot be deleted while it is associated to a provision watcher
 
 Change of the device profile on an event or reading is never allowed.  Events and readings are immutable.
+
+### Applicability
+
+This document dictates the rules around allowed change to device profiles (and associations).  All EdgeX services will abide by these rules (implementing appropriate checks and validation as necessary to enforce the rules) when this ADR is approved to include:
+- service APIs
+- user interfaces (like the Edge GUI)
+- client tools (like the EdgeX CLI)
 
 ## Proposed Design
 
