@@ -391,10 +391,14 @@ There is one response data function included in the SDK that can be added to you
 
 There is one Tags transform included in the SDK that can be added to your pipeline. 
 
-| Factory Method                                   | Description                                                  |
-| ------------------------------------------------ | ------------------------------------------------------------ |
-| NewGenericTags(tags map[string]interface{}) Tags | This factory function returns a `Tags` instance initialized with the passed in collection of generic tag key/value pairs. This `Tags` instance is used to access the following Tags function that will use the specified collection of tag key/value pairs. This allows for generic complex complex values for the Tag values. |
-| NewTags(tags map[string]string) Tags             | This factory function returns a `Tags` instance initialized with the passed in collection of tag key/value pairs. This `Tags` instance is used to access the following Tags function that will use the specified collection of tag key/value pairs. **This factor function has been Deprecated. Use `NewGenericTags` instead**. |
+| Factory Method                                     | Description                                                  |
+| -------------------------------------------------- | ------------------------------------------------------------ |
+| NewGenericTags(tags `map[string]interface{}`) Tags | This factory function returns a `Tags` instance initialized with the passed in collection of generic tag key/value pairs. This `Tags` instance is used to access the following Tags function that will use the specified collection of tag key/value pairs. This allows for generic complex types for the Tag values. |
+| NewTags(tags `map[string]string`) Tags             | This factory function returns a `Tags` instance initialized with the passed in collection of tag key/value pairs. This `Tags` instance is used to access the following Tags function that will use the specified collection of tag key/value pairs. **This factor function has been Deprecated. Use `NewGenericTags` instead**. |
+
+!!! edgey "EdgeX 2.1"
+      The Tags property on Events in Edgex 2.1 has changed from `map[string]string` to `map[string]interface{}`. The new NewGenericTags() factory function takes this new definition and replaces the deprecated NewTags() factory function. 
+     
 
 ### Add Tags
 
