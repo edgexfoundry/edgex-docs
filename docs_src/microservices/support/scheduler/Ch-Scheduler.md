@@ -43,38 +43,35 @@ The latest developed data model will be updated in the [Swagger API document](ht
 This diagram is drawn by [diagram.net](https://app.diagrams.net/), and the source file is [here]( EdgeX_SupportSchedulerModel.xml).
 ## Data Dictionary
 
-=== "Interval"
+=== "Intervals"
     |Property|Description|
     |---|---|
     ||An object defining a specific "period" in time|
-    |id|Uniquely identifies an interval, for example a UUID|
-    |name |the name of the given interval|
-    |start|The start time of the given interval in ISO 8601 format|
-    |end|The end time of the given interval in ISO 8601 format|
-    |interval |How often the specific resource needs to be polled. It represents as a duration string. The format of this field is to be an unsigned integer followed by a unit which may be "ns", "us" (or "µs"), "ms", "s", "m", "h" representing nanoseconds, microseconds, milliseconds, seconds, minutes or hours. Eg, "100ms", "24h"|
-=== "IntervalAction"
+    |Id|Uniquely identifies an interval, for example a UUID|
+    |Created|A timestamp indicating when the interval was created in the database|
+    |Modified|A timestamp indicating when the interval was last modified|
+    |Name |the name of the given interval - unique for the EdgeX instance|
+    |Start|The start time of the given interval in ISO 8601 format|
+    |End|The end time of the given interval in ISO 8601 format|
+    |Interval |How often the specific resource needs to be polled. It represents as a duration string. The format of this field is to be an unsigned integer followed by a unit which may be "ns", "us" (or "µs"), "ms", "s", "m", "h" representing nanoseconds, microseconds, milliseconds, seconds, minutes or hours. Eg, "100ms", "24h"|
+=== "IntervalActions"
     |Property|Description|
     |---|---|
     ||The action triggered by the service when the associated interval occurs|
-    |id|Uniquely identifies an interval action, for example a UUID|
-    |created|A timestamp indicating when the interval action was created in the database|
-    |modified|A timestamp indicating when the interval action was last modified|
-    |name |the name of the interval action|
-    |intervalName|associated interval that defines when the action occurs|
-    |adminState|interval action state - either LOCKED or UNLOCKED|
-    |address|The address shows the information indicating how to contact a specific endpoint|
-    |type|Indicates which protocol should be used. |
-    |host|The host targeted by the action when it activates|
-    |port|The port on the targeted host|
-    |httpMethod |Indicates which Http verb should be used for the REST endpoint.(Only using when type is REST|
-    |path|The HTTP path at the targeted host for fulfillment of the action.(Only using when type is REST)|
-    |Publisher|The client to publish the message. The client ID must be unique across all clients connecting to the same broker.(Only using when type is MQTT)|
-    |topic|The topic to publish to.|
-    |qos|Determines the quality of service level used to guarantee message delivery.(Only using when type is MQTT)|
-    |keepAlive|Maximum time in seconds to allow the connection to the MQTT broker to remain idle.(Only using when type is MQTT)|
-    |retained|Determines whether or not the MQTT broker retains the message last published.(Only using when type is MQTT)|
-    |autoReconnect|Reconnect to the broker when the connection failure.(Only using when type is MQTT)|
-    |connectTimeout|The time interval in seconds to allow a connect to complete.(Only using when type is MQTT)|
+    |Id|Uniquely identifies an interval action, for example a UUID|
+    |Created|A timestamp indicating when the interval action was created in the database|
+    |Modified|A timestamp indicating when the interval action was last modified|
+    |Name |the name of the interval action|
+    |Interval|associated interval that defines when the action occurs|
+    |AdminState|interval action state - either LOCKED or UNLOCKED|
+    |Protocol|Indicates which protocol should be used.  Only http is used today |
+    |Host|The host targeted by the action when it activates|
+    |Port|The port on the targeted host|
+    |Method |Indicates which Http verb should be used for the REST endpoint.(Only using when type is REST|
+    |Path|The HTTP path at the targeted host for fulfillment of the action.(Only using when type is REST)|
+    |Target|The service target which is to receive the REST call - example core-data|
+
+See [Interval](https://app.swaggerhub.com/apis/EdgeXFoundry1/support-scheduler/2.0.0#/Interval) and [IntervalAction](https://app.swaggerhub.com/apis/EdgeXFoundry1/support-scheduler/2.0.0#/IntervalAction) for more information.
 
 ## High Level Interaction Diagrams
 
