@@ -94,11 +94,15 @@ There is one Core Data function that enables interactions with the Core Data RES
 
 | Factory Method                                               | Description                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| NewCoreDataSimpleReading(profileName string, deviceName string, resourceName string, valueType string) | This factory function returns a `CoreData` instance configured to push a simple reading. The`CoreData` instance is used to access core data functions. |
-| NewCoreDataBinaryReading(profileName string, deviceName string, resourceName string, mediaType string) | This factory function returns a `CoreData` instance configured to push a binary reading. The `CoreData` instance is used to access core data functions. |
+| NewCoreDataSimpleReading(profileName string, deviceName string, resourceName string, valueType string) | This factory function returns a `CoreData` instance configured to push a `Simple` reading. The`CoreData` instance returned  is used to access core data functions. |
+| NewCoreDataBinaryReading(profileName string, deviceName string, resourceName string, mediaType string) | This factory function returns a `CoreData` instance configured to push a `Binary` reading. The `CoreData` instance returned  is used to access core data functions. |
+| NewCoreDataObejctReading(profileName string, deviceName string, resourceName string) | This factory function returns a `CoreData` instance configured to push an `Object` reading. The `CoreData` instance returned is used to access core data functions. |
 
 !!! edgey "EdgeX 2.0"
     For EdgeX 2.0 the `NewCoreData` factory function has been replaced with the `NewCoreDataSimpleReading` and `NewCoreDataBinaryReading` functions 
+
+!!! edgey "EdgeX 2.1"
+    The `NewCoreDataObejctReading`factory method is new for EdgeX 2.1
 
 ### Push to Core Data
 
