@@ -3088,17 +3088,25 @@
 <tbody>
 <tr>
 <td>NewCoreDataSimpleReading(profileName string, deviceName string, resourceName string, valueType string)</td>
-<td>This factory function returns a <code>CoreData</code> instance configured to push a simple reading. The<code>CoreData</code> instance is used to access core data functions.</td>
+<td>This factory function returns a <code>CoreData</code> instance configured to push a <code>Simple</code> reading. The<code>CoreData</code> instance returned  is used to access core data functions.</td>
 </tr>
 <tr>
 <td>NewCoreDataBinaryReading(profileName string, deviceName string, resourceName string, mediaType string)</td>
-<td>This factory function returns a <code>CoreData</code> instance configured to push a binary reading. The <code>CoreData</code> instance is used to access core data functions.</td>
+<td>This factory function returns a <code>CoreData</code> instance configured to push a <code>Binary</code> reading. The <code>CoreData</code> instance returned  is used to access core data functions.</td>
+</tr>
+<tr>
+<td>NewCoreDataObejctReading(profileName string, deviceName string, resourceName string)</td>
+<td>This factory function returns a <code>CoreData</code> instance configured to push an <code>Object</code> reading. The <code>CoreData</code> instance returned is used to access core data functions.</td>
 </tr>
 </tbody>
 </table>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
 <p>For EdgeX 2.0 the <code>NewCoreData</code> factory function has been replaced with the <code>NewCoreDataSimpleReading</code> and <code>NewCoreDataBinaryReading</code> functions </p>
+</div>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.1</p>
+<p>The <code>NewCoreDataObejctReading</code>factory method is new for EdgeX 2.1</p>
 </div>
 <h3 id="push-to-core-data">Push to Core Data</h3>
 <p><code>PushToCoreData</code> - This pipeline function provides the capability to push a new Event/Reading to Core Data. The data passed into this function from the pipeline is wrapped in an EdgeX Event with the Event and Reading metadata specified from the factory function options. The function returns the new EdgeX Event with ID populated.</p>
