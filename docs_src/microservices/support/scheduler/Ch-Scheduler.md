@@ -71,7 +71,7 @@ This diagram is drawn by [diagram.net](https://app.diagrams.net/), and the sourc
     |Path|The HTTP path at the targeted host for fulfillment of the action.(Only using when type is REST)|
     |Target|The service target which is to receive the REST call - example core-data|
 
-See [Interval](https://app.swaggerhub.com/apis/EdgeXFoundry1/support-scheduler/2.0.0#/Interval) and [IntervalAction](https://app.swaggerhub.com/apis/EdgeXFoundry1/support-scheduler/2.0.0#/IntervalAction) for more information.
+See [Interval](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-scheduler/2.1.0#/Interval) and [IntervalAction](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-scheduler/2.1.0#/IntervalAction) for more information.
 
 ## High Level Interaction Diagrams
 
