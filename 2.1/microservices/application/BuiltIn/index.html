@@ -3011,7 +3011,20 @@
 </tr>
 </tbody>
 </table>
-<p><code>Batch</code> - This pipeline function will apply the selected strategy in your pipeline.</p>
+<p><code>Batch</code> - This pipeline function will apply the selected strategy in your pipeline. By default the batched data returned by this function is <code>[][]byte</code>. This is because this function doesn't need to know the type of the individual items batched. It simply marshals the items to JSON if the data isn't already a <code>[]byte</code>.</p>
+<div class="admonition edgey">
+<p class="admonition-title">Edgex 2.1</p>
+<p>New for EdgeX 2.1 is the <code>IsEventData</code> flag on the <code>BatchConfig</code> instance. </p>
+</div>
+<p>The <code>IsEventData</code> flag, when true, lets this function know that the data being batched is <code>Events</code> and to un-marshal the data a <code>[]Event</code> prior to returning the batched data.</p>
+<div class="admonition example">
+<p class="admonition-title">Batch with IsEventData flag set to true.</p>
+<div class="highlight"><pre><span></span><code>batch := NewBatchByTimeAndCount(&quot;30s&quot;, 10)
+batch.IsEventData = true
+...
+batch.Batch
+</code></pre></div>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Keep memory usage in mind as you determine the thresholds for both time and count. The larger they are the more memory is required and could lead to performance issue. </p>
