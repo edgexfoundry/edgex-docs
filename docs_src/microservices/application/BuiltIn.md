@@ -31,7 +31,20 @@ NewBatchByTimeAndCount("30s", 10).Batch
 ```
 ### Batch
 
-`Batch` - This pipeline function will apply the selected strategy in your pipeline.
+`Batch` - This pipeline function will apply the selected strategy in your pipeline. By default the batched data returned by this function is `[][]byte`. This is because this function doesn't need to know the type of the individual items batched. It simply marshals the items to JSON if the data isn't already a ` []byte`.
+
+!!! edgey "Edgex 2.1"
+    New for EdgeX 2.1 is the `IsEventData` flag on the `BatchConfig` instance. 
+
+The `IsEventData` flag, when true, lets this function know that the data being batched is `Events` and to un-marshal the data a `[]Event` prior to returning the batched data.
+
+!!! example "Batch with IsEventData flag set to true."
+    ```
+    batch := NewBatchByTimeAndCount("30s", 10)
+    batch.IsEventData = true
+    ...
+    batch.Batch
+    ```
 
 !!! warning
     Keep memory usage in mind as you determine the thresholds for both time and count. The larger they are the more memory is required and could lead to performance issue. 
