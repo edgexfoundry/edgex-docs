@@ -1200,26 +1200,6 @@
     Data Dictionary
   </a>
   
-    <nav class="md-nav" aria-label="Data Dictionary">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#interval" class="md-nav__link">
-    Interval
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#intervalaction" class="md-nav__link">
-    IntervalAction
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -2532,26 +2512,6 @@
     Data Dictionary
   </a>
   
-    <nav class="md-nav" aria-label="Data Dictionary">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#interval" class="md-nav__link">
-    Interval
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#intervalaction" class="md-nav__link">
-    IntervalAction
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -2639,44 +2599,122 @@ in your current configured database for EdgeX.</p>
 <p><img alt="image" src="../EdgeX_SupportSchedulerModel.png" /></p>
 <p>This diagram is drawn by <a href="https://app.diagrams.net/">diagram.net</a>, and the source file is <a href="../EdgeX_SupportSchedulerModel.xml">here</a>.</p>
 <h2 id="data-dictionary">Data Dictionary</h2>
-<h3 id="interval">Interval</h3>
-<p>An object defining a specific "period" in time
-|Property|Description|
-|---|---|
-|id|Uniquely identifies an interval, for example a UUID|
-|name |the name of the given interval|
-|start|The start time of the given interval in ISO 8601 format|
-|end|The end time of the given interval in ISO 8601 format|
-|interval |How often the specific resource needs to be polled. It represents as a duration string. The format of this field is to be an unsigned integer followed by a unit which may be "ns", "us" (or "µs"), "ms", "s", "m", "h" representing nanoseconds, microseconds, milliseconds, seconds, minutes or hours. Eg, "100ms", "24h"|</p>
-<h3 id="intervalaction">IntervalAction</h3>
-<p>The action triggered by the service when the associated interval occurs
-|Property|Description|
-|---|---|
-|id|Uniquely identifies an interval action, for example a UUID|
-|created|A timestamp indicating when the interval action was created in the database|
-|modified|A timestamp indicating when the interval action was last modified|
-|name |the name of the interval action|
-|intervalName|associated interval that defines when the action occurs|
-|adminState|interval action state - either LOCKED or UNLOCKED|
-|address|The address shows the information indicating how to contact a specific endpoint|
-|type|Indicates which protocol should be used. |
-|host|The host targeted by the action when it activates|
-|port|The port on the targeted host|
-|httpMethod |Indicates which Http verb should be used for the REST endpoint.(Only using when type is REST|
-|path|The HTTP path at the targeted host for fulfillment of the action.(Only using when type is REST)|
-|Publisher|The client to publish the message. The client ID must be unique across all clients connecting to the same broker.(Only using when type is MQTT)|
-|topic|The topic to publish to.|
-|qos|Determines the quality of service level used to guarantee message delivery.(Only using when type is MQTT)|
-|keepAlive|Maximum time in seconds to allow the connection to the MQTT broker to remain idle.(Only using when type is MQTT)|
-|retained|Determines whether or not the MQTT broker retains the message last published.(Only using when type is MQTT)|
-|autoReconnect|Reconnect to the broker when the connection failure.(Only using when type is MQTT)|
-|connectTimeout|The time interval in seconds to allow a connect to complete.(Only using when type is MQTT)|</p>
+<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Intervals</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>An object defining a specific "period" in time</td>
+</tr>
+<tr>
+<td>Id</td>
+<td>Uniquely identifies an interval, for example a UUID</td>
+</tr>
+<tr>
+<td>Created</td>
+<td>A timestamp indicating when the interval was created in the database</td>
+</tr>
+<tr>
+<td>Modified</td>
+<td>A timestamp indicating when the interval was last modified</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>the name of the given interval - unique for the EdgeX instance</td>
+</tr>
+<tr>
+<td>Start</td>
+<td>The start time of the given interval in ISO 8601 format</td>
+</tr>
+<tr>
+<td>End</td>
+<td>The end time of the given interval in ISO 8601 format</td>
+</tr>
+<tr>
+<td>Interval</td>
+<td>How often the specific resource needs to be polled. It represents as a duration string. The format of this field is to be an unsigned integer followed by a unit which may be "ns", "us" (or "µs"), "ms", "s", "m", "h" representing nanoseconds, microseconds, milliseconds, seconds, minutes or hours. Eg, "100ms", "24h"</td>
+</tr>
+</tbody>
+</table>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">IntervalActions</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>The action triggered by the service when the associated interval occurs</td>
+</tr>
+<tr>
+<td>Id</td>
+<td>Uniquely identifies an interval action, for example a UUID</td>
+</tr>
+<tr>
+<td>Created</td>
+<td>A timestamp indicating when the interval action was created in the database</td>
+</tr>
+<tr>
+<td>Modified</td>
+<td>A timestamp indicating when the interval action was last modified</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>the name of the interval action</td>
+</tr>
+<tr>
+<td>Interval</td>
+<td>associated interval that defines when the action occurs</td>
+</tr>
+<tr>
+<td>AdminState</td>
+<td>interval action state - either LOCKED or UNLOCKED</td>
+</tr>
+<tr>
+<td>Protocol</td>
+<td>Indicates which protocol should be used.  Only http is used today</td>
+</tr>
+<tr>
+<td>Host</td>
+<td>The host targeted by the action when it activates</td>
+</tr>
+<tr>
+<td>Port</td>
+<td>The port on the targeted host</td>
+</tr>
+<tr>
+<td>Method</td>
+<td>Indicates which Http verb should be used for the REST endpoint.(Only using when type is REST</td>
+</tr>
+<tr>
+<td>Path</td>
+<td>The HTTP path at the targeted host for fulfillment of the action.(Only using when type is REST)</td>
+</tr>
+<tr>
+<td>Target</td>
+<td>The service target which is to receive the REST call - example core-data</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>See <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-scheduler/2.1.0#/Interval">Interval</a> and <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-scheduler/2.1.0#/IntervalAction">IntervalAction</a> for more information.</p>
 <h2 id="high-level-interaction-diagrams">High Level Interaction Diagrams</h2>
 <p><strong>Scheduler interval actions to expunge old and exported (pushed) records from Core Data</strong></p>
 <p><img alt="image" src="../EdgeX_CoreDataCleanUp.png" /></p>
 <h2 id="configuration-properties">Configuration Properties</h2>
 <p>Please refer to the general <a href="../../../configuration/CommonConfiguration/">Configuration documentation</a> for configuration properties common to all services. Below are only the additional settings and sections that are not common to all EdgeX Services.</p>
-<div class="tabbed-set" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">ScheduleIntervalTime</label><div class="tabbed-content">
+<div class="tabbed-set" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">ScheduleIntervalTime</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2694,7 +2732,7 @@ in your current configured database for EdgeX.</p>
 </tbody>
 </table>
 </div>
-<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Intervals/Intervals.Midnight</label><div class="tabbed-content">
+<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Intervals/Intervals.Midnight</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2727,7 +2765,7 @@ in your current configured database for EdgeX.</p>
 </tbody>
 </table>
 </div>
-<input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">IntervalActions.IntervalActions.ScrubAged</label><div class="tabbed-content">
+<input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><label for="__tabbed_2_3">IntervalActions.IntervalActions.ScrubAged</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
