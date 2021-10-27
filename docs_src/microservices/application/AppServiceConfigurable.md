@@ -271,6 +271,7 @@ Please refer to the function's detailed documentation by clicking the function n
 - `Mode`- The batch mode to use. can be 'bycount', 'bytime' or 'bytimecount'
 - `BatchThreshold` - Number of items to batch before sending batched items to the next function in the pipeline. Used with  'bycount' and 'bytimecount' modes
 - `TimeInterval` - Amount of time to batch before sending batched items to the next function in the pipeline. Used with  'bytime' and 'bytimecount' modes
+- `IsEventData` - If true, specifies that the data being batch is `Events` and to un-marshal the batched data to `[]Event` prior to returning the batched data. By default the batched data returned is `[][]byte`
 
 !!! example
     ```toml
@@ -279,10 +280,14 @@ Please refer to the function's detailed documentation by clicking the function n
           Mode = "bytimecount" # can be "bycount", "bytime" or "bytimecount"
           BatchThreshold = "30"
           TimeInterval = "60s"
+          IsEventData = "true"
     ```
 
 !!! edgey "EdgeX 2.0"
     For EdgeX 2.0 the `BatchByCount`, `BatchByTime`, and `BatchByTimeCount` configurable pipeline functions have been replaced by single `Batch` configurable pipeline function with additional `Mode` parameter.
+
+!!! edgey "EdgeX 2.1"
+    The `IsEventData` setting is new for EdgeX 2.1
 
 ### [Compress](../BuiltIn/#compression)
 

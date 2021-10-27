@@ -31,7 +31,20 @@ NewBatchByTimeAndCount("30s", 10).Batch
 ```
 ### Batch
 
-`Batch` - This pipeline function will apply the selected strategy in your pipeline.
+`Batch` - This pipeline function will apply the selected strategy in your pipeline. By default the batched data returned by this function is `[][]byte`. This is because this function doesn't need to know the type of the individual items batched. It simply marshals the items to JSON if the data isn't already a ` []byte`.
+
+!!! edgey "Edgex 2.1"
+    New for EdgeX 2.1 is the `IsEventData` flag on the `BatchConfig` instance. 
+
+The `IsEventData` flag, when true, lets this function know that the data being batched is `Events` and to un-marshal the data a `[]Event` prior to returning the batched data.
+
+!!! example "Batch with IsEventData flag set to true."
+    ```
+    batch := NewBatchByTimeAndCount("30s", 10)
+    batch.IsEventData = true
+    ...
+    batch.Batch
+    ```
 
 !!! warning
     Keep memory usage in mind as you determine the thresholds for both time and count. The larger they are the more memory is required and could lead to performance issue. 
@@ -94,11 +107,15 @@ There is one Core Data function that enables interactions with the Core Data RES
 
 | Factory Method                                               | Description                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| NewCoreDataSimpleReading(profileName string, deviceName string, resourceName string, valueType string) | This factory function returns a `CoreData` instance configured to push a simple reading. The`CoreData` instance is used to access core data functions. |
-| NewCoreDataBinaryReading(profileName string, deviceName string, resourceName string, mediaType string) | This factory function returns a `CoreData` instance configured to push a binary reading. The `CoreData` instance is used to access core data functions. |
+| NewCoreDataSimpleReading(profileName string, deviceName string, resourceName string, valueType string) | This factory function returns a `CoreData` instance configured to push a `Simple` reading. The`CoreData` instance returned  is used to access core data functions. |
+| NewCoreDataBinaryReading(profileName string, deviceName string, resourceName string, mediaType string) | This factory function returns a `CoreData` instance configured to push a `Binary` reading. The `CoreData` instance returned  is used to access core data functions. |
+| NewCoreDataObejctReading(profileName string, deviceName string, resourceName string) | This factory function returns a `CoreData` instance configured to push an `Object` reading. The `CoreData` instance returned is used to access core data functions. |
 
 !!! edgey "EdgeX 2.0"
     For EdgeX 2.0 the `NewCoreData` factory function has been replaced with the `NewCoreDataSimpleReading` and `NewCoreDataBinaryReading` functions 
+
+!!! edgey "EdgeX 2.1"
+    The `NewCoreDataObejctReading`factory method is new for EdgeX 2.1
 
 ### Push to Core Data
 
@@ -391,9 +408,14 @@ There is one response data function included in the SDK that can be added to you
 
 There is one Tags transform included in the SDK that can be added to your pipeline. 
 
-| Factory Method                       | Description                                                  |
-| ------------------------------------ | ------------------------------------------------------------ |
-| NewTags(tags map[string]string) Tags | This factory function returns a `Tags` instance initialized with the passed in collection of tag key/value pairs. This `Tags` instance is used to access the following Tags function that will use the specified collection of tag key/value pairs. |
+| Factory Method                                     | Description                                                  |
+| -------------------------------------------------- | ------------------------------------------------------------ |
+| NewGenericTags(tags `map[string]interface{}`) Tags | This factory function returns a `Tags` instance initialized with the passed in collection of generic tag key/value pairs. This `Tags` instance is used to access the following Tags function that will use the specified collection of tag key/value pairs. This allows for generic complex types for the Tag values. |
+| NewTags(tags `map[string]string`) Tags             | This factory function returns a `Tags` instance initialized with the passed in collection of tag key/value pairs. This `Tags` instance is used to access the following Tags function that will use the specified collection of tag key/value pairs. **This factor function has been Deprecated. Use `NewGenericTags` instead**. |
+
+!!! edgey "EdgeX 2.1"
+      The Tags property on Events in Edgex 2.1 has changed from `map[string]string` to `map[string]interface{}`. The new NewGenericTags() factory function takes this new definition and replaces the deprecated NewTags() factory function. 
+     
 
 ### Add Tags
 
@@ -401,11 +423,15 @@ There is one Tags transform included in the SDK that can be added to your pipeli
 
 !!! example
     ``` go
-    var myTags = map[string]string{
-    	"GatewayId": "HoustonStore000123",
-    	"Latitude":  "29.630771",
-    	"Longitude": "-95.377603",
+    var myTags = map[string]interface{}{
+    	"MyValue" : 123,
+		"GatewayId": "HoustonStore000123",
+    	"Coordinates": map[string]float32 {
+    	   "Latitude": 29.630771,
+           "Longitude": "-95.377603",
+    	},
     }
-    NewTags(myTags).AddTags
+    
+    NewGenericTags(myTags).AddTags
     ```
 
