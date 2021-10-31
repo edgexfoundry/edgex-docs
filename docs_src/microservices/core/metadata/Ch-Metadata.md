@@ -354,11 +354,10 @@ Please refer to the general [Common Configuration documentation](../../configura
 |Property|Default Value|Description|
 |---|---|---|
 |||Configuration to post device changes through the notifiction service|
-|PostDeviceChanges|true|Whether to send out notification when a device has been added, changed, or removed|
-|Slug|'device-change-'|Notification service slug to use in sending notification messages|
-|Content|'Device update: '|Start of the notification message when sending notification messages on device change|
+|PostDeviceChanges|false|Whether to send out notification when a device has been added, changed, or removed|
+|Content|'Meatadata notice: '|Start of the notification message when sending notification messages on device change|
 |Sender|'core-metadata'|Sender of any notification messages sent on device change|
-|Description|'Metadata device notice'|Message description of any notification messages sent on device change|
+|Description|'Metadata change notice'|Message description of any notification messages sent on device change|
 |Label|'metadata'|Label to put on messages for any notification messages sent on device change|
 
 
