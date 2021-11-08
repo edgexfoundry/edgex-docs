@@ -3028,13 +3028,14 @@
 <p class="admonition-title">EdgeX 2.0</p>
 <p>For EdgeX 2.0 the <code>CompressWithGZIP</code> and <code>CompressWithZLIB</code> configurable pipeline functions have been replaced by the single <code>Compress</code> configurable pipeline function with additional <code>Algorithm</code> parameter.</p>
 </div>
-<h3 id="encrypt"><a href="../BuiltIn/#encryption">Encrypt</a></h3>
+<h3 id="encrypt"><a href="../BuiltIn/#dataprotection">Encrypt</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
-<li><code>Key</code> -  (optional) Encryption key used for the encryption. Required if not using Secret Store for the encryption key data</li>
-<li><code>InitVector</code> - Initialization vector used for the encryption.</li>
-<li><code>SecretPath</code> - (optional) Path in the <code>Secret Store</code> where the encryption key is located. Required if <code>Key</code> not specified.</li>
-<li><code>SecretName</code> - (optional) Name of the secret for the encryption key in the <code>Secret Store</code>.  Required if <code>Key</code> not specified.</li>
+<li><code>Algorithm</code> - AES (deprecated) or AES256</li>
+<li><code>Key</code> -  (optional, deprecated) Encryption key used for the encryption. Required if not using Secret Store for the encryption key data</li>
+<li><code>InitVector</code> - (deprecated) Initialization vector used for the encryption.</li>
+<li><code>SecretPath</code> - (required for AES256) Path in the <code>Secret Store</code> where the encryption key is located. Required if <code>Key</code> not specified.</li>
+<li><code>SecretName</code> - (required for AES256) Name of the secret for the encryption key in the <code>Secret Store</code>.  Required if <code>Key</code> not specified.</li>
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>

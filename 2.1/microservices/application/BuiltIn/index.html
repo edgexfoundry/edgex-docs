@@ -1569,16 +1569,23 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#encryption" class="md-nav__link">
-    Encryption
+  <a href="#data-protection" class="md-nav__link">
+    Data Protection
   </a>
   
-    <nav class="md-nav" aria-label="Encryption">
+    <nav class="md-nav" aria-label="Data Protection">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#aes" class="md-nav__link">
-    AES
+  <a href="#encryption-deprecated" class="md-nav__link">
+    Encryption (Deprecated)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aesprotection" class="md-nav__link">
+    AESProtection
   </a>
   
 </li>
@@ -2756,16 +2763,23 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#encryption" class="md-nav__link">
-    Encryption
+  <a href="#data-protection" class="md-nav__link">
+    Data Protection
   </a>
   
-    <nav class="md-nav" aria-label="Encryption">
+    <nav class="md-nav" aria-label="Data Protection">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#aes" class="md-nav__link">
-    AES
+  <a href="#encryption-deprecated" class="md-nav__link">
+    Encryption (Deprecated)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aesprotection" class="md-nav__link">
+    AESProtection
   </a>
   
 </li>
@@ -3140,8 +3154,13 @@ batch.Batch
 <div class="highlight"><pre><span></span><code><span class="nx">NewCoreDataSimpleReading</span><span class="p">(</span><span class="s">&quot;my-profile&quot;</span><span class="p">,</span> <span class="s">&quot;my-device&quot;</span><span class="p">,</span> <span class="s">&quot;my-resource&quot;</span><span class="p">,</span> <span class="s">&quot;string&quot;</span><span class="p">).</span><span class="nx">PushToCoreData</span>
 </code></pre></div>
 </div>
-<h2 id="encryption">Encryption</h2>
-<p>There is one encryption transform included in the SDK that can be added to your pipeline. </p>
+<h2 id="data-protection"><a name="dataprotection"></a>Data Protection</h2>
+<p>There are two transforms included in the SDK that can be added to your pipeline for data protection. </p>
+<h3 id="encryption-deprecated">Encryption (Deprecated)</h3>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.1</p>
+<p>This is deprecated in EdgeX 2.1 - it is recommended to use the new <code>AESProtection</code> transform.  Please see <a href="#TODO">this security advisory</a> for more detail.</p>
+</div>
 <table>
 <thead>
 <tr>
@@ -3164,7 +3183,6 @@ batch.Batch
 <p class="admonition-title">EdgeX 2.0</p>
 <p>New for EdgeX 2.0 is the ability to pull the encryption key from the Secret Store. The encryption key must be seeded into the Secret Store using the <code>/api/v2/secret</code> endpoint on the running instance of the Application Service prior to the Encryption function executing. See <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/app-functions-sdk/2.0.0#/default/post_secret">App Functions SDK swagger</a> for more details on this endpoint.</p>
 </div>
-<h3 id="aes">AES</h3>
 <p><code>EncryptWithAES</code> - This pipeline function receives either a <code>string</code>, <code>[]byte</code>, or <code>json.Marshaller</code> type and encrypts it using AES encryption and returns a <code>[]byte</code> to the pipeline.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
@@ -3173,6 +3191,56 @@ batch.Batch
 <span class="nx">NewEncryptionWithSecrets</span><span class="p">(</span><span class="s">&quot;aes&quot;</span><span class="p">,</span> <span class="s">&quot;aes-key&quot;</span><span class="p">,</span> <span class="s">&quot;initializationVector&quot;</span><span class="p">).</span><span class="nx">EncryptWithAES</span><span class="p">)</span>
 </code></pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>algorithm</code> used used with app-service-configurable configuration to access this transform is <code>AES</code> </p>
+</div>
+<h3 id="aesprotection">AESProtection</h3>
+<div class="admonition edgey">
+<p class="admonition-title">Edgex 2.1</p>
+<p>This transform provides AES 256 encryption with a random initialization vector and authentication using a SHA 512 hash.  It can only be configured using secrets.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Factory Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NewAESProtection(secretPath string, secretName string)</td>
+<td>This function returns a <code>Encryption</code> instance initialized with the passed in <code>secretPath</code> and <code>secretName</code></td>
+</tr>
+</tbody>
+</table>
+<p>It requires a 64-byte key from secrets which is split in half, the first half used for encryption, the second for generating the signature.</p>
+<p><code>Encrypt</code>: This pipeline function receives either a <code>string</code>, <code>[]byte</code>, or <code>json.Marshaller</code> type and encrypts it using AES256 encryption, signs it with a SHA512 hash and returns a <code>[]byte</code> to the pipeline of the following form:</p>
+<table>
+<thead>
+<tr>
+<th>initialization vector</th>
+<th>ciphertext</th>
+<th>signing hash</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>16 bytes</td>
+<td>variable bytes</td>
+<td>32 bytes</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+</div>
+<div class="highlight"><pre><span></span><code>    <span class="nx">transforms</span><span class="p">.</span><span class="nx">NewAESProtection</span><span class="p">(</span><span class="nx">secretPath</span><span class="p">,</span> <span class="nx">secretName</span><span class="p">).</span><span class="nx">Encrypt</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+</div>
+<p>The <code>Algorithm</code> used with app-service-configurable configuration to access this transform is <code>AES256</code></p>
 <h2 id="export">Export</h2>
 <p>There are two export functions included in the SDK that can be added to your pipeline. </p>
 <h3 id="http-export">HTTP Export</h3>
