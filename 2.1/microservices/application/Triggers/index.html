@@ -2922,18 +2922,21 @@ edgex/events/device/&lt;profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;
 <div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">TriggerConfig</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Logger</span>           <span class="nx">logger</span><span class="p">.</span><span class="nx">LoggingClient</span>
     <span class="nx">ContextBuilder</span>   <span class="nx">TriggerContextBuilder</span>
+    <span class="c1">// Deprecated: use MessageReceived</span>
     <span class="nx">MessageProcessor</span> <span class="nx">TriggerMessageProcessor</span>
+    <span class="nx">MessageReceived</span>  <span class="nx">TriggerMessageHandler</span>
     <span class="nx">ConfigLoader</span>     <span class="nx">TriggerConfigLoader</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>This type carries a pointer to the internal edgex logger, along with three functions:</p>
 <ul>
 <li><code>ContextBuilder</code> builds an <code>interfaces.AppFunctionContext</code> from a message envelope you construct.</li>
-<li><code>MessageProcessor</code> exposes a function that sends your message envelope and context built above into the edgex function pipeline.</li>
+<li><code>MessageProcessor</code> (DEPRECATED) exposes a function that sends your message envelope and context built above into the default function pipeline.</li>
+<li><code>MessageReceived</code> exposes a function that sends your message envelope and context to any pipelines configured in the EdgeX service.  It also takes a function that will be run to process the response for each successful pipeline.</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The context passed in to <code>MessageProcessor</code> will be cloned for each pipeline configured to run.  If a nil context is passed a new one will be initialized from the message.</p>
+<p>The context passed in to <code>Received</code> will be cloned for each pipeline configured to run.  If a nil context is passed a new one will be initialized from the message.</p>
 </div>
 <ul>
 <li><code>ConfigLoader</code> exposes a function that loads your custom config struct.  By default this is done from the primary EdgeX configuration pipeline, and only loads root-level elements.</li>
@@ -2958,6 +2961,10 @@ edgex/events/device/&lt;profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;
     <span class="nx">msgs</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span>
 
     <span class="nx">receiveMessage</span> <span class="o">:=</span> <span class="kc">true</span>
+
+    <span class="nx">responseHandler</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">AppFunctionContext</span><span class="p">,</span> <span class="nx">pipeline</span> <span class="o">*</span><span class="nx">FunctionPipeline</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// do stuff</span>
+    <span class="p">}</span>
 
     <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
         <span class="nx">fmt</span><span class="p">.</span><span class="nx">Print</span><span class="p">(</span><span class="s">&quot;&gt; &quot;</span><span class="p">)</span>
@@ -2989,7 +2996,7 @@ edgex/events/device/&lt;profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;
 
                     <span class="nx">ctx</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">tc</span><span class="p">.</span><span class="nx">ContextBuilder</span><span class="p">(</span><span class="nx">env</span><span class="p">)</span>
 
-                    <span class="nx">err</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">tc</span><span class="p">.</span><span class="nx">MessageProcessor</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">env</span><span class="p">)</span>
+                    <span class="nx">err</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">tc</span><span class="p">.</span><span class="nx">MessageReceived</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">env</span><span class="p">,</span> <span class="nx">responseHandler</span><span class="p">)</span>
 
                     <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
                         <span class="nx">t</span><span class="p">.</span><span class="nx">tc</span><span class="p">.</span><span class="nx">Logger</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
