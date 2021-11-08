@@ -126,9 +126,15 @@ There is one Core Data function that enables interactions with the Core Data RES
     NewCoreDataSimpleReading("my-profile", "my-device", "my-resource", "string").PushToCoreData
     ```
 
-## Encryption
+## <a name="dataprotection"></a>Data Protection
 
-There is one encryption transform included in the SDK that can be added to your pipeline. 
+There are two transforms included in the SDK that can be added to your pipeline for data protection. 
+
+### Encryption (Deprecated)
+
+!!! edgey "EdgeX 2.1"
+    This is deprecated in EdgeX 2.1 - it is recommended to use the new `AESProtection` transform.  Please see [this security advisory](#TODO) for more detail.
+
 
 | Factory Method                                               | Description                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -138,8 +144,6 @@ There is one encryption transform included in the SDK that can be added to your 
 !!! edgey "EdgeX 2.0"
     New for EdgeX 2.0 is the ability to pull the encryption key from the Secret Store. The encryption key must be seeded into the Secret Store using the `/api/v2/secret` endpoint on the running instance of the Application Service prior to the Encryption function executing. See [App Functions SDK swagger](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/app-functions-sdk/2.0.0#/default/post_secret) for more details on this endpoint.
 
-### AES
-
 `EncryptWithAES` - This pipeline function receives either a `string`, `[]byte`, or `json.Marshaller` type and encrypts it using AES encryption and returns a `[]byte` to the pipeline.
 
 !!! example
@@ -148,6 +152,34 @@ There is one encryption transform included in the SDK that can be added to your 
     or
     NewEncryptionWithSecrets("aes", "aes-key", "initializationVector").EncryptWithAES)
     ```
+
+!!! note
+    The `algorithm` used used with app-service-configurable configuration to access this transform is `AES` 
+
+### AESProtection
+
+!!! edgey "Edgex 2.1"
+    This transform provides AES 256 encryption with a random initialization vector and authentication using a SHA 512 hash.  It can only be configured using secrets.
+
+| Factory Method                                               | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| NewAESProtection(secretPath string, secretName string)    | This function returns a `Encryption` instance initialized with the passed in `secretPath` and `secretName`|
+
+It requires a 64-byte key from secrets which is split in half, the first half used for encryption, the second for generating the signature.
+
+`Encrypt`: This pipeline function receives either a `string`, `[]byte`, or `json.Marshaller` type and encrypts it using AES256 encryption, signs it with a SHA512 hash and returns a `[]byte` to the pipeline of the following form:
+        
+| initialization vector | ciphertext | signing hash |
+| ---------- | ---------- | ---- |
+| 16 bytes   | variable bytes | 32 bytes |
+
+!!! example    
+```go
+    transforms.NewAESProtection(secretPath, secretName).Encrypt(ctx, data)
+```
+
+!!! note
+The `Algorithm` used with app-service-configurable configuration to access this transform is `AES256`
 
 ## Export
 

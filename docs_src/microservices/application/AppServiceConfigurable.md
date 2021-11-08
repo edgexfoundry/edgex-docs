@@ -305,13 +305,14 @@ Please refer to the function's detailed documentation by clicking the function n
 !!! edgey "EdgeX 2.0"
     For EdgeX 2.0 the `CompressWithGZIP` and `CompressWithZLIB` configurable pipeline functions have been replaced by the single `Compress` configurable pipeline function with additional `Algorithm ` parameter.
 
-### [Encrypt](../BuiltIn/#encryption)
+### [Encrypt](../BuiltIn/#dataprotection)
 **Parameters**
 
-- `Key` -  (optional) Encryption key used for the encryption. Required if not using Secret Store for the encryption key data
-- `InitVector` - Initialization vector used for the encryption.
-- `SecretPath` - (optional) Path in the `Secret Store` where the encryption key is located. Required if `Key` not specified.
-- `SecretName` - (optional) Name of the secret for the encryption key in the `Secret Store`.  Required if `Key` not specified.
+- `Algorithm` - AES (deprecated) or AES256
+- `Key` -  (optional, deprecated) Encryption key used for the encryption. Required if not using Secret Store for the encryption key data
+- `InitVector` - (deprecated) Initialization vector used for the encryption.
+- `SecretPath` - (required for AES256) Path in the `Secret Store` where the encryption key is located. Required if `Key` not specified.
+- `SecretName` - (required for AES256) Name of the secret for the encryption key in the `Secret Store`.  Required if `Key` not specified.
 
 !!! example
     ```toml
