@@ -85,11 +85,27 @@ The tables in each of the tabs below document configuration properties that are 
     |TokenFile | /tmp/edgex/secrets/`<service-key>`/secrets-token.json | Fully-qualified path to the location of the service's `SecretStore` access token. This path will differ according to the given service. |
     |SecretsFile| blank | Fully-qualified path to the location of the service's JSON secrets file  contains secrets to seed at start-up. See [Seeding Service Secrets](../../security/SeedingServiceSecrets.md) section for more details on seed a service's secrets. |
     |DisableScrubSecretsFile| false | Controls if the secrets file is scrubbed (secret data remove) and rewritten after importing the secrets.|
-    
     |Authentication AuthType | X-Vault-Token  | A header used to indicate how the given service will authenticate with the `SecretStore` service|
     
     !!! edgey "Edgex 2.0"
         For EdgeX 2.0 the `Protocol` default has changed to `HTTP` which no longer requires `RootCaCertPath` and `ServerName` to be set. `Path` has been reduce to the sub-path for the service since the based path is fixed. `TokenFile` default value has changed and requires the `service-key` be used in the path.
+        
+=== "Service.CORSConfiguration"
+
+    |Property|Default Value|Description|
+    |---|---|---|
+    |||The settings of controling CORS http headers|
+    |EnableCORS|false|Enable or disable CORS support.|
+    |CORSAllowCredentials|false|The value of `Access-Control-Allow-Credentials` http header. It appears only if the value is `true`.|
+    |CORSAllowedOrigin|"https://localhost"|The value of `Access-Control-Allow-Origin` http header.|
+    |CORSAllowedMethods|"GET, POST, PUT, PATCH, DELETE"|The value of `Access-Control-Allow-Methods` http header.|
+    |CORSAllowedHeaders|"Authorization, Accept, Accept-Language, Content-Language, Content-Type, X-Correlation-ID"|The value of `Access-Control-Allow-Headers` http header.|
+    |CORSExposeHeaders|"Cache-Control, Content-Language, Content-Length, Content-Type, Expires, Last-Modified, Pragma, X-Correlation-ID"|The value of `Access-Control-Expose-Headers` http header.|
+    |CORSMaxAge|3600|The value of `Access-Control-Max-Age` http header.|
+
+    !!! edgey "Edgex 2.1"
+        New for EdgeX 2.1 is the ability to enable CORS access to EdgeX microservices through configuration. 
+    To understand more details about these HTTP headers, please refer to [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#the_http_response_headers), and refer to [CORS enabling](../../security/Ch-CORS-Settings.md) to learn more.
 
 ## Writable vs Readable Settings
 
