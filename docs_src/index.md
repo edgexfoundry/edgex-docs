@@ -1,10 +1,7 @@
 # Introduction
 
-!!! caution "Disclaimer"
-    Updates to these pages for EdgeX 2.0 are still in progress. If you don't see a `what's new in EdgeX 2.0` box (like the one below) on a page, it has likely not been updated yet. Once all updates are complete, this disclaimer will be removed.
-
-!!! edgey "EdgeX 2.0"
-    Want to know what's new in EdgeX 2.0 (Ireland)?  If you are already familiar with EdgeX, look for the EdgeX 2.0 emoji (`Edgey` - the EdgeX mascot) throughout the documentation - [like the one on this page](#the-ireland-release) outlining what's in the Ireland release.  These sections will give you a summary of what's new in each area of the documentation.
+!!! edgey "EdgeX 2.x"
+    Want to know what's new in EdgeX 2.x releases (Ireland/Jakarta/etc)?  If you are already familiar with EdgeX, look for the EdgeX 2.x emoji (`Edgey` - the EdgeX mascot) throughout the documentation - [like the one on this page](#the-ireland-release) outlining what's new in the latest 2.x releases.  These sections will give you a summary of what's new in each area of the documentation.
 
 
 EdgeX Foundry is an open source, vendor neutral, flexible, interoperable, software platform at the
