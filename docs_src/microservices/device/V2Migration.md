@@ -234,7 +234,12 @@ deviceCommands:
 whether it is exposed to Command Service or not. `isHidden` default to false so all deviceResource
 and deviceCommand is able to be called via Command Service REST API. Set `isHidden` to true if you don't want to expose them.
 
-### Pre-defined Devices
+### Devices
+
+#### State
+In V2 the values of a device's operating state are changed from `ENABLED`/`DISABLED` to `UP`/`DOWN`. The additional state value `UNKNOWN` is added for future use.
+
+#### Pre-defined Devices
 In V2 pre-defined devices are in their own file, SDK allows both TOML and JSON format.
 
 !!! example "Pre-defined devices"
