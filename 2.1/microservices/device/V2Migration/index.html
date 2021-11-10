@@ -1479,9 +1479,29 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#devices" class="md-nav__link">
+    Devices
+  </a>
+  
+    <nav class="md-nav" aria-label="Devices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#state" class="md-nav__link">
+    State
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#pre-defined-devices" class="md-nav__link">
     Pre-defined Devices
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2805,9 +2825,29 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#devices" class="md-nav__link">
+    Devices
+  </a>
+  
+    <nav class="md-nav" aria-label="Devices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#state" class="md-nav__link">
+    State
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#pre-defined-devices" class="md-nav__link">
     Pre-defined Devices
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -3143,7 +3183,10 @@ V2:
 <p><code>coreCommands</code> section is removed in V2. We use <code>isHidden</code> field in both deviceResource and deviceCommand to indicates
 whether it is exposed to Command Service or not. <code>isHidden</code> default to false so all deviceResource
 and deviceCommand is able to be called via Command Service REST API. Set <code>isHidden</code> to true if you don't want to expose them.</p>
-<h3 id="pre-defined-devices">Pre-defined Devices</h3>
+<h3 id="devices">Devices</h3>
+<h4 id="state">State</h4>
+<p>In V2 the values of a device's operating state are changed from <code>ENABLED</code>/<code>DISABLED</code> to <code>UP</code>/<code>DOWN</code>. The additional state value <code>UNKNOWN</code> is added for future use.</p>
+<h4 id="pre-defined-devices">Pre-defined Devices</h4>
 <p>In V2 pre-defined devices are in their own file, SDK allows both TOML and JSON format.</p>
 <div class="admonition example">
 <p class="admonition-title">Pre-defined devices</p>
