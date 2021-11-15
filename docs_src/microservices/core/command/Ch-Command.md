@@ -20,10 +20,13 @@ and control micro service) enables the issuance of commands or actions to
 The command micro service exposes the commands in a common, normalized
 way to simplify communications with the devices. There are two types of commands that can be sent to a device.
 
-- a GET command requests data from the device.  This is often used to request the latest sensor reading from the device.  
+- a GET command requests data from the device.  This is often used to request the latest sensor reading from the device.
 - SET commands request to take action or [actuate](../../../general/Definitions.md#actuate) the device or to set some configuration on the device.
 
 In most cases, GET commands are simple requests for the latest sensor reading from the device.  Therefore, the request is often parameter-less (requiring no parameters or body in the request).  SET commands require a request body where the body provides a key/value pair array of values used as parameters in the request (i.e. `{"additionalProp1": "string", "additionalProp2": "string"}`).
+
+!!! edgey "EdgeX 2.1"
+    v2.1 supports a new value type, `Object`, to present the structral value instead of encoding it as string for both SET and GET commands, for example, the SET command parameter might be `{"Location": {"latitude": 39.67872546666667, "longitude": -104.97710646666667}}`.
 
 The command micro service gets its knowledge about the devices from the metadata service. The command service always relays commands (GET or SET) to the devices through the device service.  The command service never communicates directly to a device. Therefore, the command micro service is a proxy service for command or action requests from the north side of EdgeX (such as analytic or application services) to the protocol-specific device service and associated device.
 
@@ -45,10 +48,10 @@ While not currently part of its duties, the command service could provide a laye
     |Description||
     |Name|Name for identifying a device|
     |Manufacturer| Manufacturer of the device|
-	|Model|Model of the device|
-	|Labels|Labels used to search for groups of profiles|
-	|DeviceResources|deviceResource collection|
-	|DeviceCommands|collect of deviceCommand|
+    |Model|Model of the device|
+    |Labels|Labels used to search for groups of profiles|
+    |DeviceResources|deviceResource collection|
+    |DeviceCommands|collect of deviceCommand|
 === "DeviceCoreCommand"
     |Property|Description|
     |---|---|

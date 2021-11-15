@@ -37,10 +37,10 @@ whereas a Bluetooth device service could use a UUID to identify a value.
 The `Properties` of a deviceResource describe the value and optionally request
 some simple processing to be performed on it. The following fields are available:
 
-* valueType - Required. The data type of the value. Supported types are `bool`,
-`int8` - `int64`, `uint8` - `uint64`, `float32`, `float64`, `string`, `binary`
-and arrays of the primitive types (ints, floats, bool). Arrays are specified
-as eg. `float32array`, `boolarray` etc.
+* valueType - Required. The data type of the value. Supported types are `Bool`,
+`Int8` - `Int64`, `Uint8` - `Uint64`, `Float32`, `Float64`, `String`, `Binary`,
+`Object` and arrays of the primitive types (ints, floats, bool). Arrays are specified
+as eg. `Float32Array`, `BoolArray` etc.
 * readWrite - `R`, `RW`, or `W` indicating whether the value is readable or
 writable.
 * units - indicate the units of the value, eg Amperes, degrees C, etc.
@@ -82,5 +82,4 @@ endpoint as is used to access deviceResources.
 
 
 !!! edgey "EdgeX 2.0"
-For the EdgeX 2.0 (Ireland) release coreCommands section is removed and both deviceResources and deviceCommands are available via the Core Command Service by default.
-Set `isHidden` field to true under deviceResource or deviceCommand to disable the outward-facing API.
+    For the EdgeX 2.0 (Ireland) release coreCommands section is removed and both deviceResources and deviceCommands are available via the Core Command Service by default. Set `isHidden` field to true under deviceResource or deviceCommand to disable the outward-facing API.
