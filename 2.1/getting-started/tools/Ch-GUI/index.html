@@ -720,6 +720,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#secure-mode-with-api-gateway-token" class="md-nav__link">
+    Secure mode with API Gateway token
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#snaps" class="md-nav__link">
     Snaps
   </a>
@@ -2668,6 +2675,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#secure-mode-with-api-gateway-token" class="md-nav__link">
+    Secure mode with API Gateway token
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#snaps" class="md-nav__link">
     Snaps
   </a>
@@ -2921,13 +2935,21 @@
 <h2 id="setup">Setup</h2>
 <p>You can quickly run the GUI in a Docker container or as part of the EdgeX Snap.  You can also download, build and run the GUI natively on your host.</p>
 <h3 id="docker-compose">Docker Compose</h3>
-<p>The EdgeX GUI is already incorporated into Docker Compose files provided by the project.  Locate and download the Docker Compose file that includes the GUI container by looking for a file that has "-with-ui" in the file name.  For example, in the Ireland branch of edgex-compose, notice the two Docker Compose files that include the GUI below.</p>
-<p><img alt="image" src="../EdgeX_Compose_With_UI.png" /></p>
+<p>The EdgeX GUI is now incorporated into all the secure and non-sure Docker Compose files provided by the project.  Locate and download the Docker Compose file that best suits your needs from https://github.com/edgexfoundry/edgex-compose.  For example, in the Jakarta branch of <code>edgex-compose</code> the <code>*-with-app-sample*</code> compose files include the Sample App Service allowing the configurable pipeline to be manipulated from the UI. See the four Docker Compose files that include the Sample App Service circled below.</p>
+<p><img alt="image" src="../EdgeX_Compose_With_app_sample.png" /></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Because the GUI can only to be used in unsecured EdgeX, you will not find a Docker Compose file that includes security and the GUI.</p>
+<p>The GUI can now be used in secure mode as well as non-secure mode.</p>
 </div>
-<p>See the <a href="../quick-start/Ch-GettingStartedUsers#select-a-edgex-foundry-compose-file">Getting Started</a> guide for help on how to find, download and use a Docker Compose file to run EdgeX - in this case with the GUI.</p>
+<p>See the <a href="../quick-start/Ch-GettingStartedUsers#select-a-edgex-foundry-compose-file">Getting Started</a> guide for help on how to find, download and use a Docker Compose file to run EdgeX - in this case with the Sample App Service.</p>
+<h3 id="secure-mode-with-api-gateway-token">Secure mode with API Gateway token</h3>
+<p>When first running the UI in secure mode, you will be prompted to enter a token.</p>
+<p><img alt="" src="../EdgeX_TokenPrompt.png" /></p>
+<p>Following the <a href="../../../security/Ch-APIGateway/#creating-access-token-for-api-gateway-authentication">How to get access token?</a> link to view the documentation how get an API Gateway access token. Once you enter the token the UI will have asses to the EdgeX service via the API Gateway.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The UI is no longer restricted to access from <code>localhost</code>. It can now be accessed from any IP address that can access the host system. This is allowed because the UI is secured via API Gateway token when running in secure mode.</p>
+</div>
 <h3 id="snaps">Snaps</h3>
 <p><strong> Coming Soon! </strong>  Canonical is developing a Snap that incorporates the EdgeX GUI.  Look for an update here soon.</p>
 <h3 id="native">Native</h3>
