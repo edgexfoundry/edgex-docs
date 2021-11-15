@@ -124,7 +124,7 @@ Device profiles define general characteristics about devices, the data they prov
     
     The following fields are available in the value property:
     
-    - valueType - Required. The data type of the value. Supported types are bool, int8 - int64, uint8 - uint64, float32, float64, string, binary and arrays of the primitive types (ints, floats, bool). Arrays are specified as eg. float32array, boolarray etc.
+    - valueType - Required. The data type of the value. Supported types are Bool, Int8 - Int64, Uint8 - Uint64, Float32, Float64, String, Binary, Object and arrays of the primitive types (ints, floats, bool). Arrays are specified as eg. Float32Array, BoolArray etc.
     - readWrite - R, RW, or W indicating whether the value is readable or writable.
     - units - gives more detail about the unit of measure associated with the value. In this case, the temperature unit of measure is in degrees Fahrenheit.
     - min - minimum allowed value 

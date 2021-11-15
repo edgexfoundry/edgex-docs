@@ -19,7 +19,7 @@ Other services and systems, both within EdgeX Foundry and outside of EdgeX Found
 
 Sensor data can be sent to core data via two different means:
 
-1. Services (like devices services) and other systems can put sensor data on a message bus topic and core data can be configured to subscribed to that topic.  This is the default means of getting data to core data.  Any service (like an application service or rules engine service) or 3rd system could also subscribe to the same topic.  If the sensor data does not need to persisted locally, core data does not have to subscribe to the message bus topic - making core data completely optional.  By default, the message bus is implemented using Redis Pub/Sub.  MQTT can be used as an alternate message bus implementation.  
+1. Services (like devices services) and other systems can put sensor data on a message bus topic and core data can be configured to subscribed to that topic.  This is the default means of getting data to core data.  Any service (like an application service or rules engine service) or 3rd system could also subscribe to the same topic.  If the sensor data does not need to persisted locally, core data does not have to subscribe to the message bus topic - making core data completely optional.  By default, the message bus is implemented using Redis Pub/Sub.  MQTT can be used as an alternate message bus implementation.
 
     ![image](EdgeX_CoreDataSubscriber.png)
 
@@ -41,7 +41,7 @@ latency through this layer and storage needs at the network edge.  But the cost 
     When persistence is turned off via the PersistData flag, it is off for all devices.  At this time, you cannot specify which device data is persisted and which device data is not.  [Application services](../../application/ApplicationServices.md) do allow filtering of device data before it is exported or sent to another service like the rules engine, but this is not based on whether the data is persisted or not.
 
 !!! edgey "EdgeX 2.0"
-    As mentioned, as of EdgeX 2.0 (Ireland), core data is completely optional.  Therefore, if persistence is not needed, and if sensor data is sent from device services directly to application services via message bus, core data can be removed.  In addition to reducing resource utilization (memory and CPU for core data), it also removes latency of throughput as the core data layer can be completely bypassed.  However, if device services are still using REST to send data into the system, core data is the central receiving endpoint and must remain in place; even if persistence is turned off.  
+    As mentioned, as of EdgeX 2.0 (Ireland), core data is completely optional.  Therefore, if persistence is not needed, and if sensor data is sent from device services directly to application services via message bus, core data can be removed.  In addition to reducing resource utilization (memory and CPU for core data), it also removes latency of throughput as the core data layer can be completely bypassed.  However, if device services are still using REST to send data into the system, core data is the central receiving endpoint and must remain in place; even if persistence is turned off.
 
 ## Events and Readings
 
@@ -64,6 +64,9 @@ The following diagram shows the Data Model for core data.  Device services send 
 
 ![image](EdgeX_CoreDataModel.png)
 
+!!! edgey "EdgeX 2.1"
+    v2.1 supports a new value type, `Object`, to present the structral reading value instead of encoding it as string. Similar to the `BinaryValue`, there is a new field `ObjectValue` in the Reading. If the ValueType is `Object`, the read value will be put into the `ObjectValue` field in JSON object data type.
+
 !!! edgey "EdgeX 2.0"
     Note that ValueDescriptor has been removed from this model as Value Descriptors have been removed in EdgeX 2 (see note above for more details). 
 
@@ -73,25 +76,26 @@ The following diagram shows the Data Model for core data.  Device services send 
     |Property|Description|
     |---|---|
     ||Event represents a single measurable event read from a device.  Event has a one-to-many relationship with Reading.|
-    |ID|Uniquely identifies an event, for example a UUID|
-	|DeviceName|DeviceName identifies the source of the event; the device's name.|
-	|ProfileName|Identifies the name of the device profile associated with the device and corresponding resources collected in the readings of the event.|
-	|SourceName|Name of the source request from the device profile (ResourceName or Command) associated to the reading.|
-	|Origin|A timestamp indicating when the original event/reading took place.  Most of the time, this indicates when the device service collected/created the event|
+    |ID|Uniquely identifies an event, for example a UUID.|
+    |DeviceName|DeviceName identifies the source of the event; the device's name.|
+    |ProfileName|Identifies the name of the device profile associated with the device and corresponding resources collected in the readings of the event.|
+    |SourceName|Name of the source request from the device profile (ResourceName or Command) associated to the reading.|
+    |Origin|A timestamp indicating when the original event/reading took place.  Most of the time, this indicates when the device service collected/created the event.|
     |Tags|An arbitrary set of labels or additional information associated with the event.  It can be used, for example, to add location information (like GPS coordinates) to the event.|
-	|Readings|A collection (one to many) of associated readings of a given event.
+    |Readings|A collection (one to many) of associated readings of a given event.|
 === "Reading"
     |Property|Description|
     |---|---|
-    |ID|Uniquely identifies a reading, for example a UUID|
-	|DeviceName|DeviceName identifies the source of the reading; the device's name.|
-	|ProfileName|Identifies the name of the device profile associated with the device and corresponding resource collected in the reading.|
-	|Origin|A timestamp indicating when the original event/reading took place.  Most of the time, this indicates when the device service collected/created the event|
+    |ID|Uniquely identifies a reading, for example a UUID.|
+    |DeviceName|DeviceName identifies the source of the reading; the device's name.|
+    |ProfileName|Identifies the name of the device profile associated with the device and corresponding resource collected in the reading.|
+    |Origin|A timestamp indicating when the original event/reading took place.  Most of the time, this indicates when the device service collected/created the event.|
     |ResourceName|ResourceName-Value provide the key/value pair of what was sensed by a device.  ResourceName specifies what was the value collected.  ResourceName should match a device resource name in the device profile.|
     |Value|The sensor data value|
     |ValueType|The type of the sensor data - from a list of allowed value types that includes Bool, String, Uint8, Int8, ...|
-    |BinaryValue|Byte array of sensor data when the data captured is not structured; for example an image is captured.  This information is not persisted in the Database and is expected to be empty when retrieving a Reading for the ValueType of Binary|
-    |MediaType|Indicating the type of binary data when collected|
+    |BinaryValue|Byte array of sensor data when the data captured is not structured; for example an image is captured.  This information is not persisted in the Database and is expected to be empty when retrieving a Reading for the ValueType of Binary.|
+    |MediaType|Indicating the type of binary data when collected.|
+    |ObjectValue|Complex value of sensor data when the data captured is structured; for example a BACnet date object: `"date":{ "year":2021, "month":8, "day":26, "wday":4 }`.  This is expected to be empty when the Reading for the ValueType is not `Object`.|
 
 ## High Level Interaction Diagrams
 

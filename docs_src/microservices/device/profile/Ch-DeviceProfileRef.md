@@ -33,7 +33,7 @@ ResourceProperties
 
 Field Name | Type | Required? | Notes
 :--- | :--- | :--- | :---
-valueType | Enum | Y | `Uint8`, `Uint16`, `Uint32`, `Uint64`, `Int8`, `Int16`, `Int32`, `Int64`, `Float32`, `Float64`, `Bool`, `String`, `Binary`, `Uint8Array`, `Uint16Array`, `Uint32Array`, `Uint64Array`, `Int8Array`, `Int16Array`, `Int32Array`, `Int64Array`, `Float32Array`, `Float64Array`, `BoolArray`
+valueType | Enum | Y | `Uint8`, `Uint16`, `Uint32`, `Uint64`, `Int8`, `Int16`, `Int32`, `Int64`, `Float32`, `Float64`, `Bool`, `String`, `Binary`, `Object`, `Uint8Array`, `Uint16Array`, `Uint32Array`, `Uint64Array`, `Int8Array`, `Int16Array`, `Int32Array`, `Int64Array`, `Float32Array`, `Float64Array`, `BoolArray`
 readWrite | Enum | Y | `R`, `W`, `RW` 
 units | String | N | Developer is open to define units of value
 minimum | String | N | Error if SET command value out of minimum range
