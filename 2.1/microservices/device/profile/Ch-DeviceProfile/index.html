@@ -2498,10 +2498,10 @@ whereas a Bluetooth device service could use a UUID to identify a value.</p>
 <p>The <code>Properties</code> of a deviceResource describe the value and optionally request
 some simple processing to be performed on it. The following fields are available:</p>
 <ul>
-<li>valueType - Required. The data type of the value. Supported types are <code>bool</code>,
-<code>int8</code> - <code>int64</code>, <code>uint8</code> - <code>uint64</code>, <code>float32</code>, <code>float64</code>, <code>string</code>, <code>binary</code>
-and arrays of the primitive types (ints, floats, bool). Arrays are specified
-as eg. <code>float32array</code>, <code>boolarray</code> etc.</li>
+<li>valueType - Required. The data type of the value. Supported types are <code>Bool</code>,
+<code>Int8</code> - <code>Int64</code>, <code>Uint8</code> - <code>Uint64</code>, <code>Float32</code>, <code>Float64</code>, <code>String</code>, <code>Binary</code>,
+<code>Object</code> and arrays of the primitive types (ints, floats, bool). Arrays are specified
+as eg. <code>Float32Array</code>, <code>BoolArray</code> etc.</li>
 <li>readWrite - <code>R</code>, <code>RW</code>, or <code>W</code> indicating whether the value is readable or
 writable.</li>
 <li>units - indicate the units of the value, eg Amperes, degrees C, etc.</li>
@@ -2537,9 +2537,8 @@ specify one.</li>
 endpoint as is used to access deviceResources.</p>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
+<p>For the EdgeX 2.0 (Ireland) release coreCommands section is removed and both deviceResources and deviceCommands are available via the Core Command Service by default. Set <code>isHidden</code> field to true under deviceResource or deviceCommand to disable the outward-facing API.</p>
 </div>
-<p>For the EdgeX 2.0 (Ireland) release coreCommands section is removed and both deviceResources and deviceCommands are available via the Core Command Service by default.
-Set <code>isHidden</code> field to true under deviceResource or deviceCommand to disable the outward-facing API.</p>
                 
               
               

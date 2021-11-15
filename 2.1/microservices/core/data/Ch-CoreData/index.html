@@ -2637,7 +2637,7 @@ Enterprise and cloud systems.  Core data persists the data in a local database. 
 <p>Sensor data can be sent to core data via two different means:</p>
 <ol>
 <li>
-<p>Services (like devices services) and other systems can put sensor data on a message bus topic and core data can be configured to subscribed to that topic.  This is the default means of getting data to core data.  Any service (like an application service or rules engine service) or 3rd system could also subscribe to the same topic.  If the sensor data does not need to persisted locally, core data does not have to subscribe to the message bus topic - making core data completely optional.  By default, the message bus is implemented using Redis Pub/Sub.  MQTT can be used as an alternate message bus implementation.  </p>
+<p>Services (like devices services) and other systems can put sensor data on a message bus topic and core data can be configured to subscribed to that topic.  This is the default means of getting data to core data.  Any service (like an application service or rules engine service) or 3rd system could also subscribe to the same topic.  If the sensor data does not need to persisted locally, core data does not have to subscribe to the message bus topic - making core data completely optional.  By default, the message bus is implemented using Redis Pub/Sub.  MQTT can be used as an alternate message bus implementation.</p>
 <p><img alt="image" src="../EdgeX_CoreDataSubscriber.png" /></p>
 </li>
 <li>
@@ -2657,7 +2657,7 @@ latency through this layer and storage needs at the network edge.  But the cost 
 </div>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
-<p>As mentioned, as of EdgeX 2.0 (Ireland), core data is completely optional.  Therefore, if persistence is not needed, and if sensor data is sent from device services directly to application services via message bus, core data can be removed.  In addition to reducing resource utilization (memory and CPU for core data), it also removes latency of throughput as the core data layer can be completely bypassed.  However, if device services are still using REST to send data into the system, core data is the central receiving endpoint and must remain in place; even if persistence is turned off.  </p>
+<p>As mentioned, as of EdgeX 2.0 (Ireland), core data is completely optional.  Therefore, if persistence is not needed, and if sensor data is sent from device services directly to application services via message bus, core data can be removed.  In addition to reducing resource utilization (memory and CPU for core data), it also removes latency of throughput as the core data layer can be completely bypassed.  However, if device services are still using REST to send data into the system, core data is the central receiving endpoint and must remain in place; even if persistence is turned off.</p>
 </div>
 <h2 id="events-and-readings">Events and Readings</h2>
 <p>Data collected from sensors is marshalled into EdgeX event and reading objects (delivered as JSON objects or a binary object encoded as <a href="../../../../general/Definitions/#cbor">CBOR</a> to core data).  An event represents a collection of one or more sensor readings.  Some sensors or devices are only providing a single value – a single reading - at a time. Other sensors spew multiple values whenever they are read.</p>
@@ -2672,6 +2672,10 @@ latency through this layer and storage needs at the network edge.  But the cost 
 <h2 id="data-model">Data Model</h2>
 <p>The following diagram shows the Data Model for core data.  Device services send Event objects containing a collection or Readings to core data when a device captures a sensor reading.</p>
 <p><img alt="image" src="../EdgeX_CoreDataModel.png" /></p>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.1</p>
+<p>v2.1 supports a new value type, <code>Object</code>, to present the structral reading value instead of encoding it as string. Similar to the <code>BinaryValue</code>, there is a new field <code>ObjectValue</code> in the Reading. If the ValueType is <code>Object</code>, the read value will be put into the <code>ObjectValue</code> field in JSON object data type.</p>
+</div>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
 <p>Note that ValueDescriptor has been removed from this model as Value Descriptors have been removed in EdgeX 2 (see note above for more details). </p>
@@ -2692,7 +2696,7 @@ latency through this layer and storage needs at the network edge.  But the cost 
 </tr>
 <tr>
 <td>ID</td>
-<td>Uniquely identifies an event, for example a UUID</td>
+<td>Uniquely identifies an event, for example a UUID.</td>
 </tr>
 <tr>
 <td>DeviceName</td>
@@ -2708,7 +2712,7 @@ latency through this layer and storage needs at the network edge.  But the cost 
 </tr>
 <tr>
 <td>Origin</td>
-<td>A timestamp indicating when the original event/reading took place.  Most of the time, this indicates when the device service collected/created the event</td>
+<td>A timestamp indicating when the original event/reading took place.  Most of the time, this indicates when the device service collected/created the event.</td>
 </tr>
 <tr>
 <td>Tags</td>
@@ -2732,7 +2736,7 @@ latency through this layer and storage needs at the network edge.  But the cost 
 <tbody>
 <tr>
 <td>ID</td>
-<td>Uniquely identifies a reading, for example a UUID</td>
+<td>Uniquely identifies a reading, for example a UUID.</td>
 </tr>
 <tr>
 <td>DeviceName</td>
@@ -2744,7 +2748,7 @@ latency through this layer and storage needs at the network edge.  But the cost 
 </tr>
 <tr>
 <td>Origin</td>
-<td>A timestamp indicating when the original event/reading took place.  Most of the time, this indicates when the device service collected/created the event</td>
+<td>A timestamp indicating when the original event/reading took place.  Most of the time, this indicates when the device service collected/created the event.</td>
 </tr>
 <tr>
 <td>ResourceName</td>
@@ -2760,11 +2764,15 @@ latency through this layer and storage needs at the network edge.  But the cost 
 </tr>
 <tr>
 <td>BinaryValue</td>
-<td>Byte array of sensor data when the data captured is not structured; for example an image is captured.  This information is not persisted in the Database and is expected to be empty when retrieving a Reading for the ValueType of Binary</td>
+<td>Byte array of sensor data when the data captured is not structured; for example an image is captured.  This information is not persisted in the Database and is expected to be empty when retrieving a Reading for the ValueType of Binary.</td>
 </tr>
 <tr>
 <td>MediaType</td>
-<td>Indicating the type of binary data when collected</td>
+<td>Indicating the type of binary data when collected.</td>
+</tr>
+<tr>
+<td>ObjectValue</td>
+<td>Complex value of sensor data when the data captured is structured; for example a BACnet date object: <code>"date":{ "year":2021, "month":8, "day":26, "wday":4 }</code>.  This is expected to be empty when the Reading for the ValueType is not <code>Object</code>.</td>
 </tr>
 </tbody>
 </table>
