@@ -1376,6 +1376,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#running-multiple-instances" class="md-nav__link">
+    Running multiple instances
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configuration-properties" class="md-nav__link">
     Configuration Properties
   </a>
@@ -2668,6 +2675,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#running-multiple-instances" class="md-nav__link">
+    Running multiple instances
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configuration-properties" class="md-nav__link">
     Configuration Properties
   </a>
@@ -2810,7 +2824,7 @@ transportation, and so forth.</p>
 </ul>
 <p>As you can imagine, many of these tasks (like registering with core metadata) are generic and the same for all device services and thereby provided by the SDK.  Other tasks (like getting sensor data from the underlying device) are quite specific to the underlying device.  In these cases, the device service SDK provides empty functions for performing the work, but the developer would need to fill in the function code as it relates to the specific device, the communication protocol, device driver, etc.</p>
 <h3 id="device-service-functional-requirements">Device Service Functional Requirements</h3>
-<p><a href="https://wiki.edgexfoundry.org/download/attachments/329488/edgex-device-service-requirements-v11.pdf">Requirements for the device service</a> are provided in the Edge Wiki. These
+<p><a href="../../../design/legacy-requirements/device-service/">Requirements for the device service</a> are provided in this documentation. These
 requirements are being used to define what functionality needs to be
 offered via any Device Service SDK to produce the device service
 scaffolding code. They may also help the reader further understand the duties
@@ -2836,6 +2850,9 @@ and role of a device service.</p>
 <h2 id="test-and-demonstration-device-services">Test and Demonstration Device Services</h2>
 <p>Among the many available device services provided by EdgeX, there are two device services that are typically used for demonstration, education and testing purposes only.  The random device service (<a href="https://github.com/edgexfoundry/device-random">device-random-go</a>) is a very simple device service used to provide device service authors a bare bones example inclusive of a device profile.  It can also be used to create random integer data (either 8, 16, or 32 bit signed or unsigned) to simulate integer readings when developing or testing other EdgeX micro services. It was created from the Go-based device service SDK.</p>
 <p>The virtual device service (<a href="https://github.com/edgexfoundry/device-virtual-go">device-virtual-go</a>) is also used for demonstration, education and testing.  It is a more complex simulator in that it allows any type of data to be generated on a scheduled basis and used an embedded SQL database (ql) to provide simulated data.  Manipulating the data in the embedded database allows the service to mimic almost any type of sensing device.   More information on the <a href="../virtual/Ch-VirtualDevice/">virtual device service</a> is available in this documentation.</p>
+<h2 id="running-multiple-instances">Running multiple instances</h2>
+<p>Device services support one additional command-line argument, <code>--instance</code> or <code>-i</code>. This allows for running multiple instances of a device service in an EdgeX deployment, by giving them different names.</p>
+<p>For example, running <code>device-modbus -i 1</code> results in a service named <code>device-modbus_1</code>, ie the parameter given to the <code>instance</code> argument is added as a suffix to the device service name. The same effect may be obtained by setting the <code>EDGEX_INSTANCE</code> environment variable.</p>
 <h2 id="configuration-properties">Configuration Properties</h2>
 <p>Please refer to the general <a href="../../configuration/CommonConfiguration/">Common Configuration documentation</a> for configuration properties common to all services.</p>
 <div class="tabbed-set" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Device</label><div class="tabbed-content">
