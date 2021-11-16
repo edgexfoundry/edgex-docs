@@ -60,7 +60,7 @@ As you can imagine, many of these tasks (like registering with core metadata) ar
 
 ### Device Service Functional Requirements
 
-[Requirements for the device service](https://wiki.edgexfoundry.org/download/attachments/329488/edgex-device-service-requirements-v11.pdf) are provided in the Edge Wiki. These
+[Requirements for the device service](../../design/legacy-requirements/device-service.md) are provided in this documentation. These
 requirements are being used to define what functionality needs to be
 offered via any Device Service SDK to produce the device service
 scaffolding code. They may also help the reader further understand the duties
@@ -102,6 +102,12 @@ Data collected from devices by a device service is marshalled into EdgeX event a
 Among the many available device services provided by EdgeX, there are two device services that are typically used for demonstration, education and testing purposes only.  The random device service ([device-random-go](https://github.com/edgexfoundry/device-random)) is a very simple device service used to provide device service authors a bare bones example inclusive of a device profile.  It can also be used to create random integer data (either 8, 16, or 32 bit signed or unsigned) to simulate integer readings when developing or testing other EdgeX micro services. It was created from the Go-based device service SDK.
 
 The virtual device service ([device-virtual-go](https://github.com/edgexfoundry/device-virtual-go)) is also used for demonstration, education and testing.  It is a more complex simulator in that it allows any type of data to be generated on a scheduled basis and used an embedded SQL database (ql) to provide simulated data.  Manipulating the data in the embedded database allows the service to mimic almost any type of sensing device.   More information on the [virtual device service](./virtual/Ch-VirtualDevice.md) is available in this documentation.
+
+## Running multiple instances
+
+Device services support one additional command-line argument, `--instance` or `-i`. This allows for running multiple instances of a device service in an EdgeX deployment, by giving them different names.
+
+For example, running `device-modbus -i 1` results in a service named `device-modbus_1`, ie the parameter given to the `instance` argument is added as a suffix to the device service name. The same effect may be obtained by setting the `EDGEX_INSTANCE` environment variable.
 
 ## Configuration Properties
 
