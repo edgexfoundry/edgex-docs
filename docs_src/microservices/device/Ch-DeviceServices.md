@@ -133,6 +133,28 @@ Please refer to the general [Common Configuration documentation](../configuratio
     |UseMessageBus|true|Controls whether events are published via MessageBus or core-data (REST)|
     |Discovery/Enabled|true|Controls whether device discovery is enabled|
     |Discovery/Interval|0|Interval between automatic discovery runs. Zero means do not run discovery automatically|
+=== "MessageQueue"
+    |Property|Default Value|Description|
+    |---|---|---|
+    ||Entries in the MessageQueue section of the configuration allow for publication of events to a message bus|
+    |Protocol | redis| Indicates the connectivity protocol to use to use the bus.|
+    |Host | localhost | Indicates the host of the messaging broker, if applicable.|
+    |Port | 6379| Indicates the port to use when publishing a message.|
+    |Type | redis| Indicates the type of messaging library to use. Currently this is Redis by default. Refer to the [go-mod-messaging](https://github.com/edgexfoundry/go-mod-messaging) module for more information. |
+    |AuthMode | usernamepassword| Auth Mode to connect to EdgeX MessageBus.|
+    |SecretName | redisdb | Name of the secret in the Secret Store to find the MessageBus credentials.|
+    |PublishTopicPrefix | edgex/events/device| Indicates the base topic to which messages should be published. /`<device-profile-name>/<device-name>` will be added to this Publish Topic prefix|
+=== "MessageQueue.Optional"
+    |Property|Default Value|Description|
+    |---|---|---|
+    ||Configuration and connection parameters for use with MQTT message bus - in place of Redis|
+    |ClientId|[service-key]|Client ID used to put messages on the bus|
+    |Qos|'0'| Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)|
+    |KeepAlive |'10'| Period of time in seconds to keep the connection alive when there is no messages flowing (must be 2 or greater)|
+    |Retained|false|Whether to retain messages|
+    |AutoReconnect |true |Whether to reconnect to the message bus on connection loss|
+    |ConnectTimeout|5|Message bus connection timeout in seconds|
+    |SkipCertVerify|false|TLS configuration - Only used if Cert/Key file or Cert/Key PEMblock are specified|
 
 ### Custom Configuration
 
