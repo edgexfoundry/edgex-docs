@@ -1383,6 +1383,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#publish-to-messagebus" class="md-nav__link">
+    Publish to MessageBus
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configuration-properties" class="md-nav__link">
     Configuration Properties
   </a>
@@ -2682,6 +2689,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#publish-to-messagebus" class="md-nav__link">
+    Publish to MessageBus
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configuration-properties" class="md-nav__link">
     Configuration Properties
   </a>
@@ -2853,9 +2867,15 @@ and role of a device service.</p>
 <h2 id="running-multiple-instances">Running multiple instances</h2>
 <p>Device services support one additional command-line argument, <code>--instance</code> or <code>-i</code>. This allows for running multiple instances of a device service in an EdgeX deployment, by giving them different names.</p>
 <p>For example, running <code>device-modbus -i 1</code> results in a service named <code>device-modbus_1</code>, ie the parameter given to the <code>instance</code> argument is added as a suffix to the device service name. The same effect may be obtained by setting the <code>EDGEX_INSTANCE</code> environment variable.</p>
+<h2 id="publish-to-messagebus">Publish to MessageBus</h2>
+<div class="admonition edgey">
+<p class="admonition-title">Edgex 2.0</p>
+<p>New in Edgex 2.0</p>
+</div>
+<p>Device services now have the capability to publish Events directly to the EdgeX MessageBus, rather than POST the Events to Core Data via REST. This capability is controlled by the <code>Device.UseMessageBus</code> configuration property (see below), which is set to <code>true</code> by default. Core Data is configured by default to subscribe to the EdgeX MessageBus to receive and persist the Events. Application services, as in EdgeX 1.x, subscribe to the EdgeX MessageBus to receive and process the Events.</p>
 <h2 id="configuration-properties">Configuration Properties</h2>
 <p>Please refer to the general <a href="../../configuration/CommonConfiguration/">Common Configuration documentation</a> for configuration properties common to all services.</p>
-<div class="tabbed-set" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Device</label><div class="tabbed-content">
+<div class="tabbed-set" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Device</label><div class="tabbed-content">
 <table>
 <thead>
 <tr>
@@ -2902,7 +2922,7 @@ and role of a device service.</p>
 </tr>
 <tr>
 <td>UseMessageBus</td>
-<td>false</td>
+<td>true</td>
 <td>Controls whether events are published via MessageBus or core-data (REST)</td>
 </tr>
 <tr>
@@ -2914,6 +2934,112 @@ and role of a device service.</p>
 <td>Discovery/Interval</td>
 <td>0</td>
 <td>Interval between automatic discovery runs. Zero means do not run discovery automatically</td>
+</tr>
+</tbody>
+</table>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">MessageQueue</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>Entries in the MessageQueue section of the configuration allow for publication of events to a message bus</td>
+<td></td>
+</tr>
+<tr>
+<td>Protocol</td>
+<td>redis</td>
+<td>Indicates the connectivity protocol to use to use the bus.</td>
+</tr>
+<tr>
+<td>Host</td>
+<td>localhost</td>
+<td>Indicates the host of the messaging broker, if applicable.</td>
+</tr>
+<tr>
+<td>Port</td>
+<td>6379</td>
+<td>Indicates the port to use when publishing a message.</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>redis</td>
+<td>Indicates the type of messaging library to use. Currently this is Redis by default. Refer to the <a href="https://github.com/edgexfoundry/go-mod-messaging">go-mod-messaging</a> module for more information.</td>
+</tr>
+<tr>
+<td>AuthMode</td>
+<td>usernamepassword</td>
+<td>Auth Mode to connect to EdgeX MessageBus.</td>
+</tr>
+<tr>
+<td>SecretName</td>
+<td>redisdb</td>
+<td>Name of the secret in the Secret Store to find the MessageBus credentials.</td>
+</tr>
+<tr>
+<td>PublishTopicPrefix</td>
+<td>edgex/events/device</td>
+<td>Indicates the base topic to which messages should be published. /<code>&lt;device-profile-name&gt;/&lt;device-name&gt;</code> will be added to this Publish Topic prefix</td>
+</tr>
+</tbody>
+</table>
+</div>
+<input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">MessageQueue.Optional</label><div class="tabbed-content">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>Configuration and connection parameters for use with MQTT message bus - in place of Redis</td>
+<td></td>
+</tr>
+<tr>
+<td>ClientId</td>
+<td>[service-key]</td>
+<td>Client ID used to put messages on the bus</td>
+</tr>
+<tr>
+<td>Qos</td>
+<td>'0'</td>
+<td>Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</td>
+</tr>
+<tr>
+<td>KeepAlive</td>
+<td>'10'</td>
+<td>Period of time in seconds to keep the connection alive when there is no messages flowing (must be 2 or greater)</td>
+</tr>
+<tr>
+<td>Retained</td>
+<td>false</td>
+<td>Whether to retain messages</td>
+</tr>
+<tr>
+<td>AutoReconnect</td>
+<td>true</td>
+<td>Whether to reconnect to the message bus on connection loss</td>
+</tr>
+<tr>
+<td>ConnectTimeout</td>
+<td>5</td>
+<td>Message bus connection timeout in seconds</td>
+</tr>
+<tr>
+<td>SkipCertVerify</td>
+<td>false</td>
+<td>TLS configuration - Only used if Cert/Key file or Cert/Key PEMblock are specified</td>
 </tr>
 </tbody>
 </table>
