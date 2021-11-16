@@ -109,6 +109,13 @@ Device services support one additional command-line argument, `--instance` or `-
 
 For example, running `device-modbus -i 1` results in a service named `device-modbus_1`, ie the parameter given to the `instance` argument is added as a suffix to the device service name. The same effect may be obtained by setting the `EDGEX_INSTANCE` environment variable.
 
+## Publish to MessageBus
+
+!!! edgey "Edgex 2.0"
+    New in Edgex 2.0
+
+Device services now have the capability to publish Events directly to the EdgeX MessageBus, rather than POST the Events to Core Data via REST. This capability is controlled by the `Device.UseMessageBus` configuration property (see below), which is set to `true` by default. Core Data is configured by default to subscribe to the EdgeX MessageBus to receive and persist the Events. Application services, as in EdgeX 1.x, subscribe to the EdgeX MessageBus to receive and process the Events.
+
 ## Configuration Properties
 
 Please refer to the general [Common Configuration documentation](../configuration/CommonConfiguration.md) for configuration properties common to all services.
@@ -123,7 +130,7 @@ Please refer to the general [Common Configuration documentation](../configuratio
     |ProfilesDir|''|If set, directory containing profile definition files to upload to core-metadata|
     |DevicesDir|''|If set, directory containing device definition files to upload to core-metadata|
     |UpdateLastConnected|false|If true, update the LastConnected attribute of a device whenever it is successfully accessed|
-    |UseMessageBus|false|Controls whether events are published via MessageBus or core-data (REST)|
+    |UseMessageBus|true|Controls whether events are published via MessageBus or core-data (REST)|
     |Discovery/Enabled|true|Controls whether device discovery is enabled|
     |Discovery/Interval|0|Interval between automatic discovery runs. Zero means do not run discovery automatically|
 
