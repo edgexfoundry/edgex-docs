@@ -117,34 +117,38 @@ The two following High Level Interaction Diagrams show:
 Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services. Below are only the additional settings and sections that are not common to all EdgeX Services.
 
 === "Writable"
-|Property|Default Value|Description|
-|---|---|---|
-||Writable properties can be set and will dynamically take effect without service restart|
-|PersistData|true|When true, core data persists all sensor data sent to it in its associated database|
+    |Property|Default Value|Description|
+    |---|---|---|
+    ||Writable properties can be set and will dynamically take effect without service restart|
+    |PersistData|true|When true, core data persists all sensor data sent to it in its associated database|
 === "Databases/Databases.Primary"
-|Property|Default Value|Description|
-|---|---|---|
-|Name|'coredata'|Document store or database name|
+    |Property|Default Value|Description|
+    |---|---|---|
+    |Name|'coredata'|Document store or database name|
 === "MessageQueue"
-|Property|Default Value|Description|
-|---|---|---|
-||Entries in the MessageQueue section of the configuration allow for publication of events to a message bus|
-|Protocol | redis| Indicates the connectivity protocol to use to use the bus.|
-|Host | localhost | Indicates the host of the messaging broker, if applicable.|
-|Port | 6379| Indicates the port to use when publishing a message.|
-|Type | redis| Indicates the type of messaging library to use. Currently this is Redis by default. Refer to the [go-mod-messaging](https://github.com/edgexfoundry/go-mod-messaging) module for more information. |
-|PublishTopicPrefix | edgex/events/core| Indicates the base topic to which messages should be published. /`<device-profile-name>/<device-name>` will be added to this Publish Topic prefix|
+    |Property|Default Value|Description|
+    |---|---|---|
+    ||Entries in the MessageQueue section of the configuration allow for publication of events to a message bus|
+    |Protocol | redis| Indicates the connectivity protocol to use to use the bus.|
+    |Host | localhost | Indicates the host of the messaging broker, if applicable.|
+    |Port | 6379| Indicates the port to use when publishing a message.|
+    |Type | redis| Indicates the type of messaging library to use. Currently this is Redis by default. Refer to the [go-mod-messaging](https://github.com/edgexfoundry/go-mod-messaging) module for more information. |
+    |AuthMode | usernamepassword| Auth Mode to connect to EdgeX MessageBUs.|
+    |SecretName | redisdb | Name of the secret in the Secret Store to find the MessageBus credentials.|
+    |PublishTopicPrefix | edgex/events/core| Indicates the base topic to which messages should be published. /`<device-profile-name>/<device-name>` will be added to this Publish Topic prefix|
+    |SubscribeEnabled | true | Indicates wether to subcribe to the EdgeX MessageBus or not.|
+    |SubscribeTopic | edgex/events/device/# | Topis to use when subscribing to the EdgeX MessageBus|
 === "MessageQueue.Optional"
-|Property|Default Value|Description|
-|---|---|---|
-||Configuration and connection parameters for use with MQTT message bus - in place of Redis|
-|ClientId|'core-data'|Client ID used to put messages on the bus|
-|Qos|'0'| Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)|
-|KeepAlive |'10'| Period of time in seconds to keep the connection alive when there is no messages flowing (must be 2 or greater)|
-|Retained|false|Whether to retain messages|
-|AutoReconnect |true |Whether to reconnect to the message bus on connection loss|
-|ConnectTimeout|5|Message bus connection timeout in seconds|
-|SkipCertVerify|false|TLS configuration - Only used if Cert/Key file or Cert/Key PEMblock are specified|
+    |Property|Default Value|Description|
+    |---|---|---|
+    ||Configuration and connection parameters for use with MQTT message bus - in place of Redis|
+    |ClientId|'core-data'|Client ID used to put messages on the bus|
+    |Qos|'0'| Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)|
+    |KeepAlive |'10'| Period of time in seconds to keep the connection alive when there is no messages flowing (must be 2 or greater)|
+    |Retained|false|Whether to retain messages|
+    |AutoReconnect |true |Whether to reconnect to the message bus on connection loss|
+    |ConnectTimeout|5|Message bus connection timeout in seconds|
+    |SkipCertVerify|false|TLS configuration - Only used if Cert/Key file or Cert/Key PEMblock are specified|
 
 ### V2 Configuration Migration Guide
 
