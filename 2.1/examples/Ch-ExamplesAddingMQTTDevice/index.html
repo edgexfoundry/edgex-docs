@@ -2847,6 +2847,14 @@ following content:</p>
     <span class="nt">properties</span><span class="p">:</span>
       <span class="nt">valueType</span><span class="p">:</span> <span class="s">&quot;String&quot;</span>
       <span class="nt">readWrite</span><span class="p">:</span> <span class="s">&quot;RW&quot;</span>
+  <span class="p p-Indicator">-</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">json</span>
+    <span class="nt">isHidden</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;JSON</span><span class="nv"> </span><span class="s">message&quot;</span>
+    <span class="nt">properties</span><span class="p">:</span>
+      <span class="nt">valueType</span><span class="p">:</span> <span class="s">&quot;Object&quot;</span>
+      <span class="nt">readWrite</span><span class="p">:</span> <span class="s">&quot;RW&quot;</span>
+      <span class="nt">mediaType</span><span class="p">:</span> <span class="s">&quot;application/json&quot;</span>
 
 <span class="nt">deviceCommands</span><span class="p">:</span>
   <span class="p p-Indicator">-</span>
@@ -3027,13 +3035,14 @@ The simulator publishes the data to the MQTT broker with topic <code>DataTopic</
 </ol>
 <h3 id="creating-and-running-a-mqtt-device-simulator">Creating and Running a MQTT Device Simulator</h3>
 <p>To implement the simulated custom-defined MQTT device, create a javascript, named <code>mock-device.js</code>, with the following content:</p>
-<p><strong>Default (single-level) Topic:</strong>
-    <div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">getRandomFloat</span><span class="p">(</span><span class="nx">min</span><span class="p">,</span> <span class="nx">max</span><span class="p">)</span> <span class="p">{</span>
+<p><strong>Default (single-level) Topic:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">getRandomFloat</span><span class="p">(</span><span class="nx">min</span><span class="p">,</span> <span class="nx">max</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="p">(</span><span class="nx">max</span> <span class="o">-</span> <span class="nx">min</span><span class="p">)</span> <span class="o">+</span> <span class="nx">min</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="kd">const</span> <span class="nx">deviceName</span> <span class="o">=</span> <span class="s2">&quot;my-custom-device&quot;</span><span class="p">;</span>
 <span class="kd">let</span> <span class="nx">message</span> <span class="o">=</span> <span class="s2">&quot;test-message&quot;</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">json</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span> <span class="o">:</span> <span class="s2">&quot;My JSON&quot;</span><span class="p">};</span>
 
 <span class="c1">// DataSender sends async value to MQTT broker every 15 seconds</span>
 <span class="nx">schedule</span><span class="p">(</span><span class="s1">&#39;*/15 * * * * *&#39;</span><span class="p">,</span> <span class="p">()=&gt;{</span>
@@ -3050,8 +3059,15 @@ The simulator publishes the data to the MQTT broker with topic <code>DataTopic</
 <span class="c1">// 2. Receive the set request, then change the device value</span>
 <span class="nx">subscribe</span><span class="p">(</span> <span class="s2">&quot;CommandTopic&quot;</span> <span class="p">,</span> <span class="p">(</span><span class="nx">topic</span><span class="p">,</span> <span class="nx">val</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">val</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">method</span> <span class="o">==</span> <span class="s2">&quot;set&quot;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">message</span> <span class="o">=</span> <span class="nx">data</span><span class="p">[</span><span class="nx">data</span><span class="p">.</span><span class="nx">cmd</span><span class="p">]</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">method</span> <span class="o">==</span> <span class="s2">&quot;set&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">switch</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">cmd</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">case</span> <span class="s2">&quot;message&quot;</span><span class="o">:</span>
+                <span class="nx">message</span> <span class="o">=</span> <span class="nx">data</span><span class="p">[</span><span class="nx">data</span><span class="p">.</span><span class="nx">cmd</span><span class="p">];</span>
+              <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="s2">&quot;json&quot;</span><span class="o">:</span>
+                <span class="nx">json</span> <span class="o">=</span> <span class="nx">data</span><span class="p">[</span><span class="nx">data</span><span class="p">.</span><span class="nx">cmd</span><span class="p">];</span>
+                <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
     <span class="p">}</span><span class="k">else</span><span class="p">{</span>
         <span class="k">switch</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">cmd</span><span class="p">)</span> <span class="p">{</span>
             <span class="k">case</span> <span class="s2">&quot;ping&quot;</span><span class="o">:</span>
@@ -3063,18 +3079,22 @@ The simulator publishes the data to the MQTT broker with topic <code>DataTopic</
             <span class="k">case</span> <span class="s2">&quot;randnum&quot;</span><span class="o">:</span>
                 <span class="nx">data</span><span class="p">.</span><span class="nx">randnum</span> <span class="o">=</span> <span class="mf">12.123</span><span class="p">;</span>
                 <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="s2">&quot;json&quot;</span><span class="o">:</span>
+                <span class="nx">data</span><span class="p">.</span><span class="nx">json</span> <span class="o">=</span> <span class="nx">json</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
           <span class="p">}</span>
     <span class="p">}</span>
     <span class="nx">publish</span><span class="p">(</span> <span class="s2">&quot;ResponseTopic&quot;</span><span class="p">,</span> <span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
 <span class="p">});</span>
 </code></pre></div>
-<strong>Using Multi-level Topic:</strong>
-    <div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">getRandomFloat</span><span class="p">(</span><span class="nx">min</span><span class="p">,</span> <span class="nx">max</span><span class="p">)</span> <span class="p">{</span>
+<p><strong>Using Multi-level Topic:</strong></p>
+<p><div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">getRandomFloat</span><span class="p">(</span><span class="nx">min</span><span class="p">,</span> <span class="nx">max</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="p">(</span><span class="nx">max</span> <span class="o">-</span> <span class="nx">min</span><span class="p">)</span> <span class="o">+</span> <span class="nx">min</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="kd">const</span> <span class="nx">deviceName</span> <span class="o">=</span> <span class="s2">&quot;my-custom-device&quot;</span><span class="p">;</span>
 <span class="kd">let</span> <span class="nx">message</span> <span class="o">=</span> <span class="s2">&quot;test-message&quot;</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">json</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span> <span class="o">:</span> <span class="s2">&quot;My JSON&quot;</span><span class="p">};</span>
 
 <span class="c1">// DataSender sends async value to MQTT broker every 15 seconds</span>
 <span class="nx">schedule</span><span class="p">(</span><span class="s1">&#39;*/15 * * * * *&#39;</span><span class="p">,</span> <span class="p">()=&gt;{</span>
@@ -3094,7 +3114,14 @@ The simulator publishes the data to the MQTT broker with topic <code>DataTopic</
     <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">val</span><span class="p">;</span>
 
     <span class="k">if</span> <span class="p">(</span><span class="nx">method</span> <span class="o">==</span> <span class="s2">&quot;set&quot;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">message</span> <span class="o">=</span> <span class="nx">data</span><span class="p">[</span><span class="nx">cmd</span><span class="p">]</span>
+        <span class="k">switch</span><span class="p">(</span><span class="nx">cmd</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">case</span> <span class="s2">&quot;message&quot;</span><span class="o">:</span>
+                <span class="nx">message</span> <span class="o">=</span> <span class="nx">data</span><span class="p">[</span><span class="nx">cmd</span><span class="p">];</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="s2">&quot;json&quot;</span><span class="o">:</span>
+                <span class="nx">json</span> <span class="o">=</span> <span class="nx">data</span><span class="p">[</span><span class="nx">cmd</span><span class="p">];</span>
+                <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
     <span class="p">}</span><span class="k">else</span><span class="p">{</span>
         <span class="k">switch</span><span class="p">(</span><span class="nx">cmd</span><span class="p">)</span> <span class="p">{</span>
             <span class="k">case</span> <span class="s2">&quot;ping&quot;</span><span class="o">:</span>
@@ -3105,6 +3132,9 @@ The simulator publishes the data to the MQTT broker with topic <code>DataTopic</
                 <span class="k">break</span><span class="p">;</span>
             <span class="k">case</span> <span class="s2">&quot;randnum&quot;</span><span class="o">:</span>
                 <span class="nx">response</span><span class="p">.</span><span class="nx">randnum</span> <span class="o">=</span> <span class="mf">12.123</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="s2">&quot;json&quot;</span><span class="o">:</span>
+                <span class="nx">response</span><span class="p">.</span><span class="nx">json</span> <span class="o">=</span> <span class="nx">json</span><span class="p">;</span>
                 <span class="k">break</span><span class="p">;</span>
         <span class="p">}</span>
     <span class="p">}</span>
@@ -3166,6 +3196,19 @@ $ docker run -d --restart=always --name=mqtt-scripts \
                <span class="nt">&quot;get&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
                <span class="nt">&quot;path&quot;</span> <span class="p">:</span> <span class="s2">&quot;/api/v2/device/name/my-custom-device/message&quot;</span><span class="p">,</span>
                <span class="nt">&quot;set&quot;</span> <span class="p">:</span> <span class="kc">true</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;json&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;get&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+                <span class="nt">&quot;set&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+                <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v2/device/name/MQTT-test-device/json&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;url&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:59882&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;parameters&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="nt">&quot;resourceName&quot;</span><span class="p">:</span> <span class="s2">&quot;json&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;valueType&quot;</span><span class="p">:</span> <span class="s2">&quot;Object&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">]</span>
             <span class="p">}</span>
          <span class="p">],</span>
          <span class="nt">&quot;deviceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;my-custom-device&quot;</span>
