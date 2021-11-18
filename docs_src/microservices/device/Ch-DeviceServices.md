@@ -60,7 +60,7 @@ As you can imagine, many of these tasks (like registering with core metadata) ar
 
 ### Device Service Functional Requirements
 
-[Requirements for the device service](https://wiki.edgexfoundry.org/download/attachments/329488/edgex-device-service-requirements-v11.pdf) are provided in the Edge Wiki. These
+[Requirements for the device service](../../design/legacy-requirements/device-service.md) are provided in this documentation. These
 requirements are being used to define what functionality needs to be
 offered via any Device Service SDK to produce the device service
 scaffolding code. They may also help the reader further understand the duties
@@ -103,6 +103,19 @@ Among the many available device services provided by EdgeX, there are two device
 
 The virtual device service ([device-virtual-go](https://github.com/edgexfoundry/device-virtual-go)) is also used for demonstration, education and testing.  It is a more complex simulator in that it allows any type of data to be generated on a scheduled basis and used an embedded SQL database (ql) to provide simulated data.  Manipulating the data in the embedded database allows the service to mimic almost any type of sensing device.   More information on the [virtual device service](./virtual/Ch-VirtualDevice.md) is available in this documentation.
 
+## Running multiple instances
+
+Device services support one additional command-line argument, `--instance` or `-i`. This allows for running multiple instances of a device service in an EdgeX deployment, by giving them different names.
+
+For example, running `device-modbus -i 1` results in a service named `device-modbus_1`, ie the parameter given to the `instance` argument is added as a suffix to the device service name. The same effect may be obtained by setting the `EDGEX_INSTANCE` environment variable.
+
+## Publish to MessageBus
+
+!!! edgey "Edgex 2.0"
+    New in Edgex 2.0
+
+Device services now have the capability to publish Events directly to the EdgeX MessageBus, rather than POST the Events to Core Data via REST. This capability is controlled by the `Device.UseMessageBus` configuration property (see below), which is set to `true` by default. Core Data is configured by default to subscribe to the EdgeX MessageBus to receive and persist the Events. Application services, as in EdgeX 1.x, subscribe to the EdgeX MessageBus to receive and process the Events.
+
 ## Configuration Properties
 
 Please refer to the general [Common Configuration documentation](../configuration/CommonConfiguration.md) for configuration properties common to all services.
@@ -117,9 +130,31 @@ Please refer to the general [Common Configuration documentation](../configuratio
     |ProfilesDir|''|If set, directory containing profile definition files to upload to core-metadata|
     |DevicesDir|''|If set, directory containing device definition files to upload to core-metadata|
     |UpdateLastConnected|false|If true, update the LastConnected attribute of a device whenever it is successfully accessed|
-    |UseMessageBus|false|Controls whether events are published via MessageBus or core-data (REST)|
+    |UseMessageBus|true|Controls whether events are published via MessageBus or core-data (REST)|
     |Discovery/Enabled|true|Controls whether device discovery is enabled|
     |Discovery/Interval|0|Interval between automatic discovery runs. Zero means do not run discovery automatically|
+=== "MessageQueue"
+    |Property|Default Value|Description|
+    |---|---|---|
+    ||Entries in the MessageQueue section of the configuration allow for publication of events to a message bus|
+    |Protocol | redis| Indicates the connectivity protocol to use to use the bus.|
+    |Host | localhost | Indicates the host of the messaging broker, if applicable.|
+    |Port | 6379| Indicates the port to use when publishing a message.|
+    |Type | redis| Indicates the type of messaging library to use. Currently this is Redis by default. Refer to the [go-mod-messaging](https://github.com/edgexfoundry/go-mod-messaging) module for more information. |
+    |AuthMode | usernamepassword| Auth Mode to connect to EdgeX MessageBus.|
+    |SecretName | redisdb | Name of the secret in the Secret Store to find the MessageBus credentials.|
+    |PublishTopicPrefix | edgex/events/device| Indicates the base topic to which messages should be published. /`<device-profile-name>/<device-name>` will be added to this Publish Topic prefix|
+=== "MessageQueue.Optional"
+    |Property|Default Value|Description|
+    |---|---|---|
+    ||Configuration and connection parameters for use with MQTT message bus - in place of Redis|
+    |ClientId|[service-key]|Client ID used to put messages on the bus|
+    |Qos|'0'| Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)|
+    |KeepAlive |'10'| Period of time in seconds to keep the connection alive when there is no messages flowing (must be 2 or greater)|
+    |Retained|false|Whether to retain messages|
+    |AutoReconnect |true |Whether to reconnect to the message bus on connection loss|
+    |ConnectTimeout|5|Message bus connection timeout in seconds|
+    |SkipCertVerify|false|TLS configuration - Only used if Cert/Key file or Cert/Key PEMblock are specified|
 
 ### Custom Configuration
 

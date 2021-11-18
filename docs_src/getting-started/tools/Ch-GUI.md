@@ -6,14 +6,25 @@ EdgeX's graphical user interface (GUI) is provided for demonstration and develop
 You can quickly run the GUI in a Docker container or as a Snap.  You can also download, build and run the GUI natively on your host.
 
 ### Docker Compose
-The EdgeX GUI is already incorporated into Docker Compose files provided by the project.  Locate and download the Docker Compose file that includes the GUI container by looking for a file that has "-with-ui" in the file name.  For example, in the Ireland branch of edgex-compose, notice the two Docker Compose files that include the GUI below.
+The EdgeX GUI is now incorporated into all the secure and non-sure Docker Compose files provided by the project.  Locate and download the Docker Compose file that best suits your needs from https://github.com/edgexfoundry/edgex-compose.  For example, in the Jakarta branch of `edgex-compose` the `*-with-app-sample*` compose files include the Sample App Service allowing the configurable pipeline to be manipulated from the UI. See the four Docker Compose files that include the Sample App Service circled below.
 
-![image](EdgeX_Compose_With_UI.png)
+![image](EdgeX_Compose_With_app_sample.png)
 
 !!! Note
-    Because the GUI can only to be used in unsecured EdgeX, you will not find a Docker Compose file that includes security and the GUI.
+    The GUI can now be used in secure mode as well as non-secure mode.
 
-See the [Getting Started](../quick-start/Ch-GettingStartedUsers#select-a-edgex-foundry-compose-file) guide for help on how to find, download and use a Docker Compose file to run EdgeX - in this case with the GUI.
+See the [Getting Started](../quick-start/Ch-GettingStartedUsers#select-a-edgex-foundry-compose-file) guide for help on how to find, download and use a Docker Compose file to run EdgeX - in this case with the Sample App Service.
+
+### Secure mode with API Gateway token
+
+When first running the UI in secure mode, you will be prompted to enter a token.
+
+![](EdgeX_TokenPrompt.png)
+
+Following the [How to get access token?](../../../security/Ch-APIGateway/#creating-access-token-for-api-gateway-authentication) link to view the documentation how get an API Gateway access token. Once you enter the token the UI will have asses to the EdgeX service via the API Gateway.
+
+!!! note
+    The UI is no longer restricted to access from `localhost`. It can now be accessed from any IP address that can access the host system. This is allowed because the UI is secured via API Gateway token when running in secure mode.
 
 ### Snaps
 
