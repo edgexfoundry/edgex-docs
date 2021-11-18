@@ -3,7 +3,7 @@
 EdgeX's graphical user interface (GUI) is provided for demonstration and development use to manage and monitor a single instance of EdgeX Foundry.
 
 ## Setup
-You can quickly run the GUI in a Docker container or as part of the EdgeX Snap.  You can also download, build and run the GUI natively on your host.
+You can quickly run the GUI in a Docker container or as a Snap.  You can also download, build and run the GUI natively on your host.
 
 ### Docker Compose
 The EdgeX GUI is already incorporated into Docker Compose files provided by the project.  Locate and download the Docker Compose file that includes the GUI container by looking for a file that has "-with-ui" in the file name.  For example, in the Ireland branch of edgex-compose, notice the two Docker Compose files that include the GUI below.
@@ -17,7 +17,62 @@ See the [Getting Started](../quick-start/Ch-GettingStartedUsers#select-a-edgex-f
 
 ### Snaps
 
-** Coming Soon! **  Canonical is developing a Snap that incorporates the EdgeX GUI.  Look for an update here soon.
+#### Installing EdgeX UI as a snap
+
+The latest stable version of the snap can be installed using:
+
+```
+$ sudo snap install edgex-ui
+```
+
+A specific release of the snap can be installed from a dedicated channel. For example, to install the 2.1 (Jakarta) release:
+
+```
+$ sudo snap install edgex-ui --channel=2.1
+```
+
+The latest development version of the edgex-ui snap can be installed using:
+
+```
+$ sudo snap install edgex-ui --edge
+```
+
+#### Generate token for entering UI secure mode
+
+A JWT access token is required to access the UI securely through the API Gateway. To do so:
+
+1. Generate a public/private keypair
+
+```
+$ openssl ecparam -genkey -name prime256v1 -noout -out private.pem
+$ openssl ec -in private.pem -pubout -out public.pem
+```
+
+2. Configure user and public-key
+
+```
+$ sudo snap set edgexfoundry env.security-proxy.user=user01,USER_ID,ES256
+$ sudo snap set edgexfoundry env.security-proxy.public-key="$(cat public.pem)"
+```
+
+3. Generate a token
+
+```
+$ edgexfoundry.secrets-config proxy jwt --algorithm ES256 \
+--private_key private.pem --id USER_ID --expiration=1h
+```
+
+This output is the JWT token for UI login in secure mode. Please keep the token in a safe place for future re-use as the same token cannot be regenerated or recovered from EdgeX's secret-config CLI. The token is required each time you reopen the web page.
+
+#### Using the edgex-ui snap
+
+Open your browser [http://localhost:4000](http://localhost:4000/)
+
+![](./EdgeX_GUI_Login.jpg)
+
+Please log in to EdgeX with the JWT token we generated above.
+
+For more details please refer to [edgex-ui Snap](https://github.com/edgexfoundry/edgex-ui-go/blob/main/snap/README.md)
 
 ### Native
 If you are running EdgeX natively (outside of Docker Compose or a Snap), you will find instructions on how to build and run the GUI on your platform in the [GUI repository README](https://github.com/edgexfoundry/edgex-ui-go/blob/main/README.md)
