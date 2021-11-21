@@ -133,7 +133,7 @@ There are two transforms included in the SDK that can be added to your pipeline 
 ### Encryption (Deprecated)
 
 !!! edgey "EdgeX 2.1"
-    This is deprecated in EdgeX 2.1 - it is recommended to use the new `AESProtection` transform.  Please see [this security advisory](#TODO) for more detail.
+    This is deprecated in EdgeX 2.1 - it is recommended to use the new `AESProtection` transform.  Please see [this security advisory](https://github.com/edgexfoundry/app-functions-sdk-go/security/advisories/GHSA-6c7m-qwxj-mvhp) for more detail.
 
 
 | Factory Method                                               | Description                                                  |
