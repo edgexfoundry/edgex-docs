@@ -1,0 +1,3684 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for use of EdgeX Foundry">
+      
+      
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/microservices/application/BuiltIn/">
+      
+      
+        <meta name="author" content="Michael Johanson">
+      
+      <link rel="shortcut icon" href="../../../assets/logo_edgex.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-5.1.0">
+    
+    
+      
+        <title>Built-In Pipeline Functions - EdgeX Foundry Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.89dc9fe3.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/version-select.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/branding.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/edgey.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/newexample.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#built-in-pipeline-functions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+      
+  <img src="../../../assets/logo_edgex_white.png" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" /></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            EdgeX Foundry Documentation
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Built-In Pipeline Functions
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" /></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" /></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    edgex/edgex-go
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../.." class="md-tabs__link">
+          Introduction
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../getting-started/" class="md-tabs__link">
+          Getting Started
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../security/Ch-Security/" class="md-tabs__link">
+          Security
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../general/" class="md-tabs__link md-tabs__link--active">
+          Microservices
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../examples/" class="md-tabs__link">
+          Examples and Tutorials
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../api/Ch-APIIntroduction/" class="md-tabs__link">
+          API Reference
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../design/" class="md-tabs__link">
+          Architectural Decision Records
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../general/Definitions/" class="md-tabs__link">
+          Reference
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+      
+  <img src="../../../assets/logo_edgex_white.png" alt="logo">
+
+    </a>
+    EdgeX Foundry Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    edgex/edgex-go
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1">
+    
+    <label class="md-nav__link" for="nav-1">
+      Introduction
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Introduction
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../V2TopLevelMigration/" title="V2 Migration Guide" class="md-nav__link">
+      V2 Migration Guide
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Getting Started
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Getting Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../getting-started/" title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../getting-started/quick-start/" title="Quick Start" class="md-nav__link">
+      Quick Start
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-3" type="checkbox" id="nav-2-3">
+    
+    <label class="md-nav__link" for="nav-2-3">
+      Users
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Users" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Users
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../getting-started/Ch-GettingStartedUsers/" title="Getting Started with Docker" class="md-nav__link">
+      Getting Started with Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../getting-started/Ch-GettingStartedSnapUsers/" title="Getting Started with EdgeX Snaps" class="md-nav__link">
+      Getting Started with EdgeX Snaps
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-4" type="checkbox" id="nav-2-4">
+    
+    <label class="md-nav__link" for="nav-2-4">
+      Developers
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Developers" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Developers
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../getting-started/Ch-GettingStartedDevelopers/" title="Getting Started - Developers" class="md-nav__link">
+      Getting Started - Developers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../getting-started/Ch-GettingStartedGoDevelopers/" title="Getting Started - Go Developers" class="md-nav__link">
+      Getting Started - Go Developers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../getting-started/Ch-GettingStartedCDevelopers/" title="Getting Started - C Developers" class="md-nav__link">
+      Getting Started - C Developers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../getting-started/Ch-GettingStartedHybrid/" title="Working in a Hybrid Environment" class="md-nav__link">
+      Working in a Hybrid Environment
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../getting-started/ApplicationFunctionsSDK/" title="Application Functions SDK" class="md-nav__link">
+      Application Functions SDK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-4-6" type="checkbox" id="nav-2-4-6">
+    
+    <label class="md-nav__link" for="nav-2-4-6">
+      Device Services
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Device Services" data-md-level="3">
+      <label class="md-nav__title" for="nav-2-4-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Device Services
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../getting-started/Ch-GettingStartedSDK/" title="Device Service SDK" class="md-nav__link">
+      Device Service SDK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../getting-started/Ch-GettingStartedSDK-C/" title="C SDK" class="md-nav__link">
+      C SDK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../getting-started/Ch-GettingStartedSDK-Go/" title="Golang SDK" class="md-nav__link">
+      Golang SDK
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../getting-started/Ch-GettingStartedUsersNexus/" title="Getting Docker Images from EdgeX Nexus Repository" class="md-nav__link">
+      Getting Docker Images from EdgeX Nexus Repository
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-5" type="checkbox" id="nav-2-5">
+    
+    <label class="md-nav__link" for="nav-2-5">
+      Tools
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Tools" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Tools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../getting-started/tools/Ch-CommandLineInterface/" title="Command Line Interface (CLI)" class="md-nav__link">
+      Command Line Interface (CLI)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../getting-started/tools/Ch-GUI/" title="EdgeX Foundry User Interface" class="md-nav__link">
+      EdgeX Foundry User Interface
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Security
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Security" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Security
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../security/Ch-Security/" title="Security" class="md-nav__link">
+      Security
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../security/Ch-SecretStore/" title="Secret Store" class="md-nav__link">
+      Secret Store
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../security/Ch-APIGateway/" title="API Gateway" class="md-nav__link">
+      API Gateway
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../security/Ch-Secure-MessageBus/" title="Secure MessageBus" class="md-nav__link">
+      Secure MessageBus
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../security/Ch-Configuring-Add-On-Services/" title="Configuring Add-on Service" class="md-nav__link">
+      Configuring Add-on Service
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../security/Ch-Secure-Consul/" title="Secure Consul" class="md-nav__link">
+      Secure Consul
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../security/Ch-SecurityIssues/" title="Reporting Security Issues" class="md-nav__link">
+      Reporting Security Issues
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../security/Ch-AddGatewayUserRemotely/" title="Adding EdgeX API Gateway Users Remotely" class="md-nav__link">
+      Adding EdgeX API Gateway Users Remotely
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../security/secrets-config/" title="Secrets config" class="md-nav__link">
+      Secrets config
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../security/secrets-config-proxy/" title="Secrets config proxy" class="md-nav__link">
+      Secrets config proxy
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../security/SeedingServiceSecrets/" title="Seeding Service Secrets" class="md-nav__link">
+      Seeding Service Secrets
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../security/Ch-CORS-Settings/" title="CORS settings" class="md-nav__link">
+      CORS settings
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      Microservices
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Microservices" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Microservices
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../general/" title="Cross Cutting Concerns" class="md-nav__link">
+      Cross Cutting Concerns
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-2" type="checkbox" id="nav-4-2">
+    
+    <label class="md-nav__link" for="nav-4-2">
+      Configuration & Registry
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Configuration & Registry" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Configuration & Registry
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/CommonConfiguration/" title="Common Configuration" class="md-nav__link">
+      Common Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/CommonCommandLineOptions/" title="Common Command Line Options" class="md-nav__link">
+      Common Command Line Options
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/CommonEnvironmentVariables/" title="Common Environment Variables" class="md-nav__link">
+      Common Environment Variables
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/ConfigurationAndRegistry/" title="Configuration and Registry Providers" class="md-nav__link">
+      Configuration and Registry Providers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/V2MigrationCommonConfig/" title="V2 Migration of Common Configuration" class="md-nav__link">
+      V2 Migration of Common Configuration
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-3" type="checkbox" id="nav-4-3">
+    
+    <label class="md-nav__link" for="nav-4-3">
+      Core Services
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Core Services" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Core Services
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../core/Ch-CoreServices/" title="Core Services" class="md-nav__link">
+      Core Services
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../core/data/Ch-CoreData/" title="Core Data" class="md-nav__link">
+      Core Data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../core/metadata/Ch-Metadata/" title="Metadata" class="md-nav__link">
+      Metadata
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../core/command/Ch-Command/" title="Command" class="md-nav__link">
+      Command
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../core/database/Ch-Redis/" title="Redis Database" class="md-nav__link">
+      Redis Database
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-4" type="checkbox" id="nav-4-4">
+    
+    <label class="md-nav__link" for="nav-4-4">
+      Supporting Services
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Supporting Services" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Supporting Services
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../support/Ch-SupportingServices/" title="Supporting Services Microservices" class="md-nav__link">
+      Supporting Services Microservices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../support/notifications/Ch-AlertsNotifications/" title="Alerts & Notifications" class="md-nav__link">
+      Alerts & Notifications
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../support/eKuiper/Ch-eKuiper/" title="eKuiper Rules Engine" class="md-nav__link">
+      eKuiper Rules Engine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../support/scheduler/Ch-Scheduler/" title="Scheduler" class="md-nav__link">
+      Scheduler
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-5" type="checkbox" id="nav-4-5">
+    
+    <label class="md-nav__link" for="nav-4-5">
+      System Management
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="System Management" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        System Management
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../system-management/Ch_SystemManagement/" title="System Management Micro Services" class="md-nav__link">
+      System Management Micro Services
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../system-management/agent/Ch_SysMgmtAgent/" title="System Management Agent (SMA)" class="md-nav__link">
+      System Management Agent (SMA)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../system-management/executor/Ch_SysMgmtExecutor/" title="System Management Executor (SME)" class="md-nav__link">
+      System Management Executor (SME)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-6" type="checkbox" id="nav-4-6">
+    
+    <label class="md-nav__link" for="nav-4-6">
+      Devices Services
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Devices Services" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Devices Services
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../device/Ch-DeviceServices/" title="Device Services Microservices" class="md-nav__link">
+      Device Services Microservices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../device/Ch-DeviceServiceList/" title="Device Service Support" class="md-nav__link">
+      Device Service Support
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../device/profile/Ch-DeviceProfile/" title="Device Profile" class="md-nav__link">
+      Device Profile
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../device/sdk/Ch-DeviceSDK/" title="Device Services SDK" class="md-nav__link">
+      Device Services SDK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../device/virtual/Ch-VirtualDevice/" title="Virtual Device" class="md-nav__link">
+      Virtual Device
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../device/V2Migration/" title="V2 Migration Guide" class="md-nav__link">
+      V2 Migration Guide
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-7" type="checkbox" id="nav-4-7" checked>
+    
+    <label class="md-nav__link" for="nav-4-7">
+      Application Services
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Application Services" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Application Services
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ApplicationServices/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../GettingStarted/" title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Triggers/" title="Triggers" class="md-nav__link">
+      Triggers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-7-4" type="checkbox" id="nav-4-7-4" checked>
+    
+    <label class="md-nav__link" for="nav-4-7-4">
+      Application Functions SDK
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Application Functions SDK" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-7-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Application Functions SDK
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ApplicationFunctionsSDK/" title="App Functions SDK Introduction" class="md-nav__link">
+      App Functions SDK Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ApplicationServiceAPI/" title="Application Service API" class="md-nav__link">
+      Application Service API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../AppFunctionContextAPI/" title="App Function Context API" class="md-nav__link">
+      App Function Context API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ErrorHandling/" title="Pipeline Function Error Handling" class="md-nav__link">
+      Pipeline Function Error Handling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Built-In Pipeline Functions
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z" /></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Built-In Pipeline Functions" class="md-nav__link md-nav__link--active">
+      Built-In Pipeline Functions
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#batching" class="md-nav__link">
+    Batching
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compression" class="md-nav__link">
+    Compression
+  </a>
+  
+    <nav class="md-nav" aria-label="Compression">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gzip" class="md-nav__link">
+    GZIP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zlib" class="md-nav__link">
+    ZLIB
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conversion" class="md-nav__link">
+    Conversion
+  </a>
+  
+    <nav class="md-nav" aria-label="Conversion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#json" class="md-nav__link">
+    JSON
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xml" class="md-nav__link">
+    XML
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-data" class="md-nav__link">
+    Core Data
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#push-to-core-data" class="md-nav__link">
+    Push to Core Data
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-protection" class="md-nav__link">
+    Data Protection
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Protection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encryption-deprecated" class="md-nav__link">
+    Encryption (Deprecated)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aesprotection" class="md-nav__link">
+    AESProtection
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#export" class="md-nav__link">
+    Export
+  </a>
+  
+    <nav class="md-nav" aria-label="Export">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#http-export" class="md-nav__link">
+    HTTP Export
+  </a>
+  
+    <nav class="md-nav" aria-label="HTTP Export">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#http-post" class="md-nav__link">
+    HTTP POST
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-put" class="md-nav__link">
+    HTTP PUT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#url-formatting" class="md-nav__link">
+    URL Formatting
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mqtt-export" class="md-nav__link">
+    MQTT Export
+  </a>
+  
+    <nav class="md-nav" aria-label="MQTT Export">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#topic-formatting" class="md-nav__link">
+    Topic Formatting
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filtering" class="md-nav__link">
+    Filtering
+  </a>
+  
+    <nav class="md-nav" aria-label="Filtering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#by-profile-name" class="md-nav__link">
+    By Profile Name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#by-device-name" class="md-nav__link">
+    By Device Name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#by-source-name" class="md-nav__link">
+    By Source Name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#by-resource-name" class="md-nav__link">
+    By Resource Name
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#json-logic" class="md-nav__link">
+    JSON Logic
+  </a>
+  
+    <nav class="md-nav" aria-label="JSON Logic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#evaluate" class="md-nav__link">
+    Evaluate
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#response-data" class="md-nav__link">
+    Response Data
+  </a>
+  
+    <nav class="md-nav" aria-label="Response Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#content-type" class="md-nav__link">
+    Content Type
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-response-data" class="md-nav__link">
+    Set Response Data
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tags" class="md-nav__link">
+    Tags
+  </a>
+  
+    <nav class="md-nav" aria-label="Tags">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-tags" class="md-nav__link">
+    Add Tags
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../AdvancedTopics/" title="Advanced Topics" class="md-nav__link">
+      Advanced Topics
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../AppServiceConfigurable/" title="App Service Configurable" class="md-nav__link">
+      App Service Configurable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../GeneralAppServiceConfig/" title="Application Service Configuration" class="md-nav__link">
+      Application Service Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../V2Migration/" title="V2 Migration Guide" class="md-nav__link">
+      V2 Migration Guide
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Examples and Tutorials
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Examples and Tutorials" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Examples and Tutorials
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../examples/" title="EdgeX Examples" class="md-nav__link">
+      EdgeX Examples
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../examples/Ch-ExamplesVirtualDeviceService/" title="Using the Virtual Device Service" class="md-nav__link">
+      Using the Virtual Device Service
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../examples/Ch-ExamplesSendingAndConsumingBinary/" title="Sending and Consuming Binary Data From EdgeX Device Services" class="md-nav__link">
+      Sending and Consuming Binary Data From EdgeX Device Services
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../examples/AppServiceExamples/" title="App Service Examples" class="md-nav__link">
+      App Service Examples
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../examples/Ch-CommandingDeviceThroughRulesEngine/" title="Command Devices with eKuiper Rules Engine" class="md-nav__link">
+      Command Devices with eKuiper Rules Engine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../examples/Ch-ExamplesModbusdatatypeconversion/" title="Modbus - Data Type Conversion" class="md-nav__link">
+      Modbus - Data Type Conversion
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-7" type="checkbox" id="nav-5-7">
+    
+    <label class="md-nav__link" for="nav-5-7">
+      Adding a Device
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Adding a Device" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Adding a Device
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../examples/Ch-ExamplesAddingModbusDevice/" title="Modbus" class="md-nav__link">
+      Modbus
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../examples/Ch-ExamplesAddingSNMPDevice/" title="SNMP" class="md-nav__link">
+      SNMP
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../examples/Ch-ExamplesAddingMQTTDevice/" title="MQTT" class="md-nav__link">
+      MQTT
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-8" type="checkbox" id="nav-5-8">
+    
+    <label class="md-nav__link" for="nav-5-8">
+      Walkthrough
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Walkthrough" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-8">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Walkthrough
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../walk-through/Ch-Walkthrough/" title="EdgeX Demonstration API Walk Through" class="md-nav__link">
+      EdgeX Demonstration API Walk Through
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../walk-through/Ch-WalkthroughSetup/" title="Setup up your environment" class="md-nav__link">
+      Setup up your environment
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../walk-through/Ch-WalkthroughUseCase/" title="Example Use Case" class="md-nav__link">
+      Example Use Case
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../walk-through/Ch-WalkthroughDeviceProfile/" title="Defining your device" class="md-nav__link">
+      Defining your device
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../walk-through/Ch-WalkthroughDeviceService/" title="Register your device service" class="md-nav__link">
+      Register your device service
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../walk-through/Ch-WalkthroughProvision/" title="Provision a device" class="md-nav__link">
+      Provision a device
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../walk-through/Ch-WalkthroughCommands/" title="Calling commands" class="md-nav__link">
+      Calling commands
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../walk-through/Ch-WalkthroughReading/" title="Sending events and reading data" class="md-nav__link">
+      Sending events and reading data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../walk-through/Ch-WalkthroughExporting/" title="Exporting your device data" class="md-nav__link">
+      Exporting your device data
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      API Reference
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="API Reference" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        API Reference
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../api/Ch-APIIntroduction/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6-2" type="checkbox" id="nav-6-2">
+    
+    <label class="md-nav__link" for="nav-6-2">
+      Core
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Core" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Core
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../api/core/Ch-APICoreCommand/" title="Core Command" class="md-nav__link">
+      Core Command
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../api/core/Ch-APICoreData/" title="Core Data" class="md-nav__link">
+      Core Data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../api/core/Ch-APICoreMetadata/" title="Core Metadata" class="md-nav__link">
+      Core Metadata
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../api/core/Ch-APICoreConfigurationAndRegistry/" title="Configuration and Registry" class="md-nav__link">
+      Configuration and Registry
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6-3" type="checkbox" id="nav-6-3">
+    
+    <label class="md-nav__link" for="nav-6-3">
+      Support
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Support" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Support
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../api/support/Ch-APISupportNotifications/" title="Support Notifications" class="md-nav__link">
+      Support Notifications
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../api/support/Ch-APISupportScheduler/" title="Support Scheduler" class="md-nav__link">
+      Support Scheduler
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6-4" type="checkbox" id="nav-6-4">
+    
+    <label class="md-nav__link" for="nav-6-4">
+      Management
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Management" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Management
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../api/management/Ch-APISystemManagement/" title="System Management Agent" class="md-nav__link">
+      System Management Agent
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6-5" type="checkbox" id="nav-6-5">
+    
+    <label class="md-nav__link" for="nav-6-5">
+      Device
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Device" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Device
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../api/devices/Ch-APIDeviceSDK/" title="Device Services" class="md-nav__link">
+      Device Services
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6-6" type="checkbox" id="nav-6-6">
+    
+    <label class="md-nav__link" for="nav-6-6">
+      Application
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Application" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Application
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../api/applications/Ch-APIAppFunctionsSDK/" title="Application Services" class="md-nav__link">
+      Application Services
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../api/applications/Ch-APIRulesEngine/" title="Rules Engine" class="md-nav__link">
+      Rules Engine
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Architectural Decision Records
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Architectural Decision Records" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Architectural Decision Records
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../design/" title="Architecture Decision Records Folder" class="md-nav__link">
+      Architecture Decision Records Folder
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../design/TOC/" title="ADR Table of Contents" class="md-nav__link">
+      ADR Table of Contents
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7-3" type="checkbox" id="nav-7-3">
+    
+    <label class="md-nav__link" for="nav-7-3">
+      Legacy
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Legacy" data-md-level="2">
+      <label class="md-nav__title" for="nav-7-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Legacy
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../design/legacy-design/" title="Legacy Design Documents" class="md-nav__link">
+      Legacy Design Documents
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../design/legacy-requirements/" title="Legacy Requirements" class="md-nav__link">
+      Legacy Requirements
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Reference
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Reference" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Reference
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../general/Definitions/" title="Definitions" class="md-nav__link">
+      Definitions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../general/PlatformRequirements/" title="Platform Requirements" class="md-nav__link">
+      Platform Requirements
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../general/ServicePorts/" title="Default Service Ports" class="md-nav__link">
+      Default Service Ports
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../general/ContainerNames/" title="EdgeX Container Names" class="md-nav__link">
+      EdgeX Container Names
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../general/ServiceConfiguration/" title="Service Configuration" class="md-nav__link">
+      Service Configuration
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#batching" class="md-nav__link">
+    Batching
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compression" class="md-nav__link">
+    Compression
+  </a>
+  
+    <nav class="md-nav" aria-label="Compression">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gzip" class="md-nav__link">
+    GZIP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zlib" class="md-nav__link">
+    ZLIB
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conversion" class="md-nav__link">
+    Conversion
+  </a>
+  
+    <nav class="md-nav" aria-label="Conversion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#json" class="md-nav__link">
+    JSON
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xml" class="md-nav__link">
+    XML
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-data" class="md-nav__link">
+    Core Data
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#push-to-core-data" class="md-nav__link">
+    Push to Core Data
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-protection" class="md-nav__link">
+    Data Protection
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Protection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encryption-deprecated" class="md-nav__link">
+    Encryption (Deprecated)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aesprotection" class="md-nav__link">
+    AESProtection
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#export" class="md-nav__link">
+    Export
+  </a>
+  
+    <nav class="md-nav" aria-label="Export">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#http-export" class="md-nav__link">
+    HTTP Export
+  </a>
+  
+    <nav class="md-nav" aria-label="HTTP Export">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#http-post" class="md-nav__link">
+    HTTP POST
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-put" class="md-nav__link">
+    HTTP PUT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#url-formatting" class="md-nav__link">
+    URL Formatting
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mqtt-export" class="md-nav__link">
+    MQTT Export
+  </a>
+  
+    <nav class="md-nav" aria-label="MQTT Export">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#topic-formatting" class="md-nav__link">
+    Topic Formatting
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filtering" class="md-nav__link">
+    Filtering
+  </a>
+  
+    <nav class="md-nav" aria-label="Filtering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#by-profile-name" class="md-nav__link">
+    By Profile Name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#by-device-name" class="md-nav__link">
+    By Device Name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#by-source-name" class="md-nav__link">
+    By Source Name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#by-resource-name" class="md-nav__link">
+    By Resource Name
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#json-logic" class="md-nav__link">
+    JSON Logic
+  </a>
+  
+    <nav class="md-nav" aria-label="JSON Logic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#evaluate" class="md-nav__link">
+    Evaluate
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#response-data" class="md-nav__link">
+    Response Data
+  </a>
+  
+    <nav class="md-nav" aria-label="Response Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#content-type" class="md-nav__link">
+    Content Type
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-response-data" class="md-nav__link">
+    Set Response Data
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tags" class="md-nav__link">
+    Tags
+  </a>
+  
+    <nav class="md-nav" aria-label="Tags">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-tags" class="md-nav__link">
+    Add Tags
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/microservices/application/BuiltIn.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="built-in-pipeline-functions">Built-In Pipeline Functions</h1>
+<p>All pipeline functions define a type and a factory function which is used to initialize an instance of the type with the  required options. The instances returned by these factory functions give access to their appropriate pipeline function pointers when setting up the function pipeline.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="highlight"><pre><span></span><code><span class="nx">NewFilterFor</span><span class="p">([]</span> <span class="p">{</span><span class="s">&quot;Device1&quot;</span><span class="p">,</span> <span class="s">&quot;Device2&quot;</span><span class="p">}).</span><span class="nx">FilterByDeviceName</span>
+</code></pre></div>
+</div>
+<h2 id="batching">Batching</h2>
+<p>Included in the SDK is an in-memory batch function that will hold on to your data before continuing the pipeline. There are three functions provided for batching each with their own strategy.</p>
+<table>
+<thead>
+<tr>
+<th>Factory Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NewBatchByTime(timeInterval string)</td>
+<td>This function returns a <code>BatchConfig</code> instance with time being the strategy that is used for determining when to release the batched data and continue the pipeline. <code>timeInterval</code> is the duration to wait (i.e. <code>10s</code>). The time begins after the first piece of data is received. If no data has been received no data will be sent forward.</td>
+</tr>
+<tr>
+<td><div class="highlight"><pre><span></span><code><span class="c1">// Example: </span>
+<span class="nx">NewBatchByTime</span><span class="p">(</span><span class="s">&quot;10s&quot;</span><span class="p">).</span><span class="nx">Batch</span>
+</code></pre></div></td>
+<td></td>
+</tr>
+<tr>
+<td>NewBatchByCount(batchThreshold int)</td>
+<td>This function returns a <code>BatchConfig</code> instance with count being the strategy that is used for determining when to release the batched data and continue the pipeline. <code>batchThreshold</code> is how many events to hold on to (i.e. <code>25</code>). The count begins after the first piece of data is received and once the threshold is met, the batched data will continue forward and the counter will be reset.</td>
+</tr>
+<tr>
+<td><div class="highlight"><pre><span></span><code><span class="c1">// Example:</span>
+<span class="nx">NewBatchByCount</span><span class="p">(</span><span class="mi">10</span><span class="p">).</span><span class="nx">Batch</span>
+</code></pre></div></td>
+<td></td>
+</tr>
+<tr>
+<td>NewBatchByTimeAndCount(timeInterval string, batchThreshold int)</td>
+<td>This function returns a <code>BatchConfig</code> instance with a combination of both time and count being the strategy that is used for determining when to release the batched data and continue the pipeline. Whichever occurs first will trigger the data to continue and be reset.</td>
+</tr>
+<tr>
+<td><div class="highlight"><pre><span></span><code><span class="c1">// Example:</span>
+<span class="nx">NewBatchByTimeAndCount</span><span class="p">(</span><span class="s">&quot;30s&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">).</span><span class="nx">Batch</span>
+</code></pre></div></td>
+<td></td>
+</tr>
+<tr>
+<td>### Batch</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><code>Batch</code> - This pipeline function will apply the selected strategy in your pipeline. By default the batched data returned by this function is <code>[][]byte</code>. This is because this function doesn't need to know the type of the individual items batched. It simply marshals the items to JSON if the data isn't already a <code>[]byte</code>.</p>
+<div class="admonition edgey">
+<p class="admonition-title">Edgex 2.1</p>
+<p>New for EdgeX 2.1 is the <code>IsEventData</code> flag on the <code>BatchConfig</code> instance. </p>
+</div>
+<p>The <code>IsEventData</code> flag, when true, lets this function know that the data being batched is <code>Events</code> and to un-marshal the data a <code>[]Event</code> prior to returning the batched data.</p>
+<div class="admonition example">
+<p class="admonition-title">Batch with IsEventData flag set to true.</p>
+<div class="highlight"><pre><span></span><code>batch := NewBatchByTimeAndCount(&quot;30s&quot;, 10)
+batch.IsEventData = true
+...
+batch.Batch
+</code></pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Keep memory usage in mind as you determine the thresholds for both time and count. The larger they are the more memory is required and could lead to performance issue. </p>
+</div>
+<h2 id="compression">Compression</h2>
+<p>There are two compression types included in the SDK that can be added to your pipeline. These transforms return a <code>[]byte</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Factory Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NewCompression()</td>
+<td>This factory function returns a <code>Compression</code> instance that is used to access the compression functions.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="gzip">GZIP</h3>
+<p><code>CompressWithGZIP</code>  - This pipeline function receives either a <code>string</code>,<code>[]byte</code>, or <code>json.Marshaler</code> type, GZIP compresses the data, converts result to base64 encoded string, which is returned as a <code>[]byte</code> to the pipeline.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="highlight"><pre><span></span><code><span class="nx">NewCompression</span><span class="p">().</span><span class="nx">CompressWithGZIP</span>
+</code></pre></div>
+</div>
+<h3 id="zlib">ZLIB</h3>
+<p><code>CompressWithZLIB</code> - This pipeline function receives either a <code>string</code>,<code>[]byte</code>, or <code>json.Marshaler</code> type, ZLIB compresses the data, converts result to base64 encoded string, which is returned as a <code>[]byte</code> to the pipeline.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="highlight"><pre><span></span><code><span class="nx">NewCompression</span><span class="p">().</span><span class="nx">CompressWithZLIB</span>
+</code></pre></div>
+</div>
+<h2 id="conversion">Conversion</h2>
+<p>There are two conversions included in the SDK that can be added to your pipeline. These transforms return a <code>string</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Factory Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NewConversion()</td>
+<td>This factory function returns a <code>Conversion</code> instance that is used to access the conversion functions.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="json">JSON</h3>
+<p><code>TransformToJSON</code> - This pipeline function receives an <code>dtos.Event</code> type and converts it to JSON format and returns the JSON string to the pipeline.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="highlight"><pre><span></span><code><span class="nx">NewConversion</span><span class="p">().</span><span class="nx">TransformToJSON</span>
+</code></pre></div>
+</div>
+<h3 id="xml">XML</h3>
+<p><code>TransformToXML</code>  - This pipeline function receives an <code>dtos.Event</code> type, converts it to XML format and returns the XML string to the pipeline. </p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="highlight"><pre><span></span><code><span class="nx">NewConversion</span><span class="p">().</span><span class="nx">TransformToXML</span>
+</code></pre></div>
+</div>
+<h2 id="core-data">Core Data</h2>
+<p>There is one Core Data function that enables interactions with the Core Data REST API</p>
+<table>
+<thead>
+<tr>
+<th>Factory Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NewCoreDataSimpleReading(profileName string, deviceName string, resourceName string, valueType string)</td>
+<td>This factory function returns a <code>CoreData</code> instance configured to push a <code>Simple</code> reading. The<code>CoreData</code> instance returned  is used to access core data functions.</td>
+</tr>
+<tr>
+<td>NewCoreDataBinaryReading(profileName string, deviceName string, resourceName string, mediaType string)</td>
+<td>This factory function returns a <code>CoreData</code> instance configured to push a <code>Binary</code> reading. The <code>CoreData</code> instance returned  is used to access core data functions.</td>
+</tr>
+<tr>
+<td>NewCoreDataObejctReading(profileName string, deviceName string, resourceName string)</td>
+<td>This factory function returns a <code>CoreData</code> instance configured to push an <code>Object</code> reading. The <code>CoreData</code> instance returned is used to access core data functions.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>For EdgeX 2.0 the <code>NewCoreData</code> factory function has been replaced with the <code>NewCoreDataSimpleReading</code> and <code>NewCoreDataBinaryReading</code> functions </p>
+</div>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.1</p>
+<p>The <code>NewCoreDataObejctReading</code>factory method is new for EdgeX 2.1</p>
+</div>
+<h3 id="push-to-core-data">Push to Core Data</h3>
+<p><code>PushToCoreData</code> - This pipeline function provides the capability to push a new Event/Reading to Core Data. The data passed into this function from the pipeline is wrapped in an EdgeX Event with the Event and Reading metadata specified from the factory function options. The function returns the new EdgeX Event with ID populated.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="highlight"><pre><span></span><code><span class="nx">NewCoreDataSimpleReading</span><span class="p">(</span><span class="s">&quot;my-profile&quot;</span><span class="p">,</span> <span class="s">&quot;my-device&quot;</span><span class="p">,</span> <span class="s">&quot;my-resource&quot;</span><span class="p">,</span> <span class="s">&quot;string&quot;</span><span class="p">).</span><span class="nx">PushToCoreData</span>
+</code></pre></div>
+</div>
+<h2 id="data-protection"><a name="dataprotection"></a>Data Protection</h2>
+<p>There are two transforms included in the SDK that can be added to your pipeline for data protection. </p>
+<h3 id="encryption-deprecated">Encryption (Deprecated)</h3>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.1</p>
+<p>This is deprecated in EdgeX 2.1 - it is recommended to use the new <code>AESProtection</code> transform.  Please see <a href="https://github.com/edgexfoundry/app-functions-sdk-go/security/advisories/GHSA-6c7m-qwxj-mvhp">this security advisory</a> for more detail.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Factory Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NewEncryption(key string, initializationVector string)</td>
+<td>This function returns a <code>Encryption</code> instance initialized with the passed in <code>key</code> and <code>initialization vector</code>. This <code>Encryption</code> instance is used to access the following encryption function that will use the specified <code>key</code> and <code>initialization vector</code>.</td>
+</tr>
+<tr>
+<td>NewEncryptionWithSecrets(secretPath string, secretName string, initializationVector string)</td>
+<td>This function returns a <code>Encryption</code> instance initialized with the passed in <code>secret path</code>, <code>Secret name</code> and <code>initialization vector</code>. This <code>Encryption</code> instance is used to access the following encryption function that will use the encryption key from the Secret Store and the passed in <code>initialization vector</code>. It uses the passed in<code>secret path</code> and <code>secret name</code> to pull the encryption key from the Secret Store</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>New for EdgeX 2.0 is the ability to pull the encryption key from the Secret Store. The encryption key must be seeded into the Secret Store using the <code>/api/v2/secret</code> endpoint on the running instance of the Application Service prior to the Encryption function executing. See <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/app-functions-sdk/2.0.0#/default/post_secret">App Functions SDK swagger</a> for more details on this endpoint.</p>
+</div>
+<p><code>EncryptWithAES</code> - This pipeline function receives either a <code>string</code>, <code>[]byte</code>, or <code>json.Marshaller</code> type and encrypts it using AES encryption and returns a <code>[]byte</code> to the pipeline.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="highlight"><pre><span></span><code><span class="nx">NewEncryption</span><span class="p">(</span><span class="s">&quot;key&quot;</span><span class="p">,</span> <span class="s">&quot;initializationVector&quot;</span><span class="p">).</span><span class="nx">EncryptWithAES</span>
+<span class="nx">or</span>
+<span class="nx">NewEncryptionWithSecrets</span><span class="p">(</span><span class="s">&quot;aes&quot;</span><span class="p">,</span> <span class="s">&quot;aes-key&quot;</span><span class="p">,</span> <span class="s">&quot;initializationVector&quot;</span><span class="p">).</span><span class="nx">EncryptWithAES</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>algorithm</code> used used with app-service-configurable configuration to access this transform is <code>AES</code> </p>
+</div>
+<h3 id="aesprotection">AESProtection</h3>
+<div class="admonition edgey">
+<p class="admonition-title">Edgex 2.1</p>
+<p>This transform provides AES 256 encryption with a random initialization vector and authentication using a SHA 512 hash.  It can only be configured using secrets.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Factory Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NewAESProtection(secretPath string, secretName string)</td>
+<td>This function returns a <code>Encryption</code> instance initialized with the passed in <code>secretPath</code> and <code>secretName</code></td>
+</tr>
+</tbody>
+</table>
+<p>It requires a 64-byte key from secrets which is split in half, the first half used for encryption, the second for generating the signature.</p>
+<p><code>Encrypt</code>: This pipeline function receives either a <code>string</code>, <code>[]byte</code>, or <code>json.Marshaller</code> type and encrypts it using AES256 encryption, signs it with a SHA512 hash and returns a <code>[]byte</code> to the pipeline of the following form:</p>
+<table>
+<thead>
+<tr>
+<th>initialization vector</th>
+<th>ciphertext</th>
+<th>signing hash</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>16 bytes</td>
+<td>variable bytes</td>
+<td>32 bytes</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+</div>
+<div class="highlight"><pre><span></span><code>    <span class="nx">transforms</span><span class="p">.</span><span class="nx">NewAESProtection</span><span class="p">(</span><span class="nx">secretPath</span><span class="p">,</span> <span class="nx">secretName</span><span class="p">).</span><span class="nx">Encrypt</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+</div>
+<p>The <code>Algorithm</code> used with app-service-configurable configuration to access this transform is <code>AES256</code></p>
+<h2 id="export">Export</h2>
+<p>There are two export functions included in the SDK that can be added to your pipeline. </p>
+<h3 id="http-export">HTTP Export</h3>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>For EdgeX 2.0 the signature of the <code>NewHTTPSenderWithSecretHeader</code> factory function has changed. See below for details.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Factory Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NewHTTPSender(url string, mimeType string, persistOnError bool)</td>
+<td>This factory function returns a <code>HTTPSender</code> instance initialized with the passed in url, mime type and persistOnError values.</td>
+</tr>
+<tr>
+<td>NewHTTPSenderWithSecretHeader(url string, mimeType string, persistOnError bool, headerName string, secretPath string, secretName string)</td>
+<td>This factory function returns a <code>HTTPSender</code> instance similar to the above function however will set up the <code>HTTPSender</code> to add a header  to the HTTP request using the <code>headerName</code> for the field name and the <code>secretPath</code> and <code>secretName</code> to pull the header field value from the Secret Store.</td>
+</tr>
+<tr>
+<td>NewHTTPSenderWithOptions(options HTTPSenderOptions)</td>
+<td>This factory function returns a <code>HTTPSender</code>using the passed in <code>options</code> to configure it.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>New in EdgeX 2.0 is the ability to chain multiple instances of the HTTP exports to accomplish exporting to multiple destinations. The new <code>NewHTTPSenderWithOptions</code> factory function was added to allow for configuring all the options, including the new <code>ContinueOnSendError</code> and <code>ReturnInputData</code> options that enable this chaining. </p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1">// HTTPSenderOptions contains all options available to the sender</span>
+<span class="kd">type</span> <span class="nx">HTTPSenderOptions</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="c1">// URL of destination</span>
+    <span class="nx">URL</span> <span class="kt">string</span>
+    <span class="c1">// MimeType to send to destination</span>
+    <span class="nx">MimeType</span> <span class="kt">string</span>
+    <span class="c1">// PersistOnError enables use of store &amp; forward loop if true</span>
+    <span class="nx">PersistOnError</span> <span class="kt">bool</span>
+    <span class="c1">// HTTPHeaderName to use for passing configured secret</span>
+    <span class="nx">HTTPHeaderName</span> <span class="kt">string</span>
+    <span class="c1">// SecretPath to search for configured secret</span>
+    <span class="nx">SecretPath</span> <span class="kt">string</span>
+    <span class="c1">// SecretName for configured secret</span>
+    <span class="nx">SecretName</span> <span class="kt">string</span>
+    <span class="c1">// URLFormatter specifies custom formatting behavior to be applied to configured URL.</span>
+    <span class="c1">// If nothing specified, default behavior is to attempt to replace placeholders in the</span>
+    <span class="c1">// form &#39;{some-context-key}&#39; with the values found in the context storage.</span>
+    <span class="nx">URLFormatter</span> <span class="nx">StringValuesFormatter</span>
+    <span class="c1">// ContinueOnSendError allows execution of subsequent chained senders after errors if true</span>
+    <span class="nx">ContinueOnSendError</span> <span class="kt">bool</span>
+    <span class="c1">// ReturnInputData enables chaining multiple HTTP senders if true</span>
+    <span class="nx">ReturnInputData</span> <span class="kt">bool</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="http-post">HTTP POST</h4>
+<p><code>HTTPPost</code> - This pipeline function receives either a <code>string</code>, <code>[]byte</code>, or <code>json.Marshaler</code> type from the previous function in the pipeline and posts it to the configured endpoint and returns the HTTP response. If no previous function exists, then the event that triggered the pipeline, marshaled to json, will be used. If the post fails and <code>persistOnError=true</code> and <code>Store and Forward</code> is enabled, the data will be stored for later retry. See <a href="#store-and-forward">Store and Forward</a> for more details. If <code>ReturnInputData=true</code>  the function will return the data that it received instead of the HTTP response. This allows the following function in the pipeline to be another HTTP Export which receives the same data but is configured to send to a different endpoint. When chaining for multiple HTTP Exports you need to decide how to handle errors. Do you want to stop execution of the pipeline or continue so that the next HTTP Export function can attempt to export to its endpoint. This is where <code>ContinueOnSendError</code> comes in. If set to <code>true</code> the error is logged and the function returns the received data for the next function to use. <code>ContinueOnSendError=true</code> can only be used when <code>ReturnInputData=true</code> and cannot be use when <code>PersistOnError=true</code>.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><strong>POST</strong>            <br />
+NewHTTPSender("https://myendpoint.com","application/json",false).HTTPPost </p>
+<p><strong>PUT</strong>                 <br />
+NewHTTPSender("https://myendpoint.com","application/json",false).HTTPPut </p>
+<p><strong>POST with secure header</strong>
+NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,"Authentication","/jwt","AuthToken").HTTPPost </p>
+<p><strong> PUT with secure header</strong>
+NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,"Authentication","/jwt","AuthToken").HTTPPPut </p>
+</div>
+<h4 id="http-put">HTTP PUT</h4>
+<p><code>HTTPPut</code> - This pipeline function operates the same as <code>HTTPPost</code> but uses the <code>PUT</code> method rather than <code>POST</code>. </p>
+<h4 id="url-formatting">URL Formatting</h4>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>URL Formatting is new in EdgeX 2.0</p>
+</div>
+<p>The configured URL is dynamically formatted prior to the POST/PUT request. The default formatter (used if <code>URLFormatter</code> is nil) simply replaces any placeholder text, <code>{key-name}</code>, in the configured URL with matching values from the new <code>Context Storage</code>. An error will occur if a specified placeholder does not exist in the <code>Context Storage</code>. See the <a href="../AppFunctionContextAPI/#context-storage">Context Storage</a> documentation for more details on seeded values and storing your own values.</p>
+<p>The <code>URLFormatter</code> option allows you to override the default formatter with your own custom URL formatting scheme.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>Export the Events to  different endpoints base on their device name            <br />
+<code>Url="http://myhost.com/edgex-events/{devicename}"</code> </p>
+</div>
+<h3 id="mqtt-export">MQTT Export</h3>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>New for EdgeX 2.0 is the the new <code>NewMQTTSecretSenderWithTopicFormatter</code> factory function. The deprecated <code>NewMQTTSender</code> factory function has been removed.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Factory Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NewMQTTSecretSender(mqttConfig MQTTSecretConfig, persistOnError bool)</td>
+<td>This factory function returns a <code>MQTTSecretSender</code> instance initialized with the options specified in the <code>MQTTSecretConfig</code> and <code>persistOnError</code>.</td>
+</tr>
+<tr>
+<td>NewMQTTSecretSenderWithTopicFormatter(mqttConfig MQTTSecretConfig, persistOnError bool, topicFormatter StringValuesFormatter)</td>
+<td>This factory function returns a <code>MQTTSecretSender</code> instance initialized with the options specified in the <code>MQTTSecretConfig</code>, <code>persistOnError</code> and <code>topicFormatter</code>. See <a href="#topic-formatting">Topic Formatting</a> below for more details.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>New in EdgeX 2.0 the <code>KeepAlive</code> and <code>ConnectTimeout</code>  <strong>MQTTSecretConfig</strong> settings have been added.</p>
+</div>
+<div class="highlight"><pre><span></span><code>  <span class="kd">type</span> <span class="nx">MQTTSecretConfig</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="c1">// BrokerAddress should be set to the complete broker address i.e. mqtts://mosquitto:8883/mybroker</span>
+    <span class="nx">BrokerAddress</span> <span class="kt">string</span>
+    <span class="c1">// ClientId to connect with the broker with.</span>
+    <span class="nx">ClientId</span> <span class="kt">string</span>
+    <span class="c1">// The name of the path in secret provider to retrieve your secrets</span>
+    <span class="nx">SecretPath</span> <span class="kt">string</span>
+    <span class="c1">// AutoReconnect indicated whether or not to retry connection if disconnected</span>
+    <span class="nx">AutoReconnect</span> <span class="kt">bool</span>
+    <span class="c1">// KeepAlive is the interval duration between client sending keepalive ping to broker</span>
+    <span class="nx">KeepAlive</span> <span class="kt">string</span>
+    <span class="c1">// ConnectTimeout is the duration for timing out on connecting to the broker</span>
+    <span class="nx">ConnectTimeout</span> <span class="kt">string</span>
+    <span class="c1">// Topic that you wish to publish to</span>
+    <span class="nx">Topic</span> <span class="kt">string</span>
+    <span class="c1">// QoS for MQTT Connection</span>
+    <span class="nx">QoS</span> <span class="kt">byte</span>
+    <span class="c1">// Retain setting for MQTT Connection</span>
+    <span class="nx">Retain</span> <span class="kt">bool</span>
+    <span class="c1">// SkipCertVerify</span>
+    <span class="nx">SkipCertVerify</span> <span class="kt">bool</span>
+    <span class="c1">// AuthMode indicates what to use when connecting to the broker. </span>
+    <span class="c1">// Options are &quot;none&quot;, &quot;cacert&quot; , &quot;usernamepassword&quot;, &quot;clientcert&quot;.</span>
+    <span class="c1">// If a CA Cert exists in the SecretPath then it will be used for </span>
+    <span class="c1">// all modes except &quot;none&quot;. </span>
+    <span class="nx">AuthMode</span> <span class="kt">string</span>
+  <span class="p">}</span>
+</code></pre></div>
+<p>Secrets in the Secret Store may be located at any path however they must have some or all the follow keys at the specified <code>SecretPath</code>. </p>
+<ul>
+<li><code>username</code> - username to connect to the broker</li>
+<li><code>password</code> - password used to connect to the broker</li>
+<li><code>clientkey</code>- client private key in PEM format</li>
+<li><code>clientcert</code> - client cert in PEM format</li>
+<li><code>cacert</code> - ca cert in PEM format</li>
+</ul>
+<p>The <code>AuthMode</code> setting you choose depends on what secret values above are used. For example, if "none" is specified as auth mode all keys will be ignored. Similarly, if <code>AuthMode</code> is set to "clientcert" username and password will be ignored.</p>
+<h4 id="topic-formatting">Topic Formatting</h4>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>Topic Formatting is new in EdgeX 2.0</p>
+</div>
+<p>The configured Topic is dynamically formatted prior to publishing . The default formatter (used if <code>topicFormatter</code> is nil) simply replaces any placeholder text, <code>{key-name}</code>, in the configured <code>Topic</code> with matching values from the new <code>Context Storage</code>. An error will occur if a specified placeholder does not exist in the <code>Context Storage</code>. See the <a href="../AppFunctionContextAPI/#context-storage">Context Storage</a> documentation for more details on seeded values and storing your own values.</p>
+<p>The <code>topicFormatter</code> option allows you to override the default formatter with your own custom topic formatting scheme.</p>
+<h2 id="filtering">Filtering</h2>
+<p>There are four basic types of filtering included in the SDK to add to your pipeline. There is also an option to <code>Filter Out</code> specific items. These provided filter functions return a type of <code>dtos.Event</code>. If filtering results in no remaining data, the pipeline execution for that pass is terminated. If no values are provided for filtering, then data flows through unfiltered.</p>
+<table>
+<thead>
+<tr>
+<th>Factory Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NewFilterFor([]string filterValues)</td>
+<td>This factory function returns a <code>Filter</code> instance initialized with the passed in filter values with <code>FilterOut</code> set to <code>false</code>. This <code>Filter</code> instance is used to access the following filter functions that will operate using the specified filter values.</td>
+</tr>
+<tr>
+<td>NewFilterOut([]string filterValues)</td>
+<td>This factory function returns a <code>Filter</code> instance initialized with the passed in filter values with <code>FilterOut</code> set to <code>true</code>. This <code>Filter</code> instance is used to access the following filter functions that will operate using the specified filter values.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>For EdgeX 2.0 the <code>NewFilter</code> factory function has been renamed to <code>NewFilterFor</code> and the new <code>NewFilterOut</code> factory function has been added.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">Filter</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="c1">// Holds the values to be filtered</span>
+    <span class="nx">FilterValues</span> <span class="p">[]</span><span class="kt">string</span>
+    <span class="c1">// Determines if items in FilterValues should be filtered out. If set to true all items found in the filter will be removed. If set to false all items found in the filter will be returned. If FilterValues is empty then all items will be returned.</span>
+    <span class="nx">FilterOut</span>    <span class="kt">bool</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>New for EdgeX 2.0 are the <code>FilterByProfileName</code> and <code>FilterBySourceName</code> pipeline functions. The <code>FilterByValueDescriptor</code> pipeline function has been renamed to <code>FilterByResourceName</code></p>
+</div>
+<h3 id="by-profile-name">By Profile Name</h3>
+<p><code>FilterByProfileName</code> - This pipeline function will filter the event data down to <strong>Events</strong> that either have (For) or don't have (Out) the specified profiles names.  </p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="highlight"><pre><span></span><code><span class="nx">NewFilterFor</span><span class="p">([]</span> <span class="p">{</span><span class="s">&quot;Profile1&quot;</span><span class="p">,</span> <span class="s">&quot;Profile2&quot;</span><span class="p">}).</span><span class="nx">FilterByProfileName</span>
+</code></pre></div>
+</div>
+<h3 id="by-device-name">By Device Name</h3>
+<p><code>FilterByDeviceName</code> - This pipeline function will filter the event data down to <strong>Events</strong> that either have (For) or don't have (Out) the specified device names.  </p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="highlight"><pre><span></span><code><span class="nx">NewFilterFor</span><span class="p">([]</span> <span class="p">{</span><span class="s">&quot;Device1&quot;</span><span class="p">,</span> <span class="s">&quot;Device2&quot;</span><span class="p">}).</span><span class="nx">FilterByDeviceName</span>
+</code></pre></div>
+</div>
+<h3 id="by-source-name">By Source Name</h3>
+<p><code>FilterBySourceName</code> - This pipeline function will filter the event data down to <strong>Events</strong> that either have (For) or don't have (Out) the specified source names.  Source name is either the <code>resource name</code> or <code>command name</code> responsible for the Event creation.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="highlight"><pre><span></span><code><span class="nx">NewFilterFor</span><span class="p">([]</span> <span class="p">{</span><span class="s">&quot;Source1&quot;</span><span class="p">,</span> <span class="s">&quot;Source2&quot;</span><span class="p">}).</span><span class="nx">FilterBySourceName</span>
+</code></pre></div>
+</div>
+<h3 id="by-resource-name">By Resource Name</h3>
+<p><code>FilterByResourceName</code> - This pipeline function will filter the Event's reading data down to <strong>Readings</strong> that either have (For) or don't have (Out) the specified resource names.  If the result of filtering is zero Readings remaining, the function terminates pipeline execution.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="highlight"><pre><span></span><code><span class="nx">NewFilterFor</span><span class="p">([]</span> <span class="p">{</span><span class="s">&quot;Resource1&quot;</span><span class="p">,</span> <span class="s">&quot;Resource2&quot;</span><span class="p">}).</span><span class="nx">FilterByResourceName</span>
+</code></pre></div>
+</div>
+<h2 id="json-logic">JSON Logic</h2>
+<table>
+<thead>
+<tr>
+<th>Factory Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NewJSONLogic(rule string)</td>
+<td>This factory function returns a <code>JSONLogic</code> instance initialized with the passed in JSON rule. The rule passed in should be a JSON string conforming to the specification here: http://jsonlogic.com/operations.html.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="evaluate">Evaluate</h3>
+<p><code>Evaluate</code> - This is the pipeline function that will be used in the pipeline to apply the JSON rule to data coming in on the pipeline. If the condition of your rule is met, then the pipeline will continue and the data will continue to flow to the next function in the pipeline. If the condition of your rule is NOT met, then pipeline execution stops. </p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="highlight"><pre><span></span><code><span class="nx">NewJSONLogic</span><span class="p">(</span><span class="s">&quot;{ \&quot;in\&quot; : [{ \&quot;var\&quot; : \&quot;device\&quot; }, </span>
+<span class="s">              [\&quot;Random-Integer-Device\&quot;,\&quot;Random-Float-Device\&quot;] ] }&quot;</span><span class="p">).</span><span class="nx">Evaluate</span>
+</code></pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Only  operations that return true or false are supported. See http://jsonlogic.com/operations.html# for the complete list of operations paying attention to return values. Any operator that returns manipulated data is currently not supported. For more advanced scenarios checkout <a href="https://github.com/lf-edge/ekuiper">LF Edge eKuiper</a>.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Leverage http://jsonlogic.com/play.html to get your rule right before implementing in code. JSON can be a bit tricky to get right in code with all the escaped double quotes.</p>
+</div>
+<h2 id="response-data">Response Data</h2>
+<p>There is one response data function included in the SDK that can be added to your pipeline. </p>
+<table>
+<thead>
+<tr>
+<th>Factory Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NewResponseData()</td>
+<td>This factory function returns a <code>ResponseData</code> instance that is used to access the following pipeline function below.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="content-type">Content Type</h3>
+<p><code>ResponseContentType</code> - This property is used to set the content-type of the response.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="highlight"><pre><span></span><code><span class="nx">responseData</span> <span class="o">:=</span> <span class="nx">NewResponseData</span><span class="p">()</span>
+<span class="nx">responseData</span><span class="p">.</span><span class="nx">ResponseContentType</span> <span class="p">=</span> <span class="s">&quot;application/json&quot;</span>
+</code></pre></div>
+</div>
+<h3 id="set-response-data">Set Response Data</h3>
+<p><code>SetResponseData</code> - This pipeline function receives either a <code>string</code>,<code>[]byte</code>, or <code>json.Marshaler</code> type from the previous function in the pipeline and sets it as the response data that the pipeline returns to the configured trigger. If configured to use the<code>EdgeXMessageBus</code>trigger, the data will be published back to the EdgeX MessageBus as determined by the configuration. Similar, if  configured to use the<code>ExternalMQTT</code> trigger, the data will be published back to the external MQTT Broker as determined by the configuration. If configured to use <code>HTTP</code> trigger the data is returned as the HTTP response. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Calling <code>SetResponseData()</code> and <code>SetResponseContentType()</code> from the Context API in a custom function can be used in place of adding this function to your pipeline.</p>
+</div>
+<h2 id="tags">Tags</h2>
+<p>There is one Tags transform included in the SDK that can be added to your pipeline. </p>
+<table>
+<thead>
+<tr>
+<th>Factory Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NewGenericTags(tags <code>map[string]interface{}</code>) Tags</td>
+<td>This factory function returns a <code>Tags</code> instance initialized with the passed in collection of generic tag key/value pairs. This <code>Tags</code> instance is used to access the following Tags function that will use the specified collection of tag key/value pairs. This allows for generic complex types for the Tag values.</td>
+</tr>
+<tr>
+<td>NewTags(tags <code>map[string]string</code>) Tags</td>
+<td>This factory function returns a <code>Tags</code> instance initialized with the passed in collection of tag key/value pairs. This <code>Tags</code> instance is used to access the following Tags function that will use the specified collection of tag key/value pairs. <strong>This factor function has been Deprecated. Use <code>NewGenericTags</code> instead</strong>.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.1</p>
+<p>The Tags property on Events in Edgex 2.1 has changed from <code>map[string]string</code> to <code>map[string]interface{}</code>. The new NewGenericTags() factory function takes this new definition and replaces the deprecated NewTags() factory function. </p>
+</div>
+<h3 id="add-tags">Add Tags</h3>
+<p><code>AddTags</code> - This pipeline function receives an Edgex <code>Event</code> type and adds the collection of specified tags to the Event's <code>Tags</code> collection.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">myTags</span> <span class="p">=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{</span>
+    <span class="s">&quot;MyValue&quot;</span> <span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+    <span class="s">&quot;GatewayId&quot;</span><span class="p">:</span> <span class="s">&quot;HoustonStore000123&quot;</span><span class="p">,</span>
+    <span class="s">&quot;Coordinates&quot;</span><span class="p">:</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">float32</span> <span class="p">{</span>
+       <span class="s">&quot;Latitude&quot;</span><span class="p">:</span> <span class="mf">29.630771</span><span class="p">,</span>
+       <span class="s">&quot;Longitude&quot;</span><span class="p">:</span> <span class="s">&quot;-95.377603&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+
+<span class="nx">NewGenericTags</span><span class="p">(</span><span class="nx">myTags</span><span class="p">).</span><span class="nx">AddTags</span>
+</code></pre></div>
+</div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../ErrorHandling/" title="Pipeline Function Error Handling" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Pipeline Function Error Handling
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../AdvancedTopics/" title="Advanced Topics" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Advanced Topics
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" /></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 EdgeX Foundry
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+      <a href="https://github.com/edgexfoundry" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+      </a>
+    
+      
+      
+      <a href="https://twitter.com/edgexfoundry" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+      
+      
+      <a href="https://www.linkedin.com/company/edgexfoundry" target="_blank" rel="noopener" title="www.linkedin.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/vendor.36cbf620.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../..",
+          features: ["tabs"],
+          search: Object.assign({
+            worker: "../../../assets/javascripts/worker/search.7f7c8775.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../../assets/javascripts/version-select.js"></script>
+      
+    
+  </body>
+</html>
