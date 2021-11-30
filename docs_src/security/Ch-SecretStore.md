@@ -115,7 +115,7 @@ are revoked every time the framework is started if `SECRETSTORE_REVOKEROOTTOKENS
 Execute a shell session in the running Vault container:
 
 ```bash
-  docker exec -it -e edgex-vault sh -l
+  docker exec -it edgex-vault sh -l
 ```
 
 Login to Vault using Vault CLI and the gathered Root Token:
