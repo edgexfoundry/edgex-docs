@@ -24,30 +24,34 @@ this is unintuitive.
 
 ## Decision
 
-1. Add a new section to device profiles describing functions
+**Add a new section to device profiles describing functions**
 
+```
 {
   "deviceFunctions":
   [
     {
       "name": "Name by which the function is accessed",
       "description": "Readable description of the function",
-      "attributes": { device-specific parameters which select this function },
+      "attributes": { device-service-specific attributes which select this function },
       "parameters":
       {
         "in":
         [
           {
             "name": "Parameter name",
-            "description": "description of what the parameter controls",
-            "type": "Any of the usual EdgeX data types"
+            "description": "(optional) description of what the parameter controls",
+            "type": "Any of the usual EdgeX data types",
+            "defaultValue": "(optional) value to use if param is not supplied",
+            "maximum": "(optional) for numerics, maximum allowed value",
+            "minimum": "(optional) for numerics, minimum allowed value"
           }
         ],
         "out":
         [
           {
-            "name": "Parameter name",
-            "description": "description of what the parameter controls",
+            "name": "Name of returned value",
+            "description": "(optional) description of what the value indicates",
             "type": "Any of the usual EdgeX data types"
           }
         ]
@@ -55,20 +59,24 @@ this is unintuitive.
     }
   ]
 }
+```
 
-2. Add a REST endpoint to the device service for performing functions
+Note: the `attributes` structure is analagous to `attributes` in a `deviceResource`. Each device service should document and implement a scheme of required attributes that will allow for selection of the relevant funtion. The function's `name` is intended for UI and logging purposes and should not be used for actual function selection on the device.
 
-api/v2/device-funtion/<device-name>/<function-name>
+**Add a REST endpoint to the device service for performing functions**
+
+`api/v2/device-funtion/<device-name>/<function-name>`
 
 This shold accept POST requests with parameters sent in a JSON (or CBOR) payload
 
-A successful invocation should return HTTP 200 with the out parameters in JSON
+A successful invocation should return HTTP 200 with the out values in JSON
 or CBOR format.
 
 Returnable errors should be
-BAD REQUEST: parameters were missing or wrong type
-INTERNAL SERVER ERROR: the DS implementation was unable to fulfill the request
-NOT FOUND: no such device, or no such function
-LOCKED: device or service is locked or down (adminstate, operating state)
 
-3. Add a REST endpoint to core-command for performing functions
+* BAD REQUEST: parameters were missing, wrong type, or out-of-range
+* INTERNAL SERVER ERROR: the DS implementation was unable to fulfill the request
+* NOT FOUND: no such device, or no such function
+* LOCKED: device or service is locked or down (adminstate, operating state)
+
+**Add a REST endpoint to core-command for performing functions**
