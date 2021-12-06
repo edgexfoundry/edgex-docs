@@ -27,9 +27,9 @@ It would be speculative and inappropriate for EdgeX to select a unit of measure 
 Therefore, EdgeX chooses not to select or adopt a unit of measure specification, standard, or code list to apply across the platform.  Instead, EdgeX adopters will be allowed to optionally specify which unit of measure specification, standard, or unit of measure code list they would like applied and understood to be represented by values in EdgeX.
 
 ### Specifying Unit of Measure per Device Resource
-Going forward, an EdgeX property will be optionally associated to each device resource to stipulate which unit of measure standard (or specification, code list, etc.) is applied to the unit of measure of the device resource.
+Currently, units is a string on [ResourceProperties](https://github.com/edgexfoundry/go-mod-core-contracts/blob/352324e9c8b8d76ffd6147dc5ec2da6dd8f275fd/v2/dtos/resourceproperties.go#L15).  Going forward, and to assist in backward compatiblity, the units property would remain in place and specify the unit of measure value.  A new optional EdgeX property will be optionally associated to each device resource to stipulate which unit of measure standard (or specification, code list, etc.) is applied to the unit of measure of the device resource.
 
-For example, if the device resource for temperature was specified in a device profile as show below, the unit of measure would be specified by the units section (specifying the Cel as the unit of measure from the Unified Code for Units of Measure).
+For example, if the device resource for temperature was specified in a device profile as show below, the unit of measure would still be specified by the units property (specifying the Cel as the unit of measure) and adding the optional units_standard (to specify that the unit of measure is from the Unified Code for Units of Measure).
 
 ``` YAML
 -
@@ -42,21 +42,35 @@ For example, if the device resource for temperature was specified in a device pr
     valueType: "Float32"
     readWrite: "R"
     scale: "1"
-  units:
-    value:  "Cel"
-    standard: "UCUM"
+  units: "Cel"
+  units_standard: "UCUM"
 ```
    
 The unit of measure standard would be specified as a string in the device profile.  Note each device resource could specify a different unit of measure standard.  
 
-
 ### Validation
 
-Initially, EdgeX would not validate the existenct of the specification or standard used to specify the unit of measures.  Nor would EdgeX validate that the unit of measure value is a valid unit of measure per that specification.  The unit of measure specification is provided as additional information which can be utilized in a way seen fit by the adopter.
+Initially, EdgeX would not validate the existence of the specification or standard used to specify the unit of measures.  Nor would EdgeX validate that the unit of measure value is a valid unit of measure per that specification.  The unit of measure specification is provided as additional (and optional) information which can be utilized in a way seen fit by the adopter.
 
 EdgeX may, in the future, provide a means to trigger validation of the unit of measure specification and of the unit of measures per that specification.  Doing so would require that EdgeX also have information about where to validate the specification's existence and valid units of measure (presumably a REST URL or other such confirmation site).
 
 In theory, the unit of measure could be validated on the "indbound" collection of the data (likely in a device service), on the "outbound" export of the data from EdgeX (likely in an application service), or in multiple locations if warranted.
+
+## Considersations
+
+It has been suggested that EdgeX borrow from the Open [Geospatial Consortium SensorThings](https://www.ogc.org/standards/sensorthings) standard and include a JSON object to provide more information about the UoM for the field.  An optional  unitOfMeasurement field would replace the optional units_standard in above (allowing for either standard or non-standard definitions but with more information).
+
+A JSON Object containing three key-value pairs. The name property presents the full name of the unitOfMeasurement; the symbol property shows the textual form of the unit symbol; and the definition contains the URI defining the unitOfMeasurement.
+
+From Example 4: A Datastream entity example:
+
+"unitOfMeasurement": {
+    "name": "degree Celsius",
+    "symbol": "°C",
+    "definition": "http://unitsofmeasure.org/ucum.html#para-30"
+}
+
+See https://docs.ogc.org/is/18-088/18-088.html#datastream
 
 ## Consequences
 - Any validation could impact performance.
@@ -70,6 +84,7 @@ In theory, the unit of measure could be validated on the "indbound" collection o
 - https://ediacademy.com/blog/x12-unit-of-measurement-codes/
 - https://unece.org/fileadmin/DAM/cefact/recommendations/rec20/rec20_rev3_Annex2e.pdf
 - https://en.wikipedia.org/wiki/Unified_Code_for_Units_of_Measure
+- https://www.ogc.org/standards/sensorthings
 
 ### UoM Tools and Databases
 - https://ucum.nlm.nih.gov/ucum-lhc/demo.html
