@@ -63,20 +63,43 @@ this is unintuitive.
 
 Note: the `attributes` structure is analagous to `attributes` in a `deviceResource`. Each device service should document and implement a scheme of required attributes that will allow for selection of the relevant funtion. The function's `name` is intended for UI and logging purposes and should not be used for actual function selection on the device.
 
-**Add a REST endpoint to the device service for performing functions**
+**Define MessageBus topics on which function call requests and replies are to be made**
 
-`api/v2/device-funtion/<device-name>/<function-name>`
+`edgex/function-calls/device/[profile-name]/[device-name]/[function-name]`
 
-This shold accept POST requests with parameters sent in a JSON (or CBOR) payload
+The payload for messages on these topics should be of the form
+```
+{
+  requestId: "184b894f-a7b7-4d6c-b400-99961d462419",
+  parameters: { (a map of parameter values keyed by parameter name) }
+}
+```
 
-A successful invocation should return HTTP 200 with the out values in JSON
-or CBOR format.
+The `requestId` may be any string but UUIDs are recommended.
 
-Returnable errors should be
+`edgex/function-responses/device/[profile-name]/[device-name]/[function-name]`
 
-* BAD REQUEST: parameters were missing, wrong type, or out-of-range
-* INTERNAL SERVER ERROR: the DS implementation was unable to fulfill the request
-* NOT FOUND: no such device, or no such function
-* LOCKED: device or service is locked or down (adminstate, operating state)
+The device service will provide responses to function calls on this topic. The payload will be
 
-**Add a REST endpoint to core-command for performing functions**
+```
+{
+  requestId: "184b894f-a7b7-4d6c-b400-99961d462419",
+  status: 0,
+  returnValues: { (a map of return values keyed by value name) }
+}
+```
+
+or if a call fails
+
+```
+{
+  requestId: "184b894f-a7b7-4d6c-b400-99961d462419",
+  status: (nonzero),
+  errorMessage "Message indicating the nature of the failure"
+}
+```
+
+TODO: define status codes for common errors eg not found, locked etc
+
+** The device SDKs will provide an API for the service implementations to implement these operations **
+
