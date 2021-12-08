@@ -2,7 +2,7 @@
 
 ## Status
 
-** DRAFT **
+** Approved ** via TSC vote on yyyy-mm-dd
 
 ## Context
 
