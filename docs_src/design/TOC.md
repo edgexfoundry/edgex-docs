@@ -18,4 +18,5 @@
 | [0016 Container Image Guidelines](./adr/security/0016-docker-image-guidelines.md)              | Documents best practices for security of docker images  |
 | [0017 Securing access to Consul](./adr/security/0017-consul-security.md)                       | Access control and authorization strategy for Consul    |
 | [0018 Service Registry](./adr/0018-Service-Registry.md)                                        | Service registry usage for EdgeX services               |
-| [0019 EdgeX-CLI V2](./adr/core/0019-EdgeX-CLI-V2.md)                                                | EdgeX-CLI V2 Implementation                             |
+| [0019 EdgeX-CLI V2](./adr/core/0019-EdgeX-CLI-V2.md)                                           | EdgeX-CLI V2 Implementation                             |
+| [0020 Delay start services (SPIFFE/SPIRE)](./adr/security/0020-spiffe.md)                      | Secret store tokens for delayed start services          |

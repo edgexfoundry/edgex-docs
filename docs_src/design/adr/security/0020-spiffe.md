@@ -2,7 +2,7 @@
 
 ## Status
 
-** Approved ** via TSC vote on yyyy-mm-dd
+** Approved ** via TSC vote on 2021-12-14
 
 ## Context
 
@@ -106,7 +106,7 @@ effort that could be implemented in a single release cycle.
 
 ### Technical Architecture
 
-![SPIFFE Architecture and Workflow](0019-spiffe-architecture.jpg)
+![SPIFFE Architecture and Workflow](0020-spiffe-architecture.jpg)
 
 The work flow is as follows:
 
