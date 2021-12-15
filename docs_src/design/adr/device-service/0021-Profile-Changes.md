@@ -13,8 +13,10 @@ While the device profile has always been the way to describe a device/sensor and
 
 A detailed look at the allowed changes to device profile and its device resources is listed below.  In general, here is what we are trying to allow/prevent via these rules:
 - Block the DELETE of a device profile when it is associated to any other EdgeX object (device, reading, event) **always**.
-- Allow changes (PATCH or PUT depending) to device profile or device resource fields when the field is inconsequential to the object's use (ex: description) or when it is not yet associated to another EdgeX object.  These changes are listed as `Anytime` or `Situational` accordingly in the table below.
+- Allow changes to device profile or device resource fields when the field is inconsequential to the object's use (ex: description) or when it is not yet associated to another EdgeX object.  These changes are listed as `Anytime` or `Situational` accordingly in the table below.
 - Allow the addition of new profiles, device resources, device commands, etc. **always**.  Additions may be accomplished via POST or PATCH depending on the change and API.
+
+See [Proposed Design section](#proposed-design) section below for specific metadata API changes.
 
 While not explicitly covered in this ADR, a device is not allowed when it is associated to an event or reading.
 
@@ -49,7 +51,7 @@ The table below outlines the current elements of the EdgeX device profile, and t
  
 ### Empty Profile
 
-A device profile can begin life “empty” - meaning that it has no device resources or device commands, but only when the profile is not associated to any device, event or reading.  As soon as it is associated to any other EdgeX object, it must have at least one device resource.  Device commands are always optional.
+A device profile can begin life “empty” - meaning that it has no device resources or device commands.  Once associated to any object (device, event, reading) then, since device resource or device command additions can be made, the empty profile can gain resources or commands.  You can never remove device resources or device commands once the profile is associated to another object.
 
 The general properties of a device profile, with the exception of name, are optional when creating an empty profile.
 
@@ -84,7 +86,21 @@ This document dictates the rules around allowed change to device profiles (and a
 
 ## Proposed Design
 
-Pending approval
+The following metadata API changes are suggested as a means to implement the device profile rules of this ADR
+
+- Block Device DELETE when there is any associated event/reading exists.
+- Block Profile (Upload) PUT when there is any associated device/event/reading exists.
+- Block Profile DELETE when there is any associated device/event/reading exists.
+- Allow empty Profile POST (containing no device resources or commands)
+- Add Profile General Property PATCH API
+- Add Profile Device Resource POST API
+- Add Profile Device Resource PATCH API (allow to modify Description and IsHidden only)
+- Add Profile Device Resource DELETE API (check it's not associated to any device, reading or event)
+- Add Profile Device Command POST API
+- Add Profile Device Command PATCH API (allow to modify Description and IsHidden only)
+- Add Profile Device Command DELETE API (check it's not associated to any device, reading or event)
+
+*Note* - to be determined: how to allow for device resource or device command changes (outside of Description and isHidden) when the device profile is not yet associated to any object
 
 ## Decision
 
