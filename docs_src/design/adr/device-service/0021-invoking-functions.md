@@ -35,27 +35,24 @@ this is unintuitive.
       "description": "Readable description of the function",
       "attributes": { device-service-specific attributes which select this function },
       "parameters":
-      {
-        "in":
-        [
-          {
-            "name": "Parameter name",
-            "description": "(optional) description of what the parameter controls",
-            "type": "Any of the usual EdgeX data types",
-            "defaultValue": "(optional) value to use if param is not supplied",
-            "maximum": "(optional) for numerics, maximum allowed value",
-            "minimum": "(optional) for numerics, minimum allowed value"
-          }
-        ],
-        "out":
-        [
-          {
-            "name": "Name of returned value",
-            "description": "(optional) description of what the value indicates",
-            "type": "Any of the usual EdgeX data types"
-          }
-        ]
-      }
+      [
+        {
+          "name": "Parameter name",
+          "description": "(optional) description of what the parameter controls",
+          "type": "Any of the usual EdgeX data types",
+          "defaultValue": "(optional) value to use if param is not supplied",
+          "maximum": "(optional) for numerics, maximum allowed value",
+          "minimum": "(optional) for numerics, minimum allowed value"
+        }
+      ],
+      "returnValues":
+      [
+        {
+          "name": "Name of returned value",
+          "description": "(optional) description of what the value indicates",
+          "type": "Any of the usual EdgeX data types"
+        }
+      ]
     }
   ]
 }
@@ -99,7 +96,15 @@ or if a call fails
 }
 ```
 
-TODO: define status codes for common errors eg not found, locked etc
+*Returned status codes*
+
+| Status | Meaning
+|--------|--------
+| 0      | The operation was successful
+| 1      | Parameters were missing, out of range or non-parsable
+| 2      | The Device is DOWN or DISABLED
+| 3      | No such device or function
+| 100+   | Implementation-specific errors, defined for each Device Service
 
 ** The device SDKs will provide an API for the service implementations to implement these operations **
 
