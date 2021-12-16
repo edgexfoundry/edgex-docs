@@ -128,6 +128,9 @@ The following metrics apply to all (or most) services.
 - Number of devices managed by this DS
 - Device Requests (which may be more informative than reading counts and rates)
 
+!!! Note
+    There may be additional specific metrics for each device service.  For example, the ONVIF device service may report number of times camera tampering was detected. 
+
 #### Security
 
 Security metrics may be more difficult to ascertain as they are cross service metrics.  They may have to be dealt with per service.  Also, true threat detection based on metrics may be a feature best provided by 3rd party based on particular threats and security profile needs.
@@ -139,42 +142,36 @@ Security metrics may be more difficult to ascertain as they are cross service me
 
 ### Design Proposal
 
-- Each metric must have a unique name (or key) associate with it.  Because some metrics are reported from multiple services (such as service uptime), the name is not required to be unique across all services.  However, the metric name and the service name/key for a metric (see Bucket definition below) along with the origin timestamp would uniquely identify a metric from a service at a designated time.
-- All services will use/integrate go-mod-messaging (if not already integrated).
-- A new metric DTO (Telemetry/Bucket) is required for services to structure the metric data.  The model/DTO will have similarities to the core event/reading model/DTO.
-    - The DTO for the metric data will allow originating service information (the service key) to be provided in the DTO
-    - The proposed message structure (DTO) for metrics (for inclusion in go-mod-core-contracts) is:
- 
-``` go
-type Telemetry struct {
-    Id          string            `json:"id,omitempty" codec:"id,omitempty"`  // UUID to identify the telemetry group
-    Service     string            `json:"device,omitempty" codec:"device,omitempty"`  // originating service key
-    Origin      int64             `json:"origin,omitempty" codec:"origin,omitempty"`
-    Buckets    []Bucket           `json:"readings,omitempty" codec:"buckets,omitempty"`
-    Tags        map[string]string `json:"tags,omitempty" codec:"tags,omitempty" xml:"-"`
-}
+#### Collect and Push Architecture
 
-type Bucket struct {
-    Id            string `json:"id,omitempty" codec:"id,omitempty"`  // UUID to identify the Bucket
-    Origin        int64  `json:"origin,omitempty" codec:"origin,omitempty"`
-    Service       string `json:"device,omitempty" codec:"device,omitempty"`   // originating service key
-    Name          string `json:"name,omitempty" codec:"name,omitempty"`  // metric name key
-    Value         string `json:"value,omitempty" codec:"value,omitempty"` // metric value
-    ValueType     string `json:"valueType,omitempty" codec:"valueType,omitempty"`  // metric value type
-}
-```
+Metric data will be collected and cached by each service.  At designated times (kicked off by configurable schedule), the service will collect telemetry data from the cache and push it to a designated message bus topic.
+
+#### Metrics Messaging
+
+Cached metric data, at the designated time, will be marshaled into a message and pushed to the pre-configured message bus topic.
+
+Each metric message consists of several key/value pairs:
+- a **required** name (the name of the metric) such as service-uptime
+- a **required** value which is the telemetry value collected such as 120 as the number of hours the service has been up.
+- a **required** timestamp is the time (in Epoch timestamp/milliseconds format) at which the data was collected (similar in nature to the origin of sensed data). 
+- an optional collection (array) of tags.  The tags are sets of key/value pairs of strings that provide amplifying information about the telemetry.  Tags may include:
+    - originating service name
+    - unit of measure associated with the telemetry value
+    - value type of the value
+    - additional values when the metric is more than just one value (example: when using a histogram, it would include min, max, mean and sum values)
+
+The metric name must be unique for that service.  Because some metrics are reported from multiple services (such as service uptime), the name is not required to be unique across all services.
+
+All information (keys, values, tags, etc.) is in string format and placed in a JSON array within the message body.  Here are some example representations:
+
+**Example metric message body with a single value**
+{"name":"service-up", "value":"120", "timestamp":"1602168089665570000", "tags":{"service":"coredata","uom":"days","type":"int64"}}
+
+**Example metric message body with multiple values**
+{"name":"api-requests", "value":"24", "timestamp":"1602168089665570001", "tags":{"service":"coredata","uom":"count","type":"int64", "mean":"0.0665", "rate1":"0.111", "rate5":"0.150","rate15":"0.111"}}
 
 !!! Note
-    Metrics are considered immutable and therefore not requiring a modified timestamp.
-
-    *For consideration, should we keep the metric data values simple (i.e. just a number field) since the metrics are just numbers and thereby avoid having to deal with types (pulling ValueType from above).  Even times could be sent as UTC number values.*
-
-    *Also for consideration, can we simplify the structures?*
-
-    - would the telemetry and bucket need an ID?  
-    - would origin timestamp need to be put on the telemetry object since it is on a Bucket?
-    - would originating service need to be put in both telemetry and bucket objects?
-    - Can the description be found in documentation and therefore left off of the Bucket?  *(@cloudxxx8 recommends removing.  Can add back in if there are dissenting opinions)*
+    The key or metric name must be unique when using go-metrics as it requires the metric name to be unique per the registry.  Metrics are considered immutable.
 
 #### REST endpoints
 
@@ -187,7 +184,7 @@ type Bucket struct {
 - Body of the PATCH request would contain a JSON list of the metrics that are to be turned `on` or `off` - leaving all other metrics unchanged
 
 #### Configuration
-- Configuration, not unlike that provided in core data or any device service, will specify what message bus locations where the metrics messages should be sent.
+- Configuration, not unlike that provided in core data or any device service, configuration will specify the message bus type and locations where the metrics messages should be sent.
 - In fact, the message bus configuration will use (or reuse if the service is already using the message bus) the common message bus configuration as defined below.
 - Metrics will be published to an /edgex/metrics/[service-name] topic where the service name will be added per service
 - Common configuration for each service for message queue configuration - inclusive of metrics:
@@ -212,14 +209,21 @@ PublishTopicPrefix  = 'edgex/metrics' # /<service-name> will be added to this Pu
   SkipCertVerify = "false" # Only used if Cert/Key file or Cert/Key PEMblock are specified
 ```
 
-#### Library Support
+Additional configuration must be provided (in the service configuration.toml) to trigger the collection of telemetry from the metrics cache and sending it into the appointed message bus.
+``` yaml
+[[Metrics.Collection]]
+Interval = "30s"
+```
 
-go-mod-contracts would need to add the proposed DTO and request/response objects.
-go-mod-messaging should support the ability to put messages of any DTO and so therefore would require little or no change to support this ADR.
-As each service would determine when and what metrics to collect and push to the message bus, this can be implemented by each service as needed.
+#### Library Support
+Each service will now need go-mod-messaging support.
+Each service would determine when and what metrics to collect and push to the message bus, but will use a common library choose for each EdgeX language supported (Go or C currently)
+
 There may be a desire to add common functionality in support of the REST handlers for getting the list of supported metrics and for enabling/disabling the metrics collection.  This can be explored at implementation time.
 
 Use of [go-metrics](https://github.com/rcrowley/go-metrics) (a GoLang library to publish application metrics) would allow EdgeX to utilize (versus construct) a library utilized by over 7 thousand projects.  It provides the means to capture various types of metrics in a registry (a sophisticated map).  The metrics can then be published (`reported`) to a number of well known systems such as InfluxDB, Graphite, DataDog, and Syslog.  go-metrics is a Go library made from original Java package https://github.com/dropwizard/metrics.
+
+A similar package would need to be selected for C.
 
 ** Considerations in the use of go-metrics **
 - This is a Golang only library.  Using this library would not provide with any package to use for the C services.  If there are expectations for parity between the services, this may be more difficult to achieve given the features of go-metrics.
@@ -227,6 +231,7 @@ Use of [go-metrics](https://github.com/rcrowley/go-metrics) (a GoLang library to
 - go-metrics would also require the EdgeX team to develop the means to periodically extract the metrics data from the registry and ship it via message bus (something the current go-metrics library does not do).
 - While go-metrics offers the ability for data to be reported to other subsystems, it would required EdgeX to expose these capabilities (possibly through APIs) if a user wanted to export to these subsystems in addition to the message bus.
 - Per the Kamakura Planning Meeting, it was noted that go-metrics is already a dependency in our Go code due to its use other 3rd party packages (see https://github.com/edgexfoundry/edgex-go/blob/4264632f3ddafb0cbc2089cffbea8c0719035c96/go.sum#L18).
+
 
 ** Community questions about go-metrics **
 Per the Monthly Architect's meeting of 9/20/21):
@@ -236,7 +241,7 @@ Per the Monthly Architect's meeting of 9/20/21):
 - Does it offer a query API (in order to easily support the ADR suggested REST API)?
     - Yes - metrics are stored in a "Registry" (MetricRegistry - essentially a map).  Get (or GetAll) methods provided to query for metrics
 - What does the go-metrics package do so that its features can become requirements for C side?
-    - About a dozen types of metrics collection (simple guage or counter to more sophisticated structures like Histograms) - all stored in a registry (map).
+    - About a dozen types of metrics collection (simple gauge or counter to more sophisticated structures like Histograms) - all stored in a registry (map).
 - How is the data made available?
     - Report out (export or publish) to various integrated packages (InfluxDB, Graphite, DataDog, Syslog, etc.).  Nothing to MQTT or other base message service.  This would have to be implemented from scratch.
 - Can the metric/telemetry count be reset if needed? Does this happen whenever it posts to the message bus?  How would this work for REST?
@@ -253,7 +258,105 @@ As an alternative to go-metrics, there is another library called [OpenCensus](ht
 
 ## Decision
 
-*To be determined*
+- Per the Monthly Architect's meeting of 12/13/21 - it was decided to use go-metrics for Go services over creating our own library or using open census.  C services will either find/pick a package that provides similar functionality to go-metrics or implement internally something providing MVP capability.
+- Use of go-metrics helps avoid too much service bloat since it is already in most Go services.
+- Per the same Monthly Architect's meeting, it as decided to implement metrics in Go services first.
+
+### Implementation Details for Go
+The go-metrics package offers the following types of metrics collection:
+- Gauges: holds a single integer (int64) value.
+    - Example use:  Number of notifications in retry status
+    - Operations to update the gauge and get the gauge's value
+    - Example code:
+
+``` Go
+g := metrics.NewGauge()
+g.Update(42)  // set the value to 42
+g.Update(10)  // now set the value to 10
+fmt.Println(g.Value())  // print out the current value in the gauge = 10
+```
+
+- Counter: holds a integer (in64) count.  A counter could be implemented with a Gauge.
+    - Example use:  the current store and forward queue size
+    - Operations to increment, decrement, clear and get the counter's count (or value)
+
+``` Go
+c := metrics.NewCounter()
+c.Inc(1)  // add one to the current counter
+c.Inc(10) // add 10 to the current counter, making it 11
+c.Dec(5)  // decrement the counter by 5, making it 6  
+fmt.Println(c.Count())  // print out the current count of the counter = 6
+```
+
+- Meter:  measures the rate (int64) of events over time (at one, five and fifteen minute intervals).
+    - Example use:  the number or rate of requests on a service API
+    - Operations: provide the total count of events as well as the mean and rate at 1, 5, and 15 minute rates
+
+``` Go
+m := metrics.NewMeter()
+m.Mark(1)  // add one to the current meter value
+time.Sleep(15 * time.Second)  // allow some time to go by
+m.Mark(1)  // add one to the current meter value
+time.Sleep(15 * time.Second)  // allow some time to go by
+m.Mark(1)  // add one to the current meter value
+time.Sleep(15 * time.Second)  // allow some time to go by
+m.Mark(1)  // add one to the current meter value
+time.Sleep(15 * time.Second)  // allow some time to go by
+fmt.Println(m.Count())  // prints 4
+fmt.Println(m.Rate1())  // prints 0.11075889086811593
+fmt.Println(m.Rate5())  // prints 0.1755318374350548
+fmt.Println(m.Rate15()) // prints 0.19136522498856992
+fmt.Println(m.RateMean()) //prints 0.06665062941438574
+```
+
+- Histograms: measure the statistical distribution of values (int64 values) in a collection of values.
+    - Example use: response times on APIs
+    - Operations: update and get the min, max, count, percentile, sample, sum and variance from the collection
+
+``` Go
+h := metrics.NewHistogram(metrics.NewUniformSample(4))
+h.Update(10)
+h.Update(20)
+h.Update(30)
+h.Update(40)
+fmt.Println((h.Max()))  // prints 40
+fmt.Println(h.Min())    // prints 10
+fmt.Println(h.Mean())   // prints 25
+fmt.Println(h.Count())  // prints 4
+fmt.Println(h.Percentile(0.25))  //prints 12.5
+fmt.Println(h.Variance())  //prints 125
+fmt.Println(h.Sample())  //prints &{4 {0 0} 4 [10 20 30 40]}
+```
+- Timer: measures both the rate a particular piece of code is called and the distribution of its duration
+    - Example use:  how often an app service function gets called and how long it takes get through the function
+    - Operations:  update and get min, max, count, rate1, rate5, rate15, mean, percentile, sum and variance from the collection
+
+``` Go
+t := metrics.NewTimer()
+t.Update(10)
+time.Sleep(15 * time.Second)
+t.Update(20)
+time.Sleep(15 * time.Second)
+t.Update(30)
+time.Sleep(15 * time.Second)
+t.Update(40)
+time.Sleep(15 * time.Second)
+fmt.Println((t.Max()))  // prints 40
+fmt.Println(t.Min())    // prints 10
+fmt.Println(t.Mean())   // prints 25
+fmt.Println(t.Count())  // prints 4
+fmt.Println(t.Sum())    // prints 100
+fmt.Println(t.Percentile(0.25))  //prints 12.5
+fmt.Println(t.Variance())  //prints 125
+fmt.Println(t.Rate1())  // prints 0.1116017821771607
+fmt.Println(t.Rate5())  // prints 0.1755821073441404
+fmt.Println(t.Rate15()) // prints 0.1913711954736821
+fmt.Println(t.RateMean()) //prints 0.06665773963998162
+
+```
+
+!!! Note
+    The go-metrics package does offer some variants of these like the GaugeFloat64 to hold 64 bit floats.
 
 ## Consequences
 
