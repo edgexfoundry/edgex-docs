@@ -361,7 +361,7 @@ Now that there is a single MQTT Broker connection, the configuration in `[Device
 
 #### Secure
 
-See the [Secret API reference](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.0.0#/default/post_secret) for injecting authentication credentials into a Device Service's secure SecretStore. 
+See the [Secret API reference](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.1.0#/default/post_secret) for injecting authentication credentials into a Device Service's secure SecretStore. 
 
 !!! example - "Example - Authentication credentials injected via Device MQTT's `Secret` endpoint"
     ```bash
@@ -442,7 +442,7 @@ The Device Camera service specific `[Driver]` and `[DeviceList.Protocols.HTTP]` 
 
 #### Secure
 
-See the [Secret API reference](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.0.0#/default/post_secret) for injecting authentication credentials into a Device Service's secure SecretStore. An entry is required for each camera that is configured with `AuthMethod = 'usernamepassword'`
+See the [Secret API reference](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.1.0#/default/post_secret) for injecting authentication credentials into a Device Service's secure SecretStore. An entry is required for each camera that is configured with `AuthMethod = 'usernamepassword'`
 
 !!! example - "Example - Authentication credentials injected via Device Camera's `Secret` endpoint"
     ```bash

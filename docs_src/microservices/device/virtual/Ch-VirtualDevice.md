@@ -94,6 +94,6 @@ For each device, the virual device service will contain a DeviceList with associ
     |SourceName|'Int8'|deviceResource to collect - in this case the Int8 resource|
 
 ## API Reference
-[Device Service - SDK- API Reference](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.0.0)
+[Device Service - SDK- API Reference](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.1.0)
 
   

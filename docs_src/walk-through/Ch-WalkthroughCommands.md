@@ -6,7 +6,7 @@ type. Also recall that the device (the `countcamera1` in this walkthrough) was a
 the device profile (again, the `camera-monitor-profile`) when the device was
 provisioned.
 
-See [core command API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-command/2.0.0) for more details.
+See [core command API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-command/2.1.0) for more details.
 
 With the setup complete, you can ask the [core command micro
 service](../microservices/core/command/Ch-Command.md) for the list of commands associated to the device (the
