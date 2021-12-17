@@ -12,7 +12,7 @@ manages.
 
 ## Device Profile
 
-See [core metadata API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/2.0.0) for more details.
+See [core metadata API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/2.1.0) for more details.
 
 Our fictitious device service will manage only the human/dog counting
 camera, so it only needs to make one `POST` request to create the
