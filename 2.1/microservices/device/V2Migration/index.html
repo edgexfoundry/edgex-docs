@@ -3311,7 +3311,7 @@ and deviceCommand is able to be called via Command Service REST API. Set <code>i
 </div>
 <h3 id="secretstore">SecretStore</h3>
 <h4 id="secure">Secure</h4>
-<p>See the <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.0.0#/default/post_secret">Secret API reference</a> for injecting authentication credentials into a Device Service's secure SecretStore. </p>
+<p>See the <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.1.0#/default/post_secret">Secret API reference</a> for injecting authentication credentials into a Device Service's secure SecretStore. </p>
 <div class="admonition example -">
 <p class="admonition-title">Example - Authentication credentials injected via Device MQTT's <code>Secret</code> endpoint</p>
 <div class="highlight"><pre><span></span><code>curl -X POST http://localhost:59982/api/v2/secret  -H <span class="s1">&#39;Content-Type: application/json&#39;</span> -d <span class="s1">&#39;{ &quot;apiVersion&quot;: &quot;v2&quot;, &quot;requestId&quot;: &quot;e6e8a2f4-eb14-4649-9e2b-175247911369&quot;, &quot;path&quot;: &quot;credentials&quot;, &quot;secretData&quot;: [  {   &quot;key&quot;: &quot;username&quot;, &quot;value&quot;: &quot;mqtt-user&quot;  }, {  &quot;key&quot;: &quot;password&quot;, &quot;value&quot;: &quot;mqtt-password&quot; } ]}&#39;</span>  
@@ -3383,7 +3383,7 @@ and deviceCommand is able to be called via Command Service REST API. Set <code>i
 </div>
 <h3 id="secretstore_1">SecretStore</h3>
 <h4 id="secure_1">Secure</h4>
-<p>See the <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.0.0#/default/post_secret">Secret API reference</a> for injecting authentication credentials into a Device Service's secure SecretStore. An entry is required for each camera that is configured with <code>AuthMethod = 'usernamepassword'</code></p>
+<p>See the <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.1.0#/default/post_secret">Secret API reference</a> for injecting authentication credentials into a Device Service's secure SecretStore. An entry is required for each camera that is configured with <code>AuthMethod = 'usernamepassword'</code></p>
 <div class="admonition example -">
 <p class="admonition-title">Example - Authentication credentials injected via Device Camera's <code>Secret</code> endpoint</p>
 <div class="highlight"><pre><span></span><code>curl -X POST http://localhost:59985/api/v2/secret  -H <span class="s1">&#39;Content-Type: application/json&#39;</span> -d <span class="s1">&#39;{ &quot;apiVersion&quot;: &quot;v2&quot;, &quot;requestId&quot;: &quot;e6e8a2f4-eb14-4649-9e2b-175247911369&quot;, &quot;path&quot;: &quot;credentials001&quot;, &quot;secretData&quot;: [  {   &quot;key&quot;: &quot;username&quot;, &quot;value&quot;: &quot;camera-user&quot;  }, {  &quot;key&quot;: &quot;password&quot;, &quot;value&quot;: &quot;camera-password&quot; } ]}&#39;</span>  
