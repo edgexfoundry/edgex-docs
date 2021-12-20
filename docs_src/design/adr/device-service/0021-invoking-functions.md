@@ -58,7 +58,7 @@ this is unintuitive.
 }
 ```
 
-Note: the `attributes` structure is analagous to `attributes` in a `deviceResource`. Each device service should document and implement a scheme of required attributes that will allow for selection of the relevant funtion. The function's `name` is intended for UI and logging purposes and should not be used for actual function selection on the device.
+Note: the `attributes` structure is analagous to `attributes` in a `deviceResource`. Each device service should document and implement a scheme of required attributes that will allow for selection of the relevant funtion.
 
 **Define MessageBus topics on which function call requests and replies are to be made**
 
@@ -102,9 +102,11 @@ or if a call fails
 |--------|--------
 | 0      | The operation was successful
 | 1      | Parameters were missing, out of range or non-parsable
-| 2      | The Device is DOWN or DISABLED
+| 2      | The Device is DOWN or DISABLED (OperatingState / AdminState)
 | 3      | No such device or function
 | 100+   | Implementation-specific errors, defined for each Device Service
 
-** The device SDKs will provide an API for the service implementations to implement these operations **
+** Device SDK enhancement **
+
+The device SDKs will handle the messagebus communcations and parameter marshalling. The generic errors defined above may be detected in this SDK code. The SDKs will define APIs for the individual device services to implement the function invocations.
 
