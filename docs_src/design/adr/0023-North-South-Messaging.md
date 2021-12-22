@@ -32,6 +32,8 @@ The command message request messages should contain a correlation identifier whi
 
 The device service message command subscription, response publishing and general handling should be implemented in the SDKs versus individually in the device services.
 
+![image](command-msg.png)
+
 ### Message Structure
 
 The messages to the command service and those relayed to the device service would mimic their REST alternatives.  The difference is that the HTTP REST requests
@@ -43,6 +45,8 @@ The messages to the command service and those relayed to the device service woul
 - are made via HTTP GET or PUT methods signaling get or set actions on the device.
 
 The message bus and the messages on the bus need this additional information. To address this, the command requests must be embedded in a “wrapper message” structure that would contain the additional elements that would be present in the HTTP request messages.
+
+![image](command-msg-structure.png)
 
 Specifically, the message structure would look something like the following:
 
@@ -87,6 +91,8 @@ The command service would subscribe to any command topic (“edgex/request/comma
 As each device service will have a topic assigned to it, the device service name and device name will be added to the destination topic (“edgex/request/actuate/<device-service>/<device-name>”) when command relays the actuation request messages to device services.
 
 The command service must then subscribe to another topic (“edgex/response/actuate/#”) to receive actuation responses from the device services.  It then relays those responses on to the 3rd party apps by publishing those responses to a response topic (“edgex/response/command”).
+
+![image](command-service-topics.png)
 
 ``` toml
 [MessageQueue]
