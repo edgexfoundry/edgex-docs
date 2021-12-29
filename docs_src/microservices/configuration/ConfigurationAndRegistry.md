@@ -69,7 +69,7 @@ Incorporating versioning into the configuration hierarchy looks like this.
             -   support-notifications
             -   support-scheduler
             -   sys-mgmt-agent
-        -   30
+        -   3.0
     - devices *(device services)*
         -   2.0
             -   device-mqtt
