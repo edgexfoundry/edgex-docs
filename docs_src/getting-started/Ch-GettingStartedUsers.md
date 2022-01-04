@@ -1,16 +1,21 @@
-# Getting Started with Docker
+# Getting Started as a User
 
 ## Introduction
 
-These instructions are for Users to get and run EdgeX Foundry.
-(Developers should read:
-[Getting Started Developers](./Ch-GettingStartedDevelopers.md))
+These instructions are for Users to get and run EdgeX Foundry using Docker containers.
+Developers should read [Getting Started as a Developer](./Ch-GettingStartedDevelopers.md).
 
 EdgeX is a collection of more than a dozen micro services that
 are deployed to provide a minimal edge platform capability. You can download EdgeX 
 micro service source code and build your own micro services.  However, if you do not have a need to change or add to EdgeX, then you do not need to download source code.
 
 Instead, Users run EdgeX micro service Docker containers. The EdgeX community builds and creates Docker container images with each release.
+
+If you wish to get the latest builds of EdgeX images (prior to releases), then see the
+[EdgeX Nexus Repository](./Ch-GettingStartedUsersNexus.md) guide.
+
+To get started with EdgeX using Snap packages instead of Docker, 
+refer to [Getting Started with Snaps](./Ch-GettingStartedSnapUsers.md).
 
 ## Get & Run EdgeX Foundry
 

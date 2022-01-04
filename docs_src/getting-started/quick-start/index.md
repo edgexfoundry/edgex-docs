@@ -1,7 +1,7 @@
 # Quick Start
-This guide will get EdgeX up and running on your machine in as little as 5 minutes. We will skip over lengthy descriptions for now. The goal here is to get you a working IoT Edge stack, from device to cloud, as simply as possible.  
+This guide will get EdgeX up and running on your machine in as little as 5 minutes using Docker containers. We will skip over lengthy descriptions for now. The goal here is to get you a working IoT Edge stack, from device to cloud, as simply as possible.  
 
-When you need more detailed instructions or a breakdown of some of the commands you see in this quick start, see either the [Getting Started- Users](../Ch-GettingStartedUsers) or [Getting Started - Developers](../Ch-GettingStartedDevelopers) guides.
+When you need more detailed instructions or a breakdown of some of the commands you see in this quick start, see either the [Getting Started as a User](../Ch-GettingStartedUsers) or [Getting Started as a Developer](../Ch-GettingStartedDevelopers) guides.
 
 ## Setup
 The fastest way to start running EdgeX is by using our pre-built Docker images. To use them you'll need to install the following:

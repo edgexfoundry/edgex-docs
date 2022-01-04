@@ -6,7 +6,7 @@ These instructions are for Go Lang Developers and Contributors to get, run and o
 micro services. Before reading this guide, review the general [developer requirements](./Ch-GettingStartedDevelopers.md#what-you-need).
 
 If you want to get the EdgeX platform and run it (but do not intend to change or add to the existing code base now) then you are considered a "User". Users should read:
-[Getting Started Users](./Ch-GettingStartedUsers.md))
+[Getting Started as a User](./Ch-GettingStartedUsers.md))
 
 ## What You Need For Go Development
 

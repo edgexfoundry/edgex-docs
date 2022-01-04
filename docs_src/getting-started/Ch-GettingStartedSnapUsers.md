@@ -1,4 +1,4 @@
-# Getting Started with EdgeX Snaps
+# Getting Started with Snaps
 
 [![snap store badge](https://raw.githubusercontent.com/snapcore/snap-store-badges/master/EN/%5BEN%5D-snap-store-black-uneditable.png)](https://snapcraft.io/edgexfoundry)
 

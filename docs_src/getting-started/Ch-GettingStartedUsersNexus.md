@@ -2,6 +2,11 @@
 
 Released EdgeX Docker container images are available from [Docker Hub](https://hub.docker.com/search?q=edgexfoundry&type=image).  In some cases, it may be necessary to get your EdgeX container images from the Nexus repository.  The Linux Foundation manages the Nexus repository for the project.
 
+!!! WARNING
+    Containers used from Nexus are considered "work in progress". There is no guarantee
+    that these containers will function properly or function properly with
+    other containers from the current release.
+
 Nexus contains the EdgeX project staging and development container images. In other words, Nexus contains work-in-progress or pre-release images.  These, pre-release/work-in-progress Docker images are built nightly and made available at the following Nexus location:
 
 ```
