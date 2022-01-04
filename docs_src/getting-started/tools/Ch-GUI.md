@@ -1,4 +1,4 @@
-# EdgeX Foundry User Interface
+# Graphical User Interface (GUI)
 
 EdgeX's graphical user interface (GUI) is provided for demonstration and development use to manage and monitor a single instance of EdgeX Foundry.
 
