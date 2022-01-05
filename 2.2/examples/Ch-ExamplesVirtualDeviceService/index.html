@@ -2633,31 +2633,31 @@ to simulate virtual resources.</p>
 </div>
 <p>The example above assumes your core command service is available on <code>localhost</code> at the default service port of 59882.  Also, you must replace your device name and command name in the example above with your virtual device service's identifiers.  If you are not sure of the identifiers to use, query the command service for the full list of commands and devices at <code>http://localhost:59882/api/v2/device/all</code>.</p>
 <p>The virtual device should respond (via the core command service) with event/reading JSON similar to that below.
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span> <span class="s2">&quot;v2&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;statusCode&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
-  <span class="nt">&quot;event&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span> <span class="s2">&quot;v2&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;3beb5b83-d923-4c8a-b949-c1708b6611c1&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;deviceName&quot;</span><span class="p">:</span> <span class="s2">&quot;Random-Integer-Device&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;profileName&quot;</span><span class="p">:</span> <span class="s2">&quot;Random-Integer-Device&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;sourceName&quot;</span><span class="p">:</span> <span class="s2">&quot;Int8&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;origin&quot;</span><span class="p">:</span> <span class="mi">1626227770833093400</span><span class="p">,</span>
-    <span class="nt">&quot;readings&quot;</span><span class="p">:</span> <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;baf42bc7-307a-4647-8876-4e84759fd2ba&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;origin&quot;</span><span class="p">:</span> <span class="mi">1626227770833093400</span><span class="p">,</span>
-        <span class="nt">&quot;deviceName&quot;</span><span class="p">:</span> <span class="s2">&quot;Random-Integer-Device&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;resourceName&quot;</span><span class="p">:</span> <span class="s2">&quot;Int8&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;profileName&quot;</span><span class="p">:</span> <span class="s2">&quot;Random-Integer-Device&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;valueType&quot;</span><span class="p">:</span> <span class="s2">&quot;Int8&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;binaryValue&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="nt">&quot;mediaType&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;-5&quot;</span>
-      <span class="p">}</span>
-    <span class="p">]</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;statusCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3beb5b83-d923-4c8a-b949-c1708b6611c1&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;deviceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Integer-Device&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;profileName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Integer-Device&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;sourceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Int8&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1626227770833093400</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;readings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">      </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;baf42bc7-307a-4647-8876-4e84759fd2ba&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1626227770833093400</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;deviceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Integer-Device&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;resourceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Int8&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;profileName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Integer-Device&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;valueType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Int8&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;binaryValue&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;mediaType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;-5&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">]</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div></p>
 <h3 id="put-command-example-assign-a-value-to-a-resource">PUT command example - Assign a value to a resource</h3>
 <p>The virtual devices managed by the virtual device can also be actuated.  The virtual device can be told to enable or disable random number generation.  When disabled, the virtual device services can be told what value to respond with for all <code>GET</code> operations.  When setting the fixed value, the value must be valid for the data type of the virtual device. For example, the minimum value of Int8 cannot be less than -128 and the maximum value cannot be greater than 127.</p>

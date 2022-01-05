@@ -2938,40 +2938,40 @@
 </div>
 <div class="admonition example">
 <p class="admonition-title">Example - Core Metadata client configuration</p>
-<div class="highlight"><pre><span></span><code>  <span class="k">[Clients]</span>
-    <span class="k">[Clients.core-metadata]</span>
-    <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&quot;http&quot;</span>
-    <span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
-    <span class="n">Port</span> <span class="o">=</span> <span class="mi">59881</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">[Clients]</span><span class="w"></span>
+<span class="w">    </span><span class="k">[Clients.core-metadata]</span><span class="w"></span>
+<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">59881</span><span class="w"></span>
 </code></pre></div>
 </div>
 <div class="admonition example">
 <p class="admonition-title">Example - All available clients configured with new port numbers</p>
-<div class="highlight"><pre><span></span><code>  <span class="k">[Clients]</span>
-    <span class="c1"># Used for version check on start-up</span>
-    <span class="c1"># Also used for DeviceService, DeviceProfile and Device clients</span>
-    <span class="k">[Clients.core-metadata]</span>
-    <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&quot;http&quot;</span>
-    <span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
-    <span class="n">Port</span> <span class="o">=</span> <span class="mi">59881</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">[Clients]</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Used for version check on start-up</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Also used for DeviceService, DeviceProfile and Device clients</span><span class="w"></span>
+<span class="w">    </span><span class="k">[Clients.core-metadata]</span><span class="w"></span>
+<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">59881</span><span class="w"></span>
 
-    <span class="c1"># Used for Event client which is used by PushToCoreData function</span>
-    <span class="k">[Clients.core-data]</span>
-    <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&quot;http&quot;</span>
-    <span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
-    <span class="n">Port</span> <span class="o">=</span> <span class="mi">59880</span>
+<span class="w">    </span><span class="c1"># Used for Event client which is used by PushToCoreData function</span><span class="w"></span>
+<span class="w">    </span><span class="k">[Clients.core-data]</span><span class="w"></span>
+<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">59880</span><span class="w"></span>
 
-    <span class="c1"># Used for Command client</span>
-    <span class="k">[Clients.core-command]</span>
-    <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&quot;http&quot;</span>
-    <span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
-    <span class="n">Port</span> <span class="o">=</span> <span class="mi">59882</span>
+<span class="w">    </span><span class="c1"># Used for Command client</span><span class="w"></span>
+<span class="w">    </span><span class="k">[Clients.core-command]</span><span class="w"></span>
+<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">59882</span><span class="w"></span>
 
-    <span class="c1"># Used for Notification and Subscription clients</span>
-    <span class="k">[Clients.support-notifications]</span>
-    <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&quot;http&quot;</span>
-    <span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
-    <span class="n">Port</span> <span class="o">=</span> <span class="mi">59860</span>
+<span class="w">    </span><span class="c1"># Used for Notification and Subscription clients</span><span class="w"></span>
+<span class="w">    </span><span class="k">[Clients.support-notifications]</span><span class="w"></span>
+<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">59860</span><span class="w"></span>
 </code></pre></div>
 </div>
 <h4 id="trigger">Trigger</h4>
@@ -2980,23 +2980,23 @@
 <p>If your Application Service is using the EdgeX MessageBus trigger, you can then simply copy the complete <code>Trigger</code> configuration from the example below and tweak it as needed. </p>
 <div class="admonition example">
 <p class="admonition-title">Example - EdgeX MessageBus trigger configuration</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span>
-<span class="n">Type</span><span class="o">=</span><span class="s">&quot;edgex-messagebus&quot;</span>
-  <span class="k">[Trigger.EdgexMessageBus]</span>
-  <span class="n">Type</span> <span class="o">=</span> <span class="s">&quot;redis&quot;</span>
-    <span class="k">[Trigger.EdgexMessageBus.SubscribeHost]</span>
-    <span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
-    <span class="n">Port</span> <span class="o">=</span> <span class="mi">6379</span>
-    <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&quot;redis&quot;</span>
-    <span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#&quot;</span>
-    <span class="k">[Trigger.EdgexMessageBus.PublishHost]</span>
-    <span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
-    <span class="n">Port</span> <span class="o">=</span> <span class="mi">6379</span>
-    <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&quot;redis&quot;</span>
-    <span class="n">PublishTopic</span><span class="o">=</span><span class="s">&quot;example&quot;</span>
-    <span class="k">[Trigger.EdgexMessageBus.Optional]</span>
-    <span class="n">AuthMode</span> <span class="o">=</span> <span class="s">&quot;usernamepassword&quot;</span>  <span class="c1"># required for redis messagebus (secure or insecure).</span>
-    <span class="n">SecretName</span> <span class="o">=</span> <span class="s">&quot;redisdb&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span><span class="w"></span>
+<span class="n">Type</span><span class="o">=</span><span class="s">&quot;edgex-messagebus&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="k">[Trigger.EdgexMessageBus]</span><span class="w"></span>
+<span class="w">  </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redis&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.SubscribeHost]</span><span class="w"></span>
+<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6379</span><span class="w"></span>
+<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redis&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.PublishHost]</span><span class="w"></span>
+<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6379</span><span class="w"></span>
+<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redis&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">PublishTopic</span><span class="o">=</span><span class="s">&quot;example&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.Optional]</span><span class="w"></span>
+<span class="w">    </span><span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;usernamepassword&quot;</span><span class="w">  </span><span class="c1"># required for redis messagebus (secure or insecure).</span><span class="w"></span>
+<span class="w">    </span><span class="n">SecretName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redisdb&quot;</span><span class="w"></span>
 </code></pre></div>
 </div>
 <p>From the above example you can see the improved structure and the following changes:</p>
@@ -3015,29 +3015,29 @@
 </ol>
 <div class="admonition example">
 <p class="admonition-title">Example - External MQTT trigger configuration</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span>
-<span class="n">Type</span><span class="o">=</span><span class="s">&quot;external-mqtt&quot;</span>
-  <span class="k">[Trigger.ExternalMqtt]</span>
-  <span class="n">Url</span> <span class="o">=</span> <span class="s">&quot;tcp://broker.hivemq.com:1883&quot;</span>
-  <span class="n">SubscribeTopics</span> <span class="o">=</span> <span class="s">&quot;edgex-trigger&quot;</span>
-  <span class="n">PublishTopic</span> <span class="o">=</span> <span class="s">&quot;edgex-trigger-response&quot;</span>
-  <span class="n">ClientId</span> <span class="o">=</span> <span class="s">&quot;app-my-service&quot;</span>
-  <span class="n">ConnectTimeout</span> <span class="o">=</span> <span class="s">&quot;30s&quot;</span>
-  <span class="n">AutoReconnect</span> <span class="o">=</span> <span class="kc">false</span>
-  <span class="n">KeepAlive</span> <span class="o">=</span> <span class="mi">60</span>
-  <span class="n">QoS</span> <span class="o">=</span> <span class="mi">0</span>
-  <span class="n">Retain</span> <span class="o">=</span> <span class="kc">false</span>
-  <span class="n">SkipCertVerify</span> <span class="o">=</span> <span class="kc">false</span>
-  <span class="n">SecretPath</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
-  <span class="n">AuthMode</span> <span class="o">=</span> <span class="s">&quot;none&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span><span class="w"></span>
+<span class="n">Type</span><span class="o">=</span><span class="s">&quot;external-mqtt&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="k">[Trigger.ExternalMqtt]</span><span class="w"></span>
+<span class="w">  </span><span class="n">Url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp://broker.hivemq.com:1883&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="n">SubscribeTopics</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;edgex-trigger&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="n">PublishTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;edgex-trigger-response&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;app-my-service&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30s&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="n">AutoReconnect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="w">  </span><span class="n">KeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60</span><span class="w"></span>
+<span class="w">  </span><span class="n">QoS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w">  </span><span class="n">Retain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="w">  </span><span class="n">SkipCertVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="w">  </span><span class="n">SecretPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w"></span>
 </code></pre></div>
 </div>
 <h5 id="http">HTTP</h5>
 <p>The HTTP trigger configuration has not changed beyond the renaming of <code>Binding</code> to <code>Trigger</code>.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - HTTP trigger configuration</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span>
-<span class="n">Type</span><span class="o">=</span><span class="s">&quot;http&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span><span class="w"></span>
+<span class="n">Type</span><span class="o">=</span><span class="s">&quot;http&quot;</span><span class="w"></span>
 </code></pre></div>
 </div>
 <h3 id="code">Code</h3>
@@ -3045,25 +3045,25 @@
 <p>You first need to update the <code>go.mod</code> file to specify <code>go 1.16</code> and the V2 versions of the App Functions SDK and any EdgeX go-mods directly used by your service. Note the extra <code>/v2</code> for the modules.</p>
 <div class="admonition example">
 <p class="admonition-title">Example go.mod for V2</p>
-<div class="highlight"><pre><span></span><code><span class="nx">module</span> <span class="p">&lt;</span><span class="nx">your</span> <span class="nx">service</span><span class="p">&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="nx">module</span><span class="w"> </span><span class="p">&lt;</span><span class="nx">your</span><span class="w"> </span><span class="nx">service</span><span class="p">&gt;</span><span class="w"></span>
 
-<span class="k">go</span> <span class="mf">1.16</span>
+<span class="k">go</span><span class="w"> </span><span class="mf">1.16</span><span class="w"></span>
 
-<span class="nx">require</span> <span class="p">(</span>
-    <span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">edgexfoundry</span><span class="o">/</span><span class="nx">app</span><span class="o">-</span><span class="nx">functions</span><span class="o">-</span><span class="nx">sdk</span><span class="o">-</span><span class="k">go</span><span class="o">/</span><span class="nx">v2</span> <span class="nx">v2</span><span class="mf">.0.0</span>
-    <span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">edgexfoundry</span><span class="o">/</span><span class="k">go</span><span class="o">-</span><span class="nx">mod</span><span class="o">-</span><span class="nx">core</span><span class="o">-</span><span class="nx">contracts</span><span class="o">/</span><span class="nx">v2</span> <span class="nx">v2</span><span class="mf">.0.0</span>
-<span class="p">)</span>
+<span class="nx">require</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">edgexfoundry</span><span class="o">/</span><span class="nx">app</span><span class="o">-</span><span class="nx">functions</span><span class="o">-</span><span class="nx">sdk</span><span class="o">-</span><span class="k">go</span><span class="o">/</span><span class="nx">v2</span><span class="w"> </span><span class="nx">v2</span><span class="mf">.0.0</span><span class="w"></span>
+<span class="w">    </span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">edgexfoundry</span><span class="o">/</span><span class="k">go</span><span class="o">-</span><span class="nx">mod</span><span class="o">-</span><span class="nx">core</span><span class="o">-</span><span class="nx">contracts</span><span class="o">/</span><span class="nx">v2</span><span class="w"> </span><span class="nx">v2</span><span class="mf">.0.0</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 </code></pre></div>
 </div>
 <p>Once that is complete then the import statements for these dependencies must be updated to include the <code>/v2</code> in the path. </p>
 <div class="admonition example">
 <p class="admonition-title">Example import statements for V2</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="p">(</span>
-    <span class="o">...</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="o">...</span><span class="w"></span>
 
-    <span class="s">&quot;github.com/edgexfoundry/app-functions-sdk-go/v2/pkg/interfaces&quot;</span>
-    <span class="s">&quot;github.com/edgexfoundry/go-mod-core-contracts/v2/dtos&quot;</span>
-<span class="p">)</span>
+<span class="w">    </span><span class="s">&quot;github.com/edgexfoundry/app-functions-sdk-go/v2/pkg/interfaces&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;github.com/edgexfoundry/go-mod-core-contracts/v2/dtos&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 </code></pre></div>
 </div>
 <h4 id="new-apis">New APIs</h4>
@@ -3074,24 +3074,24 @@
 <p>Your <code>main()</code> will change to use a factory function to create and initialize the Application Service instance, rather than create instance of <code>AppFunctionsSDK</code> and call <code>Initialize()</code> </p>
 <div class="admonition example">
 <p class="admonition-title">Example - Create Application Service instance</p>
-<div class="highlight"><pre><span></span><code>    <span class="kd">const</span> <span class="nx">serviceKey</span> <span class="p">=</span> <span class="s">&quot;app-myservice&quot;</span>
-    <span class="o">...</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">serviceKey</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;app-myservice&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="o">...</span><span class="w"></span>
 
-    <span class="nx">service</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">pkg</span><span class="p">.</span><span class="nx">NewAppService</span><span class="p">(</span><span class="nx">serviceKey</span><span class="p">)</span>
-    <span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
-        <span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="nx">service</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">pkg</span><span class="p">.</span><span class="nx">NewAppService</span><span class="p">(</span><span class="nx">serviceKey</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 <div class="admonition example">
 <p class="admonition-title">Example - Create Application Service instance with Target Type specified</p>
-<div class="highlight"><pre><span></span><code>    <span class="kd">const</span> <span class="nx">serviceKey</span> <span class="p">=</span> <span class="s">&quot;app-myservice&quot;</span>
-    <span class="o">...</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">serviceKey</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;app-myservice&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="o">...</span><span class="w"></span>
 
-    <span class="nx">service</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">pkg</span><span class="p">.</span><span class="nx">NewAppServiceWithTargetType</span><span class="p">(</span><span class="nx">serviceKey</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">[]</span><span class="kt">byte</span><span class="p">{})</span>
-    <span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
-        <span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="nx">service</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">pkg</span><span class="p">.</span><span class="nx">NewAppServiceWithTargetType</span><span class="p">(</span><span class="nx">serviceKey</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="p">[]</span><span class="kt">byte</span><span class="p">{})</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 <p>Since the factory function logs all errors, all you need to do is exit if it returns <code>false</code>. </p>
@@ -3107,25 +3107,25 @@
 <p>Setting the  Functions Pipeline has not changed, but the name of some built in functions have changed and new ones have been added. See the <a href="../BuiltIn">Built-In Pipeline Functions</a> section for more details.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - Setting Functions Pipeline</p>
-<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">SetFunctionsPipeline</span><span class="p">(</span>
-    <span class="nx">transforms</span><span class="p">.</span><span class="nx">NewFilterFor</span><span class="p">(</span><span class="nx">deviceNames</span><span class="p">).</span><span class="nx">FilterByDeviceName</span><span class="p">,</span>
-    <span class="nx">transforms</span><span class="p">.</span><span class="nx">NewConversion</span><span class="p">().</span><span class="nx">TransformToXML</span><span class="p">,</span>
-    <span class="nx">transforms</span><span class="p">.</span><span class="nx">NewHTTPSender</span><span class="p">(</span><span class="nx">exportUrl</span><span class="p">,</span> <span class="s">&quot;application/xml&quot;</span><span class="p">,</span> <span class="kc">false</span><span class="p">).</span><span class="nx">HTTPPost</span><span class="p">,</span>
-<span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-    <span class="nx">lc</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;SetFunctionsPipeline returned error: %s&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
-    <span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">SetFunctionsPipeline</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewFilterFor</span><span class="p">(</span><span class="nx">deviceNames</span><span class="p">).</span><span class="nx">FilterByDeviceName</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewConversion</span><span class="p">().</span><span class="nx">TransformToXML</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewHTTPSender</span><span class="p">(</span><span class="nx">exportUrl</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;application/xml&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">).</span><span class="nx">HTTPPost</span><span class="p">,</span><span class="w"></span>
+<span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">lc</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;SetFunctionsPipeline returned error: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span><span class="w"></span>
+<span class="w">    </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 <h5 id="makeitrun">MakeItRun</h5>
 <p>The <code>MakeItRun</code> API has not changed.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - Call to MakeItRun</p>
-<div class="highlight"><pre><span></span><code><span class="nx">err</span> <span class="p">=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">MakeItRun</span><span class="p">()</span>
-<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-    <span class="nx">lc</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;MakeItRun returned error: %s&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
-    <span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">MakeItRun</span><span class="p">()</span><span class="w"></span>
+<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">lc</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;MakeItRun returned error: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span><span class="w"></span>
+<span class="w">    </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 <h4 id="custom-pipeline-functions">Custom Pipeline Functions</h4>
@@ -3133,7 +3133,7 @@
 <p>The major change to custom Pipeline Functions for EdgeX 2.0 is the new function signature which drives all the other changes.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - New Pipeline Function signature</p>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">AppFunction</span> <span class="p">=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">AppFunctionContext</span><span class="p">,</span> <span class="nx">data</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="kt">bool</span><span class="p">,</span> <span class="kd">interface</span><span class="p">{})</span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">AppFunction</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">AppFunctionContext</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"></span>
 </code></pre></div>
 </div>
 <p>This function signature passes in an instance of the new AppFunctionContext API for the context and now has only a single <code>data</code> instance for the function to operate on.</p>
@@ -3143,9 +3143,9 @@
 <p>The <code>data</code> passed in either set to a single instance for the function to process or nil.  Now you no longer need to check the length of the incoming data.</p>
 <div class="admonition example - example - validating data before processing">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code>    <span class="k">if</span> <span class="nx">data</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="kc">false</span><span class="p">,</span> <span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;No Data Received&quot;</span><span class="p">)</span>
-    <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;No Data Received&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 <h5 id="logging-client_1">Logging Client</h5>
