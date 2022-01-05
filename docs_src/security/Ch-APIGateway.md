@@ -84,7 +84,7 @@ SNI at all.
 Run the following command to install a custom certficate
 using the assumptions above:
 
-    docker-compose -p edgex -f docker-compose.yml run --rm -v `pwd`:/host:ro --entrypoint /edgex/secrets-config edgex-proxy proxy tls --incert /host/cert.pem --inkey /host/key.pem --snis edge001.example.com
+    docker-compose -p edgex -f docker-compose.yml run --rm -v `pwd`:/host:ro --entrypoint /edgex/secrets-config edgex-proxy proxy tls --incert /host/cert.pem --inkey /host/key.pem --snis edge001.example.com --admin_api_jwt /tmp/edgex/secrets/security-proxy-setup/kong-admin-jwt
 
 The utility will always add the internal host names,
 "localhost" and "kong" to the specified SNI list.
