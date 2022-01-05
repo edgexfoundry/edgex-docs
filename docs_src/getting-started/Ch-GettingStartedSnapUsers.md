@@ -6,19 +6,15 @@
 secure, cross‐platform and self-contained.
 Snaps can be installed on any Linux distribution with [snap support](https://snapcraft.io/docs/installing-snapd).
 
-Snap packages of EdgeX services are published on the [Snap Store](https://snapcraft.io).
-
-The main platform snap is called the [edgexfoundry](https://snapcraft.io/edgexfoundry). It contains
-all reference core services along with several other security, supporting, application, and device services.
-
-The list of all EdgeX snaps is available [below](#edgex-snaps).
+Snap packages of EdgeX services are published on the [Snap Store](https://snapcraft.io). The list of all EdgeX snaps is available [below](#edgex-snaps).
 
 ## EdgeX Snaps
 The following snaps are maintained by the EdgeX working groups:
 
 Platform snap:
 
-- [EdgeX Foundry](https://snapcraft.io/edgexfoundry)
+- [EdgeX Foundry](https://snapcraft.io/edgexfoundry): the main platform snap containing
+all reference core services along with several other security, supporting, application, and device services.
 
 Development tools:
 
@@ -41,8 +37,12 @@ Device services:
 Other EdgeX snaps do exist on the public Snap Store ([search by keyword](https://snapcraft.io/search?q=edgex)) or private stores under brand accounts.
 
 ## Installing the `edgexfoundry` snap
+[![](https://raw.githubusercontent.com/snapcore/snap-store-badges/master/EN/%5BEN%5D-snap-store-white.svg){: style="height:4em"}](https://snapcraft.io/edgexfoundry)
 
-The Snap Store allows access to multiple versions of the snap using [channels](https://snapcraft.io/docs/channels). If not specified, snaps are installed
+This is the main platform snap which
+contains all reference core services along with several other security, supporting, application, and device services.
+
+The Snap Store allows access to multiple versions of the [EdgeX Foundry](https://snapcraft.io/edgexfoundry) snap using [channels](https://snapcraft.io/docs/channels). If not specified, snaps are installed
 from the default `latest/stable` channel. 
 
 You can see the current snap channels available for your machine's architecture by running the command:
@@ -66,6 +66,8 @@ sudo snap install edgexfoundry --beta
 ```
 
 Replace `beta` with `edge` to get the latest nightly build!
+
+---
 
 Upon installation, the following internal EdgeX services are automatically started:
 
