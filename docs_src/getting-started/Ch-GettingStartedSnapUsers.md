@@ -13,26 +13,26 @@ The following snaps are maintained by the EdgeX working groups:
 
 Platform snap:
 
-- [EdgeX Foundry](https://snapcraft.io/edgexfoundry): the main platform snap containing
+- [edgexfoundry](https://snapcraft.io/edgexfoundry): the main platform snap containing
 all reference core services along with several other security, supporting, application, and device services.
 
 Development tools:
 
-- [EdgeX UI](https://snapcraft.io/edgex-ui)
-- [EdgeX CLI](https://snapcraft.io/edgex-cli)
+- [edgex-ui](https://snapcraft.io/edgex-ui)
+- [edgex-cli](https://snapcraft.io/edgex-cli)
 
 Application services:
 
-- [App Service Configurable](https://snapcraft.io/edgex-app-service-configurable)
+- [edgex-app-service-configurable](https://snapcraft.io/edgex-app-service-configurable)
 
 Device services:
 
-- [Device Camera](https://snapcraft.io/edgex-device-camera)
-- [Device Modbus](https://snapcraft.io/edgex-device-modbus)
-- [Device MQTT](https://snapcraft.io/edgex-device-mqtt)
-- [Device REST](https://snapcraft.io/edgex-device-rest)
-- [Device SNMP](https://snapcraft.io/edgex-device-snmp)
-- [Device Grove](https://snapcraft.io/edgex-device-grove)
+- [edgex-device-camera](https://snapcraft.io/edgex-device-camera)
+- [edgex-device-modbus](https://snapcraft.io/edgex-device-modbus)
+- [edgex-device-mqtt](https://snapcraft.io/edgex-device-mqtt)
+- [edgex-device-rest](https://snapcraft.io/edgex-device-rest)
+- [edgex-device-snmp](https://snapcraft.io/edgex-device-snmp)
+- [edgex-device-grove](https://snapcraft.io/edgex-device-grove)
 
 Other EdgeX snaps do exist on the public Snap Store ([search by keyword](https://snapcraft.io/search?q=edgex)) or private stores under brand accounts.
 
