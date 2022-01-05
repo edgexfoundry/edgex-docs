@@ -2542,35 +2542,35 @@ How can that data be sent to an enterprise system or the Cloud? How can
 that data be used by an edge analytics system (like a rules engine) to actuate on a device?</p>
 <h2 id="getting-data-to-the-rules-engine">Getting data to the rules engine</h2>
 <p>By default, data is already passed from the core data service to application services (app services) via Redis Pub/Sub messaging.  Alternately, the data can be supplied between the two via MQTT.  A preconfigured application service is provided with the EdgeX default Docker Compose files that gets this data and routes it to the <a href="../../microservices/support/eKuiper/Ch-eKuiper/">eKuiper rules engine</a>.  The application service is called <code>app-service-rules</code> (see below).  More specifically, it is an <a href="../../microservices/application/AppServiceConfigurable/">app service configurable</a>.</p>
-<div class="highlight"><pre><span></span><code>  <span class="nt">app-service-rules</span><span class="p">:</span>
-    <span class="nt">container_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-app-rules-engine</span>
-    <span class="nt">depends_on</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">consul</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">data</span>
-    <span class="nt">environment</span><span class="p">:</span>
-      <span class="nt">CLIENTS_CORE_COMMAND_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-core-command</span>
-      <span class="nt">CLIENTS_CORE_DATA_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-core-data</span>
-      <span class="nt">CLIENTS_CORE_METADATA_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-core-metadata</span>
-      <span class="nt">CLIENTS_SUPPORT_NOTIFICATIONS_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-support-notifications</span>
-      <span class="nt">CLIENTS_SUPPORT_SCHEDULER_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-support-scheduler</span>
-      <span class="nt">DATABASES_PRIMARY_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-redis</span>
-      <span class="nt">EDGEX_PROFILE</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rules-engine</span>
-      <span class="nt">EDGEX_SECURITY_SECRET_STORE</span><span class="p">:</span> <span class="s">&quot;false&quot;</span>
-      <span class="nt">MESSAGEQUEUE_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-redis</span>
-      <span class="nt">REGISTRY_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-core-consul</span>
-      <span class="nt">SERVICE_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-app-rules-engine</span>
-      <span class="nt">TRIGGER_EDGEXMESSAGEBUS_PUBLISHHOST_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-redis</span>
-      <span class="nt">TRIGGER_EDGEXMESSAGEBUS_SUBSCRIBEHOST_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-redis</span>
-    <span class="nt">hostname</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-app-rules-engine</span>
-    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgexfoundry/app-service-configurable:2.0.1</span>
-    <span class="nt">networks</span><span class="p">:</span>
-      <span class="nt">edgex-network</span><span class="p">:</span> <span class="p p-Indicator">{}</span>
-    <span class="nt">ports</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">127.0.0.1:59701:59701/tcp</span>
-    <span class="nt">read_only</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-    <span class="nt">security_opt</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">no-new-privileges:true</span>
-    <span class="nt">user</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2002:2001</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">app-service-rules</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-app-rules-engine</span><span class="w"></span>
+<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">consul</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data</span><span class="w"></span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">CLIENTS_CORE_COMMAND_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-core-command</span><span class="w"></span>
+<span class="w">      </span><span class="nt">CLIENTS_CORE_DATA_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-core-data</span><span class="w"></span>
+<span class="w">      </span><span class="nt">CLIENTS_CORE_METADATA_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-core-metadata</span><span class="w"></span>
+<span class="w">      </span><span class="nt">CLIENTS_SUPPORT_NOTIFICATIONS_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-support-notifications</span><span class="w"></span>
+<span class="w">      </span><span class="nt">CLIENTS_SUPPORT_SCHEDULER_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-support-scheduler</span><span class="w"></span>
+<span class="w">      </span><span class="nt">DATABASES_PRIMARY_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-redis</span><span class="w"></span>
+<span class="w">      </span><span class="nt">EDGEX_PROFILE</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rules-engine</span><span class="w"></span>
+<span class="w">      </span><span class="nt">EDGEX_SECURITY_SECRET_STORE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">MESSAGEQUEUE_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-redis</span><span class="w"></span>
+<span class="w">      </span><span class="nt">REGISTRY_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-core-consul</span><span class="w"></span>
+<span class="w">      </span><span class="nt">SERVICE_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-app-rules-engine</span><span class="w"></span>
+<span class="w">      </span><span class="nt">TRIGGER_EDGEXMESSAGEBUS_PUBLISHHOST_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-redis</span><span class="w"></span>
+<span class="w">      </span><span class="nt">TRIGGER_EDGEXMESSAGEBUS_SUBSCRIBEHOST_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-redis</span><span class="w"></span>
+<span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-app-rules-engine</span><span class="w"></span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgexfoundry/app-service-configurable:2.0.1</span><span class="w"></span>
+<span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">edgex-network</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w"></span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">127.0.0.1:59701:59701/tcp</span><span class="w"></span>
+<span class="w">    </span><span class="nt">read_only</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">    </span><span class="nt">security_opt</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">no-new-privileges:true</span><span class="w"></span>
+<span class="w">    </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2002:2001</span><span class="w"></span>
 </code></pre></div>
 <h3 id="seeing-the-data-export">Seeing the data export</h3>
 <p>The log level of any EdgeX micro service is set to <code>INFO</code> by default.  If you tune the log level of the app-service-rules micro service to <code>DEBUG</code>, you can see <code>Event</code>s pass through the app service on the way to the rules engine.</p>

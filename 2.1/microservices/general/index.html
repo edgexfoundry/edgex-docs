@@ -2489,9 +2489,9 @@
 <p>For example, a device service could populate the <code>Tags</code> property with latitude and longitude key/value pairs of the physical location of the sensor when the Event is created to send sensed information to Core Data.</p>
 <h3 id="application-service-configurable">Application Service Configurable</h3>
 <p>When the Event gets to the <a href="../application/AppServiceConfigurable/#available-configurable-pipeline-functions">Application Service Configurable</a>, for example, the service has an optional function (defined by <code>Writable.Pipeline.Functions.AddTags</code> in configuration) that will add additional key/value pair to the Event <code>Tags</code>.  The key and value for the additional tag are provided in configuration (as shown by the example below).  Multiple tags can be provide separated by commas.</p>
-<div class="highlight"><pre><span></span><code>    <span class="k">[Writable.Pipeline.Functions.AddTags]</span>
-      <span class="k">[Writable.Pipeline.Functions.AddTags.Parameters]</span>
-      <span class="n">tags</span> <span class="o">=</span> <span class="s">&quot;GatewayId:HoustonStore000123,Latitude:29.630771,Longitude:-95.377603&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.AddTags]</span><span class="w"></span>
+<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.AddTags.Parameters]</span><span class="w"></span>
+<span class="w">      </span><span class="n">tags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;GatewayId:HoustonStore000123,Latitude:29.630771,Longitude:-95.377603&quot;</span><span class="w"></span>
 </code></pre></div>
 <h3 id="custom-application-service">Custom Application Service</h3>
 <p>In the case, of a custom <a href="../application/ApplicationServices/">application service</a>, an AddTags function can be used to 

@@ -2633,74 +2633,74 @@
 <div class="highlight"><pre><span></span><code>curl http://127.0.0.1:59882/api/v2/device/name/Random-Boolean-Device <span class="p">|</span> jq
 </code></pre></div>
 <p>It should print results like those below.</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span> <span class="s2">&quot;v2&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;statusCode&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
-  <span class="nt">&quot;deviceCoreCommand&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;deviceName&quot;</span><span class="p">:</span> <span class="s2">&quot;Random-Boolean-Device&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;profileName&quot;</span><span class="p">:</span> <span class="s2">&quot;Random-Boolean-Device&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;coreCommands&quot;</span><span class="p">:</span> <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;WriteBoolValue&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;set&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v2/device/name/Random-Boolean-Device/WriteBoolValue&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:59882&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;parameters&quot;</span><span class="p">:</span> <span class="p">[</span>
-          <span class="p">{</span>
-            <span class="nt">&quot;resourceName&quot;</span><span class="p">:</span> <span class="s2">&quot;Bool&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;valueType&quot;</span><span class="p">:</span> <span class="s2">&quot;Bool&quot;</span>
-          <span class="p">},</span>
-          <span class="p">{</span>
-            <span class="nt">&quot;resourceName&quot;</span><span class="p">:</span> <span class="s2">&quot;EnableRandomization_Bool&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;valueType&quot;</span><span class="p">:</span> <span class="s2">&quot;Bool&quot;</span>
-          <span class="p">}</span>
-        <span class="p">]</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;WriteBoolArrayValue&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;set&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v2/device/name/Random-Boolean-Device/WriteBoolArrayValue&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:59882&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;parameters&quot;</span><span class="p">:</span> <span class="p">[</span>
-          <span class="p">{</span>
-            <span class="nt">&quot;resourceName&quot;</span><span class="p">:</span> <span class="s2">&quot;BoolArray&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;valueType&quot;</span><span class="p">:</span> <span class="s2">&quot;BoolArray&quot;</span>
-          <span class="p">},</span>
-          <span class="p">{</span>
-            <span class="nt">&quot;resourceName&quot;</span><span class="p">:</span> <span class="s2">&quot;EnableRandomization_BoolArray&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;valueType&quot;</span><span class="p">:</span> <span class="s2">&quot;Bool&quot;</span>
-          <span class="p">}</span>
-        <span class="p">]</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bool&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;get&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="nt">&quot;set&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v2/device/name/Random-Boolean-Device/Bool&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:59882&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;parameters&quot;</span><span class="p">:</span> <span class="p">[</span>
-          <span class="p">{</span>
-            <span class="nt">&quot;resourceName&quot;</span><span class="p">:</span> <span class="s2">&quot;Bool&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;valueType&quot;</span><span class="p">:</span> <span class="s2">&quot;Bool&quot;</span>
-          <span class="p">}</span>
-        <span class="p">]</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;BoolArray&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;get&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="nt">&quot;set&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v2/device/name/Random-Boolean-Device/BoolArray&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:59882&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;parameters&quot;</span><span class="p">:</span> <span class="p">[</span>
-          <span class="p">{</span>
-            <span class="nt">&quot;resourceName&quot;</span><span class="p">:</span> <span class="s2">&quot;BoolArray&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;valueType&quot;</span><span class="p">:</span> <span class="s2">&quot;BoolArray&quot;</span>
-          <span class="p">}</span>
-        <span class="p">]</span>
-      <span class="p">}</span>
-    <span class="p">]</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;statusCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;deviceCoreCommand&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;deviceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Boolean-Device&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;profileName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Boolean-Device&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;coreCommands&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">      </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;WriteBoolValue&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;set&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/api/v2/device/name/Random-Boolean-Device/WriteBoolValue&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://edgex-core-command:59882&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">          </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;resourceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bool&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;valueType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bool&quot;</span><span class="w"></span>
+<span class="w">          </span><span class="p">},</span><span class="w"></span>
+<span class="w">          </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;resourceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EnableRandomization_Bool&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;valueType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bool&quot;</span><span class="w"></span>
+<span class="w">          </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">]</span><span class="w"></span>
+<span class="w">      </span><span class="p">},</span><span class="w"></span>
+<span class="w">      </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;WriteBoolArrayValue&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;set&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/api/v2/device/name/Random-Boolean-Device/WriteBoolArrayValue&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://edgex-core-command:59882&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">          </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;resourceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;BoolArray&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;valueType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;BoolArray&quot;</span><span class="w"></span>
+<span class="w">          </span><span class="p">},</span><span class="w"></span>
+<span class="w">          </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;resourceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EnableRandomization_BoolArray&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;valueType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bool&quot;</span><span class="w"></span>
+<span class="w">          </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">]</span><span class="w"></span>
+<span class="w">      </span><span class="p">},</span><span class="w"></span>
+<span class="w">      </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bool&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;get&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;set&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/api/v2/device/name/Random-Boolean-Device/Bool&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://edgex-core-command:59882&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">          </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;resourceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bool&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;valueType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bool&quot;</span><span class="w"></span>
+<span class="w">          </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">]</span><span class="w"></span>
+<span class="w">      </span><span class="p">},</span><span class="w"></span>
+<span class="w">      </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;BoolArray&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;get&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;set&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/api/v2/device/name/Random-Boolean-Device/BoolArray&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://edgex-core-command:59882&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">          </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;resourceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;BoolArray&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;valueType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;BoolArray&quot;</span><span class="w"></span>
+<span class="w">          </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">]</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">]</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>From this output, look for the URL associated to the <code>PUT</code> command (the first URL listed).  This is the command eKuiper will use to call on the device. There are two parameters for this command:</p>
 <ul>
@@ -2767,10 +2767,10 @@
 </code></pre></div>
 <h2 id="explore-the-results">Explore the Results</h2>
 <p>You can also explore the eKuiper analysis that caused the commands to be sent to the service.  To see the the data from the analysis, use the SQL below to query eKuiper filtering data.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span> <span class="nb">int8</span><span class="p">,</span> <span class="ss">&quot;true&quot;</span> <span class="k">AS</span> <span class="n">randomization</span> <span class="k">FROM</span> <span class="n">demo</span> <span class="k">WHERE</span> <span class="n">uint8</span> <span class="o">&gt;</span> <span class="mi">20</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="nb">int8</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;true&quot;</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">randomization</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">demo</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">uint8</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">20</span><span class="w"></span>
 </code></pre></div>
 <p>The output of the SQL should look similar to the results below.</p>
-<div class="highlight"><pre><span></span><code><span class="p">[{</span><span class="nt">&quot;int8&quot;</span><span class="p">:</span><span class="mi">-75</span><span class="p">,</span> <span class="nt">&quot;randomization&quot;</span><span class="p">:</span><span class="s2">&quot;true&quot;</span><span class="p">}]</span>
+<div class="highlight"><pre><span></span><code><span class="p">[{</span><span class="nt">&quot;int8&quot;</span><span class="p">:</span><span class="mi">-75</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;randomization&quot;</span><span class="p">:</span><span class="s2">&quot;true&quot;</span><span class="p">}]</span><span class="w"></span>
 </code></pre></div>
 <h2 id="extended-reading">Extended Reading</h2>
 <p>Use these resouces to learn more about the features of LF Edge eKuiper.</p>
