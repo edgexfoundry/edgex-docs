@@ -37,7 +37,7 @@ Device services:
 Other EdgeX snaps do exist on the public Snap Store ([search by keyword](https://snapcraft.io/search?q=edgex)) or private stores under brand accounts.
 
 ## Installing the `edgexfoundry` snap
-[![](https://raw.githubusercontent.com/snapcore/snap-store-badges/master/EN/%5BEN%5D-snap-store-white.svg){: style="height:4em"}](https://snapcraft.io/edgexfoundry)
+[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-white.svg)](https://snapcraft.io/edgexfoundry)
 
 This is the main platform snap which
 contains all reference core services along with several other security, supporting, application, and device services.
