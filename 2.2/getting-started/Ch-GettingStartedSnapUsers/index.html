@@ -490,51 +490,43 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#installing-edgex-foundry-jakarta-snaps" class="md-nav__link">
-    Installing EdgeX Foundry Jakarta Snaps
+  <a href="#edgex-snaps" class="md-nav__link">
+    EdgeX Snaps
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#using-the-edgex-snap" class="md-nav__link">
-    Using the EdgeX Snap
+  <a href="#installing-the-edgexfoundry-snap" class="md-nav__link">
+    Installing the edgexfoundry snap
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="Installing the edgexfoundry snap">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#configuring-individual-services" class="md-nav__link">
     Configuring individual services
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#viewing-logs" class="md-nav__link">
     Viewing logs
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#security-services" class="md-nav__link">
     Security services
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#device-service-snaps" class="md-nav__link">
-    Device Service Snaps
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#development-tools" class="md-nav__link">
-    Development Tools
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2472,51 +2464,43 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#installing-edgex-foundry-jakarta-snaps" class="md-nav__link">
-    Installing EdgeX Foundry Jakarta Snaps
+  <a href="#edgex-snaps" class="md-nav__link">
+    EdgeX Snaps
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#using-the-edgex-snap" class="md-nav__link">
-    Using the EdgeX Snap
+  <a href="#installing-the-edgexfoundry-snap" class="md-nav__link">
+    Installing the edgexfoundry snap
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="Installing the edgexfoundry snap">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#configuring-individual-services" class="md-nav__link">
     Configuring individual services
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#viewing-logs" class="md-nav__link">
     Viewing logs
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#security-services" class="md-nav__link">
     Security services
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#device-service-snaps" class="md-nav__link">
-    Device Service Snaps
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#development-tools" class="md-nav__link">
-    Development Tools
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2541,31 +2525,58 @@
                 
                 
                 <h1 id="getting-started-with-edgex-snaps">Getting Started with EdgeX Snaps</h1>
-<p><a href="https://snapcraft.io/edgexfoundry"><img alt="snap store badge" src="https://raw.githubusercontent.com/snapcore/snap-store-badges/master/EN/%5BEN%5D-snap-store-black-uneditable.png" /></a></p>
 <h2 id="introduction">Introduction</h2>
-<p><a href="https://snapcraft.io/docs">Snaps</a> are a hybrid of traditional Linux packages and containers. Snaps can be installed on any
-Linux distro with snap support enabled, although full confinement currently requires some flavor of Ubuntu (Desktop/Server
-or <a href="https://ubuntu.com/core/docs">Core</a>).</p>
-<p>Canonical publishes snaps (amd64 &amp; arm64) for each release of EdgeX to the Snap Store. In contrast to docker deployment, all core,
-security, support, and runtime dependencies are provided in a single snap called <a href="https://snapcraft.io/edgexfoundry">edgexfoundry</a>.
-Additional snaps are available for <a href="https://snapcraft.io/edgex-app-service-configurable">App Service Configurable</a>, as well as the
-standard set of EdgeX reference device services (see <a href="#device-service-snaps">list</a> below). The edgexfoundry snap also includes Device Virtual to allow users
-to experiment with EdgeX without installing additional snaps.</p>
-<h2 id="installing-edgex-foundry-jakarta-snaps">Installing EdgeX Foundry Jakarta Snaps</h2>
-<p>The Snap Store allows multiple versions of a snap to be published to version-specific tracks. If not specified, snaps are installed
-from the <code>latest/stable</code> track. </p>
-<p>You can see the current snap tracks and revisions available for your machine's architecture by running the command:</p>
+<p><a href="https://snapcraft.io/docs">Snaps</a> are application packages that are easy to install and update while being 
+secure, cross‐platform and self-contained.
+Snaps can be installed on any Linux distribution with <a href="https://snapcraft.io/docs/installing-snapd">snap support</a>.</p>
+<p>Snap packages of EdgeX services are published on the <a href="https://snapcraft.io">Snap Store</a>. The list of all EdgeX snaps is available <a href="#edgex-snaps">below</a>.</p>
+<h2 id="edgex-snaps">EdgeX Snaps</h2>
+<p>The following snaps are maintained by the EdgeX working groups:</p>
+<p>Platform snap:</p>
+<ul>
+<li><a href="https://snapcraft.io/edgexfoundry">edgexfoundry</a>: the main platform snap containing
+all reference core services along with several other security, supporting, application, and device services.</li>
+</ul>
+<p>Development tools:</p>
+<ul>
+<li><a href="https://snapcraft.io/edgex-ui">edgex-ui</a></li>
+<li><a href="https://snapcraft.io/edgex-cli">edgex-cli</a></li>
+</ul>
+<p>Application services:</p>
+<ul>
+<li><a href="https://snapcraft.io/edgex-app-service-configurable">edgex-app-service-configurable</a></li>
+</ul>
+<p>Device services:</p>
+<ul>
+<li><a href="https://snapcraft.io/edgex-device-camera">edgex-device-camera</a></li>
+<li><a href="https://snapcraft.io/edgex-device-modbus">edgex-device-modbus</a></li>
+<li><a href="https://snapcraft.io/edgex-device-mqtt">edgex-device-mqtt</a></li>
+<li><a href="https://snapcraft.io/edgex-device-rest">edgex-device-rest</a></li>
+<li><a href="https://snapcraft.io/edgex-device-snmp">edgex-device-snmp</a></li>
+<li><a href="https://snapcraft.io/edgex-device-grove">edgex-device-grove</a></li>
+</ul>
+<p>Other EdgeX snaps do exist on the public Snap Store (<a href="https://snapcraft.io/search?q=edgex">search by keyword</a>) or private stores under brand accounts.</p>
+<h2 id="installing-the-edgexfoundry-snap">Installing the <code>edgexfoundry</code> snap</h2>
+<p><a href="https://snapcraft.io/edgexfoundry"><img alt="Get it from the Snap Store" src="https://snapcraft.io/static/images/badges/en/snap-store-white.svg" /></a></p>
+<p>This is the main platform snap which
+contains all reference core services along with several other security, supporting, application, and device services.</p>
+<p>The Snap Store allows access to multiple versions of the <a href="https://snapcraft.io/edgexfoundry">EdgeX Foundry</a> snap using <a href="https://snapcraft.io/docs/channels">channels</a>. If not specified, snaps are installed
+from the default <code>latest/stable</code> channel. </p>
+<p>You can see the current snap channels available for your machine's architecture by running the command:</p>
 <div class="highlight"><pre><span></span><code>snap info edgexfoundry
 </code></pre></div>
-<p>In order to install Jakarta versions of the EdgeX snaps, you need to specify the <code>--channel=2.1</code> command-line option:</p>
+<p>In order to install a specific version of the snap by setting the <code>--channel</code> flag.
+For example, to install the Jakarta (2.1) release:</p>
 <div class="highlight"><pre><span></span><code>sudo snap install edgexfoundry --channel<span class="o">=</span><span class="m">2</span>.1
 </code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The snap has only been tested on Ubuntu Desktop/Server LTS 18.04/20.04, as well as Ubuntu Core versions 18 and 20.</p>
-</div>
-<h2 id="using-the-edgex-snap">Using the EdgeX Snap</h2>
-<p>Upon installation, the following EdgeX services are automatically and immediately started:</p>
+<p>To install the latest beta:
+<div class="highlight"><pre><span></span><code>sudo snap install edgexfoundry --channel<span class="o">=</span>latest/beta
+<span class="c1"># or using the shorthand</span>
+sudo snap install edgexfoundry --beta
+</code></pre></div></p>
+<p>Replace <code>beta</code> with <code>edge</code> to get the latest nightly build!</p>
+<hr />
+<p>Upon installation, the following internal EdgeX services are automatically started:</p>
 <ul>
 <li>consul</li>
 <li>vault</li>
@@ -2593,8 +2604,8 @@ from the <code>latest/stable</code> track. </p>
 <div class="highlight"><pre><span></span><code>sudo snap <span class="nb">set</span> edgexfoundry support-notifications<span class="o">=</span>off
 </code></pre></div>
 <p>All services which are installed on the system as systemd units, which if enabled will automatically start running when the system boots or reboots.</p>
-<h2 id="configuring-individual-services">Configuring individual services</h2>
-<p>The EdgeX snaps support configuration overrides via snap configure hooks which generate service-specific .env files which are used to
+<h3 id="configuring-individual-services">Configuring individual services</h3>
+<p>This snap supports configuration overrides via snap configure hooks which generate service-specific .env files which are used to
 provide a custom environment to the service, overriding the default configuration provided by the service's <code>configuration.toml</code>
 file. If a configuration override is made after a service has already started, then the service must be <strong>restarted</strong> via command-line
 (e.g. <code>snap restart edgexfoundry.&lt;service&gt;</code>), or <a href="https://snapcraft.io/docs/snapd-api">snapd's REST API</a>. If the overrides are provided via the snap configuration defaults
@@ -2608,10 +2619,12 @@ capability of a gadget snap, the overrides will be picked up when the services a
 <p>And restart the service:</p>
 <div class="highlight"><pre><span></span><code>sudo snap restart edgexfoundry.core-data
 </code></pre></div>
-<p><strong>Note</strong> - at this time changes to configuration values in the <code>[Writable]</code> section are not supported.</p>
-<p>For details on the mapping of configuration options to Config options, please refer to <a href="https://github.com/edgexfoundry/edgex-go/blob/main/snap/README.md#configuration-overrides">Service Environment Configuration Overrides</a>. 
-For details on configuration overrides please refer to documentations for <a href="https://github.com/edgexfoundry/app-service-configurable/blob/main/snap/README.md#using-the-edgex-app-service-configurable-snap">app service configurable snap</a> or <a href="#device-service-snaps">device service snaps</a>.</p>
-<h2 id="viewing-logs">Viewing logs</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>At this time changes to configuration values in the <code>[Writable]</code> section are not supported.</p>
+</div>
+<p>For details on the mapping of configuration options to Config options, please refer to <a href="https://github.com/edgexfoundry/edgex-go/blob/main/snap/README.md#configuration-overrides">Service Environment Configuration Overrides</a>. </p>
+<h3 id="viewing-logs">Viewing logs</h3>
 <p>To view the logs for all services in an EdgeX snap use the <code>snap log</code> command:</p>
 <div class="highlight"><pre><span></span><code>sudo snap logs edgexfoundry
 </code></pre></div>
@@ -2622,7 +2635,7 @@ For details on configuration overrides please refer to documentations for <a hre
 <div class="highlight"><pre><span></span><code>journalctl -u snap.edgexfoundry.consul
 </code></pre></div>
 <p>These techniques can be used with any snap including application snap and device services snaps.</p>
-<h2 id="security-services">Security services</h2>
+<h3 id="security-services">Security services</h3>
 <p>Currently, The EdgeX snap has security (Secret Store and API Gateway) enabled by default. The security services constitute the following components:</p>
 <ul>
 <li>kong-daemon (API Gateway a.k.a. Reverse Proxy)</li>
@@ -2638,21 +2651,6 @@ For details on configuration overrides please refer to documentations for <a hre
 </ul>
 <p>Vault is known within EdgeX as the Secret Store, while Kong+PostgreSQL are used to provide the EdgeX API Gateway.</p>
 <p>For more details please refer to the snap's <a href="https://github.com/edgexfoundry/edgex-go/blob/main/snap/README.md#secret-store">Secret Store</a> and <a href="https://github.com/edgexfoundry/edgex-go/blob/main/snap/README.md#api-gateway">API Gateway</a> documentation.</p>
-<h2 id="device-service-snaps">Device Service Snaps</h2>
-<p>The following is the current list EdgeX 2.x device service snaps:</p>
-<ul>
-<li><a href="https://snapcraft.io/edgex-device-camera">Device Camera</a></li>
-<li><a href="https://snapcraft.io/edgex-device-modbus">Device Modbus</a></li>
-<li><a href="https://snapcraft.io/edgex-device-mqtt">Device MQTT</a></li>
-<li><a href="https://snapcraft.io/edgex-device-rest">Device REST</a></li>
-<li><a href="https://snapcraft.io/edgex-device-snmp">Device SNMP</a></li>
-</ul>
-<h2 id="development-tools">Development Tools</h2>
-<p>The following snaps can be used to assist the development and management of EdgeX:</p>
-<ul>
-<li><a href="https://snapcraft.io/edgex-ui">EdgeX UI</a></li>
-<li><a href="https://snapcraft.io/edgex-cli">EdgeX CLI</a></li>
-</ul>
                 
               
               
