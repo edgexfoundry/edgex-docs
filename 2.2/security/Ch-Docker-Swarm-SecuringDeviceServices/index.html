@@ -151,7 +151,9 @@
         
           
 
-<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
   <div class="md-tabs__inner md-grid">
     <ul class="md-tabs__list">
       
@@ -186,7 +188,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="../Ch-Security/" class="md-tabs__link">
+        <a href="../Ch-Security/" class="md-tabs__link md-tabs__link--active">
           Security
         </a>
       
@@ -684,10 +686,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
     
     <label class="md-nav__link" for="nav-3">
       Security
@@ -846,6 +850,148 @@
     <a href="../Ch-CORS-Settings/" title="CORS settings" class="md-nav__link">
       CORS settings
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Ch-SSH-Tunneling-HowToSecureDeviceServices/" title="Security for EdgeX Stack" class="md-nav__link">
+      Security for EdgeX Stack
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Security for EdgeX Stack
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z" /></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Security for EdgeX Stack" class="md-nav__link md-nav__link--active">
+      Security for EdgeX Stack
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#docker-swarm-overlay-network" class="md-nav__link">
+    Docker Swarm Overlay Network
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference-implementation-example" class="md-nav__link">
+    Reference implementation example
+  </a>
+  
+    <nav class="md-nav" aria-label="Reference implementation example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setup-remote-running-virtual-machine" class="md-nav__link">
+    Setup remote running Virtual Machine
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getting-the-vm-running" class="md-nav__link">
+    Getting the VM running
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connecting-the-swarm-nodes" class="md-nav__link">
+    Connecting the swarm nodes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-the-docker-stack-edgexyml-file" class="md-nav__link">
+    Setting up the docker-stack-edgex.yml file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-host-mounted-volumes" class="md-nav__link">
+    Adding Host Mounted Volumes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-changes-in-docker-stack-edgexyml-file" class="md-nav__link">
+    Other changes in docker-stack-edgex.yml file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-the-docker-stack-file" class="md-nav__link">
+    Running the docker stack file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confirming-results" class="md-nav__link">
+    Confirming results
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tearing-everything-down" class="md-nav__link">
+    Tearing everything down
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -2647,6 +2793,41 @@ Here is the inverse of the previous yml block. This gets added to the device ser
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../Ch-SSH-Tunneling-HowToSecureDeviceServices/" title="Security for EdgeX Stack" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Security for EdgeX Stack
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../../microservices/general/" title="Cross Cutting Concerns" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Cross Cutting Concerns
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" /></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
