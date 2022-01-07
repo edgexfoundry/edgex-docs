@@ -25,7 +25,7 @@ In the local machine, the SSH tunneling handshake is initiated by `device-ssh-pr
 ## Reference implementation example
 
 The whole reference implementation example can be found in this repository:
-[Reference example in holding repo for device service SSH tunneling](https://github.com/edgexfoundry-holding/external-device-security-examples/ssh-tunneling/README.md)
+<https://github.com/edgexfoundry/edgex-examples/tree/main/security/remote_devices/ssh-tunneling>
 
 ### Setup remote running Virtual Machine
 
@@ -33,40 +33,44 @@ In the example setup, `vagrant` is used on the top of `Virtual Box` to set up as
 
 Once you have downloaded the vagrant from Hashicorp website, typical vagrant setup for the first time can be done via command `./vagrant init` and it will generate the Vagrant configuration file.
 
-Here is the Vagrant file used to create the remote machine:
-
-[remote VM Vagrant file with docker and docker-compose installed](https://github.com/edgexfoundry-holding/external-device-security-examples/ssh-tunneling/Vagrantfile)
+The `Vagrantfile` can be found in the aforementioned GitHub repository.
 
 ### SSH Tunneling: Setup the SSH server on the remote machine
 
 For an example of how to run a SSH server in Docker, checkout <https://docs.docker.com/engine/examples/running_ssh_service/> for detailed instructions.
 
-Note that this one is the ssh server and it is set up using password authentication by default.  In order to authenticate to this ssh server without password prompt, we injected the generated public SSH key from the local machine via simple login into the ssh server machine first and then created the `authorized_keys` under `~/.ssh` directory.  In general, the following command example shows how this is accomplished:
+Running `sshd` in Docker is a container anti-pattern,
+as one can enter a container for remote administration
+using `docker exec`.
+In this use case, however,
+we are not using `sshd` for remote administration,
+but instead to set up a network tunnel.
 
-```sh
-root@sshd-remote: mkdir -p ~/.ssh
-root@sshd-remote: chmod 700 ~/.ssh
-root@sshd-remote:  echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDKvsFf5HocBOBWXdVJKfQzkhf0K8lSLjZn9PX84VdhHyP8n1mzfpZywA4vsz8+A3OsGHAr2xpkyzOS0YkwD7nrI3q1x0A0+ANhQNOaKbnfQRe... root" >> ~/.ssh/authorized_keys
-```
+The `generate-keys.sh` helper script generates an RSA keypair,
+and copies the `authorized_keys` file into the
+`remote/sshd-remote` folder.
+The sample's `Dockerfile` will then build this key into the the
+remote `sshd` container image and use it for authentication.
 
-The ssh key pairs can be generated using `ssh-keygen` command from the local machine and the contents of ssh public key usually is stored as ~/.ssh/id_rsa.pub file like this:
-
-```sh
-ssh-keygen -q -t rsa -C root -N '' -f ~/.ssh/id_rsa 2>/dev/null
-```
-
-An example of a build script to inject the SSH public key into the sshd server can be found as the following [here](https://github.com/edgexfoundry-holding/external-device-security-examples/ssh-tunneling/build.sh).
 
 ### SSH Tunneling: Local Port Forwarding
 
-This step is to show how to connect from the local machine to the remote machine. The -L flag of ssh command is important here.
+In this use case, we want to impersonate a device service
+that is running on a remote machine.
+We use local port forwarding to receive inbound requests
+on the device service's port,
+and ask that the traffic be forwarded
+through the ssh tunnel
+to a remote host and a remote port.
+The -L flag of ssh command is important here.
 
 ```sh
-ssh -vv -o StrictHostKeyChecking=no \
-  -o UserKnownHostsFile=/dev/null \
-  -N $TUNNEL_HOST \
-  -L *:$SERVICE_PORT:$SERVICE_HOST:$SERVICE_PORT \
-  -p $TUNNEL_SSH_PROT
+  ssh -N \
+    -o StrictHostKeyChecking=no \
+    -o UserKnownHostsFile=/dev/null \
+    -L *:$SERVICE_PORT:$SERVICE_HOST:$SERVICE_PORT \
+    -p $TUNNEL_SSH_PORT \
+    $TUNNEL_HOST 
 ```
 
 where environment variables are:
@@ -83,17 +87,24 @@ where environment variables are:
 
 This step is to show the reverse direction of SSH tunneling: from the remote back to the local machine.
 
-The reverse SSH tunneling is also needed because the device services depends on the core services like `coreData`, `metaData`, and `coreConsul`.  These core services are running on the local machine and should be **reverse** tunneling back to the device services on the remote side through the SSH remote port forwarding connection.  This can be achieved by using `-R` flag of ssh command.
+The reverse SSH tunneling is also needed because the device services depends on the core services like `core-data`, `core-metadata`, Redis (for message queuing), Vault (for the secret store), and Consul (for registry and configuration).
+These core services are running on the local machine and should be **reverse** tunneled back from the remote machine.
+Essentially, the `sshd` container will impersonate these services
+on the remote side.
+This can be achieved by using `-R` flag of ssh command.
 
 ```sh
-ssh -vv -o StrictHostKeyChecking=no \
-  -o UserKnownHostsFile=/dev/null \
-  -N $TUNNEL_HOST \
-  -R 0.0.0.0:48080:edgex-core-data:48080 \
-  -R 0.0.0.0:5563:edgex-core-data:5563 \
-  -R 0.0.0.0:48081:edgex-core-metadata:48081 \
-  -R 0.0.0.0:8500:edgex-core-consul:8500 \
-  -p $TUNNEL_SSH_PROT
+  ssh -N \
+    -o StrictHostKeyChecking=no \
+    -o UserKnownHostsFile=/dev/null \
+    -R 0.0.0.0:$SECRETSTORE_PORT:$SECRETSTORE_HOST:$SECRETSTORE_PORT \
+    -R 0.0.0.0:6379:$MESSAGEQUEUE_HOST:6379 \
+    -R 0.0.0.0:8500:$REGISTRY_HOST:8500 \
+    -R 0.0.0.0:5563:$CLIENTS_CORE_DATA_HOST:5563 \
+    -R 0.0.0.0:59880:$CLIENTS_CORE_DATA_HOST:59880 \
+    -R 0.0.0.0:59881:$CLIENTS_CORE_METADATA_HOST:59881 \
+    -p $TUNNEL_SSH_PORT \
+    $TUNNEL_HOST 
 ```
 
 where environment variables are:
@@ -102,9 +113,38 @@ where environment variables are:
 
 In the reverse tunneling, the service host names of dependent services are used like `edgex-core-data`, for example.
 
+### Security: EdgeX Secret Store Token
+
+One last detail that needs to be taken care of is to copy the EdgeX secret store token to the remote machine.
+This is needed in order for the remote service to get access to the EdgeX secret store
+as well as the registry and configuration provider.
+
+This is done by copying the tokens over SSH to the remote machine
+prior to initiating the port-forwarding describe above.
+
+```sh
+  scp -p \
+    -o StrictHostKeyChecking=no \
+    -o UserKnownHostsFile=/dev/null \
+    -P $TUNNEL_SSH_PORT \
+    /tmp/edgex/secrets/device-virtual/secrets-token.json $TUNNEL_HOST:/tmp/edgex/secrets/device-virtual/secrets-token.json
+  ssh \
+    -o StrictHostKeyChecking=no \
+    -o UserKnownHostsFile=/dev/null \
+    -p $TUNNEL_SSH_PORT \
+    $TUNNEL_HOST -- \
+    chown -Rh 2002:2001 /tmp/edgex/secrets/device-virtual
+```
+
 ### Put it all together
 
-- Launch the remote machine or VM if it is not yet:
+#### Remote host
+
+If you don't have a remote host already,
+and have Vagrant and VirtualBox installed,
+you can use the Vagrant CLI to start a VM:
+
+Launch the remote machine or VM if it is not yet:
 
 ```sh
 ~/vm/vagrant up
@@ -112,103 +152,103 @@ In the reverse tunneling, the service host names of dependent services are used 
 
 and ssh into the remote machine via `~/vm/vagrant ssh`
 
-- In the local machine, generate ssh key pairs using `ssh-keygen`:
+
+Make sure the `edgex-examples` repository is checked
+out to both the local and remote machines.
+
+In the local machine, run the `generate-keys.sh`
+helper script to generate an `id_rsa` and `id_rsa.pub`
+to the current directory.
+Copy these files to the same relative location
+on the remote machine as well
+so that both machines have access to the same keypair,
+and run `generate-keys.sh` on the remote machine as well.
+The keypair won't be overwritten,
+but an `authorized_keys` file for the remote side will
+be generated and copied to the appropriate location.
+
+On the remote machine,
+change directories into the `remote` folder and
+bring up the example stack:
 
 ```sh
-ssh-keygen -q -t rsa -C root -N '' -f ~/.ssh/id_rsa 2>/dev/null
+$ cd security/remote_devices/ssh-tunneling/remote
+$ docker-compose -f docker-compose.yml up --build -d
 ```
 
-This produces two files under directory ~/.ssh: one for private key (id_rsa) and one for public key (id_rsa.pub)
+This command will build the remote sshd container,
+with the public key embedded,
+and start up the device-virtual service.
+The device-virtual service will sit in a crash/retry
+loop until the ssh tunnel is initiated from the local side.
 
-- Make docker build with ssh-device-proxy Dockerfile and `entrypoint.sh`:
-
-[local device service proxy Dockerfile](https://github.com/edgexfoundry-holding/external-device-security-examples/ssh-tunneling/Dockerfile-primary-ds-proxy)
-
-[Docker entrypoint shell script for local device service proxy](https://github.com/edgexfoundry-holding/external-device-security-examples/ssh-tunneling/ds-proxy-entrypoint.sh)
-
-and build it with the following command:
-
-```sh
-docker build -f Dockerfile-primary-ds-proxy --build-arg SSH_PORT=2223 -t device-ssh-proxy:test .
-```
-
-- Make docker build the remote sshd server / daemon image with Dockerfile:
-
-[remote sshd Dockerfile](https://github.com/edgexfoundry-holding/external-device-security-examples/ssh-tunneling/Dockerfile-remote-sshd)
-
-to build:
-
-```sh
-docker build -t eg_sshd .
-```
-
-- Run the remote EdgeX device services with the following docker-compose file:
-
-[docker-compose file for remote device services with SSH server/daemon](https://github.com/edgexfoundry-holding/external-device-security-examples/ssh-tunneling/edgex-device-sshd-remote.yml)
-
-Note that the following ssh server service is added in the docker-compose file:
+It is interesting to note how the remote sshd
+impersonates as several different hosts that
+actualy exist on the local side.
+This is where reverse tunneling comes in to play.
 
 ```yaml
-################################################################
-# SSH Daemon
-################################################################
   sshd-remote:
-    image: eg_sshd
-    ports:
-      - "2223:22"
+    image: edgex-sshd-remote:latest
+    build:
+      context: sshd-remote
     container_name: edgex-sshd-remote
     hostname: edgex-sshd-remote
+    ports:
+    - "2223:22"
+    read_only: true
+    restart: always
+    security_opt:
+    - no-new-privileges:true
     networks:
       edgex-network:
         aliases:
         - edgex-core-consul
         - edgex-core-data
         - edgex-core-metadata
-```
-
-- In the local machine, include `device-ssh-proxy:test` ssh proxy docker image together with EdgeX core services in the docker-compose file like this:
-
-```yaml
-##########################################################
-# ssh tunneling proxy service for device-virtual
-##########################################################
-  device-ssh-proxy:
-    image: device-ssh-proxy:test
-    container_name: edgex-device-ssh-proxy
-    hostname: edgex-device-ssh-proxy
+        - edgex-redis
+        - edgex-vault
+    tmpfs:
+    - /run
     volumes:
-      - $HOME/.ssh:/root/ssh:ro
-    ports:
-      - "49990:49990"
-    networks:
-      edgex-network:
-        aliases:
-            - edgex-device-virtual
-    environment:
-      TUNNEL_HOST: 192.168.1.190
-      TUNNEL_SSH_PORT: 2223
-      SERVICE_HOST: edgex-device-virtual
-      SERVICE_PORT: 49990
+    - /tmp/edgex/secrets/device-virtual:/tmp/edgex/secrets/device-virtual
 ```
 
-The full docker-compose file is included here:
 
-[docker-compose file for the local core services and ssh tunneling proxy service without any device services](https://github.com/edgexfoundry-holding/external-device-security-examples/ssh-tunneling/edgex-core-ssh-proxy.yml)
 
-Note that:
+On the local machine,
+change directories into the `local` folder and
+bring up the example stack:
 
-1. The values of environment variables depend on your environment settings of the local machine and the remote machine. In this particular case, we are ssh tunneling to the remote device-virtual service.
+```sh
+$ cd security/remote_devices/ssh-tunneling/local
+$ docker-compose -f docker-compose.yml up --build -d
+```
 
-2. The docker-compose file in the local machine does not include any device services at all.  This is to ensure that we are actually using the device services in the remote machine.
+The `docker-compose.yml` is a modified version of
+the orginal `docker-compose.original` with the
+following modifications:
+
+* The original device-virtual service is commented out
+* A `device-ssh-proxy` service is started in its place.
+  This new service appears as `edgex-device-virtual`
+  on the local network.
+  It's job is to initiate the remote tunnel and
+  forward network traffic in both directions.
+
+You will need to modify `TUNNEL_HOST`
+in the `docker-compose.yaml` to be the IP address
+of the remote host.
+
 
 #### Test with the device-virtual APIs
 
-- mainly run curl or postman directly from the local machine to the device-virtual APIs to verify the remote device virtual service can be accessible from the local host machine via two-way SSH tunneling. This can be checked from the console of the local machine:
+Mainly run curl or postman directly from the local machine to the device-virtual APIs to verify the remote device virtual service can be accessible from the local host machine via two-way SSH tunneling. This can be checked from the console of the local machine:
 
 the ping response of calling edgex-device-virtual's ping action:
 
 ```sh
-jim@jim-NUC7i5DNHE:~/go/src/github.com/edgexfoundry/developer-scripts/releases/geneva/compose-files$ curl http://localhost:49990/api/v1/ping
+jim@jim-NUC7i5DNHE:~/go/src/github.com/edgexfoundry/developer-scripts/releases/geneva/compose-files$ curl http://localhost:59900/api/v2/ping
 
 1.2.0-dev.13j
 
@@ -217,14 +257,14 @@ jim@jim-NUC7i5DNHE:~/go/src/github.com/edgexfoundry/developer-scripts/releases/g
 or see the configuration of it via `curl` command:
 
 ```sh
-jim@jim-NUC7i5DNHE:~/go/src/github.com/edgexfoundry/developer-scripts/releases/geneva/compose-files$ curl http://localhost:49990/api/v1/config
+jim@jim-NUC7i5DNHE:~/go/src/github.com/edgexfoundry/developer-scripts/releases/geneva/compose-files$ curl http://localhost:59900/api/v2/config
 ```
 
 ```json
-{"Writable":{"LogLevel":"INFO"},"Clients":{"Data":{"Host":"localhost","Port":48080,"Protocol":"http"},"Logging":{"Host":"localhost","Port":48061,"Protocol":"http"},"Metadata":{"Host":"edgex-core-metadata","Port":48081,"Protocol":"http"}},"Logging":{"EnableRemote":false,"File":""},"Registry":{"Host":"edgex-core-consul","Port":8500,"Type":"consul"},"Service":{"BootTimeout":30000,"CheckInterval":"10s","ClientMonitor":15000,"Host":"edgex-device-virtual","Port":49990,"Protocol":"http","StartupMsg":"device virtual started","MaxResultCount":0,"Timeout":5000,"ConnectRetries":10,"Labels":[],"EnableAsyncReadings":true,"AsyncBufferSize":16},"Device":{"DataTransform":true,"InitCmd":"","InitCmdArgs":"","MaxCmdOps":128,"MaxCmdValueLen":256,"RemoveCmd":"","RemoveCmdArgs":"","ProfilesDir":"./res","UpdateLastConnected":false,"Discovery":{"Enabled":false,"Interval":""}},"DeviceList":[{"Name":"Random-Boolean-Device","Profile":"Random-Boolean-Device","Description":"Example of Device Virtual","Labels":["device-virtual-example"],"Protocols":{"other":{"Address":"device-virtual-bool-01","Port":"300"}},"AutoEvents":[{"frequency":"10s","resource":"Bool"}]},{"Name":"Random-Integer-Device","Profile":"Random-Integer-Device","Description":"Example of Device Virtual","Labels":["device-virtual-example"],"Protocols":{"other":{"Address":"device-virtual-int-01","Protocol":"300"}},"AutoEvents":[{"frequency":"15s","resource":"Int8"},{"frequency":"15s","resource":"Int16"},{"frequency":"15s","resource":"Int32"},{"frequency":"15s","resource":"Int64"}]},{"Name":"Random-UnsignedInteger-Device","Profile":"Random-UnsignedInteger-Device","Description":"Example of Device Virtual","Labels":["device-virtual-example"],"Protocols":{"other":{"Address":"device-virtual-uint-01","Protocol":"300"}},"AutoEvents":[{"frequency":"20s","resource":"Uint8"},{"frequency":"20s","resource":"Uint16"},{"frequency":"20s","resource":"Uint32"},{"frequency":"20s","resource":"Uint64"}]},{"Name":"Random-Float-Device","Profile":"Random-Float-Device","Description":"Example of Device Virtual","Labels":["device-virtual-example"],"Protocols":{"other":{"Address":"device-virtual-float-01","Protocol":"300"}},"AutoEvents":[{"frequency":"30s","resource":"Float32"},{"frequency":"30s","resource":"Float64"}]},{"Name":"Random-Binary-Device","Profile":"Random-Binary-Device","Description":"Example of Device Virtual","Labels":["device-virtual-example"],"Protocols":{"other":{"Address":"device-virtual-bool-01","Port":"300"}},"AutoEvents":null}],"Driver":{}}
+{"Writable":{"LogLevel":"INFO"},"Clients":{"Data":{"Host":"localhost","Port":48080,"Protocol":"http"},"Logging":{"Host":"localhost","Port":48061,"Protocol":"http"},"Metadata":{"Host":"edgex-core-metadata","Port":48081,"Protocol":"http"}},"Logging":{"EnableRemote":false,"File":""},"Registry":{"Host":"edgex-core-consul","Port":8500,"Type":"consul"},"Service":{"BootTimeout":30000,"CheckInterval":"10s","ClientMonitor":15000,"Host":"edgex-device-virtual","Port":59900,"Protocol":"http","StartupMsg":"device virtual started","MaxResultCount":0,"Timeout":5000,"ConnectRetries":10,"Labels":[],"EnableAsyncReadings":true,"AsyncBufferSize":16},"Device":{"DataTransform":true,"InitCmd":"","InitCmdArgs":"","MaxCmdOps":128,"MaxCmdValueLen":256,"RemoveCmd":"","RemoveCmdArgs":"","ProfilesDir":"./res","UpdateLastConnected":false,"Discovery":{"Enabled":false,"Interval":""}},"DeviceList":[{"Name":"Random-Boolean-Device","Profile":"Random-Boolean-Device","Description":"Example of Device Virtual","Labels":["device-virtual-example"],"Protocols":{"other":{"Address":"device-virtual-bool-01","Port":"300"}},"AutoEvents":[{"frequency":"10s","resource":"Bool"}]},{"Name":"Random-Integer-Device","Profile":"Random-Integer-Device","Description":"Example of Device Virtual","Labels":["device-virtual-example"],"Protocols":{"other":{"Address":"device-virtual-int-01","Protocol":"300"}},"AutoEvents":[{"frequency":"15s","resource":"Int8"},{"frequency":"15s","resource":"Int16"},{"frequency":"15s","resource":"Int32"},{"frequency":"15s","resource":"Int64"}]},{"Name":"Random-UnsignedInteger-Device","Profile":"Random-UnsignedInteger-Device","Description":"Example of Device Virtual","Labels":["device-virtual-example"],"Protocols":{"other":{"Address":"device-virtual-uint-01","Protocol":"300"}},"AutoEvents":[{"frequency":"20s","resource":"Uint8"},{"frequency":"20s","resource":"Uint16"},{"frequency":"20s","resource":"Uint32"},{"frequency":"20s","resource":"Uint64"}]},{"Name":"Random-Float-Device","Profile":"Random-Float-Device","Description":"Example of Device Virtual","Labels":["device-virtual-example"],"Protocols":{"other":{"Address":"device-virtual-float-01","Protocol":"300"}},"AutoEvents":[{"frequency":"30s","resource":"Float32"},{"frequency":"30s","resource":"Float64"}]},{"Name":"Random-Binary-Device","Profile":"Random-Binary-Device","Description":"Example of Device Virtual","Labels":["device-virtual-example"],"Protocols":{"other":{"Address":"device-virtual-bool-01","Port":"300"}},"AutoEvents":null}],"Driver":{}}
 ```
 
-- one can also monitor the docker log messages of core-data on the local machine too see if it publishes the events to the bus:
+One can also monitor the docker log messages of core-data on the local machine too see if it publishes the events to the bus:
 
 ```sh
 
@@ -287,9 +327,9 @@ level=INFO ts=2020-06-10T00:52:19.990751025Z app=device-virtual source=utils.go:
 
 ```
 
-- test to get random integer value of the remote device-virtual random integer device from the local machine using `curl` command like this:
+Test to get random integer value of the remote device-virtual random integer device from the local machine using `curl` command like this:
 
 ```sh
-jim@jim-NUC7i5DNHE:~/go/src/github.com/edgexfoundry/device-virtual-go$ curl -k http://localhost:49990/api/v1/device/name/Random-Integer-Device/Int8
+jim@jim-NUC7i5DNHE:~/go/src/github.com/edgexfoundry/device-virtual-go$ curl -k http://localhost:59900/api/v2/device/name/Random-Integer-Device/Int8
 {"device":"Random-Integer-Device","origin":1592432603445490720,"readings":[{"origin":1592432603404127336,"device":"Random-Integer-Device","name":"Int8","value":"11","valueType":"Int8"}],"EncodedEvent":null}
 ```
