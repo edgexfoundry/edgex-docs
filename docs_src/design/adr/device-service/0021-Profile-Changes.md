@@ -32,7 +32,7 @@ The table below outlines the current elements of the EdgeX device profile, and t
 | Manufacturer | string | Anytime | As this property does not affect any functionality other than profile query, this property can be changed at any time – to include setting the string to an empty string. |
 | Description | string | Anytime | As this property does not affect any functionality other than profile query, this property can be changed at any time – to include setting the string to an empty string. |
 | Model | string | Anytime | As this property does not affect any functionality other than profile query, this property can be changed at any time – to include setting the string to an empty string. |
-| Labels | string array | Anytime | As this property does not affect any functionality other than profile query, this property can be changed at any time – to include adding, removing or modifying any of the strings to the array of labels. |
+| Labels | string array | Anytime | As this property does not affect any functionality other than profile query, this property can be changed at any time – to include adding, removing or modifying any of the strings in the array. |
 | Device Resources | array | Situational | When the device resource is not associated to any reading or event, the device resource list can be modified (i.e., adding or removing the associated device resources).  Once the device resource is associated to a reading or event (directly or indirectly via device command), only new resources can be added to the array.  Deleting is prohibited.|
 | Device Commands | array | Situational | When the device command is not associated to any reading or event, the device commands list can be modified (i.e., adding or removing the associated device commands).  Once the device command is associated to a reading or event, only new commands can be added to the array.  Deleting is prohibited.  Device commands are optional and so the array can always be empty. |
 | *Device Resource Properties* |||
@@ -86,7 +86,7 @@ This document dictates the rules around allowed change to device profiles (and a
 
 ## Proposed Design
 
-The following metadata API changes are suggested as a means to implement the device profile rules of this ADR
+The following metadata API changes are suggested as a means to implement the device profile rules of this ADR.
 
 - Block Device DELETE when there is any associated event/reading exists.
 - Block Profile (Upload) PUT when there is any associated device/event/reading exists.
@@ -100,25 +100,15 @@ The following metadata API changes are suggested as a means to implement the dev
 - Add Profile Device Command PATCH API (allow to modify Description and IsHidden only)
 - Add Profile Device Command DELETE API (check it's not associated to any device, reading or event)
 
-*Note* - to be determined: how to allow for device resource or device command changes (outside of Description and isHidden) when the device profile is not yet associated to any object
-
 ## Decision
 
 TBD
 
 ## Consequences/Considerations
 
-The metadata device profile PUT and DELETE APIs must contain the validation logic per the terms above.
+No validation on a device profile PUT will occur based on the terms above.  If you want to add a new device resource, you use the add device   resource API (POST).  You cannot add a device resource through device profile PUT calls unless there are no devices associated to the device profile.
 
-- [Device Profile PUT](https://app.swaggerhub.com/apis/EdgeXFoundry1/core-metadata/2.0.0#/default/put_deviceprofile)
-- [Device Profile Upload PUT](https://app.swaggerhub.com/apis/EdgeXFoundry1/core-metadata/2.0.0#/default/put_deviceprofile_uploadfile)
-- [Device Profile DELETE](https://app.swaggerhub.com/apis/EdgeXFoundry1/core-metadata/2.0.0#/default/delete_deviceprofile_name__name_)
-
-The device PATCH API must validate that device profile is not changed unless there are no events or readings in core data
-
-- [Device PATCH](https://app.swaggerhub.com/apis/EdgeXFoundry1/core-metadata/2.0.0#/default/patch_device)
-
-The event and reading objects are not allowed to be modified so no change to a device profile would occur.
+Note, the use of PATCH over PUT in the above APIs (example - the modification of a description on a device resource) is because there can be many device resources (100s or even 1000s) and if you need to change a single description, finding and updating that single device resource would be more time consuming, inefficient and complicated with PUT versus PATCH.  In other words, using PUT, a user would have to send the whole Device Profile in order to modify the single device resource description.
 
 References
 
