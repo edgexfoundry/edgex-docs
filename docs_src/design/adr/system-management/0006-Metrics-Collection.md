@@ -71,8 +71,8 @@ In general, EdgeX metrics are meant to provide external applications and systems
 - All services must document what metrics they offer.
 - All EdgeX services must implement a common metrics interface/contract that defines an API set about service metrics.
     - The metrics REST endpoints implemented on each service are not there to provide the metrics data, but to know what metrics the service provides, to know the the current state for each metric (`on` or `off`), and to provide a means to turn `on` or `off` the metrics collection.  The actual metric data will be provided, when collected, in messages to a message bus.
-    - The interface would include the definition of a GET REST endpoint that responds with the metrics that the service offers (and whether that metric is currently `on` or `off`). The proposed endpoint format:  **/api/v2/metrics**.
-    - The interface would define PUT and PATCH REST endpoints that allows the user to toggle between `on` and `off` for any metric.  The proposed endpoint format:  **/api/v2/metrics**.  In this REST request body would be the list of metric names to be turned `on` (or those turned `on` or `off` in the case of PATCH).  It is assumed that those metrics not listed are to be turned `off` in the PUT call where PATCH request is explicit about which metrics are turned `on` or `off` and leaves others unchanged.
+    - The interface would include the definition of a GET REST endpoint that responds with the metrics that the service offers (and whether that metric is currently `on` or `off`). The proposed endpoint format:  **/api/v2/telemetry**.
+    - The interface would define PUT and PATCH REST endpoints that allows the user to toggle between `on` and `off` for any metric.  The proposed endpoint format:  **/api/v2/telemetry**.  In this REST request body would be the list of metric names to be turned `on` (or those turned `on` or `off` in the case of PATCH).  It is assumed that those metrics not listed are to be turned `off` in the PUT call where PATCH request is explicit about which metrics are turned `on` or `off` and leaves others unchanged.
 - Services will have configuration which allows EdgeX system managers to select which metrics are `on` or `off` by default - in other words providing the initial bootstrapping configuration that determines what metrics are collected and reported by default.
     - When a metric is turned `off` the service does not report the metric.  When a metric is turned `on` the service collects and sends the metric to the designated message topic.
     - Per REST API described above, the `on` and `off` control of the metrics collected can be changed during runtime of the service.
@@ -178,15 +178,14 @@ All information (keys, values, tags, etc.) is in string format and placed in a J
 !!! Note
     Again, these REST endpoints are per service and meant to control which metrics for a service are turned on or off.  The REST endpoints do not provide metrics data.
 
-- Proposed endpoint for the REST endpoint that responds with what metrics the service offers is:  /api/v2/metrics
-- Body of the GET response would contain a JSON list of metrics (by metric name key) that are `on`
+- Proposed endpoint for the REST endpoint that responds with what metrics the service offers is:  /api/v2/telemetry
+- Body of the GET response would contain a JSON list of metrics (by metric name key) and an indication of which are `on` and which are `off`
 - Body of the PUT request would contain a JSON list of the metrics that are to be turned `on` (others are assumed to be turned `off`)
 - Body of the PATCH request would contain a JSON list of the metrics that are to be turned `on` or `off` - leaving all other metrics unchanged
 
 #### Configuration
 - Configuration, not unlike that provided in core data or any device service, configuration will specify the message bus type and locations where the metrics messages should be sent.
 - In fact, the message bus configuration will use (or reuse if the service is already using the message bus) the common message bus configuration as defined below.
-- Metrics will be published to an /edgex/metrics/[service-name] topic where the service name will be added per service
 - Common configuration for each service for message queue configuration - inclusive of metrics:
 
 ``` yaml
@@ -195,13 +194,13 @@ Protocol = 'redis'  ## or 'tcp'
 Host = 'localhost'
 Port = 5573
 Type = 'redis'  ## or 'mqtt'
-PublishTopicPrefix  = 'edgex/metrics' # /<service-name> will be added to this Publish Topic prefix
+PublishTopicPrefix = "edgex/events/core" # standard and existing core or device topic for publishing  
   [MessageQueue.Optional]
   # Default MQTT Specific options that need to be here to enable environment variable overrides of them
   # Client Identifiers
   ClientId = "device-virtual"
   # Connection information
-  Qos = "0" # Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)
+  Qos = "0" # Quality of Service values are 0 (At most once), 1 (At least once) or 2 (Exactly once)
   KeepAlive = "10" # Seconds (must be 2 or greater)
   Retained = "false"
   AutoReconnect = "true"
@@ -209,10 +208,14 @@ PublishTopicPrefix  = 'edgex/metrics' # /<service-name> will be added to this Pu
   SkipCertVerify = "false" # Only used if Cert/Key file or Cert/Key PEMblock are specified
 ```
 
-Additional configuration must be provided (in the service configuration.toml) to trigger the collection of telemetry from the metrics cache and sending it into the appointed message bus.
+Additional configuration must be provided (in the service configuration.toml) to 
+- Trigger the collection of telemetry from the metrics cache and sending it into the appointed message bus.
+- Metrics will be published to an /edgex/telemetry/[service-name]/[metric-name] topic where the service name will be added per service and the metric name per metric (allowing subscribers to filter by service or metric name)
+
 ``` yaml
-[[Metrics.Collection]]
+[[Telemetry]]
 Interval = "30s"
+TelemetryPublishTopicPrefix  = 'edgex/telemetry' # /<service-name>/<metric-name> will be added to this Publish Topic prefix
 ```
 
 #### Library Support
