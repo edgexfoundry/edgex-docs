@@ -7,16 +7,12 @@ Developer/Contributor.
 
 If you want to get the EdgeX platform and run it (but do not
 intend to change or add to the existing code base now) then you
-are considered a "User". 
+are considered a "User". You will want to follow the
+[Getting Started as a User](./Ch-GettingStartedUsers.md) guide. The
+Getting Started Users guide takes you through the process of deploying
+the latest EdgeX releases.
 
-The [Quick Start](./quick-start) guide leads you to install and run EdgeX on your
-machine in a few minutes using Docker images.
-
-For more details, you will want to follow the
-[Getting Started as a User](./Ch-GettingStartedUsers.md) guide.
-That guide takes you through the process of running the latest EdgeX using Docker containers.
-
-To get started with EdgeX using Snap packages, refer to [Getting Started with Snaps](./Ch-GettingStartedSnapUsers.md).
+For demo purposes and to run EdgeX on your machine in just a few minutes, please refer to the [Quick Start](./quick-start) guide.
 
 ## Developer and Contributor
 
