@@ -17,7 +17,7 @@ into two groups for each device:
     setting the speed in RPMs of a motor, or setting the brightness of a
     dimmer light.
 
-[Core Command V2 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-command/2.0.0)
+[Core Command V2 API Swagger Documentation](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-command/2.2.0)
 
 !!! edgey "EdgeX 2.0"
     For EdgeX 2.0 the REST API provided by the Core Command has changed to use DTOs (Data Transfer Objects) for all responses and for all PUT requests. All query APIs (GET) which return multiple objects, such as /all, provide `offset` and `limit` query parameters.
