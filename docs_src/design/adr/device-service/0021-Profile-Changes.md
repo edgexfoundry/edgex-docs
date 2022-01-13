@@ -33,19 +33,19 @@ The table below outlines the current elements of the EdgeX device profile, and t
 | Description | string | Anytime | As this property does not affect any functionality other than profile query, this property can be changed at any time – to include setting the string to an empty string. |
 | Model | string | Anytime | As this property does not affect any functionality other than profile query, this property can be changed at any time – to include setting the string to an empty string. |
 | Labels | string array | Anytime | As this property does not affect any functionality other than profile query, this property can be changed at any time – to include adding, removing or modifying any of the strings in the array. |
-| Device Resources | array | Situational | When the device resource is not associated to any reading or event, the device resource list can be modified (i.e., adding or removing the associated device resources).  Once the device resource is associated to a reading or event (directly or indirectly via device command), only new resources can be added to the array.  Deleting is prohibited.|
-| Device Commands | array | Situational | When the device command is not associated to any reading or event, the device commands list can be modified (i.e., adding or removing the associated device commands).  Once the device command is associated to a reading or event, only new commands can be added to the array.  Deleting is prohibited.  Device commands are optional and so the array can always be empty. |
+| Device Resources | array | Situational | New device resources can always be added. Existing device resources can only be removed from the array when the device resource has not yet been associated to any reading or event.|
+| Device Commands | array | Situational | New device commands can always be added.  Existing device commands can only be removed from the array when the device command has not yet been associated to a reading or event.  Please see the device command properties for rules on modifying device commands.Device commands are optional and so the array can always be empty. |
 | *Device Resource Properties* |||
 | Description | string | Anytime | As this property does not affect any functionality, this property can be changed at any time – to include setting the string to an empty string. |
-| Name | string | Situational | When the device profile is not associated to any reading or event, this field can be modified.  It can never be blank and must be unique across the entire profile. |
+| Name | string | Situational | When the device resource is not associated to any reading or event, this field can be modified.  It can never be blank and must be unique across the entire profile. |
 | IsHidden | bool | Anytime | This field allows the device resource to be exposed (default) via the command service.  This change does not affect the behavior but only visibility.  This field is optional but is false by default when not provided. |
-| Tag | string | Situational | As this property does not affect any functionality, this property can be changed at any time – to include setting the string to an empty string. |
-| Properties | Resource Properties | Situational | When the device resource (directly or indirectly through device command) is not associated to any reading or event, this field can be modified.  Because the ValueType and ReadWrite properties of this field are required, it can never be empty. |
-| Attributes | map | Situational | When the device resource (directly or indirectly through device command) is not associated to any reading or event, this field can be modified.|
+| Tag | string | Anytime | As this property does not affect any functionality, this property can be changed at any time – to include setting the string to an empty string. Note: adding or removing a tag could effect queries; that is the same query by tag could return different results if a tag is added or removed between query calls.|
+| Properties | Resource Properties | Situational | When the device resource is not associated to any reading or event, this field can be modified.  Because the ValueType and ReadWrite properties of this field are required, it can never be empty. |
+| Attributes | map | Anytime | The attributes have no impact on existing readings, events, etc.  They only impact how readings are acquired by the service.|
 | *Device Command Properties* ||||
 | Name | string | Situational | When the device command is not associated to any reading or event, this field can be modified.  It can never be blank and must be unique across the entire profile. |
 | IsHidden | bool | Anytime | This field allows the device command to be exposed (default) via the command service.  This change does not affect the behavior but only visibility.  This field is optional but is false by default when not provided.|
-| ReadWrite | string | Situational | When the device command is not associated to any reading or event, this field can be modified.  This field is required.  As the field is expected to be from an enumeration of R, W and RW, it can never be empty. |
+| ReadWrite | string | Anytime | This field has no impact on existing readings, events, etc.  As the field is expected to be from an enumeration of R, W and RW, it can never be empty. |
 | ResourceOperations | array | Situational | When the device command is not associated to any reading or event, this field can be modified.  This field is required and can never be empty. |
 
  
@@ -75,14 +75,11 @@ A provision watcher also has an association to a device profile.  However, the d
 
 A device profile cannot be deleted while it is associated to a provision watcher
 
-Change of the device profile on an event or reading is never allowed.  Events and readings are immutable.
+Change of the device profile, source name or resource name on an event or reading is never allowed.  Events and readings are immutable.
 
 ### Applicability
 
-This document dictates the rules around allowed change to device profiles (and associations).  All EdgeX services will abide by these rules (implementing appropriate checks and validation as necessary to enforce the rules) when this ADR is approved to include:
-- service APIs
-- user interfaces (like the Edge GUI)
-- client tools (like the EdgeX CLI)
+This document dictates the rules around allowed change to device profiles (and associations).  All checks of these rules are preformed by the service when the APIs are called.  Where in the past, some EdgeX services (including user interface and client tools) performed their own checks and validation with regard to device profile and association changes, this is now forbidden.  The metadata service API will perform the check and return the appropriate error when the check/validation fails.  
 
 ## Proposed Design
 
@@ -92,13 +89,13 @@ The following metadata API changes are suggested as a means to implement the dev
 - Block Profile (Upload) PUT when there is any associated device/event/reading exists.
 - Block Profile DELETE when there is any associated device/event/reading exists.
 - Allow empty Profile POST (containing no device resources or commands)
-- Add Profile General Property PATCH API
+- Add Profile General Property PATCH API (allow as described above)
 - Add Profile Device Resource POST API
 - Add Profile Device Resource PATCH API (allow to modify Description and IsHidden only)
-- Add Profile Device Resource DELETE API (check it's not associated to any device, reading or event)
+- Add Profile Device Resource DELETE API (allow as described above)
 - Add Profile Device Command POST API
-- Add Profile Device Command PATCH API (allow to modify Description and IsHidden only)
-- Add Profile Device Command DELETE API (check it's not associated to any device, reading or event)
+- Add Profile Device Command PATCH API (allow as described above)
+- Add Profile Device Command DELETE API (allow as described above)
 
 ## Decision
 
@@ -106,7 +103,7 @@ TBD
 
 ## Consequences/Considerations
 
-No validation on a device profile PUT will occur based on the terms above.  If you want to add a new device resource, you use the add device   resource API (POST).  You cannot add a device resource through device profile PUT calls unless there are no devices associated to the device profile.
+No change validation on a device profile PUT will occur based on the terms above.  If you want to add a new device resource, you use the add device   resource API (POST).  You cannot add a device resource through device profile PUT calls unless there are no devices associated to the device profile.
 
 Note, the use of PATCH over PUT in the above APIs (example - the modification of a description on a device resource) is because there can be many device resources (100s or even 1000s) and if you need to change a single description, finding and updating that single device resource would be more time consuming, inefficient and complicated with PUT versus PATCH.  In other words, using PUT, a user would have to send the whole Device Profile in order to modify the single device resource description.
 
