@@ -212,7 +212,7 @@ First add the following application service to your docker-compose.yml file righ
 !!! Note
     This adds the application service configurable to your EdgeX system.  The application service configurable allows you to configure (versus program) new exports - in this case exporting the EdgeX sensor data to the HiveMQ broker at `tcp://broker.mqttdashboard.com:1883`.  You will be publishing to the EdgeXEvents topic.
 
-    For convenience, see documentation on the [EdgeX Compose Builder](../Ch-GettingStartedUsers/#generate-a-custom-docker-compose-file) to create custom Docker Compose files.
+    For convenience, see documentation on the [EdgeX Compose Builder](../Ch-GettingStartedDockerUsers/#generate-a-custom-docker-compose-file) to create custom Docker Compose files.
 
 Save the compose file and then execute another compose up command to have Docker Compose pull and start the configurable application service.
 

@@ -267,7 +267,7 @@ Allow the newly created device service, which was formed out of the
 Device Service Go SDK, to create sensor-mimicking data that it then
 sends to EdgeX:
 
-1.  Follow the [Getting Started with Docker](./Ch-GettingStartedUsers.md) guide to start all of EdgeX. From
+1.  Follow the [Getting Started using Docker](./Ch-GettingStartedDockerUsers.md) guide to start all of EdgeX. From
     the folder containing the docker-compose file, start EdgeX with the
     following call (we're using non-security EdgeX in this example):
 
