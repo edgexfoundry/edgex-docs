@@ -432,8 +432,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../getting-started/Ch-GettingStartedUsers/" title="Getting Started with Docker" class="md-nav__link">
-      Getting Started with Docker
+    <a href="../../getting-started/Ch-GettingStartedUsers/" title="Getting Started as a User" class="md-nav__link">
+      Getting Started as a User
     </a>
   </li>
 
@@ -444,8 +444,20 @@
 
 
   <li class="md-nav__item">
-    <a href="../../getting-started/Ch-GettingStartedSnapUsers/" title="Getting Started with EdgeX Snaps" class="md-nav__link">
-      Getting Started with EdgeX Snaps
+    <a href="../../getting-started/Ch-GettingStartedDockerUsers/" title="Getting Started using Docker" class="md-nav__link">
+      Getting Started using Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/Ch-GettingStartedSnapUsers/" title="Getting Started using Snaps" class="md-nav__link">
+      Getting Started using Snaps
     </a>
   </li>
 
@@ -486,8 +498,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../getting-started/Ch-GettingStartedDevelopers/" title="Getting Started - Developers" class="md-nav__link">
-      Getting Started - Developers
+    <a href="../../getting-started/Ch-GettingStartedDevelopers/" title="Getting Started as a Developer" class="md-nav__link">
+      Getting Started as a Developer
     </a>
   </li>
 
@@ -666,8 +678,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../getting-started/tools/Ch-GUI/" title="EdgeX Foundry User Interface" class="md-nav__link">
-      EdgeX Foundry User Interface
+    <a href="../../getting-started/tools/Ch-GUI/" title="Graphical User Interface (GUI)" class="md-nav__link">
+      Graphical User Interface (GUI)
     </a>
   </li>
 
@@ -2678,14 +2690,14 @@
 <li>EdgeX Foundry V2 (Ireland release)</li>
 <li>curl to run REST commands (you can also use a tool like Postman)</li>
 </ul>
-<p>If you have not already done so, proceed to <a href="../../getting-started/Ch-GettingStartedUsers/">Getting Started With Docker</a> for how to get these tools and run EdgeX Foundry.</p>
+<p>If you have not already done so, proceed to <a href="../../getting-started/Ch-GettingStartedDockerUsers/">Getting Started using Docker</a> for how to get these tools and run EdgeX Foundry.</p>
 <h3 id="add-the-snmp-device-service-to-your-docker-composeyml">Add the SNMP Device Service to your docker-compose.yml</h3>
 <p>The EdgeX docker-compose.yml file used to run EdgeX must include the SNMP device service for this example.  You can either:</p>
 <ul>
 <li>download and use the <a href="../docker-compose.yml">docker-compose.yml</a> file provided with this example </li>
 <li>or use the <a href="https://github.com/edgexfoundry/edgex-compose/tree/main/compose-builder">EdgeX Compose Builder tool</a> to create your own custom docker-compose.yml file adding device-snmp.</li>
 </ul>
-<p>See <a href="../../getting-started/Ch-GettingStartedUsers/#run-edgex-foundry">Getting Started with Docker</a> if you need assistance running EdgeX once you have your Docker Compose file.</p>
+<p>See <a href="../../getting-started/Ch-GettingStartedDockerUsers/#run-edgex-foundry">Getting Started using Docker</a> if you need assistance running EdgeX once you have your Docker Compose file.</p>
 <h2 id="add-the-snmp-device-profile-and-device">Add the SNMP Device Profile and Device</h2>
 <p>SNMP devices, like the Patlite Signal Tower, provide a set of managed objects to get and set property information on the associated device.  Each managed object has an address call an object identifier (or OID) that you use to interact with the SNMP device's managed object.  You use the OID to query the state of the device or to set properties on the device.  In the case of the Patlite, there are managed object for the colored lights and the buzzer of the device.  You can read the current state of a colored light (get) or turn the light on (set) by making a call to the proper OIDs for the associated managed object.</p>
 <p>For example, on the NH series signal towers used in this example, a "get" call to the <code>1.3.6.1.4.1.20440.4.1.5.1.2.1.4.1</code> OID returns the current state of the <code>Red</code> signal light.  A return value of 1 would signal the light is off.  A return value of 2 says the light is on.  A return value of 3 says the light is flashing.  Read this <a href="https://www.manageengine.com/network-monitoring/what-is-snmp.html">SNMP tutorial</a> to learn more about the basics of the SNMP protocol.  See the <a href="https://www.patlite.com/support/enddata/manual/T95100146_G_EN.pdf">Patlite NH Series User's Manual</a> for more information on the SNMP OIDs and function calls and parameters needed for some requests.</p>

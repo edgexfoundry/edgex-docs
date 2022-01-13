@@ -511,8 +511,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-GettingStartedUsers/" title="Getting Started with Docker" class="md-nav__link">
-      Getting Started with Docker
+    <a href="../Ch-GettingStartedUsers/" title="Getting Started as a User" class="md-nav__link">
+      Getting Started as a User
     </a>
   </li>
 
@@ -523,8 +523,20 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-GettingStartedSnapUsers/" title="Getting Started with EdgeX Snaps" class="md-nav__link">
-      Getting Started with EdgeX Snaps
+    <a href="../Ch-GettingStartedDockerUsers/" title="Getting Started using Docker" class="md-nav__link">
+      Getting Started using Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Ch-GettingStartedSnapUsers/" title="Getting Started using Snaps" class="md-nav__link">
+      Getting Started using Snaps
     </a>
   </li>
 
@@ -565,8 +577,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-GettingStartedDevelopers/" title="Getting Started - Developers" class="md-nav__link">
-      Getting Started - Developers
+    <a href="../Ch-GettingStartedDevelopers/" title="Getting Started as a Developer" class="md-nav__link">
+      Getting Started as a Developer
     </a>
   </li>
 
@@ -745,8 +757,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../tools/Ch-GUI/" title="EdgeX Foundry User Interface" class="md-nav__link">
-      EdgeX Foundry User Interface
+    <a href="../tools/Ch-GUI/" title="Graphical User Interface (GUI)" class="md-nav__link">
+      Graphical User Interface (GUI)
     </a>
   </li>
 
@@ -2535,8 +2547,8 @@
                 
                 
                 <h1 id="quick-start">Quick Start</h1>
-<p>This guide will get EdgeX up and running on your machine in as little as 5 minutes. We will skip over lengthy descriptions for now. The goal here is to get you a working IoT Edge stack, from device to cloud, as simply as possible.  </p>
-<p>When you need more detailed instructions or a breakdown of some of the commands you see in this quick start, see either the <a href="../Ch-GettingStartedUsers">Getting Started- Users</a> or <a href="../Ch-GettingStartedDevelopers">Getting Started - Developers</a> guides.</p>
+<p>This guide will get EdgeX up and running on your machine in as little as 5 minutes using Docker containers. We will skip over lengthy descriptions for now. The goal here is to get you a working IoT Edge stack, from device to cloud, as simply as possible.  </p>
+<p>When you need more detailed instructions or a breakdown of some of the commands you see in this quick start, see either the <a href="../Ch-GettingStartedUsers">Getting Started as a User</a> or <a href="../Ch-GettingStartedDevelopers">Getting Started as a Developer</a> guides.</p>
 <h2 id="setup">Setup</h2>
 <p>The fastest way to start running EdgeX is by using our pre-built Docker images. To use them you'll need to install the following:</p>
 <ul>
@@ -2718,7 +2730,7 @@ You'll notice that the commands have <code>get</code> or <code>set</code> (or bo
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This adds the application service configurable to your EdgeX system.  The application service configurable allows you to configure (versus program) new exports - in this case exporting the EdgeX sensor data to the HiveMQ broker at <code>tcp://broker.mqttdashboard.com:1883</code>.  You will be publishing to the EdgeXEvents topic.</p>
-<p>For convenience, see documentation on the <a href="../Ch-GettingStartedUsers/#generate-a-custom-docker-compose-file">EdgeX Compose Builder</a> to create custom Docker Compose files.</p>
+<p>For convenience, see documentation on the <a href="../Ch-GettingStartedDockerUsers/#generate-a-custom-docker-compose-file">EdgeX Compose Builder</a> to create custom Docker Compose files.</p>
 </div>
 <p>Save the compose file and then execute another compose up command to have Docker Compose pull and start the configurable application service.</p>
 <p><div class="highlight"><pre><span></span><code>docker-compose up -d
@@ -2768,13 +2780,13 @@ You can connect to this broker with any MQTT client to watch the sent data. Hive
           </a>
         
         
-          <a href="../Ch-GettingStartedUsers/" title="Getting Started with Docker" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../Ch-GettingStartedUsers/" title="Getting Started as a User" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Getting Started with Docker
+                Getting Started as a User
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">

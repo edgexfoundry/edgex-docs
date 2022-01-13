@@ -434,8 +434,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-GettingStartedUsers/" title="Getting Started with Docker" class="md-nav__link">
-      Getting Started with Docker
+    <a href="../Ch-GettingStartedUsers/" title="Getting Started as a User" class="md-nav__link">
+      Getting Started as a User
     </a>
   </li>
 
@@ -446,8 +446,20 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-GettingStartedSnapUsers/" title="Getting Started with EdgeX Snaps" class="md-nav__link">
-      Getting Started with EdgeX Snaps
+    <a href="../Ch-GettingStartedDockerUsers/" title="Getting Started using Docker" class="md-nav__link">
+      Getting Started using Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Ch-GettingStartedSnapUsers/" title="Getting Started using Snaps" class="md-nav__link">
+      Getting Started using Snaps
     </a>
   </li>
 
@@ -490,8 +502,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-GettingStartedDevelopers/" title="Getting Started - Developers" class="md-nav__link">
-      Getting Started - Developers
+    <a href="../Ch-GettingStartedDevelopers/" title="Getting Started as a Developer" class="md-nav__link">
+      Getting Started as a Developer
     </a>
   </li>
 
@@ -760,8 +772,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../tools/Ch-GUI/" title="EdgeX Foundry User Interface" class="md-nav__link">
-      EdgeX Foundry User Interface
+    <a href="../tools/Ch-GUI/" title="Graphical User Interface (GUI)" class="md-nav__link">
+      Graphical User Interface (GUI)
     </a>
   </li>
 
@@ -2568,10 +2580,10 @@
 EdgeX environment up and running via Docker containers. How would you set up this hybrid environment? Let's take a look.</p>
 <h2 id="get-and-run-the-edgex-docker-containers">Get and Run the EdgeX Docker Containers</h2>
 <ol>
-<li>If you haven't already, follow the <a href="../Ch-GettingStartedUsers/">Getting Started with Docker</a> guide to set up your environment (Docker, Docker Compose, etc.) before continuing.</li>
+<li>If you haven't already, follow the <a href="../Ch-GettingStartedDockerUsers/">Getting Started using Docker</a> guide to set up your environment (Docker, Docker Compose, etc.) before continuing.</li>
 <li>
 <p>Since we plan to work with the virtual device service in this example, you don't need or want to run the virtual device service. You will run all the other services via Docker Compose. </p>
-<p>Based on the instructions found in the <a href="../Ch-GettingStartedUsers/#Get-Run-EdgeX-Foundry">Getting Started with Docker</a>, locate and download the appropriate Docker Compose file for your development environment.  Next, issue the following commands to start the EdgeX containers and then stop the virtual device service (which is the service you are working on in this example). </p>
+<p>Based on the instructions found in the <a href="../Ch-GettingStartedDockerUsers/#get-run-edgex-foundry">Getting Started using Docker</a>, locate and download the appropriate Docker Compose file for your development environment.  Next, issue the following commands to start the EdgeX containers and then stop the virtual device service (which is the service you are working on in this example). </p>
 <div class="highlight"><pre><span></span><code>docker-compose up -d 
 docker-compose stop device-virtual
 </code></pre></div>
@@ -2583,7 +2595,7 @@ docker-compose stop device-virtual
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>You can also use the EdgeX Compose Builder tool to create a custom Docker Compose file with just the services you want.  See the <a href="../Ch-GettingStartedUsers/#generate-a-custom-docker-compose-file">Compose Builder documentation</a> on and checkout the <a href="https://github.com/edgexfoundry/edgex-compose/tree/main/compose-builder">Compose Builder tool in GitHub</a>.</p>
+<p>You can also use the EdgeX Compose Builder tool to create a custom Docker Compose file with just the services you want.  See the <a href="../Ch-GettingStartedDockerUsers/#generate-a-custom-docker-compose-file">Compose Builder documentation</a> on and checkout the <a href="https://github.com/edgexfoundry/edgex-compose/tree/main/compose-builder">Compose Builder tool in GitHub</a>.</p>
 </div>
 </li>
 <li>

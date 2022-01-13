@@ -434,8 +434,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-GettingStartedUsers/" title="Getting Started with Docker" class="md-nav__link">
-      Getting Started with Docker
+    <a href="../Ch-GettingStartedUsers/" title="Getting Started as a User" class="md-nav__link">
+      Getting Started as a User
     </a>
   </li>
 
@@ -446,8 +446,20 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-GettingStartedSnapUsers/" title="Getting Started with EdgeX Snaps" class="md-nav__link">
-      Getting Started with EdgeX Snaps
+    <a href="../Ch-GettingStartedDockerUsers/" title="Getting Started using Docker" class="md-nav__link">
+      Getting Started using Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Ch-GettingStartedSnapUsers/" title="Getting Started using Snaps" class="md-nav__link">
+      Getting Started using Snaps
     </a>
   </li>
 
@@ -490,8 +502,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../Ch-GettingStartedDevelopers/" title="Getting Started - Developers" class="md-nav__link">
-      Getting Started - Developers
+    <a href="../Ch-GettingStartedDevelopers/" title="Getting Started as a Developer" class="md-nav__link">
+      Getting Started as a Developer
     </a>
   </li>
 
@@ -726,8 +738,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../tools/Ch-GUI/" title="EdgeX Foundry User Interface" class="md-nav__link">
-      EdgeX Foundry User Interface
+    <a href="../tools/Ch-GUI/" title="Graphical User Interface (GUI)" class="md-nav__link">
+      Graphical User Interface (GUI)
     </a>
   </li>
 
@@ -2495,7 +2507,15 @@
                 
                 
                 <h1 id="getting-docker-images-from-edgex-nexus-repository">Getting Docker Images from EdgeX Nexus Repository</h1>
-<p>Released EdgeX Docker container images are available from <a href="https://hub.docker.com/search?q=edgexfoundry&amp;type=image">Docker Hub</a>.  In some cases, it may be necessary to get your EdgeX container images from the Nexus repository.  The Linux Foundation manages the Nexus repository for the project.</p>
+<p>Released EdgeX Docker container images are available from <a href="https://hub.docker.com/search?q=edgexfoundry&amp;type=image">Docker Hub</a>.
+Please refer to the <a href="../Ch-GettingStartedDockerUsers/">Getting Started using Docker</a> for instructions related to stable releases.</p>
+<p>In some cases, it may be necessary to get your EdgeX container images from the Nexus repository.  The Linux Foundation manages the Nexus repository for the project.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Containers used from Nexus are considered "work in progress". There is no guarantee
+that these containers will function properly or function properly with
+other containers from the current release.</p>
+</div>
 <p>Nexus contains the EdgeX project staging and development container images. In other words, Nexus contains work-in-progress or pre-release images.  These, pre-release/work-in-progress Docker images are built nightly and made available at the following Nexus location:</p>
 <div class="highlight"><pre><span></span><code>nexus3.edgexfoundry.org:10004
 </code></pre></div>
@@ -2518,7 +2538,7 @@
 <p>The "Nightly Build" images are provided as-is and may not always function properly or with other EdgeX services.  Use with caution and typically only if you are a developer/contributor to EdgeX. These images represent the latest development work and may not have been thoroughly tested or integrated.</p>
 </div>
 <h2 id="using-nexus-images">Using Nexus Images</h2>
-<p>The operations to pull the images and run the Nexus Repository containers are the same as when using EdgeX images from Docker Hub (see <a href="../Ch-GettingStartedUsers/#run-edgex-foundry">Getting Started with Docker</a>).</p>
+<p>The operations to pull the images and run the Nexus Repository containers are the same as when using EdgeX images from Docker Hub (see <a href="../Ch-GettingStartedDockerUsers/#run-edgex-foundry">Getting Started using Docker</a>).</p>
 <p>To get container images from the Nexus Repository, in a command terminal, change directories to the location of your downloaded Nexus Docker Compose yaml.  Rename the file to docker-compose.yml.  Then run the following command in the terminal to pull (fetch) and then start the EdgeX Nexus-image containers.</p>
 <div class="highlight"><pre><span></span><code>docker-compose up -d
 </code></pre></div>
