@@ -15,5 +15,5 @@ The community also provides the latest unstable builds (prior to releases).
 
 Please continue by referring to:
 
-- [Getting Started using Docker](./Ch-GettingStartedUsersDocker.md)
+- [Getting Started using Docker](./Ch-GettingStartedDockerUsers.md)
 - [Getting Started using Snaps](./Ch-GettingStartedSnapUsers.md)
