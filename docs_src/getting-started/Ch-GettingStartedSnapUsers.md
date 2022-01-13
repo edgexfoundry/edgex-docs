@@ -1,4 +1,4 @@
-# Getting Started with EdgeX Snaps
+# Getting Started using Snaps
 
 ## Introduction
 

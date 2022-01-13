@@ -7,10 +7,10 @@ EdgeX environment up and running via Docker containers. How would you set up thi
 
 ## Get and Run the EdgeX Docker Containers
 
-1.  If you haven't already, follow the [Getting Started with Docker](./Ch-GettingStartedUsers.md) guide to set up your environment (Docker, Docker Compose, etc.) before continuing.
+1.  If you haven't already, follow the [Getting Started using Docker](./Ch-GettingStartedDockerUsers.md) guide to set up your environment (Docker, Docker Compose, etc.) before continuing.
 2.  Since we plan to work with the virtual device service in this example, you don't need or want to run the virtual device service. You will run all the other services via Docker Compose. 
 
-    Based on the instructions found in the [Getting Started with Docker](Ch-GettingStartedUsers.md#Get-Run-EdgeX-Foundry), locate and download the appropriate Docker Compose file for your development environment.  Next, issue the following commands to start the EdgeX containers and then stop the virtual device service (which is the service you are working on in this example). 
+    Based on the instructions found in the [Getting Started using Docker](Ch-GettingStartedDockerUsers.md#get-run-edgex-foundry), locate and download the appropriate Docker Compose file for your development environment.  Next, issue the following commands to start the EdgeX containers and then stop the virtual device service (which is the service you are working on in this example). 
 
     ``` bash
     docker-compose up -d 
@@ -24,7 +24,7 @@ EdgeX environment up and running via Docker containers. How would you set up thi
         These notes assume you are working with the EdgeX Ireland release.  It also assumes you have downloaded the appropriate Docker Compose file and have named it `docker-compose.yml` so you don't have to specify the file name each time you run a Docker Compose command.  Some versions of EdgeX may require other or additional containers to run.
 
     !!! Tip
-        You can also use the EdgeX Compose Builder tool to create a custom Docker Compose file with just the services you want.  See the [Compose Builder documentation](./Ch-GettingStartedUsers.md#generate-a-custom-docker-compose-file) on and checkout the [Compose Builder tool in GitHub](https://github.com/edgexfoundry/edgex-compose/tree/main/compose-builder).
+        You can also use the EdgeX Compose Builder tool to create a custom Docker Compose file with just the services you want.  See the [Compose Builder documentation](./Ch-GettingStartedDockerUsers.md#generate-a-custom-docker-compose-file) on and checkout the [Compose Builder tool in GitHub](https://github.com/edgexfoundry/edgex-compose/tree/main/compose-builder).
     
 3.  Run the command below to confirm that all the containers have started and that the virtual device container is no longer running.
     ``` bash

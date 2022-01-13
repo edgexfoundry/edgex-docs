@@ -8,21 +8,10 @@ Developer/Contributor.
 If you want to get the EdgeX platform and run it (but do not
 intend to change or add to the existing code base now) then you
 are considered a "User". You will want to follow the
-[Getting Started Users](./Ch-GettingStartedUsers.md) guide. The
-Getting Started Users guide takes you through the process of getting
-the latest release EdgeX Docker Containers from Docker Hub. If you wish
-to get the latest EdgeX containers (those built from the current ongoing
-development efforts prior to release), then see
-[Getting Started Users - Nexus](./Ch-GettingStartedUsersNexus.md). 
+[Getting Started as a User](./Ch-GettingStartedUsers.md) guide which
+takes you through the process of deploying the latest EdgeX releases.
 
-!!! WARNING
-    Containers used from Nexus are considered "work in progress". There is no guarantee
-    that these containers will function properly or function properly with
-    other containers from the current release.
-
-### Snap User
-
-As an alternative to Docker containers, users may wish to use Canonical's EdgeX Foundry 'snap'.  Snap is a software deployment and package management system developed by Canonical for the Linux operating system. The packages, called snaps, and the tool for using them, snapd, work across a range of Linux distributions allowing distribution-agnostic upstream software packaging. The EdgeX snap is published by EdgeX Foundry and made available through the [snap store](https://snapcraft.io/edgexfoundry). If you wish to get the latest EdgeX release snap, follow the [Getting Started Snap Users](./Ch-GettingStartedSnapUsers.md) guide.
+For demo purposes and to run EdgeX on your machine in just a few minutes, please refer to the [Quick Start](./quick-start) guide.
 
 ## Developer and Contributor
 

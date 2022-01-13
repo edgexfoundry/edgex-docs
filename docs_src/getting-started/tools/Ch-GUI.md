@@ -1,4 +1,4 @@
-# EdgeX Foundry User Interface
+# Graphical User Interface (GUI)
 
 EdgeX's graphical user interface (GUI) is provided for demonstration and development use to manage and monitor a single instance of EdgeX Foundry.
 
@@ -13,7 +13,7 @@ The EdgeX GUI is now incorporated into all the secure and non-sure Docker Compos
 !!! Note
     The GUI can now be used in secure mode as well as non-secure mode.
 
-See the [Getting Started](../quick-start/Ch-GettingStartedUsers#select-a-edgex-foundry-compose-file) guide for help on how to find, download and use a Docker Compose file to run EdgeX - in this case with the Sample App Service.
+See the [Getting Started using Docker](../../Ch-GettingStartedDockerUsers#select-a-edgex-foundry-compose-file) guide for help on how to find, download and use a Docker Compose file to run EdgeX - in this case with the Sample App Service.
 
 ### Secure mode with API Gateway token
 

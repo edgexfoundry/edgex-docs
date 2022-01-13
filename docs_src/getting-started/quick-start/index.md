@@ -1,7 +1,7 @@
 # Quick Start
-This guide will get EdgeX up and running on your machine in as little as 5 minutes. We will skip over lengthy descriptions for now. The goal here is to get you a working IoT Edge stack, from device to cloud, as simply as possible.  
+This guide will get EdgeX up and running on your machine in as little as 5 minutes using Docker containers. We will skip over lengthy descriptions for now. The goal here is to get you a working IoT Edge stack, from device to cloud, as simply as possible.  
 
-When you need more detailed instructions or a breakdown of some of the commands you see in this quick start, see either the [Getting Started- Users](../Ch-GettingStartedUsers) or [Getting Started - Developers](../Ch-GettingStartedDevelopers) guides.
+When you need more detailed instructions or a breakdown of some of the commands you see in this quick start, see either the [Getting Started as a User](../Ch-GettingStartedUsers) or [Getting Started as a Developer](../Ch-GettingStartedDevelopers) guides.
 
 ## Setup
 The fastest way to start running EdgeX is by using our pre-built Docker images. To use them you'll need to install the following:
@@ -212,7 +212,7 @@ First add the following application service to your docker-compose.yml file righ
 !!! Note
     This adds the application service configurable to your EdgeX system.  The application service configurable allows you to configure (versus program) new exports - in this case exporting the EdgeX sensor data to the HiveMQ broker at `tcp://broker.mqttdashboard.com:1883`.  You will be publishing to the EdgeXEvents topic.
 
-    For convenience, see documentation on the [EdgeX Compose Builder](../Ch-GettingStartedUsers/#generate-a-custom-docker-compose-file) to create custom Docker Compose files.
+    For convenience, see documentation on the [EdgeX Compose Builder](../Ch-GettingStartedDockerUsers/#generate-a-custom-docker-compose-file) to create custom Docker Compose files.
 
 Save the compose file and then execute another compose up command to have Docker Compose pull and start the configurable application service.
 

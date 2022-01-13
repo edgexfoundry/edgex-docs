@@ -1,10 +1,10 @@
-# Getting Started - Developers
+# Getting Started as a Developer
 
 ## Introduction
 
 These instructions are for Developers and Contributors to get and run
 EdgeX Foundry. If you want to get the EdgeX platform and run it (but do not intend to change or add to the existing code base now) then you are considered a "User". Users should read:
-[Getting Started Users](./Ch-GettingStartedUsers.md))
+[Getting Started as a User](./Ch-GettingStartedUsers.md))
 
 EdgeX is a collection of more than a dozen micro services that are deployed to provide a minimal edge platform capability. 
 EdgeX consists of a collection of reference implementation services and SDK tools. The micro services and SDKs are written in Go or C. 
@@ -86,10 +86,10 @@ communications by default.  See the installation for your OS.
 If you intend to create Docker images for your updated or newly created EdgeX services, you need to install Docker. See https://docs.docker.com/install/ to learn how to install Docker. If you are new to Docker, the same web site provides you educational information.
 
 ### Additional Programming Tools and Next Steps
-Depending on which part of EdgeX you work on, you need to install one or more programming languages (Go Lang, Gnu C, etc.) and associated tooling.
+Depending on which part of EdgeX you work on, you need to install one or more programming languages (Go, C, etc.) and associated tooling.
 These tools are covered under the documentation specific to each type of development.
 
-- [Go Lang](./Ch-GettingStartedGoDevelopers.md)
+- [Go (Golang)](./Ch-GettingStartedGoDevelopers.md)
 - [C](./Ch-GettingStartedCDevelopers.md)
 
 ## Versioning

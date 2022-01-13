@@ -6,7 +6,7 @@ These instructions are for C Developers and Contributors to get, run and otherwi
 micro services. Before reading this guide, review the general [developer requirements](./Ch-GettingStartedDevelopers.md#what-you-need).
 
 If you want to get the EdgeX platform and run it (but do not intend to change or add to the existing code base now) then you are considered a "User". Users should read:
-[Getting Started Users](./Ch-GettingStartedUsers.md))
+[Getting Started as a User](./Ch-GettingStartedUsers.md))
 
 ## What You Need For C Development
 Many of EdgeX device services are built in C.  In the future, other services could be built in C.  In additional to the hardware and software listed in the [Developers
