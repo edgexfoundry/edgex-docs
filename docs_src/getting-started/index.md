@@ -8,9 +8,8 @@ Developer/Contributor.
 If you want to get the EdgeX platform and run it (but do not
 intend to change or add to the existing code base now) then you
 are considered a "User". You will want to follow the
-[Getting Started as a User](./Ch-GettingStartedUsers.md) guide. The
-Getting Started Users guide takes you through the process of deploying
-the latest EdgeX releases.
+[Getting Started as a User](./Ch-GettingStartedUsers.md) guide which
+takes you through the process of deploying the latest EdgeX releases.
 
 For demo purposes and to run EdgeX on your machine in just a few minutes, please refer to the [Quick Start](./quick-start) guide.
 
