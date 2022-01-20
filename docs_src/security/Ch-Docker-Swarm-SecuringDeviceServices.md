@@ -21,7 +21,7 @@ The reference implementation example can be found in this repository:
 
 ### Setup remote running Virtual Machine
 
-In this example setup, similar to the the [SSH example](https://github.com/edgexfoundry/edgex-docs/blob/master/docs_src/microservices/security/Ch-SSH-Tunneling-HowToSecureDeviceServices.md), `vagrant` is used on the top of `Virtual Box` to set up the secondary/remote VM.
+In this example setup, similar to the the [SSH example](https://github.com/edgexfoundry/edgex-docs/blob/master/docs_src/security/Ch-SSH-Tunneling-HowToSecureDeviceServices.md), `vagrant` is used on the top of `Virtual Box` to set up the secondary/remote VM.
 
 Download vagrant from Hashicorp website or if you're on Ubuntu via `sudo apt install virtualbox` and `sudo apt install vagrant`.  We have a simple vagrant file used for this tutorial [here](https://github.com/edgexfoundry/edgex-examples/blob/swarm/security/docker-swarm/docker-swarm/Vagrantfile)
 
@@ -49,25 +49,57 @@ This will give you a terminal prompt in the worker node where you will run the `
 
 With the VM up and running we need to connect the two nodes using docker swarm.
 
+This guide assumes that your account is a member of the 'docker' group. If not, run
+
+```sh
+sudo usermod -a -G docker $USER
+```
+
+Then log out and log back in to take on the new group.
+
+
 The following command initializes a docker swarm and is to be ran on the host machine: 
 
 ```sh
-sudo docker swarm init --advertise-addr <your host ip address>
+docker swarm init --advertise-addr <your host ip address>
 ```
 
 The previous command will output a token use this token in the following join command.  This joins the worker node to the cluster, to be ran your vagrant VM (worker-node):
 
 ```sh
-sudo docker swarm join --token <token> <manager ip address>:2377
+docker swarm join --token <token> <manager ip address>:2377
 ```
 
-Next, I will walk-through the changes we made to the docker-stack.yml file to convert the edgex compose file into a docker swarm stack file.
+Next, I will walk-through the changes we made to the `docker-compose.yml`
+file to convert the EdgeX compose file into a docker swarm stack file.
+(A snapshot of the original is stored as `docker-compose.yml.original` in the examples.)
 
 ### Setting up the docker-stack-edgex.yml file
 
 All of the following changes are already done in the examples repo.  I will just outline the necessary changes to go from a compose file to stack file.
 
 First, remove 'restart' command from compose file; 'restart' is not a valid command in docker swarm.
+The default is to always restart.
+One exception is `proxy-setup` service,
+which is a single-shot job that should only restart on failure:
+
+```yaml
+    deploy:
+      restart_policy:
+        condition: on-failure
+```
+
+Next, we convert from a bridged network to an encrypted overlay network.
+Network encryption is critical, since the EdgeX assumes a single-host deployment
+by default where network protections are not required.
+
+```
+<     driver: bridge
+---
+>     driver: overlay
+>     driver_opts:
+>       encrypted: ""
+```
 
 Next, we define constraints that the edgex core services must not run on the worker node add this section of yml to the 'docker-stack-edgex.yml'.  We will do the inverse for the device-service to ensure it does run on the worker node thus ensuring it uses the overlay network to communicate with the other services.  Note that this is already done in the example directory.
 
@@ -88,133 +120,107 @@ Here is the inverse of the previous yml block. This gets added to the device ser
 
 These work because we set the 'hostname = worker-node' in the Vagrantfile.
 
-### Adding Host Mounted Volumes
+### Volumes
 
-In docker swarm bind mount volumes need to be explicitly defined in the stack yml file.  Below are the first three bind mount volume definitions these directories must be created on the host before the stack file can be ran.
+In secure mode, a shared volume, such as might be provided by NFS or GlusterFS,
+is needed to distribute the secret store token for the device service.
+Volumes defined using the default Docker Swarm driver are local to the node,
+and cannot be remotely accessed.
 
-Note that this is only an example.  In a production deployment you would want to use a network filesystem or create the shared volumes between containers.
+For simplicity, we will just make a secrets volume that holds all of
+the microservice secrets for the primary node.
+A production deployment should have a secrets volume per-microservice.
 
-```yaml
-  secrets-volume:
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: /tmp/edgex/secrets/
-  secrets-ca-volume:
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: /tmp/edgex/secrets/ca/
-  edgex-consul:
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: /tmp/edgex/secrets/edgex-consul/
-...
+Here is an example substitution:
+
+```text
+<     - /tmp/edgex/secrets/core-command:/tmp/edgex/secrets/<service-name>:ro,z
+---
+>     - edgex-secrets:/tmp/edgex/secrets
 ```
+
+Without using a network file system,
+the only secrets volume will be populated will be the one
+that exists on the node where security-secretstore-setup runs.
+The example will work around this limitation for demo purposes.
+
+The following syntax is not supported and is removed:
+- Localhost port mappings
+- `security_opt`
+- `container_name`
+
+Host port mappings are slightly different,
+needing to use a long port syntax:
+
+For example:
+
+```text
+<     container_name: edgex-core-something
+<     ports:
+<     - 127.0.0.1:59###:59###/tcp
+<     - 8443:8443/tcp
+<     security_opt:
+<     - no-new-privileges:true
+---
+>     - published: 8443
+>       target: 8443
+>       mode: host
+```
+
+The next and final change in the stack yml file is to ensure the EdgeX services are binding to the correct host.  Since Geneva we do this by adding a common variable `Service_ServerBindAddr: "0.0.0.0"` to ensure that the service will bind to any host and not be limited to the hostname. 
+
+The above discussion covers most but not all of the changes.
 
 The full docker-stack file is included here:
 
 [docker-stack-edgex.yml file](https://github.com/edgexfoundry/edgex-examples/security/remote_devices/docker-swarm/docker-stack-edgex.yml)
 
-### Other changes in docker-stack-edgex.yml file 
-
-Another change we had to make in the docker-stack-edgex.yml file is to disable `IPC_LOCK` because the `cap_add` flag in vault's configuration is not supported in docker swarm.  To do this we add `SKIP_SETCAP=true` and `disable_mlock = "true"` to vault in the stack file. 
-
-```yaml
-  vault:
-    image: vault:1.3.1
-    hostname: edgex-vault
-    networks:
-      edgex-network:
-        aliases:
-            - edgex-vault
-    ports:
-      - target: 8200
-        published: 8200
-        protocol: tcp
-        mode: host
-    # cap_add not allowed in docker swarm, this is a security issue and I don't recommend disabling this in production
-    # cap_add:
-    #   - "IPC_LOCK"
-    tmpfs:
-      - /vault/config
-    entrypoint: ["/vault/init/start_vault.sh"]
-    environment:
-      - VAULT_ADDR=https://edgex-vault:8200
-      - VAULT_CONFIG_DIR=/vault/config
-      - VAULT_UI=true
-      - SKIP_SETCAP=true
-      - |
-        VAULT_LOCAL_CONFIG=
-          listener "tcp" { 
-              address = "edgex-vault:8200" 
-              tls_disable = "0" 
-              cluster_address = "edgex-vault:8201" 
-              tls_min_version = "tls12" 
-              tls_client_ca_file ="/tmp/edgex/secrets/edgex-vault/ca.pem" 
-              tls_cert_file ="/tmp/edgex/secrets/edgex-vault/server.crt" 
-              tls_key_file = "/tmp/edgex/secrets/edgex-vault/server.key" 
-              tls_perfer_server_cipher_suites = "true"
-          } 
-          backend "consul" { 
-              path = "vault/" 
-              address = "edgex-core-consul:8500" 
-              scheme = "http" 
-              redirect_addr = "https://edgex-vault:8200" 
-              cluster_addr = "https://edgex-vault:8201" 
-          } 
-          default_lease_ttl = "168h" 
-          max_lease_ttl = "720h"
-          disable_mlock = "true"
-    volumes:
-      - vault-file:/vault/file:z
-      - vault-logs:/vault/logs:z
-      - vault-init:/vault/init:ro,z
-      - edgex-vault:/tmp/edgex/secrets/edgex-vault:ro,z
-    depends_on:
-      - consul
-      - security-secrets-setup
-    deploy: 
-      endpoint_mode: dnsrr
-      placement:
-        constraints: 
-          - node.hostname != worker-node 
-```
-
-Another change we had to make is to set the restart policy for one-shot initialization containers like kong-migrations and edgex-proxy.  Simply add this section of yaml to the services you'd like to only run once and they wont be restarted unless a failure condition happens.
-
-```yml
-restart_policy:
-  condition: on-failure
-```
-
-The next and final change in the stack yml file is to ensure the EdgeX services are binding to the correct host.  Since Geneva we do this by adding a common variable `Service_ServerBindAddr: "0.0.0.0"` to ensure that the service will bind to any host and not be limited to the hostname.  
-
+ 
 ### Running the docker stack file
 
-With all of these changes in place we are ready to run the stack file.  We included a script to run the stack file and create the volumes needed in the stack file.  This script simply creates the volumes directories and runs the `docker stack deploy ...` command.
+With all of these changes in place we are ready to run the stack file.
 
 ```sh
-sudo ./run.sh
+docker stack deploy --compose-file docker-stack-edgex.yml edgex
 ```
 
 Once the stack is up you can run the following command to view the running services: 
 
 ```sh
-sudo docker stack services edgex-overlay
+docker stack services edgex
 ```
+
+In the example, you will notice the `device-virtual` is in a restart loop
+due to an inability to obtain a secret store token.
+A production solution would use a network file system to share the secret.
+
+The workaround is a pair of helper scripts:
+
+On the main node:
+
+```sh
+$ ./gettoken.sh 
+{"auth":{"accessor":"oam6cHfpyLCMO1p4KzpKuj1u","client_token":"s.<redacted>","entity_id":"","lease_duration":3600,"metadata":{"edgex-service-name":"device-virtual"},"orphan":true,"policies":["default","edgex-service-device-virtual"],"renewable":true,"token_policies":["default","edgex-service-device-virtual"],"token_type":"service"},"data":null,"lease_duration":0,"lease_id":"","renewable":false,"request_id":"ec42b65c-c878-34a6-4903-8b01f6a999b3","warnings":null,"wrap_info":null}
+```
+
+Copy the output and then on the remote node:
+
+```sh
+$ ./puttoken.sh
+<paste the output of gettoken.sh>
+```
+
+If done within an hour of bringing up the stack,
+this should enable `device-virtual` to run.
+
 
 ### Confirming results
 
-To ensure the device service is running on the worker node you can run the `docker stack ps edgex-overlay` command. Now check that you see the device service running on the `worker-node` while all of the other services are running on your host.
+To ensure the device service is running on the worker node you can run the `docker stack ps edgex` command. Now check that you see the device service running on the `worker-node` while all of the other services are running on your host.
 
 We have encryption enabled but how to we confirm that the overlay network is encrypting our data?  
 
-We can use `tcpdum` with a protocol filter for ESP (Encapsulating Security Payload) traffic on the worker node this allows us to sniff and ensure the traffic is coming over the expected encrypted protocol. Adding a `-A` flag would also highlight that the data is not in the HTTP protocol format.
+We can use `tcpdump` with a protocol filter for ESP (Encapsulating Security Payload) traffic on the worker node this allows us to sniff and ensure the traffic is coming over the expected encrypted protocol. Adding a `-A` flag would also highlight that the data is not in the HTTP protocol format.
 
 `sudo tcpdump -p esp`
 
@@ -223,7 +229,7 @@ We can use `tcpdum` with a protocol filter for ESP (Encapsulating Security Paylo
 To remove the stack run the command:
 
 ```sh
-sudo ./down.sh
+docker stack rm edgex
 ```
 
 This will remove the volumes and the stack.
