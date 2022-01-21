@@ -3,7 +3,7 @@
 
 ## Status
 
-**Draft**
+**Approved** (by TSC vote on 10/6/21)
 
 ## Context
 This ADR presents a technical plan for creation of a 2.0 version of edgex-cli which supports the new V2 REST APIs developed as part of the Ireland release of EdgeX.
