@@ -151,7 +151,7 @@ Example response messages for a GET and PUT request are shown below.  Again, not
 
 ### Topic Naming
 
-![image](topic-naming.png)
+![image](command-service-topics.png)
 
 #### 3rd party system topics
 
