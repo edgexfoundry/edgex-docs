@@ -2,114 +2,223 @@
 
 ## Status
 
-** Proposed **
+**Proposed**
 (as of 12/21/21)
 
 ## Context and Proposed Design
 
-Today, data flowing from sensors/devices (the "southside") through EdgeX to enterprise applications, databases and cloud-based systems (the "northside") can be accomplished via REST or Message bus.  That is, sensor or device data collected by a device service can be sent via REST or message bus to core data.  Core data then relays the data to application services via message bus (when the device service sends data via REST to core data), but the sensor data can also be sent directly from device services to application services via message bus (by passing core data).  The message bus is implemented via Redis Pub/Sub (default) or via MQTT.  From the application services, data can be sent to northside endpoints in any number of ways – including via MQTT.
+Today, data flowing from sensors/devices (the “southside”) through EdgeX to enterprise applications, databases and cloud-based systems (the “northside”) can be accomplished via REST or Message bus.  That is, sensor or device data collected by a device service can be sent via REST or message bus to core data.  Core data then relays the data to application services via message bus, but the sensor data can also be sent directly from device services to application services via message bus (by passing core data).  The message bus is implemented via Redis Pub/Sub (default) or via MQTT.  From the application services, data can be sent to northside endpoints in any number of ways – including via MQTT.
 
 So, in summary, data can be collected from a sensor or device and be sent from the southside to the northside entirely using message bus technology when desired.
 
 !!! Note
     The message bus may also be implemented in Zero MQ but with some limitations.  As Zero MQ is being deprecated in EdgeX, it will not be considered further in this ADR.
 
-Communications from a 3rd party system (enterprise application, cloud application, etc.) to EdgeX in order to acuate a device or get the latest information from a sensor is accomplished via REST.  The 3rd party system makes a REST call of the command service which then relays a request to a device service also using REST.  There is no built in means to make a message-based request of EdgeX or the devices/sensors it manages.
+Today, communications from a 3rd party system (enterprise application, cloud application, etc.) to EdgeX in order to acuate a device or get the latest information from a sensor is accomplished via REST.  The 3rd party system makes a REST call of the command service which then relays a request to a device service also using REST.  There is no built in means to make a message-based request of EdgeX or the devices/sensors it manages.
 
 In a future release of EdgeX, there is a desire to allow 3rd party systems to make requests of the southside via message bus.  Specifically, a 3rd party system will send a command request via message to the command service via the allowed message bus implementations (which could be MQTT or Redis Pub/Sub today).  The command service would then relay the message request via message bus to the managing device service.  (The command service would also perform any translations on the request as it does for REST requests today.) The device service would use the message to trigger action on the device/sensor as it does when it receives a REST request today and respond via message bus back to the command service.  In turn, the command service would respond to the 3rd party system via message bus.
 
-The reasons why 3rd party systems would like to use a message bus (over REST) communications to make actuation commands include the following:
+### Core Command as Message Bus Bridge
 
-- message bus communications can allow for full asynchronous communications.
-- as services may die, a message bus provides for resilience - allowing messages to queue until a receiving service returns
-- allow for the message bus to be implemented in a variety of message protocols (MQTT, Redis Pub/Sub, AMQP, etc.) - each offering pros/cons that may be suitable to an adopter
-- more easily allow for additional receiving services to be added to consume the messages and improve scale
-- to take advantage of QoS capability (guarantee of delivery) in some message bus implementations (when using a message broker offering quality of service on the message exchange)
-
-!!! Alert
-    Within EdgeX today, the go-mod-messaging Go Lang module provides convenience to access and communicate with the EdgeX message bus.  But it is only for Go and, when used, tightly couples the client user to EdgeX.  As an example eKuiper uses the EdgeX go-mod-messaging module and therefore somewhat couples eKuiper to EdgeX in this instance.  Should we be allowing off-box (non EdgeX services and applications) use of the go-mods (in this case messaging) and should off-box (non EdgeX services and applications) even be allowed to connect to the EdgeX internal message bus.  Use of the EdgeX modules (and potential tight coupling to EdgeX) is left as a decision for the adopter.  To address the internal message bus concern, separate topics (and even buses) can be used for external vs internal communications (see more below).
-
-### Design
-
-The command service requires the means to subscribe to the EdgeX or external (as a 3rd party may want to use their message bus to send commands) message bus.  It would use the messaging client (go-mod-messaging) to create a new MessageClient, connect to a message bus, and subscribe to a configured message topic.
-
-The command service would also publish messages to device service topics using the go-mod-messaging MessageClient.  It would relay any command request to a designated topic for the device service which would be subscribed to the topic.
-
-Likewise, the device services use the messaging client (go-mod-messaging for Go services and C alternative for C services) to create a new MessageClient, connect to the message bus and subscribe to configured message topics to receive actuation messages from the command service.  Note, the device services already have the EdgeX message bus client, so this is not a change - just a new use of the same client.
-
-Because any actuation request may require a response on the part of EdgeX, the command service must provide the means to receive an optional response message from the device services and publish a response back to the 3rd party caller via message bus as well.
-
-The command message request messages should contain a correlation identifier which would be added to any response so that the 3rd party system would know to associate the responses to the original request.
-
-The device service message command subscription, response publishing and general handling should be implemented in the SDKs versus individually in the device services.
-
-!!! Note
-    Message responses are not guaranteed (on the part of the device service to the command service or from the command service back to the originating command requester).  Both the command service and the original 3rd party system making the command request bear the burden to manage timeouts (and possibly resending the request) if there is no response.  In the case of core command, a "timeout" response would be relayed back to the 3rd party system.
+The core command service will serve as the EdgeX entry point for external, north-to-south message bus requests to the south side.
 
 ![image](command-msg.png)
 
+3rd party systems should not be granted access to the EdgeX internal message bus.  Therefore, in order to implement north to south communications via message bus, the command service needs to take messages from the 3rd party or external message bus and pass them internally onto the EdgeX internal message bus where they can eventually be routed to the device services and then on to the devices/sensors (southside).
+
+In reverse, response messages from the southside will also be sent through the internal EdgeX message bus to the command service where they can then be bridged to the external message bus and respond to the 3rd party system requester.
+
+!!! Note
+    If command did not serve as this external to internal (and vice versa) bridge, then each device service would need to be able to serve as their own external message bus to internal message bus bridge which is inefficient.  Also note that eKuiper is allowed access directly to the internal EdgeX message bus.  This is a special circumstance of 3rd party external system communication as eKuiper is a sister project that is deemed the EdgeX reference implementation rules engine.  In future releases of EdgeX, even eKuiper may be routed through an external to internal message bus bridge for better decoupling and security.
+
+Any protocol translation or relay service (REST-MQTT, MQTT-REST, REST-REST, MQTT-MQTT) should pass along authentication tokens.
+
+### Message Bus Subscriptions and Publishing
+
+The command service will require the means to publish messages to device services via the EdgeX message bus (**internal message bus**).  It would use the messaging client (go-mod-messaging) to create a new MessageClient, connect to the message bus, and publish to designated request message topics (see topic configuration below).
+
+The command service will also need to subscribe to the EdgeX message bus (**internal message bus**) in order to receive responses from the device services after a request by message bus has been made.  Again, core command will use the go-mod-messaging MessageClient to subscribe and receive response messages from the device services.
+
+In a similar fashion, device services will need to both subscribe and publish to the EdgeX message bus (**internal message bus**) to get command requests and push back any responses to the command service.  Go lang device services will, like the command service, use the go-mod-messaging module and MessagingClient to get command requests and send command responses to and from the EdgeX message bus.  C based device services will use a C alternative to subscribe and publish to the EdgeX message bus (**internal message bus**)
+
+The command service will also need to subscribe to 3rd party message bus (**external message bus**) in order to get command requests from the 3rd party system.  The command service will then relay command requests on to the appropriate device service via the internal message bus (forming the message bus to message bus bridge).  Likewise, the command service will accept responses from the device services on the EdgeX message bus (**internal message bus**) and then publish responses to the 3rd party system via the 3rd party message bus (**external message bus**).
+
 ### Message Structure
 
-The messages to the command service and those relayed to the device service would mimic their REST alternatives.  The difference is that the HTTP REST requests:
+In REST based command requests (and responses), the HTTP header is used to pass important information such as the path or target of the request, the HTTP method type (indicating a GET or PUT request), the correlation id and more.  On HTTP responses, the HTTP header provides the information such as the response code (ex: 200 for OK).  The body or payload of the HTTP message contains the request details (such as parameters to a device PUT call) or response information (such as events and associated readings from a GET call).  
 
-- have a path that contains the target device and command name
-- are made via SET or PUT methods signaling get or set actions on the device.
+In a message bus world, there is no HTTP header to carry request or response details.  Therefore, the message must be organized into an `envelope` and `payload` section to serve just like the HTTP header and body do in HTTP request/response messages.
 
-The message bus and the messages on the bus need this additional information. To address this, the command requests must be embedded in a "wrapper message" structure that would contain the additional elements that would be present in the HTTP request messages.
-
-!!! Info
-    Note that the EdgeX message bus client would include the correlation id in the message header automatically.
+The message topic names will, in many ways, serve as the HTTP paths and methods do in helping to specify the device receiver of any command request (see topic names below)
 
 ![image](command-msg-structure.png)
 
-Specifically, the message structure (the body) would look something like the following:
+#### Message Envelope
 
-``` json
+Messages are just JSON text.  The outer most JSON object represents the message `envelope` for command request and response messages.  The `envelope` will contain a correlation identifier property which will be added to any relayed request message as well as the response message envelope so that the 3rd party system will know to associate the responses to the original request.
+
+The `envelope` will also contain the API version (something provided in the HTTP path when using REST).
+
+Command requests in HTTP may also contain ds-pushevent and ds-returnevent parameters (for GET commands).  These will be optionally provided key/value pairs represented in the message `envelope`.
+
+``` JSON
 {
-"method": "SET",
-"deviceName": "sensor01",
-"command": "command01",
-"request":
-    {
-        "requestId": "e6e8a2f4-eb14-4649-9e2b-175247911369",
-        "AHU-TargetTemperature": "28.5",
-        "AHU-TargetBand": "4.0",
-        "AHU-TargetHumidity": {
-        "Accuracy": "0.2-0.3% RH",
-        "Value": 59
-    }
+    "Correlation-ID": "14a42ea6-c394-41c3-8bcd-a29b9f5e6835",
+    "API":"V2",
+    "ds-pushevent":"yes",
+    "ds-returnevent":"yes",
+    ...
 }
 ```
 
-Note, this message structure may not be complete as is meant to represent the general structure.  Additional fields may be added in order to align with the HTTP message structure.
+#### Message Payload
 
-Response messages would be similarly wrapped so as to preserve the request id - if nothing else.  On many standard requests, the response would contain an event with one or more readings.
+The **request** message `payload` to the command service and those relayed to the device service would mimic their HTTP/REST request body alternatives.  The `payload` provides details needed in executing the command at the south side.
 
-``` json
+In the example GET and PUT messages below, note the `envelope` wraps or encases the message `payload`.  The payload may be empty (as is typical of GET requests).
+
+``` JSON
 {
-"response":
+    "Correlation-ID": "14a42ea6-c394-41c3-8bcd-a29b9f5e6835",
+    "API":"v2",
+    "ds-pushevent":"yes",
+    "ds-returnevent":"yes",
+    "payload": 
+    {
+    }
+}
+
+{
+    "Correlation-ID": "14a42ea6-c394-41c3-8bcd-a29b9f5e6835",
+    "API":"v2",
+    "payload": 
+    {
+        "AHU-TargetTemperature": "28.5",
+        "AHU-TargetBand": "4.0",
+        "AHU-TargetHumidity": {
+            "Accuracy": "0.2-0.3% RH",
+            "Value": 59
+        }
+    }
+}
+
+```
+
+The **response** message `payload` would contain the response from the south side, which is typically EdgeX event/reading objects (in the case of GET requests) but would also include any status code, error or service response details.
+
+Example response messages for a GET and PUT request are shown below.  Again, note that the message `envelope` wraps the response `payload`.
+
+``` JSON
+{
+    "Correlation-ID": "14a42ea6-c394-41c3-8bcd-a29b9f5e6835",
+    "apiVersion": "v2",
+    "payload": 
+    {
+    "requestId": "e6e8a2f4-eb14-4649-9e2b-175247911369",
+    "statusCode": 0,
+    "message": "string",
+    "event": {
+        "apiVersion": "string",
+        "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "deviceName": "string",
+        "profileName": "string",
+        "created": 0,
+        "origin": 0,
+        "readings": [
+            "string"
+            ],
+        "tags": {
+            "Gateway-id": "HoustonStore-000123",
+            "Latitude": "29.630771",
+            "Longitude": "-95.377603"
+            }
+        }
+    }
+}
+
+{
+    "Correlation-ID": "14a42ea6-c394-41c3-8bcd-a29b9f5e6835",
+    "apiVersion": "v2",
+    "payload": 
     {
         "requestId": "e6e8a2f4-eb14-4649-9e2b-175247911369",
-        "apiVersion": "v2",
         "statusCode": 0,
         "message": "string"
     }
 }
+
 ```
 
-Note, serving as a relay of the request, the command service should pass along authentication tokens provided in the original request.
+### Topic Naming
+
+![image](topic-naming.png)
+
+#### 3rd party system topics
+
+The 3rd party system or application must publish command requests messages to its own message bus (**external message bus**) and subscribe to responses from the same.  Messages topics would typically follow a standard such as:
+
+- Publishing command request topic: edgex/command/request/<device-name>/<command-name>/<method>
+- Subscribing command response topic: edgex/command/response/#
+
+!!! Note
+    Because EdgeX can suggest but not dictate the naming standard for 3rd party message bus topics, these names are representative for clarity, but not required.
+
+#### command service topics
+
+The command service must subscribe to the request topics of the 3rd party (**external message bus**) message bus to get command requests, publish those to a topic to send them to a device service via the EdgeX message bus (**internal message bus**), subscribe to response messages on topics from device services (**internal**), and then publish response messages to a topic on the 3rd party message bus (**external**).  Message topics for the command service would follow the following standard:
+
+- Subscribing 3rd party command request topics: edgex/command/request/#
+- Publishing device service request topic: edgex/command/request/<device-service>/<device-name>/<command-name>/<method>
+- Subscribing command response topics: edgex/command/response/#
+- Publishing 3rd party command response topic: edgex/command/response/<device-name>/<command-name>/<method>
+
+!!! Note
+    Because EdgeX can suggest but not dictate the naming standard for 3rd party message bus topics, the 3rd party topic names are representative for clarity, but not required.
+
+#### device service topics
+
+The device services must subscribe to the EdgeX command request topic (**internal message bus**) and publish response messages to an EdgeX command response topic.  The following naming standard will be applied to these topic names:
+
+- Subscribing command request topic: edgex/command/request/#
+- Publishing command response topic: edgex/command/response/<device-service>/<device-name>/<command-name>/<method>
 
 ### Configuration
 
-The configuration or the command service must provide the details in order to subscribe to command messages from any 3rd party system and publish to a response topic.  The subscription configuration would be similar to how core data is configured to subscribe to messages from any device service and publish to topics to get messages to application services.  However, the command service will actually need to have two sets of subscription and two sets of publishing topics.
+Both the EdgeX command service and the device services must contain configuration needed to connect to and publish/subscribe to messages from topics on the EdgeX message bus (**internal**).  This includes configuration to access the message bus when secure or insecure.
 
-The command service would subscribe to any command topic ("edgex/command/request/#") to receive requests from the 3rd party system.  3rd party systems would publish more specifically to a topic that includes the device name and command names (see image below).  The command service must then relay these messages (via publish) to the device service command actuation topics.
+The command service must also be provided configuration to connect to the 3rd party message bus (**external**).  Because the communications may be done in a secure or insecure fashion, the core command service will need to be provided access to the 3rd party message bus (**external**)
 
-As each device service will have a topic assigned to it, the device service name, device name, and command name will be added to the destination topic ("edgex/command/request/<device-service>/<device-name>/<command-name>") when command relays the actuation request messages to device services.
+Similar to EdgeX application services, the command service will have access to an external message bus capability to get command requests and send 3rd parties a response.  This will require the command service to have two message queue configuration settings (internal and external).
 
-The command service must then subscribe to another topic ("edgex/command/response/<device-service>/<device>/<command-name>") to receive actuation responses from the device services.  It then relays those responses on to the 3rd party apps by publishing those responses to a response topic ("edgex/command/response/<device>/<command-name>").
+#### command service configuration
 
-![image](command-service-topics.png)
+Example command service configuration is provided below.
+
+``` toml
+[MessageQueue]
+    [InternalMessageQueue]
+    Protocol = "redis"
+    Host = "localhost"
+    Port = 6379
+    Type = "redis"
+    AuthMode = "usernamepassword"  # required for redis messagebus (secure or insecure).
+    SecretName = "redisdb"
+    [ExternalMessageQueue]
+    Protocol = "redis"
+    Host = "localhost"
+    Port = 6378
+    Type = "redis"
+    AuthMode = "usernamepassword"  # required for redis messagebus (secure or insecure).
+    SecretName = "redisdb"
+ExternalSubscribeRequestTopic = “edgex/command/request/#”
+InternalPublishRequestTopicPrefix = "edgex/command/request/"  # <device-service>/<device-name>/<command-name>/<method> will be added to this publish topic prefix
+InternalSubscribeResponseTopic = “edgex/command/response/#”
+ExternalPublishResponseTopicPrefix = “edgex/command/response/"  # /<device-name>/<command-name>/<method> will be added to this publish topic prefix
+```
+
+#### device service configuration
+
+Example device service configuration is provided below.
 
 ``` toml
 [MessageQueue]
@@ -119,52 +228,44 @@ Port = 6379
 Type = "redis"
 AuthMode = "usernamepassword"  # required for redis messagebus (secure or insecure).
 SecretName = "redisdb"
-SubscribeCommandRequestTopic = "/edgex/command/request/#"
-PublishCommandRequestTopicPrefix = "/edgex/command/request/ " # /<device-service>/<device-name>/<command-name> will be added to this Publish Topic prefix
-SubscribeCommandResponseTopic = "/edgex/command/response/#"
-PublishCommandResponseTopicPrefix = "/edgex/command/response/" # /<device-name>/<command-name> will be added to this Publish Topic prefix
+SubscribeRequestTopic = "edgex/command/request/#"
+PublishResponseTopicPrefix = “edgex/command/response/"  # <device-service>/<device-name>/<command-name>/<method> will be added to this publish topic prefix
 ```
 
-Device services must similarly be configured for subscribing to actuation commands and responding to them by publishing to the response topic.
-
-``` toml
-[MessageQueue]
-Protocol = "redis"
-Host = "localhost"
-Port = 6379
-Type = "redis"
-AuthMode = "usernamepassword"  # required for redis messagebus (secure or insecure).
-SecretName = "redisdb"
-SubscribeCommandRequestTopic = "/edgex/command/request/<device-service>/#"
-PublishCommandResponseTopicPrefix = "/edgex/command/response/<device-service>/" # /<device-name>/<command-name> will be added to this Publish Topic prefix
-```
-
-Questions:
+## Questions
 
 - Do we need separate topics for all the devices or would one on the device service suffice?
-  - Ans:  we have defined the deviceName in the payload, so one topic should be sufficient for Device Service- edgex/request/actuate/<device-service>
+    
+    - Ans:  we have defined the deviceName in the payload, so one topic should be sufficient for Device Service- edgex/command/request/<device-name>...
+
 - Would clients (non EdgeX services and applications) want to get a list of available commands via message (instead of calling REST)?
-  - Ans:  this is a valid question and could be provided via later additions to the command service (or other service like metadata) in the future.  It does not have to be tackled immediately.  
-- Should the command service be allowed to subscribe to the external message broker from a 3rd party? If it subscribes to the EdgeX message bus (internally) only, we might need additional services to relay the data to EdgeX message bus from the external source (depending on security and accessibility to the external message bus).
-- Dynamic configuration of the message subscription is not a user friendly operation today (requiring configuration changes). We might want to think about creating additional APIs for Adding/Updating/Deleting/Query the external subscription (and store them to the RedisDB).
+
+    - Ans:  this is a valid question and could be provided via later additions to the command service (or other service like metadata) in the future.  It does not have to be tackled immediately.  
+
+- Dynamic configuration of the message subscription is not a user friendly operation today (requiring configuration changes).
+
+    - Ans:  We might want to think about creating additional APIs for Adding/Updating/Deleting/Query the external subscription (and store them to the RedisDB).
+
 - Is it acceptable for more than one response to be published by the device service on the same correlation ID? Eg, send back "Acknowledged", then "Scheduled", then "Starting", then "Done" statuses?
-  - Ans:  No, the correlation id has a life span to/from the initial requester to the response back to the requester.   
+    
+    - Ans:  No, the correlation id has a life span to/from the initial requester to the response back to the requester.
+
 - Would it make sense to echo the command name into the response, as a reality check?
-  - Ans:  adds length and complexity to the response today that one could say is handled by using the correlation id to track it to the original request.  Can revisit if necessary.
+    - Ans: solved via topic naming
+
 - Would sending/receiving binary data (e.g. CBOR) be supported in this north-south message implementation?
-  - Ans:  today, command servcie and device services do not support CBOR operations.  This feature would be explored only when these services support binary/CBOR payloads.
+    
+    - Ans:  today, command service and device services do not support CBOR operations.  This feature would be explored only when these services support binary/CBOR payloads.
+
 - Use of the message bus communications (by the non-EdgeX 3rd party service or application) would bypass the API Gateway.
-  - Ans:  it would.  If secure communications is desired over message bus, we would need to secure our message bus communications which is being explored outside of this ADR and in relation to existing message bus communications.
+
+    - Ans:  it would. Pretty much every MQTT broker has a way to do this, where the most common are username/password and certificate-based mutual-auth TLS. SPIFFE/SPIRE is a good way to distribute such certificates if one can manage the requirements for certificate rotation on a continual basis. Otherwise, username/password will probably end up being used (with server-side TLS if the broker is off-box)
 
 !!! INFO
         This ADR does not handle securing the message bus communications between services.  This need is to be covered universally in an upcoming ADR.
 
 ## Consequences
 
-The implementation of north-to-south message bus communications could be accomplished in phases
-
-1. Command service to receive and respond via message bus
-2. Device services in Go receive and respond via message bus
-3. Device services in C receive and respond via message bus
-
 ## References
+
+- [Core Command API](https://app.swaggerhub.com/apis/EdgeXFoundry1/core-command/2.1.0)
