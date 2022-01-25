@@ -17,8 +17,6 @@ The virtual device service, built in Go and based on the device service Go SDK, 
 - Float32, Float64, Float32Array, Float64Array
 - Binary
 
-The virtual device services leverages [ql(an embedded SQL database engine)](https://godoc.org/github.com/cznic/ql) to simulate virtual resources.
-
 By default, the virtual device service is included and configured to run with all EdgeX Docker Compose files.  This allows users to have a complete EdgeX system up and running - with simulated data from the virtual device service - in minutes.
 
 ## Using the Virtual Device Service
