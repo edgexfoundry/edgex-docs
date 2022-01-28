@@ -10,7 +10,7 @@ EdgeX CLI is a command-line interface tool for developers, used for interacting 
 The client can be installed using a [snap](https://github.com/edgexfoundry/edgex-cli/tree/main/snap)
 
 ```
-sudo snap install EdgeX CLI
+sudo snap install edgex-cli
 ```
 
 You can also download the appropriate binary for your operating system from [GitHub](https://github.com/edgexfoundry/edgex-cli/releases).
@@ -112,7 +112,7 @@ core-metadata 12         1704256  39606    8870           48476      75318280 61
 The `-j/--json` flag can be used with most of `edgex-go` commands to return the JSON output:
 
 ```
-edgex-cli metrics --metadata --json
+$ edgex-cli metrics --metadata --json
 {"apiVersion":"v2","metrics":{"memAlloc":1974544,"memFrees":39625,"memLiveObjects":9780,"memMallocs":49405,"memSys":75318280,"memTotalAlloc":6410200,"cpuBusyAvg":13}}
 ```
 
@@ -263,9 +263,16 @@ $ edgex-cli deviceservice rm -n TestDeviceService
 Update the device service, getting the ID using jq and confirm that the labels were added
 
 ```
-$ ID=`./bin/edgex-cli deviceservice name -n TestDeviceService -j | jq -r '.service.id'`
+$ edgex-cli deviceservice add -n TestDeviceService -b "http://localhost:51234"
+{{{v2} c2600ad2-6489-4c3f-9207-5bdffdb8d68f  201} 844473b1-551d-4545-9143-28cfdf68a539}
+
+$ ID=`edgex-cli deviceservice name -n TestDeviceService -j | jq -r '.service.id'`
 $ edgex-cli deviceservice update -n TestDeviceService -i $ID --labels "label1,label2"
+{{v2} 9f4a4758-48a1-43ce-a232-828f442c2e34  200}
+
 $ edgex-cli deviceservice name -n TestDeviceService -v
+Name               BaseAddress             Description  AdminState  Id                                    Labels           LastConnected  LastReported  Modified
+TestDeviceService  http://localhost:51234               UNLOCKED    844473b1-551d-4545-9143-28cfdf68a539  [label1 label2]  0              0             28 Jan 22 12:00 GMT
 ```
 
 
@@ -303,14 +310,21 @@ $ edgex-cli deviceprofile rm -n TestProfile
 ```
 
 ### `edgex-cli device list` 
-List devices
+List current devices
 
 ```
 $ edgex-cli device list
+Name                           Description                ServiceName        ProfileName                    Labels                    AutoEvents
+Random-Float-Device            Example of Device Virtual  device-virtual     Random-Float-Device            [device-virtual-example]  [{30s false Float32} {30s false Float64}]
+Random-UnsignedInteger-Device  Example of Device Virtual  device-virtual     Random-UnsignedInteger-Device  [device-virtual-example]  [{20s false Uint8} {20s false Uint16} {20s false Uint32} {20s false Uint64}]
+Random-Boolean-Device          Example of Device Virtual  device-virtual     Random-Boolean-Device          [device-virtual-example]  [{10s false Bool}]
+TestDevice                                                TestDeviceService  TestProfile                    []                        []
+Random-Binary-Device           Example of Device Virtual  device-virtual     Random-Binary-Device           [device-virtual-example]  []
+Random-Integer-Device          Example of Device Virtual  device-virtual     Random-Integer-Device          [device-virtual-example]  [{15s false Int8} {15s false Int16} {15s false Int32} {15s false Int64}]
 ```
 
 ### `edgex-cli device add` 
-Add a new device
+Add a new device. This needs a device service and device profile to be created first
 
 ```
 $ edgex-cli device add -n TestDevice -p TestProfile -s TestDeviceService --protocols "{\"modbus-tcp\":{\"Address\": \"localhost\",\"Port\": \"1234\" }}"
@@ -324,7 +338,7 @@ Show information about a specified named device
 ```
 $ edgex-cli device name -n TestDevice
 Name        Description  ServiceName        ProfileName  Labels  AutoEvents
-TestDevice               TestDeviceService  TestProfile  []    
+TestDevice               TestDeviceService  TestProfile  []      []
 ```
 
 ### `edgex-cli device rm` 
@@ -441,6 +455,15 @@ List all events, optionally specifying a limit and offset
 
 ```
 $ edgex-cli event list
+```
+
+To see two readings only, skipping the first 100 readings:
+
+```
+$ edgex-cli reading list --limit 2 --offset 100
+Origin               Device                 ProfileName            Value                ValueType
+28 Jan 22 12:55 GMT  Random-Integer-Device  Random-Integer-Device  22502                Int16
+28 Jan 22 12:55 GMT  Random-Integer-Device  Random-Integer-Device  1878517239016780388  Int64
 ```
 
 ### `edgex-cli event rm`
