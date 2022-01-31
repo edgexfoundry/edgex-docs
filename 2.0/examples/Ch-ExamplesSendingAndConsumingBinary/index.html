@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-5.1.0">
     
     
       
@@ -2497,36 +2497,36 @@ Readings that contain arbitrary binary data.</p>
 <h3 id="device-profile">Device Profile</h3>
 <p>To indicate that a deviceResource represents a Binary type, the
 following format is used:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">deviceResources</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span>
-    <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;camera_snapshot&quot;</span>
-    <span class="nt">isHidden</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
-    <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;snapshot</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">camera&quot;</span>
-    <span class="nt">properties</span><span class="p">:</span>
-        <span class="nt">valueType</span><span class="p">:</span> <span class="s">&quot;Binary&quot;</span>
-        <span class="nt">readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span>
-        <span class="nt">mediaType</span><span class="p">:</span> <span class="s">&quot;image/jpeg&quot;</span>
-<span class="nt">deviceCommands</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span>
-    <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;OnvifSnapshot&quot;</span>
-    <span class="nt">isHidden</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
-    <span class="nt">readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span>
-    <span class="nt">resourceOperations</span><span class="p">:</span>
-      <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span> <span class="s">&quot;camera_snapshot&quot;</span> <span class="p p-Indicator">}</span>
+<div class="highlight"><pre><span></span><code><span class="nt">deviceResources</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;camera_snapshot&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;snapshot</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">camera&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Binary&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="nt">mediaType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;image/jpeg&quot;</span><span class="w"></span>
+<span class="nt">deviceCommands</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;OnvifSnapshot&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+<span class="w">    </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">resourceOperations</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;camera_snapshot&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
 </code></pre></div>
 <h3 id="device-service">Device Service</h3>
 <p>Here is a snippet from a hypothetical Device Service's
 <code>HandleReadCommands()</code> method that produces an event that
 represents a JPEG image captured from a camera:</p>
-<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="nx">req</span><span class="p">.</span><span class="nx">DeviceResourceName</span> <span class="o">==</span> <span class="s">&quot;camera_snapshot&quot;</span> <span class="p">{</span>
-  <span class="nx">data</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cameraClient</span><span class="p">.</span><span class="nx">GetSnapshot</span><span class="p">()</span> <span class="c1">// returns ([]byte, error)</span>
-  <span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nx">DeviceResourceName</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;camera_snapshot&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">cameraClient</span><span class="p">.</span><span class="nx">GetSnapshot</span><span class="p">()</span><span class="w"> </span><span class="c1">// returns ([]byte, error)</span><span class="w"></span>
+<span class="w">  </span><span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
 
-  <span class="nx">cv</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">sdkModels</span><span class="p">.</span><span class="nx">NewCommandValue</span><span class="p">(</span><span class="nx">reqs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">DeviceResourceName</span><span class="p">,</span> <span class="nx">common</span><span class="p">.</span><span class="nx">ValueTypeBinary</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span>
-  <span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">  </span><span class="nx">cv</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sdkModels</span><span class="p">.</span><span class="nx">NewCommandValue</span><span class="p">(</span><span class="nx">reqs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">DeviceResourceName</span><span class="p">,</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">ValueTypeBinary</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
 
-  <span class="nx">responses</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">cv</span>
-<span class="p">}</span>
+<span class="w">  </span><span class="nx">responses</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">cv</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <h2 id="calling-device-service-command">Calling Device Service Command</h2>
 <p>Querying core-metadata for the Device's Commands and DeviceName provides
@@ -2542,35 +2542,35 @@ first need to be decoded from CBOR. The following is a simple Go program
 that reads in the CBOR response from a file containing the response from
 the previous HTTP request. The Go library recommended for parsing these
 events can be found at <a href="https://github.com/fxamacker/cbor/">https://github.com/fxamacker/cbor/</a></p>
-<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-    <span class="s">&quot;io/ioutil&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;io/ioutil&quot;</span><span class="w"></span>
 
-    <span class="s">&quot;github.com/edgexfoundry/go-mod-core-contracts/v2/dtos/requests&quot;</span>
-    <span class="s">&quot;github.com/fxamacker/cbor/v2&quot;</span>
-<span class="p">)</span>
+<span class="w">    </span><span class="s">&quot;github.com/edgexfoundry/go-mod-core-contracts/v2/dtos/requests&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;github.com/fxamacker/cbor/v2&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">check</span><span class="p">(</span><span class="nx">e</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="nx">e</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-      <span class="nb">panic</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">check</span><span class="p">(</span><span class="nx">e</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="nx">e</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nb">panic</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Read in our cbor data</span>
-    <span class="nx">fileBytes</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="s">&quot;/Users/johndoe/Desktop/image.cbor&quot;</span><span class="p">)</span>
-    <span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Read in our cbor data</span><span class="w"></span>
+<span class="w">    </span><span class="nx">fileBytes</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="s">&quot;/Users/johndoe/Desktop/image.cbor&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
 
-    <span class="c1">// Decode into an EdgeX Event</span>
-    <span class="nx">eventRequest</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">requests</span><span class="p">.</span><span class="nx">AddEventRequest</span><span class="p">{}</span>
-    <span class="nx">err</span> <span class="p">=</span> <span class="nx">cbor</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">fileBytes</span><span class="p">,</span> <span class="nx">eventRequest</span><span class="p">)</span>
-    <span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">// Decode into an EdgeX Event</span><span class="w"></span>
+<span class="w">    </span><span class="nx">eventRequest</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">requests</span><span class="p">.</span><span class="nx">AddEventRequest</span><span class="p">{}</span><span class="w"></span>
+<span class="w">    </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">cbor</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">fileBytes</span><span class="p">,</span><span class="w"> </span><span class="nx">eventRequest</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
 
-    <span class="c1">// Grab binary data and write to a file</span>
-    <span class="nx">imgBytes</span> <span class="o">:=</span> <span class="nx">eventRequest</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">Readings</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">BinaryValue</span>
-    <span class="nx">ioutil</span><span class="p">.</span><span class="nx">WriteFile</span><span class="p">(</span><span class="s">&quot;/Users/johndoe/Desktop/image.jpeg&quot;</span><span class="p">,</span> <span class="nx">imgBytes</span><span class="p">,</span> <span class="mo">0644</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="c1">// Grab binary data and write to a file</span><span class="w"></span>
+<span class="w">    </span><span class="nx">imgBytes</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">eventRequest</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">Readings</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">BinaryValue</span><span class="w"></span>
+<span class="w">    </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">WriteFile</span><span class="p">(</span><span class="s">&quot;/Users/johndoe/Desktop/image.jpeg&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">imgBytes</span><span class="p">,</span><span class="w"> </span><span class="mo">0644</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>In the code above, the CBOR data is read into a byte array , an EdgeX Event struct is created, 
 and <code>cbor.Unmarshal</code> parses the CBOR-encoded data and stores the result in the Event struct. 
@@ -2582,24 +2582,24 @@ the Reading.</p>
 accepts a byte slice as binary data. Any arbitrary Go structure can be
 encoded in a binary reading by first encoding the structure into a byte
 slice using CBOR. The following illustrates this method:</p>
-<div class="highlight"><pre><span></span><code><span class="c1">// DeviceService HandleReadCommands() code:</span>
-<span class="nx">foo</span> <span class="o">:=</span> <span class="kd">struct</span> <span class="p">{</span>
-  <span class="nx">X</span> <span class="kt">int</span>
-  <span class="nx">Y</span> <span class="kt">int</span>
-  <span class="nx">Z</span> <span class="kt">int</span>
-  <span class="nx">Bar</span> <span class="kt">string</span>
-<span class="p">}</span> <span class="p">{</span>
-  <span class="nx">X</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
-  <span class="nx">Y</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-  <span class="nx">Z</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
-  <span class="nx">Bar</span><span class="p">:</span> <span class="s">&quot;Hello world!&quot;</span><span class="p">,</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="c1">// DeviceService HandleReadCommands() code:</span><span class="w"></span>
+<span class="nx">foo</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">X</span><span class="w"> </span><span class="kt">int</span><span class="w"></span>
+<span class="w">  </span><span class="nx">Y</span><span class="w"> </span><span class="kt">int</span><span class="w"></span>
+<span class="w">  </span><span class="nx">Z</span><span class="w"> </span><span class="kt">int</span><span class="w"></span>
+<span class="w">  </span><span class="nx">Bar</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">X</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">Y</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">Z</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">Bar</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Hello world!&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="nx">data</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cbor</span><span class="p">.</span><span class="nx">Marshal</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">foo</span><span class="p">)</span>
-<span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">cbor</span><span class="p">.</span><span class="nx">Marshal</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">foo</span><span class="p">)</span><span class="w"></span>
+<span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
 
-<span class="nx">cv</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">sdkModels</span><span class="p">.</span><span class="nx">NewCommandValue</span><span class="p">(</span><span class="nx">reqs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">DeviceResourceName</span><span class="p">,</span> <span class="nx">common</span><span class="p">.</span><span class="nx">ValueTypeBinary</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span>
-<span class="nx">responses</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">cv</span>
+<span class="nx">cv</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sdkModels</span><span class="p">.</span><span class="nx">NewCommandValue</span><span class="p">(</span><span class="nx">reqs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">DeviceResourceName</span><span class="p">,</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">ValueTypeBinary</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="p">)</span><span class="w"></span>
+<span class="nx">responses</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">cv</span><span class="w"></span>
 </code></pre></div>
 <p>This code takes the anonymous struct with fields X, Y, Z, and Bar (of
 different types) and serializes it into a byte slice using the same
@@ -2607,28 +2607,28 @@ different types) and serializes it into a byte slice using the same
 <code>NewCommandValue()</code>.</p>
 <p>When consuming these events, another level of decoding will need to take
 place to get the structure out of the binary payload.</p>
-<div class="highlight"><pre><span></span><code><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Read in our cbor data</span>
-    <span class="nx">fileBytes</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="s">&quot;/Users/johndoe/Desktop/foo.cbor&quot;</span><span class="p">)</span>
-    <span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Read in our cbor data</span><span class="w"></span>
+<span class="w">    </span><span class="nx">fileBytes</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="s">&quot;/Users/johndoe/Desktop/foo.cbor&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
 
-    <span class="c1">// Decode into an EdgeX Event</span>
-    <span class="nx">eventRequest</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">requests</span><span class="p">.</span><span class="nx">AddEventRequest</span><span class="p">{}</span>
-    <span class="nx">err</span> <span class="p">=</span> <span class="nx">cbor</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">fileBytes</span><span class="p">,</span> <span class="nx">eventRequest</span><span class="p">)</span>
-    <span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">// Decode into an EdgeX Event</span><span class="w"></span>
+<span class="w">    </span><span class="nx">eventRequest</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">requests</span><span class="p">.</span><span class="nx">AddEventRequest</span><span class="p">{}</span><span class="w"></span>
+<span class="w">    </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">cbor</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">fileBytes</span><span class="p">,</span><span class="w"> </span><span class="nx">eventRequest</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
 
-    <span class="c1">// Decode into arbitrary type</span>
-    <span class="nx">foo</span> <span class="o">:=</span> <span class="kd">struct</span> <span class="p">{</span>
-        <span class="nx">X</span>   <span class="kt">int</span>
-        <span class="nx">Y</span>   <span class="kt">int</span>
-        <span class="nx">Z</span>   <span class="kt">int</span>
-        <span class="nx">Bar</span> <span class="kt">string</span>
-    <span class="p">}{}</span>
+<span class="w">    </span><span class="c1">// Decode into arbitrary type</span><span class="w"></span>
+<span class="w">    </span><span class="nx">foo</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">X</span><span class="w">   </span><span class="kt">int</span><span class="w"></span>
+<span class="w">        </span><span class="nx">Y</span><span class="w">   </span><span class="kt">int</span><span class="w"></span>
+<span class="w">        </span><span class="nx">Z</span><span class="w">   </span><span class="kt">int</span><span class="w"></span>
+<span class="w">        </span><span class="nx">Bar</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="p">}{}</span><span class="w"></span>
 
-    <span class="nx">err</span> <span class="p">=</span> <span class="nx">cbor</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">eventRequest</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">Readings</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">BinaryValue</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">foo</span><span class="p">)</span>
-    <span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">cbor</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">eventRequest</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">Readings</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">BinaryValue</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">foo</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>This code takes a command response in the same format as the previous
 example, but uses the <code>cbor</code> library to decode the CBOR

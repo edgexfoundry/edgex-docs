@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-5.1.0">
     
     
       
@@ -2781,16 +2781,16 @@
 <p>To add your own route, use the <code>AddRoute()</code> API provided on the <code>ApplicationService</code> interface. </p>
 <div class="admonition example">
 <p class="admonition-title">Example - Add Custom REST route</p>
-<div class="highlight"><pre><span></span><code><span class="nx">myhandler</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">writer</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">req</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>    
-  <span class="nx">service</span> <span class="o">:=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">Context</span><span class="p">().</span><span class="nx">Value</span><span class="p">(</span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">AppServiceContextKey</span><span class="p">).(</span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">ApplicationService</span><span class="p">)</span>    
-  <span class="nx">service</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">().</span><span class="nx">Info</span><span class="p">(</span><span class="s">&quot;TEST&quot;</span><span class="p">)</span>     
-  <span class="nx">writer</span><span class="p">.</span><span class="nx">Header</span><span class="p">().</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;Content-Type&quot;</span><span class="p">,</span> <span class="s">&quot;text/plain&quot;</span><span class="p">)</span>   
-  <span class="nx">writer</span><span class="p">.</span><span class="nx">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">))</span>   
-  <span class="nx">writer</span><span class="p">.</span><span class="nx">WriteHeader</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>    
-<span class="p">}</span>    
+<div class="highlight"><pre><span></span><code><span class="nx">myhandler</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">writer</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">req</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">    </span>
+<span class="w">  </span><span class="nx">service</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nx">Context</span><span class="p">().</span><span class="nx">Value</span><span class="p">(</span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">AppServiceContextKey</span><span class="p">).(</span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">ApplicationService</span><span class="p">)</span><span class="w">    </span>
+<span class="w">  </span><span class="nx">service</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">().</span><span class="nx">Info</span><span class="p">(</span><span class="s">&quot;TEST&quot;</span><span class="p">)</span><span class="w">     </span>
+<span class="w">  </span><span class="nx">writer</span><span class="p">.</span><span class="nx">Header</span><span class="p">().</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;Content-Type&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;text/plain&quot;</span><span class="p">)</span><span class="w">   </span>
+<span class="w">  </span><span class="nx">writer</span><span class="p">.</span><span class="nx">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">))</span><span class="w">   </span>
+<span class="w">  </span><span class="nx">writer</span><span class="p">.</span><span class="nx">WriteHeader</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span><span class="w">    </span>
+<span class="p">}</span><span class="w">    </span>
 
-<span class="nx">service</span> <span class="o">:=</span> <span class="nx">pkg</span><span class="p">.</span><span class="nx">NewAppService</span><span class="p">(</span><span class="nx">serviceKey</span><span class="p">)</span>    
-<span class="nx">service</span><span class="p">.</span><span class="nx">AddRoute</span><span class="p">(</span><span class="s">&quot;/myroute&quot;</span><span class="p">,</span> <span class="nx">myHandler</span><span class="p">,</span> <span class="s">&quot;GET&quot;</span><span class="p">)</span>    
+<span class="nx">service</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">pkg</span><span class="p">.</span><span class="nx">NewAppService</span><span class="p">(</span><span class="nx">serviceKey</span><span class="p">)</span><span class="w">    </span>
+<span class="nx">service</span><span class="p">.</span><span class="nx">AddRoute</span><span class="p">(</span><span class="s">&quot;/myroute&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">myHandler</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;GET&quot;</span><span class="p">)</span><span class="w">    </span>
 </code></pre></div>
 </div>
 <p>Under the hood, this simply adds the provided route, handler, and method to the gorilla <code>mux.Router</code> used in the SDK. For more information on <code>gorilla mux</code> you can check out the github repo <a href="https://github.com/gorilla/mux">here</a>. 
@@ -2801,28 +2801,28 @@ You can access the <code>interfaces.ApplicationService</code> API for resources 
 <p>For usages where the incoming data is not <code>events</code>, the <code>TargetType</code> of the expected incoming data can be set when the <code>ApplicationService</code> instance is created using the <code>NewAppServiceWithTargetType()</code> factory function.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - Set and use custom Target Type</p>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">Person</span> <span class="kd">struct</span> <span class="p">{</span>    
-  <span class="nx">FirstName</span> <span class="kt">string</span> <span class="s">`json:&quot;first_name&quot;`</span>    
-  <span class="nx">LastName</span>  <span class="kt">string</span> <span class="s">`json:&quot;last_name&quot;`</span>    
-<span class="p">}</span>    
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">Person</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">    </span>
+<span class="w">  </span><span class="nx">FirstName</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;first_name&quot;`</span><span class="w">    </span>
+<span class="w">  </span><span class="nx">LastName</span><span class="w">  </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;last_name&quot;`</span><span class="w">    </span>
+<span class="p">}</span><span class="w">    </span>
 
-<span class="nx">service</span> <span class="o">:=</span> <span class="nx">pkg</span><span class="p">.</span><span class="nx">NewAppServiceWithTargetType</span><span class="p">(</span><span class="nx">serviceKey</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">Person</span><span class="p">{})</span>    
+<span class="nx">service</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">pkg</span><span class="p">.</span><span class="nx">NewAppServiceWithTargetType</span><span class="p">(</span><span class="nx">serviceKey</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">Person</span><span class="p">{})</span><span class="w">    </span>
 </code></pre></div>
 <p><code>TargetType</code> must be set to a pointer to an instance of your target type such as <code>&amp;Person{}</code> . The first function in your function pipeline will be passed an instance of your target type, not a pointer to it. In the example above, the first function in the pipeline would start something like:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">func</span> <span class="nx">MyPersonFunction</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">interfaces</span><span class="p">.</span><span class="nx">AppFunctionContext</span><span class="p">,</span> <span class="nx">data</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="kt">bool</span><span class="p">,</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>    
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">MyPersonFunction</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">AppFunctionContext</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="p">{</span><span class="w">    </span>
 
-  <span class="nx">ctx</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">().</span><span class="nx">Debug</span><span class="p">(</span><span class="s">&quot;MyPersonFunction executing&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">().</span><span class="nx">Debug</span><span class="p">(</span><span class="s">&quot;MyPersonFunction executing&quot;</span><span class="p">)</span><span class="w"></span>
 
-  <span class="k">if</span> <span class="nx">data</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="kc">false</span><span class="p">,</span> <span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;no data received to     MyPersonFunction&quot;</span><span class="p">)</span>
-  <span class="p">}</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;no data received to     MyPersonFunction&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
 
-  <span class="nx">person</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">data</span><span class="p">.(</span><span class="nx">Person</span><span class="p">)</span>
-  <span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="kc">false</span><span class="p">,</span> <span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;MyPersonFunction type received is not a Person&quot;</span><span class="p">)</span>
-  <span class="p">}</span>
+<span class="w">  </span><span class="nx">person</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">data</span><span class="p">.(</span><span class="nx">Person</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;MyPersonFunction type received is not a Person&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
 
-<span class="c1">// ....</span>
+<span class="c1">// ....</span><span class="w"></span>
 </code></pre></div>
 </div>
 <p>The SDK supports un-marshaling JSON or CBOR encoded data into an instance of the target type. If your incoming data is not JSON or CBOR encoded, you then need to set the <code>TargetType</code> to  <code>&amp;[]byte</code>.</p>
@@ -2908,10 +2908,10 @@ You can access the <code>interfaces.ApplicationService</code> API for resources 
 <p><code>Writable.StoreAndForward</code> allows enabling, setting the interval between retries and the max number of retries. If running with Configuration Provider, these setting can be changed on the fly via Consul without having to restart the service.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - Store and Forward configuration</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Writable.StoreAndForward]</span>
-<span class="n">Enabled</span> <span class="o">=</span> <span class="kc">false</span>
-<span class="n">RetryInterval</span> <span class="o">=</span> <span class="s">&quot;5m&quot;</span>
-<span class="n">MaxRetryCount</span> <span class="o">=</span> <span class="mi">10</span>
+<div class="highlight"><pre><span></span><code><span class="k">[Writable.StoreAndForward]</span><span class="w"></span>
+<span class="n">Enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="n">RetryInterval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5m&quot;</span><span class="w"></span>
+<span class="n">MaxRetryCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="w"></span>
 </code></pre></div>
 </div>
 <div class="admonition note">
@@ -2921,11 +2921,11 @@ You can access the <code>interfaces.ApplicationService</code> API for resources 
 <p>Database configuration section describes which database type to use and the information required to connect to the database. This section is required if Store and Forward is enabled. It is optional if <strong>not</strong> using <code>Redis</code> for the EdgeX MessageBus which is now the default. </p>
 <div class="admonition example">
 <p class="admonition-title">Example - Database configuration</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Database]</span>
-<span class="n">Type</span> <span class="o">=</span> <span class="s">&quot;redisdb&quot;</span>
-<span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
-<span class="n">Port</span> <span class="o">=</span> <span class="mi">6379</span>
-<span class="n">Timeout</span> <span class="o">=</span> <span class="s">&quot;30s&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">[Database]</span><span class="w"></span>
+<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redisdb&quot;</span><span class="w"></span>
+<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
+<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6379</span><span class="w"></span>
+<span class="n">Timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30s&quot;</span><span class="w"></span>
 </code></pre></div>
 </div>
 <div class="admonition edgey">
@@ -2967,17 +2967,17 @@ You can access the <code>interfaces.ApplicationService</code> API for resources 
 <p>All instances of App Services running in secure mode require a SecretStore to be configured. With the use of <code>Redis Pub/Sub</code> as the default EdgeX MessageBus all App Services need the <code>redisdb</code> known secret added to their SecretStore      so they can connect to the Secure EdgeX MessageBus. See the <a href="../../../security/Ch-Secure-MessageBus/">Secure MessageBus</a> documentation for more details.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - SecretStore configuration</p>
-<div class="highlight"><pre><span></span><code><span class="k">[SecretStore]</span>
-<span class="n">Type</span> <span class="o">=</span> <span class="s">&quot;vault&quot;</span>
-<span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
-<span class="n">Port</span> <span class="o">=</span> <span class="mi">8200</span>
-<span class="n">Path</span> <span class="o">=</span> <span class="s">&quot;app-sample/&quot;</span>
-<span class="n">Protocol</span> <span class="o">=</span> <span class="s">&quot;http&quot;</span>
-<span class="n">RootCaCertPath</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
-<span class="n">ServerName</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
-<span class="n">TokenFile</span> <span class="o">=</span> <span class="s">&quot;/tmp/edgex/secrets/app-sample/secrets-token.json&quot;</span>
-  <span class="k">[SecretStore.Authentication]</span>
-  <span class="n">AuthType</span> <span class="o">=</span> <span class="s">&quot;X-Vault-Token&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">[SecretStore]</span><span class="w"></span>
+<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;vault&quot;</span><span class="w"></span>
+<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
+<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8200</span><span class="w"></span>
+<span class="n">Path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;app-sample/&quot;</span><span class="w"></span>
+<span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http&quot;</span><span class="w"></span>
+<span class="n">RootCaCertPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
+<span class="n">ServerName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
+<span class="n">TokenFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/tmp/edgex/secrets/app-sample/secrets-token.json&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="k">[SecretStore.Authentication]</span><span class="w"></span>
+<span class="w">  </span><span class="n">AuthType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;X-Vault-Token&quot;</span><span class="w"></span>
 </code></pre></div>
 </div>
 <div class="admonition edgey">
@@ -2989,15 +2989,15 @@ You can access the <code>interfaces.ApplicationService</code> API for resources 
 <p>When running an application service in secure mode, secrets can be stored in the SecretStore      by making an HTTP <code>POST</code> call to the <code>/api/v2/secret</code> API route in the application service. The secret data POSTed is stored and retrieved from the SecretStore based on values in the <code>[SecretStore]</code> section of the configuration file. Once a secret is stored, only the service that added the secret will be able to retrieve it.  For secret retrieval see <a href="#getting-secrets">Getting Secrets</a> section below.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - JSON message body</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="nt">&quot;path&quot;</span> <span class="p">:</span> <span class="s2">&quot;MyPath&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;secretData&quot;</span> <span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;key&quot;</span> <span class="p">:</span> <span class="s2">&quot;MySecretKey&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;value&quot;</span> <span class="p">:</span> <span class="s2">&quot;MySecretValue&quot;</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;path&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MyPath&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;secretData&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;key&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MySecretKey&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MySecretValue&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 <div class="admonition note">
@@ -3008,18 +3008,18 @@ You can access the <code>interfaces.ApplicationService</code> API for resources 
 <p>When running in insecure mode, the secrets are stored and retrieved from the <em>Writable.InsecureSecrets</em> section of the service's configuration toml file. Insecure secrets and their paths can be configured as below.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - InsecureSecrets Configuration</p>
-<div class="highlight"><pre><span></span><code>   <span class="p">[</span><span class="n">Writable</span><span class="p">.</span><span class="n">InsecureSecrets</span><span class="p">]</span>    
-      <span class="k">[Writable.InsecureSecrets.AWS]</span>
-        <span class="n">Path</span> <span class="o">=</span> <span class="s">&quot;aws&quot;</span>
-          <span class="k">[Writable.InsecureSecrets.AWS.Secrets]</span>
-          <span class="n">username</span> <span class="o">=</span> <span class="s">&quot;aws-user&quot;</span>
-          <span class="n">password</span> <span class="o">=</span> <span class="s">&quot;aws-pw&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="w">   </span><span class="p">[</span><span class="n">Writable</span><span class="p">.</span><span class="n">InsecureSecrets</span><span class="p">]</span><span class="w">    </span>
+<span class="w">      </span><span class="k">[Writable.InsecureSecrets.AWS]</span><span class="w"></span>
+<span class="w">        </span><span class="n">Path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;aws&quot;</span><span class="w"></span>
+<span class="w">          </span><span class="k">[Writable.InsecureSecrets.AWS.Secrets]</span><span class="w"></span>
+<span class="w">          </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;aws-user&quot;</span><span class="w"></span>
+<span class="w">          </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;aws-pw&quot;</span><span class="w"></span>
 
-      <span class="k">[Writable.InsecureSecrets.DB]</span>
-        <span class="n">Path</span> <span class="o">=</span> <span class="s">&quot;redisdb&quot;</span>
-          <span class="k">[Writable.InsecureSecrets.DB.Secrets]</span>
-          <span class="n">username</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
-          <span class="n">password</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+<span class="w">      </span><span class="k">[Writable.InsecureSecrets.DB]</span><span class="w"></span>
+<span class="w">        </span><span class="n">Path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redisdb&quot;</span><span class="w"></span>
+<span class="w">          </span><span class="k">[Writable.InsecureSecrets.DB.Secrets]</span><span class="w"></span>
+<span class="w">          </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
+<span class="w">          </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
 </code></pre></div>
 </div>
 <h4 id="getting-secrets">Getting Secrets</h4>
@@ -3034,63 +3034,63 @@ You can access the <code>interfaces.ApplicationService</code> API for resources 
 </div>
 <div class="admonition example">
 <p class="admonition-title">Example - Background Publisher</p>
-<div class="highlight"><pre><span></span><code><span class="kd">func</span> <span class="nx">runJob</span> <span class="p">(</span><span class="nx">service</span> <span class="nx">interfaces</span><span class="p">.</span><span class="nx">ApplicationService</span><span class="p">,</span> <span class="nx">done</span> <span class="kd">chan</span> <span class="kd">struct</span><span class="p">{}){</span>
-    <span class="nx">ticker</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">NewTicker</span><span class="p">(</span><span class="mi">1</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Minute</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">runJob</span><span class="w"> </span><span class="p">(</span><span class="nx">service</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">ApplicationService</span><span class="p">,</span><span class="w"> </span><span class="nx">done</span><span class="w"> </span><span class="kd">chan</span><span class="w"> </span><span class="kd">struct</span><span class="p">{}){</span><span class="w"></span>
+<span class="w">    </span><span class="nx">ticker</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">NewTicker</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Minute</span><span class="p">)</span><span class="w"></span>
 
-    <span class="c1">//initialize background publisher with a channel capacity of 10 and a custom topic</span>
-    <span class="nx">publisher</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">service</span><span class="p">.</span><span class="nx">AddBackgroundPublisherWithTopic</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="s">&quot;custom-topic&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">//initialize background publisher with a channel capacity of 10 and a custom topic</span><span class="w"></span>
+<span class="w">    </span><span class="nx">publisher</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">AddBackgroundPublisherWithTopic</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;custom-topic&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="c1">// do something</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// do something</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">pub</span> <span class="nx">interfaces</span><span class="p">.</span><span class="nx">BackgroundPublisher</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">for</span> <span class="p">{</span>
-            <span class="k">select</span> <span class="p">{</span>
-            <span class="k">case</span> <span class="o">&lt;-</span><span class="nx">ticker</span><span class="p">.</span><span class="nx">C</span><span class="p">:</span>
-                <span class="nx">msg</span> <span class="o">:=</span> <span class="nx">myDataService</span><span class="p">.</span><span class="nx">GetMessage</span><span class="p">()</span>
-                <span class="nx">payload</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">Marshal</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span>
+<span class="w">    </span><span class="k">go</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">pub</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">BackgroundPublisher</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">select</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="o">&lt;-</span><span class="nx">ticker</span><span class="p">.</span><span class="nx">C</span><span class="p">:</span><span class="w"></span>
+<span class="w">                </span><span class="nx">msg</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">myDataService</span><span class="p">.</span><span class="nx">GetMessage</span><span class="p">()</span><span class="w"></span>
+<span class="w">                </span><span class="nx">payload</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">Marshal</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span><span class="w"></span>
 
-                <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-                    <span class="c1">//do something</span>
-                <span class="p">}</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                    </span><span class="c1">//do something</span><span class="w"></span>
+<span class="w">                </span><span class="p">}</span><span class="w"></span>
 
-                <span class="nx">ctx</span> <span class="o">:=</span> <span class="nx">svc</span><span class="p">.</span><span class="nx">BuildContext</span><span class="p">(</span><span class="nx">uuid</span><span class="p">.</span><span class="nx">NewString</span><span class="p">(),</span> <span class="nx">common</span><span class="p">.</span><span class="nx">ContentTypeJSON</span><span class="p">)</span>
+<span class="w">                </span><span class="nx">ctx</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">svc</span><span class="p">.</span><span class="nx">BuildContext</span><span class="p">(</span><span class="nx">uuid</span><span class="p">.</span><span class="nx">NewString</span><span class="p">(),</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">ContentTypeJSON</span><span class="p">)</span><span class="w"></span>
 
-                <span class="c1">// modify context as needed</span>
+<span class="w">                </span><span class="c1">// modify context as needed</span><span class="w"></span>
 
-                <span class="nx">err</span> <span class="p">=</span> <span class="nx">pub</span><span class="p">.</span><span class="nx">Publish</span><span class="p">(</span><span class="nx">payload</span><span class="p">,</span> <span class="nx">ctx</span><span class="p">)</span>
+<span class="w">                </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">pub</span><span class="p">.</span><span class="nx">Publish</span><span class="p">(</span><span class="nx">payload</span><span class="p">,</span><span class="w"> </span><span class="nx">ctx</span><span class="p">)</span><span class="w"></span>
 
-                <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-                    <span class="c1">//do something</span>
-                <span class="p">}</span>
-            <span class="k">case</span> <span class="o">&lt;-</span><span class="nx">j</span><span class="p">.</span><span class="nx">done</span><span class="p">:</span>
-                <span class="nx">ticker</span><span class="p">.</span><span class="nx">Stop</span><span class="p">()</span>
-                <span class="k">return</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}(</span><span class="nx">publisher</span><span class="p">)</span>
- <span class="p">}</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                    </span><span class="c1">//do something</span><span class="w"></span>
+<span class="w">                </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="o">&lt;-</span><span class="nx">j</span><span class="p">.</span><span class="nx">done</span><span class="p">:</span><span class="w"></span>
+<span class="w">                </span><span class="nx">ticker</span><span class="p">.</span><span class="nx">Stop</span><span class="p">()</span><span class="w"></span>
+<span class="w">                </span><span class="k">return</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}(</span><span class="nx">publisher</span><span class="p">)</span><span class="w"></span>
+<span class="w"> </span><span class="p">}</span><span class="w"></span>
 
- <span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">service</span> <span class="o">:=</span> <span class="nx">pkg</span><span class="p">.</span><span class="nx">NewAppService</span><span class="p">(</span><span class="nx">serviceKey</span><span class="p">)</span>
+<span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">service</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">pkg</span><span class="p">.</span><span class="nx">NewAppService</span><span class="p">(</span><span class="nx">serviceKey</span><span class="p">)</span><span class="w"></span>
 
-    <span class="nx">done</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{})</span>
-    <span class="k">defer</span> <span class="nb">close</span><span class="p">(</span><span class="nx">done</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">done</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">chan</span><span class="w"> </span><span class="kd">struct</span><span class="p">{})</span><span class="w"></span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nb">close</span><span class="p">(</span><span class="nx">done</span><span class="p">)</span><span class="w"></span>
 
-    <span class="c1">//pass publisher to your background job</span>
-    <span class="nx">runJob</span><span class="p">(</span><span class="nx">service</span><span class="p">,</span> <span class="nx">done</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">//pass publisher to your background job</span><span class="w"></span>
+<span class="w">    </span><span class="nx">runJob</span><span class="p">(</span><span class="nx">service</span><span class="p">,</span><span class="w"> </span><span class="nx">done</span><span class="p">)</span><span class="w"></span>
 
-    <span class="nx">service</span><span class="p">.</span><span class="nx">SetFunctionsPipeline</span><span class="p">(</span>
-        <span class="nx">All</span><span class="p">,</span>
-        <span class="nx">My</span><span class="p">,</span>
-        <span class="nx">Functions</span><span class="p">,</span>
-    <span class="p">)</span>
+<span class="w">    </span><span class="nx">service</span><span class="p">.</span><span class="nx">SetFunctionsPipeline</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="nx">All</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nx">My</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nx">Functions</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
 
-    <span class="nx">service</span><span class="p">.</span><span class="nx">MakeItRun</span><span class="p">()</span>
+<span class="w">    </span><span class="nx">service</span><span class="p">.</span><span class="nx">MakeItRun</span><span class="p">()</span><span class="w"></span>
 
-    <span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-  <span class="p">}</span>     
+<span class="w">    </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w">     </span>
 </code></pre></div>
 </div>
 <h3 id="stopping-the-service">Stopping the Service</h3>

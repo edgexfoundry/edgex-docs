@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-5.1.0">
     
     
       
@@ -2635,63 +2635,63 @@ of a customized device configuration to work with the existing device service:
 which can be Read or Write.</p>
 <p>Create a device profile, named <code>my.custom.device.profile.yml</code>, with the
 following content:
-<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span> <span class="s">&quot;my-custom-device-profile&quot;</span>
-<span class="nt">manufacturer</span><span class="p">:</span> <span class="s">&quot;iot&quot;</span>
-<span class="nt">model</span><span class="p">:</span> <span class="s">&quot;MQTT-DEVICE&quot;</span>
-<span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Test</span><span class="nv"> </span><span class="s">device</span><span class="nv"> </span><span class="s">profile&quot;</span>
-<span class="nt">labels</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="s">&quot;mqtt&quot;</span>
-  <span class="p p-Indicator">-</span> <span class="s">&quot;test&quot;</span>
-<span class="nt">deviceResources</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span>
-    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">randnum</span>
-    <span class="nt">isHidden</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-    <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;device</span><span class="nv"> </span><span class="s">random</span><span class="nv"> </span><span class="s">number&quot;</span>
-    <span class="nt">properties</span><span class="p">:</span>
-      <span class="nt">valueType</span><span class="p">:</span> <span class="s">&quot;Float32&quot;</span>
-      <span class="nt">readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span>
-  <span class="p p-Indicator">-</span>
-    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ping</span>
-    <span class="nt">isHidden</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-    <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;device</span><span class="nv"> </span><span class="s">awake&quot;</span>
-    <span class="nt">properties</span><span class="p">:</span>
-      <span class="nt">valueType</span><span class="p">:</span> <span class="s">&quot;String&quot;</span>
-      <span class="nt">readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span>
-  <span class="p p-Indicator">-</span>
-    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">message</span>
-    <span class="nt">isHidden</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
-    <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;device</span><span class="nv"> </span><span class="s">message&quot;</span>
-    <span class="nt">properties</span><span class="p">:</span>
-      <span class="nt">valueType</span><span class="p">:</span> <span class="s">&quot;String&quot;</span>
-      <span class="nt">readWrite</span><span class="p">:</span> <span class="s">&quot;RW&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-custom-device-profile&quot;</span><span class="w"></span>
+<span class="nt">manufacturer</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;iot&quot;</span><span class="w"></span>
+<span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;MQTT-DEVICE&quot;</span><span class="w"></span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Test</span><span class="nv"> </span><span class="s">device</span><span class="nv"> </span><span class="s">profile&quot;</span><span class="w"></span>
+<span class="nt">labels</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;mqtt&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;test&quot;</span><span class="w"></span>
+<span class="nt">deviceResources</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">randnum</span><span class="w"></span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;device</span><span class="nv"> </span><span class="s">random</span><span class="nv"> </span><span class="s">number&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Float32&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ping</span><span class="w"></span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;device</span><span class="nv"> </span><span class="s">awake&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;String&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">message</span><span class="w"></span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;device</span><span class="nv"> </span><span class="s">message&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;String&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span><span class="w"></span>
 
-<span class="nt">deviceCommands</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span>
-    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">values</span>
-    <span class="nt">readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span>
-    <span class="nt">isHidden</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
-    <span class="nt">resourceOperations</span><span class="p">:</span>
-        <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span> <span class="s">&quot;randnum&quot;</span> <span class="p p-Indicator">}</span>
-        <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span> <span class="s">&quot;ping&quot;</span> <span class="p p-Indicator">}</span>
-        <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span> <span class="s">&quot;message&quot;</span> <span class="p p-Indicator">}</span>
+<span class="nt">deviceCommands</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">values</span><span class="w"></span>
+<span class="w">    </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+<span class="w">    </span><span class="nt">resourceOperations</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;randnum&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ping&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;message&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
 </code></pre></div></p>
 <h3 id="device-configuration">Device Configuration</h3>
 <p>Use this configuration file to define devices and schedule jobs.
 device-mqtt generates a relative instance on start-up.</p>
 <p>Create the device configuration file, named <code>my.custom.device.config.toml</code>, as shown below:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Pre-define Devices</span>
-<span class="k">[[DeviceList]]</span>
-  <span class="n">Name</span> <span class="o">=</span> <span class="s">&quot;my-custom-device&quot;</span>
-  <span class="n">ProfileName</span> <span class="o">=</span> <span class="s">&quot;my-custom-device-profile&quot;</span>
-  <span class="n">Description</span> <span class="o">=</span> <span class="s">&quot;MQTT device is created for test purpose&quot;</span>
-  <span class="n">Labels</span> <span class="o">=</span> <span class="p">[</span> <span class="s">&quot;MQTT&quot;</span><span class="p">,</span> <span class="s">&quot;test&quot;</span> <span class="p">]</span>
-  <span class="k">[DeviceList.Protocols]</span>
-    <span class="k">[DeviceList.Protocols.mqtt]</span>
-       <span class="n">CommandTopic</span> <span class="o">=</span> <span class="s">&quot;CommandTopic&quot;</span>
-    <span class="k">[[DeviceList.AutoEvents]]</span>
-       <span class="n">Interval</span> <span class="o">=</span> <span class="s">&quot;30s&quot;</span>
-       <span class="n">OnChange</span> <span class="o">=</span> <span class="kc">false</span>
-       <span class="n">SourceName</span> <span class="o">=</span> <span class="s">&quot;message&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Pre-define Devices</span><span class="w"></span>
+<span class="k">[[DeviceList]]</span><span class="w"></span>
+<span class="w">  </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;my-custom-device&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="n">ProfileName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;my-custom-device-profile&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="n">Description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;MQTT device is created for test purpose&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="n">Labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s">&quot;MQTT&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;test&quot;</span><span class="w"> </span><span class="p">]</span><span class="w"></span>
+<span class="w">  </span><span class="k">[DeviceList.Protocols]</span><span class="w"></span>
+<span class="w">    </span><span class="k">[DeviceList.Protocols.mqtt]</span><span class="w"></span>
+<span class="w">       </span><span class="n">CommandTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;CommandTopic&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="k">[[DeviceList.AutoEvents]]</span><span class="w"></span>
+<span class="w">       </span><span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30s&quot;</span><span class="w"></span>
+<span class="w">       </span><span class="n">OnChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="w">       </span><span class="n">SourceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;message&quot;</span><span class="w"></span>
 </code></pre></div>
 <ul>
 <li><code>CommandTopic</code> is used to publish the GET or SET command request</li>
@@ -2716,15 +2716,15 @@ docker-compose.yml
 <ul>
 <li>Replace the <code>/path/to/custom-config</code> in the example with the correct path</li>
 </ul>
-<div class="highlight"><pre><span></span><code> <span class="nt">device-mqtt</span><span class="p">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">...</span>
-    <span class="l l-Scalar l-Scalar-Plain">environment</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">...</span>
-      <span class="l l-Scalar l-Scalar-Plain">DEVICE_DEVICESDIR</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/custom-config/devices</span>
-      <span class="nt">DEVICE_PROFILESDIR</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/custom-config/profiles</span>
-    <span class="nt">volumes</span><span class="p">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">...</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">/path/to/custom-config:/custom-config</span>
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="nt">device-mqtt</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">environment</span><span class="p p-Indicator">:</span><span class="w"></span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">DEVICE_DEVICESDIR</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/custom-config/devices</span><span class="w"></span>
+<span class="w">      </span><span class="nt">DEVICE_PROFILESDIR</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/custom-config/profiles</span><span class="w"></span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/custom-config:/custom-config</span><span class="w"></span>
 </code></pre></div>
 <h2 id="start-edgex-foundry-on-docker">Start EdgeX Foundry on Docker</h2>
 <p>Deploy EdgeX using the following commands:
@@ -2825,53 +2825,53 @@ $ docker run -d --restart=always --name=mqtt-scripts \
 <p>Now we're ready to run some commands.</p>
 <h3 id="find-executable-commands">Find Executable Commands</h3>
 <p>Use the following query to find executable commands:</p>
-<div class="highlight"><pre><span></span><code><span class="err">$</span> <span class="err">curl</span> <span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="err">//localhos</span><span class="kc">t</span><span class="p">:</span><span class="mi">59882</span><span class="err">/api/v</span><span class="mi">2</span><span class="err">/device/all</span> <span class="err">|</span> <span class="err">jso</span><span class="kc">n</span><span class="err">_pp</span>
+<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="err">//localhos</span><span class="kc">t</span><span class="p">:</span><span class="mi">59882</span><span class="err">/api/v</span><span class="mi">2</span><span class="err">/device/all</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">jso</span><span class="kc">n</span><span class="err">_pp</span><span class="w"></span>
 
-<span class="p">{</span>
-   <span class="nt">&quot;deviceCoreCommands&quot;</span> <span class="p">:</span> <span class="p">[</span>
-      <span class="p">{</span>
-         <span class="nt">&quot;profileName&quot;</span> <span class="p">:</span> <span class="s2">&quot;my-custom-device-profile&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;deviceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;my-custom-device&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;coreCommands&quot;</span> <span class="p">:</span> <span class="p">[</span>
-            <span class="p">{</span>
-               <span class="nt">&quot;url&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:59882&quot;</span><span class="p">,</span>
-               <span class="nt">&quot;parameters&quot;</span> <span class="p">:</span> <span class="p">[</span>
-                  <span class="p">{</span>
-                     <span class="nt">&quot;resourceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;randnum&quot;</span><span class="p">,</span>
-                     <span class="nt">&quot;valueType&quot;</span> <span class="p">:</span> <span class="s2">&quot;Float32&quot;</span>
-                  <span class="p">},</span>
-                  <span class="p">{</span>
-                     <span class="nt">&quot;resourceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;ping&quot;</span><span class="p">,</span>
-                     <span class="nt">&quot;valueType&quot;</span> <span class="p">:</span> <span class="s2">&quot;String&quot;</span>
-                  <span class="p">},</span>
-                  <span class="p">{</span>
-                     <span class="nt">&quot;resourceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;message&quot;</span><span class="p">,</span>
-                     <span class="nt">&quot;valueType&quot;</span> <span class="p">:</span> <span class="s2">&quot;String&quot;</span>
-                  <span class="p">}</span>
-               <span class="p">],</span>
-               <span class="nt">&quot;get&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-               <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;values&quot;</span><span class="p">,</span>
-               <span class="nt">&quot;path&quot;</span> <span class="p">:</span> <span class="s2">&quot;/api/v2/device/name/my-custom-device/values&quot;</span>
-            <span class="p">},</span>
-            <span class="p">{</span>
-               <span class="nt">&quot;url&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:59882&quot;</span><span class="p">,</span>
-               <span class="nt">&quot;parameters&quot;</span> <span class="p">:</span> <span class="p">[</span>
-                  <span class="p">{</span>
-                     <span class="nt">&quot;valueType&quot;</span> <span class="p">:</span> <span class="s2">&quot;String&quot;</span><span class="p">,</span>
-                     <span class="nt">&quot;resourceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;message&quot;</span>
-                  <span class="p">}</span>
-               <span class="p">],</span>
-               <span class="nt">&quot;get&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-               <span class="nt">&quot;set&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-               <span class="nt">&quot;path&quot;</span> <span class="p">:</span> <span class="s2">&quot;/api/v2/device/name/my-custom-device/message&quot;</span><span class="p">,</span>
-               <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;message&quot;</span>
-            <span class="p">}</span>
-         <span class="p">]</span>
-      <span class="p">}</span>
-   <span class="p">],</span>
-   <span class="nt">&quot;apiVersion&quot;</span> <span class="p">:</span> <span class="s2">&quot;v2&quot;</span><span class="p">,</span>
-   <span class="nt">&quot;statusCode&quot;</span> <span class="p">:</span> <span class="mi">200</span>
-<span class="p">}</span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;deviceCoreCommands&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">      </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;profileName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my-custom-device-profile&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;deviceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my-custom-device&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;coreCommands&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">            </span><span class="p">{</span><span class="w"></span>
+<span class="w">               </span><span class="nt">&quot;url&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://edgex-core-command:59882&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">               </span><span class="nt">&quot;parameters&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">                  </span><span class="p">{</span><span class="w"></span>
+<span class="w">                     </span><span class="nt">&quot;resourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;randnum&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                     </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Float32&quot;</span><span class="w"></span>
+<span class="w">                  </span><span class="p">},</span><span class="w"></span>
+<span class="w">                  </span><span class="p">{</span><span class="w"></span>
+<span class="w">                     </span><span class="nt">&quot;resourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ping&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                     </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;String&quot;</span><span class="w"></span>
+<span class="w">                  </span><span class="p">},</span><span class="w"></span>
+<span class="w">                  </span><span class="p">{</span><span class="w"></span>
+<span class="w">                     </span><span class="nt">&quot;resourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;message&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                     </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;String&quot;</span><span class="w"></span>
+<span class="w">                  </span><span class="p">}</span><span class="w"></span>
+<span class="w">               </span><span class="p">],</span><span class="w"></span>
+<span class="w">               </span><span class="nt">&quot;get&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">               </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;values&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">               </span><span class="nt">&quot;path&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/api/v2/device/name/my-custom-device/values&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="p">},</span><span class="w"></span>
+<span class="w">            </span><span class="p">{</span><span class="w"></span>
+<span class="w">               </span><span class="nt">&quot;url&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://edgex-core-command:59882&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">               </span><span class="nt">&quot;parameters&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">                  </span><span class="p">{</span><span class="w"></span>
+<span class="w">                     </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;String&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                     </span><span class="nt">&quot;resourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;message&quot;</span><span class="w"></span>
+<span class="w">                  </span><span class="p">}</span><span class="w"></span>
+<span class="w">               </span><span class="p">],</span><span class="w"></span>
+<span class="w">               </span><span class="nt">&quot;get&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">               </span><span class="nt">&quot;set&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">               </span><span class="nt">&quot;path&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/api/v2/device/name/my-custom-device/message&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">               </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;message&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">         </span><span class="p">]</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">   </span><span class="p">],</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;apiVersion&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;statusCode&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <h3 id="execute-set-command">Execute SET Command</h3>
 <p>Execute a SET command according to the url and parameterNames, replacing
@@ -2882,75 +2882,75 @@ $ docker run -d --restart=always --name=mqtt-scripts \
 </code></pre></div>
 <h3 id="execute-get-command">Execute GET Command</h3>
 <p>Execute a GET command as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="err">$</span> <span class="err">curl</span> <span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="err">//localhos</span><span class="kc">t</span><span class="p">:</span><span class="mi">59882</span><span class="err">/api/v</span><span class="mi">2</span><span class="err">/device/</span><span class="kc">na</span><span class="err">me/my</span><span class="mi">-</span><span class="err">cus</span><span class="kc">t</span><span class="err">om</span><span class="mi">-</span><span class="err">device/message</span> <span class="err">|</span> <span class="err">jso</span><span class="kc">n</span><span class="err">_pp</span>
+<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="err">//localhos</span><span class="kc">t</span><span class="p">:</span><span class="mi">59882</span><span class="err">/api/v</span><span class="mi">2</span><span class="err">/device/</span><span class="kc">na</span><span class="err">me/my</span><span class="mi">-</span><span class="err">cus</span><span class="kc">t</span><span class="err">om</span><span class="mi">-</span><span class="err">device/message</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">jso</span><span class="kc">n</span><span class="err">_pp</span><span class="w"></span>
 
-<span class="p">{</span>
-   <span class="nt">&quot;event&quot;</span> <span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;origin&quot;</span> <span class="p">:</span> <span class="mi">1624417689920618131</span><span class="p">,</span>
-      <span class="nt">&quot;readings&quot;</span> <span class="p">:</span> <span class="p">[</span>
-         <span class="p">{</span>
-            <span class="nt">&quot;resourceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;message&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;binaryValue&quot;</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-            <span class="nt">&quot;profileName&quot;</span> <span class="p">:</span> <span class="s2">&quot;my-custom-device-profile&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;deviceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;my-custom-device&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;id&quot;</span> <span class="p">:</span> <span class="s2">&quot;a3bb78c5-e76f-49a2-ad9d-b220a86c3e36&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;value&quot;</span> <span class="p">:</span> <span class="s2">&quot;Hello!&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;valueType&quot;</span> <span class="p">:</span> <span class="s2">&quot;String&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;origin&quot;</span> <span class="p">:</span> <span class="mi">1624417689920615828</span><span class="p">,</span>
-            <span class="nt">&quot;mediaType&quot;</span> <span class="p">:</span> <span class="s2">&quot;&quot;</span>
-         <span class="p">}</span>
-      <span class="p">],</span>
-      <span class="nt">&quot;sourceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;message&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;deviceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;my-custom-device&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;apiVersion&quot;</span> <span class="p">:</span> <span class="s2">&quot;v2&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;profileName&quot;</span> <span class="p">:</span> <span class="s2">&quot;my-custom-device-profile&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;id&quot;</span> <span class="p">:</span> <span class="s2">&quot;e0b29735-8b39-44d1-8f68-4d7252e14cc7&quot;</span>
-   <span class="p">},</span>
-   <span class="nt">&quot;apiVersion&quot;</span> <span class="p">:</span> <span class="s2">&quot;v2&quot;</span><span class="p">,</span>
-   <span class="nt">&quot;statusCode&quot;</span> <span class="p">:</span> <span class="mi">200</span>
-<span class="p">}</span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;event&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;origin&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1624417689920618131</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;readings&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">         </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;resourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;message&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;binaryValue&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;profileName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my-custom-device-profile&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;deviceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my-custom-device&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a3bb78c5-e76f-49a2-ad9d-b220a86c3e36&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Hello!&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;String&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;origin&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1624417689920615828</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;mediaType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"></span>
+<span class="w">         </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">],</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;sourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;message&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;deviceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my-custom-device&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;apiVersion&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;profileName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my-custom-device-profile&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;e0b29735-8b39-44d1-8f68-4d7252e14cc7&quot;</span><span class="w"></span>
+<span class="w">   </span><span class="p">},</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;apiVersion&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;statusCode&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <h2 id="schedule-job">Schedule Job</h2>
 <p>The schedule job is defined in the <code>[[DeviceList.AutoEvents]]</code> section of the device configuration file:</p>
-<div class="highlight"><pre><span></span><code>    <span class="k">[[DeviceList.AutoEvents]]</span>
-       <span class="n">Interval</span> <span class="o">=</span> <span class="s">&quot;30s&quot;</span>
-       <span class="n">OnChange</span> <span class="o">=</span> <span class="kc">false</span>
-       <span class="n">SourceName</span> <span class="o">=</span> <span class="s">&quot;message&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[[DeviceList.AutoEvents]]</span><span class="w"></span>
+<span class="w">       </span><span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30s&quot;</span><span class="w"></span>
+<span class="w">       </span><span class="n">OnChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="w">       </span><span class="n">SourceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;message&quot;</span><span class="w"></span>
 </code></pre></div>
 <p>After the service starts, query core-data's reading API. The results
 show that the service auto-executes the command every 30 secs, as shown
 below:</p>
-<div class="highlight"><pre><span></span><code><span class="err">$</span> <span class="err">curl</span> <span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="err">//localhos</span><span class="kc">t</span><span class="p">:</span><span class="mi">59880</span><span class="err">/api/v</span><span class="mi">2</span><span class="err">/readi</span><span class="kc">n</span><span class="err">g/resourceName/message</span> <span class="err">|</span> <span class="err">jso</span><span class="kc">n</span><span class="err">_pp</span>
+<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="err">//localhos</span><span class="kc">t</span><span class="p">:</span><span class="mi">59880</span><span class="err">/api/v</span><span class="mi">2</span><span class="err">/readi</span><span class="kc">n</span><span class="err">g/resourceName/message</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">jso</span><span class="kc">n</span><span class="err">_pp</span><span class="w"></span>
 
-<span class="p">{</span>
-   <span class="nt">&quot;statusCode&quot;</span> <span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
-   <span class="nt">&quot;readings&quot;</span> <span class="p">:</span> <span class="p">[</span>
-      <span class="p">{</span>
-         <span class="nt">&quot;value&quot;</span> <span class="p">:</span> <span class="s2">&quot;test-message&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;id&quot;</span> <span class="p">:</span> <span class="s2">&quot;e91b8ca6-c5c4-4509-bb61-bd4b09fe835c&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;mediaType&quot;</span> <span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;binaryValue&quot;</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-         <span class="nt">&quot;resourceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;message&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;origin&quot;</span> <span class="p">:</span> <span class="mi">1624418361324331392</span><span class="p">,</span>
-         <span class="nt">&quot;profileName&quot;</span> <span class="p">:</span> <span class="s2">&quot;my-custom-device-profile&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;deviceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;my-custom-device&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;valueType&quot;</span> <span class="p">:</span> <span class="s2">&quot;String&quot;</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-         <span class="nt">&quot;mediaType&quot;</span> <span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;binaryValue&quot;</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-         <span class="nt">&quot;resourceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;message&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;value&quot;</span> <span class="p">:</span> <span class="s2">&quot;test-message&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;id&quot;</span> <span class="p">:</span> <span class="s2">&quot;1da58cb7-2bf4-47f0-bbb8-9519797149a2&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;deviceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;my-custom-device&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;valueType&quot;</span> <span class="p">:</span> <span class="s2">&quot;String&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;profileName&quot;</span> <span class="p">:</span> <span class="s2">&quot;my-custom-device-profile&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;origin&quot;</span> <span class="p">:</span> <span class="mi">1624418330822988843</span>
-      <span class="p">},</span>
-      <span class="err">...</span>
-   <span class="p">],</span>
-   <span class="nt">&quot;apiVersion&quot;</span> <span class="p">:</span> <span class="s2">&quot;v2&quot;</span>
-<span class="p">}</span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;statusCode&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;readings&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">      </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;test-message&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;e91b8ca6-c5c4-4509-bb61-bd4b09fe835c&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;mediaType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;binaryValue&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;resourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;message&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;origin&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1624418361324331392</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;profileName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my-custom-device-profile&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;deviceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my-custom-device&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;String&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="p">},</span><span class="w"></span>
+<span class="w">      </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;mediaType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;binaryValue&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;resourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;message&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;test-message&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1da58cb7-2bf4-47f0-bbb8-9519797149a2&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;deviceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my-custom-device&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;String&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;profileName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my-custom-device-profile&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;origin&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1624418330822988843</span><span class="w"></span>
+<span class="w">      </span><span class="p">},</span><span class="w"></span>
+<span class="w">      </span><span class="err">...</span><span class="w"></span>
+<span class="w">   </span><span class="p">],</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;apiVersion&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <h2 id="async-device-reading">Async Device Reading</h2>
 <p>The <code>device-mqtt</code> subscribes to a <code>DataTopic</code>, which is wait for the <a href="#run-an-mqtt-device-simulator">real device to send value to MQTT broker</a>, then <code>device-mqtt</code>
@@ -2964,37 +2964,37 @@ parses the value and forward to the northbound.</p>
 </ul>
 <p>The following results show that the mock device sent the reading every
 15 secs:</p>
-<div class="highlight"><pre><span></span><code><span class="err">$</span> <span class="err">curl</span> <span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="err">//localhos</span><span class="kc">t</span><span class="p">:</span><span class="mi">59880</span><span class="err">/api/v</span><span class="mi">2</span><span class="err">/readi</span><span class="kc">n</span><span class="err">g/resourceName/ra</span><span class="kc">n</span><span class="err">d</span><span class="kc">nu</span><span class="err">m</span> <span class="err">|</span> <span class="err">jso</span><span class="kc">n</span><span class="err">_pp</span>
+<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="err">//localhos</span><span class="kc">t</span><span class="p">:</span><span class="mi">59880</span><span class="err">/api/v</span><span class="mi">2</span><span class="err">/readi</span><span class="kc">n</span><span class="err">g/resourceName/ra</span><span class="kc">n</span><span class="err">d</span><span class="kc">nu</span><span class="err">m</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">jso</span><span class="kc">n</span><span class="err">_pp</span><span class="w"></span>
 
-<span class="p">{</span>
-   <span class="nt">&quot;readings&quot;</span> <span class="p">:</span> <span class="p">[</span>
-      <span class="p">{</span>
-         <span class="nt">&quot;origin&quot;</span> <span class="p">:</span> <span class="mi">1624418475007110946</span><span class="p">,</span>
-         <span class="nt">&quot;valueType&quot;</span> <span class="p">:</span> <span class="s2">&quot;Float32&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;deviceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;my-custom-device&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;id&quot;</span> <span class="p">:</span> <span class="s2">&quot;9b3d337e-8a8a-4a6c-8018-b4908b57abb8&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;binaryValue&quot;</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-         <span class="nt">&quot;resourceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;randnum&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;profileName&quot;</span> <span class="p">:</span> <span class="s2">&quot;my-custom-device-profile&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;mediaType&quot;</span> <span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;value&quot;</span> <span class="p">:</span> <span class="s2">&quot;2.630000e+01&quot;</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-         <span class="nt">&quot;deviceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;my-custom-device&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;valueType&quot;</span> <span class="p">:</span> <span class="s2">&quot;Float32&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;id&quot;</span> <span class="p">:</span> <span class="s2">&quot;06918cbb-ada0-4752-8877-0ef8488620f6&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;origin&quot;</span> <span class="p">:</span> <span class="mi">1624418460007833720</span><span class="p">,</span>
-         <span class="nt">&quot;mediaType&quot;</span> <span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;profileName&quot;</span> <span class="p">:</span> <span class="s2">&quot;my-custom-device-profile&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;value&quot;</span> <span class="p">:</span> <span class="s2">&quot;2.570000e+01&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;resourceName&quot;</span> <span class="p">:</span> <span class="s2">&quot;randnum&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;binaryValue&quot;</span> <span class="p">:</span> <span class="kc">null</span>
-      <span class="p">},</span>
-      <span class="err">...</span>
-   <span class="p">],</span>
-   <span class="nt">&quot;statusCode&quot;</span> <span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
-   <span class="nt">&quot;apiVersion&quot;</span> <span class="p">:</span> <span class="s2">&quot;v2&quot;</span>
-<span class="p">}</span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;readings&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">      </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;origin&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1624418475007110946</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Float32&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;deviceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my-custom-device&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;9b3d337e-8a8a-4a6c-8018-b4908b57abb8&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;binaryValue&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;resourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;randnum&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;profileName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my-custom-device-profile&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;mediaType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2.630000e+01&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="p">},</span><span class="w"></span>
+<span class="w">      </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;deviceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my-custom-device&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Float32&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;06918cbb-ada0-4752-8877-0ef8488620f6&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;origin&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1624418460007833720</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;mediaType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;profileName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my-custom-device-profile&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2.570000e+01&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;resourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;randnum&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;binaryValue&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w"></span>
+<span class="w">      </span><span class="p">},</span><span class="w"></span>
+<span class="w">      </span><span class="err">...</span><span class="w"></span>
+<span class="w">   </span><span class="p">],</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;statusCode&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;apiVersion&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <h2 id="mqtt-device-service-configuration">MQTT Device Service Configuration</h2>
 <p>MQTT Device Service has the following configurations to implement the MQTT protocol.</p>
@@ -3085,14 +3085,14 @@ parses the value and forward to the northbound.</p>
 </tbody>
 </table>
 <p>The user can override these configurations by <code>environment variable</code> to meet their requirement, for example:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># docker-compose.yml</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># docker-compose.yml</span><span class="w"></span>
 
- <span class="nt">device-mqtt</span><span class="p">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">...</span>
-    <span class="l l-Scalar l-Scalar-Plain">environment</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">...</span>
-      <span class="l l-Scalar l-Scalar-Plain">DEVICE_DEVICESDIR</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/custom-config/devices</span>
-      <span class="nt">DEVICE_PROFILESDIR</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/custom-config/profiles</span>
+<span class="w"> </span><span class="nt">device-mqtt</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">environment</span><span class="p p-Indicator">:</span><span class="w"></span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">DEVICE_DEVICESDIR</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/custom-config/devices</span><span class="w"></span>
+<span class="w">      </span><span class="nt">DEVICE_PROFILESDIR</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/custom-config/profiles</span><span class="w"></span>
 </code></pre></div>
                 
               

@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-5.1.0">
     
     
       
@@ -2498,37 +2498,37 @@ would transmit this information to core data via REST call.</p>
 <p>Use either the Postman or Curl tab below to walkthrough sending an <code>Event</code> with <code>Reading</code>s to core data.</p>
 <div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Postman</label><div class="tabbed-content">
 <p>Make a POST request to `http://localhost:59880/api/v2/event/camera-monitor-profile/countcamera1/HumanCount with the body below.</p>
-<div class="highlight"><pre><span></span><code>        <span class="p">{</span>
-            <span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span> <span class="s2">&quot;v2&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;event&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span> <span class="s2">&quot;v2&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;deviceName&quot;</span><span class="p">:</span> <span class="s2">&quot;countcamera1&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;profileName&quot;</span><span class="p">:</span> <span class="s2">&quot;camera-monitor-profile&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;sourceName&quot;</span><span class="p">:</span> <span class="s2">&quot;HumanCount&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;d5471d59-2810-419a-8744-18eb8fa03465&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;origin&quot;</span><span class="p">:</span> <span class="mi">1602168089665565200</span><span class="p">,</span>
-                <span class="nt">&quot;readings&quot;</span><span class="p">:</span> <span class="p">[</span>
-                    <span class="p">{</span>
-                        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;7003cacc-0e00-4676-977c-4e58b9612abd&quot;</span><span class="p">,</span>
-                        <span class="nt">&quot;origin&quot;</span><span class="p">:</span> <span class="mi">1602168089665565200</span><span class="p">,</span>
-                        <span class="nt">&quot;deviceName&quot;</span><span class="p">:</span> <span class="s2">&quot;countcamera1&quot;</span><span class="p">,</span>
-                        <span class="nt">&quot;resourceName&quot;</span><span class="p">:</span> <span class="s2">&quot;HumanCount&quot;</span><span class="p">,</span>
-                        <span class="nt">&quot;profileName&quot;</span><span class="p">:</span> <span class="s2">&quot;camera-monitor-profile&quot;</span><span class="p">,</span>
-                        <span class="nt">&quot;valueType&quot;</span><span class="p">:</span> <span class="s2">&quot;Int16&quot;</span><span class="p">,</span>
-                        <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;5&quot;</span>
-                    <span class="p">},</span>
-                    <span class="p">{</span>
-                        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;7003cacc-0e00-4676-977c-4e58b9612abe&quot;</span><span class="p">,</span>
-                        <span class="nt">&quot;origin&quot;</span><span class="p">:</span> <span class="mi">1602168089665565200</span><span class="p">,</span>
-                        <span class="nt">&quot;deviceName&quot;</span><span class="p">:</span> <span class="s2">&quot;countcamera1&quot;</span><span class="p">,</span>
-                        <span class="nt">&quot;resourceName&quot;</span><span class="p">:</span> <span class="s2">&quot;CanineCount&quot;</span><span class="p">,</span>
-                        <span class="nt">&quot;profileName&quot;</span><span class="p">:</span> <span class="s2">&quot;camera-monitor-profile&quot;</span><span class="p">,</span>
-                        <span class="nt">&quot;valueType&quot;</span><span class="p">:</span> <span class="s2">&quot;Int16&quot;</span><span class="p">,</span>
-                        <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;3&quot;</span>
-                    <span class="p">}</span>                        
-                <span class="p">]</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;deviceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;countcamera1&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;profileName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;camera-monitor-profile&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;sourceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;HumanCount&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;d5471d59-2810-419a-8744-18eb8fa03465&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1602168089665565200</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;readings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="w"></span>
+<span class="w">                        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;7003cacc-0e00-4676-977c-4e58b9612abd&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1602168089665565200</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="nt">&quot;deviceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;countcamera1&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="nt">&quot;resourceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;HumanCount&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="nt">&quot;profileName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;camera-monitor-profile&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="nt">&quot;valueType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Int16&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5&quot;</span><span class="w"></span>
+<span class="w">                    </span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="w"></span>
+<span class="w">                        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;7003cacc-0e00-4676-977c-4e58b9612abe&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1602168089665565200</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="nt">&quot;deviceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;countcamera1&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="nt">&quot;resourceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CanineCount&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="nt">&quot;profileName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;camera-monitor-profile&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="nt">&quot;valueType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Int16&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3&quot;</span><span class="w"></span>
+<span class="w">                    </span><span class="p">}</span><span class="w">                        </span>
+<span class="w">                </span><span class="p">]</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>If your API call is successful, you will get a generated ID for your new <code>Event</code> as shown in the image below.</p>
 <p><img alt="image" src="../EdgeX_WalkthroughSendEvent.png" /></p>
