@@ -45,6 +45,7 @@ type ApplicationService interface {
 	AddBackgroundPublisherWithTopic(capacity int, topic string) (BackgroundPublisher, error)
 	BuildContext(correlationId string, contentType string) AppFunctionContext
 	AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error
+    RequestTimeout() time.Duration
 	RegisterCustomTriggerFactory(name string, factory func(TriggerConfig) (Trigger, error)) error
 }
 ```
@@ -557,6 +558,24 @@ This API allows external callers that may need a context (eg background publishe
 `AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error`
 
 This API adds a custom REST route to the application service's internal webserver.  A reference to the ApplicationService is add the the context that is passed to the handler, which can be retrieved using the `AppService` key. See [Custom REST Endpoints](../AdvancedTopics/#custom-rest-endpoints) advanced topic for more details and example.
+
+### RequestTimeout()
+
+`RequestTimeout() time.Duration`
+
+This API returns the parsed value for the `Service.RequestTimeout` configuration setting. The setting is parsed on start-up so that any error is caught then.
+
+!!! example "Example - RequestTimeout"
+    ```toml
+    [Service]
+    :
+    RequestTimeout = "60s"
+    :
+    ```
+    
+    ```go
+    timeout := service.RequestTimeout()
+    ```
 
 ### RegisterCustomTriggerFactory
 
