@@ -1803,6 +1803,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#requesttimeout" class="md-nav__link">
+    RequestTimeout()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#registercustomtriggerfactory" class="md-nav__link">
     RegisterCustomTriggerFactory
   </a>
@@ -3065,6 +3072,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#requesttimeout" class="md-nav__link">
+    RequestTimeout()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#registercustomtriggerfactory" class="md-nav__link">
     RegisterCustomTriggerFactory
   </a>
@@ -3140,6 +3154,7 @@
 <span class="w">    </span><span class="nx">AddBackgroundPublisherWithTopic</span><span class="p">(</span><span class="nx">capacity</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="nx">topic</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">BackgroundPublisher</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="nx">BuildContext</span><span class="p">(</span><span class="nx">correlationId</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">contentType</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="nx">AppFunctionContext</span><span class="w"></span>
 <span class="w">    </span><span class="nx">AddRoute</span><span class="p">(</span><span class="nx">route</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">),</span><span class="w"> </span><span class="nx">methods</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
+<span class="w">    </span><span class="nx">RequestTimeout</span><span class="p">()</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="w"></span>
 <span class="w">    </span><span class="nx">RegisterCustomTriggerFactory</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">factory</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">TriggerConfig</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">Trigger</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">))</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
@@ -3523,6 +3538,19 @@ See the <a href="https://github.com/edgexfoundry/go-mod-registry/blob/v2.0.0/reg
 <h3 id="addroute">AddRoute</h3>
 <p><code>AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error</code></p>
 <p>This API adds a custom REST route to the application service's internal webserver.  A reference to the ApplicationService is add the the context that is passed to the handler, which can be retrieved using the <code>AppService</code> key. See <a href="../AdvancedTopics/#custom-rest-endpoints">Custom REST Endpoints</a> advanced topic for more details and example.</p>
+<h3 id="requesttimeout">RequestTimeout()</h3>
+<p><code>RequestTimeout() time.Duration</code></p>
+<p>This API returns the parsed value for the <code>Service.RequestTimeout</code> configuration setting. The setting is parsed on start-up so that any error is caught then.</p>
+<div class="admonition example">
+<p class="admonition-title">Example - RequestTimeout</p>
+<div class="highlight"><pre><span></span><code><span class="k">[Service]</span><span class="w"></span>
+<span class="p">:</span><span class="w"></span>
+<span class="n">RequestTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;60s&quot;</span><span class="w"></span>
+<span class="p">:</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nx">timeout</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">RequestTimeout</span><span class="p">()</span><span class="w"></span>
+</code></pre></div>
+</div>
 <h3 id="registercustomtriggerfactory">RegisterCustomTriggerFactory</h3>
 <p><code>RegisterCustomTriggerFactory(name string, factory func(TriggerConfig) (Trigger, error)) error</code></p>
 <p>This API registers a trigger factory for a custom trigger to be used. See the <a href="../Triggers/#custom-triggers">Custom Triggers</a> section for more details and example.</p>
