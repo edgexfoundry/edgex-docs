@@ -17,7 +17,7 @@ There are various specifications and standards around unit of measure.  Specific
 - [ANSI X12: EDI standard used mostly in the US](https://ediacademy.com/blog/x12-unit-of-measurement-codes/)
 - [EDIFACT: UN EDI standard used mostly in Europe and Asia](https://unece.org/fileadmin/DAM/cefact/recommendations/rec20/rec20_rev3_Annex2e.pdf)
 
-The [Unified Code for Units of Measure](https://en.wikipedia.org/wiki/Unified_Code_for_Units_of_Measure) provides an alternative list (not a standard) that is used by various organizations like OSGI and the Eclipse Foundatin.
+The [Unified Code for Units of Measure](https://en.wikipedia.org/wiki/Unified_Code_for_Units_of_Measure) provides an alternative list (not a standard) that is used by various organizations like OSGI and the Eclipse Foundation.
 
 While standards exist, use by various open source projects (especially IoT/edge projects) is inconsistent and haphazard.   Groups like oneM2M seem to define their own selection of units in specifications per vertical (home for example) while Kura doesn't even appear to use the UoM JSR (a Java related unit of measure specification for Java applications like Kura).
 
@@ -29,7 +29,7 @@ Therefore, EdgeX chooses not to select or adopt a unit of measure specification,
 ### Specifying Unit of Measure per Device Resource
 Currently, units is a string on [ResourceProperties](https://github.com/edgexfoundry/go-mod-core-contracts/blob/352324e9c8b8d76ffd6147dc5ec2da6dd8f275fd/v2/dtos/resourceproperties.go#L15).  Going forward, and to assist in backward compatiblity, the units property would remain in place and specify the unit of measure value.  A new optional EdgeX property will be optionally associated to each device resource to stipulate which unit of measure standard (or specification, code list, etc.) is applied to the unit of measure of the device resource.
 
-For example, if the device resource for temperature was specified in a device profile as show below, the unit of measure would still be specified by the units property (specifying the Cel as the unit of measure) and adding the optional units_standard (to specify that the unit of measure is from the Unified Code for Units of Measure).
+For example, if the device resource for temperature was specified in a device profile as show below, the unit of measure would still be specified by the `units` property (specifying the Cel as the unit of measure) and adding the optional `units_standard` (to specify that the unit of measure is from the Unified Code for Units of Measure).
 
 ``` YAML
 -
@@ -46,7 +46,13 @@ For example, if the device resource for temperature was specified in a device pr
   units_standard: "UCUM"
 ```
    
-The unit of measure standard would be specified as a string in the device profile.  Note each device resource could specify a different unit of measure standard.  
+The unit of measure standard would be specified as a string in the device profile.  Note each device resource could specify a different unit of measure standard.
+
+!!! Note
+    It was suggested by @cloudxxx8 that in order to keep backward compatibility (which contains a [units field](https://github.com/edgexfoundry/go-mod-core-contracts/blob/352324e9c8b8d76ffd6147dc5ec2da6dd8f275fd/v2/dtos/resourceproperties.go#L15)), we keep units and units standard as separate fields (vs having units with value and standard fields).
+
+!!! Note
+    As units is now being considered to add to reading ([per device profile changes ADR](https://github.com/edgexfoundry/edgex-docs/pull/674)), units_standard should be added (optionally) to the reading as well.  Alternatively, we could add a string key/value pair designating both (ex: "Cel":"UCUM").
 
 ### Validation
 
@@ -58,24 +64,52 @@ In theory, the unit of measure could be validated on the "indbound" collection o
 
 ## Considersations
 
-It has been suggested that EdgeX borrow from the Open [Geospatial Consortium SensorThings](https://www.ogc.org/standards/sensorthings) standard and include a JSON object to provide more information about the UoM for the field.  An optional  unitOfMeasurement field would replace the optional units_standard in above (allowing for either standard or non-standard definitions but with more information).
+It has been suggested that EdgeX borrow from the Open [Geospatial Consortium SensorThings](https://www.ogc.org/standards/sensorthings) standard and include a JSON object to provide more information about the UoM for the field.  An optional `unitOfMeasurement` field would replace the optional `units_standard` in above (allowing for either standard or non-standard definitions but with more information).
 
-A JSON Object containing three key-value pairs. The name property presents the full name of the unitOfMeasurement; the symbol property shows the textual form of the unit symbol; and the definition contains the URI defining the unitOfMeasurement.
+In the case of using `unitOfMeasurement`, a JSON Object containing three key-value pairs would be used. 
 
-From Example 4: A Datastream entity example:
+- The name property presents the full name of the unitOfMeasurement
+- The symbol property shows the textual form of the unit symbol
+- and the definition contains the URI defining the unitOfMeasurement
 
+``` json
 "unitOfMeasurement": {
     "name": "degree Celsius",
     "symbol": "°C",
     "definition": "http://unitsofmeasure.org/ucum.html#para-30"
 }
+```
 
 See https://docs.ogc.org/is/18-088/18-088.html#datastream
 
+[SenML](https://datatracker.ietf.org/doc/html/rfc8428) was suggested as a specification (currently a proposed standard) from which EdgeX may draw some guidance or inspiration with regard to unit of measure representation in "simple sensor measurements and device parameters."
+
+In fact, SenML defines a simple data model (in JSON, CBOR, XML, EXI) for the exchange of what EdgeX would call readings.  A JSON example is below:
+
+``` json
+[{"n":"urn:dev:ow:10e2073a01080063","u":"Cel","v":23.1}]
+```
+
+In the example above, the array (what EdgeX would consider a collection of readings) has a single SenML Record with a
+measurement for a sensor named "urn:dev:ow:10e2073a01080063" with a current value of 23.1 for degrees measured in Celsius (Cel) unit of measure.  However, SenML suggests the use of short names for the keys in most cases, but long names could be used.  In which case, the JSON SenML reading would look like the following:
+
+``` json
+[{"Name":"urn:dev:ow:10e2073a01080063","Unit":"Cel","Value":23.1}]
+```
+
+In this way, the parallels to EdgeX model are, by accident, uncanny - at least in the JSON instance.  SenML goes to much more depth to provide extensions and more definitions around measurements.  But at its base, the EdgeX format is not unlike SenML and could easily be aligned with SenML in the future (or allow for an application service to export in SenML with an additional function fairly easily and if there were demand).
+
+However, on the basis of "unit of measure", SenML is actually light on details.  This ADR and the proposal here goes much further than what SenML specifies.  With regard to UoM, the SenML specification only says:
+
+!!! Quote
+    If the Record has no Unit, the Base Unit is used as the Unit.  Having no Unit and no Base Unit is allowed; any information that may be required about units applicable to the value then needs to be provided by the application context.
+
+Therefore, SenML should be examined for future versions of EdgeX with regard to data model, but its relevance to **unit of measure** is believed to be minimal at this time.
+
 ## Consequences
-- Any validation could impact performance.
-- As with most validation, it should be configured to turn on or off by use case circumstances or trust of data providers.
-- Some unit of measures may need to be linked to some sort of group affilation or geo local.  For example, if an EdgeX instance was operating in the US, someone might want all distance measurements done in feet/inches, temperatures in Farenheit, and volume in gallons.  The concept of group or affiliation will be not part of the initial efforts to satisfy UoM association.
+- Any future validation could impact performance.
+- As with most validation, it should be configured (when/if implemented) to turn on or off via configuration for use case circumstances or trust of data providers.
+- Some unit of measures may need to be linked to some sort of group affiliation or geo local.  For example, if an EdgeX instance was operating in the US, someone might want all distance measurements done in feet/inches, temperatures in Fahrenheit, and volume in gallons.  The concept of group or affiliation will be not part of the initial efforts to satisfy UoM association.
 
 ## References
 
@@ -85,6 +119,7 @@ See https://docs.ogc.org/is/18-088/18-088.html#datastream
 - https://unece.org/fileadmin/DAM/cefact/recommendations/rec20/rec20_rev3_Annex2e.pdf
 - https://en.wikipedia.org/wiki/Unified_Code_for_Units_of_Measure
 - https://www.ogc.org/standards/sensorthings
+- https://datatracker.ietf.org/doc/html/rfc8428
 
 ### UoM Tools and Databases
 - https://ucum.nlm.nih.gov/ucum-lhc/demo.html
