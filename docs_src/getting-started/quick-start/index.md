@@ -12,22 +12,22 @@ The fastest way to start running EdgeX is by using our pre-built Docker images. 
 ## Running EdgeX
 
 !!! Info
-    Ireland (v 2.0) is the latest version of EdgeX and used by example in this guide.
+    Jakarta (v 2.1) is the latest version of EdgeX and used by example in this guide.
 
 Once you have Docker and Docker Compose installed, you need to:
 
-* download / save the latest [`docker-compose` file](https://github.com/edgexfoundry/edgex-compose/blob/ireland/docker-compose-no-secty.yml)
+* download / save the latest [`docker-compose` file](https://github.com/edgexfoundry/edgex-compose/blob/jakarta/docker-compose-no-secty.yml)
 * issue command to download and run the EdgeX Foundry Docker images from Docker Hub
 
 This can be accomplished with a single command as shown below (please note the tabs for x86 vs ARM architectures).
 
 === "x86"
     ```
-    curl https://raw.githubusercontent.com/edgexfoundry/edgex-compose/ireland/docker-compose-no-secty.yml -o docker-compose.yml; docker-compose up -d
+    curl https://raw.githubusercontent.com/edgexfoundry/edgex-compose/jakarta/docker-compose-no-secty.yml -o docker-compose.yml; docker-compose up -d
     ```
 === "ARM"
     ```
-    curl https://raw.githubusercontent.com/edgexfoundry/edgex-compose/ireland/docker-compose-no-secty-arm64.yml -o docker-compose.yml; docker-compose up -d
+    curl https://raw.githubusercontent.com/edgexfoundry/edgex-compose/jakarta/docker-compose-no-secty-arm64.yml -o docker-compose.yml; docker-compose up -d
     ```
 
 Verify that the EdgeX containers have started:
