@@ -19,7 +19,9 @@ These rules will be implemented in core metadata on device profile API calls.
     - this includes modifying any field (except identifiers like names and ids)
     - this includes changes to the array of device resources, device commands
     - this includes changes to attributes (of device resources)
-    - even when a device profile is associated to a device or provision watcher, fields of the device profile or device resource can be modified when the field change will not affect the behavior of the system (example: the description field has no effect on the system).
+    - even when a device profile is associated to a device or provision watcher, fields of the device profile or device resource can be modified when the field change will not affect the behavior of the system.
+        - on profile, the following fields do not affect the behavior: description, manufacturer, model, labels.
+        - on device resource, the following fields do not affect the behavior: description and tag
 - A device profile cannot be removed when it is associated to a device or provision watcher.
 - A device profile can be removed or modified even when associated to an event or reading.  However, configuration options (see New Configuration Settings below) are available to block the change or removal of a device profile for any reason.
     - the rationale behind the new configuraton settings was specifically to protect the event/reading association to device profiles.  Events and readings are generally considered short lived (ephemeral) objects and already contain the necessary device profile information that are needed by the system during their short life without having to refer to and keep the device profile.  But if an adopter wants to make sure the device profile is unmodified and still exists for any event/readings association (or for any reason), then the new config setting will block device profile changes or removals.
