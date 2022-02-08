@@ -26,14 +26,14 @@ These rules will be implemented in core metadata on device profile API calls.
     - see note below in Consequences that a new Units property must be added to the Reading object in order to support this rule and the need for all relevant profile data to be in the reading.
 
 ### Ancillary Rules associated to Device Profiles
-- Identifying or “key” fields for device profiles, device resources, etc. cannot be modified and can never be null.
+- Name and ID fields (identifying fields) for device profiles, device resources, etc. cannot be modified and can never be null.
 - A device profile can begin life “empty” - meaning that it has no device resources or device commands.
 
 ### New APIs
 
 The following APIs would be added to the metadata REST service in order to meet the design specified above.
 
-- Add Profile General Property PATCH API (allow to modify profile field except name and id)
+- Add Profile General Property PATCH API (allow to modify profile's description, manufacturer, model and label fields)
 - Add Profile Device Resource POST API
 - Add Profile Device Resource PATCH API (allow to modify Description and IsHidden only)
 - Add Profile Device Resource DELETE API (allow as described above)
