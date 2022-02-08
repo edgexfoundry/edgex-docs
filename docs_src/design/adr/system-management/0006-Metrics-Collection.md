@@ -72,9 +72,8 @@ In general, EdgeX metrics are meant to provide internal services and external ap
 - Services will have configuration which indicates what metrics are available from the service.
 - Services will have configuration which allows EdgeX system managers to select which metrics are `on` or `off` - in other words providing configuration that determines what metrics are collected and reported by default.
     - When a metric is turned `off` (the default setting) the service does not report the metric.  When a metric is turned `on` the service collects and sends the metric to the designated message topic.
-    - Metrics collection must be pushed to the designated message topic on some appointed schedule.  The schedule would be designated by configuration and done in a way similar to auto events in device services.  
-    - A default interval schedule is configured to determine the time when all metrics are collected, but an interval for any specific metric can be scheduled and override the default generic schedule. 
-        - Per recommendation by @cloudxxx8 to support interval per metric but to have one for all as default
+    - Metrics collection must be pushed to the designated message topic on some appointed schedule.  The schedule would be designated by configuration and done in a way similar to auto events in device services.
+    - For the initial implementation, there will be just one scheduled time when all metrics will be collected and pushed to the designated message topic.  In the future, there may be a desire to set up a separate schedule for each metric, but this was deemed too complex for the initial implementation.
 
 !!! Info
     Initially, it was proposed that metrics be associated with a "level" and allow metrics to be turned on or off by level (like levels associated to log messages in logging).  The level of metrics data seems arbitrary at this time and considered too complex for initial implementation.  This may be reconsidered in a future release and based on new requirements/use cases.
@@ -215,12 +214,14 @@ These metrics configuration options will be defined in the `Writable` area of `c
 [[Writable]]
     [[Writable.Telemetry]]
     Interval = "30s"
-    TelemetryPublishTopicPrefix  = "edgex/telemetry" # /<service-name>/<metric-name> will be added to this Publish Topic prefix
-    Metrics = "{\"service-up\":\"false\", \"api-requests\":\"false\"}"  #all metrics will be off (or false) by default configuration
+    PublishTopicPrefix  = "edgex/telemetry" # /<service-name>/<metric-name> will be added to this Publish Topic prefix
+    #available metrics listed here.  All metrics should be listed off (or false) by default
+    service-up = false
+    api-requests = false
 ```
 
 !!! Info
-    It was discussed that in future EdgeX releases, services may want separate message bus connections.  For example one for sensor data and one for metrics telemetry data.  This would allow the QoS and other settings of the message bus connection to be different. This would allow sensor data collection, for example, to be messaged with a higher QoS than that of metrics.  For the initial release of this feature, the service will use the same connection (and therefore configuration) for metrics telemetry as well as sensor data.  
+    It was discussed that in future EdgeX releases, services may want separate message bus connections.  For example one for sensor data and one for metrics telemetry data.  This would allow the QoS and other settings of the message bus connection to be different. This would allow sensor data collection, for example, to be messaged with a higher QoS than that of metrics.  As an alternate approach, we could modify go-mod-messaging to allow setting QoS per topic (and thereby avoid multiple connections).  For the initial release of this feature, the service will use the same connection (and therefore configuration) for metrics telemetry as well as sensor data.  
 
 
 #### Library Support
