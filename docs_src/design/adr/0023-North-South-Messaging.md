@@ -108,8 +108,9 @@ In the example GET and PUT messages below, note the `envelope` wraps or encases 
         }
     }
 }
-
 ```
+!!! Alert
+    Should we be validating the messages for version (V2 in this case)?  Do we validate incoming REST requests for the particular version of the APIs?
 
 The **response** message `payload` would contain the response from the south side, which is typically EdgeX event/reading objects (in the case of GET requests) but would also include any status code, error or service response details.
 
@@ -164,32 +165,32 @@ Example response messages for a GET and PUT request are shown below.  Again, not
 
 #### 3rd party system topics
 
-The 3rd party system or application must publish command requests messages to its own MQTT topic (**external message bus**) and subscribe to responses from the same.  Messages topics would typically follow a standard such as:
+The 3rd party system or application must publish command requests messages to its own MQTT topic (**external message bus**) and subscribe to responses from the same.  Messages topics should follow a standard such as (where `my-app` is replaced by the 3rd party application or system name):
 
 - Publishing command request topic: `/my-app/command/request/<device-name>/<command-name>/<method>`
 - Subscribing command response topic: `/my-app/command/response/#`
 
 !!! Note
-    Because EdgeX can suggest but not dictate the naming standard for 3rd party MQTT topics, these names are representative for clarity, but not required.
+    Because EdgeX can suggest but not dictate the naming standard for 3rd party MQTT topics, these names are representative for clarity, but not required.  The suffix inclusion of <device-name>/<command-name>/<method> is required for the command service to be able to understand and direct the request to the appropriate device/sensor through the correct device service.  Alternately, this information could be placed in the message header and the topic names made generic, but this is different than what we have done for south to north communications.
 
 #### command service topics
 
-The command service must subscribe to the request topics of the 3rd party (**external message bus**) MQTT topic to get command requests, publish those to a topic to send them to a device service via the EdgeX message bus (**internal message bus**), subscribe to response messages on topics from device services (**internal**), and then publish response messages to a topic on the 3rd party MQTT broker (**external**).  Message topics for the command service would follow the following standard:
+The command service must subscribe to the request topics of the 3rd party MQTT topic (**external message bus**) to get command requests, publish those to a topic to send them to a device service via the EdgeX message bus (**internal message bus**), subscribe to response messages on topics from device services (**internal**), and then publish response messages to a topic on the 3rd party MQTT broker (**external**).  Message topics for the command service would follow the following standard:
 
-- Subscribing to 3rd party command request topics: my-app/command/request/#
-- Publishing to device service request topic: edgex/command/request/<device-service>/<device-name>/<command-name>/<method>
-- Subscribing to device service command response topics: edgex/command/response/#
-- Publishing to 3rd party command response topic: my-app/command/response
+- Subscribing to 3rd party command request topics: `my-app/command/request/#`
+- Publishing to device service request topic: `edgex/command/request/<device-service>/<device-name>/<command-name>/<method>`
+- Subscribing to device service command response topics: `edgex/command/response/#`
+- Publishing to 3rd party command response topic: `my-app/command/response/<device-name>/<command-name>/<method>`
 
 !!! Note
-    Because EdgeX can suggest but not dictate the naming standard for 3rd party MQTT topics, the 3rd party topic names are representative for clarity, but not required.
+    Because EdgeX can suggest but not dictate the naming standard for 3rd party MQTT topics, the 3rd party topic names are representative for clarity.
 
 #### device service topics
 
 The device services must subscribe to the EdgeX command request topic (**internal message bus**) and publish response messages to an EdgeX command response topic.  The following naming standard will be applied to these topic names:
 
-- Subscribing to command request topic: edgex/command/request/#
-- Publishing to command response topic: edgex/command/response
+- Subscribing to command request topic: `edgex/command/request/#`
+- Publishing to command response topic: `edgex/command/response/<device-service>/<device-name>/<command-name>/<method>`
 
 ### Configuration
 
@@ -210,20 +211,18 @@ Example command service configuration is provided below.
     Host = "localhost"
     Port = 6379
     Type = "redis"
-    RequestTopicPrefix = "edgex/command/request/"  # <device-service>/<device-name>/<command-name>/<method> will be added to this publish topic prefix
-    ResponseTopic = “edgex/command/response/#”
-    AuthMode = "usernamepassword"  # required for redis messagebus (secure or insecure).
+    RequestTopicPrefix = "edgex/command/request/"   # for publishing requests to the device service; <device-service>/<device-name>/<command-name>/<method> will be added to this publish topic prefix
+    ResponseTopic = "edgex/command/response/#”      # for subscribing to device service responses
+    AuthMode = "usernamepassword"                   # required for redis messagebus (secure or insecure).
     SecretName = "redisdb"
     [ExternalMessageQueue]
     Protocol = "redis"
     Host = "localhost"
     Port = 6378
     Type = "redis"
-    RequestTopic = my-app/command/request/#”
-    ResponseTopicPrefix = “edgex/command/response/"  # /<device-name>/<command-name>/<method> will be added to this publish topic prefix
- publish topic prefix
-    ResponseTopic =  my-app/command/response/#”
-    AuthMode = "usernamepassword"  # required for redis messagebus (secure or insecure).
+    RequestTopic = "my-app/command/request/#"           # for subscribing to 3rd party command requests
+    ResponseTopicPrefix = "my-app/command/response/"    # for publishing responses back to 3rd party systems /<device-name>/<command-name>/<method> will be added to this publish topic prefix
+    AuthMode = "usernamepassword"                       # required for redis messagebus (secure or insecure).
     SecretName = "redisdb"
 ```
 
@@ -237,10 +236,10 @@ Protocol = "redis"
 Host = "localhost"
 Port = 6379
 Type = "redis"
-AuthMode = "usernamepassword"  # required for redis messagebus (secure or insecure).
+AuthMode = "usernamepassword"                           # required for redis messagebus (secure or insecure).
 SecretName = "redisdb"
-CommandRequestTopic = "edgex/command/request/#"
-CommandResponseTopicPrefix = “edgex/command/response/"
+CommandRequestTopic = "edgex/command/request/#"         # subscribing for inbound command requests
+CommandResponseTopicPrefix = "edgex/command/response/"  # publishing outbound command responses; <device-service>/<device-name>/<command-name>/<method> will be added to this publish topic prefix
 ```
 
 ## Questions
