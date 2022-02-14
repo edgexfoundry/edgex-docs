@@ -1,8 +1,8 @@
 # Changes to Device Profiles
 
 ## Status
-** Proposed **
-(as of 1/20/22)
+** Approved **
+By TSC Vote on 2/14/22
 
 Please see a [prior PR](https://github.com/edgexfoundry/edgex-docs/pull/605) on this topic that detailed much of the debate and context on this issue.  For clarity and simplicity, that PR was closed in favor of this simpler ADR.
 
