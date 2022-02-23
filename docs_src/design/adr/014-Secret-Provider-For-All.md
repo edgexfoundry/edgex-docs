@@ -8,12 +8,12 @@
     + [Known and Unknown Services](#known-and-unknown-services)
     + [Static Secrets and Runtime Secrets](#static-secrets-and-runtime-secrets)
     + [Interfaces and factory methods](#interfaces-and-factory-methods)
-      - [Bootstrap's current implementation](#bootstrap-s-current-implementation)
+      - [Bootstrap's current implementation](#bootstraps-current-implementation)
         * [Interfaces](#interfaces)
         * [Factory and bootstrap handler methods](#factory-and-bootstrap-handler-methods)
-      - [App SDK's current implementation](#app-sdk-s-current-implementation)
+      - [App SDK's current implementation](#app-sdks-current-implementation)
         * [Interface](#interface)
-        * [Factory and bootstrap handler methods](#factory-and-bootstrap-handler-methods-1)
+        * [Factory and bootstrap handler methods](#factory-and-bootstrap-handler-methods)
     + [Secret Store for non-secure mode](#secret-store-for-non-secure-mode)
       - [InsecureSecrets Configuration](#insecuresecrets-configuration)
 - [Decision](#decision)
@@ -23,9 +23,9 @@
     + [Factory Method and Bootstrap Handler](#factory-method-and-bootstrap-handler)
     + [Caching of Secrets](#caching-of-secrets)
     + [Insecure Secrets](#insecure-secrets)
-      - [Handling on-the-fly changes to `InsecureSecrets`](#handling-on-the-fly-changes-to--insecuresecrets-)
+      - [Handling on-the-fly changes to `InsecureSecrets`](#handling-on-the-fly-changes-to-insecuresecrets)
     + [Mocks](#mocks)
-    + [Where will `SecretProvider` reside?](#where-will--secretprovider--reside-)
+    + [Where will `SecretProvider` reside?](#where-will-secretprovider-reside)
       - [Go Services](#go-services)
       - [C Device Service](#c-device-service)
   * [Consequences](#consequences)
@@ -402,7 +402,7 @@ The C Device SDK will implement the same `SecretProvider` abstraction, InsecureS
 - App SDK will be modified to use `GetSecrets` API in place of the `GetDatabaseCredentials` API
 - App SDK will be modified to use the new `SecretProvider` bootstrap handler
 - app-service-configurable's configuration profiles as well as all the Application Service examples configurations will be updated to remove the `SecretStoreExclusive` configuration and just use the existing `SecretStore` configuration
-- security-secretstore-setup will be enhanced as described in the [Exclusive Secret Stores only](#exclusive-secret-stores-only) section above
+- security-secretstore-setup will be enhanced as described in the [Only Exclusive Secret Stores](#only-exclusive-secret-stores) section above
 - Adding new services that need static secrets added to their `SecretStore` requires stopping and restarting all the services. The is because security-secretstore-setup has completed but not stopped. If it is rerun without stopping the other services, there tokens and static secrets will have changed. The planned refactor of `security-secretstore-setup` will attempt to resolve this.
 - Snaps do not yet support setting the environment variable for adding SecretStore. It is planned for Ireland release.
 

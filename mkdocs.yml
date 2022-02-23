@@ -7,7 +7,7 @@ site_url: 'https://edgexfoundry.github.io/edgex-docs/'
 repo_url: 'https://github.com/edgexfoundry/edgex-go'
 repo_name: 'edgex/edgex-go'
 copyright: 'Copyright &copy; 2020 EdgeX Foundry'
-strict: true
+strict: false
 theme:
   name: 'material'
   logo: 'assets/logo_edgex_white.png'
@@ -15,7 +15,7 @@ theme:
   analytics:
     gtag: 'G-38531ZZHBN'
   features:
-    - tabs
+    - navigation.tabs
 nav:
   - Introduction:
     - 'index.md'
@@ -56,6 +56,7 @@ nav:
     - './security/Ch-CORS-Settings.md'
     - './security/Ch-SSH-Tunneling-HowToSecureDeviceServices.md'
     - './security/Ch-Docker-Swarm-SecuringDeviceServices.md'
+    - './threat-models/secret-store/README.md'
   - Microservices:
       - './microservices/general/index.md'
       - Configuration & Registry:
@@ -86,6 +87,7 @@ nav:
         - './microservices/device/sdk/Ch-DeviceSDK.md'
         - './microservices/device/virtual/Ch-VirtualDevice.md'
         - './microservices/device/V2Migration.md'
+        - './microservices/device/profile/Ch-DeviceProfileRef.md'
       - Application Services:
         - Introduction: './microservices/application/ApplicationServices.md'
         - Getting Started: './microservices/application/GettingStarted.md'
@@ -175,3 +177,11 @@ extra_css:
 - assets\stylesheets\links.css
 extra_javascript:
 - assets\javascripts\version-select.js
+plugins:
+  - search
+  ## uncomment the next lines to run the HTML Proofer in development to check for bad links
+  # - htmlproofer:
+  #     raise_error_excludes:
+  #       500: ['*']
+  #       404: ['https://support.google.com/accounts/answer/185833?hl=en']
+  #       404: ['https://support.google.com/accounts/answer/6010255?hl=en']

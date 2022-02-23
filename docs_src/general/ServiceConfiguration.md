@@ -27,7 +27,7 @@ Please refer to the general [Common Configuration documentation](../microservice
     |---|---|
     |app-service|[General Application Service Configuration](../microservices/application/GeneralAppServiceConfig.md)|
     |app-service-configurable|[Configurable Application Service Configuration](../microservices/application/AppServiceConfigurable.md#getting-started)|
-    |eKuiper rules engine/eKuiper|[Basic eKuiper Configuration](https://github.com/lf-edge/ekuiper/blob/master/docs/en_US/operation/configuration_file.md)|
+    |eKuiper rules engine/eKuiper|[Basic eKuiper Configuration](https://github.com/lf-edge/ekuiper/blob/7ef3a19366ee1f4537747fdc2e574389225f5d51/docs/en_US/operation/config/configuration_file.md)|
 === "Device"
     |Services Name|	Configuration Reference|
     |---|---|

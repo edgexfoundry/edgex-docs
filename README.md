@@ -15,7 +15,11 @@ In order to render and preview the site locally (without docker) you will need a
 `pip install mkdocs-material==5.1.0`
 3) Once you have all the pre-reqs installed. You can simply run `mkdocs serve` and view the rendered content locally and makes changes to your documentation and preview them in realtime with a browser open. 
 
+## Checking for broken links
+To check that all the links in the documentation set are valid, install the HTML proofer plugin
+`pip install mkdocs-htmlproofer-plugin`
 
+Then run `mkdocs build`.  Broken links will be listed at the end of the build process.
 
 ## "Publishing" your changes
 

@@ -171,12 +171,12 @@ sign-in security settings through one of the following two methods:
 1.  Enable 2-Step Verification and use an App Password (Recommended). An
     App password is a 16-digit passcode that gives an app or device
     permission to access your Google Account. For more detail about this
-    topic, please refer to this Google official document:
-    <https://support.google.com/accounts/answer/185833>.
+    topic, please refer to this 
+    [Google official document](https://support.google.com/accounts/answer/185833?hl=en).
 2.  Allow less secure apps: If the 2-Step Verification is not enabled,
     you may need to allow less secure apps to access the Gmail account.
-    Please see the instruction from this Google official document on
-    this topic: <https://support.google.com/accounts/answer/6010255>.
+    Please see the instruction from this 
+    [Google official document](https://support.google.com/accounts/answer/6010255?hl=en).
 
 Then, use the following settings for the mail server properties:
 

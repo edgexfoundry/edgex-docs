@@ -1,7 +1,7 @@
 # Adding EdgeX API Gateway Users Remotely
 
 !!! edgey "EdgeX 2.1"
-    Want to know what's new in EdgeX 2.1 (Jakarta)?  If you are already familiar with EdgeX, look for the EdgeX 2.1 emoji (`Edgey` - the EdgeX mascot) throughout the documentation - [like the one on this page](#the-ireland-release) outlining what's in the Ireland release.  These sections will give you a summary of what's new in each area of the documentation.
+    Want to know what's new in EdgeX 2.1 (Jakarta)?  If you are already familiar with EdgeX, look for the EdgeX 2.1 emoji (`Edgey` - the EdgeX mascot) throughout the documentation outlining what's new.  These sections will give you a summary of what's new in each area of the documentation.
 
 Starting in EdgeX Ireland, the API gateway administrative interface is exposed by the `/admin` sub-URL of the gateway.
 Using this interface, and a special admin-only JWT, it is possible to remotely add gateway users.
