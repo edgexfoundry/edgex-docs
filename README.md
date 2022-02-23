@@ -26,7 +26,6 @@ The `main` branch hosts the source files for the version that is under developme
 - `docs/CNAME` - DNS record which tells Github Pages to serve the content at https://docs.edgexfoundry.org instead of https://edgexfoundry.github.io/edgex-docs
 - `docs/index.html` - site index page that redirects from `/` to `/{latest-release}`
 - `docs/versions.json` - version info to populate the site version drop-down menu
-- `versions.json` - identical to `docs/versions.json`. Unknown purpose!
 
 The pipeline copies the files to separate directories inside [gh-pages] branch. 
 For example, when the dev version is 2.2:
