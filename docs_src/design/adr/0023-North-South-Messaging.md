@@ -109,8 +109,7 @@ In the example GET and PUT messages below, note the `envelope` wraps or encases 
     }
 }
 ```
-!!! Alert
-    Should we be validating the messages for version (V2 in this case)?  Do we validate incoming REST requests for the particular version of the APIs?
+
 
 The **response** message `payload` would contain the response from the south side, which is typically EdgeX event/reading objects (in the case of GET requests) but would also include any status code, error or service response details.
 
@@ -157,7 +156,14 @@ Example response messages for a GET and PUT request are shown below.  Again, not
 ```
 
 !!! Alert
-    Should API version be in the response at all?  Per @iain-anderson, would the API version be implied in that a V2 request would mean a V2 response?
+    Open discussions per working group meetings and reviews...
+
+    - Should we be validating the messages for version (V2 in this case)?  Per @lenny-intel, do we validate incoming REST requests for the particular version of the APIs?
+    - Should API version be in the response at all?  Per @iain-anderson, would the API version be implied in that a V2 request would mean a V2 response?
+    - Per core WG meeting discussion of 2/24/22 - do we really need the request id (is it redundant based on already having correlation id)?
+    - If we have request id, should it be in the payload?
+    - Per core WG meeting discussion of 2/24/22 - do we have status code?  If so should it mimic the REST/HTTP status code responses?  Do we really want to mimic HTTP in our message bus approach?  As suggested by @farshidtz, maybe we should just have an `error` boolean and then have the message indicate the error condition.  
+    - If we have a status code or error code, where does it belong?  In the payload or above it (as it would be in the header in REST)?  As a reference, the [IoTAAP MQTT to REST bridge](https://docs.iotaap.io/docs-rest/) provides a status code to message string translation as an example means to handle this problem.  Should we use something similar?
 
 ### Topic Naming
 
@@ -279,3 +285,4 @@ CommandResponseTopicPrefix = "edgex/command/response/"  # publishing outbound co
 ## References
 
 - [Core Command API](https://app.swaggerhub.com/apis/EdgeXFoundry1/core-command/2.1.0)
+- [IoTAAP MATT REST Bridge](https://docs.iotaap.io/docs-rest/)
