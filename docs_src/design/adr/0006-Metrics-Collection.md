@@ -2,7 +2,8 @@
 
 ## Status
 
-### Proposed
+**Proposed** 
+Original proposal 10/24/2020
 
 **Metric (or telemetry) data** is defined as the count or rate of some action, resource, or circumstance in the EdgeX instance or specific service.  Examples of metrics include:
 
@@ -26,7 +27,7 @@ This ADR outlines ** metrics (or telemetry) ** collection and handling.
 
 ## Context
 
-[System Management services](../../../microservices/system-management/Ch_SystemManagement.md) (SMA and executors) currently provide a limited set of “metrics” to requesting clients (3rd party applications and systems external to EdgeX).  Namely, it provides requesting clients with service CPU and memory usage; both metrics about the resource utilization of the service (the executable) itself versus metrics that are about what is happening inside of the service.  Arguably, the current system management metrics can be provided by the container engine and orchestration tools (example: by Docker engine) or by the underlying OS tooling.
+[System Management services](../../microservices/system-management/Ch_SystemManagement.md) (SMA and executors) currently provide a limited set of “metrics” to requesting clients (3rd party applications and systems external to EdgeX).  Namely, it provides requesting clients with service CPU and memory usage; both metrics about the resource utilization of the service (the executable) itself versus metrics that are about what is happening inside of the service.  Arguably, the current system management metrics can be provided by the container engine and orchestration tools (example: by Docker engine) or by the underlying OS tooling.
 
 !!! Info
     The SMA has been deprecated (since Ireland release) and will be removed in a future, yet named, release.
@@ -223,14 +224,13 @@ These metrics configuration options will be defined in the `Writable` area of `c
 !!! Info
     It was discussed that in future EdgeX releases, services may want separate message bus connections.  For example one for sensor data and one for metrics telemetry data.  This would allow the QoS and other settings of the message bus connection to be different. This would allow sensor data collection, for example, to be messaged with a higher QoS than that of metrics.  As an alternate approach, we could modify go-mod-messaging to allow setting QoS per topic (and thereby avoid multiple connections).  For the initial release of this feature, the service will use the same connection (and therefore configuration) for metrics telemetry as well as sensor data.  
 
-
 #### Library Support
 
 Each service will now need go-mod-messaging support (for GoLang services and the equivalent for C services).  Each service would determine when and what metrics to collect and push to the message bus, but will use a common library chosen for each EdgeX language supported (Go or C currently)
 
 Use of [go-metrics](https://github.com/rcrowley/go-metrics) (a GoLang library to publish application metrics) would allow EdgeX to utilize (versus construct) a library utilized by over 7 thousand projects.  It provides the means to capture various types of metrics in a registry (a sophisticated map).  The metrics can then be published (`reported`) to a number of well known systems such as InfluxDB, Graphite, DataDog, and Syslog.  go-metrics is a Go library made from original Java package https://github.com/dropwizard/metrics.
 
-A similar package would need to be selected for C.
+A similar package would need to be selected (or created) for C.  Per the Core WG meeting of 2/24/22 - it is important to provide an implementation that is the same in Go or C.  The adopter of EdgeX should not see a difference in whether the metrics/telemetry is collected by a C or Go service.  Configuration of metrics in a C or Go service should have the same structure.  The C based metrics collection mechanism in C services (specifically as provided for in our C device service SDK) may operate differently "under the covers" but its configuration and resulting metrics messages on the EdgeX message bus must be formatted/organized the same.
 
 ** Considerations in the use of go-metrics **
 
@@ -239,7 +239,6 @@ A similar package would need to be selected for C.
 - go-metrics would also require the EdgeX team to develop the means to periodically extract the metrics data from the registry and ship it via message bus (something the current go-metrics library does not do).
 - While go-metrics offers the ability for data to be reported to other systems, it would required EdgeX to expose these capabilities (possibly through APIs) if a user wanted to export to these subsystems in addition to the message bus.
 - Per the Kamakura Planning Meeting, it was noted that go-metrics is already a dependency in our Go code due to its use other 3rd party packages (see https://github.com/edgexfoundry/edgex-go/blob/4264632f3ddafb0cbc2089cffbea8c0719035c96/go.sum#L18).
-
 
 ** Community questions about go-metrics **
 Per the Monthly Architect's meeting of 9/20/21):
@@ -270,6 +269,13 @@ As an alternative to go-metrics, there is another library called [OpenCensus](ht
 - Use of go-metrics helps avoid too much service bloat since it is already in most Go services.
 - Per the same Monthly Architect's meeting, it as decided to implement metrics in Go services first.
 - Per the Monthly Architect's meeting of 1/24/22 - it was decided not to support a REST API on all services that would provide information on what metrics the service provides and the ability to turn them on / off.  Instead, the decision was to use `Writable` configuration and allow Consul to be the means to change the configuration (dynamically).  If an adopter chooses not to use Consul, then the configuration with regard to metrics collection, as with all configuration in this circumstance, would be static.  If an external API need is requested in the future (such as from an external UI or tool), a REST API may be added.  See older versions of this PR for ideas on implementation in this case.
+- Per Core Working Group meeting of 2/24/22 (and in many other previous meetings on this ADR) - it was decided that the EdgeX approach should be one of push (via message bus/MQTT) vs. pull (REST API). Both approaches require each service to collect metric telemetry specific to that service.  After collecting it, the service must either *push* it onto a message topic (as a message) or cache it (into memory or some storage mechanism depending on whether the storage needs to be durable or not) and allow for a REST API call that would cause the data to be *pulled* from that cache and provided in a response to the REST call.  Given both mechanisms require the same collection process, the belief is that *push* is probably preferred today by adopters.  In the future, if highly desired, a *pull* REST API could be added (along with a decision on how to cache the metrics telemetry for that pull). 
+- Per Core Working Group meeting of 2/24/22 - **importantly**, EdgeX is just making the metrics telemetry available on the internal EdgeX message bus.  An adopter would need to create something to pull the data off this bus to use it in some way.  As voiced by several on the call, it is important for the adopter to realize that today, "we (EdgeX) are not providing the last mile in metrics data".  The adopter must provide that last mile which is to pick the data from the topic, make it available to their systems and do something with it.
+- Per Core Working Group meeting of 2/24/22 (and in many other previous meetings on this ADR) - it was decided not to use Prometheus (or Prometheus library) as the means to provide for metrics.  The reasons for this are many:
+    - Push vs pull is favored in the first implementation (see point above).  Also see [similar debate online](https://thenewstack.io/exploring-prometheus-use-cases-brian-brazil) for the pluses/minuses of each approach.
+    - EdgeX wants to make telemetry data available without dictating the specific mechanism for making the data more widely available.  Specific debate centered on use of Prometheus as a popular collection library (to use inside of services to collect the data) as well as a monitoring system to watch/display the data.  While Prometheus is popular open source approach, it was felt that many organizations choose to use InfluxDB/Grafana, DataDog, AppDynamics, a cloud provided mechanism, or their own home-grown solution to collect, analyse, visualize and otherwise use the telemetry.  Therefore, rather than dictating the selection of the monitoring system, EdgeX would simply make the data available whereby and organization could choose their own monitoring system/tooling.  It should be noted that the EdgeX approach merely makes the telemetry data available by message bus.  A Prometheus approach would provide collection as well as backend system to otherwise collect, analyse, display, etc. the data.  Therefore, there is typically work to be done by the adopter to get the telemetry data from the proposed EdgeX message bus solution and do something with it.
+    - There are some `reporters` that come with go-metrics that allow for data to be taken directly from go-metrics and pushed to an intermediary for Prometheus and other monitoring/telemetry platforms as referenced above.  These capabilities may not be very well supported and is beyond the scope of this EdgeX ADR.  However, even without `reporters`, it was felt a relatively straightforward exercise (on the part of the adopter) to create an application that listens to the EdgeX metrics message bus and makes that data available via *pull* REST API for Prometheus if desired.
+    - The Prometheus client libraries would have to be added to each service which would bloat the services (although they are available for both Go an C).  The benefit of using go-metrics is that it is used already by Hashicorp Consul (so already in the Go services).
 
 ### Implementation Details for Go
 The go-metrics package offers the following types of metrics collection:
