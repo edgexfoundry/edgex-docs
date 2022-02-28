@@ -155,6 +155,9 @@ Example response messages for a GET and PUT request are shown below.  Again, not
 
 ```
 
+!!! Note
+        Get command responses may include CBOR data.  The CBOR binary object would be enclosed in the payload.
+
 !!! Alert
     Open discussions per working group meetings and reviews...
 
@@ -222,15 +225,16 @@ Example command service configuration is provided below.
     AuthMode = "usernamepassword"                   # required for redis messagebus (secure or insecure).
     SecretName = "redisdb"
     [ExternalMessageQueue]
-    Protocol = "redis"
+    Protocol = "tcp"
     Host = "localhost"
     Port = 6378
-    Type = "redis"
+    Type = "mqtt"
     RequestTopic = "my-app/command/request/#"           # for subscribing to 3rd party command requests
     ResponseTopicPrefix = "my-app/command/response/"    # for publishing responses back to 3rd party systems /<device-name>/<command-name>/<method> will be added to this publish topic prefix
-    AuthMode = "usernamepassword"                       # required for redis messagebus (secure or insecure).
-    SecretName = "redisdb"
 ```
+
+!!! Note
+        Core command contains no MessageQueue configuration today.  This is all additive/new configuration and therefore backward compatible with EdgeX 2.x implementations.
 
 #### device service configuration
 
@@ -238,15 +242,33 @@ Example device service configuration is provided below.
 
 ``` toml
 [MessageQueue]
+## already existing message queue configuration (for sending events/readings to the message bus)
 Protocol = "redis"
 Host = "localhost"
 Port = 6379
 Type = "redis"
 AuthMode = "usernamepassword"                           # required for redis messagebus (secure or insecure).
 SecretName = "redisdb"
+PublishTopicPrefix = "edgex/events/device" # /<device-profile-name>/<device-name>/<source-name> will be added to this Publish Topic prefix
+  [MessageQueue.Optional]
+  # Default MQTT Specific options that need to be here to enable environment variable overrides of them
+  # Client Identifiers
+  ClientId = "device-rest"
+  # Connection information
+  Qos = "0" # Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)
+  KeepAlive = "10" # Seconds (must be 2 or greater)
+  Retained = "false"
+  AutoReconnect = "true"
+  ConnectTimeout = "5" # Seconds
+  SkipCertVerify = "false" # Only used if Cert/Key file or Cert/Key PEMblock are specified
+
+## new configuration to allow device services to also communicate via message bus with core command
 CommandRequestTopic = "edgex/command/request/#"         # subscribing for inbound command requests
 CommandResponseTopicPrefix = "edgex/command/response/"  # publishing outbound command responses; <device-service>/<device-name>/<command-name>/<method> will be added to this publish topic prefix
 ```
+
+!!! Note
+        Most of the device service configuration is existing based on its need to already communicate with the message bus for publishing events/readings.  The last two lines are added to allow device services to subscribe and publish command messages from/to the message bus.
 
 ## Questions
 
@@ -272,10 +294,13 @@ CommandResponseTopicPrefix = "edgex/command/response/"  # publishing outbound co
 - Would sending/receiving binary data (e.g. CBOR) be supported in this north-south message implementation?
     
     - Ans:  today, command service and device services support CBOR get operations but not set (C SDK suppports both).  [Suggest getting feature parity](https://github.com/edgexfoundry/device-sdk-go/issues/488) in place between the SDKs before exploring CBOR support messaging binary/CBOR payloads.
+    - Ans update per Monthly Architect's meeting of 2/28/22: support get with CBOR payload.
 
 - Use of the message bus communications (by the non-EdgeX 3rd party service or application) would bypass the API Gateway.
 
     - Ans:  not an issue since the command service is serving as external to internal message bus broker.
+
+- Note a number of open questions in the Message Structure section that still need to be addressed.
 
 !!! INFO
         This ADR does not handle securing the message bus communications between services.  This need is to be covered universally in an upcoming ADR.
