@@ -2,8 +2,9 @@
 
 ## Status
 
-**Proposed** 
+**Approved** 
 Original proposal 10/24/2020
+Approved by the TSC on 3/2/22
 
 **Metric (or telemetry) data** is defined as the count or rate of some action, resource, or circumstance in the EdgeX instance or specific service.  Examples of metrics include:
 
