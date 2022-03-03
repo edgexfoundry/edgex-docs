@@ -210,22 +210,22 @@ Follow these steps to create a pre-defined device for the simple random number g
 
 ### Validating your Device
 
-Go Device Services provide `/api/v2/validate` API to validate device's ProtocolProperties.  
+Go Device Services provide `/api/v2/validate/device` API to validate device's ProtocolProperties.  
 This feature allows Device Services whose protocol has strict rule to validate their devices before adding them into EdgeX.
 
-Go SDK provides `ProtocolValidator` interface:
+Go SDK provides `DeviceValidator` interface:
 ```go
-// ProtocolValidator is a low-level device-specific interface implemented
+// DeviceValidator is a low-level device-specific interface implemented
 // by device services that validate device's protocol properties.
-type ProtocolValidator interface {
-    // Validate triggers device's protocol properties validation, returns error
+type DeviceValidator interface {
+    // ValidateDevice triggers device's protocol properties validation, returns error
     // if validation failed and the incoming device will not be added into EdgeX.
-    Validate(protocols map[string]models.ProtocolProperties) error
+    ValidateDevice(device models.Device) error
 }
 ```
 
-By implementing `ProtocolValidator` interface whenever a device is added or updated,
-`Validate` function will be called to validate incoming device's ProtocolProperties and reject
+By implementing `DeviceValidator` interface whenever a device is added or updated,
+`ValidateDevice` function will be called to validate incoming device's ProtocolProperties and reject
 the request if validation failed.
 
 ## Configuring your Device Service
