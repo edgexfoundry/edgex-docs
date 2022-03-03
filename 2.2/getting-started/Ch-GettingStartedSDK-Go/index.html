@@ -2881,19 +2881,19 @@ EdgeX. General characteristics about the type of device, the data these devices 
 </li>
 </ol>
 <h3 id="validating-your-device">Validating your Device</h3>
-<p>Go Device Services provide <code>/api/v2/validate</code> API to validate device's ProtocolProperties.<br />
+<p>Go Device Services provide <code>/api/v2/validate/device</code> API to validate device's ProtocolProperties.<br />
 This feature allows Device Services whose protocol has strict rule to validate their devices before adding them into EdgeX.</p>
-<p>Go SDK provides <code>ProtocolValidator</code> interface:
-<div class="highlight"><pre><span></span><code><span class="c1">// ProtocolValidator is a low-level device-specific interface implemented</span><span class="w"></span>
+<p>Go SDK provides <code>DeviceValidator</code> interface:
+<div class="highlight"><pre><span></span><code><span class="c1">// DeviceValidator is a low-level device-specific interface implemented</span><span class="w"></span>
 <span class="c1">// by device services that validate device&#39;s protocol properties.</span><span class="w"></span>
-<span class="kd">type</span><span class="w"> </span><span class="nx">ProtocolValidator</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// Validate triggers device&#39;s protocol properties validation, returns error</span><span class="w"></span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">DeviceValidator</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// ValidateDevice triggers device&#39;s protocol properties validation, returns error</span><span class="w"></span>
 <span class="w">    </span><span class="c1">// if validation failed and the incoming device will not be added into EdgeX.</span><span class="w"></span>
-<span class="w">    </span><span class="nx">Validate</span><span class="p">(</span><span class="nx">protocols</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">models</span><span class="p">.</span><span class="nx">ProtocolProperties</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
+<span class="w">    </span><span class="nx">ValidateDevice</span><span class="p">(</span><span class="nx">device</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">Device</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div></p>
-<p>By implementing <code>ProtocolValidator</code> interface whenever a device is added or updated,
-<code>Validate</code> function will be called to validate incoming device's ProtocolProperties and reject
+<p>By implementing <code>DeviceValidator</code> interface whenever a device is added or updated,
+<code>ValidateDevice</code> function will be called to validate incoming device's ProtocolProperties and reject
 the request if validation failed.</p>
 <h2 id="configuring-your-device-service">Configuring your Device Service</h2>
 <p>Now update the configuration for the new device service.    This documentation provides a new configuration.toml file.  This configuration file:</p>
