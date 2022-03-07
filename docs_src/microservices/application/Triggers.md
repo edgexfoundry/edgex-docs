@@ -190,7 +190,19 @@ An External MQTT trigger will execute the pipeline every time data is received f
 Here's an example:
 ```toml
 [Trigger]
-Type="external-mqtt" 
+Type="external-mqtt"
+  [Trigger.externalmqtt]
+  Url = "tls://test.mosquitto.org:8884"
+  SubscribeTopics="edgex/#"
+  ClientId ="app-external-mqtt-trigger"
+  Qos            = 0
+  KeepAlive      = 10
+  Retained       = false
+  AutoReconnect  = true
+  ConnectTimeout = "30s"
+  SkipCertVerify = true
+  AuthMode = "clientcert"
+  SecretPath = "external-mqtt"
 ```
 
 
@@ -198,6 +210,11 @@ Type="external-mqtt"
     For EdgeX 2.0 the `SubscribeTopic` has been renamed to `SubscribeTopics` and moved under the `ExternalMqtt` section. The `PublishTopic` has also been moved under the `ExternalMqtt` section.
 
 The `Type=` is set to `external-mqtt`. To receive data from the external MQTT Broker you must set your `SubscribeTopics=` to the appropriate topic(s) that the external publisher is using. You may also designate a `PublishTopic=` if you wish to publish data back to the external MQTT Broker. The Context function `ctx.SetResponseData([]byte outputData)` stores the data to send back to the external MQTT Broker on the topic specified by the `PublishTopic=` setting.
+
+
+!!! edgey "Edgex 2.2"
+    Prior to EdgeX 2.2 if `AuthMode` is set to `usernamepassword`, `clientcert`, or `cacert` and App Service will be run in secure mode, the required credentials must be stored to Secret Store via [Vault CLI, REST API, or WEB UI](https://docs.edgexfoundry.org/2.2/security/Ch-SecretStore/#using-the-secret-store) before starting App Service. Otherwise App Service will fail to initialize the External MQTT Trigger and then shutdown because the required credentials do not exist in the Secret Store at the time service starts. Today, you can start App Service and store the required credentials using the [App Service API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/app-functions-sdk/2.2.0#/default/post_secret) afterwards. If the credentials found in Secret Store cannot satisfy App Service, once the secret creation API is called the App Service will try to fetch credentials again. 
+
 
 ### External MQTT Broker Configuration
 The other piece of configuration required are the MQTT Broker connection settings:
