@@ -2913,13 +2913,29 @@ edgex/events/device/&lt;profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;
 <h3 id="type-configuration_1">Type Configuration</h3>
 <p>Here's an example:
 <div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span><span class="w"></span>
-<span class="n">Type</span><span class="o">=</span><span class="s">&quot;external-mqtt&quot;</span><span class="w"> </span>
+<span class="n">Type</span><span class="o">=</span><span class="s">&quot;external-mqtt&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="k">[Trigger.externalmqtt]</span><span class="w"></span>
+<span class="w">  </span><span class="n">Url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tls://test.mosquitto.org:8884&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/#&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;app-external-mqtt-trigger&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="n">Qos</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w">  </span><span class="n">KeepAlive</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="w"></span>
+<span class="w">  </span><span class="n">Retained</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="w">  </span><span class="n">AutoReconnect</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">  </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30s&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="n">SkipCertVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">  </span><span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;clientcert&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="n">SecretPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;external-mqtt&quot;</span><span class="w"></span>
 </code></pre></div></p>
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 2.0</p>
 <p>For EdgeX 2.0 the <code>SubscribeTopic</code> has been renamed to <code>SubscribeTopics</code> and moved under the <code>ExternalMqtt</code> section. The <code>PublishTopic</code> has also been moved under the <code>ExternalMqtt</code> section.</p>
 </div>
 <p>The <code>Type=</code> is set to <code>external-mqtt</code>. To receive data from the external MQTT Broker you must set your <code>SubscribeTopics=</code> to the appropriate topic(s) that the external publisher is using. You may also designate a <code>PublishTopic=</code> if you wish to publish data back to the external MQTT Broker. The Context function <code>ctx.SetResponseData([]byte outputData)</code> stores the data to send back to the external MQTT Broker on the topic specified by the <code>PublishTopic=</code> setting.</p>
+<div class="admonition edgey">
+<p class="admonition-title">Edgex 2.2</p>
+<p>Prior to EdgeX 2.2 if <code>AuthMode</code> is set to <code>usernamepassword</code>, <code>clientcert</code>, or <code>cacert</code> and App Service will be run in secure mode, the required credentials must be stored to Secret Store via <a href="https://docs.edgexfoundry.org/2.2/security/Ch-SecretStore/#using-the-secret-store">Vault CLI, REST API, or WEB UI</a> before starting App Service. Otherwise App Service will fail to initialize the External MQTT Trigger and then shutdown because the required credentials do not exist in the Secret Store at the time service starts. Today, you can start App Service and store the required credentials using the <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/app-functions-sdk/2.2.0#/default/post_secret">App Service API</a> afterwards. If the credentials found in Secret Store cannot satisfy App Service, once the secret creation API is called the App Service will try to fetch credentials again. </p>
+</div>
 <h3 id="external-mqtt-broker-configuration">External MQTT Broker Configuration</h3>
 <p>The other piece of configuration required are the MQTT Broker connection settings:
 <div class="highlight"><pre><span></span><code><span class="k">[Trigger.ExternalMqtt]</span><span class="w"></span>
