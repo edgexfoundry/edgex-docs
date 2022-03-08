@@ -1818,6 +1818,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#registercustomstorefactory" class="md-nav__link">
+    RegisterCustomStoreFactory
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3087,6 +3094,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#registercustomstorefactory" class="md-nav__link">
+    RegisterCustomStoreFactory
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3158,6 +3172,7 @@
 <span class="w">    </span><span class="nx">AddRoute</span><span class="p">(</span><span class="nx">route</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">),</span><span class="w"> </span><span class="nx">methods</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
 <span class="w">    </span><span class="nx">RequestTimeout</span><span class="p">()</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="w"></span>
 <span class="w">    </span><span class="nx">RegisterCustomTriggerFactory</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">factory</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">TriggerConfig</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">Trigger</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">))</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
+<span class="w">    </span><span class="nx">RegisterCustomStoreFactory</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">factory</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">cfg</span><span class="w"> </span><span class="nx">DatabaseInfo</span><span class="p">,</span><span class="w"> </span><span class="nx">cred</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">Credentials</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">StoreClient</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">))</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <h2 id="factory-functions">Factory Functions</h2>
@@ -3556,6 +3571,9 @@ See the <a href="https://github.com/edgexfoundry/go-mod-registry/blob/v2.0.0/reg
 <h3 id="registercustomtriggerfactory">RegisterCustomTriggerFactory</h3>
 <p><code>RegisterCustomTriggerFactory(name string, factory func(TriggerConfig) (Trigger, error)) error</code></p>
 <p>This API registers a trigger factory for a custom trigger to be used. See the <a href="../Triggers/#custom-triggers">Custom Triggers</a> section for more details and example.</p>
+<h3 id="registercustomstorefactory">RegisterCustomStoreFactory</h3>
+<p><code>RegisterCustomStoreFactory(name string, factory func(cfg DatabaseInfo, cred config.Credentials) (StoreClient, error)) error</code></p>
+<p>This API registers a factory to construct a custom store client for the <a href="../AdvancedTopics/#store-and-forward">store &amp; forward</a> loop.</p>
                 
               
               

@@ -1666,6 +1666,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#custom-storage" class="md-nav__link">
+    Custom Storage
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2769,6 +2776,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#custom-storage" class="md-nav__link">
+    Custom Storage
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3074,6 +3088,59 @@ You can access the <code>interfaces.ApplicationService</code> API for resources 
 <p class="admonition-title">Note</p>
 <p>Changing Writable.Pipeline.ExecutionOrder will invalidate all currently stored data and result in it all being removed from the database on the next retry. This is because the position of the <em>export</em> function can no longer be guaranteed and no way to ensure it is properly executed on the retry.</p>
 </div>
+<h4 id="custom-storage">Custom Storage</h4>
+<p>The default backing store is redis.  Custom implementations of the <code>StoreClient</code> interface can be provided if redis does not meet your requirements.</p>
+<p><div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">StoreClient</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Store persists a stored object to the data store and returns the assigned UUID.</span><span class="w"></span>
+<span class="w">    </span><span class="nx">Store</span><span class="p">(</span><span class="nx">o</span><span class="w"> </span><span class="nx">StoredObject</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// RetrieveFromStore gets an object from the data store.</span><span class="w"></span>
+<span class="w">    </span><span class="nx">RetrieveFromStore</span><span class="p">(</span><span class="nx">appServiceKey</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">objects</span><span class="w"> </span><span class="p">[]</span><span class="nx">StoredObject</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Update replaces the data currently in the store with the provided data.</span><span class="w"></span>
+<span class="w">    </span><span class="nx">Update</span><span class="p">(</span><span class="nx">o</span><span class="w"> </span><span class="nx">StoredObject</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// RemoveFromStore removes an object from the data store.</span><span class="w"></span>
+<span class="w">    </span><span class="nx">RemoveFromStore</span><span class="p">(</span><span class="nx">o</span><span class="w"> </span><span class="nx">StoredObject</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Disconnect ends the connection.</span><span class="w"></span>
+<span class="w">    </span><span class="nx">Disconnect</span><span class="p">()</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+A factory function to create these clients can then be registered with your service by calling <a href="../ApplicationServiceAPI/#registercustomstorefactory">RegisterCustomStoreFactory</a></p>
+<div class="highlight"><pre><span></span><code><span class="nx">service</span><span class="p">.</span><span class="nx">RegisterCustomStoreFactory</span><span class="p">(</span><span class="s">&quot;jetstream&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">cfg</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">DatabaseInfo</span><span class="p">,</span><span class="w"> </span><span class="nx">cred</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">Credentials</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">StoreClient</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">conn</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">nats</span><span class="p">.</span><span class="nx">Connect</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;nats://%s:%d&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">cfg</span><span class="p">.</span><span class="nx">Host</span><span class="p">,</span><span class="w"> </span><span class="nx">cfg</span><span class="p">.</span><span class="nx">Port</span><span class="p">))</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="nx">js</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">conn</span><span class="p">.</span><span class="nx">JetStream</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="nx">kv</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">KeyValue</span><span class="p">(</span><span class="nx">serviceKey</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">kv</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">CreateKeyValue</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">nats</span><span class="p">.</span><span class="nx">KeyValueConfig</span><span class="p">{</span><span class="nx">Bucket</span><span class="p">:</span><span class="w"> </span><span class="nx">serviceKey</span><span class="p">})</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">JetstreamStore</span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">conn</span><span class="p">:</span><span class="w">       </span><span class="nx">conn</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nx">serviceKey</span><span class="p">:</span><span class="w"> </span><span class="nx">serviceKey</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nx">kv</span><span class="p">:</span><span class="w">         </span><span class="nx">kv</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"> </span><span class="nx">err</span><span class="w"></span>
+<span class="p">})</span><span class="w"></span>
+</code></pre></div>
+<p>and configured using the registered name in the <code>Database</code> section:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[Database]</span><span class="w"></span>
+<span class="w">    </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;jetstream&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;broker&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4222</span><span class="w"></span>
+<span class="w">    </span><span class="n">Timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5s&quot;</span><span class="w"></span>
+</code></pre></div>
 <h3 id="secrets">Secrets</h3>
 <h4 id="configuration_1">Configuration</h4>
 <p>All instances of App Services running in secure mode require a SecretStore to be configured. With the use of <code>Redis Pub/Sub</code> as the default EdgeX MessageBus all App Services need the <code>redisdb</code> known secret added to their SecretStore      so they can connect to the Secure EdgeX MessageBus. See the <a href="../../../security/Ch-Secure-MessageBus/">Secure MessageBus</a> documentation for more details.</p>
