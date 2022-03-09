@@ -1905,6 +1905,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#change-the-owner-of-the-device" class="md-nav__link">
+    Change the Owner of the Device
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mont-the-device-path-to-the-docker-container" class="md-nav__link">
+    Mont the Device Path to the Docker Container
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#deploy-the-edgex" class="md-nav__link">
     Deploy the EdgeX
   </a>
@@ -2810,6 +2824,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#change-the-owner-of-the-device" class="md-nav__link">
+    Change the Owner of the Device
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mont-the-device-path-to-the-docker-container" class="md-nav__link">
+    Mont the Device Path to the Docker Container
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#deploy-the-edgex" class="md-nav__link">
     Deploy the EdgeX
   </a>
@@ -3435,27 +3463,54 @@ that the service auto-executes the command every 30 seconds.</p>
 </code></pre></div></p>
 </li>
 </ol>
-<h3 id="deploy-the-edgex">Deploy the EdgeX</h3>
+<h3 id="change-the-owner-of-the-device">Change the Owner of the Device</h3>
+<p>For security reason, the EdgeX set up the user permission as below:
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">device-modbus</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">user</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2002:2001</span><span class="w">  </span><span class="c1"># UID:GID</span><span class="w"></span>
+</code></pre></div>
+So we need to change the owner for the specified group by the following command:
+<div class="highlight"><pre><span></span><code>sudo chown :2001 /dev/ttyUSB0
+
+<span class="c1"># Or change the permissions for multiple files</span>
+sudo chown :2001 /dev/tty*
+</code></pre></div></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Since the owner will reset after the system reboot, we can add this script to the startup script. For Raspberry Pi as example, add script to <code>/etc/rc.local</code>, then the Pi will run this script at bootup.</p>
+</div>
+<h3 id="mont-the-device-path-to-the-docker-container">Mont the Device Path to the Docker Container</h3>
+<p>Modify the docker-compose.yml file to mount the device path to the device-modbus, and here are two ways to mount the device path:</p>
 <ol>
-<li>Modify the docker-compose.yml file to mount the device path to the device-modbus:<ol>
-<li>Change the permission of the device path
-<div class="highlight"><pre><span></span><code>sudo chmod 777 /dev/ttyUSB0
-</code></pre></div></li>
-<li>Open <code>docker-compose.yml</code> file with text editor.
-<div class="highlight"><pre><span></span><code>$ nano /docker-compose.yml
-</code></pre></div></li>
-<li>Modify the device-modbus section and save the file
-<div class="highlight"><pre><span></span><code>device-modbus:
-   ...
-   devices:
-     - /dev/ttyUSB0
-</code></pre></div></li>
-</ol>
+<li>
+<p>Using <code>devices</code>:
+    <div class="highlight"><pre><span></span><code><span class="nt">device-modbus</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">devices</span><span class="p p-Indicator">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/ttyUSB0</span><span class="w"></span>
+</code></pre></div></p>
 </li>
-<li>Deploy the EdgeX
-   <div class="highlight"><pre><span></span><code>$ docker-compose up -d
-</code></pre></div></li>
+<li>
+<p>Or using <code>volumes</code> and <code>device_cgroup_rules</code>:
+    <div class="highlight"><pre><span></span><code><span class="nt">device-modbus</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">volumes</span><span class="p p-Indicator">:</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- /dev:/dev</span><span class="w"></span>
+<span class="w">  </span><span class="nt">device_cgroup_rules</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;c</span><span class="nv"> </span><span class="s">188:*</span><span class="nv"> </span><span class="s">rw&#39;</span><span class="w"> </span>
+</code></pre></div></p>
+<ul>
+<li>c: character device</li>
+<li>188: device major number(188=USB)</li>
+<li>*: device minor number</li>
+<li>rw: read/write</li>
+</ul>
+</li>
 </ol>
+<h3 id="deploy-the-edgex">Deploy the EdgeX</h3>
+<div class="highlight"><pre><span></span><code>$ docker-compose up -d
+</code></pre></div>
 <h3 id="add-device-to-edgex">Add device to EdgeX</h3>
 <ol>
 <li>Create the device profile according to the register table
