@@ -7,19 +7,23 @@
 
 ## Context and Proposed Design
 
-Today, data flowing from sensors/devices (the “southside”) through EdgeX to enterprise applications, databases and cloud-based systems (the “northside”) can be accomplished via REST or Message bus.  That is, sensor or device data collected by a device service can be sent via REST or message bus to core data.  Core data then relays the data to application services via message bus, but the sensor data can also be sent directly from device services to application services via message bus (by passing core data).  The message bus is implemented via Redis Pub/Sub (default) or via MQTT.  From the application services, data can be sent to northside endpoints in any number of ways – including via MQTT.
+Today, data flowing from sensors/devices (the “southside”) through EdgeX to enterprise applications, databases and cloud-based systems (the “northside”) can be accomplished via REST or Message bus.  That is, sensor or device data collected by a device service can be sent via REST or message bus to core data.  Core data then relays the data to application services via message bus, but the sensor data can also be sent directly from device services to application services via message bus (bypassing core data).  The message bus is implemented via Redis Pub/Sub (default) or via MQTT.  From the application services, data can be sent to northside endpoints in any number of ways – including via MQTT.
 
 So, in summary, data can be collected from a sensor or device and be sent from the southside to the northside entirely using message bus technology when desired.
 
 !!! Note
     The message bus may also be implemented in Zero MQ but with some limitations.  As Zero MQ is being deprecated in EdgeX, it will not be considered further in this ADR.
 
-Today, communications from a 3rd party system (enterprise application, cloud application, etc.) to EdgeX in order to acuate a device or get the latest information from a sensor is accomplished via REST.  The 3rd party system makes a REST call of the command service which then relays a request to a device service also using REST.  There is no built in means to make a message-based request of EdgeX or the devices/sensors it manages.
+Today, communications from a 3rd party system (enterprise application, cloud application, etc.) to EdgeX in order to acuate a device or get the latest information from a sensor is accomplished via REST.  The 3rd party system makes a REST call of the command service which then relays a request to a device service also using REST.  There is no built in means to make a message-based request of EdgeX or the devices/sensors it manages.  Note, these REST calls are optionally made via the API Gateway in order to provide access control.
 
 In a future release of EdgeX, there is a desire to allow 3rd party systems to make requests of the southside via message bus.  Specifically, a 3rd party system will send a command request via message to the command service via the allowed message bus implementations (which could be MQTT or Redis Pub/Sub today).  The command service would then relay the message request via message bus to the managing device service.  (The command service would also perform any translations on the request as it does for REST requests today.) The device service would use the message to trigger action on the device/sensor as it does when it receives a REST request today and respond via message bus back to the command service.  In turn, the command service would respond to the 3rd party system via message bus.
 
+In summary, this ADR proposes that the core command service implement an external MQTT connection (in the same manner that app services provide an external MQTT connection).  Thus, core command will act as a bridge between internal message bus (implemented via either MQTT or Redis Pub/Sub) and external systems (via MQTT message bus.
+
+![image](command-message-bridge.png)
+
 !!! Note
-    For the purposes of this initial north-to-south message bus communications, external 3rd party communications to the command service will be limited to use of MQTT.  MQTT is more commonly adopted and in order for a 3rd party to use the EdgeX Redis Pub/Sub message bus, they would need access to the EdgeX internal message bus or spin up their own external instance of Redis Pub/Sub.  So for the purpose of this initial north-south messaging implementation, **only MQTT will be used by external 3rd party systems to communicate with EdgeX services.**  Future implementations can explore use of alternate message bus technology such as Redis Pub/Sub.
+    For the purposes of this initial north-to-south message bus communications, external 3rd party communications to the command service will be **limited to use of MQTT**.
 
 ### Core Command as Message Bus Bridge
 
@@ -44,9 +48,58 @@ In a similar fashion, device services will need to both subscribe and publish to
 
 The command service will also need to subscribe to 3rd party MQTT topics (**external message bus**) in order to get command requests from the 3rd party system.  The command service will then relay command requests on to the appropriate device service via the internal message bus (forming the message bus to message bus bridge).  Likewise, the command service will accept responses from the device services on the EdgeX message bus (**internal message bus**) and then publish responses to the 3rd party system via the 3rd party MQTT topics (**external message bus**).
 
+### Command Queries via Command Service
+Today, 3rd party systems can make a REST call of core command to get the possible commands that can be executed.  There are two query REST API endpoints:  /device/all (to get the commands for all devices) and device/name/{name} (to get the commands for a specific device by name).
+
+It stands to reason that if a 3rd party system wants to send commands via messaging that they would also want to get an understanding of what commands are available via messaging.  For this reason, the core command service will also allow message requests to get all command or get all commands for a particular device name.  In other words, the core command service must support command "queries" via messaging just as it supports command requests via messaging.
+
+In the case of a command query, the REST queries would return REST endpoints to call in which to make the query.  For example, the REST query would return core command paths and urls and parameters to use to make REST command requests (as shown in the example below).
+
+``` JSON
+ "coreCommands": [
+        {
+          "name": "coolingpoint1",
+          "get": true,
+          "path": "/api/v2/device/name/testDevice1/command/coolingpoint1",
+          "url": "http://localhost:59882",
+          "parameters": [
+            {
+              "resourceName": "resource1",
+              "valueType": "Int32"
+            }
+          ]
+        }
+ ]
+```
+
+When using messaging to make the "queries" the response message must return information about how to pass a message to the appropriate topic to make the command request.  Therefore, the query response when using messaging might include something like the following:
+
+``` JSON
+ "coreCommands": [
+        {
+          "name": "coolingpoint1",
+          "get": true,
+          "topic": "/my-app/command/request/testDevice1/coolingpoint1/set",
+          "url": "broker.address:1883",
+          "parameters": [
+            {
+              "resourceName": "resource2",
+              "valueType": "Int16"
+            },
+            {
+              "resourceName": "resource3",
+              "valueType": "Int32"
+            }          ]
+        }
+ ]
+```
+
+!!! Note
+        If desired, the query commands could return information to make *either* a REST or message request.  Presumably, the query responses would be the same then for both REST and message query requests so that information returned allows the 3rd party application to choose whether to use REST or message bus to make the command requests. 
+
 ### Message Structure
 
-In REST based command requests (and responses), the HTTP header is used to pass important information such as the path or target of the request, the HTTP method type (indicating a GET or PUT request), the correlation id and more.  On HTTP responses, the HTTP header provides the information such as the response code (ex: 200 for OK).  The body or payload of the HTTP message contains the request details (such as parameters to a device PUT call) or response information (such as events and associated readings from a GET call).  
+In REST based command requests (and responses), the HTTP request line contains important information such as the path or target of the request, and the HTTP method type (indicating a GET or PUT request).  The HTTP status line provides the information such as the response code (ex: 200 for OK).  The body or payload of the HTTP message contains the request details (such as parameters to a device PUT call) or response information (such as events and associated readings from a GET call).  
 
 In a message bus world, there is no HTTP header to carry request or response details.  Therefore, the message must be organized into an `envelope` and `payload` section to serve just like the HTTP header and body do in HTTP request/response messages.
 
@@ -66,7 +119,7 @@ Command requests in HTTP may also contain ds-pushevent and ds-returnevent query 
 {
     "Correlation-ID": "14a42ea6-c394-41c3-8bcd-a29b9f5e6835",
     "API":"V2",
-    "queryParms": {
+    "queryParams": {
         "ds-pushevent":"yes",
         "ds-returnevent":"yes",
      }
@@ -74,7 +127,7 @@ Command requests in HTTP may also contain ds-pushevent and ds-returnevent query 
 }
 ```
 
-#### Message Payload
+#### Command Message Payload
 
 The **request** message `payload` to the command service and those relayed to the device service would mimic their HTTP/REST request body alternatives.  The `payload` provides details needed in executing the command at the south side.
 
@@ -85,7 +138,7 @@ In the example GET and PUT messages below, note the `envelope` wraps or encases 
     "Correlation-ID": "14a42ea6-c394-41c3-8bcd-a29b9f5e6835",
     "API":"v2",
     "requestId": "e6e8a2f4-eb14-4649-9e2b-175247911369",
-    "queryParms": {
+    "queryParams": {
         "ds-pushevent":"yes",
         "ds-returnevent":"yes",
      }
@@ -109,7 +162,6 @@ In the example GET and PUT messages below, note the `envelope` wraps or encases 
     }
 }
 ```
-
 
 The **response** message `payload` would contain the response from the south side, which is typically EdgeX event/reading objects (in the case of GET requests) but would also include any status code, error or service response details.
 
@@ -168,6 +220,102 @@ Example response messages for a GET and PUT request are shown below.  Again, not
     - Per core WG meeting discussion of 2/24/22 - do we have status code?  If so should it mimic the REST/HTTP status code responses?  Do we really want to mimic HTTP in our message bus approach?  As suggested by @farshidtz, maybe we should just have an `error` boolean and then have the message indicate the error condition.  
     - If we have a status code or error code, where does it belong?  In the payload or above it (as it would be in the header in REST)?  As a reference, the [IoTAAP MQTT to REST bridge](https://docs.iotaap.io/docs-rest/) provides a status code to message string translation as an example means to handle this problem.  Should we use something similar?
 
+#### Query Message Payload
+
+The **request** message `payload` to query the command service would mimic their HTTP/REST request body alternatives.  The `payload` provides details needed in executing the command at the south side.
+
+In the example query to get all commands below, note the `envelope` wraps or encases the message `payload`.  The payload will be empty.  The query parameters will include the offset and limit (as per the REST counter parts).
+
+``` JSON
+{
+    "Correlation-ID": "14a42ea6-c394-41c3-8bcd-a29b9f5e6835",
+    "API":"v2",
+    "requestId": "e6e8a2f4-eb14-4649-9e2b-175247911369",
+    "queryParams": {
+        "offset":0,
+        "limit":20,
+     }
+    "payload": 
+    {
+    }
+}
+
+In the example query to get commands for a specific device by name, the device name is the lone query parameter (again mirroring the REST interface).
+
+{
+    "Correlation-ID": "14a42ea6-c394-41c3-8bcd-a29b9f5e6835",
+    "API":"v2",
+    "requestId": "e6e8a2f4-eb14-4649-9e2b-175247911369",
+    "queryParams": {
+        "name":"coolingpoint1"
+     }
+    "payload": 
+    {
+    }
+}
+
+```
+
+The **response** message `payload` for queries would contain the information necessary to make a message-base command request.
+
+An example response message is shown below.  Again, note that the message `envelope` wraps the response `payload`.
+
+``` JSON
+{
+    "Correlation-ID": "14a42ea6-c394-41c3-8bcd-a29b9f5e6835",
+    "apiVersion": "v2",
+    "requestId": "e6e8a2f4-eb14-4649-9e2b-175247911369",
+    "statusCode": 0,
+    "totalCount": 2,
+    "payload": 
+    {
+        "deviceCoreCommands": [
+            {
+            "deviceName": "testDevice1",
+            "profileName": "testProfile",
+            "coreCommands": [
+                {
+                "name": "coolingpoint1",
+                "get": true,
+                "topic": "/my-app/command/request/testDevice1/coolingpoint1/get",
+                "url": "broker.address:1883",
+                "parameters": [
+                    {
+                    "resourceName": "resource1",
+                    "valueType": "Int32"
+                    }
+                ]
+                }
+            ]
+            },
+            {
+            "deviceName": "testDevice1",
+            "profileName": "testProfile",
+            "coreCommands": [
+                {
+                "name": "coolingpoint1",
+                "set": true,
+                "topic": "/my-app/command/request/testDevice1/coolingpoint1/set",
+                "url": "broker.address:1883",
+                "parameters": [
+                    {
+                    "resourceName": "resource5",
+                    "valueType": "String"
+                    },
+                    {
+                    "resourceName": "resource6",
+                    "valueType": "Bool"
+                    }
+                ]
+                }
+            ]
+            }
+        ]
+    }
+}
+
+```
+
 ### Topic Naming
 
 ![image](command-service-topics.png)
@@ -178,6 +326,10 @@ The 3rd party system or application must publish command requests messages to it
 
 - Publishing command request topic: `/my-app/command/request/<device-name>/<command-name>/<method>`
 - Subscribing command response topic: `/my-app/command/response/#`
+
+For queries, the following topics are used
+- Publishing query command request topic: `/my-app/commandquery/request`
+- Subscribing query command response topic: `/my-app/commandquery/response`
 
 !!! Note
     Because EdgeX can suggest but not dictate the naming standard for 3rd party MQTT topics, these names are representative for clarity, but not required.  The suffix inclusion of <device-name>/<command-name>/<method> is required for the command service to be able to understand and direct the request to the appropriate device/sensor through the correct device service.  Alternately, this information could be placed in the message header and the topic names made generic, but this is different than what we have done for south to north communications.
@@ -190,6 +342,11 @@ The command service must subscribe to the request topics of the 3rd party MQTT t
 - Publishing to device service request topic: `edgex/command/request/<device-service>/<device-name>/<command-name>/<method>`
 - Subscribing to device service command response topics: `edgex/command/response/#`
 - Publishing to 3rd party command response topic: `my-app/command/response/<device-name>/<command-name>/<method>`
+
+For queries, the following topics are used:
+
+- Subscribing to 3rd party command query request topics: `my-app/commandquery/request`
+- Publishing to 3rd party command query response topic: `my-app/commandquery/response`
 
 !!! Note
     Because EdgeX can suggest but not dictate the naming standard for 3rd party MQTT topics, the 3rd party topic names are representative for clarity.
@@ -231,6 +388,14 @@ Example command service configuration is provided below.
     Type = "mqtt"
     RequestTopic = "my-app/command/request/#"           # for subscribing to 3rd party command requests
     ResponseTopicPrefix = "my-app/command/response/"    # for publishing responses back to 3rd party systems /<device-name>/<command-name>/<method> will be added to this publish topic prefix
+    [ExternalQueryQueue]
+    Protocol = "tcp"
+    Host = "localhost"
+    Port = 6378
+    Type = "mqtt"
+    RequestTopic = "my-app/commandquery/request"
+    ResponseTopic = "my-app/commandquery/response"
+
 ```
 
 !!! Note
@@ -255,7 +420,7 @@ PublishTopicPrefix = "edgex/events/device" # /<device-profile-name>/<device-name
   # Client Identifiers
   ClientId = "device-rest"
   # Connection information
-  Qos = "0" # Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)
+  Qos = "0" # Quality of Service values are 0 (At most once), 1 (At least once) or 2 (Exactly once)
   KeepAlive = "10" # Seconds (must be 2 or greater)
   Retained = "false"
   AutoReconnect = "true"
