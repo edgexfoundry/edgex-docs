@@ -45,16 +45,16 @@ Other files such as for CI checks and guidelines are also copied from all branch
 
 When a new version of EdgeX is released, we version the docs as well. There are four steps to make this happen:
 
-1) Create a branch without production site files
+1) Create a branch without production site files:
 
-    i) Create a branch from `main` for the released documentation
+    i) Create a branch from `main` for the released documentation:
     The branch name should be the new EdgeX release name.
     For example, for 2.2, a `kamakura` branch is created.
 
     ii) Remove **production site files** from the branch, listed [here](#publishing-your-changes).
     This is necessary to avoid overriding production files; see [#680](https://github.com/edgexfoundry/edgex-docs/issues/680).
 
-2) Add the version to be added to the `docs/versions.json` file. This file will populate the drop down in the site deployed at https://docs.edgexfoundry.org 
+2) Add the version to be added to the `docs/versions.json` file. This file will populate the drop down in the site deployed at: https://docs.edgexfoundry.org 
 ``` json
 [
     {"version": "1.1", "title": "1.1-Fuji", "aliases": []},
