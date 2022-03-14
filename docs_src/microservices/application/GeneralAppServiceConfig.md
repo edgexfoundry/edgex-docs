@@ -143,6 +143,8 @@ The tabs below provide additional configuration which are applicable to Applicat
     | SkipCertVerify | false**       | Indicates if the certificate verification should be skipped  |
     | SecretPath | blank**       | Name of the path in secret provider to retrieve your secrets. Must be non-blank. |
     | AuthMode | blank**       | Indicates what to use when connecting to the broker. Must be one of "none", "cacert" , "usernamepassword", "clientcert". <br />If a CA Cert exists in the SecretPath then it will be used for all modes except "none". |
+    | RetryDuration | 600 | Indicates how long (in seconds) to wait timing out on the MQTT client creation |
+    | RetryInterval | 5 | Indicates the time (in seconds) that will be waited between attempts to create MQTT client |
 
 !!! note
         `Authmode=cacert` is only needed when client authentication (e.g. `usernamepassword`) is not required, but a CA Cert is needed to validate the broker's SSL/TLS cert.

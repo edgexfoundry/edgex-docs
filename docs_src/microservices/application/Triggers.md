@@ -203,6 +203,8 @@ Type="external-mqtt"
   SkipCertVerify = true
   AuthMode = "clientcert"
   SecretPath = "external-mqtt"
+  RetryDuration = 600
+  RetryInterval = 5
 ```
 
 
@@ -213,8 +215,7 @@ The `Type=` is set to `external-mqtt`. To receive data from the external MQTT Br
 
 
 !!! edgey "Edgex 2.2"
-    Prior to EdgeX 2.2 if `AuthMode` is set to `usernamepassword`, `clientcert`, or `cacert` and App Service will be run in secure mode, the required credentials must be stored to Secret Store via [Vault CLI, REST API, or WEB UI](https://docs.edgexfoundry.org/2.2/security/Ch-SecretStore/#using-the-secret-store) before starting App Service. Otherwise App Service will fail to initialize the External MQTT Trigger and then shutdown because the required credentials do not exist in the Secret Store at the time service starts. Today, you can start App Service and store the required credentials using the [App Service API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/app-functions-sdk/2.2.0#/default/post_secret) afterwards. If the credentials found in Secret Store cannot satisfy App Service, once the secret creation API is called the App Service will try to fetch credentials again. 
-
+    Prior to EdgeX 2.2 if `AuthMode` is set to `usernamepassword`, `clientcert`, or `cacert` and App Service will be run in secure mode, the required credentials must be stored to Secret Store via [Vault CLI, REST API, or WEB UI](https://docs.edgexfoundry.org/2.2/security/Ch-SecretStore/#using-the-secret-store) before starting App Service. Otherwise App Service will fail to initialize the External MQTT Trigger and then shutdown because the required credentials do not exist in the Secret Store at the time service starts. Today, you can start App Service and store the required credentials using the [App Service API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/app-functions-sdk/2.2.0#/default/post_secret) afterwards. If the credentials found in Secret Store cannot satisfy App Service, it will retry for a certain duration and interval. See [Application Service Configuration](GeneralAppServiceConfig.md#not-writable) for more information on the configuration of this retry duration and interval. 
 
 ### External MQTT Broker Configuration
 The other piece of configuration required are the MQTT Broker connection settings:
