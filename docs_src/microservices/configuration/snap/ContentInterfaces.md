@@ -1,5 +1,5 @@
 # Content Interfaces
 
-## Secret interface
+## Secret provider
 
-## Config interface
+## Config provider

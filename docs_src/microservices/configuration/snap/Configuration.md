@@ -1,11 +1,11 @@
 # Configuration
 
 
-## Changing config files
+## Change config files
 - how to locally modify files
 - link to config provider page
 
-## Override configurations
+## Override configurations using Snap options
 - Environment variable injection
 - Link to consul doc page
 
