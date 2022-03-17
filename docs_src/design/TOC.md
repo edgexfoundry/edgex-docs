@@ -22,3 +22,4 @@
 | [0019 EdgeX-CLI V2](./adr/core/0019-EdgeX-CLI-V2.md)                                           | EdgeX-CLI V2 Implementation                             |
 | [0020 Delay start services (SPIFFE/SPIRE)](./adr/security/0020-spiffe.md)                      | Secret store tokens for delayed start services          |
 | [0021 Device Profile Changes](./adr/core/0021-Device-Profile-Changes.md)                      | Rules on device profile modifications          |
+| [0022 Unit of Measure](./adr/core/0022-UoM.md)                                                                       | Unit of Measure|
