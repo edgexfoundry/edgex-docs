@@ -47,6 +47,7 @@ type ApplicationService interface {
 	AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error
     RequestTimeout() time.Duration
 	RegisterCustomTriggerFactory(name string, factory func(TriggerConfig) (Trigger, error)) error
+    RegisterCustomStoreFactory(name string, factory func(cfg DatabaseInfo, cred config.Credentials) (StoreClient, error)) error
 }
 ```
 
@@ -583,3 +584,8 @@ This API returns the parsed value for the `Service.RequestTimeout` configuration
 
 This API registers a trigger factory for a custom trigger to be used. See the [Custom Triggers](../Triggers/#custom-triggers) section for more details and example.
 
+### RegisterCustomStoreFactory
+
+`RegisterCustomStoreFactory(name string, factory func(cfg DatabaseInfo, cred config.Credentials) (StoreClient, error)) error`
+
+This API registers a factory to construct a custom store client for the [store & forward](AdvancedTopics.md#store-and-forward) loop.

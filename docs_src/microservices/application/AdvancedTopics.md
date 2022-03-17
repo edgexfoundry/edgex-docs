@@ -217,6 +217,66 @@ One of three out comes can occur after the export retried has completed.
 !!! note
     Changing Writable.Pipeline.ExecutionOrder will invalidate all currently stored data and result in it all being removed from the database on the next retry. This is because the position of the *export* function can no longer be guaranteed and no way to ensure it is properly executed on the retry.
 
+#### Custom Storage
+The default backing store is redis.  Custom implementations of the `StoreClient` interface can be provided if redis does not meet your requirements.
+
+```go
+type StoreClient interface {
+	// Store persists a stored object to the data store and returns the assigned UUID.
+	Store(o StoredObject) (id string, err error)
+
+	// RetrieveFromStore gets an object from the data store.
+	RetrieveFromStore(appServiceKey string) (objects []StoredObject, err error)
+
+	// Update replaces the data currently in the store with the provided data.
+	Update(o StoredObject) error
+
+	// RemoveFromStore removes an object from the data store.
+	RemoveFromStore(o StoredObject) error
+
+	// Disconnect ends the connection.
+	Disconnect() error
+}
+```
+A factory function to create these clients can then be registered with your service by calling [RegisterCustomStoreFactory](ApplicationServiceAPI.md#registercustomstorefactory)
+
+```go
+service.RegisterCustomStoreFactory("jetstream", func(cfg interfaces.DatabaseInfo, cred config.Credentials) (interfaces.StoreClient, error) {
+    conn, err := nats.Connect(fmt.Sprintf("nats://%s:%d", cfg.Host, cfg.Port))
+    
+    if err != nil {
+        return nil, err
+    }
+    
+    js, err := conn.JetStream()
+    
+    if err != nil {
+        return nil, err
+    }
+    
+    kv, err := js.KeyValue(serviceKey)
+    
+    if err != nil {
+        kv, err = js.CreateKeyValue(&nats.KeyValueConfig{Bucket: serviceKey})
+    }
+    
+    return &JetstreamStore{
+        conn:       conn,
+        serviceKey: serviceKey,
+        kv:         kv,
+    }, err
+})
+```
+
+and configured using the registered name in the `Database` section:
+
+```toml
+[Database]
+    Type = "jetstream"
+    Host = "broker"
+    Port = 4222
+    Timeout = "5s"
+```
 ### Secrets
 
 #### Configuration

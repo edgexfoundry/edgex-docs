@@ -563,27 +563,56 @@ This section describes how to connect the Modbus RTU device. We use Ubuntu OS an
     /dev/ttyUSB0
     ```
 
-### Deploy the EdgeX
-1. Modify the docker-compose.yml file to mount the device path to the device-modbus:
-    1. Change the permission of the device path
-    ```
-    sudo chmod 777 /dev/ttyUSB0
-    ```
-    2. Open `docker-compose.yml` file with text editor.
-    ```
-    $ nano /docker-compose.yml
-    ```
-    3. Modify the device-modbus section and save the file
-    ```
+### Change the Owner of the Device
+
+For security reason, the EdgeX set up the user permission as below:
+```yaml
+  device-modbus:
+    ...
+    user: 2002:2001  # UID:GID
+```
+So we need to change the owner for the specified group by the following command:
+```shell
+sudo chown :2001 /dev/ttyUSB0
+
+# Or change the permissions for multiple files
+sudo chown :2001 /dev/tty*
+```
+
+!!! Note
+    Since the owner will reset after the system reboot, we can add this script to the startup script. For Raspberry Pi as example, add script to `/etc/rc.local`, then the Pi will run this script at bootup.
+
+### Mont the Device Path to the Docker Container
+Modify the docker-compose.yml file to mount the device path to the device-modbus, and here are two ways to mount the device path:
+
+1. Using `devices`:
+    ```yaml
     device-modbus:
-       ...
-       devices:
-         - /dev/ttyUSB0
+      ...
+      devices:
+        - /dev/ttyUSB0
     ```
-2. Deploy the EdgeX
-   ```
-   $ docker-compose up -d
-   ```
+
+2. Or using `volumes` and `device_cgroup_rules`:
+    ```yaml
+    device-modbus:
+      ...
+      volumes:
+        ...
+        - /dev:/dev
+      device_cgroup_rules:
+        - 'c 188:* rw' 
+    ```
+    - c: character device
+    - 188: device major number(188=USB)
+    - *: device minor number
+    - rw: read/write
+
+### Deploy the EdgeX
+```
+$ docker-compose up -d
+```
+
 ### Add device to EdgeX
 
 1. Create the device profile according to the register table
