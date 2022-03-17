@@ -149,6 +149,10 @@ Please refer to the general [Common Configuration documentation](../../configura
     |AutoReconnect |true |Whether to reconnect to the message bus on connection loss|
     |ConnectTimeout|5|Message bus connection timeout in seconds|
     |SkipCertVerify|false|TLS configuration - Only used if Cert/Key file or Cert/Key PEMblock are specified|
+=== "MaxEventSize"
+    |Property|Default Value|Description|    
+    |---|---|---|
+    | MaxEventSize|25000|maximum event size in kilobytes accepted via REST or MessageBus|
 
 ### V2 Configuration Migration Guide
 
@@ -193,6 +197,11 @@ The following settings have been removed from `MessageQueue.Optional` section fo
 
 - Username
 - Password
+  
+#### MaxEventSize
+
+!!! edgey "EdgeX 2.2"
+    Prior to EdgeX 2.2 event size is limited to 25MB, and it is configurable in EdgeX 2.2, the default value is 25000KB (25MB).
 
 ## API Reference
 
