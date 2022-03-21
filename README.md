@@ -1,21 +1,41 @@
 # Documentation for developing with EdgeX-Docs
-[![Build Status](https://jenkins.edgexfoundry.org/view/EdgeX%20Foundry%20Project/job/edgexfoundry/job/edgex-docs/job/master/badge/icon)](https://jenkins.edgexfoundry.org/view/EdgeX%20Foundry%20Project/job/edgexfoundry/job/edgex-docs/job/master/) [![GitHub Pull Requests](https://img.shields.io/github/issues-pr-raw/edgexfoundry/edgex-docs)](https://github.com/edgexfoundry/edgex-docs/pulls) [![GitHub Contributors](https://img.shields.io/github/contributors/edgexfoundry/edgex-docs)](https://github.com/edgexfoundry/edgex-docs/contributors) [![GitHub Committers](https://img.shields.io/badge/team-committers-green)](https://github.com/orgs/edgexfoundry/teams/edgex-docs-committers/members) [![GitHub Commit Activity](https://img.shields.io/github/commit-activity/m/edgexfoundry/edgex-docs)](https://github.com/edgexfoundry/edgex-docs/commits)
-
+[![Build Status](https://jenkins.edgexfoundry.org/view/EdgeX%20Foundry%20Project/job/edgexfoundry/job/edgex-docs/job/main/badge/icon)](https://jenkins.edgexfoundry.org/view/EdgeX%20Foundry%20Project/job/edgexfoundry/job/edgex-docs/job/main/) [![GitHub Pull Requests](https://img.shields.io/github/issues-pr-raw/edgexfoundry/edgex-docs)](https://github.com/edgexfoundry/edgex-docs/pulls) [![GitHub Contributors](https://img.shields.io/github/contributors/edgexfoundry/edgex-docs)](https://github.com/edgexfoundry/edgex-docs/contributors) [![GitHub Committers](https://img.shields.io/badge/team-committers-green)](https://github.com/orgs/edgexfoundry/teams/edgex-docs-committers/members) [![GitHub Commit Activity](https://img.shields.io/github/commit-activity/m/edgexfoundry/edgex-docs)](https://github.com/edgexfoundry/edgex-docs/commits)
 
 ## Local Development (docker) (recommended):
 
-`docker run --rm -it -p 8001:8000 -v ${PWD}:/docs squidfunk/mkdocs-material:5.1.0`
+The most common use case for local development of edgex-docs will be to verify changes to the HTML. To facilitate docs verification you can run the following command:
+
+```shell
+make serve
+```
+
+Once running, you can view the rendered content locally and makes changes to your documentation and preview them in realtime with a browser at: http://0.0.0.0:8001/edgex-docs
+
+---
+
+If you only want to verify the documentation will build successfully you can run the following command:
+
+```shell
+make build
+```
+
+---
+
+When done, you can clean up with:
+
+```shell
+make clean
+```
 
 ## Local Development (native)
 
-In order to render and preview the site locally (without docker) you will need a few things to get started. 
+In order to render and preview the site locally (without docker) you will need a few things to get started.
+
 1) You will need to install python and pip
 2) After python is installed, you'll need the following python dependencies:
 `pip install mkdocs`
-`pip install mkdocs-material==5.1.0`
-3) Once you have all the pre-reqs installed. You can simply run `mkdocs serve` and view the rendered content locally and makes changes to your documentation and preview them in realtime with a browser open. 
-
-
+`pip install mkdocs-material==8.2.1`
+3) Once you have all the pre-reqs installed. You can simply run `mkdocs serve` and view the rendered content locally and makes changes to your documentation and preview them in realtime with a browser at http://0.0.0.0:8001/edgex-docs.
 
 ## "Publishing" your changes
 
@@ -23,6 +43,7 @@ Publishing is done by the jenkins pipeline. Once a PR is merged, the changes wil
 
 The different versions of the documentation are maintained in separate branches.
 The `main` branch hosts the source files for the version that is under development as well as the following **production site files**:
+
 - `docs/CNAME` - DNS record which tells Github Pages to serve the content at https://docs.edgexfoundry.org instead of https://edgexfoundry.github.io/edgex-docs
 - `docs/index.html` - site index page that redirects from `/` to `/{latest-release}`
 - `docs/versions.json` - version info to populate the site version drop-down menu
@@ -40,7 +61,7 @@ For example, when the dev version is 2.2:
 | ireland/docs_src/*      | gh-pages/2.0/*         |
 
 Other files such as for CI checks and guidelines are also copied from all branches.
- 
+
 ## Versioning the docs
 
 When a new version of EdgeX is released, we version the docs as well. There are four steps to make this happen:
@@ -54,7 +75,8 @@ When a new version of EdgeX is released, we version the docs as well. There are 
     ii) Remove **production site files** from the branch, listed [here](#publishing-your-changes).
     This is necessary to avoid overriding production files; see [#680](https://github.com/edgexfoundry/edgex-docs/issues/680).
 
-2) Add the version to be added to the `docs/versions.json` file. This file will populate the drop down in the site deployed at https://docs.edgexfoundry.org 
+2) Add the version to be added to the `docs/versions.json` file. This file will populate the drop down in the site deployed at https://docs.edgexfoundry.org
+
 ``` json
 [
     {"version": "1.1", "title": "1.1-Fuji", "aliases": []},
@@ -64,6 +86,7 @@ When a new version of EdgeX is released, we version the docs as well. There are 
 ```
 
 3) The value placed in `version` property in the json above *MUST* match the name of the folder that contains the versioned content in the [gh-pages] branch. This is specified by updating the `site_dir:` property in the `mkdocs.yml` file:
+
 ``` yaml
 site_name: EdgeX Foundry Documentation
 docs_dir: ./docs_src
@@ -76,6 +99,7 @@ repo_name: 'edgex/edgex-go'
 copyright: 'Copyright &copy; 2020 EdgeX Foundry'
 ...
 ```
+
 Once this is done and merged, the build job will place content in the specified folder in the gh-pages branch. 
 
 4) Update the `docs/index.html` to redirect from `/` to the most recent release directory.
@@ -94,6 +118,5 @@ For example, if the latest release is `2.1`:
 </body>
 </html>
 ```
-
 
  [gh-pages]: https://github.com/edgexfoundry/edgex-docs/tree/gh-pages

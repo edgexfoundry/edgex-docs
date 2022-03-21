@@ -6,8 +6,8 @@ site_author: 'Michael Johanson'
 site_url: 'https://edgexfoundry.github.io/edgex-docs/'
 repo_url: 'https://github.com/edgexfoundry/edgex-go'
 repo_name: 'edgex/edgex-go'
-copyright: 'Copyright &copy; 2020 EdgeX Foundry'
-strict: true
+copyright: 'Copyright &copy; 2022 EdgeX Foundry'
+strict: false   # mkdocs-materials will prevent running on 0.0.0.0 otherwise (or have custom image)
 theme:
   name: 'material'
   logo: 'assets/logo_edgex_white.png'
@@ -15,7 +15,7 @@ theme:
   analytics:
     gtag: 'G-38531ZZHBN'
   features:
-    - tabs
+    - navigation.tabs  # changed with version 6 of mkdocs-materials
 nav:
   - Introduction:
     - 'index.md'
@@ -153,7 +153,8 @@ nav:
 markdown_extensions:
   - codehilite
   - admonition
-  - pymdownx.tabbed
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.superfences
   - pymdownx.mark
   - pymdownx.critic
