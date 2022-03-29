@@ -382,16 +382,14 @@ Example command service configuration is provided below.
     ResponseTopic = "edgex/command/response/#”      # for subscribing to device service responses
     AuthMode = "usernamepassword"                   # required for redis messagebus (secure or insecure).
     SecretName = "redisdb"
-    [ExternalMessageQueue]
+    [ExternalMQTT]
     Protocol = "tcp"
     Host = "localhost"
-    Port = 6378
-    Type = "mqtt"
+    Port = 1883
     RequestCommandTopic = "my-app/command/request/#"           # for subscribing to 3rd party command requests
     ResponseCommandTopicPrefix = "my-app/command/response/"    # for publishing responses back to 3rd party systems /<device-name>/<command-name>/<method> will be added to this publish topic prefix
     RequestQueryTopic = "my-app/commandquery/request"
     ResponseQueryTopic = "my-app/commandquery/response"
-
 ```
 
 !!! Note
@@ -439,7 +437,7 @@ In order to support this, the following need to be added:
 
 - The command service will also need an internal request topic and internal response topic prefix configuration to allow internal EdgeX services to make command requests (and query requests).
 
-    ``` TOML
+    ``` toml
         [MessageQueue]
             [InternalMessageQueue]
             Protocol = "redis"
@@ -455,7 +453,21 @@ In order to support this, the following need to be added:
             AuthMode = "usernamepassword"                   # required for redis messagebus (secure or insecure).
             SecretName = "redisdb"
     ```
-- A new command message client will need to be created to allow internal services (app services in this instance) to conveniently use the message bus communications with core command.
+    
+- A new command message client will need to be created to allow internal services (app services in this instance) to conveniently use the message bus communications with core command.  The client service's configuration will also be expanded to include the corresponding topic and `UseMessageBus` flag that enables the new messaging based CommandClient to be created.   Example client configuration would look something like the following:
+
+    ``` toml
+        [Clients]
+        [Clients.core-command]
+        UseMessageBus = true
+        Protocol = "redis"
+        Host = "localhost"
+        Port = 6379
+        CommandRequestTopicPrefix = "/command/request"  /<device-name>/<command-name>/<method> will be added to this publish topic prefix
+        CommandResponseTopic = "/command/response/#"
+        CommandQueryRequestTopic = "/commandquery/request"
+        CommandQueryResponseTopic = "/commandquery/response"
+    ``` 
 
 ## Questions
 
