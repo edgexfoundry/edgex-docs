@@ -37,6 +37,22 @@ In order to render and preview the site locally (without docker) you will need a
 `pip install mkdocs-material==8.2.1`
 3) Once you have all the pre-reqs installed. You can simply run `mkdocs serve` and view the rendered content locally and makes changes to your documentation and preview them in realtime with a browser at http://0.0.0.0:8001/edgex-docs.
 
+## Checking for broken links when developing docs
+
+To check that all the links in the documentation set are valid:
+
+1. Install the htmlproofer plugin:
+
+    ``` shell
+        pip install mkdocs-htmlproofer-plugin
+    ```
+
+2. Uncomment the htmlproofer plugin in mkdocs.yml
+
+3. Run `make build` or `make serve`. Broken links will be listed at the end of the build process.
+
+Warning: the check for invalid / broken links does take some time and will add significantly to the build and serve times.
+
 ## "Publishing" your changes
 
 Publishing is done by the jenkins pipeline. Once a PR is merged, the changes will be reflected on the documentation site, hosted under [gh-pages] branch and served by Github Pages.

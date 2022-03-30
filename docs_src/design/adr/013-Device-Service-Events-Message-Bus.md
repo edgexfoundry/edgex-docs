@@ -1,11 +1,9 @@
-
-
 # Device Services Send Events via Message Bus
 
 - [Status](#status)
 - [Context](#context)
 - [Decision](#decision)
-  * [Which Message Bus implementations?](#which-message-bus-implementations-)
+  * [Which Message Bus implementations?](#which-message-bus-implementations)
   * [Go Device SDK](#go-device-sdk)
   * [C Device SDK](#c-device-sdk)
   * [Core Data and Persistence](#core-data-and-persistence)
@@ -16,12 +14,12 @@
   * [MessageBus Topics](#messagebus-topics)
   * [Configuration](#configuration)
     + [Device Services](#device-services)
-      - [[MessageQueue]](#-messagequeue-)
+      - [[MessageQueue]](#messagequeue)
     + [Core Data](#core-data)
-      - [[MessageQueue]](#-messagequeue--1)
-    + [Application Services](#application-services-1)
-      - [[MessageBus]](#-messagebus-)
-      - [[Binding]](#-binding-)
+      - [[MessageQueue]](#messagequeue)
+    + [Application Services](#application-services)
+      - [[MessageBus]](#messagebus)
+      - [[Binding]](#binding)
   * [Secure Connections](#secure-connections)
 - [Consequences](#consequences)
 

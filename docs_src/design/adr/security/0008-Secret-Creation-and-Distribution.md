@@ -152,16 +152,16 @@ EdgeX open source will contain only the necessary hooks to integrate
 platform-specific functionality.
 
 For software-managed secrets, the
-[_system of referece_](https://www.dqglossary.com/record%20of%20reference.html)
+[_system of reference_](http://www.grcdi.nl/dqglossary/record%20of%20reference.html)
 of secrets in EdgeX is the EdgeX secret store.
 The EdgeX secret store provides for encryption of secrets at rest.
 This term means that if a secret is replicated,
 the EdgeX secret store is the authoritative source of truth of the secret.
 Whenever possible, the EdgeX secret store should also be the
-[_record of origin_](https://www.dqglossary.com/record%20of%20origin.html)
+[_record of origin_](http://www.grcdi.nl/dqglossary/record%20of%20origin.html)
 of a secret as well.
 This means creating secrets inside of the EdgeX secret store
-is preferrable to importing an externally-created secret into the secret store.
+is preferable to importing an externally-created secret into the secret store.
 This can often be done for framework-managed secrets,
 but not possible for user-managed secrets.
 
