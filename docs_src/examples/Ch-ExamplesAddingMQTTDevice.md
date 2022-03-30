@@ -595,8 +595,7 @@ $ curl http://localhost:59880/api/v2/reading/resourceName/message | json_pp
 
 ## Async Device Reading
 
-The `device-mqtt` subscribes to a `DataTopic`, which is wait for the [real device to send value to MQTT broker](#run-an-mqtt-device-simulator), then `device-mqtt`
-parses the value and forward to the northbound.
+The `device-mqtt` subscribes to a `DataTopic`, which waits for the [real device to send value to MQTT broker](#creating-and-running-a-mqtt-device-simulator), then `device-mqtt`parses the value and forward to the northbound.
 
 The data format contains the following values:
 

@@ -4,7 +4,7 @@
 
 ## Overview
 
-[LF Edge eKuiper](https://www.emqx.io/products/kuiper) is the EdgeX reference implementation rules engine (or [edge analytics](../../../general/Definitions.md#edge-analytics)) implementation.
+[LF Edge eKuiper](https://www.lfedge.org/projects/ekuiper/) is the EdgeX reference implementation rules engine (or [edge analytics](../../../general/Definitions.md#edge-analytics)) implementation.
 
 ## What is LF Edge eKuiper?
 

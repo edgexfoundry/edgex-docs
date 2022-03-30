@@ -210,7 +210,7 @@ The output of the SQL should look similar to the results below.
 
 ## Extended Reading
 
-Use these resouces to learn more about the features of LF Edge eKuiper.
+Use these resources to learn more about the features of LF Edge eKuiper.
 
 - [eKuiper Github code repository](https://github.com/lf-edge/ekuiper/)
-- [eKuiper reference guide](https://github.com/lf-edge/ekuiper/blob/edgex/docs/en_US/reference.md)
+- [eKuiper reference guide](https://github.com/lf-edge/ekuiper/blob/7ef3a19366ee1f4537747fdc2e574389225f5d51/docs/en_US/README.md)
