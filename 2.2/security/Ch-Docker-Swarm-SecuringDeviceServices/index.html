@@ -2986,10 +2986,10 @@
 <p><img alt="image" src="../overlay-network.png" /></p>
 <h2 id="reference-implementation-example">Reference implementation example</h2>
 <p>The reference implementation example can be found in this repository:
-<a href="https://github.com/edgexfoundry/edgex-examples/tree/swarm/security/remote_devices/docker-swarm">Reference example device-service docker-swarm overlay network</a></p>
+<a href="https://github.com/edgexfoundry/edgex-examples/tree/main/security/remote_devices/docker-swarm">Reference example device-service docker-swarm overlay network</a></p>
 <h3 id="setup-remote-running-virtual-machine">Setup remote running Virtual Machine</h3>
 <p>In this example setup, similar to the the <a href="https://github.com/edgexfoundry/edgex-docs/blob/master/docs_src/microservices/security/Ch-SSH-Tunneling-HowToSecureDeviceServices.md">SSH example</a>, <code>vagrant</code> is used on the top of <code>Virtual Box</code> to set up the secondary/remote VM.</p>
-<p>Download vagrant from Hashicorp website or if you're on Ubuntu via <code>sudo apt install virtualbox</code> and <code>sudo apt install vagrant</code>.  We have a simple vagrant file used for this tutorial <a href="https://github.com/edgexfoundry/edgex-examples/blob/swarm/security/docker-swarm/docker-swarm/Vagrantfile">here</a></p>
+<p>Download vagrant from Hashicorp website or if you're on Ubuntu via <code>sudo apt install virtualbox</code> and <code>sudo apt install vagrant</code>.  We have a simple vagrant file used for this tutorial <a href="https://github.com/edgexfoundry/edgex-examples/blob/3cd9cb19c81b175a5d26b568dd765e161e7c979d/security/remote_devices/docker-swarm/Vagrantfile">here</a></p>
 <p>This vagrant file sets the hostname for the new VM and installs docker.</p>
 <h3 id="getting-the-vm-running">Getting the VM running</h3>
 <ul>
@@ -3053,7 +3053,7 @@ Here is the inverse of the previous yml block. This gets added to the device ser
 <span class="nn">...</span><span class="w"></span>
 </code></pre></div>
 <p>The full docker-stack file is included here:</p>
-<p><a href="https://github.com/edgexfoundry/edgex-examples/security/remote_devices/docker-swarm/docker-stack-edgex.yml">docker-stack-edgex.yml file</a></p>
+<p><a href="https://github.com/edgexfoundry/edgex-examples/blob/3cd9cb19c81b175a5d26b568dd765e161e7c979d/security/remote_devices/docker-swarm/docker-stack-edgex.yml">docker-stack-edgex.yml file</a></p>
 <h3 id="other-changes-in-docker-stack-edgexyml-file">Other changes in docker-stack-edgex.yml file</h3>
 <p>Another change we had to make in the docker-stack-edgex.yml file is to disable <code>IPC_LOCK</code> because the <code>cap_add</code> flag in vault's configuration is not supported in docker swarm.  To do this we add <code>SKIP_SETCAP=true</code> and <code>disable_mlock = "true"</code> to vault in the stack file. </p>
 <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">vault</span><span class="p">:</span><span class="w"></span>

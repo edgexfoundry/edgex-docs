@@ -3045,14 +3045,14 @@
 <li><a href="#known-and-unknown-services">Known and Unknown Services</a></li>
 <li><a href="#static-secrets-and-runtime-secrets">Static Secrets and Runtime Secrets</a></li>
 <li><a href="#interfaces-and-factory-methods">Interfaces and factory methods</a></li>
-<li><a href="#bootstrap-s-current-implementation">Bootstrap's current implementation</a><ul>
+<li><a href="#bootstraps-current-implementation">Bootstrap's current implementation</a><ul>
 <li><a href="#interfaces">Interfaces</a></li>
 <li><a href="#factory-and-bootstrap-handler-methods">Factory and bootstrap handler methods</a></li>
 </ul>
 </li>
-<li><a href="#app-sdk-s-current-implementation">App SDK's current implementation</a><ul>
+<li><a href="#app-sdks-current-implementation">App SDK's current implementation</a><ul>
 <li><a href="#interface">Interface</a></li>
-<li><a href="#factory-and-bootstrap-handler-methods-1">Factory and bootstrap handler methods</a></li>
+<li><a href="#factory-and-bootstrap-handler-methods">Factory and bootstrap handler methods</a></li>
 </ul>
 </li>
 <li><a href="#secret-store-for-non-secure-mode">Secret Store for non-secure mode</a></li>
@@ -3066,9 +3066,9 @@
 <li><a href="#factory-method-and-bootstrap-handler">Factory Method and Bootstrap Handler</a></li>
 <li><a href="#caching-of-secrets">Caching of Secrets</a></li>
 <li><a href="#insecure-secrets">Insecure Secrets</a></li>
-<li><a href="#handling-on-the-fly-changes-to--insecuresecrets-">Handling on-the-fly changes to <code>InsecureSecrets</code></a></li>
+<li><a href="#handling-on-the-fly-changes-to-insecuresecrets">Handling on-the-fly changes to <code>InsecureSecrets</code></a></li>
 <li><a href="#mocks">Mocks</a></li>
-<li><a href="#where-will--secretprovider--reside-">Where will <code>SecretProvider</code> reside?</a></li>
+<li><a href="#where-will-secretprovider-reside">Where will <code>SecretProvider</code> reside?</a></li>
 <li><a href="#go-services">Go Services</a></li>
 <li><a href="#c-device-service">C Device Service</a></li>
 </ul>
@@ -3369,7 +3369,7 @@
 <li>App SDK will be modified to use <code>GetSecrets</code> API in place of the <code>GetDatabaseCredentials</code> API</li>
 <li>App SDK will be modified to use the new <code>SecretProvider</code> bootstrap handler</li>
 <li>app-service-configurable's configuration profiles as well as all the Application Service examples configurations will be updated to remove the <code>SecretStoreExclusive</code> configuration and just use the existing <code>SecretStore</code> configuration</li>
-<li>security-secretstore-setup will be enhanced as described in the <a href="#exclusive-secret-stores-only">Exclusive Secret Stores only</a> section above</li>
+<li>security-secretstore-setup will be enhanced as described in the <a href="#only-exclusive-secret-stores">Only Exclusive Secret Stores</a> section above</li>
 <li>Adding new services that need static secrets added to their <code>SecretStore</code> requires stopping and restarting all the services. The is because security-secretstore-setup has completed but not stopped. If it is rerun without stopping the other services, there tokens and static secrets will have changed. The planned refactor of <code>security-secretstore-setup</code> will attempt to resolve this.</li>
 <li>Snaps do not yet support setting the environment variable for adding SecretStore. It is planned for Ireland release.</li>
 </ul>
