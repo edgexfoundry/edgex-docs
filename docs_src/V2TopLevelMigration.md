@@ -55,7 +55,7 @@ Any `Subscriptions` created via the V1 REST API will have to be recreated using 
 
 ### Support Scheduler
 
-The statically declared `Interval` and `IntervalAction` will be created automatically. Any `Interval` and/or `IntervalAction` created via the V1 REST API will have to be recreated using the V2 REST API. If you have created a custom configuration with additional statically declared `Interval`s and `IntervalActions` see the [TOML File](#tomml-file) section under [Custom Configuration](#custom-configuration) below.
+The statically declared `Interval` and `IntervalAction` will be created automatically. Any `Interval` and/or `IntervalAction` created via the V1 REST API will have to be recreated using the V2 REST API. If you have created a custom configuration with additional statically declared `Interval`s and `IntervalActions` see the [TOML File](#toml-file) section under [Custom Configuration](#custom-configuration) below.
 
 ### Application Services
 

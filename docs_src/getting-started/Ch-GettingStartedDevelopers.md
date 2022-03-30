@@ -36,14 +36,13 @@ alternative SVC tools to the reader.
 #### Redis
 By default, EdgeX Foundry uses Redis (version 5 starting with the Geneva release)
 as the persistence mechanism for sensor data as well as metadata about the devices/sensors that are 
-connected. See <https://redis.io/> for download and installation
+connected. See [Redis Documentation](https://redis.io/) for download and installation
 instructions.
 
 #### MongoDB
 As an alternative, EdgeX Foundry allows use of MongoDB (version 4.2 as of
 Geneva) as the alternative persistence mechanism in place of Redis for sensor data as well as
-metadata about the connected devices/sensors. See
-<https://www.mongodb.com/download-center?jmp=nav#community> for download
+metadata about the connected devices/sensors. See [Mongo's Documentation](https://www.mongodb.com/download-center?jmp=nav#community) for download
 and installation instructions.
 
 !!! Warning
@@ -98,4 +97,4 @@ Please refer to the EdgeX Foundry [versioning policy](https://wiki.edgexfoundry.
 
 ## Long Term Support
 
-Please refer to the EdgeX Foundry [LTS policy](https://wiki.edgexfoundry.org/display/FA/Long+Term+Support) for information on support of EdgeX releases. The EdgeX community does not offer support on any non-LTS release outside of the latest release.
+Please refer to the EdgeX Foundry [LTS policy](https://wiki.edgexfoundry.org/pages/viewpage.action?pageId=69173332) for information on support of EdgeX releases. The EdgeX community does not offer support on any non-LTS release outside of the latest release.
