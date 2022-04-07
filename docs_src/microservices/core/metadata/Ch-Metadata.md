@@ -345,20 +345,25 @@ Sequence diagrams for some of the more critical or complex events regarding meta
 
 Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services. Below are only the additional settings and sections that are not common to all EdgeX Services.
 
+=== "Writable.ProfileChange"
+    |Property|Default Value|Description|
+    |---|---|---|
+    |StrictDeviceProfileChanges|false|Whether to allow device profile modifications, set to `true` to reject all modifications which might impact the existing events and readings. Thus, the changes like `manufacture`, `isHidden`, or `description` can still be made.|
+    |StrictDeviceProfileDeletes|false|Whether to allow device profile deletionsm set to `true` to reject all deletions.|
 === "Databases/Databases.Primary"
-|Property|Default Value|Description|
-|---|---|---|
-|||Properties used by the service to access the database|
-|Name|'metadata'|Document store or database name|
+    |Property|Default Value|Description|
+    |---|---|---|
+    |||Properties used by the service to access the database|
+    |Name|'metadata'|Document store or database name|
 === "Notifications"
-|Property|Default Value|Description|
-|---|---|---|
-|||Configuration to post device changes through the notifiction service|
-|PostDeviceChanges|false|Whether to send out notification when a device has been added, changed, or removed|
-|Content|'Meatadata notice: '|Start of the notification message when sending notification messages on device change|
-|Sender|'core-metadata'|Sender of any notification messages sent on device change|
-|Description|'Metadata change notice'|Message description of any notification messages sent on device change|
-|Label|'metadata'|Label to put on messages for any notification messages sent on device change|
+    |Property|Default Value|Description|
+    |---|---|---|
+    |||Configuration to post device changes through the notifiction service|
+    |PostDeviceChanges|false|Whether to send out notification when a device has been added, changed, or removed|
+    |Content|'Meatadata notice: '|Start of the notification message when sending notification messages on device change|
+    |Sender|'core-metadata'|Sender of any notification messages sent on device change|
+    |Description|'Metadata change notice'|Message description of any notification messages sent on device change|
+    |Label|'metadata'|Label to put on messages for any notification messages sent on device change|
 
 
 
@@ -369,6 +374,11 @@ Refer to the [Common Configuration Migration Guide](../../../configuration/V2Mig
 #### Writable
 
 The `EnableValueDescriptorManagement` setting has been removed
+
+The following setting has been added to the `Writable.ProfileChage` section.
+
+- StrictDeviceProfileChanges
+- StrictDeviceProfileDeletes
 
 ## API Reference
 

@@ -155,6 +155,10 @@ Please refer to the general [Common Configuration documentation](../configuratio
     |AutoReconnect |true |Whether to reconnect to the message bus on connection loss|
     |ConnectTimeout|5|Message bus connection timeout in seconds|
     |SkipCertVerify|false|TLS configuration - Only used if Cert/Key file or Cert/Key PEMblock are specified|
+=== "Writable.Reading"
+    |Property|Default Value|Description|
+    |---|---|---|
+    |ReadingUnits|true|Indicate the units of measure for the Value in the Reading, set to `false` to not to include units in the Reading. |
 
 ### Custom Configuration
 
