@@ -75,7 +75,17 @@ When using messaging to make the "queries" the response message must return info
  "coreCommands": [
         {
           "name": "coolingpoint1",
-          "getTopic": "/edgex/command/request/testDevice1/coolingpoint1",
+          "topic": "/edgex/command/request/testDevice1/coolingpoint/get",
+          "url": "broker.address:1883",
+          "parameters": [
+            {
+              "resourceName": "resource1",
+              "valueType": "Int32"
+            }          ]
+        },
+        {
+          "name": "coolingpoint1",
+          "topic": "/edgex/command/request/testDevice1/coolingpoint1/set",
           "url": "broker.address:1883",
           "parameters": [
             {
@@ -85,6 +95,10 @@ When using messaging to make the "queries" the response message must return info
         }
  ]
 ```
+
+!!! Note
+    Per Core WG meeting of 4/7/22 - the JSON above serves as a general example.  The implementation will have to address get/set (or read/write) differentiation, but this is considered an implementation detail to be resolved by the developers.
+
 ### Message Structure
 
 In REST based command requests (and responses), the HTTP request line contains important information such as the path or target of the request, and the HTTP method type (indicating a GET or PUT request).  The HTTP status line provides the information such as the response code (ex: 200 for OK).  The body or payload of the HTTP message contains the request details (such as parameters to a device PUT call) or response information (such as events and associated readings from a GET call).  
@@ -168,8 +182,8 @@ Example response messages for a GET and PUT request are shown below.  Again, not
     "errorCode": 0,
     "payload": 
     {
-    "apiVersion": "v2",
     "event": {
+        "apiVersion": "v2",
         "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
         "deviceName": "string",
         "profileName": "string",
