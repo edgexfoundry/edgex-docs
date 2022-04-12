@@ -3672,11 +3672,32 @@
 <em>What happens on a device service startup?</em></p>
 <h2 id="configuration-properties">Configuration Properties</h2>
 <p>Please refer to the general <a href="../../../configuration/CommonConfiguration/">Common Configuration documentation</a> for configuration properties common to all services. Below are only the additional settings and sections that are not common to all EdgeX Services.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:1"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Databases/Databases.Primary</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Writable.ProfileChange</label><label for="__tabbed_3_2">Databases/Databases.Primary</label><label for="__tabbed_3_3">Notifications</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>StrictDeviceProfileChanges</td>
+<td>false</td>
+<td>Whether to allow device profile modifications, set to <code>true</code> to reject all modifications which might impact the existing events and readings. Thus, the changes like <code>manufacture</code>, <code>isHidden</code>, or <code>description</code> can still be made.</td>
+</tr>
+<tr>
+<td>StrictDeviceProfileDeletes</td>
+<td>false</td>
+<td>Whether to allow device profile deletionsm set to <code>true</code> to reject all deletions.</td>
+</tr>
+</tbody>
+</table>
 </div>
-</div>
+<div class="tabbed-block">
 <table>
 <thead>
 <tr>
@@ -3698,11 +3719,8 @@
 </tr>
 </tbody>
 </table>
-<div class="tabbed-set tabbed-alternate" data-tabs="4:1"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Notifications</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block"></div>
 </div>
-</div>
+<div class="tabbed-block">
 <table>
 <thead>
 <tr>
@@ -3744,10 +3762,18 @@
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+</div>
 <h3 id="v2-configuration-migration-guide">V2 Configuration Migration Guide</h3>
 <p>Refer to the <a href="../../../configuration/V2MigrationCommonConfig">Common Configuration Migration Guide</a> for details on migrating the common configuration sections such as <code>Service</code>.</p>
 <h4 id="writable">Writable</h4>
 <p>The <code>EnableValueDescriptorManagement</code> setting has been removed</p>
+<p>The following setting has been added to the <code>Writable.ProfileChage</code> section.</p>
+<ul>
+<li>StrictDeviceProfileChanges</li>
+<li>StrictDeviceProfileDeletes</li>
+</ul>
 <h2 id="api-reference">API Reference</h2>
 <p><a href="../../../../api/core/Ch-APICoreMetadata/">Core Metadata API Reference</a></p>
 

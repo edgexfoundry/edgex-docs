@@ -3259,7 +3259,7 @@ and role of a device service.</p>
 <p>Device services now have the capability to publish Events directly to the EdgeX MessageBus, rather than POST the Events to Core Data via REST. This capability is controlled by the <code>Device.UseMessageBus</code> configuration property (see below), which is set to <code>true</code> by default. Core Data is configured by default to subscribe to the EdgeX MessageBus to receive and persist the Events. Application services, as in EdgeX 1.x, subscribe to the EdgeX MessageBus to receive and process the Events.</p>
 <h2 id="configuration-properties">Configuration Properties</h2>
 <p>Please refer to the general <a href="../../configuration/CommonConfiguration/">Common Configuration documentation</a> for configuration properties common to all services.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Device</label><label for="__tabbed_1_2">MessageQueue</label><label for="__tabbed_1_3">MessageQueue.Optional</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Device</label><label for="__tabbed_1_2">MessageQueue</label><label for="__tabbed_1_3">MessageQueue.Optional</label><label for="__tabbed_1_4">Writable.Reading</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table>
@@ -3426,6 +3426,24 @@ and role of a device service.</p>
 <td>SkipCertVerify</td>
 <td>false</td>
 <td>TLS configuration - Only used if Cert/Key file or Cert/Key PEMblock are specified</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ReadingUnits</td>
+<td>true</td>
+<td>Indicate the units of measure for the Value in the Reading, set to <code>false</code> to not to include units in the Reading.</td>
 </tr>
 </tbody>
 </table>
