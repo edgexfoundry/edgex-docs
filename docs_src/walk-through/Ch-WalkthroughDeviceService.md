@@ -39,21 +39,19 @@ Use either the Postman or Curl tab below to walkthrough creating the `DeviceServ
     Make a POST request to `http://localhost:59881/api/v2/deviceservice` with the following body:
 
     ``` json
-    BODY: [
-            {
-                "apiVersion": "v2",
-                "service": {
-                "name": "camera-control-device-service",
-                "description": "Manage human and dog counting cameras",
-                "adminState": "UNLOCKED",
-                "labels": [
-                    "camera",
-                    "counter"
-                ],
-                "baseAddress": "camera-device-service:59990"
-                }
-            }
-        ]
+    {
+        "apiVersion": "v2",
+        "service": {
+        "name": "camera-control-device-service",
+        "description": "Manage human and dog counting cameras",
+        "adminState": "UNLOCKED",
+        "labels": [
+            "camera",
+            "counter"
+        ],
+        "baseAddress": "camera-device-service:59990"
+        }
+    }
     ```
 
     Be sure that you are POSTing **raw** data, not form-encoded data.  If your API call is successful, you will get a generated ID for your new `DeviceService` in the response area.
