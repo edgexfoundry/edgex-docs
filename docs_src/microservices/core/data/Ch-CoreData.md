@@ -121,6 +121,16 @@ Please refer to the general [Common Configuration documentation](../../configura
     |---|---|---|
     ||Writable properties can be set and will dynamically take effect without service restart|
     |PersistData|true|When true, core data persists all sensor data sent to it in its associated database|
+=== "Writable.Telemetry"
+    |Property|Default Value|Description|
+    |---|---|---|
+    |||See `Writable.Telemetry` at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties) for the Telemetry configuration common to all services |
+    |Metrics| EventsPersisted = false ReadingsPersisted = false|Service metrics that Core Data collects. Boolean value indicates if reporting of the metric is enabled.|
+    |Tags|`<empty>`|List of arbitrary service level tags to included with every metric that is reported. i.e. `Gateway="my-iot-gateway"` |
+
+    !!! edgey "Edgex 2.2"
+        For EdgeX 2.2 Collecting of the `EventsPersisted` and `ReadingsPersisted` Core Data Service Metrics have been added.
+
 === "Databases/Databases.Primary"
     |Property|Default Value|Description|
     |---|---|---|
@@ -129,7 +139,7 @@ Please refer to the general [Common Configuration documentation](../../configura
     |Property|Default Value|Description|
     |---|---|---|
     ||Entries in the MessageQueue section of the configuration allow for publication of events to a message bus|
-    |Protocol | redis| Indicates the connectivity protocol to use to use the bus.|
+    |Protocol | redis| Indicates the connectivity protocol to use when connecting to the bus.|
     |Host | localhost | Indicates the host of the messaging broker, if applicable.|
     |Port | 6379| Indicates the port to use when publishing a message.|
     |Type | redis| Indicates the type of messaging library to use. Currently this is Redis by default. Refer to the [go-mod-messaging](https://github.com/edgexfoundry/go-mod-messaging) module for more information. |
