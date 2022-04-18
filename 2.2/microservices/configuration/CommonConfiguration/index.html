@@ -2847,7 +2847,7 @@
 <p class="admonition-title">Edgex 2.0</p>
 <p>For EdgeX 2.0 the <code>Logging</code> and <code>Startup</code> sections have been removed. <code>Startup</code> has been replaced with the <code>EDGEX_STARTUP_DURATION</code> (default is 60 secs) and <code>EDGEX_STARTUP_INTERVAL</code> (default is 1 sec) environment variables.</p>
 </div>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:7"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><input id="__tabbed_1_7" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Writable</label><label for="__tabbed_1_2">Service</label><label for="__tabbed_1_3">Databases.Primary</label><label for="__tabbed_1_4">Registry</label><label for="__tabbed_1_5">Clients.[service-key]</label><label for="__tabbed_1_6">SecretStore</label><label for="__tabbed_1_7">Service.CORSConfiguration</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:8"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><input id="__tabbed_1_7" name="__tabbed_1" type="radio" /><input id="__tabbed_1_8" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Writable</label><label for="__tabbed_1_2">Writable.Telemetry</label><label for="__tabbed_1_3">Service</label><label for="__tabbed_1_4">Service.CORSConfiguration</label><label for="__tabbed_1_5">Databases.Primary</label><label for="__tabbed_1_6">Registry</label><label for="__tabbed_1_7">Clients.[service-key]</label><label for="__tabbed_1_8">SecretStore</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table>
@@ -2879,6 +2879,43 @@
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 2.0</p>
 <p>For EdgeX 2.0 the For EdgeX 2.0 the <code>Writable.InsecureSecrets</code> configuration section is new. </p>
+</div>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Interval</td>
+<td>30s</td>
+<td>The interval in seconds at which to report the metrics currently being collected and enabled.</td>
+</tr>
+<tr>
+<td>PublishTopicPrefix</td>
+<td>"edgex/telemetry"</td>
+<td>The base topic in which to publish (report) metrics currently being collected and enabled. <code>/&lt;service-name&gt;/&lt;metric-name&gt;</code> will be added to this base topic prefix.</td>
+</tr>
+<tr>
+<td>Metrics</td>
+<td><code>&lt;Service dependent&gt;</code></td>
+<td>Boolean map of service metrics that are being collected. The boolean flag for each indicates if the metric is enabled for reporting. i.e. <code>EventsPersisted = true</code>. The metric name must be one defined by the service.</td>
+</tr>
+<tr>
+<td>Tags</td>
+<td><code>&lt;Service dependent&gt;</code></td>
+<td>String map of arbitrary tags to be added to every metric that is reported for the service. i.e. <code>Gateway="my-iot-gateway"</code>. The tag names are arbitrary.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition edgey">
+<p class="admonition-title">Edgex 2.2</p>
+<p>For EdgeX 2.2 Service Metrics have been added. Currently only Core Data is collecting service metrics.</p>
 </div>
 </div>
 <div class="tabbed-block">
@@ -2937,6 +2974,64 @@
 <p class="admonition-title">Edgex 2.0</p>
 <p>For EdgeX 2.0 <code>Protocol</code> and <code>BootTimeout</code>  have been removed. <code>CheckInterval</code> and  <code>Timeout</code> have been renamed to <code>HealthCheckInterval</code> and <code>RequestTimeout</code> respectively. <code>MaxRequestSize</code> was added for all services.</p>
 </div>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td>The settings of controling CORS http headers</td>
+</tr>
+<tr>
+<td>EnableCORS</td>
+<td>false</td>
+<td>Enable or disable CORS support.</td>
+</tr>
+<tr>
+<td>CORSAllowCredentials</td>
+<td>false</td>
+<td>The value of <code>Access-Control-Allow-Credentials</code> http header. It appears only if the value is <code>true</code>.</td>
+</tr>
+<tr>
+<td>CORSAllowedOrigin</td>
+<td>"https://localhost"</td>
+<td>The value of <code>Access-Control-Allow-Origin</code> http header.</td>
+</tr>
+<tr>
+<td>CORSAllowedMethods</td>
+<td>"GET, POST, PUT, PATCH, DELETE"</td>
+<td>The value of <code>Access-Control-Allow-Methods</code> http header.</td>
+</tr>
+<tr>
+<td>CORSAllowedHeaders</td>
+<td>"Authorization, Accept, Accept-Language, Content-Language, Content-Type, X-Correlation-ID"</td>
+<td>The value of <code>Access-Control-Allow-Headers</code> http header.</td>
+</tr>
+<tr>
+<td>CORSExposeHeaders</td>
+<td>"Cache-Control, Content-Language, Content-Length, Content-Type, Expires, Last-Modified, Pragma, X-Correlation-ID"</td>
+<td>The value of <code>Access-Control-Expose-Headers</code> http header.</td>
+</tr>
+<tr>
+<td>CORSMaxAge</td>
+<td>3600</td>
+<td>The value of <code>Access-Control-Max-Age</code> http header.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition edgey">
+<p class="admonition-title">Edgex 2.1</p>
+<p>New for EdgeX 2.1 is the ability to enable CORS access to EdgeX microservices through configuration. </p>
+</div>
+<p>To understand more details about these HTTP headers, please refer to <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#the_http_response_headers">MDN Web Docs</a>, and refer to <a href="../../../security/Ch-CORS-Settings/">CORS enabling</a> to learn more.</p>
 </div>
 <div class="tabbed-block">
 <table>
@@ -3131,64 +3226,6 @@
 <p class="admonition-title">Edgex 2.0</p>
 <p>For EdgeX 2.0 the <code>Protocol</code> default has changed to <code>HTTP</code> which no longer requires <code>RootCaCertPath</code> and <code>ServerName</code> to be set. <code>Path</code> has been reduce to the sub-path for the service since the based path is fixed. <code>TokenFile</code> default value has changed and requires the <code>service-key</code> be used in the path.</p>
 </div>
-</div>
-<div class="tabbed-block">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Default Value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td></td>
-<td>The settings of controling CORS http headers</td>
-</tr>
-<tr>
-<td>EnableCORS</td>
-<td>false</td>
-<td>Enable or disable CORS support.</td>
-</tr>
-<tr>
-<td>CORSAllowCredentials</td>
-<td>false</td>
-<td>The value of <code>Access-Control-Allow-Credentials</code> http header. It appears only if the value is <code>true</code>.</td>
-</tr>
-<tr>
-<td>CORSAllowedOrigin</td>
-<td>"https://localhost"</td>
-<td>The value of <code>Access-Control-Allow-Origin</code> http header.</td>
-</tr>
-<tr>
-<td>CORSAllowedMethods</td>
-<td>"GET, POST, PUT, PATCH, DELETE"</td>
-<td>The value of <code>Access-Control-Allow-Methods</code> http header.</td>
-</tr>
-<tr>
-<td>CORSAllowedHeaders</td>
-<td>"Authorization, Accept, Accept-Language, Content-Language, Content-Type, X-Correlation-ID"</td>
-<td>The value of <code>Access-Control-Allow-Headers</code> http header.</td>
-</tr>
-<tr>
-<td>CORSExposeHeaders</td>
-<td>"Cache-Control, Content-Language, Content-Length, Content-Type, Expires, Last-Modified, Pragma, X-Correlation-ID"</td>
-<td>The value of <code>Access-Control-Expose-Headers</code> http header.</td>
-</tr>
-<tr>
-<td>CORSMaxAge</td>
-<td>3600</td>
-<td>The value of <code>Access-Control-Max-Age</code> http header.</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.1</p>
-<p>New for EdgeX 2.1 is the ability to enable CORS access to EdgeX microservices through configuration. </p>
-</div>
-<p>To understand more details about these HTTP headers, please refer to <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#the_http_response_headers">MDN Web Docs</a>, and refer to <a href="../../../security/Ch-CORS-Settings/">CORS enabling</a> to learn more.</p>
 </div>
 </div>
 </div>

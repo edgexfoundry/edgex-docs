@@ -3191,7 +3191,7 @@ latency through this layer and storage needs at the network edge.  But the cost 
 <p><img alt="image" src="../EdgeX_CoreDataEventReading.png" /></p>
 <h2 id="configuration-properties">Configuration Properties</h2>
 <p>Please refer to the general <a href="../../../configuration/CommonConfiguration/">Common Configuration documentation</a> for configuration properties common to all services. Below are only the additional settings and sections that are not common to all EdgeX Services.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:5"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><input id="__tabbed_2_5" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Writable</label><label for="__tabbed_2_2">Databases/Databases.Primary</label><label for="__tabbed_2_3">MessageQueue</label><label for="__tabbed_2_4">MessageQueue.Optional</label><label for="__tabbed_2_5">MaxEventSize</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:6"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><input id="__tabbed_2_5" name="__tabbed_2" type="radio" /><input id="__tabbed_2_6" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Writable</label><label for="__tabbed_2_2">Writable.Telemetry</label><label for="__tabbed_2_3">Databases/Databases.Primary</label><label for="__tabbed_2_4">MessageQueue</label><label for="__tabbed_2_5">MessageQueue.Optional</label><label for="__tabbed_2_6">MaxEventSize</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table>
@@ -3215,6 +3215,38 @@ latency through this layer and storage needs at the network edge.  But the cost 
 </tr>
 </tbody>
 </table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td>See <code>Writable.Telemetry</code> at <a href="../../../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a> for the Telemetry configuration common to all services</td>
+</tr>
+<tr>
+<td>Metrics</td>
+<td>EventsPersisted = false ReadingsPersisted = false</td>
+<td>Service metrics that Core Data collects. Boolean value indicates if reporting of the metric is enabled.</td>
+</tr>
+<tr>
+<td>Tags</td>
+<td><code>&lt;empty&gt;</code></td>
+<td>List of arbitrary service level tags to included with every metric that is reported. i.e. <code>Gateway="my-iot-gateway"</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition edgey">
+<p class="admonition-title">Edgex 2.2</p>
+<p>For EdgeX 2.2 Collecting of the <code>EventsPersisted</code> and <code>ReadingsPersisted</code> Core Data Service Metrics have been added.</p>
+</div>
 </div>
 <div class="tabbed-block">
 <table>
@@ -3252,7 +3284,7 @@ latency through this layer and storage needs at the network edge.  But the cost 
 <tr>
 <td>Protocol</td>
 <td>redis</td>
-<td>Indicates the connectivity protocol to use to use the bus.</td>
+<td>Indicates the connectivity protocol to use when connecting to the bus.</td>
 </tr>
 <tr>
 <td>Host</td>
