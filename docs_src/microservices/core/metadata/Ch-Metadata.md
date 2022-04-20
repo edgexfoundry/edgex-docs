@@ -375,10 +375,11 @@ Refer to the [Common Configuration Migration Guide](../../../configuration/V2Mig
 
 The `EnableValueDescriptorManagement` setting has been removed
 
-The following setting has been added to the `Writable.ProfileChage` section.
+!!! edgey "Edgex 2.2"
+    The following setting has been added to the `Writable.ProfileChage` section.
 
-- StrictDeviceProfileChanges
-- StrictDeviceProfileDeletes
+    - StrictDeviceProfileChanges
+    - StrictDeviceProfileDeletes
 
 ## API Reference
 
