@@ -25,6 +25,7 @@ type AppFunctionContext interface {
     DeviceServiceClient() interfaces.DeviceServiceClient
     DeviceProfileClient() interfaces.DeviceProfileClient
     DeviceClient() interfaces.DeviceClient
+    MetricsManager() bootstrapInterfaces.MetricsManager
     PushToCore(event dtos.Event) (common.BaseWithIdResponse, error)
     GetDeviceResource(profileName string, resourceName string) (dtos.DeviceResource, error)
     AddValue(key string, value string)
@@ -143,6 +144,7 @@ Each of the clients above is only initialized if the Clients section of the conf
     ```
 
 ## Context Storage
+
 The context API exposes a map-like interface that can be used to store custom data specific to a given pipeline execution.  This data is persisted for retry if needed.  Currently only strings are supported, and keys are treated as case-insensitive.  
 
 There following values are seeded into the Context Storage when an Event is received:
@@ -197,7 +199,7 @@ This API returns that timestamp for when the secrets in the SecretStore where la
 
 ## Miscellaneous
 
-### CorrelationID()
+### CorrelationID
 `CorrelationID()`
 
 This API returns the ID used to track the EdgeX event through entire EdgeX framework.
@@ -208,18 +210,18 @@ This API returns the ID used to track the EdgeX event through entire EdgeX frame
 
 This API returns the ID of the pipeline currently executing. Useful when logging messages from pipeline functions so the message contain the ID of the pipeline that executed the pipeline function.
 
-### InputContentType()
+### InputContentType
 
 `InputContentType()`
 
 This API returns the content type of the data that initiated the pipeline execution. Only useful when the TargetType for the pipeline is []byte, otherwise the data will be the type specified by TargetType.
 
-### GetDeviceResource()
+### GetDeviceResource
 `GetDeviceResource(profileName string, resourceName string) (dtos.DeviceResource, error)`
 
 This API retrieves the DeviceResource for the given profile / resource name. Results are cached to minimize HTTP traffic to core-metadata.
 
-### PushToCore()
+### PushToCore
 `PushToCore(event dtos.Event)`
 
 This API is used to push data to EdgeX Core Data so that it can be shared with other applications that are subscribed to the message bus that core-data publishes to. This function will return the new EdgeX Event with the ID populated, along with any error encountered.  Note that CorrelationId will not be available.
@@ -230,11 +232,24 @@ This API is used to push data to EdgeX Core Data so that it can be shared with o
 !!! warning
     Be aware that without a filter in your pipeline, it is possible to create an infinite loop when the Message Bus trigger is used. Choose your device-name and reading name appropriately.
 
-### SetRetryData()
+### SetRetryData
 `SetRetryData(data []byte)`
 
 This method can be used to store data for later retry. This is useful when creating a custom export function that needs to retry on failure. The payload data will be stored for later retry based on `Store and Forward` configuration. When the retry is triggered, the function pipeline will be re-executed starting with the function that called this API. That function will be passed the stored data, so it is important that all transformations occur in functions prior to the export function. The `Context` will also be restored to the state when the function called this API. See [Store and Forward](../AdvancedTopics/#store-and-forward) for more details.
 
 !!! note
     `Store and Forward` be must enabled when calling this API, otherwise the data is ignored.
+
+### MetricsManager
+
+`MetricsManager() bootstrapInterfaces.MetricsManager`
+
+This API returns the Metrics Manager used to register counter, gauge, gaugeFloat64 or timer metric types from github.com/rcrowley/go-metrics
+
+```go
+myCounterMetricName := "MyCounter"
+myCounter := gometrics.NewCounter()
+myTags := map[string]string{"Tag1":"Value1"}
+ctx.MetricsManager().Register(myCounterMetricName, myCounter, myTags)	
+```
 
