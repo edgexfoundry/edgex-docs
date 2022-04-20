@@ -120,6 +120,9 @@ Device services now have the capability to publish Events directly to the EdgeX 
 
 Please refer to the general [Common Configuration documentation](../configuration/CommonConfiguration.md) for configuration properties common to all services.
 
+!!! edgey "Edgex 2.2"
+    `Writable.Reading.ReadingUnits` is new for Edgex 2.2
+
 === "Device"
     |Property|Default Value|Description|
     |---|---|---|
