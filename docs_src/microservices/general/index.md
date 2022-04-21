@@ -34,7 +34,9 @@ If the Event already has `Tags` when it arrives at the application service, then
 !!! edgey "Edgex 2.2"
     New for Edgex 2.2
 
-Limited service metrics have been added for the EdgeX 2.2 release. Currently, only **Core Data** is collecting a limit set of service metrics. Additional service metrics will be added to **Core Data** and other services in future releases. See `Writable.Telemetry` at [Common Configuration](../configuration/CommonConfiguration/#configuration-properties) for details on configuring service metrics.
+Limited service metrics have been added for the EdgeX 2.2 release. Currently, only **Core Data** is collecting a limit set of service metrics. Additional service metrics will be added to **Core Data** and other services in future releases.  See `Writable.Telemetry` at [Common Configuration](../configuration/CommonConfiguration/#configuration-properties) for details on configuring the reporting of service metrics. 
+
+Custom Application Services also have the capability to collect their own custom service metrics via use of the App SDK API. See [Custom Application Service Metrics](../application/AdvancedTopics/#custom-application-service-metrics) for more detail.
 
 Each service defines (in code) a set of service metrics that it collects and optionally reports if configured. 
 The names the service gives to its metrics are used in the service's `Telemetry` configuration to enable/disable the reporting of those metrics. See Core Data's `Writable.Telemetry` at [Core Data Configuration](../core/data/Ch-CoreData/#configuration-properties) as example of the names used for the service metrics that Core Data is currently collecting.
