@@ -2016,7 +2016,7 @@
         
           <li class="md-nav__item">
   <a href="#requesttimeout" class="md-nav__link">
-    RequestTimeout()
+    RequestTimeout
   </a>
   
 </li>
@@ -2031,6 +2031,13 @@
           <li class="md-nav__item">
   <a href="#registercustomstorefactory" class="md-nav__link">
     RegisterCustomStoreFactory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metricsmanager" class="md-nav__link">
+    MetricsManager
   </a>
   
 </li>
@@ -3430,7 +3437,7 @@
         
           <li class="md-nav__item">
   <a href="#requesttimeout" class="md-nav__link">
-    RequestTimeout()
+    RequestTimeout
   </a>
   
 </li>
@@ -3445,6 +3452,13 @@
           <li class="md-nav__item">
   <a href="#registercustomstorefactory" class="md-nav__link">
     RegisterCustomStoreFactory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metricsmanager" class="md-nav__link">
+    MetricsManager
   </a>
   
 </li>
@@ -3512,6 +3526,7 @@
 <span class="w">    </span><span class="nx">DeviceProfileClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">DeviceProfileClient</span><span class="w"></span>
 <span class="w">    </span><span class="nx">DeviceClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">DeviceClient</span><span class="w"></span>
 <span class="w">    </span><span class="nx">RegistryClient</span><span class="p">()</span><span class="w"> </span><span class="nx">registry</span><span class="p">.</span><span class="nx">Client</span><span class="w"></span>
+<span class="w">    </span><span class="nx">MetricsManager</span><span class="p">()</span><span class="w"> </span><span class="nx">bootstrapInterfaces</span><span class="p">.</span><span class="nx">MetricsManager</span><span class="w"></span>
 <span class="w">    </span><span class="nx">AddBackgroundPublisher</span><span class="p">(</span><span class="nx">capacity</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">BackgroundPublisher</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="nx">AddBackgroundPublisherWithTopic</span><span class="p">(</span><span class="nx">capacity</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="nx">topic</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">BackgroundPublisher</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="nx">BuildContext</span><span class="p">(</span><span class="nx">correlationId</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">contentType</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="nx">AppFunctionContext</span><span class="w"></span>
@@ -3901,7 +3916,7 @@ See the <a href="https://github.com/edgexfoundry/go-mod-registry/blob/v2.0.0/reg
 <h3 id="addroute">AddRoute</h3>
 <p><code>AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error</code></p>
 <p>This API adds a custom REST route to the application service's internal webserver.  A reference to the ApplicationService is add the the context that is passed to the handler, which can be retrieved using the <code>AppService</code> key. See <a href="../AdvancedTopics/#custom-rest-endpoints">Custom REST Endpoints</a> advanced topic for more details and example.</p>
-<h3 id="requesttimeout">RequestTimeout()</h3>
+<h3 id="requesttimeout">RequestTimeout</h3>
 <p><code>RequestTimeout() time.Duration</code></p>
 <p>This API returns the parsed value for the <code>Service.RequestTimeout</code> configuration setting. The setting is parsed on start-up so that any error is caught then.</p>
 <div class="admonition example">
@@ -3920,6 +3935,14 @@ See the <a href="https://github.com/edgexfoundry/go-mod-registry/blob/v2.0.0/reg
 <h3 id="registercustomstorefactory">RegisterCustomStoreFactory</h3>
 <p><code>RegisterCustomStoreFactory(name string, factory func(cfg DatabaseInfo, cred config.Credentials) (StoreClient, error)) error</code></p>
 <p>This API registers a factory to construct a custom store client for the <a href="../AdvancedTopics/#store-and-forward">store &amp; forward</a> loop.</p>
+<h3 id="metricsmanager">MetricsManager</h3>
+<p><code>MetricsManager() bootstrapInterfaces.MetricsManager</code></p>
+<p>This API returns the Metrics Manager used to register counter, gauge, gaugeFloat64 or timer metric types from github.com/rcrowley/go-metrics</p>
+<div class="highlight"><pre><span></span><code><span class="nx">myCounterMetricName</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;MyCounter&quot;</span><span class="w"></span>
+<span class="nx">myCounter</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">gometrics</span><span class="p">.</span><span class="nx">NewCounter</span><span class="p">()</span><span class="w"></span>
+<span class="nx">myTags</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;Tag1&quot;</span><span class="p">:</span><span class="s">&quot;Value1&quot;</span><span class="p">}</span><span class="w"></span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">service</span><span class="p">.</span><span class="nx">MetricsManager</span><span class="p">().</span><span class="nx">Register</span><span class="p">(</span><span class="nx">myCounterMetricName</span><span class="p">,</span><span class="w"> </span><span class="nx">myCounter</span><span class="p">,</span><span class="w"> </span><span class="nx">myTags</span><span class="p">)</span><span class="w">   </span>
+</code></pre></div>
 
               
             </article>

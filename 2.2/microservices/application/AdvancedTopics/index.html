@@ -1978,6 +1978,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#custom-application-service-metrics" class="md-nav__link">
+    Custom Application Service Metrics
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3218,6 +3225,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#custom-application-service-metrics" class="md-nav__link">
+    Custom Application Service Metrics
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3678,6 +3692,80 @@ A factory function to create these clients can then be registered with your serv
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
+<h3 id="custom-application-service-metrics">Custom Application Service Metrics</h3>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.2</p>
+<p>Custom Application Service Metrics are new for EdgeX 2.2</p>
+</div>
+<p>The Custom Application Service Metrics capability allows for custom application services to define, collect and report their own custom service metrics.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The SDK will soon implement a limited set of common Application Service Metrics. </p>
+</div>
+<p>The following are the steps to collect and report custom service metrics:</p>
+<ol>
+<li>
+<p>Determine the metric type that needs to be collected</p>
+<ul>
+<li><code>counter</code> - Track the integer count of something</li>
+<li><code>gauge</code> - Track the integer value of something  </li>
+<li><code>gaugeFloat64</code> - Track the float64 value of something </li>
+<li><code>timer</code> - Track the time it takes to accomplish a task</li>
+</ul>
+</li>
+<li>
+<p>Create instance of the metric type from <code>github.com/rcrowley/go-metrics</code></p>
+<ul>
+<li><code>myCounter = gometrics.NewCounter()</code></li>
+<li><code>myGauge = gometrics.NewGauge()</code></li>
+<li><code>myGaugeFloat64 = gometrics.NewGaugeFloat64()</code></li>
+<li><code>myTimer = gometrics.NewTime()</code></li>
+</ul>
+</li>
+<li>
+<p>Determine if there are any tags to report along with your metric. Not common so <code>nil</code> is typically passed for the <code>tags map[strings]string</code> parameter in the next step.</p>
+</li>
+<li>
+<p>Register your metric(s) with the MetricsManager from the <code>service</code> or <code>pipeline function context</code> reference. See <a href="../ApplicationServiceAPI/#metricsmanager">Application Service API</a> and <a href="../AppFunctionContextAPI/#metricsmanager">App Function Context API</a> for more details:</p>
+<ul>
+<li><code>service.MetricsManager().Register("MyCounterName", myCounter, nil)</code></li>
+<li><code>ctx.MetricsManager().Register("MyCounterName", myCounter, nil)</code></li>
+</ul>
+</li>
+<li>
+<p>Collect the metric</p>
+<ul>
+<li><code>myCounter.Inc(someIntvalue)</code></li>
+<li><code>myCounter.Dec(someIntvalue)</code></li>
+<li><code>myGauge.Update(someIntvalue)</code></li>
+<li><code>myGaugeFloat64.Update(someFloatvalue)</code></li>
+<li><code>myTimer.Update(someDuration)</code></li>
+<li><code>myTimer.Time(func { do sometime})</code></li>
+<li><code>myTimer.UpdateSince(someTimeValue</code>)</li>
+</ul>
+</li>
+<li>
+<p>Configure reporting of the service's metrics. See <code>Writable.Telemetry</code> configuration details in the <a href="http://localhost:8001/edgex-docs/microservices/application/GeneralAppServiceConfig/#writable">Application Service Configuration</a> section for more detail.</p>
+<div class="admonition example">
+<p class="admonition-title">Example - Service Telemetry Configuration</p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">[Writable.Telemetry]</span><span class="w"></span>
+<span class="w">  </span><span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30s&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="n">PublishTopicPrefix</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;edgex/telemetry&quot;</span><span class="w"> </span><span class="c1"># /&lt;service-name&gt;/&lt;metric-name&gt; will be added to this Publish Topic prefix</span><span class="w"></span>
+<span class="w">    </span><span class="p">[</span><span class="n">Writable</span><span class="p">.</span><span class="n">Telemetry</span><span class="p">.</span><span class="n">Metrics</span><span class="p">]</span><span class="w"> </span><span class="c1"># All service&#39;s metric names must be present in this list.</span><span class="w"></span>
+<span class="w">    </span><span class="n">MyCounterName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">    </span><span class="n">MyGaugeName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">    </span><span class="n">MyGaugeFloat64Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">    </span><span class="n">MyTimerName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">    </span><span class="p">[</span><span class="n">Writable</span><span class="p">.</span><span class="n">Telemetry</span><span class="p">.</span><span class="n">Tags</span><span class="p">]</span><span class="w"> </span><span class="c1"># Contains the service level tags to be attached to all the service&#39;s metrics</span><span class="w"></span>
+<span class="c1">#    Gateway=&quot;my-iot-gateway&quot; # Tag must be added here or via Consul Env Override can only change existing value, not added new ones.</span><span class="w"></span>
+</code></pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The metric names used in the above configuration (to enable or disable reporting of a metric) must match exactly the name used when the metric is registered.</p>
+</div>
+</li>
+</ol>
 
               
             </article>
