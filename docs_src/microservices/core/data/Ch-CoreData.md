@@ -162,7 +162,7 @@ Please refer to the general [Common Configuration documentation](../../configura
 === "MaxEventSize"
     |Property|Default Value|Description|    
     |---|---|---|
-    | MaxEventSize|25000|maximum event size in kilobytes accepted via REST or MessageBus|
+    | MaxEventSize|25000|maximum event size in kilobytes accepted via REST or MessageBus. 0 represents default to system max.|
 
 ### V2 Configuration Migration Guide
 

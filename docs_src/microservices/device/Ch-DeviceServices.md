@@ -121,7 +121,7 @@ Device services now have the capability to publish Events directly to the EdgeX 
 Please refer to the general [Common Configuration documentation](../configuration/CommonConfiguration.md) for configuration properties common to all services.
 
 !!! edgey "Edgex 2.2"
-    `Writable.Reading.ReadingUnits` is new for Edgex 2.2
+    `Writable.Reading.ReadingUnits` and `MaxEventSize` are new for Edgex 2.2
 
 === "Device"
     |Property|Default Value|Description|
@@ -162,6 +162,11 @@ Please refer to the general [Common Configuration documentation](../configuratio
     |Property|Default Value|Description|
     |---|---|---|
     |ReadingUnits|true|Indicate the units of measure for the Value in the Reading, set to `false` to not to include units in the Reading. |
+=== "MaxEventSize"
+    |Property|Default Value|Description|    
+    |---|---|---|
+    |MaxEventSize|0|maximum event size in kilobytes sent to Core Data or MessageBus. 0 represents default to system max.|
+
 
 ### Custom Configuration
 
