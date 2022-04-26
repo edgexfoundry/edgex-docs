@@ -40,11 +40,14 @@ The tables in each of the tabs below document configuration properties that are 
     |ServerBindAddr|'' (empty string)|The interface on which the service's REST server should listen. By default the server is to listen on the interface to which the `Host` option resolves (leaving it blank). A value of `0.0.0.0` means listen on all available interfaces. App & Device service do not implement this setting|
     |StartupMsg|---|Message logged when service completes bootstrap start-up|
     |MaxResultCount|1024*|Read data limit per invocation. *Default value is for core/support services. Application and Device services do not implement this setting. |
-    |MaxRequestSize|0|Defines the maximum size of http request body in bytes. 0 represents default to system max. Not all services actual implement this setting. Those that do not have a comment stating this fact.|
+    |MaxRequestSize|0|Defines the maximum size of http request body in kilbytes. 0 represents default to system max.|
     |RequestTimeout         |5s                          | Specifies a timeout duration for handling requests |
 
     !!! edgey "Edgex 2.0"
         For EdgeX 2.0 `Protocol` and `BootTimeout`  have been removed. `CheckInterval` and  `Timeout ` have been renamed to `HealthCheckInterval` and `RequestTimeout` respectively. `MaxRequestSize` was added for all services.
+
+    !!! edgey "Edgex 2.2"
+        For EdgeX 2.2 Service MaxRequestSize has been implemented to all services, and the unit is kilobyte.
 
 === "Service.CORSConfiguration"
 
