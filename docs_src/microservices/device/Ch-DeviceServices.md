@@ -62,11 +62,11 @@ As you can imagine, many of these tasks (like registering with core metadata) ar
 
 Core metadata tracks two timestamps for each device service:  last connected and last reported.  Both last connected and last reported are saved as int64 values - representing time (Unix time) in milliseconds
 
-### Last Connected
+#### Last Connected
 
 Last connected indicates the last time a device service was engaged and responded to a request.  The last connected timestamp would be updated when a command request (such as that from core command) is responded to or when the device service responds to a core metadata callback.
 
-### Last Reported
+#### Last Reported
 
 Last reported indicates the last time a device service reported data from a device to EdgeX.  So, for example, if a device service was connected to a thermostat, the last reported timestamp would be update whenever the thermostat reports a new temperature or other value to the device service (which is then captured as an event/reading and sent to the rest of EdgeX).
 
