@@ -76,7 +76,6 @@ When using messaging to make the "queries" the response message must return info
         {
           "name": "coolingpoint1",
           "topic": "/edgex/command/request/testDevice1/coolingpoint/get",
-          "url": "broker.address:1883",
           "parameters": [
             {
               "resourceName": "resource1",
@@ -86,7 +85,6 @@ When using messaging to make the "queries" the response message must return info
         {
           "name": "coolingpoint1",
           "topic": "/edgex/command/request/testDevice1/coolingpoint1/set",
-          "url": "broker.address:1883",
           "parameters": [
             {
               "resourceName": "resource1",
@@ -98,6 +96,9 @@ When using messaging to make the "queries" the response message must return info
 
 !!! Note
     Per Core WG meeting of 4/7/22 - the JSON above serves as a general example.  The implementation will have to address get/set (or read/write) differentiation, but this is considered an implementation detail to be resolved by the developers.
+
+!!! Note
+    The query response does not contain a URL since it is assumed that the broker address must already be known in order to make the query.
 
 ### Message Structure
 
@@ -134,6 +135,9 @@ Command requests in HTTP may also contain ds-pushevent and ds-returnevent query 
 }
 ```
 
+!!! Note
+    As with REST requests, if the ds-returnvent was `no`, then a message with envelope would be returned but with no payload as there would be no events to return.
+
 #### Command Message Payload
 
 The **request** message `payload` to the command service and those relayed to the device service would mimic their HTTP/REST request body alternatives.  The `payload` provides details needed in executing the command at the south side.
@@ -149,9 +153,6 @@ In the example GET and PUT messages below, note the `envelope` wraps or encases 
         "ds-pushevent":"yes",
         "ds-returnevent":"yes",
      }
-    "payload": 
-    {
-    }
 }
 
 {
@@ -169,6 +170,10 @@ In the example GET and PUT messages below, note the `envelope` wraps or encases 
     }
 }
 ```
+
+!!! Note
+    Payload could be empty and therefore optional in the message structure - and exemplified in the top example here.
+
 
 The **response** message `payload` would contain the response from the south side, which is typically EdgeX event/reading objects (in the case of GET requests) but would also include any error message details.
 
@@ -248,22 +253,14 @@ In the example query to get all commands below, note the `envelope` wraps or enc
         "offset":0,
         "limit":20,
      }
-    "payload": 
-    {
-    }
 }
 
-In the example query to get commands for a specific device by name, the device name would be in the topic, so the query message would be without information.
+In the example query to get commands for a specific device by name, the device name would be in the topic, so the query message would be without information (and removed from the message as queryParams will be optional).
 
 {
     "Correlation-ID": "14a42ea6-c394-41c3-8bcd-a29b9f5e6835",
     "apiVersion": "v2",
     "requestId": "e6e8a2f4-eb14-4649-9e2b-175247911369",
-    "queryParams": {
-     }
-    "payload": 
-    {
-    }
 }
 
 ```
@@ -334,7 +331,7 @@ An example response message is shown below.  Again, note that the message `envel
 
 #### 3rd party system topics
 
-The 3rd party system or application must publish command requests messages to its own MQTT topic (**external message bus**) and subscribe to responses from the same.  Messages topics should follow a standard such as:
+The 3rd party system or application must publish command requests messages to an EdgeX specified MQTT topic (**external message bus**) and subscribe to responses from the same.  Messages topics should follow the following pattern:
 
 - Publishing command request topic: `/edgex/command/request/<device-name>/<command-name>/<method>`
 - Subscribing command response topic: `/edgex/command/response/#`
@@ -356,9 +353,6 @@ For queries, the following topics are used:
 
 - Subscribing to 3rd party command query request topics: `edgex/commandquery/request`
 - Publishing to 3rd party command query response topic: `edgex/commandquery/response`
-
-!!! Note
-    Because EdgeX can suggest but not dictate the naming standard for 3rd party MQTT topics, the 3rd party topic names are representative for clarity.
 
 #### device service topics
 
