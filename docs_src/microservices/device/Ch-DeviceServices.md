@@ -58,6 +58,18 @@ All device services must perform the following tasks:
 
 As you can imagine, many of these tasks (like registering with core metadata) are generic and the same for all device services and thereby provided by the SDK.  Other tasks (like getting sensor data from the underlying device) are quite specific to the underlying device.  In these cases, the device service SDK provides empty functions for performing the work, but the developer would need to fill in the function code as it relates to the specific device, the communication protocol, device driver, etc.
 
+### Device Service Timestamps
+
+Core metadata tracks two timestamps for each device service:  last connected and last reported.  Both last connected and last reported are saved as int64 values - representing time (Unix time) in milliseconds
+
+### Last Connected
+
+Last connected indicates the last time a device service was engaged and responded to a request.  The last connected timestamp would be updated when a command request (such as that from core command) is responded to or when the device service responds to a core metadata callback.
+
+### Last Reported
+
+Last reported indicates the last time a device service reported data from a device to EdgeX.  So, for example, if a device service was connected to a thermostat, the last reported timestamp would be update whenever the thermostat reports a new temperature or other value to the device service (which is then captured as an event/reading and sent to the rest of EdgeX).
+
 ### Device Service Functional Requirements
 
 [Requirements for the device service](../../design/legacy-requirements/device-service.md) are provided in this documentation. These
