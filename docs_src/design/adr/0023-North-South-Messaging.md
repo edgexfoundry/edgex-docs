@@ -503,6 +503,12 @@ In order to support this, the following need to be added:
 
 - Note a number of open questions in the Message Structure section that still need to be addressed.
 
+!!! Alert
+
+    Per TSC meeting of 4/27/22 - the discussion around error response was reopened.  There is still some polite disagreement as to whether to keep the error response simple (as documented in this ADR) or to offer errorCode enumerations that are similar to HTTP response codes for common problems (such as ).  As part of this discussion, the question is whether the error code enumerations should be exactly that of the HTTP response codes (400, 404, 423, 500, etc.) or more generic (i.e., non-HTTP) response error codes unique to this implementation.
+
+    The resolution to this question was to explore some options at implementation time.  The use of an enumeration (HTTP or other) can be explored during development and options brought forth via PR.
+
 !!! INFO
         This ADR does not handle securing the message bus communications between services.  This need is to be covered universally in an upcoming ADR.
 
