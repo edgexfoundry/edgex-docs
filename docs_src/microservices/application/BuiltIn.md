@@ -1,3 +1,5 @@
+
+
 # Built-In Pipeline Functions
 
 All pipeline functions define a type and a factory function which is used to initialize an instance of the type with the  required options. The instances returned by these factory functions give access to their appropriate pipeline function pointers when setting up the function pipeline.
@@ -11,40 +13,48 @@ All pipeline functions define a type and a factory function which is used to ini
 
 Included in the SDK is an in-memory batch function that will hold on to your data before continuing the pipeline. There are three functions provided for batching each with their own strategy.
 
-
 | Factory Method | Description |
 | -------------- | ----------- |
 |NewBatchByTime(timeInterval string) | This function returns a `BatchConfig` instance with time being the strategy that is used for determining when to release the batched data and continue the pipeline. `timeInterval` is the duration to wait (i.e. `10s`). The time begins after the first piece of data is received. If no data has been received no data will be sent forward. 
-``` go
-// Example: 
-NewBatchByTime("10s").Batch
-```
 | NewBatchByCount(batchThreshold int) | This function returns a `BatchConfig` instance with count being the strategy that is used for determining when to release the batched data and continue the pipeline. `batchThreshold` is how many events to hold on to (i.e. `25`). The count begins after the first piece of data is received and once the threshold is met, the batched data will continue forward and the counter will be reset.
-``` go
-// Example:
-NewBatchByCount(10).Batch
-```
 | NewBatchByTimeAndCount(timeInterval string, batchThreshold int) | This function returns a `BatchConfig` instance with a combination of both time and count being the strategy that is used for determining when to release the batched data and continue the pipeline. Whichever occurs first will trigger the data to continue and be reset.
-``` go
-// Example:
-NewBatchByTimeAndCount("30s", 10).Batch
-```
-### Batch
 
-`Batch` - This pipeline function will apply the selected strategy in your pipeline. By default the batched data returned by this function is `[][]byte`. This is because this function doesn't need to know the type of the individual items batched. It simply marshals the items to JSON if the data isn't already a ` []byte`.
+!!! example "Examples"
+    ```go
+	NewBatchByTime("10s").Batch
+    NewBatchByCount(10).Batch
+    NewBatchByTimeAndCount("30s", 10).Batch
+    ```
+
+| Property    | Description                                                  |
+| ----------- | ------------------------------------------------------------ |
+| IsEventData | The `IsEventData` flag, when true, lets this function know that the data being batched is `Events` and to un-marshal the data a `[]Event` prior to returning the batched data. |
+| MergeOnSend | The `MergeOnSend` flag, when true, will merge the `[][]byte` data to a single`[]byte` prior to sending the data to the next function in the pipeline. |
 
 !!! edgey "Edgex 2.1"
     New for EdgeX 2.1 is the `IsEventData` flag on the `BatchConfig` instance. 
 
-The `IsEventData` flag, when true, lets this function know that the data being batched is `Events` and to un-marshal the data a `[]Event` prior to returning the batched data.
-
-!!! example "Batch with IsEventData flag set to true."
+!!! example "Batch with `IsEventData` flag set to true."
     ```
     batch := NewBatchByTimeAndCount("30s", 10)
     batch.IsEventData = true
     ...
     batch.Batch
     ```
+
+!!! edgey "Edgex 2.2"
+    New for EdgeX 2.2 is the `MergeOnSend` flag on the `BatchConfig` instance. 
+
+!!! example "Batch with `MergeOnSend` flag set to true."
+    ```
+    batch := NewBatchByTimeAndCount("30s", 10)
+    batch.MergeOnSend = true
+    ...
+    batch.Batch
+    ```
+### Batch
+
+`Batch` - This pipeline function will apply the selected strategy in your pipeline. By default the batched data returned by this function is `[][]byte`. This is because this function doesn't need to know the type of the individual items batched. It simply marshals the items to JSON if the data isn't already a ` []byte`.
 
 !!! warning
     Keep memory usage in mind as you determine the thresholds for both time and count. The larger they are the more memory is required and could lead to performance issue. 
