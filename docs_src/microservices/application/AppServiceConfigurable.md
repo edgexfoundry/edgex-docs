@@ -271,7 +271,8 @@ Please refer to the function's detailed documentation by clicking the function n
 - `Mode`- The batch mode to use. can be 'bycount', 'bytime' or 'bytimecount'
 - `BatchThreshold` - Number of items to batch before sending batched items to the next function in the pipeline. Used with  'bycount' and 'bytimecount' modes
 - `TimeInterval` - Amount of time to batch before sending batched items to the next function in the pipeline. Used with  'bytime' and 'bytimecount' modes
-- `IsEventData` - If true, specifies that the data being batch is `Events` and to un-marshal the batched data to `[]Event` prior to returning the batched data. By default the batched data returned is `[][]byte`
+- `IsEventData` - If true, specifies that the data being batched is `Events` and to un-marshal the batched data to `[]Event` prior to returning the batched data. By default the batched data returned is `[][]byte`
+- `MergeOnSend` - If true, specifies that the data being batched is to be merged to a single `[]byte` prior to returning the batched data. By default the batched data returned is `[][]byte`
 
 !!! example
     ```toml
@@ -280,7 +281,24 @@ Please refer to the function's detailed documentation by clicking the function n
           Mode = "bytimecount" # can be "bycount", "bytime" or "bytimecount"
           BatchThreshold = "30"
           TimeInterval = "60s"
+          IsEventData = "false"
+          MergeOnSend = "false"     
+    or
+    	[Writable.Pipeline.Functions.Batch]
+          [Writable.Pipeline.Functions.Batch.Parameters]
+          Mode = "bytimecount" # can be "bycount", "bytime" or "bytimecount"
+          BatchThreshold = "30"
+          TimeInterval = "60s"
           IsEventData = "true"
+          MergeOnSend = "false"    
+    or
+        [Writable.Pipeline.Functions.Batch]
+          [Writable.Pipeline.Functions.Batch.Parameters]
+          Mode = "bytimecount" # can be "bycount", "bytime" or "bytimecount"
+          BatchThreshold = "30"
+          TimeInterval = "60s"
+          IsEventData = "false"
+          MergeOnSend = "true"
     ```
 
 !!! edgey "EdgeX 2.0"
@@ -288,6 +306,9 @@ Please refer to the function's detailed documentation by clicking the function n
 
 !!! edgey "EdgeX 2.1"
     The `IsEventData` setting is new for EdgeX 2.1
+
+!!! edgey "EdgeX 2.1"
+    The `MergeOnSend` setting is new for EdgeX 2.2
 
 ### [Compress](../BuiltIn/#compression)
 
