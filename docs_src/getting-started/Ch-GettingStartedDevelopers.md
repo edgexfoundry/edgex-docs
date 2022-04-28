@@ -1,10 +1,10 @@
-# Getting Started - Developers
+# Getting Started as a Developer
 
 ## Introduction
 
 These instructions are for Developers and Contributors to get and run
 EdgeX Foundry. If you want to get the EdgeX platform and run it (but do not intend to change or add to the existing code base now) then you are considered a "User". Users should read:
-[Getting Started Users](./Ch-GettingStartedUsers.md))
+[Getting Started as a User](./Ch-GettingStartedUsers.md))
 
 EdgeX is a collection of more than a dozen micro services that are deployed to provide a minimal edge platform capability. 
 EdgeX consists of a collection of reference implementation services and SDK tools. The micro services and SDKs are written in Go or C. 
@@ -36,14 +36,13 @@ alternative SVC tools to the reader.
 #### Redis
 By default, EdgeX Foundry uses Redis (version 5 starting with the Geneva release)
 as the persistence mechanism for sensor data as well as metadata about the devices/sensors that are 
-connected. See <https://redis.io/> for download and installation
+connected. See [Redis Documentation](https://redis.io/) for download and installation
 instructions.
 
 #### MongoDB
 As an alternative, EdgeX Foundry allows use of MongoDB (version 4.2 as of
 Geneva) as the alternative persistence mechanism in place of Redis for sensor data as well as
-metadata about the connected devices/sensors. See
-<https://www.mongodb.com/download-center?jmp=nav#community> for download
+metadata about the connected devices/sensors. See [Mongo's Documentation](https://www.mongodb.com/download-center?jmp=nav#community) for download
 and installation instructions.
 
 !!! Warning
@@ -86,10 +85,10 @@ communications by default.  See the installation for your OS.
 If you intend to create Docker images for your updated or newly created EdgeX services, you need to install Docker. See https://docs.docker.com/install/ to learn how to install Docker. If you are new to Docker, the same web site provides you educational information.
 
 ### Additional Programming Tools and Next Steps
-Depending on which part of EdgeX you work on, you need to install one or more programming languages (Go Lang, Gnu C, etc.) and associated tooling.
+Depending on which part of EdgeX you work on, you need to install one or more programming languages (Go, C, etc.) and associated tooling.
 These tools are covered under the documentation specific to each type of development.
 
-- [Go Lang](./Ch-GettingStartedGoDevelopers.md)
+- [Go (Golang)](./Ch-GettingStartedGoDevelopers.md)
 - [C](./Ch-GettingStartedCDevelopers.md)
 
 ## Versioning
@@ -98,4 +97,4 @@ Please refer to the EdgeX Foundry [versioning policy](https://wiki.edgexfoundry.
 
 ## Long Term Support
 
-Please refer to the EdgeX Foundry [LTS policy](https://wiki.edgexfoundry.org/display/FA/Long+Term+Support) for information on support of EdgeX releases. The EdgeX community does not offer support on any non-LTS release outside of the latest release.
+Please refer to the EdgeX Foundry [LTS policy](https://wiki.edgexfoundry.org/pages/viewpage.action?pageId=69173332) for information on support of EdgeX releases. The EdgeX community does not offer support on any non-LTS release outside of the latest release.

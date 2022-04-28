@@ -69,7 +69,7 @@ Incorporating versioning into the configuration hierarchy looks like this.
             -   support-notifications
             -   support-scheduler
             -   sys-mgmt-agent
-        -   30
+        -   3.0
     - devices *(device services)*
         -   2.0
             -   device-mqtt
@@ -119,7 +119,7 @@ A web user interface is also provided by Consul. Users can view the available se
 
 ### Running on Docker
 
-For ease of use to install and update, the microservices of EdgeX Foundry are published as Docker images onto Docker Hub and compose files that allow you to run EdgeX and dependent service such as Consul. These compose files can be found here in the [edgex-compose repository](https://github.com/edgexfoundry/edgex-compose/tree/ireland). See the [Getting Started with Docker](../../getting-started/Ch-GettingStartedUsers/#introduction) section for more details.
+For ease of use to install and update, the microservices of EdgeX Foundry are published as Docker images onto Docker Hub and compose files that allow you to run EdgeX and dependent service such as Consul. These compose files can be found here in the [edgex-compose repository](https://github.com/edgexfoundry/edgex-compose/tree/ireland). See the [Getting Started using Docker](../../../getting-started/Ch-GettingStartedDockerUsers) for more details.
 
 Once the EdgeX stack is running in docker verify Consul is running by going to  <http://localhost:8500/ui> in your browser.
 

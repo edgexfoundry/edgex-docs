@@ -6,7 +6,7 @@ These instructions are for Go Lang Developers and Contributors to get, run and o
 micro services. Before reading this guide, review the general [developer requirements](./Ch-GettingStartedDevelopers.md#what-you-need).
 
 If you want to get the EdgeX platform and run it (but do not intend to change or add to the existing code base now) then you are considered a "User". Users should read:
-[Getting Started Users](./Ch-GettingStartedUsers.md))
+[Getting Started as a User](./Ch-GettingStartedUsers.md))
 
 ## What You Need For Go Development
 
@@ -25,7 +25,7 @@ issues (EdgeX now uses Go Modules which were introduced with Go Lang
 
 ### Build Essentials
 
-In order to compile and build some elements of EdgeX, Gnu C compiler, utilities (like make), and associated librarires need to be installed.  Some [IDEs](#IDE) may already come with these tools.  Some OS environments may already come with these tools.  Others environments may require you install them.  For Ubuntu environments, you can install a convenience package called [Build Essentials](https://packages.ubuntu.com/bionic/build-essential).
+In order to compile and build some elements of EdgeX, Gnu C compiler, utilities (like make), and associated librarires need to be installed.  Some [IDEs](#ide-optional) may already come with these tools.  Some OS environments may already come with these tools.  Others environments may require you install them.  For Ubuntu environments, you can install a convenience package called [Build Essentials](https://packages.ubuntu.com/bionic/build-essential).
 
 !!! Note
     If you are installing Build Essentials, note that there is a build-essential package for each Ubuntu release.  Search for 'build-essential' associated to your Ubuntu version via [Ubuntu Packages Search](https://packages.ubuntu.com/).
@@ -75,8 +75,7 @@ git clone https://github.com/edgexfoundry/edgex-go.git
     EdgeX Wiki for help on how to fork and contribute EdgeX code.
 
     -   <https://wiki.edgexfoundry.org/display/FA/Contributor%27s+Guide>
-    -   <https://wiki.edgexfoundry.org/display/FA/Contributor%27s+Guide+-+Go+Lang>
-    -   <https://wiki.edgexfoundry.org/display/FA/Contributor+Process?searchId=AW768BAW7>
+    -   <https://wiki.edgexfoundry.org/display/FA/Contributor%27s+Process>
 
     Furthermore, this pulls and works with the latest code from the `main` branch.  The `main` branch contains code that is "work in progress" for the upcoming release.  If you want to work with a specific release, checkout code from the specific release branch or tag(e.g. `v2.0.0`, `hanoi`, `v1.3.11`, etc.)
 

@@ -14,24 +14,24 @@ Please first refer to the general [Configuration documentation](../../configurat
 ## Writable
 The tabs below provide additional entries in the **Writable** section which are applicable to Application Services.
 
-=== "Writable StoreAndForward"
+=== "Writable.StoreAndForward"
 
     The section configures the **Store and Forward** capability. Please refer to [Store and Forward](../ApplicationFunctionsSDK/#store-and-forward) documentation for more details.
-
+    
     | Configuration | Default Value |                                                              |
     | :------------ | ------------- | ------------------------------------------------------------ |
     | Enabled       | false*        | Indicates whether the **Store and Forward** capability enabled or disabled |
     | RetryInterval | "5m"*         | Indicates the duration of time to wait before retries, aka *Forward* |
     | MaxRetryCount | 10*           | Indicates whether maximum number of retries of failed data. The failed data is removed after the maximum retries has been exceeded. A value of `0` indicates endless retries. |
 
-=== "Writable Pipeline"
+=== "Writable.Pipeline"
 
     The section configures the Configurable Function Pipeline which is used only by App Service Configurable. Please refer to [App Service Configurable - Getting Started](../AppServiceConfigurable/#getting-started) section for more details
 
-=== "Writable InsecureSecrets"
+=== "Writable.InsecureSecrets"
 
     This section defines Insecure Secrets that are used when running in non-secure mode, i.e. when Vault isn't available. This is a dynamic map of configuration, so can empty if no secrets are used or can have as many or few user define secrets. It simulates a Secret Store in non-secure mode. Below are a few examples that are need if using the indicated capabilities.
-
+    
     |Configuration  |     Default Value     | Description |
     | --- | --- | -- |
     | **DB** | --- | This section defines a block of insecure secrets for database credentials when **Redis** is used for the MessageBus and/or when **Store and Forward** is enabled and running is non-secure mode. This section is not required if **Store and Forward** is not enabled and not using **Redis** for the MessageBus . |
@@ -52,16 +52,27 @@ The tabs below provide additional entries in the **Writable** section which are 
     | clientcert | blank* | Indicates the value (contents) for the `Client Certificate` when connecting to the MQTT broker using ` clientcert` authentication mode. Must be configured to the value the MQTT broker is expecting. |
     | clientkey | blank* | Indicates the value (contents) for the `Client Key` when connecting to the MQTT broker using ` clientcert` authentication mode. Must be configured to the value the MQTT broker is expecting. |
 
+=== "Writable.Telemetry"
+    |Property|Default Value|Description|
+    |---|---|---|
+    |||See `Writable.Telemetry` at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties) for the Telemetry configuration common to all services |
+    |Metrics| `CustomMetric1` = false `CustomMetric2= false|Service metrics that your custom application service collects. Boolean value indicates if reporting of the metric is enabled.|
+    |Tags|`<empty>`|List of arbitrary service level tags to included with every metric that is reported. i.e. `Gateway="my-iot-gateway"` |
+
+    !!! edgey "Edgex 2.2"
+        New for EdgeX 2.2 Custom App Services can now to define, collect and report service metrics. See [Application Service Metrics](../AdvancedTopics/#application-service-metrics) section for more detials
+
 ## Not Writable
+
 The tabs below provide additional configuration which are applicable to Application Services that require the service to be restarted after value(s) are changed.
 
 === "HttpServer"
 
     !!! edgey "EdgeX 2.0"
         New for EdgeX 2.0. These setting previously were in the `Service` configuration section specific to Application Services. Now the `Service` configuration is the same for all EdgeX services. See the general [Configuration documentation](../../configuration/CommonConfiguration) for more details on the common `Service` configuration.
-
+    
     This section contains the configuration for the internal Webserver. Only need if configuring the Webserver for `HTTPS`
-
+    
     | Configuration | Default Value | Description                                                  |
     | ------------- | ------------- | ------------------------------------------------------------ |
     | Protocol      | http**        | Indicates the protocol for the webserver to use              |
@@ -72,7 +83,7 @@ The tabs below provide additional configuration which are applicable to Applicat
 === "Database"
 
     This section contains the connection information. It is required when using `redis` for the **MessageBus** (which is the default) and/or when the **Store and Forward** capability is enabled. Note that it has a slightly different format than the database section used in the core services configuration.
-
+    
     |Configuration  |     Default Value     | Description |
     | --- | --- | -- |
     | Type | redisdb** | Indicates the type of database used. `redisdb` is the only valid type. |
@@ -87,10 +98,10 @@ The tabs below provide additional configuration which are applicable to Applicat
 === "Trigger"
 
     This section defines the `Trigger` for incoming data. See the [Triggers](Triggers.md) documentation for more details on the inner working of triggers. 
-
+    
     !!! edgey "EdgeX 2.0"
         For EdgeX 2.0 the `Binding` section has been renamed to `Trigger` .  
-
+    
     |Configuration  |     Default Value     | Description |
     | --- | --- | -- |
     | Type | edgex-messagebus** | Indicates the `Trigger` binding type. valid values are `edgex-messagebus`, `external-mqtt`, `http`, or `<custom>` |
@@ -99,10 +110,10 @@ The tabs below provide additional configuration which are applicable to Applicat
 
     This section defines the message bus connect information.
     Only used for `edgex-messagebus` binding type
-
+    
     !!! edgey "EdgeX 2.0"
         For EdgeX 2.0 the `MessageBus` section has been renamed to `EdgexMessageBus` and moved under the `Trigger` section. The `SubscribeTopic` setting has changed to `SubscribeTopics` and moved under the `SubscribeHost` section of `EdgexMessageBus` . The `PublishTopic` has been moved under the `PublishHost` section of `EdgexMessageBus`.
-
+    
     |Configuration  |     Default Value     | Description |
     | --- | --- | -- |
     | Type | redis** | Indicates the type of MessageBus being used. Valid type are `redis`, `mqtt`,  or`zero` |
@@ -122,13 +133,13 @@ The tabs below provide additional configuration which are applicable to Applicat
 
     This section defines the external MQTT Broker connect information.
     Only used for `external-mqtt` trigger binding type
-
+    
     !!! edgey "EdgeX 2.0"
         For EdgeX 2.0 the `MqttBroker` section has been renamed to `ExternalMqtt` and moved under the `Trigger` section. The `ExternalMqtt` section now has it's own `SubscribeTopics` and  `PublishTopic` settings. 
-
+    
     !!! note
         `external-mqtt` is not the default Trigger type, so there are no default values for `ExternalMqtt` settings beyond those that the Go compiler gives to the empty struct. Some of those default values are not valid and must be specified, i.e. `Authmode`
-
+    
     | Configuration   | Default Value | Description                                                  |
     | --------------------------------- | ------------- | ------------------------------------------------------------ |
     | Url | blank**       | Fully qualified URL to connect to the MQTT broker, i.e. `tcp://localhost:1883` |
@@ -143,6 +154,8 @@ The tabs below provide additional configuration which are applicable to Applicat
     | SkipCertVerify | false**       | Indicates if the certificate verification should be skipped  |
     | SecretPath | blank**       | Name of the path in secret provider to retrieve your secrets. Must be non-blank. |
     | AuthMode | blank**       | Indicates what to use when connecting to the broker. Must be one of "none", "cacert" , "usernamepassword", "clientcert". <br />If a CA Cert exists in the SecretPath then it will be used for all modes except "none". |
+    | RetryDuration | 600 | Indicates how long (in seconds) to wait timing out on the MQTT client creation |
+    | RetryInterval | 5 | Indicates the time (in seconds) that will be waited between attempts to create MQTT client |
 
 !!! note
         `Authmode=cacert` is only needed when client authentication (e.g. `usernamepassword`) is not required, but a CA Cert is needed to validate the broker's SSL/TLS cert.
@@ -150,7 +163,7 @@ The tabs below provide additional configuration which are applicable to Applicat
 === "Application Settings"
 
     `[ApplicationSettings]` - Is used for custom application settings and is accessed via the ApplicationSettings() API. The ApplicationSettings API returns a `map[string] string` containing the contents on the ApplicationSetting section of the `configuration.toml` file.
-
+    
     ```toml
     [ApplicationSettings]
     ApplicationName = "My Application Service"
@@ -160,6 +173,6 @@ The tabs below provide additional configuration which are applicable to Applicat
 
     !!! edgey "EdgeX 2.0"
         New for EdgeX 2.0
-
+    
     Custom Application Services can now define their own custom structured configuration section in the `configuration.toml` file. Any additional sections in the TOML are ignore by the SDK when it parses the file for the SDK defined sections. See the [Custom Configuration](ApplicationFunctionsSDK.md#custom-configuration) section of the SDK documentation for more details.
 

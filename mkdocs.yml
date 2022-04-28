@@ -6,8 +6,8 @@ site_author: 'Michael Johanson'
 site_url: 'https://edgexfoundry.github.io/edgex-docs/'
 repo_url: 'https://github.com/edgexfoundry/edgex-go'
 repo_name: 'edgex/edgex-go'
-copyright: 'Copyright &copy; 2020 EdgeX Foundry'
-strict: true
+copyright: 'Copyright &copy; 2022 EdgeX Foundry'
+strict: false   # mkdocs-materials will prevent running on 0.0.0.0 otherwise (or have custom image)
 theme:
   name: 'material'
   logo: 'assets/logo_edgex_white.png'
@@ -15,7 +15,7 @@ theme:
   analytics:
     gtag: 'G-38531ZZHBN'
   features:
-    - tabs
+    - navigation.tabs  # changed with version 6 of mkdocs-materials
 nav:
   - Introduction:
     - 'index.md'
@@ -25,6 +25,7 @@ nav:
       - Quick Start: './getting-started/quick-start/index.md'
       - Users:
         - './getting-started/Ch-GettingStartedUsers.md'
+        - './getting-started/Ch-GettingStartedDockerUsers.md'
         - './getting-started/Ch-GettingStartedSnapUsers.md'
       - Developers:
         - './getting-started/Ch-GettingStartedDevelopers.md'
@@ -53,6 +54,8 @@ nav:
     - './security/secrets-config-proxy.md'
     - './security/SeedingServiceSecrets.md'
     - './security/Ch-CORS-Settings.md'
+    - './security/Ch-SSH-Tunneling-HowToSecureDeviceServices.md'
+    - './security/Ch-Docker-Swarm-SecuringDeviceServices.md'
   - Microservices:
       - './microservices/general/index.md'
       - Configuration & Registry:
@@ -150,9 +153,14 @@ nav:
 markdown_extensions:
   - codehilite
   - admonition
-  - pymdownx.tabbed
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.superfences
   - pymdownx.mark
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
   - attr_list
   - tables
   # - mdx_truly_sane_lists
@@ -171,3 +179,7 @@ extra_css:
 - assets\stylesheets\newexample.css
 extra_javascript:
 - assets\javascripts\version-select.js
+plugins:
+  - search
+  ## uncomment the next line to run the HTML Proofer in development to check for bad links
+  #- htmlproofer

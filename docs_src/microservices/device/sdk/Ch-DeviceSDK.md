@@ -31,3 +31,7 @@ The Device Service SDK supports:
 
 - [Writing a new Device Service in Go](../../../getting-started/Ch-GettingStartedSDK-Go.md)
 - [Writing a new Device Service in C](../../../getting-started/Ch-GettingStartedSDK-C.md)
+
+## Reference
+
+- [C SDK Reference Guide](Ch-Ref-SDK-C.md)

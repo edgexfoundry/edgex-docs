@@ -8,7 +8,7 @@ To explore EdgeX and walk through it's APIs and how it works, you will need:
 - Docker Compose
 - EdgeX Foundry (the base set of containers)
 
-If you have not already done so, proceed to [Getting Started With Docker](../getting-started/Ch-GettingStartedUsers.md) for how to get these tools and run EdgeX Foundry.  If you have the tools and EdgeX already installed and running, you can proceed to the [Walkthrough Use Case](Ch-WalkthroughUseCase.md).
+If you have not already done so, proceed to [Getting Started using Docker](../getting-started/Ch-GettingStartedDockerUsers.md) for how to get these tools and run EdgeX Foundry.  If you have the tools and EdgeX already installed and running, you can proceed to the [Walkthrough Use Case](Ch-WalkthroughUseCase.md).
 
 ## Install Postman (optional)
 

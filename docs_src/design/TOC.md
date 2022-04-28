@@ -7,6 +7,7 @@
 | [0003 V2 API Principles](./adr/core/0003-V2-API-Principles.md)       | Principles and Goals of V2 API Design           |
 | [0004 Feature Flags](./adr/0004-Feature-Flags.md)                    | Feature Flag Implementation                     |
 | [0005 Service Self Config Init](./adr/0005-Service-Self-Config.md)   | Service Self Config Init & Config Seed Removal  |
+| [0006 Metrics Collection](./adr/0006-Metrics-Collection.md)          | Collection of service telemetry data |
 | [0007 Release Automation](./adr/devops/0007-Release-Automation.md)   | Overview of Release Automation Flow for EdgeX   |
 | [0008 Secret Distribution](./adr/security/0008-Secret-Creation-and-Distribution.md)            | Creation and Distribution of Secrets                    |
 | [0009 Secure Bootstrapping](./adr/security/0009-Secure-Bootstrapping.md)                       | Secure Bootstrapping of EdgeX                           |
@@ -22,4 +23,4 @@
 | [0020 Delay start services (SPIFFE/SPIRE)](./adr/security/0020-spiffe.md)                      | Secret store tokens for delayed start services          |
 | [0021 Device Profile Changes](./adr/core/0021-Device-Profile-Changes.md)                      | Rules on device profile modifications          |
 | [0022 Unit of Measure](./adr/core/0022-UoM.md)                                                                       | Unit of Measure|
-| [0023 North South Messaging](./adr/0023-North-South-Messaging.md)                              | Provide for messaging from north side systems through command down to device services |          |
+| [0023 North South Messaging](./adr/0023-North-South-Messaging.md)                              | Provide for messaging from north side systems through command down to device services |

@@ -44,8 +44,10 @@ The following tables (organized by type of service) capture the default service 
     |kong-db|5432|
     |vault	|8200|
     |kong	|8000|
-    | 	|8100|
-    | 	|8443|
+    |           |8100|
+    |           |8443|
+    |security-spire-server          |59840|
+    |security-spiffe-token-provider |59841|
 === "Miscellaneous"
     |Services Name|	Port Definition|
     |---|---|

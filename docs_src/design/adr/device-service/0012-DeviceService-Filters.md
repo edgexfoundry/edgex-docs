@@ -2,7 +2,7 @@
 
 ## Status
 
-### Proposed
+** Approved ** (by TSC vote on 3/15/21)
 
 - design (initially) for Hanoi - but now being considered for Ireland
 - implementation TBD (desired feature targeted for Ireland or Jakarata)

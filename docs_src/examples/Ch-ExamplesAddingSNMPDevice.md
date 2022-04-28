@@ -29,7 +29,7 @@ In addition to the hardware, you will need the following software
 - EdgeX Foundry V2 (Ireland release)
 - curl to run REST commands (you can also use a tool like Postman)
 
-If you have not already done so, proceed to [Getting Started With Docker](../getting-started/Ch-GettingStartedUsers.md) for how to get these tools and run EdgeX Foundry.
+If you have not already done so, proceed to [Getting Started using Docker](../getting-started/Ch-GettingStartedDockerUsers.md) for how to get these tools and run EdgeX Foundry.
 
 ### Add the SNMP Device Service to your docker-compose.yml
 
@@ -38,7 +38,7 @@ The EdgeX docker-compose.yml file used to run EdgeX must include the SNMP device
 - download and use the [docker-compose.yml](./docker-compose.yml) file provided with this example 
 - or use the [EdgeX Compose Builder tool](https://github.com/edgexfoundry/edgex-compose/tree/main/compose-builder) to create your own custom docker-compose.yml file adding device-snmp.
 
-See [Getting Started with Docker](../getting-started/Ch-GettingStartedUsers.md#run-edgex-foundry) if you need assistance running EdgeX once you have your Docker Compose file.
+See [Getting Started using Docker](../getting-started/Ch-GettingStartedDockerUsers.md#run-edgex-foundry) if you need assistance running EdgeX once you have your Docker Compose file.
 
 ## Add the SNMP Device Profile and Device
 

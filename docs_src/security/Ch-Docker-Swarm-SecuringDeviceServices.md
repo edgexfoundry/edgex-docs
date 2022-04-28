@@ -17,13 +17,13 @@ We created two docker swarm nodes for this example a manager node and a worker n
 ## Reference implementation example
 
 The reference implementation example can be found in this repository:
-[Reference example device-service docker-swarm overlay network](https://github.com/edgexfoundry/edgex-examples/tree/swarm/security/remote_devices/docker-swarm)
+[Reference example device-service docker-swarm overlay network](https://github.com/edgexfoundry/edgex-examples/tree/main/security/remote_devices/docker-swarm)
 
 ### Setup remote running Virtual Machine
 
 In this example setup, similar to the the [SSH example](https://github.com/edgexfoundry/edgex-docs/blob/master/docs_src/microservices/security/Ch-SSH-Tunneling-HowToSecureDeviceServices.md), `vagrant` is used on the top of `Virtual Box` to set up the secondary/remote VM.
 
-Download vagrant from Hashicorp website or if you're on Ubuntu via `sudo apt install virtualbox` and `sudo apt install vagrant`.  We have a simple vagrant file used for this tutorial [here](https://github.com/edgexfoundry/edgex-examples/blob/swarm/security/docker-swarm/docker-swarm/Vagrantfile)
+Download vagrant from Hashicorp website or if you're on Ubuntu via `sudo apt install virtualbox` and `sudo apt install vagrant`.  We have a simple vagrant file used for this tutorial [here](https://github.com/edgexfoundry/edgex-examples/blob/3cd9cb19c81b175a5d26b568dd765e161e7c979d/security/remote_devices/docker-swarm/Vagrantfile)
 
 This vagrant file sets the hostname for the new VM and installs docker.
 
@@ -118,7 +118,7 @@ Note that this is only an example.  In a production deployment you would want to
 
 The full docker-stack file is included here:
 
-[docker-stack-edgex.yml file](https://github.com/edgexfoundry/edgex-examples/security/remote_devices/docker-swarm/docker-stack-edgex.yml)
+[docker-stack-edgex.yml file](https://github.com/edgexfoundry/edgex-examples/blob/3cd9cb19c81b175a5d26b568dd765e161e7c979d/security/remote_devices/docker-swarm/docker-stack-edgex.yml)
 
 ### Other changes in docker-stack-edgex.yml file 
 

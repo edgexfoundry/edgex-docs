@@ -41,11 +41,14 @@ type ApplicationService interface {
 	DeviceProfileClient() interfaces.DeviceProfileClient
 	DeviceClient() interfaces.DeviceClient
 	RegistryClient() registry.Client
+	MetricsManager() bootstrapInterfaces.MetricsManager
 	AddBackgroundPublisher(capacity int) (BackgroundPublisher, error)
 	AddBackgroundPublisherWithTopic(capacity int, topic string) (BackgroundPublisher, error)
 	BuildContext(correlationId string, contentType string) AppFunctionContext
 	AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error
+    RequestTimeout() time.Duration
 	RegisterCustomTriggerFactory(name string, factory func(TriggerConfig) (Trigger, error)) error
+    RegisterCustomStoreFactory(name string, factory func(cfg DatabaseInfo, cred config.Credentials) (StoreClient, error)) error
 }
 ```
 
@@ -558,9 +561,45 @@ This API allows external callers that may need a context (eg background publishe
 
 This API adds a custom REST route to the application service's internal webserver.  A reference to the ApplicationService is add the the context that is passed to the handler, which can be retrieved using the `AppService` key. See [Custom REST Endpoints](../AdvancedTopics/#custom-rest-endpoints) advanced topic for more details and example.
 
+### RequestTimeout
+
+`RequestTimeout() time.Duration`
+
+This API returns the parsed value for the `Service.RequestTimeout` configuration setting. The setting is parsed on start-up so that any error is caught then.
+
+!!! example "Example - RequestTimeout"
+    ```toml
+    [Service]
+    :
+    RequestTimeout = "60s"
+    :
+    ```
+    
+    ```go
+    timeout := service.RequestTimeout()
+    ```
+
 ### RegisterCustomTriggerFactory
 
 `RegisterCustomTriggerFactory(name string, factory func(TriggerConfig) (Trigger, error)) error`
 
 This API registers a trigger factory for a custom trigger to be used. See the [Custom Triggers](../Triggers/#custom-triggers) section for more details and example.
 
+### RegisterCustomStoreFactory
+
+`RegisterCustomStoreFactory(name string, factory func(cfg DatabaseInfo, cred config.Credentials) (StoreClient, error)) error`
+
+This API registers a factory to construct a custom store client for the [store & forward](AdvancedTopics.md#store-and-forward) loop.
+
+### MetricsManager
+
+`MetricsManager() bootstrapInterfaces.MetricsManager`
+
+This API returns the Metrics Manager used to register counter, gauge, gaugeFloat64 or timer metric types from github.com/rcrowley/go-metrics
+
+```go
+myCounterMetricName := "MyCounter"
+myCounter := gometrics.NewCounter()
+myTags := map[string]string{"Tag1":"Value1"}
+app.service.MetricsManager().Register(myCounterMetricName, myCounter, myTags)	
+```

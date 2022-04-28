@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'centos7-docker-4c-2g' }
+    agent { label 'ubuntu18.04-docker-8c-8g' }
     options {
         timestamps()
         disableConcurrentBuilds()
@@ -13,15 +13,13 @@ pipeline {
     stages {
         stage('Build Docs') {
             agent {
-                docker { 
-                    image 'python:3-slim' 
+                dockerfile { 
+                    filename 'Dockerfile.docs'
                     reuseNode true
-                    args '-u 0:0 --privileged'
+                    args '-u 0:0 --privileged --entrypoint='
                 }
             }
             steps {
-                sh 'pip install mkdocs'
-                sh 'pip install mkdocs-material==5.1.0'
                 sh 'mkdocs build'
 
                 // stash the site contents generated from mkdocs build

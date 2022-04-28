@@ -1,7 +1,7 @@
 # Quick Start
-This guide will get EdgeX up and running on your machine in as little as 5 minutes. We will skip over lengthy descriptions for now. The goal here is to get you a working IoT Edge stack, from device to cloud, as simply as possible.  
+This guide will get EdgeX up and running on your machine in as little as 5 minutes using Docker containers. We will skip over lengthy descriptions for now. The goal here is to get you a working IoT Edge stack, from device to cloud, as simply as possible.  
 
-When you need more detailed instructions or a breakdown of some of the commands you see in this quick start, see either the [Getting Started- Users](../Ch-GettingStartedUsers) or [Getting Started - Developers](../Ch-GettingStartedDevelopers) guides.
+When you need more detailed instructions or a breakdown of some of the commands you see in this quick start, see either the [Getting Started as a User](../Ch-GettingStartedUsers) or [Getting Started as a Developer](../Ch-GettingStartedDevelopers) guides.
 
 ## Setup
 The fastest way to start running EdgeX is by using our pre-built Docker images. To use them you'll need to install the following:
@@ -12,22 +12,22 @@ The fastest way to start running EdgeX is by using our pre-built Docker images. 
 ## Running EdgeX
 
 !!! Info
-    Ireland (v 2.0) is the latest version of EdgeX and used by example in this guide.
+    Jakarta (v 2.1) is the latest version of EdgeX and used by example in this guide.
 
 Once you have Docker and Docker Compose installed, you need to:
 
-* download / save the latest [`docker-compose` file](https://github.com/edgexfoundry/edgex-compose/blob/ireland/docker-compose-no-secty.yml)
+* download / save the latest [`docker-compose` file](https://github.com/edgexfoundry/edgex-compose/blob/jakarta/docker-compose-no-secty.yml)
 * issue command to download and run the EdgeX Foundry Docker images from Docker Hub
 
 This can be accomplished with a single command as shown below (please note the tabs for x86 vs ARM architectures).
 
 === "x86"
     ```
-    curl https://raw.githubusercontent.com/edgexfoundry/edgex-compose/ireland/docker-compose-no-secty.yml -o docker-compose.yml; docker-compose up -d
+    curl https://raw.githubusercontent.com/edgexfoundry/edgex-compose/jakarta/docker-compose-no-secty.yml -o docker-compose.yml; docker-compose up -d
     ```
 === "ARM"
     ```
-    curl https://raw.githubusercontent.com/edgexfoundry/edgex-compose/ireland/docker-compose-no-secty-arm64.yml -o docker-compose.yml; docker-compose up -d
+    curl https://raw.githubusercontent.com/edgexfoundry/edgex-compose/Jakarta/docker-compose-no-secty-arm64.yml -o docker-compose.yml; docker-compose up -d
     ```
 
 Verify that the EdgeX containers have started:
@@ -212,7 +212,7 @@ First add the following application service to your docker-compose.yml file righ
 !!! Note
     This adds the application service configurable to your EdgeX system.  The application service configurable allows you to configure (versus program) new exports - in this case exporting the EdgeX sensor data to the HiveMQ broker at `tcp://broker.mqttdashboard.com:1883`.  You will be publishing to the EdgeXEvents topic.
 
-    For convenience, see documentation on the [EdgeX Compose Builder](../Ch-GettingStartedUsers/#generate-a-custom-docker-compose-file) to create custom Docker Compose files.
+    For convenience, see documentation on the [EdgeX Compose Builder](../Ch-GettingStartedDockerUsers/#generate-a-custom-docker-compose-file) to create custom Docker Compose files.
 
 Save the compose file and then execute another compose up command to have Docker Compose pull and start the configurable application service.
 
