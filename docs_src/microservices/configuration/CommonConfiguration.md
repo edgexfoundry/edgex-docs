@@ -17,18 +17,18 @@ The tables in each of the tabs below document configuration properties that are 
     |**InsecureSecrets**|---|This section a map of secrets which simulates the SecretStore for accessing secrets when running in non-secure mode. All services have a default entry for Redis DB credentials called `redisdb`|
     
     !!! edgey "Edgex 2.0"
-        For EdgeX 2.0 the For EdgeX 2.0 the `Writable.InsecureSecrets` configuration section is new. 
+        For EdgeX 2.0 the `Writable.InsecureSecrets` configuration section is new. 
 
 === "Writable.Telemetry"
     |Property|Default Value|Description|
     |---|---|---|
-    |Interval| 30s|The interval in seconds at which to report the metrics currently being collected and enabled.|
+    |Interval| 30s|The interval in seconds at which to report the metrics currently being collected and enabled. **Value of 0s disables reporting**. |
     |PublishTopicPrefix|"edgex/telemetry"|The base topic in which to publish (report) metrics currently being collected and enabled. `/<service-name>/<metric-name>` will be added to this base topic prefix.|
-    |Metrics|`<Service dependent>`|Boolean map of service metrics that are being collected. The boolean flag for each indicates if the metric is enabled for reporting. i.e. `EventsPersisted = true`. The metric name must be one defined by the service. |
+    |Metrics|`<Service dependent>`|Boolean map of service metrics that are being collected. The boolean flag for each indicates if the metric is enabled for reporting. i.e. `EventsPersisted = true`. The metric name must match one defined by the service. |
     |Tags|`<Service dependent>`|String map of arbitrary tags to be added to every metric that is reported for the service. i.e. `Gateway="my-iot-gateway"`. The tag names are arbitrary. |
 
     !!! edgey "Edgex 2.2"
-        For EdgeX 2.2 Service Metrics have been added. Currently only Core Data is collecting service metrics.
+        For EdgeX 2.2 Service Metrics have been added. Currently only Core Data and Application Services are collecting service metrics.
 
 === "Service"
 
@@ -42,10 +42,10 @@ The tables in each of the tabs below document configuration properties that are 
     |MaxResultCount|1024*|Read data limit per invocation. *Default value is for core/support services. Application and Device services do not implement this setting. |
     |MaxRequestSize|0|Defines the maximum size of http request body in kilbytes. 0 represents default to system max.|
     |RequestTimeout         |5s                          | Specifies a timeout duration for handling requests |
-
+    
     !!! edgey "Edgex 2.0"
         For EdgeX 2.0 `Protocol` and `BootTimeout`  have been removed. `CheckInterval` and  `Timeout ` have been renamed to `HealthCheckInterval` and `RequestTimeout` respectively. `MaxRequestSize` was added for all services.
-
+    
     !!! edgey "Edgex 2.2"
         For EdgeX 2.2 Service MaxRequestSize has been implemented to all services, and the unit is kilobyte.
 
