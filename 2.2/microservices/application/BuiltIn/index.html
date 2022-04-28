@@ -1758,6 +1758,19 @@
     Batching
   </a>
   
+    <nav class="md-nav" aria-label="Batching">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batch" class="md-nav__link">
+    Batch
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3084,6 +3097,19 @@
     Batching
   </a>
   
+    <nav class="md-nav" aria-label="Batching">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batch" class="md-nav__link">
+    Batch
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3402,51 +3428,66 @@
 <td>This function returns a <code>BatchConfig</code> instance with time being the strategy that is used for determining when to release the batched data and continue the pipeline. <code>timeInterval</code> is the duration to wait (i.e. <code>10s</code>). The time begins after the first piece of data is received. If no data has been received no data will be sent forward.</td>
 </tr>
 <tr>
-<td><div class="highlight"><pre><span></span><code><span class="c1">// Example: </span><span class="w"></span>
-<span class="nx">NewBatchByTime</span><span class="p">(</span><span class="s">&quot;10s&quot;</span><span class="p">).</span><span class="nx">Batch</span><span class="w"></span>
-</code></pre></div></td>
-<td></td>
-</tr>
-<tr>
 <td>NewBatchByCount(batchThreshold int)</td>
 <td>This function returns a <code>BatchConfig</code> instance with count being the strategy that is used for determining when to release the batched data and continue the pipeline. <code>batchThreshold</code> is how many events to hold on to (i.e. <code>25</code>). The count begins after the first piece of data is received and once the threshold is met, the batched data will continue forward and the counter will be reset.</td>
-</tr>
-<tr>
-<td><div class="highlight"><pre><span></span><code><span class="c1">// Example:</span><span class="w"></span>
-<span class="nx">NewBatchByCount</span><span class="p">(</span><span class="mi">10</span><span class="p">).</span><span class="nx">Batch</span><span class="w"></span>
-</code></pre></div></td>
-<td></td>
 </tr>
 <tr>
 <td>NewBatchByTimeAndCount(timeInterval string, batchThreshold int)</td>
 <td>This function returns a <code>BatchConfig</code> instance with a combination of both time and count being the strategy that is used for determining when to release the batched data and continue the pipeline. Whichever occurs first will trigger the data to continue and be reset.</td>
 </tr>
-<tr>
-<td><div class="highlight"><pre><span></span><code><span class="c1">// Example:</span><span class="w"></span>
+</tbody>
+</table>
+<div class="admonition example">
+<p class="admonition-title">Examples</p>
+<div class="highlight"><pre><span></span><code><span class="nx">NewBatchByTime</span><span class="p">(</span><span class="s">&quot;10s&quot;</span><span class="p">).</span><span class="nx">Batch</span><span class="w"></span>
+<span class="nx">NewBatchByCount</span><span class="p">(</span><span class="mi">10</span><span class="p">).</span><span class="nx">Batch</span><span class="w"></span>
 <span class="nx">NewBatchByTimeAndCount</span><span class="p">(</span><span class="s">&quot;30s&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">).</span><span class="nx">Batch</span><span class="w"></span>
-</code></pre></div></td>
-<td></td>
+</code></pre></div>
+</div>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IsEventData</td>
+<td>The <code>IsEventData</code> flag, when true, lets this function know that the data being batched is <code>Events</code> and to un-marshal the data a <code>[]Event</code> prior to returning the batched data.</td>
 </tr>
 <tr>
-<td>### Batch</td>
-<td></td>
+<td>MergeOnSend</td>
+<td>The <code>MergeOnSend</code> flag, when true, will merge the <code>[][]byte</code> data to a single<code>[]byte</code> prior to sending the data to the next function in the pipeline.</td>
 </tr>
 </tbody>
 </table>
-<p><code>Batch</code> - This pipeline function will apply the selected strategy in your pipeline. By default the batched data returned by this function is <code>[][]byte</code>. This is because this function doesn't need to know the type of the individual items batched. It simply marshals the items to JSON if the data isn't already a <code>[]byte</code>.</p>
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 2.1</p>
 <p>New for EdgeX 2.1 is the <code>IsEventData</code> flag on the <code>BatchConfig</code> instance. </p>
 </div>
-<p>The <code>IsEventData</code> flag, when true, lets this function know that the data being batched is <code>Events</code> and to un-marshal the data a <code>[]Event</code> prior to returning the batched data.</p>
 <div class="admonition example">
-<p class="admonition-title">Batch with IsEventData flag set to true.</p>
+<p class="admonition-title">Batch with <code>IsEventData</code> flag set to true.</p>
 <div class="highlight"><pre><span></span><code>batch := NewBatchByTimeAndCount(&quot;30s&quot;, 10)
 batch.IsEventData = true
 ...
 batch.Batch
 </code></pre></div>
 </div>
+<div class="admonition edgey">
+<p class="admonition-title">Edgex 2.2</p>
+<p>New for EdgeX 2.2 is the <code>MergeOnSend</code> flag on the <code>BatchConfig</code> instance. </p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Batch with <code>MergeOnSend</code> flag set to true.</p>
+<div class="highlight"><pre><span></span><code>batch := NewBatchByTimeAndCount(&quot;30s&quot;, 10)
+batch.MergeOnSend = true
+...
+batch.Batch
+</code></pre></div>
+</div>
+<h3 id="batch">Batch</h3>
+<p><code>Batch</code> - This pipeline function will apply the selected strategy in your pipeline. By default the batched data returned by this function is <code>[][]byte</code>. This is because this function doesn't need to know the type of the individual items batched. It simply marshals the items to JSON if the data isn't already a <code>[]byte</code>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Keep memory usage in mind as you determine the thresholds for both time and count. The larger they are the more memory is required and could lead to performance issue. </p>

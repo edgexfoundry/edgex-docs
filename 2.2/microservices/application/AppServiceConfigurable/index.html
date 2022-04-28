@@ -3388,7 +3388,8 @@
 <li><code>Mode</code>- The batch mode to use. can be 'bycount', 'bytime' or 'bytimecount'</li>
 <li><code>BatchThreshold</code> - Number of items to batch before sending batched items to the next function in the pipeline. Used with  'bycount' and 'bytimecount' modes</li>
 <li><code>TimeInterval</code> - Amount of time to batch before sending batched items to the next function in the pipeline. Used with  'bytime' and 'bytimecount' modes</li>
-<li><code>IsEventData</code> - If true, specifies that the data being batch is <code>Events</code> and to un-marshal the batched data to <code>[]Event</code> prior to returning the batched data. By default the batched data returned is <code>[][]byte</code></li>
+<li><code>IsEventData</code> - If true, specifies that the data being batched is <code>Events</code> and to un-marshal the batched data to <code>[]Event</code> prior to returning the batched data. By default the batched data returned is <code>[][]byte</code></li>
+<li><code>MergeOnSend</code> - If true, specifies that the data being batched is to be merged to a single <code>[]byte</code> prior to returning the batched data. By default the batched data returned is <code>[][]byte</code></li>
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
@@ -3397,7 +3398,24 @@
 <span class="w">      </span><span class="n">Mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;bytimecount&quot;</span><span class="w"> </span><span class="c1"># can be &quot;bycount&quot;, &quot;bytime&quot; or &quot;bytimecount&quot;</span><span class="w"></span>
 <span class="w">      </span><span class="n">BatchThreshold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30&quot;</span><span class="w"></span>
 <span class="w">      </span><span class="n">TimeInterval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;60s&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="n">IsEventData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="n">MergeOnSend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w">     </span>
+<span class="n">or</span><span class="w"></span>
+<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Batch]</span><span class="w"></span>
+<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Batch.Parameters]</span><span class="w"></span>
+<span class="w">      </span><span class="n">Mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;bytimecount&quot;</span><span class="w"> </span><span class="c1"># can be &quot;bycount&quot;, &quot;bytime&quot; or &quot;bytimecount&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="n">BatchThreshold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="n">TimeInterval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;60s&quot;</span><span class="w"></span>
 <span class="w">      </span><span class="n">IsEventData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="n">MergeOnSend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w">    </span>
+<span class="n">or</span><span class="w"></span>
+<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Batch]</span><span class="w"></span>
+<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Batch.Parameters]</span><span class="w"></span>
+<span class="w">      </span><span class="n">Mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;bytimecount&quot;</span><span class="w"> </span><span class="c1"># can be &quot;bycount&quot;, &quot;bytime&quot; or &quot;bytimecount&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="n">BatchThreshold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="n">TimeInterval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;60s&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="n">IsEventData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="n">MergeOnSend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"></span>
 </code></pre></div>
 </div>
 <div class="admonition edgey">
@@ -3407,6 +3425,10 @@
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.1</p>
 <p>The <code>IsEventData</code> setting is new for EdgeX 2.1</p>
+</div>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.1</p>
+<p>The <code>MergeOnSend</code> setting is new for EdgeX 2.2</p>
 </div>
 <h3 id="compress"><a href="../BuiltIn/#compression">Compress</a></h3>
 <p><strong>Parameters</strong></p>
