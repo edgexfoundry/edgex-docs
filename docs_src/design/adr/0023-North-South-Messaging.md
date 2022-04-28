@@ -2,8 +2,7 @@
 
 ## Status
 
-**Proposed**
-(as of 12/21/21)
+**Approved** by TSC Vote on 4/28/22
 
 ## Context and Proposed Design
 
