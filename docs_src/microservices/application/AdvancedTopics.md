@@ -543,4 +543,4 @@ The Custom Application Service Metrics capability allows for custom application 
         ```
 
     !!! note
-        The metric names used in the above configuration (to enable or disable reporting of a metric) must match exactly the name used when the metric is registered.
+        The metric names used in the above configuration (to enable or disable reporting of a metric) must match the metric name used when the metric is registered. A partial match of starts with is acceptable, i.e. the metric name registered starts with the above configured name.
