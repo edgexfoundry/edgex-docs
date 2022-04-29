@@ -19,8 +19,69 @@ or development release, refer to the store page for the snap, choose install, an
 then pick the desired channel.
 The store page also provides instructions for installation on different Linux distributions as well as the list of supported CPU architectures.
 
-Snap packages of EdgeX services are published on the [Snap Store](https://snapcraft.io). 
-The list of all EdgeX snaps is available [below](#edgex-snaps).
+For the list of EdgeX snaps, please refer [here](#edgex-snaps).
+
+### Configuration
+EdgeX snaps are packaged with default service configuration files. In certain cases, few configuration fields are overridden within the snap for snap-specific deployment requirements.
+
+#### Configuration files
+The default configuration files are typically placed at `/var/snap/<snap>/current/config`. Upon startup, the server configurations files are uploaded to Consul by default. The configuration file can be modified and applied only if the modifications happen before initial startup. 
+
+#### Configuration registry
+The configurations that are uploaded to Consul can be modified using Consul's UI or [kv REST API](https://www.consul.io/api/kv). Changes to configurations are loaded by the service at startup, except for the writable settings which are loaded at runtime. Please refer to the documentation of microservices for details. 
+
+#### Configuration provider snaps
+Most EdgeX snaps have a [content interface](https://snapcraft.io/docs/content-interface) which allows another snap to seed the snap with configuration files.
+This is useful when replacing entire configuration files via another snap, packaged with the deployment-specific configurations.
+
+Please refer to [edgex-config-provider](https://github.com/canonical/edgex-config-provider), for an example.
+
+#### Configuration overrides
+!!! edgey "EdgeX 2.2"
+    The snaps now provide an interface to set any environment variable for supported services.
+    We call these the *config options* because they use a `config` prefix for the variable names.
+    The config options are **disabled by default**.
+
+    This functionality supersedes for the snap *env options* (with `env.` prefix) which allows setting certain configurations. Please refer to EdgeX 2.1 (Jakarta) snap READMEs and documentation for details on the deprecated options.
+
+    The env options are deprecated and have incomplete configuration coverage. Existing options will continue to work until the next major EdgeX release. At that point, the config options will become **enabled by default**.
+
+The EdgeX services allow overriding server configurations using environment variables. Moreover, the services read EdgeX [Common Environment Variables](../../microservices/configuration/CommonEnvironmentVariables/) to change configurations that aren't defined in config files.
+The EdgeX snaps provide an interface via [snap configuration options](https://snapcraft.io/docs/configuration-in-snaps) to set environment variables for the services.
+We call these the *config options* because they a have `config` prefix for the variable names.
+
+The snap options for setting environment variable uses the the following format:
+
+* `apps.<app>.config.<env-var>`: setting an app-specific value (e.g. `apps.core-data.config.service-port=1000`).
+* `config.<env-var>`: setting a global value (e.g. `config.service-host=localhost` or `config.writable-loglevel=DEBUG`
+
+where:
+
+* `<app>` is the name of the app (service, executable)
+* `<env-var>` is a lowercase, dash-separated mapping to uppercase, underscore-separate environment variable name (e.g. `x-y`->`X_Y`). The reason for such mapping is that uppercase and underscore characters are not supported as config keys for snaps.
+
+Mapping examples:
+
+| Snap config key        | Environment Variable     | Service configuration TOML                          |
+|------------------------|--------------------------|-----------------------------------------------------|
+| service-port           | SERVICE_PORT             | [Service]<br>Port                                   |
+| clients-core-data-host  | CLIENTS_CORE_DATA_HOST  | [Clients]<br>--[Clients.core-data]<br>--Host        |
+| edgex-startup-duration | [EDGEX_STARTUP_DURATION] | -                                                   |
+| add-secretstore-tokens | [ADD_SECRETSTORE_TOKENS] | -                                                   |
+
+[EDGEX_STARTUP_DURATION]: ../../microservices/configuration/CommonEnvironmentVariables/#edgex_startup_duration
+[ADD_SECRETSTORE_TOKENS]: ../../security/Ch-Configuring-Add-On-Services/#configure-the-services-secret-store-to-use
+
+!!! Note
+    The config options are supported as of EdgeX 2.2 and are disabled by default!
+
+    Setting `config-enabled=true` is necessary to enable their support.
+
+For example, to change the service port of the core-data service on `edgexfoundry` snap to 8080:
+```bash
+snap set config-enabled=true
+snap set edgexfoundry apps.core-data.service-port=8080
+```
 
 ### Control services
 The services of a snap can be started/stopped/restarted using the snap CLI.
@@ -28,33 +89,36 @@ When starting/stopping, you can additionally set them to enable/disable which co
 
 To list the services and check their status:
 ```bash
-snap services <snap-name>
+snap services <snap>
 ```
 
 To start and enable services:
 ```bash
 # all services
-snap start --enable <snap-name>
+snap start --enable <snap>
+
 # one service
-snap start --enable <snap-name>.<service>
+snap start --enable <snap>.<app>
 ```
 
-For controlling the default service startup from a gadget snap, see [TBA](tba).
+<!-- For controlling the default service startup from a gadget snap, see [TBA](tba). -->
 
 ### Debugging
 The service logs can be queried using the `snap log` command.
 
 For example, to query 100 lines and follow:
 ```bash
-snap logs -n=100 -f <snap-name>
+# all services
+snap logs -n=100 -f <snap>
+
+# one service
+snap logs -n=100 -f <snap>.<app>
 ```
 Check `snap logs --help` for details.
 
-To query not only the service logs, but also the installation logs (from various hooks), use `journalctl`.
-
-For example, to query 100 lines, follow, and filter:
+To query not only the service logs, but also the snap logs (incl. hook apps such as install and configure), use `journalctl`:
 ```bash
-journalctl -n 100 -f | grep <snap-name>
+sudo journalctl -n 100 -f | grep <snap>
 ```
 
 ## EdgeX Snaps
@@ -87,12 +151,15 @@ Upon installation, the following EdgeX services are automatically and immediatel
 
 The following services are disabled by default:
 
-- app-service-configurable (used to filter events for kuiper)
-- device-virtual
-- kuiper  (Rules Engine)
 - support-notifications
 - support-scheduler
-- sys-mgmt-agent
+- sys-mgmt-agent - deprecated
+- device-virtual
+- kuiper (Rules Engine) - deprecated; see 
+- app-service-configurable (used to filter events for kuiper)
+
+
+
 
 The disabled services can be manually enabled and started; see [Control services](#control-services).
 
@@ -306,6 +373,9 @@ curl -v --cacert /var/snap/edgeca/current/CA.pem -X GET https://server01:8443/co
 
 
 #### Disabling security
+!!! TODO:
+    MOVE TO COMMON SECTION AND EXTEND WITH SERVICE ENV TO DISABLE
+
 !!! Warning
     Disabling security is NOT recommended, unless for demonstration purposes, or when there are other means to secure the services.
 !!! Warning
@@ -343,43 +413,46 @@ For usage instructions, please refer to the [Graphical User Interface (GUI)](../
 ### EdgeX CLI
 [![Get it from the Snap Store][badge]](https://snapcraft.io/edgex-cli)
 
-[edgex-cli](https://snapcraft.io/edgex-cli)
+[edgex-cli]
 
 <!-- sorted alphabetically -->
 ### App Service Configurable
-[edgex-app-service-configurable](https://snapcraft.io/edgex-app-service-configurable)
+[edgex-app-service-configurable]
 
 ### App RFID LLRP Inventory
+[edgex-app-rfid-llrp-inventory]
+
 ### Device Camera
-[edgex-device-camera](https://snapcraft.io/edgex-device-camera)
+[edgex-device-camera]
 ### Device GPIO
-[edgex-device-gpio](https://snapcraft.io/edgex-device-gpio)
+[edgex-device-gpio]
 ### Device Grove
-[edgex-device-grove](https://snapcraft.io/edgex-device-grove)
+[edgex-device-grove]
 ### Device Modbus
-[edgex-device-modbus](https://snapcraft.io/edgex-device-modbus)
+[edgex-device-modbus]
 ### Device MQTT
-[edgex-device-mqtt](https://snapcraft.io/edgex-device-mqtt)
+[edgex-device-mqtt]
 ### Device REST
-[edgex-device-rest](https://snapcraft.io/edgex-device-rest)
+[edgex-device-rest]
 ### Device RFID LLRP
 [](https://snapcraft.io/edgex-device-rfid-llrp)
 ### Device SNMP
 [edgex-device-snmp](https://snapcraft.io/edgex-device-snmp)
+### eKuiper
+[edgex-ekuiper]
 
 
 
 
 
 
-
-
-<!-- Links -->
+<!-- Store Links -->
 [badge]: https://snapcraft.io/static/images/badges/en/snap-store-white.svg
 [edgexfoundry]: https://snapcraft.io/edgexfoundry
 [edgex-ui]: https://snapcraft.io/edgex-ui
 [edgex-cli]: https://snapcraft.io/edgex-cli
 [edgex-app-service-configurable]: https://snapcraft.io/edgex-app-service-configurable
+[edgex-app-rfid-llrp-inventory]: https://snapcraft.io/edgex-app-rfid-llrp-inventory
 [edgex-device-camera]: https://snapcraft.io/edgex-device-camera
 [edgex-device-gpio]: https://snapcraft.io/edgex-device-gpio
 [edgex-device-grove]: https://snapcraft.io/edgex-device-grove
@@ -388,3 +461,4 @@ For usage instructions, please refer to the [Graphical User Interface (GUI)](../
 [edgex-device-rest]: https://snapcraft.io/edgex-device-rest
 [edgex-device-rfid-llrp]: https://snapcraft.io/edgex-device-rfid-llrp
 [edgex-device-snmp]: https://snapcraft.io/edgex-device-snmp
+[edgex-ekuiper]: https://snapcraft.io/edgex-ekuiper
