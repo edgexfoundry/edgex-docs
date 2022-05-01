@@ -24,11 +24,16 @@ For the list of EdgeX snaps, please refer [here](#edgex-snaps).
 ### Configuration
 EdgeX snaps are packaged with default service configuration files. In certain cases, few configuration fields are overridden within the snap for snap-specific deployment requirements.
 
+Changes made to configurations services to be restarted in order for the changes to take effect; 
+the one exception are changes made to configuration items in a service's `[Writable]` section. 
+Services that aren't started by default (see [Using the EdgeX snap](#using-the-edgex-snap) section above) 
+*will* pickup any changes made to their config files when started.
+
 #### Configuration files
-The default configuration files are typically placed at `/var/snap/<snap>/current/config`. Upon startup, the server configurations files are uploaded to Consul by default. The configuration file can be modified and applied only if the modifications happen before initial startup. 
+The default configuration files are typically placed at `/var/snap/<snap>/current/config`. Upon startup, the server configurations files are uploaded to Consul by default. Once the service starts without errors, the local configurations become obsolete and will no longer be read. Any modifications after the initial startup will not be applied. 
 
 #### Configuration registry
-The configurations that are uploaded to Consul can be modified using Consul's UI or [kv REST API](https://www.consul.io/api/kv). Changes to configurations are loaded by the service at startup, except for the writable settings which are loaded at runtime. Please refer to the documentation of microservices for details. 
+The configurations that are uploaded to Consul can be modified using Consul's UI or [kv REST API](https://www.consul.io/api/kv). Changes to configurations in Consul are loaded by the service at startup. If the service has already started, a restart is required to load new configurations. Configurations that are in the writable section get loaded not only at startup, but also during the runtime. In other words, changes to the writable configurations are loaded automatically without a restart. Please refer to the documentation of microservices for details.
 
 #### Configuration provider snaps
 Most EdgeX snaps have a [content interface](https://snapcraft.io/docs/content-interface) which allows another snap to seed the snap with configuration files.
@@ -83,6 +88,8 @@ snap set config-enabled=true
 snap set edgexfoundry apps.core-data.service-port=8080
 ```
 
+The services load the set config options on startup. If the service has already started, a restart is necessary to load them.
+
 ### Control services
 The services of a snap can be started/stopped/restarted using the snap CLI.
 When starting/stopping, you can additionally set them to enable/disable which configures whether or not the service should also start on boot.
@@ -99,6 +106,15 @@ snap start --enable <snap>
 
 # one service
 snap start --enable <snap>.<app>
+```
+
+To restart services, e.g. to load the configurations:
+```bash
+# all services
+snap restart <snap>
+
+# one service
+snap restart <snap>.<app>
 ```
 
 <!-- For controlling the default service startup from a gadget snap, see [TBA](tba). -->
@@ -140,7 +156,7 @@ Upon installation, the following EdgeX services are automatically and immediatel
 - core-command
 - core-data
 - core-metadata
-- kong-daemon (API Gateway a.k.a. Reverse Proxy)
+- kong-daemon (API Gateway / Reverse Proxy)
 - postgres (kong's database)
 - redis (default Message Bus and database backend for core-data and core-metadata)
 - security-bootstrapper-redis (oneshot service)
@@ -153,17 +169,17 @@ The following services are disabled by default:
 
 - support-notifications
 - support-scheduler
-- sys-mgmt-agent - deprecated
+- sys-mgmt-agent - *deprecated EdgeX component*
 - device-virtual
-- kuiper (Rules Engine) - deprecated; see 
-- app-service-configurable (used to filter events for kuiper)
-
-
+- kuiper (Rules Engine / eKuiper) - *deprecated; use the standalone [EdgeX eKuiper snap](#edgex-ekuiper)*
+- app-service-configurable (used to filter events for kuiper) - *deprecated; use the standalone [App Service Configurable snap](#app-service-configurable)*
 
 
 The disabled services can be manually enabled and started; see [Control services](#control-services).
 
-#### Configuring individual services
+For the configuration of services, refer to [Configurations](#configuration)
+
+<!-- #### Configuring individual services
 
 All default configuration files are shipped with the snap inside `$SNAP/config`, however because `$SNAP` isn't writable, 
 all of the config files are copied during snap installation to `$SNAP_DATA/config`.
@@ -179,10 +195,10 @@ Services that aren't started by default (see [Using the EdgeX snap](#using-the-e
 *will* pickup any changes made to their config files when started.
 
 Also it should be noted that use of Consul is enabled by default in the snap. It is not possible at this time to run the EdgeX services in
-the snap with Consul disabled.
+the snap with Consul disabled. -->
 
 
-#### Configuration Overrides
+<!-- #### Configuration Overrides
 !!! Note
     Deprecated. To be replaced with new scheme allowing env injection.
 
@@ -212,14 +228,14 @@ sudo snap restart edgexfoundry.core-data
 **Note** - at this time changes to configuration values in the [Writable] section are not supported.
 
 For details on the mapping of configuration options to config options, 
-please refer to [Service Environment Configuration Overrides](#service-environment-configuration-overrides) section.
+please refer to [Service Environment Configuration Overrides](#service-environment-configuration-overrides) section. -->
 
 
 #### Security services
 
 Currently, The EdgeX snap has security (Secret Store and API Gateway) enabled by default. The security services constitute the following components:
 
-- kong-daemon (API Gateway a.k.a. Reverse Proxy)
+- kong-daemon (API Gateway / Reverse Proxy)
 - postgres (kong's database)
 - vault (Secret Store)
 
@@ -232,7 +248,7 @@ Oneshot services which perform the necessary security setup and stop, when liste
 
 Vault is known within EdgeX as the Secret Store, while Kong+PostgreSQL are used to provide the EdgeX API Gateway.
 
-For more details please refer to the snap's [Secret Store](https://github.com/edgexfoundry/edgex-go/blob/main/snap/README.md#secret-store) and [API Gateway](https://github.com/edgexfoundry/edgex-go/blob/main/snap/README.md#api-gateway) documentation.
+<!-- For more details please refer to the snap's [Secret Store](https://github.com/edgexfoundry/edgex-go/blob/main/snap/README.md#secret-store) and [API Gateway](https://github.com/edgexfoundry/edgex-go/blob/main/snap/README.md#api-gateway) documentation. -->
 
 
 
@@ -240,17 +256,27 @@ For more details please refer to the snap's [Secret Store](https://github.com/ed
 
 Before the API Gateway can be used, a user and group must be created and a JWT access token generated.
 
-1. The first step is to create a public/private keypair for the new user, which can be done with
+1. Create a public/private keypair for the new user
 
+Using openssl:
 ```bash
-# Create private key:
+# Create private key
 openssl ecparam -genkey -name prime256v1 -noout -out private.pem
 
-# Create public key:
+# Create public key
 openssl ec -in private.pem -pubout -out public.pem
 ```
 
-2. The next step is to create the user. The easiest way to create a single API gateway user is to use `snap set` to set two values as follows:
+2. Add the user
+
+The snap provides a way to set the public key of a single user as an admin.
+The admin user has the following hardcoded settings:
+- username: admin
+- user id: 1
+- algorithm: ES256
+
+
+<!-- The easiest way to create a single API gateway user is to use `snap set` to set two values as follows:
 
 ```bash
 # set user=username,user id,algorithm (ES256 or RS256)
@@ -258,7 +284,7 @@ sudo snap set edgexfoundry env.security-proxy.user=user01,USER_ID,ES256
 
 # set public-key to the contents of a PEM-encoded public key file
 sudo snap set edgexfoundry env.security-proxy.public-key="$(cat public.pem)"
-```
+``` -->
 
 To create multiple users, use the secrets-config command. You need to provide the following:
 
