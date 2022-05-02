@@ -90,7 +90,6 @@ snap set edgexfoundry apps.core-data.config.service-port=8080
 
 The services load the set config options on startup. If the service has already started, a restart is necessary to load them.
 
-
 #### Disabling security
 !!! Warning
     Disabling security is NOT recommended, unless for demonstration purposes, or when there are other means to secure the services.
@@ -334,16 +333,30 @@ $ curl -v --cacert /path/to/ca.pem https://server01:8443/core-data/api/v2/ping? 
 ### EdgeX UI
 [![Get it from the Snap Store][badge]][edgex-ui]
 
-The EdgeX GUI snap is a development tool called to help you get started with EdgeX,
-whether you've deployed other components natively, using Docker containers, or
-with snaps. For installation instructions, refer to [edgex-ui].
 
-- Configuration
-  - Snap
-  - Snap+docker
-- Additional edgexfoundry snap config for UI
+For installation instructions, please refer to [edgex-ui].
 
 For usage instructions, please refer to the [Graphical User Interface (GUI)](../../getting-started/tools/Ch-GUI/) guide.
+
+By default, the UI is reachable locally at:
+[http://localhost:4000](http://localhost:4000)
+
+A valid JWT token is required to access the UI; follow [Adding API Gateway users](#adding-api-gateway-users) steps to generate a token.
+
+To enable all the functionalities of the UI, the following support services should be running:
+
+* Support Scheduler
+* Support Notifications
+* System Management Agent
+* [EdgeX eKuiper](#edgex-ekuiper)
+
+For example, to start/install all:
+```
+sudo snap start edgexfoundry.support-scheduler
+sudo snap start edgexfoundry.support-notifications
+sudo snap start edgexfoundry.sys-mgmt-agent
+sudo snap install edgex-ekuiper
+```
 
 ### EdgeX CLI
 [![Get it from the Snap Store][badge]](https://snapcraft.io/edgex-cli)
@@ -370,12 +383,20 @@ For usage instructions, please refer to the [Graphical User Interface (GUI)](../
 ### Device REST
 [edgex-device-rest]
 ### Device RFID LLRP
-[](https://snapcraft.io/edgex-device-rfid-llrp)
+[edgex-device-rfid-llrp]
 ### Device SNMP
-[edgex-device-snmp](https://snapcraft.io/edgex-device-snmp)
-### eKuiper
+[edgex-device-snmp]
+### EdgeX eKuiper
 [edgex-ekuiper]
 
+## Useful snippets
+
+Extend TTL of vault tokens, using [TOKENFILEPROVIDER_DEFAULTTOKENTTL](../../microservices/configuration/CommonEnvironmentVariables/#tokenfileprovider_defaulttokenttl-security-secretstore-setup-service) on security-secretstore-setup:
+```bash
+sudo snap set edgexfoundry config-enabled=true
+sudo snap set edgexfoundry apps.security-secretstore-setup.config.tokenfileprovider-defaulttokenttl=72h
+sudo snap restart edgexfoundry.security-secretstore-setup
+```
 
 <!-- Store Links -->
 [badge]: https://snapcraft.io/static/images/badges/en/snap-store-white.svg
