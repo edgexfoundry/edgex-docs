@@ -7,6 +7,8 @@ secure, cross‐platform and self-contained.
 Snaps can be installed on any Linux distribution with [snap support](https://snapcraft.io/docs/installing-snapd).
 
 ### Installation
+[installation]: #installation
+
 When using the snap CLI, the installation is possible by simply executing:
 ```bash
 snap install <snap-name>
@@ -22,6 +24,8 @@ The store page also provides instructions for installation on different Linux di
 For the list of EdgeX snaps, please refer [here](#edgex-snaps).
 
 ### Configuration
+[configuration]: #configuration
+
 EdgeX snaps are packaged with default service configuration files. In certain cases, few configuration fields are overridden within the snap for snap-specific deployment requirements.
 
 Changes made to configurations services to be restarted in order for the changes to take effect; 
@@ -29,19 +33,19 @@ the one exception are changes made to configuration items in a service's `[Writa
 Services that aren't started by default (see [Using the EdgeX snap](#using-the-edgex-snap) section above) 
 *will* pickup any changes made to their config files when started.
 
-#### Configuration files
+#### Config files
 The default configuration files are typically placed at `/var/snap/<snap>/current/config`. Upon startup, the server configurations files are uploaded to Consul by default. Once the service starts without errors, the local configurations become obsolete and will no longer be read. Any modifications after the initial startup will not be applied. 
 
-#### Configuration registry
+#### Config registry
 The configurations that are uploaded to Consul can be modified using Consul's UI or [kv REST API](https://www.consul.io/api/kv). Changes to configurations in Consul are loaded by the service at startup. If the service has already started, a restart is required to load new configurations. Configurations that are in the writable section get loaded not only at startup, but also during the runtime. In other words, changes to the writable configurations are loaded automatically without a restart. Please refer to the documentation of microservices for details.
 
-#### Configuration provider snaps
+#### Config provider snap
 Most EdgeX snaps have a [content interface](https://snapcraft.io/docs/content-interface) which allows another snap to seed the snap with configuration files.
 This is useful when replacing entire configuration files via another snap, packaged with the deployment-specific configurations.
 
 Please refer to [edgex-config-provider](https://github.com/canonical/edgex-config-provider), for an example.
 
-#### Configuration overrides
+#### Config overrides
 !!! edgey "EdgeX 2.2"
     The snaps now provide an interface to set any environment variable for supported services.
     We call these the *config options* because they use a `config` prefix for the variable names.
@@ -90,7 +94,32 @@ snap set edgexfoundry apps.core-data.service-port=8080
 
 The services load the set config options on startup. If the service has already started, a restart is necessary to load them.
 
-### Control services
+
+#### Disabling security
+!!! Warning
+    Disabling security is NOT recommended, unless for demonstration purposes, or when there are other means to secure the services.
+
+    The snap will NOT allow the Secret Store to be re-enabled. The only way to re-enable the Secret Store is to re-install the snap.
+    
+The Secret Store is used by EdgeX for secret management (e.g. certificates, keys, passwords). Use of the Secret Store by all services can be disabled globally. Note that doing so will also disable the API Gateway, as it depends on the Secret Store.
+
+The following command disables the Secret Store and in turn the API Gateway:
+```bash
+sudo snap set edgexfoundry security-secret-store=off
+```
+
+All services in the snap except for the API Gateway are restricted by default to listening on localhost (127.0.0.1).
+The API Gateway proxies external requests to internal services.
+Since disabling the Secret Store also disables the API Gateway, the service endpoint will no longer be accessible from other systems.
+They will be still accessible on the local machine for demonstration and testing.
+
+If you really need to make an insecure service accessible remotely, the Service ServerBindAddr of each service needs be changed to the IP address of that networking interface on the local machine. If you trust all your interfaces and want the services to accept connections from all, set it to `0.0.0.0`.
+
+After disabling the Secret Store, the external services should be configured such that they don't attempt to initialize the security. For this purpose, [EDGEX_SECURITY_SECRET_STORE](../../microservices/configuration/CommonEnvironmentVariables/#edgex_security_secret_store) global environment variable should be set to false, using the corresponding snap option: `config.edgex-security-secret-store`.
+
+### Managing services
+[managing services]: #managing-services
+
 The services of a snap can be started/stopped/restarted using the snap CLI.
 When starting/stopping, you can additionally set them to enable/disable which configures whether or not the service should also start on boot.
 
@@ -99,7 +128,7 @@ To list the services and check their status:
 snap services <snap>
 ```
 
-To start and enable services:
+To start and optionally enable services:
 ```bash
 # all services
 snap start --enable <snap>
@@ -107,6 +136,26 @@ snap start --enable <snap>
 # one service
 snap start --enable <snap>.<app>
 ```
+
+Similarly, a service can be stopped and optionally disabled using `snap stop --disable`.
+
+!!! tip "Snap options"
+    To spin up an EdgeX instance with a different startup configuration (e.g. enabled instead of disabled), the `edgexfoundry` snap provides the following config options that accept values `"on"`/`"off"` to enable/disable a service by default:
+    
+    * `consul`
+    * `redis`
+    * `core-metadata`
+    * `core-command`
+    * `core-data`
+    * `support-notifications`
+    * `support-scheduler`
+    * `device-virtual`
+    * `security-secret-store`
+    * `security-proxy`
+
+    Device and app service snaps provide a similar functionality using the `auto-start` option.
+
+    This is particularly useful when seeding the snap from a Gadget on an Ubuntu Core system.
 
 To restart services, e.g. to load the configurations:
 ```bash
@@ -117,9 +166,9 @@ snap restart <snap>
 snap restart <snap>.<app>
 ```
 
-<!-- For controlling the default service startup from a gadget snap, see [TBA](tba). -->
-
 ### Debugging
+[debugging]: #debugging
+
 The service logs can be queried using the `snap log` command.
 
 For example, to query 100 lines and follow:
@@ -148,9 +197,11 @@ The main platform snap, simply called
 [edgexfoundry] contains
 all reference core services along with several other security, supporting, application, and device services.
 
+Please refer to common sections above for [installation], [configuration], [managing services], and [debugging].
+
 #### Services
 
-Upon installation, the following EdgeX services are automatically and immediately started:
+Upon installation, the following EdgeX services are automatically started:
 
 - consul (Registry)
 - core-command
@@ -159,10 +210,10 @@ Upon installation, the following EdgeX services are automatically and immediatel
 - kong-daemon (API Gateway / Reverse Proxy)
 - postgres (kong's database)
 - redis (default Message Bus and database backend for core-data and core-metadata)
-- security-bootstrapper-redis (oneshot service)
-- security-consul-bootstrapper (oneshot service)
-- security-proxy-setup (oneshot service)
-- security-secretstore-setup (oneshot service)
+- security-bootstrapper-redis (oneshot service to setup secure Redis)
+- security-consul-bootstrapper (oneshot service to setup secure Consul)
+- security-proxy-setup (oneshot service to setup Kong)
+- security-secretstore-setup (oneshot service to setup Vault)
 - vault (Secret Store)
 
 The following services are disabled by default:
@@ -175,169 +226,45 @@ The following services are disabled by default:
 - app-service-configurable (used to filter events for kuiper) - *deprecated; use the standalone [App Service Configurable snap](#app-service-configurable)*
 
 
-The disabled services can be manually enabled and started; see [Control services](#control-services).
+The disabled services can be manually enabled and started; see [managing services].
 
-For the configuration of services, refer to [Configurations](#configuration)
+For the configuration of services, refer to [configuration].
 
-<!-- #### Configuring individual services
+#### Secure access
 
-All default configuration files are shipped with the snap inside `$SNAP/config`, however because `$SNAP` isn't writable, 
-all of the config files are copied during snap installation to `$SNAP_DATA/config`.
+Most services are exposed and accessible on localhost without access control.
 
-!!! Tip
-    `$SNAP` resolves to the path `/snap/edgexfoundry/current/` and `$SNAP_DATA` resolves to `/var/snap/edgexfoundry/current`.
+##### HTTP endpoints
+The service endpoints can be accessed securely through the API Gateway. The API Gateway requires a JSON Web Token (JWT) to authenticate requests. Please refer to [Adding EdgeX API Gateway Users Remotely](../../security/Ch-AddGatewayUserRemotely/) and use the snapped `edgexfoundry.secrets-config` utility.
 
-The preferred way to change the configuration is to use [Configuration Overrides](#configuration-overrides) section below. 
-It is also possible to change configuration directly via Consul's [UI](http://localhost:8500/ui/) or [kv REST API](https://www.consul.io/api/kv). 
-Changes made to configuration in Consul require services to be restarted in order for the changes to take effect; 
-the one exception are changes made to configuration items in a service's `[Writable]` section. 
-Services that aren't started by default (see [Using the EdgeX snap](#using-the-edgex-snap) section above) 
-*will* pickup any changes made to their config files when started.
-
-Also it should be noted that use of Consul is enabled by default in the snap. It is not possible at this time to run the EdgeX services in
-the snap with Consul disabled. -->
-
-
-<!-- #### Configuration Overrides
-!!! Note
-    Deprecated. To be replaced with new scheme allowing env injection.
-
-The EdgeX snap supports configuration overrides via its configure and install hooks which generate service-specific .env files 
-which are used to provide a custom environment to the service, overriding the default configuration provided by the service's `configuration.toml` file. 
-If a configuration override is made after a service has already started, then the service must be **restarted** via command-line 
-(e.g. `snap restart edgexfoundry.<service>`), or [snapd's REST API](https://snapcraft.io/docs/snapd-api). 
-If the overrides are provided via the snap configuration defaults capability of a gadget snap, 
-the overrides will be picked up when the services are first started.
-
-The following syntax is used to specify service-specific configuration overrides:
-
-`env.<service>.<stanza>.<config option>`
-
-For instance, to setup an override of Core Data's port use:
-
+To get the usage help:
 ```bash
-sudo snap set edgexfoundry env.core-data.service.port=2112
+edgexfoundry.secrets-config proxy adduser -h
 ```
 
-And restart the service:
-
-```bash
-sudo snap restart edgexfoundry.core-data
-```
-
-**Note** - at this time changes to configuration values in the [Writable] section are not supported.
-
-For details on the mapping of configuration options to config options, 
-please refer to [Service Environment Configuration Overrides](#service-environment-configuration-overrides) section. -->
-
-
-#### Security services
-
-Currently, The EdgeX snap has security (Secret Store and API Gateway) enabled by default. The security services constitute the following components:
-
-- kong-daemon (API Gateway / Reverse Proxy)
-- postgres (kong's database)
-- vault (Secret Store)
-
-Oneshot services which perform the necessary security setup and stop, when listed using `snap services`, they show up as `enabled/inactive`:
-
-- security-proxy-setup (kong setup)
-- security-secretstore-setup (vault setup)
-- security-bootstrapper-redis (secure redis setup)
-- security-consul-bootstrapper (secure consul setup)
-
-Vault is known within EdgeX as the Secret Store, while Kong+PostgreSQL are used to provide the EdgeX API Gateway.
-
-<!-- For more details please refer to the snap's [Secret Store](https://github.com/edgexfoundry/edgex-go/blob/main/snap/README.md#secret-store) and [API Gateway](https://github.com/edgexfoundry/edgex-go/blob/main/snap/README.md#api-gateway) documentation. -->
-
-
-
-#### API Gateway user setup
-
-Before the API Gateway can be used, a user and group must be created and a JWT access token generated.
-
-1. Create a public/private keypair for the new user
-
-Using openssl:
+Example:
 ```bash
 # Create private key
 openssl ecparam -genkey -name prime256v1 -noout -out private.pem
 
 # Create public key
 openssl ec -in private.pem -pubout -out public.pem
-```
 
-2. Add the user
-
-The snap provides a way to set the public key of a single user as an admin.
-The admin user has the following hardcoded settings:
-- username: admin
-- user id: 1
-- algorithm: ES256
-
-
-<!-- The easiest way to create a single API gateway user is to use `snap set` to set two values as follows:
-
-```bash
-# set user=username,user id,algorithm (ES256 or RS256)
-sudo snap set edgexfoundry env.security-proxy.user=user01,USER_ID,ES256
-
-# set public-key to the contents of a PEM-encoded public key file
-sudo snap set edgexfoundry env.security-proxy.public-key="$(cat public.pem)"
-``` -->
-
-To create multiple users, use the secrets-config command. You need to provide the following:
-
-- The username
-- The public key
-- The API Gateway Admin JWT token
-- (optionally) ID. This is a unique string identifying the credential. It will be required in the next step to
-create the JWT token. If you don't specify it,
-then an autogenerated one will be output by the secrets-config command
-```bash
-
-# get API Gateway/Kong token
-JWT_FILE=/var/snap/edgexfoundry/current/secrets/security-proxy-setup/kong-admin-jwt
-JWT=`sudo cat ${JWT_FILE}`
+# read the API Gateway token
+KONG_ADMIN_JWT=`sudo cat /var/snap/edgexfoundry/current/secrets/security-proxy-setup/kong-admin-jwt`
 
 # use secrets-config to add user
-edgexfoundry.secrets-config proxy adduser --token-type jwt --user user01 --algorithm ES256 --public_key public.pem --id USER_ID --jwt ${JWT}
+# on success, this command with print the user id
+edgexfoundry.secrets-config proxy adduser --token-type jwt --user <user> --algorithm ES256 --public_key public.pem --id <optional-user-id> --jwt $KONG_ADMIN_JWT
+
+# get a JWT token for this user
+TOKEN=`edgexfoundry.secrets-config proxy jwt --algorithm ES256 --private_key private.pem --id <user-id> --expiration=1h`
+
+# keep this token in a safe place for future reuse
+echo $TOKEN > token.jwt
 ```
 
-3. Finally, you need to generate a token using the user ID which you specified:
-
-```bash
-# get token
-TOKEN=`edgexfoundry.secrets-config proxy jwt --algorithm ES256 --private_key private.pem --id USER_ID --expiration=1h`
-
-# Keep this token in a safe place for future reuse as the same token cannot be regenerated or recovered using the secret-config CLI
-echo $TOKEN
-```
-
-Alternatively , you can generate the token on a different device using a bash script:
-
-```bash
-header='{
-    "alg": "ES256",
-    "typ": "JWT"
-}'
-
-TTL=$((EPOCHSECONDS+3600)) 
-
-payload='{
-    "iss":"USER_ID",
-    "iat":'$EPOCHSECONDS', 
-    "nbf":'$EPOCHSECONDS',
-    "exp":'$TTL' 
-}'
-
-JWT_HEADER=`echo -n $header | openssl base64 -e -A | sed s/\+/-/ | sed -E s/=+$//`
-JWT_PAYLOAD=`echo -n $payload | openssl base64 -e -A | sed s/\+/-/ | sed -E s/=+$//`
-JWT_SIGNATURE=`echo -n "$JWT_HEADER.$JWT_PAYLOAD" | openssl dgst -sha256 -binary -sign private.pem  | openssl asn1parse -inform DER  -offset 2 | grep -o "[0-9A-F]\+$" | tr -d '\n' | xxd -r -p | base64 -w0 | tr -d '=' | tr '+/' '-_'`
-TOKEN=$JWT_HEADER.$JWT_PAYLOAD.$JWT_SIGNATURE
-```
-
-4. Once you have the token you can access the API Gateway as follows:
+Once you have the token you can access the API Gateway as follows:
 
 The JWT token must be included
 via an HTTP `Authorization: Bearer <access-token>` header on any REST calls used to access EdgeX services via the API Gateway. 
@@ -345,82 +272,58 @@ via an HTTP `Authorization: Bearer <access-token>` header on any REST calls used
 Example:
 
 ```bash
-curl -k -X GET https://localhost:8443/core-data/api/v2/ping? -H "Authorization: Bearer $TOKEN"
+$ curl --insecure https://localhost:8443/core-data/api/v2/ping? -H "Authorization: Bearer $TOKEN"
+{"apiVersion":"v2","timestamp":"Mon May  2 12:14:17 CEST 2022","serviceName":"core-data"}
 ```
 
+!!! tip "Snap options"
+    To spin up a pre-configured and securely accessible EdgeX instance, the snap provides a way to pass the public key of a single user with snap options. When requested, the user is created with user `admin`, id `1` and JWT signing algorithm `ES256`. The snap option for passing the public key is:
+    `apps.secrets-config.proxy.admin.public-key`.
 
-#### API Gateway TLS certificate setup
+    This is particularly useful when seeding the snap from a Gadget on an Ubuntu Core system.
 
-By default Kong is configured with a self-signed TLS certificate (which you find in `/var/snap/edgexfoundry/current/kong/ssl/kong-default-ecdsa.crt`). 
-It is also possible to install your own TLS certificate to be used by the gateway. The steps to do so are as follows:
+##### Consul
+Consul API and UI can be accessed using the consul secret id. For the snap, secret is the value of `SecretID` typically placed in a JSON file at `/var/snap/edgexfoundry/current/secrets/consul-acl-token/bootstrap_token.json`.
 
-1. Start by provisioning a TLS certificate to use. You can use a number of tools for that, such as `openssl` or the `edgeca` snap:
-
+For example, to get the secret using JQ:
 ```bash
-sudo snap install edgeca
-edgeca gencsr --cn localhost --csr csrfile --key csrkeyfile
-edgeca gencert -o localhost.cert -i csrfile -k localhost.key
+$ sudo cat /var/snap/edgexfoundry/current/secrets/consul-acl-token/bootstrap_token.json | jq '.SecretID'
+"ee3964d0-505f-6b62-4c88-0d29a8226daa"
 ```
 
-2. Then install the certificate:
 
+##### Custom TLS certificates
+The API Gateway setup generates a self-signed certificate by default. To replace that with your own certificate, refer to API Gateway guide: [Using a bring-your-own external TLS certificate for API gateway](../../security/Ch-APIGateway/#using-a-bring-your-own-external-tls-certificate-for-api-gateway) and use the snapped `edgexfoundry.secrets-config` utility.
+
+To get the usage help:
 ```bash
-sudo snap set edgexfoundry env.security-proxy.tls-certificate="$(cat localhost.cert)"
-sudo snap set edgexfoundry env.security-proxy.tls-private-key="$(cat localhost.key)"
+edgexfoundry.secrets-config proxy tls -h
 ```
 
-3. Specify the EdgeCA Root CA certificate with `--cacert` for validation of the new certificate:
-
+Example: Given certificate `cert.pem`, private key `privkey.pem`, and certificate authority `ca.pem` files:
 ```bash
-curl -v --cacert /var/snap/edgeca/current/CA.pem -X GET https://localhost:8443/core-data/api/v2/ping? -H "Authorization: Bearer $TOKEN"
+# read the API Gateway token
+KONG_ADMIN_JWT=`sudo cat /var/snap/edgexfoundry/current/secrets/security-proxy-setup/kong-admin-jwt`
+
+# add the certificate
+edgexfoundry.secrets-config proxy tls --incert /path/to/cert.pem --inkey /path/to/privkey.pem --admin_api_jwt $KONG_ADMIN_JWT
 ```
 
-Optionally, to specify a server name other than `localhost`, set the `tls-sni` configuration setting first. Example:
-
+Try it out:
 ```bash
-# generate certificate and private key
-edgeca gencsr --cn server01 --csr csrfile --key csrkeyfile
-edgeca gencert -o server.cert -i csrfile -k server.key
-
-# To set the certificate again, you first need to clear the current values by setting them to an empty string:
-sudo snap set edgexfoundry env.security-proxy.tls-certificate=""
-sudo snap set edgexfoundry env.security-proxy.tls-private-key=""
-
-# set tls-sni
-sudo snap set edgexfoundry env.security-proxy.tls-sni="server01"
-
-# and then provide the certificate and key
-sudo snap set edgexfoundry env.security-proxy.tls-certificate="$(cat server.cert)"
-sudo snap set edgexfoundry env.security-proxy.tls-private-key="$(cat server.key)"
-
-# connect
-curl -v --cacert /var/snap/edgeca/current/CA.pem -X GET https://server01:8443/core-data/api/v2/ping? -H "Authorization: Bearer $TOKEN"
+$ curl -v --cacert /path/to/ca.pem https://server01:8443/core-data/api/v2/ping? -H "Authorization: Bearer $TOKEN"
+{"apiVersion":"v2","timestamp":"Mon May  2 12:14:17 CEST 2022","serviceName":"core-data"}
 ```
 
-
-#### Disabling security
-!!! TODO:
-    MOVE TO COMMON SECTION AND EXTEND WITH SERVICE ENV TO DISABLE
-
-!!! Warning
-    Disabling security is NOT recommended, unless for demonstration purposes, or when there are other means to secure the services.
-!!! Warning
-    The snap will NOT allow the Secret Store to be re-enabled. The only way to re-enable the Secret Store is to re-install the snap.
+!!! tip "Snap options"
+    To spin up an EdgeX instance with custom certificates, the snap provides the following configuration options:
     
-The Secret Store is used by EdgeX for secret management (e.g. certificates, keys, passwords). Use of the Secret Store by all services can be disabled globally, but doing so will also disable the API Gateway, as it depends on the Secret Store.
+    * `apps.secrets-config.proxy.tls.cert`
+    * `apps.secrets-config.proxy.tls.key`
+    * `apps.secrets-config.proxy.tls.snis` (comma-separated values)
 
-Thus the following command will disable both:
+    This is particularly useful when seeding the snap from a Gadget on an Ubuntu Core system.
 
-```bash
-sudo snap set edgexfoundry security-secret-store=off
-```
-
-All services in the snap except for the API Gateway are restricted by default to listening on localhost (127.0.0.1).
-The API Gateway proxies external requests to internal services.
-Since disabling the Secret Store also disables the API Gateway, the service endpoint will no longer be accessible from other systems.
-They will be still accessible on the local machine for demonstration and testing.
-
-If you really need to make an insecure service accessible remotely, the `Service.ServerBindAddr` of each service needs be changed to the IP address of that networking interface on the local machine. If you trust all your interfaces and want the services to accept connections from all, set it to `0.0.0.0`.
 
 ### EdgeX UI
 [![Get it from the Snap Store][badge]][edgex-ui]
@@ -466,10 +369,6 @@ For usage instructions, please refer to the [Graphical User Interface (GUI)](../
 [edgex-device-snmp](https://snapcraft.io/edgex-device-snmp)
 ### eKuiper
 [edgex-ekuiper]
-
-
-
-
 
 
 <!-- Store Links -->
