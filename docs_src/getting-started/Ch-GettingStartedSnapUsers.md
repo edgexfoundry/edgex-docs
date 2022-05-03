@@ -189,13 +189,10 @@ The following snaps are maintained by the EdgeX working groups.
 To find all EdgeX snaps on the public Snap Store, [search by keyword](https://snapcraft.io/search?q=edgex).
 
 ### Platform Snap
-[![Get it from the Snap Store][badge]][edgexfoundry]
+| [Installation][edgexfoundry] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/edgex-go/tree/main/snap) |
 
-The main platform snap, simply called
-[edgexfoundry] contains
+The main platform snap, simply called `edgexfoundry` contains
 all reference core services along with several other security, supporting, application, and device services.
-
-Please refer to common sections above for [installation], [configuration], [managing services], and [debugging].
 
 Upon installation, the following EdgeX services are automatically started:
 
@@ -331,12 +328,9 @@ $ curl -v --cacert /path/to/ca.pem https://server01:8443/core-data/api/v2/ping? 
 
 
 ### EdgeX UI
-[![Get it from the Snap Store][badge]][edgex-ui]
+| [Installation][edgex-ui] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/edgex-ui-go/tree/main/snap) |
 
-
-For installation instructions, please refer to [edgex-ui].
-
-For usage instructions, please refer to the [Graphical User Interface (GUI)](../../getting-started/tools/Ch-GUI/) guide.
+For usage instructions, please refer to the [Graphical User Interface (GUI)](../tools/Ch-GUI/) guide.
 
 By default, the UI is reachable locally at:
 [http://localhost:4000](http://localhost:4000)
@@ -359,13 +353,23 @@ sudo snap install edgex-ekuiper
 ```
 
 ### EdgeX CLI
-[![Get it from the Snap Store][badge]](https://snapcraft.io/edgex-cli)
+| [Installation][edgex-cli] | [Source](https://github.com/edgexfoundry/edgex-cli/tree/main/snap) |
 
-[edgex-cli]
+For usage instructions, refer to [Command Line Interface (CLI)](../tools/Ch-CommandLineInterface/) guide.
 
 <!-- sorted alphabetically -->
 ### App Service Configurable
-[edgex-app-service-configurable]
+| [Installation][edgex-app-service-configurable] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/app-service-configurable/tree/main/snap) |
+
+Please refer to [App Service Configurable](../../microservices/application/AppServiceConfigurable/) guide for detailed usage instructions.
+
+Before you can start the service, you must select one of available profiles, 
+using snap options.
+
+For example, to set `mqtt-export` profile using the snap CLI:
+```bash
+sudo snap set edgex-app-service-configurable profile=mqtt-export
+```
 
 ### App RFID LLRP Inventory
 [edgex-app-rfid-llrp-inventory]
@@ -401,7 +405,9 @@ sudo snap restart edgexfoundry.security-secretstore-setup
 <!-- Store Links -->
 [badge]: https://snapcraft.io/static/images/badges/en/snap-store-white.svg
 [edgexfoundry]: https://snapcraft.io/edgexfoundry
+[edgexfoundry-src]: https://github.com/edgexfoundry/edgex-go/tree/main/snap
 [edgex-ui]: https://snapcraft.io/edgex-ui
+[edgex-ui-src]: https://github.com/edgexfoundry/edgex-ui-go/tree/main/snap
 [edgex-cli]: https://snapcraft.io/edgex-cli
 [edgex-app-service-configurable]: https://snapcraft.io/edgex-app-service-configurable
 [edgex-app-rfid-llrp-inventory]: https://snapcraft.io/edgex-app-rfid-llrp-inventory
