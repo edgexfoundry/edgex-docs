@@ -150,7 +150,7 @@ Similarly, a service can be stopped and optionally disabled using `snap stop --d
 
     Device and app service snaps provide a similar functionality using the `auto-start` option.
 
-    This is particularly useful when seeding the snap from a Gadget on an Ubuntu Core system.
+    This is particularly useful when seeding the snap from a [Gadget](https://snapcraft.io/docs/gadget-snap) on an [Ubuntu Core](https://ubuntu.com/core) system.
 
 To restart services, e.g. to load the configurations:
 ```bash
@@ -232,6 +232,7 @@ To get the usage help:
 ```bash
 edgexfoundry.secrets-config proxy adduser -h
 ```
+You may also refer to the [secrets-config proxy](../../security/secrets-config-proxy/) documentation.
 
 Example - create a user:
 ```bash
@@ -253,22 +254,20 @@ edgexfoundry.secrets-config proxy adduser --token-type jwt --user <user> --algor
     To spin up a pre-configured and securely accessible EdgeX instance, the snap provides a way to pass the public key of a single user with snap options. When requested, the user is created with user `admin`, id `1` and JWT signing algorithm `ES256`. The snap option for passing the public key is:
     `apps.secrets-config.proxy.admin.public-key`.
 
-    This is particularly useful when seeding the snap from a Gadget on an Ubuntu Core system.
+    This is particularly useful when seeding the snap from a [Gadget](https://snapcraft.io/docs/gadget-snap) on an [Ubuntu Core](https://ubuntu.com/core) system.
 
 Example - generate a JWT token for this user:
 ```bash
-TOKEN=`edgexfoundry.secrets-config proxy jwt --algorithm ES256 --private_key private.pem --id <user-id> --expiration=1h`
-
-# keep this token in a safe place for future reuse
-echo $TOKEN > token.jwt
+# on success, a JWT token is printed out and written to user.jwt file
+edgexfoundry.secrets-config proxy jwt --algorithm ES256 --private_key private.pem --id <user-id> --expiration=1h | tee user.jwt
 ```
-The JWT token can also be created using bash and openssl, but that is beyond the scope of this guide.
+You may alternatively create the JWT token using bash and openssl. That is beyond the scope of this guide.
 
 Once you have the token, you can access the services via the API Gateway.
 
 Example - use the token:
 ```bash
-$ curl --insecure https://localhost:8443/core-data/api/v2/ping? -H "Authorization: Bearer $TOKEN"
+$ curl --insecure https://localhost:8443/core-data/api/v2/ping? -H "Authorization: Bearer $(cat user.jwt)"
 {"apiVersion":"v2","timestamp":"Mon May  2 12:14:17 CEST 2022","serviceName":"core-data"}
 ```
 
@@ -283,14 +282,14 @@ $ sudo cat /var/snap/edgexfoundry/current/secrets/consul-acl-token/bootstrap_tok
 
 Try it out locally:
 ```bash
-$ curl --insecure --silent http://localhost:8500/v1/kv/edgex/core/2.0/core-data/Service/Port -H "X-Consul-Token:17938174-059e-8b86-122a-9a08a99dcd1c" | jq '.[0].Value' --raw-output | base64 --decode
-59880
+$ curl --insecure --silent http://localhost:8500/v1/kv/edgex/core/2.0/core-data/Service/Port -H "X-Consul-Token:17938174-059e-8b86-122a-9a08a99dcd1c"
+[{"LockIndex":0,"Key":"edgex/core/2.0/core-data/Service/Port","Flags":0,"Value":"NTk4ODA=","CreateIndex":160,"ModifyIndex":160}]
 ```
 
 Through the API Gateway:
 ```bash
-$ curl --insecure --silent https://localhost:8443/consul/v1/kv/edgex/core/2.0/core-data/Service/Port -H "X-Consul-Token:17938174-059e-8b86-122a-9a08a99dcd1c" -H "Authorization: Bearer $TOKEN" | jq '.[0].Value' --raw-output | base64 --decode
-59880
+$ curl --insecure --silent https://localhost:8443/consul/v1/kv/edgex/core/2.0/core-data/Service/Port -H "X-Consul-Token:17938174-059e-8b86-122a-9a08a99dcd1c" -H "Authorization: Bearer $TOKEN"
+[{"LockIndex":0,"Key":"edgex/core/2.0/core-data/Service/Port","Flags":0,"Value":"NTk4ODA=","CreateIndex":160,"ModifyIndex":160}]
 ```
 
 
@@ -301,6 +300,7 @@ To get the usage help:
 ```bash
 edgexfoundry.secrets-config proxy tls -h
 ```
+You may also refer to the [secrets-config proxy](../../security/secrets-config-proxy/) documentation.
 
 Example: Given certificate `cert.pem`, private key `privkey.pem`, and certificate authority `ca.pem` files:
 ```bash
@@ -324,8 +324,39 @@ $ curl -v --cacert /path/to/ca.pem https://server01:8443/core-data/api/v2/ping? 
     * `apps.secrets-config.proxy.tls.key`
     * `apps.secrets-config.proxy.tls.snis` (comma-separated values)
 
-    This is particularly useful when seeding the snap from a Gadget on an Ubuntu Core system.
+    This is particularly useful when seeding the snap from a [Gadget](https://snapcraft.io/docs/gadget-snap) on an [Ubuntu Core](https://ubuntu.com/core) system.
 
+#### Secret Store token interface
+The services inside standalone snaps (e.g. device, app snaps) automatically receive a [Secret Store](../../security/Ch-SecretStore/) token when:
+
+* The standalone snap is downloaded and installed from the store
+* The platform snap is downloaded and installed from the store
+* Both snaps are installed on the same machine
+* The service is registered as an [add-on service](../../security/Ch-Configuring-Add-On-Services/)
+
+The `edgex-secretstore-token` [content interface](https://snapcraft.io/docs/content-interface) provides the mechanism to automatically supply tokens to connected snaps.
+
+Execute the following command to check the status of connections:
+```bash
+sudo snap connections edgexfoundry
+```
+
+To manually connect the edgexfoundry's plug to a standalone snap's slot:
+```bash
+snap connect edgexfoundry:edgex-secretstore-token <snap>:edgex-secretstore-token
+```
+
+Note that the token has a limited expiry time of 1h by default. The connection and service startup should happen within the validity period.
+
+To better understand the snap connections, read the [interface management](https://snapcraft.io/docs/interface-management)
+
+!!! tip "Extend the default Secret Store token TTL"
+    Set [TOKENFILEPROVIDER_DEFAULTTOKENTTL](../../microservices/configuration/CommonEnvironmentVariables/#tokenfileprovider_defaulttokenttl-security-secretstore-setup-service) for security-secretstore-setup and restart:
+    ```bash
+    sudo snap set edgexfoundry config-enabled=true
+    sudo snap set edgexfoundry apps.security-secretstore-setup.config.tokenfileprovider-defaulttokenttl=72h
+    sudo snap restart edgexfoundry.security-secretstore-setup
+    ```
 
 ### EdgeX UI
 | [Installation][edgex-ui] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/edgex-ui-go/tree/main/snap) |
@@ -392,15 +423,6 @@ sudo snap set edgex-app-service-configurable profile=mqtt-export
 [edgex-device-snmp]
 ### EdgeX eKuiper
 [edgex-ekuiper]
-
-## Useful snippets
-
-Extend TTL of vault tokens, using [TOKENFILEPROVIDER_DEFAULTTOKENTTL](../../microservices/configuration/CommonEnvironmentVariables/#tokenfileprovider_defaulttokenttl-security-secretstore-setup-service) on security-secretstore-setup:
-```bash
-sudo snap set edgexfoundry config-enabled=true
-sudo snap set edgexfoundry apps.security-secretstore-setup.config.tokenfileprovider-defaulttokenttl=72h
-sudo snap restart edgexfoundry.security-secretstore-setup
-```
 
 <!-- Store Links -->
 [badge]: https://snapcraft.io/static/images/badges/en/snap-store-white.svg
