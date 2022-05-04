@@ -402,13 +402,16 @@ sudo snap install edgex-ekuiper
 For usage instructions, refer to [Command Line Interface (CLI)](../tools/Ch-CommandLineInterface/) guide.
 
 ### EdgeX eKuiper
+| [Installation][edgex-ekuiper] | [Managing Services] | [Debugging] | [Source](https://github.com/canonical/edgex-ekuiper-snap) |
+
 !!! edgey "EdgeX 2.2"
     This version of EdgeX introduces a standalone EdgeX eKuiper snap.
-    The new snap is now the supported way of using eKuiper with other EdgeX snaps.
+    The new snap is the supported way of using eKuiper with other EdgeX snaps.
 
-    The `kuiper` and `kuiper-cli` apps built into the platform snap are now deprecated! 
+For the documentation of the standalone EdgeX eKuiper snap, visit the [README](https://github.com/canonical/edgex-ekuiper-snap).
 
-For the documentation of standalone EdgeX eKuiper snap, visit the [README](https://github.com/canonical/edgex-ekuiper-snap).
+!!! note
+    The standalone EdgeX eKuiper snap documented here should not be confused with the deprecated `edgexfoundry.kuiper` and `edgexfoundry.kuiper-cli` apps built into the platform. The standalone snap can provide similar functionality.
 
 <!-- sorted alphabetically -->
 ### App Service Configurable
@@ -423,6 +426,9 @@ For example, to set `mqtt-export` profile using the snap CLI:
 ```bash
 sudo snap set edgex-app-service-configurable profile=mqtt-export
 ```
+
+!!! note
+    The standalone App Service Configurable snap documented above should not be confused with the deprecated `edgexfoundry.app-service-configurable`, built into the platform snap. The standalone snap can serve the same functionality of filtering events for eKuiper by using the rules-engine profile.
 
 ### App RFID LLRP Inventory
 [edgex-app-rfid-llrp-inventory]
