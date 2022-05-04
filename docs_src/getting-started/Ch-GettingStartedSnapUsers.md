@@ -401,6 +401,15 @@ sudo snap install edgex-ekuiper
 
 For usage instructions, refer to [Command Line Interface (CLI)](../tools/Ch-CommandLineInterface/) guide.
 
+### EdgeX eKuiper
+!!! edgey "EdgeX 2.2"
+    This version of EdgeX introduces a standalone EdgeX eKuiper snap.
+    The new snap is now the supported way of using eKuiper with other EdgeX snaps.
+
+    The `kuiper` and `kuiper-cli` apps built into the platform snap are now deprecated! 
+
+For the documentation of standalone EdgeX eKuiper snap, visit the [README](https://github.com/canonical/edgex-ekuiper-snap).
+
 <!-- sorted alphabetically -->
 ### App Service Configurable
 | [Installation][edgex-app-service-configurable] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/app-service-configurable/tree/main/snap) |
@@ -417,9 +426,8 @@ sudo snap set edgex-app-service-configurable profile=mqtt-export
 
 ### App RFID LLRP Inventory
 [edgex-app-rfid-llrp-inventory]
-
-### Device Camera
-[edgex-device-camera]
+<!-- ### Device Camera
+[edgex-device-camera] -->
 ### Device GPIO
 [edgex-device-gpio]
 ### Device Grove
@@ -434,8 +442,7 @@ sudo snap set edgex-app-service-configurable profile=mqtt-export
 [edgex-device-rfid-llrp]
 ### Device SNMP
 [edgex-device-snmp]
-### EdgeX eKuiper
-[edgex-ekuiper]
+
 
 <!-- Store Links -->
 [badge]: https://snapcraft.io/static/images/badges/en/snap-store-white.svg
