@@ -77,7 +77,7 @@ Mapping examples:
 [EDGEX_STARTUP_DURATION]: ../../microservices/configuration/CommonEnvironmentVariables/#edgex_startup_duration
 [ADD_SECRETSTORE_TOKENS]: ../../security/Ch-Configuring-Add-On-Services/#configure-the-services-secret-store-to-use
 
-!!! Note
+!!! note
     The config options are supported as of EdgeX 2.2 and are disabled by default!
 
     Setting `config-enabled=true` is necessary to enable their support.
@@ -134,7 +134,7 @@ snap start --enable <snap>.<app>
 
 Similarly, a service can be stopped and optionally disabled using `snap stop --disable`.
 
-!!! tip "Snap options"
+??? info "Snap options"
     To spin up an EdgeX instance with a different startup configuration (e.g. enabled instead of disabled), the `edgexfoundry` snap provides the following config options that accept values `"on"`/`"off"` to enable/disable a service by default:
     
     * `consul`
@@ -181,7 +181,7 @@ To query not only the service logs, but also the snap logs (incl. hook apps such
 sudo journalctl -n 100 -f | grep <snap>
 ```
 
-!!! tip
+!!! info
     The verbosity of service logs is INFO by default. This can be changed by overriding the log level using the `WRITABLE_LOGLEVEL` environment variable using snap config overrides.
 
 ## EdgeX Snaps
@@ -234,64 +234,70 @@ edgexfoundry.secrets-config proxy adduser -h
 ```
 You may also refer to the [secrets-config proxy](../../security/secrets-config-proxy/) documentation.
 
-Example - create a user:
-```bash
-# Create private key
-openssl ecparam -genkey -name prime256v1 -noout -out private.pem
 
-# Create public key
-openssl ec -in private.pem -pubout -out public.pem
+!!! example "Creating an example user"
+    Create private and public keys:
+    ```bash
+    openssl ecparam -genkey -name prime256v1 -noout -out private.pem
+    openssl ec -in private.pem -pubout -out public.pem
 
-# read the API Gateway token
-KONG_ADMIN_JWT=`sudo cat /var/snap/edgexfoundry/current/secrets/security-proxy-setup/kong-admin-jwt`
+    ```
 
-# use secrets-config to add user
-# on success, this command with print the user id
-edgexfoundry.secrets-config proxy adduser --token-type jwt --user <user> --algorithm ES256 --public_key public.pem --id <optional-user-id> --jwt $KONG_ADMIN_JWT
-```
+    Read the API Gateway token:
+    ```bash
+    KONG_ADMIN_JWT_FILE=`sudo cat /var/snap/edgexfoundry/current/secrets/security-proxy-setup/kong-admin-jwt`
+    ```
 
-!!! tip "Snap options"
+    Use secrets-config to add a user `example` with id `1000`:
+    ```bash
+    edgexfoundry.secrets-config proxy adduser --token-type jwt --user example --algorithm ES256 --public_key public.pem --id 1000 --jwt $KONG_ADMIN_JWT
+    ```
+    On success, the above command prints the user id.
+
+??? tip "Seeding an admin user using snap options"
     To spin up a pre-configured and securely accessible EdgeX instance, the snap provides a way to pass the public key of a single user with snap options. When requested, the user is created with user `admin`, id `1` and JWT signing algorithm `ES256`. The snap option for passing the public key is:
     `apps.secrets-config.proxy.admin.public-key`.
 
     This is particularly useful when seeding the snap from a [Gadget](https://snapcraft.io/docs/gadget-snap) on an [Ubuntu Core](https://ubuntu.com/core) system.
 
-Example - generate a JWT token for this user:
-```bash
-# on success, a JWT token is printed out and written to user.jwt file
-edgexfoundry.secrets-config proxy jwt --algorithm ES256 --private_key private.pem --id <user-id> --expiration=1h | tee user.jwt
-```
-You may alternatively create the JWT token using bash and openssl. That is beyond the scope of this guide.
+!!! example "Generating a JWT token for the example user"
+    On success, a JWT token is printed out and written to user.jwt file.
+    We use the user id `1000` as set in the previous example.
+    ```bash
+    edgexfoundry.secrets-config proxy jwt --algorithm ES256 --private_key private.pem --id 1000 --expiration=1h | tee user.jwt
+    ```
+
+It is also possible to create the JWT token using bash and openssl. But that is beyond the scope of this guide.
 
 Once you have the token, you can access the services via the API Gateway.
 
-Example - use the token:
-```bash
-$ curl --insecure https://localhost:8443/core-data/api/v2/ping? -H "Authorization: Bearer $(cat user.jwt)"
-{"apiVersion":"v2","timestamp":"Mon May  2 12:14:17 CEST 2022","serviceName":"core-data"}
-```
+!!! example "Calling an API on behalf of example user"
+
+    ```bash
+    curl --insecure https://localhost:8443/core-data/api/v2/ping -H "Authorization: Bearer $(cat user.jwt)"
+    ```
+    Output: `{"apiVersion":"v2","timestamp":"Mon May  2 12:14:17 CEST 2022","serviceName":"core-data"}`
 
 #### Accessing Consul
-Consul API and UI can be accessed using the consul Secret ID. For the snap, secret is the value of `SecretID` typically placed in a JSON file at `/var/snap/edgexfoundry/current/secrets/consul-acl-token/bootstrap_token.json`.
+Consul API and UI can be accessed using the consul token (Secret ID). For the snap, token is the value of `SecretID` typically placed in a JSON file at `/var/snap/edgexfoundry/current/secrets/consul-acl-token/bootstrap_token.json`.
 
-To get the secret:
-```bash
-$ sudo cat /var/snap/edgexfoundry/current/secrets/consul-acl-token/bootstrap_token.json | jq '.SecretID'
-"ee3964d0-505f-6b62-4c88-0d29a8226daa"
-```
+!!! example
+    To get the token:
+    ```bash
+    sudo cat /var/snap/edgexfoundry/current/secrets/consul-acl-token/bootstrap_token.json | jq '.SecretID'
+    ```
+    Output: `"ee3964d0-505f-6b62-4c88-0d29a8226daa"`
 
-Try it out locally:
-```bash
-$ curl --insecure --silent http://localhost:8500/v1/kv/edgex/core/2.0/core-data/Service/Port -H "X-Consul-Token:17938174-059e-8b86-122a-9a08a99dcd1c"
-[{"LockIndex":0,"Key":"edgex/core/2.0/core-data/Service/Port","Flags":0,"Value":"NTk4ODA=","CreateIndex":160,"ModifyIndex":160}]
-```
+    Try it out locally:
+    ```bash
+    curl --insecure --silent http://localhost:8500/v1/kv/edgex/core/2.0/core-data/Service/Port -H "X-Consul-Token:17938174-059e-8b86-122a-9a08a99dcd1c"
+    ```
 
-Through the API Gateway:
-```bash
-$ curl --insecure --silent https://localhost:8443/consul/v1/kv/edgex/core/2.0/core-data/Service/Port -H "X-Consul-Token:17938174-059e-8b86-122a-9a08a99dcd1c" -H "Authorization: Bearer $TOKEN"
-[{"LockIndex":0,"Key":"edgex/core/2.0/core-data/Service/Port","Flags":0,"Value":"NTk4ODA=","CreateIndex":160,"ModifyIndex":160}]
-```
-
+    Through the API Gateway:  
+    We need to pass both the Consul token and Secret Store token obtained in [Adding API Gateway users](#adding-api-gateway-users) examples.
+    ```bash
+    curl --insecure --silent https://localhost:8443/consul/v1/kv/edgex/core/2.0/core-data/Service/Port -H "X-Consul-Token:17938174-059e-8b86-122a-9a08a99dcd1c" -H "Authorization: Bearer $(cat user.jwt)"
+    ```
 
 #### Setting TLS certificates
 The API Gateway setup generates a self-signed certificate by default. To replace that with your own certificate, refer to API Gateway guide: [Using a bring-your-own external TLS certificate for API gateway](../../security/Ch-APIGateway/#using-a-bring-your-own-external-tls-certificate-for-api-gateway) and use the snapped `edgexfoundry.secrets-config` utility.
@@ -302,22 +308,29 @@ edgexfoundry.secrets-config proxy tls -h
 ```
 You may also refer to the [secrets-config proxy](../../security/secrets-config-proxy/) documentation.
 
-Example: Given certificate `cert.pem`, private key `privkey.pem`, and certificate authority `ca.pem` files:
-```bash
-# read the API Gateway token
-KONG_ADMIN_JWT=`sudo cat /var/snap/edgexfoundry/current/secrets/security-proxy-setup/kong-admin-jwt`
+!!! example 
+    Given certificate `cert.pem`, private key `privkey.pem`, and certificate authority `ca.pem` files:
 
-# add the certificate
-edgexfoundry.secrets-config proxy tls --incert /path/to/cert.pem --inkey /path/to/privkey.pem --admin_api_jwt $KONG_ADMIN_JWT
-```
+    Read the API Gateway token:
+    ```bash
+    KONG_ADMIN_JWT=`sudo cat /var/snap/edgexfoundry/current/secrets/security-proxy-setup/kong-admin-jwt`
+    ```
 
-Try it out:
-```bash
-$ curl -v --cacert /path/to/ca.pem https://server01:8443/core-data/api/v2/ping? -H "Authorization: Bearer $TOKEN"
-{"apiVersion":"v2","timestamp":"Mon May  2 12:14:17 CEST 2022","serviceName":"core-data"}
-```
+    Add the certificate, using Kong Admin JWT to authenticate:
+    ```bash
+    edgexfoundry.secrets-config proxy tls --incert cert.pem --inkey privkey.pem --admin_api_jwt $KONG_ADMIN_JWT
+    ```
 
-!!! tip "Snap options"
+    Try it out:
+    ```bash
+    curl --cacert ca.pem https://localhost:8443/core-data/api/v2/ping
+    ```
+    Output: `{"message":"Unauthorized"}`  
+    This means that TLS is setup correctly, but the request is not authorized.  
+    Set the `-v` command for diagnosing TLS issues.
+
+
+??? tip "Snap options"
     To spin up an EdgeX instance with custom certificates, the snap provides the following configuration options:
     
     * `apps.secrets-config.proxy.tls.cert`
