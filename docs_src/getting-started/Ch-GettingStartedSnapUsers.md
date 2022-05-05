@@ -447,7 +447,15 @@ sudo snap set edgex-app-service-configurable profile=mqtt-export
     The standalone App Service Configurable snap documented above should not be confused with the deprecated `edgexfoundry.app-service-configurable`, built into the platform snap. The standalone snap can serve the same functionality of filtering events for eKuiper by using the rules-engine profile.
 
 ### App RFID LLRP Inventory
-[edgex-app-rfid-llrp-inventory]
+| [Installation][edgex-app-rfid-llrp-inventory] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/app-rfid-llrp-inventory/tree/main/snap) |
+
+The aliases need to be provided for the service to work.  See [Setting the Aliases](https://github.com/edgexfoundry/app-rfid-llrp-inventory/blob/main/README.md#setting-the-aliases).
+
+For the snap, this can either be by:
+
+- using a content interface to provide a `configuration.toml` file with the correct aliases, before startup
+- setting the values manually in Consul during or after deployment
+
 <!-- ### Device Camera
 [edgex-device-camera] -->
 ### Device GPIO
