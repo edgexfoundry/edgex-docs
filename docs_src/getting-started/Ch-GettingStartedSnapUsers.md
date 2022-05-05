@@ -42,14 +42,28 @@ This is useful when replacing entire configuration files via another snap, packa
 Please refer to [edgex-config-provider](https://github.com/canonical/edgex-config-provider), for an example.
 
 #### Config overrides
-!!! edgey "EdgeX 2.2"
-    The snaps now provide an interface to set any environment variable for supported services.
-    We call these the *config options* because they use a `config` prefix for the variable names.
-    The config options are **disabled by default**.
+!!! edgey "EdgeX 2.2 - app options"
+    This version of EdgeX snaps introduce a new scheme for the snap configuration options:
+    ```
+    apps.<app>.<type>.<key>
+    ```
+    where:
 
-    This functionality supersedes for the snap *env options* (with `env.` prefix) which allows setting certain configurations. Please refer to EdgeX 2.1 (Jakarta) snap READMEs and documentation for details on the deprecated options.
+    - `<app>` is the name of the app (service, executable)
+    - `<type>` is the type of option with respect to the app
+    - `<key>` is key for the option. It could contain a path to set a value inside an object, e.g. `x.y=z` sets `{"x": {"y": "z"}}`.
 
-    The env options are deprecated and have incomplete configuration coverage. Existing options will continue to work until the next major EdgeX release. At that point, the config options will become **enabled by default**.
+    The app options are **disabled by default**. This is for usability purposes and to avoid confusion with legacy options. The app options may be enabled by default in the next major release of EdgeX.
+
+    Refer to [edgexfoundry/edgex-go#3986](https://github.com/edgexfoundry/edgex-go/pull/3986) for details.
+
+!!! edgey "EdgeX 2.2 - config options"
+    The snaps now provide an interface to set any environment variable for supported apps.
+    We call these the *config options* because they use a `config` prefix for the variable names. The config options are a subset of app options, which are **disabled by default**.
+
+    This functionality supersedes for the snap *env options* (prefix `env.`) which allow setting a pre-defined set of configurations. Existing env options will continue to work until the next major EdgeX release. Please refer to snap READMEs (`jakarta` branch) for the documentation of the deprecated options.
+
+    Enabling app options will migrate internal env options and persistently remove any newly set env option.
 
 The EdgeX services allow overriding server configurations using environment variables. Moreover, the services read EdgeX [Common Environment Variables](../../microservices/configuration/CommonEnvironmentVariables/) to change configurations that aren't defined in config files.
 The EdgeX snaps provide an interface via [snap configuration options](https://snapcraft.io/docs/configuration-in-snaps) to set environment variables for the services.
@@ -80,11 +94,13 @@ Mapping examples:
 !!! note
     The config options are supported as of EdgeX 2.2 and are disabled by default!
 
-    Setting `config-enabled=true` is necessary to enable their support.
+    Setting `app-options=true` is necessary to enable their support.
+
+    Enabling app options will migrate internal env options and persistently remove any newly set env option.
 
 For example, to change the service port of the core-data service on `edgexfoundry` snap to 8080:
 ```bash
-snap set config-enabled=true
+snap set app-options=true
 snap set edgexfoundry apps.core-data.config.service-port=8080
 ```
 
@@ -366,7 +382,7 @@ To better understand the snap connections, read the [interface management](https
 !!! tip "Extend the default Secret Store token TTL"
     Set [TOKENFILEPROVIDER_DEFAULTTOKENTTL](../../microservices/configuration/CommonEnvironmentVariables/#tokenfileprovider_defaulttokenttl-security-secretstore-setup-service) for security-secretstore-setup and restart:
     ```bash
-    sudo snap set edgexfoundry config-enabled=true
+    sudo snap set edgexfoundry app-options=true
     sudo snap set edgexfoundry apps.security-secretstore-setup.config.tokenfileprovider-defaulttokenttl=72h
     sudo snap restart edgexfoundry.security-secretstore-setup
     ```
