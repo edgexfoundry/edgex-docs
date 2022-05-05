@@ -1,27 +1,22 @@
 # Getting Started with EdgeX Snaps
 
-[![snap store badge](https://raw.githubusercontent.com/snapcore/snap-store-badges/master/EN/%5BEN%5D-snap-store-black-uneditable.png)](https://snapcraft.io/edgexfoundry)
-
-
 ## Introduction
 
-[Snaps](https://snapcraft.io/docs) are a hybrid of traditional Linux packages and containers. Snaps can be installed on any
-Linux distro with snap support enabled, although full confinement currently requires some flavor of Ubuntu (Desktop/Server
-or [Core](https://ubuntu.com/core/docs)).
+[Snaps](https://snapcraft.io/docs) are application packages that are easy to install and update while being 
+secure, cross‐platform and self-contained.
+Snaps can be installed on any Linux distribution with [snap support](https://snapcraft.io/docs/installing-snapd).
 
-Canonical publishes snaps (amd64 & arm64) for each release of EdgeX to the Snap Store. In contrast to docker deployment, all core,
-security, support, and runtime dependencies are provided in a single snap called [edgexfoundry](https://snapcraft.io/edgexfoundry).
-Additional snaps are available for [App Service Configurable](https://snapcraft.io/edgex-app-service-configurable), as well as the
-standard set of EdgeX reference device services (see [list](#device-service-snaps) below). The edgexfoundry snap also includes Device Virtual to allow users
-to experiment with EdgeX without installing additional snaps.
+Snap packages of EdgeX services are published on the [Snap Store](https://snapcraft.io). The list of all EdgeX snaps is available [below](#edgex-snaps).
+
 
 ## EdgeX Snaps
+The following snaps are maintained by the EdgeX working groups. The documentation for Jakarta (2.1) snaps are available in `jakarta`/`v2.1.x` branch READMEs. Refer below to find the links.
 
 ### Platform Snap
-This is the main platform snap simply called `edgexfoundry`.
+This is the main platform snap, simply called `edgexfoundry`.
 It contains all reference core services along with several other security, supporting, application, and device services.
 
-Please refer to the jakarta [README](https://github.com/edgexfoundry/edgex-go/blob/jakarta/snap/README.md) for the documentation of this snap.
+Please refer to the [README](https://github.com/edgexfoundry/edgex-go/blob/jakarta/snap/README.md) for the documentation of this snap.
 
 ### Application Service Snaps
 * [App RFID LLRP Inventory](https://github.com/edgexfoundry/app-rfid-llrp-inventory/blob/v2.1.0/snap/README.md)
