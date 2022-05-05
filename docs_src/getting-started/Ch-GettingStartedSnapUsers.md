@@ -10,7 +10,7 @@ Snap packages of EdgeX services are published on the [Snap Store](https://snapcr
 
 
 ## EdgeX Snaps
-The following snaps are maintained by the EdgeX working groups. The documentation for Jakarta (2.1) snaps are available in `jakarta`/`v2.1.x` branch READMEs. Refer below to find the links.
+The following snaps are maintained by the EdgeX working groups. The documentation for Jakarta (2.1) snaps are available in `jakarta`/`v2.1.x` READMEs. Refer below to find the links.
 
 ### Platform Snap
 This is the main platform snap, simply called `edgexfoundry`.
