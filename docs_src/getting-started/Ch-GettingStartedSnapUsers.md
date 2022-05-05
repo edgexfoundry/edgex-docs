@@ -435,6 +435,8 @@ For the documentation of the standalone EdgeX eKuiper snap, visit the [README](h
 
 Please refer to [App Service Configurable](../../microservices/application/AppServiceConfigurable/) guide for detailed usage instructions.
 
+**Profile**
+
 Before you can start the service, you must select one of available profiles, 
 using snap options.
 
@@ -449,6 +451,8 @@ sudo snap set edgex-app-service-configurable profile=mqtt-export
 ### App RFID LLRP Inventory
 | [Installation][edgex-app-rfid-llrp-inventory] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/app-rfid-llrp-inventory/tree/main/snap) |
 
+**Aliases**
+
 The aliases need to be provided for the service to work.  See [Setting the Aliases](https://github.com/edgexfoundry/app-rfid-llrp-inventory/blob/main/README.md#setting-the-aliases).
 
 For the snap, this can either be by:
@@ -459,7 +463,48 @@ For the snap, this can either be by:
 <!-- ### Device Camera
 [edgex-device-camera] -->
 ### Device GPIO
-[edgex-device-gpio]
+| [Installation][edgex-device-gpio] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-gpio/tree/main/snap) |
+
+**GPIO Access**
+
+This snap is strictly confined which means that the access to interfaces are subject to various security measures.
+
+On a Linux distribution without snap confinement for GPIO (e.g. Raspberry Pi OS 11), the snap may be able to access the GPIO directly, without any snap interface and manual connections.
+
+On Linux distributions with snap confinement for GPIO such as Ubuntu Core, the GPIO access is possible via the [gpio interface](https://snapcraft.io/docs/gpio-interface), provided by a gadget snap. 
+The official [Raspberry Pi Ubuntu Core](https://ubuntu.com/download/raspberry-pi-core) image includes that gadget.
+It is NOT possible to use this snap on Linux distributions that have the GPIO confinement but not the interface (e.g. Ubuntu Server 20.04), unless for development purposes.
+
+In development environments, it is possible to install the snap in dev mode (using `--devmode` flag which disables security confinement and automatic upgrades) and allows direct GPIO access.
+
+The `gpio` interface provides slots for each GPIO channel. The slots can be listed using:
+```bash
+$ sudo snap interface gpio
+name:    gpio
+summary: allows access to specific GPIO pin
+plugs:
+  - edgex-device-gpio
+slots:
+  - pi:bcm-gpio-0
+  - pi:bcm-gpio-1
+  - pi:bcm-gpio-10
+  ...
+```
+
+The slots are not connected automatically. For example, to connect GPIO-17:
+```
+$ sudo snap connect edgex-device-gpio:gpio pi:bcm-gpio-17
+```
+
+Check the list of connections:
+```
+$ sudo snap connections
+Interface        Plug                            Slot              Notes
+gpio             edgex-device-gpio:gpio          pi:bcm-gpio-17    manual
+…
+```
+
+
 ### Device Grove
 [edgex-device-grove]
 ### Device Modbus
