@@ -435,6 +435,28 @@ For the documentation of the standalone EdgeX eKuiper snap, visit the [README](h
 ### App Service Configurable
 | [Installation][edgex-app-service-configurable] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/app-service-configurable/tree/main/snap) |
 
+The service is not started by default. Please refer to [configuration] and [managing services].
+
+The default configuration files are installed at:
+```
+/var/snap/edgex-app-service-configurable/current/config/
+└── res
+    ├── external-mqtt-trigger
+    │   └── configuration.toml
+    ├── functional-tests
+    │   └── configuration.toml
+    ├── http-export
+    │   └── configuration.toml
+    ├── metrics-influxdb
+    │   └── configuration.toml
+    ├── mqtt-export
+    │   └── configuration.toml
+    ├── push-to-core
+    │   └── configuration.toml
+    └── rules-engine
+        └── configuration.toml
+```
+
 Please refer to [App Service Configurable](../../microservices/application/AppServiceConfigurable/) guide for detailed usage instructions.
 
 **Profile**
@@ -453,19 +475,60 @@ sudo snap set edgex-app-service-configurable profile=mqtt-export
 ### App RFID LLRP Inventory
 | [Installation][edgex-app-rfid-llrp-inventory] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/app-rfid-llrp-inventory/tree/main/snap) |
 
+The service is not started by default. Please refer to [configuration] and [managing services].
+
+The default configuration files are installed at:
+```
+/var/snap/edgex-app-rfid-llrp-inventory/current/config/
+└── app-rfid-llrp-inventory
+    └── res
+        └── configuration.toml
+```
+
 **Aliases**
 
 The aliases need to be provided for the service to work.  See [Setting the Aliases](https://github.com/edgexfoundry/app-rfid-llrp-inventory/blob/main/README.md#setting-the-aliases).
 
 For the snap, this can either be by:
 
-- using a content interface to provide a `configuration.toml` file with the correct aliases, before startup
+- using a [config-provider-snap] to provide a `configuration.toml` file with the correct aliases, before startup
 - setting the values manually in Consul during or after deployment
 
-<!-- ### Device Camera
-[edgex-device-camera] -->
+### Device Camera
+| [Installation][edgex-device-camera]  | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-camera-go/tree/main/snap) |
+
+The service is not started by default. Please refer to [configuration] and [managing services].
+
+The default configuration files are installed at:
+```
+/var/snap/edgex-device-camera/current/config/
+└── device-camera
+    └── res
+        ├── configuration.toml
+        ├── devices
+        │   └── camera.toml
+        └── profiles
+            ├── camera-axis.yaml
+            ├── camera-bosch.yaml
+            └── camera.yaml
+```
+
 ### Device GPIO
 | [Installation][edgex-device-gpio] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-gpio/tree/main/snap) |
+
+The service is not started by default. Please refer to [configuration] and [managing services].
+
+The default configuration files are installed at:
+```
+/var/snap/edgex-device-gpio/current/config
+└── device-gpio
+    └── res
+        ├── configuration.toml
+        ├── devices
+        │   └── device.custom.gpio.toml
+        └── profiles
+            └── device.custom.gpio.yaml
+```
 
 **GPIO Access**
 
@@ -508,17 +571,148 @@ gpio             edgex-device-gpio:gpio          pi:bcm-gpio-17    manual
 
 
 ### Device Grove
-[edgex-device-grove]
+| [Installation][edgex-device-grove] | [Source](https://github.com/edgexfoundry/device-grove-c/tree/main/snap) |
+
+!!! warning "beta"
+    Device Grove snap is released as beta for `arm64`. It is compatible with EdgeX 1.3 only.
+
+    It does not support the snap configurations described above.
+
+The default configuration files are under `/var/snap/edgex-device-grove/current/config/`. 
+
+This device service is started by default. 
+Changes to the configuration files require a restart to take effect:
+```bash
+sudo snap restart edgex-device-grove
+```
+
 ### Device Modbus
-[edgex-device-modbus]
+| [Installation][edgex-device-modbus] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-modbus-go/tree/main/snap) |
+
+The service is not started by default. Please refer to [configuration] and [managing services].
+
+The default configuration files are installed at:
+```
+/var/snap/edgex-device-modbus/current/config/
+└── device-modbus
+    └── res
+        ├── configuration.toml
+        ├── devices
+        │   └── modbus.test.devices.toml
+        └── profiles
+            └── modbus.test.device.profile.yml
+```
+
+
 ### Device MQTT
-[edgex-device-mqtt]
+| [Installation][edgex-device-mqtt] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-mqtt-go/tree/main/snap) |
+
+The service is not started by default. Please refer to [configuration] and [managing services].
+
+The default configuration files are installed at:
+```
+/var/snap/edgex-device-mqtt/current/config/
+└── device-mqtt
+    └── res
+        ├── configuration.toml
+        ├── devices
+        │   └── mqtt.test.device.toml
+        └── profiles
+            └── mqtt.test.device.profile.yml
+```
+
 ### Device REST
-[edgex-device-rest]
+| [Installation][edgex-device-rest] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-rest-go/tree/main/snap) |
+
+The service is not started by default. Please refer to [configuration] and [managing services].
+
+The default configuration files are installed at:
+```
+/var/snap/edgex-device-rest/current/config/
+└── device-rest
+    └── res
+        ├── configuration.toml
+        ├── devices
+        │   └── sample-devices.toml
+        └── profiles
+            ├── sample-image-device.yaml
+            ├── sample-json-device.yaml
+            └── sample-numeric-device.yaml
+
+```
+
 ### Device RFID LLRP
-[edgex-device-rfid-llrp]
+| [Installation][edgex-device-rfid-llrp] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-rfid-llrp-go/tree/main/snap) |
+
+The service is not started by default. Please refer to [configuration] and [managing services].
+
+The default configuration files are installed at:
+```
+/var/snap/edgex-device-rfid-llrp/current/config/
+└── device-rfid-llrp
+    └── res
+        ├── configuration.toml
+        ├── devices
+        ├── profiles
+        │   ├── llrp.device.profile.yaml
+        │   └── llrp.impinj.profile.yaml
+        └── provision_watchers
+            ├── impinj.provision.watcher.json
+            └── llrp.provision.watcher.json
+```
+
+**Subnet setup**
+
+The `DiscoverySubnets` setting needs to be provided before a device discovery can occur. This can be done in a number of ways:
+
+- Using `snap set` to set your local subnet information. Example:
+
+    ```bash
+    $ sudo snap set edgex-device-rfid-llrp apps.device-rfid-llrp.config.app-custom.discovery-subnets="192.168.10.0/24"
+    
+    $ curl -X POST http://localhost:59989/api/v2/discovery
+    ```
+
+- Using a [config-provider-snap] to set device configuration
+
+
+- Using the `auto-configure` command. 
+    
+    This command finds all local network interfaces which are online and non-virtual and sets the value of `DiscoverySubnets` 
+in Consul. When running with security enabled, it requires a Consul token, so it needs to be run as follows:
+
+    ```bash
+    # get Consul ACL token
+    CONSUL_TOKEN=$(sudo cat /var/snap/edgexfoundry/current/secrets/consul-acl-token/bootstrap_token.json | jq ".SecretID" | tr -d '"') 
+    echo $CONSUL_TOKEN 
+
+    # start the device service and connect the interfaces required for network interface discovery
+    sudo snap start edgex-device-rfid-llrp.device-rfid-llrp 
+    sudo snap connect edgex-device-rfid-llrp:network-control 
+    sudo snap connect edgex-device-rfid-llrp:network-observe 
+
+    # run the nework interface discovery, providing the Consul token
+    edgex-device-rfid-llrp.auto-configure $CONSUL_TOKEN
+    ```
+
 ### Device SNMP
-[edgex-device-snmp]
+| [Installation][edgex-device-snmp] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-snmp-go/tree/main/snap) |
+
+The service is not started by default. Please refer to [configuration] and [managing services].
+
+The default configuration files are installed at:
+```
+/var/snap/edgex-device-snmp/current/config/
+└── device-snmp
+    └── res
+        ├── configuration.toml
+        ├── devices
+        │   └── device.snmp.trendnet.TPE082WS.toml
+        └── profiles
+            ├── device.snmp.patlite.yaml
+            ├── device.snmp.switch.dell.N1108P-ON.yaml
+            └── device.snmp.trendnet.TPE082WS.yaml
+```
 
 
 <!-- Store Links -->
