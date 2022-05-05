@@ -150,7 +150,7 @@ snap start --enable <snap>.<app>
 
 Similarly, a service can be stopped and optionally disabled using `snap stop --disable`.
 
-??? info "Snap options"
+??? info "Seeding custom service startup using snap options"
     To spin up an EdgeX instance with a different startup configuration (e.g. enabled instead of disabled), the `edgexfoundry` snap provides the following config options that accept values `"on"`/`"off"` to enable/disable a service by default:
     
     * `consul`
@@ -346,8 +346,8 @@ You may also refer to the [secrets-config proxy](../../security/secrets-config-p
     Set the `-v` command for diagnosing TLS issues.
 
 
-??? tip "Snap options"
-    To spin up an EdgeX instance with custom certificates, the snap provides the following configuration options:
+??? tip "Seeding a custom TLS certificate using snap options"
+    To spin up an EdgeX instance with a custom certificate, the snap provides the following configuration options:
     
     * `apps.secrets-config.proxy.tls.cert`
     * `apps.secrets-config.proxy.tls.key`
