@@ -36,6 +36,8 @@ The configurations that are uploaded to Consul can be modified using Consul's UI
 [Configuration and Registry Providers](../../microservices/configuration/ConfigurationAndRegistry/) for more information.
 
 #### Config provider snap
+[config-provider-snap]: #config-provider-snap
+
 Most EdgeX snaps have a [content interface](https://snapcraft.io/docs/content-interface) which allows another snap to seed the snap with configuration files.
 This is useful when replacing entire configuration files via another snap, packaged with the deployment-specific configurations.
 
@@ -198,7 +200,7 @@ sudo journalctl -n 100 -f | grep <snap>
 ```
 
 !!! info
-    The verbosity of service logs is INFO by default. This can be changed by overriding the log level using the `WRITABLE_LOGLEVEL` environment variable using snap config overrides.
+    The verbosity of service logs is INFO by default. This can be changed by overriding the log level using the `WRITABLE_LOGLEVEL` environment variable using snap config overrides `apps.<app>.config.writable-loglevel` or globally as `config.writable-loglevel`.
 
 ## EdgeX Snaps
 The following snaps are maintained by the EdgeX working groups.
