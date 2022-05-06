@@ -265,7 +265,7 @@ You may also refer to the [secrets-config proxy](../../security/secrets-config-p
 
     Read the API Gateway token:
     ```bash
-    KONG_ADMIN_JWT_FILE=`sudo cat /var/snap/edgexfoundry/current/secrets/security-proxy-setup/kong-admin-jwt`
+    KONG_ADMIN_JWT=`sudo cat /var/snap/edgexfoundry/current/secrets/security-proxy-setup/kong-admin-jwt`
     ```
 
     Use secrets-config to add a user `example` with id `1000`:
