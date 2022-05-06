@@ -30,7 +30,7 @@ EdgeX snaps are packaged with default service configuration files. In certain ca
 #### Config files
 The default configuration files are typically placed at `/var/snap/<snap>/current/config`. Upon startup, the server configurations files are uploaded to the registry by default. Once the service starts without errors, the local configurations become obsolete and will no longer be read. Any modifications after the initial startup will not be applied. 
 
-For device services, the configurations of Device and Device Profile are submitted to [Core Metadata](../../microservices/core/metadata/Ch-Metadata) upon startup. Refer to the documentation of [Device Services](../../microservices/device/Ch-DeviceServices/) for details.
+For device services, the  Device and Device Profile files are submitted to [Core Metadata](../../microservices/core/metadata/Ch-Metadata) upon initial startup. Refer to the documentation of [Device Services](../../microservices/device/Ch-DeviceServices/) for details.
 
 #### Config registry
 The configurations that are uploaded to Consul can be modified using Consul's UI or [kv REST API](https://www.consul.io/api/kv). Changes to configurations in Consul are loaded by the service at startup. If the service has already started, a restart is required to load new configurations. Configurations that are in the writable section get loaded not only at startup, but also during the runtime. In other words, changes to the writable configurations are loaded automatically without a restart. Please refer to 
