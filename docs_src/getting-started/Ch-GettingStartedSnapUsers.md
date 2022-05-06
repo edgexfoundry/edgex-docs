@@ -281,10 +281,10 @@ You may also refer to the [secrets-config proxy](../../security/secrets-config-p
     This is particularly useful when seeding the snap from a [Gadget](https://snapcraft.io/docs/gadget-snap) on an [Ubuntu Core](https://ubuntu.com/core) system.
 
 !!! example "Generating a JWT token for the example user"
-    On success, a JWT token is printed out and written to user.jwt file.
+    On success, a JWT token is printed out and written to `user-jwt.txt` file.
     We use the user id `1000` as set in the previous example.
     ```bash
-    edgexfoundry.secrets-config proxy jwt --algorithm ES256 --private_key private.pem --id 1000 --expiration=1h | tee user.jwt
+    edgexfoundry.secrets-config proxy jwt --algorithm ES256 --private_key private.pem --id 1000 --expiration=1h | tee user-jwt.txt
     ```
 
 It is also possible to create the JWT token using bash and openssl. But that is beyond the scope of this guide.
@@ -294,7 +294,7 @@ Once you have the token, you can access the services via the API Gateway.
 !!! example "Calling an API on behalf of example user"
 
     ```bash
-    curl --insecure https://localhost:8443/core-data/api/v2/ping -H "Authorization: Bearer $(cat user.jwt)"
+    curl --insecure https://localhost:8443/core-data/api/v2/ping -H "Authorization: Bearer $(cat user-jwt.txt)"
     ```
     Output: `{"apiVersion":"v2","timestamp":"Mon May  2 12:14:17 CEST 2022","serviceName":"core-data"}`
 
@@ -304,19 +304,19 @@ Consul API and UI can be accessed using the consul token (Secret ID). For the sn
 !!! example
     To get the token:
     ```bash
-    sudo cat /var/snap/edgexfoundry/current/secrets/consul-acl-token/bootstrap_token.json | jq '.SecretID'
+    $ sudo cat /var/snap/edgexfoundry/current/secrets/consul-acl-token/bootstrap_token.json | jq -r '.SecretID' | tee consul-token.txt
     ```
-    Output: `"ee3964d0-505f-6b62-4c88-0d29a8226daa"`
+    The output is printed out and written to `consul-token.txt`. Example output: `ee3964d0-505f-6b62-4c88-0d29a8226daa`
 
     Try it out locally:
     ```bash
-    curl --insecure --silent http://localhost:8500/v1/kv/edgex/core/2.0/core-data/Service/Port -H "X-Consul-Token:17938174-059e-8b86-122a-9a08a99dcd1c"
+    curl --insecure --silent http://localhost:8500/v1/kv/edgex/core/2.0/core-data/Service/Port -H "X-Consul-Token:$(cat consul-token.txt)"
     ```
 
     Through the API Gateway:  
     We need to pass both the Consul token and Secret Store token obtained in [Adding API Gateway users](#adding-api-gateway-users) examples.
     ```bash
-    curl --insecure --silent https://localhost:8443/consul/v1/kv/edgex/core/2.0/core-data/Service/Port -H "X-Consul-Token:17938174-059e-8b86-122a-9a08a99dcd1c" -H "Authorization: Bearer $(cat user.jwt)"
+    curl --insecure --silent https://localhost:8443/consul/v1/kv/edgex/core/2.0/core-data/Service/Port -H "X-Consul-Token:$(cat consul-token.txt)" -H "Authorization: Bearer $(cat user-jwt.txt)"
     ```
 
 #### Setting TLS certificates
