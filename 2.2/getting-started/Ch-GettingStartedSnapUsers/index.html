@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/getting-started/Ch-GettingStartedSnapUsers/">
       
       <link rel="icon" href="../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.11">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.13">
     
     
       
@@ -23,10 +23,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.8c5ef100.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.e411adfe.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.9647289d.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.cc9b2e1e.min.css">
         
       
     
@@ -567,6 +567,81 @@
     Introduction
   </a>
   
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#config-files" class="md-nav__link">
+    Config files
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#config-registry" class="md-nav__link">
+    Config registry
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#config-provider-snap" class="md-nav__link">
+    Config provider snap
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#config-overrides" class="md-nav__link">
+    Config overrides
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disabling-security" class="md-nav__link">
+    Disabling security
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#managing-services" class="md-nav__link">
+    Managing services
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debugging" class="md-nav__link">
+    Debugging
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -574,33 +649,137 @@
     EdgeX Snaps
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#installing-the-edgexfoundry-snap" class="md-nav__link">
-    Installing the edgexfoundry snap
-  </a>
-  
-    <nav class="md-nav" aria-label="Installing the edgexfoundry snap">
+    <nav class="md-nav" aria-label="EdgeX Snaps">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#configuring-individual-services" class="md-nav__link">
-    Configuring individual services
+  <a href="#platform-snap" class="md-nav__link">
+    Platform Snap
+  </a>
+  
+    <nav class="md-nav" aria-label="Platform Snap">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-api-gateway-users" class="md-nav__link">
+    Adding API Gateway users
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#viewing-logs" class="md-nav__link">
-    Viewing logs
+  <a href="#accessing-consul" class="md-nav__link">
+    Accessing Consul
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#security-services" class="md-nav__link">
-    Security services
+  <a href="#changing-tls-certificates" class="md-nav__link">
+    Changing TLS certificates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secret-store-token" class="md-nav__link">
+    Secret Store token
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-ui" class="md-nav__link">
+    EdgeX UI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli" class="md-nav__link">
+    EdgeX CLI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-ekuiper" class="md-nav__link">
+    EdgeX eKuiper
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#app-service-configurable" class="md-nav__link">
+    App Service Configurable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#app-rfid-llrp-inventory" class="md-nav__link">
+    App RFID LLRP Inventory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-camera" class="md-nav__link">
+    Device Camera
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-gpio" class="md-nav__link">
+    Device GPIO
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-grove" class="md-nav__link">
+    Device Grove
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-modbus" class="md-nav__link">
+    Device Modbus
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-mqtt" class="md-nav__link">
+    Device MQTT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-rest" class="md-nav__link">
+    Device REST
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-rfid-llrp" class="md-nav__link">
+    Device RFID LLRP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-snmp" class="md-nav__link">
+    Device SNMP
   </a>
   
 </li>
@@ -2847,6 +3026,81 @@
     Introduction
   </a>
   
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#config-files" class="md-nav__link">
+    Config files
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#config-registry" class="md-nav__link">
+    Config registry
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#config-provider-snap" class="md-nav__link">
+    Config provider snap
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#config-overrides" class="md-nav__link">
+    Config overrides
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disabling-security" class="md-nav__link">
+    Disabling security
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#managing-services" class="md-nav__link">
+    Managing services
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debugging" class="md-nav__link">
+    Debugging
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2854,33 +3108,137 @@
     EdgeX Snaps
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#installing-the-edgexfoundry-snap" class="md-nav__link">
-    Installing the edgexfoundry snap
-  </a>
-  
-    <nav class="md-nav" aria-label="Installing the edgexfoundry snap">
+    <nav class="md-nav" aria-label="EdgeX Snaps">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#configuring-individual-services" class="md-nav__link">
-    Configuring individual services
+  <a href="#platform-snap" class="md-nav__link">
+    Platform Snap
+  </a>
+  
+    <nav class="md-nav" aria-label="Platform Snap">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-api-gateway-users" class="md-nav__link">
+    Adding API Gateway users
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#viewing-logs" class="md-nav__link">
-    Viewing logs
+  <a href="#accessing-consul" class="md-nav__link">
+    Accessing Consul
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#security-services" class="md-nav__link">
-    Security services
+  <a href="#changing-tls-certificates" class="md-nav__link">
+    Changing TLS certificates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secret-store-token" class="md-nav__link">
+    Secret Store token
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-ui" class="md-nav__link">
+    EdgeX UI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli" class="md-nav__link">
+    EdgeX CLI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-ekuiper" class="md-nav__link">
+    EdgeX eKuiper
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#app-service-configurable" class="md-nav__link">
+    App Service Configurable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#app-rfid-llrp-inventory" class="md-nav__link">
+    App RFID LLRP Inventory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-camera" class="md-nav__link">
+    Device Camera
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-gpio" class="md-nav__link">
+    Device GPIO
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-grove" class="md-nav__link">
+    Device Grove
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-modbus" class="md-nav__link">
+    Device Modbus
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-mqtt" class="md-nav__link">
+    Device MQTT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-rest" class="md-nav__link">
+    Device REST
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-rfid-llrp" class="md-nav__link">
+    Device RFID LLRP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-snmp" class="md-nav__link">
+    Device SNMP
   </a>
   
 </li>
@@ -2913,128 +3271,587 @@
 <p><a href="https://snapcraft.io/docs">Snaps</a> are application packages that are easy to install and update while being 
 secure, cross‐platform and self-contained.
 Snaps can be installed on any Linux distribution with <a href="https://snapcraft.io/docs/installing-snapd">snap support</a>.</p>
-<p>Snap packages of EdgeX services are published on the <a href="https://snapcraft.io">Snap Store</a>. The list of all EdgeX snaps is available <a href="#edgex-snaps">below</a>.</p>
-<h2 id="edgex-snaps">EdgeX Snaps</h2>
-<p>The following snaps are maintained by the EdgeX working groups:</p>
-<p>Platform snap:</p>
-<ul>
-<li><a href="https://snapcraft.io/edgexfoundry">edgexfoundry</a>: the main platform snap containing
-all reference core services along with several other security, supporting, application, and device services.</li>
-</ul>
-<p>Development tools:</p>
-<ul>
-<li><a href="https://snapcraft.io/edgex-ui">edgex-ui</a></li>
-<li><a href="https://snapcraft.io/edgex-cli">edgex-cli</a></li>
-</ul>
-<p>Application services:</p>
-<ul>
-<li><a href="https://snapcraft.io/edgex-app-service-configurable">edgex-app-service-configurable</a></li>
-</ul>
-<p>Device services:</p>
-<ul>
-<li><a href="https://snapcraft.io/edgex-device-camera">edgex-device-camera</a></li>
-<li><a href="https://snapcraft.io/edgex-device-modbus">edgex-device-modbus</a></li>
-<li><a href="https://snapcraft.io/edgex-device-mqtt">edgex-device-mqtt</a></li>
-<li><a href="https://snapcraft.io/edgex-device-rest">edgex-device-rest</a></li>
-<li><a href="https://snapcraft.io/edgex-device-snmp">edgex-device-snmp</a></li>
-<li><a href="https://snapcraft.io/edgex-device-grove">edgex-device-grove</a></li>
-</ul>
-<p>Other EdgeX snaps do exist on the public Snap Store (<a href="https://snapcraft.io/search?q=edgex">search by keyword</a>) or private stores under brand accounts.</p>
-<h2 id="installing-the-edgexfoundry-snap">Installing the <code>edgexfoundry</code> snap</h2>
-<p><a href="https://snapcraft.io/edgexfoundry"><img alt="Get it from the Snap Store" src="https://snapcraft.io/static/images/badges/en/snap-store-white.svg" /></a></p>
-<p>This is the main platform snap which
-contains all reference core services along with several other security, supporting, application, and device services.</p>
-<p>The Snap Store allows access to multiple versions of the <a href="https://snapcraft.io/edgexfoundry">EdgeX Foundry</a> snap using <a href="https://snapcraft.io/docs/channels">channels</a>. If not specified, snaps are installed
-from the default <code>latest/stable</code> channel. </p>
-<p>You can see the current snap channels available for your machine's architecture by running the command:</p>
-<div class="highlight"><pre><span></span><code>snap info edgexfoundry
-</code></pre></div>
-<p>In order to install a specific version of the snap by setting the <code>--channel</code> flag.
-For example, to install the Jakarta (2.1) release:</p>
-<div class="highlight"><pre><span></span><code>sudo snap install edgexfoundry --channel<span class="o">=</span><span class="m">2</span>.1
-</code></pre></div>
-<p>To install the latest beta:
-<div class="highlight"><pre><span></span><code>sudo snap install edgexfoundry --channel<span class="o">=</span>latest/beta
-<span class="c1"># or using the shorthand</span>
-sudo snap install edgexfoundry --beta
+<h3 id="installation">Installation</h3>
+<p>When using the snap CLI, the installation is possible by simply executing:
+<div class="highlight"><pre><span></span><code>snap install &lt;snap&gt;
 </code></pre></div></p>
-<p>Replace <code>beta</code> with <code>edge</code> to get the latest nightly build!</p>
-<hr />
-<p>Upon installation, the following internal EdgeX services are automatically started:</p>
+<p>This is similar to setting <code>--channel=latest/stable</code> or shorthand <code>--stable</code> and will install the latest stable release of a snap. In this case, <code>latest/stable</code> is the <a href="https://snapcraft.io/docs/channels">channel</a>, composed of <code>latest</code> track and <code>stable</code> risk level.</p>
+<p>To install a specific version with long term support (e.g. 2.1), or to install a beta or development release, refer to the store page for the snap, choose install, and then pick the desired channel.
+The store page also provides instructions for installation on different Linux distributions as well as the list of supported CPU architectures.</p>
+<p>For the list of EdgeX snaps, please refer <a href="#edgex-snaps">here</a>.</p>
+<h3 id="configuration">Configuration</h3>
+<p>EdgeX snaps are packaged with default service configuration files. In certain cases, few configuration fields are overridden within the snap for snap-specific deployment requirements.</p>
+<h4 id="config-files">Config files</h4>
+<p>The default configuration files are typically placed at <code>/var/snap/&lt;snap&gt;/current/config</code>. Upon startup, the server configurations files are uploaded to the registry by default. Once the service starts without errors, the local configurations become obsolete and will no longer be read. Any modifications after the initial startup will not be applied. </p>
+<p>For device services, the  Device and Device Profile files are submitted to <a href="../../microservices/core/metadata/Ch-Metadata">Core Metadata</a> upon initial startup. Refer to the documentation of <a href="../../microservices/device/Ch-DeviceServices/">Device Services</a> for details.</p>
+<h4 id="config-registry">Config registry</h4>
+<p>The configurations that are uploaded to Consul can be modified using Consul's UI or <a href="https://www.consul.io/api/kv">kv REST API</a>. Changes to configurations in Consul are loaded by the service at startup. If the service has already started, a restart is required to load new configurations. Configurations that are in the writable section get loaded not only at startup, but also during the runtime. In other words, changes to the writable configurations are loaded automatically without a restart. Please refer to 
+<a href="/microservices/configuration/CommonConfiguration/">Common Configuration</a> and 
+<a href="../../microservices/configuration/ConfigurationAndRegistry/">Configuration and Registry Providers</a> for more information.</p>
+<h4 id="config-provider-snap">Config provider snap</h4>
+<p>Most EdgeX snaps have a <a href="https://snapcraft.io/docs/content-interface">content interface</a> which allows another snap to seed the snap with configuration files.
+This is useful when replacing entire configuration files via another snap, packaged with the deployment-specific configurations.</p>
+<p>Please refer to <a href="https://github.com/canonical/edgex-config-provider">edgex-config-provider</a>, for an example.</p>
+<h4 id="config-overrides">Config overrides</h4>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.2 - app options</p>
+<p>This version of EdgeX snaps introduce a new scheme for the snap configuration options:
+<div class="highlight"><pre><span></span><code>apps.&lt;app&gt;.&lt;type&gt;.&lt;key&gt;
+</code></pre></div>
+where:</p>
 <ul>
-<li>consul</li>
-<li>vault</li>
-<li>redis</li>
-<li>kong</li>
-<li>postgres</li>
-<li>core-data</li>
+<li><code>&lt;app&gt;</code> is the name of the app (service, executable)</li>
+<li><code>&lt;type&gt;</code> is the type of option with respect to the app</li>
+<li><code>&lt;key&gt;</code> is key for the option. It could contain a path to set a value inside an object, e.g. <code>x.y=z</code> sets <code>{"x": {"y": "z"}}</code>.</li>
+</ul>
+<p>The app options are <strong>disabled by default</strong>. This is for usability purposes and to avoid confusion with legacy options. The app options may be enabled by default in the next major release of EdgeX.</p>
+<p>Refer to <a href="https://github.com/edgexfoundry/edgex-go/pull/3986">edgexfoundry/edgex-go#3986</a> for details.</p>
+</div>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.2 - config options</p>
+<p>The snaps now provide an interface to set any environment variable for supported apps.
+We call these the <em>config options</em> because they use a <code>config</code> prefix for the variable names. The config options are a subset of app options, which are <strong>disabled by default</strong>.</p>
+<p>This functionality supersedes for the snap <em>env options</em> (prefix <code>env.</code>) which allow setting a pre-defined set of configurations. Existing env options will continue to work until the next major EdgeX release. Please refer to snap READMEs (<code>jakarta</code> branch) for the documentation of the deprecated options.</p>
+<p>Enabling app options will migrate internal env options and persistently remove any newly set env option.</p>
+</div>
+<p>The EdgeX services allow overriding server configurations using environment variables. Moreover, the services read EdgeX <a href="../../microservices/configuration/CommonEnvironmentVariables/">Common Environment Variables</a> to change configurations that aren't defined in config files.
+The EdgeX snaps provide an interface via <a href="https://snapcraft.io/docs/configuration-in-snaps">snap configuration options</a> to set environment variables for the services.
+We call these the <em>config options</em> because they a have <code>config</code> prefix for the variable names.</p>
+<p>The snap options for setting environment variable uses the the following format:</p>
+<ul>
+<li><code>apps.&lt;app&gt;.config.&lt;env-var&gt;</code>: setting an app-specific value (e.g. <code>apps.core-data.config.service-port=1000</code>).</li>
+<li><code>config.&lt;env-var&gt;</code>: setting a global value (e.g. <code>config.service-host=localhost</code> or <code>config.writable-loglevel=DEBUG</code></li>
+</ul>
+<p>where:</p>
+<ul>
+<li><code>&lt;app&gt;</code> is the name of the app (service, executable)</li>
+<li><code>&lt;env-var&gt;</code> is a lowercase, dash-separated mapping to uppercase, underscore-separate environment variable name (e.g. <code>x-y</code>-&gt;<code>X_Y</code>). The reason for such mapping is that uppercase and underscore characters are not supported as config keys for snaps.</li>
+</ul>
+<p>Mapping examples:</p>
+<table>
+<thead>
+<tr>
+<th>Snap config key</th>
+<th>Environment Variable</th>
+<th>Service configuration TOML</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>service-port</td>
+<td>SERVICE_PORT</td>
+<td>[Service]<br>Port</td>
+</tr>
+<tr>
+<td>clients-core-data-host</td>
+<td>CLIENTS_CORE_DATA_HOST</td>
+<td>[Clients]<br>--[Clients.core-data]<br>--Host</td>
+</tr>
+<tr>
+<td>edgex-startup-duration</td>
+<td><a href="../../microservices/configuration/CommonEnvironmentVariables/#edgex_startup_duration">EDGEX_STARTUP_DURATION</a></td>
+<td>-</td>
+</tr>
+<tr>
+<td>add-secretstore-tokens</td>
+<td><a href="../../security/Ch-Configuring-Add-On-Services/#configure-the-services-secret-store-to-use">ADD_SECRETSTORE_TOKENS</a></td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The config options are supported as of EdgeX 2.2 and are disabled by default!</p>
+<p>Setting <code>app-options=true</code> is necessary to enable their support.</p>
+<p>Enabling app options will migrate internal env options and persistently remove any newly set env option.</p>
+</div>
+<p>For example, to change the service port of the core-data service on <code>edgexfoundry</code> snap to 8080:
+<div class="highlight"><pre><span></span><code>snap <span class="nb">set</span> edgexfoundry app-options<span class="o">=</span><span class="nb">true</span>
+snap <span class="nb">set</span> edgexfoundry apps.core-data.config.service-port<span class="o">=</span><span class="m">8080</span>
+</code></pre></div></p>
+<p>The services load the set config options on startup. If the service has already started, a restart is necessary to load them.</p>
+<h4 id="disabling-security">Disabling security</h4>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Disabling security is NOT recommended, unless for demonstration purposes, or when there are other means to secure the services.</p>
+<p>The snap will NOT allow the Secret Store to be re-enabled. The only way to re-enable the Secret Store is to re-install the snap.</p>
+</div>
+<p>The Secret Store is used by EdgeX for secret management (e.g. certificates, keys, passwords). Use of the Secret Store by all services can be disabled globally. Note that doing so will also disable the API Gateway, as it depends on the Secret Store.</p>
+<p>The following command disables the Secret Store and in turn the API Gateway:
+<div class="highlight"><pre><span></span><code>sudo snap <span class="nb">set</span> edgexfoundry security-secret-store<span class="o">=</span>off
+</code></pre></div></p>
+<p>All services in the snap except for the API Gateway are restricted by default to listening on localhost (127.0.0.1).
+The API Gateway proxies external requests to internal services.
+Since disabling the Secret Store also disables the API Gateway, the service endpoint will no longer be accessible from other systems.
+They will be still accessible on the local machine for demonstration and testing.</p>
+<p>If you really need to make an insecure service accessible remotely, set the bind address of the service to the IP address of that networking interface on the local machine. If you trust all your interfaces and want the services to accept connections from all, set it to <code>0.0.0.0</code>.</p>
+<p>After disabling the Secret Store, the external services should be configured such that they don't attempt to initialize the security. For this purpose, <a href="../../microservices/configuration/CommonEnvironmentVariables/#edgex_security_secret_store">EDGEX_SECURITY_SECRET_STORE</a> should be set to false, using the corresponding snap option: <code>config.edgex-security-secret-store</code>.</p>
+<h3 id="managing-services">Managing services</h3>
+<p>The services of a snap can be started/stopped/restarted using the snap CLI.
+When starting/stopping, you can additionally set them to enable/disable which configures whether or not the service should also start on boot.</p>
+<p>To list the services and check their status:
+<div class="highlight"><pre><span></span><code>snap services &lt;snap&gt;
+</code></pre></div></p>
+<p>To start and optionally enable services:
+<div class="highlight"><pre><span></span><code><span class="c1"># all services</span>
+snap start --enable &lt;snap&gt;
+
+<span class="c1"># one service</span>
+snap start --enable &lt;snap&gt;.&lt;app&gt;
+</code></pre></div></p>
+<p>Similarly, a service can be stopped and optionally disabled using <code>snap stop --disable</code>.</p>
+<details class="info">
+<summary>Seeding custom service startup using snap options</summary>
+<p>To spin up an EdgeX instance with a different startup configuration (e.g. enabled instead of disabled), the <code>edgexfoundry</code> snap provides the following config options that accept values <code>"on"</code>/<code>"off"</code> to enable/disable a service by default:</p>
+<ul>
+<li><code>consul</code></li>
+<li><code>redis</code></li>
+<li><code>core-metadata</code></li>
+<li><code>core-command</code></li>
+<li><code>core-data</code></li>
+<li><code>support-notifications</code></li>
+<li><code>support-scheduler</code></li>
+<li><code>device-virtual</code></li>
+<li><code>security-secret-store</code></li>
+<li><code>security-proxy</code></li>
+</ul>
+<p>Device and app service snaps provide a similar functionality using the <code>auto-start</code> option.</p>
+<p>This is particularly useful when seeding the snap from a <a href="https://snapcraft.io/docs/gadget-snap">Gadget</a> on an <a href="https://ubuntu.com/core">Ubuntu Core</a> system.</p>
+</details>
+<p>To restart services, e.g. to load the configurations:
+<div class="highlight"><pre><span></span><code><span class="c1"># all services</span>
+snap restart &lt;snap&gt;
+
+<span class="c1"># one service</span>
+snap restart &lt;snap&gt;.&lt;app&gt;
+</code></pre></div></p>
+<h3 id="debugging">Debugging</h3>
+<p>The service logs can be queried using the <code>snap log</code> command.</p>
+<p>For example, to query 100 lines and follow:
+<div class="highlight"><pre><span></span><code><span class="c1"># all services</span>
+snap logs -n<span class="o">=</span><span class="m">100</span> -f &lt;snap&gt;
+
+<span class="c1"># one service</span>
+snap logs -n<span class="o">=</span><span class="m">100</span> -f &lt;snap&gt;.&lt;app&gt;
+</code></pre></div>
+Check <code>snap logs --help</code> for details.</p>
+<p>To query not only the service logs, but also the snap logs (incl. hook apps such as install and configure), use <code>journalctl</code>:
+<div class="highlight"><pre><span></span><code>sudo journalctl -n <span class="m">100</span> -f <span class="p">|</span> grep &lt;snap&gt;
+</code></pre></div></p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The verbosity of service logs is INFO by default. This can be changed by overriding the log level using the <code>WRITABLE_LOGLEVEL</code> environment variable using snap config overrides <code>apps.&lt;app&gt;.config.writable-loglevel</code> or globally as <code>config.writable-loglevel</code>.</p>
+</div>
+<h2 id="edgex-snaps">EdgeX Snaps</h2>
+<p>The following snaps are maintained by the EdgeX working groups.
+To find all EdgeX snaps on the public Snap Store, <a href="https://snapcraft.io/search?q=edgex">search by keyword</a>.</p>
+<h3 id="platform-snap">Platform Snap</h3>
+<p>| <a href="https://snapcraft.io/edgexfoundry">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/edgex-go/tree/main/snap">Source</a> |</p>
+<p>The main platform snap, simply called <code>edgexfoundry</code> contains
+all reference core services along with several other security, supporting, application, and device services.</p>
+<p>Upon installation, the following EdgeX services are automatically started:</p>
+<ul>
+<li>consul (Registry)</li>
 <li>core-command</li>
+<li>core-data</li>
 <li>core-metadata</li>
-<li>security-services (see <a href="#security-services">Security Services section</a> below)</li>
+<li>kong-daemon (API Gateway / Reverse Proxy)</li>
+<li>postgres (kong's database)</li>
+<li>redis (default Message Bus and database backend for core-data and core-metadata)</li>
+<li>security-bootstrapper-redis (oneshot service to setup secure Redis)</li>
+<li>security-consul-bootstrapper (oneshot service to setup secure Consul)</li>
+<li>security-proxy-setup (oneshot service to setup Kong)</li>
+<li>security-secretstore-setup (oneshot service to setup Vault)</li>
+<li>vault (Secret Store)</li>
 </ul>
 <p>The following services are disabled by default:</p>
 <ul>
-<li>app-service-configurable (required for eKuiper)</li>
-<li>device-virtual</li>
-<li>kuiper</li>
 <li>support-notifications</li>
 <li>support-scheduler</li>
-<li>sys-mgmt-agent</li>
+<li>sys-mgmt-agent - <em>deprecated EdgeX component</em></li>
+<li>device-virtual</li>
+<li>kuiper (Rules Engine / eKuiper) - <em>deprecated; use the standalone <a href="#edgex-ekuiper">EdgeX eKuiper snap</a></em></li>
+<li>app-service-configurable (used to filter events for kuiper) - <em>deprecated; use the standalone <a href="#app-service-configurable">App Service Configurable snap</a></em></li>
 </ul>
-<p>Any disabled services can be enabled and started up using <code>snap set</code>:</p>
-<div class="highlight"><pre><span></span><code>sudo snap <span class="nb">set</span> edgexfoundry support-notifications<span class="o">=</span>on
+<p>The disabled services can be manually enabled and started; see <a href="#managing-services">managing services</a>.</p>
+<p>For the configuration of services, refer to <a href="#configuration">configuration</a>.</p>
+<p>Most services are exposed and accessible on localhost without access control. However, the access from outside is restricted to authorized users.</p>
+<h4 id="adding-api-gateway-users">Adding API Gateway users</h4>
+<p>The service endpoints can be accessed securely through the API Gateway. The API Gateway requires a JSON Web Token (JWT) to authorize requests. Please refer to <a href="../../security/Ch-AddGatewayUserRemotely/">Adding EdgeX API Gateway Users Remotely</a> and use the snapped <code>edgexfoundry.secrets-config</code> utility.</p>
+<p>To get the usage help:
+<div class="highlight"><pre><span></span><code>edgexfoundry.secrets-config proxy adduser -h
 </code></pre></div>
-<p>To turn a service off (thereby disabling and immediately stopping it) set the service to off:</p>
-<div class="highlight"><pre><span></span><code>sudo snap <span class="nb">set</span> edgexfoundry support-notifications<span class="o">=</span>off
+You may also refer to the <a href="../../security/secrets-config-proxy/">secrets-config proxy</a> documentation.</p>
+<div class="admonition example">
+<p class="admonition-title">Creating an example user</p>
+<p>Create private and public keys:
+<div class="highlight"><pre><span></span><code>openssl ecparam -genkey -name prime256v1 -noout -out private.pem
+openssl ec -in private.pem -pubout -out public.pem
+</code></pre></div></p>
+<p>Read the API Gateway token:
+<div class="highlight"><pre><span></span><code><span class="nv">KONG_ADMIN_JWT</span><span class="o">=</span><span class="sb">`</span>sudo cat /var/snap/edgexfoundry/current/secrets/security-proxy-setup/kong-admin-jwt<span class="sb">`</span>
+</code></pre></div></p>
+<p>Use secrets-config to add a user <code>example</code> with id <code>1000</code>:
+<div class="highlight"><pre><span></span><code>edgexfoundry.secrets-config proxy adduser --token-type jwt --user example --algorithm ES256 --public_key public.pem --id <span class="m">1000</span> --jwt <span class="nv">$KONG_ADMIN_JWT</span>
 </code></pre></div>
-<p>All services which are installed on the system as systemd units, which if enabled will automatically start running when the system boots or reboots.</p>
-<h3 id="configuring-individual-services">Configuring individual services</h3>
-<p>This snap supports configuration overrides via snap configure hooks which generate service-specific .env files which are used to
-provide a custom environment to the service, overriding the default configuration provided by the service's <code>configuration.toml</code>
-file. If a configuration override is made after a service has already started, then the service must be <strong>restarted</strong> via command-line
-(e.g. <code>snap restart edgexfoundry.&lt;service&gt;</code>), or <a href="https://snapcraft.io/docs/snapd-api">snapd's REST API</a>. If the overrides are provided via the snap configuration defaults
-capability of a gadget snap, the overrides will be picked up when the services are first started.</p>
-<p>The following syntax is used to specify service-specific configuration overrides for the edgexfoundry snap:</p>
-<div class="highlight"><pre><span></span><code>env.&lt;service&gt;.&lt;stanza&gt;.&lt;config option&gt;
+On success, the above command prints the user id.</p>
+</div>
+<details class="tip">
+<summary>Seeding an admin user using snap options</summary>
+<p>To spin up a pre-configured and securely accessible EdgeX instance, the snap provides a way to pass the public key of a single user with snap options. When requested, the user is created with user <code>admin</code>, id <code>1</code> and JWT signing algorithm <code>ES256</code>. The snap option for passing the public key is:
+<code>apps.secrets-config.proxy.admin.public-key</code>.</p>
+<p>This is particularly useful when seeding the snap from a <a href="https://snapcraft.io/docs/gadget-snap">Gadget</a> on an <a href="https://ubuntu.com/core">Ubuntu Core</a> system.</p>
+</details>
+<div class="admonition example">
+<p class="admonition-title">Generating a JWT token for the example user</p>
+<p>On success, a JWT token is printed out and written to <code>user-jwt.txt</code> file.
+We use the user id <code>1000</code> as set in the previous example.
+<div class="highlight"><pre><span></span><code>edgexfoundry.secrets-config proxy jwt --algorithm ES256 --private_key private.pem --id <span class="m">1000</span> --expiration<span class="o">=</span>1h <span class="p">|</span> tee user-jwt.txt
+</code></pre></div></p>
+</div>
+<p>It is also possible to create the JWT token using bash and openssl. But that is beyond the scope of this guide.</p>
+<p>Once you have the token, you can access the services via the API Gateway.</p>
+<div class="admonition example">
+<p class="admonition-title">Calling an API on behalf of example user</p>
+<p><div class="highlight"><pre><span></span><code>curl --insecure https://localhost:8443/core-data/api/v2/ping -H <span class="s2">&quot;Authorization: Bearer </span><span class="k">$(</span>cat user-jwt.txt<span class="k">)</span><span class="s2">&quot;</span>
 </code></pre></div>
-<p>For instance, to setup an override of core data's port use:</p>
-<div class="highlight"><pre><span></span><code>sudo snap <span class="nb">set</span> edgexfoundry env.core-data.service.port<span class="o">=</span><span class="m">2112</span>
+Output: <code>{"apiVersion":"v2","timestamp":"Mon May  2 12:14:17 CEST 2022","serviceName":"core-data"}</code></p>
+</div>
+<h4 id="accessing-consul">Accessing Consul</h4>
+<p>Consul API and UI can be accessed using the consul token (Secret ID). For the snap, token is the value of <code>SecretID</code> typically placed in a JSON file at <code>/var/snap/edgexfoundry/current/secrets/consul-acl-token/bootstrap_token.json</code>.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>To get the token:
+<div class="highlight"><pre><span></span><code>$ sudo cat /var/snap/edgexfoundry/current/secrets/consul-acl-token/bootstrap_token.json <span class="p">|</span> jq -r <span class="s1">&#39;.SecretID&#39;</span> <span class="p">|</span> tee consul-token.txt
 </code></pre></div>
-<p>And restart the service:</p>
-<div class="highlight"><pre><span></span><code>sudo snap restart edgexfoundry.core-data
+The output is printed out and written to <code>consul-token.txt</code>. Example output: <code>ee3964d0-505f-6b62-4c88-0d29a8226daa</code></p>
+<p>Try it out locally:
+<div class="highlight"><pre><span></span><code>curl --insecure --silent http://localhost:8500/v1/kv/edgex/core/2.0/core-data/Service/Port -H <span class="s2">&quot;X-Consul-Token:</span><span class="k">$(</span>cat consul-token.txt<span class="k">)</span><span class="s2">&quot;</span>
+</code></pre></div></p>
+<p>Through the API Gateway:<br />
+We need to pass both the Consul token and Secret Store token obtained in <a href="#adding-api-gateway-users">Adding API Gateway users</a> examples.
+<div class="highlight"><pre><span></span><code>curl --insecure --silent https://localhost:8443/consul/v1/kv/edgex/core/2.0/core-data/Service/Port -H <span class="s2">&quot;X-Consul-Token:</span><span class="k">$(</span>cat consul-token.txt<span class="k">)</span><span class="s2">&quot;</span> -H <span class="s2">&quot;Authorization: Bearer </span><span class="k">$(</span>cat user-jwt.txt<span class="k">)</span><span class="s2">&quot;</span>
+</code></pre></div></p>
+</div>
+<h4 id="changing-tls-certificates">Changing TLS certificates</h4>
+<p>The API Gateway setup generates a self-signed certificate by default. To replace that with your own certificate, refer to API Gateway guide: <a href="../../security/Ch-APIGateway/#using-a-bring-your-own-external-tls-certificate-for-api-gateway">Using a bring-your-own external TLS certificate for API gateway</a> and use the snapped <code>edgexfoundry.secrets-config</code> utility.</p>
+<p>To get the usage help:
+<div class="highlight"><pre><span></span><code>edgexfoundry.secrets-config proxy tls -h
 </code></pre></div>
+You may also refer to the <a href="../../security/secrets-config-proxy/">secrets-config proxy</a> documentation.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>Given the following files created outside the scope of this document:</p>
+<ul>
+<li><code>cert.pem</code> certificate</li>
+<li><code>privkey.pem</code> private key</li>
+<li><code>ca.pem</code> certificate authority file (if not available in root certificates)</li>
+</ul>
+<p>Read the API Gateway token:
+<div class="highlight"><pre><span></span><code><span class="nv">KONG_ADMIN_JWT</span><span class="o">=</span><span class="sb">`</span>sudo cat /var/snap/edgexfoundry/current/secrets/security-proxy-setup/kong-admin-jwt<span class="sb">`</span>
+</code></pre></div></p>
+<p>Add the certificate, using Kong Admin JWT to authenticate:
+<div class="highlight"><pre><span></span><code>edgexfoundry.secrets-config proxy tls --incert cert.pem --inkey privkey.pem --admin_api_jwt <span class="nv">$KONG_ADMIN_JWT</span>
+</code></pre></div></p>
+<p>Try it out:
+<div class="highlight"><pre><span></span><code>curl --cacert ca.pem https://localhost:8443/core-data/api/v2/ping
+</code></pre></div>
+Output: <code>{"message":"Unauthorized"}</code><br />
+This means that TLS is setup correctly, but the request is not authorized.<br />
+Set the <code>-v</code> command for diagnosing TLS issues.<br />
+The <code>--cacert</code> can be omitted if the CA is available in root certificates (e.g. CA-signed or pre-installed CA certificate).</p>
+</div>
+<details class="tip">
+<summary>Seeding a custom TLS certificate using snap options</summary>
+<p>To spin up an EdgeX instance with a custom certificate, the snap provides the following configuration options:</p>
+<ul>
+<li><code>apps.secrets-config.proxy.tls.cert</code></li>
+<li><code>apps.secrets-config.proxy.tls.key</code></li>
+<li><code>apps.secrets-config.proxy.tls.snis</code> (comma-separated values)</li>
+</ul>
+<p>This is particularly useful when seeding the snap from a <a href="https://snapcraft.io/docs/gadget-snap">Gadget</a> on an <a href="https://ubuntu.com/core">Ubuntu Core</a> system.</p>
+</details>
+<!-- DO NOT CHANGE THE TITLE. READMEs reference the anchor -->
+<h4 id="secret-store-token">Secret Store token</h4>
+<p>The services inside standalone snaps (e.g. device, app snaps) automatically receive a <a href="../../security/Ch-SecretStore/">Secret Store</a> token when:</p>
+<ul>
+<li>The standalone snap is downloaded and installed from the store</li>
+<li>The platform snap is downloaded and installed from the store</li>
+<li>Both snaps are installed on the same machine</li>
+<li>The service is registered as an <a href="../../security/Ch-Configuring-Add-On-Services/">add-on service</a></li>
+</ul>
+<p>The <code>edgex-secretstore-token</code> <a href="https://snapcraft.io/docs/content-interface">content interface</a> provides the mechanism to automatically supply tokens to connected snaps.</p>
+<p>Execute the following command to check the status of connections:
+<div class="highlight"><pre><span></span><code>sudo snap connections edgexfoundry
+</code></pre></div></p>
+<p>To manually connect the edgexfoundry's plug to a standalone snap's slot:
+<div class="highlight"><pre><span></span><code>snap connect edgexfoundry:edgex-secretstore-token &lt;snap&gt;:edgex-secretstore-token
+</code></pre></div></p>
+<p>Note that the token has a limited expiry time of 1h by default. The connection and service startup should happen within the validity period.</p>
+<p>To better understand the snap connections, read the <a href="https://snapcraft.io/docs/interface-management">interface management</a></p>
+<div class="admonition tip">
+<p class="admonition-title">Extend the default Secret Store token TTL</p>
+<p>Set <a href="../../microservices/configuration/CommonEnvironmentVariables/#tokenfileprovider_defaulttokenttl-security-secretstore-setup-service">TOKENFILEPROVIDER_DEFAULTTOKENTTL</a> for security-secretstore-setup and restart:
+<div class="highlight"><pre><span></span><code>sudo snap <span class="nb">set</span> edgexfoundry app-options<span class="o">=</span><span class="nb">true</span>
+sudo snap <span class="nb">set</span> edgexfoundry apps.security-secretstore-setup.config.tokenfileprovider-defaulttokenttl<span class="o">=</span>72h
+sudo snap restart edgexfoundry.security-secretstore-setup
+</code></pre></div></p>
+</div>
+<h3 id="edgex-ui">EdgeX UI</h3>
+<p>| <a href="https://snapcraft.io/edgex-ui">Installation</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/edgex-ui-go/tree/main/snap">Source</a> |</p>
+<p>For usage instructions, please refer to the <a href="../tools/Ch-GUI/">Graphical User Interface (GUI)</a> guide.</p>
+<p>By default, the UI is reachable locally at:
+<a href="http://localhost:4000">http://localhost:4000</a></p>
+<p>A valid JWT token is required to access the UI; follow <a href="#adding-api-gateway-users">Adding API Gateway users</a> steps to generate a token.</p>
+<p>To enable all the functionalities of the UI, the following support services should be running:</p>
+<ul>
+<li>Support Scheduler</li>
+<li>Support Notifications</li>
+<li>System Management Agent</li>
+<li><a href="#edgex-ekuiper">EdgeX eKuiper</a></li>
+</ul>
+<p>For example, to start/install all:
+<div class="highlight"><pre><span></span><code>sudo snap start edgexfoundry.support-scheduler
+sudo snap start edgexfoundry.support-notifications
+sudo snap start edgexfoundry.sys-mgmt-agent
+sudo snap install edgex-ekuiper
+</code></pre></div></p>
+<h3 id="edgex-cli">EdgeX CLI</h3>
+<p>| <a href="https://snapcraft.io/edgex-cli">Installation</a> | <a href="https://github.com/edgexfoundry/edgex-cli/tree/main/snap">Source</a> |</p>
+<p>For usage instructions, refer to <a href="../tools/Ch-CommandLineInterface/">Command Line Interface (CLI)</a> guide.</p>
+<h3 id="edgex-ekuiper">EdgeX eKuiper</h3>
+<p>| <a href="https://snapcraft.io/edgex-ekuiper">Installation</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/canonical/edgex-ekuiper-snap">Source</a> |</p>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.2</p>
+<p>This version of EdgeX introduces a standalone EdgeX eKuiper snap.
+The new snap is the supported way of using eKuiper with other EdgeX snaps.</p>
+</div>
+<p>For the documentation of the standalone EdgeX eKuiper snap, visit the <a href="https://github.com/canonical/edgex-ekuiper-snap">README</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>At this time changes to configuration values in the <code>[Writable]</code> section are not supported.</p>
+<p>The standalone EdgeX eKuiper snap documented here should not be confused with the deprecated <code>edgexfoundry.kuiper</code> and <code>edgexfoundry.kuiper-cli</code> apps built into the platform. The standalone snap can provide similar functionality.</p>
 </div>
-<p>For details on the mapping of configuration options to Config options, please refer to <a href="https://github.com/edgexfoundry/edgex-go/blob/main/snap/README.md#configuration-overrides">Service Environment Configuration Overrides</a>. </p>
-<h3 id="viewing-logs">Viewing logs</h3>
-<p>To view the logs for all services in an EdgeX snap use the <code>snap log</code> command:</p>
-<div class="highlight"><pre><span></span><code>sudo snap logs edgexfoundry
-</code></pre></div>
-<p>Individual service logs may be viewed by specifying the service name:</p>
-<div class="highlight"><pre><span></span><code>sudo snap logs edgexfoundry.consul
-</code></pre></div>
-<p>Or by using the systemd unit name and <code>journalctl</code>:</p>
-<div class="highlight"><pre><span></span><code>journalctl -u snap.edgexfoundry.consul
-</code></pre></div>
-<p>These techniques can be used with any snap including application snap and device services snaps.</p>
-<h3 id="security-services">Security services</h3>
-<p>Currently, The EdgeX snap has security (Secret Store and API Gateway) enabled by default. The security services constitute the following components:</p>
+<!-- sorted alphabetically -->
+<h3 id="app-service-configurable">App Service Configurable</h3>
+<p>| <a href="https://snapcraft.io/edgex-app-service-configurable">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/app-service-configurable/tree/main/snap">Source</a> |</p>
+<p>The service is <strong>not started</strong> by default. Please refer to <a href="#configuration">configuration</a> and <a href="#managing-services">managing services</a>.</p>
+<p>The default configuration files are installed at:
+<div class="highlight"><pre><span></span><code>/var/snap/edgex-app-service-configurable/current/config/
+└── res
+    ├── external-mqtt-trigger
+    │   └── configuration.toml
+    ├── functional-tests
+    │   └── configuration.toml
+    ├── http-export
+    │   └── configuration.toml
+    ├── metrics-influxdb
+    │   └── configuration.toml
+    ├── mqtt-export
+    │   └── configuration.toml
+    ├── push-to-core
+    │   └── configuration.toml
+    └── rules-engine
+        └── configuration.toml
+</code></pre></div></p>
+<p>Please refer to <a href="../../microservices/application/AppServiceConfigurable/">App Service Configurable</a> guide for detailed usage instructions.</p>
+<p><strong>Profile</strong></p>
+<p>Before you can start the service, you must select one of available profiles, 
+using snap options.</p>
+<p>For example, to set <code>mqtt-export</code> profile using the snap CLI:
+<div class="highlight"><pre><span></span><code>sudo snap <span class="nb">set</span> edgex-app-service-configurable <span class="nv">profile</span><span class="o">=</span>mqtt-export
+</code></pre></div></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The standalone App Service Configurable snap documented above should not be confused with the deprecated <code>edgexfoundry.app-service-configurable</code>, built into the platform snap. The standalone snap can serve the same functionality of filtering events for eKuiper by using the rules-engine profile.</p>
+</div>
+<h3 id="app-rfid-llrp-inventory">App RFID LLRP Inventory</h3>
+<p>| <a href="https://snapcraft.io/edgex-app-rfid-llrp-inventory">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/app-rfid-llrp-inventory/tree/main/snap">Source</a> |</p>
+<p>The service is <strong>not started</strong> by default. Please refer to <a href="#configuration">configuration</a> and <a href="#managing-services">managing services</a>.</p>
+<p>The default configuration files are installed at:
+<div class="highlight"><pre><span></span><code>/var/snap/edgex-app-rfid-llrp-inventory/current/config/
+└── app-rfid-llrp-inventory
+    └── res
+        └── configuration.toml
+</code></pre></div></p>
+<p><strong>Aliases</strong></p>
+<p>The aliases need to be provided for the service to work.  See <a href="https://github.com/edgexfoundry/app-rfid-llrp-inventory/blob/main/README.md#setting-the-aliases">Setting the Aliases</a>.</p>
+<p>For the snap, this can either be by:</p>
 <ul>
-<li>kong-daemon (API Gateway a.k.a. Reverse Proxy)</li>
-<li>postgres (kong's database)</li>
-<li>vault (Secret Store)</li>
+<li>using a <a href="#config-provider-snap">config-provider-snap</a> to provide a <code>configuration.toml</code> file with the correct aliases, before startup</li>
+<li>setting the values manually in Consul during or after deployment</li>
 </ul>
-<p>Oneshot services which perform the necessary security setup and stop, when listed using <code>snap services</code>, they show up as <code>enabled/inactive</code>:</p>
+<h3 id="device-camera">Device Camera</h3>
+<p>| <a href="https://snapcraft.io/edgex-device-camera">Installation</a>  | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/device-camera-go/tree/main/snap">Source</a> |</p>
+<p>The service is <strong>not started</strong> by default. Please refer to <a href="#configuration">configuration</a> and <a href="#managing-services">managing services</a>.</p>
+<p>The default configuration files are installed at:
+<div class="highlight"><pre><span></span><code>/var/snap/edgex-device-camera/current/config/
+└── device-camera
+    └── res
+        ├── configuration.toml
+        ├── devices
+        │   └── camera.toml
+        └── profiles
+            ├── camera-axis.yaml
+            ├── camera-bosch.yaml
+            └── camera.yaml
+</code></pre></div></p>
+<h3 id="device-gpio">Device GPIO</h3>
+<p>| <a href="https://snapcraft.io/edgex-device-gpio">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/device-gpio/tree/main/snap">Source</a> |</p>
+<p>The service is <strong>not started</strong> by default. Please refer to <a href="#configuration">configuration</a> and <a href="#managing-services">managing services</a>.</p>
+<p>The default configuration files are installed at:
+<div class="highlight"><pre><span></span><code>/var/snap/edgex-device-gpio/current/config
+└── device-gpio
+    └── res
+        ├── configuration.toml
+        ├── devices
+        │   └── device.custom.gpio.toml
+        └── profiles
+            └── device.custom.gpio.yaml
+</code></pre></div></p>
+<p><strong>GPIO Access</strong></p>
+<p>This snap is strictly confined which means that the access to interfaces are subject to various security measures.</p>
+<p>On a Linux distribution without snap confinement for GPIO (e.g. Raspberry Pi OS 11), the snap may be able to access the GPIO directly, without any snap interface and manual connections.</p>
+<p>On Linux distributions with snap confinement for GPIO such as Ubuntu Core, the GPIO access is possible via the <a href="https://snapcraft.io/docs/gpio-interface">gpio interface</a>, provided by a gadget snap. 
+The official <a href="https://ubuntu.com/download/raspberry-pi-core">Raspberry Pi Ubuntu Core</a> image includes that gadget.
+It is NOT possible to use this snap on Linux distributions that have the GPIO confinement but not the interface (e.g. Ubuntu Server 20.04), unless for development purposes.</p>
+<p>In development environments, it is possible to install the snap in dev mode (using <code>--devmode</code> flag which disables security confinement and automatic upgrades) to allow direct GPIO access.</p>
+<p>The <code>gpio</code> interface provides slots for each GPIO channel. The slots can be listed using:
+<div class="highlight"><pre><span></span><code>$ sudo snap interface gpio
+name:    gpio
+summary: allows access to specific GPIO pin
+plugs:
+  - edgex-device-gpio
+slots:
+  - pi:bcm-gpio-0
+  - pi:bcm-gpio-1
+  - pi:bcm-gpio-10
+  ...
+</code></pre></div></p>
+<p>The slots are not connected automatically. For example, to connect GPIO-17:
+<div class="highlight"><pre><span></span><code>$ sudo snap connect edgex-device-gpio:gpio pi:bcm-gpio-17
+</code></pre></div></p>
+<p>Check the list of connections:
+<div class="highlight"><pre><span></span><code>$ sudo snap connections
+Interface        Plug                            Slot              Notes
+gpio             edgex-device-gpio:gpio          pi:bcm-gpio-17    manual
+…
+</code></pre></div></p>
+<h3 id="device-grove">Device Grove</h3>
+<p>| <a href="https://snapcraft.io/edgex-device-grove">Installation</a> | <a href="https://github.com/edgexfoundry/device-grove-c/tree/main/snap">Source</a> |</p>
+<div class="admonition warning">
+<p class="admonition-title">beta</p>
+<p>Device Grove snap is released as beta for <code>arm64</code>. It is compatible with EdgeX 1.3 only.</p>
+<p>It does not support the snap configurations described above.</p>
+</div>
+<p>The default configuration files are under <code>/var/snap/edgex-device-grove/current/config/</code>. </p>
+<p>This device service is started by default. 
+Changes to the configuration files require a restart to take effect:
+<div class="highlight"><pre><span></span><code>sudo snap restart edgex-device-grove
+</code></pre></div></p>
+<h3 id="device-modbus">Device Modbus</h3>
+<p>| <a href="https://snapcraft.io/edgex-device-modbus">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/device-modbus-go/tree/main/snap">Source</a> |</p>
+<p>The service is <strong>not started</strong> by default. Please refer to <a href="#configuration">configuration</a> and <a href="#managing-services">managing services</a>.</p>
+<p>The default configuration files are installed at:
+<div class="highlight"><pre><span></span><code>/var/snap/edgex-device-modbus/current/config/
+└── device-modbus
+    └── res
+        ├── configuration.toml
+        ├── devices
+        │   └── modbus.test.devices.toml
+        └── profiles
+            └── modbus.test.device.profile.yml
+</code></pre></div></p>
+<h3 id="device-mqtt">Device MQTT</h3>
+<p>| <a href="https://snapcraft.io/edgex-device-mqtt">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/device-mqtt-go/tree/main/snap">Source</a> |</p>
+<p>The service is <strong>not started</strong> by default. Please refer to <a href="#configuration">configuration</a> and <a href="#managing-services">managing services</a>.</p>
+<p>The default configuration files are installed at:
+<div class="highlight"><pre><span></span><code>/var/snap/edgex-device-mqtt/current/config/
+└── device-mqtt
+    └── res
+        ├── configuration.toml
+        ├── devices
+        │   └── mqtt.test.device.toml
+        └── profiles
+            └── mqtt.test.device.profile.yml
+</code></pre></div></p>
+<h3 id="device-rest">Device REST</h3>
+<p>| <a href="https://snapcraft.io/edgex-device-rest">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/device-rest-go/tree/main/snap">Source</a> |</p>
+<p>The service is <strong>not started</strong> by default. Please refer to <a href="#configuration">configuration</a> and <a href="#managing-services">managing services</a>.</p>
+<p>The default configuration files are installed at:
+<div class="highlight"><pre><span></span><code>/var/snap/edgex-device-rest/current/config/
+└── device-rest
+    └── res
+        ├── configuration.toml
+        ├── devices
+        │   └── sample-devices.toml
+        └── profiles
+            ├── sample-image-device.yaml
+            ├── sample-json-device.yaml
+            └── sample-numeric-device.yaml
+</code></pre></div></p>
+<h3 id="device-rfid-llrp">Device RFID LLRP</h3>
+<p>| <a href="https://snapcraft.io/edgex-device-rfid-llrp">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/device-rfid-llrp-go/tree/main/snap">Source</a> |</p>
+<p>The service is <strong>not started</strong> by default. Please refer to <a href="#configuration">configuration</a> and <a href="#managing-services">managing services</a>.</p>
+<p>The default configuration files are installed at:
+<div class="highlight"><pre><span></span><code>/var/snap/edgex-device-rfid-llrp/current/config/
+└── device-rfid-llrp
+    └── res
+        ├── configuration.toml
+        ├── devices
+        ├── profiles
+        │   ├── llrp.device.profile.yaml
+        │   └── llrp.impinj.profile.yaml
+        └── provision_watchers
+            ├── impinj.provision.watcher.json
+            └── llrp.provision.watcher.json
+</code></pre></div></p>
+<p><strong>Subnet setup</strong></p>
+<p>The <code>DiscoverySubnets</code> setting needs to be provided before a device discovery can occur. This can be done in a number of ways:</p>
 <ul>
-<li>security-proxy-setup (kong setup)</li>
-<li>security-secretstore-setup (vault setup)</li>
-<li>security-bootstrapper-redis (secure redis setup)</li>
-<li>security-consul-bootstrapper (secure consul setup)</li>
+<li>
+<p>Using <code>snap set</code> to set your local subnet information. Example:</p>
+<div class="highlight"><pre><span></span><code>sudo snap <span class="nb">set</span> edgex-device-rfid-llrp apps.device-rfid-llrp.config.app-custom.discovery-subnets<span class="o">=</span><span class="s2">&quot;192.168.10.0/24&quot;</span>
+
+curl -X POST http://localhost:59989/api/v2/discovery
+</code></pre></div>
+</li>
+<li>
+<p>Using a <a href="#config-provider-snap">config-provider-snap</a> to set device configuration</p>
+</li>
+<li>
+<p>Using the <code>auto-configure</code> command. </p>
+<p>This command finds all local network interfaces which are online and non-virtual and sets the value of <code>DiscoverySubnets</code> 
+in Consul. When running with security enabled, it requires a Consul token, so it needs to be run as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># get Consul ACL token</span>
+<span class="nv">CONSUL_TOKEN</span><span class="o">=</span><span class="k">$(</span>sudo cat /var/snap/edgexfoundry/current/secrets/consul-acl-token/bootstrap_token.json <span class="p">|</span> jq <span class="s2">&quot;.SecretID&quot;</span> <span class="p">|</span> tr -d <span class="s1">&#39;&quot;&#39;</span><span class="k">)</span> 
+<span class="nb">echo</span> <span class="nv">$CONSUL_TOKEN</span> 
+
+<span class="c1"># start the device service and connect the interfaces required for network interface discovery</span>
+sudo snap start edgex-device-rfid-llrp.device-rfid-llrp 
+sudo snap connect edgex-device-rfid-llrp:network-control 
+sudo snap connect edgex-device-rfid-llrp:network-observe 
+
+<span class="c1"># run the nework interface discovery, providing the Consul token</span>
+edgex-device-rfid-llrp.auto-configure <span class="nv">$CONSUL_TOKEN</span>
+</code></pre></div>
+</li>
 </ul>
-<p>Vault is known within EdgeX as the Secret Store, while Kong+PostgreSQL are used to provide the EdgeX API Gateway.</p>
-<p>For more details please refer to the snap's <a href="https://github.com/edgexfoundry/edgex-go/blob/main/snap/README.md#secret-store">Secret Store</a> and <a href="https://github.com/edgexfoundry/edgex-go/blob/main/snap/README.md#api-gateway">API Gateway</a> documentation.</p>
+<h3 id="device-snmp">Device SNMP</h3>
+<p>| <a href="https://snapcraft.io/edgex-device-snmp">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/device-snmp-go/tree/main/snap">Source</a> |</p>
+<p>The service is <strong>not started</strong> by default. Please refer to <a href="#configuration">configuration</a> and <a href="#managing-services">managing services</a>.</p>
+<p>The default configuration files are installed at:
+<div class="highlight"><pre><span></span><code>/var/snap/edgex-device-snmp/current/config/
+└── device-snmp
+    └── res
+        ├── configuration.toml
+        ├── devices
+        │   └── device.snmp.trendnet.TPE082WS.toml
+        └── profiles
+            ├── device.snmp.patlite.yaml
+            ├── device.snmp.switch.dell.N1108P-ON.yaml
+            └── device.snmp.trendnet.TPE082WS.yaml
+</code></pre></div></p>
+<!-- Store Links -->
 
               
             </article>
@@ -3138,7 +3955,7 @@ capability of a gadget snap, the overrides will be picked up when the services a
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "search": "../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.748e2769.min.js"></script>
+      <script src="../../assets/javascripts/bundle.ed9748b7.min.js"></script>
       
         <script src="../../assets/javascripts/version-select.js"></script>
       
