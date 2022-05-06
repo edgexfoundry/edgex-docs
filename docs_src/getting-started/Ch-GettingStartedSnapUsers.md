@@ -328,8 +328,12 @@ edgexfoundry.secrets-config proxy tls -h
 ```
 You may also refer to the [secrets-config proxy](../../security/secrets-config-proxy/) documentation.
 
-!!! example 
-    Given certificate `cert.pem`, private key `privkey.pem`, and certificate authority `ca.pem` files:
+!!! example
+    Given the following files created outside the scope of this document:
+    
+    * `cert.pem` certificate
+    * `privkey.pem` private key
+    * `ca.pem` certificate authority file (if not available in root certificates)
 
     Read the API Gateway token:
     ```bash
@@ -347,7 +351,8 @@ You may also refer to the [secrets-config proxy](../../security/secrets-config-p
     ```
     Output: `{"message":"Unauthorized"}`  
     This means that TLS is setup correctly, but the request is not authorized.  
-    Set the `-v` command for diagnosing TLS issues.
+    Set the `-v` command for diagnosing TLS issues.  
+    The `--cacert` can be omitted if the CA is available in root certificates (e.g. CA-signed or pre-installed CA certificate).
 
 
 ??? tip "Seeding a custom TLS certificate using snap options"
