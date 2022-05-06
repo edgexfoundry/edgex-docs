@@ -671,9 +671,9 @@ The `DiscoverySubnets` setting needs to be provided before a device discovery ca
 - Using `snap set` to set your local subnet information. Example:
 
     ```bash
-    $ sudo snap set edgex-device-rfid-llrp apps.device-rfid-llrp.config.app-custom.discovery-subnets="192.168.10.0/24"
+    sudo snap set edgex-device-rfid-llrp apps.device-rfid-llrp.config.app-custom.discovery-subnets="192.168.10.0/24"
     
-    $ curl -X POST http://localhost:59989/api/v2/discovery
+    curl -X POST http://localhost:59989/api/v2/discovery
     ```
 
 - Using a [config-provider-snap] to set device configuration
