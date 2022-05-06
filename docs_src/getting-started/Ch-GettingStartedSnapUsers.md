@@ -28,7 +28,8 @@ EdgeX snaps are packaged with default service configuration files. In certain ca
 
 
 #### Config files
-The default configuration files are typically placed at `/var/snap/<snap>/current/config`. Upon startup, the server configurations files are uploaded to Consul by default. Once the service starts without errors, the local configurations become obsolete and will no longer be read. Any modifications after the initial startup will not be applied. 
+The default configuration files are typically placed at `/var/snap/<snap>/current/config`. Upon startup, the server configurations files are uploaded to the registry by default. Once the service starts without errors, the local configurations become obsolete and will no longer be read. Any modifications after the initial startup will not be applied. 
+
 
 #### Config registry
 The configurations that are uploaded to Consul can be modified using Consul's UI or [kv REST API](https://www.consul.io/api/kv). Changes to configurations in Consul are loaded by the service at startup. If the service has already started, a restart is required to load new configurations. Configurations that are in the writable section get loaded not only at startup, but also during the runtime. In other words, changes to the writable configurations are loaded automatically without a restart. Please refer to 
@@ -436,7 +437,7 @@ For the documentation of the standalone EdgeX eKuiper snap, visit the [README](h
 ### App Service Configurable
 | [Installation][edgex-app-service-configurable] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/app-service-configurable/tree/main/snap) |
 
-The service is not started by default. Please refer to [configuration] and [managing services].
+The service is **not started** by default. Please refer to [configuration] and [managing services].
 
 The default configuration files are installed at:
 ```
@@ -476,7 +477,7 @@ sudo snap set edgex-app-service-configurable profile=mqtt-export
 ### App RFID LLRP Inventory
 | [Installation][edgex-app-rfid-llrp-inventory] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/app-rfid-llrp-inventory/tree/main/snap) |
 
-The service is not started by default. Please refer to [configuration] and [managing services].
+The service is **not started** by default. Please refer to [configuration] and [managing services].
 
 The default configuration files are installed at:
 ```
@@ -498,7 +499,7 @@ For the snap, this can either be by:
 ### Device Camera
 | [Installation][edgex-device-camera]  | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-camera-go/tree/main/snap) |
 
-The service is not started by default. Please refer to [configuration] and [managing services].
+The service is **not started** by default. Please refer to [configuration] and [managing services].
 
 The default configuration files are installed at:
 ```
@@ -517,7 +518,7 @@ The default configuration files are installed at:
 ### Device GPIO
 | [Installation][edgex-device-gpio] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-gpio/tree/main/snap) |
 
-The service is not started by default. Please refer to [configuration] and [managing services].
+The service is **not started** by default. Please refer to [configuration] and [managing services].
 
 The default configuration files are installed at:
 ```
@@ -541,7 +542,7 @@ On Linux distributions with snap confinement for GPIO such as Ubuntu Core, the G
 The official [Raspberry Pi Ubuntu Core](https://ubuntu.com/download/raspberry-pi-core) image includes that gadget.
 It is NOT possible to use this snap on Linux distributions that have the GPIO confinement but not the interface (e.g. Ubuntu Server 20.04), unless for development purposes.
 
-In development environments, it is possible to install the snap in dev mode (using `--devmode` flag which disables security confinement and automatic upgrades) and allows direct GPIO access.
+In development environments, it is possible to install the snap in dev mode (using `--devmode` flag which disables security confinement and automatic upgrades) to allow direct GPIO access.
 
 The `gpio` interface provides slots for each GPIO channel. The slots can be listed using:
 ```bash
@@ -590,7 +591,7 @@ sudo snap restart edgex-device-grove
 ### Device Modbus
 | [Installation][edgex-device-modbus] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-modbus-go/tree/main/snap) |
 
-The service is not started by default. Please refer to [configuration] and [managing services].
+The service is **not started** by default. Please refer to [configuration] and [managing services].
 
 The default configuration files are installed at:
 ```
@@ -608,7 +609,7 @@ The default configuration files are installed at:
 ### Device MQTT
 | [Installation][edgex-device-mqtt] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-mqtt-go/tree/main/snap) |
 
-The service is not started by default. Please refer to [configuration] and [managing services].
+The service is **not started** by default. Please refer to [configuration] and [managing services].
 
 The default configuration files are installed at:
 ```
@@ -625,7 +626,7 @@ The default configuration files are installed at:
 ### Device REST
 | [Installation][edgex-device-rest] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-rest-go/tree/main/snap) |
 
-The service is not started by default. Please refer to [configuration] and [managing services].
+The service is **not started** by default. Please refer to [configuration] and [managing services].
 
 The default configuration files are installed at:
 ```
@@ -645,7 +646,7 @@ The default configuration files are installed at:
 ### Device RFID LLRP
 | [Installation][edgex-device-rfid-llrp] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-rfid-llrp-go/tree/main/snap) |
 
-The service is not started by default. Please refer to [configuration] and [managing services].
+The service is **not started** by default. Please refer to [configuration] and [managing services].
 
 The default configuration files are installed at:
 ```
@@ -699,7 +700,7 @@ in Consul. When running with security enabled, it requires a Consul token, so it
 ### Device SNMP
 | [Installation][edgex-device-snmp] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-snmp-go/tree/main/snap) |
 
-The service is not started by default. Please refer to [configuration] and [managing services].
+The service is **not started** by default. Please refer to [configuration] and [managing services].
 
 The default configuration files are installed at:
 ```
