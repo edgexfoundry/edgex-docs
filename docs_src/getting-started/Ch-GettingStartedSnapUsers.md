@@ -357,7 +357,8 @@ You may also refer to the [secrets-config proxy](../../security/secrets-config-p
 
     This is particularly useful when seeding the snap from a [Gadget](https://snapcraft.io/docs/gadget-snap) on an [Ubuntu Core](https://ubuntu.com/core) system.
 
-#### Secret Store token interface
+<!-- DO NOT CHANGE THE TITLE. READMEs reference the anchor -->
+#### Secret Store token
 The services inside standalone snaps (e.g. device, app snaps) automatically receive a [Secret Store](../../security/Ch-SecretStore/) token when:
 
 * The standalone snap is downloaded and installed from the store
