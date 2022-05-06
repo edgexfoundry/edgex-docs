@@ -104,7 +104,7 @@ Mapping examples:
 
 For example, to change the service port of the core-data service on `edgexfoundry` snap to 8080:
 ```bash
-snap set app-options=true
+snap set edgexfoundry app-options=true
 snap set edgexfoundry apps.core-data.config.service-port=8080
 ```
 
