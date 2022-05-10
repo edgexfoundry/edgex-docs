@@ -56,11 +56,15 @@ The tabs below provide additional entries in the **Writable** section which are 
     |Property|Default Value|Description|
     |---|---|---|
     |||See `Writable.Telemetry` at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties) for the Telemetry configuration common to all services |
-    |Metrics| `CustomMetric1` = false `CustomMetric2= false|Service metrics that your custom application service collects. Boolean value indicates if reporting of the metric is enabled.|
+    |Metrics|     |Service metrics that the application service collects. Boolean value indicates if reporting of the metric is enabled. Custom metrics are also included here for custom application services that define custom metrics|
+    ||`MessagesReceived` = false     |Enable/disable reporting of the built-in **MessagesReceived** metric|
+    ||`PipelineMessagesProcessed` = false     |Enable/disable reporting of the built-in **PipelineMessagesProcessed** metrics|
+    || `PipelineMessageProcessingTime` = false |Enable/disable reporting of the built-in **PipelineMessageProcessingTime** metrics|
+    || `<CustomMetric>` = false    |Enable/disable reporting of custome application service's custom metric|
     |Tags|`<empty>`|List of arbitrary service level tags to included with every metric that is reported. i.e. `Gateway="my-iot-gateway"` |
-
+    
     !!! edgey "Edgex 2.2"
-        New for EdgeX 2.2 Custom App Services can now to define, collect and report service metrics. See [Application Service Metrics](../AdvancedTopics/#application-service-metrics) section for more detials
+        New for EdgeX 2.2 All application services have a limited set of built-in service metrics and custom application services can define, collect and report their own custome service metrics. See [Built-in Application Service Metrics](../AdvancedTopics/#built-in-application-service-metrics) and [Custom Application Service](../AdvancedTopics/#custom-application-service-metrics) section for more detials
 
 ## Not Writable
 

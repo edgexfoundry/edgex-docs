@@ -487,6 +487,39 @@ All pipeline function capabilities such as Store and Forward, Batching, etc. can
 
 
 
+### Built-in Application Service Metrics
+
+!!! edgey "EdgeX 2.2"
+    Built-in Application Service Metrics are new for EdgeX 2.2
+
+All application services now have a limited set of built in metrics. More may be added in future releases.
+
+The current built-in metrics are:
+
+- `MessagesReceived` - This is a **counter** metric that counts the number of messages received by the application service.
+
+- `PipelineMessagesProcessed` - This is a **counter** metric that counts the number of messages processed by the individual function pipelines defined by the application service. The metric data is tagged with the specific function pipeline ID the count is for.
+
+- `PipelineMessageProcessingTime` - This is a **timer** metric that tracks the amount of time taken to process messages by the individual function pipelines defined by the application service. The metric data is tagged with the specific function pipeline ID the timer is for.
+
+    !!! note
+        The time tracked for this metric is only for the function pipeline processing time. The overhead of receiving the messages and handing them to the appropriate function pipelines is not included. Accounting for this overhead may be added as another **timer** metric in a future release.
+
+Reporting of these built-in metrics is disabled by default in the `Writable.Telemetry` configuration section. See `Writable.Telemetry` configuration details in the [Application Service Configuration](../GeneralAppServiceConfig/#writable) section for complete detail on this section. If the configuration for these built-in metrics are missing, then the reporting of the metrics will be disabled.
+
+!!! example "Example - Service Telemetry Configuration with built-in metrics enabled for reporting"
+    ```toml
+      [Writable.Telemetry]
+      Interval = "30s"
+      PublishTopicPrefix  = "edgex/telemetry" # /<service-name>/<metric-name> will be added to this Publish Topic prefix
+        [Writable.Telemetry.Metrics] # All service's metric names must be present in this list.
+        MessagesReceived = true
+        PipelineMessagesProcessed = true
+        PipelineMessageProcessingTime = true
+        [Writable.Telemetry.Tags] # Contains the service level tags to be attached to all the service's metrics
+    #    Gateway="my-iot-gateway" # Tag must be added here or via Consul Env Override can only change existing value, not added new ones.
+    ```
+
 ### Custom Application Service Metrics
 
 !!! edgey "EdgeX 2.2"
@@ -526,7 +559,7 @@ The Custom Application Service Metrics capability allows for custom application 
     - `myTimer.Time(func { do sometime})`
     - `myTimer.UpdateSince(someTimeValue`)
     
-6. Configure reporting of the service's metrics. See `Writable.Telemetry` configuration details in the [Application Service Configuration](http://localhost:8001/edgex-docs/microservices/application/GeneralAppServiceConfig/#writable) section for more detail.
+6. Configure reporting of the service's metrics. See `Writable.Telemetry` configuration details in the [Application Service Configuration](../GeneralAppServiceConfig/#writable) section for more detail.
 
     !!! example "Example - Service Telemetry Configuration"
         ```toml
