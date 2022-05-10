@@ -2049,6 +2049,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#metricsprocessor" class="md-nav__link">
+    MetricsProcessor
+  </a>
+  
+    <nav class="md-nav" aria-label="MetricsProcessor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tolineprotocol" class="md-nav__link">
+    ToLineProtocol
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3388,6 +3408,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#metricsprocessor" class="md-nav__link">
+    MetricsProcessor
+  </a>
+  
+    <nav class="md-nav" aria-label="MetricsProcessor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tolineprotocol" class="md-nav__link">
+    ToLineProtocol
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3996,6 +4036,49 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 
 <span class="nx">NewGenericTags</span><span class="p">(</span><span class="nx">myTags</span><span class="p">).</span><span class="nx">AddTags</span><span class="w"></span>
 </code></pre></div>
+</div>
+<h2 id="metricsprocessor">MetricsProcessor</h2>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.2</p>
+<p>The <code>MetricsProcessor</code> is new in EdgeX 2.2</p>
+</div>
+<p><code>MetricsProcessor</code> contains configuration and functions for processing the new <code>dtos.Metrics</code> type. </p>
+<table>
+<thead>
+<tr>
+<th>Factory Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NewMetricsProcessor(additionalTags map[string]interface{}) (*MetricsProcessor, error)</td>
+<td>This factory function returns a <code>`MetricsProcessor</code> instance initialized with the passed in collection of <code>additionalTags</code> (name/value pairs). This <code>MetricsProcessor</code> instance is used to access the following functions that will process a dtos.Metric instance. The <code>additionalTags</code> are added as metric tags to the processed data. An error will be returned if any of the <code>additionalTags</code> have an invalid name. Currently must be non-blank.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tolineprotocol">ToLineProtocol</h3>
+<p><code>ToLineProtocol</code> - This pipeline function will transform the received <code>dtos.Metric</code> to a <code>Line Protocol</code> formatted string. See https://docs.influxdata.com/influxdb/v2.0/reference/syntax/line-protocol/ for details on the <code>Line Protocol</code> syntax.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When <code>ToLineProtocol</code> is the first function in the functions pipeline, the <code>TargetType</code> for the service must be set to <code>&amp;dtos.Metric{}</code>. See <a href="../AdvancedTopics/#target-type">Target Type</a> section for details on setting the service's <code>TargetType</code>. The Trigger configuration must also be set so  <code>SubscribeTopics="edgex/telemetry/#"</code> in order to receive the <code>dtos.Metric</code> data from other services. See the new App Service Configurable <code>metrics-influxdb</code> <a href="https://github.com/edgexfoundry/app-service-configurable/blob/main/res/metrics-influxdb/configuration.toml#L122">profile</a> for an example.    </p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="highlight"><pre><span></span><code><span class="nx">mp</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">NewMetricsProcessor</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;MyTag&quot;</span><span class="p">:</span><span class="s">&quot;MyTagValue&quot;</span><span class="p">})</span><span class="w"></span>
+<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="o">...</span><span class="w"> </span><span class="nx">handle</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="o">...</span><span class="w"></span>
+<span class="nx">mp</span><span class="p">.</span><span class="nx">ToLineProtocol</span><span class="w"></span>
+</code></pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Any service using the <code>MetricsProcessor</code> needs to disable its own Telemetry reporting to avoid circular data generation from processing. To do this set the services<code>Writeable.Telemetry</code> configuration to:
+<div class="highlight"><pre><span></span><code>[Writable.Telemetry]
+Interval = &quot;0s&quot; # Don&#39;t report any metrics as that would be cyclic processing.
+</code></pre></div></p>
 </div>
 
               
