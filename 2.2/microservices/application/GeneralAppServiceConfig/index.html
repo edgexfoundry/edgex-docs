@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/microservices/application/GeneralAppServiceConfig/">
       
       <link rel="icon" href="../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.13">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.14">
     
     
       
@@ -23,7 +23,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.e411adfe.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.3de6f41f.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.cc9b2e1e.min.css">
@@ -3001,8 +3001,28 @@
 </tr>
 <tr>
 <td>Metrics</td>
-<td><code>CustomMetric1</code> = false `CustomMetric2= false</td>
-<td>Service metrics that your custom application service collects. Boolean value indicates if reporting of the metric is enabled.</td>
+<td></td>
+<td>Service metrics that the application service collects. Boolean value indicates if reporting of the metric is enabled. Custom metrics are also included here for custom application services that define custom metrics</td>
+</tr>
+<tr>
+<td></td>
+<td><code>MessagesReceived</code> = false</td>
+<td>Enable/disable reporting of the built-in <strong>MessagesReceived</strong> metric</td>
+</tr>
+<tr>
+<td></td>
+<td><code>PipelineMessagesProcessed</code> = false</td>
+<td>Enable/disable reporting of the built-in <strong>PipelineMessagesProcessed</strong> metrics</td>
+</tr>
+<tr>
+<td></td>
+<td><code>PipelineMessageProcessingTime</code> = false</td>
+<td>Enable/disable reporting of the built-in <strong>PipelineMessageProcessingTime</strong> metrics</td>
+</tr>
+<tr>
+<td></td>
+<td><code>&lt;CustomMetric&gt;</code> = false</td>
+<td>Enable/disable reporting of custome application service's custom metric</td>
 </tr>
 <tr>
 <td>Tags</td>
@@ -3013,7 +3033,7 @@
 </table>
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 2.2</p>
-<p>New for EdgeX 2.2 Custom App Services can now to define, collect and report service metrics. See <a href="../AdvancedTopics/#application-service-metrics">Application Service Metrics</a> section for more detials</p>
+<p>New for EdgeX 2.2 All application services have a limited set of built-in service metrics and custom application services can define, collect and report their own custome service metrics. See <a href="../AdvancedTopics/#built-in-application-service-metrics">Built-in Application Service Metrics</a> and <a href="../AdvancedTopics/#custom-application-service-metrics">Custom Application Service</a> section for more detials</p>
 </div>
 </div>
 </div>
@@ -3418,7 +3438,7 @@ Only used for <code>external-mqtt</code> trigger binding type</p>
     <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs"], "search": "../../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.ed9748b7.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.c2e1ee47.min.js"></script>
       
         <script src="../../../assets/javascripts/version-select.js"></script>
       
