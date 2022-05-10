@@ -477,3 +477,38 @@ There is one Tags transform included in the SDK that can be added to your pipeli
     NewGenericTags(myTags).AddTags
     ```
 
+## MetricsProcessor
+
+!!! edgey "EdgeX 2.2"
+    The `MetricsProcessor` is new in EdgeX 2.2
+
+`MetricsProcessor` contains configuration and functions for processing the new `dtos.Metrics` type. 
+
+| Factory Method                                               | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| NewMetricsProcessor(additionalTags map[string]interface{}) (*MetricsProcessor, error) | This factory function returns a ``MetricsProcessor` instance initialized with the passed in collection of `additionalTags` (name/value pairs). This `MetricsProcessor` instance is used to access the following functions that will process a dtos.Metric instance. The `additionalTags` are added as metric tags to the processed data. An error will be returned if any of the `additionalTags` have an invalid name. Currently must be non-blank. |
+
+### ToLineProtocol
+
+`ToLineProtocol` - This pipeline function will transform the received `dtos.Metric` to a `Line Protocol` formatted string. See https://docs.influxdata.com/influxdb/v2.0/reference/syntax/line-protocol/ for details on the `Line Protocol` syntax.
+
+!!! note
+    When `ToLineProtocol` is the first function in the functions pipeline, the `TargetType` for the service must be set to `&dtos.Metric{}`. See [Target Type](../AdvancedTopics/#target-type) section for details on setting the service's `TargetType`. The Trigger configuration must also be set so  `SubscribeTopics="edgex/telemetry/#"` in order to receive the `dtos.Metric` data from other services. See the new App Service Configurable `metrics-influxdb` [profile](https://github.com/edgexfoundry/app-service-configurable/blob/main/res/metrics-influxdb/configuration.toml#L122) for an example.    
+
+!!! example
+    ``` go
+    mp, err := NewMetricsProcessor(map[string]string{"MyTag":"MyTagValue"})
+    if err != nil {
+        ... handle error
+    }
+    ...
+    mp.ToLineProtocol
+    ```
+
+!!! warning
+    Any service using the `MetricsProcessor` needs to disable its own Telemetry reporting to avoid circular data generation from processing. To do this set the services` Writeable.Telemetry` configuration to:
+    ```
+    [Writable.Telemetry]
+    Interval = "0s" # Don't report any metrics as that would be cyclic processing.
+    ```
+

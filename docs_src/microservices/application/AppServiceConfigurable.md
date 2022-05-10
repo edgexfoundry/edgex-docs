@@ -155,55 +155,125 @@ App Service Configurable was designed to be deployed as multiple instances for d
 !!! note
     If you need to run multiple instances with the same profile, e.g. `http-export`, but configured differently, you will need to override the service key with a custom name for one or more of the services. This is done with the `-sk/-serviceKey` command-line option or the `EDGEX_SERVICE_KEY` environment variable. See the [Command-line Options](./ApplicationFunctionsSDK.md#command-line-options) and [Environment Overrides](./ApplicationFunctionsSDK.md#environment-variable-overrides) sections for more detail.
 
-The following profiles and their purposes are provided with App Service Configurable. 
-
-- **rules-engine** - Profile used to push Event messages to the Rules Engine via the **Redis Pub/Sub** Message Bus. This is used in the default docker compose files for the `app-rules-engine` service
-
-    One can optionally add Filter function via environment overrides
-
-    - `WRITABLE_PIPELINE_EXECUTIONORDER: "FilterByDeviceName, HTTPExport"`
-    - `WRITABLE_PIPELINE_FUNCTIONS_FILTERBYDEVICENAME_PARAMETERS_DEVICENAMES: "[comma separated list]"`
-
-    There are many optional functions and parameters provided in this profile. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/master/res/rules-engine/configuration.toml) for more details
-
-- **http-export** - Starter profile used for exporting data via HTTP.  Requires further configuration which can easily be accomplished using environment variable overrides
-
-    - Required:
-        - `WRITABLE_PIPELINE_FUNCTIONS_HTTPEXPORT_PARAMETERS_URL: [Your URL]`
-
-    There are many more optional functions and parameters provided in this profile. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/v2.0.0/res/http-export/configuration.toml) for more details.
-
-- **mqtt-export** - Starter profile used for exporting data via MQTT. Requires further configuration which can easily be accomplished using environment variable overrides
-  
-    - Required:
-        - `WRITABLE_PIPELINE_FUNCTIONS_MQTTEXPORT_PARAMETERS_BROKERADDRESS: [Your Broker Address]`
-    
-    
-    There are many optional functions and parameters provided in this profile. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/v2.0.0/res/mqtt-export/configuration.toml) for more details
-    
-- **push-to-core** - Example profile demonstrating how to use the PushToCore function. Provided as an exmaple that can be copied and modified to create new custom profile. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/v2.0.0/res/push-to-core/configuration.toml) for more details
-
-    Requires further configuration which can easily be accomplished using environment variable overrides
-
-    - Required:
-      - `WRITABLE_PIPELINE_FUNCTIONS_PUSHTOCORE_PROFILENAME: [Your Event's profile name]`
-      - `WRITABLE_PIPELINE_FUNCTIONS_PUSHTOCORE_DEVICENAME: [Your Event's device name]`
-      - `WRITABLE_PIPELINE_FUNCTIONS_PUSHTOCORE_SOURCENAME: [Your Event's source name]`
-      - `WRITABLE_PIPELINE_FUNCTIONS_PUSHTOCORE_RESOURCENAME: [Your Event reading's resource name]`
-      - `WRITABLE_PIPELINE_FUNCTIONS_PUSHTOCORE_VALUETYPE: [Your Event reading's value type]`
-      - `WRITABLE_PIPELINE_FUNCTIONS_PUSHTOCORE_MEDIATYPE: [Your Event binary reading's media type]` 
-        - Required only when `ValueType` is `Binary`
-
-- **sample** - Sample profile with all available functions declared and a sample pipeline. Provided as a sample that can be copied and modified to create new custom profiles. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/v2.0.0/res/sample/configuration.toml) for more details
-
-- **functional-tests** - Profile used for the TAF functional testing  
-
 !!! note
     Functions can be declared in a profile but not used in the pipeline `ExecutionOrder`  allowing them to be added to the pipeline `ExecutionOrder` later at runtime if needed.
 
+The following profiles and their purposes are provided with App Service Configurable. 
+
+### rules-engine
+
+Profile used to push Event messages to the Rules Engine via the **Redis Pub/Sub** Message Bus. This is used in the default docker compose files for the `app-rules-engine` service
+
+One can optionally add Filter function via environment overrides
+
+- `WRITABLE_PIPELINE_EXECUTIONORDER: "FilterByDeviceName, HTTPExport"`
+- `WRITABLE_PIPELINE_FUNCTIONS_FILTERBYDEVICENAME_PARAMETERS_DEVICENAMES: "[comma separated list]"`
+
+There are many optional functions and parameters provided in this profile. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/master/res/rules-engine/configuration.toml) for more details
+
+### http-export
+
+Starter profile used for exporting data via HTTP.  Requires further configuration which can easily be accomplished using environment variable overrides
+
+Required:
+
+- `WRITABLE_PIPELINE_FUNCTIONS_HTTPEXPORT_PARAMETERS_URL: [Your URL]`
+
+    There are many more optional functions and parameters provided in this profile. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/v2.0.0/res/http-export/configuration.toml) for more details.
+
+### metrics-influxdb
+
+!!! edgey "Edgex 2.2"
+    The `metrics-influxdb` profile is new for Edgex 2.2
+
+Starter profile used for exporting telemetry data from other EdgeX services to InfluxDB via HTTP export. This profile configures the service to receive telemetry data from other services, transform it to Line Protocol syntax, batch the data and then export it to an InfluxDB service via HTTP. Requires further configuration which can easily be accomplished using environment variable overrides.
+
+Required:
+
+- `WRITABLE_PIPELINE_FUNCTIONS_HTTPEXPORT_PARAMETERS_URL: [Your InfluxDB URL]`
+    - Example value: `"http://localhost:8086/api/v2/write?org=metrics&bucket=edgex&precision=ns"``
+  
+- ``WRITABLE_INSECURESECRETS_INFLUXDB_SECRETS_TOKEN`: [Your InfluxDB Token]
+    - Example value: `"Token 29ER8iMgQ5DPD_icTnSwH_77aUhSvD0AATkvMM59kZdIJOTNoJqcP-RHFCppblG3wSOb7LOqjp1xubA80uaWhQ=="`
+    
+    - If using secure mode, store the token in the service's secret store via POST to the service's `/secret` endpoint 
+    
+    
+    !!! example - "Example JSON to post to /secret endpoint"
+        ```json
+        {
+            "apiVersion":"v2",
+            "path":"influxdb",
+            "secretData":[
+            {
+                "key":"Token",
+                "value":"Token 29ER8iMgQ5DPD_icTnSwH_77aUhSvD0AATkvMM59kZdIJOTNoJqcP-RHFCppblG3wSOb7LOqjp1xubA80uaWhQ=="
+            }]
+        }
+        ```
+
+Optional Additional Tags:
+
+- `WRITABLE_PIPELINE_FUNCTIONS_TOLINEPROTOCOL_PARAMETERS_TAGS: <your additional tags>`
+    - Currently set to empty string
+    - Example value: `"tag1:value1, tag2:value2"
+
+Optional Batching parameters (see [Batch function](#batch) for more details):
+
+- `WRITABLE_PIPELINE_FUNCTIONS_BATCH_PARAMETERS_MODE: <your batch mode>`
+    - Currently set to `"bytimecount"`
+        - Valid values are `"bycount"`, `"bytime"` or `"bytimecount"``
+- ``WRITABLE_PIPELINE_FUNCTIONS_BATCH_PARAMETERS_BATCHTHRESHOLD: <your batch threshold count>`
+    - Currently set to `100`
+- `WRITABLE_PIPELINE_FUNCTIONS_BATCH_PARAMETERS_TIMEINTERVAL: <your batch time interval>`
+    - Currently set to `"60s"`
+
+### mqtt-export
+
+Starter profile used for exporting data via MQTT. Requires further configuration which can easily be accomplished using environment variable overrides
+
+Required:
+
+- `WRITABLE_PIPELINE_FUNCTIONS_MQTTEXPORT_PARAMETERS_BROKERADDRESS: [Your Broker Address]`
+
+
+    There are many optional functions and parameters provided in this profile. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/v2.0.0/res/mqtt-export/configuration.toml) for more details
+
+### push-to-core 
+
+Example profile demonstrating how to use the PushToCore function. Provided as an exmaple that can be copied and modified to create new custom profile. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/v2.0.0/res/push-to-core/configuration.toml) for more details
+
+Requires further configuration which can easily be accomplished using environment variable overrides
+
+Required:
+
+- `WRITABLE_PIPELINE_FUNCTIONS_PUSHTOCORE_PROFILENAME: [Your Event's profile name]`
+- `WRITABLE_PIPELINE_FUNCTIONS_PUSHTOCORE_DEVICENAME: [Your Event's device name]`
+- `WRITABLE_PIPELINE_FUNCTIONS_PUSHTOCORE_SOURCENAME: [Your Event's source name]`
+- `WRITABLE_PIPELINE_FUNCTIONS_PUSHTOCORE_RESOURCENAME: [Your Event reading's resource name]`
+- `WRITABLE_PIPELINE_FUNCTIONS_PUSHTOCORE_VALUETYPE: [Your Event reading's value type]`
+- `WRITABLE_PIPELINE_FUNCTIONS_PUSHTOCORE_MEDIATYPE: [Your Event binary reading's media type]` 
+  - Required only when `ValueType` is `Binary`
+
+### sample
+
+Sample profile with all available functions declared and a sample pipeline. Provided as a sample that can be copied and modified to create new custom profiles. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/v2.0.0/res/sample/configuration.toml) for more details
+
+### functional-tests
+
+Profile used for the TAF functional testing  
+
+### external-mqtt-trigger
+
+Profile used for the TAF functional testing  of external MQTT Trigger
+
 ## What if my input data isn't an EdgeX Event ?
 
-The default `TargetType` for data flowing into the functions pipeline is an EdgeX Event DTO. There are cases when this incoming data might not be an EdgeX Event DTO. In these cases the `Pipeline` can be configured using `UseTargetTypeOfByteArray=true` to set the `TargetType` to be a byte array/slice, i.e. `[]byte`. The first function in the pipeline must then be one that can handle the `[]byte` data. The **compression**,  **encryption** and **export** functions are examples of pipeline functions that will take input data that is `[]byte`. 
+The default `TargetType` for data flowing into the functions pipeline is an EdgeX Event DTO. There are cases when this incoming data might not be an EdgeX Event DTO. There are two setting that configure the TargetType to non-Event data.
+
+### UseTargetTypeOfByteArray
+
+ In these cases the `Pipeline` can be configured using `UseTargetTypeOfByteArray=true` to set the `TargetType` to be a byte array/slice, i.e. `[]byte`. The first function in the pipeline must then be one that can handle the `[]byte` data. The **compression**,  **encryption** and **export** functions are examples of pipeline functions that will take input data that is `[]byte`. 
 
 !!! example "Example - Configure the functions pipeline to **compress**, **encrypt** and then **export** the `[]byte` data via HTTP "
     ```toml
@@ -233,6 +303,32 @@ If along with this pipeline configuration, you also configured the `Trigger` to 
     ``` toml
     [Trigger]
     Type="http"
+    ```
+
+### UseTargetTypeOfMetric
+
+!!! edgey "Edgex 2.2"
+    New for EdgeX 2.2 is the `UseTargetTypeOfMetric` setting
+
+This setting when set to true will cause the `TargeType` to be `&dtos.Metric{}` and is meant to be used in conjunction with the new `ToLineProtocol` function. See [ToLineProtocol](#tolineprotocol) section below for more details. In addition the `Trigger` `SubscribeTopics`must be set to `"edgex/telemetry/#"` so that the function receives the metric data from the other services.
+
+!!! example - "Example -  UseTargetTypeOfMetric "
+    ```
+      [Writable.Pipeline]
+      UseTargetTypeOfMetric  = true
+      ExecutionOrder = "ToLineProtocol, ..."
+      ...
+          [Writable.Pipeline.Functions.ToLineProtocol]
+          [Writable.Pipeline.Functions.ToLineProtocol.Parameters]
+          Tags = "" # optional comma separated list of additional tags to add to the metric in to form "tag:value,..."
+      ...
+      [Trigger]
+      Type="edgex-messagebus"
+      [Trigger.EdgexMessageBus]
+      ...
+        [Trigger.EdgexMessageBus.SubscribeHost]
+        ...
+        SubscribeTopics="edgex/telemetry/#"
     ```
 
 ## Multiple Instances of a Function
@@ -605,4 +701,23 @@ Please refer to the function's detailed documentation by clicking the function n
 
 !!! edgey "EdgeX 2.0"
     For EdgeX 2.0 the `TransformToJSON` and `TransformToXML` configurable pipeline functions have been replaced by the single `Transform` configurable pipeline function with additional `Type  ` parameter.
+
+### [ToLineProtocol](../BuiltIn/#tolineprotocol)
+
+!!! edgey "EdgeX 2.2"
+    `ToLineProtocol` is new for Edgex 2.2
+
+**Parameters**
+
+- `Tags` - optional comma separated list of additional tags to add to the metric in to form "tag:value,..."
+
+!!! example
+    ```toml
+        [Writable.Pipeline.Functions.ToLineProtocol]
+          [Writable.Pipeline.Functions.ToLineProtocol.Parameters]
+          Tags = "" # optional comma separated list of additional tags to add to the metric in to form "tag:value,..."
+    ```
+
+!!! note
+    The new `UseTargetTypeOfMetric` setting must be set to true when using this function. See the [UseTargetTypeOfMetric](#usetargettypeofmetric) section above for more details.
 
