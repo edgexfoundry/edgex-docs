@@ -22,6 +22,8 @@ The following tables (organized by type of service) capture the default service 
     |app-mqtt-export|59703|
     |app-http-export|59704|
     |app-functional-tests|59705|
+    |app-external-mqtt-trigger|59706|
+    |app-metrics-infludb|59707|
     |app-rfid-llrp-inventory|59711|
     |rules engine/eKuiper|59720|
 === "Device"
@@ -31,6 +33,8 @@ The following tables (organized by type of service) capture the default service 
     |device-modbus	|59901|
     |device-bacnet  |59980|
     |device-mqtt	|59982|
+    |device-usb-camera |59983
+    |device-onvif-camera |59984
     |device-camera  |59985|
     |device-rest    |59986|
     |device-coap    |59988|
