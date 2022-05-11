@@ -1,12 +1,6 @@
 # Getting Started
 
-!!! Attention
-
-    ## Supported Architectures
-
-    EdgeX Foundry is a hardware and operating system agnostic IoT / edge platform.  It is was built to run on Intel and ARM hardware.  It runs on various distributions and / or versions of Linux, Unix, MacOS, Windows, etc.
-
-    However, the EdgeX Foundry community only supports the platform on Intel (x86, x86_64) and ARM64 hardware.  Adopters may build EdgeX for ARM32, but the community does not support or provide pre-built artifacts such as Docker containers, snaps, etc. for ARM32.  Building EdgeX for ARM32 will typically require some modifications to the build process.  Some services may not compile on ARM32 and/or require removal of components such as ZMQ that are not available or compile on ARM32.
+EdgeX Foundry is operating system and architecture agnostic. The community releases artifacts for common architectures. However, it is possible to build the components for other platforms. See the [platform requirements](../general/PlatformRequirements) reference page for details.
 
 To get started you need to get EdgeX Foundry either as a User or as a Developer/Contributor.
 
