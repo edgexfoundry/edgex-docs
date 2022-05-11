@@ -18,7 +18,7 @@ or changing the existing code base.
 ### Hardware
 
 EdgeX Foundry is an operating system (OS) and hardware (HW)-agnostic edge software platform. 
-See the reference page for [platform requirements](./quick-start/index.md#reference-platform-requirements). These provide guidance on a minimal platform to run the EdgeX platform.  However, as a developer, you may find that additional memory, disk space, and improved CPU are essential to building and debugging.
+See the reference page for [platform requirements](../../general/PlatformRequirements). These provide guidance on a minimal platform to run the EdgeX platform.  However, as a developer, you may find that additional memory, disk space, and improved CPU are essential to building and debugging.
 
 ### Software
 

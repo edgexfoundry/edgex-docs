@@ -15,11 +15,14 @@ EdgeX Foundry is an operating system (OS)-agnostic and hardware (HW)-agnostic Io
 === "Operating Systems"
     EdgeX Foundry has been run successfully on many systems, including, but not limited to the following systems
 
-    * Windows (ver 7 - 10)
-    * Ubuntu Desktop (ver 14-20)
-    * Ubuntu Server (ver 14-20)
-    * Ubuntu Core (ver 16-18)
-    * Mac OS X 10
+    * Windows 7 and higher
+    * Ubuntu Desktop/Server 14 and higher
+    * Ubuntu Core 16 and higher
+    * Mac OS X
 
 !!! Info
-    EdgeX is agnostic with regards to hardware (x86 and ARM), but only release artifacts for x86 and ARM 64 systems.  EdgeX has been successfully run on ARM 32 platforms but has required users to build their own executable from source.  EdgeX does not officially support ARM 32.
+    EdgeX Foundry runs on various distributions and / or versions of Linux, Unix, MacOS, Windows, etc. However, the community only supports the platform on `amd64` (x86-64) and `arm64` architectures.
+
+    EdgeX Foundry releases pre-built artifacts as Docker images and Snaps. Please refer to [Getting Started](../../getting-started) for details.
+    
+    EdgeX can run on `armhf` architecture but that requires users to build their own executables from source. EdgeX does not officially support `armhf`.
