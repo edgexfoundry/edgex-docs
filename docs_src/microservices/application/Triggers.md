@@ -393,7 +393,7 @@ Type="custom-stdin"
 
 Now the custom trigger is configured to be used rather than one of the built-in triggers.
 
-A complete working example can be found [**here**](https://github.com/edgexfoundry/edgex-examples/tree/master/application-services/custom/custom-trigger)
+A complete working example can be found [**here**](https://github.com/edgexfoundry/edgex-examples/tree/v2.2.0/application-services/custom/custom-trigger)
 
 ## Publish Topic Placeholders
 

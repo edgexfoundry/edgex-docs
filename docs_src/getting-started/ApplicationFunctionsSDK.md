@@ -97,7 +97,7 @@ if err := service.SetFunctionsPipeline(
     ...
 }
 ```
-Set the Trigger type to `http` in [res/configuration.toml](https://github.com/edgexfoundry/edgex-examples/blob/main/application-services/custom/simple-filter-xml/res/configuration.toml)
+Set the Trigger type to `http` in [res/configuration.toml](https://github.com/edgexfoundry/edgex-examples/blob/v2.2.0/application-services/custom/simple-filter-xml/res/configuration.toml)
 
 ```toml
 [Trigger]
@@ -136,6 +136,6 @@ Using PostMan or curl send the following JSON to `localhost:<port>/api/v2/trigge
 After making the above modifications, you should now see data printing out to the console in XML when an event is triggered.
 
 !!! note
-    You can find this complete example "[Simple Filter XML](https://github.com/edgexfoundry/edgex-examples/tree/main/application-services/custom/simple-filter-xml)" and more examples located in the [examples](../examples/AppServiceExamples.md) section.
+    You can find this complete example "[Simple Filter XML](https://github.com/edgexfoundry/edgex-examples/tree/v2.2.0/application-services/custom/simple-filter-xml)" and more examples located in the [examples](../examples/AppServiceExamples.md) section.
 
 Up until this point, the pipeline has been [triggered](../microservices/application/Triggers.md) by an event over HTTP and the data at the end of that pipeline lands in the last function specified. In the example, data ends up printed to the console. Perhaps we'd like to send the data back to where it came from. In the case of an HTTP trigger, this would be the HTTP response. In the case of  EdgeX MessageBus, this could be a new topic to send the data back to the MessageBus for other applications that wish to receive it. To do this, simply call `ctx.SetResponseData(data []byte)` passing in the data you wish to "respond" with. In the above `printXMLToConsole(...)` function, replace `println(xml)` with `ctx.SetResponseData([]byte(xml))`. You should now see the response in your postman window when testing the pipeline.
