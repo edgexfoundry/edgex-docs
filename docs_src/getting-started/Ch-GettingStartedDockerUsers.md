@@ -86,7 +86,7 @@ Do the following to use this tool to generate a custom Compose file:
 
    ```
    cd edgex-compose/
-   git checkout ireland
+   git checkout kamakura
    ```
 3. Change directories to the compose-builder folder and then use the `make gen <options>` command to generate your custom compose file. The generated Docker Compose file is named `docker-compose.yaml`.  Here are some examples:
 
@@ -101,8 +101,12 @@ Do the following to use this tool to generate a custom Compose file:
    make gen no-secty arm64 ds-grove 
      - Generates non-secure compose file for ARM64 with just the Device Grove device service.
    ```
+   
 
-​      See the README document in the compose-builder directory for details on all the available options.  The Compose Builder is different per release, so make sure to consult the README in the appropriate release branch.  See [Ireland's Compose Builder README](https://github.com/edgexfoundry/edgex-compose/blob/ireland/compose-builder/README.md) for details on the lastest release Compose Builder options for `make gen`.
+!!! edgey "Edgex 2.2"
+    New in Edgex 2.2 (Kamakura) is the TUI generator tool that walks user through the generation and running of a custom compose file. In a Linux terminal from the `compose-builder` folder run `./tui-generator.sh` and make your selections from the menus.  
+
+See the README document in the compose-builder directory for details on all the available options.  The Compose Builder is different per release, so make sure to consult the README in the appropriate release branch.  See [Ireland's Compose Builder README](https://github.com/edgexfoundry/edgex-compose/blob/ireland/compose-builder/README.md) for details on the lastest release Compose Builder options for `make gen`.
 
 !!! Note
     The generated Docker Compose file may require addition customizations for your specific needs, such as environment override(s) to set appropriate Host IP address, etc.
