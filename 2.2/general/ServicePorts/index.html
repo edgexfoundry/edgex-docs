@@ -2780,7 +2780,7 @@
 
 <h1 id="default-service-ports">Default Service Ports</h1>
 <p>The following tables (organized by type of service) capture the default service ports.  These default ports are also used in the EdgeX provided service routes defined in the Kong API Gateway for access control.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:6"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Core</label><label for="__tabbed_1_2">Supporting</label><label for="__tabbed_1_3">Application &amp; Analytics</label><label for="__tabbed_1_4">Device</label><label for="__tabbed_1_5">Security</label><label for="__tabbed_1_6">Miscellaneous</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:6"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Core</label><label for="__tabbed_1_2">Supporting</label><label for="__tabbed_1_3">Application</label><label for="__tabbed_1_4">Device</label><label for="__tabbed_1_5">Security</label><label for="__tabbed_1_6">Miscellaneous</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table>
@@ -2793,11 +2793,7 @@
 <tbody>
 <tr>
 <td>core-data</td>
-<td>59880</td>
-</tr>
-<tr>
-<td>ZMQ - to be deprecated in a future release</td>
-<td>5563</td>
+<td>59880<br>5563 (deprecated ZMQ port)</td>
 </tr>
 <tr>
 <td>core-metadata</td>
@@ -2806,6 +2802,14 @@
 <tr>
 <td>core-command</td>
 <td>59882</td>
+</tr>
+<tr>
+<td>redis</td>
+<td>6379</td>
+</tr>
+<tr>
+<td>consul</td>
+<td>8500</td>
 </tr>
 </tbody>
 </table>
@@ -2826,6 +2830,14 @@
 <tr>
 <td>support-scheduler</td>
 <td>59861</td>
+</tr>
+<tr>
+<td>rules engine / eKuiper</td>
+<td>59720</td>
+</tr>
+<tr>
+<td>system management agent (deprecated)</td>
+<td>58890</td>
 </tr>
 </tbody>
 </table>
@@ -2874,10 +2886,6 @@
 <tr>
 <td>app-rfid-llrp-inventory</td>
 <td>59711</td>
-</tr>
-<tr>
-<td>rules engine/eKuiper</td>
-<td>59720</td>
 </tr>
 </tbody>
 </table>
@@ -2928,7 +2936,7 @@
 <td>59988</td>
 </tr>
 <tr>
-<td>device-llrp</td>
+<td>device-rfid-llrp</td>
 <td>59989</td>
 </tr>
 <tr>
@@ -2965,15 +2973,7 @@
 </tr>
 <tr>
 <td>kong</td>
-<td>8000</td>
-</tr>
-<tr>
-<td></td>
-<td>8100</td>
-</tr>
-<tr>
-<td></td>
-<td>8443</td>
+<td>8000, 8100, 8443</td>
 </tr>
 <tr>
 <td>security-spire-server</td>
@@ -2996,24 +2996,16 @@
 </thead>
 <tbody>
 <tr>
+<td>ui</td>
+<td>4000</td>
+</tr>
+<tr>
 <td>Modbus simulator</td>
 <td>1502</td>
 </tr>
 <tr>
 <td>MQTT broker</td>
 <td>1883</td>
-</tr>
-<tr>
-<td>redis</td>
-<td>6379</td>
-</tr>
-<tr>
-<td>consul</td>
-<td>8500</td>
-</tr>
-<tr>
-<td>system management</td>
-<td>58890</td>
 </tr>
 </tbody>
 </table>
