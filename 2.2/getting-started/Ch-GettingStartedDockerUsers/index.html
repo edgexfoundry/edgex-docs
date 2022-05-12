@@ -3092,7 +3092,7 @@ Compose.</p>
 </code></pre></div>
 2. Change directories to the clone and checkout the appropriate release branch.  Checkout of the Ireland release branch is shown here.</p>
 <p><div class="highlight"><pre><span></span><code>cd edgex-compose/
-git checkout ireland
+git checkout kamakura
 </code></pre></div>
 3. Change directories to the compose-builder folder and then use the <code>make gen &lt;options&gt;</code> command to generate your custom compose file. The generated Docker Compose file is named <code>docker-compose.yaml</code>.  Here are some examples:</p>
 <div class="highlight"><pre><span></span><code>cd compose-builder/
@@ -3105,7 +3105,11 @@ make gen no-secty ds-modbus
 make gen no-secty arm64 ds-grove 
   - Generates non-secure compose file for ARM64 with just the Device Grove device service.
 </code></pre></div>
-<p>​      See the README document in the compose-builder directory for details on all the available options.  The Compose Builder is different per release, so make sure to consult the README in the appropriate release branch.  See <a href="https://github.com/edgexfoundry/edgex-compose/blob/ireland/compose-builder/README.md">Ireland's Compose Builder README</a> for details on the lastest release Compose Builder options for <code>make gen</code>.</p>
+<div class="admonition edgey">
+<p class="admonition-title">Edgex 2.2</p>
+<p>New in Edgex 2.2 (Kamakura) is the TUI generator tool that walks user through the generation and running of a custom compose file. In a Linux terminal from the <code>compose-builder</code> folder run <code>./tui-generator.sh</code> and make your selections from the menus.  </p>
+</div>
+<p>See the README document in the compose-builder directory for details on all the available options.  The Compose Builder is different per release, so make sure to consult the README in the appropriate release branch.  See <a href="https://github.com/edgexfoundry/edgex-compose/blob/ireland/compose-builder/README.md">Ireland's Compose Builder README</a> for details on the lastest release Compose Builder options for <code>make gen</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The generated Docker Compose file may require addition customizations for your specific needs, such as environment override(s) to set appropriate Host IP address, etc.</p>
