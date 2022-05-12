@@ -15,7 +15,7 @@ The following tables (organized by type of service) capture the default service 
     |support-notifications	|59860|
     |support-scheduler|	59861|
     |rules engine / eKuiper|59720|
-    |system management agent- deprecated|58890|
+    |system management agent (deprecated)|58890|
 === "Application"
     |Services Name|	Port Definition|
     |---|---|
