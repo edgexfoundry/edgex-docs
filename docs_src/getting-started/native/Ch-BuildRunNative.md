@@ -1,4 +1,4 @@
-# Native Build and Run Guides
+# Native Build and Run
 
 There are instances, in both development as well as production, where you need to run EdgeX "natively."  That is, you want to run EdgeX on the native operating system / hardware outside of any emulation, container platform, Docker, Docker Compose, Snaps, etc..  Per [PC Magazine](https://www.pcmag.com/encyclopedia/term/run-native), running natively 
 
