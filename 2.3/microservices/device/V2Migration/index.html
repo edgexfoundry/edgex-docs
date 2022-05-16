@@ -1,0 +1,3889 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for use of EdgeX Foundry">
+      
+      
+        <meta name="author" content="Michael Johanson">
+      
+      
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/microservices/device/V2Migration/">
+      
+      <link rel="icon" href="../../../assets/logo_edgex.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.15">
+    
+    
+      
+        <title>V2 Migration Guide - EdgeX Foundry Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.c382b1dc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.cc9b2e1e.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/version-select.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/branding.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/edgey.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/newexample.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#v2-migration-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="EdgeX Foundry Documentation" class="md-header__button md-logo" aria-label="EdgeX Foundry Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/logo_edgex_white.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            EdgeX Foundry Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              V2 Migration Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    edgex/edgex-go
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        Introduction
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../getting-started/" class="md-tabs__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../security/Ch-Security/" class="md-tabs__link">
+        Security
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../general/" class="md-tabs__link md-tabs__link--active">
+        Microservices
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../examples/" class="md-tabs__link">
+        Examples and Tutorials
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../api/Ch-APIIntroduction/" class="md-tabs__link">
+        API Reference
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../design/" class="md-tabs__link">
+        Architectural Decision Records
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../general/Definitions/" class="md-tabs__link">
+        Reference
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/logo_edgex_white.png" alt="logo">
+
+    </a>
+    EdgeX Foundry Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    edgex/edgex-go
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Introduction
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../V2TopLevelMigration/" class="md-nav__link">
+        V2 Migration Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Getting Started
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/quick-start/" class="md-nav__link">
+        Quick Start
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Users
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Users" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Users
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/Ch-GettingStartedUsers/" class="md-nav__link">
+        Getting Started as a User
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/Ch-GettingStartedDockerUsers/" class="md-nav__link">
+        Getting Started using Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/Ch-GettingStartedSnapUsers/" class="md-nav__link">
+        Getting Started using Snaps
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          Developers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Developers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Developers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/Ch-GettingStartedDevelopers/" class="md-nav__link">
+        Getting Started as a Developer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/Ch-GettingStartedGoDevelopers/" class="md-nav__link">
+        Getting Started - Go Developers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/Ch-GettingStartedCDevelopers/" class="md-nav__link">
+        Getting Started - C Developers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/Ch-GettingStartedHybrid/" class="md-nav__link">
+        Working in a Hybrid Environment
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/ApplicationFunctionsSDK/" class="md-nav__link">
+        Application Functions SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4_6" type="checkbox" id="__nav_2_4_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4_6">
+          Device Services
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Device Services" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_4_6">
+          <span class="md-nav__icon md-icon"></span>
+          Device Services
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/Ch-GettingStartedSDK/" class="md-nav__link">
+        Device Service SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/Ch-GettingStartedSDK-C/" class="md-nav__link">
+        C SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/Ch-GettingStartedSDK-Go/" class="md-nav__link">
+        Golang SDK
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/Ch-GettingStartedUsersNexus/" class="md-nav__link">
+        Getting Docker Images from EdgeX Nexus Repository
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_5">
+          Tools
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tools" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Tools
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/tools/Ch-CommandLineInterface/" class="md-nav__link">
+        Command Line Interface (CLI)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/tools/Ch-GUI/" class="md-nav__link">
+        Graphical User Interface (GUI)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Security
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Security" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Security
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-Security/" class="md-nav__link">
+        Security
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-SecretStore/" class="md-nav__link">
+        Secret Store
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-APIGateway/" class="md-nav__link">
+        API Gateway
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-Secure-MessageBus/" class="md-nav__link">
+        Secure MessageBus
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-Configuring-Add-On-Services/" class="md-nav__link">
+        Configuring Add-on Service
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-Secure-Consul/" class="md-nav__link">
+        Secure Consul
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-SecurityIssues/" class="md-nav__link">
+        Reporting Security Issues
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-AddGatewayUserRemotely/" class="md-nav__link">
+        Adding EdgeX API Gateway Users Remotely
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/secrets-config/" class="md-nav__link">
+        Secrets config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/secrets-config-proxy/" class="md-nav__link">
+        Secrets config proxy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/SeedingServiceSecrets/" class="md-nav__link">
+        Seeding Service Secrets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-CORS-Settings/" class="md-nav__link">
+        CORS settings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-RemoteDeviceServices/" class="md-nav__link">
+        Remote Device Services in Secure Mode
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Microservices
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Microservices" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Microservices
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../general/" class="md-nav__link">
+        Cross Cutting Concerns
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_2">
+          Configuration & Registry
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Configuration & Registry" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Configuration & Registry
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/CommonConfiguration/" class="md-nav__link">
+        Common Configuration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/CommonCommandLineOptions/" class="md-nav__link">
+        Common Command Line Options
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/CommonEnvironmentVariables/" class="md-nav__link">
+        Common Environment Variables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/ConfigurationAndRegistry/" class="md-nav__link">
+        Configuration and Registry Providers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/V2MigrationCommonConfig/" class="md-nav__link">
+        V2 Migration of Common Configuration
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_3">
+          Core Services
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Core Services" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          Core Services
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/Ch-CoreServices/" class="md-nav__link">
+        Core Services
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/data/Ch-CoreData/" class="md-nav__link">
+        Core Data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/metadata/Ch-Metadata/" class="md-nav__link">
+        Metadata
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/command/Ch-Command/" class="md-nav__link">
+        Command
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/database/Ch-Redis/" class="md-nav__link">
+        Redis Database
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_4" type="checkbox" id="__nav_4_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_4">
+          Supporting Services
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Supporting Services" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          Supporting Services
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../support/Ch-SupportingServices/" class="md-nav__link">
+        Supporting Services Microservices
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../support/notifications/Ch-AlertsNotifications/" class="md-nav__link">
+        Alerts & Notifications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../support/eKuiper/Ch-eKuiper/" class="md-nav__link">
+        eKuiper Rules Engine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../support/scheduler/Ch-Scheduler/" class="md-nav__link">
+        Scheduler
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_5" type="checkbox" id="__nav_4_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_5">
+          System Management
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="System Management" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_5">
+          <span class="md-nav__icon md-icon"></span>
+          System Management
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system-management/Ch_SystemManagement/" class="md-nav__link">
+        System Management Micro Services
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system-management/agent/Ch_SysMgmtAgent/" class="md-nav__link">
+        System Management Agent (SMA)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system-management/executor/Ch_SysMgmtExecutor/" class="md-nav__link">
+        System Management Executor (SME)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6" type="checkbox" id="__nav_4_6" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_6">
+          Devices Services
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Devices Services" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_6">
+          <span class="md-nav__icon md-icon"></span>
+          Devices Services
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Ch-DeviceServices/" class="md-nav__link">
+        Device Services Microservices
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Ch-DeviceServiceList/" class="md-nav__link">
+        Device Service Support
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../profile/Ch-DeviceProfile/" class="md-nav__link">
+        Device Profile
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sdk/Ch-DeviceSDK/" class="md-nav__link">
+        Device Services SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../virtual/Ch-VirtualDevice/" class="md-nav__link">
+        Virtual Device
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          V2 Migration Guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        V2 Migration Guide
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#custom-device-services" class="md-nav__link">
+    Custom Device Services
+  </a>
+  
+    <nav class="md-nav" aria-label="Custom Device Services">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#device" class="md-nav__link">
+    Device
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#messagequeue" class="md-nav__link">
+    MessageQueue
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-golang" class="md-nav__link">
+    Code (Golang)
+  </a>
+  
+    <nav class="md-nav" aria-label="Code (Golang)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    Dependencies
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commandvalue" class="md-nav__link">
+    CommandValue
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-c" class="md-nav__link">
+    Code (C)
+  </a>
+  
+    <nav class="md-nav" aria-label="Code (C)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dependencies_1" class="md-nav__link">
+    Dependencies
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attribute-and-protocols-processing" class="md-nav__link">
+    Attribute and Protocols processing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-and-put-handlers" class="md-nav__link">
+    Get and Put handlers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#callback-function-list" class="md-nav__link">
+    Callback function list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#misc" class="md-nav__link">
+    Misc
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-profiles" class="md-nav__link">
+    Device Profiles
+  </a>
+  
+    <nav class="md-nav" aria-label="Device Profiles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#device-resource" class="md-nav__link">
+    Device Resource
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-command" class="md-nav__link">
+    Device Command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-command" class="md-nav__link">
+    Core Command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#devices" class="md-nav__link">
+    Devices
+  </a>
+  
+    <nav class="md-nav" aria-label="Devices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#state" class="md-nav__link">
+    State
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pre-defined-devices" class="md-nav__link">
+    Pre-defined Devices
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#device-mqtt" class="md-nav__link">
+    Device MQTT
+  </a>
+  
+    <nav class="md-nav" aria-label="Device MQTT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#driver-mqttbrokerinfo" class="md-nav__link">
+    Driver =&gt; MQTTBrokerInfo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#devicelistprotocolsmqtt" class="md-nav__link">
+    DeviceList.Protocols.mqtt
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secretstore" class="md-nav__link">
+    SecretStore
+  </a>
+  
+    <nav class="md-nav" aria-label="SecretStore">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#secure" class="md-nav__link">
+    Secure
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-secure" class="md-nav__link">
+    Non Secure
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#device-camera" class="md-nav__link">
+    Device Camera
+  </a>
+  
+    <nav class="md-nav" aria-label="Device Camera">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#driver" class="md-nav__link">
+    Driver
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#devicelistprotocolshttp" class="md-nav__link">
+    DeviceList.Protocols.HTTP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secretstore_1" class="md-nav__link">
+    SecretStore
+  </a>
+  
+    <nav class="md-nav" aria-label="SecretStore">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#secure_1" class="md-nav__link">
+    Secure
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-secure_1" class="md-nav__link">
+    Non Secure
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_7" type="checkbox" id="__nav_4_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_7">
+          Application Services
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Application Services" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_7">
+          <span class="md-nav__icon md-icon"></span>
+          Application Services
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../application/ApplicationServices/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../application/GettingStarted/" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../application/Triggers/" class="md-nav__link">
+        Triggers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_7_4" type="checkbox" id="__nav_4_7_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_7_4">
+          Application Functions SDK
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Application Functions SDK" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Application Functions SDK
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../application/ApplicationFunctionsSDK/" class="md-nav__link">
+        App Functions SDK Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../application/ApplicationServiceAPI/" class="md-nav__link">
+        Application Service API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../application/AppFunctionContextAPI/" class="md-nav__link">
+        App Function Context API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../application/ErrorHandling/" class="md-nav__link">
+        Pipeline Function Error Handling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../application/BuiltIn/" class="md-nav__link">
+        Built-In Pipeline Functions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../application/AdvancedTopics/" class="md-nav__link">
+        Advanced Topics
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../application/AppServiceConfigurable/" class="md-nav__link">
+        App Service Configurable
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../application/GeneralAppServiceConfig/" class="md-nav__link">
+        Application Service Configuration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../application/V2Migration/" class="md-nav__link">
+        V2 Migration Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Examples and Tutorials
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Examples and Tutorials" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Examples and Tutorials
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/" class="md-nav__link">
+        EdgeX Examples
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Ch-ExamplesVirtualDeviceService/" class="md-nav__link">
+        Using the Virtual Device Service
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Ch-ExamplesSendingAndConsumingBinary/" class="md-nav__link">
+        Sending and Consuming Binary Data From EdgeX Device Services
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/AppServiceExamples/" class="md-nav__link">
+        App Service Examples
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Ch-CommandingDeviceThroughRulesEngine/" class="md-nav__link">
+        Command Devices with eKuiper Rules Engine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Ch-ExamplesModbusdatatypeconversion/" class="md-nav__link">
+        Modbus - Data Type Conversion
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_7">
+          Adding a Device
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Adding a Device" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_7">
+          <span class="md-nav__icon md-icon"></span>
+          Adding a Device
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Ch-ExamplesAddingModbusDevice/" class="md-nav__link">
+        Modbus
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Ch-ExamplesAddingSNMPDevice/" class="md-nav__link">
+        SNMP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Ch-ExamplesAddingMQTTDevice/" class="md-nav__link">
+        MQTT
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_8" type="checkbox" id="__nav_5_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_8">
+          Walkthrough
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Walkthrough" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_8">
+          <span class="md-nav__icon md-icon"></span>
+          Walkthrough
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../walk-through/Ch-Walkthrough/" class="md-nav__link">
+        EdgeX Demonstration API Walk Through
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../walk-through/Ch-WalkthroughSetup/" class="md-nav__link">
+        Setup up your environment
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../walk-through/Ch-WalkthroughUseCase/" class="md-nav__link">
+        Example Use Case
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../walk-through/Ch-WalkthroughDeviceProfile/" class="md-nav__link">
+        Defining your device
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../walk-through/Ch-WalkthroughDeviceService/" class="md-nav__link">
+        Register your device service
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../walk-through/Ch-WalkthroughProvision/" class="md-nav__link">
+        Provision a device
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../walk-through/Ch-WalkthroughCommands/" class="md-nav__link">
+        Calling commands
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../walk-through/Ch-WalkthroughReading/" class="md-nav__link">
+        Sending events and reading data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../walk-through/Ch-WalkthroughExporting/" class="md-nav__link">
+        Exporting your device data
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          API Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          API Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/Ch-APIIntroduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2" type="checkbox" id="__nav_6_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2">
+          Core
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Core" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          Core
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/core/Ch-APICoreCommand/" class="md-nav__link">
+        Core Command
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/core/Ch-APICoreData/" class="md-nav__link">
+        Core Data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/core/Ch-APICoreMetadata/" class="md-nav__link">
+        Core Metadata
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/core/Ch-APICoreConfigurationAndRegistry/" class="md-nav__link">
+        Configuration and Registry
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3" type="checkbox" id="__nav_6_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3">
+          Support
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Support" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          Support
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/support/Ch-APISupportNotifications/" class="md-nav__link">
+        Support Notifications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/support/Ch-APISupportScheduler/" class="md-nav__link">
+        Support Scheduler
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4" type="checkbox" id="__nav_6_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4">
+          Management
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Management" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_4">
+          <span class="md-nav__icon md-icon"></span>
+          Management
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/management/Ch-APISystemManagement/" class="md-nav__link">
+        System Management Agent
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_5" type="checkbox" id="__nav_6_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_5">
+          Device
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Device" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_5">
+          <span class="md-nav__icon md-icon"></span>
+          Device
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/devices/Ch-APIDeviceSDK/" class="md-nav__link">
+        Device Services
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_6" type="checkbox" id="__nav_6_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_6">
+          Application
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Application" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_6">
+          <span class="md-nav__icon md-icon"></span>
+          Application
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/applications/Ch-APIAppFunctionsSDK/" class="md-nav__link">
+        Application Services
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/applications/Ch-APIRulesEngine/" class="md-nav__link">
+        Rules Engine
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Architectural Decision Records
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Architectural Decision Records" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Architectural Decision Records
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../design/" class="md-nav__link">
+        Architecture Decision Records Folder
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../design/TOC/" class="md-nav__link">
+        ADR Table of Contents
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Legacy
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Legacy" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Legacy
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../design/legacy-design/" class="md-nav__link">
+        Legacy Design Documents
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../design/legacy-requirements/" class="md-nav__link">
+        Legacy Requirements
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../general/Definitions/" class="md-nav__link">
+        Definitions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../general/PlatformRequirements/" class="md-nav__link">
+        Platform Requirements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../general/ServicePorts/" class="md-nav__link">
+        Default Service Ports
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../general/ContainerNames/" class="md-nav__link">
+        EdgeX Container Names
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../general/ServiceConfiguration/" class="md-nav__link">
+        Service Configuration
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#custom-device-services" class="md-nav__link">
+    Custom Device Services
+  </a>
+  
+    <nav class="md-nav" aria-label="Custom Device Services">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#device" class="md-nav__link">
+    Device
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#messagequeue" class="md-nav__link">
+    MessageQueue
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-golang" class="md-nav__link">
+    Code (Golang)
+  </a>
+  
+    <nav class="md-nav" aria-label="Code (Golang)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    Dependencies
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commandvalue" class="md-nav__link">
+    CommandValue
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-c" class="md-nav__link">
+    Code (C)
+  </a>
+  
+    <nav class="md-nav" aria-label="Code (C)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dependencies_1" class="md-nav__link">
+    Dependencies
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attribute-and-protocols-processing" class="md-nav__link">
+    Attribute and Protocols processing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-and-put-handlers" class="md-nav__link">
+    Get and Put handlers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#callback-function-list" class="md-nav__link">
+    Callback function list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#misc" class="md-nav__link">
+    Misc
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-profiles" class="md-nav__link">
+    Device Profiles
+  </a>
+  
+    <nav class="md-nav" aria-label="Device Profiles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#device-resource" class="md-nav__link">
+    Device Resource
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-command" class="md-nav__link">
+    Device Command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-command" class="md-nav__link">
+    Core Command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#devices" class="md-nav__link">
+    Devices
+  </a>
+  
+    <nav class="md-nav" aria-label="Devices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#state" class="md-nav__link">
+    State
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pre-defined-devices" class="md-nav__link">
+    Pre-defined Devices
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#device-mqtt" class="md-nav__link">
+    Device MQTT
+  </a>
+  
+    <nav class="md-nav" aria-label="Device MQTT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#driver-mqttbrokerinfo" class="md-nav__link">
+    Driver =&gt; MQTTBrokerInfo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#devicelistprotocolsmqtt" class="md-nav__link">
+    DeviceList.Protocols.mqtt
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secretstore" class="md-nav__link">
+    SecretStore
+  </a>
+  
+    <nav class="md-nav" aria-label="SecretStore">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#secure" class="md-nav__link">
+    Secure
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-secure" class="md-nav__link">
+    Non Secure
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#device-camera" class="md-nav__link">
+    Device Camera
+  </a>
+  
+    <nav class="md-nav" aria-label="Device Camera">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#driver" class="md-nav__link">
+    Driver
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#devicelistprotocolshttp" class="md-nav__link">
+    DeviceList.Protocols.HTTP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secretstore_1" class="md-nav__link">
+    SecretStore
+  </a>
+  
+    <nav class="md-nav" aria-label="SecretStore">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#secure_1" class="md-nav__link">
+    Secure
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-secure_1" class="md-nav__link">
+    Non Secure
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/microservices/device/V2Migration.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="v2-migration-guide">V2 Migration Guide</h1>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+</div>
+<p>For the EdgeX 2.0 (Ireland) release there are many backward breaking changes. These changes require custom Device Services and custom device profiles to be migrated. This section outlines the necessary steps for this migration.</p>
+<h2 id="custom-device-services">Custom Device Services</h2>
+<h3 id="configuration">Configuration</h3>
+<p>The migration of any Device Service's configuration starts with migrating configuration common to all EdgeX services. See the <a href="../../configuration/V2MigrationCommonConfig">V2 Migration of Common Configuration</a> section for details. The remainder of this section focuses on configuration specific to Device Services.</p>
+<h4 id="device">Device</h4>
+<ol>
+<li>Remove <code>ImitCmd</code>, <code>ImitCmdArgs</code>, <code>RemoveCmd</code> and <code>RemoveCmdArgs</code></li>
+<li>Add <code>UseMessageBus</code> to determine events should be published to MessageBus or sent by REST call.</li>
+<li>For C-based Device Services (eg, BACnet, Grove, CoAP): <code>UpdateLastConnected</code>, <code>MaxCmdOps</code>, <code>DataTransform</code>, <code>Discovery</code> and <code>MaxCmdResultLen</code> are dynamic settings - move these to <code>[Writable.Device]</code></li>
+<li>Add <code>DevicesDir</code> and <code>ProfilesDir</code> as an indication of where to load the device profiles and pre-defined devices. Convention is to put them under <code>/res</code> folder:</li>
+</ol>
+<div class="admonition example">
+<p class="admonition-title">Example configuration</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="n">Device</span><span class="p">]</span><span class="w"> </span>
+<span class="n">DevicesDir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;./res/devices&quot;</span><span class="w"></span>
+<span class="n">ProfilesDir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;./res/profiles&quot;</span><span class="w"></span>
+<span class="p">...</span><span class="w"> </span>
+</code></pre></div>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Example Project Structure</p>
+<div class="highlight"><pre><span></span><code>+- res
+|  +- devices
+|    +- device1.toml
+|    +- device2.toml
+|  +- profiles
+|    +- profile1.yml
+|    +- profile2.yml
+|  +- configuration.toml
+|  +- ...
++- main.go
++- device-service-binary
+</code></pre></div>
+</div>
+<h4 id="messagequeue">MessageQueue</h4>
+<p>Device Service is capable of pushing Events to Message Bus instead of sending it via REST call.
+A <code>MessageQueue</code> section is added in configuration to specify the detail of it.</p>
+<div class="admonition example">
+<p class="admonition-title">MessageQueue Example</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="k">[MessageQueue]</span><span class="w"></span>
+<span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redis&quot;</span><span class="w"></span>
+<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
+<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6379</span><span class="w"></span>
+<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redis&quot;</span><span class="w"></span>
+<span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;usernamepassword&quot;</span><span class="w">  </span><span class="c1"># required for redis messagebus (secure or insecure).</span><span class="w"></span>
+<span class="n">SecretName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redisdb&quot;</span><span class="w"></span>
+<span class="n">PublishTopicPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;edgex/events/device&quot;</span><span class="w"> </span><span class="c1"># /&lt;device-profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt; will be added to this Publish Topic prefix</span><span class="w"></span>
+<span class="w">  </span><span class="k">[MessageQueue.Optional]</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># Default MQTT Specific options that need to be here to enable environment variable overrides of them</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># Client Identifiers</span><span class="w"></span>
+<span class="w">  </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;device-simple&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># Connection information</span><span class="w"></span>
+<span class="w">  </span><span class="n">Qos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="c1"># Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</span><span class="w"></span>
+<span class="w">  </span><span class="n">KeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span><span class="w"></span>
+<span class="w">  </span><span class="n">Retained</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="n">AutoReconnect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
+<span class="w">  </span><span class="n">SkipCertVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"> </span><span class="c1"># Only used if Cert/Key file or Cert/Key PEMblock are specified</span><span class="w"></span>
+</code></pre></div>
+<p>See the <a href="../../../design/adr/013-Device-Service-Events-Message-Bus/#device-services">Device Service MessageQueue</a> section for details.</p>
+<h3 id="code-golang">Code (Golang)</h3>
+<h4 id="dependencies">Dependencies</h4>
+<p>You first need to update the <code>go.mod</code> file to specify <code>go 1.16</code> and the V2 versions of the Device SDK and any EdgeX go-mods directly used by your service. Note the extra <code>/v2</code> for the modules.</p>
+<div class="admonition example">
+<p class="admonition-title">Example go.mod for V2</p>
+<div class="highlight"><pre><span></span><code><span class="nx">module</span><span class="w"> </span><span class="p">&lt;</span><span class="nx">your</span><span class="w"> </span><span class="nx">service</span><span class="p">&gt;</span><span class="w"></span>
+
+<span class="k">go</span><span class="w"> </span><span class="mf">1.16</span><span class="w"></span>
+
+<span class="nx">require</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">edgexfoundry</span><span class="o">/</span><span class="nx">device</span><span class="o">-</span><span class="nx">sdk</span><span class="o">-</span><span class="k">go</span><span class="o">/</span><span class="nx">v2</span><span class="w"> </span><span class="nx">v2</span><span class="mf">.0.0</span><span class="w"></span>
+<span class="w">    </span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">edgexfoundry</span><span class="o">/</span><span class="k">go</span><span class="o">-</span><span class="nx">mod</span><span class="o">-</span><span class="nx">core</span><span class="o">-</span><span class="nx">contracts</span><span class="o">/</span><span class="nx">v2</span><span class="w"> </span><span class="nx">v2</span><span class="mf">.0.0</span><span class="w"></span>
+<span class="w">    </span><span class="o">...</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
+</code></pre></div>
+</div>
+<p>Once that is complete then the import statements for these dependencies must be updated to include the <code>/v2</code> in the path.</p>
+<div class="admonition example">
+<p class="admonition-title">Example import statements for V2</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="o">...</span><span class="w"></span>
+
+<span class="w">    </span><span class="s">&quot;github.com/edgexfoundry/device-sdk-go/v2/pkg/models&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;github.com/edgexfoundry/go-mod-core-contracts/v2/common&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
+</code></pre></div>
+</div>
+<h4 id="commandvalue">CommandValue</h4>
+<p><code>CommandValue</code> is redesigned to be more simple and straightforward. A single <code>Value</code> with <code>interface{}</code> type is able to accommodate reading value of supported type.
+As a result, you might notice the original API to create CommandValue is no longer working.
+In V2 we refactor all those API functions to create CommandValue of different type to a generic function:</p>
+<div class="admonition example">
+<p class="admonition-title">Create CommandValue with string Type</p>
+<div class="highlight"><pre><span></span><code><span class="nx">cv</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">NewCommandValue</span><span class="p">(</span><span class="nx">deviceResourceName</span><span class="p">,</span><span class="w"> </span><span class="nx">v2</span><span class="p">.</span><span class="nx">ValueTypeString</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;foobar&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="o">...</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="nx">cv</span><span class="p">.</span><span class="nx">Origin</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">Unixnano</span><span class="p">()</span><span class="w"></span>
+<span class="nx">cv</span><span class="p">.</span><span class="nx">Tags</span><span class="p">[</span><span class="s">&quot;foo&quot;</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;bar&quot;</span><span class="w"></span>
+</code></pre></div>
+</div>
+<p>The 3rd argument in the function must be able to cast into the Type defined in 2nd argument otherwise there will be error.
+See <a href="../../../design/adr/device-service/0011-DeviceService-Rest-API/#data-formats">Data formats</a> for supported data type in EdgeX.</p>
+<p>Device Service also supports <a href="../../general/">Event Tagging</a>, the tags on the CommandValue will be copied to Event.</p>
+<h3 id="code-c">Code (C)</h3>
+<h4 id="dependencies_1">Dependencies</h4>
+<p>The CSDK now has additional dependencies on the Redis client library (hiredis, hiredis-dev) and Paho MQTT (paho-mqtt-c-dev)</p>
+<h4 id="attribute-and-protocols-processing">Attribute and Protocols processing</h4>
+<p>Four new callback functions are defined and implementations of them are required. Their purpose is to take the parsing of attributes and protocols out of the get/put handlers so that it is not done for every single request.</p>
+<p>The device service implementation should define a structure to hold the attributes of a resource in a form suitable for use with whatever access library is being used to communicate with the devices. A function should then be written which allocates and populates this structure, given a set of resource attributes held in a string map. Another function should be written which frees an instance of the structure and any associated elements.</p>
+<p>A similar pair of functions should be written to process ProtocolProperties to address a device.</p>
+<div class="highlight"><pre><span></span><code>devsdk_address_t xxx_create_address (void *impl, const devsdk_protocols *protocols, iot_data_t **exception);
+void xxx_free_address (void *impl, devsdk_address_t address);
+devsdk_resource_attr_t xxx_create_resource_attr (void *impl, const iot_data_t *attributes, iot_data_t **exception);
+void xxx_free_resource_attr (void *impl, devsdk_resource_attr_t attr);
+</code></pre></div>
+<p>In the event of an attribute or protocol set being invalid, the create function should return <code>NULL</code> and allocate a string value into the exception parameter indicating the nature of the problem - this will be logged by the SDK.</p>
+<h4 id="get-and-put-handlers">Get and Put handlers</h4>
+<ul>
+<li>The <code>devname</code> and <code>protocols</code> parameters are replaced by an object of type <code>devsdk_device_t</code>; this contains <code>name</code> (<code>char *</code>) and <code>address</code> (<code>devsdk_address_t</code> - see above) fields</li>
+<li>The resource <code>name</code>, <code>type</code> and <code>attributes</code> (the latter now represented as <code>devsdk_resource_attr_t</code>) in a <code>devsdk_commandrequest</code> are now held in a <code>devsdk_resource_t</code> structure</li>
+<li><code>qparams</code> is renamed to <code>options</code> and is now an <code>iot_data_t</code> map (string/string)</li>
+<li><code>options</code> is also added to the put handler parameters</li>
+</ul>
+<h4 id="callback-function-list">Callback function list</h4>
+<p>The callback list structure has been made opaque. An instance of it to pass into the <code>devsdk_service_new</code> function is created by calling <code>devsdk_callbacks_init</code>. This takes as parameters the mandatory callback functions (init, get/set handlers, stop, create/free addr and create/free resource attr). Services which implement optional callbacks should set these using the relevant population functions:</p>
+<div class="highlight"><pre><span></span><code>* devsdk_callbacks_set_discovery
+* devsdk_callbacks_set_reconfiguration
+* devsdk_callbacks_set_listeners
+* devsdk_callbacks_set_autoevent_handlers
+</code></pre></div>
+<h4 id="misc">Misc</h4>
+<ul>
+<li><code>edgex_free_device()</code> now takes the <code>devsdk_service_t</code> as its first parameter</li>
+<li>Reflecting changes in the device profile (see below), the <code>edgex_deviceresource</code> struct now contains an <code>edgex_propertyvalue</code> directly, rather than via an <code>edgex_profileproperty</code>. The <code>edgex_propertyvalue</code> contains a new field <code>char *units</code> which replaces the old <code>edgex_units</code> structure.</li>
+</ul>
+<h3 id="device-profiles">Device Profiles</h3>
+<p>See <a href="../profile/Ch-DeviceProfileRef/">Device Profile Reference</a> for details, SDK now allows both YAML and JSON format.</p>
+<h4 id="device-resource">Device Resource</h4>
+<p><code>properties</code> field is simplified in device resource:  </p>
+<ul>
+<li><code>units</code> becomes a single string field and it's optional  </li>
+<li><code>Float32</code> and <code>Float64</code> type are both only represented in eNotation. Base64 encoding is removed so there is no <code>floatEncoding</code> field anymore</li>
+</ul>
+<p>V1:
+<div class="highlight"><pre><span></span><code><span class="nt">deviceResources</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xrotation&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;X</span><span class="nv"> </span><span class="s">axis</span><span class="nv"> </span><span class="s">rotation</span><span class="nv"> </span><span class="s">rate&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Int32&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="w">      </span><span class="nt">units</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;string&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;degrees/sec&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+</code></pre></div></p>
+<p>V2:
+<div class="highlight"><pre><span></span><code><span class="nt">deviceResources</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xrotation&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;X</span><span class="nv"> </span><span class="s">axis</span><span class="nv"> </span><span class="s">rotation</span><span class="nv"> </span><span class="s">rate&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Int32&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span><span class="w"></span>
+</code></pre></div></p>
+<h4 id="device-command">Device Command</h4>
+<p><code>get</code> and <code>set</code> ResourceOperation field is replaced with a single <code>readWrite</code> field to eliminate the duplicate definition.</p>
+<p>V1:
+<div class="highlight"><pre><span></span><code><span class="nt">deviceCommands</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Rotation&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">get</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xrotation&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Yrotation&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Zrotation&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="w">    </span><span class="nt">set</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;set&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> parameter</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;set&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Yrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> parameter</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;set&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Zrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> parameter</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+</code></pre></div>
+V2:
+<div class="highlight"><pre><span></span><code><span class="nt">deviceCommands</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Rotation&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+<span class="w">    </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">resourceOperations</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Yrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Zrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+</code></pre></div></p>
+<h4 id="core-command">Core Command</h4>
+<p><code>coreCommands</code> section is removed in V2. We use <code>isHidden</code> field in both deviceResource and deviceCommand to indicates
+whether it is exposed to Command Service or not. <code>isHidden</code> default to false so all deviceResource
+and deviceCommand is able to be called via Command Service REST API. Set <code>isHidden</code> to true if you don't want to expose them.</p>
+<h3 id="devices">Devices</h3>
+<h4 id="state">State</h4>
+<p>In V2 the values of a device's operating state are changed from <code>ENABLED</code>/<code>DISABLED</code> to <code>UP</code>/<code>DOWN</code>. The additional state value <code>UNKNOWN</code> is added for future use.</p>
+<h4 id="pre-defined-devices">Pre-defined Devices</h4>
+<p>In V2 pre-defined devices are in their own file, SDK allows both TOML and JSON format.</p>
+<div class="admonition example">
+<p class="admonition-title">Pre-defined devices</p>
+<div class="highlight"><pre><span></span><code><span class="k">[[DeviceList]]</span><span class="w"></span>
+<span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Simple-Device01&quot;</span><span class="w"></span>
+<span class="n">ProfileName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Simple-Device&quot;</span><span class="w"></span>
+<span class="n">Description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Example of Simple Device&quot;</span><span class="w"></span>
+<span class="n">Labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s">&quot;industrial&quot;</span><span class="w"> </span><span class="p">]</span><span class="w"></span>
+<span class="w">  </span><span class="k">[DeviceList.Protocols]</span><span class="w"></span>
+<span class="w">    </span><span class="k">[DeviceList.Protocols.other]</span><span class="w"></span>
+<span class="w">    </span><span class="n">Address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;simple01&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;300&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="k">[[DeviceList.AutoEvents]]</span><span class="w"></span>
+<span class="w">  </span><span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;10s&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="n">OnChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="w">  </span><span class="n">SourceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Switch&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="k">[[DeviceList.AutoEvents]]</span><span class="w"></span>
+<span class="w">  </span><span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30s&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="n">OnChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="w">  </span><span class="n">SourceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Image&quot;</span><span class="w"></span>
+</code></pre></div>
+</div>
+<p>Notice that we renamed some fields:  </p>
+<ul>
+<li><code>Profle</code> is renamed to <code>ProfileName</code>  </li>
+<li><code>Frequency</code> is renamed to <code>Interval</code>  </li>
+<li><code>Resource</code> is renamed to <code>SourceName</code></li>
+</ul>
+<h2 id="device-mqtt">Device MQTT</h2>
+<p>The Device MQTT service specific <code>[Driver]</code> and <code>[DeviceList.Protocols.mqtt]</code> sections have changed for V2. The MQTT Broker connection configuration has been consolidated to just one MQTT Client and now supports SecretStore for the authentication credentials.</p>
+<h3 id="driver-mqttbrokerinfo">Driver =&gt; MQTTBrokerInfo</h3>
+<p>The <code>[Driver]</code> section has been replaced with the new <code>[MQTTBrokerInfo]</code>structured custom configuration section. The setting under <code>[MQTTBrokerInfo.Writable]</code>can be dynamically updated from Consul without needing to restart the service.</p>
+<div class="admonition example">
+<p class="admonition-title">Example - V1 Driver configuration</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Driver configs</span><span class="w"></span>
+<span class="k">[Driver]</span><span class="w"></span>
+<span class="n">IncomingSchema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;tcp&#39;</span><span class="w"></span>
+<span class="n">IncomingHost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;0.0.0.0&#39;</span><span class="w"></span>
+<span class="n">IncomingPort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;1883&#39;</span><span class="w"></span>
+<span class="n">IncomingUser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;admin&#39;</span><span class="w"></span>
+<span class="n">IncomingPassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;public&#39;</span><span class="w"></span>
+<span class="n">IncomingQos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;0&#39;</span><span class="w"></span>
+<span class="n">IncomingKeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;3600&#39;</span><span class="w"></span>
+<span class="n">IncomingClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;IncomingDataSubscriber&#39;</span><span class="w"></span>
+<span class="n">IncomingTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;DataTopic&#39;</span><span class="w"></span>
+<span class="n">ResponseSchema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;tcp&#39;</span><span class="w"></span>
+<span class="n">ResponseHost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;0.0.0.0&#39;</span><span class="w"></span>
+<span class="n">ResponsePort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;1883&#39;</span><span class="w"></span>
+<span class="n">ResponseUser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;admin&#39;</span><span class="w"></span>
+<span class="n">ResponsePassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;public&#39;</span><span class="w"></span>
+<span class="n">ResponseQos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;0&#39;</span><span class="w"></span>
+<span class="n">ResponseKeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;3600&#39;</span><span class="w"></span>
+<span class="n">ResponseClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;CommandResponseSubscriber&#39;</span><span class="w"></span>
+<span class="n">ResponseTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;ResponseTopic&#39;</span><span class="w"></span>
+<span class="n">ConnEstablishingRetry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;10&#39;</span><span class="w"></span>
+<span class="n">ConnRetryWaitTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;5&#39;</span><span class="w"></span>
+</code></pre></div>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Example - V2 MQTTBrokerInfo configuration section</p>
+<div class="highlight"><pre><span></span><code><span class="k">[MQTTBrokerInfo]</span><span class="w"></span>
+<span class="n">Schema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span><span class="w"></span>
+<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;0.0.0.0&quot;</span><span class="w"></span>
+<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span><span class="w"></span>
+<span class="n">Qos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="n">KeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3600</span><span class="w"></span>
+<span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;device-mqtt&quot;</span><span class="w"></span>
+
+<span class="n">CredentialsRetryTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">120</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
+<span class="n">CredentialsRetryWait</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
+<span class="n">ConnEstablishingRetry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="w"></span>
+<span class="n">ConnRetryWaitTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+
+<span class="c1"># AuthMode is the MQTT broker authentication mechanism. </span><span class="w"></span>
+<span class="c1"># Currently, &quot;none&quot; and &quot;usernamepassword&quot; is the only AuthMode</span><span class="w"></span>
+<span class="c1"># supported by this service, and the secret keys are &quot;username&quot; and &quot;password&quot;.</span><span class="w"></span>
+<span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w"></span>
+<span class="n">CredentialsPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;credentials&quot;</span><span class="w"></span>
+
+<span class="n">IncomingTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;DataTopic&quot;</span><span class="w"></span>
+<span class="n">responseTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ResponseTopic&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">[MQTTBrokerInfo.Writable]</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># ResponseFetchInterval specifies the retry </span><span class="w"></span>
+<span class="w">    </span><span class="c1"># interval(milliseconds) to fetch the command response from the MQTT broker</span><span class="w"></span>
+<span class="w">    </span><span class="n">ResponseFetchInterval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">500</span><span class="w"></span>
+</code></pre></div>
+</div>
+<h3 id="devicelistprotocolsmqtt">DeviceList.Protocols.mqtt</h3>
+<p>Now that there is a single MQTT Broker connection, the configuration in <code>[DeviceList.Protocols.mqtt]</code> for each device has been greatly simplified to just the CommandTopic the device is subscribed. Note that this topic needs to be a unique topic for each device defined.</p>
+<div class="admonition example">
+<p class="admonition-title">Example - V1 DeviceList.Protocols.mqtt device configuration section</p>
+<div class="highlight"><pre><span></span><code><span class="k">[DeviceList.Protocols]</span><span class="w"></span>
+<span class="w">  </span><span class="k">[DeviceList.Protocols.mqtt]</span><span class="w"></span>
+<span class="w">   </span><span class="n">Schema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;tcp&#39;</span><span class="w"></span>
+<span class="w">   </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;0.0.0.0&#39;</span><span class="w"></span>
+<span class="w">   </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;1883&#39;</span><span class="w"></span>
+<span class="w">   </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;CommandPublisher&#39;</span><span class="w"></span>
+<span class="w">   </span><span class="n">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;admin&#39;</span><span class="w"></span>
+<span class="w">   </span><span class="n">Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;public&#39;</span><span class="w"></span>
+<span class="w">   </span><span class="n">Topic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;CommandTopic&#39;</span><span class="w"></span>
+</code></pre></div>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Example - V2 DeviceList.Protocols.mqtt device configuration section</p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">[DeviceList.Protocols]</span><span class="w"></span>
+<span class="w">    </span><span class="k">[DeviceList.Protocols.mqtt]</span><span class="w"></span>
+<span class="w">       </span><span class="n">CommandTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;CommandTopic&#39;</span><span class="w"></span>
+</code></pre></div>
+</div>
+<h3 id="secretstore">SecretStore</h3>
+<h4 id="secure">Secure</h4>
+<p>See the <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.0.0#/default/post_secret">Secret API reference</a> for injecting authentication credentials into a Device Service's secure SecretStore. </p>
+<div class="admonition example -">
+<p class="admonition-title">Example - Authentication credentials injected via Device MQTT's <code>Secret</code> endpoint</p>
+<div class="highlight"><pre><span></span><code>curl -X POST http://localhost:59982/api/v2/secret  -H <span class="s1">&#39;Content-Type: application/json&#39;</span> -d <span class="s1">&#39;{ &quot;apiVersion&quot;: &quot;v2&quot;, &quot;requestId&quot;: &quot;e6e8a2f4-eb14-4649-9e2b-175247911369&quot;, &quot;path&quot;: &quot;credentials&quot;, &quot;secretData&quot;: [  {   &quot;key&quot;: &quot;username&quot;, &quot;value&quot;: &quot;mqtt-user&quot;  }, {  &quot;key&quot;: &quot;password&quot;, &quot;value&quot;: &quot;mqtt-password&quot; } ]}&#39;</span>  
+</code></pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The service has to be running for this endpoint to be available.  The following <code>[MQTTBrokerInfo]</code> settings from above allow a window of time to inject the credentials.
+<div class="highlight"><pre><span></span><code><span class="n">CredentialsRetryTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">120</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
+<span class="n">CredentialsRetryWait</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
+</code></pre></div></p>
+</div>
+<h4 id="non-secure">Non Secure</h4>
+<p>For non-secure mode the authentication credentials need to be added to the [InsecureSecrets] configuration section. </p>
+<div class="admonition example -">
+<p class="admonition-title">Example - Authentication credentials in Device MQTT's <code>[InsecureSecrets]</code> configuration section</p>
+<div class="highlight"><pre><span></span><code><span class="k">[Writable.InsecureSecrets]</span><span class="w"></span>
+<span class="w">  </span><span class="k">[Writable.InsecureSecrets.MQTT]</span><span class="w"></span>
+<span class="w">  </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;credentials&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="k">[Writable.InsecureSecrets.MQTT.Secrets]</span><span class="w"></span>
+<span class="w">    </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt-user&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt-password&quot;</span><span class="w"></span>
+</code></pre></div>
+</div>
+<h2 id="device-camera">Device Camera</h2>
+<p>The Device Camera service specific <code>[Driver]</code> and <code>[DeviceList.Protocols.HTTP]</code> sections have changed for V2 due to the addition of the SecretStore capability and per camera credentials. The plain text camera credentials have been replaced with settings describing where to pull them from the SecretStore for each camera device specified.</p>
+<h3 id="driver">Driver</h3>
+<div class="admonition example">
+<p class="admonition-title">Example V1 Driver configuration section</p>
+<div class="highlight"><pre><span></span><code><span class="k">[Driver]</span><span class="w"></span>
+<span class="n">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;service&#39;</span><span class="w"></span>
+<span class="n">Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;Password!1&#39;</span><span class="w"></span>
+<span class="c1"># Assign AuthMethod to &#39;digest&#39; | &#39;basic&#39; | &#39;none&#39;</span><span class="w"></span>
+<span class="c1"># AuthMethod specifies the authentication method used when</span><span class="w"></span>
+<span class="c1"># requesting still images from the URL returned by the ONVIF</span><span class="w"></span>
+<span class="c1"># &quot;GetSnapshotURI&quot; command.  All ONVIF requests will be</span><span class="w"></span>
+<span class="c1"># carried out using digest auth.</span><span class="w"></span>
+<span class="n">AuthMethod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;basic&#39;</span><span class="w"></span>
+</code></pre></div>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Example V2 Driver configuration section</p>
+<div class="highlight"><pre><span></span><code><span class="k">[Driver]</span><span class="w"></span>
+<span class="n">CredentialsRetryTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;120&#39;</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
+<span class="n">CredentialsRetryWait</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;1&#39;</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
+</code></pre></div>
+</div>
+<h3 id="devicelistprotocolshttp">DeviceList.Protocols.HTTP</h3>
+<div class="admonition example">
+<p class="admonition-title">Example V1 DeviceList.Protocols.HTTP device configuration section</p>
+<div class="highlight"><pre><span></span><code><span class="k">[DeviceList.Protocols]</span><span class="w"></span>
+<span class="w">  </span><span class="k">[DeviceList.Protocols.HTTP]</span><span class="w"></span>
+<span class="w">  </span><span class="n">Address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;192.168.2.105&#39;</span><span class="w"></span>
+</code></pre></div>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Example V2 DeviceList.Protocols.HTTP device configuration section</p>
+<div class="highlight"><pre><span></span><code><span class="k">[DeviceList.Protocols]</span><span class="w"></span>
+<span class="w">  </span><span class="k">[DeviceList.Protocols.HTTP]</span><span class="w"></span>
+<span class="w">  </span><span class="n">Address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;192.168.2.105&#39;</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># Assign AuthMethod to &#39;digest&#39; | &#39;usernamepassword&#39; | &#39;none&#39;</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># AuthMethod specifies the authentication method used when</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># requesting still images from the URL returned by the ONVIF</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># &quot;GetSnapshotURI&quot; command.  All ONVIF requests will be</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># carried out using digest auth.</span><span class="w"></span>
+<span class="w">  </span><span class="n">AuthMethod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;usernamepassword&#39;</span><span class="w"></span>
+<span class="w">  </span><span class="n">CredentialsPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;credentials001&#39;</span><span class="w"></span>
+</code></pre></div>
+</div>
+<h3 id="secretstore_1">SecretStore</h3>
+<h4 id="secure_1">Secure</h4>
+<p>See the <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.0.0#/default/post_secret">Secret API reference</a> for injecting authentication credentials into a Device Service's secure SecretStore. An entry is required for each camera that is configured with <code>AuthMethod = 'usernamepassword'</code></p>
+<div class="admonition example -">
+<p class="admonition-title">Example - Authentication credentials injected via Device Camera's <code>Secret</code> endpoint</p>
+<div class="highlight"><pre><span></span><code>curl -X POST http://localhost:59985/api/v2/secret  -H <span class="s1">&#39;Content-Type: application/json&#39;</span> -d <span class="s1">&#39;{ &quot;apiVersion&quot;: &quot;v2&quot;, &quot;requestId&quot;: &quot;e6e8a2f4-eb14-4649-9e2b-175247911369&quot;, &quot;path&quot;: &quot;credentials001&quot;, &quot;secretData&quot;: [  {   &quot;key&quot;: &quot;username&quot;, &quot;value&quot;: &quot;camera-user&quot;  }, {  &quot;key&quot;: &quot;password&quot;, &quot;value&quot;: &quot;camera-password&quot; } ]}&#39;</span>  
+</code></pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The service has to be running for this endpoint to be available.  The following <code>[Driver]</code> settings from above allow a window of time to inject the credentials.</p>
+<div class="highlight"><pre><span></span><code><span class="n">CredentialsRetryTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">120</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
+<span class="n">CredentialsRetryWait</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
+</code></pre></div>
+</div>
+<h4 id="non-secure_1">Non Secure</h4>
+<p>For non-secure mode the authentication credentials need to be added to the [InsecureSecrets] configuration section. An entry is required for each camera that is configured with <code>AuthMethod = 'usernamepassword'</code></p>
+<div class="admonition example -">
+<p class="admonition-title">Example - Authentication credentials in Device Camera's <code>[InsecureSecrets]</code> configuration section</p>
+<div class="highlight"><pre><span></span><code><span class="k">[Writable.InsecureSecrets.Camera001]</span><span class="w"></span>
+<span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;credentials001&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="k">[Writable.InsecureSecrets.Camera001.Secrets]</span><span class="w"></span>
+<span class="w">  </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;camera-user&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;camera-password&quot;</span><span class="w"></span>
+</code></pre></div>
+</div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../virtual/Ch-VirtualDevice/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Virtual Device" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Virtual Device
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../application/ApplicationServices/" class="md-footer__link md-footer__link--next" aria-label="Next: Introduction" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Introduction
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2022 EdgeX Foundry
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://github.com/edgexfoundry" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/edgexfoundry" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/company/edgexfoundry" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs"], "search": "../../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a6c66575.min.js"></script>
+      
+        <script src="../../../assets/javascripts/version-select.js"></script>
+      
+    
+  </body>
+</html>

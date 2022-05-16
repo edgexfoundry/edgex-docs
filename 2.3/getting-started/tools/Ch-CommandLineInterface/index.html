@@ -1,0 +1,4296 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for use of EdgeX Foundry">
+      
+      
+        <meta name="author" content="Michael Johanson">
+      
+      
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/getting-started/tools/Ch-CommandLineInterface/">
+      
+      <link rel="icon" href="../../../assets/logo_edgex.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.15">
+    
+    
+      
+        <title>Command Line Interface (CLI) - EdgeX Foundry Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.c382b1dc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.cc9b2e1e.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/version-select.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/branding.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/edgey.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/newexample.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#command-line-interface-cli" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="EdgeX Foundry Documentation" class="md-header__button md-logo" aria-label="EdgeX Foundry Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/logo_edgex_white.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            EdgeX Foundry Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Command Line Interface (CLI)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    edgex/edgex-go
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        Introduction
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../" class="md-tabs__link md-tabs__link--active">
+        Getting Started
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../security/Ch-Security/" class="md-tabs__link">
+        Security
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../microservices/general/" class="md-tabs__link">
+        Microservices
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../examples/" class="md-tabs__link">
+        Examples and Tutorials
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../api/Ch-APIIntroduction/" class="md-tabs__link">
+        API Reference
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../design/" class="md-tabs__link">
+        Architectural Decision Records
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../general/Definitions/" class="md-tabs__link">
+        Reference
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/logo_edgex_white.png" alt="logo">
+
+    </a>
+    EdgeX Foundry Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    edgex/edgex-go
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Introduction
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../V2TopLevelMigration/" class="md-nav__link">
+        V2 Migration Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Getting Started
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quick-start/" class="md-nav__link">
+        Quick Start
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Users
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Users" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Users
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ch-GettingStartedUsers/" class="md-nav__link">
+        Getting Started as a User
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ch-GettingStartedDockerUsers/" class="md-nav__link">
+        Getting Started using Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ch-GettingStartedSnapUsers/" class="md-nav__link">
+        Getting Started using Snaps
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          Developers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Developers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Developers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ch-GettingStartedDevelopers/" class="md-nav__link">
+        Getting Started as a Developer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ch-GettingStartedGoDevelopers/" class="md-nav__link">
+        Getting Started - Go Developers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ch-GettingStartedCDevelopers/" class="md-nav__link">
+        Getting Started - C Developers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ch-GettingStartedHybrid/" class="md-nav__link">
+        Working in a Hybrid Environment
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ApplicationFunctionsSDK/" class="md-nav__link">
+        Application Functions SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4_6" type="checkbox" id="__nav_2_4_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4_6">
+          Device Services
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Device Services" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_4_6">
+          <span class="md-nav__icon md-icon"></span>
+          Device Services
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ch-GettingStartedSDK/" class="md-nav__link">
+        Device Service SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ch-GettingStartedSDK-C/" class="md-nav__link">
+        C SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ch-GettingStartedSDK-Go/" class="md-nav__link">
+        Golang SDK
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ch-GettingStartedUsersNexus/" class="md-nav__link">
+        Getting Docker Images from EdgeX Nexus Repository
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_5">
+          Tools
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tools" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Tools
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Command Line Interface (CLI)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Command Line Interface (CLI)
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-edgex-cli" class="md-nav__link">
+    What is EdgeX CLI?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-edgex-cli" class="md-nav__link">
+    Installing EdgeX CLI
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commands-implemented-by-all-microservices" class="md-nav__link">
+    Commands implemented by all microservices
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-command-service" class="md-nav__link">
+    Core-command service
+  </a>
+  
+    <nav class="md-nav" aria-label="Core-command service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-command-list" class="md-nav__link">
+    edgex-cli command list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-command-read" class="md-nav__link">
+    edgex-cli command read
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-command-write" class="md-nav__link">
+    edgex-cli command write
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-metadata-service" class="md-nav__link">
+    Core-metadata service
+  </a>
+  
+    <nav class="md-nav" aria-label="Core-metadata service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-deviceservice-list" class="md-nav__link">
+    edgex-cli deviceservice list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-deviceservice-add" class="md-nav__link">
+    edgex-cli deviceservice add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-deviceservice-name" class="md-nav__link">
+    edgex-cli deviceservice name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-deviceservice-rm" class="md-nav__link">
+    edgex-cli deviceservice rm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-deviceservice-update" class="md-nav__link">
+    edgex-cli deviceservice update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-deviceprofile-list" class="md-nav__link">
+    edgex-cli deviceprofile list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-deviceprofile-add" class="md-nav__link">
+    edgex-cli deviceprofile add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-deviceprofile-name" class="md-nav__link">
+    edgex-cli deviceprofile name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-deviceprofile-rm" class="md-nav__link">
+    edgex-cli deviceprofile rm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-device-list" class="md-nav__link">
+    edgex-cli device list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-device-add" class="md-nav__link">
+    edgex-cli device add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-device-name" class="md-nav__link">
+    edgex-cli device name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-device-rm" class="md-nav__link">
+    edgex-cli device rm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-device-update" class="md-nav__link">
+    edgex-cli device update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-provisionwatcher-add" class="md-nav__link">
+    edgex-cli provisionwatcher add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-provisionwatcher-list" class="md-nav__link">
+    edgex-cli provisionwatcher list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-provisionwatcher-name" class="md-nav__link">
+    edgex-cli provisionwatcher name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-provisionwatcher-rm" class="md-nav__link">
+    edgex-cli provisionwatcher rm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-provisionwatcher-update" class="md-nav__link">
+    edgex-cli provisionwatcher update
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-data-service" class="md-nav__link">
+    Core-data service
+  </a>
+  
+    <nav class="md-nav" aria-label="Core-data service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-event-add" class="md-nav__link">
+    edgex-cli event add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-event-count" class="md-nav__link">
+    edgex-cli event count
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-event-list" class="md-nav__link">
+    edgex-cli event list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-event-rm" class="md-nav__link">
+    edgex-cli event rm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-reading-count" class="md-nav__link">
+    edgex-cli reading count
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-reading-list" class="md-nav__link">
+    edgex-cli reading list
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#support-scheduler-service" class="md-nav__link">
+    Support-scheduler service
+  </a>
+  
+    <nav class="md-nav" aria-label="Support-scheduler service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-interval-add" class="md-nav__link">
+    edgex-cli interval add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-interval-name" class="md-nav__link">
+    edgex-cli interval name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-interval-list" class="md-nav__link">
+    edgex-cli interval list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-interval-update" class="md-nav__link">
+    edgex-cli interval update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-interval-rm" class="md-nav__link">
+    edgex-cli interval rm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-intervalaction-add" class="md-nav__link">
+    edgex-cli intervalaction add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-intervalaction-name" class="md-nav__link">
+    edgex-cli intervalaction name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-intervalaction-list" class="md-nav__link">
+    edgex-cli intervalaction list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-intervalaction-update" class="md-nav__link">
+    edgex-cli intervalaction update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-intervalaction-rm" class="md-nav__link">
+    edgex-cli intervalaction rm
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#support-notifications-service" class="md-nav__link">
+    Support-notifications service
+  </a>
+  
+    <nav class="md-nav" aria-label="Support-notifications service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-notification-add" class="md-nav__link">
+    edgex-cli notification add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-notification-list" class="md-nav__link">
+    edgex-cli notification list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-notification-rm" class="md-nav__link">
+    edgex-cli notification rm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-notification-cleanup" class="md-nav__link">
+    edgex-cli notification cleanup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-subscription-add" class="md-nav__link">
+    edgex-cli subscription add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-subscription-name" class="md-nav__link">
+    edgex-cli subscription name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-subscription-list" class="md-nav__link">
+    edgex-cli subscription list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-subscription-rm" class="md-nav__link">
+    edgex-cli subscription rm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-transmission-list" class="md-nav__link">
+    edgex-cli transmission list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-transmission-id" class="md-nav__link">
+    edgex-cli transmission id
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-transmission-rm" class="md-nav__link">
+    edgex-cli transmission rm
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Ch-GUI/" class="md-nav__link">
+        Graphical User Interface (GUI)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Security
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Security" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Security
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-Security/" class="md-nav__link">
+        Security
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-SecretStore/" class="md-nav__link">
+        Secret Store
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-APIGateway/" class="md-nav__link">
+        API Gateway
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-Secure-MessageBus/" class="md-nav__link">
+        Secure MessageBus
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-Configuring-Add-On-Services/" class="md-nav__link">
+        Configuring Add-on Service
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-Secure-Consul/" class="md-nav__link">
+        Secure Consul
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-SecurityIssues/" class="md-nav__link">
+        Reporting Security Issues
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-AddGatewayUserRemotely/" class="md-nav__link">
+        Adding EdgeX API Gateway Users Remotely
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/secrets-config/" class="md-nav__link">
+        Secrets config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/secrets-config-proxy/" class="md-nav__link">
+        Secrets config proxy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/SeedingServiceSecrets/" class="md-nav__link">
+        Seeding Service Secrets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-CORS-Settings/" class="md-nav__link">
+        CORS settings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-RemoteDeviceServices/" class="md-nav__link">
+        Remote Device Services in Secure Mode
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Microservices
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Microservices" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Microservices
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/general/" class="md-nav__link">
+        Cross Cutting Concerns
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_2">
+          Configuration & Registry
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Configuration & Registry" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Configuration & Registry
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/configuration/CommonConfiguration/" class="md-nav__link">
+        Common Configuration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/configuration/CommonCommandLineOptions/" class="md-nav__link">
+        Common Command Line Options
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/configuration/CommonEnvironmentVariables/" class="md-nav__link">
+        Common Environment Variables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/configuration/ConfigurationAndRegistry/" class="md-nav__link">
+        Configuration and Registry Providers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/configuration/V2MigrationCommonConfig/" class="md-nav__link">
+        V2 Migration of Common Configuration
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_3">
+          Core Services
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Core Services" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          Core Services
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/core/Ch-CoreServices/" class="md-nav__link">
+        Core Services
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/core/data/Ch-CoreData/" class="md-nav__link">
+        Core Data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/core/metadata/Ch-Metadata/" class="md-nav__link">
+        Metadata
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/core/command/Ch-Command/" class="md-nav__link">
+        Command
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/core/database/Ch-Redis/" class="md-nav__link">
+        Redis Database
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_4" type="checkbox" id="__nav_4_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_4">
+          Supporting Services
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Supporting Services" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          Supporting Services
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/support/Ch-SupportingServices/" class="md-nav__link">
+        Supporting Services Microservices
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/support/notifications/Ch-AlertsNotifications/" class="md-nav__link">
+        Alerts & Notifications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/support/eKuiper/Ch-eKuiper/" class="md-nav__link">
+        eKuiper Rules Engine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/support/scheduler/Ch-Scheduler/" class="md-nav__link">
+        Scheduler
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_5" type="checkbox" id="__nav_4_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_5">
+          System Management
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="System Management" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_5">
+          <span class="md-nav__icon md-icon"></span>
+          System Management
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/system-management/Ch_SystemManagement/" class="md-nav__link">
+        System Management Micro Services
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/system-management/agent/Ch_SysMgmtAgent/" class="md-nav__link">
+        System Management Agent (SMA)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/system-management/executor/Ch_SysMgmtExecutor/" class="md-nav__link">
+        System Management Executor (SME)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6" type="checkbox" id="__nav_4_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_6">
+          Devices Services
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Devices Services" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_6">
+          <span class="md-nav__icon md-icon"></span>
+          Devices Services
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/device/Ch-DeviceServices/" class="md-nav__link">
+        Device Services Microservices
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/device/Ch-DeviceServiceList/" class="md-nav__link">
+        Device Service Support
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/device/profile/Ch-DeviceProfile/" class="md-nav__link">
+        Device Profile
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/device/sdk/Ch-DeviceSDK/" class="md-nav__link">
+        Device Services SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/device/virtual/Ch-VirtualDevice/" class="md-nav__link">
+        Virtual Device
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/device/V2Migration/" class="md-nav__link">
+        V2 Migration Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_7" type="checkbox" id="__nav_4_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_7">
+          Application Services
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Application Services" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_7">
+          <span class="md-nav__icon md-icon"></span>
+          Application Services
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/application/ApplicationServices/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/application/GettingStarted/" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/application/Triggers/" class="md-nav__link">
+        Triggers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_7_4" type="checkbox" id="__nav_4_7_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_7_4">
+          Application Functions SDK
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Application Functions SDK" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Application Functions SDK
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/application/ApplicationFunctionsSDK/" class="md-nav__link">
+        App Functions SDK Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/application/ApplicationServiceAPI/" class="md-nav__link">
+        Application Service API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/application/AppFunctionContextAPI/" class="md-nav__link">
+        App Function Context API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/application/ErrorHandling/" class="md-nav__link">
+        Pipeline Function Error Handling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/application/BuiltIn/" class="md-nav__link">
+        Built-In Pipeline Functions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/application/AdvancedTopics/" class="md-nav__link">
+        Advanced Topics
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/application/AppServiceConfigurable/" class="md-nav__link">
+        App Service Configurable
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/application/GeneralAppServiceConfig/" class="md-nav__link">
+        Application Service Configuration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/application/V2Migration/" class="md-nav__link">
+        V2 Migration Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Examples and Tutorials
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Examples and Tutorials" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Examples and Tutorials
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/" class="md-nav__link">
+        EdgeX Examples
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Ch-ExamplesVirtualDeviceService/" class="md-nav__link">
+        Using the Virtual Device Service
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Ch-ExamplesSendingAndConsumingBinary/" class="md-nav__link">
+        Sending and Consuming Binary Data From EdgeX Device Services
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/AppServiceExamples/" class="md-nav__link">
+        App Service Examples
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Ch-CommandingDeviceThroughRulesEngine/" class="md-nav__link">
+        Command Devices with eKuiper Rules Engine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Ch-ExamplesModbusdatatypeconversion/" class="md-nav__link">
+        Modbus - Data Type Conversion
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_7">
+          Adding a Device
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Adding a Device" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_7">
+          <span class="md-nav__icon md-icon"></span>
+          Adding a Device
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Ch-ExamplesAddingModbusDevice/" class="md-nav__link">
+        Modbus
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Ch-ExamplesAddingSNMPDevice/" class="md-nav__link">
+        SNMP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Ch-ExamplesAddingMQTTDevice/" class="md-nav__link">
+        MQTT
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_8" type="checkbox" id="__nav_5_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_8">
+          Walkthrough
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Walkthrough" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_8">
+          <span class="md-nav__icon md-icon"></span>
+          Walkthrough
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../walk-through/Ch-Walkthrough/" class="md-nav__link">
+        EdgeX Demonstration API Walk Through
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../walk-through/Ch-WalkthroughSetup/" class="md-nav__link">
+        Setup up your environment
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../walk-through/Ch-WalkthroughUseCase/" class="md-nav__link">
+        Example Use Case
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../walk-through/Ch-WalkthroughDeviceProfile/" class="md-nav__link">
+        Defining your device
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../walk-through/Ch-WalkthroughDeviceService/" class="md-nav__link">
+        Register your device service
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../walk-through/Ch-WalkthroughProvision/" class="md-nav__link">
+        Provision a device
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../walk-through/Ch-WalkthroughCommands/" class="md-nav__link">
+        Calling commands
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../walk-through/Ch-WalkthroughReading/" class="md-nav__link">
+        Sending events and reading data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../walk-through/Ch-WalkthroughExporting/" class="md-nav__link">
+        Exporting your device data
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          API Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          API Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/Ch-APIIntroduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2" type="checkbox" id="__nav_6_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2">
+          Core
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Core" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          Core
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/core/Ch-APICoreCommand/" class="md-nav__link">
+        Core Command
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/core/Ch-APICoreData/" class="md-nav__link">
+        Core Data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/core/Ch-APICoreMetadata/" class="md-nav__link">
+        Core Metadata
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/core/Ch-APICoreConfigurationAndRegistry/" class="md-nav__link">
+        Configuration and Registry
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3" type="checkbox" id="__nav_6_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3">
+          Support
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Support" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          Support
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/support/Ch-APISupportNotifications/" class="md-nav__link">
+        Support Notifications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/support/Ch-APISupportScheduler/" class="md-nav__link">
+        Support Scheduler
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4" type="checkbox" id="__nav_6_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4">
+          Management
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Management" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_4">
+          <span class="md-nav__icon md-icon"></span>
+          Management
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/management/Ch-APISystemManagement/" class="md-nav__link">
+        System Management Agent
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_5" type="checkbox" id="__nav_6_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_5">
+          Device
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Device" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_5">
+          <span class="md-nav__icon md-icon"></span>
+          Device
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/devices/Ch-APIDeviceSDK/" class="md-nav__link">
+        Device Services
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_6" type="checkbox" id="__nav_6_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_6">
+          Application
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Application" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_6">
+          <span class="md-nav__icon md-icon"></span>
+          Application
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/applications/Ch-APIAppFunctionsSDK/" class="md-nav__link">
+        Application Services
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/applications/Ch-APIRulesEngine/" class="md-nav__link">
+        Rules Engine
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Architectural Decision Records
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Architectural Decision Records" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Architectural Decision Records
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../design/" class="md-nav__link">
+        Architecture Decision Records Folder
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../design/TOC/" class="md-nav__link">
+        ADR Table of Contents
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Legacy
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Legacy" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Legacy
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../design/legacy-design/" class="md-nav__link">
+        Legacy Design Documents
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../design/legacy-requirements/" class="md-nav__link">
+        Legacy Requirements
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../general/Definitions/" class="md-nav__link">
+        Definitions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../general/PlatformRequirements/" class="md-nav__link">
+        Platform Requirements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../general/ServicePorts/" class="md-nav__link">
+        Default Service Ports
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../general/ContainerNames/" class="md-nav__link">
+        EdgeX Container Names
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../general/ServiceConfiguration/" class="md-nav__link">
+        Service Configuration
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-edgex-cli" class="md-nav__link">
+    What is EdgeX CLI?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-edgex-cli" class="md-nav__link">
+    Installing EdgeX CLI
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commands-implemented-by-all-microservices" class="md-nav__link">
+    Commands implemented by all microservices
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-command-service" class="md-nav__link">
+    Core-command service
+  </a>
+  
+    <nav class="md-nav" aria-label="Core-command service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-command-list" class="md-nav__link">
+    edgex-cli command list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-command-read" class="md-nav__link">
+    edgex-cli command read
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-command-write" class="md-nav__link">
+    edgex-cli command write
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-metadata-service" class="md-nav__link">
+    Core-metadata service
+  </a>
+  
+    <nav class="md-nav" aria-label="Core-metadata service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-deviceservice-list" class="md-nav__link">
+    edgex-cli deviceservice list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-deviceservice-add" class="md-nav__link">
+    edgex-cli deviceservice add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-deviceservice-name" class="md-nav__link">
+    edgex-cli deviceservice name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-deviceservice-rm" class="md-nav__link">
+    edgex-cli deviceservice rm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-deviceservice-update" class="md-nav__link">
+    edgex-cli deviceservice update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-deviceprofile-list" class="md-nav__link">
+    edgex-cli deviceprofile list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-deviceprofile-add" class="md-nav__link">
+    edgex-cli deviceprofile add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-deviceprofile-name" class="md-nav__link">
+    edgex-cli deviceprofile name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-deviceprofile-rm" class="md-nav__link">
+    edgex-cli deviceprofile rm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-device-list" class="md-nav__link">
+    edgex-cli device list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-device-add" class="md-nav__link">
+    edgex-cli device add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-device-name" class="md-nav__link">
+    edgex-cli device name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-device-rm" class="md-nav__link">
+    edgex-cli device rm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-device-update" class="md-nav__link">
+    edgex-cli device update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-provisionwatcher-add" class="md-nav__link">
+    edgex-cli provisionwatcher add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-provisionwatcher-list" class="md-nav__link">
+    edgex-cli provisionwatcher list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-provisionwatcher-name" class="md-nav__link">
+    edgex-cli provisionwatcher name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-provisionwatcher-rm" class="md-nav__link">
+    edgex-cli provisionwatcher rm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-provisionwatcher-update" class="md-nav__link">
+    edgex-cli provisionwatcher update
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-data-service" class="md-nav__link">
+    Core-data service
+  </a>
+  
+    <nav class="md-nav" aria-label="Core-data service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-event-add" class="md-nav__link">
+    edgex-cli event add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-event-count" class="md-nav__link">
+    edgex-cli event count
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-event-list" class="md-nav__link">
+    edgex-cli event list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-event-rm" class="md-nav__link">
+    edgex-cli event rm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-reading-count" class="md-nav__link">
+    edgex-cli reading count
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-reading-list" class="md-nav__link">
+    edgex-cli reading list
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#support-scheduler-service" class="md-nav__link">
+    Support-scheduler service
+  </a>
+  
+    <nav class="md-nav" aria-label="Support-scheduler service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-interval-add" class="md-nav__link">
+    edgex-cli interval add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-interval-name" class="md-nav__link">
+    edgex-cli interval name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-interval-list" class="md-nav__link">
+    edgex-cli interval list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-interval-update" class="md-nav__link">
+    edgex-cli interval update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-interval-rm" class="md-nav__link">
+    edgex-cli interval rm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-intervalaction-add" class="md-nav__link">
+    edgex-cli intervalaction add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-intervalaction-name" class="md-nav__link">
+    edgex-cli intervalaction name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-intervalaction-list" class="md-nav__link">
+    edgex-cli intervalaction list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-intervalaction-update" class="md-nav__link">
+    edgex-cli intervalaction update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-intervalaction-rm" class="md-nav__link">
+    edgex-cli intervalaction rm
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#support-notifications-service" class="md-nav__link">
+    Support-notifications service
+  </a>
+  
+    <nav class="md-nav" aria-label="Support-notifications service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-notification-add" class="md-nav__link">
+    edgex-cli notification add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-notification-list" class="md-nav__link">
+    edgex-cli notification list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-notification-rm" class="md-nav__link">
+    edgex-cli notification rm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-notification-cleanup" class="md-nav__link">
+    edgex-cli notification cleanup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-subscription-add" class="md-nav__link">
+    edgex-cli subscription add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-subscription-name" class="md-nav__link">
+    edgex-cli subscription name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-subscription-list" class="md-nav__link">
+    edgex-cli subscription list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-subscription-rm" class="md-nav__link">
+    edgex-cli subscription rm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-transmission-list" class="md-nav__link">
+    edgex-cli transmission list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-transmission-id" class="md-nav__link">
+    edgex-cli transmission id
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edgex-cli-transmission-rm" class="md-nav__link">
+    edgex-cli transmission rm
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/getting-started/tools/Ch-CommandLineInterface.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="command-line-interface-cli">Command Line Interface (CLI)</h1>
+<h2 id="what-is-edgex-cli">What is EdgeX CLI?</h2>
+<p>EdgeX CLI is a command-line interface tool for developers, used for interacting with EdgeX Foundry microservices. </p>
+<h2 id="installing-edgex-cli">Installing EdgeX CLI</h2>
+<p>The client can be installed using a <a href="https://github.com/edgexfoundry/edgex-cli/tree/main/snap">snap</a></p>
+<div class="highlight"><pre><span></span><code>sudo snap install edgex-cli
+</code></pre></div>
+<p>You can also download the appropriate binary for your operating system from <a href="https://github.com/edgexfoundry/edgex-cli/releases">GitHub</a>.</p>
+<p>If you want to build EdgeX CLI from source, do the following:</p>
+<div class="highlight"><pre><span></span><code>git clone http://github.com/edgexfoundry/edgex-cli.git
+cd edgex-cli
+make tidy
+make build
+./bin/edgex-cli
+</code></pre></div>
+<p>For more information, see the <a href="https://github.com/edgexfoundry/edgex-cli/blob/master/README.md">EdgeX CLI README</a>.</p>
+<h2 id="features">Features</h2>
+<p>EdgeX CLI provides access to most of the core and support APIs. The commands map directly to the REST API structure.</p>
+<p>Running <code>edgex-cli</code> with no arguments shows a list of the available commands and information for each of them, including the name of the service implementing the command. Use the <code>-h</code> or <code>--help</code> flag to get more information about each command.</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli
+EdgeX-CLI
+
+Usage:
+  edgex-cli [command]
+
+Available Commands:
+  command          Read, write and list commands [Core Command]
+  config           Return the current configuration of all EdgeX core/support microservices
+  device           Add, remove, get, list and modify devices [Core Metadata]
+  deviceprofile    Add, remove, get and list device profiles [Core Metadata]
+  deviceservice    Add, remove, get, list and modify device services [Core Metadata]
+  event            Add, remove and list events
+  help             Help about any command
+  interval         Add, get and list intervals [Support Scheduler]
+  intervalaction   Get, list, update and remove interval actions [Support Scheduler]
+  metrics          Output the CPU/memory usage stats for all EdgeX core/support microservices
+  notification     Add, remove and list notifications [Support Notifications]
+  ping             Ping (health check) all EdgeX core/support microservices
+  provisionwatcher Add, remove, get, list and modify provison watchers [Core Metadata]
+  reading          Count and list readings
+  subscription     Add, remove and list subscriptions [Support Notificationss]
+  transmission     Remove and list transmissions [Support Notifications]
+  version          Output the current version of EdgeX CLI and EdgeX microservices
+
+Flags:
+  -h, --help   help for edgex-cli
+
+Use &quot;edgex-cli [command] --help&quot; for more information about a command.
+</code></pre></div>
+<h2 id="commands-implemented-by-all-microservices">Commands implemented by all microservices</h2>
+<p>The <code>ping</code>, <code>config</code>, <code>metrics</code> and <code>version</code> work with more than one microservice. </p>
+<p>By default these commands will return values from all core and support services:</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli metrics
+Service               CpuBusyAvg MemAlloc MemFrees MemLiveObjects MemMallocs MemSys   MemTotalAlloc
+core-metadata         13         1878936  38262    9445           47707      75318280 5967608
+core-data             13         1716256  40200    8997           49197      75580424 5949504
+core-command          13         1737288  31367    8582           39949      75318280 5380584
+support-scheduler     10         2612296  20754    20224          40978      74728456 4146800
+support-notifications 10         2714480  21199    20678          41877      74728456 4258640
+</code></pre></div>
+<p>To only return information for one service, specify the service to use:</p>
+<div class="highlight"><pre><span></span><code>  -c, --command         use core-command service endpoint
+  -d, --data            use core-data service endpoint
+  -m, --metadata        use core-metadata service endpoint
+  -n, --notifications   use support-notifications service endpoint
+  -s, --scheduler       use support-scheduler service endpoint
+</code></pre></div>
+<p>Example:
+<div class="highlight"><pre><span></span><code>$ edgex-cli metrics -d
+Service   CpuBusyAvg MemAlloc MemFrees MemLiveObjects MemMallocs MemSys   MemTotalAlloc
+core-data 14         1917712  870037   12258          882295     75580424 64148880
+
+$ edgex-cli metrics -c
+Service      CpuBusyAvg MemAlloc MemFrees MemLiveObjects MemMallocs MemSys   MemTotalAlloc
+core-command 13         1618424  90890    8328           99218      75580424 22779448
+
+$ edgex-cli metrics --metadata
+Service       CpuBusyAvg MemAlloc MemFrees MemLiveObjects MemMallocs MemSys   MemTotalAlloc
+core-metadata 12         1704256  39606    8870           48476      75318280 6139912
+</code></pre></div></p>
+<p>The <code>-j/--json</code> flag can be used with most of <code>edgex-go</code> commands to return the JSON output:</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli metrics --metadata --json
+{&quot;apiVersion&quot;:&quot;v2&quot;,&quot;metrics&quot;:{&quot;memAlloc&quot;:1974544,&quot;memFrees&quot;:39625,&quot;memLiveObjects&quot;:9780,&quot;memMallocs&quot;:49405,&quot;memSys&quot;:75318280,&quot;memTotalAlloc&quot;:6410200,&quot;cpuBusyAvg&quot;:13}}
+</code></pre></div>
+<p>This could then be formatted and filtered using <code>jq</code>:</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli metrics --metadata --json | jq &#39;.&#39;
+{
+  &quot;apiVersion&quot;: &quot;v2&quot;,
+  &quot;metrics&quot;: {
+    &quot;memAlloc&quot;: 1684176,
+    &quot;memFrees&quot;: 41142,
+    &quot;memLiveObjects&quot;: 8679,
+    &quot;memMallocs&quot;: 49821,
+    &quot;memSys&quot;: 75318280,
+    &quot;memTotalAlloc&quot;: 6530824,
+    &quot;cpuBusyAvg&quot;: 12
+  }
+}
+</code></pre></div>
+<h2 id="core-command-service">Core-command service</h2>
+<h3 id="edgex-cli-command-list"><code>edgex-cli command list</code></h3>
+<p>Return a list of all supported device commands, optionally filtered by device name. </p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli command list
+Name                    Device Name                    Profile Name                   Methods   URL
+BoolArray               Random-Boolean-Device          Random-Boolean-Device          Get, Put  http://localhost:59882/api/v2/device/name/Random-Boolean-Device/BoolArray
+WriteBoolValue          Random-Boolean-Device          Random-Boolean-Device          Put       http://localhost:59882/api/v2/device/name/Random-Boolean-Device/WriteBoolValue
+WriteBoolArrayValue     Random-Boolean-Device          Random-Boolean-Device          Put       http://localhost:59882/api/v2/device/name/Random-Boolean-Device/WriteBoolArrayValue
+</code></pre></div>
+<h3 id="edgex-cli-command-read"><code>edgex-cli command read</code></h3>
+<p>Issue a read command to the specified device. </p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli command read -c Int16 -d Random-Integer-Device -j | jq &#39;.&#39;
+{
+  &quot;apiVersion&quot;: &quot;v2&quot;,
+  &quot;statusCode&quot;: 200,
+  &quot;event&quot;: {
+    &quot;apiVersion&quot;: &quot;v2&quot;,
+    &quot;id&quot;: &quot;e19f417e-3130-485f-8212-64b593b899f9&quot;,
+    &quot;deviceName&quot;: &quot;Random-Integer-Device&quot;,
+    &quot;profileName&quot;: &quot;Random-Integer-Device&quot;,
+    &quot;sourceName&quot;: &quot;Int16&quot;,
+    &quot;origin&quot;: 1641484109458647300,
+    &quot;readings&quot;: [
+      {
+        &quot;id&quot;: &quot;dc1f212d-148a-457c-ab13-48aa0fa58dd1&quot;,
+        &quot;origin&quot;: 1641484109458647300,
+        &quot;deviceName&quot;: &quot;Random-Integer-Device&quot;,
+        &quot;resourceName&quot;: &quot;Int16&quot;,
+        &quot;profileName&quot;: &quot;Random-Integer-Device&quot;,
+        &quot;valueType&quot;: &quot;Int16&quot;,
+        &quot;binaryValue&quot;: null,
+        &quot;mediaType&quot;: &quot;&quot;,
+        &quot;value&quot;: &quot;587&quot;
+      }
+    ]
+  }
+}
+</code></pre></div>
+<h3 id="edgex-cli-command-write"><code>edgex-cli command write</code></h3>
+<p>Issue a write command to the specified device. </p>
+<p>Example using in-line request body:</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli command write -d Random-Integer-Device -c Int8 -b &quot;{\&quot;Int8\&quot;: \&quot;99\&quot;}&quot;
+$ edgex-cli command read -d Random-Integer-Device -c Int8
+apiVersion: v2,statusCode: 200
+Command Name  Device Name            Profile Name           Value Type  Value
+Int8          Random-Integer-Device  Random-Integer-Device  Int8        99
+</code></pre></div>
+<p>Example using a file containing the request:</p>
+<div class="highlight"><pre><span></span><code>$ echo &quot;{ \&quot;Int8\&quot;:\&quot;88\&quot; }&quot; &gt; file.txt
+
+$ edgex-cli command write -d Random-Integer-Device -c Int8 -f file.txt
+apiVersion: v2,statusCode: 200
+
+$ edgex-cli command read -d Random-Integer-Device -c Int8
+Command Name  Device Name            Profile Name           Value Type  Value
+Int8          Random-Integer-Device  Random-Integer-Device  Int8        88
+</code></pre></div>
+<h2 id="core-metadata-service">Core-metadata service</h2>
+<h3 id="edgex-cli-deviceservice-list"><code>edgex-cli deviceservice list</code></h3>
+<p>List device services</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli deviceservice list
+</code></pre></div>
+<h3 id="edgex-cli-deviceservice-add"><code>edgex-cli deviceservice add</code></h3>
+<p>Add a device service</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli deviceservice add -n TestDeviceService -b &quot;http://localhost:51234&quot;
+</code></pre></div>
+<h3 id="edgex-cli-deviceservice-name"><code>edgex-cli deviceservice name</code></h3>
+<p>Shows information about a device service. Most <code>edgex-cli</code> commands support the <code>-v/--verbose</code> and <code>-j/--json</code> flags:</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli deviceservice name -n TestDeviceService
+Name               BaseAddress             Description
+TestDeviceService  http://localhost:51234  
+
+$ edgex-cli deviceservice name -n TestDeviceService -v
+Name               BaseAddress             Description  AdminState  Id                                    Labels  LastConnected  LastReported  Modified
+TestDeviceService  http://localhost:51234               UNLOCKED    7f29ad45-65dc-46c0-a928-00147d328032  []      0              0             10 Jan 22 17:26 GMT
+
+$ edgex-cli deviceservice name -n TestDeviceService  -j | jq &#39;.&#39;
+{
+  &quot;apiVersion&quot;: &quot;v2&quot;,
+  &quot;statusCode&quot;: 200,
+  &quot;service&quot;: {
+    &quot;created&quot;: 1641835585465,
+    &quot;modified&quot;: 1641835585465,
+    &quot;id&quot;: &quot;7f29ad45-65dc-46c0-a928-00147d328032&quot;,
+    &quot;name&quot;: &quot;TestDeviceService&quot;,
+    &quot;baseAddress&quot;: &quot;http://localhost:51234&quot;,
+    &quot;adminState&quot;: &quot;UNLOCKED&quot;
+  }
+}
+</code></pre></div>
+<h3 id="edgex-cli-deviceservice-rm"><code>edgex-cli deviceservice rm</code></h3>
+<p>Remove a device service</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli deviceservice rm -n TestDeviceService
+</code></pre></div>
+<h3 id="edgex-cli-deviceservice-update"><code>edgex-cli deviceservice update</code></h3>
+<p>Update the device service, getting the ID using jq and confirm that the labels were added</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli deviceservice add -n TestDeviceService -b &quot;http://localhost:51234&quot;
+{{{v2} c2600ad2-6489-4c3f-9207-5bdffdb8d68f  201} 844473b1-551d-4545-9143-28cfdf68a539}
+
+$ ID=`edgex-cli deviceservice name -n TestDeviceService -j | jq -r &#39;.service.id&#39;`
+$ edgex-cli deviceservice update -n TestDeviceService -i $ID --labels &quot;label1,label2&quot;
+{{v2} 9f4a4758-48a1-43ce-a232-828f442c2e34  200}
+
+$ edgex-cli deviceservice name -n TestDeviceService -v
+Name               BaseAddress             Description  AdminState  Id                                    Labels           LastConnected  LastReported  Modified
+TestDeviceService  http://localhost:51234               UNLOCKED    844473b1-551d-4545-9143-28cfdf68a539  [label1 label2]  0              0             28 Jan 22 12:00 GMT
+</code></pre></div>
+<h3 id="edgex-cli-deviceprofile-list"><code>edgex-cli deviceprofile list</code></h3>
+<p>List device profiles</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli deviceprofile list
+</code></pre></div>
+<h3 id="edgex-cli-deviceprofile-add"><code>edgex-cli deviceprofile add</code></h3>
+<p>Add a device profile</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli deviceprofile add -n TestProfile -r &quot;[{\&quot;name\&quot;: \&quot;SwitchButton\&quot;,\&quot;description\&quot;: \&quot;Switch On/Off.\&quot;,\&quot;properties\&quot;: {\&quot;valueType\&quot;: \&quot;String\&quot;,\&quot;readWrite\&quot;: \&quot;RW\&quot;,\&quot;defaultValue\&quot;: \&quot;On\&quot;,\&quot;units\&quot;: \&quot;On/Off\&quot; } }]&quot;  -c &quot;[{\&quot;name\&quot;: \&quot;Switch\&quot;,\&quot;readWrite\&quot;: \&quot;RW\&quot;,\&quot;resourceOperations\&quot;: [{\&quot;deviceResource\&quot;: \&quot;SwitchButton\&quot;,\&quot;DefaultValue\&quot;: \&quot;false\&quot; }]} ]&quot;
+{{{v2} 65d083cc-b876-4744-af65-59a00c63fc25  201} 4c0af6b0-4e83-4f3c-a574-dcea5f42d3f0}
+</code></pre></div>
+<h3 id="edgex-cli-deviceprofile-name"><code>edgex-cli deviceprofile name</code></h3>
+<p>Show information about a specifed device profile</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli deviceprofile name -n TestProfile
+Name         Description  Manufacturer  Model  Name
+TestProfile                                    TestProfile
+</code></pre></div>
+<h3 id="edgex-cli-deviceprofile-rm"><code>edgex-cli deviceprofile rm</code></h3>
+<p>Remove a device profile</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli deviceprofile rm -n TestProfile
+</code></pre></div>
+<h3 id="edgex-cli-device-list"><code>edgex-cli device list</code></h3>
+<p>List current devices</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli device list
+Name                           Description                ServiceName        ProfileName                    Labels                    AutoEvents
+Random-Float-Device            Example of Device Virtual  device-virtual     Random-Float-Device            [device-virtual-example]  [{30s false Float32} {30s false Float64}]
+Random-UnsignedInteger-Device  Example of Device Virtual  device-virtual     Random-UnsignedInteger-Device  [device-virtual-example]  [{20s false Uint8} {20s false Uint16} {20s false Uint32} {20s false Uint64}]
+Random-Boolean-Device          Example of Device Virtual  device-virtual     Random-Boolean-Device          [device-virtual-example]  [{10s false Bool}]
+TestDevice                                                TestDeviceService  TestProfile                    []                        []
+Random-Binary-Device           Example of Device Virtual  device-virtual     Random-Binary-Device           [device-virtual-example]  []
+Random-Integer-Device          Example of Device Virtual  device-virtual     Random-Integer-Device          [device-virtual-example]  [{15s false Int8} {15s false Int16} {15s false Int32} {15s false Int64}]
+</code></pre></div>
+<h3 id="edgex-cli-device-add"><code>edgex-cli device add</code></h3>
+<p>Add a new device. This needs a device service and device profile to be created first</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli device add -n TestDevice -p TestProfile -s TestDeviceService --protocols &quot;{\&quot;modbus-tcp\&quot;:{\&quot;Address\&quot;: \&quot;localhost\&quot;,\&quot;Port\&quot;: \&quot;1234\&quot; }}&quot;
+{{{v2} e912aa16-af4a-491d-993b-b0aeb8cd9c67  201} ae0e8b95-52fc-4778-892d-ae7e1127ed39}
+</code></pre></div>
+<h3 id="edgex-cli-device-name"><code>edgex-cli device name</code></h3>
+<p>Show information about a specified named device </p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli device name -n TestDevice
+Name        Description  ServiceName        ProfileName  Labels  AutoEvents
+TestDevice               TestDeviceService  TestProfile  []      []
+</code></pre></div>
+<h3 id="edgex-cli-device-rm"><code>edgex-cli device rm</code></h3>
+<p>Remove a device</p>
+<div class="highlight"><pre><span></span><code>edgex-cli device rm -n TestDevice
+edgex-cli device list
+edgex-cli device add -n TestDevice -p TestProfile -s TestDeviceService --protocols &quot;{\&quot;modbus-tcp\&quot;:{\&quot;Address\&quot;: \&quot;localhost\&quot;,\&quot;Port\&quot;: \&quot;1234\&quot; }}&quot;
+edgex-cli device list
+</code></pre></div>
+<h3 id="edgex-cli-device-update"><code>edgex-cli device update</code></h3>
+<p>Update a device </p>
+<p>This example gets the ID of a device, updates it using that ID and then displays device information to confirm that the labels were added</p>
+<div class="highlight"><pre><span></span><code>$ ID=`edgex-cli device name -n TestDevice -j | jq -r &#39;.device.id&#39;`
+
+$ edgex-cli device update -n TestDevice -i $ID --labels &quot;label1,label2&quot;
+{{v2} 73427492-1158-45b2-9a7c-491a474cecce  200}
+
+$ edgex-cli device name -n TestDevice
+Name        Description  ServiceName        ProfileName  Labels           AutoEvents
+TestDevice               TestDeviceService  TestProfile  [label1 label2]  []
+</code></pre></div>
+<h3 id="edgex-cli-provisionwatcher-add"><code>edgex-cli provisionwatcher add</code></h3>
+<p>Add a new provision watcher</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli provisionwatcher add -n TestWatcher --identifiers &quot;{\&quot;address\&quot;:\&quot;localhost\&quot;,\&quot;port\&quot;:\&quot;1234\&quot;}&quot; -p TestProfile -s TestDeviceService
+{{{v2} 3f05f6e0-9d9b-4d96-96df-f394cc2ad6f4  201} ee76f4d8-46d4-454c-a4da-8ad9e06d8d7e}
+</code></pre></div>
+<h3 id="edgex-cli-provisionwatcher-list"><code>edgex-cli provisionwatcher list</code></h3>
+<p>List provision watchers</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli provisionwatcher list
+Name         ServiceName        ProfileName  Labels  Identifiers
+TestWatcher  TestDeviceService  TestProfile  []      map[address:localhost port:1234]
+</code></pre></div>
+<h3 id="edgex-cli-provisionwatcher-name"><code>edgex-cli provisionwatcher name</code></h3>
+<p>Show information about a specific named provision watcher </p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli provisionwatcher name -n TestWatcher
+Name         ServiceName        ProfileName  Labels  Identifiers
+TestWatcher  TestDeviceService  TestProfile  []      map[address:localhost port:1234]
+</code></pre></div>
+<h3 id="edgex-cli-provisionwatcher-rm"><code>edgex-cli provisionwatcher rm</code></h3>
+<p>Remove a provision watcher</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli provisionwatcher rm -n TestWatcher
+$ edgex-cli provisionwatcher list
+No provision watchers available
+</code></pre></div>
+<h3 id="edgex-cli-provisionwatcher-update"><code>edgex-cli provisionwatcher update</code></h3>
+<p>Update a provision watcher </p>
+<p>This example gets the ID of a provision watcher, updates it using that ID and then displays  information about it to confirm that the labels were added</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli provisionwatcher add -n TestWatcher2 --identifiers &quot;{\&quot;address\&quot;:\&quot;localhost\&quot;,\&quot;port\&quot;:\&quot;1234\&quot;}&quot; -p TestProfile -s TestDeviceService
+{{{v2} fb7b8bcf-8f58-477b-929e-8dac53cddc81  201} 7aadb7df-1ff1-4b3b-8986-b97e0ef53116}
+
+$ ID=`edgex-cli provisionwatcher name -n TestWatcher2 -j | jq -r &#39;.provisionWatcher.id&#39;`
+
+$ edgex-cli provisionwatcher update -n TestWatcher2 -i $ID --labels &quot;label1,label2&quot;
+{{v2} af1e70bf-4705-47f4-9046-c7b789799405  200}
+
+$ edgex-cli provisionwatcher name -n TestWatcher2
+Name          ServiceName        ProfileName  Labels           Identifiers
+TestWatcher2  TestDeviceService  TestProfile  [label1 label2]  map[address:localhost port:1234]
+</code></pre></div>
+<h2 id="core-data-service">Core-data service</h2>
+<h3 id="edgex-cli-event-add"><code>edgex-cli event add</code></h3>
+<p>Create an event with a specified number of random readings</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli event add -d Random-Integer-Device -p Random-Integer-Device -r 1 -s Int16 -t int16
+Added event 75f06078-e8da-4671-8938-ab12ebb2c244
+
+$ edgex-cli event list -v
+Origin               Device                 Profile                Source  Id                                    Versionable  Readings
+10 Jan 22 15:38 GMT  Random-Integer-Device  Random-Integer-Device  Int16   75f06078-e8da-4671-8938-ab12ebb2c244  {v2}         [{974a70fe-71ef-4a47-a008-c89f0e4e3bb6 1641829092129391876 Random-Integer-Device Int16 Random-Integer-Device Int16 {[] } {13342}}]
+</code></pre></div>
+<h3 id="edgex-cli-event-count"><code>edgex-cli event count</code></h3>
+<p>Count the number of events in core data, optionally filtering by device name</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli event count -d Random-Integer-Device
+Total Random-Integer-Device events: 54
+</code></pre></div>
+<h3 id="edgex-cli-event-list"><code>edgex-cli event list</code></h3>
+<p>List all events, optionally specifying a limit and offset</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli event list
+</code></pre></div>
+<p>To see two readings only, skipping the first 100 readings:</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli reading list --limit 2 --offset 100
+Origin               Device                 ProfileName            Value                ValueType
+28 Jan 22 12:55 GMT  Random-Integer-Device  Random-Integer-Device  22502                Int16
+28 Jan 22 12:55 GMT  Random-Integer-Device  Random-Integer-Device  1878517239016780388  Int64
+</code></pre></div>
+<h3 id="edgex-cli-event-rm"><code>edgex-cli event rm</code></h3>
+<p>Remove events, specifying either device name or maximum event age in milliseconds
+- <code>edgex-cli event rm --device {devicename}</code> removes all events for the specified device
+- <code>edgex-cli event rm --age {ms}</code> removes all events generated in the last {ms} milliseconds</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli event rm -a 30000
+$ edgex-cli event count
+Total events: 0
+</code></pre></div>
+<h3 id="edgex-cli-reading-count"><code>edgex-cli reading count</code></h3>
+<p>Count the number of readings in core data, optionally filtering by device name</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli reading count
+Total readings: 235
+</code></pre></div>
+<h3 id="edgex-cli-reading-list"><code>edgex-cli reading list</code></h3>
+<p>List all readings, optionally specifying a limit and offset</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli reading list
+</code></pre></div>
+<h2 id="support-scheduler-service">Support-scheduler service</h2>
+<h3 id="edgex-cli-interval-add"><code>edgex-cli interval add</code></h3>
+<p>Add an interval</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli interval add -n &quot;hourly&quot; -i &quot;1h&quot;
+{{{v2} c7c51f21-dab5-4307-a4c9-bc5d5f2194d9  201} 98a6d5f6-f4c4-4ec5-a00c-7fe24b9c9a18}
+</code></pre></div>
+<h3 id="edgex-cli-interval-name"><code>edgex-cli interval name</code></h3>
+<p>Return an interval by name</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli interval name -n &quot;hourly&quot;
+Name    Interval  Start  End
+hourly  1h               
+</code></pre></div>
+<h3 id="edgex-cli-interval-list"><code>edgex-cli interval list</code></h3>
+<p>List all intervals</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli interval list  -j | jq &#39;.&#39;
+{
+  &quot;apiVersion&quot;: &quot;v2&quot;,
+  &quot;statusCode&quot;: 200,
+  &quot;intervals&quot;: [
+    {
+      &quot;created&quot;: 1641830955058,
+      &quot;modified&quot;: 1641830955058,
+      &quot;id&quot;: &quot;98a6d5f6-f4c4-4ec5-a00c-7fe24b9c9a18&quot;,
+      &quot;name&quot;: &quot;hourly&quot;,
+      &quot;interval&quot;: &quot;1h&quot;
+    },
+    {
+      &quot;created&quot;: 1641830953884,
+      &quot;modified&quot;: 1641830953884,
+      &quot;id&quot;: &quot;507a2a9a-82eb-41ea-afa8-79a9b0033665&quot;,
+      &quot;name&quot;: &quot;midnight&quot;,
+      &quot;start&quot;: &quot;20180101T000000&quot;,
+      &quot;interval&quot;: &quot;24h&quot;
+    }
+  ]
+}
+</code></pre></div>
+<h3 id="edgex-cli-interval-update"><code>edgex-cli interval update</code></h3>
+<p>Update an interval, specifying either ID or name</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli interval update -n &quot;hourly&quot; -i &quot;1m&quot;
+{{v2} 08239cc4-d4d7-4ea2-9915-d91b9557c742  200}
+$ edgex-cli interval name -n &quot;hourly&quot; -v
+Id                                    Name    Interval  Start  End
+98a6d5f6-f4c4-4ec5-a00c-7fe24b9c9a18  hourly  1m  
+</code></pre></div>
+<h3 id="edgex-cli-interval-rm"><code>edgex-cli interval rm</code></h3>
+<p>Delete a named interval and associated interval actions</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli interval rm  -n &quot;hourly&quot; 
+</code></pre></div>
+<h3 id="edgex-cli-intervalaction-add"><code>edgex-cli intervalaction add</code></h3>
+<p>Add an interval action</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli intervalaction add -n &quot;name01&quot; -i &quot;midnight&quot; -a &quot;{\&quot;type\&quot;: \&quot;REST\&quot;, \&quot;host\&quot;: \&quot;192.168.0.102\&quot;, \&quot;port\&quot;: 8080, \&quot;httpMethod\&quot;: \&quot;GET\&quot;}&quot;
+</code></pre></div>
+<h3 id="edgex-cli-intervalaction-name"><code>edgex-cli intervalaction name</code></h3>
+<p>Return an interval action by name</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli intervalaction name -n &quot;name01&quot;
+Name    Interval  Address                                                      Content  ContentType
+name01  midnight  {REST 192.168.0.102 8080 { GET} {  0 0 false false 0} {[]}}  
+</code></pre></div>
+<h3 id="edgex-cli-intervalaction-list"><code>edgex-cli intervalaction list</code></h3>
+<p>List all interval actions</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli intervalaction list
+Name               Interval  Address                                                                                       Content  ContentType
+name01             midnight  {REST 192.168.0.102 8080 { GET} {  0 0 false false 0} {[]}}                                            
+scrub-aged-events  midnight  {REST localhost 59880 {/api/v2/event/age/604800000000000 DELETE} {  0 0 false false 0} {[]}}   
+</code></pre></div>
+<h3 id="edgex-cli-intervalaction-update"><code>edgex-cli intervalaction update</code></h3>
+<p>Update an interval action, specifying either ID or name</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli intervalaction update -n &quot;name01&quot; --admin-state &quot;LOCKED&quot;
+{{v2} afc7b08c-5dc6-4923-9786-30bfebc8a8b6  200}
+$ edgex-cli intervalaction name -n &quot;name01&quot; -j | jq &#39;.action.adminState&#39;
+&quot;LOCKED&quot;
+</code></pre></div>
+<h3 id="edgex-cli-intervalaction-rm"><code>edgex-cli intervalaction rm</code></h3>
+<p>Delete an interval action by name</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli intervalaction rm  -n &quot;name01&quot; 
+</code></pre></div>
+<h2 id="support-notifications-service">Support-notifications service</h2>
+<h3 id="edgex-cli-notification-add"><code>edgex-cli notification add</code></h3>
+<p>Add a notification to be sent</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli notification add -s &quot;sender01&quot; -c &quot;content&quot; --category &quot;category04&quot; --labels &quot;l3&quot;
+{{{v2} 13938e01-a560-47d8-bb50-060effdbe490  201} 6a1138c2-b58e-4696-afa7-2074e95165eb}
+</code></pre></div>
+<h3 id="edgex-cli-notification-list"><code>edgex-cli notification list</code></h3>
+<p>List notifications associated with a given label, category or time range</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli notification list -c &quot;category04&quot;
+Category    Content  Description  Labels  Sender    Severity  Status
+category04  content               [l3]    sender01  NORMAL    PROCESSED
+
+$ edgex-cli notification list --start &quot;01 jan 20 00:00 GMT&quot; --end &quot;01 dec 24 00:00 GMT&quot;
+Category    Content  Description  Labels  Sender    Severity  Status
+category04  content               [l3]    sender01  NORMAL    PROCESSED
+</code></pre></div>
+<h3 id="edgex-cli-notification-rm"><code>edgex-cli notification rm</code></h3>
+<p>Delete a notification and all of its associated transmissions</p>
+<div class="highlight"><pre><span></span><code>$ ID=`edgex-cli notification list -c &quot;category04&quot; -v -j | jq -r &#39;.notifications[0].id&#39;`
+$ echo $ID
+6a1138c2-b58e-4696-afa7-2074e95165eb
+$ edgex-cli notification rm -i $ID
+$ edgex-cli notification list -c &quot;category04&quot;
+No notifications available
+</code></pre></div>
+<h3 id="edgex-cli-notification-cleanup"><code>edgex-cli notification cleanup</code></h3>
+<p>Delete all notifications and corresponding transmissions</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli notification cleanup
+$ edgex-cli notification list --start &quot;01 jan 20 00:00 GMT&quot; --end &quot;01 dec 24 00:00 GMT&quot;
+No notifications available
+</code></pre></div>
+<h3 id="edgex-cli-subscription-add"><code>edgex-cli subscription add</code></h3>
+<p>Add a new subscription</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli subscription add -n &quot;name01&quot; --receiver &quot;receiver01&quot; -c &quot;[{\&quot;type\&quot;: \&quot;REST\&quot;, \&quot;host\&quot;: \&quot;localhost\&quot;, \&quot;port\&quot;: 7770, \&quot;httpMethod\&quot;: \&quot;POST\&quot;}]&quot; --labels &quot;l1,l2,l3&quot;
+{{{v2} 2bbfdac0-d2e1-4f08-8344-392b8e8ddc5e  201} 1ec08af0-5767-4505-82f7-581fada6006b}
+
+$ edgex-cli subscription add -n &quot;name02&quot; --receiver &quot;receiver01&quot; -c &quot;[{\&quot;type\&quot;: \&quot;EMAIL\&quot;, \&quot;recipients\&quot;: [\&quot;123@gmail.com\&quot;]}]&quot; --labels &quot;l1,l2,l3&quot;
+{{{v2} f6b417ca-740c-4dee-bc1e-c721c0de4051  201} 156fc2b9-de60-423b-9bff-5312d8452c48}
+</code></pre></div>
+<h3 id="edgex-cli-subscription-name"><code>edgex-cli subscription name</code></h3>
+<p>Return a subscription by its unique name</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli subscription name -n &quot;name01&quot;
+Name    Description  Channels                                                    Receiver    Categories  Labels
+name01               [{REST localhost 7770 { POST} {  0 0 false false 0} {[]}}]  receiver01  []          [l1 l2 l3]
+</code></pre></div>
+<h3 id="edgex-cli-subscription-list"><code>edgex-cli subscription list</code></h3>
+<p>List all subscriptions, optionally filtered by a given category, label or receiver</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli subscription list --label &quot;l1&quot;
+Name    Description  Channels                                                    Receiver    Categories  Labels
+name02               [{EMAIL  0 { } {  0 0 false false 0} {[123@gmail.com]}}]    receiver01  []          [l1 l2 l3]
+name01               [{REST localhost 7770 { POST} {  0 0 false false 0} {[]}}]  receiver01  []          [l1 l2 l3]
+</code></pre></div>
+<h3 id="edgex-cli-subscription-rm"><code>edgex-cli subscription rm</code></h3>
+<p>Delete the named subscription</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli subscription rm -n &quot;name01&quot; 
+</code></pre></div>
+<h3 id="edgex-cli-transmission-list"><code>edgex-cli transmission list</code></h3>
+<p>To create a transmission, first create a subscription and notifications:
+<div class="highlight"><pre><span></span><code>$ edgex-cli subscription add -n &quot;Test-Subscription&quot; --description &quot;Test data for subscription&quot; --categories &quot;health-check&quot; --labels &quot;simple&quot; --receiver &quot;tafuser&quot; --resend-limit 0 --admin-state &quot;UNLOCKED&quot; -c &quot;[{\&quot;type\&quot;: \&quot;REST\&quot;, \&quot;host\&quot;: \&quot;localhost\&quot;, \&quot;port\&quot;: 7770, \&quot;httpMethod\&quot;: \&quot;POST\&quot;}]&quot;
+{{{v2} f281ec1a-876e-4a29-a14d-195b66d0506c  201} 3b489d23-b0c7-4791-b839-d9a578ebccb9}
+
+$ edgex-cli notification add -d &quot;Test data for notification 1&quot; --category &quot;health-check&quot; --labels &quot;simple&quot; --content-type &quot;string&quot; --content &quot;This is a test notification&quot; --sender &quot;taf-admin&quot;
+{{{v2} 8df79c7c-03fb-4626-b6e8-bf2d616fa327  201} 0be98b91-daf9-46e2-bcca-39f009d93866}
+
+
+$ edgex-cli notification add -d &quot;Test data for notification 2&quot; --category &quot;health-check&quot; --labels &quot;simple&quot; --content-type &quot;string&quot; --content &quot;This is a test notification&quot; --sender &quot;taf-admin&quot;
+{{{v2} ec0b2444-c8b0-45d0-bbd6-847dd007c2fd  201} a7c65d7d-0f9c-47e1-82c2-c8098c47c016}
+
+$ edgex-cli notification add -d &quot;Test data for notification 3&quot; --category &quot;health-check&quot; --labels &quot;simple&quot; --content-type &quot;string&quot; --content &quot;This is a test notification&quot; --sender &quot;taf-admin&quot;
+{{{v2} 45af7f94-c99e-4fb1-a632-fab5ff475be4  201} f982fc97-f53f-4154-bfce-3ef8666c3911}
+</code></pre></div></p>
+<p>Then list the transmissions:
+<div class="highlight"><pre><span></span><code>$ edgex-cli transmission list
+SubscriptionName   ResendCount  Status
+Test-Subscription  0            FAILED
+Test-Subscription  0            FAILED
+Test-Subscription  0            FAILED
+</code></pre></div></p>
+<h3 id="edgex-cli-transmission-id"><code>edgex-cli transmission id</code></h3>
+<p>Return a transmission by ID</p>
+<div class="highlight"><pre><span></span><code>$ ID=`edgex-cli transmission list -j | jq -r &#39;.transmissions[0].id&#39;`
+$ edgex-cli transmission id -i $ID
+SubscriptionName   ResendCount  Status
+Test-Subscription  0            FAILED
+</code></pre></div>
+<h3 id="edgex-cli-transmission-rm"><code>edgex-cli transmission rm</code></h3>
+<p>Delete processed transmissions older than the specificed age (in milliseconds)</p>
+<div class="highlight"><pre><span></span><code>$ edgex-cli transmission rm -a 100
+</code></pre></div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../../Ch-GettingStartedUsersNexus/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Getting Docker Images from EdgeX Nexus Repository" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Getting Docker Images from EdgeX Nexus Repository
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../Ch-GUI/" class="md-footer__link md-footer__link--next" aria-label="Next: Graphical User Interface (GUI)" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Graphical User Interface (GUI)
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2022 EdgeX Foundry
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://github.com/edgexfoundry" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/edgexfoundry" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/company/edgexfoundry" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs"], "search": "../../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a6c66575.min.js"></script>
+      
+        <script src="../../../assets/javascripts/version-select.js"></script>
+      
+    
+  </body>
+</html>
