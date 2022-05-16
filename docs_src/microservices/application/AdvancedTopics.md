@@ -492,6 +492,9 @@ All pipeline function capabilities such as Store and Forward, Batching, etc. can
 !!! edgey "EdgeX 2.2"
     Built-in Application Service Metrics are new for EdgeX 2.2
 
+!!! note
+    Service metrics are **Beta released** for EdgeX 2.2. Breaking changes, while not likely, may occur as more use of service metrics are added.
+
 All application services now have a limited set of built in metrics. More may be added in future releases.
 
 The current built-in metrics are:
@@ -525,10 +528,10 @@ Reporting of these built-in metrics is disabled by default in the `Writable.Tele
 !!! edgey "EdgeX 2.2"
     Custom Application Service Metrics are new for EdgeX 2.2
 
-The Custom Application Service Metrics capability allows for custom application services to define, collect and report their own custom service metrics.
-
 !!! note
-    The SDK will soon implement a limited set of common Application Service Metrics. 
+    Service metrics are **Beta released** for EdgeX 2.2. Breaking changes, while not likely, may occur as more use of service metrics are added.
+
+The Custom Application Service Metrics capability allows for custom application services to define, collect and report their own custom service metrics.
 
  The following are the steps to collect and report custom service metrics:
 
