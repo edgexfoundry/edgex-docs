@@ -482,6 +482,9 @@ There is one Tags transform included in the SDK that can be added to your pipeli
 !!! edgey "EdgeX 2.2"
     The `MetricsProcessor` is new in EdgeX 2.2
 
+!!! note
+    Service metrics are **Beta released** for EdgeX 2.2. Breaking changes, while not likely, may occur as more use of service metrics are added.
+
 `MetricsProcessor` contains configuration and functions for processing the new `dtos.Metrics` type. 
 
 | Factory Method                                               | Description                                                  |

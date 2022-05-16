@@ -186,6 +186,9 @@ Required:
 !!! edgey "Edgex 2.2"
     The `metrics-influxdb` profile is new for Edgex 2.2
 
+!!! note
+    Service metrics are **Beta released** for EdgeX 2.2. Breaking changes, while not likely, may occur as more use of service metrics are added.
+
 Starter profile used for exporting telemetry data from other EdgeX services to InfluxDB via HTTP export. This profile configures the service to receive telemetry data from other services, transform it to Line Protocol syntax, batch the data and then export it to an InfluxDB service via HTTP. Requires further configuration which can easily be accomplished using environment variable overrides.
 
 Required:

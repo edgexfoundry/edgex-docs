@@ -34,6 +34,9 @@ If the Event already has `Tags` when it arrives at the application service, then
 !!! edgey "Edgex 2.2"
     New for Edgex 2.2
 
+!!! note
+    Service metrics are **Beta released** for EdgeX 2.2. Breaking changes, while not likely, may occur as more use of service metrics are added.
+
 Limited service metrics have been added for the EdgeX 2.2 release. Currently, only **Core Data** and **Application Services** are  collecting a limit set of service metrics. Additional service metrics will be added to **Core Data**, **Application Services** and other services in future releases.  See `Writable.Telemetry` at [Common Configuration](../configuration/CommonConfiguration/#configuration-properties) for details on configuring the reporting of service metrics. 
 
 See [Custom Application Service Metrics](../application/AdvancedTopics/#custom-application-service-metrics) for more detail on Application Services capability to collect their own custom service metrics via use of the App SDK API. 
