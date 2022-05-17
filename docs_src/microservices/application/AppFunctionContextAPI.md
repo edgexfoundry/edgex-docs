@@ -33,6 +33,7 @@ type AppFunctionContext interface {
     GetAllValues() map[string]string
     ApplyValues(format string) (string, error)
     PipelineId() string
+    Clone() AppFunctionContext
 }
 ```
 
@@ -143,6 +144,7 @@ Each of the clients above is only initialized if the Clients section of the conf
     ```
 
 ## Context Storage
+
 The context API exposes a map-like interface that can be used to store custom data specific to a given pipeline execution.  This data is persisted for retry if needed.  Currently only strings are supported, and keys are treated as case-insensitive.  
 
 There following values are seeded into the Context Storage when an Event is received:
@@ -197,8 +199,13 @@ This API returns that timestamp for when the secrets in the SecretStore where la
 
 ## Miscellaneous
 
+### Clone()
+`Clone() AppFunctionContext`
+
+This method returns a copy of the context that can be mutated independently where appropriate.  This can be useful when running operations that take AppFunctionContext in parallel.
+
 ### CorrelationID()
-`CorrelationID()`
+`CorrelationID() string`
 
 This API returns the ID used to track the EdgeX event through entire EdgeX framework.
 
@@ -209,8 +216,7 @@ This API returns the ID used to track the EdgeX event through entire EdgeX frame
 This API returns the ID of the pipeline currently executing. Useful when logging messages from pipeline functions so the message contain the ID of the pipeline that executed the pipeline function.
 
 ### InputContentType()
-
-`InputContentType()`
+`InputContentType() string`
 
 This API returns the content type of the data that initiated the pipeline execution. Only useful when the TargetType for the pipeline is []byte, otherwise the data will be the type specified by TargetType.
 
