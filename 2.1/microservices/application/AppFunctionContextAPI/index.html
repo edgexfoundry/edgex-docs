@@ -1676,6 +1676,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#clone" class="md-nav__link">
+    Clone()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#correlationid" class="md-nav__link">
     CorrelationID()
   </a>
@@ -2858,6 +2865,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#clone" class="md-nav__link">
+    Clone()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#correlationid" class="md-nav__link">
     CorrelationID()
   </a>
@@ -2957,6 +2971,7 @@
 <span class="w">    </span><span class="nx">GetAllValues</span><span class="p">()</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="w"></span>
 <span class="w">    </span><span class="nx">ApplyValues</span><span class="p">(</span><span class="nx">format</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="nx">PipelineId</span><span class="p">()</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="nx">Clone</span><span class="p">()</span><span class="w"> </span><span class="nx">AppFunctionContext</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <h2 id="response-data">Response Data</h2>
@@ -3066,14 +3081,17 @@
 <p><code>SecretsLastUpdated()</code></p>
 <p>This API returns that timestamp for when the secrets in the SecretStore where last updated.  Useful when a connection to external source needs to be redone when the credentials have been updated.</p>
 <h2 id="miscellaneous">Miscellaneous</h2>
+<h3 id="clone">Clone()</h3>
+<p><code>Clone() AppFunctionContext</code></p>
+<p>This method returns a copy of the context that can be mutated independently where appropriate.  This can be useful when running operations that take AppFunctionContext in parallel.</p>
 <h3 id="correlationid">CorrelationID()</h3>
-<p><code>CorrelationID()</code></p>
+<p><code>CorrelationID() string</code></p>
 <p>This API returns the ID used to track the EdgeX event through entire EdgeX framework.</p>
 <h3 id="pipelineid">PipelineId</h3>
 <p><code>PipelineId() string</code></p>
 <p>This API returns the ID of the pipeline currently executing. Useful when logging messages from pipeline functions so the message contain the ID of the pipeline that executed the pipeline function.</p>
 <h3 id="inputcontenttype">InputContentType()</h3>
-<p><code>InputContentType()</code></p>
+<p><code>InputContentType() string</code></p>
 <p>This API returns the content type of the data that initiated the pipeline execution. Only useful when the TargetType for the pipeline is []byte, otherwise the data will be the type specified by TargetType.</p>
 <h3 id="getdeviceresource">GetDeviceResource()</h3>
 <p><code>GetDeviceResource(profileName string, resourceName string) (dtos.DeviceResource, error)</code></p>
