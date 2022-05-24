@@ -688,6 +688,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#add-on-services" class="md-nav__link">
+    Add-on services
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3133,6 +3140,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#add-on-services" class="md-nav__link">
+    Add-on services
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3564,7 +3578,7 @@ The <code>--cacert</code> can be omitted if the CA is available in root certific
 <li>The standalone snap is downloaded and installed from the store</li>
 <li>The platform snap is downloaded and installed from the store</li>
 <li>Both snaps are installed on the same machine</li>
-<li>The service is registered as an <a href="../../security/Ch-Configuring-Add-On-Services/">add-on service</a></li>
+<li>The service is registered as an <a href="#add-on-services">add-on service</a></li>
 </ul>
 <p>The <code>edgex-secretstore-token</code> <a href="https://snapcraft.io/docs/content-interface">content interface</a> provides the mechanism to automatically supply tokens to connected snaps.</p>
 <p>Execute the following command to check the status of connections:
@@ -3582,6 +3596,57 @@ The <code>--cacert</code> can be omitted if the CA is available in root certific
 sudo snap <span class="nb">set</span> edgexfoundry apps.security-secretstore-setup.config.tokenfileprovider-defaulttokenttl<span class="o">=</span>72h
 sudo snap restart edgexfoundry.security-secretstore-setup
 </code></pre></div></p>
+</div>
+<!-- DO NOT CHANGE THE TITLE. There are reference to the anchor -->
+<h4 id="add-on-services">Add-on services</h4>
+<p>The platform is pre-configured with a set of <a href="../../security/Ch-Configuring-Add-On-Services/">add-on services</a>.</p>
+<p>The equivalent snap options for addon services are:</p>
+<ul>
+<li><code>apps.security-secretstore-setup.config.add-secretstore-tokens</code></li>
+<li><code>apps.security-secretstore-setup.config.add-known-secrets</code></li>
+<li><code>apps.security-bootstrapper.config.add-registry-acl-roles</code></li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Query Secret Store tokens</p>
+<p><div class="highlight"><pre><span></span><code>sudo snap get edgexfoundry apps.security-secretstore-setup.config.add-secretstore-tokens
+</code></pre></div>
+Outputs: <code>app-functional-tests,app-rules-engine,app-http-export,...</code></p>
+</div>
+<p>Adding a new service is possible by appending its name to the value of the above options.</p>
+<div class="admonition example">
+<p class="admonition-title">Add an add-on service with known secrets and Consul ACL role</p>
+<p>First, enable the new snap options, if they aren't:</p>
+<div class="highlight"><pre><span></span><code>sudo snap <span class="nb">set</span> edgexfoundry app-options<span class="o">=</span><span class="nb">true</span>
+</code></pre></div>
+<p>For each option, we need to:</p>
+<ol>
+<li>Query the existing items</li>
+<li>Append the new service to the existing items</li>
+<li>Set the appended string</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="nv">SERVICE</span><span class="o">=</span><span class="s2">&quot;my-new-service&quot;</span>
+
+<span class="c1"># Secret store token</span>
+<span class="nv">EXISTING</span><span class="o">=</span><span class="k">$(</span>snap get edgexfoundry apps.security-secretstore-setup.config.add-secretstore-tokens<span class="k">)</span>
+sudo snap <span class="nb">set</span> edgexfoundry apps.security-secretstore-setup.config.add-secretstore-tokens<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$EXISTING</span><span class="s2">,</span><span class="nv">$SERVICE</span><span class="s2">&quot;</span>
+
+<span class="c1"># Include known secrets (e.g. Redis DB&#39;s credentials) to service&#39;s secret store</span>
+<span class="nv">EXISTING</span><span class="o">=</span><span class="k">$(</span>snap get edgexfoundry apps.security-secretstore-setup.config.add-known-secrets<span class="k">)</span>
+sudo snap <span class="nb">set</span> edgexfoundry apps.security-secretstore-setup.config.add-known-secrets<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$EXISTING</span><span class="s2">,redisdb[</span><span class="nv">$SERVICE</span><span class="s2">]&quot;</span>
+
+<span class="c1"># Registry ACL roles for the service</span>
+<span class="nv">EXISTING</span><span class="o">=</span><span class="k">$(</span>snap get edgexfoundry apps.security-bootstrapper.config.add-registry-acl-roles<span class="k">)</span>
+sudo snap <span class="nb">set</span> edgexfoundry apps.security-bootstrapper.config.add-registry-acl-roles<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$EXISTING</span><span class="s2">,</span><span class="nv">$SERVICE</span><span class="s2">&quot;</span>
+
+<span class="c1"># Run the bootstrappers:</span>
+sudo snap start edgexfoundry.security-secretstore-setup <span class="c1"># for creating new tokens</span>
+sudo snap start edgexfoundry.security-consul-bootstrapper <span class="c1"># for applying new consul ACL roles</span>
+</code></pre></div>
+<p>To verify that the token has been generated and the service has been added to <code>ADD_REGISTRY_ACL_ROLES</code> environment variable by inspecting the following files:</p>
+<ul>
+<li><code>/var/snap/edgexfoundry/current/secrets/&lt;service&gt;/secrets-token.json</code> where <code>&lt;service&gt;</code> is the service name</li>
+<li><code>/var/snap/edgexfoundry/current/config/security-bootstrapper/res/security-bootstrapper.env</code></li>
+</ul>
 </div>
 <h3 id="edgex-ui">EdgeX UI</h3>
 <p>| <a href="https://snapcraft.io/edgex-ui">Installation</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/edgex-ui-go/tree/main/snap">Source</a> |</p>
