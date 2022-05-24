@@ -371,7 +371,7 @@ The services inside standalone snaps (e.g. device, app snaps) automatically rece
 * The standalone snap is downloaded and installed from the store
 * The platform snap is downloaded and installed from the store
 * Both snaps are installed on the same machine
-* The service is registered as an [add-on service](../../security/Ch-Configuring-Add-On-Services/)
+* The service is registered as an [add-on service](#add-on-services)
 
 The `edgex-secretstore-token` [content interface](https://snapcraft.io/docs/content-interface) provides the mechanism to automatically supply tokens to connected snaps.
 
@@ -397,6 +397,7 @@ To better understand the snap connections, read the [interface management](https
     sudo snap restart edgexfoundry.security-secretstore-setup
     ```
 
+<!-- DO NOT CHANGE THE TITLE. There are reference to the anchor -->
 #### Add-on services
 The platform is pre-configured with a set of [add-on services](../../security/Ch-Configuring-Add-On-Services/).
 
