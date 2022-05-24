@@ -397,6 +397,61 @@ To better understand the snap connections, read the [interface management](https
     sudo snap restart edgexfoundry.security-secretstore-setup
     ```
 
+#### Add-on services
+The platform is pre-configured with a set of [add-on services](../../security/Ch-Configuring-Add-On-Services/).
+
+The equivalent snap options for addon services are:
+
+- `apps.security-secretstore-setup.config.add-secretstore-tokens`
+- `apps.security-secretstore-setup.config.add-known-secrets`
+- `apps.security-bootstrapper.config.add-registry-acl-roles`
+
+!!! example "Query Secret Store tokens"
+    ```bash
+    sudo snap get edgexfoundry apps.security-secretstore-setup.config.add-secretstore-tokens
+    ```
+    Outputs: `app-functional-tests,app-rules-engine,app-http-export,...`
+
+Adding a new service is possible by appending its name to the value of the above options.
+
+!!! example "Add an add-on service with known secrets and Consul ACL role"
+    First, enable the new snap options, if they aren't:
+    
+    ```bash
+    sudo snap set edgexfoundry app-options=true
+    ```
+    
+    For each option, we need to:
+    
+    1. Query the existing items
+    2. Append the new service to the existing items
+    3. Set the appended string
+
+    ```bash
+    SERVICE="my-new-service"
+
+    # Secret store token
+    EXISTING=$(snap get edgexfoundry apps.security-secretstore-setup.config.add-secretstore-tokens)
+    sudo snap set edgexfoundry apps.security-secretstore-setup.config.add-secretstore-tokens="$EXISTING,$SERVICE"
+
+    # Include known secrets (e.g. Redis DB's credentials) to service's secret store
+    EXISTING=$(snap get edgexfoundry apps.security-secretstore-setup.config.add-known-secrets)
+    sudo snap set edgexfoundry apps.security-secretstore-setup.config.add-known-secrets="$EXISTING,redisdb[$SERVICE]"
+
+    # Registry ACL roles for the service
+    EXISTING=$(snap get edgexfoundry apps.security-bootstrapper.config.add-registry-acl-roles)
+    sudo snap set edgexfoundry apps.security-bootstrapper.config.add-registry-acl-roles="$EXISTING,$SERVICE"
+
+    # Run the bootstrappers:
+    sudo snap start edgexfoundry.security-secretstore-setup # for creating new tokens
+    sudo snap start edgexfoundry.security-consul-bootstrapper # for applying new consul ACL roles
+    ```
+
+    To verify that the token has been generated and the service has been added to `ADD_REGISTRY_ACL_ROLES` environment variable by inspecting the following files:
+
+    - `/var/snap/edgexfoundry/current/secrets/<service>/secrets-token.json` where `<service>` is the service name
+    - `/var/snap/edgexfoundry/current/config/security-bootstrapper/res/security-bootstrapper.env`
+
 ### EdgeX UI
 | [Installation][edgex-ui] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/edgex-ui-go/tree/main/snap) |
 
