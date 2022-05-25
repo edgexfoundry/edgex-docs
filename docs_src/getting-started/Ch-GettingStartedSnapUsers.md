@@ -432,23 +432,26 @@ Adding a new service is possible by appending its name to the value of the above
     SERVICE="my-new-service"
 
     # Secret store token
-    EXISTING=$(snap get edgexfoundry apps.security-secretstore-setup.config.add-secretstore-tokens)
-    sudo snap set edgexfoundry apps.security-secretstore-setup.config.add-secretstore-tokens="$EXISTING,$SERVICE"
+    TEMP1=$(sudo snap get edgexfoundry apps.security-secretstore-setup.config.add-secretstore-tokens)
+    sudo snap set edgexfoundry apps.security-secretstore-setup.config.add-secretstore-tokens="$TEMP1,$SERVICE"
 
     # Include known secrets (e.g. Redis DB's credentials) to service's secret store
-    EXISTING=$(snap get edgexfoundry apps.security-secretstore-setup.config.add-known-secrets)
-    sudo snap set edgexfoundry apps.security-secretstore-setup.config.add-known-secrets="$EXISTING,redisdb[$SERVICE]"
+    TEMP2=$(sudo snap get edgexfoundry apps.security-secretstore-setup.config.add-known-secrets)
+    sudo snap set edgexfoundry apps.security-secretstore-setup.config.add-known-secrets="$TEMP2,redisdb[$SERVICE]"
 
     # Registry ACL roles for the service
-    EXISTING=$(snap get edgexfoundry apps.security-bootstrapper.config.add-registry-acl-roles)
-    sudo snap set edgexfoundry apps.security-bootstrapper.config.add-registry-acl-roles="$EXISTING,$SERVICE"
+    TEMP3=$(sudo snap get edgexfoundry apps.security-bootstrapper.config.add-registry-acl-roles)
+    sudo snap set edgexfoundry apps.security-bootstrapper.config.add-registry-acl-roles="$TEMP3,$SERVICE"
+
+    # Verify the new values before losing temp variables
+    sudo snap get edgexfoundry apps -d
 
     # Run the bootstrappers:
     sudo snap start edgexfoundry.security-secretstore-setup # for creating new tokens
     sudo snap start edgexfoundry.security-consul-bootstrapper # for applying new consul ACL roles
     ```
 
-    To verify that the token has been generated and the service has been added to `ADD_REGISTRY_ACL_ROLES` environment variable by inspecting the following files:
+    To verify that the token has been generated and the service has been added to `ADD_REGISTRY_ACL_ROLES` environment variable, inspecting the following files:
 
     - `/var/snap/edgexfoundry/current/secrets/<service>/secrets-token.json` where `<service>` is the service name
     - `/var/snap/edgexfoundry/current/config/security-bootstrapper/res/security-bootstrapper.env`
