@@ -3627,22 +3627,25 @@ Outputs: <code>app-functional-tests,app-rules-engine,app-http-export,...</code><
 <div class="highlight"><pre><span></span><code><span class="nv">SERVICE</span><span class="o">=</span><span class="s2">&quot;my-new-service&quot;</span>
 
 <span class="c1"># Secret store token</span>
-<span class="nv">EXISTING</span><span class="o">=</span><span class="k">$(</span>snap get edgexfoundry apps.security-secretstore-setup.config.add-secretstore-tokens<span class="k">)</span>
-sudo snap <span class="nb">set</span> edgexfoundry apps.security-secretstore-setup.config.add-secretstore-tokens<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$EXISTING</span><span class="s2">,</span><span class="nv">$SERVICE</span><span class="s2">&quot;</span>
+<span class="nv">TEMP1</span><span class="o">=</span><span class="k">$(</span>sudo snap get edgexfoundry apps.security-secretstore-setup.config.add-secretstore-tokens<span class="k">)</span>
+sudo snap <span class="nb">set</span> edgexfoundry apps.security-secretstore-setup.config.add-secretstore-tokens<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$TEMP1</span><span class="s2">,</span><span class="nv">$SERVICE</span><span class="s2">&quot;</span>
 
 <span class="c1"># Include known secrets (e.g. Redis DB&#39;s credentials) to service&#39;s secret store</span>
-<span class="nv">EXISTING</span><span class="o">=</span><span class="k">$(</span>snap get edgexfoundry apps.security-secretstore-setup.config.add-known-secrets<span class="k">)</span>
-sudo snap <span class="nb">set</span> edgexfoundry apps.security-secretstore-setup.config.add-known-secrets<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$EXISTING</span><span class="s2">,redisdb[</span><span class="nv">$SERVICE</span><span class="s2">]&quot;</span>
+<span class="nv">TEMP2</span><span class="o">=</span><span class="k">$(</span>sudo snap get edgexfoundry apps.security-secretstore-setup.config.add-known-secrets<span class="k">)</span>
+sudo snap <span class="nb">set</span> edgexfoundry apps.security-secretstore-setup.config.add-known-secrets<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$TEMP2</span><span class="s2">,redisdb[</span><span class="nv">$SERVICE</span><span class="s2">]&quot;</span>
 
 <span class="c1"># Registry ACL roles for the service</span>
-<span class="nv">EXISTING</span><span class="o">=</span><span class="k">$(</span>snap get edgexfoundry apps.security-bootstrapper.config.add-registry-acl-roles<span class="k">)</span>
-sudo snap <span class="nb">set</span> edgexfoundry apps.security-bootstrapper.config.add-registry-acl-roles<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$EXISTING</span><span class="s2">,</span><span class="nv">$SERVICE</span><span class="s2">&quot;</span>
+<span class="nv">TEMP3</span><span class="o">=</span><span class="k">$(</span>sudo snap get edgexfoundry apps.security-bootstrapper.config.add-registry-acl-roles<span class="k">)</span>
+sudo snap <span class="nb">set</span> edgexfoundry apps.security-bootstrapper.config.add-registry-acl-roles<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$TEMP3</span><span class="s2">,</span><span class="nv">$SERVICE</span><span class="s2">&quot;</span>
+
+<span class="c1"># Verify the new values before losing temp variables</span>
+sudo snap get edgexfoundry apps -d
 
 <span class="c1"># Run the bootstrappers:</span>
 sudo snap start edgexfoundry.security-secretstore-setup <span class="c1"># for creating new tokens</span>
 sudo snap start edgexfoundry.security-consul-bootstrapper <span class="c1"># for applying new consul ACL roles</span>
 </code></pre></div>
-<p>To verify that the token has been generated and the service has been added to <code>ADD_REGISTRY_ACL_ROLES</code> environment variable by inspecting the following files:</p>
+<p>To verify that the token has been generated and the service has been added to <code>ADD_REGISTRY_ACL_ROLES</code> environment variable, inspecting the following files:</p>
 <ul>
 <li><code>/var/snap/edgexfoundry/current/secrets/&lt;service&gt;/secrets-token.json</code> where <code>&lt;service&gt;</code> is the service name</li>
 <li><code>/var/snap/edgexfoundry/current/config/security-bootstrapper/res/security-bootstrapper.env</code></li>
