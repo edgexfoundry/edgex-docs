@@ -88,7 +88,7 @@ git clone https://github.com/edgexfoundry/edgex-ui-go.git
 Note that a new folder, named for the repository, gets created containing source code with each of the git clones above.
 
 !!! Warning
-    These git clone operations pull from the main branch of the EdgeX repositories.  This is the current working branch in EdgeX development.  See the [git clone documentation](https://git-scm.com/docs/git-clone) for how to clone a specific named release or branch.
+    These git clone operations pull from the main branch of the EdgeX repositories.  This is the current working branch in EdgeX development.  See the [git clone documentation](https://git-scm.com/docs/git-clone) for how to clone a specific named release branch or version tag.
 
 ## Build EdgeX Services
 
@@ -104,6 +104,9 @@ Enter the `edgex-go` folder and issue the `make build` command as shown below.
 
 !!! Warning
     Depending on the amount of memory your system has, building the services in `edgex-go` can take several minutes.
+
+!!! Note
+    Building the services in edgex-go folder will actually build some of the services (such as the security services) not used in this guide, but issuing a single command is the easiest way to build the services needed without having to build services one by one.
 
 ### Build the Virtual Device Service
 
@@ -128,6 +131,9 @@ Sister Linux Foundation, LF Edge project [eKuiper](https://www.lfedge.org/projec
 Enter the `ekuiper` folder and issue the `make build_with_edgex` command as shown below.
 
 ![image](BuildeKuiper.png)
+
+!!! Note
+    eKuiper does also provide [binaries](https://github.com/lf-edge/ekuiper/releases) which can be downloaded and used without the need for builds.  
 
 ### Build the GUI
 
@@ -192,10 +198,10 @@ The configurable application service is located in the root of `app-service-conf
 
 ![image](LocationConfigAppService.png)
 
-The configurable application service is started in a similar way as the other EdgeX services.  The configurable application service is going to be used to route data to the rules engine.  Therefore, an additional command line parameter (`confdir`) is added to its launch command to tell it where to find the configuration for rules engine work.
+The configurable application service is started in a similar way as the other EdgeX services.  The configurable application service is going to be used to route data to the rules engine.  Therefore, an additional command line parameter (`p`) is added to its launch command to tell the app service to use the rules engine configuration and profile.
 
 ```Shell
-nohup ./app-service-configurable -cp=consul.http://localhost:8500 -registry -confdir=./res/rules-engine &
+nohup ./app-service-configurable -cp=consul.http://localhost:8500 -registry -p=rules-engine &
 ```
 
 ### Start the Virtual Device Service
