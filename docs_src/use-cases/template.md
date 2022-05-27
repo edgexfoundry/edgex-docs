@@ -1,7 +1,7 @@
 ## Use case template <!-- Replace with use case title -->
 This is a template for EdgeX use cases. The description of each section is included as comments and visible only when viewing the source. Remove this paragraph before submitting a use case.
 
-### Submitter(s)
+### Submitters
 <!-- List use case submitters
 
 Format:
@@ -18,13 +18,13 @@ E.g.:
 - [amended](URL of PR) (2022-05-01)
 -->
 
-### Category
+### Market Segments
 <!-- What IoT market segments does this use case address? 
 Examples are:
 - Home (home automation, home improvement, energy efficiency)
 - Lifestyle (wearable computing, entertainment and music, family, leisure, pets, toys, drones)
 - Health (fitness, monitoring, measurement, diagnosis, surgery, patience care)
-- Mobility (connected cars, ebikes, aerospace & airports, marine, rail & stations, automotive, traffic)
+- Mobility (connected cars, eBikes, aerospace & airports, marine, rail & stations, automotive, traffic)
 - Retail (stores, shops, convenience)
 - Energy (transmission & distribution, fossil, nuclear, alternative)
 - Cities (infrastructure, water & wastewater, HVAC, lighting, security, life safety)
@@ -33,10 +33,13 @@ Examples are:
 - Other (environment, military, agriculture, hospitality)
 
 Reference and more details: https://iot-analytics.com/iot-market-segments-analysis/
+
+Name both the category and industry, e.g.:
+- Retail (stores, convenience)
 -->
 
 ### Motivation
-<!-- Summarize the problems that are solved by the use case and why they important in the relevant domain -->
+<!-- Summarize the problems that are solved by the use case and why they are important in the relevant domain -->
 
 ### Target Users
 <!-- List all stakeholders that are involved in the use case from the following list:
@@ -66,7 +69,7 @@ Format:
 -->
 
 ### Other Related Issues
-<!-- List any reported issues that are relevant and useful to support this use case but aren't feature requests that map to use cases. 
+<!-- List any reported issues that are relevant and useful to support this use case but aren't feature requests mapped to requirements. 
 
 Format:
 - [Issue Title](URL) - the relevance
