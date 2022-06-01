@@ -42,7 +42,7 @@ Name both the category and industry, e.g.:
 <!-- Summarize the problems that are solved by the use case and why they are important in the relevant domain -->
 
 ### Target Users
-<!-- List all stakeholders that are involved in the use case from the following list:
+<!-- List all stakeholders that are involved in the use case. Examples are:
 - Device Manufacturer
 - Device Owner
 - Device User
@@ -52,6 +52,7 @@ Name both the category and industry, e.g.:
 - Network Operator
 - Software Developer
 - Software Deployer
+- Software Integrator
 -->
 
 ### Description
