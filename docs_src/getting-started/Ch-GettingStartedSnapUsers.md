@@ -722,6 +722,27 @@ The default configuration files are installed at:
             └── device.snmp.trendnet.TPE082WS.yaml
 ```
 
+### Device Virtual
+| [Installation][edgex-device-virtual] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-virtual-go/tree/main/snap) |
+
+The service is **not started** by default. Please refer to [configuration] and [managing services].
+
+The default configuration files are installed at:
+```
+/var/snap/edgex-device-virtual/current/config
+└── device-virtual
+    └── res
+        ├── configuration.toml
+        ├── devices
+        │   └── devices.toml
+        ├── device-virtual.env
+        └── profiles
+            ├── device.virtual.binary.yaml
+            ├── device.virtual.bool.yaml
+            ├── device.virtual.float.yaml
+            ├── device.virtual.int.yaml
+            └── device.virtual.uint.yaml
+```
 
 <!-- Store Links -->
 [badge]: https://snapcraft.io/static/images/badges/en/snap-store-white.svg
@@ -740,4 +761,5 @@ The default configuration files are installed at:
 [edgex-device-rest]: https://snapcraft.io/edgex-device-rest
 [edgex-device-rfid-llrp]: https://snapcraft.io/edgex-device-rfid-llrp
 [edgex-device-snmp]: https://snapcraft.io/edgex-device-snmp
+[edgex-device-virtual]: https://snapcraft.io/edgex-device-virtual
 [edgex-ekuiper]: https://snapcraft.io/edgex-ekuiper
