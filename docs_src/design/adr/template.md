@@ -1,30 +1,23 @@
 # Architecture Decision Record (ADR) template <!-- Replace with ADR title -->
 This is a template for EdgeX ADR. The description of each section is included as comments and visible only when viewing the source. Remove this paragraph before submitting the ADR.
 
-## Submitters
+### Submitters
 <!-- List ADR submitters
+
 Format:
 - Name (Organization)
 -->
 
-## Status
-<!-- Status of the submission and date. 
-Status is one of: proposed, rejected, accepted, amended, deprecated
-Date is ISO 8601 (YYYY-MM-DD)
-
-Approval requires TSC vote.
+## Change Log
+<!-- List the changes to the document, incl. state, date, and PR URL.
+State is one of: accepted, amended, deprecated
+Date is an ISO 8601 (YYYY-MM-DD) string.
+PR is the pull request that submitted the change, including information such as the diff, contributors, and reviewers.
 
 E.g.:
 - [accepted](URL of PR) (2022-04-01)
 - [amended](URL of PR) (2022-05-01)
 -->
-
-### Change Log
-<!-- Changes, after approval, must be documented in the changelog
---->
-|*Date*|*EdgeX Version*|*Description*|*Submitter*|
-|------|---------------|-------------|-----------|
-|2022-01-01|Levski|Initial Draft|yourgithubid|
 
 ## Referenced Use Case(s)
 <!-- 
