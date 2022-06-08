@@ -1,4 +1,4 @@
-# Project Requirements Capture and Design/Architectural Decisions
+# Requirements and Design Process
 
 Approved by consent of the TSC *TBD*
 Supersedes the processes documented on the [EdgeX Wiki](https://wiki.edgexfoundry.org/pages/viewpage.action?pageId=73663048)
@@ -6,22 +6,22 @@ Supersedes the processes documented on the [EdgeX Wiki](https://wiki.edgexfoundr
 ## Use Case Driven Approach to Requirements and Design
 Designing an architecture is a very time consuming task.  It is best to start that with a solid foundation. The obvious goal is to design an architecture that satisfies the functional requirements, while being secure, flexible, and robust. Requirements are very important factors when designing a system. They should be derived from established, validated, and most importantly, written use cases. To avoid feature creep, the architecture should focus on requirements that are backed by multiple use cases and in the meantime try to remain extensible.
 
-The following figure outlines the EdgeX process around requirements capture and architectural design.
+The following figure outlines the EdgeX process around use cases, requirements capture, and architectural design.
 
 ![design process](Design-Process.png)
 
 ## Requirements
-In any software system, new needs of the software are encountered on a regular basis.  Any need that is more than a request to fix a bug or make a minor addition/change to the software should be documented in a use case or requirements document.  These requirements should be documented in an EdgeX [use case record](place to be determined in docs] (UCR).  UCRs must be reviewed by and approved by the TSC per the process documented here.  Bugs or small changes/additions should be documented in a project issue (via Github) and do not require a UCR.
+In any software system, new needs of the software are encountered on a regular basis.  Any need that is more than a request to fix a bug or make a minor addition/change to the software should be added as feature requests (on Github) and supported by written use cases. The use cases should be documented in an EdgeX Use Case Record (UCR). UCRs must be reviewed by domain experts and approved by the TSC per the process documented here.
 
 ### UCR template
 UCRs should be submitted as pull requests against the UCR area of [edgex-docs](https://github.com/edgexfoundry/edgex-docs).
-Use the [template](UseCaseTemplate.md) provided with this documentation to help create the UCR document.
+Use the [UCR template](ucr/template.md) provided with this documentation to help create the UCR document.
 
 ### UCR Review and Approval Process
 The community can submit UCR. The use cases describe the use case, target users, data, hardware, privacy and security considerations. Each use case should also include a list of functional requirements, the list of existing tools (that satisfy those requirements) and gaps. Use cases and requirements may freely overlap. Submissions get peer reviewed by domain experts and TSC.  The TSC approves UCR and allows design work to be conducted based on the requirements. They can be updated to address shortcomings and technological advancements. Once a stable implementation is available addressing all the requirements, the record gets classified as “supported”.
 
 ## Design
-Issues and new requirements lead to design decisions.  Design decisions are also made on a regular, if not daily, basis.  Some of these decisions are big and impactful to all parts of the system.  Other decisions are less significant but still important for everyone to know and understand.
+Issues and new requirements lead to design decisions. Design decisions are also made on a regular, if not daily, basis. Some of these decisions are big and impactful to all parts of the system. Other decisions are less significant but still important for everyone to know and understand.
 
 EdgeX has two places to record design decisions.
 
@@ -38,14 +38,14 @@ EdgeX has two places to record design decisions.
     Require a lot of manpower (more than two people working over the course of a release or more) to implement the feature outlined in the ADR.
     Requires implementation to be accomplished over multiple releases (either due to the complexity of the feature or dependencies).
 
-ADRs must be proceeded by an approved UCR in order to be approved by the TSC - allowing for the design to be implemented in the EdgeX software.
+ADRs must be proceeded by one or more approved UCRs in order to be approved by the TSC - allowing for the design to be implemented in the EdgeX software.
 
 ### ADR template
 ADRs should be submitted as pull requests against the ADR area of [edgex-docs](https://github.com/edgexfoundry/edgex-docs).
-Use the [template](ArchitectureDecisionRecordTemplate) provided with this documentation to help create the UCR document.
+Use the [ADR template](adr/template.md) provided with this documentation to help create the UCR document.
 
 ### ADR Review and Approval Process
-Designs are created to address one or more requirements across one or more use cases. The design would include architecture details as well as references to pre-approved requirements. The TSC review the proposed design from a technical perspective. Approved designs get added to the EdgeX archive as "candidate" records. Candidate designs may get demoted before implementation if another design supersedes it or if the requirements become obsolete over time. Designs may also get demoted if experimental implementations prove that they are not suitable (e.g. due to security, performance, dependency deprecation, feasibility). The design, implementation, verification cycles can repeat many times. Once a stable and verified implementation is available, the design record gets classified as “accepted”.
+Designs are created to address one or more requirements across one or more use cases. The design would include architecture details as well as references to pre-approved use cases and requirements. The TSC review the proposed design from a technical perspective. Approved designs get added to the EdgeX archive as "approved" records. They may get "deprecated" before implementation if another design supersedes it or if the requirements become obsolete over time. Designs may also get demoted if experimental implementations prove that they are not suitable (e.g. due to security, performance, dependency deprecation, feasibility). The design, implementation, verification cycles can repeat many times before resulting in a stable release.
 
 ## Project Board Cards and Issues
 

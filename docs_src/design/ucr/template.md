@@ -67,14 +67,14 @@ Name both the category and industry, e.g.:
 Include security and privacy requirements that are specific to the given domain.
 
 Format:
-- Summary ([repo#issue-num](URL))
+- Feature request issue title ([repo#issue-num](URL))
 -->
 
 ### Other Related Issues
 <!-- List any reported issues that are relevant and useful to support this use case but aren't feature requests mapped to requirements. 
 
 Format:
-- [Issue Title](URL) - the relevance
+- Issue title ([repo#issue-num](URL)): description of the relevance
 -->
 
 ### References
