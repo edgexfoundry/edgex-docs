@@ -1,6 +1,8 @@
-# Requirements and Design Process
+# Process
+This document describes the EdgeX use case driven approach to requirements engineering and design.
 
 Approved by consent of the TSC *TBD*
+
 Supersedes the processes documented on the [EdgeX Wiki](https://wiki.edgexfoundry.org/pages/viewpage.action?pageId=73663048)
 
 ## Use Case Driven Approach to Requirements and Design

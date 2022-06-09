@@ -1,5 +1,7 @@
 # Architecture Decision Record (ADR) template <!-- Replace with ADR title -->
-This is a template for EdgeX ADR. The description of each section is included as comments and visible only when viewing the source. Remove this paragraph before submitting the ADR.
+This is a template for EdgeX ADR.
+The description of each section is included as comments and visible only when viewing the [source](https://raw.githubusercontent.com/edgexfoundry/edgex-docs/main/docs_src/design/adr/template.md).
+Remove this paragraph before submitting the ADR.
 
 ### Submitters
 <!-- List ADR submitters

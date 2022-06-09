@@ -1,4 +1,10 @@
-# ADR Table of Contents
+# Records
+
+## Use Case Records (UCRs)
+| Name/Link                                                            | Short Description                               |
+| -------------------------------------------------------------------- | ----------------------------------------------- |
+
+## Architectural Design Records (ADRs)
 
 | Name/Link                                                            | Short Description                               |
 | -------------------------------------------------------------------- | ----------------------------------------------- |
