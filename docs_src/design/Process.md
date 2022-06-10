@@ -1,5 +1,5 @@
 # Process
-This document describes the EdgeX use case driven approach to requirements engineering and design.
+This document describes the EdgeX use case driven requirements engineering and design process.
 
 Approved by consent of the TSC *TBD*
 
@@ -10,9 +10,9 @@ Designing an architecture is a very time consuming task.  It is best to start th
 
 The following figure outlines the EdgeX process around use cases, requirements capture, and architectural design.
 
-![design process](Design-Process.png)
+![design process](Process.png)
 
-## Requirements
+## Use Cases and Requirements
 In any software system, new needs of the software are encountered on a regular basis.  Any need that is more than a request to fix a bug or make a minor addition/change to the software should be added as feature requests (on Github) and supported by written use cases. The use cases should be documented in an EdgeX Use Case Record (UCR). UCRs must be reviewed by domain experts and approved by the TSC per the process documented here.
 
 ### UCR template
@@ -22,7 +22,7 @@ Use the [UCR template](ucr/template.md) provided with this documentation to help
 ### UCR Review and Approval Process
 The community can submit UCR. The use cases describe the use case, target users, data, hardware, privacy and security considerations. Each use case should also include a list of functional requirements, the list of existing tools (that satisfy those requirements) and gaps. Use cases and requirements may freely overlap. Submissions get peer reviewed by domain experts and TSC.  The TSC approves UCR and allows design work to be conducted based on the requirements. They can be updated to address shortcomings and technological advancements. Once a stable implementation is available addressing all the requirements, the record gets classified as “supported”.
 
-## Design
+## Designs
 Issues and new requirements lead to design decisions. Design decisions are also made on a regular, if not daily, basis. Some of these decisions are big and impactful to all parts of the system. Other decisions are less significant but still important for everyone to know and understand.
 
 EdgeX has two places to record design decisions.
