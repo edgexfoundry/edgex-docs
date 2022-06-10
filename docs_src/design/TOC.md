@@ -1,4 +1,4 @@
-# Records
+# Use Cases and Design Records
 
 ## Use Case Records (UCRs)
 | Name/Link                                                            | Short Description                               |

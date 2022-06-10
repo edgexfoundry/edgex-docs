@@ -1,4 +1,4 @@
-# Process
+# Use Cases and Design Process
 This document describes the EdgeX use case driven requirements engineering and design process.
 
 Approved by consent of the TSC *TBD*
@@ -16,7 +16,7 @@ The following figure outlines the EdgeX process around use cases, requirements c
 In any software system, new needs of the software are encountered on a regular basis.  Any need that is more than a request to fix a bug or make a minor addition/change to the software should be added as feature requests (on Github) and supported by written use cases. The use cases should be documented in an EdgeX Use Case Record (UCR). UCRs must be reviewed by domain experts and approved by the TSC per the process documented here.
 
 ### UCR template
-UCRs should be submitted as pull requests against the UCR area of [edgex-docs](https://github.com/edgexfoundry/edgex-docs).
+UCRs should be submitted as pull requests against the [UCR area of edgex-docs](https://github.com/edgexfoundry/edgex-docs/tree/main/docs_src/design/ucr).
 Use the [UCR template](ucr/template.md) provided with this documentation to help create the UCR document.
 
 ### UCR Review and Approval Process
@@ -43,7 +43,7 @@ EdgeX has two places to record design decisions.
 ADRs must be proceeded by one or more approved UCRs in order to be approved by the TSC - allowing for the design to be implemented in the EdgeX software.
 
 ### ADR template
-ADRs should be submitted as pull requests against the ADR area of [edgex-docs](https://github.com/edgexfoundry/edgex-docs).
+ADRs should be submitted as pull requests against the [ADR area of edgex-docs](https://github.com/edgexfoundry/edgex-docs/tree/main/docs_src/design/adr).
 Use the [ADR template](adr/template.md) provided with this documentation to help create the UCR document.
 
 ### ADR Review and Approval Process
