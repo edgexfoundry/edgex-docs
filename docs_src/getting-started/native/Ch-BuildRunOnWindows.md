@@ -1,7 +1,7 @@
 # Build and Run on Windows on x86/x64
 
 !!! Warning
-    This build and run guide offers some assistance to seasoned developers or administrators to help build and run EdgeX on Windows natively (not using Docker and not running on [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about) ) but running natively on Windows is **not supported by the project**.  EdgeX was built to be platform independent.  As such, we believe most of EdgeX can run on almost any environment (on any hardware architecture and almost any operating system).  However, there are elements of the EdgeX platform that will not run on Windows.  Specifically, Redis, Kong and eKuiper will not run on Windows natively.  Additionally, there are a number of device services that will not work on EdgeX.  In these instances, developers will need to find workarounds to these services or run them outside of Windows and access them across the network.
+    This build and run guide offers some assistance to seasoned developers or administrators to help build and run EdgeX on Windows natively (not using Docker and not running on [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about) ) but running natively on Windows is **not supported by the project**.  EdgeX was built to be platform independent.  As such, we believe most of EdgeX can run on almost any environment (on any hardware architecture and almost any operating system).  However, there are elements of the EdgeX platform that will not run **natively** on Windows.  Specifically, Redis, Kong and eKuiper will not run on Windows natively.  Additionally, there are a number of device services that will not work on native Windows.  In these instances, developers will need to find workarounds for services or run them outside of Windows and access them across the network.
     
     Existence of this guides **does not imply current or future support**.  Use of this guides should be used with care and with an understanding that it is the community's best effort to provide advanced developers with the means to begin their own custom EdgeX development and execution on Windows.
 
@@ -41,13 +41,13 @@ The following software is assumed to already be installed and available on the h
 
         ![image](GitCheck-Windows.png)
 
-You will also need GCC (for C++), and Make.  These can be provided via a variety of tools/packages in Windows.  Some options include use of:
+You may also need GCC (for C++, depending on whether services you are creating have or require C/C++ elements) and Make.  These can be provided via a variety of tools/packages in Windows.  Some options include use of:
 
 - [Visual Studio](https://visualstudio.microsoft.com/)
 - [Cygwin](https://www.cygwin.com/)
 - [MinGW/MinGW-W64](https://www.mingw-w64.org/downloads/)
 
-Redis will not run on Windows, but is required in order to run EdgeX.  You Windows platform must be able to connect to a Redis instance on another platform via TCP/IP on port 6379 (by default). Redis,version 6.2 or later as of the Kamakura release.  As an example, see [How to install and configure Redis on Ubuntu 20.04](https://linuxize.com/post/how-to-install-and-configure-redis-on-ubuntu-20-04/).  
+Redis will not run on Windows, but is required in order to run EdgeX.  Your Windows platform must be able to connect to a Redis instance on another platform via TCP/IP on port 6379 (by default). Redis,version 6.2 or later as of the Kamakura release.  As an example, see [How to install and configure Redis on Ubuntu 20.04](https://linuxize.com/post/how-to-install-and-configure-redis-on-ubuntu-20-04/).  
 
 Because EdgeX on your Windows platform will access Redis on another host, Redis should be configured to allow for traffic from other machines, you'll need to allow access from other addresses (see [Open Redis port for remote connections](https://stackoverflow.com/questions/19091087/open-redis-port-for-remote-connections)).  Additionally, you will need to configure EdgeX to use a username/password to access Redis, or set Redis into unprotected mode (see [Turn off 'protected-mode' in Redis](https://serverfault.com/questions/861519/how-to-turn-off-protected-mode-in-redis))
 
