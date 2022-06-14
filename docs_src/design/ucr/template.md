@@ -17,7 +17,7 @@ Date is an ISO 8601 (YYYY-MM-DD) string.
 PR is the pull request that submitted the change, including information such as the diff, contributors, and reviewers.
 
 E.g.:
-- [accepted](URL of PR) (2022-04-01)
+- [approved](URL of PR) (2022-04-01)
 - [amended](URL of PR) (2022-05-01)
 -->
 
