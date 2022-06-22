@@ -1,4 +1,11 @@
-# ADR Table of Contents
+# Use Cases and Design Records
+
+## Use Case Records (UCRs)
+| Name/Link                                                                 | Short Description                                             |
+|---------------------------------------------------------------------------|---------------------------------------------------------------|
+| [0001 System Events for Devices](./ucr/0001-System-Events-for-Devices.md) | Use Case for System Events for Device add/update/delete |
+
+## Architectural Design Records (ADRs)
 
 | Name/Link                                                            | Short Description                               |
 | -------------------------------------------------------------------- | ----------------------------------------------- |
@@ -23,4 +30,4 @@
 | [0020 Delay start services (SPIFFE/SPIRE)](./adr/security/0020-spiffe.md)                      | Secret store tokens for delayed start services          |
 | [0021 Device Profile Changes](./adr/core/0021-Device-Profile-Changes.md)                      | Rules on device profile modifications          |
 | [0022 Unit of Measure](./adr/core/0022-UoM.md)                                                                       | Unit of Measure|
-| [0023 North South Messaging](./adr/0023-North-South-Messaging.md)                              | Provide for messaging from north side systems through command down to device services |
+| [0023 North South Messaging](./adr/0023-North-South-Messaging.md)                              | Provide for messaging from north side systems through command down to device services |                       | Provide for messaging from north side systems through command down to device services |
