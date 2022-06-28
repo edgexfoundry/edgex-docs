@@ -185,5 +185,8 @@ extra_javascript:
 - assets\javascripts\version-select.js
 plugins:
   - search
-  ## uncomment the next line to run the HTML Proofer in development to check for bad links
-  #- htmlproofer
+  - htmlproofer:
+      raise_error: True
+      raise_error_excludes:
+        404: ['https://support.google.com/accounts/answer/185833?hl=en', 
+              'https://support.google.com/accounts/answer/6010255?hl=en']
