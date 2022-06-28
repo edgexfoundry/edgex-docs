@@ -149,7 +149,9 @@ Open the `edgex-compose/compose-builder/docker-compose.yml` file and then add vo
       DEVICE_PROFILESDIR: /custom-config/profiles
       ...
     volumes:
-    - /path/to/custom-config:/custom-config
+    - type: bind
+      src: /path/to/custom-config
+      target: /custom-config
     ...
 ```
 
