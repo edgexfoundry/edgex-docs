@@ -20,6 +20,5 @@ The following guides will assist you in building and running EdgeX natively.
 ## Guides
 
 - [Build and Run on Linux x86/x64](./Ch-BuildRunOnLinuxDistro.md)
-- Build and Run on Linux ARM64 - *coming soon*
-- Build and Run on Linux ARM32 - *coming soon*
+- [Build and Run on Linux ARM32 (Raspberry Pi)](./Ch-BuildRunOnArm32.md)
 - [Build and Run on Windows](./Ch-BuildRunOnWindows.md)
