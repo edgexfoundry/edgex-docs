@@ -13,7 +13,7 @@ When a new camera device is added to the system only Core Metadata and the Devic
 
 ### Target Users
 - Device User
-- Software Deplorer
+- Software Deployer
 - Software Integrator
 - Deployment Customer
 
