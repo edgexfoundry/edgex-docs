@@ -65,11 +65,12 @@ Name both the category and industry, e.g.:
 <!-- How is the given use case currently implemented in the industry? List and describe each approach. Highlight possible gaps. -->
 
 ### Requirements
-<!-- Provide a list of (non-)functional requirements that aren't addressed by EdgeX with references to corresponding feature request Github issues.
+<!-- Provide a list of (non-)functional requirements that aren't addressed by EdgeX. 
 Include security and privacy requirements that are specific to the given domain.
+If appropriate, report requirements as feature requests on corresponding EdgeX projects and provide the URLs.
 
 Format:
-- Feature request issue title ([repo#issue-num](URL))
+- Summary of the requirement ([repo#issue-num](URL))
 -->
 
 ### Other Related Issues

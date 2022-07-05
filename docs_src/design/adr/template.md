@@ -28,11 +28,7 @@ ADR requires at least one relevant, approved use case.
 Format:
 - [UC Name](URL of use case)
 
-If the ADR is not addressing all the requirements of a use case, list the subset as child bullets:
-Format:
-- [UC Name](URL of use case)
-  - [Issue title](URL of issue)
-  - [Issue title](URL of issue)
+Add explanations if the ADR is not addressing all the requirements of a use case.
 -->
 
 ## Context
