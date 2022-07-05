@@ -81,6 +81,12 @@ Format:
 -->
 
 ### References
-<!-- List additional references -->
-- [IoT Market segments](https://iot-analytics.com/iot-market-segments-analysis/)
-- [W3C WoT Use Cases](https://www.w3.org/TR/wot-usecases)
+<!-- List additional references
+
+Format:
+- [Title](URL)
+
+The following are references used to create this template:
+- https://iot-analytics.com/iot-market-segments-analysis/
+- https://www.w3.org/TR/wot-usecases
+-->

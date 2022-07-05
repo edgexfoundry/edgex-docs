@@ -6,21 +6,21 @@ Approved by consent of the TSC *TBD*
 Supersedes the processes documented on the [EdgeX Wiki](https://wiki.edgexfoundry.org/pages/viewpage.action?pageId=73663048)
 
 ## Use Case Driven Approach to Requirements and Design
-Designing an architecture is a very time consuming task.  It is best to start that with a solid foundation. The obvious goal is to design an architecture that satisfies the functional requirements, while being secure, flexible, and robust. Requirements are very important factors when designing a system. They should be derived from established, validated, and most importantly, written use cases. To avoid feature creep, the architecture should focus on requirements that are backed by multiple use cases and in the meantime try to remain extensible.
+Designing an architecture is a very time consuming task. It is best to start that with a solid foundation. The obvious goal is to design an architecture that satisfies the functional requirements, while being secure, flexible, and robust. Requirements are very important factors when designing a system. They should be derived from established, validated, and most importantly, written use cases. To avoid feature creep, the architecture should focus on requirements that are backed by multiple use cases and in the meantime try to remain extensible.
 
 The following figure outlines the EdgeX process around use cases, requirements capture, and architectural design.
 
 ![design process](Process.png)
 
 ## Use Cases and Requirements
-In any software system, new needs of the software are encountered on a regular basis.  Any need that is more than a request to fix a bug or make a minor addition/change to the software should be added as feature requests (on Github) and supported by written use cases. The use cases should be documented in an EdgeX Use Case Record (UCR). UCRs must be reviewed by domain experts and approved by the TSC per the process documented here.
+In any software system, new needs of the software are encountered on a regular basis. Any need that is more than a request to fix a bug or make a minor addition/change to the software should be added as feature requests (on Github) and supported by written use cases. The use cases should be documented in an EdgeX Use Case Record (UCR). UCRs must be reviewed by domain experts and approved by the TSC per the process documented here.
 
 ### UCR template
 UCRs should be submitted as pull requests against the [UCR area of edgex-docs](https://github.com/edgexfoundry/edgex-docs/tree/main/docs_src/design/ucr).
 Use the [UCR template](ucr/template.md) provided with this documentation to help create the UCR document.
 
 ### UCR Review and Approval Process
-The community can submit UCR. The use cases describe the use case, target users, data, hardware, privacy and security considerations. Each use case should also include a list of functional requirements, the list of existing tools (that satisfy those requirements) and gaps. Use cases and requirements may freely overlap. Submissions get peer reviewed by domain experts and TSC.  The TSC approves UCR and allows design work to be conducted based on the requirements. They can be updated to address shortcomings and technological advancements. Once a stable implementation is available addressing all the requirements, the record gets classified as “supported”.
+The community can submit UCR. The use cases describe the use case, target users, data, hardware, privacy and security considerations. Each use case should also include a list of functional requirements, the list of existing tools (that satisfy those requirements) and gaps. Use cases and requirements may freely overlap. Submissions get peer reviewed by domain experts and TSC. The TSC approves UCR and allows design work to be conducted based on the requirements. They can be updated to address shortcomings and technological advancements. Once a stable implementation is available addressing all the requirements, the record gets classified as "supported".
 
 ## Designs
 Issues and new requirements lead to design decisions. Design decisions are also made on a regular, if not daily, basis. Some of these decisions are big and impactful to all parts of the system. Other decisions are less significant but still important for everyone to know and understand.
@@ -34,7 +34,7 @@ EdgeX has two places to record design decisions.
 
 ### When to use an ADR
 
-“Significant architectural decisions” are deemed those that:
+"Significant architectural decisions" are deemed those that:
 
     Impact more than one EdgeX service and often impact the entire system (such as the definition of a data transfer object used through the system, of a feature that must be supported by all services).
     Require a lot of manpower (more than two people working over the course of a release or more) to implement the feature outlined in the ADR.
@@ -66,11 +66,11 @@ The template for project board cards documenting each decision is:
 Note there is a Template column on the project board with a single card that specifies this same structure.
 Project Board Columns
 
-The Design Decisions project board will be permanent and never archived or deleted.  For each release, a new column named for that release will be created to hold the decisions (in the form of cards or issues) for that release.
+The Design Decisions project board will be permanent and never archived or deleted. For each release, a new column named for that release will be created to hold the decisions (in the form of cards or issues) for that release.
 
-The release columns may be “frozen” at the end of a release, but should never be deleted so that all design decisions can be retained for the life of the project.
+The release columns may be "frozen" at the end of a release, but should never be deleted so that all design decisions can be retained for the life of the project.
 Ownership and Card/Issue Creation
 
-The TSC chair, vice-chair and product manager will have overall responsibility for the Design Decision project board.  These people will also be responsible for capturing any decisions from TSC meetings or the Monthly Architect’s Meeting as cards/issues on the board.
+The TSC chair, vice-chair and product manager will have overall responsibility for the Design Decision project board. These people will also be responsible for capturing any decisions from TSC meetings or the Monthly Architect’s Meeting as cards/issues on the board.
 
 Work Group chairs are responsible for adding new design decision cards/issues that come for their work group or related meetings.

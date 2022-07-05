@@ -33,9 +33,8 @@ Add explanations if the ADR is not addressing all the requirements of a use case
 
 ## Context
 <!-- Describe:
-- the requirements or problem leading to the need for this design, 
-- explain how the design is architecturally significant - warranting an ADR (versus simple issue and PR to fix a problem)
-- high level design approach (details described in the proposed design below)
+- how the design is architecturally significant - warranting an ADR (versus simple issue and PR to fix a problem)
+- the high level design approach (details described in the proposed design below)
 -->
 
 ## Proposed Design
@@ -50,17 +49,22 @@ Outline:
 -->
 
 ## Considerations
-<!-- Document alternatives, concerns, ancillary or related issues, questions that arose in debate of the ADR.  Indicate if/how they were resolved or mollified.-->
+<!-- Document alternatives, concerns, ancillary or related issues, questions that arose in debate of the ADR. Indicate if/how they were resolved or mollified.-->
 
 ## Decision
-<!-- Document any agreed upon important implementation detail, caveats, future considerations, remaining ADR issue deferred, etc..  Document any part of the requirements not satisfied by the proposed design.-->
+<!-- Document any agreed upon important implementation detail, caveats, future considerations, remaining or deferred design issues.
+Document any part of the requirements not satisfied by the proposed design.-->
 
-## Other Related ADR
-<!-- List any relevant ADR - such as a design decision for a sub-component of a feature, a design deprecated as a result of this design, etc.. 
+## Other Related ADRs
+<!-- List any relevant ADRs - such as a design decision for a sub-component of a feature, a design deprecated as a result of this design, etc.. 
 
 Format:
 - [ADR Title](URL) - the relevance
 -->
 
 ## References
-<!-- List additional references -->
+<!-- List additional references 
+
+Format:
+- [Title](URL)
+-->
