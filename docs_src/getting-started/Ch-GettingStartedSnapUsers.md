@@ -790,7 +790,6 @@ The default configuration files are installed at:
         ├── configuration.toml
         ├── devices
         │   └── devices.toml
-        ├── device-virtual.env
         └── profiles
             ├── device.virtual.binary.yaml
             ├── device.virtual.bool.yaml
