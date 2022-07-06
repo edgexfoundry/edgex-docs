@@ -237,7 +237,7 @@ To find all EdgeX snaps on the public Snap Store, [search by keyword](https://sn
 | [Installation][edgexfoundry] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/edgex-go/tree/main/snap) |
 
 The main platform snap, simply called `edgexfoundry` contains
-all reference core services along with several other security, supporting, application, and device services.
+all reference core and security services along with a few supporting and application services.
 
 Upon installation, the following EdgeX services are automatically started:
 
@@ -259,7 +259,6 @@ The following services are disabled by default:
 - support-notifications
 - support-scheduler
 - sys-mgmt-agent - *deprecated EdgeX component*
-- device-virtual
 - kuiper (Rules Engine / eKuiper) - *deprecated; use the standalone [EdgeX eKuiper snap](#edgex-ekuiper)*
 - app-service-configurable (used to filter events for kuiper) - *deprecated; use the standalone [App Service Configurable snap](#app-service-configurable)*
 
