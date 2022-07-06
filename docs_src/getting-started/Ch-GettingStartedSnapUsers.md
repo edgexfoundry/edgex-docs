@@ -752,6 +752,31 @@ The default configuration files are installed at:
             └── device.snmp.trendnet.TPE082WS.yaml
 ```
 
+### Device USB Camera
+| [Installation][edgex-device-usb-camera] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-usb-camera/main/snap) |
+
+This snap includes two services:
+- Device USB Camera service
+- [Simple RTSP Server](https://github.com/aler9/rtsp-simple-server) - used as the default RTSP server by Device USB Camera service
+
+The services are **not started** by default. Please refer to [configuration] and [managing services].
+
+The snap uses the [camera interface](https://snapcraft.io/docs/camera-interface) to access local USB camera devices. The [interface management](https://snapcraft.io/docs/interface-management) document describes how Snap interfaces are used to control the access to resources.
+
+The default configuration files are installed at:
+```
+/var/snap/edgex-device-usb-camera/current/config
+├── device-usb-camera
+│   └── res
+│       ├── configuration.toml
+│       ├── devices
+│       │   └── general.usb.camera.toml.example
+│       ├── device-usb-camera.env
+│       └── profiles
+│           └── general.usb.camera.yaml
+└── rtsp-simple-server.yml
+```
+
 ### Device Virtual
 | [Installation][edgex-device-virtual] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-virtual-go/tree/main/snap) |
 
@@ -791,5 +816,6 @@ The default configuration files are installed at:
 [edgex-device-rest]: https://snapcraft.io/edgex-device-rest
 [edgex-device-rfid-llrp]: https://snapcraft.io/edgex-device-rfid-llrp
 [edgex-device-snmp]: https://snapcraft.io/edgex-device-snmp
+[edgex-device-usb-camera]: https://snapcraft.io/edgex-device-usb-camera
 [edgex-device-virtual]: https://snapcraft.io/edgex-device-virtual
 [edgex-ekuiper]: https://snapcraft.io/edgex-ekuiper
