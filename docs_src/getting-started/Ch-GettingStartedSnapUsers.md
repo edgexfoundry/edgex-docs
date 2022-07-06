@@ -6,6 +6,10 @@
 secure, cross‐platform and self-contained.
 Snaps can be installed on any Linux distribution with [snap support](https://snapcraft.io/docs/installing-snapd).
 
+The following sub-sections provide generic instructions for installing, configuring, and managing EdgeX services using snaps. 
+
+For the list of EdgeX snaps and specific instructions, please refer to the **[EdgeX Snaps](#edgex-snaps)** section.
+
 ### Installation
 [installation]: #installation
 
@@ -205,7 +209,28 @@ sudo journalctl -n 100 -f | grep <snap>
     The verbosity of service logs is INFO by default. This can be changed by overriding the log level using the `WRITABLE_LOGLEVEL` environment variable using snap config overrides `apps.<app>.config.writable-loglevel` or globally as `config.writable-loglevel`.
 
 ## EdgeX Snaps
-The following snaps are maintained by the EdgeX working groups.
+The following snaps are maintained by the EdgeX working groups:
+
+- [Platform Snap](#platform-snap) - containing all core and security services along with few supporting and application services.
+- Tools
+    - [EdgeX UI](#edgex-ui)
+    - [EdgeX CLI](#edgex-cli)
+- Supporting Services
+    - [EdgeX eKuiper](#edgex-ekuiper)
+- Application Services
+    - [App Service Configurable](#app-service-configurable)
+    - [App RFID LLRP Inventory](#app-rfid-llrp-inventory)
+- Device Services
+    - [Device Camera](#device-camera)
+    - [Device GPIO](#device-gpio)
+    - [Device Grove](#device-grove)
+    - [Device Modbus](#device-modbus)
+    - [Device MQTT](#device-mqtt)
+    - [Device REST](#device-rest)
+    - [Device RFID LLRP](#device-rfid-llrp)
+    - [Device SNMP](#device-snmp)
+    - [Device Virtual](#device-virtual)
+
 To find all EdgeX snaps on the public Snap Store, [search by keyword](https://snapcraft.io/search?q=edgex).
 
 ### Platform Snap
