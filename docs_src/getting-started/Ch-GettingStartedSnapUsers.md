@@ -23,29 +23,35 @@ This is similar to setting `--channel=latest/stable` or shorthand `--stable` and
 To install a specific version with long term support (e.g. 2.1), or to install a beta or development release, refer to the store page for the snap, choose install, and then pick the desired channel.
 The store page also provides instructions for installation on different Linux distributions as well as the list of supported CPU architectures.
 
-For the list of EdgeX snaps, please refer [here](#edgex-snaps).
-
 ### Configuration
 [configuration]: #configuration
 
 EdgeX snaps are packaged with default service configuration files. In certain cases, few configuration fields are overridden within the snap for snap-specific deployment requirements.
 
+There are a few ways to configure snapped services. In simple cases, it should be sufficient to modify the default config files before starting the services for the first time and use config overrides to change supported settings afterwards. Please refer below to learn about the different configuration methods.
 
 #### Config files
-The default configuration files are typically placed at `/var/snap/<snap>/current/config`. Upon startup, the server configurations files are uploaded to the registry by default. Once the service starts without errors, the local configurations become obsolete and will no longer be read. Any modifications after the initial startup will not be applied. 
+The default configuration files are typically placed at `/var/snap/<snap>/current/config`. Upon a successful startup of an EdgeX service, the server configuration file (typically named `configuration.toml`) is uploaded to the Registry by default. After that, the local server configuration file will no longer be read and any modifications will not be applied. At this point, the configurations can be only changed via the Registry or by setting environment variables. Refer to [config registry](#config-registry) or [config overrides](#config-overrides) for details.
 
-For device services, the  Device and Device Profile files are submitted to [Core Metadata](../../microservices/core/metadata/Ch-Metadata) upon initial startup. Refer to the documentation of [Device Services](../../microservices/device/Ch-DeviceServices/) for details.
+For device services, the Device and Device Profile files are submitted to [Core Metadata](../../microservices/core/metadata/Ch-Metadata) upon initial startup. Refer to the documentation of [Device Services](../../microservices/device/Ch-DeviceServices/) for details.
 
 #### Config registry
-The configurations that are uploaded to Consul can be modified using Consul's UI or [kv REST API](https://www.consul.io/api/kv). Changes to configurations in Consul are loaded by the service at startup. If the service has already started, a restart is required to load new configurations. Configurations that are in the writable section get loaded not only at startup, but also during the runtime. In other words, changes to the writable configurations are loaded automatically without a restart. Please refer to 
-[Common Configuration](/microservices/configuration/CommonConfiguration/) and 
+The configurations that are uploaded to the Registry (i.e. Consul by default) can be modified using Consul's UI or [kv REST API](https://www.consul.io/api/kv). The Registry is a Core services, part of the [Platform Snap](#platform-snap).
+
+Changes to configurations in Registry are loaded by the service at startup. If the service has already started, a restart is required to load new configurations. Configurations that are in the writable section get loaded not only at startup, but also during the runtime. In other words, changes to the writable configurations are loaded automatically without a restart.
+
+Please refer to 
+[Common Configuration](../../microservices/configuration/CommonConfiguration/) and 
 [Configuration and Registry Providers](../../microservices/configuration/ConfigurationAndRegistry/) for more information.
 
 #### Config provider snap
 [config-provider-snap]: #config-provider-snap
 
-Most EdgeX snaps have a [content interface](https://snapcraft.io/docs/content-interface) which allows another snap to seed the snap with configuration files.
-This is useful when replacing entire configuration files via another snap, packaged with the deployment-specific configurations.
+Most EdgeX snaps have a [content interface](https://snapcraft.io/docs/content-interface) which allows another snap to seed it with configuration files.
+This is useful for replacing all the configuration files in a service snap via a config provider snap without manual user interaction.
+
+A config provider snap could be a standalone package with all the necessary configurations for multiple snaps. It will expose and one or more [interface](https://snapcraft.io/docs/interface-management) *slots* to allow connections from consumer *plugs*. The config provider snap can be released to the store just like any other snap. 
+Upon a connection between consumer and provider snaps, the packaged config files get mounted inside the consumer snap, to be used by services.
 
 Please refer to [edgex-config-provider](https://github.com/canonical/edgex-config-provider), for an example.
 
