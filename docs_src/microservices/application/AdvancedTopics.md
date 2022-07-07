@@ -489,16 +489,22 @@ All pipeline function capabilities such as Store and Forward, Batching, etc. can
 
 ### Built-in Application Service Metrics
 
-!!! edgey "EdgeX 2.2"
-    Built-in Application Service Metrics are new for EdgeX 2.2
+!!! edgey "EdgeX 2.3"
+    Additional built-in Application Service Metrics have been added for EdgeX  2.3
 
-All application services now have a limited set of built in metrics. More may be added in future releases.
+All application services have the following built-in metrics:
 
-The current built-in metrics are:
+- `MessagesReceived` - This is a **counter** metric that counts the number of messages received by the application service. Includes invalid messages.
 
-- `MessagesReceived` - This is a **counter** metric that counts the number of messages received by the application service.
+- `InvalidMessagesReceived ` - **(NEW)** This is a **counter** metric that counts the number of invalid messages received by the application service. 
+
+- `HttpExportSize  ` - **(NEW)** This is a **histogram** metric that collects the size of data exported via the built-in [HTTP Export pipeline function](../BuiltIn/#http-export). The metric data is not currently tagged due to breaking changes required to tag the data with the destination endpoint. This will be addressed in a future EdgeX 3.0 release.
+
+- `MqttExportSize  ` - **(NEW)** This is a **histogram** metric that collects the size of data exported via the built-in [MQTT Export pipeline function](../BuiltIn/#mqtt-export). The metric data is tagged with the specific broker address and topic.
 
 - `PipelineMessagesProcessed` - This is a **counter** metric that counts the number of messages processed by the individual function pipelines defined by the application service. The metric data is tagged with the specific function pipeline ID the count is for.
+
+- `PipelineProcessingErrors ` - **(NEW)** This is a **counter** metric that counts the number of errors returned by the individual function pipelines defined by the application service. The metric data is tagged with the specific function pipeline ID the count is for.
 
 - `PipelineMessageProcessingTime` - This is a **timer** metric that tracks the amount of time taken to process messages by the individual function pipelines defined by the application service. The metric data is tagged with the specific function pipeline ID the timer is for.
 
@@ -507,14 +513,18 @@ The current built-in metrics are:
 
 Reporting of these built-in metrics is disabled by default in the `Writable.Telemetry` configuration section. See `Writable.Telemetry` configuration details in the [Application Service Configuration](../GeneralAppServiceConfig/#writable) section for complete detail on this section. If the configuration for these built-in metrics are missing, then the reporting of the metrics will be disabled.
 
-!!! example "Example - Service Telemetry Configuration with built-in metrics enabled for reporting"
+!!! example "Example - Service Telemetry Configuration with all built-in metrics enabled for reporting"
     ```toml
       [Writable.Telemetry]
       Interval = "30s"
       PublishTopicPrefix  = "edgex/telemetry" # /<service-name>/<metric-name> will be added to this Publish Topic prefix
         [Writable.Telemetry.Metrics] # All service's metric names must be present in this list.
         MessagesReceived = true
+		InvalidMessagesReceived = true
+		HttpExportSize = true
+		MqttExportSize = true
         PipelineMessagesProcessed = true
+        PipelineProcessingErrors = true
         PipelineMessageProcessingTime = true
         [Writable.Telemetry.Tags] # Contains the service level tags to be attached to all the service's metrics
     #    Gateway="my-iot-gateway" # Tag must be added here or via Consul Env Override can only change existing value, not added new ones.
