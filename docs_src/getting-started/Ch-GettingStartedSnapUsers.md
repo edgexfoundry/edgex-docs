@@ -771,7 +771,6 @@ The default configuration files are installed at:
 │       ├── configuration.toml
 │       ├── devices
 │       │   └── general.usb.camera.toml.example
-│       ├── device-usb-camera.env
 │       └── profiles
 │           └── general.usb.camera.yaml
 └── rtsp-simple-server.yml
