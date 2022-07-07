@@ -53,18 +53,23 @@ The tabs below provide additional entries in the **Writable** section which are 
     | clientkey | blank* | Indicates the value (contents) for the `Client Key` when connecting to the MQTT broker using ` clientcert` authentication mode. Must be configured to the value the MQTT broker is expecting. |
 
 === "Writable.Telemetry"
-    |Property|Default Value|Description|
+    |Property|<div style="width:300px">Default Value</div>|Description|
     |---|---|---|
     |||See `Writable.Telemetry` at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties) for the Telemetry configuration common to all services |
     |Metrics|     |Service metrics that the application service collects. Boolean value indicates if reporting of the metric is enabled. Custom metrics are also included here for custom application services that define custom metrics|
     ||`MessagesReceived` = false     |Enable/disable reporting of the built-in **MessagesReceived** metric|
+    ||`InvalidMessagesReceived` = false     |**(NEW)** Enable/disable reporting of the built-in **InvalidMessagesReceived** metric|
+    ||`HttpExportSize  ` = false     | **(NEW)** Enable/disable reporting of the built-in **HttpExportSize** metric|
+    ||`MqttExportSize  ` = false     |**(NEW)** Enable/disable reporting of the built-in **MqttExportSize** metric|
     ||`PipelineMessagesProcessed` = false     |Enable/disable reporting of the built-in **PipelineMessagesProcessed** metrics|
-    || `PipelineMessageProcessingTime` = false |Enable/disable reporting of the built-in **PipelineMessageProcessingTime** metrics|
-    || `<CustomMetric>` = false    |Enable/disable reporting of custome application service's custom metric|
+    ||`PipelineProcessingErrors` = false     | **(NEW)** Enable/disable reporting of the built-in **PipelineProcessingErrors** metrics|
+    ||`PipelineMessageProcessingTime` = false |Enable/disable reporting of the built-in **PipelineMessageProcessingTime** metrics|
+    ||`<CustomMetric>` = false    |Enable/disable reporting of custome application service's custom metric|
     |Tags|`<empty>`|List of arbitrary service level tags to included with every metric that is reported. i.e. `Gateway="my-iot-gateway"` |
     
-    !!! edgey "Edgex 2.2"
-        New for EdgeX 2.2 All application services have a limited set of built-in service metrics and custom application services can define, collect and report their own custome service metrics. See [Built-in Application Service Metrics](../AdvancedTopics/#built-in-application-service-metrics) and [Custom Application Service](../AdvancedTopics/#custom-application-service-metrics) section for more detials
+
+!!! edgey "Edgex 2.2"
+    New for EdgeX 2.2 All application services have built-in service metrics and custom application services can define, collect, and report their own custome service metrics. See [Built-in Application Service Metrics](../AdvancedTopics/#built-in-application-service-metrics) and [Custom Application Service](../AdvancedTopics/#custom-application-service-metrics) section for more detials
 
 ## Not Writable
 
