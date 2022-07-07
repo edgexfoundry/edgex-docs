@@ -520,9 +520,9 @@ Reporting of these built-in metrics is disabled by default in the `Writable.Tele
       PublishTopicPrefix  = "edgex/telemetry" # /<service-name>/<metric-name> will be added to this Publish Topic prefix
         [Writable.Telemetry.Metrics] # All service's metric names must be present in this list.
         MessagesReceived = true
-		InvalidMessagesReceived = true
-		HttpExportSize = true
-		MqttExportSize = true
+        InvalidMessagesReceived = true
+        HttpExportSize = true
+        MqttExportSize = true
         PipelineMessagesProcessed = true
         PipelineProcessingErrors = true
         PipelineMessageProcessingTime = true

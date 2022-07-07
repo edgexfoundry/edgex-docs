@@ -69,7 +69,7 @@ The tabs below provide additional entries in the **Writable** section which are 
     
 
 !!! edgey "Edgex 2.2"
-    New for EdgeX 2.2 All application services have built-in service metrics and custom application services can define, collect and report their own custome service metrics. See [Built-in Application Service Metrics](../AdvancedTopics/#built-in-application-service-metrics) and [Custom Application Service](../AdvancedTopics/#custom-application-service-metrics) section for more detials
+    New for EdgeX 2.2 All application services have built-in service metrics and custom application services can define, collect, and report their own custome service metrics. See [Built-in Application Service Metrics](../AdvancedTopics/#built-in-application-service-metrics) and [Custom Application Service](../AdvancedTopics/#custom-application-service-metrics) section for more detials
 
 ## Not Writable
 
