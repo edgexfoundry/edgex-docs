@@ -3780,17 +3780,28 @@ A factory function to create these clients can then be registered with your serv
 </div>
 <h3 id="built-in-application-service-metrics">Built-in Application Service Metrics</h3>
 <div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.2</p>
-<p>Built-in Application Service Metrics are new for EdgeX 2.2</p>
+<p class="admonition-title">EdgeX 2.3</p>
+<p>Additional built-in Application Service Metrics have been added for EdgeX  2.3</p>
 </div>
-<p>All application services now have a limited set of built in metrics. More may be added in future releases.</p>
-<p>The current built-in metrics are:</p>
+<p>All application services have the following built-in metrics:</p>
 <ul>
 <li>
-<p><code>MessagesReceived</code> - This is a <strong>counter</strong> metric that counts the number of messages received by the application service.</p>
+<p><code>MessagesReceived</code> - This is a <strong>counter</strong> metric that counts the number of messages received by the application service. Includes invalid messages.</p>
+</li>
+<li>
+<p><code>InvalidMessagesReceived</code> - <strong>(NEW)</strong> This is a <strong>counter</strong> metric that counts the number of invalid messages received by the application service. </p>
+</li>
+<li>
+<p><code>HttpExportSize</code> - <strong>(NEW)</strong> This is a <strong>histogram</strong> metric that collects the size of data exported via the built-in <a href="../BuiltIn/#http-export">HTTP Export pipeline function</a>. The metric data is not currently tagged due to breaking changes required to tag the data with the destination endpoint. This will be addressed in a future EdgeX 3.0 release.</p>
+</li>
+<li>
+<p><code>MqttExportSize</code> - <strong>(NEW)</strong> This is a <strong>histogram</strong> metric that collects the size of data exported via the built-in <a href="../BuiltIn/#mqtt-export">MQTT Export pipeline function</a>. The metric data is tagged with the specific broker address and topic.</p>
 </li>
 <li>
 <p><code>PipelineMessagesProcessed</code> - This is a <strong>counter</strong> metric that counts the number of messages processed by the individual function pipelines defined by the application service. The metric data is tagged with the specific function pipeline ID the count is for.</p>
+</li>
+<li>
+<p><code>PipelineProcessingErrors</code> - <strong>(NEW)</strong> This is a <strong>counter</strong> metric that counts the number of errors returned by the individual function pipelines defined by the application service. The metric data is tagged with the specific function pipeline ID the count is for.</p>
 </li>
 <li>
 <p><code>PipelineMessageProcessingTime</code> - This is a <strong>timer</strong> metric that tracks the amount of time taken to process messages by the individual function pipelines defined by the application service. The metric data is tagged with the specific function pipeline ID the timer is for.</p>
@@ -3802,13 +3813,17 @@ A factory function to create these clients can then be registered with your serv
 </ul>
 <p>Reporting of these built-in metrics is disabled by default in the <code>Writable.Telemetry</code> configuration section. See <code>Writable.Telemetry</code> configuration details in the <a href="../GeneralAppServiceConfig/#writable">Application Service Configuration</a> section for complete detail on this section. If the configuration for these built-in metrics are missing, then the reporting of the metrics will be disabled.</p>
 <div class="admonition example">
-<p class="admonition-title">Example - Service Telemetry Configuration with built-in metrics enabled for reporting</p>
+<p class="admonition-title">Example - Service Telemetry Configuration with all built-in metrics enabled for reporting</p>
 <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">[Writable.Telemetry]</span><span class="w"></span>
 <span class="w">  </span><span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30s&quot;</span><span class="w"></span>
 <span class="w">  </span><span class="n">PublishTopicPrefix</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;edgex/telemetry&quot;</span><span class="w"> </span><span class="c1"># /&lt;service-name&gt;/&lt;metric-name&gt; will be added to this Publish Topic prefix</span><span class="w"></span>
 <span class="w">    </span><span class="p">[</span><span class="n">Writable</span><span class="p">.</span><span class="n">Telemetry</span><span class="p">.</span><span class="n">Metrics</span><span class="p">]</span><span class="w"> </span><span class="c1"># All service&#39;s metric names must be present in this list.</span><span class="w"></span>
 <span class="w">    </span><span class="n">MessagesReceived</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">    </span><span class="n">InvalidMessagesReceived</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">    </span><span class="n">HttpExportSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">    </span><span class="n">MqttExportSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
 <span class="w">    </span><span class="n">PipelineMessagesProcessed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">    </span><span class="n">PipelineProcessingErrors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
 <span class="w">    </span><span class="n">PipelineMessageProcessingTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
 <span class="w">    </span><span class="p">[</span><span class="n">Writable</span><span class="p">.</span><span class="n">Telemetry</span><span class="p">.</span><span class="n">Tags</span><span class="p">]</span><span class="w"> </span><span class="c1"># Contains the service level tags to be attached to all the service&#39;s metrics</span><span class="w"></span>
 <span class="c1">#    Gateway=&quot;my-iot-gateway&quot; # Tag must be added here or via Consul Env Override can only change existing value, not added new ones.</span><span class="w"></span>
