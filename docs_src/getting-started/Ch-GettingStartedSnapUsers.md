@@ -753,7 +753,7 @@ The default configuration files are installed at:
 ```
 
 ### Device USB Camera
-| [Installation][edgex-device-usb-camera] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-usb-camera/main/snap) |
+| [Installation][edgex-device-usb-camera] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-usb-camera/tree/main/snap) |
 
 This snap includes two services:
 - Device USB Camera service
