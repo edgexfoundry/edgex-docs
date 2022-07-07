@@ -796,6 +796,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#device-usb-camera" class="md-nav__link">
+    Device USB Camera
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#device-virtual" class="md-nav__link">
     Device Virtual
   </a>
@@ -3323,6 +3330,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#device-usb-camera" class="md-nav__link">
+    Device USB Camera
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#device-virtual" class="md-nav__link">
     Device Virtual
   </a>
@@ -3971,6 +3985,24 @@ edgex-device-rfid-llrp.auto-configure <span class="nv">$CONSUL_TOKEN</span>
             ├── device.snmp.switch.dell.N1108P-ON.yaml
             └── device.snmp.trendnet.TPE082WS.yaml
 </code></pre></div></p>
+<h3 id="device-usb-camera">Device USB Camera</h3>
+<p>| <a href="https://snapcraft.io/edgex-device-usb-camera">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/device-usb-camera/tree/main/snap">Source</a> |</p>
+<p>This snap includes two services:
+- Device USB Camera service
+- <a href="https://github.com/aler9/rtsp-simple-server">Simple RTSP Server</a> - used as the default RTSP server by Device USB Camera service</p>
+<p>The services are <strong>not started</strong> by default. Please refer to <a href="#configuration">configuration</a> and <a href="#managing-services">managing services</a>.</p>
+<p>The snap uses the <a href="https://snapcraft.io/docs/camera-interface">camera interface</a> to access local USB camera devices. The <a href="https://snapcraft.io/docs/interface-management">interface management</a> document describes how Snap interfaces are used to control the access to resources.</p>
+<p>The default configuration files are installed at:
+<div class="highlight"><pre><span></span><code>/var/snap/edgex-device-usb-camera/current/config
+├── device-usb-camera
+│   └── res
+│       ├── configuration.toml
+│       ├── devices
+│       │   └── general.usb.camera.toml.example
+│       └── profiles
+│           └── general.usb.camera.yaml
+└── rtsp-simple-server.yml
+</code></pre></div></p>
 <h3 id="device-virtual">Device Virtual</h3>
 <p>| <a href="https://snapcraft.io/edgex-device-virtual">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/device-virtual-go/tree/main/snap">Source</a> |</p>
 <p>The service is <strong>not started</strong> by default. Please refer to <a href="#configuration">configuration</a> and <a href="#managing-services">managing services</a>.</p>
@@ -3981,7 +4013,6 @@ edgex-device-rfid-llrp.auto-configure <span class="nv">$CONSUL_TOKEN</span>
         ├── configuration.toml
         ├── devices
         │   └── devices.toml
-        ├── device-virtual.env
         └── profiles
             ├── device.virtual.binary.yaml
             ├── device.virtual.bool.yaml
