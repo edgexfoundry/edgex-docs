@@ -44,7 +44,8 @@ ADRs must be proceeded by one or more approved UCRs in order to be approved by t
 
 ### ADR template
 ADRs should be submitted as pull requests against the [ADR area of edgex-docs](https://github.com/edgexfoundry/edgex-docs/tree/main/docs_src/design/adr).
-Use the [ADR template](adr/template.md) provided with this documentation to help create the UCR document.
+Use the [ADR template](adr/template.md) provided with this documentation to help create the ADR document.
+
 
 ### ADR Review and Approval Process
 Designs are created to address one or more requirements across one or more use cases. The design would include architecture details as well as references to pre-approved use cases and requirements. The TSC review the proposed design from a technical perspective. Approved designs get added to the EdgeX archive as "approved" records. They may get "deprecated" before implementation if another design supersedes it or if the requirements become obsolete over time. Designs may also get demoted if experimental implementations prove that they are not suitable (e.g. due to security, performance, dependency deprecation, feasibility). The design, implementation, verification cycles can repeat many times before resulting in a stable release.
@@ -60,16 +61,19 @@ The template for project board cards documenting each decision is:
 
     When/Where: date of the decision and place where the decision was made (such as TSC meeting, working group meeting, etc.). This section is required.
     Decision Summary: quick write-up on the decision. This section is required.
-    Notes/Considerations: any alternatives discussed, any impacts to other decisions or considerations to be considered in the future (what would negate the decision). This is section optional.
+    Notes/Considerations: any alternatives discussed, any impacts to other decisions or considerations to be considered in the future (which would negate the decision). This section is optional.
+
     Relevant links: link to the meeting recording (if available). Link to ADR if relevant. Link to PRs or Issues if relevant. Required if available.
 
 Note there is a Template column on the project board with a single card that specifies this same structure.
-Project Board Columns
+
+### Project Board Columns
 
 The Design Decisions project board will be permanent and never archived or deleted. For each release, a new column named for that release will be created to hold the decisions (in the form of cards or issues) for that release.
 
 The release columns may be "frozen" at the end of a release, but should never be deleted so that all design decisions can be retained for the life of the project.
-Ownership and Card/Issue Creation
+
+### Ownership and Card/Issue Creation
 
 The TSC chair, vice-chair and product manager will have overall responsibility for the Design Decision project board. These people will also be responsible for capturing any decisions from TSC meetings or the Monthly Architect’s Meeting as cards/issues on the board.
 
