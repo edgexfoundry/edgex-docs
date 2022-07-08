@@ -187,6 +187,7 @@ extra_javascript:
 plugins:
   - search
   - htmlproofer:
+      enabled: !ENV [ENABLED_HTMLPROOFER, False]
       raise_error: True
       raise_error_excludes:
         404: ['https://support.google.com/accounts/answer/185833?hl=en', 

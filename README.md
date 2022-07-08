@@ -1,7 +1,7 @@
 # Documentation for developing with EdgeX-Docs
 [![Build Status](https://jenkins.edgexfoundry.org/view/EdgeX%20Foundry%20Project/job/edgexfoundry/job/edgex-docs/job/main/badge/icon)](https://jenkins.edgexfoundry.org/view/EdgeX%20Foundry%20Project/job/edgexfoundry/job/edgex-docs/job/main/) [![GitHub Pull Requests](https://img.shields.io/github/issues-pr-raw/edgexfoundry/edgex-docs)](https://github.com/edgexfoundry/edgex-docs/pulls) [![GitHub Contributors](https://img.shields.io/github/contributors/edgexfoundry/edgex-docs)](https://github.com/edgexfoundry/edgex-docs/contributors) [![GitHub Committers](https://img.shields.io/badge/team-committers-green)](https://github.com/orgs/edgexfoundry/teams/edgex-docs-committers/members) [![GitHub Commit Activity](https://img.shields.io/github/commit-activity/m/edgexfoundry/edgex-docs)](https://github.com/edgexfoundry/edgex-docs/commits)
 
-## Local Development (docker) (recommended):
+## Local Development (docker) (recommended)
 
 The most common use case for local development of edgex-docs will be to verify changes to the HTML. To facilitate docs verification you can run the following command:
 
@@ -41,13 +41,21 @@ In order to render and preview the site locally (without docker) you will need a
 
 To check that all the links in the documentation set are valid:
 
-1. Install the htmlproofer plugin:
+1. Install the htmlproofer plugin (native only):
 
-    ``` shell
-        pip install mkdocs-htmlproofer-plugin
-    ```
+	> Note: if using the docker method, this is already installed in the image
 
-2. Uncomment the htmlproofer plugin in mkdocs.yml
+	```shell
+	pip install mkdocs-htmlproofer-plugin
+	```
+
+2. Export the `ENABLED_HTMLPROOFER` environment variable.
+
+	> Note: This adds about 5 minutes each time a change is made, so it is recommended to do once all changes are ready.
+
+	```shell
+	export ENABLED_HTMLPROOFER=true
+	```
 
 3. Run `make build` or `make serve`. Broken links will be listed at the end of the build process.
 
