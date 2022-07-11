@@ -1,4 +1,11 @@
-# ADR Table of Contents
+# Use Cases and Design Records
+
+## Use Case Records (UCRs)
+| Name/Link                                                                 | Short Description                                             |
+|---------------------------------------------------------------------------|---------------------------------------------------------------|
+| [0001 System Events for Devices](./ucr/0001-System-Events-for-Devices.md) | Use Case for System Events for Device add/update/delete |
+
+## Architectural Design Records (ADRs)
 
 | Name/Link                                                            | Short Description                               |
 | -------------------------------------------------------------------- | ----------------------------------------------- |
