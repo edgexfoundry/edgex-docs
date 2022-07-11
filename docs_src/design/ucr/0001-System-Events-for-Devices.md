@@ -3,7 +3,7 @@
 - Lenny Goodell (Intel)
 
 ### Change Log
-- [pending](https://github.com/edgexfoundry/edgex-docs/pull/779) (2022-06-22)
+- [approved](https://github.com/edgexfoundry/edgex-docs/pull/779) (2022-07-11)
 
 ### Market Segments
 - All or Any segments that can take advantage of on-boarding/updating/decommissioning of devices in order to auto start/stop/restart some AI/ML processing on the data from the new devices.
