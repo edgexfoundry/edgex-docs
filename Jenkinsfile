@@ -10,6 +10,9 @@ pipeline {
     triggers {
         issueCommentTrigger('.*^recheck$.*')
     }
+    environment {
+        ENABLED_HTMLPROOFER = true
+    }
     stages {
         stage('Build Docs') {
             agent {

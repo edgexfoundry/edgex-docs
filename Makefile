@@ -19,6 +19,7 @@ build-docs: build-docker
 	docker run --rm \
 		-v $(PWD):/docs \
 		-w /docs \
+		-e ENABLED_HTMLPROOFER \
 		$(MKDOCS_IMAGE) \
 		build
 
@@ -29,5 +30,6 @@ serve: build-docker
 		-p 8001:8000 \
 		-v $(PWD):/docs \
 		-w /docs \
+		-e ENABLED_HTMLPROOFER \
 		$(MKDOCS_IMAGE)
 

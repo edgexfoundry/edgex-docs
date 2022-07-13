@@ -8,7 +8,7 @@ Device Profile
 
 Field Name | Type | Required? | Notes
 :--- | :--- | :--- | :---
-name | String | Y | Must be unique in the EdgeX deployment. Only allow unreserved characters as defined in https://tools.ietf.org/html/rfc3986#section-2.3.
+name | String | Y | Must be unique in the EdgeX deployment. Only allow unreserved characters as defined in https://datatracker.ietf.org/doc/html/rfc3986#section-2.3.
 description | String | N |
 manufacturer | String | N |
 model | String | N |
@@ -21,7 +21,7 @@ DeviceResource
 
 Field Name | Type | Required? | Notes
 :--- | :--- | :--- | :---
-name | String | Y | Must be unique in the EdgeX deployment. Only allow unreserved characters as defined in https://tools.ietf.org/html/rfc3986#section-2.3.
+name | String | Y | Must be unique in the EdgeX deployment. Only allow unreserved characters as defined in https://datatracker.ietf.org/doc/html/rfc3986#section-2.3.
 description | String | N |
 isHidden | Bool | N | Expose the DeviceResource to Command Service or not, default false
 tag | String | N |
@@ -52,7 +52,7 @@ DeviceCommand
 
 Field Name | Type | Required? | Notes
 :--- | :--- | :--- | :---
-name | String | Y | Must be unique in this profile. A DeviceCommand with a single DeviceResource is redundant unless renaming and/or restricting R/W access. For example DeviceResource is RW, but DeviceCommand is read-only. Only allow unreserved characters as defined in https://tools.ietf.org/html/rfc3986#section-2.3.
+name | String | Y | Must be unique in this profile. A DeviceCommand with a single DeviceResource is redundant unless renaming and/or restricting R/W access. For example DeviceResource is RW, but DeviceCommand is read-only. Only allow unreserved characters as defined in https://datatracker.ietf.org/doc/html/rfc3986#section-2.3.
 isHidden | Bool | N | Expose the DeviceCommand to Command Service or not, default false
 readWrite | Enum | Y | `R`, `W`, `RW`
 resourceOperations | Array of ResourceOperation | Y |
