@@ -1,7 +1,7 @@
 # Use Cases and Design Process
 This document describes the EdgeX use case driven requirements engineering and design process.
 
-Approved by consent of the TSC *TBD*
+Approved by consent of the TSC on 2022-07-13
 
 Supersedes the processes documented on the [EdgeX Wiki](https://wiki.edgexfoundry.org/pages/viewpage.action?pageId=73663048)
 
