@@ -18,15 +18,20 @@ To address the [System Events for Devices ](https://docs.edgexfoundry.org/2.3/de
 
 This new `SystemEvent` DTO will contain the following data describing the System Event:
 
-- Event Type - i.e. device
-- Event Action - i.e. add/update/delete
-- Event Source - i.e core-metadata as the publisher
-- Event Owner - i.e device-onvif-camera as the device owner
-    - Optional based on the Event Type
-- Event Other- i.e. onvif-camera (profile name)
-    - Optional based on the Event Type
-- Event Details - i.e. Device DTO of newly added device or empty for Delete action.
-    - Optional and varies based on the Event Type and or Event Action. 
+- Source - i.e core-metadata as the publisher
+- Type - i.e. device
+- Action - i.e. add/update/delete
+- Timestamp - Creation date/time for the System Event
+- Owner - i.e device-onvif-camera as the device owner
+    - Optional based on the Type
+- Tags - i.e. device-profile=onvif-camera
+    - Optional based on the Type needs
+- Details - i.e. Device DTO of newly added device or empty for Delete action.
+    - Optional object which varies based on the Type and or Action. 
+    - This an object similar to `ObjectValue` in `Reading` DTO
+
+!!! note
+    As defined, this DTO should suffice for future System Event use cases.  
 
 #### MessageBus 
 
@@ -36,30 +41,31 @@ For this design, the `publish topic prefix` for System Events will be a constant
 
 #### MessageBus Topic
 
-The new `SystemEvent` DTO will be published to a multi-level topic allowing subscribers to filter by topic. The format of this topic for Device System Events will be:
+The new `SystemEvent` DTO will be published to a multi-level topic allowing subscribers to filter by topic. The format of this topic for `Device System Events` will be:
 
-​		`edgex/system-event/{event-type}/{event-action}/{event-source}/{event-owner}/{event-other}`
+​		`edgex/system-event/{source}/{type}/{action}/{owner}/{profile}`
 
 where 
 
-- `{event-type}` = device
-- `{event-action}` = add, update or delete
-- `{event-source}` = core-metadata
-- `{event-owner}` = `<device service name>`
-- `{event-other}` = `<device profile name>`
-
-As noted above Event Owner and Event Other are optional based on the Event Type and may not be meaningful in some future use cases. Those use cases will omit the Event Owner and Event Other from the publish topic as appropriate
+- `{source}` = core-metadata
+- `{type}` = device
+- `{action}` = add, update or delete
+- `{owner}` = `<device service name>`
+- `{profile}` = `<device profile name>`
 
 This multi-level topic scheme allows consuming services to filter which System Events they receive base of the topic that is subscribed.
 
 !!! example - "Example - System Event subscription topics"
     ```
     edgex/system-event/# - All system events
-    edgex/system-event/device/# - only device system events
-    edgex/system-event/#/#/core-metadata/# - only system events from Core Metadata
-    edgex/system-event/device/add/#/device-onvif-camera/# - only add device system events for device-onvif-camera
-    edgex/system-event/device/#/#/#/onvif-camera - only device system events for devices created for the onvif-camera device profile
+    edgex/system-event/core-metadata/# - only system events from Core Metadata
+    edgex/system-event/core-metadata/device/# - only device system events from Core Metadata
+    edgex/system-event/core-metadata/device/add/device-onvif-camera/# - only add device system events for device-onvif-camera
+    edgex/system-event/core-metadata/device/#/#/onvif-camera - only device system events for devices created for the onvif-camera device profile
     ```
+
+!!! note
+    The `owner` is optional based on the `Type` and may not be meaningful in some future use cases. The `profile` is specific to the [System Events for Devices](https://docs.edgexfoundry.org/2.3/design/ucr/0001-System-Events-for-Devices/) use case. Future cases may omit these and/or add use case specific items as appropriate to the publish topic.
 
 #### Consumers
 
@@ -76,6 +82,9 @@ Consumers of Device System Events will likely be custom applications service as 
     - The new `SystemEvent` DTO will be added to this repository
 - Camera Management App Service Example
     - Once Device System Event are implemented, the [Camera Management](https://github.com/edgexfoundry/edgex-examples/tree/main/application-services/custom/camera-management) example can be updated to consume the new Device System Events.
+- Device SDK/Service (future)
+    - Once Device System Events is implemented, the Device SDKs can switch to receiving these `Device System Events` via MesssageBus rather than the REST callbacks from Core Metadata. Beyond recognizing this future enhancement, it is out-of-scope for this ADR.
+
 
 ## Considerations
 - This design approach can be used for future use cases, such as `System Events for Device Profiles` and `System Events for Device Services` when/if they are deemed needed.
