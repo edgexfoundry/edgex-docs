@@ -65,6 +65,9 @@ Specific use cases may add additional levels as needed. The **Device System Even
     edgex/system-event/core-metadata/device/#/#/onvif-camera - only device system events for devices created for the onvif-camera device profile
     ```
 
+!!! note
+    The `owner` is optional based on the `Type` and may not be meaningful in some future use cases. The `profile` is specific to the [System Events for Devices](https://docs.edgexfoundry.org/2.3/design/ucr/0001-System-Events-for-Devices/) use case. Future cases may omit these and/or add use case specific items as appropriate to the publish topic.
+
 #### Consumers
 
 Consumers of Device System Events will likely be custom application services as described in [System Events for Devices ](https://docs.edgexfoundry.org/2.3/design/ucr/0001-System-Events-for-Devices/). No changes are required to the App Functions SDK since it already supports processing of different types via the [Target Type](https://docs.edgexfoundry.org/2.2/microservices/application/AdvancedTopics/#target-type) capability. Developers of custom application services  that consume System Events will need to do the following:
