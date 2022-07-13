@@ -12,8 +12,6 @@ theme:
   name: 'material'
   logo: 'assets/logo_edgex_white.png'
   favicon: 'assets/logo_edgex.png'
-  analytics:
-    gtag: 'G-38531ZZHBN'
   features:
     - navigation.tabs  # changed with version 6 of mkdocs-materials
 nav:
@@ -35,6 +33,7 @@ nav:
         - Native Build and Run Guides:
           - './getting-started/native/Ch-BuildRunNative.md'
           - './getting-started/native/Ch-BuildRunOnLinuxDistro.md'
+          - './getting-started/native/Ch-BuildRunOnWindows.md'
         - Application Functions SDK: './getting-started/ApplicationFunctionsSDK.md'
         - Device Services:
           - './getting-started/Ch-GettingStartedSDK.md'
@@ -175,6 +174,9 @@ extra:
       link: 'https://twitter.com/edgexfoundry'
     - icon: 'fontawesome/brands/linkedin'
       link: 'https://www.linkedin.com/company/edgexfoundry'
+  analytics:
+    provider: google
+    property: G-38531ZZHBN
 extra_css:
 - assets\stylesheets\version-select.css
 - assets\stylesheets\branding.css
@@ -184,5 +186,10 @@ extra_javascript:
 - assets\javascripts\version-select.js
 plugins:
   - search
-  ## uncomment the next line to run the HTML Proofer in development to check for bad links
-  #- htmlproofer
+  - htmlproofer:
+      enabled: !ENV [ENABLED_HTMLPROOFER, False]
+      raise_error: True
+      raise_error_excludes:
+        404: ['https://support.google.com/accounts/answer/185833?hl=en', 
+              'https://support.google.com/accounts/answer/6010255?hl=en']
+        429: ['*']
