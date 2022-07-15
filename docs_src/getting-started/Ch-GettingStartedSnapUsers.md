@@ -797,6 +797,27 @@ The default configuration files are installed at:
             └── device.virtual.uint.yaml
 ```
 
+### Device ONVIF Camera
+| [Installation][edgex-device-onvif-camera] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-onvif-camera/tree/main/snap) |
+
+The service is **not started** by default. Please refer to [configuration] and [managing services].
+
+The default configuration files are installed at:
+```
+/var/snap/edgex-device-onvif-camera/current/config
+└── device-onvif-camera
+    └── res
+        ├── configuration.toml
+        ├── devices
+        │   ├── camera.toml.example
+        │   └── control-plane-device.toml
+        ├── profiles
+        │   ├── camera.yaml
+        │   └── control-plane.profile.yaml
+        └── provision_watchers
+            └── generic.provision.watcher.json
+```
+
 <!-- Store Links -->
 [badge]: https://snapcraft.io/static/images/badges/en/snap-store-white.svg
 [edgexfoundry]: https://snapcraft.io/edgexfoundry
@@ -816,4 +837,5 @@ The default configuration files are installed at:
 [edgex-device-snmp]: https://snapcraft.io/edgex-device-snmp
 [edgex-device-usb-camera]: https://snapcraft.io/edgex-device-usb-camera
 [edgex-device-virtual]: https://snapcraft.io/edgex-device-virtual
+[edgex-device-onvif-camera]: https://snapcraft.io/edgex-device-onvif-camera
 [edgex-ekuiper]: https://snapcraft.io/edgex-ekuiper
