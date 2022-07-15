@@ -800,7 +800,7 @@ The default configuration files are installed at:
 ### Device ONVIF Camera
 | [Installation][edgex-device-onvif-camera] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-onvif-camera/tree/main/snap) |
 
-The services are **not started** by default. Please refer to [configuration] and [managing services].
+The service is **not started** by default. Please refer to [configuration] and [managing services].
 
 The default configuration files are installed at:
 ```
