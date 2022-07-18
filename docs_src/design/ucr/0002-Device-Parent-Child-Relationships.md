@@ -5,7 +5,7 @@ This UCR describes Use Cases for new Device metadata for Parent to Child Relatio
 - Tom Brennan (Eaton)
 
 ## Change Log
-- [pending](https://github.com/edgexfoundry/edgex-docs/pulls) (2022-07-15)
+- [pending](https://github.com/edgexfoundry/edgex-docs/pull/800) (2022-07-18)
 
 
 ### Market Segments
@@ -62,7 +62,11 @@ as any devices without a configured relationship will probably be inferred to be
 ### Extensions to the main Use Case
 1. In addition to parent-child relationships, other relationships might be indicated in this metadata, such as an
 "extends" when an analytic service extends an existing south-bound device, adding new Device Resources beyond what the south-bound service provides.
-2. It could be possible for north-bound or analytic services to add metadata of their choice, related to an individual device, in this "relationships" area. 
+2. Some services add "devices" which have no physical counterpart, eg, for an NTP client service where the "device" 
+serves simply as a container for the Resources necessary to configure and report the status of the service.
+In these cases, it would be helpful for the other services if it described itself as something like a "system" device,
+meaning one that doesn't have a physical (south-bound or hardware) counterpart.
+3. It could be possible for north-bound or analytic services to add metadata of their choice, related to an individual device, in this "relationships" area. 
 This definitely muddies the clear objective of this UCR, but consideration of it might steer the ultimate solution. 
 As application service developers, we have felt at times the desire to "annotate" a device with something more formal than just another label; 
 if other reviewers agree with this notion, it can be adopted here, since it follows the same lines 

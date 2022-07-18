@@ -62,6 +62,9 @@ To check that all the links in the documentation set are valid:
 
 3. Run `make build` or `make serve`. Broken links will be listed at the end of the build process.
 
+4. To render locally with link checking, you can instead use the command line: `ENABLED_HTMLPROOFER=true mkdocs serve`.
+This will add the 5 minute delay for URL validation to the server startup.
+
 Warning: the check for invalid / broken links does take some time and will add significantly to the build and serve times.
 
 ## "Publishing" your changes
