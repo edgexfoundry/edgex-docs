@@ -33,8 +33,13 @@ In order to render and preview the site locally (without docker) you will need a
 
 1) You will need to install python and pip
 2) After python is installed, you'll need the following python dependencies:
-`pip install mkdocs`
-`pip install mkdocs-material==8.2.1`
+
+```shell
+pip install mkdocs
+pip install mkdocs-htmlproofer-plugin
+pip install mkdocs-material==8.2.1
+```
+
 3) Once you have all the pre-reqs installed. You can simply run `mkdocs serve` and view the rendered content locally and makes changes to your documentation and preview them in realtime with a browser at http://0.0.0.0:8001/edgex-docs.
 
 ## Checking for broken links when developing docs
@@ -58,6 +63,9 @@ To check that all the links in the documentation set are valid:
 	```
 
 3. Run `make build` or `make serve`. Broken links will be listed at the end of the build process.
+
+4. To render locally with link checking, you can instead use the command line: `ENABLED_HTMLPROOFER=true mkdocs serve`.
+This will add the 5 minute delay for URL validation to the server startup.
 
 Warning: the check for invalid / broken links does take some time and will add significantly to the build and serve times.
 
