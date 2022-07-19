@@ -721,3 +721,23 @@ Please refer to the function's detailed documentation by clicking the function n
 !!! note
     The new `UseTargetTypeOfMetric` setting must be set to true when using this function. See the [UseTargetTypeOfMetric](#usetargettypeofmetric) section above for more details.
 
+### [WrapIntoEvent](../BuiltIn/#wrap-into-event)
+
+**Parameters**
+
+- `ProfileName` - Profile name to use for the new Event
+- `DeviceName` - Device name to use for  the new Event
+- `ResourceName` -  Resource name name to use for  the new Event's` SourceName` and Reading's `ResourceName`
+- `ValueType` - Value type to use  the new Event Reading's value type
+- `MediaType` - Media type to use the new Event Reading's value type. Required when the value type is `Binary`
+
+!!! example
+    ```toml
+        [Writable.Pipeline.Functions.WrapIntoEvent]
+          [Writable.Pipeline.Functions.WrapIntoEvent.Parameters]
+          ProfileName = "MyProfile"
+          DeviceName = "MyDevice"
+          ResourceName = "SomeResource"
+          ValueType = "String"
+          MediaType = ""  # Required only when ValueType=Binary
+    ```
