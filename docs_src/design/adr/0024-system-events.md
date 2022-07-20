@@ -9,10 +9,10 @@
 - [System Events for Devices ](https://docs.edgexfoundry.org/2.3/design/ucr/0001-System-Events-for-Devices/)
 
 ## Context
-System Events, aka Control Plane Events (CPE),  are new to EdgeX. This ADR addresses the [System Events for Devices](https://docs.edgexfoundry.org/2.3/design/ucr/0001-System-Events-for-Devices/) use case with an extensible design that can address other System Event use cases that may be identified in the future. This extensible design approach and the fact that System Events are produced and consumed by different EdgeX services makes it architecturally significant warranting this ADR.
+System Events, aka Control Plane Events (CPE), are new to EdgeX. This ADR addresses the [System Events for Devices](https://docs.edgexfoundry.org/2.3/design/ucr/0001-System-Events-for-Devices/) use case with an extensible design that can address other System Event use cases that may be identified in the future. This extensible design approach and the fact that System Events are produced and consumed by different EdgeX services makes it architecturally significant warranting this ADR.
 
 ## Proposed Design
-To address the [System Events for Devices ](https://docs.edgexfoundry.org/2.3/design/ucr/0001-System-Events-for-Devices/) use case, Core Metadata will publish a new `SystemEvent` DTO to the EdgeX MessageBus when a device is added, updated or deleted. Consumers of these System Events will subscribe to the MessageBus to receive the new `SystemEvent` DTO .
+To address the [System Events for Devices](https://docs.edgexfoundry.org/2.3/design/ucr/0001-System-Events-for-Devices/) use case, Core Metadata will publish a new `SystemEvent` DTO to the EdgeX MessageBus when a device is added, updated or deleted. Consumers of these System Events will subscribe to the MessageBus to receive the new `SystemEvent` DTO .
 
 #### Data Transfer Object (DTO)
 
@@ -27,7 +27,7 @@ This new `SystemEvent` DTO will contain the following data describing the System
 - Tags - i.e. device-profile=onvif-camera
     - Optional based on the Type needs
 - Details - i.e. Device DTO of newly added device or empty for Delete action.
-    - Optional object which varies based on the Type and or Action. 
+    - Optional object which varies based on the Type and/or Action. 
     - This an object similar to `ObjectValue` in `Reading` DTO
 
 !!! note
@@ -35,7 +35,7 @@ This new `SystemEvent` DTO will contain the following data describing the System
 
 #### MessageBus 
 
-Services that publish System Events (Core Metadata) must connect to the EdgeX MessageBus and have MessageBus configuration similar to that of Core Data's [here](https://github.com/edgexfoundry/edgex-go/blob/main/cmd/core-data/res/configuration.toml#L53-L74). This design assumes that Core Metadata will have this capability and configuration due to planned implementation of Service Metrics. 
+Services that publish System Events (Core Metadata) must connect to the EdgeX MessageBus and have MessageBus configuration similar to that of Core Data's [here](https://github.com/edgexfoundry/edgex-go/blob/v2.2.0/cmd/core-data/res/configuration.toml#L53-L74). This design assumes that Core Metadata will have this capability and configuration due to planned implementation of Service Metrics. 
 
 For this design, the `publish topic prefix` for System Events will be a constant in the code rather than another configuration item that never changes.
 
@@ -53,7 +53,7 @@ where
 - `{owner}` = `<device service name>`
 - `{profile}` = `<device profile name>`
 
-This multi-level topic scheme allows consuming services to filter which System Events they receive base of the topic that is subscribed.
+This multi-level topic scheme allows consuming services to filter which System Events they receive based on the topic that is subscribed.
 
 !!! example - "Example - System Event subscription topics"
     ```
@@ -69,9 +69,9 @@ This multi-level topic scheme allows consuming services to filter which System E
 
 #### Consumers
 
-Consumers of Device System Events will likely be custom applications service as described in [System Events for Devices ](https://docs.edgexfoundry.org/2.3/design/ucr/0001-System-Events-for-Devices/). No changes are required to the App Functions SDK since it already supports processing of different types via the [Target Type](https://docs.edgexfoundry.org/2.2/microservices/application/AdvancedTopics/#target-type) capability. Developers of custom App Services that consume System Events will need to do the following:
+Consumers of Device System Events will likely be custom application services as described in [System Events for Devices ](https://docs.edgexfoundry.org/2.3/design/ucr/0001-System-Events-for-Devices/). No changes are required to the App Functions SDK since it already supports processing of different types via the [Target Type](https://docs.edgexfoundry.org/2.2/microservices/application/AdvancedTopics/#target-type) capability. Developers of custom application services  that consume System Events will need to do the following:
 
-- Set the Target Type to `&dtos.SystemEvent{}`when creating instance of `ApplicationService` using the [NewAppServiceWithTargetType](https://docs.edgexfoundry.org/2.2/microservices/application/ApplicationServiceAPI/#newappservicewithtargettype) factory function.
+- Set the Target Type to `&dtos.SystemEvent{}` when creating an instance of `ApplicationService` using the [NewAppServiceWithTargetType](https://docs.edgexfoundry.org/2.2/microservices/application/ApplicationServiceAPI/#newappservicewithtargettype) factory function.
 - Write custom pipeline function that expects the new `SystemEvent` DTO and process it accordingly.  Similar to how the [ToLineProtocol](https://docs.edgexfoundry.org/2.2/microservices/application/BuiltIn/#tolineprotocol) pipeline function expects the Metric DTO.
 
 ### Services/Modules impacted
@@ -81,9 +81,9 @@ Consumers of Device System Events will likely be custom applications service as 
 - Core Contracts module
     - The new `SystemEvent` DTO will be added to this repository
 - Camera Management App Service Example
-    - Once Device System Event are implemented, the [Camera Management](https://github.com/edgexfoundry/edgex-examples/tree/main/application-services/custom/camera-management) example can be updated to consume the new Device System Events.
+    - Once Device System Events are implemented, the [Camera Management](https://github.com/edgexfoundry/edgex-examples/tree/main/application-services/custom/camera-management) example can be updated to consume them.
 - Device SDK/Service (future)
-    - Once Device System Events is implemented, the Device SDKs can switch to receiving these `Device System Events` via MesssageBus rather than the REST callbacks from Core Metadata. Beyond recognizing this future enhancement, it is out-of-scope for this ADR.
+    - Once Device System Events are implemented, the Device SDKs can switch to receiving them via MesssageBus rather than the REST callbacks from Core Metadata. Anything beyond recognizing this future enhancement, it is out-of-scope for this ADR.
 
 
 ## Considerations
@@ -91,7 +91,7 @@ Consumers of Device System Events will likely be custom applications service as 
 -  Another design approach that was considered is to use Support Notifications to send the System Events via REST. This would require consumers to create subscriptions to receive the Systems Events via REST to some endpoint on the consuming service. This subscription would be created using the existing Support Notifications [subscription](https://app.swaggerhub.com/apis/EdgeXFoundry1/support-notifications/2.2.0#/default/post_subscription) REST API. Likely each subscription would be for a specific Event Type. System Events would be Published by POSTing them to Support Notification [notification](https://app.swaggerhub.com/apis/EdgeXFoundry1/support-notifications/2.2.0#/default/post_notification) REST API, which would them forward them via REST POST to each service subscribed to the particular System Event. The System Event DTO would still be used, just sent via the REST. This approach is more complex, requires consumer services to have new REST endpoint(s) to receive the System Events and relies on REST rather than messaging, thus this approach was not chosen.
 
 ## Decision
-This design will satisfy the  [System Events for Devices ](https://docs.edgexfoundry.org/2.3/design/ucr/0001-System-Events-for-Devices/) use case as well as most future System Event use cases
+This design will satisfy the  [System Events for Devices](https://docs.edgexfoundry.org/2.3/design/ucr/0001-System-Events-for-Devices/) use case as well as possibly other future System Event use cases.
 
 ## Other Related ADRs
 - [Metric Collection ADR](https://docs.edgexfoundry.org/2.2/design/adr/0006-Metrics-Collection/) - Use of EdgeX MessageBus to publish and subscribe service metrics
