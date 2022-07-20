@@ -723,6 +723,9 @@ Please refer to the function's detailed documentation by clicking the function n
 
 ### [WrapIntoEvent](../BuiltIn/#wrap-into-event)
 
+!!! edgey "EdgeX 2.3" 
+    The `WrapIntoEvent` configurable pipeline function is new for EdgeX 2.3
+
 **Parameters**
 
 - `ProfileName` - Profile name to use for the new Event
