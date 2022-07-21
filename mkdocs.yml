@@ -188,6 +188,9 @@ extra_javascript:
 - assets\javascripts\version-select.js
 plugins:
   - search
+  - macros:
+      include_yaml:
+        - template_macros.yaml
   - htmlproofer:
       enabled: !ENV [ENABLED_HTMLPROOFER, False]
       raise_error: True
