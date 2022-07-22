@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/microservices/application/BuiltIn/">
       
       <link rel="icon" href="../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.9">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
     
     
       
@@ -1602,6 +1602,53 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6_5" type="checkbox" id="__nav_4_6_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_6_5">
+          Device SDK API
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Device SDK API" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_6_5">
+          <span class="md-nav__icon md-icon"></span>
+          Device SDK API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../device/sdk/SDK-Go-API/" class="md-nav__link">
+        Go Device SDK API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
       <a href="../../device/virtual/Ch-VirtualDevice/" class="md-nav__link">
         Virtual Device
@@ -1910,6 +1957,26 @@
           <li class="md-nav__item">
   <a href="#push-to-core-data" class="md-nav__link">
     Push to Core Data
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#event" class="md-nav__link">
+    Event
+  </a>
+  
+    <nav class="md-nav" aria-label="Event">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wrap-into-event" class="md-nav__link">
+    Wrap Into Event
   </a>
   
 </li>
@@ -3279,6 +3346,26 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#event" class="md-nav__link">
+    Event
+  </a>
+  
+    <nav class="md-nav" aria-label="Event">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wrap-into-event" class="md-nav__link">
+    Wrap Into Event
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#data-protection" class="md-nav__link">
     Data Protection
   </a>
@@ -3701,6 +3788,41 @@ batch.Batch
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <div class="highlight"><pre><span></span><code><span class="nx">NewCoreDataSimpleReading</span><span class="p">(</span><span class="s">&quot;my-profile&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;my-device&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;my-resource&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;string&quot;</span><span class="p">).</span><span class="nx">PushToCoreData</span><span class="w"></span>
+</code></pre></div>
+</div>
+<h2 id="event">Event</h2>
+<p>This enables the ability to wrap data into an Event/Reading</p>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.3</p>
+<p>The <code>EventWrapper</code> and its pipeline function <code>WrapIntoEvent</code> are new for EdgeX 2.3</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Factory Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NewEventWrapperSimpleReading(profileName string, deviceName string, resourceName string, valueType string)</td>
+<td>This factory function returns an <code>EventWrapper</code> instance configured to push a <code>Simple</code> reading. The<code>EventWrapper</code> instance returned  is used to access core data functions.</td>
+</tr>
+<tr>
+<td>NewEventWrapperBinaryReading(profileName string, deviceName string, resourceName string, mediaType string)</td>
+<td>This factory function returns an <code>EventWrapper</code> instance configured to push a <code>Binary</code> reading. The <code>EventWrapper</code> instance returned  is used to access core data functions.</td>
+</tr>
+<tr>
+<td>NewEventWrapperObejctReading(profileName string, deviceName string, resourceName string)</td>
+<td>This factory function returns an <code>EventWrapper</code> instance configured to push an <code>Object</code> reading. The <code>EventWrapper</code> instance returned is used to access core data functions.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="wrap-into-event">Wrap Into Event</h3>
+<p><code>WrapIntoEvent</code> - This pipeline function provides the ability to Wrap data in an Event/Reading. The data passed into this function from the pipeline is wrapped in an EdgeX Event with the Event and Reading metadata specified from the factory function options. The function returns the new EdgeX Event with ID populated.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="highlight"><pre><span></span><code><span class="nx">NewEventWrapperSimpleReading</span><span class="p">(</span><span class="s">&quot;my-profile&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;my-device&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;my-resource&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;string&quot;</span><span class="p">).</span><span class="nx">Wrap</span><span class="w"></span>
 </code></pre></div>
 </div>
 <h2 id="data-protection"><a name="dataprotection"></a>Data Protection</h2>

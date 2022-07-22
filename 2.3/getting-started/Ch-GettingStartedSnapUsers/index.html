@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/getting-started/Ch-GettingStartedSnapUsers/">
       
       <link rel="icon" href="../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.9">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
     
     
       
@@ -805,6 +805,13 @@
           <li class="md-nav__item">
   <a href="#device-virtual" class="md-nav__link">
     Device Virtual
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-onvif-camera" class="md-nav__link">
+    Device ONVIF Camera
   </a>
   
 </li>
@@ -1869,6 +1876,53 @@
       <a href="../../microservices/device/sdk/Ch-DeviceSDK/" class="md-nav__link">
         Device Services SDK
       </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6_5" type="checkbox" id="__nav_4_6_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_6_5">
+          Device SDK API
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Device SDK API" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_6_5">
+          <span class="md-nav__icon md-icon"></span>
+          Device SDK API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/device/sdk/SDK-Go-API/" class="md-nav__link">
+        Go Device SDK API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -3343,6 +3397,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#device-onvif-camera" class="md-nav__link">
+    Device ONVIF Camera
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4019,6 +4080,23 @@ edgex-device-rfid-llrp.auto-configure <span class="nv">$CONSUL_TOKEN</span>
             ├── device.virtual.float.yaml
             ├── device.virtual.int.yaml
             └── device.virtual.uint.yaml
+</code></pre></div></p>
+<h3 id="device-onvif-camera">Device ONVIF Camera</h3>
+<p>| <a href="https://snapcraft.io/edgex-device-onvif-camera">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/device-onvif-camera/tree/main/snap">Source</a> |</p>
+<p>The service is <strong>not started</strong> by default. Please refer to <a href="#configuration">configuration</a> and <a href="#managing-services">managing services</a>.</p>
+<p>The default configuration files are installed at:
+<div class="highlight"><pre><span></span><code>/var/snap/edgex-device-onvif-camera/current/config
+└── device-onvif-camera
+    └── res
+        ├── configuration.toml
+        ├── devices
+        │   ├── camera.toml.example
+        │   └── control-plane-device.toml
+        ├── profiles
+        │   ├── camera.yaml
+        │   └── control-plane.profile.yaml
+        └── provision_watchers
+            └── generic.provision.watcher.json
 </code></pre></div></p>
 <!-- Store Links -->
 
