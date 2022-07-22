@@ -44,7 +44,7 @@ Proxy configuration commands (listed below) require access to the secret store m
       A comma separated extra server DNS names in addition to the built-in
       server name indications.  The built-in names are &quot;localhost,kong&quot;.
       These names will be associated with the user-provided certificate for Kong's TLS to use.
-      Based on the specification [RFC4366](https://tools.ietf.org/html/rfc4366):
+      Based on the specification [RFC4366](https://datatracker.ietf.org/doc/html/rfc4366):
       &quot;Currently, the only server names supported are DNS hostnames&quot;,
       so the IP address-based input is not allowed.
 
