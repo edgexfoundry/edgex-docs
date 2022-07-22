@@ -85,6 +85,8 @@ nav:
         - './microservices/device/Ch-DeviceServiceList.md'
         - './microservices/device/profile/Ch-DeviceProfile.md'
         - './microservices/device/sdk/Ch-DeviceSDK.md'
+        - Device SDK API:
+          -  './microservices/device/sdk/SDK-Go-API.md'
         - './microservices/device/virtual/Ch-VirtualDevice.md'
         - './microservices/device/V2Migration.md'
       - Application Services:
@@ -186,6 +188,9 @@ extra_javascript:
 - assets\javascripts\version-select.js
 plugins:
   - search
+  - macros:
+      include_yaml:
+        - template_macros.yaml
   - htmlproofer:
       enabled: !ENV [ENABLED_HTMLPROOFER, False]
       raise_error: True

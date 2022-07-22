@@ -136,6 +136,30 @@ There is one Core Data function that enables interactions with the Core Data RES
     NewCoreDataSimpleReading("my-profile", "my-device", "my-resource", "string").PushToCoreData
     ```
 
+## Event
+
+This enables the ability to wrap data into an Event/Reading
+
+!!! edgey "EdgeX 2.3" 
+    The `EventWrapper` and its pipeline function `WrapIntoEvent` are new for EdgeX 2.3
+
+| Factory Method                                               | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| NewEventWrapperSimpleReading(profileName string, deviceName string, resourceName string, valueType string) | This factory function returns an `EventWrapper` instance configured to push a `Simple` reading. The`EventWrapper` instance returned  is used to access core data functions. |
+| NewEventWrapperBinaryReading(profileName string, deviceName string, resourceName string, mediaType string) | This factory function returns an `EventWrapper` instance configured to push a `Binary` reading. The `EventWrapper` instance returned  is used to access core data functions. |
+| NewEventWrapperObejctReading(profileName string, deviceName string, resourceName string) | This factory function returns an `EventWrapper` instance configured to push an `Object` reading. The `EventWrapper` instance returned is used to access core data functions. |
+
+
+### Wrap Into Event
+
+`WrapIntoEvent` - This pipeline function provides the ability to Wrap data in an Event/Reading. The data passed into this function from the pipeline is wrapped in an EdgeX Event with the Event and Reading metadata specified from the factory function options. The function returns the new EdgeX Event with ID populated.
+
+!!! example
+    ```go
+    NewEventWrapperSimpleReading("my-profile", "my-device", "my-resource", "string").Wrap
+    ```
+
+
 ## <a name="dataprotection"></a>Data Protection
 
 There are two transforms included in the SDK that can be added to your pipeline for data protection. 
