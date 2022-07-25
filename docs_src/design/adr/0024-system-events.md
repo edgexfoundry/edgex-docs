@@ -3,7 +3,7 @@
 - Lenny Goodell (Intel)
 
 ## Change Log
-- [pending](https://github.com/edgexfoundry/edgex-docs/pull/795) (2022-07-12)
+- [approved](https://github.com/edgexfoundry/edgex-docs/pull/795) (2022-07-12)
 
 ## Referenced Use Case(s)
 - [System Events for Devices ](https://docs.edgexfoundry.org/2.3/design/ucr/0001-System-Events-for-Devices/)
