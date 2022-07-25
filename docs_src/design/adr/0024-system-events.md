@@ -43,7 +43,7 @@ The `PublishTopicPrefix` property in Core Metadata's `MessageQueue` configuratio
 
 The new `SystemEvent` DTO will be published to a multi-level topic allowing subscribers to filter by topic. The format of this topic for **System Events** will be:
 
-​		`edgex/system-event/{source}/{type}/{action}`
+​		`{PublishTopicPrefix}/{source}/{type}/{action}`
 
 where 
 
