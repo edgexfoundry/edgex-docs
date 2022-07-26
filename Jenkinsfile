@@ -23,7 +23,10 @@ pipeline {
                 }
             }
             steps {
-                sh 'mkdocs build'
+                retry(4) {
+                    sh 'mkdocs build'
+                    sh 'sleep 5' // add a little delay to avoid potential rate limiting issues
+                }
 
                 // stash the site contents generated from mkdocs build
                 stash name: 'site-contents', includes: 'docs/**', useDefaultExcludes: false
