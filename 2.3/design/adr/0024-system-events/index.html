@@ -12,21 +12,21 @@
         <meta name="author" content="Michael Johanson">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/design/TOC/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/design/adr/0024-system-events/">
       
-      <link rel="icon" href="../../assets/logo_edgex.png">
+      <link rel="icon" href="../../../assets/logo_edgex.png">
       <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
     
     
       
-        <title>Use Cases and Design Records - EdgeX Foundry Documentation</title>
+        <title>System Events ADR - EdgeX Foundry Documentation</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.1d29e8d0.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.1d29e8d0.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.cbb835fc.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.cbb835fc.min.css">
         
       
       
@@ -42,15 +42,15 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/version-select.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/version-select.css">
     
-      <link rel="stylesheet" href="../../assets/stylesheets/branding.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/branding.css">
     
-      <link rel="stylesheet" href="../../assets/stylesheets/edgey.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/edgey.css">
     
-      <link rel="stylesheet" href="../../assets/stylesheets/newexample.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/newexample.css">
     
-    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -84,7 +84,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#use-cases-and-design-records" class="md-skip">
+        <a href="#system-events-adr" class="md-skip">
           Skip to content
         </a>
       
@@ -98,9 +98,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="EdgeX Foundry Documentation" class="md-header__button md-logo" aria-label="EdgeX Foundry Documentation" data-md-component="logo">
+    <a href="../../.." title="EdgeX Foundry Documentation" class="md-header__button md-logo" aria-label="EdgeX Foundry Documentation" data-md-component="logo">
       
-  <img src="../../assets/logo_edgex_white.png" alt="logo">
+  <img src="../../../assets/logo_edgex_white.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -116,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Use Cases and Design Records
+              System Events ADR
             
           </span>
         </div>
@@ -194,7 +194,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../.." class="md-tabs__link">
+      <a href="../../.." class="md-tabs__link">
         Introduction
       </a>
     </li>
@@ -210,7 +210,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../getting-started/" class="md-tabs__link">
+      <a href="../../../getting-started/" class="md-tabs__link">
         Getting Started
       </a>
     </li>
@@ -226,7 +226,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../security/Ch-Security/" class="md-tabs__link">
+      <a href="../../../security/Ch-Security/" class="md-tabs__link">
         Security
       </a>
     </li>
@@ -242,7 +242,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../microservices/general/" class="md-tabs__link">
+      <a href="../../../microservices/general/" class="md-tabs__link">
         Microservices
       </a>
     </li>
@@ -258,7 +258,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../examples/" class="md-tabs__link">
+      <a href="../../../examples/" class="md-tabs__link">
         Examples and Tutorials
       </a>
     </li>
@@ -274,7 +274,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../api/Ch-APIIntroduction/" class="md-tabs__link">
+      <a href="../../../api/Ch-APIIntroduction/" class="md-tabs__link">
         API Reference
       </a>
     </li>
@@ -284,15 +284,13 @@
         
   
   
-    
-  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../Process/" class="md-tabs__link md-tabs__link--active">
+      <a href="../../Process/" class="md-tabs__link">
         Use Cases & Designs
       </a>
     </li>
@@ -308,7 +306,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../general/Definitions/" class="md-tabs__link">
+      <a href="../../../general/Definitions/" class="md-tabs__link">
         Reference
       </a>
     </li>
@@ -336,9 +334,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation" data-md-component="logo">
+    <a href="../../.." title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation" data-md-component="logo">
       
-  <img src="../../assets/logo_edgex_white.png" alt="logo">
+  <img src="../../../assets/logo_edgex_white.png" alt="logo">
 
     </a>
     EdgeX Foundry Documentation
@@ -392,7 +390,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         Introduction
       </a>
     </li>
@@ -406,7 +404,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../V2TopLevelMigration/" class="md-nav__link">
+      <a href="../../../V2TopLevelMigration/" class="md-nav__link">
         V2 Migration Guide
       </a>
     </li>
@@ -454,7 +452,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/" class="md-nav__link">
+      <a href="../../../getting-started/" class="md-nav__link">
         Getting Started
       </a>
     </li>
@@ -468,7 +466,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/quick-start/" class="md-nav__link">
+      <a href="../../../getting-started/quick-start/" class="md-nav__link">
         Quick Start
       </a>
     </li>
@@ -508,7 +506,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/Ch-GettingStartedUsers/" class="md-nav__link">
+      <a href="../../../getting-started/Ch-GettingStartedUsers/" class="md-nav__link">
         Getting Started as a User
       </a>
     </li>
@@ -522,7 +520,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/Ch-GettingStartedDockerUsers/" class="md-nav__link">
+      <a href="../../../getting-started/Ch-GettingStartedDockerUsers/" class="md-nav__link">
         Getting Started using Docker
       </a>
     </li>
@@ -536,7 +534,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/Ch-GettingStartedSnapUsers/" class="md-nav__link">
+      <a href="../../../getting-started/Ch-GettingStartedSnapUsers/" class="md-nav__link">
         Getting Started using Snaps
       </a>
     </li>
@@ -583,7 +581,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/Ch-GettingStartedDevelopers/" class="md-nav__link">
+      <a href="../../../getting-started/Ch-GettingStartedDevelopers/" class="md-nav__link">
         Getting Started as a Developer
       </a>
     </li>
@@ -597,7 +595,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/Ch-GettingStartedGoDevelopers/" class="md-nav__link">
+      <a href="../../../getting-started/Ch-GettingStartedGoDevelopers/" class="md-nav__link">
         Getting Started - Go Developers
       </a>
     </li>
@@ -611,7 +609,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/Ch-GettingStartedCDevelopers/" class="md-nav__link">
+      <a href="../../../getting-started/Ch-GettingStartedCDevelopers/" class="md-nav__link">
         Getting Started - C Developers
       </a>
     </li>
@@ -625,7 +623,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/Ch-GettingStartedHybrid/" class="md-nav__link">
+      <a href="../../../getting-started/Ch-GettingStartedHybrid/" class="md-nav__link">
         Working in a Hybrid Environment
       </a>
     </li>
@@ -665,7 +663,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/native/Ch-BuildRunNative/" class="md-nav__link">
+      <a href="../../../getting-started/native/Ch-BuildRunNative/" class="md-nav__link">
         Native Build and Run
       </a>
     </li>
@@ -679,7 +677,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/native/Ch-BuildRunOnLinuxDistro/" class="md-nav__link">
+      <a href="../../../getting-started/native/Ch-BuildRunOnLinuxDistro/" class="md-nav__link">
         Build and Run on Linux on x86/x64
       </a>
     </li>
@@ -693,7 +691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/native/Ch-BuildRunOnWindows/" class="md-nav__link">
+      <a href="../../../getting-started/native/Ch-BuildRunOnWindows/" class="md-nav__link">
         Build and Run on Windows on x86/x64
       </a>
     </li>
@@ -714,7 +712,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/ApplicationFunctionsSDK/" class="md-nav__link">
+      <a href="../../../getting-started/ApplicationFunctionsSDK/" class="md-nav__link">
         Application Functions SDK
       </a>
     </li>
@@ -754,7 +752,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/Ch-GettingStartedSDK/" class="md-nav__link">
+      <a href="../../../getting-started/Ch-GettingStartedSDK/" class="md-nav__link">
         Device Service SDK
       </a>
     </li>
@@ -768,7 +766,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/Ch-GettingStartedSDK-C/" class="md-nav__link">
+      <a href="../../../getting-started/Ch-GettingStartedSDK-C/" class="md-nav__link">
         C SDK
       </a>
     </li>
@@ -782,7 +780,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/Ch-GettingStartedSDK-Go/" class="md-nav__link">
+      <a href="../../../getting-started/Ch-GettingStartedSDK-Go/" class="md-nav__link">
         Golang SDK
       </a>
     </li>
@@ -803,7 +801,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/Ch-GettingStartedUsersNexus/" class="md-nav__link">
+      <a href="../../../getting-started/Ch-GettingStartedUsersNexus/" class="md-nav__link">
         Getting Docker Images from EdgeX Nexus Repository
       </a>
     </li>
@@ -850,7 +848,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/tools/Ch-CommandLineInterface/" class="md-nav__link">
+      <a href="../../../getting-started/tools/Ch-CommandLineInterface/" class="md-nav__link">
         Command Line Interface (CLI)
       </a>
     </li>
@@ -864,7 +862,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/tools/Ch-GUI/" class="md-nav__link">
+      <a href="../../../getting-started/tools/Ch-GUI/" class="md-nav__link">
         Graphical User Interface (GUI)
       </a>
     </li>
@@ -919,7 +917,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/Ch-Security/" class="md-nav__link">
+      <a href="../../../security/Ch-Security/" class="md-nav__link">
         Security
       </a>
     </li>
@@ -933,7 +931,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/Ch-SecretStore/" class="md-nav__link">
+      <a href="../../../security/Ch-SecretStore/" class="md-nav__link">
         Secret Store
       </a>
     </li>
@@ -947,7 +945,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/Ch-APIGateway/" class="md-nav__link">
+      <a href="../../../security/Ch-APIGateway/" class="md-nav__link">
         API Gateway
       </a>
     </li>
@@ -961,7 +959,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/Ch-Secure-MessageBus/" class="md-nav__link">
+      <a href="../../../security/Ch-Secure-MessageBus/" class="md-nav__link">
         Secure MessageBus
       </a>
     </li>
@@ -975,7 +973,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/Ch-Configuring-Add-On-Services/" class="md-nav__link">
+      <a href="../../../security/Ch-Configuring-Add-On-Services/" class="md-nav__link">
         Configuring Add-on Service
       </a>
     </li>
@@ -989,7 +987,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/Ch-Secure-Consul/" class="md-nav__link">
+      <a href="../../../security/Ch-Secure-Consul/" class="md-nav__link">
         Secure Consul
       </a>
     </li>
@@ -1003,7 +1001,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/Ch-SecurityIssues/" class="md-nav__link">
+      <a href="../../../security/Ch-SecurityIssues/" class="md-nav__link">
         Reporting Security Issues
       </a>
     </li>
@@ -1017,7 +1015,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/Ch-AddGatewayUserRemotely/" class="md-nav__link">
+      <a href="../../../security/Ch-AddGatewayUserRemotely/" class="md-nav__link">
         Adding EdgeX API Gateway Users Remotely
       </a>
     </li>
@@ -1031,7 +1029,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/secrets-config/" class="md-nav__link">
+      <a href="../../../security/secrets-config/" class="md-nav__link">
         Secrets config
       </a>
     </li>
@@ -1045,7 +1043,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/secrets-config-proxy/" class="md-nav__link">
+      <a href="../../../security/secrets-config-proxy/" class="md-nav__link">
         Secrets config proxy
       </a>
     </li>
@@ -1059,7 +1057,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/SeedingServiceSecrets/" class="md-nav__link">
+      <a href="../../../security/SeedingServiceSecrets/" class="md-nav__link">
         Seeding Service Secrets
       </a>
     </li>
@@ -1073,7 +1071,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/Ch-CORS-Settings/" class="md-nav__link">
+      <a href="../../../security/Ch-CORS-Settings/" class="md-nav__link">
         CORS settings
       </a>
     </li>
@@ -1087,7 +1085,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/Ch-RemoteDeviceServices/" class="md-nav__link">
+      <a href="../../../security/Ch-RemoteDeviceServices/" class="md-nav__link">
         Remote Device Services in Secure Mode
       </a>
     </li>
@@ -1135,7 +1133,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/general/" class="md-nav__link">
+      <a href="../../../microservices/general/" class="md-nav__link">
         Cross Cutting Concerns
       </a>
     </li>
@@ -1175,7 +1173,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/configuration/CommonConfiguration/" class="md-nav__link">
+      <a href="../../../microservices/configuration/CommonConfiguration/" class="md-nav__link">
         Common Configuration
       </a>
     </li>
@@ -1189,7 +1187,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/configuration/CommonCommandLineOptions/" class="md-nav__link">
+      <a href="../../../microservices/configuration/CommonCommandLineOptions/" class="md-nav__link">
         Common Command Line Options
       </a>
     </li>
@@ -1203,7 +1201,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/configuration/CommonEnvironmentVariables/" class="md-nav__link">
+      <a href="../../../microservices/configuration/CommonEnvironmentVariables/" class="md-nav__link">
         Common Environment Variables
       </a>
     </li>
@@ -1217,7 +1215,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/configuration/ConfigurationAndRegistry/" class="md-nav__link">
+      <a href="../../../microservices/configuration/ConfigurationAndRegistry/" class="md-nav__link">
         Configuration and Registry Providers
       </a>
     </li>
@@ -1231,7 +1229,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/configuration/V2MigrationCommonConfig/" class="md-nav__link">
+      <a href="../../../microservices/configuration/V2MigrationCommonConfig/" class="md-nav__link">
         V2 Migration of Common Configuration
       </a>
     </li>
@@ -1278,7 +1276,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/core/Ch-CoreServices/" class="md-nav__link">
+      <a href="../../../microservices/core/Ch-CoreServices/" class="md-nav__link">
         Core Services
       </a>
     </li>
@@ -1292,7 +1290,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/core/data/Ch-CoreData/" class="md-nav__link">
+      <a href="../../../microservices/core/data/Ch-CoreData/" class="md-nav__link">
         Core Data
       </a>
     </li>
@@ -1306,7 +1304,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/core/metadata/Ch-Metadata/" class="md-nav__link">
+      <a href="../../../microservices/core/metadata/Ch-Metadata/" class="md-nav__link">
         Metadata
       </a>
     </li>
@@ -1320,7 +1318,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/core/command/Ch-Command/" class="md-nav__link">
+      <a href="../../../microservices/core/command/Ch-Command/" class="md-nav__link">
         Command
       </a>
     </li>
@@ -1334,7 +1332,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/core/database/Ch-Redis/" class="md-nav__link">
+      <a href="../../../microservices/core/database/Ch-Redis/" class="md-nav__link">
         Redis Database
       </a>
     </li>
@@ -1381,7 +1379,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/support/Ch-SupportingServices/" class="md-nav__link">
+      <a href="../../../microservices/support/Ch-SupportingServices/" class="md-nav__link">
         Supporting Services Microservices
       </a>
     </li>
@@ -1395,7 +1393,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/support/notifications/Ch-AlertsNotifications/" class="md-nav__link">
+      <a href="../../../microservices/support/notifications/Ch-AlertsNotifications/" class="md-nav__link">
         Alerts & Notifications
       </a>
     </li>
@@ -1409,7 +1407,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/support/eKuiper/Ch-eKuiper/" class="md-nav__link">
+      <a href="../../../microservices/support/eKuiper/Ch-eKuiper/" class="md-nav__link">
         eKuiper Rules Engine
       </a>
     </li>
@@ -1423,7 +1421,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/support/scheduler/Ch-Scheduler/" class="md-nav__link">
+      <a href="../../../microservices/support/scheduler/Ch-Scheduler/" class="md-nav__link">
         Scheduler
       </a>
     </li>
@@ -1470,7 +1468,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/system-management/Ch_SystemManagement/" class="md-nav__link">
+      <a href="../../../microservices/system-management/Ch_SystemManagement/" class="md-nav__link">
         System Management Micro Services
       </a>
     </li>
@@ -1484,7 +1482,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/system-management/agent/Ch_SysMgmtAgent/" class="md-nav__link">
+      <a href="../../../microservices/system-management/agent/Ch_SysMgmtAgent/" class="md-nav__link">
         System Management Agent (SMA)
       </a>
     </li>
@@ -1498,7 +1496,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/system-management/executor/Ch_SysMgmtExecutor/" class="md-nav__link">
+      <a href="../../../microservices/system-management/executor/Ch_SysMgmtExecutor/" class="md-nav__link">
         System Management Executor (SME)
       </a>
     </li>
@@ -1545,7 +1543,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/device/Ch-DeviceServices/" class="md-nav__link">
+      <a href="../../../microservices/device/Ch-DeviceServices/" class="md-nav__link">
         Device Services Microservices
       </a>
     </li>
@@ -1559,7 +1557,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/device/Ch-DeviceServiceList/" class="md-nav__link">
+      <a href="../../../microservices/device/Ch-DeviceServiceList/" class="md-nav__link">
         Device Service Support
       </a>
     </li>
@@ -1573,7 +1571,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/device/profile/Ch-DeviceProfile/" class="md-nav__link">
+      <a href="../../../microservices/device/profile/Ch-DeviceProfile/" class="md-nav__link">
         Device Profile
       </a>
     </li>
@@ -1587,7 +1585,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/device/sdk/Ch-DeviceSDK/" class="md-nav__link">
+      <a href="../../../microservices/device/sdk/Ch-DeviceSDK/" class="md-nav__link">
         Device Services SDK
       </a>
     </li>
@@ -1627,7 +1625,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/device/sdk/SDK-Go-API/" class="md-nav__link">
+      <a href="../../../microservices/device/sdk/SDK-Go-API/" class="md-nav__link">
         Go Device SDK API
       </a>
     </li>
@@ -1648,7 +1646,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/device/virtual/Ch-VirtualDevice/" class="md-nav__link">
+      <a href="../../../microservices/device/virtual/Ch-VirtualDevice/" class="md-nav__link">
         Virtual Device
       </a>
     </li>
@@ -1662,7 +1660,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/device/V2Migration/" class="md-nav__link">
+      <a href="../../../microservices/device/V2Migration/" class="md-nav__link">
         V2 Migration Guide
       </a>
     </li>
@@ -1709,7 +1707,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/application/ApplicationServices/" class="md-nav__link">
+      <a href="../../../microservices/application/ApplicationServices/" class="md-nav__link">
         Introduction
       </a>
     </li>
@@ -1723,7 +1721,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/application/GettingStarted/" class="md-nav__link">
+      <a href="../../../microservices/application/GettingStarted/" class="md-nav__link">
         Getting Started
       </a>
     </li>
@@ -1737,7 +1735,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/application/Triggers/" class="md-nav__link">
+      <a href="../../../microservices/application/Triggers/" class="md-nav__link">
         Triggers
       </a>
     </li>
@@ -1777,7 +1775,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/application/ApplicationFunctionsSDK/" class="md-nav__link">
+      <a href="../../../microservices/application/ApplicationFunctionsSDK/" class="md-nav__link">
         App Functions SDK Introduction
       </a>
     </li>
@@ -1791,7 +1789,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/application/ApplicationServiceAPI/" class="md-nav__link">
+      <a href="../../../microservices/application/ApplicationServiceAPI/" class="md-nav__link">
         Application Service API
       </a>
     </li>
@@ -1805,7 +1803,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/application/AppFunctionContextAPI/" class="md-nav__link">
+      <a href="../../../microservices/application/AppFunctionContextAPI/" class="md-nav__link">
         App Function Context API
       </a>
     </li>
@@ -1819,7 +1817,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/application/ErrorHandling/" class="md-nav__link">
+      <a href="../../../microservices/application/ErrorHandling/" class="md-nav__link">
         Pipeline Function Error Handling
       </a>
     </li>
@@ -1833,7 +1831,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/application/BuiltIn/" class="md-nav__link">
+      <a href="../../../microservices/application/BuiltIn/" class="md-nav__link">
         Built-In Pipeline Functions
       </a>
     </li>
@@ -1847,7 +1845,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/application/AdvancedTopics/" class="md-nav__link">
+      <a href="../../../microservices/application/AdvancedTopics/" class="md-nav__link">
         Advanced Topics
       </a>
     </li>
@@ -1868,7 +1866,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/application/AppServiceConfigurable/" class="md-nav__link">
+      <a href="../../../microservices/application/AppServiceConfigurable/" class="md-nav__link">
         App Service Configurable
       </a>
     </li>
@@ -1882,7 +1880,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/application/GeneralAppServiceConfig/" class="md-nav__link">
+      <a href="../../../microservices/application/GeneralAppServiceConfig/" class="md-nav__link">
         Application Service Configuration
       </a>
     </li>
@@ -1896,7 +1894,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/application/V2Migration/" class="md-nav__link">
+      <a href="../../../microservices/application/V2Migration/" class="md-nav__link">
         V2 Migration Guide
       </a>
     </li>
@@ -1951,7 +1949,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/" class="md-nav__link">
+      <a href="../../../examples/" class="md-nav__link">
         EdgeX Examples
       </a>
     </li>
@@ -1965,7 +1963,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/Ch-ExamplesVirtualDeviceService/" class="md-nav__link">
+      <a href="../../../examples/Ch-ExamplesVirtualDeviceService/" class="md-nav__link">
         Using the Virtual Device Service
       </a>
     </li>
@@ -1979,7 +1977,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/Ch-ExamplesSendingAndConsumingBinary/" class="md-nav__link">
+      <a href="../../../examples/Ch-ExamplesSendingAndConsumingBinary/" class="md-nav__link">
         Sending and Consuming Binary Data From EdgeX Device Services
       </a>
     </li>
@@ -1993,7 +1991,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/AppServiceExamples/" class="md-nav__link">
+      <a href="../../../examples/AppServiceExamples/" class="md-nav__link">
         App Service Examples
       </a>
     </li>
@@ -2007,7 +2005,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/Ch-CommandingDeviceThroughRulesEngine/" class="md-nav__link">
+      <a href="../../../examples/Ch-CommandingDeviceThroughRulesEngine/" class="md-nav__link">
         Command Devices with eKuiper Rules Engine
       </a>
     </li>
@@ -2021,7 +2019,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/Ch-ExamplesModbusdatatypeconversion/" class="md-nav__link">
+      <a href="../../../examples/Ch-ExamplesModbusdatatypeconversion/" class="md-nav__link">
         Modbus - Data Type Conversion
       </a>
     </li>
@@ -2061,7 +2059,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/Ch-ExamplesAddingModbusDevice/" class="md-nav__link">
+      <a href="../../../examples/Ch-ExamplesAddingModbusDevice/" class="md-nav__link">
         Modbus
       </a>
     </li>
@@ -2075,7 +2073,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/Ch-ExamplesAddingSNMPDevice/" class="md-nav__link">
+      <a href="../../../examples/Ch-ExamplesAddingSNMPDevice/" class="md-nav__link">
         SNMP
       </a>
     </li>
@@ -2089,7 +2087,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/Ch-ExamplesAddingMQTTDevice/" class="md-nav__link">
+      <a href="../../../examples/Ch-ExamplesAddingMQTTDevice/" class="md-nav__link">
         MQTT
       </a>
     </li>
@@ -2136,7 +2134,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../walk-through/Ch-Walkthrough/" class="md-nav__link">
+      <a href="../../../walk-through/Ch-Walkthrough/" class="md-nav__link">
         EdgeX Demonstration API Walk Through
       </a>
     </li>
@@ -2150,7 +2148,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../walk-through/Ch-WalkthroughSetup/" class="md-nav__link">
+      <a href="../../../walk-through/Ch-WalkthroughSetup/" class="md-nav__link">
         Setup up your environment
       </a>
     </li>
@@ -2164,7 +2162,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../walk-through/Ch-WalkthroughUseCase/" class="md-nav__link">
+      <a href="../../../walk-through/Ch-WalkthroughUseCase/" class="md-nav__link">
         Example Use Case
       </a>
     </li>
@@ -2178,7 +2176,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../walk-through/Ch-WalkthroughDeviceProfile/" class="md-nav__link">
+      <a href="../../../walk-through/Ch-WalkthroughDeviceProfile/" class="md-nav__link">
         Defining your device
       </a>
     </li>
@@ -2192,7 +2190,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../walk-through/Ch-WalkthroughDeviceService/" class="md-nav__link">
+      <a href="../../../walk-through/Ch-WalkthroughDeviceService/" class="md-nav__link">
         Register your device service
       </a>
     </li>
@@ -2206,7 +2204,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../walk-through/Ch-WalkthroughProvision/" class="md-nav__link">
+      <a href="../../../walk-through/Ch-WalkthroughProvision/" class="md-nav__link">
         Provision a device
       </a>
     </li>
@@ -2220,7 +2218,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../walk-through/Ch-WalkthroughCommands/" class="md-nav__link">
+      <a href="../../../walk-through/Ch-WalkthroughCommands/" class="md-nav__link">
         Calling commands
       </a>
     </li>
@@ -2234,7 +2232,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../walk-through/Ch-WalkthroughReading/" class="md-nav__link">
+      <a href="../../../walk-through/Ch-WalkthroughReading/" class="md-nav__link">
         Sending events and reading data
       </a>
     </li>
@@ -2248,7 +2246,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../walk-through/Ch-WalkthroughExporting/" class="md-nav__link">
+      <a href="../../../walk-through/Ch-WalkthroughExporting/" class="md-nav__link">
         Exporting your device data
       </a>
     </li>
@@ -2303,7 +2301,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/Ch-APIIntroduction/" class="md-nav__link">
+      <a href="../../../api/Ch-APIIntroduction/" class="md-nav__link">
         Introduction
       </a>
     </li>
@@ -2343,7 +2341,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/core/Ch-APICoreCommand/" class="md-nav__link">
+      <a href="../../../api/core/Ch-APICoreCommand/" class="md-nav__link">
         Core Command
       </a>
     </li>
@@ -2357,7 +2355,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/core/Ch-APICoreData/" class="md-nav__link">
+      <a href="../../../api/core/Ch-APICoreData/" class="md-nav__link">
         Core Data
       </a>
     </li>
@@ -2371,7 +2369,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/core/Ch-APICoreMetadata/" class="md-nav__link">
+      <a href="../../../api/core/Ch-APICoreMetadata/" class="md-nav__link">
         Core Metadata
       </a>
     </li>
@@ -2385,7 +2383,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/core/Ch-APICoreConfigurationAndRegistry/" class="md-nav__link">
+      <a href="../../../api/core/Ch-APICoreConfigurationAndRegistry/" class="md-nav__link">
         Configuration and Registry
       </a>
     </li>
@@ -2432,7 +2430,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/support/Ch-APISupportNotifications/" class="md-nav__link">
+      <a href="../../../api/support/Ch-APISupportNotifications/" class="md-nav__link">
         Support Notifications
       </a>
     </li>
@@ -2446,7 +2444,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/support/Ch-APISupportScheduler/" class="md-nav__link">
+      <a href="../../../api/support/Ch-APISupportScheduler/" class="md-nav__link">
         Support Scheduler
       </a>
     </li>
@@ -2493,7 +2491,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/management/Ch-APISystemManagement/" class="md-nav__link">
+      <a href="../../../api/management/Ch-APISystemManagement/" class="md-nav__link">
         System Management Agent
       </a>
     </li>
@@ -2540,7 +2538,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/devices/Ch-APIDeviceSDK/" class="md-nav__link">
+      <a href="../../../api/devices/Ch-APIDeviceSDK/" class="md-nav__link">
         Device Services
       </a>
     </li>
@@ -2587,7 +2585,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/applications/Ch-APIAppFunctionsSDK/" class="md-nav__link">
+      <a href="../../../api/applications/Ch-APIAppFunctionsSDK/" class="md-nav__link">
         Application Services
       </a>
     </li>
@@ -2601,7 +2599,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/applications/Ch-APIRulesEngine/" class="md-nav__link">
+      <a href="../../../api/applications/Ch-APIRulesEngine/" class="md-nav__link">
         Rules Engine
       </a>
     </li>
@@ -2628,14 +2626,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
       
       
       
@@ -2658,7 +2654,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Process/" class="md-nav__link">
+      <a href="../../Process/" class="md-nav__link">
         Use Cases and Design Process
       </a>
     </li>
@@ -2670,59 +2666,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Use Cases and Design Records
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../TOC/" class="md-nav__link">
         Use Cases and Design Records
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#use-case-records-ucrs" class="md-nav__link">
-    Use Case Records (UCRs)
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#architectural-design-records-adrs" class="md-nav__link">
-    Architectural Design Records (ADRs)
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2760,7 +2708,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../legacy-design/" class="md-nav__link">
+      <a href="../../legacy-design/" class="md-nav__link">
         Legacy Design Documents
       </a>
     </li>
@@ -2774,7 +2722,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../legacy-requirements/" class="md-nav__link">
+      <a href="../../legacy-requirements/" class="md-nav__link">
         Legacy Requirements
       </a>
     </li>
@@ -2829,7 +2777,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../general/Definitions/" class="md-nav__link">
+      <a href="../../../general/Definitions/" class="md-nav__link">
         Definitions
       </a>
     </li>
@@ -2843,7 +2791,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../general/PlatformRequirements/" class="md-nav__link">
+      <a href="../../../general/PlatformRequirements/" class="md-nav__link">
         Platform Requirements
       </a>
     </li>
@@ -2857,7 +2805,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../general/ServicePorts/" class="md-nav__link">
+      <a href="../../../general/ServicePorts/" class="md-nav__link">
         Default Service Ports
       </a>
     </li>
@@ -2871,7 +2819,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../general/ContainerNames/" class="md-nav__link">
+      <a href="../../../general/ContainerNames/" class="md-nav__link">
         EdgeX Container Names
       </a>
     </li>
@@ -2885,7 +2833,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../general/ServiceConfiguration/" class="md-nav__link">
+      <a href="../../../general/ServiceConfiguration/" class="md-nav__link">
         Service Configuration
       </a>
     </li>
@@ -2926,15 +2874,105 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#use-case-records-ucrs" class="md-nav__link">
-    Use Case Records (UCRs)
+  <a href="#submitters" class="md-nav__link">
+    Submitters
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#architectural-design-records-adrs" class="md-nav__link">
-    Architectural Design Records (ADRs)
+  <a href="#change-log" class="md-nav__link">
+    Change Log
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referenced-use-cases" class="md-nav__link">
+    Referenced Use Case(s)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    Context
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proposed-design" class="md-nav__link">
+    Proposed Design
+  </a>
+  
+    <nav class="md-nav" aria-label="Proposed Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-transfer-object-dto" class="md-nav__link">
+    Data Transfer Object (DTO)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#messagebus" class="md-nav__link">
+    MessageBus
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#messagebus-topic" class="md-nav__link">
+    MessageBus Topic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consumers" class="md-nav__link">
+    Consumers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servicesmodules-impacted" class="md-nav__link">
+    Services/Modules impacted
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#considerations" class="md-nav__link">
+    Considerations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision" class="md-nav__link">
+    Decision
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-related-adrs" class="md-nav__link">
+    Other Related ADRs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    References
   </a>
   
 </li>
@@ -2951,131 +2989,122 @@
             <article class="md-content__inner md-typeset">
               
                 
-  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/design/TOC.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/design/adr/0024-system-events.md" title="Edit this page" class="md-content__button md-icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
 
-<h1 id="use-cases-and-design-records">Use Cases and Design Records</h1>
-<h2 id="use-case-records-ucrs">Use Case Records (UCRs)</h2>
-<table>
-<thead>
-<tr>
-<th>Name/Link</th>
-<th>Short Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="../ucr/0001-System-Events-for-Devices/">0001 System Events for Devices</a></td>
-<td>Use Case for System Events for Device add/update/delete</td>
-</tr>
-</tbody>
-</table>
-<h2 id="architectural-design-records-adrs">Architectural Design Records (ADRs)</h2>
-<table>
-<thead>
-<tr>
-<th>Name/Link</th>
-<th>Short Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="../adr/0001-Registy-Refactor/">0001 Registry Refactor</a></td>
-<td>Separate out Registry and Configuration APIs</td>
-</tr>
-<tr>
-<td><a href="../adr/device-service/0002-Array-Datatypes/">0002 Array Datatypes</a></td>
-<td>Allow Arrays to be held in Readings</td>
-</tr>
-<tr>
-<td><a href="../adr/core/0003-V2-API-Principles/">0003 V2 API Principles</a></td>
-<td>Principles and Goals of V2 API Design</td>
-</tr>
-<tr>
-<td><a href="../adr/0004-Feature-Flags/">0004 Feature Flags</a></td>
-<td>Feature Flag Implementation</td>
-</tr>
-<tr>
-<td><a href="../adr/0005-Service-Self-Config/">0005 Service Self Config Init</a></td>
-<td>Service Self Config Init &amp; Config Seed Removal</td>
-</tr>
-<tr>
-<td><a href="../adr/0006-Metrics-Collection/">0006 Metrics Collection</a></td>
-<td>Collection of service telemetry data</td>
-</tr>
-<tr>
-<td><a href="../adr/devops/0007-Release-Automation/">0007 Release Automation</a></td>
-<td>Overview of Release Automation Flow for EdgeX</td>
-</tr>
-<tr>
-<td><a href="../adr/security/0008-Secret-Creation-and-Distribution/">0008 Secret Distribution</a></td>
-<td>Creation and Distribution of Secrets</td>
-</tr>
-<tr>
-<td><a href="../adr/security/0009-Secure-Bootstrapping/">0009 Secure Bootstrapping</a></td>
-<td>Secure Bootstrapping of EdgeX</td>
-</tr>
-<tr>
-<td><a href="../adr/device-service/0011-DeviceService-Rest-API/">0011 Device Service REST API</a></td>
-<td>The REST API for Device Services in EdgeX v2.x</td>
-</tr>
-<tr>
-<td><a href="../adr/device-service/0012-DeviceService-Filters/">0012 Device Service Filters</a></td>
-<td>Device Service event/reading filters</td>
-</tr>
-<tr>
-<td><a href="../adr/013-Device-Service-Events-Message-Bus/">0013 Device Service Events via Message Bus</a></td>
-<td>Device Services send Events via Message Bus</td>
-</tr>
-<tr>
-<td><a href="../adr/014-Secret-Provider-For-All/">0014 Secret Provider for All</a></td>
-<td>Secret Provider for All EdgeX Services</td>
-</tr>
-<tr>
-<td><a href="../adr/security/0015-in-cluster-tls/">0015 Encryption between microservices</a></td>
-<td>Details conditions under which TLS is or is not used</td>
-</tr>
-<tr>
-<td><a href="../adr/security/0016-docker-image-guidelines/">0016 Container Image Guidelines</a></td>
-<td>Documents best practices for security of docker images</td>
-</tr>
-<tr>
-<td><a href="../adr/security/0017-consul-security/">0017 Securing access to Consul</a></td>
-<td>Access control and authorization strategy for Consul</td>
-</tr>
-<tr>
-<td><a href="../adr/0018-Service-Registry/">0018 Service Registry</a></td>
-<td>Service registry usage for EdgeX services</td>
-</tr>
-<tr>
-<td><a href="../adr/core/0019-EdgeX-CLI-V2/">0019 EdgeX-CLI V2</a></td>
-<td>EdgeX-CLI V2 Implementation</td>
-</tr>
-<tr>
-<td><a href="../adr/security/0020-spiffe/">0020 Delay start services (SPIFFE/SPIRE)</a></td>
-<td>Secret store tokens for delayed start services</td>
-</tr>
-<tr>
-<td><a href="../adr/core/0021-Device-Profile-Changes/">0021 Device Profile Changes</a></td>
-<td>Rules on device profile modifications</td>
-</tr>
-<tr>
-<td><a href="../adr/core/0022-UoM/">0022 Unit of Measure</a></td>
-<td>Unit of Measure</td>
-</tr>
-<tr>
-<td><a href="../adr/0023-North-South-Messaging/">0023 North South Messaging</a></td>
-<td>Provide for messaging from north side systems through command down to device services</td>
-</tr>
-<tr>
-<td><a href="../adr/0024-system-events/">0024 System Events</a></td>
-<td>System Events (aka Control Plane Events) published to the MessageBus</td>
-</tr>
-</tbody>
-</table>
+<h1 id="system-events-adr">System Events ADR</h1>
+<h3 id="submitters">Submitters</h3>
+<ul>
+<li>Lenny Goodell (Intel)</li>
+</ul>
+<h2 id="change-log">Change Log</h2>
+<ul>
+<li><a href="https://github.com/edgexfoundry/edgex-docs/pull/795">approved</a> (2022-07-12)</li>
+</ul>
+<h2 id="referenced-use-cases">Referenced Use Case(s)</h2>
+<ul>
+<li><a href="https://docs.edgexfoundry.org/2.3/design/ucr/0001-System-Events-for-Devices/">System Events for Devices </a></li>
+</ul>
+<h2 id="context">Context</h2>
+<p>System Events, aka Control Plane Events (CPE), are new to EdgeX. This ADR addresses the <a href="https://docs.edgexfoundry.org/2.3/design/ucr/0001-System-Events-for-Devices/">System Events for Devices</a> use case with an extensible design that can address other System Event use cases that may be identified in the future. This extensible design approach and the fact that System Events are produced and consumed by different EdgeX services makes it architecturally significant warranting this ADR.</p>
+<h2 id="proposed-design">Proposed Design</h2>
+<p>To address the <a href="https://docs.edgexfoundry.org/2.3/design/ucr/0001-System-Events-for-Devices/">System Events for Devices</a> use case, Core Metadata will publish a new <code>SystemEvent</code> DTO to the EdgeX MessageBus when a device is added, updated or deleted. Consumers of these System Events will subscribe to the MessageBus to receive the new <code>SystemEvent</code> DTO .</p>
+<h4 id="data-transfer-object-dto">Data Transfer Object (DTO)</h4>
+<p>This new <code>SystemEvent</code> DTO will contain the following data describing the System Event:</p>
+<ul>
+<li>Source - Publisher of the System Event, i.e. core-metadata</li>
+<li>Type - Type of System Event, i.e. device</li>
+<li>Action - The Action that triggered the System Event, i.e. add/update/delete</li>
+<li>Timestamp - Creation date/time for the System Event</li>
+<li>Owner - Owner the data for the System Event, i.e device-onvif-camera as the device owner<ul>
+<li>Optional based on the Type</li>
+</ul>
+</li>
+<li>Tags - Key  value pairs to add addition context to the System Event, i.e. device-profile=onvif-camera<ul>
+<li>Optional based on the Type and/or Action</li>
+</ul>
+</li>
+<li>Details - Data details important to the System Event,  i.e. Device DTO of added/updated/deleted device<ul>
+<li>Optional object which varies based on the Type and/or Action</li>
+<li>This an object similar to <code>ObjectValue</code> in <code>Reading</code> DTO</li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As defined, this DTO should suffice for future System Event use cases.  </p>
+</div>
+<h4 id="messagebus">MessageBus</h4>
+<p>Services that publish System Events (Core Metadata) must connect to the EdgeX MessageBus and have MessageBus configuration similar to that of Core Data's <a href="https://github.com/edgexfoundry/edgex-go/blob/v2.2.0/cmd/core-data/res/configuration.toml#L53-L74">here</a>. This design assumes that Core Metadata will have this capability and configuration due to planned implementation of Service Metrics. </p>
+<p>The <code>PublishTopicPrefix</code> property in Core Metadata's <code>MessageQueue</code> configuration will be used for System Events and set to <code>edgex/system-event</code>.</p>
+<h4 id="messagebus-topic">MessageBus Topic</h4>
+<p>The new <code>SystemEvent</code> DTO will be published to a multi-level topic allowing subscribers to filter by topic. The format of this topic for <strong>System Events</strong> will be:</p>
+<p>​       <code>{PublishTopicPrefix}/{source}/{type}/{action}</code></p>
+<p>where </p>
+<ul>
+<li><code>{source}</code> = Publisher of the System Event, i.e. <code>core-metadata</code></li>
+<li><code>{type}</code> = Type of System Event, i.e. <code>device</code></li>
+<li><code>{action}</code> = The Action that triggered the System Event, i.e. <code>add</code></li>
+</ul>
+<p>Specific use cases may add additional levels as needed. The <strong>Device System Events</strong> use case will add the following levels</p>
+<ul>
+<li><code>{owner}</code> =  Owner the data for the System Event, i.e <code>device-onvif-camera</code> as the device owner`</li>
+<li><code>{profile}</code> = Device profile associated with the Device, i.e <code>onvif-camera</code></li>
+</ul>
+<div class="admonition example -">
+<p class="admonition-title">Example - System Event subscription topics</p>
+<div class="highlight"><pre><span></span><code>edgex/system-event/# - All system events
+edgex/system-event/core-metadata/# - only system events from Core Metadata
+edgex/system-event/core-metadata/device/# - only device system events from Core Metadata
+edgex/system-event/core-metadata/device/add/device-onvif-camera/# - only add device system events for device-onvif-camera
+edgex/system-event/core-metadata/device/#/#/onvif-camera - only device system events for devices created for the onvif-camera device profile
+</code></pre></div>
+</div>
+<h4 id="consumers">Consumers</h4>
+<p>Consumers of Device System Events will likely be custom application services as described in <a href="https://docs.edgexfoundry.org/2.3/design/ucr/0001-System-Events-for-Devices/">System Events for Devices </a>. No changes are required to the App Functions SDK since it already supports processing of different types via the <a href="https://docs.edgexfoundry.org/2.2/microservices/application/AdvancedTopics/#target-type">Target Type</a> capability. Developers of custom application services  that consume System Events will need to do the following:</p>
+<ul>
+<li>Set the Target Type to <code>&amp;dtos.SystemEvent{}</code> when creating an instance of <code>ApplicationService</code> using the <a href="https://docs.edgexfoundry.org/2.2/microservices/application/ApplicationServiceAPI/#newappservicewithtargettype">NewAppServiceWithTargetType</a> factory function.</li>
+<li>Write custom pipeline function that expects the new <code>SystemEvent</code> DTO and process it accordingly.  Similar to how the <a href="https://docs.edgexfoundry.org/2.2/microservices/application/BuiltIn/#tolineprotocol">ToLineProtocol</a> pipeline function expects the Metric DTO.</li>
+</ul>
+<h3 id="servicesmodules-impacted">Services/Modules impacted</h3>
+<ul>
+<li>Core Metadata service<ul>
+<li>This service is the single point for device Add/Update/Delete and will be the producer of Device System Events.</li>
+</ul>
+</li>
+<li>Core Contracts module<ul>
+<li>The new <code>SystemEvent</code> DTO will be added to this repository</li>
+</ul>
+</li>
+<li>Camera Management App Service Example<ul>
+<li>Once Device System Events are implemented, the <a href="https://github.com/edgexfoundry/edgex-examples/tree/main/application-services/custom/camera-management">Camera Management</a> example can be updated to consume them.</li>
+</ul>
+</li>
+<li>Device SDK/Service (future)<ul>
+<li>Once Device System Events are implemented, the Device SDKs can switch to receiving them via MesssageBus rather than the REST callbacks from Core Metadata. Anything beyond recognizing this future enhancement, it is out-of-scope for this ADR.</li>
+</ul>
+</li>
+</ul>
+<h2 id="considerations">Considerations</h2>
+<ul>
+<li>This design approach can be used for future use cases, such as <strong>System Events for Device Profiles</strong> and <strong>System Events for Device Services</strong> when/if they are deemed needed.</li>
+<li>Another design approach that was considered is to use Support Notifications to send the System Events via REST. This would require consumers to create subscriptions to receive the Systems Events via REST to some endpoint on the consuming service. This subscription would be created using the existing Support Notifications <a href="https://app.swaggerhub.com/apis/EdgeXFoundry1/support-notifications/2.2.0#/default/post_subscription">subscription</a> REST API. Likely each subscription would be for a specific Event Type. System Events would be Published by POSTing them to Support Notification <a href="https://app.swaggerhub.com/apis/EdgeXFoundry1/support-notifications/2.2.0#/default/post_notification">notification</a> REST API, which would them forward them via REST POST to each service subscribed to the particular System Event. The System Event DTO would still be used, just sent via the REST. This approach is more complex, requires consumer services to have new REST endpoint(s) to receive the System Events and relies on REST rather than messaging, thus this approach was not chosen.</li>
+</ul>
+<h2 id="decision">Decision</h2>
+<p>This design will satisfy the  <a href="https://docs.edgexfoundry.org/2.3/design/ucr/0001-System-Events-for-Devices/">System Events for Devices</a> use case as well as possibly other future System Event use cases.</p>
+<h2 id="other-related-adrs">Other Related ADRs</h2>
+<ul>
+<li><a href="https://docs.edgexfoundry.org/2.2/design/adr/0006-Metrics-Collection/">Metric Collection ADR</a> - Use of EdgeX MessageBus to publish and subscribe service metrics</li>
+<li><a href="https://docs.edgexfoundry.org/2.2/design/adr/0023-North-South-Messaging/">North-South Messaging ADR</a> - Use of EdgeX MessageBus to publish and subscribe commands/responses</li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li>Control Plane Events (CPE) (aka System Events) were initially proposed as part of the metrics collection ADR as early as March 2020. You may find discussions relevant to CPE in these ADR and other design/architecture discussions since March 2020.</li>
+<li><a href="https://github.com/edgexfoundry/edgex-docs/pull/97">initial ADR on EdgeX service level metrics collection for Hanoi</a></li>
+</ul>
 
               
             </article>
@@ -3086,42 +3115,6 @@
       </main>
       
         <footer class="md-footer">
-  
-    
-    <nav class="md-footer__inner md-grid" aria-label="Footer" >
-      
-        
-        <a href="../Process/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Use Cases and Design Process" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              Use Cases and Design Process
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="../legacy-design/" class="md-footer__link md-footer__link--next" aria-label="Next: Legacy Design Documents" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              Legacy Design Documents
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -3178,12 +3171,12 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "search": "../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs"], "search": "../../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.6c7ad80a.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.6c7ad80a.min.js"></script>
       
-        <script src="../../assets/javascripts/version-select.js"></script>
+        <script src="../../../assets/javascripts/version-select.js"></script>
       
     
   </body>
