@@ -18,7 +18,10 @@ There are 4 types of `Triggers` supported in the App Functions SDK which are dis
 
 An EdgeX MessageBus trigger will execute the pipeline every time data is received from the configured Edgex MessageBus `SubscribeTopics`.  The EdgeX MessageBus is the central message bus internal to EdgeX and has a specific message envelope that wraps all data published to this message bus.
 
-There currently are three implementations of the EdgeX MessageBus available to be used. These are `Redis Pub/Sub`(default), `MQTT` and `ZeroMQ`(ZMQ). The implementation type is selected via the `[Trigger.EdgexMessageBus]` configuration described below.
+!!! edgey "Edgex 2.3"
+    For Edgex 2.3 two new MessageBus implementations have been added to support NATS messaging, with and without the JetStream persistence layer.  These options can be made available by building with the `include_nats_messaging` flag.
+
+There currently are five implementations of the EdgeX MessageBus available to be used. Three of these are available out of the box: `Redis Pub/Sub`(default), `MQTT` and `ZeroMQ`(ZMQ).  Additionally NATS (both core and JetStream) options can be made available with the build flag mentioned above.  The implementation type is selected via the `[Trigger.EdgexMessageBus]` configuration described below.
 
 ### Type Configuration 
 
@@ -55,22 +58,27 @@ Type = "redis" # message bus type (i.e "redis`, `mqtt` or `zero` for ZeroMQ)
 !!! edgey "Edgex 2.0"
     For Edgex 2.0 the `PublishTopic` can now have placeholders. See [Publish Topic Placeholders](#publish-topic-placeholders) section below for more details
 
- As stated above there are three EdgeX MessageBus implementations you can choose from. These type values are as follows:
+ As stated above there are five EdgeX MessageBus implementations you can choose from. These type values are as follows:
 
 ```
 redis - for Redis Pub/Sub (Requires Redis running and Core Data and/or Device Services configure to use Redis Pub/Sub)
 mqtt  - for MQTT (Requires a MQTT Broker running and Core Data and/or Device Services configure to use MQTT)
 zero  - for ZeroMQ (No Broker/Service required. Core Data must be configured to use Zero and Device service configure to use REST to Core Data)
+nats-core - for standard NATS messaging
+nats-jetstream - for NATS messaging with JetStream persistence layer
 ```
 
 !!! edgey "Edgex 2.0"
     For Edgex 2.0 Redis is now the default EdgeX MessageBus implementation used. Also, the Redis implementation changed from `Redis streams` to `Redis Pub/Sub`, thus the type value changed from `redisstreams` to `redis`
 
+!!! edgey "EdgeX 2.0"
+    New for EdgeX 2.0 is the Secure MessageBus when use the `Redis Pub/Sub` implementation. See the [Secure MessageBus](../../security/Ch-Secure-MessageBus.md) documentation for more details.
+
 !!! important
     When using ZMQ for the message bus, the Publish Host **MUST** be different for each publisher to since the they will bind to the specific port. 5563 for example cannot be used to publish since `EdgeX Core Data` has bound to that port. Similarly, you cannot have two separate instances of the app functions SDK running and publishing to the same port. This is why once Device services started publishing the the EdgeX MessageBus the default was changed to `Redis Pub/Sub`
 
 !!! note
-    When using MQTT for the message bus, there is additional configuration required for specifying the MQTT specific options. 
+    When using MQTT or NATS for the message bus, there is additional configuration required for specifying the broker-specific options. 
 
 ### Example Using MQTT
 
@@ -87,7 +95,7 @@ Type = "mqtt"
     [Trigger.EdgexMessageBus.PublishHost]
     Host = "localhost"
     Port = 1883
-    Protocol = "tcp"        
+    Protocol = "tcp"
     PublishTopic="" # optional if publishing response back to the MessageBus
     [Trigger.EdgexMessageBus.Optional]
     # MQTT Specific options
@@ -103,13 +111,39 @@ Type = "mqtt"
 
 ```
 
-
-
 !!! edgey "EdgeX 2.0"
-    New for EdgeX 2.0 is the Secure MessageBus when use the `Redis Pub/Sub` implementation. See the [Secure MessageBus](../../security/Ch-Secure-MessageBus.md) documentation for more details.
+Also new for EdgeX 2.0 is the MQTT MessageBus implementation now supports retrieving secrets from the `Secret Store` for secure MQTT connection, but there is not any facility yet to generate the credentials on first startup and distribute them to all services, as is done with `Redis Pub/sub`. This MQTT credentials generation and distribution is a future enhancement for EdgeX security services.
 
-!!! edgey "EdgeX 2.0"
-    Also new for EdgeX 2.0 is the MQTT MessageBus implementation now supports retrieving secrets from the `Secret Store` for secure MQTT connection, but there is not any facility yet to generate the credentials on first startup and distribute them to all services, as is done with `Redis Pub/sub`. This MQTT credentials generation and distribution is a future enhancement for EdgeX security services. 
+### Example Using NATS
+
+Here is an example `EdgexMessageBus` configuration using NATS:
+
+```toml
+[Trigger.EdgexMessageBus]
+Type = "nats-jetstream"
+    [Trigger.EdgexMessageBus.SubscribeHost]
+    Host = "localhost"
+    Port = 4222
+    Protocol = "tcp"
+    SubscribeTopics="edgex/events/#"
+    [Trigger.EdgexMessageBus.PublishHost]
+    Host = "localhost"
+    Port = 4222
+    Protocol = "tcp"        
+    PublishTopic="edgex/events/processed" # optional if publishing response back to the MessageBus
+    [Trigger.EdgexMessageBus.Optional]
+    # NATS Specific options
+    ConnectTimeout = "5" # seconds
+    Format = "json" # json message envelopes can be used for backward compatibility
+    ClientId ="new-app-service"
+    # note durable consumers are typically created out of band eg at gateway onboarding.
+    # durable consumers provisioned by the NATS client will be auto deleted
+    Durable = "my-durable-name" 
+    Username = "edgex"
+    Password = "edgex"
+
+```
+For a complete list of supported NATS / JetStream options see [go-mod-messaging NATS readme](https://github.com/edgexfoundry/go-mod-messaging/blob/main/internal/pkg/nats/README.md)
 
 ### Filter By Topics
 
