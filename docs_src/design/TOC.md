@@ -4,9 +4,6 @@
 | Name/Link                                                                 | Short Description                                             |
 |---------------------------------------------------------------------------|---------------------------------------------------------------|
 | [0001 System Events for Devices](./ucr/0001-System-Events-for-Devices.md) | Use Case for System Events for Device add/update/delete |
-| [0002 Device Parent-Child Relationships](./ucr/0002-Device-Parent-Child-Relationships.md) | Use Case for Device Parent-Child Relationships |
-| [0003 Extending Device Data](./ucr/0003-Extending-Device-Data.md) | Use Case for Application Services Extending Device Data |
-| [0004 Provision Watch more Device Properties](./ucr/0004-Provision-Watch-more-Device-Properties.md) | Use Case for Provision Watching via Additional Device Properties  |
 | [0005 Hybrid App-Device Services](./ucr/0005-Hybrid-App-Device-Services.md) | Use Case for describing a hybrid of App and Device Services |
 
 ## Architectural Design Records (ADRs)
