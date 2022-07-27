@@ -1778,6 +1778,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#driverconfigs" class="md-nav__link">
+    DriverConfigs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setdeviceopstate" class="md-nav__link">
+    SetDeviceOpState
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3368,6 +3382,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#driverconfigs" class="md-nav__link">
+    DriverConfigs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setdeviceopstate" class="md-nav__link">
+    SetDeviceOpState
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3647,6 +3675,8 @@
 <span class="w">    </span><span class="nx">ListenForCustomConfigChanges</span><span class="p">(</span><span class="nx">configToWatch</span><span class="w"> </span><span class="kd">interface</span><span class="p">{},</span><span class="w"> </span><span class="nx">sectionName</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">changedCallback</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="kd">interface</span><span class="p">{}))</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
 <span class="w">    </span><span class="nx">GetLoggingClient</span><span class="p">()</span><span class="w"> </span><span class="nx">logger</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="w"></span>
 <span class="w">    </span><span class="nx">GetSecretProvider</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">SecretProvider</span><span class="w"></span>
+<span class="w">    </span><span class="nx">DriverConfigs</span><span class="p">()</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="nx">SetDeviceOpState</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">state</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">OperatingState</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <h2 id="access-functions">Access Functions</h2>
@@ -3697,6 +3727,12 @@
 <h4 id="getdevicebyname">GetDeviceByName</h4>
 <p><code>GetDeviceByName(name string) (models.Device, error)</code></p>
 <p>This API returns the Device by its name if it exists in the device service's cache, or returns an error.</p>
+<h4 id="driverconfigs">DriverConfigs</h4>
+<p><code>DriverConfigs() map[string]string</code></p>
+<p>This API returns the driver specific configuration</p>
+<h4 id="setdeviceopstate">SetDeviceOpState</h4>
+<p><code>SetDeviceOpState(name string, state models.OperatingState) error</code></p>
+<p>This API sets the operating state of a specified device</p>
 <h3 id="device-profile">Device Profile</h3>
 <h4 id="adddeviceprofile">AddDeviceProfile</h4>
 <p><code>AddDeviceProfile(profile models.DeviceProfile) (string, error)</code></p>
