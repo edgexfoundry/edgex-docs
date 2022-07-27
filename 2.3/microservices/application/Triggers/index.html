@@ -1811,6 +1811,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#example-using-nats" class="md-nav__link">
+    Example Using NATS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#filter-by-topics" class="md-nav__link">
     Filter By Topics
   </a>
@@ -3092,6 +3099,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#example-using-nats" class="md-nav__link">
+    Example Using NATS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#filter-by-topics" class="md-nav__link">
     Filter By Topics
   </a>
@@ -3231,7 +3245,11 @@
 </ol>
 <h2 id="edgex-messagebus-trigger">EdgeX MessageBus Trigger</h2>
 <p>An EdgeX MessageBus trigger will execute the pipeline every time data is received from the configured Edgex MessageBus <code>SubscribeTopics</code>.  The EdgeX MessageBus is the central message bus internal to EdgeX and has a specific message envelope that wraps all data published to this message bus.</p>
-<p>There currently are three implementations of the EdgeX MessageBus available to be used. These are <code>Redis Pub/Sub</code>(default), <code>MQTT</code> and <code>ZeroMQ</code>(ZMQ). The implementation type is selected via the <code>[Trigger.EdgexMessageBus]</code> configuration described below.</p>
+<div class="admonition edgey">
+<p class="admonition-title">Edgex 2.3</p>
+<p>For Edgex 2.3 two new MessageBus implementations have been added to support NATS messaging, with and without the JetStream persistence layer.  These options can be made available by building with the <code>include_nats_messaging</code> flag.</p>
+</div>
+<p>There currently are five implementations of the EdgeX MessageBus available to be used. Three of these are available out of the box: <code>Redis Pub/Sub</code>(default), <code>MQTT</code> and <code>ZeroMQ</code>(ZMQ).  Additionally NATS (both core and JetStream) options can be made available with the build flag mentioned above.  The implementation type is selected via the <code>[Trigger.EdgexMessageBus]</code> configuration described below.</p>
 <h3 id="type-configuration">Type Configuration</h3>
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 2.0</p>
@@ -3261,14 +3279,20 @@ The <code>Type=</code> is set to <code>edgex-messagebus</code> trigger type. The
 <p class="admonition-title">Edgex 2.0</p>
 <p>For Edgex 2.0 the <code>PublishTopic</code> can now have placeholders. See <a href="#publish-topic-placeholders">Publish Topic Placeholders</a> section below for more details</p>
 </div>
-<p>As stated above there are three EdgeX MessageBus implementations you can choose from. These type values are as follows:</p>
+<p>As stated above there are five EdgeX MessageBus implementations you can choose from. These type values are as follows:</p>
 <div class="highlight"><pre><span></span><code>redis - for Redis Pub/Sub (Requires Redis running and Core Data and/or Device Services configure to use Redis Pub/Sub)
 mqtt  - for MQTT (Requires a MQTT Broker running and Core Data and/or Device Services configure to use MQTT)
 zero  - for ZeroMQ (No Broker/Service required. Core Data must be configured to use Zero and Device service configure to use REST to Core Data)
+nats-core - for standard NATS messaging
+nats-jetstream - for NATS messaging with JetStream persistence layer
 </code></pre></div>
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 2.0</p>
 <p>For Edgex 2.0 Redis is now the default EdgeX MessageBus implementation used. Also, the Redis implementation changed from <code>Redis streams</code> to <code>Redis Pub/Sub</code>, thus the type value changed from <code>redisstreams</code> to <code>redis</code></p>
+</div>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.0</p>
+<p>New for EdgeX 2.0 is the Secure MessageBus when use the <code>Redis Pub/Sub</code> implementation. See the <a href="../../../security/Ch-Secure-MessageBus/">Secure MessageBus</a> documentation for more details.</p>
 </div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -3276,7 +3300,7 @@ zero  - for ZeroMQ (No Broker/Service required. Core Data must be configured to 
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>When using MQTT for the message bus, there is additional configuration required for specifying the MQTT specific options. </p>
+<p>When using MQTT or NATS for the message bus, there is additional configuration required for specifying the broker-specific options. </p>
 </div>
 <h3 id="example-using-mqtt">Example Using MQTT</h3>
 <p>Here is example <code>EdgexMessageBus</code> configuration when using MQTT as the message bus:</p>
@@ -3290,7 +3314,7 @@ zero  - for ZeroMQ (No Broker/Service required. Core Data must be configured to 
 <span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.PublishHost]</span><span class="w"></span>
 <span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
 <span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span><span class="w"></span>
-<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span><span class="w">        </span>
+<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span><span class="w"></span>
 <span class="w">    </span><span class="n">PublishTopic</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="c1"># optional if publishing response back to the MessageBus</span><span class="w"></span>
 <span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.Optional]</span><span class="w"></span>
 <span class="w">    </span><span class="c1"># MQTT Specific options</span><span class="w"></span>
@@ -3306,12 +3330,34 @@ zero  - for ZeroMQ (No Broker/Service required. Core Data must be configured to 
 </code></pre></div>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
-<p>New for EdgeX 2.0 is the Secure MessageBus when use the <code>Redis Pub/Sub</code> implementation. See the <a href="../../../security/Ch-Secure-MessageBus/">Secure MessageBus</a> documentation for more details.</p>
 </div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>Also new for EdgeX 2.0 is the MQTT MessageBus implementation now supports retrieving secrets from the <code>Secret Store</code> for secure MQTT connection, but there is not any facility yet to generate the credentials on first startup and distribute them to all services, as is done with <code>Redis Pub/sub</code>. This MQTT credentials generation and distribution is a future enhancement for EdgeX security services. </p>
-</div>
+<p>Also new for EdgeX 2.0 is the MQTT MessageBus implementation now supports retrieving secrets from the <code>Secret Store</code> for secure MQTT connection, but there is not any facility yet to generate the credentials on first startup and distribute them to all services, as is done with <code>Redis Pub/sub</code>. This MQTT credentials generation and distribution is a future enhancement for EdgeX security services.</p>
+<h3 id="example-using-nats">Example Using NATS</h3>
+<p>Here is an example <code>EdgexMessageBus</code> configuration using NATS:</p>
+<p><div class="highlight"><pre><span></span><code><span class="k">[Trigger.EdgexMessageBus]</span><span class="w"></span>
+<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;nats-jetstream&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.SubscribeHost]</span><span class="w"></span>
+<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4222</span><span class="w"></span>
+<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.PublishHost]</span><span class="w"></span>
+<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4222</span><span class="w"></span>
+<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span><span class="w">        </span>
+<span class="w">    </span><span class="n">PublishTopic</span><span class="o">=</span><span class="s">&quot;edgex/events/processed&quot;</span><span class="w"> </span><span class="c1"># optional if publishing response back to the MessageBus</span><span class="w"></span>
+<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.Optional]</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># NATS Specific options</span><span class="w"></span>
+<span class="w">    </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># seconds</span><span class="w"></span>
+<span class="w">    </span><span class="n">Format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;json&quot;</span><span class="w"> </span><span class="c1"># json message envelopes can be used for backward compatibility</span><span class="w"></span>
+<span class="w">    </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;new-app-service&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># note durable consumers are typically created out of band eg at gateway onboarding.</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># durable consumers provisioned by the NATS client will be auto deleted</span><span class="w"></span>
+<span class="w">    </span><span class="n">Durable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;my-durable-name&quot;</span><span class="w"> </span>
+<span class="w">    </span><span class="n">Username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;edgex&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;edgex&quot;</span><span class="w"></span>
+</code></pre></div>
+For a complete list of supported NATS / JetStream options see <a href="https://github.com/edgexfoundry/go-mod-messaging/blob/main/internal/pkg/nats/README.md">go-mod-messaging NATS readme</a></p>
 <h3 id="filter-by-topics">Filter By Topics</h3>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
