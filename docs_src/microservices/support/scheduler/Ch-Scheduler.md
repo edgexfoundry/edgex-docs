@@ -36,9 +36,12 @@ in your current configured database for EdgeX.
 The times and frequencies defined in the scheduler service's intervals are specified using the [international date/time standard - ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).  So, for example, the start of an interval would be represented in YYYYMMDD'T'HHmmss format.  20180101T000000 represents January 1, 2018 at midnight.  Frequencies are represented with ISO 8601 durations. 
 
 ## Data Model
-The latest developed data model will be updated in the [Swagger API document](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-scheduler/2.0.0).
+The latest developed data model will be updated in the [Swagger API document](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-scheduler/2.3.0).
 
 ![image](EdgeX_SupportSchedulerModel.png)
+
+**NOTE**
+Only RESTAddress is supported. The MQTTAddress may be implemented in a future release.
 
 This diagram is drawn by [diagram.net](https://app.diagrams.net/), and the source file is [here]( EdgeX_SupportSchedulerModel.xml).
 ## Data Dictionary
@@ -64,12 +67,17 @@ This diagram is drawn by [diagram.net](https://app.diagrams.net/), and the sourc
     |Name |the name of the interval action|
     |Interval|associated interval that defines when the action occurs|
     |AdminState|interval action state - either LOCKED or UNLOCKED|
-    |Protocol|Indicates which protocol should be used.  Only http is used today |
+    |Content|The actual content to be sent as the body|
+    |ContentType|Indicates which request contentType should be used (i.e. `text/html`, `application/json`), the default is `application/json`|   
+=== "IntervalActions.Address"     
+    |Property|Description|
+    |---|---|
+    ||An object inside `IntervalActions` indicating how to contact a specific endpoint by HTTP protocol|
+    |Type|Currently only support `REST`|
     |Host|The host targeted by the action when it activates|
     |Port|The port on the targeted host|
-    |Method |Indicates which Http verb should be used for the REST endpoint.(Only using when type is REST|
+    |HttpMethod|Indicates which Http verb should be used for the REST endpoint.(Only using when type is REST|
     |Path|The HTTP path at the targeted host for fulfillment of the action.(Only using when type is REST)|
-    |Target|The service target which is to receive the REST call - example core-data|
 
 See [Interval](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-scheduler/2.1.0#/Interval) and [IntervalAction](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-scheduler/2.1.0#/IntervalAction) for more information.
 
@@ -103,7 +111,6 @@ Please refer to the general [Configuration documentation](../../configuration/Co
     |Port|59880|run the request against the default core data port|
     |Protocol|http|Make a RESTful request to core data|
     |Method|DELETE|Make a RESTful delete operation request to core data|
-    |Target|core-data|target core data|
     |Path|/api/v2/event/age/604800000000000|request core data's remove old events API with parameter of 7 days |
     |Interval|midnight|run the operation every midnight as specified by the configuration defined interval|
 
