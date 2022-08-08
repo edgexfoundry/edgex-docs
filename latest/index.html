@@ -3,8 +3,9 @@
 <head>
   <title>Redirecting</title>
   <script>
-    var currentVersion = window.location.pathname.split("/")[1];
-    var xhr = new XMLHttpRequest();
+    const currentVersion = "latest";
+
+    let xhr = new XMLHttpRequest();
    
     xhr.open("GET", "../versions.json");
     xhr.onload = function () {
@@ -14,8 +15,12 @@
         return it["aliases"].find(alias => { return alias == currentVersion; });
       });
 
+      if(!res){
+        alert("Hello! " + location + " not found");
+      }
+
       if(res.version){
-        window.location.pathname = "/" + res.version;
+        window.location.pathname = window.location.pathname.replace(/^\/latest\//, `/${res.version}/`);
       }
     };
     xhr.send();
