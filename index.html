@@ -3,7 +3,7 @@
 <head>
   <title>Redirecting</title>
   <script>
-    const LatestVersion = "latest";
+    const LatestAlias = "latest";
 
     let xhr = new XMLHttpRequest();
    
@@ -12,7 +12,7 @@
       let versions = JSON.parse(this.responseText);
 
       let res = versions.find(it => {
-        return it["aliases"].find(alias => { return alias == LatestVersion; });
+        return it["aliases"].find(alias => { return alias == LatestAlias; });
       });
 
       if(!res){

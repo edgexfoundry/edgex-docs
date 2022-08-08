@@ -3,7 +3,7 @@
 <head>
   <title>Redirecting</title>
   <script>
-    const currentVersion = "latest";
+    const currentAlias = "latest";
 
     let xhr = new XMLHttpRequest();
    
@@ -12,7 +12,7 @@
       let versions = JSON.parse(this.responseText);
 
       let res = versions.find(it => {
-        return it["aliases"].find(alias => { return alias == currentVersion; });
+        return it["aliases"].find(alias => { return alias == currentAlias; });
       });
 
       if(!res){
@@ -20,7 +20,7 @@
       }
 
       if(res.version){
-        window.location.pathname = window.location.pathname.replace(/^\/latest\//, `/${res.version}/`);
+        window.location.pathname = window.location.pathname.replace(`/${currentAlias}/`, `/${res.version}/`);
       }
     };
     xhr.send();
