@@ -1,13 +1,32 @@
 # USB Camera Device Service RTSP Streaming Guide
+
+## Contents
+
+[Overview](#overview)  
+[System Requirements](#system-requirements)  
+[How It Works](#how-it-works)  
+[Tested Devices](#tested-devices)  
+[Dependencies](#dependencies)  
+[Get the Source Code](#get-the-source-code)  
+[Deploy the Service](#deploy-edgex-and-usb-device-camera-microservice)  
+[Verify the Service](#verify-service-and-device-profiles)   
+[Adding Devices using REST API](#adding-devices-using-rest-api)  
+[Start Video Streaming](#start-video-streaming)  
+[Shutting Down](#shutting-down)  
+[Optional](#optional)  
+[Troubleshooting](#troubleshooting)  
+[License](#license)
+
+
 ## Overview
 The EdgeX usb device service is designed for communicating with USB cameras attached to Linux OS platforms. This guide will help configure and build the usb device service and start streaming video from the USB camera.
 
 This service provides the following capabilities:
-- API to get camera metadata
+- V4L2 API to get camera metadata
 - Camera status
 - Video stream reference
-- Capture video frames and stream them to an RTSP server
-- An embedded [RTSP server](https://github.com/aler9/rtsp-simple-server)
+- FFmpeg framework to capture video frames and stream them to an RTSP server
+- An embedded [RTSP server](https://github.com/aler9/rtsp-simple-server) server
 ## System Requirements
 
 - Intel&#8482; Core&#174; processor
@@ -34,19 +53,19 @@ Note: Results may vary based on camera hardware/firmware version and operating s
 - Logitech StreamCam
 
 ## Dependencies
-The software has dependencies, including Git, Docker, Docker Compose, and assorted command line tools. Follow the instructions provided here to install any dependency that is not already installed `device-usb-camera/docs/setup.md`.
+The software has dependencies, including Git, Docker, Docker Compose, and assorted command line tools. Follow the instructions linked here to install any dependency that is not already installed [see here](https://github.com/EdgeX-Camera-Management/device-usb-camera/blob/rtsp_doc/docs/setup.md).
 
 ### Install additional Tools
 Install the media utility tool:
 
    ```bash
-   sudo apt install mplayer v4l-utils
+   sudo apt install ffmpeg v4l-utils
    ```
 
-- `mplayer` is used to view the video stream
+- `ffmpeg` is used to view the video stream
 - `v4l-utils` is used to determine the video stream path of a usb camera
 
-## Download and Run EdgeX Services
+## Get the Source Code
 ###  Download EdgeX Compose Repository (if not already downloaded)
 
 1. Create a directory for the EdgeX compose repository:
@@ -65,6 +84,49 @@ Install the media utility tool:
    ```
 
 
+### Get the Device USB Camera Source Code (if not already downloaded)
+
+1. Change into the edgex directory:
+   ```bash
+   cd ~/edgex
+   ```
+
+2. Clone the device-usb-camera repository:
+
+   ```bash
+   git clone https://github.com/edgexfoundry/device-usb-camera.git
+   ```
+## Deploy EdgeX and USB Device Camera Microservice
+### Building the docker image
+1. Change into newly created directory:
+   ```bash
+   cd ~/edgex/device-usb-camera
+   ```
+
+1. Build the docker image of the device-usb-camera service:
+   ```bash
+   make docker
+   ```
+1. Navigate to the Edgex compose directory.
+
+   ```shell
+   cd ~/edgex/edgex-compose/compose-builder
+   ```
+   
+1. Update `.env` file to add the registry and image version variable for device-usb-camera:
+
+   Add the following registry and version information:
+   ```env
+   DEVICE_USBCAM_VERSION=0.0.0-dev
+   ```
+
+1. Update the `add-device-usb-camera.yml` to point to the local image:
+
+   ```yml
+   services:
+   device-usb-camera:
+      image: edgexfoundry/device-usb-camera${ARCH}:${DEVICE_USBCAM_VERSION}
+   ```
 ### Run the Service
 
 1. Navigate to the Edgex compose directory.
@@ -74,14 +136,10 @@ Install the media utility tool:
    ```
 
 2. Run EdgeX with the microservice:  
-  - For non secure mode
-    ```
-    make run ds-usb-camera no-secty
-    ```
-  - For secure mode 
-    ```
-    make run ds-usb-camera
-    ```
+> **NOTE:** This command runs the EdgeX microservices in non secure mode.
+   ```bash
+    make run no-secty ds-usb-camera 
+   ```
 
 ## Verify Service and Device Profiles
 
@@ -153,28 +211,28 @@ Devices can either be added to the service by defining them in a static configur
    * `Path` is a file descriptor of camera created by the OS. Use the `Path` determined in the previous step.
    * `AutoStreaming` indicates whether the device service should automatically start video streaming for cameras. Default value is false.
    
-```bash
-curl -X POST -H 'Content-Type: application/json'  \
+   ```bash
+   curl -X POST -H 'Content-Type: application/json'  \
    http://localhost:59881/api/v2/device \
    -d '[
-      {
-      "apiVersion": "v2",
-      "device": {
-         "name": "Camera001",
-         "serviceName": "device-usb-camera",
-         "profileName": "USB-Camera-General",
-         "description": "My test camera",
-         "adminState": "UNLOCKED",
-         "operatingState": "UP",
-         "protocols": {
-            "USB": {
-            "CardName": "NexiGo N930AF FHD Webcam: NexiG",
-            "Path": "/dev/video6",
-            "AutoStreaming": "false"
+            {
+               "apiVersion": "v2",
+               "device": {
+                  "name":"Camera001",
+                  "serviceName": "device-usb-camera",
+                  "profileName": "USB-Camera-General",
+                  "description": "My test camera",
+                  "adminState": "UNLOCKED",
+                  "operatingState": "UP",
+                  "protocols": {
+                	  "USB": {
+                    	"CardName": "NexiGo N930AF FHD Webcam: NexiG",
+                    	"Path": "/dev/video6",
+ 			                "AutoStreaming": "false"
+                     }
+                  }
+               }
             }
-         }
-      }
-      }
    ]'
    ```
 
@@ -235,20 +293,21 @@ The response to the above call should look similar to the following:
 StreamURI: rtsp://localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217010
 ```
 
-### Play the RTSP stream. 
+### Stream the RTSP stream. 
 
-   mplayer can be used to stream. The command follows this format: 
+   ffplay can be used to stream. The command follows this format: 
    
-   `mplayer rtsp://<IP address>:<port>/<streamname>`.
+   `ffplay -rtsp_transport tcp rtsp://<IP address>:<port>/<streamname>`.
 
-   Using the `streamURI` returned from the previous step, run mplayer:
+   Using the `streamURI` returned from the previous step, run ffplay:
    
    ```bash
-   mplayer rtsp://localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217010
+   ffplay -rtsp_transport tcp rtsp://localhost:8554/stream/Camera001
    ```
 
-  - To shut down mplayer, use the ctrl-c command.
-### Stop Video Streaming
+  - To shut down ffplay, use the ctrl-c command.
+
+  ### Stop Video Streaming
 To stop the usb camera from live streaming, use the following command:
 
 Query parameter:
@@ -279,7 +338,7 @@ To stop all EdgeX services (containers), execute the `make down` command:
 ## Optional
 ### Configuration Options
 ### Configurable RTSP server hostname and port
-The hostname and port of the RTSP server can be configured in the `[Driver]` section of the `/cmd/res/configuration.toml` file. The default vaules can be used for this guide.
+The hostname and port of the RTSP server can be configured in the `[Driver]` section of the [/cmd/res/configuration.toml](../cmd/res/configuration.toml). The default vaules can be used for this guide.
 
 For example:
 ```yaml
@@ -303,3 +362,6 @@ curl http://localhost:59882/api/v2/device/name/<device name>/StreamingStatus | j
 ```
 
 If the StreamingStatus is false, the camera is not configured to stream video. Please try the Start Video Streaming section again.
+
+## License
+[Apache-2.0](https://github.com/EdgeX-Camera-Management/device-usb-camera/blob/rtsp_doc/LICENSE)
