@@ -11,9 +11,12 @@
         // redirectToLatest redirects the user agent to the latest version of a 
         // page by rewriting the path.
         //
-        // For example:
-        // https://docs.edgexfoundry.org/latest/getting-started/ is redirected to:
-        // https://docs.edgexfoundry.org/2.2/getting-started/
+        // Examples:
+        //   https://docs.edgexfoundry.org/latest is redirected to:
+        //   https://docs.edgexfoundry.org/2.2
+        //
+        //   https://docs.edgexfoundry.org/latest/getting-started/ is redirected to:
+        //   https://docs.edgexfoundry.org/2.2/getting-started/
         function redirectToLatest()
         {
             let req = new XMLHttpRequest();
@@ -35,9 +38,12 @@
                     pathParts[1] = res.version;
                     window.location.pathname = pathParts.join("/");
                 } else {
-                    console.error("Unable to find version with 'latest' alias.");
+                    alert("Unable to find version with 'latest' alias.");
                     return;
                 }
+            } else {
+                alert("Error querying the versions file.");
+                return;
             }
         }
 
