@@ -40,10 +40,10 @@ The software has dependencies, including Git, Docker, Docker Compose, and assort
 Install the media utility tool:
 
    ```bash
-   sudo apt install ffmpeg v4l-utils
+   sudo apt install mplayer v4l-utils
    ```
 
-- `ffmpeg` is used to view the video stream
+- `mplayer` is used to view the video stream
 - `v4l-utils` is used to determine the video stream path of a usb camera
 
 ## Get the Source Code
@@ -276,9 +276,9 @@ StreamURI: rtsp://localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217
 
 ### Stream the RTSP stream. 
 
-   ffplay can be used to stream. The command follows this format: 
+   mplayer can be used to stream. The command follows this format: 
    
-   `ffplay -rtsp_transport tcp rtsp://<IP address>:<port>/<streamname>`.
+   `mplayer rtsp://<IP address>:<port>/<streamname>`.
 
    Using the `streamURI` returned from the previous step, run ffplay:
    
