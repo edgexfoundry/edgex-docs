@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Redirecting</title>
+  <script>
+      let currentAlias = window.location.pathname.split("/")[1];
+
+      let xhr = new XMLHttpRequest();
+      xhr.open("GET", "/versions.json");
+      xhr.onload = function () {
+          let versions = JSON.parse(this.responseText);
+
+          let res = versions.find(it => {
+              return it["aliases"].find(alias => {
+                  return alias == currentAlias;
+              });
+          });
+
+          if (res) {
+              let currentPath = window.location.pathname;
+              let split = window.location.pathname.split("/");
+
+              split[1] = res.version;
+              let targetPath = split.join("/");
+              window.location.pathname = targetPath;
+          } else {
+              alert("The requested page was not found. To visit the latest documentation, please follow https://docs.edgexfoundry.org/latest");
+          }
+      };
+
+      xhr.send();
+  </script>
+</head>
+<body>
+</body>
+</html>
