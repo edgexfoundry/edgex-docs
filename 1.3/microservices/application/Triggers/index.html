@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
     
     
       
@@ -44,11 +44,6 @@
       <link rel="stylesheet" href="../../../assets/stylesheets/branding.css">
     
     
-      
-        
-<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com">
-<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-82811140-6","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview")})</script>
-<script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
     
@@ -130,7 +125,7 @@
     
       <div class="md-header-nav__source">
         
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -279,7 +274,7 @@
   
     <div class="md-nav__source">
       
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -2282,24 +2277,24 @@
 <p>There currently are three implementations of the EdgeX Message Bus available to be used. These are <code>ZeroMQ</code>, <code>MQTT</code> &amp; <code>Redis Streams</code>. The implementation type is selected via the <code>[MessageBus]</code> configuration described below.</p>
 <h3 id="type-and-topic-configuration">Type and Topic configuration</h3>
 <p>Here's an example:</p>
-<p><div class="highlight"><pre><span></span><code><span class="k">[Binding]</span>
-<span class="n">Type</span><span class="o">=</span><span class="s">&quot;edgex-messagebus&quot;</span> <span class="c1"># also can use legacy messagebus for type</span>
-<span class="n">SubscribeTopic</span><span class="o">=</span><span class="s">&quot;events&quot;</span>
-<span class="n">PublishTopic</span><span class="o">=</span><span class="s">&quot;&quot;</span>
+<p><div class="highlight"><pre><span></span><code><span class="k">[Binding]</span><span class="w"></span>
+<span class="n">Type</span><span class="o">=</span><span class="s">&quot;edgex-messagebus&quot;</span><span class="w"> </span><span class="c1"># also can use legacy messagebus for type</span><span class="w"></span>
+<span class="n">SubscribeTopic</span><span class="o">=</span><span class="s">&quot;events&quot;</span><span class="w"></span>
+<span class="n">PublishTopic</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="w"></span>
 </code></pre></div>
 The <code>Type=</code> is set to <code>edgex-messagebus</code> trigger type or the legacy type of <code>messagebus</code>. EdgeX Core Data is publishing data to the <code>events</code> topic. So to receive data from core data, you can set your <code>SubscribeTopic=</code> either to <code>""</code> or <code>"events"</code>. You may also designate a <code>PublishTopic=</code> if you wish to publish data back to the message bus. <code>edgexcontext.Complete([]byte outputData)</code> - Will send data back to the message bus on the topic specified by the <code>PublishTopic=</code> property</p>
 <h3 id="message-bus-connection-configuration">Message bus connection configuration</h3>
 <p>The other piece of configuration required are the connection settings:
-<div class="highlight"><pre><span></span><code><span class="k">[MessageBus]</span>
-<span class="n">Type</span> <span class="o">=</span> <span class="s">&#39;zero&#39;</span> <span class="c1"># message bus type (i.e zero for ZMQ, mqtt for MQTT or redisstreams for Redis Streams)</span>
-    <span class="k">[MessageBus.PublishHost]</span>
-        <span class="n">Host</span> <span class="o">=</span> <span class="s">&#39;*&#39;</span>
-        <span class="n">Port</span> <span class="o">=</span> <span class="mi">5564</span>
-        <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&#39;tcp&#39;</span>
-    <span class="k">[MessageBus.SubscribeHost]</span>
-        <span class="n">Host</span> <span class="o">=</span> <span class="s">&#39;localhost&#39;</span>
-        <span class="n">Port</span> <span class="o">=</span> <span class="mi">5563</span>
-        <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&#39;tcp&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">[MessageBus]</span><span class="w"></span>
+<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;zero&#39;</span><span class="w"> </span><span class="c1"># message bus type (i.e zero for ZMQ, mqtt for MQTT or redisstreams for Redis Streams)</span><span class="w"></span>
+<span class="w">    </span><span class="k">[MessageBus.PublishHost]</span><span class="w"></span>
+<span class="w">        </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;*&#39;</span><span class="w"></span>
+<span class="w">        </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5564</span><span class="w"></span>
+<span class="w">        </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;tcp&#39;</span><span class="w"></span>
+<span class="w">    </span><span class="k">[MessageBus.SubscribeHost]</span><span class="w"></span>
+<span class="w">        </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;localhost&#39;</span><span class="w"></span>
+<span class="w">        </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5563</span><span class="w"></span>
+<span class="w">        </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;tcp&#39;</span><span class="w"></span>
 </code></pre></div>
 By default, <code>EdgeX Core Data</code> publishes data to the <code>events</code>  topic using ZMQ on port 5563. The publish host is used if publishing data back to the message bus. As stated above there are three implementations you can choose from. These type values are as follows:</p>
 <div class="highlight"><pre><span></span><code>zero - for ZeroMQ
@@ -2315,32 +2310,32 @@ redisstreams - for Redis Streams (Requires Redis running and Core-Data configure
 <p>When using MQTT for the message bus, there is additional configuration required for specifying the MQTT specific options. </p>
 </div>
 <p>Here is example <code>MessageBus</code> configuration when using MQTT as the message bus:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[MessageBus]</span>
-<span class="n">Type</span> <span class="o">=</span> <span class="s">&quot;mqtt&quot;</span>
-    <span class="k">[MessageBus.SubscribeHost]</span>
-        <span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
-        <span class="n">Port</span> <span class="o">=</span> <span class="mi">1883</span>
-        <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&quot;tcp&quot;</span>
-    <span class="k">[MessageBus.PublishHost]</span>
-        <span class="n">Host</span> <span class="o">=</span> <span class="s">&quot;localhost&quot;</span>
-        <span class="n">Port</span> <span class="o">=</span> <span class="mi">1883</span>
-        <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&quot;tcp&quot;</span>
-    <span class="k">[MessageBus.Optional]</span>
-        <span class="c1"># MQTT Specific options</span>
-        <span class="n">Username</span> <span class="o">=</span><span class="s">&quot;&quot;</span>
-        <span class="n">Password</span> <span class="o">=</span><span class="s">&quot;&quot;</span>
-        <span class="n">ClientId</span> <span class="o">=</span><span class="s">&quot;AppService&quot;</span>
-        <span class="c1"># Connection information</span>
-        <span class="n">Qos</span>          <span class="o">=</span>  <span class="s">&quot;0&quot;</span> <span class="c1"># Quality of Sevice 0 (At most once), 1 (At least once) or 2 (Exactly once)</span>
-        <span class="n">KeepAlive</span>    <span class="o">=</span>  <span class="s">&quot;10&quot;</span> <span class="c1"># Seconds (must be 2 or greater)</span>
-        <span class="n">Retained</span>     <span class="o">=</span> <span class="s">&quot;false&quot;</span>
-        <span class="n">AutoReconnect</span>  <span class="o">=</span> <span class="s">&quot;true&quot;</span>
-        <span class="n">ConnectTimeout</span> <span class="o">=</span> <span class="s">&quot;5&quot;</span> <span class="c1"># Seconds</span>
-        <span class="n">SkipCertVerify</span> <span class="o">=</span> <span class="s">&quot;false&quot;</span>
-        <span class="n">CertFile</span>       <span class="o">=</span> <span class="s">&quot;&quot;</span>
-        <span class="n">KeyFile</span>        <span class="o">=</span> <span class="s">&quot;&quot;</span>
-        <span class="n">KeyPEMBlock</span>    <span class="o">=</span> <span class="s">&quot;&quot;</span>
-        <span class="n">CertPEMBlock</span>   <span class="o">=</span> <span class="s">&quot;&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">[MessageBus]</span><span class="w"></span>
+<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="k">[MessageBus.SubscribeHost]</span><span class="w"></span>
+<span class="w">        </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span><span class="w"></span>
+<span class="w">        </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="k">[MessageBus.PublishHost]</span><span class="w"></span>
+<span class="w">        </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span><span class="w"></span>
+<span class="w">        </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="k">[MessageBus.Optional]</span><span class="w"></span>
+<span class="w">        </span><span class="c1"># MQTT Specific options</span><span class="w"></span>
+<span class="w">        </span><span class="n">Username</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="n">Password</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;AppService&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="c1"># Connection information</span><span class="w"></span>
+<span class="w">        </span><span class="n">Qos</span><span class="w">          </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="c1"># Quality of Sevice 0 (At most once), 1 (At least once) or 2 (Exactly once)</span><span class="w"></span>
+<span class="w">        </span><span class="n">KeepAlive</span><span class="w">    </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span><span class="w"></span>
+<span class="w">        </span><span class="n">Retained</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="n">AutoReconnect</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
+<span class="w">        </span><span class="n">SkipCertVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CertFile</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="n">KeyFile</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="n">KeyPEMBlock</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CertPEMBlock</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2358,25 +2353,25 @@ redisstreams - for Redis Streams (Requires Redis running and Core-Data configure
 </div>
 <h3 id="type-and-topic-configuration_1">Type and Topic configuration</h3>
 <p>Here's an example:
-<div class="highlight"><pre><span></span><code><span class="k">[Binding]</span>
-<span class="n">Type</span><span class="o">=</span><span class="s">&quot;external-mqtt&quot;</span> 
-<span class="n">SubscribeTopic</span><span class="o">=</span><span class="s">&quot;some-request&quot;</span>
-<span class="n">PublishTopic</span><span class="o">=</span><span class="s">&quot;&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">[Binding]</span><span class="w"></span>
+<span class="n">Type</span><span class="o">=</span><span class="s">&quot;external-mqtt&quot;</span><span class="w"> </span>
+<span class="n">SubscribeTopic</span><span class="o">=</span><span class="s">&quot;some-request&quot;</span><span class="w"></span>
+<span class="n">PublishTopic</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="w"></span>
 </code></pre></div>
 The <code>Type=</code> is set to <code>external-mqtt</code>. To receive data from the external MQTT Broker you must set your <code>SubscribeTopic=</code> to the appropriate topic that the external publisher is using. You may also designate a <code>PublishTopic=</code> if you wish to publish data back to the external MQTT Broker. <code>edgexcontext.Complete([]byte outputData)</code> - Will send data back to back to the external MQTT Broker on the topic specified by the <code>PublishTopic=</code> property</p>
 <h3 id="mqtt-broker-configuration">MQTT Broker configuration</h3>
 <p>The other piece of configuration required are the MQTT Broker connection settings:
-<div class="highlight"><pre><span></span><code><span class="k">[MqttBroker]</span>
-    <span class="n">Url</span> <span class="o">=</span> <span class="s">&quot;tcp://localhost:1883&quot;</span> <span class="c1">#  fully qualified URL to connect to the MQTT broker</span>
-    <span class="n">ClientId</span> <span class="o">=</span> <span class="s">&quot;AppService&quot;</span> 
-    <span class="n">ConnectTimeout</span> <span class="o">=</span> <span class="s">&quot;5s&quot;</span> <span class="c1"># 5 seconds</span>
-    <span class="n">AutoReconnect</span> <span class="o">=</span> <span class="kc">true</span>
-    <span class="n">KeepAlive</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1"># Seconds (must be 2 or greater)</span>
-    <span class="n">QoS</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># Quality of Service 0 (At most once), 1 (At least once) or 2 (Exactly once)</span>
-    <span class="n">Retain</span> <span class="o">=</span> <span class="kc">true</span>
-    <span class="n">SkipCertVerify</span> <span class="o">=</span> <span class="kc">false</span>
-    <span class="n">SecretPath</span> <span class="o">=</span> <span class="s">&quot;mqtt-trigger&quot;</span> 
-    <span class="n">AuthMode</span> <span class="o">=</span> <span class="s">&quot;none&quot;</span> <span class="c1"># Options are &quot;none&quot;, &quot;cacert&quot; , &quot;usernamepassword&quot;, &quot;clientcert&quot;.</span>
+<div class="highlight"><pre><span></span><code><span class="k">[MqttBroker]</span><span class="w"></span>
+<span class="w">    </span><span class="n">Url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp://localhost:1883&quot;</span><span class="w"> </span><span class="c1">#  fully qualified URL to connect to the MQTT broker</span><span class="w"></span>
+<span class="w">    </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;AppService&quot;</span><span class="w"> </span>
+<span class="w">    </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5s&quot;</span><span class="w"> </span><span class="c1"># 5 seconds</span><span class="w"></span>
+<span class="w">    </span><span class="n">AutoReconnect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">    </span><span class="n">KeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span><span class="w"></span>
+<span class="w">    </span><span class="n">QoS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="c1"># Quality of Service 0 (At most once), 1 (At least once) or 2 (Exactly once)</span><span class="w"></span>
+<span class="w">    </span><span class="n">Retain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">    </span><span class="n">SkipCertVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="w">    </span><span class="n">SecretPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt-trigger&quot;</span><span class="w"> </span>
+<span class="w">    </span><span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w"> </span><span class="c1"># Options are &quot;none&quot;, &quot;cacert&quot; , &quot;usernamepassword&quot;, &quot;clientcert&quot;.</span><span class="w"></span>
 </code></pre></div></p>
 <h2 id="http-trigger">HTTP Trigger</h2>
 <p>Designating an HTTP trigger will allow the pipeline to be triggered by a RESTful <code>POST</code> call to <code>http://[host]:[port]/api/v1/trigger/</code>. </p>
@@ -2482,7 +2477,7 @@ The <code>Type=</code> is set to <code>external-mqtt</code>. To receive data fro
     </div>
     
       <script src="../../../assets/javascripts/vendor.36cbf620.min.js"></script>
-      <script src="../../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching"}</script>
       
       <script>
         app = initialize({

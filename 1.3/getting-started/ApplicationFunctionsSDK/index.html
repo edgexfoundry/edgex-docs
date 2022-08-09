@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
     
     
       
@@ -44,11 +44,6 @@
       <link rel="stylesheet" href="../../assets/stylesheets/branding.css">
     
     
-      
-        
-<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com">
-<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-82811140-6","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview")})</script>
-<script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
     
@@ -130,7 +125,7 @@
     
       <div class="md-header-nav__source">
         
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -279,7 +274,7 @@
   
     <div class="md-nav__source">
       
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -2175,78 +2170,78 @@
                 <h1 id="getting-started">Getting Started</h1>
 <h2 id="the-application-functions-sdk">The Application Functions SDK</h2>
 <p>The SDK is built around the idea of a "Functions Pipeline". A functions pipeline is a collection of various functions that process the data in the order that you've specified. The functions pipeline is executed by the specified <a href="../../microservices/application/Triggers/">trigger</a> in the <code>configuration.toml</code> . The first function in the pipeline is called with the event that triggered the pipeline (ex. <code>events.Model</code>). Each successive call in the pipeline is called with the return result of the previous function. Let's take a look at a simple example that creates a pipeline to filter particular device ids and subsequently transform the data to XML:
-<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-    <span class="s">&quot;fmt&quot;</span>
-    <span class="s">&quot;github.com/edgexfoundry/app-functions-sdk-go/appsdk&quot;</span>
-    <span class="s">&quot;github.com/edgexfoundry/app-functions-sdk-go/pkg/transforms&quot;</span>
-    <span class="s">&quot;os&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;github.com/edgexfoundry/app-functions-sdk-go/appsdk&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;github.com/edgexfoundry/app-functions-sdk-go/pkg/transforms&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;os&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 
-    <span class="c1">// 1) First thing to do is to create an instance of the EdgeX SDK, giving it a service key</span>
-    <span class="nx">edgexSdk</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">appsdk</span><span class="p">.</span><span class="nx">AppFunctionsSDK</span><span class="p">{</span>
-        <span class="nx">ServiceKey</span><span class="p">:</span> <span class="s">&quot;SimpleFilterXMLApp&quot;</span><span class="p">,</span> <span class="c1">// Key used by Registry (Aka Consul)</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="c1">// 1) First thing to do is to create an instance of the EdgeX SDK, giving it a service key</span><span class="w"></span>
+<span class="w">    </span><span class="nx">edgexSdk</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">appsdk</span><span class="p">.</span><span class="nx">AppFunctionsSDK</span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">ServiceKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;SimpleFilterXMLApp&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// Key used by Registry (Aka Consul)</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="c1">// 2) Next, we need to initialize the SDK</span>
-    <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">edgexSdk</span><span class="p">.</span><span class="nx">Initialize</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="nx">message</span> <span class="o">:=</span> <span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;SDK initialization failed: %v\n&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nx">edgexSdk</span><span class="p">.</span><span class="nx">LoggingClient</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-            <span class="nx">edgexSdk</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span>
-        <span class="p">}</span>
-        <span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="c1">// 2) Next, we need to initialize the SDK</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">edgexSdk</span><span class="p">.</span><span class="nx">Initialize</span><span class="p">();</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">message</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;SDK initialization failed: %v\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">edgexSdk</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nx">edgexSdk</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="c1">// 3) Shows how to access the application&#39;s specific configuration settings.</span>
-    <span class="nx">deviceNames</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">edgexSdk</span><span class="p">.</span><span class="nx">GetAppSettingStrings</span><span class="p">(</span><span class="s">&quot;DeviceNames&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="nx">edgexSdk</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
-        <span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="p">}</span>    
+<span class="w">    </span><span class="c1">// 3) Shows how to access the application&#39;s specific configuration settings.</span><span class="w"></span>
+<span class="w">    </span><span class="nx">deviceNames</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">edgexSdk</span><span class="p">.</span><span class="nx">GetAppSettingStrings</span><span class="p">(</span><span class="s">&quot;DeviceNames&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">edgexSdk</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span><span class="w"></span>
+<span class="w">        </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w">    </span>
 
-    <span class="c1">// 4) This is our pipeline configuration, the collection of functions to</span>
-    <span class="c1">// execute every time an event is triggered.</span>
-    <span class="k">if</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">edgexSdk</span><span class="p">.</span><span class="nx">SetFunctionsPipeline</span><span class="p">(</span>
-            <span class="nx">transforms</span><span class="p">.</span><span class="nx">NewFilter</span><span class="p">(</span><span class="nx">deviceNames</span><span class="p">).</span><span class="nx">FilterByDeviceName</span><span class="p">,</span> 
-            <span class="nx">transforms</span><span class="p">.</span><span class="nx">NewConversion</span><span class="p">().</span><span class="nx">TransformToXML</span><span class="p">,</span>
-        <span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="nx">edgexSdk</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;SDK SetPipeline failed: %v\n&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">))</span>
-        <span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="c1">// 4) This is our pipeline configuration, the collection of functions to</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// execute every time an event is triggered.</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">edgexSdk</span><span class="p">.</span><span class="nx">SetFunctionsPipeline</span><span class="p">(</span><span class="w"></span>
+<span class="w">            </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewFilter</span><span class="p">(</span><span class="nx">deviceNames</span><span class="p">).</span><span class="nx">FilterByDeviceName</span><span class="p">,</span><span class="w"> </span>
+<span class="w">            </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewConversion</span><span class="p">().</span><span class="nx">TransformToXML</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">edgexSdk</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;SDK SetPipeline failed: %v\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">))</span><span class="w"></span>
+<span class="w">        </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="c1">// 5) Lastly, we&#39;ll go ahead and tell the SDK to &quot;start&quot; and begin listening for events to trigger the pipeline.</span>
-    <span class="nx">err</span> <span class="p">=</span> <span class="nx">edgexSdk</span><span class="p">.</span><span class="nx">MakeItRun</span><span class="p">()</span>
-    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="nx">edgexSdk</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="s">&quot;MakeItRun returned error: &quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
-        <span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="c1">// 5) Lastly, we&#39;ll go ahead and tell the SDK to &quot;start&quot; and begin listening for events to trigger the pipeline.</span><span class="w"></span>
+<span class="w">    </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">edgexSdk</span><span class="p">.</span><span class="nx">MakeItRun</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">edgexSdk</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="s">&quot;MakeItRun returned error: &quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span><span class="w"></span>
+<span class="w">        </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="c1">// Do any required cleanup here</span>
+<span class="w">    </span><span class="c1">// Do any required cleanup here</span><span class="w"></span>
 
-    <span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div></p>
 <p>The above example is meant to merely demonstrate the structure of your application. Notice that the output of the last function is not available anywhere inside this application. You must provide a function in order to work with the data from the previous function. Let's go ahead and add the following function that prints the output to the console.</p>
-<p><div class="highlight"><pre><span></span><code><span class="kd">func</span> <span class="nx">printXMLToConsole</span><span class="p">(</span><span class="nx">edgexcontext</span> <span class="o">*</span><span class="nx">appcontext</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">params</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="kt">bool</span><span class="p">,</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">&lt;</span> <span class="mi">1</span> <span class="p">{</span> 
-    <span class="c1">// We didn&#39;t receive a result</span>
-    <span class="k">return</span> <span class="kc">false</span><span class="p">,</span> <span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;No Data Received&quot;</span><span class="p">)</span>
-  <span class="p">}</span>
-  <span class="nb">println</span><span class="p">(</span><span class="nx">params</span><span class="p">[</span><span class="mi">0</span><span class="p">].(</span><span class="kt">string</span><span class="p">))</span>
-  <span class="k">return</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">nil</span>
-<span class="p">}</span>
+<p><div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">printXMLToConsole</span><span class="p">(</span><span class="nx">edgexcontext</span><span class="w"> </span><span class="o">*</span><span class="nx">appcontext</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">params</span><span class="w"> </span><span class="o">...</span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="p">,</span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">    </span><span class="c1">// We didn&#39;t receive a result</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;No Data Received&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="nb">println</span><span class="p">(</span><span class="nx">params</span><span class="p">[</span><span class="mi">0</span><span class="p">].(</span><span class="kt">string</span><span class="p">))</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 After placing the above function in your code, the next step is to modify the pipeline to call this function:</p>
-<p><div class="highlight"><pre><span></span><code><span class="nx">edgexSdk</span><span class="p">.</span><span class="nx">SetFunctionsPipeline</span><span class="p">(</span>
-  <span class="nx">transforms</span><span class="p">.</span><span class="nx">NewFilter</span><span class="p">(</span><span class="nx">deviceNames</span><span class="p">).</span><span class="nx">FilterByDeviceName</span><span class="p">,</span> 
-  <span class="nx">transforms</span><span class="p">.</span><span class="nx">NewConversion</span><span class="p">().</span><span class="nx">TransformToXML</span><span class="p">,</span>
-  <span class="nx">printXMLToConsole</span> <span class="c1">//notice this is not a function call, but simply a function pointer. </span>
-<span class="p">)</span>
+<p><div class="highlight"><pre><span></span><code><span class="nx">edgexSdk</span><span class="p">.</span><span class="nx">SetFunctionsPipeline</span><span class="p">(</span><span class="w"></span>
+<span class="w">  </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewFilter</span><span class="p">(</span><span class="nx">deviceNames</span><span class="p">).</span><span class="nx">FilterByDeviceName</span><span class="p">,</span><span class="w"> </span>
+<span class="w">  </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewConversion</span><span class="p">().</span><span class="nx">TransformToXML</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">printXMLToConsole</span><span class="w"> </span><span class="c1">//notice this is not a function call, but simply a function pointer. </span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 </code></pre></div>
 After making the above modifications, you should now see data printing out to the console in XML when an event is triggered.</p>
 <div class="admonition note">
@@ -2347,7 +2342,7 @@ After making the above modifications, you should now see data printing out to th
     </div>
     
       <script src="../../assets/javascripts/vendor.36cbf620.min.js"></script>
-      <script src="../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching"}</script>
       
       <script>
         app = initialize({

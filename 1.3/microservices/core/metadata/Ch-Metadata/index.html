@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
     
     
       
@@ -44,11 +44,6 @@
       <link rel="stylesheet" href="../../../../assets/stylesheets/branding.css">
     
     
-      
-        
-<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com">
-<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-82811140-6","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview")})</script>
-<script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
     
@@ -130,7 +125,7 @@
     
       <div class="md-header-nav__source">
         
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -279,7 +274,7 @@
   
     <div class="md-nav__source">
       
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -2378,23 +2373,23 @@ services, such as core data, core command, and so forth.</p>
 <li>Labels</li>
 </ul>
 <p>Here is an example general information section for a sample KMC 9001 BACnet thermostat device profile provided with the BACnet device service (you can find the <a href="https://github.com/edgexfoundry/device-bacnet-c/blob/master/profiles/BAC-9001.yaml">profile</a> in Github) .  Only the name is required in this section of the device profile.  The name of the device profile must be unique in any EdgeX deployment.  The manufacturer, model and labels are all optional bits of information that allow better queries of the device profiles in the system.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span> <span class="s">&quot;BAC-9001&quot;</span>
-<span class="nt">manufacturer</span><span class="p">:</span> <span class="s">&quot;KMC&quot;</span>
-<span class="nt">model</span><span class="p">:</span> <span class="s">&quot;BAC-9001&quot;</span>
-<span class="nt">labels</span><span class="p">:</span> 
-    <span class="p p-Indicator">-</span> <span class="s">&quot;B-AAC&quot;</span>
-<span class="nt">description</span><span class="p">:</span> <span class="s">&quot;KMC</span><span class="nv"> </span><span class="s">BAC-9001</span><span class="nv"> </span><span class="s">BACnet</span><span class="nv"> </span><span class="s">thermostat&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;BAC-9001&quot;</span><span class="w"></span>
+<span class="nt">manufacturer</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;KMC&quot;</span><span class="w"></span>
+<span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;BAC-9001&quot;</span><span class="w"></span>
+<span class="nt">labels</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;B-AAC&quot;</span><span class="w"></span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;KMC</span><span class="nv"> </span><span class="s">BAC-9001</span><span class="nv"> </span><span class="s">BACnet</span><span class="nv"> </span><span class="s">thermostat&quot;</span><span class="w"></span>
 </code></pre></div>
 <p>Labels provided a way to tag, organize or categorize the various profiles.  They serve no real purpose inside of EdgeX.</p>
 </div>
 <input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Device Resources</label><div class="tabbed-content">
 <p>A device resource (deviceResource in the YAML file) specifies a sensor value within a device that may be read from or written to either individually or as part of a device command (see below).  Think of a device resource as a specific value that can be obtained from the underlying device or a value that can be set to the underlying device.  In a thermostat, a device resource may be a temperature or humidity (values sensed from the devices) or cooling point or heating point (values that can be set/actuated to allow the thermostat to determine when associated heat/cooling systems are turned on or off).  A device resource has a name for identification and a description for informational purposes.</p>
 <p>Back to the BACnet example, here are two device resources.  One will be used to get the temperature (read) the current temperature and the other to set (write or actuate) the active cooling set point.  The device resource name must be provided and it must also be unique in any EdgeX deployment.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Temperature</span>
-<span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Get</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">current</span><span class="nv"> </span><span class="s">temperature&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Temperature</span><span class="w"></span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Get</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">current</span><span class="nv"> </span><span class="s">temperature&quot;</span><span class="w"></span>
 
-<span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ActiveCoolingSetpoint</span>
-<span class="nt">description</span><span class="p">:</span> <span class="s">&quot;The</span><span class="nv"> </span><span class="s">active</span><span class="nv"> </span><span class="s">cooling</span><span class="nv"> </span><span class="s">set</span><span class="nv"> </span><span class="s">point&quot;</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ActiveCoolingSetpoint</span><span class="w"></span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;The</span><span class="nv"> </span><span class="s">active</span><span class="nv"> </span><span class="s">cooling</span><span class="nv"> </span><span class="s">set</span><span class="nv"> </span><span class="s">point&quot;</span><span class="w"></span>
 </code></pre></div>
 <p>The device service allows access to the device resources via REST endpoint.  Values specified in the device resources section of the device profile can be accessed through the following URL patterns:</p>
 <ul>
@@ -2406,29 +2401,29 @@ services, such as core data, core command, and so forth.</p>
 <input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">Attributes</label><div class="tabbed-content">
 <p>The attributes associated to a device resource are the specific parameters required by the device service to access the particular value.   In other words, attributes are “inward facing” and are used by the device service to determine how to speak to the device to either get or set some of its values. Attributes are detailed protocol and/or device specific information that informs the device service how to communication with the device to get (or set) values of interest.</p>
 <p>Returning to the BACnet device profile example, below are the complete device resource sections for Temperature and ActiveCoolingSetPoint – inclusive of the attributes – for the example device.</p>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span>
-    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Temperature</span>
-    <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Get</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">current</span><span class="nv"> </span><span class="s">temperature&quot;</span>
-    <span class="nt">attributes</span><span class="p">:</span> 
-        <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;analogValue&quot;</span><span class="p p-Indicator">,</span><span class="nt"> instance</span><span class="p">:</span> <span class="s">&quot;1&quot;</span><span class="p p-Indicator">,</span><span class="nt"> property</span><span class="p">:</span> <span class="s">&quot;presentValue&quot;</span><span class="p p-Indicator">,</span><span class="nt"> index</span><span class="p">:</span> <span class="s">&quot;none&quot;</span>  <span class="p p-Indicator">}</span>
-<span class="p p-Indicator">-</span>
-    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ActiveCoolingSetpoint</span>
-    <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;The</span><span class="nv"> </span><span class="s">active</span><span class="nv"> </span><span class="s">cooling</span><span class="nv"> </span><span class="s">set</span><span class="nv"> </span><span class="s">point&quot;</span>
-    <span class="nt">attributes</span><span class="p">:</span>
-        <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;analogValue&quot;</span><span class="p p-Indicator">,</span><span class="nt"> instance</span><span class="p">:</span> <span class="s">&quot;3&quot;</span><span class="p p-Indicator">,</span><span class="nt"> property</span><span class="p">:</span> <span class="s">&quot;presentValue&quot;</span><span class="p p-Indicator">,</span><span class="nt"> index</span><span class="p">:</span> <span class="s">&quot;none&quot;</span>  <span class="p p-Indicator">}</span>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Temperature</span><span class="w"></span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Get</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">current</span><span class="nv"> </span><span class="s">temperature&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span><span class="w"> </span>
+<span class="w">        </span><span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;analogValue&quot;</span><span class="p p-Indicator">,</span><span class="nt"> instance</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p p-Indicator">,</span><span class="nt"> property</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;presentValue&quot;</span><span class="p p-Indicator">,</span><span class="nt"> index</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w">  </span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ActiveCoolingSetpoint</span><span class="w"></span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;The</span><span class="nv"> </span><span class="s">active</span><span class="nv"> </span><span class="s">cooling</span><span class="nv"> </span><span class="s">set</span><span class="nv"> </span><span class="s">point&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;analogValue&quot;</span><span class="p p-Indicator">,</span><span class="nt"> instance</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;3&quot;</span><span class="p p-Indicator">,</span><span class="nt"> property</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;presentValue&quot;</span><span class="p p-Indicator">,</span><span class="nt"> index</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w">  </span><span class="p p-Indicator">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 <input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><label for="__tabbed_1_4">Properties</label><div class="tabbed-content">
 <p>The properties of a device resource describe the value obtained or set on the device.  The properties can optionally inform the device service of some simple processing to be performed on the value.  Again, using the BACnet profile as an example, here are the properties associated to the thermostat's temperature device resource.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Temperature</span>
-<span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Get</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">current</span><span class="nv"> </span><span class="s">temperature&quot;</span>
-<span class="nt">attributes</span><span class="p">:</span> 
-    <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;analogValue&quot;</span><span class="p p-Indicator">,</span><span class="nt"> instance</span><span class="p">:</span> <span class="s">&quot;1&quot;</span><span class="p p-Indicator">,</span><span class="nt"> property</span><span class="p">:</span> <span class="s">&quot;presentValue&quot;</span><span class="p p-Indicator">,</span><span class="nt"> index</span><span class="p">:</span> <span class="s">&quot;none&quot;</span>  <span class="p p-Indicator">}</span>
-<span class="nt">properties</span><span class="p">:</span> 
-    <span class="nt">value</span><span class="p">:</span>
-        <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;Float32&quot;</span><span class="p p-Indicator">,</span><span class="nt"> floatEncoding</span><span class="p">:</span> <span class="s">&quot;eNotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span> <span class="p p-Indicator">}</span>
-    <span class="nt">units</span><span class="p">:</span>
-        <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;String&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;Degrees</span><span class="nv"> </span><span class="s">Fahrenheit&quot;</span> <span class="p p-Indicator">}</span>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Temperature</span><span class="w"></span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Get</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">current</span><span class="nv"> </span><span class="s">temperature&quot;</span><span class="w"></span>
+<span class="nt">attributes</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;analogValue&quot;</span><span class="p p-Indicator">,</span><span class="nt"> instance</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p p-Indicator">,</span><span class="nt"> property</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;presentValue&quot;</span><span class="p p-Indicator">,</span><span class="nt"> index</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w">  </span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="nt">properties</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Float32&quot;</span><span class="p p-Indicator">,</span><span class="nt"> floatEncoding</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eNotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="w">    </span><span class="nt">units</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;String&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Degrees</span><span class="nv"> </span><span class="s">Fahrenheit&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
 </code></pre></div>
 <p>The 'value' property of properties gives more detail about the value collected or set.  In this case giving the details of the temperature value to be set.  The value provides details such as the type of the data collected or set, whether the value can be read, written or both.</p>
 <p>The following fields are available in the value property:</p>
@@ -3442,7 +3437,7 @@ services, such as core data, core command, and so forth.</p>
     </div>
     
       <script src="../../../../assets/javascripts/vendor.36cbf620.min.js"></script>
-      <script src="../../../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../../../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching"}</script>
       
       <script>
         app = initialize({

@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
     
     
       
@@ -44,11 +44,6 @@
       <link rel="stylesheet" href="../../assets/stylesheets/branding.css">
     
     
-      
-        
-<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com">
-<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-82811140-6","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview")})</script>
-<script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
     
@@ -130,7 +125,7 @@
     
       <div class="md-header-nav__source">
         
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -279,7 +274,7 @@
   
     <div class="md-nav__source">
       
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -2305,134 +2300,134 @@
 <p>The example above assumes your core command service is available on <code>localhost</code> at the default service port of 48082.  </p>
 </div>
 <p>The result should look something like that displayed below.</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-   <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;Random-Integer-Generator01&quot;</span><span class="p">,</span>
-   <span class="nt">&quot;labels&quot;</span> <span class="p">:</span> <span class="p">[</span>
-      <span class="s2">&quot;device-random-example&quot;</span>
-   <span class="p">],</span>
-   <span class="nt">&quot;adminState&quot;</span> <span class="p">:</span> <span class="s2">&quot;UNLOCKED&quot;</span><span class="p">,</span>
-   <span class="nt">&quot;id&quot;</span> <span class="p">:</span> <span class="s2">&quot;ec7a7586-875e-4bb4-aa46-836d9e04514b&quot;</span><span class="p">,</span>
-   <span class="nt">&quot;operatingState&quot;</span> <span class="p">:</span> <span class="s2">&quot;ENABLED&quot;</span><span class="p">,</span>
-   <span class="nt">&quot;commands&quot;</span> <span class="p">:</span> <span class="p">[</span>
-      <span class="p">{</span>
-         <span class="nt">&quot;id&quot;</span> <span class="p">:</span> <span class="s2">&quot;7dc0478d-29dd-4f6e-945d-85e4ad848bb1&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;put&quot;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;responses&quot;</span> <span class="p">:</span> <span class="p">[</span>
-               <span class="p">{</span>
-                  <span class="nt">&quot;code&quot;</span> <span class="p">:</span> <span class="s2">&quot;200&quot;</span>
-               <span class="p">},</span>
-               <span class="p">{</span>
-                  <span class="nt">&quot;code&quot;</span> <span class="p">:</span> <span class="s2">&quot;503&quot;</span><span class="p">,</span>
-                  <span class="nt">&quot;description&quot;</span> <span class="p">:</span> <span class="s2">&quot;service unavailable&quot;</span>
-               <span class="p">}</span>
-            <span class="p">],</span>
-            <span class="nt">&quot;url&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:48082/api/v1/device/ec7a7586-875e-4bb4-aa46-836d9e04514b/command/7dc0478d-29dd-4f6e-945d-85e4ad848bb1&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;parameterNames&quot;</span> <span class="p">:</span> <span class="p">[</span>
-               <span class="s2">&quot;Min_Int32&quot;</span><span class="p">,</span>
-               <span class="s2">&quot;Max_Int32&quot;</span>
-            <span class="p">],</span>
-            <span class="nt">&quot;path&quot;</span> <span class="p">:</span> <span class="s2">&quot;/api/v1/device/{deviceId}/GenerateRandomValue_Int32&quot;</span>
-         <span class="p">},</span>
-         <span class="nt">&quot;created&quot;</span> <span class="p">:</span> <span class="mi">1596666924062</span><span class="p">,</span>
-         <span class="nt">&quot;get&quot;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;url&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:48082/api/v1/device/ec7a7586-875e-4bb4-aa46-836d9e04514b/command/7dc0478d-29dd-4f6e-945d-85e4ad848bb1&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;responses&quot;</span> <span class="p">:</span> <span class="p">[</span>
-               <span class="p">{</span>
-                  <span class="nt">&quot;expectedValues&quot;</span> <span class="p">:</span> <span class="p">[</span>
-                     <span class="s2">&quot;RandomValue_Int32&quot;</span>
-                  <span class="p">],</span>
-                  <span class="nt">&quot;code&quot;</span> <span class="p">:</span> <span class="s2">&quot;200&quot;</span>
-               <span class="p">},</span>
-               <span class="p">{</span>
-                  <span class="nt">&quot;code&quot;</span> <span class="p">:</span> <span class="s2">&quot;503&quot;</span><span class="p">,</span>
-                  <span class="nt">&quot;description&quot;</span> <span class="p">:</span> <span class="s2">&quot;service unavailable&quot;</span>
-               <span class="p">}</span>
-            <span class="p">],</span>
-            <span class="nt">&quot;path&quot;</span> <span class="p">:</span> <span class="s2">&quot;/api/v1/device/{deviceId}/GenerateRandomValue_Int32&quot;</span>
-         <span class="p">},</span>
-         <span class="nt">&quot;modified&quot;</span> <span class="p">:</span> <span class="mi">1596666924062</span><span class="p">,</span>
-         <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;GenerateRandomValue_Int32&quot;</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-         <span class="nt">&quot;put&quot;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;path&quot;</span> <span class="p">:</span> <span class="s2">&quot;/api/v1/device/{deviceId}/GenerateRandomValue_Int8&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;parameterNames&quot;</span> <span class="p">:</span> <span class="p">[</span>
-               <span class="s2">&quot;Min_Int8&quot;</span><span class="p">,</span>
-               <span class="s2">&quot;Max_Int8&quot;</span>
-            <span class="p">],</span>
-            <span class="nt">&quot;url&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:48082/api/v1/device/ec7a7586-875e-4bb4-aa46-836d9e04514b/command/ab8e16f9-2e94-4c10-b600-858ea1087cdf&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;responses&quot;</span> <span class="p">:</span> <span class="p">[</span>
-               <span class="p">{</span>
-                  <span class="nt">&quot;code&quot;</span> <span class="p">:</span> <span class="s2">&quot;200&quot;</span>
-               <span class="p">},</span>
-               <span class="p">{</span>
-                  <span class="nt">&quot;description&quot;</span> <span class="p">:</span> <span class="s2">&quot;service unavailable&quot;</span><span class="p">,</span>
-                  <span class="nt">&quot;code&quot;</span> <span class="p">:</span> <span class="s2">&quot;503&quot;</span>
-               <span class="p">}</span>
-            <span class="p">]</span>
-         <span class="p">},</span>
-         <span class="nt">&quot;created&quot;</span> <span class="p">:</span> <span class="mi">1596666924062</span><span class="p">,</span>
-         <span class="nt">&quot;get&quot;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;responses&quot;</span> <span class="p">:</span> <span class="p">[</span>
-               <span class="p">{</span>
-                  <span class="nt">&quot;expectedValues&quot;</span> <span class="p">:</span> <span class="p">[</span>
-                     <span class="s2">&quot;RandomValue_Int8&quot;</span>
-                  <span class="p">],</span>
-                  <span class="nt">&quot;code&quot;</span> <span class="p">:</span> <span class="s2">&quot;200&quot;</span>
-               <span class="p">},</span>
-               <span class="p">{</span>
-                  <span class="nt">&quot;description&quot;</span> <span class="p">:</span> <span class="s2">&quot;service unavailable&quot;</span><span class="p">,</span>
-                  <span class="nt">&quot;code&quot;</span> <span class="p">:</span> <span class="s2">&quot;503&quot;</span>
-               <span class="p">}</span>
-            <span class="p">],</span>
-            <span class="nt">&quot;url&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:48082/api/v1/device/ec7a7586-875e-4bb4-aa46-836d9e04514b/command/ab8e16f9-2e94-4c10-b600-858ea1087cdf&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;path&quot;</span> <span class="p">:</span> <span class="s2">&quot;/api/v1/device/{deviceId}/GenerateRandomValue_Int8&quot;</span>
-         <span class="p">},</span>
-         <span class="nt">&quot;id&quot;</span> <span class="p">:</span> <span class="s2">&quot;ab8e16f9-2e94-4c10-b600-858ea1087cdf&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;modified&quot;</span> <span class="p">:</span> <span class="mi">1596666924062</span><span class="p">,</span>
-         <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;GenerateRandomValue_Int8&quot;</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-         <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;GenerateRandomValue_Int16&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;id&quot;</span> <span class="p">:</span> <span class="s2">&quot;cfa21103-8ec9-44a0-9c55-25f9cc653dc0&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;get&quot;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;url&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:48082/api/v1/device/ec7a7586-875e-4bb4-aa46-836d9e04514b/command/cfa21103-8ec9-44a0-9c55-25f9cc653dc0&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;responses&quot;</span> <span class="p">:</span> <span class="p">[</span>
-               <span class="p">{</span>
-                  <span class="nt">&quot;expectedValues&quot;</span> <span class="p">:</span> <span class="p">[</span>
-                     <span class="s2">&quot;RandomValue_Int16&quot;</span>
-                  <span class="p">],</span>
-                  <span class="nt">&quot;code&quot;</span> <span class="p">:</span> <span class="s2">&quot;200&quot;</span>
-               <span class="p">},</span>
-               <span class="p">{</span>
-                  <span class="nt">&quot;description&quot;</span> <span class="p">:</span> <span class="s2">&quot;service unavailable&quot;</span><span class="p">,</span>
-                  <span class="nt">&quot;code&quot;</span> <span class="p">:</span> <span class="s2">&quot;503&quot;</span>
-               <span class="p">}</span>
-            <span class="p">],</span>
-            <span class="nt">&quot;path&quot;</span> <span class="p">:</span> <span class="s2">&quot;/api/v1/device/{deviceId}/GenerateRandomValue_Int16&quot;</span>
-         <span class="p">},</span>
-         <span class="nt">&quot;put&quot;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;responses&quot;</span> <span class="p">:</span> <span class="p">[</span>
-               <span class="p">{</span>
-                  <span class="nt">&quot;code&quot;</span> <span class="p">:</span> <span class="s2">&quot;200&quot;</span>
-               <span class="p">},</span>
-               <span class="p">{</span>
-                  <span class="nt">&quot;description&quot;</span> <span class="p">:</span> <span class="s2">&quot;service unavailable&quot;</span><span class="p">,</span>
-                  <span class="nt">&quot;code&quot;</span> <span class="p">:</span> <span class="s2">&quot;503&quot;</span>
-               <span class="p">}</span>
-            <span class="p">],</span>
-            <span class="nt">&quot;url&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://edgex-core-command:48082/api/v1/device/ec7a7586-875e-4bb4-aa46-836d9e04514b/command/cfa21103-8ec9-44a0-9c55-25f9cc653dc0&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;parameterNames&quot;</span> <span class="p">:</span> <span class="p">[</span>
-               <span class="s2">&quot;Min_Int16&quot;</span><span class="p">,</span>
-               <span class="s2">&quot;Max_Int16&quot;</span>
-            <span class="p">],</span>
-            <span class="nt">&quot;path&quot;</span> <span class="p">:</span> <span class="s2">&quot;/api/v1/device/{deviceId}/GenerateRandomValue_Int16&quot;</span>
-         <span class="p">},</span>
-         <span class="nt">&quot;created&quot;</span> <span class="p">:</span> <span class="mi">1596666924062</span><span class="p">,</span>
-         <span class="nt">&quot;modified&quot;</span> <span class="p">:</span> <span class="mi">1596666924062</span>
-      <span class="p">}</span>
-   <span class="p">]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Integer-Generator01&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;labels&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">      </span><span class="s2">&quot;device-random-example&quot;</span><span class="w"></span>
+<span class="w">   </span><span class="p">],</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;adminState&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;UNLOCKED&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ec7a7586-875e-4bb4-aa46-836d9e04514b&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;operatingState&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ENABLED&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;commands&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">      </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;7dc0478d-29dd-4f6e-945d-85e4ad848bb1&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;put&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;responses&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">               </span><span class="p">{</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;code&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;200&quot;</span><span class="w"></span>
+<span class="w">               </span><span class="p">},</span><span class="w"></span>
+<span class="w">               </span><span class="p">{</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;code&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;503&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;description&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;service unavailable&quot;</span><span class="w"></span>
+<span class="w">               </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="p">],</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;url&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://edgex-core-command:48082/api/v1/device/ec7a7586-875e-4bb4-aa46-836d9e04514b/command/7dc0478d-29dd-4f6e-945d-85e4ad848bb1&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;parameterNames&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">               </span><span class="s2">&quot;Min_Int32&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">               </span><span class="s2">&quot;Max_Int32&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="p">],</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;path&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/api/v1/device/{deviceId}/GenerateRandomValue_Int32&quot;</span><span class="w"></span>
+<span class="w">         </span><span class="p">},</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;created&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1596666924062</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;get&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;url&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://edgex-core-command:48082/api/v1/device/ec7a7586-875e-4bb4-aa46-836d9e04514b/command/7dc0478d-29dd-4f6e-945d-85e4ad848bb1&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;responses&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">               </span><span class="p">{</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;expectedValues&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">                     </span><span class="s2">&quot;RandomValue_Int32&quot;</span><span class="w"></span>
+<span class="w">                  </span><span class="p">],</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;code&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;200&quot;</span><span class="w"></span>
+<span class="w">               </span><span class="p">},</span><span class="w"></span>
+<span class="w">               </span><span class="p">{</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;code&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;503&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;description&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;service unavailable&quot;</span><span class="w"></span>
+<span class="w">               </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="p">],</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;path&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/api/v1/device/{deviceId}/GenerateRandomValue_Int32&quot;</span><span class="w"></span>
+<span class="w">         </span><span class="p">},</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;modified&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1596666924062</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GenerateRandomValue_Int32&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="p">},</span><span class="w"></span>
+<span class="w">      </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;put&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;path&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/api/v1/device/{deviceId}/GenerateRandomValue_Int8&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;parameterNames&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">               </span><span class="s2">&quot;Min_Int8&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">               </span><span class="s2">&quot;Max_Int8&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="p">],</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;url&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://edgex-core-command:48082/api/v1/device/ec7a7586-875e-4bb4-aa46-836d9e04514b/command/ab8e16f9-2e94-4c10-b600-858ea1087cdf&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;responses&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">               </span><span class="p">{</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;code&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;200&quot;</span><span class="w"></span>
+<span class="w">               </span><span class="p">},</span><span class="w"></span>
+<span class="w">               </span><span class="p">{</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;description&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;service unavailable&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;code&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;503&quot;</span><span class="w"></span>
+<span class="w">               </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="p">]</span><span class="w"></span>
+<span class="w">         </span><span class="p">},</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;created&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1596666924062</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;get&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;responses&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">               </span><span class="p">{</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;expectedValues&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">                     </span><span class="s2">&quot;RandomValue_Int8&quot;</span><span class="w"></span>
+<span class="w">                  </span><span class="p">],</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;code&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;200&quot;</span><span class="w"></span>
+<span class="w">               </span><span class="p">},</span><span class="w"></span>
+<span class="w">               </span><span class="p">{</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;description&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;service unavailable&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;code&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;503&quot;</span><span class="w"></span>
+<span class="w">               </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="p">],</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;url&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://edgex-core-command:48082/api/v1/device/ec7a7586-875e-4bb4-aa46-836d9e04514b/command/ab8e16f9-2e94-4c10-b600-858ea1087cdf&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;path&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/api/v1/device/{deviceId}/GenerateRandomValue_Int8&quot;</span><span class="w"></span>
+<span class="w">         </span><span class="p">},</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ab8e16f9-2e94-4c10-b600-858ea1087cdf&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;modified&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1596666924062</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GenerateRandomValue_Int8&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="p">},</span><span class="w"></span>
+<span class="w">      </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GenerateRandomValue_Int16&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cfa21103-8ec9-44a0-9c55-25f9cc653dc0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;get&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;url&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://edgex-core-command:48082/api/v1/device/ec7a7586-875e-4bb4-aa46-836d9e04514b/command/cfa21103-8ec9-44a0-9c55-25f9cc653dc0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;responses&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">               </span><span class="p">{</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;expectedValues&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">                     </span><span class="s2">&quot;RandomValue_Int16&quot;</span><span class="w"></span>
+<span class="w">                  </span><span class="p">],</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;code&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;200&quot;</span><span class="w"></span>
+<span class="w">               </span><span class="p">},</span><span class="w"></span>
+<span class="w">               </span><span class="p">{</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;description&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;service unavailable&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;code&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;503&quot;</span><span class="w"></span>
+<span class="w">               </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="p">],</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;path&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/api/v1/device/{deviceId}/GenerateRandomValue_Int16&quot;</span><span class="w"></span>
+<span class="w">         </span><span class="p">},</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;put&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;responses&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">               </span><span class="p">{</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;code&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;200&quot;</span><span class="w"></span>
+<span class="w">               </span><span class="p">},</span><span class="w"></span>
+<span class="w">               </span><span class="p">{</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;description&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;service unavailable&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;code&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;503&quot;</span><span class="w"></span>
+<span class="w">               </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="p">],</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;url&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://edgex-core-command:48082/api/v1/device/ec7a7586-875e-4bb4-aa46-836d9e04514b/command/cfa21103-8ec9-44a0-9c55-25f9cc653dc0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;parameterNames&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">               </span><span class="s2">&quot;Min_Int16&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">               </span><span class="s2">&quot;Max_Int16&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="p">],</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;path&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/api/v1/device/{deviceId}/GenerateRandomValue_Int16&quot;</span><span class="w"></span>
+<span class="w">         </span><span class="p">},</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;created&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1596666924062</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;modified&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1596666924062</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">   </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2447,20 +2442,20 @@
 <p>Importantly, notice that the host name provided in the JSON is always <code>edgex-core-command</code>.  This is the host name of the command service when running in Docker.  Use <code>localhost</code> in your curl commands to exercise the APIs.  You are not running your curl command inside of Docker.</p>
 </div>
 <p>The curl command will fire a request to the core command service which will relay the request to the Random-Integer-Generator device and return results of the <code>GET</code> request.  The results should look similar to the JSON below (except that the random number generated will return a differnt value).  The random number is the 'value' property of the reading - <code>-14351</code> in this example. </p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-   <span class="nt">&quot;device&quot;</span> <span class="p">:</span> <span class="s2">&quot;Random-Integer-Generator01&quot;</span><span class="p">,</span>
-   <span class="nt">&quot;EncodedEvent&quot;</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-   <span class="nt">&quot;origin&quot;</span> <span class="p">:</span> <span class="mi">1596669607120457092</span><span class="p">,</span>
-   <span class="nt">&quot;readings&quot;</span> <span class="p">:</span> <span class="p">[</span>
-      <span class="p">{</span>
-         <span class="nt">&quot;valueType&quot;</span> <span class="p">:</span> <span class="s2">&quot;Int16&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;origin&quot;</span> <span class="p">:</span> <span class="mi">1596669607120421119</span><span class="p">,</span>
-         <span class="nt">&quot;value&quot;</span> <span class="p">:</span> <span class="s2">&quot;-14351&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;device&quot;</span> <span class="p">:</span> <span class="s2">&quot;Random-Integer-Generator01&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;RandomValue_Int16&quot;</span>
-      <span class="p">}</span>
-   <span class="p">]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;device&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Integer-Generator01&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;EncodedEvent&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;origin&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1596669607120457092</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;readings&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">      </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Int16&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;origin&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1596669607120421119</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;-14351&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;device&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Integer-Generator01&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;RandomValue_Int16&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">   </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <h3 id="put-command-example">PUT Command Example</h3>
 <p><code>PUT</code> commands can adjust the minimum and maximum values for future random readings, but they must be valid values for the data type. For example, the minimum value for GenerateRandomValue_Int16 cannot be more than 32767 and less than -32768.  Below, the PUT command limits the future reading value of GenerateRandomValue_Int16 to a range of -2 to 2:</p>
@@ -2471,20 +2466,20 @@
 <p>Nothing will be returned by the <code>PUT</code> curl call above unless you have and error. </p>
 </div>
 <p>After running the command above, if you rerun the <code>GET</code> request for the same deviceResource (<code>GenerateRandomValue\_Int16</code>) you should only get values between -2 and 2.</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-   <span class="nt">&quot;readings&quot;</span> <span class="p">:</span> <span class="p">[</span>
-      <span class="p">{</span>
-         <span class="nt">&quot;device&quot;</span> <span class="p">:</span> <span class="s2">&quot;Random-Integer-Generator01&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;origin&quot;</span> <span class="p">:</span> <span class="mi">1596670608709647108</span><span class="p">,</span>
-         <span class="nt">&quot;value&quot;</span> <span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;RandomValue_Int16&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;valueType&quot;</span> <span class="p">:</span> <span class="s2">&quot;Int16&quot;</span>
-      <span class="p">}</span>
-   <span class="p">],</span>
-   <span class="nt">&quot;origin&quot;</span> <span class="p">:</span> <span class="mi">1596670608709698016</span><span class="p">,</span>
-   <span class="nt">&quot;EncodedEvent&quot;</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-   <span class="nt">&quot;device&quot;</span> <span class="p">:</span> <span class="s2">&quot;Random-Integer-Generator01&quot;</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;readings&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">      </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;device&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Integer-Generator01&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;origin&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1596670608709647108</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;RandomValue_Int16&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Int16&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">   </span><span class="p">],</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;origin&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1596670608709698016</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;EncodedEvent&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;device&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Integer-Generator01&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
                 
               
@@ -2579,7 +2574,7 @@
     </div>
     
       <script src="../../assets/javascripts/vendor.36cbf620.min.js"></script>
-      <script src="../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching"}</script>
       
       <script>
         app = initialize({

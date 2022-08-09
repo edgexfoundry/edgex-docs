@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
     
     
       
@@ -44,11 +44,6 @@
       <link rel="stylesheet" href="../../../../assets/stylesheets/branding.css">
     
     
-      
-        
-<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com">
-<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-82811140-6","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview")})</script>
-<script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
     
@@ -130,7 +125,7 @@
     
       <div class="md-header-nav__source">
         
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -279,7 +274,7 @@
   
     <div class="md-nav__source">
       
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -2257,115 +2252,115 @@ for the respective calls.  The tabs below provide the API path and corresponding
 <div class="tabbed-set" data-tabs="1:6"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Metrics of a service</label><div class="tabbed-content">
 <p>Example request: /api/v1/metrics/edgex-core-command,edgex-core-data</p>
 <p>Corresponding response, in JSON format:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="nt">&quot;Metrics&quot;</span><span class="p">:{</span>
-    <span class="nt">&quot;edgex-core-command&quot;</span><span class="p">:{</span>
-        <span class="nt">&quot;CpuBusyAvg&quot;</span><span class="p">:</span><span class="mf">2.224995150836366</span><span class="p">,</span>
-        <span class="nt">&quot;Memory&quot;</span><span class="p">:{</span>
-            <span class="nt">&quot;Alloc&quot;</span><span class="p">:</span><span class="mi">1403648</span><span class="p">,</span>
-            <span class="nt">&quot;Frees&quot;</span><span class="p">:</span><span class="mi">1504</span><span class="p">,</span>
-            <span class="nt">&quot;LiveObjects&quot;</span><span class="p">:</span><span class="mi">18280</span><span class="p">,</span>
-            <span class="nt">&quot;Mallocs&quot;</span><span class="p">:</span><span class="mi">19784</span><span class="p">,</span>
-            <span class="nt">&quot;Sys&quot;</span><span class="p">:</span><span class="mi">71891192</span><span class="p">,</span>
-            <span class="nt">&quot;TotalAlloc&quot;</span><span class="p">:</span><span class="mi">1403648</span>
-        <span class="p">}</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;edgex-core-data&quot;</span><span class="p">:{</span>
-        <span class="nt">&quot;CpuBusyAvg&quot;</span><span class="p">:</span><span class="mf">2.854720153816541</span><span class="p">,</span>
-        <span class="nt">&quot;Memory&quot;</span><span class="p">:{</span>
-            <span class="nt">&quot;Alloc&quot;</span><span class="p">:</span><span class="mi">929080</span><span class="p">,</span>
-            <span class="nt">&quot;Frees&quot;</span><span class="p">:</span><span class="mi">1453</span><span class="p">,</span>
-            <span class="nt">&quot;LiveObjects&quot;</span><span class="p">:</span><span class="mi">7700</span><span class="p">,</span>
-            <span class="nt">&quot;Mallocs&quot;</span><span class="p">:</span><span class="mi">9153</span><span class="p">,</span>
-            <span class="nt">&quot;Sys&quot;</span><span class="p">:</span><span class="mi">70451200</span><span class="p">,</span>
-            <span class="nt">&quot;TotalAlloc&quot;</span><span class="p">:</span><span class="mi">929080</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="nt">&quot;Metrics&quot;</span><span class="p">:{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;edgex-core-command&quot;</span><span class="p">:{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;CpuBusyAvg&quot;</span><span class="p">:</span><span class="mf">2.224995150836366</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;Memory&quot;</span><span class="p">:{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;Alloc&quot;</span><span class="p">:</span><span class="mi">1403648</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;Frees&quot;</span><span class="p">:</span><span class="mi">1504</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;LiveObjects&quot;</span><span class="p">:</span><span class="mi">18280</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;Mallocs&quot;</span><span class="p">:</span><span class="mi">19784</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;Sys&quot;</span><span class="p">:</span><span class="mi">71891192</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;TotalAlloc&quot;</span><span class="p">:</span><span class="mi">1403648</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;edgex-core-data&quot;</span><span class="p">:{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;CpuBusyAvg&quot;</span><span class="p">:</span><span class="mf">2.854720153816541</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;Memory&quot;</span><span class="p">:{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;Alloc&quot;</span><span class="p">:</span><span class="mi">929080</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;Frees&quot;</span><span class="p">:</span><span class="mi">1453</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;LiveObjects&quot;</span><span class="p">:</span><span class="mi">7700</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;Mallocs&quot;</span><span class="p">:</span><span class="mi">9153</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;Sys&quot;</span><span class="p">:</span><span class="mi">70451200</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;TotalAlloc&quot;</span><span class="p">:</span><span class="mi">929080</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 <input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Configuration of a service</label><div class="tabbed-content">
 <p>Example request: /api/v1/config/device-simple,edgex-core-data</p>
 <p>Corresponding response, in JSON format:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="nt">&quot;Configuration&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;device-simple&quot;</span><span class="p">:</span> <span class="s2">&quot;device-simple service is not registered. Might not have started... &quot;</span><span class="p">,</span>
-        <span class="nt">&quot;edgex-core-data&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;Clients&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;Logging&quot;</span><span class="p">:</span> <span class="p">{</span>
-                    <span class="nt">&quot;Host&quot;</span><span class="p">:</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
-                    <span class="nt">&quot;Port&quot;</span><span class="p">:</span> <span class="mi">48061</span><span class="p">,</span>
-                    <span class="nt">&quot;Protocol&quot;</span><span class="p">:</span> <span class="s2">&quot;http&quot;</span>
-                <span class="p">},</span>
-                <span class="nt">&quot;Metadata&quot;</span><span class="p">:</span> <span class="p">{</span>
-                    <span class="nt">&quot;Host&quot;</span><span class="p">:</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
-                    <span class="nt">&quot;Port&quot;</span><span class="p">:</span> <span class="mi">48081</span><span class="p">,</span>
-                    <span class="nt">&quot;Protocol&quot;</span><span class="p">:</span> <span class="s2">&quot;http&quot;</span>
-                <span class="p">}</span>
-            <span class="p">},</span>
-            <span class="nt">&quot;Databases&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;Primary&quot;</span><span class="p">:</span> <span class="p">{</span>
-                    <span class="nt">&quot;Host&quot;</span><span class="p">:</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
-                    <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;coredata&quot;</span><span class="p">,</span>
-                    <span class="nt">&quot;Password&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                    <span class="nt">&quot;Port&quot;</span><span class="p">:</span> <span class="mi">27017</span><span class="p">,</span>
-                    <span class="nt">&quot;Timeout&quot;</span><span class="p">:</span> <span class="mi">5000</span><span class="p">,</span>
-                    <span class="nt">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;mongodb&quot;</span><span class="p">,</span>
-                    <span class="nt">&quot;Username&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
-                <span class="p">}</span>
-            <span class="p">},</span>
-            <span class="nt">&quot;Logging&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;EnableRemote&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-                <span class="nt">&quot;File&quot;</span><span class="p">:</span> <span class="s2">&quot;./logs/edgex-core-data.log&quot;</span>
-            <span class="p">},</span>
-            <span class="nt">&quot;MessageQueue&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;Host&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;Port&quot;</span><span class="p">:</span> <span class="mi">5563</span><span class="p">,</span>
-                <span class="nt">&quot;Protocol&quot;</span><span class="p">:</span> <span class="s2">&quot;tcp&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;zero&quot;</span>
-            <span class="p">},</span>
-            <span class="nt">&quot;Registry&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;Host&quot;</span><span class="p">:</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;Port&quot;</span><span class="p">:</span> <span class="mi">8500</span><span class="p">,</span>
-                <span class="nt">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;consul&quot;</span>
-            <span class="p">},</span>
-            <span class="nt">&quot;Service&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;BootTimeout&quot;</span><span class="p">:</span> <span class="mi">30000</span><span class="p">,</span>
-                <span class="nt">&quot;CheckInterval&quot;</span><span class="p">:</span> <span class="s2">&quot;10s&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;ClientMonitor&quot;</span><span class="p">:</span> <span class="mi">15000</span><span class="p">,</span>
-                <span class="nt">&quot;Host&quot;</span><span class="p">:</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;Port&quot;</span><span class="p">:</span> <span class="mi">48080</span><span class="p">,</span>
-                <span class="nt">&quot;Protocol&quot;</span><span class="p">:</span> <span class="s2">&quot;http&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;MaxResultCount&quot;</span><span class="p">:</span> <span class="mi">50000</span><span class="p">,</span>
-                <span class="nt">&quot;StartupMsg&quot;</span><span class="p">:</span> <span class="s2">&quot;This is the Core Data Microservice&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;Timeout&quot;</span><span class="p">:</span> <span class="mi">5000</span>
-            <span class="p">},</span>
-            <span class="nt">&quot;Writable&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;DeviceUpdateLastConnected&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-                <span class="nt">&quot;LogLevel&quot;</span><span class="p">:</span> <span class="s2">&quot;INFO&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;MetaDataCheck&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-                <span class="nt">&quot;PersistData&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-                <span class="nt">&quot;ServiceUpdateLastConnected&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-                <span class="nt">&quot;ValidateCheck&quot;</span><span class="p">:</span> <span class="kc">false</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;Configuration&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;device-simple&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;device-simple service is not registered. Might not have started... &quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;edgex-core-data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;Clients&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;Logging&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;Host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;Port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">48061</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;Protocol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http&quot;</span><span class="w"></span>
+<span class="w">                </span><span class="p">},</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;Metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;Host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;Port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">48081</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;Protocol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http&quot;</span><span class="w"></span>
+<span class="w">                </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="p">},</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;Databases&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;Primary&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;Host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;coredata&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;Password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;Port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">27017</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;Timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;Type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mongodb&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;Username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"></span>
+<span class="w">                </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="p">},</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;Logging&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;EnableRemote&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;File&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;./logs/edgex-core-data.log&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="p">},</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;MessageQueue&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;Host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;Port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5563</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;Protocol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tcp&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;Type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;zero&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="p">},</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;Registry&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;Host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;Port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8500</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;Type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;consul&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="p">},</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;Service&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;BootTimeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">30000</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;CheckInterval&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;10s&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;ClientMonitor&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">15000</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;Host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;Port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">48080</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;Protocol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;MaxResultCount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50000</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;StartupMsg&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is the Core Data Microservice&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;Timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="w"></span>
+<span class="w">            </span><span class="p">},</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;Writable&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;DeviceUpdateLastConnected&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;LogLevel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;MetaDataCheck&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;PersistData&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;ServiceUpdateLastConnected&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;ValidateCheck&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 <input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">Start a service</label><div class="tabbed-content">
 <p>Example request: /api/v1/operation</p>
 <p>Example (POST) body accompanying the "start" request:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="s2">&quot;start&quot;</span><span class="p">,</span>
-<span class="nt">&quot;services&quot;</span><span class="p">:[</span>
-    <span class="s2">&quot;edgex-core-data&quot;</span><span class="p">,</span>
-<span class="p">],</span>
-<span class="nt">&quot;params&quot;</span><span class="p">:[</span>
-    <span class="s2">&quot;graceful&quot;</span>
-    <span class="p">]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="s2">&quot;start&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="nt">&quot;services&quot;</span><span class="p">:[</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;edgex-core-data&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="p">],</span><span class="w"></span>
+<span class="nt">&quot;params&quot;</span><span class="p">:[</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;graceful&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>Corresponding response, in JSON format, on success: "Done. Started the
 requested services."</p>
@@ -2375,15 +2370,15 @@ Internal Server Error"</p>
 <input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><label for="__tabbed_1_4">Stop a service</label><div class="tabbed-content">
 <p>Example request: /api/v1/operation</p>
 <p>Example (POST) body accompanying the "stop" request:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="s2">&quot;stop&quot;</span><span class="p">,</span>
-<span class="nt">&quot;services&quot;</span><span class="p">:[</span>
-    <span class="s2">&quot;edgex-support-notifications&quot;</span>
-<span class="p">],</span>
-<span class="nt">&quot;params&quot;</span><span class="p">:[</span>
-    <span class="s2">&quot;graceful&quot;</span>
-    <span class="p">]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="s2">&quot;stop&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="nt">&quot;services&quot;</span><span class="p">:[</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;edgex-support-notifications&quot;</span><span class="w"></span>
+<span class="p">],</span><span class="w"></span>
+<span class="nt">&quot;params&quot;</span><span class="p">:[</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;graceful&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>Corresponding response, in JSON format, on success: "Done. Stopped the
 requested service."</p>
@@ -2393,16 +2388,16 @@ Internal Server Error"</p>
 <input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><label for="__tabbed_1_5">Restart a service</label><div class="tabbed-content">
 <p>Example request: /api/v1/operation</p>
 <p>Example (POST) body accompanying the "restart" request:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="s2">&quot;restart&quot;</span><span class="p">,</span>
-<span class="nt">&quot;services&quot;</span><span class="p">:[</span>
-    <span class="s2">&quot;edgex-support-notifications&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;edgex-core-data&quot;</span><span class="p">,</span>
-<span class="p">],</span>
-<span class="nt">&quot;params&quot;</span><span class="p">:[</span>
-    <span class="s2">&quot;graceful&quot;</span>
-    <span class="p">]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="s2">&quot;restart&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="nt">&quot;services&quot;</span><span class="p">:[</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;edgex-support-notifications&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;edgex-core-data&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="p">],</span><span class="w"></span>
+<span class="nt">&quot;params&quot;</span><span class="p">:[</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;graceful&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>Corresponding response, in JSON format, on success: "Done. Restarted
 the requested services."</p>
@@ -2413,11 +2408,11 @@ Internal Server Error"</p>
 <p>Example request:
 /api/v1/health/device-simple,edgex-core-data,support-notifications</p>
 <p>Corresponding response, in JSON format:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="nt">&quot;device-simple&quot;</span><span class="p">:</span> <span class="s2">&quot;device-simple service is not registered. Might not have started... &quot;</span><span class="p">,</span>
-    <span class="nt">&quot;edgex-core-data&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="nt">&quot;support-notifications&quot;</span><span class="p">:</span> <span class="kc">true</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;device-simple&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;device-simple service is not registered. Might not have started... &quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;edgex-core-data&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;support-notifications&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>
@@ -2593,7 +2588,7 @@ Internal Server Error"</p>
     </div>
     
       <script src="../../../../assets/javascripts/vendor.36cbf620.min.js"></script>
-      <script src="../../../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../../../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching"}</script>
       
       <script>
         app = initialize({

@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
     
     
       
@@ -44,11 +44,6 @@
       <link rel="stylesheet" href="../../assets/stylesheets/branding.css">
     
     
-      
-        
-<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com">
-<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-82811140-6","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview")})</script>
-<script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
     
@@ -130,7 +125,7 @@
     
       <div class="md-header-nav__source">
         
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -279,7 +274,7 @@
   
     <div class="md-nav__source">
       
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -2377,19 +2372,19 @@ to simulate virtual resources.</p>
 </div>
 <p>The example above assumes your core command service is available on <code>localhost</code> at the default service port of 48082.  Also, you must replace your device ID and command ID in the example above with your virtual device service's identifiers.  If you are not sure of the identifiers to use, query the command service for the full list of commands and devices at <code>http://localhost:48082/api/v1/device</code>.</p>
 <p>The virtual device should respond (via the core command service) with event/reading JSON similar to that below.
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="nt">&quot;device&quot;</span><span class="p">:</span> <span class="s2">&quot;Random-Integer-Device&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;origin&quot;</span><span class="p">:</span> <span class="mi">1574325994604494491</span><span class="p">,</span>
-  <span class="nt">&quot;readings&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;origin&quot;</span><span class="p">:</span> <span class="mi">1574325994572380549</span><span class="p">,</span>
-      <span class="nt">&quot;device&quot;</span><span class="p">:</span> <span class="s2">&quot;Random-Integer-Device&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Int8&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;42&quot;</span>
-    <span class="p">}</span>
-  <span class="p">],</span>
-  <span class="nt">&quot;EncodedEvent&quot;</span><span class="p">:</span> <span class="kc">null</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;device&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Integer-Device&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1574325994604494491</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;readings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1574325994572380549</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;device&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Integer-Device&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Int8&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;42&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">],</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;EncodedEvent&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div></p>
 <h3 id="put-command-example-assign-a-value-to-a-resource">PUT command example - Assign a value to a resource</h3>
 <p>The virtual devices managed by the virtual device can also be actuated.  The virtual device can be told to enable or disable random number generation.  When disabled, the virtual device services can be told what value to respond with for all <code>GET</code> operations.  When setting the fixed value, the value must be valid for the data type of the virtual device. For example, the minimum value of Int8 cannot be less than -128 and the maximum value cannot be greater than 127.</p>
@@ -2438,24 +2433,24 @@ to simulate virtual resources.</p>
 <div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Running Containerized</label><div class="tabbed-content">
 <p>If the virtual device service runs in a Docker container, it must mount the directory (/db) that contains the ql database in the
     container. For example:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">device-virtual</span><span class="p">:</span>
-  <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgexfoundry/docker-device-virtual-go:1.2.1</span>
-  <span class="nt">ports</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="s">&quot;127.0.0.1:49990:49990&quot;</span>
-  <span class="nt">container_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-device-virtual</span>
-  <span class="nt">hostname</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-device-virtual</span>
-  <span class="nt">networks</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">edgex-network</span>
-  <span class="nt">environment</span><span class="p">:</span>
-    <span class="nt">&lt;&lt;</span><span class="p">:</span> <span class="nv">*common-variables</span>
-    <span class="nt">Service_Host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edgex-device-virtual</span>
-  <span class="nt">depends_on</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">consul</span>
-  <span class="c1"># - logging  # uncomment if re-enabled remote logging</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">data</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">metadata</span>
-  <span class="nt">volumes</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">/mnt/hgfs/EdgeX/DeviceVirtualDB:/db</span> <span class="c1"># Mount ql database directory</span>
+<div class="highlight"><pre><span></span><code><span class="nt">device-virtual</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgexfoundry/docker-device-virtual-go:1.2.1</span><span class="w"></span>
+<span class="w">  </span><span class="nt">ports</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;127.0.0.1:49990:49990&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-device-virtual</span><span class="w"></span>
+<span class="w">  </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-device-virtual</span><span class="w"></span>
+<span class="w">  </span><span class="nt">networks</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-network</span><span class="w"></span>
+<span class="w">  </span><span class="nt">environment</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="nv">*common-variables</span><span class="w"></span>
+<span class="w">    </span><span class="nt">Service_Host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-device-virtual</span><span class="w"></span>
+<span class="w">  </span><span class="nt">depends_on</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">consul</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># - logging  # uncomment if re-enabled remote logging</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">metadata</span><span class="w"></span>
+<span class="w">  </span><span class="nt">volumes</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/mnt/hgfs/EdgeX/DeviceVirtualDB:/db</span><span class="w"> </span><span class="c1"># Mount ql database directory</span><span class="w"></span>
 </code></pre></div>
 </div>
 <input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Running in Development Mode</label><div class="tabbed-content">
@@ -2595,7 +2590,7 @@ to simulate virtual resources.</p>
     </div>
     
       <script src="../../assets/javascripts/vendor.36cbf620.min.js"></script>
-      <script src="../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching"}</script>
       
       <script>
         app = initialize({

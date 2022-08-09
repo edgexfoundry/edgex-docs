@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
     
     
       
@@ -44,11 +44,6 @@
       <link rel="stylesheet" href="../../assets/stylesheets/branding.css">
     
     
-      
-        
-<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com">
-<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-82811140-6","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview")})</script>
-<script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
     
@@ -130,7 +125,7 @@
     
       <div class="md-header-nav__source">
         
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -279,7 +274,7 @@
   
     <div class="md-nav__source">
       
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -2235,7 +2230,7 @@ the device service once everything is in place and once the human can
 provide the information the device service needs to physically connected
 to the device.</p>
 <h2 id="device">Device</h2>
-<p>See <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/1.2.0">core metadata API</a> for more details.</p>
+<p>See <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/1.2.1">core metadata API</a> for more details.</p>
 <p>For the sake of this demonstration, the call to core metadata will
 provision the human/dog counting monitor camera as if the device service
 discovered it (by some unknown means) and provisioned the device as part
@@ -2248,7 +2243,7 @@ defining its address. </p>
 <p>Use either the Postman or Curl tab below to walkthrough creating the <code>Device</code>.</p>
 <div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Postman</label><div class="tabbed-content">
 <p>Make a POST request to <code>http://localhost:48081/api/v1/device</code> with the following body:</p>
-<div class="highlight"><pre><span></span><code><span class="err">BODY</span><span class="p">:</span> <span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;countcamera1&quot;</span><span class="p">,</span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;human and dog counting camera #1&quot;</span><span class="p">,</span><span class="nt">&quot;adminState&quot;</span><span class="p">:</span><span class="s2">&quot;unlocked&quot;</span><span class="p">,</span><span class="nt">&quot;operatingState&quot;</span><span class="p">:</span><span class="s2">&quot;enabled&quot;</span><span class="p">,</span><span class="nt">&quot;protocols&quot;</span><span class="p">:{</span><span class="nt">&quot;camera protocol&quot;</span><span class="p">:{</span><span class="nt">&quot;camera address&quot;</span><span class="p">:</span><span class="s2">&quot;camera 1&quot;</span><span class="p">}},</span><span class="nt">&quot;labels&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;camera&quot;</span><span class="p">,</span><span class="s2">&quot;counter&quot;</span><span class="p">],</span><span class="nt">&quot;location&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nt">&quot;service&quot;</span><span class="p">:{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;camera control device service&quot;</span><span class="p">},</span><span class="nt">&quot;profile&quot;</span><span class="p">:{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;camera monitor profile&quot;</span><span class="p">}}</span>
+<div class="highlight"><pre><span></span><code><span class="err">BODY</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;countcamera1&quot;</span><span class="p">,</span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;human and dog counting camera #1&quot;</span><span class="p">,</span><span class="nt">&quot;adminState&quot;</span><span class="p">:</span><span class="s2">&quot;unlocked&quot;</span><span class="p">,</span><span class="nt">&quot;operatingState&quot;</span><span class="p">:</span><span class="s2">&quot;enabled&quot;</span><span class="p">,</span><span class="nt">&quot;protocols&quot;</span><span class="p">:{</span><span class="nt">&quot;camera protocol&quot;</span><span class="p">:{</span><span class="nt">&quot;camera address&quot;</span><span class="p">:</span><span class="s2">&quot;camera 1&quot;</span><span class="p">}},</span><span class="nt">&quot;labels&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;camera&quot;</span><span class="p">,</span><span class="s2">&quot;counter&quot;</span><span class="p">],</span><span class="nt">&quot;location&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nt">&quot;service&quot;</span><span class="p">:{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;camera control device service&quot;</span><span class="p">},</span><span class="nt">&quot;profile&quot;</span><span class="p">:{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;camera monitor profile&quot;</span><span class="p">}}</span><span class="w"></span>
 </code></pre></div>
 <p>Be sure that you are POSTing <strong>raw</strong> data, not form-encoded data.  If your API call is successful, you will get a generated ID (a UUID) for your new <code>DeviceService</code> in the response area.</p>
 <div class="admonition note">
@@ -2267,9 +2262,9 @@ defining its address. </p>
 <p>Ensure the monitor camera is among the devices known to core metadata.  If you make a GET call to the <code>http://localhost:48081/api/v1/device</code> URL (with Postman or curl) you will get a listing (in JSON) of all the device services currently defined of devices in your instance of EdgeX that should include the one you just added.</p>
 <p>There are many additional APIs on core metadata to retrieve a <code>Device</code>, <code>DeviceService</code>, etc. As an example, here is one to find
 all devices associated to a given <code>DeviceProfile</code>.</p>
-<div class="codehilite"><pre><span></span><code><span class="err">```</span> <span class="n">shell</span>
-<span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">http</span><span class="err">:</span><span class="c1">//localhost:48081/api/v1/device/profilename/camera+monitor+profile | json_pp</span>
-<span class="err">```</span>
+<div class="codehilite"><pre><span></span><code><span class="err">```</span><span class="w"> </span><span class="n">shell</span><span class="w"></span>
+<span class="n">curl</span><span class="w"> </span><span class="o">-</span><span class="n">X</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">http</span><span class="err">:</span><span class="c1">//localhost:48081/api/v1/device/profilename/camera+monitor+profile | json_pp</span><span class="w"></span>
+<span class="err">```</span><span class="w"></span>
 </code></pre></div>
 
 <p><a class="md-button" href="../Ch-WalkthroughDeviceService/">&lt;Back</a> <a class="md-button" href="../Ch-WalkthroughCommands/">Next&gt;</a></p>
@@ -2366,7 +2361,7 @@ all devices associated to a given <code>DeviceProfile</code>.</p>
     </div>
     
       <script src="../../assets/javascripts/vendor.36cbf620.min.js"></script>
-      <script src="../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching"}</script>
       
       <script>
         app = initialize({

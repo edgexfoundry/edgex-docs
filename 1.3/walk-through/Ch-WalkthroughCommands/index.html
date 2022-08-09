@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
     
     
       
@@ -44,11 +44,6 @@
       <link rel="stylesheet" href="../../assets/stylesheets/branding.css">
     
     
-      
-        
-<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com">
-<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-82811140-6","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview")})</script>
-<script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
     
@@ -130,7 +125,7 @@
     
       <div class="md-header-nav__source">
         
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -279,7 +274,7 @@
   
     <div class="md-nav__source">
       
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -2324,7 +2319,7 @@ number of commands to get and set information from any device of that
 type. Also recall that the device (the <code>countcamera1</code> in this walkthrough) was associated to
 the device profile (again, the camera monitor profile) when the device was
 provisioned.</p>
-<p>See <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-command/1.2.0">core command API</a> for more details.</p>
+<p>See <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-command/1.2.1">core command API</a> for more details.</p>
 <p>With the setup complete, you can ask the <a href="../../microservices/core/command/Ch-Command/">core command micro
 service</a> for the list of commands associated to the device (the
 <code>countcamera1</code>).  The command micro service exposes the commands in a common, normalized
@@ -2352,7 +2347,7 @@ way that enables simplified communications with the devices for</p>
 <p><img alt="image" src="../EdgeX_WalkthroughGetCommands.png" /></p>
 <p>Explore all of the URLs returned as part of this response! These are the URLs that clients (internal or external to EdgeX) can call to trigger the various get and put offerings on the Device. However, do take note that the host for the URLs is <code>edgex-core-command</code>.  This is the name of the host for core command inside Docker.  To exercise the URL outside of Docker, you would have to use the name of the system host (localhost if executing on the same box).</p>
 <h2 id="check-the-value-descriptors">Check the Value Descriptors</h2>
-<p>See <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-data/1.2.0">core data API</a> for more details.</p>
+<p>See <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-data/1.2.1">core data API</a> for more details.</p>
 <p>See that the value descriptors are in core data. There should be a total
 of 4 value descriptors in core data. Note that value descriptors are
 stored in core data, yet referenced by several objects in core metadata. This is because as data
@@ -2420,7 +2415,7 @@ highlighted - yours will vary based on IDs.</p>
 <p>Use either the Postman or Curl tab below to walkthrough actuating the device.</p>
 <div class="tabbed-set" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><label for="__tabbed_4_1">Postman</label><div class="tabbed-content">
 <p>Make a PUT request to <code>http://localhost:48082/api/v1/device/&lt;system specific device id&gt;/command/&lt;system specific command id&gt;</code> with the following body.</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;depth&quot;</span><span class="p">:</span><span class="s2">&quot;9&quot;</span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;depth&quot;</span><span class="p">:</span><span class="s2">&quot;9&quot;</span><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -2539,7 +2534,7 @@ level=ERROR ts=2020-08-07T17:58:41.427220406Z app=edgex-core-command source=hand
     </div>
     
       <script src="../../assets/javascripts/vendor.36cbf620.min.js"></script>
-      <script src="../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching"}</script>
       
       <script>
         app = initialize({

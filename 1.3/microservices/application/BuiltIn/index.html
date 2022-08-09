@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
     
     
       
@@ -44,11 +44,6 @@
       <link rel="stylesheet" href="../../../assets/stylesheets/branding.css">
     
     
-      
-        
-<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com">
-<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-82811140-6","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview")})</script>
-<script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
     
@@ -130,7 +125,7 @@
     
       <div class="md-header-nav__source">
         
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -279,7 +274,7 @@
   
     <div class="md-nav__source">
       
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -2582,7 +2577,7 @@
 <p>All transforms define a type and a <code>New</code> function which is used to initialize an instance of the type with the  required parameters. These instances returned by these <code>New</code> functions give access to their appropriate pipeline function pointers when setting up the function pipeline.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="nx">NewFilter</span><span class="p">([]</span> <span class="p">{</span><span class="s">&quot;Device1&quot;</span><span class="p">,</span> <span class="s">&quot;Device2&quot;</span><span class="p">}).</span><span class="nx">FilterByDeviceName</span>
+<div class="highlight"><pre><span></span><code><span class="nx">NewFilter</span><span class="p">([]</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;Device1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Device2&quot;</span><span class="p">}).</span><span class="nx">FilterByDeviceName</span><span class="w"></span>
 </code></pre></div>
 </div>
 <h2 id="filtering">Filtering</h2>
@@ -2601,20 +2596,20 @@
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">Filter</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="c1">// Holds the values to be filtered</span>
-    <span class="nx">FilterValues</span> <span class="p">[]</span><span class="kt">string</span>
-    <span class="c1">// Determines if items in FilterValues should be filtered out. If set to true all items found in the filter will be removed. If set to false all items found in the filter will be returned. If FilterValues is empty then all items will be returned.</span>
-    <span class="nx">FilterOut</span>    <span class="kt">bool</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">Filter</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Holds the values to be filtered</span><span class="w"></span>
+<span class="w">    </span><span class="nx">FilterValues</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Determines if items in FilterValues should be filtered out. If set to true all items found in the filter will be removed. If set to false all items found in the filter will be returned. If FilterValues is empty then all items will be returned.</span><span class="w"></span>
+<span class="w">    </span><span class="nx">FilterOut</span><span class="w">    </span><span class="kt">bool</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <h3 id="by-device-name">By Device Name</h3>
 <p><code>FilterByDeviceName</code> - This function will filter the event data down to the specified device names and return the filtered data to the pipeline.</p>
-<div class="highlight"><pre><span></span><code><span class="nx">NewFilter</span><span class="p">([]</span> <span class="p">{</span><span class="s">&quot;Device1&quot;</span><span class="p">,</span> <span class="s">&quot;Device2&quot;</span><span class="p">}).</span><span class="nx">FilterByDeviceName</span>
+<div class="highlight"><pre><span></span><code><span class="nx">NewFilter</span><span class="p">([]</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;Device1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Device2&quot;</span><span class="p">}).</span><span class="nx">FilterByDeviceName</span><span class="w"></span>
 </code></pre></div>
 <h3 id="by-value-descriptor">By Value Descriptor</h3>
 <p><code>FilterByValueDescriptor</code> - This function will filter the event data down to the specified device value descriptor and return the filtered data to the pipeline.</p>
-<div class="highlight"><pre><span></span><code><span class="nx">NewFilter</span><span class="p">([]</span> <span class="p">{</span><span class="s">&quot;ValueDescriptor1&quot;</span><span class="p">,</span> <span class="s">&quot;ValueDescriptor2&quot;</span><span class="p">}).</span><span class="nx">FilterByValueDescriptor</span>
+<div class="highlight"><pre><span></span><code><span class="nx">NewFilter</span><span class="p">([]</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;ValueDescriptor1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;ValueDescriptor2&quot;</span><span class="p">}).</span><span class="nx">FilterByValueDescriptor</span><span class="w"></span>
 </code></pre></div>
 <h3 id="json-logic">JSON Logic</h3>
 <table>
@@ -2632,7 +2627,7 @@
 </tbody>
 </table>
 <p><code>Evaluate</code> - This is the function that will be used in the pipeline to apply the JSON rule to data coming in on the pipeline. If the condition of your rule is met, then the pipeline will continue and the data will continue to flow to the next function in the pipeline. If the condition of your rule is NOT met, then pipeline execution stops. </p>
-<div class="highlight"><pre><span></span><code><span class="nx">NewJSONLogic</span><span class="p">(</span><span class="s">&quot;{ \&quot;in\&quot; : [{ \&quot;var\&quot; : \&quot;device\&quot; }, [\&quot;Random-Integer-Device\&quot;,\&quot;Random-Float-Device\&quot;] ] }&quot;</span><span class="p">).</span><span class="nx">Evaluate</span>
+<div class="highlight"><pre><span></span><code><span class="nx">NewJSONLogic</span><span class="p">(</span><span class="s">&quot;{ \&quot;in\&quot; : [{ \&quot;var\&quot; : \&quot;device\&quot; }, [\&quot;Random-Integer-Device\&quot;,\&quot;Random-Float-Device\&quot;] ] }&quot;</span><span class="p">).</span><span class="nx">Evaluate</span><span class="w"></span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2660,7 +2655,7 @@
 </table>
 <h3 id="aes">AES</h3>
 <p><code>EncryptWithAES</code> - This function receives a either a <code>string</code>, <code>[]byte</code>, or <code>json.Marshaller</code> type and encrypts it using AES encryption and returns a <code>[]byte</code> to the pipeline.</p>
-<div class="highlight"><pre><span></span><code><span class="nx">NewEncryption</span><span class="p">(</span><span class="s">&quot;key&quot;</span><span class="p">,</span> <span class="s">&quot;initializationVector&quot;</span><span class="p">).</span><span class="nx">EncryptWithAES</span>
+<div class="highlight"><pre><span></span><code><span class="nx">NewEncryption</span><span class="p">(</span><span class="s">&quot;key&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;initializationVector&quot;</span><span class="p">).</span><span class="nx">EncryptWithAES</span><span class="w"></span>
 </code></pre></div>
 <h2 id="tags">Tags</h2>
 <p>There is one Tags transform included in the SDK that can be added to your pipeline. </p>
@@ -2680,12 +2675,12 @@
 </table>
 <h3 id="addtags">AddTags</h3>
 <p><code>AddTags</code> - This function receives an Edgex <code>Event</code> type and adds the collection of specified tags to the Event's <code>Tags</code> collection.</p>
-<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">myTags</span> <span class="p">=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
-    <span class="s">&quot;GatewayId&quot;</span><span class="p">:</span> <span class="s">&quot;HoustonStore000123&quot;</span><span class="p">,</span>
-    <span class="s">&quot;Latitude&quot;</span><span class="p">:</span>  <span class="s">&quot;29.630771&quot;</span><span class="p">,</span>
-    <span class="s">&quot;Longitude&quot;</span><span class="p">:</span> <span class="s">&quot;-95.377603&quot;</span><span class="p">,</span>
-<span class="p">}</span>
-<span class="nx">NewTags</span><span class="p">(</span><span class="nx">myTags</span><span class="p">).</span><span class="nx">AddTags</span>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">myTags</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;GatewayId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;HoustonStore000123&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Latitude&quot;</span><span class="p">:</span><span class="w">  </span><span class="s">&quot;29.630771&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Longitude&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;-95.377603&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="nx">NewTags</span><span class="p">(</span><span class="nx">myTags</span><span class="p">).</span><span class="nx">AddTags</span><span class="w"></span>
 </code></pre></div>
 <h2 id="batch">Batch</h2>
 <p>Included in the SDK is an in-memory batch function that will hold on to your data before continuing the pipeline. There are three functions provided for batching each with their own strategy.</p>
@@ -2702,8 +2697,8 @@
 <td>This function returns a <code>BatchConfig</code> instance with time being the strategy that is used for determining when to release the batched data and continue the pipeline. <code>timeInterval</code> is the duration to wait (i.e. <code>10s</code>). The time begins after the first piece of data is received. If no data has been received no data will be sent forward.</td>
 </tr>
 <tr>
-<td><div class="highlight"><pre><span></span><code><span class="c1">// Example: </span>
-<span class="nx">NewBatchByTime</span><span class="p">(</span><span class="s">&quot;10s&quot;</span><span class="p">).</span><span class="nx">Batch</span>
+<td><div class="highlight"><pre><span></span><code><span class="c1">// Example: </span><span class="w"></span>
+<span class="nx">NewBatchByTime</span><span class="p">(</span><span class="s">&quot;10s&quot;</span><span class="p">).</span><span class="nx">Batch</span><span class="w"></span>
 </code></pre></div></td>
 <td></td>
 </tr>
@@ -2712,8 +2707,8 @@
 <td>This function returns a <code>BatchConfig</code> instance with count being the strategy that is used for determining when to release the batched data and continue the pipeline. <code>batchThreshold</code> is how many events to hold on to (i.e. <code>25</code>). The count begins after the first piece of data is received and once the threshold is met, the batched data will continue forward and the counter will be reset.</td>
 </tr>
 <tr>
-<td><div class="highlight"><pre><span></span><code><span class="c1">// Example:</span>
-<span class="nx">NewBatchByCount</span><span class="p">(</span><span class="mi">10</span><span class="p">).</span><span class="nx">Batch</span>
+<td><div class="highlight"><pre><span></span><code><span class="c1">// Example:</span><span class="w"></span>
+<span class="nx">NewBatchByCount</span><span class="p">(</span><span class="mi">10</span><span class="p">).</span><span class="nx">Batch</span><span class="w"></span>
 </code></pre></div></td>
 <td></td>
 </tr>
@@ -2722,8 +2717,8 @@
 <td>This function returns a <code>BatchConfig</code> instance with a combination of both time and count being the strategy that is used for determining when to release the batched data and continue the pipeline. Whichever occurs first will trigger the data to continue and be reset.</td>
 </tr>
 <tr>
-<td><div class="highlight"><pre><span></span><code><span class="c1">// Example:</span>
-<span class="nx">NewBatchByTimeAndCount</span><span class="p">(</span><span class="s">&quot;30s&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">).</span><span class="nx">Batch</span>
+<td><div class="highlight"><pre><span></span><code><span class="c1">// Example:</span><span class="w"></span>
+<span class="nx">NewBatchByTimeAndCount</span><span class="p">(</span><span class="s">&quot;30s&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">).</span><span class="nx">Batch</span><span class="w"></span>
 </code></pre></div></td>
 <td></td>
 </tr>
@@ -2755,11 +2750,11 @@
 </table>
 <h3 id="xml">XML</h3>
 <p><code>TransformToXML</code>  - This function receives an <code>events.Model</code> type, converts it to XML format and returns the XML string to the pipeline. 
-<div class="highlight"><pre><span></span><code><span class="nx">NewConversion</span><span class="p">().</span><span class="nx">TransformToXML</span>
+<div class="highlight"><pre><span></span><code><span class="nx">NewConversion</span><span class="p">().</span><span class="nx">TransformToXML</span><span class="w"></span>
 </code></pre></div></p>
 <h3 id="json">JSON</h3>
 <p><code>TransformToJSON</code> - This function receives an <code>events.Model</code> type and converts it to JSON format and returns the JSON string to the pipeline.
-<div class="highlight"><pre><span></span><code><span class="nx">NewConversion</span><span class="p">().</span><span class="nx">TransformToJSON</span>
+<div class="highlight"><pre><span></span><code><span class="nx">NewConversion</span><span class="p">().</span><span class="nx">TransformToJSON</span><span class="w"></span>
 </code></pre></div></p>
 <h2 id="compressions">Compressions</h2>
 <p>There are two compression types included in the SDK that can be added to your pipeline. These transforms return a <code>[]byte</code>.</p>
@@ -2779,11 +2774,11 @@
 </table>
 <h3 id="gzip">GZIP</h3>
 <p><code>CompressWithGZIP</code>  - This function receives either a <code>string</code>,<code>[]byte</code>, or <code>json.Marshaler</code> type, GZIP compresses the data, converts result to base64 encoded string, which is returned as a <code>[]byte</code> to the pipeline.
-<div class="highlight"><pre><span></span><code><span class="nx">NewCompression</span><span class="p">().</span><span class="nx">CompressWithGZIP</span>
+<div class="highlight"><pre><span></span><code><span class="nx">NewCompression</span><span class="p">().</span><span class="nx">CompressWithGZIP</span><span class="w"></span>
 </code></pre></div></p>
 <h3 id="zlib">ZLIB</h3>
 <p><code>CompressWithZLIB</code> - This function receives either a <code>string</code>,<code>[]byte</code>, or <code>json.Marshaler</code> type, ZLIB compresses the data, converts result to base64 encoded string, which is returned as a <code>[]byte</code> to the pipeline.
-<div class="highlight"><pre><span></span><code><span class="nx">NewCompression</span><span class="p">().</span><span class="nx">CompressWithZLIB</span>
+<div class="highlight"><pre><span></span><code><span class="nx">NewCompression</span><span class="p">().</span><span class="nx">CompressWithZLIB</span><span class="w"></span>
 </code></pre></div></p>
 <h2 id="coredata-functions">CoreData Functions</h2>
 <p>These are functions that enable interactions with the CoreData REST API. </p>
@@ -2803,11 +2798,11 @@
 </table>
 <h3 id="mark-as-pushed">Mark As Pushed</h3>
 <p><code>MarkAsPushed</code> - This function provides the MarkAsPushed function from the context as a First-Class Transform that can be called in your pipeline. <a href="#.MarkAsPushed()">See Definition Above</a>. The data passed into this function from the pipeline is passed along unmodified since all required information is provided on the context (EventId, CorrelationId,etc.. )
-<div class="highlight"><pre><span></span><code><span class="nx">NewCoreData</span><span class="p">().</span><span class="nx">MarkAsPushed</span>
+<div class="highlight"><pre><span></span><code><span class="nx">NewCoreData</span><span class="p">().</span><span class="nx">MarkAsPushed</span><span class="w"></span>
 </code></pre></div></p>
 <h3 id="push-to-core">Push to Core</h3>
 <p><code>PushToCore</code> - This function provides the PushToCore function from the context as a First-Class Transform that can be called in your pipeline. <a href="#.PushToCore()">See Definition Above</a>. The data passed into this function from the pipeline is wrapped in an EdgeX event with the <code>deviceName</code> and <code>readingName</code> that were set upon the <code>CoreData</code> instance and then sent to Core Data service to be added as an event. Returns the new EdgeX event with ID populated.
-<div class="highlight"><pre><span></span><code><span class="nx">NewCoreData</span><span class="p">().</span><span class="nx">PushToCore</span>
+<div class="highlight"><pre><span></span><code><span class="nx">NewCoreData</span><span class="p">().</span><span class="nx">PushToCore</span><span class="w"></span>
 </code></pre></div></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2866,29 +2861,29 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 </tr>
 </tbody>
 </table>
-<p><div class="highlight"><pre><span></span><code>  <span class="kd">type</span> <span class="nx">MQTTSecretConfig</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="c1">// BrokerAddress should be set to the complete broker address i.e. mqtts://mosquitto:8883/mybroker</span>
-    <span class="nx">BrokerAddress</span> <span class="kt">string</span>
-    <span class="c1">// ClientId to connect with the broker with.</span>
-    <span class="nx">ClientId</span> <span class="kt">string</span>
-    <span class="c1">// The name of the path in secret provider to retrieve your secrets</span>
-    <span class="nx">SecretPath</span> <span class="kt">string</span>
-    <span class="c1">// AutoReconnect indicated whether or not to retry connection if disconnected</span>
-    <span class="nx">AutoReconnect</span> <span class="kt">bool</span>
-    <span class="c1">// Topic that you wish to publish to</span>
-    <span class="nx">Topic</span> <span class="kt">string</span>
-    <span class="c1">// QoS for MQTT Connection</span>
-    <span class="nx">QoS</span> <span class="kt">byte</span>
-    <span class="c1">// Retain setting for MQTT Connection</span>
-    <span class="nx">Retain</span> <span class="kt">bool</span>
-    <span class="c1">// SkipCertVerify</span>
-    <span class="nx">SkipCertVerify</span> <span class="kt">bool</span>
-    <span class="c1">// AuthMode indicates what to use when connecting to the broker. </span>
-    <span class="c1">// Options are &quot;none&quot;, &quot;cacert&quot; , &quot;usernamepassword&quot;, &quot;clientcert&quot;.</span>
-    <span class="c1">// If a CA Cert exists in the SecretPath then it will be used for </span>
-    <span class="c1">// all modes except &quot;none&quot;. </span>
-    <span class="nx">AuthMode</span> <span class="kt">string</span>
-  <span class="p">}</span>
+<p><div class="highlight"><pre><span></span><code><span class="w">  </span><span class="kd">type</span><span class="w"> </span><span class="nx">MQTTSecretConfig</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// BrokerAddress should be set to the complete broker address i.e. mqtts://mosquitto:8883/mybroker</span><span class="w"></span>
+<span class="w">    </span><span class="nx">BrokerAddress</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// ClientId to connect with the broker with.</span><span class="w"></span>
+<span class="w">    </span><span class="nx">ClientId</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// The name of the path in secret provider to retrieve your secrets</span><span class="w"></span>
+<span class="w">    </span><span class="nx">SecretPath</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// AutoReconnect indicated whether or not to retry connection if disconnected</span><span class="w"></span>
+<span class="w">    </span><span class="nx">AutoReconnect</span><span class="w"> </span><span class="kt">bool</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Topic that you wish to publish to</span><span class="w"></span>
+<span class="w">    </span><span class="nx">Topic</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// QoS for MQTT Connection</span><span class="w"></span>
+<span class="w">    </span><span class="nx">QoS</span><span class="w"> </span><span class="kt">byte</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Retain setting for MQTT Connection</span><span class="w"></span>
+<span class="w">    </span><span class="nx">Retain</span><span class="w"> </span><span class="kt">bool</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// SkipCertVerify</span><span class="w"></span>
+<span class="w">    </span><span class="nx">SkipCertVerify</span><span class="w"> </span><span class="kt">bool</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// AuthMode indicates what to use when connecting to the broker. </span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Options are &quot;none&quot;, &quot;cacert&quot; , &quot;usernamepassword&quot;, &quot;clientcert&quot;.</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// If a CA Cert exists in the SecretPath then it will be used for </span><span class="w"></span>
+<span class="w">    </span><span class="c1">// all modes except &quot;none&quot;. </span><span class="w"></span>
+<span class="w">    </span><span class="nx">AuthMode</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 Secrets in the secret provider may be located at any path however they must have some or all the follow keys at the specified <code>SecretPath</code>. </p>
 <ul>
@@ -2913,17 +2908,17 @@ Secrets in the secret provider may be located at any path however they must have
 </tr>
 </tbody>
 </table>
-<div class="codehilite"><pre><span></span><code><span class="o">-</span> <span class="n n-Quoted">`KeyCertPair`</span> <span class="o">-</span> <span class="n">This</span> <span class="n">structure</span> <span class="n">holds</span> <span class="n">the</span> <span class="k">Key</span> <span class="k">and</span> <span class="n">Certificate</span> <span class="n">information</span> <span class="k">for</span> <span class="k">when</span> <span class="k">using</span> <span class="n">secure</span> <span class="o">**</span><span class="k">TLS</span><span class="o">**</span> <span class="k">connection</span> <span class="k">to</span> <span class="n">the</span> <span class="n">broker</span><span class="p">.</span> <span class="n">Can</span> <span class="n">be</span> <span class="n n-Quoted">`nil`</span> <span class="k">if</span> <span class="k">not</span> <span class="k">using</span> <span class="n">secure</span> <span class="o">**</span><span class="k">TLS</span><span class="o">**</span> <span class="k">connection</span><span class="p">.</span>
+<div class="codehilite"><pre><span></span><code><span class="o">-</span><span class="w"> </span><span class="n n-Quoted">`KeyCertPair`</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">structure</span><span class="w"> </span><span class="n">holds</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">Key</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">Certificate</span><span class="w"> </span><span class="n">information</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">secure</span><span class="w"> </span><span class="o">**</span><span class="k">TLS</span><span class="o">**</span><span class="w"> </span><span class="k">connection</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">broker</span><span class="p">.</span><span class="w"> </span><span class="n">Can</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n n-Quoted">`nil`</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">secure</span><span class="w"> </span><span class="o">**</span><span class="k">TLS</span><span class="o">**</span><span class="w"> </span><span class="k">connection</span><span class="p">.</span><span class="w"></span>
 
-<span class="o">-</span> <span class="n n-Quoted">`MqttConfig`</span> <span class="o">-</span> <span class="n">This</span> <span class="n">structure</span> <span class="n">holds</span> <span class="n">addition</span> <span class="n">MQTT</span> <span class="n">configuration</span> <span class="k">set</span><span class="n">tings</span><span class="p">.</span>
+<span class="o">-</span><span class="w"> </span><span class="n n-Quoted">`MqttConfig`</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">structure</span><span class="w"> </span><span class="n">holds</span><span class="w"> </span><span class="n">addition</span><span class="w"> </span><span class="n">MQTT</span><span class="w"> </span><span class="n">configuration</span><span class="w"> </span><span class="k">set</span><span class="n">tings</span><span class="p">.</span><span class="w"></span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="nx">Qos</span>            <span class="kt">byte</span>
-<span class="nx">Retain</span>         <span class="kt">bool</span>
-<span class="nx">AutoReconnect</span>  <span class="kt">bool</span>
-<span class="nx">SkipCertVerify</span> <span class="kt">bool</span>
-<span class="nx">User</span>           <span class="kt">string</span>
-<span class="nx">Password</span>       <span class="kt">string</span>
+<div class="highlight"><pre><span></span><code><span class="nx">Qos</span><span class="w">            </span><span class="kt">byte</span><span class="w"></span>
+<span class="nx">Retain</span><span class="w">         </span><span class="kt">bool</span><span class="w"></span>
+<span class="nx">AutoReconnect</span><span class="w">  </span><span class="kt">bool</span><span class="w"></span>
+<span class="nx">SkipCertVerify</span><span class="w"> </span><span class="kt">bool</span><span class="w"></span>
+<span class="nx">User</span><span class="w">           </span><span class="kt">string</span><span class="w"></span>
+<span class="nx">Password</span><span class="w">       </span><span class="kt">string</span><span class="w"></span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2948,8 +2943,8 @@ Secrets in the secret provider may be located at any path however they must have
 </table>
 <h3 id="content-type">Content Type</h3>
 <p><code>ResponseContentType</code> - This property is used to set the content-type of the response.</p>
-<div class="highlight"><pre><span></span><code><span class="nx">output</span> <span class="o">:=</span> <span class="nx">NewOutput</span><span class="p">()</span>
-<span class="nx">output</span><span class="p">.</span><span class="nx">ResponseContentType</span> <span class="p">=</span> <span class="s">&quot;application/json&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="nx">output</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">NewOutput</span><span class="p">()</span><span class="w"></span>
+<span class="nx">output</span><span class="p">.</span><span class="nx">ResponseContentType</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;application/json&quot;</span><span class="w"></span>
 </code></pre></div>
 <p><code>SetOutput</code> - This function receives either a <code>string</code>,<code>[]byte</code>, or <code>json.Marshaler</code> type from the previous function in the pipeline and sets it as the output data for the pipeline to return to the configured trigger. If configured to use message bus, the data will be published to the message bus as determined by the <code>MessageBus</code> and <code>Binding</code> configuration. If configured to use HTTP trigger the data is returned as the HTTP response. </p>
 <div class="admonition note">
@@ -3049,7 +3044,7 @@ Secrets in the secret provider may be located at any path however they must have
     </div>
     
       <script src="../../../assets/javascripts/vendor.36cbf620.min.js"></script>
-      <script src="../../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching"}</script>
       
       <script>
         app = initialize({

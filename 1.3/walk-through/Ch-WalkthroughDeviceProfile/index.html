@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
     
     
       
@@ -44,11 +44,6 @@
       <link rel="stylesheet" href="../../assets/stylesheets/branding.css">
     
     
-      
-        
-<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com">
-<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-82811140-6","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview")})</script>
-<script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
     
@@ -130,7 +125,7 @@
     
       <div class="md-header-nav__source">
         
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -279,7 +274,7 @@
   
     <div class="md-nav__source">
       
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -2317,7 +2312,7 @@ details about a device profile and its purpose (see
 service provides the device profiles for the types of devices it
 manages.</p>
 <h2 id="device-profile">Device Profile</h2>
-<p>See <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/1.2.0">core metadata API</a> for more details.</p>
+<p>See <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/1.2.1">core metadata API</a> for more details.</p>
 <p>Our fictitious device service will manage only the human/dog counting
 camera, so it only needs to make one <code>POST</code> request to create the
 monitoring camera device profile. Since device profiles are often
@@ -2362,10 +2357,10 @@ return a value for each of the expected values in a map where the <code>deviceRe
 as an example, if the expected values were [HumanCount, CanineCount]
 then the body of a good response from the service would contain a map
 that looks something like this:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="nt">&quot;HumanCount&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-    <span class="nt">&quot;CanineCount&quot;</span><span class="p">:</span> <span class="mi">2</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;HumanCount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;CanineCount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>Here is an example set of responses that might be used for a <code>get</code> command
 in the camera example. Note that one response is coded as the "good"
@@ -2373,12 +2368,12 @@ response (code 200) while the other is for "error" response (code
 404). The expected values for the good response are the Value Descriptor
 names for the camera's count data. The expected values for the
 "error" response is the Value Descriptor name for an error message.
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="nt">&quot;responses&quot;</span><span class="p">:[</span>
-    <span class="p">{</span><span class="nt">&quot;description&quot;</span> <span class="p">:</span> <span class="s2">&quot;Get the people and dog counts&quot;</span><span class="p">,</span><span class="nt">&quot;expectedValues&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;HumanCount&quot;</span><span class="p">,</span> <span class="s2">&quot;CanineCount&quot;</span><span class="p">],</span><span class="nt">&quot;code&quot;</span> <span class="p">:</span> <span class="s2">&quot;200&quot;</span><span class="p">},</span>
-    <span class="p">{</span><span class="nt">&quot;description&quot;</span> <span class="p">:</span> <span class="s2">&quot;bad request&quot;</span><span class="p">,</span><span class="nt">&quot;expectedValues&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;CameraError&quot;</span><span class="p">],</span><span class="nt">&quot;code&quot;</span> <span class="p">:</span> <span class="s2">&quot;404&quot;</span><span class="p">}</span>
-  <span class="p">]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;responses&quot;</span><span class="p">:[</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;description&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Get the people and dog counts&quot;</span><span class="p">,</span><span class="nt">&quot;expectedValues&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;HumanCount&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CanineCount&quot;</span><span class="p">],</span><span class="nt">&quot;code&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;200&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;description&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bad request&quot;</span><span class="p">,</span><span class="nt">&quot;expectedValues&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;CameraError&quot;</span><span class="p">],</span><span class="nt">&quot;code&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;404&quot;</span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div></p>
 <h4 id="understanding-set-command-parameters">Understanding Set Command Parameters</h4>
 <p><code>coreCommand</code>s are also used to send data to devices (via device services) as much
@@ -2396,10 +2391,10 @@ response body, the parameter names are used as keys in a map to pass
 parameter values in a command call that has parameters. Here might be
 what is populated in the body of the command call when the
 <code>parameterNames</code> are <code>[ScanDepth, SnapshotDuration]</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="nt">&quot;ScanDepth&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="nt">&quot;SnapshotDuration&quot;</span><span class="p">:</span> <span class="mi">10</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;ScanDepth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;SnapshotDuration&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>If you open the <a href="../EdgeX_CameraMonitorProfile.yml">Camera Monitor Profile YAML file</a>, see that there are commands to get people and dog
 counts (and a command called Counts, which provides both values). There
@@ -2527,7 +2522,7 @@ in your instance of EdgeX, including the one you just added.</p>
     </div>
     
       <script src="../../assets/javascripts/vendor.36cbf620.min.js"></script>
-      <script src="../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching"}</script>
       
       <script>
         app = initialize({
