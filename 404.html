@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!--
+    This is a special page used by Github Pages when a requested page is not found.
+    The script is misused for redirecting requests that use the "latest" alias to
+    the latest version of a page.
+-->
+<html>
+<head>
+    <title>404 Not Found</title>
+    <script>
+        // redirectToLatest redirects the user agent to the latest version of a 
+        // page by rewriting the path.
+        //
+        // Examples:
+        //   https://docs.edgexfoundry.org/latest is redirected to:
+        //   https://docs.edgexfoundry.org/2.2
+        //
+        //   https://docs.edgexfoundry.org/latest/getting-started/ is redirected to:
+        //   https://docs.edgexfoundry.org/2.2/getting-started/
+        function redirectToLatest()
+        {
+            let req = new XMLHttpRequest();
+            req.open("GET", "/versions.json", false);
+            req.send();
+            if(req.status === 200){
+                let versions = JSON.parse(req.responseText);
+
+                // find the version by alias
+                let res = versions.find(it => {
+                    return it["aliases"].find(alias => {
+                        return alias == "latest";
+                    });
+                });
+
+                if (res && res.version) {
+                    // rewrite the path and replace the alias with version
+                    let pathParts = window.location.pathname.split("/");
+                    pathParts[1] = res.version;
+                    window.location.pathname = pathParts.join("/");
+                } else {
+                    alert("Unable to find version with 'latest' alias.");
+                    return;
+                }
+            } else {
+                alert("Error querying the versions file.");
+                return;
+            }
+        }
+
+        // When the 'latest' alias is in the path, redirect to the actual page
+        // instead of showing the 404 page.
+        if(window.location.pathname.split("/")[1]=="latest"){
+            redirectToLatest();
+        }
+    </script>
+</head>
+<body>
+    <h1>404 Not Found</h1>
+    <p>
+        The requested page was not found.
+    </p>
+    <p>
+        To visit the latest documentation, please visit
+        <a href="https://docs.edgexfoundry.org">https://docs.edgexfoundry.org</a>.
+    </p>
+</body>
+</html>

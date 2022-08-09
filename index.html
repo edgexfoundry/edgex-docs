@@ -1,31 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Redirecting</title>
-  <script>
-    const LatestAlias = "latest";
-
-    let xhr = new XMLHttpRequest();
-   
-    xhr.open("GET", "versions.json");
-    xhr.onload = function () {
-      let versions = JSON.parse(this.responseText);
-
-      let res = versions.find(it => {
-        return it["aliases"].find(alias => { return alias == LatestAlias; });
-      });
-
-      if(!res){
-        alert("Hello! " + location + " not found");
-      }
-
-      if(res.version){
-        window.location.replace(res.version);
-      }
-    };
-    xhr.send();
-  </script>
+    <meta http-equiv="refresh" content="0; url=/latest">
 </head>
 <body>
+  Redirecting to latest...
 </body>
 </html>
