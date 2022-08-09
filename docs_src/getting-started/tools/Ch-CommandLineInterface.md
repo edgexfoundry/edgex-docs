@@ -262,6 +262,7 @@ $ edgex-cli deviceservice rm -n TestDeviceService
 ### `edgex-cli deviceservice update` 
 Update the device service, getting the ID using jq and confirm that the labels were added
 
+{% raw %}
 ```
 $ edgex-cli deviceservice add -n TestDeviceService -b "http://localhost:51234"
 {{{v2} c2600ad2-6489-4c3f-9207-5bdffdb8d68f  201} 844473b1-551d-4545-9143-28cfdf68a539}
@@ -274,7 +275,7 @@ $ edgex-cli deviceservice name -n TestDeviceService -v
 Name               BaseAddress             Description  AdminState  Id                                    Labels           LastConnected  LastReported  Modified
 TestDeviceService  http://localhost:51234               UNLOCKED    844473b1-551d-4545-9143-28cfdf68a539  [label1 label2]  0              0             28 Jan 22 12:00 GMT
 ```
-
+{% endraw %}
 
 ### `edgex-cli deviceprofile list` 
 List device profiles
@@ -286,11 +287,13 @@ $ edgex-cli deviceprofile list
 ### `edgex-cli deviceprofile add` 
 Add a device profile
 
+{% raw %}
 ```
 $ edgex-cli deviceprofile add -n TestProfile -r "[{\"name\": \"SwitchButton\",\"description\": \"Switch On/Off.\",\"properties\": {\"valueType\": \"String\",\"readWrite\": \"RW\",\"defaultValue\": \"On\",\"units\": \"On/Off\" } }]"  -c "[{\"name\": \"Switch\",\"readWrite\": \"RW\",\"resourceOperations\": [{\"deviceResource\": \"SwitchButton\",\"DefaultValue\": \"false\" }]} ]"
 {{{v2} 65d083cc-b876-4744-af65-59a00c63fc25  201} 4c0af6b0-4e83-4f3c-a574-dcea5f42d3f0}
 
 ```
+{% endraw %}
 
 ### `edgex-cli deviceprofile name` 
 Show information about a specifed device profile
@@ -326,11 +329,13 @@ Random-Integer-Device          Example of Device Virtual  device-virtual     Ran
 ### `edgex-cli device add` 
 Add a new device. This needs a device service and device profile to be created first
 
+{% raw %}
 ```
 $ edgex-cli device add -n TestDevice -p TestProfile -s TestDeviceService --protocols "{\"modbus-tcp\":{\"Address\": \"localhost\",\"Port\": \"1234\" }}"
 {{{v2} e912aa16-af4a-491d-993b-b0aeb8cd9c67  201} ae0e8b95-52fc-4778-892d-ae7e1127ed39}
 
 ```
+{% endraw %}
 
 ### `edgex-cli device name` 
 Show information about a specified named device 
@@ -356,6 +361,7 @@ Update a device
 
 This example gets the ID of a device, updates it using that ID and then displays device information to confirm that the labels were added
 
+{% raw %}
 ```
 $ ID=`edgex-cli device name -n TestDevice -j | jq -r '.device.id'`
 
@@ -367,17 +373,19 @@ Name        Description  ServiceName        ProfileName  Labels           AutoEv
 TestDevice               TestDeviceService  TestProfile  [label1 label2]  []
 
 ```
+{% endraw %}
 
 
 ### `edgex-cli provisionwatcher add` 
 Add a new provision watcher
 
+{% raw %}
 ```
 $ edgex-cli provisionwatcher add -n TestWatcher --identifiers "{\"address\":\"localhost\",\"port\":\"1234\"}" -p TestProfile -s TestDeviceService
 {{{v2} 3f05f6e0-9d9b-4d96-96df-f394cc2ad6f4  201} ee76f4d8-46d4-454c-a4da-8ad9e06d8d7e}
 
 ```
-
+{% endraw %}
 
 ### `edgex-cli provisionwatcher list` 
 List provision watchers
@@ -411,6 +419,7 @@ Update a provision watcher
 
 This example gets the ID of a provision watcher, updates it using that ID and then displays  information about it to confirm that the labels were added
 
+{% raw %}
 ```
 $ edgex-cli provisionwatcher add -n TestWatcher2 --identifiers "{\"address\":\"localhost\",\"port\":\"1234\"}" -p TestProfile -s TestDeviceService
 {{{v2} fb7b8bcf-8f58-477b-929e-8dac53cddc81  201} 7aadb7df-1ff1-4b3b-8986-b97e0ef53116}
@@ -425,7 +434,7 @@ Name          ServiceName        ProfileName  Labels           Identifiers
 TestWatcher2  TestDeviceService  TestProfile  [label1 label2]  map[address:localhost port:1234]
 
 ```
-
+{% endraw %}
 
 ## Core-data service
 
@@ -498,10 +507,12 @@ $ edgex-cli reading list
 ### `edgex-cli interval add`
 Add an interval
 
+{% raw %}
 ```
 $ edgex-cli interval add -n "hourly" -i "1h"
 {{{v2} c7c51f21-dab5-4307-a4c9-bc5d5f2194d9  201} 98a6d5f6-f4c4-4ec5-a00c-7fe24b9c9a18}
 ```
+{% endraw %}
 
 ### `edgex-cli interval name`
 Return an interval by name
@@ -544,6 +555,7 @@ $ edgex-cli interval list  -j | jq '.'
 ### `edgex-cli interval update`
 Update an interval, specifying either ID or name
 
+{% raw %}
 ```
 $ edgex-cli interval update -n "hourly" -i "1m"
 {{v2} 08239cc4-d4d7-4ea2-9915-d91b9557c742  200}
@@ -551,7 +563,7 @@ $ edgex-cli interval name -n "hourly" -v
 Id                                    Name    Interval  Start  End
 98a6d5f6-f4c4-4ec5-a00c-7fe24b9c9a18  hourly  1m  
 ```
-
+{% endraw %}
 
 ### `edgex-cli interval rm`
 Delete a named interval and associated interval actions
@@ -590,12 +602,14 @@ scrub-aged-events  midnight  {REST localhost 59880 {/api/v2/event/age/6048000000
 ### `edgex-cli intervalaction update`
 Update an interval action, specifying either ID or name
 
+{% raw %}
 ```
 $ edgex-cli intervalaction update -n "name01" --admin-state "LOCKED"
 {{v2} afc7b08c-5dc6-4923-9786-30bfebc8a8b6  200}
 $ edgex-cli intervalaction name -n "name01" -j | jq '.action.adminState'
 "LOCKED"
 ```
+{% endraw %}
 
 ### `edgex-cli intervalaction rm`
 Delete an interval action by name
@@ -610,11 +624,13 @@ $ edgex-cli intervalaction rm  -n "name01"
 ### `edgex-cli notification add`
 Add a notification to be sent
 
+{% raw %}
 ```
 $ edgex-cli notification add -s "sender01" -c "content" --category "category04" --labels "l3"
 {{{v2} 13938e01-a560-47d8-bb50-060effdbe490  201} 6a1138c2-b58e-4696-afa7-2074e95165eb}
 
 ```
+{% endraw %}
 
 ### `edgex-cli notification list`
 List notifications associated with a given label, category or time range
@@ -654,6 +670,7 @@ No notifications available
 ### `edgex-cli subscription add`
 Add a new subscription
 
+{% raw %}
 ```
 $ edgex-cli subscription add -n "name01" --receiver "receiver01" -c "[{\"type\": \"REST\", \"host\": \"localhost\", \"port\": 7770, \"httpMethod\": \"POST\"}]" --labels "l1,l2,l3"
 {{{v2} 2bbfdac0-d2e1-4f08-8344-392b8e8ddc5e  201} 1ec08af0-5767-4505-82f7-581fada6006b}
@@ -661,6 +678,7 @@ $ edgex-cli subscription add -n "name01" --receiver "receiver01" -c "[{\"type\":
 $ edgex-cli subscription add -n "name02" --receiver "receiver01" -c "[{\"type\": \"EMAIL\", \"recipients\": [\"123@gmail.com\"]}]" --labels "l1,l2,l3"
 {{{v2} f6b417ca-740c-4dee-bc1e-c721c0de4051  201} 156fc2b9-de60-423b-9bff-5312d8452c48}
 ```
+{% endraw %}
 
 ### `edgex-cli subscription name`
 Return a subscription by its unique name
@@ -691,6 +709,8 @@ $ edgex-cli subscription rm -n "name01"
 
 ### `edgex-cli transmission list`
 To create a transmission, first create a subscription and notifications:
+
+{% raw %}
 ```
 $ edgex-cli subscription add -n "Test-Subscription" --description "Test data for subscription" --categories "health-check" --labels "simple" --receiver "tafuser" --resend-limit 0 --admin-state "UNLOCKED" -c "[{\"type\": \"REST\", \"host\": \"localhost\", \"port\": 7770, \"httpMethod\": \"POST\"}]"
 {{{v2} f281ec1a-876e-4a29-a14d-195b66d0506c  201} 3b489d23-b0c7-4791-b839-d9a578ebccb9}
@@ -706,6 +726,7 @@ $ edgex-cli notification add -d "Test data for notification 3" --category "healt
 {{{v2} 45af7f94-c99e-4fb1-a632-fab5ff475be4  201} f982fc97-f53f-4154-bfce-3ef8666c3911}
 
 ```
+{% endraw %}
 
 Then list the transmissions:
 ```

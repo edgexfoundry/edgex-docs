@@ -191,6 +191,7 @@ plugins:
   - macros:
       include_yaml:
         - template_macros.yaml
+      on_error_fail: true
   - htmlproofer:
       enabled: !ENV [ENABLED_HTMLPROOFER, False]
       raise_error: True
