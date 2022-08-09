@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Redirecting</title>
-  <script>
-    const LatestVersion = "latest";
+    <title>Redirecting</title>
+    <script>
+        let req = new XMLHttpRequest();
+        req.open("GET", "/versions.json", false);
+        req.send();
+        if(req.status === 200){
+            let versions = JSON.parse(req.responseText);
 
-    let xhr = new XMLHttpRequest();
-   
-    xhr.open("GET", "versions.json");
-    xhr.onload = function () {
-      let versions = JSON.parse(this.responseText);
+            // find the version by alias
+            let res = versions.find(it => {
+                return it["aliases"].find(alias => {
+                    return alias == "latest";
+                });
+            });
 
-      let res = versions.find(it => {
-        return it["aliases"].find(alias => { return alias == LatestVersion; });
-      });
-
-      if(!res){
-        alert("Hello! " + location + " not found");
-      }
-
-      if(res.version){
-        window.location.replace(res.version);
-      }
-    };
-    xhr.send();
-  </script>
+            if (res && res.version) {
+                window.location.replace(res.version);
+            } else {
+                console.error("Unable to find version with 'latest' alias.");
+                return;
+            }
+        }
+    </script>
 </head>
 <body>
+    Redirecting...
 </body>
 </html>
