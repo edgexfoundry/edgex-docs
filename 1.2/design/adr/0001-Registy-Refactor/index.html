@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
     
     
       
@@ -44,11 +44,6 @@
       <link rel="stylesheet" href="../../../assets/stylesheets/branding.css">
     
     
-      
-        
-<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com">
-<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-82811140-6","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview")})</script>
-<script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
     
@@ -130,7 +125,7 @@
     
       <div class="md-header-nav__source">
         
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -283,7 +278,7 @@
   
     <div class="md-nav__source">
       
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -2240,89 +2235,89 @@
 <h3 id="client-interfaces-changes">Client Interfaces changes</h3>
 <h5 id="current-registry-client">Current Registry Client</h5>
 <p>This following is the current <code>Registry Client</code> Interface</p>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">Client</span> <span class="kd">interface</span> <span class="p">{</span>
-    <span class="nx">Register</span><span class="p">()</span> <span class="kt">error</span>
-    <span class="nx">HasConfiguration</span><span class="p">()</span> <span class="p">(</span><span class="kt">bool</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
-    <span class="nx">PutConfigurationToml</span><span class="p">(</span><span class="nx">configuration</span> <span class="o">*</span><span class="nx">toml</span><span class="p">.</span><span class="nx">Tree</span><span class="p">,</span> <span class="nx">overwrite</span> <span class="kt">bool</span><span class="p">)</span> <span class="kt">error</span>
-    <span class="nx">PutConfiguration</span><span class="p">(</span><span class="nx">configStruct</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">overwrite</span> <span class="kt">bool</span><span class="p">)</span> <span class="kt">error</span>
-    <span class="nx">GetConfiguration</span><span class="p">(</span><span class="nx">configStruct</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">)</span>
-    <span class="nx">WatchForChanges</span><span class="p">(</span><span class="nx">updateChannel</span> <span class="kd">chan</span><span class="o">&lt;-</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">errorChannel</span> <span class="kd">chan</span><span class="o">&lt;-</span> <span class="kt">error</span><span class="p">,</span> 
-                    <span class="nx">configuration</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">waitKey</span> <span class="kt">string</span><span class="p">)</span>
-    <span class="nx">IsAlive</span><span class="p">()</span> <span class="kt">bool</span>
-    <span class="nx">ConfigurationValueExists</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">bool</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
-    <span class="nx">GetConfigurationValue</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">)</span> <span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
-    <span class="nx">PutConfigurationValue</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">value</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="kt">error</span>
-    <span class="nx">GetServiceEndpoint</span><span class="p">(</span><span class="nx">serviceId</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">types</span><span class="p">.</span><span class="nx">ServiceEndpoint</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
-    <span class="nx">IsServiceAvailable</span><span class="p">(</span><span class="nx">serviceId</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">Client</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">Register</span><span class="p">()</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
+<span class="w">    </span><span class="nx">HasConfiguration</span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">PutConfigurationToml</span><span class="p">(</span><span class="nx">configuration</span><span class="w"> </span><span class="o">*</span><span class="nx">toml</span><span class="p">.</span><span class="nx">Tree</span><span class="p">,</span><span class="w"> </span><span class="nx">overwrite</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
+<span class="w">    </span><span class="nx">PutConfiguration</span><span class="p">(</span><span class="nx">configStruct</span><span class="w"> </span><span class="kd">interface</span><span class="p">{},</span><span class="w"> </span><span class="nx">overwrite</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
+<span class="w">    </span><span class="nx">GetConfiguration</span><span class="p">(</span><span class="nx">configStruct</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="p">(</span><span class="kd">interface</span><span class="p">{},</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">WatchForChanges</span><span class="p">(</span><span class="nx">updateChannel</span><span class="w"> </span><span class="kd">chan</span><span class="o">&lt;-</span><span class="w"> </span><span class="kd">interface</span><span class="p">{},</span><span class="w"> </span><span class="nx">errorChannel</span><span class="w"> </span><span class="kd">chan</span><span class="o">&lt;-</span><span class="w"> </span><span class="kt">error</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                    </span><span class="nx">configuration</span><span class="w"> </span><span class="kd">interface</span><span class="p">{},</span><span class="w"> </span><span class="nx">waitKey</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">IsAlive</span><span class="p">()</span><span class="w"> </span><span class="kt">bool</span><span class="w"></span>
+<span class="w">    </span><span class="nx">ConfigurationValueExists</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">GetConfigurationValue</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">PutConfigurationValue</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
+<span class="w">    </span><span class="nx">GetServiceEndpoint</span><span class="p">(</span><span class="nx">serviceId</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">types</span><span class="p">.</span><span class="nx">ServiceEndpoint</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">IsServiceAvailable</span><span class="p">(</span><span class="nx">serviceId</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <h5 id="new-configuration-client">New Configuration Client</h5>
 <p>This following is the new <code>Configuration Client</code> Interface which contains the  <strong>Service Configuration</strong> specific portion from the above current <code>Registry Client</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">Client</span> <span class="kd">interface</span> <span class="p">{</span>
-    <span class="nx">HasConfiguration</span><span class="p">()</span> <span class="p">(</span><span class="kt">bool</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
-    <span class="nx">PutConfigurationFromToml</span><span class="p">(</span><span class="nx">configuration</span> <span class="o">*</span><span class="nx">toml</span><span class="p">.</span><span class="nx">Tree</span><span class="p">,</span> <span class="nx">overwrite</span> <span class="kt">bool</span><span class="p">)</span> <span class="kt">error</span>
-    <span class="nx">PutConfiguration</span><span class="p">(</span><span class="nx">configStruct</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">overwrite</span> <span class="kt">bool</span><span class="p">)</span> <span class="kt">error</span>
-    <span class="nx">GetConfiguration</span><span class="p">(</span><span class="nx">configStruct</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">)</span>
-    <span class="nx">WatchForChanges</span><span class="p">(</span><span class="nx">updateChannel</span> <span class="kd">chan</span><span class="o">&lt;-</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">errorChannel</span> <span class="kd">chan</span><span class="o">&lt;-</span> <span class="kt">error</span><span class="p">,</span>
-                    <span class="nx">configuration</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">waitKey</span> <span class="kt">string</span><span class="p">)</span>
-    <span class="nx">IsAlive</span><span class="p">()</span> <span class="kt">bool</span>
-    <span class="nx">ConfigurationValueExists</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">bool</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
-    <span class="nx">GetConfigurationValue</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">)</span> <span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
-    <span class="nx">PutConfigurationValue</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">value</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="kt">error</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">Client</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">HasConfiguration</span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">PutConfigurationFromToml</span><span class="p">(</span><span class="nx">configuration</span><span class="w"> </span><span class="o">*</span><span class="nx">toml</span><span class="p">.</span><span class="nx">Tree</span><span class="p">,</span><span class="w"> </span><span class="nx">overwrite</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
+<span class="w">    </span><span class="nx">PutConfiguration</span><span class="p">(</span><span class="nx">configStruct</span><span class="w"> </span><span class="kd">interface</span><span class="p">{},</span><span class="w"> </span><span class="nx">overwrite</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
+<span class="w">    </span><span class="nx">GetConfiguration</span><span class="p">(</span><span class="nx">configStruct</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="p">(</span><span class="kd">interface</span><span class="p">{},</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">WatchForChanges</span><span class="p">(</span><span class="nx">updateChannel</span><span class="w"> </span><span class="kd">chan</span><span class="o">&lt;-</span><span class="w"> </span><span class="kd">interface</span><span class="p">{},</span><span class="w"> </span><span class="nx">errorChannel</span><span class="w"> </span><span class="kd">chan</span><span class="o">&lt;-</span><span class="w"> </span><span class="kt">error</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nx">configuration</span><span class="w"> </span><span class="kd">interface</span><span class="p">{},</span><span class="w"> </span><span class="nx">waitKey</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">IsAlive</span><span class="p">()</span><span class="w"> </span><span class="kt">bool</span><span class="w"></span>
+<span class="w">    </span><span class="nx">ConfigurationValueExists</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">GetConfigurationValue</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">PutConfigurationValue</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <h5 id="revised-registry-client">Revised Registry Client</h5>
 <p>This following is the revised <code>Registry Client</code> Interface, which contains the <strong>Service Registry</strong> specific portion from the above current <code>Registry Client</code>. The <code>UnRegister()</code> API has been added per issue <a href="https://github.com/edgexfoundry/go-mod-registry/issues/20">#20</a></p>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">Client</span> <span class="kd">interface</span> <span class="p">{</span>
-    <span class="nx">Register</span><span class="p">()</span> <span class="kt">error</span>
-    <span class="nx">UnRegister</span><span class="p">()</span> <span class="kt">error</span>
-    <span class="nx">IsAlive</span><span class="p">()</span> <span class="kt">bool</span>
-    <span class="nx">GetServiceEndpoint</span><span class="p">(</span><span class="nx">serviceId</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">types</span><span class="p">.</span><span class="nx">ServiceEndpoint</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
-    <span class="nx">IsServiceAvailable</span><span class="p">(</span><span class="nx">serviceId</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">Client</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">Register</span><span class="p">()</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
+<span class="w">    </span><span class="nx">UnRegister</span><span class="p">()</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
+<span class="w">    </span><span class="nx">IsAlive</span><span class="p">()</span><span class="w"> </span><span class="kt">bool</span><span class="w"></span>
+<span class="w">    </span><span class="nx">GetServiceEndpoint</span><span class="p">(</span><span class="nx">serviceId</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">types</span><span class="p">.</span><span class="nx">ServiceEndpoint</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">IsServiceAvailable</span><span class="p">(</span><span class="nx">serviceId</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <h3 id="client-configuration-structs">Client Configuration Structs</h3>
 <h5 id="current-registry-client-config">Current Registry Client Config</h5>
 <p>The following is the current <code>struct</code> used to configure the current <code>Registry Client</code></p>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">Config</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">Protocol</span> <span class="kt">string</span>
-    <span class="nx">Host</span> <span class="kt">string</span>
-    <span class="nx">Port</span> <span class="kt">int</span>
-    <span class="nx">Type</span> <span class="kt">string</span>
-    <span class="nx">Stem</span> <span class="kt">string</span>
-    <span class="nx">ServiceKey</span> <span class="kt">string</span>
-    <span class="nx">ServiceHost</span> <span class="kt">string</span>
-    <span class="nx">ServicePort</span> <span class="kt">int</span>
-    <span class="nx">ServiceProtocol</span> <span class="kt">string</span>
-    <span class="nx">CheckRoute</span> <span class="kt">string</span>
-    <span class="nx">CheckInterval</span> <span class="kt">string</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">Config</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">Protocol</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="nx">Host</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="nx">Port</span><span class="w"> </span><span class="kt">int</span><span class="w"></span>
+<span class="w">    </span><span class="nx">Type</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="nx">Stem</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="nx">ServiceKey</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="nx">ServiceHost</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="nx">ServicePort</span><span class="w"> </span><span class="kt">int</span><span class="w"></span>
+<span class="w">    </span><span class="nx">ServiceProtocol</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="nx">CheckRoute</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="nx">CheckInterval</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <h5 id="new-configuration-client-config">New Configuration Client Config</h5>
 <p>The following is the new <code>struct</code> the will be used to configure the new <code>Configuration Client</code> from the command line option or environment variable values. The Service Registry portion has been removed from the above existing <code>Registry Client Config</code></p>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">Config</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">Protocol</span> <span class="kt">string</span>
-    <span class="nx">Host</span> <span class="kt">string</span>
-    <span class="nx">Port</span> <span class="kt">int</span>
-    <span class="nx">Type</span> <span class="kt">string</span>
-    <span class="nx">BasePath</span> <span class="kt">string</span>
-    <span class="nx">ServiceKey</span> <span class="kt">string</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">Config</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">Protocol</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="nx">Host</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="nx">Port</span><span class="w"> </span><span class="kt">int</span><span class="w"></span>
+<span class="w">    </span><span class="nx">Type</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="nx">BasePath</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="nx">ServiceKey</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <h5 id="new-registry-client-config">New Registry Client Config</h5>
 <p>The following is the revised <code>struct</code> the will be used to configure the new <code>Registry Client</code> from the  information in the service's configuration. This is mostly unchanged from the existing <code>Registry Client Config</code>, except that the <code>Stem</code> for configuration has been removed</p>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span> <span class="nx">Config</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">Protocol</span> <span class="kt">string</span>
-    <span class="nx">Host</span> <span class="kt">string</span>
-    <span class="nx">Port</span> <span class="kt">int</span>
-    <span class="nx">Type</span> <span class="kt">string</span>
-    <span class="nx">ServiceKey</span> <span class="kt">string</span>
-    <span class="nx">ServiceHost</span> <span class="kt">string</span>
-    <span class="nx">ServicePort</span> <span class="kt">int</span>
-    <span class="nx">ServiceProtocol</span> <span class="kt">string</span>
-    <span class="nx">CheckRoute</span> <span class="kt">string</span>
-    <span class="nx">CheckInterval</span> <span class="kt">string</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">Config</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">Protocol</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="nx">Host</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="nx">Port</span><span class="w"> </span><span class="kt">int</span><span class="w"></span>
+<span class="w">    </span><span class="nx">Type</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="nx">ServiceKey</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="nx">ServiceHost</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="nx">ServicePort</span><span class="w"> </span><span class="kt">int</span><span class="w"></span>
+<span class="w">    </span><span class="nx">ServiceProtocol</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="nx">CheckRoute</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="nx">CheckInterval</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <h3 id="provider-implementations">Provider Implementations</h3>
 <p>The current <code>Consul</code> implementation of the <code>Registry Client</code> will be split up into implementations for the new <code>Configuration Client</code> in the new <code>go-mod-configuration</code> module and the revised <code>Registry Client</code> in the existing <code>go-mod-registry</code> module.</p>
@@ -2391,7 +2386,7 @@
     </div>
     
       <script src="../../../assets/javascripts/vendor.36cbf620.min.js"></script>
-      <script src="../../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching"}</script>
       
       <script>
         app = initialize({

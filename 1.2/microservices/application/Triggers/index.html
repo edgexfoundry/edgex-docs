@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
     
     
       
@@ -44,11 +44,6 @@
       <link rel="stylesheet" href="../../../assets/stylesheets/branding.css">
     
     
-      
-        
-<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com">
-<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-82811140-6","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview")})</script>
-<script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
     
@@ -130,7 +125,7 @@
     
       <div class="md-header-nav__source">
         
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -285,7 +280,7 @@
   
     <div class="md-nav__source">
       
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -2155,24 +2150,24 @@
 <p>A message bus trigger will execute the pipeline every time data is received off of the configured topic.  </p>
 <h3 id="type-and-topic-configuration">Type and Topic configuration</h3>
 <p>Here's an example:
-<div class="highlight"><pre><span></span><code><span class="n">Type</span><span class="o">=</span><span class="s">&quot;messagebus&quot;</span> 
-<span class="n">SubscribeTopic</span><span class="o">=</span><span class="s">&quot;events&quot;</span>
-<span class="n">PublishTopic</span><span class="o">=</span><span class="s">&quot;&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="n">Type</span><span class="o">=</span><span class="s">&quot;messagebus&quot;</span><span class="w"> </span>
+<span class="n">SubscribeTopic</span><span class="o">=</span><span class="s">&quot;events&quot;</span><span class="w"></span>
+<span class="n">PublishTopic</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="w"></span>
 </code></pre></div>
 The <code>Type=</code> is set to "messagebus". <a href="">EdgeX Core Data</a> is publishing data to the <code>events</code> topic. So to receive data from core data, you can set your <code>SubscribeTopic=</code> either to <code>""</code> or <code>"events"</code>. You may also designate a <code>PublishTopic=</code> if you wish to publish data back to the message bus.
 <code>edgexcontext.Complete([]byte outputData)</code> - Will send data back to back to the message bus with the topic specified in the <code>PublishTopic=</code> property</p>
 <h3 id="message-bus-connection-configuration">Message bus connection configuration</h3>
 <p>The other piece of configuration required are the connection settings:
-<div class="highlight"><pre><span></span><code><span class="k">[MessageBus]</span>
-<span class="n">Type</span> <span class="o">=</span> <span class="s">&#39;zero&#39;</span> <span class="c1">#specifies of message bus (i.e zero for ZMQ)</span>
-    <span class="k">[MessageBus.PublishHost]</span>
-        <span class="n">Host</span> <span class="o">=</span> <span class="s">&#39;*&#39;</span>
-        <span class="n">Port</span> <span class="o">=</span> <span class="mi">5564</span>
-        <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&#39;tcp&#39;</span>
-    <span class="k">[MessageBus.SubscribeHost]</span>
-        <span class="n">Host</span> <span class="o">=</span> <span class="s">&#39;localhost&#39;</span>
-        <span class="n">Port</span> <span class="o">=</span> <span class="mi">5563</span>
-        <span class="n">Protocol</span> <span class="o">=</span> <span class="s">&#39;tcp&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">[MessageBus]</span><span class="w"></span>
+<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;zero&#39;</span><span class="w"> </span><span class="c1">#specifies of message bus (i.e zero for ZMQ)</span><span class="w"></span>
+<span class="w">    </span><span class="k">[MessageBus.PublishHost]</span><span class="w"></span>
+<span class="w">        </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;*&#39;</span><span class="w"></span>
+<span class="w">        </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5564</span><span class="w"></span>
+<span class="w">        </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;tcp&#39;</span><span class="w"></span>
+<span class="w">    </span><span class="k">[MessageBus.SubscribeHost]</span><span class="w"></span>
+<span class="w">        </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;localhost&#39;</span><span class="w"></span>
+<span class="w">        </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5563</span><span class="w"></span>
+<span class="w">        </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;tcp&#39;</span><span class="w"></span>
 </code></pre></div>
 By default, <code>EdgeX Core Data</code> publishes data to the <code>events</code>  topic using ZMQ on port 5563. The publish host is used if publishing data back to the message bus. </p>
 <div class="admonition important">
@@ -2275,7 +2270,7 @@ By default, <code>EdgeX Core Data</code> publishes data to the <code>events</cod
     </div>
     
       <script src="../../../assets/javascripts/vendor.36cbf620.min.js"></script>
-      <script src="../../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching"}</script>
       
       <script>
         app = initialize({

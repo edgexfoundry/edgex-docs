@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
     
     
       
@@ -44,11 +44,6 @@
       <link rel="stylesheet" href="../../assets/stylesheets/branding.css">
     
     
-      
-        
-<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com">
-<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-82811140-6","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview")})</script>
-<script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
     
@@ -130,7 +125,7 @@
     
       <div class="md-header-nav__source">
         
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -285,7 +280,7 @@
   
     <div class="md-nav__source">
       
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -2157,26 +2152,26 @@ data according to the defined <code>rawType</code>, then casts the value accordi
 to the <code>value type</code> defined in the <code>properties</code> of the device resources.</p>
 <p>The following extract from a device profile defines the <code>rawType</code> as
 INT16 and the <code>value type</code> as FLOAT32:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">deviceResources</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;humidity&quot;</span>
-    <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;The</span><span class="nv"> </span><span class="s">response</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">result</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">original</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">multiplied</span><span class="nv"> </span><span class="s">by</span><span class="nv"> </span><span class="s">100.&quot;</span>
-    <span class="nt">attributes</span><span class="p">:</span>
-      <span class="p p-Indicator">{</span><span class="nt"> primaryTable</span><span class="p">:</span> <span class="s">&quot;HOLDING_REGISTERS&quot;</span><span class="p p-Indicator">,</span><span class="nt"> startingAddress</span><span class="p">:</span> <span class="s">&quot;1&quot;</span><span class="p p-Indicator">,</span><span class="nt"> rawType</span><span class="p">:</span> <span class="s">&quot;INT16&quot;</span> <span class="p p-Indicator">}</span>
-    <span class="nt">properties</span><span class="p">:</span>
-      <span class="nt">value</span><span class="p">:</span>
-        <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;FLOAT32&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;RW&quot;</span><span class="p p-Indicator">,</span><span class="nt"> scale</span><span class="p">:</span> <span class="s">&quot;0.01&quot;</span> <span class="p p-Indicator">}</span>
-      <span class="nt">units</span><span class="p">:</span>
-        <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;String&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;%RH&quot;</span><span class="p p-Indicator">}</span>
+<div class="highlight"><pre><span></span><code><span class="nt">deviceResources</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;humidity&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;The</span><span class="nv"> </span><span class="s">response</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">result</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">original</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">multiplied</span><span class="nv"> </span><span class="s">by</span><span class="nv"> </span><span class="s">100.&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">{</span><span class="nt"> primaryTable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;HOLDING_REGISTERS&quot;</span><span class="p p-Indicator">,</span><span class="nt"> startingAddress</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p p-Indicator">,</span><span class="nt"> rawType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;INT16&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;FLOAT32&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span><span class="p p-Indicator">,</span><span class="nt"> scale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0.01&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="w">      </span><span class="nt">units</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;String&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;%RH&quot;</span><span class="p p-Indicator">}</span><span class="w"></span>
 
-  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;temperature&quot;</span>
-    <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;The</span><span class="nv"> </span><span class="s">response</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">result</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">original</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">multiplied</span><span class="nv"> </span><span class="s">by</span><span class="nv"> </span><span class="s">100.&quot;</span>
-    <span class="nt">attributes</span><span class="p">:</span>
-      <span class="p p-Indicator">{</span><span class="nt"> primaryTable</span><span class="p">:</span> <span class="s">&quot;HOLDING_REGISTERS&quot;</span><span class="p p-Indicator">,</span><span class="nt"> startingAddress</span><span class="p">:</span> <span class="s">&quot;2&quot;</span><span class="p p-Indicator">,</span><span class="nt"> rawType</span><span class="p">:</span> <span class="s">&quot;INT16&quot;</span> <span class="p p-Indicator">}</span>
-    <span class="nt">properties</span><span class="p">:</span>
-      <span class="nt">value</span><span class="p">:</span>
-        <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;FLOAT32&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;RW&quot;</span><span class="p p-Indicator">,</span><span class="nt"> scale</span><span class="p">:</span> <span class="s">&quot;0.01&quot;</span> <span class="p p-Indicator">}</span>
-      <span class="nt">units</span><span class="p">:</span>
-        <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;String&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;degrees</span><span class="nv"> </span><span class="s">Celsius&quot;</span><span class="p p-Indicator">}</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;temperature&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;The</span><span class="nv"> </span><span class="s">response</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">result</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">original</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">multiplied</span><span class="nv"> </span><span class="s">by</span><span class="nv"> </span><span class="s">100.&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">{</span><span class="nt"> primaryTable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;HOLDING_REGISTERS&quot;</span><span class="p p-Indicator">,</span><span class="nt"> startingAddress</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2&quot;</span><span class="p p-Indicator">,</span><span class="nt"> rawType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;INT16&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;FLOAT32&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span><span class="p p-Indicator">,</span><span class="nt"> scale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0.01&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="w">      </span><span class="nt">units</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;String&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;degrees</span><span class="nv"> </span><span class="s">Celsius&quot;</span><span class="p p-Indicator">}</span><span class="w"></span>
 </code></pre></div>
 <h2 id="read-command">Read Command</h2>
 <p>A Read command is executed as follows:</p>
@@ -2205,7 +2200,7 @@ INT16 and the <code>value type</code> as FLOAT32:</p>
 </ul>
 <p>If an unsupported data type is defined for the <code>rawType</code> attribute, the
 device service throws an exception similar to the following:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">Handler - execReadCmd: error for device: Modbus-TCP-Device cmd: readAll, the raw type INT32 is not supported /api/v1/device/91f6430d-9268-43e3-88a6-19dbe7f98dad/readAll</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">Handler</span> <span class="o">-</span> <span class="nv">execReadCmd</span>: <span class="nv">error</span> <span class="k">for</span> <span class="nv">device</span>: <span class="nv">Modbus</span><span class="o">-</span><span class="nv">TCP</span><span class="o">-</span><span class="nv">Device</span> <span class="nv">cmd</span>: <span class="nv">readAll</span>, <span class="nv">the</span> <span class="nv">raw</span> <span class="nv">type</span> <span class="nv">INT32</span> <span class="nv">is</span> <span class="nv">not</span> <span class="nv">supported</span> <span class="o">/</span><span class="nv">api</span><span class="o">/</span><span class="nv">v1</span><span class="o">/</span><span class="nv">device</span><span class="o">/</span><span class="mi">91</span><span class="nv">f6430d</span><span class="o">-</span><span class="mi">9268</span><span class="o">-</span><span class="mi">43</span><span class="nv">e3</span><span class="o">-</span><span class="mi">88</span><span class="nv">a6</span><span class="o">-</span><span class="mi">19</span><span class="nv">dbe7f98dad</span><span class="o">/</span><span class="nv">readAll</span>
 </code></pre></div>
 
 <h2 id="supported-transformations">Supported Transformations</h2>
@@ -2329,7 +2324,7 @@ device service throws an exception similar to the following:</p>
     </div>
     
       <script src="../../assets/javascripts/vendor.36cbf620.min.js"></script>
-      <script src="../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching"}</script>
       
       <script>
         app = initialize({

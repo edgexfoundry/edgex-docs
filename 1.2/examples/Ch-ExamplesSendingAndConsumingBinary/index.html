@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
     
     
       
@@ -44,11 +44,6 @@
       <link rel="stylesheet" href="../../assets/stylesheets/branding.css">
     
     
-      
-        
-<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com">
-<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-82811140-6","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview")})</script>
-<script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
     
@@ -130,7 +125,7 @@
     
       <div class="md-header-nav__source">
         
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -285,7 +280,7 @@
   
     <div class="md-nav__source">
       
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -2229,27 +2224,27 @@ Readings that contain arbitrary binary data.</p>
 <h3 id="device-profile">Device Profile</h3>
 <p>To indicate that a deviceResource represents a Binary type, the
 following format is used:</p>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;camera_snapshot&quot;</span>
-  <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;snapshot</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">camera&quot;</span>
-  <span class="nt">properties</span><span class="p">:</span>
-  <span class="nt">value</span><span class="p">:</span>
-      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;Binary&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span> <span class="p p-Indicator">}</span>
-  <span class="nt">units</span><span class="p">:</span>
-      <span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span> <span class="s">&quot;Binary&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span> <span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span> <span class="s">&quot;CameraSnapshot&quot;</span> <span class="p p-Indicator">}</span>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;camera_snapshot&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;snapshot</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">camera&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">value</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Binary&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="w">  </span><span class="nt">units</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Binary&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;CameraSnapshot&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
 </code></pre></div>
 <h3 id="device-service">Device Service</h3>
 <p>Here is a snippet from a hypothetical Device Service's
 <code>HandleReadCommands()</code> method that produces an event that
 represents a JPEG image captured from a camera:</p>
-<div class="highlight"><pre><span></span><code>if req.DeviceResourceName == &quot;camera_snapshot&quot; {
-  data, err := cameraClient.GetSnapshot() // returns ([]byte, error)
-  check(err)
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nx">DeviceResourceName</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;camera_snapshot&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">cameraClient</span><span class="p">.</span><span class="nx">GetSnapshot</span><span class="p">()</span><span class="w"> </span><span class="c1">// returns ([]byte, error)</span><span class="w"></span>
+<span class="w">  </span><span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
 
-  cv, err := sdkModel.NewBinaryValue(reqs[i].DeviceResourceName, 0, data)
-  check(err)
+<span class="w">  </span><span class="nx">cv</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sdkModel</span><span class="p">.</span><span class="nx">NewBinaryValue</span><span class="p">(</span><span class="nx">reqs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">DeviceResourceName</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
 
-  responses[i] = cv
-}
+<span class="w">  </span><span class="nx">responses</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">cv</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <h2 id="calling-device-service-command">Calling Device Service Command</h2>
 <p>Querying core-metadata for the Device's Commands and DeviceID provides
@@ -2265,39 +2260,39 @@ first need to be decoded from CBOR. The following is a simple Go program
 that reads in the CBOR response from a file containing the response from
 the previous HTTP request. The Go library recommended for parsing these
 events can be found at <a href="https://github.com/ugorji/go">https://github.com/ugorji/go</a></p>
-<div class="highlight"><pre><span></span><code>package main
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-import (
-  “io/ioutil”
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">  </span><span class="err">“</span><span class="nx">io</span><span class="o">/</span><span class="nx">ioutil</span><span class="err">”</span><span class="w"></span>
 
-  contracts “github.com/edgexfoundry/go-mod-core-contracts/models”
-  “github.com/ugorji/go/codec”
-)
+<span class="w">  </span><span class="nx">contracts</span><span class="w"> </span><span class="err">“</span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">edgexfoundry</span><span class="o">/</span><span class="k">go</span><span class="o">-</span><span class="nx">mod</span><span class="o">-</span><span class="nx">core</span><span class="o">-</span><span class="nx">contracts</span><span class="o">/</span><span class="nx">models</span><span class="err">”</span><span class="w"></span>
+<span class="w">  </span><span class="err">“</span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">ugorji</span><span class="o">/</span><span class="k">go</span><span class="o">/</span><span class="nx">codec</span><span class="err">”</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-func check(e error) {
-  if e != nil {
-      panic(e)
-  }
-}
+<span class="kd">func</span><span class="w"> </span><span class="nx">check</span><span class="p">(</span><span class="nx">e</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="nx">e</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nb">panic</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-func main() {
-  // Read in our cbor data
-  fileBytes, err := ioutil.ReadFile(“/Users/johndoe/Desktop/image.cbor”)
-  check(err)
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// Read in our cbor data</span><span class="w"></span>
+<span class="w">  </span><span class="nx">fileBytes</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="err">“</span><span class="o">/</span><span class="nx">Users</span><span class="o">/</span><span class="nx">johndoe</span><span class="o">/</span><span class="nx">Desktop</span><span class="o">/</span><span class="nx">image</span><span class="p">.</span><span class="nx">cbor</span><span class="err">”</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
 
-  // Create a cbor decoder from the cbor bytes and a cbor code handle
-  var h codec.Handle = new(codec.CborHandle)
-  var dec *codec.Decoder = codec.NewDecoderBytes(fileBytes, h)
+<span class="w">  </span><span class="c1">// Create a cbor decoder from the cbor bytes and a cbor code handle</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">h</span><span class="w"> </span><span class="nx">codec</span><span class="p">.</span><span class="nx">Handle</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">new</span><span class="p">(</span><span class="nx">codec</span><span class="p">.</span><span class="nx">CborHandle</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">dec</span><span class="w"> </span><span class="o">*</span><span class="nx">codec</span><span class="p">.</span><span class="nx">Decoder</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">codec</span><span class="p">.</span><span class="nx">NewDecoderBytes</span><span class="p">(</span><span class="nx">fileBytes</span><span class="p">,</span><span class="w"> </span><span class="nx">h</span><span class="p">)</span><span class="w"></span>
 
-  // Decode into an EdgeX Event
-  var event contracts.Event
-  err = dec.Decode(&amp;event)
-  check(err)
+<span class="w">  </span><span class="c1">// Decode into an EdgeX Event</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">event</span><span class="w"> </span><span class="nx">contracts</span><span class="p">.</span><span class="nx">Event</span><span class="w"></span>
+<span class="w">  </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">dec</span><span class="p">.</span><span class="nx">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">event</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
 
-  // Grab binary data and write to a file
-  imgBytes := event.Readings[0].BinaryValue
-  ioutil.WriteFile(“/Users/johndoe/Desktop/image.jpeg”, imgBytes, 0644)
-}
+<span class="w">  </span><span class="c1">// Grab binary data and write to a file</span><span class="w"></span>
+<span class="w">  </span><span class="nx">imgBytes</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">Readings</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">BinaryValue</span><span class="w"></span>
+<span class="w">  </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">WriteFile</span><span class="p">(</span><span class="err">“</span><span class="o">/</span><span class="nx">Users</span><span class="o">/</span><span class="nx">johndoe</span><span class="o">/</span><span class="nx">Desktop</span><span class="o">/</span><span class="nx">image</span><span class="p">.</span><span class="nx">jpeg</span><span class="err">”</span><span class="p">,</span><span class="w"> </span><span class="nx">imgBytes</span><span class="p">,</span><span class="w"> </span><span class="mo">0644</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>In the code above, the CBOR data is read into a buffer, a
 <code>code.Decoder</code> is created to decode the CBOR data, an EdgeX
@@ -2312,28 +2307,28 @@ bus.</p>
 accepts a byte slice as binary data. Any arbitrary Go structure can be
 encoded in a binary reading by first encoding the structure into a byte
 slice using CBOR. The following illustrates this method:</p>
-<div class="highlight"><pre><span></span><code>// DeviceService HandleReadCommands() code:
-foo := struct {
-  X int
-  Y int
-  Z int
-  Bar string
-} {
-  X: 7,
-  Y: 3,
-  Z: 100,
-  Bar: &quot;Hello world!&quot;,
-}
+<div class="highlight"><pre><span></span><code><span class="c1">// DeviceService HandleReadCommands() code:</span><span class="w"></span>
+<span class="nx">foo</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">X</span><span class="w"> </span><span class="kt">int</span><span class="w"></span>
+<span class="w">  </span><span class="nx">Y</span><span class="w"> </span><span class="kt">int</span><span class="w"></span>
+<span class="w">  </span><span class="nx">Z</span><span class="w"> </span><span class="kt">int</span><span class="w"></span>
+<span class="w">  </span><span class="nx">Bar</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">X</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">Y</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">Z</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">Bar</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Hello world!&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-buffer := new(bytes.Buffer)
-ch := new(codec.CborHandle)
-encoder := codec.NewEncoder(buffer, ch)
+<span class="nx">buffer</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">new</span><span class="p">(</span><span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span><span class="p">)</span><span class="w"></span>
+<span class="nx">ch</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">new</span><span class="p">(</span><span class="nx">codec</span><span class="p">.</span><span class="nx">CborHandle</span><span class="p">)</span><span class="w"></span>
+<span class="nx">encoder</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">codec</span><span class="p">.</span><span class="nx">NewEncoder</span><span class="p">(</span><span class="nx">buffer</span><span class="p">,</span><span class="w"> </span><span class="nx">ch</span><span class="p">)</span><span class="w"></span>
 
-err = encoder.Encode(&amp;foo)
-check(err)
+<span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">encoder</span><span class="p">.</span><span class="nx">Encode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">foo</span><span class="p">)</span><span class="w"></span>
+<span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
 
-cv, err := sdkModel.NewBinaryValue(reqs[i].DeviceResourceName, 0, buffer.Bytes())
-responses[i] = cv
+<span class="nx">cv</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sdkModel</span><span class="p">.</span><span class="nx">NewBinaryValue</span><span class="p">(</span><span class="nx">reqs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">DeviceResourceName</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nx">buffer</span><span class="p">.</span><span class="nx">Bytes</span><span class="p">())</span><span class="w"></span>
+<span class="nx">responses</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">cv</span><span class="w"></span>
 </code></pre></div>
 <p>This code takes the anonymous struct with fields X, Y, Z, and Bar (of
 different types) and serializes it into a byte slice using the same
@@ -2341,34 +2336,34 @@ different types) and serializes it into a byte slice using the same
 <code>NewBinaryValue()</code>.</p>
 <p>When consuming these events, another level of decoding will need to take
 place to get the structure out of the binary payload.</p>
-<div class="highlight"><pre><span></span><code>func main() {
-  // Read in our cbor data
-  fileBytes, err := ioutil.ReadFile(“/Users/johndoe/Desktop/image.cbor”)
-  check(err)
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// Read in our cbor data</span><span class="w"></span>
+<span class="w">  </span><span class="nx">fileBytes</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="err">“</span><span class="o">/</span><span class="nx">Users</span><span class="o">/</span><span class="nx">johndoe</span><span class="o">/</span><span class="nx">Desktop</span><span class="o">/</span><span class="nx">image</span><span class="p">.</span><span class="nx">cbor</span><span class="err">”</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
 
-  // Create a cbor decoder from the cbor bytes and a cbor code handle
-  var h codec.Handle = new(codec.CborHandle)
-  var dec *codec.Decoder = codec.NewDecoderBytes(fileBytes, h)
+<span class="w">  </span><span class="c1">// Create a cbor decoder from the cbor bytes and a cbor code handle</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">h</span><span class="w"> </span><span class="nx">codec</span><span class="p">.</span><span class="nx">Handle</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">new</span><span class="p">(</span><span class="nx">codec</span><span class="p">.</span><span class="nx">CborHandle</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">dec</span><span class="w"> </span><span class="o">*</span><span class="nx">codec</span><span class="p">.</span><span class="nx">Decoder</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">codec</span><span class="p">.</span><span class="nx">NewDecoderBytes</span><span class="p">(</span><span class="nx">fileBytes</span><span class="p">,</span><span class="w"> </span><span class="nx">h</span><span class="p">)</span><span class="w"></span>
 
-  // Decode into an EdgeX Event
-  var event contracts.Event
-  err = dec.Decode(&amp;event)
-  check(err)
+<span class="w">  </span><span class="c1">// Decode into an EdgeX Event</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">event</span><span class="w"> </span><span class="nx">contracts</span><span class="p">.</span><span class="nx">Event</span><span class="w"></span>
+<span class="w">  </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">dec</span><span class="p">.</span><span class="nx">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">event</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
 
-  // Decode into arbitrary type
-  foo := struct {
-  X   int
-  Y   int
-  Z   int
-  Bar string
-  }{}
+<span class="w">  </span><span class="c1">// Decode into arbitrary type</span><span class="w"></span>
+<span class="w">  </span><span class="nx">foo</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">X</span><span class="w">   </span><span class="kt">int</span><span class="w"></span>
+<span class="w">  </span><span class="nx">Y</span><span class="w">   </span><span class="kt">int</span><span class="w"></span>
+<span class="w">  </span><span class="nx">Z</span><span class="w">   </span><span class="kt">int</span><span class="w"></span>
+<span class="w">  </span><span class="nx">Bar</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">  </span><span class="p">}{}</span><span class="w"></span>
 
-  dec = codec.NewDecoderBytes(event.Readings[0].BinaryValue, h)
-  err = dec.Decode(&amp;foo)
-  check(err)
+<span class="w">  </span><span class="nx">dec</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">codec</span><span class="p">.</span><span class="nx">NewDecoderBytes</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">Readings</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">BinaryValue</span><span class="p">,</span><span class="w"> </span><span class="nx">h</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">dec</span><span class="p">.</span><span class="nx">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">foo</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="nx">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
 
-  fmt.Println(foo)
-}
+<span class="w">  </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>This code takes a command response in the same format as the previous
 example, but uses the <code>codec</code> library to decode the CBOR
@@ -2386,65 +2381,65 @@ and the corresponding value, where you should note in particular the <code>Put</
 field in the <code>Command</code> struct, and below the <code>Command</code> struct is the <code>Put</code>
 struct itself. More details available at
 https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/models/put.go:
-<div class="highlight"><pre><span></span><code>type Command struct {
-    Timestamps  `yaml:&quot;,inline&quot;`
-    Id          string `json:&quot;id&quot; yaml:&quot;id,omitempty&quot;`     // Id is a unique identifier, such as a UUID
-    Name        string `json:&quot;name&quot; yaml:&quot;name,omitempty&quot;` // Command name (unique on the profile)
-    Get         Get    `json:&quot;get&quot; yaml:&quot;get,omitempty&quot;`   // Get Command
-    Put         Put    `json:&quot;put&quot; yaml:&quot;put,omitempty&quot;`   // Put Command
-    isValidated bool   // internal member used for validation check
-}
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">Command</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">Timestamps</span><span class="w">  </span><span class="s">`yaml:&quot;,inline&quot;`</span><span class="w"></span>
+<span class="w">    </span><span class="nx">Id</span><span class="w">          </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;id&quot; yaml:&quot;id,omitempty&quot;`</span><span class="w">     </span><span class="c1">// Id is a unique identifier, such as a UUID</span><span class="w"></span>
+<span class="w">    </span><span class="nx">Name</span><span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;name&quot; yaml:&quot;name,omitempty&quot;`</span><span class="w"> </span><span class="c1">// Command name (unique on the profile)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">Get</span><span class="w">         </span><span class="nx">Get</span><span class="w">    </span><span class="s">`json:&quot;get&quot; yaml:&quot;get,omitempty&quot;`</span><span class="w">   </span><span class="c1">// Get Command</span><span class="w"></span>
+<span class="w">    </span><span class="nx">Put</span><span class="w">         </span><span class="nx">Put</span><span class="w">    </span><span class="s">`json:&quot;put&quot; yaml:&quot;put,omitempty&quot;`</span><span class="w">   </span><span class="c1">// Put Command</span><span class="w"></span>
+<span class="w">    </span><span class="nx">isValidated</span><span class="w"> </span><span class="kt">bool</span><span class="w">   </span><span class="c1">// internal member used for validation check</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-type Put struct {
-    Action         `yaml:&quot;,inline&quot;`
-    ParameterNames []string `json:&quot;parameterNames,omitempty&quot; yaml:&quot;parameterNames,omitempty&quot;`
-}
+<span class="kd">type</span><span class="w"> </span><span class="nx">Put</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">Action</span><span class="w">         </span><span class="s">`yaml:&quot;,inline&quot;`</span><span class="w"></span>
+<span class="w">    </span><span class="nx">ParameterNames</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;parameterNames,omitempty&quot; yaml:&quot;parameterNames,omitempty&quot;`</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 What follows below is the accompanying <code>golang</code> code that accomplishes the steps above:</p>
-<div class="highlight"><pre><span></span><code>package main
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-import (
-    &quot;io/ioutil&quot;
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;io/ioutil&quot;</span><span class="w"></span>
 
-    &quot;github.com/ugorji/go/codec&quot;
-)
+<span class="w">    </span><span class="s">&quot;github.com/ugorji/go/codec&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-const (
-  fileLocation = &quot;/Users/johnpoe/Desktop/CBOR_Binary&quot;
-)
+<span class="kd">const</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">  </span><span class="nx">fileLocation</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;/Users/johnpoe/Desktop/CBOR_Binary&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-const (
-    enableRandomizationBinary = &quot;EnableRandomization_Binary&quot;
-    path                      = &quot;Path&quot;
-    url                       = &quot;Url&quot;
-)
+<span class="kd">const</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="nx">enableRandomizationBinary</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;EnableRandomization_Binary&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nx">path</span><span class="w">                      </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Path&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nx">url</span><span class="w">                       </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Url&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-func main() {
-    // Set up some records which will be used to create the CBOR data
-    cborContents := make(map[string]string)
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Set up some records which will be used to create the CBOR data</span><span class="w"></span>
+<span class="w">    </span><span class="nx">cborContents</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span><span class="w"></span>
 
-    // The user should put values in the cborContents variable above, which will
-    // be converted to CBOR. Please refer to the earlier note containing details
-    // of the key and the corresponding value each keys represent. What follows
-    // below is an example of populating the &quot;ParameterNames&quot; (aka &quot;Put&quot;)
-    cborContents[enableRandomizationBinary] = &quot;true&quot;
-    cborContents[path] = &quot;/api/v1/device/9f872d68/Binary&quot;
-    cborContents[url] = &quot;http://localhost:48082/api/v1/device/9f872d68/command/7ff8d51ea50d&quot;
+<span class="w">    </span><span class="c1">// The user should put values in the cborContents variable above, which will</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// be converted to CBOR. Please refer to the earlier note containing details</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// of the key and the corresponding value each keys represent. What follows</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// below is an example of populating the &quot;ParameterNames&quot; (aka &quot;Put&quot;)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">cborContents</span><span class="p">[</span><span class="nx">enableRandomizationBinary</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nx">cborContents</span><span class="p">[</span><span class="nx">path</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;/api/v1/device/9f872d68/Binary&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nx">cborContents</span><span class="p">[</span><span class="nx">url</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;http://localhost:48082/api/v1/device/9f872d68/command/7ff8d51ea50d&quot;</span><span class="w"></span>
 
 
-    // Encode the contents that were set up above.
-    input := make([]byte, 0)
-    check(codec.NewEncoderBytes(&amp;input, &amp;codec.CborHandle{}).Encode(cborContents))
+<span class="w">    </span><span class="c1">// Encode the contents that were set up above.</span><span class="w"></span>
+<span class="w">    </span><span class="nx">input</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">check</span><span class="p">(</span><span class="nx">codec</span><span class="p">.</span><span class="nx">NewEncoderBytes</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">input</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">codec</span><span class="p">.</span><span class="nx">CborHandle</span><span class="p">{}).</span><span class="nx">Encode</span><span class="p">(</span><span class="nx">cborContents</span><span class="p">))</span><span class="w"></span>
 
-    // Write the CBOR-encoded data to a file.
-    ioutil.WriteFile(fileLocation, input, 0644)
-}
+<span class="w">    </span><span class="c1">// Write the CBOR-encoded data to a file.</span><span class="w"></span>
+<span class="w">    </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">WriteFile</span><span class="p">(</span><span class="nx">fileLocation</span><span class="p">,</span><span class="w"> </span><span class="nx">input</span><span class="p">,</span><span class="w"> </span><span class="mo">0644</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-func check(e error) {
-    if e != nil {
-        panic(e)
-    }
-}
+<span class="kd">func</span><span class="w"> </span><span class="nx">check</span><span class="p">(</span><span class="nx">e</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">e</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nb">panic</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>In the code above, as a final step, the CBOR payload has been written to the filesystem,
 into a file that we are calling <code>CBOR_Binary</code>.</p>
@@ -2549,7 +2544,7 @@ filesystem:
     </div>
     
       <script src="../../assets/javascripts/vendor.36cbf620.min.js"></script>
-      <script src="../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching"}</script>
       
       <script>
         app = initialize({

@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
     
     
       
@@ -44,11 +44,6 @@
       <link rel="stylesheet" href="../../../assets/stylesheets/branding.css">
     
     
-      
-        
-<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com">
-<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-82811140-6","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview")})</script>
-<script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
     
@@ -130,7 +125,7 @@
     
       <div class="md-header-nav__source">
         
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -285,7 +280,7 @@
   
     <div class="md-nav__source">
       
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -2960,7 +2955,7 @@ contains the <code>pkisetup</code> executions, see below for a corresponding
 excerpt (highlighted lines):</p>
 <div class="highlight"><pre><span></span><code><span class="c"># Create assets folder (needed for unseal key/s, root token and tmp)</span>
 <span class="c"># Run CA/Vault and Kong PKI/TLS setups and peform housekeeping tasks</span>
-<span class="k">RUN</span> mkdir /vault/config/assets <span class="o">&amp;&amp;</span> <span class="se">\</span>
+<span class="k">RUN</span><span class="w"> </span>mkdir /vault/config/assets <span class="o">&amp;&amp;</span> <span class="se">\</span>
     chown -R vault:vault /vault <span class="o">&amp;&amp;</span> <span class="se">\</span>
     chmod <span class="m">644</span> /vault/config/local.json <span class="o">&amp;&amp;</span> <span class="se">\</span>
     chmod <span class="m">744</span> pkisetup* <span class="o">&amp;&amp;</span> <span class="se">\</span>
@@ -3014,7 +3009,7 @@ total <span class="m">12</span>
 <p>Login to Vault using Vault CLI and the gathered Root Token:</p>
 <div class="highlight"><pre><span></span><code>root@edgex-vault:/vault <span class="c1"># vault login 01dbbae4-353a-8cdf-8189-4d50e5535a6f</span>
 Success! You are now authenticated. The token information displayed below
-is already stored in the token helper. You <span class="k">do</span> NOT need to run <span class="s2">&quot;vault login&quot;</span>
+is already stored <span class="k">in</span> the token helper. You <span class="k">do</span> NOT need to run <span class="s2">&quot;vault login&quot;</span>
 again. Future Vault requests will automatically use this token.
 
 Key                Value
@@ -3179,19 +3174,19 @@ processor (<a href="https://stedolan.github.io/jq/">https://stedolan.github.io/j
 printing in the terminal.</p>
 </div>
 <p>Sample JSON returned:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="nt">&quot;request_id&quot;</span><span class="p">:</span> <span class="s2">&quot;eaa80a1b-0d31-8d11-6ce1-8d9aa3ac6a19&quot;</span><span class="p">,</span>
-<span class="nt">&quot;lease_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="nt">&quot;renewable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-<span class="nt">&quot;lease_duration&quot;</span><span class="p">:</span> <span class="mi">604800</span><span class="p">,</span>
-<span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;cert&quot;</span><span class="p">:</span> <span class="s2">&quot;-----BEGIN CERTIFICATE-----\nMIICrjCCAjWgAwIBAgIQDvZxhmU3nyG4cwXlQesMFDAKBggqhkjOPQQDAzB7MQsw\nCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDVNhbiBGcmFuY2lzY28x\nFzAVBgNVBAoTDkVkZ2VYRm91bmRyeUNBMRUwEwYDVQQLEwxFZGdlWEZvdW5kcnkx\nFzAVBgNVBAMTDkVkZ2VYRm91bmRyeUNBMB4XDTE4MTIwNTE0MDUyOFoXDTI4MTIw\nNTE0MDUyOFowazELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1T\nYW4gRnJhbmNpc2NvMRMwEQYDVQQKEwplZGdleC1rb25nMQ0wCwYDVQQLEwRLb25n\nMRMwEQYDVQQDEwplZGdleC1rb25nMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAE2dnb\nEboXET1TjzmWKFv3A0wklwNbs9t9JLT0ecpQr64a277UnTAQhgCv2e2/x9EP4eta\ngSlz5PCqdAykWW0URIEPSwUKWmx4x1DBwyUD2oDOPsFrywIVEC3DlqQAL6huo4GN\nMIGKMA4GA1UdDwEB/wQEAwIFoDATBgNVHSUEDDAKBggrBgEFBQcDATAMBgNVHRMB\nAf8EAjAAMB8GA1UdIwQYMBaAFFX63XbmPNpLceOJYyt2Y+LfW/gxMDQGA1UdEQQt\nMCuCCmVkZ2V4LWtvbmeCEGVkZ2V4LWtvbmcubG9jYWyBC2FkbWluQGxvY2FsMAoG\nCCqGSM49BAMDA2cAMGQCMCaH3sSKq6nlr6hBJx82wYEiK4slMbySiQZg5mLcwrsQ\ntIPGcQ2lgBdQYzI3ymOS5gIwNhpQmo/p3hkoFzA4rxIAZx/GUgZan51JlXW0rpgz\n4HerRLe55EmvF10mF7VCGOXe\n-----END CERTIFICATE-----\n&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;-----BEGIN PRIVATE KEY-----\nMIG2AgEAMBAGByqGSM49AgEGBSuBBAAiBIGeMIGbAgEBBDC6BRUXqkJbey765+8b\nOib2qG/jbai2rzp0+NQyJv4ijAyYjJlxhVGggZqPPBy8baqhZANiAATZ2dsRuhcR\nPVOPOZYoW/cDTCSXA1uz230ktPR5ylCvrhrbvtSdMBCGAK/Z7b/H0Q/h61qBKXPk\n8Kp0DKRZbRREgQ9LBQpabHjHUMHDJQPagM4+wWvLAhUQLcOWpAAvqG4=\n-----END PRIVATE KEY-----\n&quot;</span>
-<span class="p">},</span>
-<span class="nt">&quot;wrap_info&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-<span class="nt">&quot;warnings&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-<span class="nt">&quot;auth&quot;</span><span class="p">:</span> <span class="kc">null</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="nt">&quot;request_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eaa80a1b-0d31-8d11-6ce1-8d9aa3ac6a19&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="nt">&quot;lease_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="nt">&quot;renewable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="nt">&quot;lease_duration&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">604800</span><span class="p">,</span><span class="w"></span>
+<span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;cert&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;-----BEGIN CERTIFICATE-----\nMIICrjCCAjWgAwIBAgIQDvZxhmU3nyG4cwXlQesMFDAKBggqhkjOPQQDAzB7MQsw\nCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDVNhbiBGcmFuY2lzY28x\nFzAVBgNVBAoTDkVkZ2VYRm91bmRyeUNBMRUwEwYDVQQLEwxFZGdlWEZvdW5kcnkx\nFzAVBgNVBAMTDkVkZ2VYRm91bmRyeUNBMB4XDTE4MTIwNTE0MDUyOFoXDTI4MTIw\nNTE0MDUyOFowazELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1T\nYW4gRnJhbmNpc2NvMRMwEQYDVQQKEwplZGdleC1rb25nMQ0wCwYDVQQLEwRLb25n\nMRMwEQYDVQQDEwplZGdleC1rb25nMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAE2dnb\nEboXET1TjzmWKFv3A0wklwNbs9t9JLT0ecpQr64a277UnTAQhgCv2e2/x9EP4eta\ngSlz5PCqdAykWW0URIEPSwUKWmx4x1DBwyUD2oDOPsFrywIVEC3DlqQAL6huo4GN\nMIGKMA4GA1UdDwEB/wQEAwIFoDATBgNVHSUEDDAKBggrBgEFBQcDATAMBgNVHRMB\nAf8EAjAAMB8GA1UdIwQYMBaAFFX63XbmPNpLceOJYyt2Y+LfW/gxMDQGA1UdEQQt\nMCuCCmVkZ2V4LWtvbmeCEGVkZ2V4LWtvbmcubG9jYWyBC2FkbWluQGxvY2FsMAoG\nCCqGSM49BAMDA2cAMGQCMCaH3sSKq6nlr6hBJx82wYEiK4slMbySiQZg5mLcwrsQ\ntIPGcQ2lgBdQYzI3ymOS5gIwNhpQmo/p3hkoFzA4rxIAZx/GUgZan51JlXW0rpgz\n4HerRLe55EmvF10mF7VCGOXe\n-----END CERTIFICATE-----\n&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;-----BEGIN PRIVATE KEY-----\nMIG2AgEAMBAGByqGSM49AgEGBSuBBAAiBIGeMIGbAgEBBDC6BRUXqkJbey765+8b\nOib2qG/jbai2rzp0+NQyJv4ijAyYjJlxhVGggZqPPBy8baqhZANiAATZ2dsRuhcR\nPVOPOZYoW/cDTCSXA1uz230ktPR5ylCvrhrbvtSdMBCGAK/Z7b/H0Q/h61qBKXPk\n8Kp0DKRZbRREgQ9LBQpabHjHUMHDJQPagM4+wWvLAhUQLcOWpAAvqG4=\n-----END PRIVATE KEY-----\n&quot;</span><span class="w"></span>
+<span class="p">},</span><span class="w"></span>
+<span class="nt">&quot;wrap_info&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"></span>
+<span class="nt">&quot;warnings&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"></span>
+<span class="nt">&quot;auth&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3208,20 +3203,20 @@ the EdgeX Foudry platform (<code>edgex</code>):</p>
     https://edgex-vault:8200/v1/secret <span class="p">|</span> jq
 </code></pre></div>
 <p>Sample JSON returned:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="nt">&quot;request_id&quot;</span><span class="p">:</span> <span class="s2">&quot;0e0ea024-176d-21b3-73cb-99f17729b230&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;lease_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;renewable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-    <span class="nt">&quot;lease_duration&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;keys&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;edgex/&quot;</span>
-        <span class="p">]</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;wrap_info&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-    <span class="nt">&quot;warnings&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-    <span class="nt">&quot;auth&quot;</span><span class="p">:</span> <span class="kc">null</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;request_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0e0ea024-176d-21b3-73cb-99f17729b230&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;lease_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;renewable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;lease_duration&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;keys&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="s2">&quot;edgex/&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="p">]</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;wrap_info&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;warnings&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;auth&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>Displaying (GET) the Vault seal status
 (<code>API path: /v1/sys/seal-status</code>):</p>
@@ -3232,17 +3227,17 @@ the EdgeX Foudry platform (<code>edgex</code>):</p>
     https://edgex-vault:8200/v1/sys/seal-status <span class="p">|</span> jq
 </code></pre></div>
 <p>Sample JSON returned:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;shamir&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;sealed&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-    <span class="nt">&quot;t&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&quot;n&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&quot;progress&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="nt">&quot;nonce&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;0.10.2&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;cluster_name&quot;</span><span class="p">:</span> <span class="s2">&quot;vault-cluster-57b3c4ed&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;cluster_id&quot;</span><span class="p">:</span> <span class="s2">&quot;fe6d18bf-fa9c-0d52-3278-bca0390af023&quot;</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shamir&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;sealed&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;t&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;progress&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;nonce&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.10.2&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;cluster_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;vault-cluster-57b3c4ed&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;cluster_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;fe6d18bf-fa9c-0d52-3278-bca0390af023&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3354,7 +3349,7 @@ man-style documentation:</p>
     </div>
     
       <script src="../../../assets/javascripts/vendor.36cbf620.min.js"></script>
-      <script src="../../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching"}</script>
       
       <script>
         app = initialize({

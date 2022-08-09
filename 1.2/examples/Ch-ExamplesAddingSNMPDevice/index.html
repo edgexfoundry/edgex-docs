@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
     
     
       
@@ -44,11 +44,6 @@
       <link rel="stylesheet" href="../../assets/stylesheets/branding.css">
     
     
-      
-        
-<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com">
-<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-82811140-6","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview")})</script>
-<script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
     
@@ -130,7 +125,7 @@
     
       <div class="md-header-nav__source">
         
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -285,7 +280,7 @@
   
     <div class="md-nav__source">
       
-<a href="https://github.com/edgexfoundry/edgex-go/" title="Go to repository" class="md-source">
+<a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -2436,49 +2431,49 @@ issue</p>
 <a href="http://localhost:48082/api/v1/device">http://localhost:48082/api/v1/device</a></p>
 <p>Press Send</p>
 <p>You should see something similar to</p>
-<div class="codehilite"><pre><span></span><code><span class="err">{</span>
+<div class="codehilite"><pre><span></span><code>{
 
-            <span class="ss">&quot;id&quot;</span><span class="p">:</span> <span class="ss">&quot;5a1d6f8ae4b0c3936013120f&quot;</span><span class="p">,</span>
+            &quot;id&quot;: &quot;5a1d6f8ae4b0c3936013120f&quot;,
 
-            <span class="ss">&quot;name&quot;</span><span class="p">:</span> <span class="ss">&quot;diStatus0&quot;</span><span class="p">,</span>
+            &quot;name&quot;: &quot;diStatus0&quot;,
 
-            <span class="ss">&quot;get&quot;</span><span class="p">:</span> <span class="err">{</span>
+            &quot;get&quot;: {
 
-                <span class="ss">&quot;url&quot;</span><span class="p">:</span> <span class="ss">&quot;http://localhost:48082/api/v1/device/5a1d7134e4b0c39360131212/command/5a1d6f8ae4b0c3936013120f&quot;</span><span class="p">,</span> <span class="o">&lt;</span><span class="c1">-- This</span>
+                &quot;url&quot;: &quot;http://localhost:48082/api/v1/device/5a1d7134e4b0c39360131212/command/5a1d6f8ae4b0c3936013120f&quot;, &lt;-- This
 
-                <span class="ss">&quot;responses&quot;</span><span class="p">:</span> <span class="p">[</span>
+                &quot;responses&quot;: [
 
-                    <span class="err">{</span>
+                    {
 
-                        <span class="ss">&quot;code&quot;</span><span class="p">:</span> <span class="ss">&quot;200&quot;</span><span class="p">,</span>
+                        &quot;code&quot;: &quot;200&quot;,
 
-                        <span class="ss">&quot;description&quot;</span><span class="p">:</span> <span class="ss">&quot;Get di 0 Status.&quot;</span><span class="p">,</span>
+                        &quot;description&quot;: &quot;Get di 0 Status.&quot;,
 
-                        <span class="ss">&quot;expectedValues&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        &quot;expectedValues&quot;: [
 
-                            <span class="ss">&quot;diStatus0&quot;</span>
+                            &quot;diStatus0&quot;
 
-                        <span class="p">]</span>
+                        ]
 
-                    <span class="err">}</span><span class="p">,</span>
+                    },
 
-                    <span class="err">{</span>
+                    {
 
-                        <span class="ss">&quot;code&quot;</span><span class="p">:</span> <span class="ss">&quot;503&quot;</span><span class="p">,</span>
+                        &quot;code&quot;: &quot;503&quot;,
 
-                        <span class="ss">&quot;description&quot;</span><span class="p">:</span> <span class="ss">&quot;service unavailable&quot;</span><span class="p">,</span>
+                        &quot;description&quot;: &quot;service unavailable&quot;,
 
-                        <span class="ss">&quot;expectedValues&quot;</span><span class="p">:</span> <span class="p">[]</span>
+                        &quot;expectedValues&quot;: []
 
-                    <span class="err">}</span>
+                    }
 
-                <span class="p">]</span>
+                ]
 
-            <span class="err">}</span><span class="p">,</span>
+            },
 
-            <span class="ss">&quot;put&quot;</span><span class="p">:</span> <span class="k">null</span>
+            &quot;put&quot;: null
 
- <span class="err">}</span><span class="p">,</span>
+ },
 </code></pre></div>
 
 <p>Double click on the "url" and a new tab within Postman should open,
@@ -2495,101 +2490,101 @@ regularly viewing data.</p>
 <p>Gathering information for the addressable</p>
 <p>Got to <a href="http://localhost:48082/api/v1/device">http://localhost:48082/api/v1/device</a></p>
 <p>Look for the id or the device that you want to schedule an event for</p>
-<div class="codehilite"><pre><span></span><code><span class="p">[</span>
+<div class="codehilite"><pre><span></span><code>[
 
-   <span class="err">{</span>
+   {
 
-       <span class="ss">&quot;name&quot;</span><span class="p">:</span> <span class="ss">&quot;moxa-e2210-device&quot;</span><span class="p">,</span>
+       &quot;name&quot;: &quot;moxa-e2210-device&quot;,
 
-       <span class="ss">&quot;id&quot;</span><span class="p">:</span> <span class="ss">&quot;5a280a0be4b0c39393ec7780&quot;</span><span class="p">,</span>  <span class="o">&lt;</span><span class="c1">--- This</span>
+       &quot;id&quot;: &quot;5a280a0be4b0c39393ec7780&quot;,  &lt;--- This
 
-       <span class="ss">&quot;description&quot;</span><span class="p">:</span> <span class="ss">&quot;snmp smart ethernet io&quot;</span><span class="p">,</span>
+       &quot;description&quot;: &quot;snmp smart ethernet io&quot;,
 
-       <span class="ss">&quot;labels&quot;</span><span class="p">:</span> <span class="p">[</span>
+       &quot;labels&quot;: [
 
-           <span class="ss">&quot;snmp&quot;</span><span class="p">,</span>
+           &quot;snmp&quot;,
 
-           <span class="ss">&quot;rtu&quot;</span><span class="p">,</span>
+           &quot;rtu&quot;,
 
-           <span class="ss">&quot;io&quot;</span>
+           &quot;io&quot;
 
-       <span class="p">],</span>
+       ],
 
-       <span class="ss">&quot;adminState&quot;</span><span class="p">:</span> <span class="ss">&quot;unlocked&quot;</span><span class="p">,</span>
+       &quot;adminState&quot;: &quot;unlocked&quot;,
 </code></pre></div>
 
 <p>In this case the id is "5a280a0be4b0c39393ec7780"</p>
 <p>Next you want to get the "name" of the command you want to schedule an
 event for</p>
-<div class="codehilite"><pre><span></span><code><span class="ss">&quot;commands&quot;</span><span class="p">:</span> <span class="p">[</span>
+<div class="codehilite"><pre><span></span><code>&quot;commands&quot;: [
 
-           <span class="err">{</span>
+           {
 
-               <span class="ss">&quot;id&quot;</span><span class="p">:</span> <span class="ss">&quot;5a2808e6e4b0c39393ec777c&quot;</span><span class="p">,</span>
+               &quot;id&quot;: &quot;5a2808e6e4b0c39393ec777c&quot;,
 
-               <span class="ss">&quot;name&quot;</span><span class="p">:</span> <span class="ss">&quot;serverModel&quot;</span><span class="p">,</span>
+               &quot;name&quot;: &quot;serverModel&quot;,
 
-               <span class="ss">&quot;get&quot;</span><span class="p">:</span> <span class="err">{</span>
+               &quot;get&quot;: {
 
-                   <span class="ss">&quot;url&quot;</span><span class="p">:</span> <span class="ss">&quot;http://localhost:48082/api/v1/device/5a280a0be4b0c39393ec7780/command/5a2808e6e4b0c39393ec777c&quot;</span><span class="p">,</span>
+                   &quot;url&quot;: &quot;http://localhost:48082/api/v1/device/5a280a0be4b0c39393ec7780/command/5a2808e6e4b0c39393ec777c&quot;,
 
-                   <span class="ss">&quot;responses&quot;</span><span class="p">:</span> <span class="p">[</span>
+                   &quot;responses&quot;: [
 
-                       <span class="err">{</span>
+                       {
 
-                           <span class="ss">&quot;code&quot;</span><span class="p">:</span> <span class="ss">&quot;200&quot;</span><span class="p">,</span>
+                           &quot;code&quot;: &quot;200&quot;,
 
-                           <span class="ss">&quot;description&quot;</span><span class="p">:</span> <span class="ss">&quot;Get server model number.&quot;</span><span class="p">,</span>
+                           &quot;description&quot;: &quot;Get server model number.&quot;,
 
-                           <span class="ss">&quot;expectedValues&quot;</span><span class="p">:</span> <span class="p">[</span>
+                           &quot;expectedValues&quot;: [
 
-                               <span class="ss">&quot;serverModel&quot;</span>
+                               &quot;serverModel&quot;
 
-                           <span class="p">]</span>
+                           ]
 
-                       <span class="err">}</span><span class="p">,</span>
+                       },
 
-                       <span class="err">{</span>
+                       {
 
-                           <span class="ss">&quot;code&quot;</span><span class="p">:</span> <span class="ss">&quot;503&quot;</span><span class="p">,</span>
+                           &quot;code&quot;: &quot;503&quot;,
 
-                           <span class="ss">&quot;description&quot;</span><span class="p">:</span> <span class="ss">&quot;service unavailable&quot;</span><span class="p">,</span>
+                           &quot;description&quot;: &quot;service unavailable&quot;,
 
-                           <span class="ss">&quot;expectedValues&quot;</span><span class="p">:</span> <span class="p">[]</span>
+                           &quot;expectedValues&quot;: []
 
-                       <span class="err">}</span>
+                       }
 
-                   <span class="p">]</span>
+                   ]
 
-               <span class="err">}</span><span class="p">,</span>
+               },
 
-               <span class="ss">&quot;put&quot;</span><span class="p">:</span> <span class="k">null</span>
+               &quot;put&quot;: null
 
-           <span class="err">}</span><span class="p">,</span>
+           },
 
-           <span class="err">{</span>
+           {
 
-               <span class="ss">&quot;id&quot;</span><span class="p">:</span> <span class="ss">&quot;5a2808e6e4b0c39393ec777d&quot;</span><span class="p">,</span>
+               &quot;id&quot;: &quot;5a2808e6e4b0c39393ec777d&quot;,
 
-               <span class="ss">&quot;name&quot;</span><span class="p">:</span> <span class="ss">&quot;diStatus0&quot;</span><span class="p">,</span>  <span class="o">&lt;</span><span class="c1">--- This</span>
+               &quot;name&quot;: &quot;diStatus0&quot;,  &lt;--- This
 
-               <span class="ss">&quot;get&quot;</span><span class="p">:</span> <span class="err">{</span>
+               &quot;get&quot;: {
 
-                   <span class="ss">&quot;url&quot;</span><span class="p">:</span> <span class="ss">&quot;http://localhost:48082/api/v1/device/5a280a0be4b0c39393ec7780/command/5a2808e6e4b0c39393ec777d&quot;</span><span class="p">,</span>
+                   &quot;url&quot;: &quot;http://localhost:48082/api/v1/device/5a280a0be4b0c39393ec7780/command/5a2808e6e4b0c39393ec777d&quot;,
 
-                   <span class="ss">&quot;responses&quot;</span><span class="p">:</span> <span class="p">[</span>
+                   &quot;responses&quot;: [
 
-                       <span class="err">{</span>
+                       {
 
-                           <span class="ss">&quot;code&quot;</span><span class="p">:</span> <span class="ss">&quot;200&quot;</span><span class="p">,</span>
+                           &quot;code&quot;: &quot;200&quot;,
 
-                           <span class="ss">&quot;description&quot;</span><span class="p">:</span> <span class="ss">&quot;Get di 0 Status.&quot;</span><span class="p">,</span>
+                           &quot;description&quot;: &quot;Get di 0 Status.&quot;,
 
-                           <span class="ss">&quot;expectedValues&quot;</span><span class="p">:</span> <span class="p">[</span>
+                           &quot;expectedValues&quot;: [
 
-                               <span class="ss">&quot;diStatus0&quot;</span>
+                               &quot;diStatus0&quot;
 
-                           <span class="p">]</span>
+                           ]
 </code></pre></div>
 
 <p>In this example the name is "diStatus0".</p>
@@ -2599,45 +2594,45 @@ schedule.</p>
 <p>The path outline is:</p>
 <p>/api/v1/device/{device id}/{command name}</p>
 <p>In this case, the address would be</p>
-<div class="codehilite"><pre><span></span><code><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">device</span><span class="o">/</span><span class="n">XXXX</span><span class="o">/</span><span class="n">diStatus0</span>
+<div class="codehilite"><pre><span></span><code>/api/v1/device/XXXX/diStatus0
 
-<span class="o">/</span><span class="n">POST</span> <span class="n">addressable</span>
+/POST addressable
 
-    <span class="err">“</span><span class="n">name</span><span class="err">”</span><span class="p">:</span> <span class="err">”</span><span class="n">schedule</span><span class="o">-</span><span class="n">moxa</span><span class="o">-</span><span class="n">di</span><span class="err">”</span>
+    “name”: ”schedule-moxa-di”
 
-    <span class="err">“</span><span class="n">protocol</span><span class="err">”</span><span class="p">:</span> <span class="err">“</span><span class="n">HTTP</span><span class="err">”</span>
+    “protocol”: “HTTP”
 
-    <span class="err">“</span><span class="n">address</span><span class="err">”</span><span class="p">:</span> <span class="err">“</span><span class="n">edgex</span><span class="o">-</span><span class="n">device</span><span class="o">-</span><span class="n">snmp</span><span class="err">”</span>
+    “address”: “edgex-device-snmp”
 
-    <span class="err">“</span><span class="n">port</span><span class="err">”</span><span class="p">:</span> <span class="err">“</span><span class="n">xxxxx</span><span class="err">”</span>
+    “port”: “xxxxx”
 
-    <span class="err">“</span><span class="n">path</span><span class="err">”</span><span class="p">:</span> <span class="err">”</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">device</span><span class="o">/</span><span class="err">{</span><span class="n">device</span> <span class="n">id</span><span class="err">}</span><span class="o">/</span><span class="err">{</span><span class="n">command</span> <span class="n">name</span><span class="err">}”</span>
+    “path”: ”/api/v1/device/{device id}/{command name}”
 
-    <span class="err">“</span><span class="k">method</span><span class="err">”</span><span class="p">:</span> <span class="err">“</span><span class="k">GET</span><span class="err">”</span>  <span class="o">***</span> <span class="n">This</span> <span class="n">will</span> <span class="n">need</span> <span class="k">to</span> <span class="n">be</span> <span class="n">added</span> <span class="o">***</span>
+    “method”: “GET”  *** This will need to be added ***
 </code></pre></div>
 
 <p><strong>Create a schedule</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="o">/</span><span class="n">POST</span> <span class="n">schedule</span>
+<div class="codehilite"><pre><span></span><code><span class="o">/</span><span class="nv">POST</span> <span class="nv">schedule</span>
 
-    <span class="err">“</span><span class="n">name</span><span class="err">”</span><span class="p">:</span> <span class="err">”</span><span class="nb">interval</span><span class="o">-</span><span class="n">moxa</span><span class="o">-</span><span class="n">di0</span><span class="err">”</span>
+    “<span class="nv">name</span>”: ”<span class="nv">interval</span><span class="o">-</span><span class="nv">moxa</span><span class="o">-</span><span class="nv">di0</span>”
 
-    <span class="err">“</span><span class="k">start</span><span class="err">”</span><span class="p">:</span> <span class="k">null</span> <span class="p">(</span><span class="n">remove</span> <span class="n">parenthesis</span> <span class="k">and</span> <span class="k">replace</span><span class="p">)</span>
+    “<span class="nv">start</span>”: <span class="nv">null</span> <span class="ss">(</span><span class="nv">remove</span> <span class="nv">parenthesis</span> <span class="nv">and</span> <span class="nv">replace</span><span class="ss">)</span>
 
-    <span class="err">“</span><span class="k">end</span><span class="err">”</span><span class="p">:</span> <span class="k">null</span> <span class="p">(</span><span class="n">remove</span> <span class="n">parenthesis</span> <span class="k">and</span> <span class="k">replace</span><span class="p">)</span>
+    “<span class="k">end</span>”: <span class="nv">null</span> <span class="ss">(</span><span class="nv">remove</span> <span class="nv">parenthesis</span> <span class="nv">and</span> <span class="nv">replace</span><span class="ss">)</span>
 
-    <span class="err">“</span><span class="n">frequency</span><span class="err">”</span><span class="p">:</span> <span class="err">“</span><span class="n">PT5S</span><span class="err">”</span>
+    “<span class="nv">frequency</span>”: “<span class="nv">PT5S</span>”
 </code></pre></div>
 
 <p><strong>Create an event that will use the schedule</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="o">/</span><span class="n">POST</span> <span class="n">scheduleevent</span>
+<div class="codehilite"><pre><span></span><code>/POST scheduleevent
 
-    <span class="err">“</span><span class="n">name</span><span class="err">”</span><span class="p">:</span> <span class="err">“</span><span class="n">device</span><span class="o">-</span><span class="n">moxa</span><span class="o">-</span><span class="n">di0</span><span class="err">”</span>
+    “name”: “device-moxa-di0”
 
-    <span class="err">“</span><span class="n">addressable</span><span class="err">”</span><span class="p">:</span><span class="err">{“</span><span class="n">name</span><span class="err">”</span><span class="p">:</span><span class="err">”</span><span class="n">schedule</span><span class="o">-</span><span class="n">moxa</span><span class="o">-</span><span class="n">di</span><span class="err">”}</span>
+    “addressable”:{“name”:”schedule-moxa-di”}
 
-    <span class="err">“</span><span class="n">schedule</span><span class="err">”</span><span class="p">:</span> <span class="err">”</span><span class="nb">interval</span><span class="o">-</span><span class="n">moxa</span><span class="o">-</span><span class="n">di0</span><span class="err">”</span>
+    “schedule”: ”interval-moxa-di0”
 
-    <span class="err">“</span><span class="n">service</span><span class="err">”</span><span class="p">:</span> <span class="err">“</span><span class="n">edgex</span><span class="o">-</span><span class="n">device</span><span class="o">-</span><span class="n">snmp</span><span class="err">”</span> <span class="o">***</span> <span class="n">This</span> <span class="n">will</span> <span class="n">need</span> <span class="k">to</span> <span class="n">be</span> <span class="n">added</span> <span class="o">***</span>
+    “service”: “edgex-device-snmp” *** This will need to be added ***
 </code></pre></div>
                 
               
@@ -2732,7 +2727,7 @@ schedule.</p>
     </div>
     
       <script src="../../assets/javascripts/vendor.36cbf620.min.js"></script>
-      <script src="../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching"}</script>
       
       <script>
         app = initialize({
