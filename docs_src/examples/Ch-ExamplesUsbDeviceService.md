@@ -1,23 +1,4 @@
 # USB Camera Device Service RTSP Streaming Guide
-
-## Contents
-
-[Overview](#overview)  
-[System Requirements](#system-requirements)  
-[How It Works](#how-it-works)  
-[Tested Devices](#tested-devices)  
-[Dependencies](#dependencies)  
-[Get the Source Code](#get-the-source-code)  
-[Deploy the Service](#deploy-edgex-and-usb-device-camera-microservice)  
-[Verify the Service](#verify-service-and-device-profiles)   
-[Adding Devices using REST API](#adding-devices-using-rest-api)  
-[Start Video Streaming](#start-video-streaming)  
-[Shutting Down](#shutting-down)  
-[Optional](#optional)  
-[Troubleshooting](#troubleshooting)  
-[License](#license)
-
-
 ## Overview
 The EdgeX usb device service is designed for communicating with USB cameras attached to Linux OS platforms. This guide will help configure and build the usb device service and start streaming video from the USB camera.
 
@@ -338,7 +319,7 @@ To stop all EdgeX services (containers), execute the `make down` command:
 ## Optional
 ### Configuration Options
 ### Configurable RTSP server hostname and port
-The hostname and port of the RTSP server can be configured in the `[Driver]` section of the [/cmd/res/configuration.toml](../cmd/res/configuration.toml). The default vaules can be used for this guide.
+The hostname and port of the RTSP server can be configured in the `[Driver]` section of the `/cmd/res/configuration.toml` file. The default vaules can be used for this guide.
 
 For example:
 ```yaml
@@ -362,6 +343,3 @@ curl http://localhost:59882/api/v2/device/name/<device name>/StreamingStatus | j
 ```
 
 If the StreamingStatus is false, the camera is not configured to stream video. Please try the Start Video Streaming section again.
-
-## License
-[Apache-2.0](https://github.com/EdgeX-Camera-Management/device-usb-camera/blob/rtsp_doc/LICENSE)
