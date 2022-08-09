@@ -1,36 +1,61 @@
 <!DOCTYPE html>
+<!--
+    This is a special page used by Github Pages when a requested page is not found.
+    The script is misused for redirecting requests that use the "latest" alias to
+    the latest version of a page.
+-->
 <html>
 <head>
-  <title>Redirecting</title>
-  <script>
-      let currentAlias = window.location.pathname.split("/")[1];
+    <title>404 Not Found</title>
+    <script>
+        // redirectToLatest redirects the user agent to the latest version of a 
+        // page by rewriting the path.
+        //
+        // For example:
+        // https://docs.edgexfoundry.org/latest/getting-started/ is redirected to:
+        // https://docs.edgexfoundry.org/2.2/getting-started/
+        function redirectToLatest()
+        {
+            let req = new XMLHttpRequest();
+            req.open("GET", "/versions.json", false);
+            req.send();
+            if(req.status === 200){
+                let versions = JSON.parse(req.responseText);
 
-      let xhr = new XMLHttpRequest();
-      xhr.open("GET", "/versions.json");
-      xhr.onload = function () {
-          let versions = JSON.parse(this.responseText);
+                // find the version by alias
+                let res = versions.find(it => {
+                    return it["aliases"].find(alias => {
+                        return alias == "latest";
+                    });
+                });
 
-          let res = versions.find(it => {
-              return it["aliases"].find(alias => {
-                  return alias == currentAlias;
-              });
-          });
+                if (res && res.version) {
+                    // rewrite the path and replace the alias with version
+                    let pathParts = window.location.pathname.split("/");
+                    pathParts[1] = res.version;
+                    window.location.pathname = pathParts.join("/");
+                } else {
+                    console.error("Unable to find version with 'latest' alias.");
+                    return;
+                }
+            }
+        }
 
-          if (res) {
-              let currentPath = window.location.pathname;
-              let split = window.location.pathname.split("/");
-
-              split[1] = res.version;
-              let targetPath = split.join("/");
-              window.location.pathname = targetPath;
-          } else {
-              alert("The requested page was not found. To visit the latest documentation, please follow https://docs.edgexfoundry.org/latest");
-          }
-      };
-
-      xhr.send();
-  </script>
+        // When the 'latest' alias is in the path, redirect to the actual page
+        // instead of showing the 404 page.
+        if(window.location.pathname.split("/")[1]=="latest"){
+            redirectToLatest();
+        }
+    </script>
 </head>
 <body>
+    <h1>404 Not Found</h1>
+    <p>
+        The requested page was not found.
+    </p>
+    <p>
+        To visit the latest documentation, please visit
+        <a href="https://docs.edgexfoundry.org">https://docs.edgexfoundry.org</a>.
+    </p>
 </body>
 </html>
