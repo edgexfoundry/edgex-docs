@@ -34,7 +34,7 @@ Note: Results may vary based on camera hardware/firmware version and operating s
 - Logitech StreamCam
 
 ## Dependencies
-The software has dependencies, including Git, Docker, Docker Compose, and assorted command line tools. Follow the instructions linked here to install any dependency that is not already installed [see here](https://github.com/EdgeX-Camera-Management/device-usb-camera/blob/rtsp_doc/docs/setup.md).
+The software has dependencies, including Git, Docker, Docker Compose, and assorted command line tools. Follow the instructions linked here to install any dependency that is not already installed [see here](https://github.com/edgexfoundry/device-usb-camera/blob/main/docs/setup.md).
 
 ### Install additional Tools
 Install the media utility tool:
@@ -65,49 +65,6 @@ Install the media utility tool:
    ```
 
 
-### Get the Device USB Camera Source Code (if not already downloaded)
-
-1. Change into the edgex directory:
-   ```bash
-   cd ~/edgex
-   ```
-
-2. Clone the device-usb-camera repository:
-
-   ```bash
-   git clone https://github.com/edgexfoundry/device-usb-camera.git
-   ```
-## Deploy EdgeX and USB Device Camera Microservice
-### Building the docker image
-1. Change into newly created directory:
-   ```bash
-   cd ~/edgex/device-usb-camera
-   ```
-
-1. Build the docker image of the device-usb-camera service:
-   ```bash
-   make docker
-   ```
-1. Navigate to the Edgex compose directory.
-
-   ```shell
-   cd ~/edgex/edgex-compose/compose-builder
-   ```
-   
-1. Update `.env` file to add the registry and image version variable for device-usb-camera:
-
-   Add the following registry and version information:
-   ```env
-   DEVICE_USBCAM_VERSION=0.0.0-dev
-   ```
-
-1. Update the `add-device-usb-camera.yml` to point to the local image:
-
-   ```yml
-   services:
-   device-usb-camera:
-      image: edgexfoundry/device-usb-camera${ARCH}:${DEVICE_USBCAM_VERSION}
-   ```
 ### Run the Service
 
 1. Navigate to the Edgex compose directory.
@@ -117,10 +74,14 @@ Install the media utility tool:
    ```
 
 2. Run EdgeX with the microservice:  
-> **NOTE:** This command runs the EdgeX microservices in non secure mode.
-   ```bash
-    make run no-secty ds-usb-camera 
-   ```
+  - For non secure mode
+    ```
+    make run ds-usb-camera no-secty
+    ```
+  - For secure mode 
+    ```
+    make run ds-usb-camera
+    ```
 
 ## Verify Service and Device Profiles
 
@@ -196,24 +157,24 @@ Devices can either be added to the service by defining them in a static configur
    curl -X POST -H 'Content-Type: application/json'  \
    http://localhost:59881/api/v2/device \
    -d '[
-            {
-               "apiVersion": "v2",
-               "device": {
-                  "name":"Camera001",
-                  "serviceName": "device-usb-camera",
-                  "profileName": "USB-Camera-General",
-                  "description": "My test camera",
-                  "adminState": "UNLOCKED",
-                  "operatingState": "UP",
-                  "protocols": {
-                	  "USB": {
-                    	"CardName": "NexiGo N930AF FHD Webcam: NexiG",
-                    	"Path": "/dev/video6",
- 			                "AutoStreaming": "false"
-                     }
-                  }
-               }
-            }
+{
+  "apiVersion": "v2",
+  "device": {
+    "name": "Camera001",
+    "serviceName": "device-usb-camera",
+    "profileName": "USB-Camera-General",
+    "description": "My test camera",
+    "adminState": "UNLOCKED",
+    "operatingState": "UP",
+    "protocols": {
+      "USB": {
+        "CardName": "NexiGo N930AF FHD Webcam: NexiG",
+        "Path": "/dev/video6",
+        "AutoStreaming": "false"
+      }
+    }
+  }
+}
    ]'
    ```
 
@@ -280,15 +241,14 @@ StreamURI: rtsp://localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217
    
    `mplayer rtsp://<IP address>:<port>/<streamname>`.
 
-   Using the `streamURI` returned from the previous step, run ffplay:
+   Using the `streamURI` returned from the previous step, run mplayer:
    
    ```bash
-   ffplay -rtsp_transport tcp rtsp://localhost:8554/stream/Camera001
+   mplayer rtsp://localhost:8554/stream/Camera001
    ```
 
-  - To shut down ffplay, use the ctrl-c command.
-
-  ### Stop Video Streaming
+  - To shut down mplayer, use the ctrl-c command.
+### Stop Video Streaming
 To stop the usb camera from live streaming, use the following command:
 
 Query parameter:
