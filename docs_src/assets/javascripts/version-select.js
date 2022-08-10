@@ -57,7 +57,8 @@ window.addEventListener("DOMContentLoaded", function () {
       if (this.value === '1.1') {
         window.location.href = "https://fuji-docs.edgexfoundry.org"
       } else {
-        window.location.href = "/" + this.value;
+        // replace version in the beginning of path with selected version
+        window.location.pathname = window.location.pathname.replace(/^\/(\d.\d)\//, `/${this.value}/`);
       }
     });
 
