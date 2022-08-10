@@ -7,7 +7,7 @@ This service provides the following capabilities:
 - Camera status
 - Video stream reference
 - FFmpeg framework to capture video frames and stream them to an RTSP server
-- An embedded [RTSP server](https://github.com/aler9/rtsp-simple-server) server
+- An embedded [RTSP server](https://github.com/aler9/rtsp-simple-server)
 ## System Requirements
 
 - Intel&#8482; Core&#174; processor
