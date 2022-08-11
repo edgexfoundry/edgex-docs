@@ -3,7 +3,7 @@
 The EdgeX usb device service is designed for communicating with USB cameras attached to Linux OS platforms. This guide will help configure and build the usb device service and start streaming video from the USB camera.
 
 This service provides the following capabilities:
-- V4L2 API to get camera metadata
+- API to get camera metadata
 - Camera status
 - Video stream reference
 - FFmpeg framework to capture video frames and stream them to an RTSP server
@@ -46,7 +46,7 @@ Install the media utility tool:
 - `mplayer` is used to view the video stream
 - `v4l-utils` is used to determine the video stream path of a usb camera
 
-## Get the Source Code
+## Download and Run EdgeX Services
 ###  Download EdgeX Compose Repository (if not already downloaded)
 
 1. Create a directory for the EdgeX compose repository:
@@ -235,7 +235,7 @@ The response to the above call should look similar to the following:
 StreamURI: rtsp://localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217010
 ```
 
-### Stream the RTSP stream. 
+### Play the RTSP stream. 
 
    mplayer can be used to stream. The command follows this format: 
    
@@ -244,7 +244,7 @@ StreamURI: rtsp://localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217
    Using the `streamURI` returned from the previous step, run mplayer:
    
    ```bash
-   mplayer rtsp://localhost:8554/stream/Camera001
+   mplayer rtsp://localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217010
    ```
 
   - To shut down mplayer, use the ctrl-c command.
