@@ -34,7 +34,7 @@ Note: Results may vary based on camera hardware/firmware version and operating s
 - Logitech StreamCam
 
 ## Dependencies
-The software has dependencies, including Git, Docker, Docker Compose, and assorted command line tools. Follow the instructions linked here to install any dependency that is not already installed `device-usb-camera/docs/setup.md`.
+The software has dependencies, including Git, Docker, Docker Compose, and assorted command line tools. Follow the instructions provided here to install any dependency that is not already installed `device-usb-camera/docs/setup.md`.
 
 ### Install additional Tools
 Install the media utility tool:
