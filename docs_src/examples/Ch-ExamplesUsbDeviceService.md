@@ -153,28 +153,28 @@ Devices can either be added to the service by defining them in a static configur
    * `Path` is a file descriptor of camera created by the OS. Use the `Path` determined in the previous step.
    * `AutoStreaming` indicates whether the device service should automatically start video streaming for cameras. Default value is false.
    
-   ```bash
-   curl -X POST -H 'Content-Type: application/json'  \
+```bash
+curl -X POST -H 'Content-Type: application/json'  \
    http://localhost:59881/api/v2/device \
    -d '[
-{
-  "apiVersion": "v2",
-  "device": {
-    "name": "Camera001",
-    "serviceName": "device-usb-camera",
-    "profileName": "USB-Camera-General",
-    "description": "My test camera",
-    "adminState": "UNLOCKED",
-    "operatingState": "UP",
-    "protocols": {
-      "USB": {
-        "CardName": "NexiGo N930AF FHD Webcam: NexiG",
-        "Path": "/dev/video6",
-        "AutoStreaming": "false"
+      {
+      "apiVersion": "v2",
+      "device": {
+         "name": "Camera001",
+         "serviceName": "device-usb-camera",
+         "profileName": "USB-Camera-General",
+         "description": "My test camera",
+         "adminState": "UNLOCKED",
+         "operatingState": "UP",
+         "protocols": {
+            "USB": {
+            "CardName": "NexiGo N930AF FHD Webcam: NexiG",
+            "Path": "/dev/video6",
+            "AutoStreaming": "false"
+            }
+         }
       }
-    }
-  }
-}
+      }
    ]'
    ```
 
