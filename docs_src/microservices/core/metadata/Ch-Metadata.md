@@ -346,7 +346,7 @@ Sequence diagrams for some of the more critical or complex events regarding meta
 Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services. Below are only the additional settings and sections that are not common to all EdgeX Services.
 
 !!! edgey - "EdgeX 2.3"
-    **RequireMessageBus** and **MessageQueue** configuration are new in EdgeX 2.3 
+    **RequireMessageBus**, **MessageQueue**, **Writable.UoM** and **UoM** configuration are new in EdgeX 2.3 
 
 === "General"
     |Property|Default Value|Description|
@@ -357,11 +357,14 @@ Please refer to the general [Common Configuration documentation](../../configura
     |---|---|---|
     |StrictDeviceProfileChanges|false|Whether to allow device profile modifications, set to `true` to reject all modifications which might impact the existing events and readings. Thus, the changes like `manufacture`, `isHidden`, or `description` can still be made.|
     |StrictDeviceProfileDeletes|false|Whether to allow device profile deletionsm set to `true` to reject all deletions.|
-=== "Databases/Databases.Primary"
+=== "Writable.UoM"
     |Property|Default Value|Description|
     |---|---|---|
-    |||Properties used by the service to access the database|
-    |Name|'metadata'|Document store or database name|
+    |Validation|false|Whether to enable units of measure validation, set to `true` to validate all device profile `units` against the list of units of measure by core metadata.|
+=== "UoM"
+    |Property|Default Value|Description|
+    |---|---|---|
+    |UoMFile|'./res/uom.toml'|path to the location of units of measure configuration|
 === "MessageQueue"
     |Property|Default Value|Description|
     |---|---|---|
@@ -448,6 +451,39 @@ The System Event DTO for Device System Events is published to the topic specifie
     edgex/system-events/core-metadata/device/update/device-rest/sample-numeric
     edgex/system-events/core-metadata/device/delete/device-virtual/Random-Boolean-Device
     ```
+
+## Units of Measure
+
+!!! edgey - "EdgeX 2.3"
+    Units of Measure is new in EdgeX 2.3
+
+Core metadata will read unit of measure configuration (see TOML example below) located in `UoM.UoMFile` during startup.
+
+When validation is turned on (`Writable.UoM.Validation` is set to `true`),
+all device profile `units` (in device resource, device properties) will be validated against the list of units of measure by core metadata.
+
+In other words, when a device profile is created or updated via the core metadata API, the units specified in the device resource's `units` field
+will be checked against the valid list of UoM provided via core metadata configuration.
+
+If the `units` value matches any one of the configuration units of measure, then the device resource is considered valid - allowing the create or update operation to continue.
+If the `units` value does not match any one of the configuration units of measure, then the device profile or device resource operation (create or update) is rejected (error code 500 is returned) and an appropriate error message is returned in the response to the caller of the core metadata API.
+
+!!! Note
+    The `units` field on a profile is and shall remain optional.  If the `units` field is not specified in the device profile, then it is assumed that the device resource does not have well-defined units of measure.  In other words, core metadata will not fail a profile with no `units` field specified on a device resource.
+
+### Sample TOML unit of measure configuration
+
+```toml
+[Uom]
+Source="reference to source for all UoM if not specified below"
+  [Uom.Units]
+    [Uom.Units.temperature]
+    Source="www.weather.com"
+    Values=["C","F","K"]
+    [Uom.Units.weights]
+    Source="www.usa.gov/federal-agencies/weights-and-measures-division"
+    Values=["lbs","ounces","kilos","grams"]
+```
 
 ## API Reference
 
