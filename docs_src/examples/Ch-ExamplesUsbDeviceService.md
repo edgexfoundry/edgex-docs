@@ -6,7 +6,7 @@ This service provides the following capabilities:
 - API to get camera metadata
 - Camera status
 - Video stream reference
-- FFmpeg framework to capture video frames and stream them to an RTSP server
+- Capture video frames and stream them to an RTSP server
 - An embedded [RTSP server](https://github.com/aler9/rtsp-simple-server)
 ## System Requirements
 
