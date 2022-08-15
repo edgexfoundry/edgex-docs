@@ -7,8 +7,8 @@
 
 | Name/Link                                                                 | Short Description                                             |
 |---------------------------------------------------------------------------|---------------------------------------------------------------|
-| [System Events for Devices](./ucr/System-Events-for-Devices.md) | Use Case for System Events for Device add/update/delete |
 | [Record and Replay](./ucr/Record-and-Replay.md)    | Use Case for Recording and Replaying event/readings     |
+| [System Events for Devices](./ucr/System-Events-for-Devices.md) | Use Case for System Events for Device add/update/delete |
 
 ## Architectural Design Records (ADRs)
 

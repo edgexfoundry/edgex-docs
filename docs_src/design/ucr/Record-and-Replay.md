@@ -36,9 +36,12 @@ There are simulators for some devices (i.e. Modbus), but there isn't an general 
 
 ### Requirements
 - Record device Event/Reading data (at rates, volumes and details like timestamps) 
-- Replay captured data at captured, slower or faster speeds
+- Record must capture all Device definitions for devices referenced in the captured Event/Readings
+- Record must capture all Device Profiles for devices referenced in the captured Event/Readings
 - Export captured data for use at a later time or to send to other users
 - Import recoded data that was previously exported
+- Replay must add any captured Device definitions and Device Profiles to the system prior to play back.
+- Replay captured data at captured, slower or faster speeds
 - Replay recorded data from multiple sources at the same time (this mimics more device services feeding EdgeX )
 - Have the ability to record data only from specified target devices or device profiles.
 
