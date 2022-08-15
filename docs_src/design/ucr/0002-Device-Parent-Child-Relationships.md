@@ -86,7 +86,7 @@ indicating a parent device (since it has no parent).
 3. If a device does not indicate which is its parent device, then it shall be inferred that its parent is the main device. (This helps with backwards compatability.)
 4. Though it is preferred that the owning service set a device's parent property, this property can also be set
 by other services via the core-metadata PATCH devices API. The owning service can ignore this update if it does
-not use the parent property.
+not using the parent property.
 5. Some means provided to answer the question, "What are the child devices (if any) of device x.y.z?".
 6. Some standard means to indicate which devices are "system" devices, ie, those without a physical counterpart.
 
