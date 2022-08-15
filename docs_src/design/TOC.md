@@ -1,11 +1,18 @@
 # Use Cases and Design Records
 
 ## Use Case Records (UCRs)
+
+!!! note 
+    UCRs are listed in alphabetical order by title. New UCRs should be inserted in the proper order.
+
 | Name/Link                                                                 | Short Description                                             |
 |---------------------------------------------------------------------------|---------------------------------------------------------------|
-| [0001 System Events for Devices](./ucr/0001-System-Events-for-Devices.md) | Use Case for System Events for Device add/update/delete |
+| [System Events for Devices](./ucr/System-Events-for-Devices.md) | Use Case for System Events for Device add/update/delete |
 
 ## Architectural Design Records (ADRs)
+
+!!! note
+    ADRs are listed in chronological order. New ADRs should prepend the next sequence number to the title and be added at the bottom list.
 
 | Name/Link                                                    | Short Description                                            |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
