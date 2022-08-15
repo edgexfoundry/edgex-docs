@@ -10,8 +10,7 @@
 | [Extending Device Data](./ucr/Extending-Device-Data.md) | Use Case for Extending of Device Data by Application Services |
 | [Record and Replay](./ucr/Record-and-Replay.md)    | Use Case for Recording and Replaying event/readings     |
 | [System Events for Devices](./ucr/System-Events-for-Devices.md) | Use Case for System Events for Device add/update/delete |
-| [0001 System Events for Devices](./ucr/0001-System-Events-for-Devices.md) | Use Case for System Events for Device add/update/delete |
-| [0005 Record and Replay](./ucr/0005-Record-and-Replay.md)    | Use Case for Recording and Replaying event/readings     |
+| [Record and Replay](./ucr/Record-and-Replay.md)    | Use Case for Recording and Replaying event/readings     |
 
 ## Architectural Design Records (ADRs)
 
