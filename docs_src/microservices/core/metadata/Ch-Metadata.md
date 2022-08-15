@@ -345,6 +345,13 @@ Sequence diagrams for some of the more critical or complex events regarding meta
 
 Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services. Below are only the additional settings and sections that are not common to all EdgeX Services.
 
+!!! edgey - "EdgeX 2.3"
+    **RequireMessageBus** and **MessageQueue** configuration are new in EdgeX 2.3 
+
+=== "General"
+    |Property|Default Value|Description|
+    |---|---|---|
+    |RequireMessageBus|true|Required for backwards compatibility. Will be removed in next major release|
 === "Writable.ProfileChange"
     |Property|Default Value|Description|
     |---|---|---|
@@ -355,6 +362,28 @@ Please refer to the general [Common Configuration documentation](../../configura
     |---|---|---|
     |||Properties used by the service to access the database|
     |Name|'metadata'|Document store or database name|
+=== "MessageQueue"
+    |Property|Default Value|Description|
+    |---|---|---|
+    ||Entries in the MessageQueue section of the configuration allow for publication of  Device System Events to the EdgeX MessageBus |
+    |Protocol | redis| Indicates the connectivity protocol to use when connecting to the bus.|
+    |Host | localhost | Indicates the host of the messaging broker, if applicable.|
+    |Port | 6379| Indicates the port to use when publishing a message.|
+    |Type | redis| Indicates the type of messaging library to use. Currently this is Redis by default. Refer to the [go-mod-messaging](https://github.com/edgexfoundry/go-mod-messaging) module for more information. |
+    |AuthMode | usernamepassword| Auth Mode to connect to EdgeX MessageBus.|
+    |SecretName | redisdb | Name of the secret in the Secret Store to find the MessageBus credentials.|
+    |PublishTopicPrefix | edgex/system-events| Indicates the base topic to which system event messages will be published. /[source]/[type]/[action]/[owner]/[profile] will be added to this Publish Topic prefix|
+=== "MessageQueue.Optional"
+    |Property|Default Value|Description|
+    |---|---|---|
+    ||Configuration and connection parameters for use with MQTT message bus - in place of Redis|
+    |ClientId|'core-data'|Client ID used to put messages on the bus|
+    |Qos|'0'| Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)|
+    |KeepAlive |'10'| Period of time in seconds to keep the connection alive when there is no messages flowing (must be 2 or greater)|
+    |Retained|false|Whether to retain messages|
+    |AutoReconnect |true |Whether to reconnect to the message bus on connection loss|
+    |ConnectTimeout|5|Message bus connection timeout in seconds|
+    |SkipCertVerify|false|TLS configuration - Only used if Cert/Key file or Cert/Key PEMblock are specified|
 === "Notifications"
     |Property|Default Value|Description|
     |---|---|---|
@@ -364,8 +393,6 @@ Please refer to the general [Common Configuration documentation](../../configura
     |Sender|'core-metadata'|Sender of any notification messages sent on device change|
     |Description|'Metadata change notice'|Message description of any notification messages sent on device change|
     |Label|'metadata'|Label to put on messages for any notification messages sent on device change|
-
-
 
 ### V2 Configuration Migration Guide
 
@@ -380,6 +407,47 @@ The `EnableValueDescriptorManagement` setting has been removed
 
     - StrictDeviceProfileChanges
     - StrictDeviceProfileDeletes
+
+## Device System Events
+
+!!! edgey - "Edgex 2.3"
+    Device System Events are new in EdgeX 2.3
+
+Device System Events are events triggered by the add, update or delete of devices. A System Event DTO is published to the EdgeX MessageBus each time a new Device is added, an existing Device is updated or when an existing Device is deleted.
+
+!!! note - "RequireMessageBus configuration setting"
+    In order to retain backward compatibility with configuration from previous 2.x releases, the top level `RequireMessageBus` configuration setting was added. If previous 2.x configuration is used with this new version the newly added `MessageQueue` configuration will be empty and would cause a failure connecting to the EdgeX MessageBus. The `RequireMessageBus` was added, which will be false if not specified and will avoid trying to connect to the EdgeX MessageBus with empty configuration. A warning will be logged each time a Device System Event can not be published due to the service is not being connected to the EdgeX MessageBus.  This will be removed in the next major release.
+
+### System Event DTO
+
+The System Event DTO that is published for the Device System Event has the following properties:
+
+| Property  | Description                                   | Value                                                        |
+| --------- | --------------------------------------------- | ------------------------------------------------------------ |
+| Type      | Type of System Event                          | `device` in this case                                        |
+| Action    | System Event action                           | `add`, `update`, or `delete` in this case                    |
+| Source    | Source of the System Event                    | `core-metadata` in this case                                 |
+| Owner     | Owner of the data in the System Event         | In this case it is the name of the device service that owns the device |
+| Tags      | Key value map of additional data              | empty in this case                                           |
+| Details   | The data object that trigger the System Event | the added, updated, or deleted Device in this case           |
+| Timestamp | Date and time of the System Event             | timestamp                                                    |
+
+### Publish Topic
+
+The System Event DTO for Device System Events is published to the topic specified by the `MessageQueue.PublishTopicPrefix` configuration setting  above, which has a default of `edgex/system-events`, plus the following data items, which are added to allow receivers to filter by subscription.
+
+- source = core-metadata
+- type = device
+- action = add/update/delete
+- owner = [device service name which owns the device]
+- profile = [device profile name associated with the device]
+
+!!! example - "Example Device System Event publish topics"
+    ```
+    edgex/system-events/core-metadata/device/add/device-onvif-camera/onvif-camera
+    edgex/system-events/core-metadata/device/update/device-rest/sample-numeric
+    edgex/system-events/core-metadata/device/delete/device-virtual/Random-Boolean-Device
+    ```
 
 ## API Reference
 
