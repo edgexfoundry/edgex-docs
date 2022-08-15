@@ -7,6 +7,7 @@
 
 | Name/Link                                                                 | Short Description                                             |
 |---------------------------------------------------------------------------|---------------------------------------------------------------|
+| [Device Parent-Child Relationships](./ucr/Device-Parent-Child-Relationships.md) | Use Case for Device Parent-Child Relationships |
 | [Extending Device Data](./ucr/Extending-Device-Data.md) | Use Case for Extending of Device Data by Application Services |
 | [Record and Replay](./ucr/Record-and-Replay.md)    | Use Case for Recording and Replaying event/readings     |
 | [System Events for Devices](./ucr/System-Events-for-Devices.md) | Use Case for System Events for Device add/update/delete |
