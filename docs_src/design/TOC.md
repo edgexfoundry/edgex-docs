@@ -3,7 +3,7 @@
 ## Use Case Records (UCRs)
 
 !!! note 
-    UCRs are listed in alphabetical order by title. New UCRs should be inserted in the proper order.
+    UCRs are listed in alphabetical order by title.
 
 | Name/Link                                                                 | Short Description                                             |
 |---------------------------------------------------------------------------|---------------------------------------------------------------|
@@ -12,7 +12,7 @@
 ## Architectural Design Records (ADRs)
 
 !!! note
-    ADRs are listed in chronological order. New ADRs should prepend the next sequence number to the title and be added at the bottom list.
+    ADRs are listed in chronological order by sequence number in title.
 
 | Name/Link                                                    | Short Description                                            |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
