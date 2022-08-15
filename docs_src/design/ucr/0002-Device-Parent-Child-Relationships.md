@@ -17,8 +17,8 @@ and provide their data to north-bound services.
 It is frequently important to north-bound services to establish the parent-child relationships
 of the devices found in an EdgeX system. 
 This information is generally used for either protocol data constructs or for display purposes.
-If not know or provided by the south-bound Device Service, this information might be added 
-to the Device metadata by the north-bound or analytic services, or by the user.
+If not known or provided by the south-bound Device Service, this information might be added 
+to the Device metadata by the north-bound or analytics services, or by the user.
 
 It is desirable that the means of conveying this information become standardized for those systems
 which provide and use it, hence proposing here that there be a common definition and usage of this metadata.
