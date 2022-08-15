@@ -37,7 +37,7 @@ Some north-bound protocols and some UI designs present the system devices in a h
 where it is necessary to know which devices are parents and which are their children.
 
 These considerations are most important for gateways that are implemented with the EdgeX framework,
-since there are potentially very many south-bound devices connected to a system.
+since there are potentially many south-bound devices connected to a system.
 
 Examples are
 * BACnet - where only one "main" device is present at the point of external connection (eg, UDP port 0xBAC0) and all other devices must be presented as "virtually routed devices" connected to that main "virtual router" device.
