@@ -49,7 +49,7 @@ Since there are multiple similar uses for this relationship information on the n
 this relationship metadata in the Device object as accessed from core-metadata by all services, rather than to 
 locate it in each north-bound service (which would be particularly problematic for the UI, which gets its data through REST APIs).
 
-The sound-bound Device Service that creates a Device is ideally the service which establishes this relationship data, though it is possible that it is unaware of the parent-child relationship. It should be permitted, therefore, for this relationship information to also be set by north-bound services (most likely the UI) and simply ignored by the south-bound Device Service.
+The south-bound Device Service that creates a Device is ideally the service which establishes this relationship data, though it is possible that it is unaware of the parent-child relationship. It should be permitted, therefore, for this relationship information to also be set by north-bound services (most likely the UI) and simply ignored by the south-bound Device Service.
 
 It is also necessary to indicate which device is the "main" or "publisher" device (ie, the gateway device), 
 as any devices without a configured relationship can be inferred to be children of that device.
