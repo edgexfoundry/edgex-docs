@@ -178,7 +178,7 @@ Similarly, a service can be stopped and optionally disabled using `snap stop --d
     * `security-secret-store`
     * `security-proxy`
 
-    Device and app service snaps provide a similar functionality using the `auto-start` option.
+    Device and app service snaps provide a similar functionality using the `autostart` option.
 
     This is particularly useful when seeding the snap from a [Gadget](https://snapcraft.io/docs/gadget-snap) on an [Ubuntu Core](https://ubuntu.com/core) system.
 
