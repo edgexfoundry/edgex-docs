@@ -225,6 +225,12 @@ The above command forwards the SSH port `22` of the emulator to `8022` on the ho
 
 As mentioned before, once the initial installation is complete, you will get a prompt for your email address to deploy your public key.
 
+!!! tip
+    The `pc.img` file passed to the emulator persists any changes made to the OS and user files after startup.
+    You can stop and re-start the emulator at a later time without losing your changes.
+
+    To do a fresh start, your need to rebuild the image.
+
 ### Connect, explore, configure
 
 In this step, we connect to the machine that has the image installed via SSH, validate the installation, and do some manual configurations.
