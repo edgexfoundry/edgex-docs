@@ -1,6 +1,6 @@
 # Creating an EdgeX OS Image
 
-This document walks you through creating an OS image that is preloaded with an EdgeX stack. We use Ubuntu Core as the OS, which is optimized for IoT and allows secure deployment of applications. We build the image using the default tooling and the snapped versions of EdgeX components. Since snaps receive automatic and transactional updates, the components stay up to date reliably with the latest security and bug fixes.
+This document walks you through creating an OS image that is preloaded with an EdgeX stack. We use [Ubuntu Core] as the OS, which is optimized for IoT and allows secure deployment of applications. We build the image using the default tooling and the snapped versions of EdgeX components. Since snaps receive automatic and transactional updates, the components stay up to date reliably with the latest security and bug fixes.
 
 This guide is divided into three chapters:
 
@@ -14,7 +14,7 @@ In this example, we will use the Device Virtual service to simulate devices and 
 
 We will use the following tools:
 
-- [snapcraft](https://snapcraft.io/ubuntu-image) to manage keys in the store and build snaps
+- [snapcraft](https://snapcraft.io/snapcraft) to manage keys in the store and build snaps
 - [YQ](https://snapcraft.io/yq) to validate YAML files and convert them to JSON
 - [ubuntu-image](https://snapcraft.io/ubuntu-image) to build the Ubuntu Core image
 - [EdgeX CLI](https://snapcraft.io/edgex-cli) to query information from EdgeX core components 
@@ -32,7 +32,7 @@ In this chapter, we are going to create OS image that includes the expected Edge
 ### Configure the Ubuntu Core volumes
 Configuring the volumes is possible via a Gadget snap.
 
-We will wse the [pc-amd64-gadget](https://github.com/snapcore/pc-amd64-gadget) as basis and build on top of it.
+We will use the [pc-amd64-gadget](https://github.com/snapcore/pc-amd64-gadget) as basis and build on top of it.
 
 !!! tip
     For a Raspberry Pi, you need to use the [pi-gadget](https://github.com/snapcore/pi-gadget) instead.
@@ -59,13 +59,14 @@ The model assertion is a document that describes the contents of the OS image. T
 Refer to [this article](https://ubuntu.com/core/docs/custom-images#heading--signing) for details on how to sign the model assertion.
 
 1. Create and register a key if you don't already have one:
+
 ```bash
 snap login
 snap keys
 # continue if you have no existing keys
 # you'll be asked to set a passphrase which is needed before signing
 snap create-key edgex-demo
-snapcraft register-key
+snapcraft register-key edgex-demo
 ```
 We now have a registered key named `edgex-demo` which we'll use later.
 
@@ -79,7 +80,7 @@ $ snapcraft whoami
 ...
 developer-id: SZ4OfFv8DVM9om64iYrgojDLgbzI0eiL
 ```
-Or from https://dashboard.snapcraft.io.
+Or from https://dashboard.snapcraft.io/dev/account/.
 
 Unlike the official documentation which uses JSON, we use YAML serialization for the model. This is for consistency with all the other serialization formats in this tutorial. Moreover, it allows us to comment out some parts for testing or add comments to describe the details inline.
 
@@ -142,6 +143,7 @@ snaps:
 ```
 
 3. Sign the model
+
 We sign the model using the `edgex-demo` key created and registered earlier. 
 
 The snap sign command takes JSON as input and produces YAML as output! We use the YQ app to convert our model assertion to JSON before passing it in for signing.
@@ -309,12 +311,6 @@ This shows that the virtual devices have been added to Core Metadata and the ser
 
 ```
 $ edgex-cli device list
-2022/08/11 10:37:54.138089 cmd_run.go:1035: DEBUG: executing snap-confine from /snap/snapd/16292/usr/lib/snapd/snap-confine
-2022/08/11 10:37:54.139592 cmd_run.go:438: DEBUG: SELinux not enabled
-2022/08/11 10:37:54.139664 tracking.go:46: DEBUG: creating transient scope snap.edgex-cli.edgex-cli
-2022/08/11 10:37:54.140333 tracking.go:186: DEBUG: using session bus
-2022/08/11 10:37:54.142103 tracking.go:319: DEBUG: create transient scope job: /org/freedesktop/systemd1/job/32
-2022/08/11 10:37:54.143320 tracking.go:146: DEBUG: waited 2.934216ms for tracking
 Name                           Description                ServiceName     ProfileName                    Labels                    AutoEvents
 Random-Float-Device            Example of Device Virtual  device-virtual  Random-Float-Device            [device-virtual-example]  [{30s false Float32} {30s false Float64}]
 Random-Integer-Device          Example of Device Virtual  device-virtual  Random-Integer-Device          [device-virtual-example]  [{15s false Int8} {15s false Int16} {15s false Int32} {15s false Int64}]
@@ -353,6 +349,7 @@ It is possible to configure the services to listen to other or all interfaces an
 
 To make Core Data's server listen to all interfaces (at your own risk):
 ```
+$ snap set edgexfoundry app-options=true
 $ snap set edgexfoundry apps.core-data.config.service-serverbindaddr="0.0.0.0"
 $ snap restart edgexfoundry.core-data
 Restarted
@@ -617,8 +614,11 @@ The response is similar to if query was sent directly to Core Data (http://local
 - [Getting Started using Snaps](https://docs.edgexfoundry.org/2.2/getting-started/Ch-GettingStartedSnapUsers)
 - [EdgeX Core Data](https://docs.edgexfoundry.org/2.2/microservices/core/data/Ch-CoreData/)
 - [Gadget snaps](https://snapcraft.io/docs/gadget-snap)
-- [Ubuntu Core](https://ubuntu.com/core)
+- [Ubuntu Core]
 - [Testing Ubuntu Core with QEMU](https://ubuntu.com/core/docs/testing-with-qemu)
 - [Ubuntu Core - Image building](https://ubuntu.com/core/docs/image-building#heading--testing)
 - [Ubuntu Core - Custom images](https://ubuntu.com/core/docs/custom-images)
 - [Ubuntu Core - Building a gadget snap](https://ubuntu.com/core/docs/gadget-building)
+
+
+[Ubuntu Core]: https://ubuntu.com/core
