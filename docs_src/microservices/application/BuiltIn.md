@@ -13,11 +13,11 @@ All pipeline functions define a type and a factory function which is used to ini
 
 Included in the SDK is an in-memory batch function that will hold on to your data before continuing the pipeline. There are three functions provided for batching each with their own strategy.
 
-| Factory Method | Description |
-| -------------- | ----------- |
-|NewBatchByTime(timeInterval string) | This function returns a `BatchConfig` instance with time being the strategy that is used for determining when to release the batched data and continue the pipeline. `timeInterval` is the duration to wait (i.e. `10s`). The time begins after the first piece of data is received. If no data has been received no data will be sent forward. 
-| NewBatchByCount(batchThreshold int) | This function returns a `BatchConfig` instance with count being the strategy that is used for determining when to release the batched data and continue the pipeline. `batchThreshold` is how many events to hold on to (i.e. `25`). The count begins after the first piece of data is received and once the threshold is met, the batched data will continue forward and the counter will be reset.
-| NewBatchByTimeAndCount(timeInterval string, batchThreshold int) | This function returns a `BatchConfig` instance with a combination of both time and count being the strategy that is used for determining when to release the batched data and continue the pipeline. Whichever occurs first will trigger the data to continue and be reset.
+| Factory Method                                                  | Description                                                                                                                                                                                                                                                                                                                                                                                          |
+|-----------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| NewBatchByTime(timeInterval string)                             | This function returns a `BatchConfig` instance with time being the strategy that is used for determining when to release the batched data and continue the pipeline. `timeInterval` is the duration to wait (i.e. `10s`). The time begins after the first piece of data is received. If no data has been received no data will be sent forward.                                                      |
+| NewBatchByCount(batchThreshold int)                             | This function returns a `BatchConfig` instance with count being the strategy that is used for determining when to release the batched data and continue the pipeline. `batchThreshold` is how many events to hold on to (i.e. `25`). The count begins after the first piece of data is received and once the threshold is met, the batched data will continue forward and the counter will be reset. |
+| NewBatchByTimeAndCount(timeInterval string, batchThreshold int) | This function returns a `BatchConfig` instance with a combination of both time and count being the strategy that is used for determining when to release the batched data and continue the pipeline. Whichever occurs first will trigger the data to continue and be reset.                                                                                                                          |
 
 !!! example "Examples"
     ```go
@@ -26,10 +26,10 @@ Included in the SDK is an in-memory batch function that will hold on to your dat
     NewBatchByTimeAndCount("30s", 10).Batch
     ```
 
-| Property    | Description                                                  |
-| ----------- | ------------------------------------------------------------ |
+| Property    | Description                                                                                                                                                                    |
+|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | IsEventData | The `IsEventData` flag, when true, lets this function know that the data being batched is `Events` and to un-marshal the data a `[]Event` prior to returning the batched data. |
-| MergeOnSend | The `MergeOnSend` flag, when true, will merge the `[][]byte` data to a single`[]byte` prior to sending the data to the next function in the pipeline. |
+| MergeOnSend | The `MergeOnSend` flag, when true, will merge the `[][]byte` data to a single`[]byte` prior to sending the data to the next function in the pipeline.                          |
 
 !!! edgey "Edgex 2.1"
     New for EdgeX 2.1 is the `IsEventData` flag on the `BatchConfig` instance. 
@@ -63,8 +63,8 @@ Included in the SDK is an in-memory batch function that will hold on to your dat
 
 There are two compression types included in the SDK that can be added to your pipeline. These transforms return a `[]byte`.
 
-| Factory Method   | Description                                                  |
-| ---------------- | ------------------------------------------------------------ |
+| Factory Method   | Description                                                                                              |
+|------------------|----------------------------------------------------------------------------------------------------------|
 | NewCompression() | This factory function returns a `Compression` instance that is used to access the compression functions. |
 
 ### GZIP
@@ -89,8 +89,8 @@ There are two compression types included in the SDK that can be added to your pi
 
 There are two conversions included in the SDK that can be added to your pipeline. These transforms return a `string`.
 
-| Factory Method  | Description                                                  |
-| --------------- | ------------------------------------------------------------ |
+| Factory Method  | Description                                                                                            |
+|-----------------|--------------------------------------------------------------------------------------------------------|
 | NewConversion() | This factory function returns a `Conversion` instance that is used to access the conversion functions. |
 
 ### JSON
@@ -115,11 +115,11 @@ There are two conversions included in the SDK that can be added to your pipeline
 
 There is one Core Data function that enables interactions with the Core Data REST API
 
-| Factory Method                                               | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| NewCoreDataSimpleReading(profileName string, deviceName string, resourceName string, valueType string) | This factory function returns a `CoreData` instance configured to push a `Simple` reading. The`CoreData` instance returned  is used to access core data functions. |
+| Factory Method                                                                                         | Description                                                                                                                                                         |
+|--------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| NewCoreDataSimpleReading(profileName string, deviceName string, resourceName string, valueType string) | This factory function returns a `CoreData` instance configured to push a `Simple` reading. The`CoreData` instance returned  is used to access core data functions.  |
 | NewCoreDataBinaryReading(profileName string, deviceName string, resourceName string, mediaType string) | This factory function returns a `CoreData` instance configured to push a `Binary` reading. The `CoreData` instance returned  is used to access core data functions. |
-| NewCoreDataObejctReading(profileName string, deviceName string, resourceName string) | This factory function returns a `CoreData` instance configured to push an `Object` reading. The `CoreData` instance returned is used to access core data functions. |
+| NewCoreDataObjectReading(profileName string, deviceName string, resourceName string)                   | This factory function returns a `CoreData` instance configured to push an `Object` reading. The `CoreData` instance returned is used to access core data functions. |
 
 !!! edgey "EdgeX 2.0"
     For EdgeX 2.0 the `NewCoreData` factory function has been replaced with the `NewCoreDataSimpleReading` and `NewCoreDataBinaryReading` functions 
@@ -143,11 +143,11 @@ This enables the ability to wrap data into an Event/Reading
 !!! edgey "EdgeX 2.3" 
     The `EventWrapper` and its pipeline function `WrapIntoEvent` are new for EdgeX 2.3
 
-| Factory Method                                               | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| NewEventWrapperSimpleReading(profileName string, deviceName string, resourceName string, valueType string) | This factory function returns an `EventWrapper` instance configured to push a `Simple` reading. The`EventWrapper` instance returned  is used to access core data functions. |
+| Factory Method                                                                                             | Description                                                                                                                                                                  |
+|------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| NewEventWrapperSimpleReading(profileName string, deviceName string, resourceName string, valueType string) | This factory function returns an `EventWrapper` instance configured to push a `Simple` reading. The`EventWrapper` instance returned  is used to access core data functions.  |
 | NewEventWrapperBinaryReading(profileName string, deviceName string, resourceName string, mediaType string) | This factory function returns an `EventWrapper` instance configured to push a `Binary` reading. The `EventWrapper` instance returned  is used to access core data functions. |
-| NewEventWrapperObejctReading(profileName string, deviceName string, resourceName string) | This factory function returns an `EventWrapper` instance configured to push an `Object` reading. The `EventWrapper` instance returned is used to access core data functions. |
+| NewEventWrapperObjectReading(profileName string, deviceName string, resourceName string)                   | This factory function returns an `EventWrapper` instance configured to push an `Object` reading. The `EventWrapper` instance returned is used to access core data functions. |
 
 
 ### Wrap Into Event
@@ -170,9 +170,9 @@ There are two transforms included in the SDK that can be added to your pipeline 
     This is deprecated in EdgeX 2.1 - it is recommended to use the new `AESProtection` transform.  Please see [this security advisory](https://github.com/edgexfoundry/app-functions-sdk-go/security/advisories/GHSA-6c7m-qwxj-mvhp) for more detail.
 
 
-| Factory Method                                               | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| NewEncryption(key string, initializationVector string)       | This function returns a `Encryption` instance initialized with the passed in `key` and `initialization vector`. This `Encryption` instance is used to access the following encryption function that will use the specified `key` and `initialization vector`. |
+| Factory Method                                                                              | Description                                                                                                                                                                                                                                                                                                                                                                                                                   |
+|---------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| NewEncryption(key string, initializationVector string)                                      | This function returns a `Encryption` instance initialized with the passed in `key` and `initialization vector`. This `Encryption` instance is used to access the following encryption function that will use the specified `key` and `initialization vector`.                                                                                                                                                                 |
 | NewEncryptionWithSecrets(secretPath string, secretName string, initializationVector string) | This function returns a `Encryption` instance initialized with the passed in `secret path`, `Secret name` and `initialization vector`. This `Encryption` instance is used to access the following encryption function that will use the encryption key from the Secret Store and the passed in `initialization vector`. It uses the passed in`secret path` and `secret name` to pull the encryption key from the Secret Store |
 
 !!! edgey "EdgeX 2.0"
@@ -193,19 +193,19 @@ There are two transforms included in the SDK that can be added to your pipeline 
 ### AESProtection
 
 !!! edgey "Edgex 2.1"
-    This transform provides AES 256 encryption with a random initialization vector and authentication using a SHA 512 hash.  It can only be configured using secrets.
+    This transform provides AES 256 encryption with a random initialization vector and authentication using a SHA 512 hash in an "encrypt then MAC" scheme (see [here](https://datatracker.ietf.org/doc/html/draft-mcgrew-aead-aes-cbc-hmac-sha2-02) for more details).  It can only be configured using secrets.
 
-| Factory Method                                               | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| NewAESProtection(secretPath string, secretName string)    | This function returns a `Encryption` instance initialized with the passed in `secretPath` and `secretName`|
+| Factory Method                                         | Description                                                                                                |
+|--------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
+| NewAESProtection(secretPath string, secretName string) | This function returns a `Encryption` instance initialized with the passed in `secretPath` and `secretName` |
 
 It requires a 64-byte key from secrets which is split in half, the first half used for encryption, the second for generating the signature.
 
 `Encrypt`: This pipeline function receives either a `string`, `[]byte`, or `json.Marshaller` type and encrypts it using AES256 encryption, signs it with a SHA512 hash and returns a `[]byte` to the pipeline of the following form:
         
-| initialization vector | ciphertext | signing hash |
-| ---------- | ---------- | ---- |
-| 16 bytes   | variable bytes | 32 bytes |
+| initialization vector | ciphertext     | signing hash |
+|-----------------------|----------------|--------------|
+| 16 bytes              | variable bytes | 32 bytes     |
 
 !!! example    
 ```go
@@ -214,6 +214,59 @@ It requires a 64-byte key from secrets which is split in half, the first half us
 
 !!! note
 The `Algorithm` used with app-service-configurable configuration to access this transform is `AES256`
+
+Reading data protected with this function is a multi step process:
+
+- base64 decode (for languages other than go - example code assumes hex encoding)
+- extract hash from payload (last 32 bytes)
+- validate hash - if this step fails decryption should not be attempted
+- decrypt ciphertext + remove padding
+
+!!! example "Signing Hash Validation"
+```python
+def hash(cipher_hex, key):
+    # Extract the 32 bytes of the Hash signature from the end of the cipher_hex
+    extract_hash = cipher_hex[-64:]
+
+    # last 32 bytes of the 64 byte key used by the encrypt function (2 hex digits per byte)
+    private_key = key[-64:]
+    # IV & ciphertext
+    content = cipher_hex[:-64]
+
+    hash_text = hmac.new(key=bytes.fromhex(private_key), msg=(bytes.fromhex(content) + bytearray(8)), digestmod='SHA512')
+
+    # Calculated tag is only the the first 32 bytes of the resulting SHA512
+    calculated_hash = hash_text.hexdigest()[:64]
+
+    if extract_hash == calculated_hash:
+        return "true"
+    else:
+        return "false", extract_hash, calculated_hash
+```
+
+If the signing hash can be validated, the message is OK to decrypt
+
+!!! example "Payload Decryption"
+```python
+def decrypt(cipher_hex, key):
+    # first 32 bytes of the 64 byte key used by the encrypt function (2 hex digits per byte)
+    private_key = bytes.fromhex(key[:64])
+
+    # Extract the cipher text (remaining bytes in the middle)
+    cipher_text = cipher_hex[32:]
+    cipher_text = bytes.fromhex(cipher_text[:-64])
+
+    # Extract the 16 bytes of initial vector from the beginning of the data
+    iv = bytes.fromhex(cipher_hex[:32])
+
+    # Decrypt
+    cipher = AES.new(private_key, AES.MODE_CBC, iv)
+
+    plain_pad = cipher.decrypt(cipher_text)
+    unpadded = Padding.unpad(plain_pad, AES.block_size)
+
+    return unpadded.decode('utf-8')
+```
 
 ## Export
 
@@ -224,11 +277,11 @@ There are two export functions included in the SDK that can be added to your pip
 !!! edgey "EdgeX 2.0"
     For EdgeX 2.0 the signature of the `NewHTTPSenderWithSecretHeader` factory function has changed. See below for details.
 
-| Factory Method                                               | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| NewHTTPSender(url string, mimeType string, persistOnError bool) | This factory function returns a `HTTPSender` instance initialized with the passed in url, mime type and persistOnError values. |
+| Factory Method                                                                                                                           | Description                                                                                                                                                                                                                                                                                          |
+|------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| NewHTTPSender(url string, mimeType string, persistOnError bool)                                                                          | This factory function returns a `HTTPSender` instance initialized with the passed in url, mime type and persistOnError values.                                                                                                                                                                       |
 | NewHTTPSenderWithSecretHeader(url string, mimeType string, persistOnError bool, headerName string, secretPath string, secretName string) | This factory function returns a `HTTPSender` instance similar to the above function however will set up the `HTTPSender` to add a header  to the HTTP request using the `headerName ` for the field name and the `secretPath` and `secretName` to pull the header field value from the Secret Store. |
-| NewHTTPSenderWithOptions(options HTTPSenderOptions)          | This factory function returns a `HTTPSender`using the passed in `options` to configure it. |
+| NewHTTPSenderWithOptions(options HTTPSenderOptions)                                                                                      | This factory function returns a `HTTPSender`using the passed in `options` to configure it.                                                                                                                                                                                                           |
 
 !!! edgey "EdgeX 2.0"
     New in EdgeX 2.0 is the ability to chain multiple instances of the HTTP exports to accomplish exporting to multiple destinations. The new `NewHTTPSenderWithOptions` factory function was added to allow for configuring all the options, including the new `ContinueOnSendError` and `ReturnInputData` options that enable this chaining. 
@@ -298,9 +351,9 @@ The `URLFormatter` option allows you to override the default formatter with your
 !!! edgey "EdgeX 2.0"
     New for EdgeX 2.0 is the the new `NewMQTTSecretSenderWithTopicFormatter` factory function. The deprecated `NewMQTTSender` factory function has been removed.
 
-| Factory Method                                               | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| NewMQTTSecretSender(mqttConfig MQTTSecretConfig, persistOnError bool) | This factory function returns a `MQTTSecretSender` instance initialized with the options specified in the `MQTTSecretConfig` and `persistOnError `. |
+| Factory Method                                                                                                                | Description                                                                                                                                                                                                                              |
+|-------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| NewMQTTSecretSender(mqttConfig MQTTSecretConfig, persistOnError bool)                                                         | This factory function returns a `MQTTSecretSender` instance initialized with the options specified in the `MQTTSecretConfig` and `persistOnError `.                                                                                      |
 | NewMQTTSecretSenderWithTopicFormatter(mqttConfig MQTTSecretConfig, persistOnError bool, topicFormatter StringValuesFormatter) | This factory function returns a `MQTTSecretSender` instance initialized with the options specified in the `MQTTSecretConfig`, `persistOnError ` and `topicFormatter `. See [Topic Formatting](#topic-formatting) below for more details. |
 
 !!! edgey "EdgeX 2.0"
@@ -359,11 +412,10 @@ The `topicFormatter` option allows you to override the default formatter with yo
 
 There are four basic types of filtering included in the SDK to add to your pipeline. There is also an option to `Filter Out` specific items. These provided filter functions return a type of `dtos.Event`. If filtering results in no remaining data, the pipeline execution for that pass is terminated. If no values are provided for filtering, then data flows through unfiltered.
 
-| Factory Method                   | Description |
-|----------------------------------|-------------|
+| Factory Method                      | Description                                                                                                                                                                                                                                                  |
+|-------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | NewFilterFor([]string filterValues) | This factory function returns a `Filter` instance initialized with the passed in filter values with `FilterOut` set to `false`. This `Filter` instance is used to access the following filter functions that will operate using the specified filter values. |
-| NewFilterOut([]string filterValues) | This factory function returns a `Filter` instance initialized with the passed in filter values with `FilterOut` set to `true`. This `Filter` instance is used to access the following filter functions that will operate using the specified filter values. |
-
+| NewFilterOut([]string filterValues) | This factory function returns a `Filter` instance initialized with the passed in filter values with `FilterOut` set to `true`. This `Filter` instance is used to access the following filter functions that will operate using the specified filter values.  |
 
 
 !!! edgey "EdgeX 2.0" 
@@ -425,8 +477,8 @@ type Filter struct {
 
 
 ## JSON Logic
-| Factory Method                   | Description |
-|----------------------------------|-------------|
+| Factory Method            | Description                                                                                                                                                                                                           |
+|---------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | NewJSONLogic(rule string) | This factory function returns a `JSONLogic` instance initialized with the passed in JSON rule. The rule passed in should be a JSON string conforming to the specification here: http://jsonlogic.com/operations.html. |
 
 ### Evaluate
@@ -449,8 +501,8 @@ type Filter struct {
 
 There is one response data function included in the SDK that can be added to your pipeline. 
 
-| Factory Method    | Description                                                  |
-| ----------------- | ------------------------------------------------------------ |
+| Factory Method    | Description                                                                                                           |
+|-------------------|-----------------------------------------------------------------------------------------------------------------------|
 | NewResponseData() | This factory function returns a `ResponseData` instance that is used to access the following pipeline function below. |
 
 ### Content Type
@@ -474,9 +526,9 @@ There is one response data function included in the SDK that can be added to you
 
 There is one Tags transform included in the SDK that can be added to your pipeline. 
 
-| Factory Method                                     | Description                                                  |
-| -------------------------------------------------- | ------------------------------------------------------------ |
-| NewGenericTags(tags `map[string]interface{}`) Tags | This factory function returns a `Tags` instance initialized with the passed in collection of generic tag key/value pairs. This `Tags` instance is used to access the following Tags function that will use the specified collection of tag key/value pairs. This allows for generic complex types for the Tag values. |
+| Factory Method                                     | Description                                                                                                                                                                                                                                                                                                                     |
+|----------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| NewGenericTags(tags `map[string]interface{}`) Tags | This factory function returns a `Tags` instance initialized with the passed in collection of generic tag key/value pairs. This `Tags` instance is used to access the following Tags function that will use the specified collection of tag key/value pairs. This allows for generic complex types for the Tag values.           |
 | NewTags(tags `map[string]string`) Tags             | This factory function returns a `Tags` instance initialized with the passed in collection of tag key/value pairs. This `Tags` instance is used to access the following Tags function that will use the specified collection of tag key/value pairs. **This factor function has been Deprecated. Use `NewGenericTags` instead**. |
 
 !!! edgey "EdgeX 2.1"
@@ -508,8 +560,8 @@ There is one Tags transform included in the SDK that can be added to your pipeli
 
 `MetricsProcessor` contains configuration and functions for processing the new `dtos.Metrics` type. 
 
-| Factory Method                                               | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Factory Method                                                                        | Description                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+|---------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | NewMetricsProcessor(additionalTags map[string]interface{}) (*MetricsProcessor, error) | This factory function returns a ``MetricsProcessor` instance initialized with the passed in collection of `additionalTags` (name/value pairs). This `MetricsProcessor` instance is used to access the following functions that will process a dtos.Metric instance. The `additionalTags` are added as metric tags to the processed data. An error will be returned if any of the `additionalTags` have an invalid name. Currently must be non-blank. |
 
 ### ToLineProtocol
