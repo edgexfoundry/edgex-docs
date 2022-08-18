@@ -4238,15 +4238,14 @@ If the <code>units</code> value does not match any one of the configuration unit
 <p>The <code>units</code> field on a profile is and shall remain optional.  If the <code>units</code> field is not specified in the device profile, then it is assumed that the device resource does not have well-defined units of measure.  In other words, core metadata will not fail a profile with no <code>units</code> field specified on a device resource.</p>
 </div>
 <h3 id="sample-toml-unit-of-measure-configuration">Sample TOML unit of measure configuration</h3>
-<div class="highlight"><pre><span></span><code><span class="k">[Uom]</span><span class="w"></span>
-<span class="n">Source</span><span class="o">=</span><span class="s">&quot;reference to source for all UoM if not specified below&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="k">[Uom.Units]</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Uom.Units.temperature]</span><span class="w"></span>
-<span class="w">    </span><span class="n">Source</span><span class="o">=</span><span class="s">&quot;www.weather.com&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">Values</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;C&quot;</span><span class="p">,</span><span class="s">&quot;F&quot;</span><span class="p">,</span><span class="s">&quot;K&quot;</span><span class="p">]</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Uom.Units.weights]</span><span class="w"></span>
-<span class="w">    </span><span class="n">Source</span><span class="o">=</span><span class="s">&quot;www.usa.gov/federal-agencies/weights-and-measures-division&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">Values</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;lbs&quot;</span><span class="p">,</span><span class="s">&quot;ounces&quot;</span><span class="p">,</span><span class="s">&quot;kilos&quot;</span><span class="p">,</span><span class="s">&quot;grams&quot;</span><span class="p">]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">Source</span><span class="o">=</span><span class="s">&quot;reference to source for all UoM if not specified below&quot;</span><span class="w"></span>
+<span class="k">[Units]</span><span class="w"></span>
+<span class="w">  </span><span class="k">[Units.temperature]</span><span class="w"></span>
+<span class="w">  </span><span class="n">Source</span><span class="o">=</span><span class="s">&quot;www.weather.com&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="n">Values</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;C&quot;</span><span class="p">,</span><span class="s">&quot;F&quot;</span><span class="p">,</span><span class="s">&quot;K&quot;</span><span class="p">]</span><span class="w"></span>
+<span class="w">  </span><span class="k">[Units.weights]</span><span class="w"></span>
+<span class="w">  </span><span class="n">Source</span><span class="o">=</span><span class="s">&quot;www.usa.gov/federal-agencies/weights-and-measures-division&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="n">Values</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;lbs&quot;</span><span class="p">,</span><span class="s">&quot;ounces&quot;</span><span class="p">,</span><span class="s">&quot;kilos&quot;</span><span class="p">,</span><span class="s">&quot;grams&quot;</span><span class="p">]</span><span class="w"></span>
 </code></pre></div>
 <h2 id="api-reference">API Reference</h2>
 <p><a href="../../../../api/core/Ch-APICoreMetadata/">Core Metadata API Reference</a></p>
