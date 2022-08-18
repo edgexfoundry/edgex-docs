@@ -474,15 +474,14 @@ If the `units` value does not match any one of the configuration units of measur
 ### Sample TOML unit of measure configuration
 
 ```toml
-[Uom]
 Source="reference to source for all UoM if not specified below"
-  [Uom.Units]
-    [Uom.Units.temperature]
-    Source="www.weather.com"
-    Values=["C","F","K"]
-    [Uom.Units.weights]
-    Source="www.usa.gov/federal-agencies/weights-and-measures-division"
-    Values=["lbs","ounces","kilos","grams"]
+[Units]
+  [Units.temperature]
+  Source="www.weather.com"
+  Values=["C","F","K"]
+  [Units.weights]
+  Source="www.usa.gov/federal-agencies/weights-and-measures-division"
+  Values=["lbs","ounces","kilos","grams"]
 ```
 
 ## API Reference
