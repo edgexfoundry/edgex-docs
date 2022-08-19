@@ -778,6 +778,40 @@ Boot into the OS by
     $ 2022-08-19T14:42:24Z edgex-device-virtual.device-virtual[5402]: level=INFO ts=2022-08-19T14:42:24.438798115Z app=device-virtual source=message.go:55 msg="Configuration from config provider"
     ```
 
+Now, query the metadata of Device Virtual from your host machine. 
+We have to use the same JWT created in chapter B.
+```bash
+curl --insecure --silent --show-err https://localhost:8443/core-data/api/v2/reading/all?limit=2 -H "Authorization: Bearer $(cat admin-jwt.txt)" | jq
+```
+```json title="Response"
+{
+  "apiVersion": "v2",
+  "statusCode": 200,
+  "totalCount": 133,
+  "readings": [
+    {
+      "id": "f6a53b5c-045f-4913-ae45-4e32642f6102",
+      "origin": 1660923144514370300,
+      "deviceName": "Random-Float-Device",
+      "resourceName": "Float64",
+      "profileName": "Random-Float-Device",
+      "valueType": "Float64",
+      "value": "1.436784e+308"
+    },
+    {
+      "id": "95b5aa9c-e80d-488c-ab5d-1b625a9d0f76",
+      "origin": 1660923114513963300,
+      "deviceName": "Random-Float-Device",
+      "resourceName": "Float64",
+      "profileName": "Random-Float-Device",
+      "valueType": "Float64",
+      "value": "7.737701e+307"
+    }
+  ]
+}
+```
+
+
 ## References
 - [Getting Started using Snaps](https://docs.edgexfoundry.org/2.2/getting-started/Ch-GettingStartedSnapUsers)
 - [EdgeX Core Data](https://docs.edgexfoundry.org/2.2/microservices/core/data/Ch-CoreData/)
