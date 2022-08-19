@@ -626,11 +626,141 @@ The response is similar to if query was sent directly to Core Data (http://local
 
     Refer [here](../../getting-started/Ch-GettingStartedSnapUsers/#changing-tls-certificates) to learn how you can replace the certificate with one that your system trusts.
 
+In this chapter, we created an OS image which comes with EdgeX components that are automatically started and configured to securely receive external requests. 
+We can extend the server configurations by setting other defaults in the gadget.
+This is sufficient in most scenarios and allows creating an image that is configured and ready for production.
+
+The server configuration is made possible via a combination of snap options and environment variable overrides implemented for EdgeX services. There are two situations in which we need to override entire configuration files instead of fields one by one:
+
+1. When we have to easily override many configuration fields: it is very cumbersome to override many configuration fields one by one.
+2. When we need to add or change device, profile, and provision watcher configurations.
+
+For the above cases, we need to supply whole configuration files to applications.
+In the next chapter, we walk through creating a Snap package with our custom configuration files. The package will become part of the OS image and supply necessary configurations to all other EdgeX applications.
+
 ## C. Replace default service configurations
-!!! todo
-    Create a config provider to replace Device Virtual configuration (server, device, profile)
+
+This chapter builds on top of what we did previously and shows how to override entire configuration files with a packaged copy, prepared for an specific use case.
+
+### Create a config provider for Device Virtual
+The EdgeX Device Virtual service cannot be fully configured using environment variables / snap options. Because of that, we need to package the modified config files and replace the defaults.
+Moreover, it is tedious to override many configurations one by one, compared to having a file which contains all the needed modifications.
+
+Since we want to create an OS image pre-loaded with the configured system, we need to make sure the configurations are there without any manual user interaction. We do that by creating a snap which provides the configuration files to the Device Virtual snap:
+- configuration.toml
+- devices
+- profiles
+
+For this exercise, we will modify the default configurations and remove most default devices and resources. We will also replace the startup message set in the `configuration.toml` file.
+
+This snap should be build and uploaded to the store. We use `edgex-config-provider-example` as the snap name. Refer to [docs](https://docs.edgexfoundry.org/2.2/getting-started/Ch-GettingStartedSnapUsers/#config-provider-snap) for more details and example source code.
+
+Build:
+```
+$ snapcraft
+...
+Snapped edgex-config-provider-example_2.3_amd64.snap
+```
+
+This will build for your host architecture, so if your machine is `arm64`, it will result in a snap that has the same architecture. You can perform [remote builds](https://snapcraft.io/docs/remote-build) to build for other architectures.
+
+Let's upload the `amd64` snap and release it to the `latest/edge` channel:
+```
+snapcraft upload --release=latest/edge ./edgex-config-provider-example_2.3_amd64.snap
+```
+
+Now, we can query the snap ID from the store:
+```
+$ snap info edgex-config-provider-example | grep snap-id
+snap-id: WWPGZGi1bImphPwrRfw46aP7YMyZYl6w
+```
+We need it in the next step.
 
 
+### Add the config provider to the image
+
+We have to make three adaptations:
+
+1) Add the config provider to the model assertion
+
+```yaml title="model.yaml"
+# This snap contains our configuration files
+- name: edgex-config-provider-example
+  type: app
+  default-channel: latest/edge
+  id: WWPGZGi1bImphPwrRfw46aP7YMyZYl6w
+```
+
+Sign the model as [before](#sign-the-model):
+```bash
+yq eval model.yaml -o=json | snap sign -k edgex-demo > model.signed.yaml
+```
+
+2) Remove config overrides from the gadget
+
+Commented out:
+```yaml title="gadget.yaml"
+    # # Enable app options
+    # app-options: true # not necessary because this service has it by default
+    # # Override the startup message (because we can)
+    # # The same syntax can be used to override most of the server configurations
+    # apps.device-virtual.config.service-startupmsg: "Gadget set this!"
+```
+
+!!! warning
+    It is important to do this because overrides are ineffective when configurations are replaced from a config provider.
+    This is because the config provider in our example is providing a read-only file system that doesn't allow the write access necessary to inject an environment file when setting the `app` options.
+
+3) Connect the config provider 
+
+```yaml title="gadget.yaml"
+connections:
+   -  # Connect edgex-device-virtual's plug (consumer)
+      plug: AmKuVTOfsN0uEKsyJG34M8CaMfnIqxc0:device-virtual-config
+      # to edgex-config-provider-example's slot (provider) to override the default configuration files.
+      slot: WWPGZGi1bImphPwrRfw46aP7YMyZYl6w:device-virtual-config
+```
+This internally bind-mounts provider's "res" directory on top of the consumer's "res" directory.
+
+4) Build the image and boot
+
+Perform the following:
+a. Use ubuntu-image tool again to build a new image. Use the same instructions as [before](#build-the-ubuntu-core-image) to build.
+b. [Flash the image](#flash-the-image) or [run it in an emulator](#run-in-an-emulator).
+
+
+
+!!! info
+    SSH to the machine and verify the installations:
+    
+    List of snaps:
+    ```
+    $ snap list
+    Name                           Version          Rev    Tracking       Publisher   Notes
+    core20                         20220805         1611   latest/stable  canonical✓  base
+    core22                         20220607         188    latest/stable  canonical✓  base
+    edgex-config-provider-example  2.3              2      latest/edge    farshidtz   -
+    edgex-device-virtual           2.3.0-dev.13     170    latest/edge    canonical✓  -
+    edgexfoundry                   2.3.0-dev.48     3925   latest/edge    canonical✓  -
+    pc                             20-0.4           x1     -              -           gadget
+    pc-kernel                      5.4.0-124.140.1  1077   20/stable      canonical✓  kernel
+    snapd                          2.56.2           16292  latest/stable  canonical✓  snapd
+    ```
+    Note that we now also have `edgex-config-provider-example` in the list.
+
+    Verify that Device Virtual only has one profile, as configured in the config provider:
+    ``` title="Core"
+    $ snap install edgex-cli
+    edgex-cli 2.2.0 from Canonical✓ installed
+    $ edgex-cli device list
+    Name                 Description                ServiceName     ProfileName          Labels                    AutoEvents
+    Random-Float-Device  Example of Device Virtual  device-virtual  Random-Float-Device  [device-virtual-example]  [{30s false Float64}]
+    ```
+
+    Verify that Device Virtual has the startup message set from the provider:
+    ``` title="Core"
+    $ 2022-08-19T14:42:24Z edgex-device-virtual.device-virtual[5402]: level=INFO ts=2022-08-19T14:42:24.438798115Z app=device-virtual source=message.go:55 msg="Configuration from config provider"
+    ```
 
 ## References
 - [Getting Started using Snaps](https://docs.edgexfoundry.org/2.2/getting-started/Ch-GettingStartedSnapUsers)
