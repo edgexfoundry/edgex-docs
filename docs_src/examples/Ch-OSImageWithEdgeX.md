@@ -146,7 +146,7 @@ snaps:
 
 We sign the model using the `edgex-demo` key created and registered earlier. 
 
-The snap sign command takes JSON as input and produces YAML as output! We use the YQ app to convert our model assertion to JSON before passing it in for signing.
+The `snap sign` command takes JSON as input and produces YAML as output! We use the YQ app to convert our model assertion to JSON before passing it in for signing.
 
 ```bash
 # sign
@@ -197,8 +197,7 @@ You can use one of following to flash the image:
 
 For instructions specific to a device, refer to Ubuntu Core section [here](https://ubuntu.com/download/iot); for example: [Intel NUC](https://ubuntu.com/download/intel-nuc).
 
-
-Once the boot is complete, it will prompt for the email address of your [Ubuntu SSO account](https://login.ubuntu.com/) to deploy your [SSH public keys](https://login.ubuntu.com/ssh-keys). This manual step can be avoided by adding a [system user](https://ubuntu.com/core/docs/system-user).
+Once the boot is complete, it will prompt for the email address of your [Ubuntu SSO account](https://login.ubuntu.com/) to deploy your [SSH public keys](https://login.ubuntu.com/ssh-keys). This is done with the help of a program called `console-conf`. Read [here](https://ubuntu.com/core/docs/system-user) to know how this manual step looks like and how it can be automated.
 
 Instead of flashing and installing the OS on actual hardware, we will continue this guide using an Emulator. Every other step will be similar to when image is flashed and installed on actual hardware.
 
@@ -231,6 +230,11 @@ As mentioned before, once the initial installation is complete, you will get a p
 
     To do a fresh start, your need to rebuild the image.
 
+!!! failure
+    > Could not set up host forwarding rule 'tcp::8443-:8443'
+
+    This means that the port is not available on the host. Try removing the service that uses this port or change the host port (left hand side) to another port number, e.g. `tcp::18443-:8443`.
+
 ### Connect, explore, configure
 
 In this step, we connect to the machine that has the image installed via SSH, validate the installation, and do some manual configurations.
@@ -239,6 +243,7 @@ We SSH to the emulator from the previous step:
 ```bash
 ssh <user>@localhost -p 8022
 ```
+If you used the default approach (using `console-conf`) and entered your Ubuntu account email address at the end of the installation, then `<user>` is your Ubuntu account ID. If you don't know your ID, look it up using a browser from [here](https://login.ubuntu.com/) or programmatically from `https://login.ubuntu.com/api/v2/keys/<email>`.
 
 List the installed snaps:
 ```
@@ -541,7 +546,7 @@ Snapped pc_20-0.4_amd64.snap
 !!! note
     You need to rebuild the snap every time you change the gadget.yaml file.
 
-### Build the Ubuntu Core image
+### Build the image and boot
 Perform the following:
 
 1. Use ubuntu-image tool again to build a new image. Use the same instructions as [before](#build-the-ubuntu-core-image) to build.
@@ -549,7 +554,7 @@ Perform the following:
 
 This time, as set in the gadget defaults, Device Virtual is started by default and we have a user to securely interact with the API Gateway.
 
-!!! tip
+!!! info
     SSH to the machine and verify that Device Virtual is enabled (to start on boot) and active (running):
     ```
     $ snap services edgex-device-virtual
