@@ -517,6 +517,11 @@ defaults:
   AmKuVTOfsN0uEKsyJG34M8CaMfnIqxc0: # edgex-device-virtual
     # automatically start the service
     autostart: true
+    # Enable app options
+    app-options: true # not necessary because this service has it by default
+    # Override the startup message (because we can)
+    # The same syntax can be used to override most of the server configurations
+    apps.device-virtual.config.service-startupmsg: "Example override from gadget!"
 ```
 
 !!! tip "Snap ID"
@@ -574,6 +579,12 @@ This time, as set in the gadget defaults, Device Virtual is started by default a
         }
       }
     }
+    ```
+
+    Verify that Device Virtual has the startup message set from the gadget:
+    ```
+    $ snap logs -n=all edgex-device-virtual | grep "gadget"
+    2022-08-19T13:51:28Z edgex-device-virtual.device-virtual[4660]: level=INFO ts=2022-08-19T13:51:28.868688382Z app=device-virtual source=variables.go:352 msg="Variables override of 'Service.StartupMsg' by environment variable: SERVICE_STARTUPMSG=Example override from gadget!"
     ```
 
 ### Query data securely from another host
