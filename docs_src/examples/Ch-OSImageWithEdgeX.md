@@ -701,7 +701,7 @@ We have to make three adaptations:
   id: WWPGZGi1bImphPwrRfw46aP7YMyZYl6w
 ```
 
-Sign the model as [before](#sign-the-model):
+Sign the model as before:
 ```bash
 yq eval model.yaml -o=json | snap sign -k edgex-demo > model.signed.yaml
 ```
