@@ -329,12 +329,12 @@ Once you have the token, you can access the services via the API Gateway.
     Output: `{"apiVersion":"v2","timestamp":"Mon May  2 12:14:17 CEST 2022","serviceName":"core-data"}`
 
 #### Accessing Consul
-Consul API and UI can be accessed using the consul token (Secret ID). For the snap, token is the value of `SecretID` typically placed in a JSON file at `/var/snap/edgexfoundry/current/secrets/consul-acl-token/bootstrap_token.json`.
+Consul API and UI can be accessed using the consul token (Secret ID). For the snap, token is the value of `SecretID` typically placed in a JSON file at `/var/snap/edgexfoundry/current/secrets/consul-acl-token/mgmt_token.json`.
 
 !!! example
     To get the token:
     ```bash
-    $ sudo cat /var/snap/edgexfoundry/current/secrets/consul-acl-token/bootstrap_token.json | jq -r '.SecretID' | tee consul-token.txt
+    sudo cat /var/snap/edgexfoundry/current/secrets/consul-acl-token/mgmt_token.json | jq -r '.SecretID' | tee consul-token.txt
     ```
     The output is printed out and written to `consul-token.txt`. Example output: `ee3964d0-505f-6b62-4c88-0d29a8226daa`
 
