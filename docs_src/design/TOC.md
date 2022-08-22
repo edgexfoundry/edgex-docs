@@ -3,9 +3,8 @@
 ## Use Case Records (UCRs)
 | Name/Link                                                                 | Short Description                                             |
 |---------------------------------------------------------------------------|---------------------------------------------------------------|
-| [0001 System Events for Devices](./ucr/0001-System-Events-for-Devices.md) | Use Case for System Events for Device add/update/delete |
-| [0002 Device Parent-Child Relationships](./ucr/0002-Device-Parent-Child-Relationships.md) | Use Case for Device Parent-Child Relationships |
-| [0003 Extending Device Data](./ucr/0003-Extending-Device-Data.md) | Use Case for Application Services Extending Device Data |
+| [Device Parent-Child Relationships](./ucr/Device-Parent-Child-Relationships.md) | Use Case for Device Parent-Child Relationships |
+| [System Events for Devices](./ucr/System-Events-for-Devices.md) | Use Case for System Events for Device add/update/delete |
 
 ## Architectural Design Records (ADRs)
 

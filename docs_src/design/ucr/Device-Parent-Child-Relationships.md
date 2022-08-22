@@ -5,7 +5,7 @@ This UCR describes Use Cases for new Device metadata for Parent to Child Relatio
 - Tom Brennan (Eaton)
 
 ## Change Log
-- [pending](https://github.com/edgexfoundry/edgex-docs/pull/800) (2022-07-25)
+- [pending](https://github.com/edgexfoundry/edgex-docs/pull/800) (2022-08-22)
 
 
 ### Market Segments
@@ -17,8 +17,8 @@ and provide their data to north-bound services.
 It is frequently important to north-bound services to establish the parent-child relationships
 of the devices found in an EdgeX system. 
 This information is generally used for either protocol data constructs or for display purposes.
-If not known or provided by the south-bound Device Service, this information might be added 
-to the Device metadata by the north-bound or analytics services, or by the user.
+If not know or provided by the south-bound Device Service, this information might be added 
+to the Device instance's metadata by the north-bound or analytics services, or by the user.
 
 It is desirable that the means of conveying this information become standardized for those systems
 which provide and use it, hence proposing here that there be a common definition and usage of this metadata.
@@ -81,21 +81,25 @@ The existing EdgeX UIs group devices by their Device Service, which is a good ap
 
 ### Requirements
 1. Each device should have a property to indicate which other device is its parent device.
-2. There should be one "main" or "publisher" device, and it should indicate this via a property instead of
-indicating a parent device (since it has no parent).
-3. If a device does not indicate which is its parent device, then it shall be inferred that its parent is the main device. (This helps with backwards compatability.)
-4. Though it is preferred that the owning service set a device's parent property, this property can also be set
+2. In a gateway configuration, with multiple devices, there should be one "main" or "publisher" device, 
+and it should indicate this via a special property instead of a property to indicate a parent device (since it has no parent).
+3. These parent-child requirements do not apply for the case of a single device configuration.
+4. If a device does not indicate which is its parent device, then it shall be inferred that its parent is the main device. (This helps with backwards compatability.)
+5. Though it is preferred that the owning service set a device's parent property, this property can also be set
 by other services via the core-metadata PATCH devices API. The owning service can ignore this update if it does
-not using the parent property.
-5. Some means provided to answer the question, "What are the child devices (if any) of device x.y.z?".
-6. Some standard means to indicate which devices are "system" devices, ie, those without a physical counterpart.
+not use the parent property.
+6. Some means provided to answer the question, "What are the child devices (if any) of device x.y.z?".
+7. Some standard means to indicate which devices are "system" devices, ie, those without a physical counterpart.
+8. There can be multiple levels (eg, child devices of a child device).
+9. Each child device can only have one parent device.
+10. It is up to the Device Service which manages a parent device to remove all of its child devices if the parent is removed.
 
 Not a requirement: inheritance of device status via the parent-child relationship. Apparently this was a point
 over which past consideration of parent-child relationships in EdgeX foundered, but it seems complicated
 for independent services, and can generally be inferred by other services anyway.
 
 ### Other Related Issues
-Use Case for Application Services Extending Device Data [0003 Extending Device Data](./0003-Extending-Device-Data.md) may be related, 
+Use Case for Application Services Extending Device Data [Extending Device Data](./Extending-Device-Data.md) may be related, 
 as, depending on its solution, it may have to indicate a different Device Relationship ("Extends").
 
 ### References
