@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/microservices/application/BuiltIn/">
       
       <link rel="icon" href="../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.0">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.1">
     
     
       
@@ -3786,7 +3786,7 @@ batch.Batch
 <td>This factory function returns a <code>CoreData</code> instance configured to push a <code>Binary</code> reading. The <code>CoreData</code> instance returned  is used to access core data functions.</td>
 </tr>
 <tr>
-<td>NewCoreDataObejctReading(profileName string, deviceName string, resourceName string)</td>
+<td>NewCoreDataObjectReading(profileName string, deviceName string, resourceName string)</td>
 <td>This factory function returns a <code>CoreData</code> instance configured to push an <code>Object</code> reading. The <code>CoreData</code> instance returned is used to access core data functions.</td>
 </tr>
 </tbody>
@@ -3829,7 +3829,7 @@ batch.Batch
 <td>This factory function returns an <code>EventWrapper</code> instance configured to push a <code>Binary</code> reading. The <code>EventWrapper</code> instance returned  is used to access core data functions.</td>
 </tr>
 <tr>
-<td>NewEventWrapperObejctReading(profileName string, deviceName string, resourceName string)</td>
+<td>NewEventWrapperObjectReading(profileName string, deviceName string, resourceName string)</td>
 <td>This factory function returns an <code>EventWrapper</code> instance configured to push an <code>Object</code> reading. The <code>EventWrapper</code> instance returned is used to access core data functions.</td>
 </tr>
 </tbody>
@@ -3885,7 +3885,7 @@ batch.Batch
 <h3 id="aesprotection">AESProtection</h3>
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 2.1</p>
-<p>This transform provides AES 256 encryption with a random initialization vector and authentication using a SHA 512 hash.  It can only be configured using secrets.</p>
+<p>This transform provides AES 256 encryption with a random initialization vector and authentication using a SHA 512 hash in an "encrypt then MAC" scheme (see <a href="https://datatracker.ietf.org/doc/html/draft-mcgrew-aead-aes-cbc-hmac-sha2-02">here</a> for more details).  It can only be configured using secrets.</p>
 </div>
 <table>
 <thead>
@@ -3928,6 +3928,58 @@ batch.Batch
 <p class="admonition-title">Note</p>
 </div>
 <p>The <code>Algorithm</code> used with app-service-configurable configuration to access this transform is <code>AES256</code></p>
+<p>Reading data protected with this function is a multi step process:</p>
+<ul>
+<li>base64 decode (for languages other than go - example code assumes hex encoding)</li>
+<li>extract hash from payload (last 32 bytes)</li>
+<li>validate hash - if this step fails decryption should not be attempted</li>
+<li>decrypt ciphertext + remove padding</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Signing Hash Validation</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">hash</span><span class="p">(</span><span class="n">cipher_hex</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+    <span class="c1"># Extract the 32 bytes of the Hash signature from the end of the cipher_hex</span>
+    <span class="n">extract_hash</span> <span class="o">=</span> <span class="n">cipher_hex</span><span class="p">[</span><span class="o">-</span><span class="mi">64</span><span class="p">:]</span>
+
+    <span class="c1"># last 32 bytes of the 64 byte key used by the encrypt function (2 hex digits per byte)</span>
+    <span class="n">private_key</span> <span class="o">=</span> <span class="n">key</span><span class="p">[</span><span class="o">-</span><span class="mi">64</span><span class="p">:]</span>
+    <span class="c1"># IV &amp; ciphertext</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">cipher_hex</span><span class="p">[:</span><span class="o">-</span><span class="mi">64</span><span class="p">]</span>
+
+    <span class="n">hash_text</span> <span class="o">=</span> <span class="n">hmac</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">private_key</span><span class="p">),</span> <span class="n">msg</span><span class="o">=</span><span class="p">(</span><span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">content</span><span class="p">)</span> <span class="o">+</span> <span class="nb">bytearray</span><span class="p">(</span><span class="mi">8</span><span class="p">)),</span> <span class="n">digestmod</span><span class="o">=</span><span class="s1">&#39;SHA512&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Calculated tag is only the the first 32 bytes of the resulting SHA512</span>
+    <span class="n">calculated_hash</span> <span class="o">=</span> <span class="n">hash_text</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()[:</span><span class="mi">64</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">extract_hash</span> <span class="o">==</span> <span class="n">calculated_hash</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;true&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;false&quot;</span><span class="p">,</span> <span class="n">extract_hash</span><span class="p">,</span> <span class="n">calculated_hash</span>
+</code></pre></div>
+<p>If the signing hash can be validated, the message is OK to decrypt</p>
+<div class="admonition example">
+<p class="admonition-title">Payload Decryption</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">decrypt</span><span class="p">(</span><span class="n">cipher_hex</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+    <span class="c1"># first 32 bytes of the 64 byte key used by the encrypt function (2 hex digits per byte)</span>
+    <span class="n">private_key</span> <span class="o">=</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">key</span><span class="p">[:</span><span class="mi">64</span><span class="p">])</span>
+
+    <span class="c1"># Extract the cipher text (remaining bytes in the middle)</span>
+    <span class="n">cipher_text</span> <span class="o">=</span> <span class="n">cipher_hex</span><span class="p">[</span><span class="mi">32</span><span class="p">:]</span>
+    <span class="n">cipher_text</span> <span class="o">=</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">cipher_text</span><span class="p">[:</span><span class="o">-</span><span class="mi">64</span><span class="p">])</span>
+
+    <span class="c1"># Extract the 16 bytes of initial vector from the beginning of the data</span>
+    <span class="n">iv</span> <span class="o">=</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">cipher_hex</span><span class="p">[:</span><span class="mi">32</span><span class="p">])</span>
+
+    <span class="c1"># Decrypt</span>
+    <span class="n">cipher</span> <span class="o">=</span> <span class="n">AES</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">private_key</span><span class="p">,</span> <span class="n">AES</span><span class="o">.</span><span class="n">MODE_CBC</span><span class="p">,</span> <span class="n">iv</span><span class="p">)</span>
+
+    <span class="n">plain_pad</span> <span class="o">=</span> <span class="n">cipher</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">cipher_text</span><span class="p">)</span>
+    <span class="n">unpadded</span> <span class="o">=</span> <span class="n">Padding</span><span class="o">.</span><span class="n">unpad</span><span class="p">(</span><span class="n">plain_pad</span><span class="p">,</span> <span class="n">AES</span><span class="o">.</span><span class="n">block_size</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">unpadded</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+</code></pre></div>
 <h2 id="export">Export</h2>
 <p>There are two export functions included in the SDK that can be added to your pipeline. </p>
 <h3 id="http-export">HTTP Export</h3>
