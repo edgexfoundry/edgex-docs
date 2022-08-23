@@ -53,6 +53,10 @@ via Consul's sub-command: `consul acl set-agent-token agent` or Consul's HTTP AP
 This agent token provides the identity for Consul service itself and access control for any
 agent-based API calls from client and thus provides better security.
 
+The management token provides the identity for Consul service itself and access control for remote configuration
+from client and thus provides better security. It's created and stored onto the pre-configured folder under
+`/tmp/edgex/secrets/consul-acl-token`.
+
 `security-bootstrapper` service also uses Consul's bootstrap token to generate Vault's role based from
 Consul Secrets Engine API `/consul/role/<role_name>` for all internal default EdgeX services
 and add-on services via environment variable `ADD_REGISTRY_ACL_ROLES`. Please see more details
@@ -78,7 +82,7 @@ $ make get-consul-acl-token
 ef4a0580-d200-32bf-17ba-ba78e3a546e7
 ```
 
-This output token is Consul's ACL bootstrap token and thus one can use it to login and access
+This output token is Consul's ACL management token and thus one can use it to login and access
 Consul service's features from Consul's GUI on http://localhost:8500/ui.
 
 From the upper right-hand corner of Consul's GUI or the "Log in" button in the center,
