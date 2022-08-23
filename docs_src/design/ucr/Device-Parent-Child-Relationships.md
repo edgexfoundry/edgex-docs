@@ -14,14 +14,16 @@ In particular, Industrial Gateway systems that connect to multiple south-bound d
 and provide their data to north-bound services.
 
 ### Motivation
-It is frequently important to north-bound services to establish the parent-child relationships
+It is frequently important to north-bound services to know the parent-child relationships
 of the devices found in an EdgeX system. 
 This information is generally used for either protocol data constructs or for display purposes.
+
 If not know or provided by the south-bound Device Service, this information might be added 
 to the Device instance's metadata by the north-bound or analytics services, or by the user.
 
 It is desirable that the means of conveying this information become standardized for those systems
-which provide and use it, hence proposing here that there be a common definition and usage of this metadata.
+which provide and use it, so that application services can rely on it, hence proposing here that there 
+be a common definition and usage of this metadata.
 
 ### Target Users
 - Product Developers
@@ -40,9 +42,10 @@ These considerations are most important for gateways that are implemented with t
 since there are potentially many south-bound devices connected to a system.
 
 Examples are
-* BACnet - where only one "main" device is present at the point of external connection (eg, UDP port 0xBAC0) and all other devices must be presented as "virtually routed devices" connected to that main "virtual router" device.
+* North-bound BACnet Service - where only one "main" device is present at the point of external connection (eg, UDP port 
+0xBAC0) and all other devices must be presented as "virtually routed devices" connected to that main "virtual router" device.
 * Azure IoT Hub - where the normal connection for IoT Plug and Play / Digital Twin is for a single device, and any other devices need to somehow fall under that device (eg, with Device Twin "Modules")
-* UI device presentation - where child devices are grouped under their parent, often rolled up until they are expanded to show their data
+* UI device presentation - where child devices can be shown grouped under their parent, often rolled up until they are expanded to show their data
 * Multi-tenant deployments of multi-point energy meters - where a main meter has up to 80 Branch Circuit Monitoring (BCM) points connected to it, each BCM modeled as a Device consisting of the same 6 or so energy channels (Device Resources), and each BCM is assigned to a particular tenant. Tenants will be given access to the data from their BCM point(s) but not those of other tenants. A gateway may connect more than one of these multi-point energy meters.
 
 Since there are multiple similar uses for this relationship information on the north side, it is proposed to locate
@@ -75,24 +78,29 @@ The Device structure in Eaton's legacy products indicated this parent-child rela
 
 The Device structure in Eaton's cloud solution is a "DeviceTree", which is a recursive, hierarchial structure of the connected devices, starting with the "publisher" device and its first-level child devices.
 
-There is the BACnet "virtual routed devices" model, but I would not recommend it, as it is too artificial for this  simple relationship.
+There is the BACnet "virtual routed devices" model, but I would not recommend it, as it is too convoluted for this  simple relationship.
 
 The existing EdgeX UIs group devices by their Device Service, which is a good approach for simple devices without children of their own, but fails if those devices have child devices too.
 
 ### Requirements
-1. Each device should have a property to indicate which other device is its parent device.
-2. In a gateway configuration, with multiple devices, there should be one "main" or "publisher" device, 
-and it should indicate this via a special property instead of a property to indicate a parent device (since it has no parent).
-3. These parent-child requirements do not apply for the case of a single device configuration.
-4. If a device does not indicate which is its parent device, then it shall be inferred that its parent is the main device. (This helps with backwards compatability.)
-5. Though it is preferred that the owning service set a device's parent property, this property can also be set
-by other services via the core-metadata PATCH devices API. The owning service can ignore this update if it does
+1. Each device instance should have an optional "relationship" metadata property which can be used to indicate which other device is its parent device. 
+2. This relationship property is a "convenience feature" provided by EdgeX, which is *informative* to application services,
+but does not require core EdgeX services to respond to it, or act on it, in any way, 
+other than storing it and making it available.
+3. This property will be kept in the Device structure in core-metadata.
+4. Though it is preferred that the owning Device Service set a device's parent property, this property can also be set
+by users via the core-metadata PATCH devices API. The owning Device Service can ignore this update if it does
 not use the parent property.
-6. Some means provided to answer the question, "What are the child devices (if any) of device x.y.z?".
-7. Some standard means to indicate which devices are "system" devices, ie, those without a physical counterpart.
-8. There can be multiple levels (eg, child devices of a child device).
-9. Each child device can only have one parent device.
-10. It is up to the Device Service which manages a parent device to remove all of its child devices if the parent is removed.
+5. The same relationship property, or a similar addition, shall be used to indicate the one "main" device in a system.
+6. It is required that the "main" device be indicated in any multi-device system.
+7. If a device does not indicate which is its parent device, then it shall be inferred that its parent is the main device. (This helps with backwards compatability.)
+8. The same relationship property, or a similar addition, shall be used to indicate when a Device is a "system" Device,
+that is, one without an external physical presence, such as a container for a service's Resources.
+9. These parent-child requirements do not apply for the case of a single device configuration.
+10. Some means shall be provided to answer the question, "What are the child devices (if any) of device x.y.z?".
+11. There can be multiple levels (eg, child devices of a child device).
+12. Each child device can have only have one parent device.
+13. It is up to the Device Service which manages a parent device to remove all of its child devices if the parent is removed.
 
 Not a requirement: inheritance of device status via the parent-child relationship. Apparently this was a point
 over which past consideration of parent-child relationships in EdgeX foundered, but it seems complicated
