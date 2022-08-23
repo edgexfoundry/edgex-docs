@@ -3729,11 +3729,11 @@ We use the user id <code>1000</code> as set in the previous example.
 Output: <code>{"apiVersion":"v2","timestamp":"Mon May  2 12:14:17 CEST 2022","serviceName":"core-data"}</code></p>
 </div>
 <h4 id="accessing-consul">Accessing Consul</h4>
-<p>Consul API and UI can be accessed using the consul token (Secret ID). For the snap, token is the value of <code>SecretID</code> typically placed in a JSON file at <code>/var/snap/edgexfoundry/current/secrets/consul-acl-token/bootstrap_token.json</code>.</p>
+<p>Consul API and UI can be accessed using the consul token (Secret ID). For the snap, token is the value of <code>SecretID</code> typically placed in a JSON file at <code>/var/snap/edgexfoundry/current/secrets/consul-acl-token/mgmt_token.json</code>.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <p>To get the token:
-<div class="highlight"><pre><span></span><code>$ sudo cat /var/snap/edgexfoundry/current/secrets/consul-acl-token/bootstrap_token.json <span class="p">|</span> jq -r <span class="s1">&#39;.SecretID&#39;</span> <span class="p">|</span> tee consul-token.txt
+<div class="highlight"><pre><span></span><code>sudo cat /var/snap/edgexfoundry/current/secrets/consul-acl-token/mgmt_token.json <span class="p">|</span> jq -r <span class="s1">&#39;.SecretID&#39;</span> <span class="p">|</span> tee consul-token.txt
 </code></pre></div>
 The output is printed out and written to <code>consul-token.txt</code>. Example output: <code>ee3964d0-505f-6b62-4c88-0d29a8226daa</code></p>
 <p>Try it out locally:
