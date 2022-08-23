@@ -33,6 +33,8 @@ type DeviceServiceSDK interface {
 	ListenForCustomConfigChanges(configToWatch interface{}, sectionName string, changedCallback func(interface{})) error
 	GetLoggingClient() logger.LoggingClient
 	GetSecretProvider() interfaces.SecretProvider
+	DriverConfigs() map[string]string
+	SetDeviceOpState(name string, state models.OperatingState) error
 }
 ```
 
@@ -117,6 +119,18 @@ This API returns all managed Devices from the device service's cache
 `GetDeviceByName(name string) (models.Device, error)`
 
 This API returns the Device by its name if it exists in the device service's cache, or returns an error.
+
+#### DriverConfigs
+
+`DriverConfigs() map[string]string`
+
+This API returns the driver specific configuration
+
+#### SetDeviceOpState
+
+`SetDeviceOpState(name string, state models.OperatingState) error`
+
+This API sets the operating state of a specified device
 
 ### Device Profile
 

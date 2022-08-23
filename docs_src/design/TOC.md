@@ -1,12 +1,19 @@
 # Use Cases and Design Records
 
 ## Use Case Records (UCRs)
+
+!!! note 
+    UCRs are listed in alphabetical order by title.
+
 | Name/Link                                                                 | Short Description                                             |
 |---------------------------------------------------------------------------|---------------------------------------------------------------|
 | [Device Parent-Child Relationships](./ucr/Device-Parent-Child-Relationships.md) | Use Case for Device Parent-Child Relationships |
 | [System Events for Devices](./ucr/System-Events-for-Devices.md) | Use Case for System Events for Device add/update/delete |
 
 ## Architectural Design Records (ADRs)
+
+!!! note
+    ADRs are listed in chronological order by sequence number in title.
 
 | Name/Link                                                    | Short Description                                            |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
