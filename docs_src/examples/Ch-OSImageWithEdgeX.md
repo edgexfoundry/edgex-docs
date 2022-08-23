@@ -486,8 +486,9 @@ echo "$TOKEN"
 
 The script will read the `private.pem` file from the same directory.
 
-Run the script to get a JWT (JSON Web Token):
+Make the script executable and run it to get a JWT (JSON Web Token):
 ```
+$ chmod +x create-jwt.sh
 $ ./create-jwt.sh 
 Payload: {
     "iss":"1",
