@@ -7,6 +7,7 @@
 
 | Name/Link                                                                 | Short Description                                             |
 |---------------------------------------------------------------------------|---------------------------------------------------------------|
+| [Extending Device Data](./ucr/Extending-Device-Data.md) | Use Case for Extending of Device Data by Application Services |
 | [System Events for Devices](./ucr/System-Events-for-Devices.md) | Use Case for System Events for Device add/update/delete |
 
 ## Architectural Design Records (ADRs)
