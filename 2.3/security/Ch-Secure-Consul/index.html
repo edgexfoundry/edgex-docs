@@ -3031,6 +3031,9 @@ via Consul's sub-command: <code>consul acl set-agent-token agent</code> or Consu
 <code>/agent/token/&lt;agent_token&gt;</code> using Consul's ACL bootstrap token for the authentication.
 This agent token provides the identity for Consul service itself and access control for any
 agent-based API calls from client and thus provides better security.</p>
+<p>The management token provides the identity for Consul service itself and access control for remote configuration
+from client and thus provides better security. It's created and stored onto the pre-configured folder under
+<code>/tmp/edgex/secrets/consul-acl-token</code>.</p>
 <p><code>security-bootstrapper</code> service also uses Consul's bootstrap token to generate Vault's role based from
 Consul Secrets Engine API <code>/consul/role/&lt;role_name&gt;</code> for all internal default EdgeX services
 and add-on services via environment variable <code>ADD_REGISTRY_ACL_ROLES</code>. Please see more details
@@ -3049,7 +3052,7 @@ implemented in <code>go-mod-secrets</code> to keep Consul token alive and not ex
 <div class="highlight"><pre><span></span><code><span class="gp">$ </span>make get-consul-acl-token 
 <span class="go">ef4a0580-d200-32bf-17ba-ba78e3a546e7</span>
 </code></pre></div>
-<p>This output token is Consul's ACL bootstrap token and thus one can use it to login and access
+<p>This output token is Consul's ACL management token and thus one can use it to login and access
 Consul service's features from Consul's GUI on http://localhost:8500/ui.</p>
 <p>From the upper right-hand corner of Consul's GUI or the "Log in" button in the center,
 one can login with the obtained Consul token in order to access Consul's GUI features:</p>
