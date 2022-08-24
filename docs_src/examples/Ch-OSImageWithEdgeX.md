@@ -505,7 +505,8 @@ The token is printed and also written to `admin-jwt.txt`. We'll use this token i
 Setting up default options for snaps is possible with the gadget snap. 
 We will go back to the same `gadget.yml` file for the gadget that we used to resize the volumes, but this time also add a new top level `defaults` key:
 
-Add the following to `gadget.yml`:
+Add the following to `gadget.yml`.
+Replace the public key with the content of your public key in `public.pem`:
 ```yml
 # Add default config options
 # The keys are unique snap IDs
@@ -527,7 +528,7 @@ defaults:
     app-options: true # not necessary because this service has it by default
     # Override the startup message (because we can)
     # The same syntax can be used to override most of the server configurations
-    apps.device-virtual.config.service-startupmsg: "Example override from gadget!"
+    apps.device-virtual.config.service-startupmsg: "Startup message from gadget!"
 ```
 
 !!! tip "Snap ID"
@@ -556,7 +557,11 @@ Snapped pc_20-0.4_amd64.snap
     You need to rebuild the snap every time you change the gadget.yaml file.
 
 ### Build the image
-Use ubuntu-image tool again to build a new image. Use the same instructions as [before](#build-the-ubuntu-core-image) to build.
+Use ubuntu-image tool again to build a new image. Use the same instructions as [before](#build-the-ubuntu-core-image) to build:
+
+```bash
+ubuntu-image snap model.signed.yaml --validation=enforce --snap pc-amd64-gadget/pc_20-0.4_amd64.snap
+```
 
 !!! done
     The image file is now ready to be flashed on a medium to create a bootable drive with the needed applications and basic configurations.
@@ -592,8 +597,8 @@ This time, as set in the gadget defaults, Device Virtual is started by default a
 
     Verify that Device Virtual has the startup message set from the gadget:
     ``` title="Core"
-    $ snap logs -n=all edgex-device-virtual | grep "gadget"
-    2022-08-19T13:51:28Z edgex-device-virtual.device-virtual[4660]: level=INFO ts=2022-08-19T13:51:28.868688382Z app=device-virtual source=variables.go:352 msg="Variables override of 'Service.StartupMsg' by environment variable: SERVICE_STARTUPMSG=Example override from gadget!"
+    $ snap logs -n=all edgex-device-virtual | grep "Startup message"
+    2022-08-19T13:51:28Z edgex-device-virtual.device-virtual[4660]: level=INFO ts=2022-08-19T13:51:28.868688382Z app=device-virtual source=variables.go:352 msg="Variables override of 'Service.StartupMsg' by environment variable: SERVICE_STARTUPMSG=Startup message from gadget!"
     ```
 
 ### Query data securely from another host
@@ -692,37 +697,22 @@ We need it in the next step.
 
 We have to make three adaptations:
 
-1) Add the config provider to the model assertion
+1) Remove config overrides from the gadget and re-build it
 
-```yaml title="model.yaml"
-# This snap contains our configuration files
-- name: edgex-config-provider-example
-  type: app
-  default-channel: latest/edge
-  id: WWPGZGi1bImphPwrRfw46aP7YMyZYl6w
-```
-
-Sign the model as before:
-```bash
-yq eval model.yaml -o=json | snap sign -k edgex-demo > model.signed.yaml
-```
-
-2) Remove config overrides from the gadget
-
-Commented out:
+Commented out or remove:
 ```yaml title="gadget.yaml"
     # # Enable app options
     # app-options: true # not necessary because this service has it by default
     # # Override the startup message (because we can)
     # # The same syntax can be used to override most of the server configurations
-    # apps.device-virtual.config.service-startupmsg: "Gadget set this!"
+    # apps.device-virtual.config.service-startupmsg: "Startup message from gadget!"
 ```
 
 !!! warning
     It is important to do this because overrides are ineffective when configurations are replaced from a config provider.
     This is because the config provider in our example is providing a read-only file system that doesn't allow the write access necessary to inject an environment file when setting the `app` options.
 
-3) Connect the config provider 
+2) Connect the config provider 
 
 ```yaml title="gadget.yaml"
 connections:
@@ -733,8 +723,39 @@ connections:
 ```
 This internally bind-mounts provider's "res" directory on top of the consumer's "res" directory.
 
-### Build the image and boot into the OS
-Use ubuntu-image tool again to build a new image. Use the same instructions as [before](#build-the-ubuntu-core-image) to build.
+
+3) Rebuild the gadget
+```bash
+$ snapcraft
+...
+Snapped pc_20-0.4_amd64.snap
+```
+
+4) Add the config provider snap to the model assertion, **after** all other edgex snaps:
+
+```yaml title="model.yaml"
+# This snap contains our configuration files
+- name: edgex-config-provider-example
+  type: app
+  default-channel: latest/edge
+  id: WWPGZGi1bImphPwrRfw46aP7YMyZYl6w
+```
+
+5) Sign the model as before
+```bash
+yq eval model.yaml -o=json | snap sign -k edgex-demo > model.signed.yaml
+```
+
+4) Re-build the image
+
+```bash
+$ ubuntu-image snap model.signed.yaml --validation=enforce --snap pc-amd64-gadget/pc_20-0.4_amd64.snap
+...
+Fetching edgex-config-provider-example
+...
+```
+
+For details, tefer to [how we did this before](#build-the-ubuntu-core-image).
 
 !!! done
     The image file is now ready to be flashed on a medium to create a bootable drive with the needed applications and complex configurations.
@@ -776,7 +797,8 @@ Boot into the OS by
 
     Verify that Device Virtual has the startup message set from the provider:
     ``` title="Core"
-    $ 2022-08-19T14:42:24Z edgex-device-virtual.device-virtual[5402]: level=INFO ts=2022-08-19T14:42:24.438798115Z app=device-virtual source=message.go:55 msg="Configuration from config provider"
+    $ snap logs -n=all edgex-device-virtual | grep "Startup message"
+    2022-08-19T14:42:24Z edgex-device-virtual.device-virtual[5402]: level=INFO ts=2022-08-19T14:42:24.438798115Z app=device-virtual source=message.go:55 msg="Startup message from config provider"
     ```
 
 Now, query the metadata of Device Virtual from your host machine. 
