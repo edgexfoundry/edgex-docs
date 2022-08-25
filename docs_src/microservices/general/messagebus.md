@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Edgex has an internal message bus referred to as the **EdgeX MessageBus** , which is used for internal communications between EdgeX services. An EdgeX Service is any Core/Support/Application/Device Service from EdgeX or any custom Application or Device Service built with the EdgeX SDKs. 
+EdgeX has an internal message bus referred to as the **EdgeX MessageBus** , which is used for internal communications between EdgeX services. An EdgeX Service is any Core/Support/Application/Device Service from EdgeX or any custom Application or Device Service built with the EdgeX SDKs. 
 
 The following diagram shows how each of the EdgeX Service use the EdgeX MessageBus.
 
@@ -10,7 +10,7 @@ The following diagram shows how each of the EdgeX Service use the EdgeX MessageB
 
 The EdgeX MessageBus is meant for internal EdgeX service to service communications. It is not meant as an entry point for external services to communicate with the internal EdgeX services. The eKuiper Rules Engine is an exception to this as it is tightly integrated with EdgeX.
 
-There are EdgeX services which are meant as external entry points, which are:
+The EdgeX services intended as external entry points are:
 
 - **REST API on all the EdgeX services** - Accessed directly in non-secure mode or via the [API Gateway](../../../security/Ch-APIGateway) when running in secure mode
 
@@ -18,9 +18,9 @@ There are EdgeX services which are meant as external entry points, which are:
   
 - **App Service using HTTP Trigger** - An App Service configured to use the [HTTP Trigger](../../application/Triggers/#http-trigger) will accept data from external services on an "external" REST connection. Accessed in the same manner as other EdgeX REST APIs.
 
-- **App Service using Custom Trigger** - An App Service configured to use a [Custom Trigger](../../application/Triggers/#custom-trigger) can accept data from external services or over additional protocols with few limitations.
+- **App Service using Custom Trigger** - An App Service configured to use a [Custom Trigger](../../application/Triggers/#custom-trigger) can accept data from external services or over additional protocols with few limitations. See [Custom Trigger Example](https://github.com/edgexfoundry/edgex-examples/tree/v{{latest_released_version}}/application-services/custom/custom-trigger) for an example.
 
-- **Core Command External MQTT Connection** - Core Command now receives command requests and publishes responses via an external MQTT connection that is separate from the EdgeX MessageBus. The requests are forwarded to the EdgeX MessageBus and the corresponding responses are forwarded back to the external MQTT connection.
+- **Core Command External MQTT Connection** - Core Command now receives command requests and publishes responses via an external MQTT connection that is separate from the EdgeX MessageBus. The requests are forwarded to the EdgeX MessageBus and the corresponding responses are forwarded back to the external MQTT connection. 
 
 Originally the EdgeX MessageBus was only used to send *Event/Readings* from Core Data to the Application Services layer. In recent V2 releases more services are now using the EdgeX MessageBus rather than REST for inner service communication. 
 
@@ -36,7 +36,7 @@ This trend away from REST to the EdgeX MessageBus for inner service communicatio
 All messages published to the EdgeX MessageBus are wrapped in a `MessageEnvelope`. This envelope contains metadata describing the message payload, such as the payload Content Type (JSON or CBOR), Correlation Id, etc. 
 
 !!! note
-    Unless noted below, the `MessageEnvelope` is  JSON encode when publishing it to the EdgeX MessageBus. This does result in the `MessageEnvelope`'s payload being double encoded.
+    Unless noted below, the `MessageEnvelope` is  JSON encoded when publishing it to the EdgeX MessageBus. This does result in the `MessageEnvelope`'s payload being double encoded.
 
 ## Implementations
 
@@ -53,7 +53,7 @@ Each service that uses the EdgeX MessageBus has a configuration section which de
 - **ZeroMQ** (**DEPRECATED**) - `Type=zero` 
 
 !!! note
-    I general all EdgeX Services running in a deployment must be configured to use the same EdgeX MessageBus implementation. By default all services that use the EdgeX MessageBus are configured to use the Redis Pub/Sub implementation. NATS does support a compatibility mode with MQTT. See the [NATS MQTT Mode](#nats-mqtt-mode) section below for details.
+    In general all EdgeX Services running in a deployment must be configured to use the same EdgeX MessageBus implementation. By default all services that use the EdgeX MessageBus are configured to use the Redis Pub/Sub implementation. NATS does support a compatibility mode with MQTT. See the [NATS MQTT Mode](#nats-mqtt-mode) section below for details.
 
 ### Redis Pub/Sub
 
@@ -95,8 +95,8 @@ See [Common Configuration](#common-configuration) section above for the common c
 | -------------- | ------------------------------------------------------------ | -------------- |
 | ClientId       | service key | Unique name of the client connecting to the MQTT broker      |
 | Qos            | `0` | Quality of Service level <br />0: At most once delivery<br />1: At least once delivery<br />2: Exactly once delivery<br />See the [MQTT QOS Spec](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718099) for more details |
-| KeepAlive     | `10s`         | Maximum time interval in seconds that is permitted to elapse between the point at which the client finishes transmitting one control packet and the point it starts sending the next. If exceeded, the broker will close the client connection |
-| Retained       | `false` | If true, Server MUST store the Application Message and its QoS, so that it can be delivered to future subscribers whose subscriptions match its topic name |
+| KeepAlive     | `10`        | Maximum time interval in seconds that is permitted to elapse between the point at which the client finishes transmitting one control packet and the point it starts sending the next. If exceeded, the broker will close the client connection |
+| Retained       | `false` | If true, Server MUST store the Application Message and its QoS, so that it can be delivered to future subscribers whose subscriptions match its topic name. See [Retained Messages](https://www.hivemq.com/blog/mqtt-essentials-part-8-retained-messages) for more details. |
 | AutoReconnect  | `true` | If true, automatically attempts to reconnect to the broker when connection is lost |
 | ConnectTimeout | `30` | Timeout in seconds for the connection to the broker to be successful |
 | CleanSession   | `false` | if true, Server MUST discard any previous Session and start a new one. This Session lasts as long as the Network Connection |
