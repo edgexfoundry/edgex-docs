@@ -12,14 +12,14 @@
         <meta name="author" content="Michael Johanson">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/microservices/configuration/CommonEnvironmentVariables/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/microservices/general/messagebus/">
       
       <link rel="icon" href="../../../assets/logo_edgex.png">
       <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.2">
     
     
       
-        <title>Common Environment Variables - EdgeX Foundry Documentation</title>
+        <title>EdgeX MessageBus - EdgeX Foundry Documentation</title>
       
     
     
@@ -86,7 +86,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#common-environment-variables" class="md-skip">
+        <a href="#edgex-messagebus" class="md-skip">
           Skip to content
         </a>
       
@@ -118,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Common Environment Variables
+              EdgeX MessageBus
             
           </span>
         </div>
@@ -246,7 +246,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../general/" class="md-tabs__link md-tabs__link--active">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
         Microservices
       </a>
     </li>
@@ -1153,7 +1153,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../general/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         Cross Cutting Concerns
       </a>
     </li>
@@ -1165,14 +1165,12 @@
               
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
       
       
       
@@ -1195,7 +1193,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../CommonConfiguration/" class="md-nav__link">
+      <a href="../../configuration/CommonConfiguration/" class="md-nav__link">
         Common Configuration
       </a>
     </li>
@@ -1209,9 +1207,58 @@
   
   
     <li class="md-nav__item">
-      <a href="../CommonCommandLineOptions/" class="md-nav__link">
+      <a href="../../configuration/CommonCommandLineOptions/" class="md-nav__link">
         Common Command Line Options
       </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/CommonEnvironmentVariables/" class="md-nav__link">
+        Common Environment Variables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/ConfigurationAndRegistry/" class="md-nav__link">
+        Configuration and Registry Providers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/V2MigrationCommonConfig/" class="md-nav__link">
+        V2 Migration of Common Configuration
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -1233,12 +1280,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Common Environment Variables
+          EdgeX MessageBus
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Common Environment Variables
+        EdgeX MessageBus
       </a>
       
         
@@ -1257,30 +1304,178 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#standard-environment-variables" class="md-nav__link">
-    Standard Environment Variables
+  <a href="#introduction" class="md-nav__link">
+    Introduction
   </a>
   
-    <nav class="md-nav" aria-label="Standard Environment Variables">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#message-envelope" class="md-nav__link">
+    Message Envelope
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementations" class="md-nav__link">
+    Implementations
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementations">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#edgex_security_secret_store" class="md-nav__link">
-    EDGEX_SECURITY_SECRET_STORE
+  <a href="#common-configuration" class="md-nav__link">
+    Common Configuration
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#edgex_startup_duration" class="md-nav__link">
-    EDGEX_STARTUP_DURATION
+  <a href="#redis-pubsub" class="md-nav__link">
+    Redis Pub/Sub
+  </a>
+  
+    <nav class="md-nav" aria-label="Redis Pub/Sub">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security-configuration" class="md-nav__link">
+    Security Configuration
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#edgex_startup_interval" class="md-nav__link">
-    EDGEX_STARTUP_INTERVAL
+  <a href="#additional-configuration" class="md-nav__link">
+    Additional Configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mqtt-31" class="md-nav__link">
+    MQTT 3.1
+  </a>
+  
+    <nav class="md-nav" aria-label="MQTT 3.1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration_1" class="md-nav__link">
+    Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security-configuration_1" class="md-nav__link">
+    Security Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-configuration_1" class="md-nav__link">
+    Additional Configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nats" class="md-nav__link">
+    NATS
+  </a>
+  
+    <nav class="md-nav" aria-label="NATS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nats-core" class="md-nav__link">
+    NATS Core
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nats-jetstream" class="md-nav__link">
+    NATS JetStream
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration_2" class="md-nav__link">
+    Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security-configuration_2" class="md-nav__link">
+    Security Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-configuration_2" class="md-nav__link">
+    Additional Configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nats-mqtt-mode" class="md-nav__link">
+    NATS MQTT Mode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zeromq-deprecated" class="md-nav__link">
+    ZeroMQ (DEPRECATED)
   </a>
   
 </li>
@@ -1291,52 +1486,52 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#environment-overrides" class="md-nav__link">
-    Environment Overrides
+  <a href="#multi-level-topics-and-wildcards" class="md-nav__link">
+    Multi-level topics and wildcards
   </a>
   
-    <nav class="md-nav" aria-label="Environment Overrides">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment" class="md-nav__link">
+    Deployment
+  </a>
+  
+    <nav class="md-nav" aria-label="Deployment">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#command-line-overrides" class="md-nav__link">
-    Command-line Overrides
+  <a href="#redis-pubsub-default" class="md-nav__link">
+    Redis Pub/Sub (default)
   </a>
   
-    <nav class="md-nav" aria-label="Command-line Overrides">
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mqtt-31_1" class="md-nav__link">
+    MQTT 3.1
+  </a>
+  
+    <nav class="md-nav" aria-label="MQTT 3.1">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#edgex_conf_dir" class="md-nav__link">
-    EDGEX_CONF_DIR
+  <a href="#configuration-changes" class="md-nav__link">
+    Configuration Changes
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#edgex_config_file" class="md-nav__link">
-    EDGEX_CONFIG_FILE
+  <a href="#docker" class="md-nav__link">
+    Docker
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#edgex_configuration_provider" class="md-nav__link">
-    EDGEX_CONFIGURATION_PROVIDER
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#edgex_profile" class="md-nav__link">
-    EDGEX_PROFILE
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#edgex_use_registry" class="md-nav__link">
-    EDGEX_USE_REGISTRY
+  <a href="#snaps" class="md-nav__link">
+    Snaps
   </a>
   
 </li>
@@ -1347,36 +1542,43 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#configuration-overrides" class="md-nav__link">
-    Configuration Overrides
+  <a href="#nats_1" class="md-nav__link">
+    NATS
   </a>
   
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#notable-configuration-overrides" class="md-nav__link">
-    Notable Configuration Overrides
-  </a>
-  
-    <nav class="md-nav" aria-label="Notable Configuration Overrides">
+    <nav class="md-nav" aria-label="NATS">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#kong_ssl_cipher_suite-edgex-kong-service" class="md-nav__link">
-    KONG_SSL_CIPHER_SUITE (edgex-kong service)
+  <a href="#configuration-changes_1" class="md-nav__link">
+    Configuration Changes
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#tokenfileprovider_defaulttokenttl-security-secretstore-setup-service" class="md-nav__link">
-    TOKENFILEPROVIDER_DEFAULTTOKENTTL (security-secretstore-setup service)
+  <a href="#docker_1" class="md-nav__link">
+    Docker
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snaps_1" class="md-nav__link">
+    Snaps
   </a>
   
 </li>
         
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zeromq-deprecated_1" class="md-nav__link">
+    ZeroMQ (DEPRECATED)
+  </a>
   
 </li>
         
@@ -1389,55 +1591,6 @@
   
 </nav>
       
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../ConfigurationAndRegistry/" class="md-nav__link">
-        Configuration and Registry Providers
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../V2MigrationCommonConfig/" class="md-nav__link">
-        V2 Migration of Common Configuration
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../general/messagebus/" class="md-nav__link">
-        EdgeX MessageBus
-      </a>
     </li>
   
 
@@ -3073,30 +3226,178 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#standard-environment-variables" class="md-nav__link">
-    Standard Environment Variables
+  <a href="#introduction" class="md-nav__link">
+    Introduction
   </a>
   
-    <nav class="md-nav" aria-label="Standard Environment Variables">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#message-envelope" class="md-nav__link">
+    Message Envelope
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementations" class="md-nav__link">
+    Implementations
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementations">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#edgex_security_secret_store" class="md-nav__link">
-    EDGEX_SECURITY_SECRET_STORE
+  <a href="#common-configuration" class="md-nav__link">
+    Common Configuration
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#edgex_startup_duration" class="md-nav__link">
-    EDGEX_STARTUP_DURATION
+  <a href="#redis-pubsub" class="md-nav__link">
+    Redis Pub/Sub
+  </a>
+  
+    <nav class="md-nav" aria-label="Redis Pub/Sub">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security-configuration" class="md-nav__link">
+    Security Configuration
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#edgex_startup_interval" class="md-nav__link">
-    EDGEX_STARTUP_INTERVAL
+  <a href="#additional-configuration" class="md-nav__link">
+    Additional Configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mqtt-31" class="md-nav__link">
+    MQTT 3.1
+  </a>
+  
+    <nav class="md-nav" aria-label="MQTT 3.1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration_1" class="md-nav__link">
+    Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security-configuration_1" class="md-nav__link">
+    Security Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-configuration_1" class="md-nav__link">
+    Additional Configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nats" class="md-nav__link">
+    NATS
+  </a>
+  
+    <nav class="md-nav" aria-label="NATS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nats-core" class="md-nav__link">
+    NATS Core
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nats-jetstream" class="md-nav__link">
+    NATS JetStream
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration_2" class="md-nav__link">
+    Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security-configuration_2" class="md-nav__link">
+    Security Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-configuration_2" class="md-nav__link">
+    Additional Configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nats-mqtt-mode" class="md-nav__link">
+    NATS MQTT Mode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zeromq-deprecated" class="md-nav__link">
+    ZeroMQ (DEPRECATED)
   </a>
   
 </li>
@@ -3107,52 +3408,52 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#environment-overrides" class="md-nav__link">
-    Environment Overrides
+  <a href="#multi-level-topics-and-wildcards" class="md-nav__link">
+    Multi-level topics and wildcards
   </a>
   
-    <nav class="md-nav" aria-label="Environment Overrides">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment" class="md-nav__link">
+    Deployment
+  </a>
+  
+    <nav class="md-nav" aria-label="Deployment">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#command-line-overrides" class="md-nav__link">
-    Command-line Overrides
+  <a href="#redis-pubsub-default" class="md-nav__link">
+    Redis Pub/Sub (default)
   </a>
   
-    <nav class="md-nav" aria-label="Command-line Overrides">
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mqtt-31_1" class="md-nav__link">
+    MQTT 3.1
+  </a>
+  
+    <nav class="md-nav" aria-label="MQTT 3.1">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#edgex_conf_dir" class="md-nav__link">
-    EDGEX_CONF_DIR
+  <a href="#configuration-changes" class="md-nav__link">
+    Configuration Changes
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#edgex_config_file" class="md-nav__link">
-    EDGEX_CONFIG_FILE
+  <a href="#docker" class="md-nav__link">
+    Docker
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#edgex_configuration_provider" class="md-nav__link">
-    EDGEX_CONFIGURATION_PROVIDER
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#edgex_profile" class="md-nav__link">
-    EDGEX_PROFILE
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#edgex_use_registry" class="md-nav__link">
-    EDGEX_USE_REGISTRY
+  <a href="#snaps" class="md-nav__link">
+    Snaps
   </a>
   
 </li>
@@ -3163,36 +3464,43 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#configuration-overrides" class="md-nav__link">
-    Configuration Overrides
+  <a href="#nats_1" class="md-nav__link">
+    NATS
   </a>
   
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#notable-configuration-overrides" class="md-nav__link">
-    Notable Configuration Overrides
-  </a>
-  
-    <nav class="md-nav" aria-label="Notable Configuration Overrides">
+    <nav class="md-nav" aria-label="NATS">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#kong_ssl_cipher_suite-edgex-kong-service" class="md-nav__link">
-    KONG_SSL_CIPHER_SUITE (edgex-kong service)
+  <a href="#configuration-changes_1" class="md-nav__link">
+    Configuration Changes
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#tokenfileprovider_defaulttokenttl-security-secretstore-setup-service" class="md-nav__link">
-    TOKENFILEPROVIDER_DEFAULTTOKENTTL (security-secretstore-setup service)
+  <a href="#docker_1" class="md-nav__link">
+    Docker
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snaps_1" class="md-nav__link">
+    Snaps
   </a>
   
 </li>
         
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zeromq-deprecated_1" class="md-nav__link">
+    ZeroMQ (DEPRECATED)
+  </a>
   
 </li>
         
@@ -3213,165 +3521,459 @@
             <article class="md-content__inner md-typeset">
               
                 
-  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/microservices/configuration/CommonEnvironmentVariables.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/microservices/general/messagebus.md" title="Edit this page" class="md-content__button md-icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
 
-<h1 id="common-environment-variables">Common Environment Variables</h1>
-<p>There are two types of environment variables used by all EdgeX services. They are <code>standard</code> and <code>overrides</code>. The only difference is that the <code>overrides</code> apply to command-line options and service configuration settings where as <code>standard</code> do not have any corresponding command-line option or configuration setting.</p>
-<h2 id="standard-environment-variables">Standard Environment Variables</h2>
-<p>This section describes the <code>standard</code> environment variables common to all EdgeX services. Some service may have additional  <code>standard</code> environment variables which are documented in those service specific sections.</p>
-<h4 id="edgex_security_secret_store">EDGEX_SECURITY_SECRET_STORE</h4>
-<p>This environment variables indicates whether the service is expected to initialize the secure SecretStore which allows the service to access secrets from Vault. Defaults to <code>true</code> if not set or not set to <code>false</code>. When set to <code>true</code> the EdgeX security services must be running. If running EdgeX in <code>non-secure</code> mode you then want this explicitly set to <code>false</code>.</p>
-<div class="admonition example">
-<p class="admonition-title">Example - Using docker-compose to disable secure SecretStore</p>
-<div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span><span class="w"> </span>
-<span class="w">  </span><span class="nt">EDGEX_SECURITY_SECRET_STORE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
-</code></pre></div>
-</div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 when running in secure mode Consul is secured,  which requires all services to have this environment variable be <code>true</code> so they can request their Consul access token from Vault. See the <a href="https://docs.edgexfoundry.org/2.0/security/Ch-Secure-Consul/">Secure Consul</a> section for more details.</p>
-</div>
-<h4 id="edgex_startup_duration">EDGEX_STARTUP_DURATION</h4>
-<p>This environment variable sets the total duration in seconds allowed for the services to complete the bootstrap start-up. Default is 60 seconds.</p>
-<div class="admonition example">
-<p class="admonition-title">Example - Using docker-compose to set start-up duration to 120 seconds</p>
-<div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span><span class="w"> </span>
-<span class="w">  </span><span class="nt">EDGEX_STARTUP_DURATION</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;120&quot;</span><span class="w"></span>
-</code></pre></div>
-</div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the deprecated lower case version <code>startup_duration</code> has been removed</p>
-</div>
-<h4 id="edgex_startup_interval">EDGEX_STARTUP_INTERVAL</h4>
-<p>This environment variable sets the retry interval in seconds for the services retrying a failed action during the bootstrap start-up. Default is 1 second.</p>
-<div class="admonition example">
-<p class="admonition-title">Example - Using docker-compose to set start-up interval to 3 seconds</p>
-<div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span><span class="w"> </span>
-<span class="w">  </span><span class="nt">EDGEX_STARTUP_INTERVAL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;3&quot;</span><span class="w"></span>
-</code></pre></div>
-</div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the deprecated lower case version <code>startup_interval</code> has been removed</p>
-</div>
-<h2 id="environment-overrides">Environment Overrides</h2>
-<p>There are two types of environment overrides which are <code>command-line</code> and <code>configuration</code>. </p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Environment variable overrides have precedence over all command-line, local configuration and remote configuration. i.e. configuration setting changed in Consul will be overridden after the service loads the configuration from Consul if that setting has an environment override.</p>
-</div>
-<h3 id="command-line-overrides">Command-line Overrides</h3>
-<h4 id="edgex_conf_dir">EDGEX_CONF_DIR</h4>
-<p>This environment variable overrides the <a href="../CommonCommandLineOptions/#confdir"><code>-c/--confdir</code> command-line option</a>. </p>
+<h1 id="edgex-messagebus">EdgeX MessageBus</h1>
+<h2 id="introduction">Introduction</h2>
+<p>EdgeX has an internal message bus referred to as the <strong>EdgeX MessageBus</strong> , which is used for internal communications between EdgeX services. An EdgeX Service is any Core/Support/Application/Device Service from EdgeX or any custom Application or Device Service built with the EdgeX SDKs. </p>
+<p>The following diagram shows how each of the EdgeX Service use the EdgeX MessageBus.</p>
+<p><img alt="[Insert Image of EdgeX MessageBus]" src="../messagebus%20diagram.jpg" /></p>
+<p>The EdgeX MessageBus is meant for internal EdgeX service to service communications. It is not meant as an entry point for external services to communicate with the internal EdgeX services. The eKuiper Rules Engine is an exception to this as it is tightly integrated with EdgeX.</p>
+<p>The EdgeX services intended as external entry points are:</p>
+<ul>
+<li>
+<p><strong>REST API on all the EdgeX services</strong> - Accessed directly in non-secure mode or via the <a href="../../../security/Ch-APIGateway">API Gateway</a> when running in secure mode</p>
+</li>
+<li>
+<p><strong>App Service using External MQTT Trigger</strong> - An App Service configured to use the <a href="../../application/Triggers/#external-mqtt-trigger">External MQTT Trigger</a> will accept data from external services on an "external" MQTT connection</p>
+</li>
+<li>
+<p><strong>App Service using HTTP Trigger</strong> - An App Service configured to use the <a href="../../application/Triggers/#http-trigger">HTTP Trigger</a> will accept data from external services on an "external" REST connection. Accessed in the same manner as other EdgeX REST APIs.</p>
+</li>
+<li>
+<p><strong>App Service using Custom Trigger</strong> - An App Service configured to use a <a href="../../application/Triggers/#custom-trigger">Custom Trigger</a> can accept data from external services or over additional protocols with few limitations. See <a href="https://github.com/edgexfoundry/edgex-examples/tree/v2.2.0/application-services/custom/custom-trigger">Custom Trigger Example</a> for an example.</p>
+</li>
+<li>
+<p><strong>Core Command External MQTT Connection</strong> - Core Command now receives command requests and publishes responses via an external MQTT connection that is separate from the EdgeX MessageBus. The requests are forwarded to the EdgeX MessageBus and the corresponding responses are forwarded back to the external MQTT connection. </p>
+</li>
+</ul>
+<p>Originally the EdgeX MessageBus was only used to send <em>Event/Readings</em> from Core Data to the Application Services layer. In recent V2 releases more services are now using the EdgeX MessageBus rather than REST for inner service communication. </p>
+<ul>
+<li>Device Services publish <em>Event/Readings</em> directly to the EdgeX MessageBus rather than sending them via REST to Core Data. </li>
+<li><a href="../#service-metrics">Service Metrics</a> are published to the EdgeX MessageBus</li>
+<li><a href="../../core/metadata/Ch-Metadata/#device-system-events">System Events</a> are published to the EdgeX MessageBus. </li>
+<li><a href="../../../design/adr/0023-North-South-Messaging">Command Request/Reponses</a> are now published to the EdgeX MessageBus by Core Command and Devices Services.  </li>
+</ul>
+<p>This trend away from REST to the EdgeX MessageBus for inner service communication continues. In the future, Device Services will receive Device System Events via the EdgeX MessageBus  rather than the current REST callbacks used when devices are added/updated/deleted in Core Metadata.</p>
+<h2 id="message-envelope">Message Envelope</h2>
+<p>All messages published to the EdgeX MessageBus are wrapped in a <code>MessageEnvelope</code>. This envelope contains metadata describing the message payload, such as the payload Content Type (JSON or CBOR), Correlation Id, etc. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>All EdgeX service Docker images have this option set to <code>/res</code>.</p>
+<p>Unless noted below, the <code>MessageEnvelope</code> is  JSON encoded when publishing it to the EdgeX MessageBus. This does result in the <code>MessageEnvelope</code>'s payload being double encoded.</p>
 </div>
-<div class="admonition example">
-<p class="admonition-title">Example - Using docker-compose to override the configuration folder name</p>
-<div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span><span class="w"> </span>
-<span class="w">  </span><span class="nt">EDGEX_CONF_DIR</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/my-config&quot;</span><span class="w"></span>
-</code></pre></div>
-</div>
-<h4 id="edgex_config_file">EDGEX_CONFIG_FILE</h4>
-<p>This environment variable overrides the <a href="../CommonCommandLineOptions#file"><code>-f/--file</code> command-line option</a>.</p>
-<div class="admonition example">
-<p class="admonition-title">Example - Using docker-compose to override the configuration file name used</p>
-<div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span><span class="w"> </span>
-<span class="w">  </span><span class="nt">EDGEX_CONFIG_FILE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-config.toml&quot;</span><span class="w"></span>
-</code></pre></div>
-</div>
-<h4 id="edgex_configuration_provider">EDGEX_CONFIGURATION_PROVIDER</h4>
-<p>This environment variable overrides the <a href="../CommonCommandLineOptions#config-provider"><code>-cp/--configProvider</code> command-line option</a>. </p>
+<h2 id="implementations">Implementations</h2>
+<p>The EdgeX MessageBus is defined by the message bus abstraction implemented in <a href="https://github.com/edgexfoundry/go-mod-messaging">go-mod-messaging</a>. This module defines an abstract client API which currently has five implementations of the API for the different underlying message bus protocols. </p>
+<h3 id="common-configuration">Common Configuration</h3>
+<p>Each service that uses the EdgeX MessageBus has a configuration section which defines which implementation to use and how to connect and configure the specific underlying protocol client. This section is  <code>[Trigger.EdgexMessageBus]</code> for <a href="../../application/GeneralAppServiceConfig">Application Services</a> and<code>[MessageQueue]</code> for <a href="../../core/data/Ch-CoreData/#configuration-properties">Core Data</a>, <a href="../../core/metadata/Ch-Metadata/#configuration-properties">Core Metadata</a> and <a href="../../device/Ch-DeviceServices/#configuration-properties">Device Services</a>. The <code>Type</code> setting specifies which of the following implementations to use. </p>
+<ul>
+<li><strong>Redis Pub/Sub</strong> (<strong>default</strong>) - <code>Type=redis</code></li>
+<li><strong>MQTT 3.1</strong> - <code>Type=mqtt</code></li>
+<li><strong>NATS Core</strong> - <code>Type=nats-core</code> </li>
+<li><strong>NATS JetStream</strong> - <code>Type=nats-jetstream</code> </li>
+<li><strong>ZeroMQ</strong> (<strong>DEPRECATED</strong>) - <code>Type=zero</code> </li>
+</ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>All EdgeX service Docker images have this option set to <code>-cp=consul.http://edgex-core-consul:8500</code>.</p>
+<p>In general all EdgeX Services running in a deployment must be configured to use the same EdgeX MessageBus implementation. By default all services that use the EdgeX MessageBus are configured to use the Redis Pub/Sub implementation. NATS does support a compatibility mode with MQTT. See the <a href="#nats-mqtt-mode">NATS MQTT Mode</a> section below for details.</p>
 </div>
-<div class="admonition example">
-<p class="admonition-title">Example - Using docker-compose to override with different port number</p>
-<div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span><span class="w"> </span>
-<span class="w">  </span><span class="nt">EDGEX_CONFIGURATION_PROVIDER</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;consul.http://edgex-consul:9500&quot;</span><span class="w"></span>
-</code></pre></div>
+<h3 id="redis-pubsub">Redis Pub/Sub</h3>
+<p>As stated above this is the default implementation that all EdgeX Services are configured to use. It takes advantage of the existing Redis DB instance for the broker. Redis Pub/Sub is a fire and forget protocol, so delivery is not guaranteed. If more robustness is required, use the MQTT or NATS implementations.</p>
+<h4 id="configuration">Configuration</h4>
+<p>See <a href="#common-configuration">Common Configuration</a> section above for the common configuration elements for all implementations.</p>
+<h5 id="security-configuration">Security Configuration</h5>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AuthMode</td>
+<td><code>usernamepassword</code></td>
+<td>Mode of authentication to use. Values are <code>none</code>, <code>usernamepassword</code><br />, <code>clientcert</code>, or <code>cacert</code></td>
+</tr>
+<tr>
+<td>SecretName</td>
+<td><code>redisb</code></td>
+<td>Secret name used to look up credentials in the service's SecretStore</td>
+</tr>
+</tbody>
+</table>
+<h5 id="additional-configuration">Additional Configuration</h5>
+<p>This implementation does not have any additional configuration.</p>
+<h3 id="mqtt-31">MQTT 3.1</h3>
+<p>Robust message bus protocol, which has additional configuration options for robustness and requires an additional MQTT Broker to be running. See <a href="http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html">MQTT Spec</a> for more details on this protocol.</p>
+<h4 id="configuration_1">Configuration</h4>
+<p>See <a href="#common-configuration">Common Configuration</a> section above for the common configuration elements for all implementations.</p>
+<h5 id="security-configuration_1">Security Configuration</h5>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AuthMode</td>
+<td><code>none</code></td>
+<td>Mode of authentication to use. Values are <code>none</code>, <code>usernamepassword</code>, <code>clientcert</code>, or <code>cacert</code>. The MQTT Broker is currently not secured in secure mode.</td>
+</tr>
+<tr>
+<td>SecretName</td>
+<td>blank</td>
+<td>Secret name used to look up credentials in the service's SecretStore</td>
+</tr>
+</tbody>
+</table>
+<h5 id="additional-configuration_1">Additional Configuration</h5>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ClientId</td>
+<td>service key</td>
+<td>Unique name of the client connecting to the MQTT broker</td>
+</tr>
+<tr>
+<td>Qos</td>
+<td><code>0</code></td>
+<td>Quality of Service level <br />0: At most once delivery<br />1: At least once delivery<br />2: Exactly once delivery<br />See the <a href="http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718099">MQTT QOS Spec</a> for more details</td>
+</tr>
+<tr>
+<td>KeepAlive</td>
+<td><code>10</code></td>
+<td>Maximum time interval in seconds that is permitted to elapse between the point at which the client finishes transmitting one control packet and the point it starts sending the next. If exceeded, the broker will close the client connection</td>
+</tr>
+<tr>
+<td>Retained</td>
+<td><code>false</code></td>
+<td>If true, Server MUST store the Application Message and its QoS, so that it can be delivered to future subscribers whose subscriptions match its topic name. See <a href="https://www.hivemq.com/blog/mqtt-essentials-part-8-retained-messages">Retained Messages</a> for more details.</td>
+</tr>
+<tr>
+<td>AutoReconnect</td>
+<td><code>true</code></td>
+<td>If true, automatically attempts to reconnect to the broker when connection is lost</td>
+</tr>
+<tr>
+<td>ConnectTimeout</td>
+<td><code>30</code></td>
+<td>Timeout in seconds for the connection to the broker to be successful</td>
+</tr>
+<tr>
+<td>CleanSession</td>
+<td><code>false</code></td>
+<td>if true, Server MUST discard any previous Session and start a new one. This Session lasts as long as the Network Connection</td>
+</tr>
+</tbody>
+</table>
+<h3 id="nats">NATS</h3>
+<div class="admonition edgey -">
+<p class="admonition-title">EdgeX 2.3</p>
+<p>The NATS implementation is new for EdgeX 2.3</p>
 </div>
-<h4 id="edgex_profile">EDGEX_PROFILE</h4>
-<p>This environment variable overrides the <a href="../CommonCommandLineOptions#profile"><code>-p/--profile</code> command-line option</a>. When non-empty,  the value is used in the path to the configuration file. i.e. /res/my-profile/configuation.toml.  This is useful when running multiple instances of a service such as App Service Configurable.</p>
-<div class="admonition example">
-<p class="admonition-title">Example - Using docker-compose to override the profile to use</p>
-<div class="highlight"><pre><span></span><code><span class="nt">app-service-rules</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgexfoundry/docker-app-service-configurable:2.0.0</span><span class="w"></span>
-<span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w"> </span>
-<span class="w">      </span><span class="nt">EDGEX_PROFILE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rules-engine&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-</code></pre></div>
-</div>
-<p>This sets the <code>profile</code> so that the App Service Configurable uses the <code>rules-engine</code> configuration profile which resides at <code>/res/rules-engine/configuration.toml</code></p>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the deprecated lower case version <code>edgex_profile</code> has been removed</p>
-</div>
-<h4 id="edgex_use_registry">EDGEX_USE_REGISTRY</h4>
-<p>This environment variable overrides the <a href="../CommonCommandLineOptions#registry"><code>-r/--registry</code> command-line option</a>. </p>
+<p>NATS is a high performance messaging system that offers some interesting options for local deployments.  It uses a lightweight text-based protocol notably similar to http.  This protocol includes full header support that can allow conveyance of the EdgeX <code>MessageEnvelope</code> across service boundaries without the need for double-encoding if all services in the deployment are using NATS.  Currently services must be specially built with the <code>include_nats_messaging</code> tag to enable this option.</p>
+<h4 id="nats-core">NATS Core</h4>
+<p>An ordinary NATS server uses interest, or existence of a client subscription, as the basis for subject availability on the server.  This makes Publish a fire and forget operation much like Redis, and gives the system an <code>at most once</code> quality of service.</p>
+<h4 id="nats-jetstream">NATS JetStream</h4>
+<p>The JetStream persistence layer binds NATS subjects to persistent streams which enables the server to collect messages for subjects that have no registered interest, and allows support for <code>at least once</code> quality of service.  Notably, services running in <code>core-nats</code> mode can still subscribe and publish to jetstream-enabled subjects without the additional overhead associated with publish acknowledgement.</p>
+<h4 id="configuration_2">Configuration</h4>
+<p>See <a href="#common-configuration">Common Configuration</a> section above for the common configuration elements for all implementations.</p>
+<h5 id="security-configuration_2">Security Configuration</h5>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AuthMode</td>
+<td><code>none</code></td>
+<td>Mode of authentication to use. Values are <code>none</code>, <code>usernamepassword</code>, <code>clientcert</code>, or <code>cacert</code>. The NATS Server is currently not secured in secure mode.</td>
+</tr>
+<tr>
+<td>SecretName</td>
+<td>blank</td>
+<td>Secret name used to look up credentials in the service's SecretStore</td>
+</tr>
+</tbody>
+</table>
+<h5 id="additional-configuration_2">Additional Configuration</h5>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ClientId</td>
+<td>service key</td>
+<td>Unique name of the client connecting to the NATS Server</td>
+</tr>
+<tr>
+<td>Format</td>
+<td><code>nats</code></td>
+<td>Format of the actual message published. Valid values are:<br />- <strong>nats</strong> : Metadata from the <code>MessageEnvlope</code> are put into the NATS header and the payload from the <code>MessageEnvlope</code> is published as is. <strong>Preferred format when all services are using NATS</strong><br />- <strong>json</strong> : JSON encodes the <code>MessageEnvelope</code> and publish it as the message. Use this format for compatibility when other services using MQTT 3.1 and running the NATS Server in MQTT mode.</td>
+</tr>
+<tr>
+<td>ConnectTimeout</td>
+<td><code>30</code></td>
+<td>Timeout in seconds for the connection to the broker to be successful</td>
+</tr>
+<tr>
+<td>RetryOnFailedConnect</td>
+<td><code>true</code></td>
+<td>Retry on connection failure - expects a string representation of a boolean</td>
+</tr>
+<tr>
+<td>QueueGroup</td>
+<td>blank</td>
+<td>Specifies a queue group to distribute messages from a stream to a pool of worker services</td>
+</tr>
+<tr>
+<td>Durable</td>
+<td>blank</td>
+<td>Specifies a durable consumer should be used with the given name.  Note that if a durable consumer with the specified name does not exist it will be considered ephemeral and deleted by the client on drain / unsubscribe (<strong>JetStream only</strong>)</td>
+</tr>
+<tr>
+<td>AutoProvision</td>
+<td><code>true</code></td>
+<td>Automatically provision NATS streams. (<strong>JetStream only</strong>)</td>
+</tr>
+<tr>
+<td>Deliver</td>
+<td><code>new</code></td>
+<td>Specifies delivery mode for subscriptions - options are "new", "all", "last" or "lastpersubject".  See the <a href="https://docs.nats.io/nats-concepts/jetstream/consumers#deliverpolicy-optstartseq-optstarttime">NATS documentation</a> for more detail (<strong>JetStream only</strong>)</td>
+</tr>
+<tr>
+<td>DefaultPubRetryAttempts</td>
+<td><code>2</code></td>
+<td>Number of times to attempt to retry on failed publish (<strong>JetStream only</strong>)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="nats-mqtt-mode">NATS MQTT Mode</h4>
+<p>A JetStream enabled server can support MQTT connections on the same set of underlying subjects.  This can be especially useful if you are using prebuilt EdgeX services like <a href="https://github.com/edgexfoundry/device-onvif-camera">device-onvif-camera</a> but want to transition your system towards using NATS.  Note that <code>format=json</code> must be used so that the NATS messagebus client can read the double-encoded envelopes sent by MQTT clients.  For more information see <a href="https://docs.nats.io/running-a-nats-service/configuration/mqtt">NATS MQTT Documentation</a>.</p>
+<h3 id="zeromq-deprecated">ZeroMQ (DEPRECATED)</h3>
+<p>ZeroMQ is a broker-less TCP based message bus protocol. Since it is broker-less, there can only a be a single publisher and many subscribers. Once Device Services also started publishing to the EdgeX MessageBus, ZeroMQ became unusable, thus it has been deprecated and will be removed in the next major release.</p>
+<h2 id="multi-level-topics-and-wildcards">Multi-level topics and wildcards</h2>
+<p>The EdgeX MessageBus uses multi-level topics and wildcards to allow filtering of data via subscriptions and has standardized on a MQTT like scheme. See <a href="https://www.hivemq.com/blog/mqtt-essentials-part-5-mqtt-topics-best-practices">MQTT multi-level topics and wildcards</a> for more information.</p>
+<p>The Redis implementation converts the Redis Pub/Sub multi-level topic scheme to one similar to MQTT. In Redis Pub/Sub the "<strong>.</strong>" is used as a level separator and the "*" is used as a wildcard. These are converted to "/" and "#" respectively, which are used by MQTT. MQTT additionally uses the "+" as a wildcard for single levels and the "#" for multi-level (only at the end). The Redis implementation uses the "#" for both the single and multi-level wildcard.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>All EdgeX service Docker images have this option set to <code>--registry</code>.</p>
+<p>The  inconsistency with how the Redis implementation handles multi-level topics and wildcards not being 100% compliant with the MQTT scheme will be resolved in the next major release. </p>
 </div>
-<div class="admonition example">
-<p class="admonition-title">Example - Using docker-compose to override use of the Registry</p>
-<div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span><span class="w"> </span>
-<span class="w">  </span><span class="nt">EDGEX_USE_REGISTRY</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
+<p>The NATS implementations convert the NATS multi-level topic scheme to match that of MQTT. In NATS "<strong>.</strong>" is used as a level separator, "*" is used as the single level wildcard and "&gt;" is used for the multi-level wild card. These are converted to "/", "+" and "#" respectively, which are compliant with the MQTT scheme.</p>
+<div class="admonition example -">
+<p class="admonition-title">Example Multi-level topics and wildcards for EdgeX MessageBus - <em>Redis implementation</em></p>
+<ul>
+<li>
+<p><strong>edgex/events/#</strong></p>
+<p>All events coming from any device service or core data for any device profile, device or source</p>
+</li>
+<li>
+<p><strong>edgex/events/device/#</strong></p>
+<p>All events coming from any device service for any device profile, device or source</p>
+</li>
+<li>
+<p><strong>edgex/events/#/#/camera-001/#</strong></p>
+<p>Events coming from any device service or core data for any device profile, but only for the device "camera-001" and for any source</p>
+</li>
+<li>
+<p><strong>edgex/events/device/onvif/#/status</strong></p>
+<p>Events coming from any device service for only the device profile "onvif", and any device and only for the source "status"</p>
+</li>
+</ul>
+</div>
+<div class="admonition example -">
+<p class="admonition-title">Example Multi-level topics and wildcards for EdgeX MessageBus - <em>MQTT 3.1 and NATS implementations</em></p>
+<ul>
+<li>
+<p><strong>edgex/events/#</strong></p>
+<p>All events coming from any device service or core data for any device profile, device or source</p>
+</li>
+<li>
+<p><strong>edgex/events/device/#</strong></p>
+<p>All events coming from any device service for any device profile, device or source</p>
+</li>
+<li>
+<p><strong>edgex/events/+/+/camera-001/#</strong></p>
+<p>Events coming from any device service or core data for any device profile, but only for the device "camera-001" and for any source</p>
+</li>
+<li>
+<p><strong>edgex/events/device/onvif/+/status</strong></p>
+<p>Events coming from any device service for only the device profile "onvif", and any device and only for the source "status"</p>
+</li>
+</ul>
+</div>
+<h2 id="deployment">Deployment</h2>
+<h3 id="redis-pubsub-default">Redis Pub/Sub (default)</h3>
+<p>All EdgeX services are capable of using the Redis Pub/Sub without any changes to configuration. The released compose files and snaps use Redis Pub/Sub.</p>
+<h3 id="mqtt-31_1">MQTT 3.1</h3>
+<p>All EdgeX services are capable of using MQTT 3.1 by simply making changes to each service's configuration. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As mentioned above, the MQTT 3.1 implementation requires the addition of a MQTT Broker service to be running.</p>
+</div>
+<h4 id="configuration-changes">Configuration Changes</h4>
+<div class="admonition example -">
+<p class="admonition-title">Example MQTT Configurations changes for Core/Support/Device Services</p>
+<p>The following <code>MessageQueue</code> configuration settings must be changed for all EdgeX Core/Support/Device Services to use MQTT 3.1
+<div class="highlight"><pre><span></span><code><span class="k">[MessageQueue]</span><span class="w"></span>
+<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt&quot;</span><span class="w"></span>
+<span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span><span class="w"> </span>
+<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"> </span><span class="c1"># in docker this must be overriden to be the docker host name of the MQTT Broker</span><span class="w"></span>
+<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span><span class="w"></span>
+<span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w">  </span><span class="c1"># Currently in secure mode the MQTT Broker is not secured</span><span class="w"></span>
+<span class="w">  </span><span class="k">[MessageQueue.Optional]</span><span class="w"></span>
+<span class="w">  </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;&lt;service-key&gt;&quot;</span><span class="w"> </span><span class="c1"># must be unique name of the service, thus the service key (core-data, etc) is used</span><span class="w"></span>
+<span class="w">  </span><span class="n">Qos</span><span class="w">          </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="c1"># Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</span><span class="w"></span>
+<span class="w">  </span><span class="n">KeepAlive</span><span class="w">    </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span><span class="w"></span>
+<span class="w">  </span><span class="n">Retained</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="n">AutoReconnect</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
+</code></pre></div></p>
+</div>
+<div class="admonition example -">
+<p class="admonition-title">Example MQTT Configurations changes for Application Services</p>
+<p>The following <code>Trigger.EdgexMessageBus</code> configuration settings must be changed for all EdgeX Application Services to use MQTT 3.1</p>
+<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span><span class="w"></span>
+<span class="n">Type</span><span class="o">=</span><span class="s">&quot;edgex-messagebus&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="k">[Trigger.EdgexMessageBus]</span><span class="w"></span>
+<span class="w">  </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.SubscribeHost]</span><span class="w"></span>
+<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"> </span><span class="c1"># in docker this must be overriden to be the docker host name of the MQTT Broker</span><span class="w"></span>
+<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span><span class="w"></span>
+<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.PublishHost]</span><span class="w"></span>
+<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"> </span><span class="c1"># in docker this must be overriden to be the docker host name of the MQTT Broker</span><span class="w"></span>
+<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span><span class="w"></span>
+<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.Optional]</span><span class="w"></span>
+<span class="w">    </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;&lt;service-key&gt;&quot;</span><span class="w"> </span><span class="c1"># must be unique name of the service, thus the service key (app-rule-engine, etc) is used</span><span class="w"></span>
+<span class="w">    </span><span class="n">Qos</span><span class="w">          </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="c1"># Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</span><span class="w"></span>
+<span class="w">    </span><span class="n">KeepAlive</span><span class="w">    </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span><span class="w"></span>
+<span class="w">    </span><span class="n">Retained</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">AutoReconnect</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
+<span class="w">    </span><span class="n">authmode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w">  </span><span class="c1"># Currently in secure mode the MQTT Broker is not secured</span><span class="w"></span>
 </code></pre></div>
 </div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the deprecated lower case version <code>edgex_registry</code> has been removed</p>
-</div>
-<h3 id="configuration-overrides">Configuration Overrides</h3>
-<p>Any configuration setting from a service's <code>configuration.toml</code> file can be overridden by environment variables. The environment variable names have the following format:</p>
-<div class="highlight"><pre><span></span><code><span class="err">&lt;</span><span class="n">TOM-SECTION-NAME</span><span class="err">&gt;</span><span class="n">_</span><span class="err">&lt;</span><span class="n">TOML-KEY-NAME</span><span class="err">&gt;</span><span class="w"></span>
-<span class="err">&lt;</span><span class="n">TOML-SECTION-NAME</span><span class="err">&gt;</span><span class="n">_</span><span class="err">&lt;</span><span class="n">TOML-SUB-SECTION-NAME</span><span class="err">&gt;</span><span class="n">_</span><span class="err">&lt;</span><span class="n">TOML-KEY-NAME</span><span class="err">&gt;</span><span class="w"></span>
+<h4 id="docker">Docker</h4>
+<p>The EdgeX Compose Builder utility provides an option to easily generate a compose file with all the selected services re-configured for MQTT 3.1 using environment overrides. This is accomplished by using the <code>mqtt-bus</code> option. See <a href="https://github.com/edgexfoundry/edgex-compose/tree/kamakura/compose-builder">Compose Builder README</a> for details on all available options.</p>
+<div class="admonition example -">
+<p class="admonition-title">Example Secure mode compose generation for MQTT 3.1</p>
+<div class="highlight"><pre><span></span><code>make gen ds-virtual ds-rest mqtt-bus
 </code></pre></div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>With EdgeX 2.0 the use of CamelCase environment variable names is no longer supported. Instead the variable names must be all uppercase as in the example below. Also the using of dash <code>-</code> in the TOML-NAME is converted to an underscore <code>_</code> in the environment variable name.</p>
 </div>
-<div class="admonition example">
-<p class="admonition-title">Example - Environment Overrides of Configuration</p>
-</div>
-<div class="highlight"><pre><span></span><code><span class="err">```</span><span class="w"> </span><span class="n">toml</span><span class="w">   </span>
-<span class="n">TOML</span><span class="w">   </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">Writable</span><span class="p">]</span><span class="w">    </span>
-<span class="w">         </span><span class="n">LogLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;INFO&quot;</span><span class="w">    </span>
-<span class="n">ENVVAR</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">WRITABLE_LOGLEVEL</span><span class="o">=</span><span class="n">DEBUG</span><span class="w">    </span>
-
-<span class="n">TOML</span><span class="w">   </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">Clients</span><span class="p">]</span><span class="w"></span>
-<span class="w">            </span><span class="k">[Clients.core-data]</span><span class="w"></span>
-<span class="w">            </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
-<span class="n">ENVVAR</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">CLIENTS_CORE_DATA_HOST</span><span class="o">=</span><span class="n">edgex-core-data</span><span class="w">    </span>
-<span class="err">```</span><span class="w">    </span>
+<div class="admonition example -">
+<p class="admonition-title">Non-secure mode compose generation for MQTT 3.1</p>
+<div class="highlight"><pre><span></span><code>make gen no-secty ds-virtual ds-rest mqtt-bus
 </code></pre></div>
-<h3 id="notable-configuration-overrides">Notable Configuration Overrides</h3>
-<p>This section describes environment variable overrides that have special utility,
-such as enabling a debug capability or facilitating code development.</p>
-<h4 id="kong_ssl_cipher_suite-edgex-kong-service">KONG_SSL_CIPHER_SUITE (edgex-kong service)</h4>
-<p>This variable controls the TLS cipher suite and protocols supported by the EdgeX API Gateway as implemented by Kong.
-This variable, if unspecified, selects the <code>"intermediate"</code> cipher suite which supports
-TLSv1.2, TLSv1.3, and relatively modern TLS ciphers.
-The EdgeX framework by default overrides this value to <code>"modern"</code>,
-which currently enables only TLSv1.3 and a fixed cipher suite.
-The <code>"modern"</code> cipher suite is known to be incompatible with older web browsers,
-but since the target use of the API gateway is to support API clients, not browsers,
-this behavior was deemed acceptable by the EdgeX Security Working Group on September 8, 2021.</p>
-<h4 id="tokenfileprovider_defaulttokenttl-security-secretstore-setup-service">TOKENFILEPROVIDER_DEFAULTTOKENTTL (security-secretstore-setup service)</h4>
-<p>This variable controls the TTL of the default secretstore tokens that are created for EdgeX microservices.
-This variable defaults to <code>1h</code> (one hour) if unspecified.
-It is often useful when developing a new microservice to set this value to a higher value, such as <code>12h</code>.
-This higher value will allow the secret store token to remain valid long enough
-for a developer to get a new microservice working and into a state where it can renew its own token.
-(All secret store tokens in EdgeX expire if not renewed periodically.)</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>run</code> command can be used to generate and run the compose file in one command, but any changes made to the generated compose file will be overridden the next time <code>run</code> is used. An alternative is to use the <code>up</code> command, which runs the latest generated compose file with any modifications that may have been made.</p>
+</div>
+<h4 id="snaps">Snaps</h4>
+<p>For Snap deployment, each services' configuration has to modified manually or via environment overrides after install. For more details see the <a href="..getting-started/Ch-GettingStartedSnapUsers/#configuration">Configuration</a> section in the Snaps getting started guide.</p>
+<h3 id="nats_1">NATS</h3>
+<p>The EdgeX Go based services are not capable of using the NATS implementation without being rebuild using the <code>include_nats_messaging</code> build tag. Any EdgeX Core/Support/Go Device/Application Service targeted to use NATS in a deployment must have the Makefile modified to add this build flag. The service can then be rebuild for native and/or Docker.</p>
+<div class="admonition example -">
+<p class="admonition-title">Core Data make target modified to include NATS</p>
+<div class="highlight"><pre><span></span><code><span class="nf">cmd/core-data/core-data</span><span class="o">:</span>
+    <span class="k">$(</span>GOCGO<span class="k">)</span> build -tags <span class="s2">&quot;include_nats_messaging </span><span class="k">$(</span>NON_DELAYED_START_GO_BUILD_TAG_FOR_CORE<span class="k">)</span><span class="s2">&quot;</span> <span class="k">$(</span>CGOFLAGS<span class="k">)</span> -o <span class="nv">$@</span> ./cmd/core-data
+</code></pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The C Device SDK does not currently have a NATS implementation, so C Devices can not be used with the NATS based EdgeX MessageBus.</p>
+</div>
+<h4 id="configuration-changes_1">Configuration Changes</h4>
+<div class="admonition example -">
+<p class="admonition-title">Example NATS Configurations changes for Core/Support/Device Services</p>
+<p>The following <code>MessageQueue</code> configuration settings must be changed for all EdgeX Core/Support/Device Services to use NATS Jetstream</p>
+<div class="highlight"><pre><span></span><code><span class="k">[MessageQueue]</span><span class="w"></span>
+<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;nats-jetstream&quot;</span><span class="w"></span>
+<span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span><span class="w"> </span>
+<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"> </span><span class="c1"># in docker this must be overriden to be the docker host name of the MQTT Broker</span><span class="w"></span>
+<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4222</span><span class="w"></span>
+<span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w">  </span><span class="c1"># Currently in secure mode the NATS server is not secured</span><span class="w"></span>
+<span class="w">  </span><span class="k">[MessageQueue.Optional]</span><span class="w"></span>
+<span class="w">  </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;&lt;service-key&gt;&quot;</span><span class="w"> </span><span class="c1"># must be unique name of the service, thus the service key (core-data, etc) is used</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># Connection information</span><span class="w"></span>
+<span class="w">  </span><span class="n">Format</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;nats&quot;</span><span class="w"> </span><span class="c1"># Use &#39;json&#39; for backward compatability with services using MQTT</span><span class="w"></span>
+<span class="w">  </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
+<span class="w">  </span><span class="n">RetryOnFailedConnect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="n">QueueGroup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span>
+<span class="w">  </span><span class="n">Durable</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="c1"># Jetstream only</span><span class="w"></span>
+<span class="w">  </span><span class="n">AutoProvision</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"> </span><span class="c1"># Jetstream only</span><span class="w"></span>
+<span class="w">  </span><span class="n">Deliver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;new&quot;</span><span class="w"> </span><span class="c1"># Jetstream only</span><span class="w"></span>
+</code></pre></div>
+</div>
+<div class="admonition example -">
+<p class="admonition-title">Example NATS Configurations changes for Application Services</p>
+<p>The following <code>Trigger.EdgexMessageBus</code> configuration settings must be changed for all EdgeX Application Services to use NATsJetstream</p>
+<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span><span class="w"></span>
+<span class="n">Type</span><span class="o">=</span><span class="s">&quot;edgex-messagebus&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="k">[Trigger.EdgexMessageBus]</span><span class="w"></span>
+<span class="w">  </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;nats-jetstream&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.SubscribeHost]</span><span class="w"></span>
+<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"> </span><span class="c1"># in docker this must be overriden to be the docker host name of the MQTT Broker</span><span class="w"></span>
+<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4222</span><span class="w"></span>
+<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.PublishHost]</span><span class="w"></span>
+<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"> </span><span class="c1"># in docker this must be overriden to be the docker host name of the MQTT Broker</span><span class="w"></span>
+<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4222</span><span class="w"></span>
+<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.Optional]</span><span class="w"></span>
+<span class="w">    </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;&lt;service-key&gt;&quot;</span><span class="w"> </span><span class="c1"># must be unique name of the service, thus the service key (app-rule-engine, etc) is used</span><span class="w"></span>
+<span class="w">    </span><span class="n">Format</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;nats&quot;</span><span class="w"> </span><span class="c1"># Use &#39;json&#39; for backward compatability with services using MQTT</span><span class="w"></span>
+<span class="w">    </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
+<span class="w">    </span><span class="n">RetryOnFailedConnect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">QueueGroup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span>
+<span class="w">    </span><span class="n">Durable</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="c1"># Jetstream only</span><span class="w"></span>
+<span class="w">    </span><span class="n">AutoProvision</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"> </span><span class="c1"># Jetstream only</span><span class="w"></span>
+<span class="w">    </span><span class="n">Deliver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;new&quot;</span><span class="w"> </span><span class="c1"># Jetstream only</span><span class="w"></span>
+<span class="w">    </span><span class="n">authmode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w">  </span><span class="c1"># Currently in secure mode the NATS Server is not secured</span><span class="w"></span>
+</code></pre></div>
+</div>
+<h4 id="docker_1">Docker</h4>
+<p>The EdgeX Compose Builder utility provides an option to easily generate a compose file with all the selected services re-configured for NATS using environment overrides. This is accomplished by using the <code>nats-bus</code> option. This option configures the services to use the NATS Jetstream implementation. See <a href="https://github.com/edgexfoundry/edgex-compose/tree/kamakura/compose-builder">Compose Builder README</a> for details on all available options. If NATS Core is preferred, simply do a search and replace of <code>nats-jeststream</code> with <code>nats-core</code> in the generated compose file.</p>
+<div class="admonition example -">
+<p class="admonition-title">Example Secure mode compose generation for NATS</p>
+<div class="highlight"><pre><span></span><code>make gen ds-virtual ds-rest nats-bus
+</code></pre></div>
+</div>
+<div class="admonition example -">
+<p class="admonition-title">Non-secure mode compose generation for NATS</p>
+<div class="highlight"><pre><span></span><code>make gen no-secty ds-virtual ds-rest nats-bus
+</code></pre></div>
+</div>
+<h4 id="snaps_1">Snaps</h4>
+<p>The published Snaps are built without NATS included, so the use of NATS in those Snaps is not possible. One could modify the Makefiles as described above and then build and install local snap packages. In this case it would be easier to modify each service's configuration as describe above so that the locally built and installed snaps are already configured for NATS.</p>
+<h3 id="zeromq-deprecated_1">ZeroMQ (DEPRECATED)</h3>
+<p>Since ZeroMQ only allows one publisher, it has been deprecated and will be removed in the next major release. Please deploy using one of the other implementations.</p>
 
 
   
@@ -3392,7 +3994,7 @@ for a developer to get a new microservice working and into a state where it can 
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="../CommonCommandLineOptions/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Common Command Line Options" rel="prev">
+        <a href="../../configuration/V2MigrationCommonConfig/" class="md-footer__link md-footer__link--prev" aria-label="Previous: V2 Migration of Common Configuration" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -3401,20 +4003,20 @@ for a developer to get a new microservice working and into a state where it can 
               <span class="md-footer__direction">
                 Previous
               </span>
-              Common Command Line Options
+              V2 Migration of Common Configuration
             </div>
           </div>
         </a>
       
       
         
-        <a href="../ConfigurationAndRegistry/" class="md-footer__link md-footer__link--next" aria-label="Next: Configuration and Registry Providers" rel="next">
+        <a href="../../core/Ch-CoreServices/" class="md-footer__link md-footer__link--next" aria-label="Next: Core Services" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Configuration and Registry Providers
+              Core Services
             </div>
           </div>
           <div class="md-footer__button md-icon">
