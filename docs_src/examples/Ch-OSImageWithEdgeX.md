@@ -47,7 +47,7 @@ Under `volumes.pc.structure`:
 Build:
 ```bash
 $ snapcraft
-... "--md-code-hl-number-color"
+...
 Snapped pc_20-0.4_amd64.snap
 ```
 
@@ -75,13 +75,13 @@ We now have a registered key named `edgex-demo` which we'll use later.
 
 First, make yourself familiar with the Ubuntu Core [model assertion](https://ubuntu.com/core/docs/reference/assertions/model).
 
-Find your developer ID using CLI:
+Find your developer ID using the Snapcraft CLI:
 ```bash
 $ snapcraft whoami
 ...
 developer-id: SZ4OfFv8DVM9om64iYrgojDLgbzI0eiL
 ```
-Or from https://dashboard.snapcraft.io/dev/account/.
+or from the [Snapcraft Dashboard](https://dashboard.snapcraft.io/dev/account/).
 
 Unlike the official documentation which uses JSON, we use YAML serialization for the model. This is for consistency with all the other serialization formats in this tutorial. Moreover, it allows us to comment out some parts for testing or add comments to describe the details inline.
 
@@ -192,6 +192,7 @@ The warning is because we side-loaded the gadget for demonstration purposes. In 
 
 #### Flash the image
 You can use one of following to flash the image:
+
 - [Ubuntu Startup Disk Creator](https://ubuntu.com/tutorials/create-a-usb-stick-on-ubuntu)
 - [Raspberry Pi Imager](https://www.raspberrypi.com/software/)
 - [`dd` command](https://ubuntu.com/download/iot/installation-media)
@@ -567,7 +568,8 @@ ubuntu-image snap model.signed.yaml --validation=enforce --snap pc-amd64-gadget/
     The image file is now ready to be flashed on a medium to create a bootable drive with the needed applications and basic configurations.
 
 ### Boot into the OS
-Boot into the OS by
+Boot into the OS by:
+
 - [flashing the image](#flash-the-image) and installing the OS on a device, or
 - [running it in an emulator](#run-in-an-emulator)
 
@@ -755,7 +757,7 @@ Fetching edgex-config-provider-example
 ...
 ```
 
-For details, tefer to [how we did this before](#build-the-ubuntu-core-image).
+For details, refer to [how we did this before](#build-the-ubuntu-core-image).
 
 !!! done
     The image file is now ready to be flashed on a medium to create a bootable drive with the needed applications and complex configurations.
@@ -763,7 +765,8 @@ For details, tefer to [how we did this before](#build-the-ubuntu-core-image).
 
 ### Try it out
 
-Boot into the OS by
+Boot into the OS by:
+
 - [flashing the image](#flash-the-image) and installing the OS on a device, or
 - [running it in an emulator](#run-in-an-emulator)
 
