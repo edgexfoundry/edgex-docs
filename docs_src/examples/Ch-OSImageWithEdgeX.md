@@ -1,14 +1,16 @@
 # Creating an EdgeX OS Image
 
+## Introduction
+
 This document walks you through creating an OS image that is preloaded with an EdgeX stack. We use [Ubuntu Core] as the OS, which is optimized for IoT and allows secure deployment of applications. We build the image using the default tooling and the snapped versions of EdgeX components. Since snaps receive automatic and transactional updates, the components stay up to date reliably with the latest security and bug fixes.
 
-This guide is divided into three chapters:
+This guide is divided into three chapters to create:
 
-- Creating an image with EdgeX components, using default configurations
-- Overriding basic service configurations
-- Replacing default service configurations
+- Ubuntu Core + EdgeX (default configurations)
+- Ubuntu Core + EdgeX (basic service configuration overrides)
+- Ubuntu Core + EdgeX (custom configuration files)
 
-Each chapter results in a working Ubuntu Core OS image that can be flashed on a drive and boot up with the expected EdgeX stack. 
+Each chapter results in a working Ubuntu Core OS image that can be flashed on a disk and boot up with the expected EdgeX stack. 
 
 In this example, we will use the Device Virtual service to simulate devices and produce synthetic events. We will create an `amd64` image, but the instructions can be adapted to other architectures and even for a Raspberry Pi.
 
@@ -21,14 +23,15 @@ We will use the following tools:
 
 It is a good idea to read through the [Getting Started using Snaps](../../getting-started/Ch-GettingStartedSnapUsers) before working on this walk-through or at any point to better understand the concepts.
 
-This guide has been tested on **Ubuntu 22.04** as *development environment*. It may work on other Linux distributions and Ubuntu versions. 
 
 !!! note
-    Some commands are executed on the development environment, but some others on the target Ubuntu Core system. For clarity, we add __Core__ to the title of code blocks for commands that are executed on the Ubuntu Core environment.
+    This guide has been tested on **Ubuntu 22.04** as the desktop OS. It may work on other Linux distributions and Ubuntu versions. 
+
+    Some commands are executed on the desktop computer, but some others on the target Ubuntu Core system. For clarity, we use **🖥 Desktop** and **🚀 Core** titles for code blocks to distinguish where those commands are being executed.
 
 ## A. Create an image with EdgeX components
 
-In this chapter, we are going to create OS image that includes the expected EdgeX components. Perform these steps in your development environment.
+In this chapter, we will create an OS image that includes the expected EdgeX components.
 
 ### Configure the Ubuntu Core volumes
 Configuring the volumes is possible via a Gadget snap.
@@ -45,7 +48,7 @@ Under `volumes.pc.structure`:
 - If planning to use an emulator: Find the item with name `ubuntu-data` and increase its size to `2G`. This is to give sufficient writable storage. When flashing on actual hardware, this volume would automatically take the whole remaining space (NEED TO VERIFY).
 
 Build:
-```bash
+```bash title="🖥 Desktop"
 $ snapcraft
 ...
 Snapped pc_20-0.4_amd64.snap
@@ -61,7 +64,7 @@ Refer to [this article](https://ubuntu.com/core/docs/custom-images#heading--sign
 
 1) Create and register a key if you don't already have one:
 
-```bash
+```bash title="🖥 Desktop"
 snap login
 snap keys
 # continue if you have no existing keys
@@ -76,7 +79,7 @@ We now have a registered key named `edgex-demo` which we'll use later.
 First, make yourself familiar with the Ubuntu Core [model assertion](https://ubuntu.com/core/docs/reference/assertions/model).
 
 Find your developer ID using the Snapcraft CLI:
-```bash
+```bash title="🖥 Desktop"
 $ snapcraft whoami
 ...
 developer-id: SZ4OfFv8DVM9om64iYrgojDLgbzI0eiL
@@ -149,7 +152,7 @@ We sign the model using the `edgex-demo` key created and registered earlier.
 
 The `snap sign` command takes JSON as input and produces YAML as output! We use the YQ app to convert our model assertion to JSON before passing it in for signing.
 
-```bash
+```bash title="🖥 Desktop"
 # sign
 yq eval model.yaml -o=json | snap sign -k edgex-demo > model.signed.yaml
 
@@ -169,7 +172,7 @@ We use ubuntu-image and set the following:
 This will download all the needed snaps and build a file called `pc.img`.
 Note that even the kernel and OS base (core20) are snap packages!
 
-```bash
+```bash title="🖥 Desktop"
 $ ubuntu-image snap model.signed.yaml --validation=enforce --snap pc-amd64-gadget/pc_20-0.4_amd64.snap 
 Fetching snapd
 Fetching pc-kernel
@@ -190,7 +193,13 @@ The warning is because we side-loaded the gadget for demonstration purposes. In 
 !!! done
     The image file is now ready to be flashed on a medium to create a bootable drive with the needed applications!
 
-#### Flash the image
+### Boot into the OS
+
+You can now flash the image on your disk and boot to start the installation.
+However, during development it is best to boot in an emulator to quickly detect and diagnose possible issues.
+
+Instead of flashing and installing the OS on actual hardware, we will continue this guide using an emulator. Every other step will be similar to when image is flashed and installed on actual hardware.
+#### Flash the image on disk
 You can use one of following to flash the image:
 
 - [Ubuntu Startup Disk Creator](https://ubuntu.com/tutorials/create-a-usb-stick-on-ubuntu)
@@ -201,15 +210,13 @@ For instructions specific to a device, refer to Ubuntu Core section [here](https
 
 Once the boot is complete, it will prompt for the email address of your [Ubuntu SSO account](https://login.ubuntu.com/) to deploy your [SSH public keys](https://login.ubuntu.com/ssh-keys). This is done with the help of a program called `console-conf`. Read [here](https://ubuntu.com/core/docs/system-user) to know how this manual step looks like and how it can be automated.
 
-Instead of flashing and installing the OS on actual hardware, we will continue this guide using an Emulator. Every other step will be similar to when image is flashed and installed on actual hardware.
-
 #### Run in an emulator
 Running the image in an emulator makes it easier to quickly try the image and find out possible issues.
 
 We use a `amd64` QEMU emulator. You may refer to [Testing Ubuntu Core with QEMU](https://ubuntu.com/core/docs/testing-with-qemu) and [Image building](https://ubuntu.com/core/docs/image-building#heading--testing) for more information.
 
 Run the following command and wait for the boot to complete:
-```bash
+```bash title="🖥 Desktop"
 sudo qemu-system-x86_64 \
  -smp 4 \
  -m 4096 \
@@ -222,7 +229,11 @@ sudo qemu-system-x86_64 \
  -net user,hostfwd=tcp::8022-:22,hostfwd=tcp::8443-:8443,hostfwd=tcp::59880-:59880
 ```
 
-The above command forwards the SSH port `22` of the emulator to `8022` on the host. In addition, it forwards the API Gateway's port `8433` for external and secure access to EdgeX endpoints Core Data's port `59880` for demonstration purposes.
+The above command forwards:
+
+- SSH port `22` of the emulator to `8022` on the host
+- API Gateway's port `8433` for external and secure access to EdgeX endpoints
+- Core Data's port `59880` for demonstration purposes in chapter A.
 
 As mentioned before, once the initial installation is complete, you will get a prompt for your email address to deploy your public key.
 
@@ -237,18 +248,17 @@ As mentioned before, once the initial installation is complete, you will get a p
 
     This means that the port is not available on the host. Try removing the service that uses this port or change the host port (left hand side) to another port number, e.g. `tcp::18443-:8443`.
 
-### Connect, explore, configure
-
-In this step, we connect to the machine that has the image installed via SSH, validate the installation, and do some manual configurations.
+### TRY IT OUT
+In this step, we connect to the machine that has the image installed over SSH, validate the installation, and do some manual configurations.
 
 We SSH to the emulator from the previous step:
-```bash
+```bash title="🖥 Desktop"
 ssh <user>@localhost -p 8022
 ```
 If you used the default approach (using `console-conf`) and entered your Ubuntu account email address at the end of the installation, then `<user>` is your Ubuntu account ID. If you don't know your ID, look it up using a browser from [here](https://login.ubuntu.com/) or programmatically from `https://login.ubuntu.com/api/v2/keys/<email>`.
 
 List the installed snaps:
-``` title="Core"
+``` title="🚀 Core"
 $ snap list
 Name                  Version          Rev    Tracking       Publisher   Notes
 core20                20220719         1587   latest/stable  canonical✓  base
@@ -261,7 +271,7 @@ snapd                 2.56.2           16292  latest/stable  canonical✓  snapd
 ```
 
 Let's install the EdgeX CLI to easily query various APIs:
-``` title="Core"
+``` title="🚀 Core"
 $ snap install edgex-cli
 edgex-cli 2.2.0 from Canonical✓ installed
 $ edgex-cli --help
@@ -304,14 +314,14 @@ core-command: Thu Aug 11 10:27:47 UTC 2022
 We can verify that the core services are alive.
 
 Let's now query the devices:
-``` title="Core"
+``` title="🚀 Core"
 $ edgex-cli device list
 No devices available
 ```
 
 There are no devices, because the installed EdgeX Device Virtual is disabled and not started by default.
 
-``` title="Core"
+``` title="🚀 Core"
 $ snap start edgex-device-virtual 
 Started.
 $ snap logs -f edgex-device-virtual 
@@ -322,7 +332,7 @@ $ snap logs -f edgex-device-virtual
 
 This shows that the virtual devices have been added to Core Metadata and the service has started. Rerun the same CLI command:
 
-``` title="Core"
+``` title="🚀 Core"
 $ edgex-cli device list
 Name                           Description                ServiceName     ProfileName                    Labels                    AutoEvents
 Random-Float-Device            Example of Device Virtual  device-virtual  Random-Float-Device            [device-virtual-example]  [{30s false Float32} {30s false Float64}]
@@ -334,7 +344,7 @@ Random-UnsignedInteger-Device  Example of Device Virtual  device-virtual  Random
 
 From the service logs, we can't see if the service is actually producing data. We can increase the logging verbosity by modifying the service log level:
 
-``` title="Core"
+``` title="🚀 Core"
 $ snap set edgex-device-virtual config.writable-loglevel=DEBUG
 $ snap restart edgex-device-virtual 
 Restarted.
@@ -349,7 +359,7 @@ $ snap logs -f edgex-device-virtual
 
 The data is being published to the message bus and Core Data will be storing it. We can query to find out:
 
-``` title="Core"
+``` title="🚀 Core"
 $ edgex-cli reading list --limit=2
 Origin               Device                         ProfileName                    Value                 ValueType
 11 Aug 22 10:50 UTC  Random-UnsignedInteger-Device  Random-UnsignedInteger-Device  14610331353796717782  Uint64
@@ -361,7 +371,7 @@ We now have a running EdgeX platform with dummy devices, producing synthetic rea
 It is possible to configure the services to listen to other or all interfaces and access them from outside. Note that this will expose the endpoint without any access control!
 
 To make Core Data's server listen to all interfaces (at your own risk):
-``` title="Core"
+``` title="🚀 Core"
 $ snap set edgexfoundry app-options=true
 $ snap set edgexfoundry apps.core-data.config.service-serverbindaddr="0.0.0.0"
 $ snap restart edgexfoundry.core-data
@@ -373,16 +383,17 @@ Restarted
 
 
 Let's exit the SSH session:
-``` title="Core"
+``` title="🚀 Core"
 $ exit
 logout
 Connection to localhost closed.
 ```
 
 ... and query data from outside
-```bash
+```bash title="🖥 Desktop"
 curl --silent --show-err http://localhost:59880/api/v2/reading/all?limit=2 | jq
 ```
+
 ```json title="Response"
 {
   "apiVersion": "v2",
@@ -412,9 +423,10 @@ curl --silent --show-err http://localhost:59880/api/v2/reading/all?limit=2 | jq
 ```
 
 However, as expected, we can't access securely via the API Gateway:
-```bash
+```bash title="🖥 Desktop"
 curl --insecure https://localhost:8443/core-data/api/v2/reading/all?limit=2
 ```
+
 ```json title="Response"
 {"message":"Unauthorized"}
 ```
@@ -434,7 +446,7 @@ In this chapter, we will improve our OS image so that:
 
 ### Create key pair and JWT token
 Create a private/public key pair:
-```
+``` title="🖥 Desktop"
 $ openssl ecparam -genkey -name prime256v1 -noout -out private.pem
 $ openssl ec -in private.pem -pubout -out public.pem
 read EC key
@@ -442,7 +454,7 @@ writing EC key
 ```
 
 Print the public key:
-```
+``` title="🖥 Desktop"
 $ cat public.pem 
 -----BEGIN PUBLIC KEY-----
 MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE5slZTyp5Zfxoos7TljHgPSbGm3As
@@ -488,7 +500,7 @@ echo "$TOKEN"
 The script will read the `private.pem` file from the same directory.
 
 Make the script executable and run it to get a JWT (JSON Web Token):
-```
+``` title="🖥 Desktop"
 $ chmod +x create-jwt.sh
 $ ./create-jwt.sh 
 Payload: {
@@ -548,7 +560,7 @@ Refer to the following for details:
 
 
 Build:
-```bash
+```bash title="🖥 Desktop"
 $ snapcraft
 ...
 Snapped pc_20-0.4_amd64.snap
@@ -560,7 +572,7 @@ Snapped pc_20-0.4_amd64.snap
 ### Build the image
 Use ubuntu-image tool again to build a new image. Use the same instructions as [before](#build-the-ubuntu-core-image) to build:
 
-```bash
+```bash title="🖥 Desktop"
 ubuntu-image snap model.signed.yaml --validation=enforce --snap pc-amd64-gadget/pc_20-0.4_amd64.snap
 ```
 
@@ -570,21 +582,23 @@ ubuntu-image snap model.signed.yaml --validation=enforce --snap pc-amd64-gadget/
 ### Boot into the OS
 Boot into the OS by:
 
-- [flashing the image](#flash-the-image) and installing the OS on a device, or
+- [flashing the image on disk](#flash-the-image-on-disk) and installing the OS on a device, or
 - [running it in an emulator](#run-in-an-emulator)
+
+### TRY IT OUT
 
 This time, as set in the gadget defaults, Device Virtual is started by default and we have a user to securely interact with the API Gateway.
 
 !!! info
     SSH to the machine and verify that Device Virtual is enabled (to start on boot) and active (running):
-    ``` title="Core"
+    ``` title="🚀 Core"
     $ snap services edgex-device-virtual
     Service                              Startup  Current  Notes
     edgex-device-virtual.device-virtual  enabled  active   -
     ```
 
     Verify that the public key is there as a snap option:
-    ``` title="Core"
+    ``` title="🚀 Core"
     $ snap get edgexfoundry apps.secrets-config -d
     {
       "apps.secrets-config": {
@@ -598,17 +612,16 @@ This time, as set in the gadget defaults, Device Virtual is started by default a
     ```
 
     Verify that Device Virtual has the startup message set from the gadget:
-    ``` title="Core"
+    ``` title="🚀 Core"
     $ snap logs -n=all edgex-device-virtual | grep "Startup message"
     2022-08-19T13:51:28Z edgex-device-virtual.device-virtual[4660]: level=INFO ts=2022-08-19T13:51:28.868688382Z app=device-virtual source=variables.go:352 msg="Variables override of 'Service.StartupMsg' by environment variable: SERVICE_STARTUPMSG=Startup message from gadget!"
     ```
 
-### Query data securely from another host
-
-Let's query API Gateway from outside of the machine. The hostname is still `localhost` because this guide runs the image in an emulator on the same machine.
-```bash
+To query data securely from another host, we need to query the API Gateway. Let's query API Gateway from outside of the machine. The hostname is still `localhost` because this guide runs the image in an emulator on the same machine.
+```bash title="🖥 Desktop"
 curl --insecure --silent --show-err https://localhost:8443/core-data/api/v2/reading/all?limit=2 -H "Authorization: Bearer $(cat admin-jwt.txt)" | jq
 ```
+
 ```json title="Response"
 {
   "apiVersion": "v2",
@@ -665,30 +678,31 @@ The EdgeX Device Virtual service cannot be fully configured using environment va
 Moreover, it is tedious to override many configurations one by one, compared to having a file which contains all the needed modifications.
 
 Since we want to create an OS image pre-loaded with the configured system, we need to make sure the configurations are there without any manual user interaction. We do that by creating a snap which provides the configuration files to the Device Virtual snap:
+
 - configuration.toml
 - devices
 - profiles
 
 For this exercise, we will modify the default configurations and remove most default devices and resources. We will also replace the startup message set in the `configuration.toml` file.
 
-This snap should be build and uploaded to the store. We use `edgex-config-provider-example` as the snap name. Refer to [docs](https://docs.edgexfoundry.org/2.2/getting-started/Ch-GettingStartedSnapUsers/#config-provider-snap) for more details and example source code.
+This snap should be build and uploaded to the store. We use `edgex-config-provider-example` as the snap name. Refer to [docs](../../getting-started/Ch-GettingStartedSnapUsers/#config-provider-snap) for more details and example source code.
 
 Build:
-```
+```bash title="🖥 Desktop"
 $ snapcraft
 ...
 Snapped edgex-config-provider-example_2.3_amd64.snap
 ```
 
-This will build for your host architecture, so if your machine is `arm64`, it will result in a snap that has the same architecture. You can perform [remote builds](https://snapcraft.io/docs/remote-build) to build for other architectures.
+This will build for your host architecture, so if your machine is `amd64`, it will result in a snap that has the same architecture. You can perform [remote builds](https://snapcraft.io/docs/remote-build) to build for other architectures.
 
 Let's upload the `amd64` snap and release it to the `latest/edge` channel:
-```
+```bash title="🖥 Desktop"
 snapcraft upload --release=latest/edge ./edgex-config-provider-example_2.3_amd64.snap
 ```
 
 Now, we can query the snap ID from the store:
-```
+```bash title="🖥 Desktop"
 $ snap info edgex-config-provider-example | grep snap-id
 snap-id: WWPGZGi1bImphPwrRfw46aP7YMyZYl6w
 ```
@@ -701,7 +715,7 @@ We have to make three adaptations:
 
 1) Remove config overrides from the gadget and re-build it
 
-Commented out or remove:
+Commented out (or remove):
 ```yaml title="gadget.yaml"
     # # Enable app options
     # app-options: true # not necessary because this service has it by default
@@ -727,7 +741,7 @@ This internally bind-mounts provider's "res" directory on top of the consumer's 
 
 
 3) Rebuild the gadget
-```bash
+```bash title="🖥 Desktop"
 $ snapcraft
 ...
 Snapped pc_20-0.4_amd64.snap
@@ -744,38 +758,39 @@ Snapped pc_20-0.4_amd64.snap
 ```
 
 5) Sign the model as before
-```bash
+```bash title="🖥 Desktop"
 yq eval model.yaml -o=json | snap sign -k edgex-demo > model.signed.yaml
 ```
+### Build the image
+Use ubuntu-image tool again to build a new image. Use the same instructions as [before](#build-the-ubuntu-core-image) to build:
 
-4) Re-build the image
+```bash title="🖥 Desktop"
+ubuntu-image snap model.signed.yaml --validation=enforce --snap pc-amd64-gadget/pc_20-0.4_amd64.snap
+```
 
-```bash
-$ ubuntu-image snap model.signed.yaml --validation=enforce --snap pc-amd64-gadget/pc_20-0.4_amd64.snap
+Note the addition of our config provider in output:
+```
 ...
 Fetching edgex-config-provider-example
 ...
 ```
 
-For details, refer to [how we did this before](#build-the-ubuntu-core-image).
-
 !!! done
-    The image file is now ready to be flashed on a medium to create a bootable drive with the needed applications and complex configurations.
+    The image file is now ready to be flashed on a medium to create a bootable drive with the needed applications and custom configuration files.
 
-
-### Try it out
-
+### Boot into the OS
 Boot into the OS by:
 
-- [flashing the image](#flash-the-image) and installing the OS on a device, or
+- [flashing the image on disk](#flash-the-image-on-disk) and installing the OS on a device, or
 - [running it in an emulator](#run-in-an-emulator)
 
+### TRY IT OUT
 
 !!! info
     SSH to the machine and verify the installations:
     
     List of snaps:
-    ``` title="Core"
+    ``` title="🚀 Core"
     $ snap list
     Name                           Version          Rev    Tracking       Publisher   Notes
     core20                         20220805         1611   latest/stable  canonical✓  base
@@ -790,7 +805,7 @@ Boot into the OS by:
     Note that we now also have `edgex-config-provider-example` in the list.
 
     Verify that Device Virtual only has one profile, as configured in the config provider:
-    ``` title="Core"
+    ``` title="🚀 Core"
     $ snap install edgex-cli
     edgex-cli 2.2.0 from Canonical✓ installed
     $ edgex-cli device list
@@ -799,14 +814,14 @@ Boot into the OS by:
     ```
 
     Verify that Device Virtual has the startup message set from the provider:
-    ``` title="Core"
+    ``` title="🚀 Core"
     $ snap logs -n=all edgex-device-virtual | grep "Startup message"
     2022-08-19T14:42:24Z edgex-device-virtual.device-virtual[5402]: level=INFO ts=2022-08-19T14:42:24.438798115Z app=device-virtual source=message.go:55 msg="Startup message from config provider"
     ```
 
-Now, query the metadata of Device Virtual from your host machine. 
+Query the metadata of Device Virtual from your host machine. 
 We have to use the same JWT created in chapter B.
-```bash
+```bash title="🖥 Desktop"
 curl --insecure --silent --show-err https://localhost:8443/core-data/api/v2/reading/all?limit=2 -H "Authorization: Bearer $(cat admin-jwt.txt)" | jq
 ```
 ```json title="Response"
