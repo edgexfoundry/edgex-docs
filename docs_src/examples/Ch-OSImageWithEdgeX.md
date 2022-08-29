@@ -6,9 +6,9 @@ This document walks you through creating an OS image that is preloaded with an E
 
 This guide is divided into three chapters to create:
 
-- Ubuntu Core + EdgeX (default configurations)
-- Ubuntu Core + EdgeX (basic service configuration overrides)
-- Ubuntu Core + EdgeX (custom configuration files)
+- Ubuntu Core + EdgeX, with default configurations
+- Ubuntu Core + EdgeX, with basic service configurations
+- Ubuntu Core + EdgeX, with custom configuration files
 
 Each chapter results in a working Ubuntu Core OS image that can be flashed on a disk and boot up with the expected EdgeX stack. 
 
@@ -437,7 +437,7 @@ In this chapter, we demonstrated how to build an image that is pre-loaded with s
 
 In the next chapter, we walk you through creating an image that comes pre-loaded with this configuration, so it boots into a working EdgeX environment that even includes your public key and user.
 
-## B. Override basic service configurations
+## B. Override basic configurations
     
 In this chapter, we will improve our OS image so that:
 
@@ -669,7 +669,7 @@ The server configuration is made possible via a combination of snap options and 
 For the above cases, we need to supply whole configuration files to applications.
 In the next chapter, we walk through creating a Snap package with our custom configuration files. The package will become part of the OS image and supply necessary configurations to all other EdgeX applications.
 
-## C. Replace default service configurations
+## C. Override configuration files
 
 This chapter builds on top of what we did previously and shows how to override entire configuration files with a packaged copy, prepared for an specific use case.
 
