@@ -100,14 +100,14 @@ that is, one without an external physical presence, such as a container for a se
 10. Some means shall be provided to answer the question, "What are the child devices (if any) of device x.y.z?".
 11. There can be multiple levels (eg, child devices of a child device).
 12. Each child device can have only have one parent device.
-13. It is up to the Device Service which manages a parent device to remove all of its child devices if the parent is removed.
+13. The core-metadata service must remove all of the child devices if a parent device is removed.
 
 Not a requirement: inheritance of device status via the parent-child relationship. Apparently this was a point
 over which past consideration of parent-child relationships in EdgeX foundered, but it seems complicated
 for independent services, and can generally be inferred by other services anyway.
 
 ### Other Related Issues
-Use Case for Application Services Extending Device Data [Extending Device Data](./Extending-Device-Data.md) may be related, 
+Use Case for Application Services Extending Device Data [Extending Device Data](https://github.com/edgexfoundry/edgex-docs/pull/845) *later (./Extending-Device-Data.md)* may be related, 
 as, depending on its solution, it may have to indicate a different Device Relationship ("Extends").
 
 ### References
