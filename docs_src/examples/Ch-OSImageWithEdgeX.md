@@ -27,7 +27,7 @@ It is a good idea to read through the [Getting Started using Snaps](../../gettin
 !!! note
     This guide has been tested on **Ubuntu 22.04** as the desktop OS. It may work on other Linux distributions and Ubuntu versions. 
 
-    Some commands are executed on the desktop computer, but some others on the target Ubuntu Core system. For clarity, we use **🖥 Desktop** and **🚀 Core** titles for code blocks to distinguish where those commands are being executed.
+    Some commands are executed on the desktop computer, but some others on the target Ubuntu Core system. For clarity, we use **🖥 Desktop** and **🚀 Ubuntu Core** titles for code blocks to distinguish where those commands are being executed.
 
 ## A. Create an image with EdgeX components
 
@@ -258,7 +258,7 @@ ssh <user>@localhost -p 8022
 If you used the default approach (using `console-conf`) and entered your Ubuntu account email address at the end of the installation, then `<user>` is your Ubuntu account ID. If you don't know your ID, look it up using a browser from [here](https://login.ubuntu.com/) or programmatically from `https://login.ubuntu.com/api/v2/keys/<email>`.
 
 List the installed snaps:
-``` title="🚀 Core"
+``` title="🚀 Ubuntu Core"
 $ snap list
 Name                  Version          Rev    Tracking       Publisher   Notes
 core20                20220719         1587   latest/stable  canonical✓  base
@@ -271,7 +271,7 @@ snapd                 2.56.2           16292  latest/stable  canonical✓  snapd
 ```
 
 Let's install the EdgeX CLI to easily query various APIs:
-``` title="🚀 Core"
+``` title="🚀 Ubuntu Core"
 $ snap install edgex-cli
 edgex-cli 2.2.0 from Canonical✓ installed
 $ edgex-cli --help
@@ -314,14 +314,14 @@ core-command: Thu Aug 11 10:27:47 UTC 2022
 We can verify that the core services are alive.
 
 Let's now query the devices:
-``` title="🚀 Core"
+``` title="🚀 Ubuntu Core"
 $ edgex-cli device list
 No devices available
 ```
 
 There are no devices, because the installed EdgeX Device Virtual is disabled and not started by default.
 
-``` title="🚀 Core"
+``` title="🚀 Ubuntu Core"
 $ snap start edgex-device-virtual 
 Started.
 $ snap logs -f edgex-device-virtual 
@@ -332,7 +332,7 @@ $ snap logs -f edgex-device-virtual
 
 This shows that the virtual devices have been added to Core Metadata and the service has started. Rerun the same CLI command:
 
-``` title="🚀 Core"
+``` title="🚀 Ubuntu Core"
 $ edgex-cli device list
 Name                           Description                ServiceName     ProfileName                    Labels                    AutoEvents
 Random-Float-Device            Example of Device Virtual  device-virtual  Random-Float-Device            [device-virtual-example]  [{30s false Float32} {30s false Float64}]
@@ -344,7 +344,7 @@ Random-UnsignedInteger-Device  Example of Device Virtual  device-virtual  Random
 
 From the service logs, we can't see if the service is actually producing data. We can increase the logging verbosity by modifying the service log level:
 
-``` title="🚀 Core"
+``` title="🚀 Ubuntu Core"
 $ snap set edgex-device-virtual config.writable-loglevel=DEBUG
 $ snap restart edgex-device-virtual 
 Restarted.
@@ -359,7 +359,7 @@ $ snap logs -f edgex-device-virtual
 
 The data is being published to the message bus and Core Data will be storing it. We can query to find out:
 
-``` title="🚀 Core"
+``` title="🚀 Ubuntu Core"
 $ edgex-cli reading list --limit=2
 Origin               Device                         ProfileName                    Value                 ValueType
 11 Aug 22 10:50 UTC  Random-UnsignedInteger-Device  Random-UnsignedInteger-Device  14610331353796717782  Uint64
@@ -371,7 +371,7 @@ We now have a running EdgeX platform with dummy devices, producing synthetic rea
 It is possible to configure the services to listen to other or all interfaces and access them from outside. Note that this will expose the endpoint without any access control!
 
 To make Core Data's server listen to all interfaces (at your own risk):
-``` title="🚀 Core"
+``` title="🚀 Ubuntu Core"
 $ snap set edgexfoundry app-options=true
 $ snap set edgexfoundry apps.core-data.config.service-serverbindaddr="0.0.0.0"
 $ snap restart edgexfoundry.core-data
@@ -383,7 +383,7 @@ Restarted
 
 
 Let's exit the SSH session:
-``` title="🚀 Core"
+``` title="🚀 Ubuntu Core"
 $ exit
 logout
 Connection to localhost closed.
@@ -591,14 +591,14 @@ This time, as set in the gadget defaults, Device Virtual is started by default a
 
 !!! info
     SSH to the machine and verify that Device Virtual is enabled (to start on boot) and active (running):
-    ``` title="🚀 Core"
+    ``` title="🚀 Ubuntu Core"
     $ snap services edgex-device-virtual
     Service                              Startup  Current  Notes
     edgex-device-virtual.device-virtual  enabled  active   -
     ```
 
     Verify that the public key is there as a snap option:
-    ``` title="🚀 Core"
+    ``` title="🚀 Ubuntu Core"
     $ snap get edgexfoundry apps.secrets-config -d
     {
       "apps.secrets-config": {
@@ -612,7 +612,7 @@ This time, as set in the gadget defaults, Device Virtual is started by default a
     ```
 
     Verify that Device Virtual has the startup message set from the gadget:
-    ``` title="🚀 Core"
+    ``` title="🚀 Ubuntu Core"
     $ snap logs -n=all edgex-device-virtual | grep "Startup message"
     2022-08-19T13:51:28Z edgex-device-virtual.device-virtual[4660]: level=INFO ts=2022-08-19T13:51:28.868688382Z app=device-virtual source=variables.go:352 msg="Variables override of 'Service.StartupMsg' by environment variable: SERVICE_STARTUPMSG=Startup message from gadget!"
     ```
@@ -790,7 +790,7 @@ Boot into the OS by:
     SSH to the machine and verify the installations:
     
     List of snaps:
-    ``` title="🚀 Core"
+    ``` title="🚀 Ubuntu Core"
     $ snap list
     Name                           Version          Rev    Tracking       Publisher   Notes
     core20                         20220805         1611   latest/stable  canonical✓  base
@@ -805,7 +805,7 @@ Boot into the OS by:
     Note that we now also have `edgex-config-provider-example` in the list.
 
     Verify that Device Virtual only has one profile, as configured in the config provider:
-    ``` title="🚀 Core"
+    ``` title="🚀 Ubuntu Core"
     $ snap install edgex-cli
     edgex-cli 2.2.0 from Canonical✓ installed
     $ edgex-cli device list
@@ -814,7 +814,7 @@ Boot into the OS by:
     ```
 
     Verify that Device Virtual has the startup message set from the provider:
-    ``` title="🚀 Core"
+    ``` title="🚀 Ubuntu Core"
     $ snap logs -n=all edgex-device-virtual | grep "Startup message"
     2022-08-19T14:42:24Z edgex-device-virtual.device-virtual[5402]: level=INFO ts=2022-08-19T14:42:24.438798115Z app=device-virtual source=message.go:55 msg="Startup message from config provider"
     ```
