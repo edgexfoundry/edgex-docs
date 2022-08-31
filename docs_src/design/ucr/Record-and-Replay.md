@@ -55,7 +55,7 @@ Shall have capability to record device Event/Reading data as received from the D
 
 Shall have capability to export captured data for use at a later time or to send to other users
 
-- Exported data shall be in JSON format with option for it to be compressed (ZIP or TAR). 
+- Exported data shall be in JSON format with option for it to be compressed (ZIP or GZIP). 
 
 - Exported binary Event/Readings shall not be re-encoded in CBOR.
 
@@ -74,6 +74,8 @@ Shall have capability to import data that was previously recorded and exported
 Shall have capability to replay previously captured data
 
 - Replay must allow captured data to be replayed at captured, slower or faster speeds
+
+- Replay must adjust Event/Reading timestamps to be current time when published.
 
 - Replay must allow for the repeat replay option with number of times to repeat the captured data.
 
