@@ -10,7 +10,7 @@ The tabs below provide a listing (may be partial based on latest updates) for re
 === "Deployment"
     |Example|Location|
     |---|---|
-    |Kubernetes|[Github - examples, deployment](https://github.com/edgexfoundry/edgex-examples/tree/main/deployment/helm)|
+    |Kubernetes|[Github - examples, deployment](https://github.com/edgexfoundry/edgex-examples/tree/v2.1.0/deployment/kubernetes)|
     |Raspberry Pi 4|[Github - examples, raspberry-pi-4](https://github.com/edgexfoundry/edgex-examples/tree/main/deployment/raspberry-pi-4)|
     |Cloud deployments|[Github - examples, cloud deployment templates](https://github.com/edgexfoundry/edgex-examples/tree/main/deployment/templates)|
 
