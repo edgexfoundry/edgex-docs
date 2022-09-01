@@ -2636,14 +2636,13 @@ micro service source code and build your own micro services.  However, if you do
 <p>Instead, Users run EdgeX micro service Docker containers. The EdgeX community builds and creates Docker container images with each release.</p>
 <h2 id="get-run-edgex-foundry">Get &amp; Run EdgeX Foundry</h2>
 <h3 id="install-docker-docker-compose">Install Docker &amp; Docker Compose</h3>
-<p>To run Dockerized EdgeX, you need to install Docker. See
-<a href="https://docs.docker.com/install/">https://docs.docker.com/install/</a> to learn how to install
+<p>To run Dockerized EdgeX, you need to install Docker first. See
+<a href="https://docs.docker.com/engine/install/">https://docs.docker.com/engine/install/</a> to learn how to install
 Docker. If you are new to Docker, the same web site provides you
 educational information. The following short video is also very
 informative <a href="https://www.youtube.com/watch?time_continue=3&amp;v=VhabrYF1nms">https://www.youtube.com/watch?time_continue=3&amp;v=VhabrYF1nms</a></p>
 <p>Use Docker Compose to orchestrate the fetch (or pull), install,
-and start the EdgeX micro service containers.  Also use Docker Compose to stop the micro service containers. See: <a href="https://docs.docker.com/compose/">https://docs.docker.com/compose/</a> to learn more about Docker
-Compose.</p>
+and start the EdgeX micro service containers.  Also use Docker Compose to stop the micro service containers. See: <a href="https://docs.docker.com/compose/">https://docs.docker.com/compose/</a> to learn more about Docker Compose and <a href="https://docs.docker.com/compose/install/compose-plugin/">https://docs.docker.com/compose/install/compose-plugin/</a> to install it.</p>
 <p>You do not need to be an expert with Docker (or Docker Compose) to get and run EdgeX. This guide provides the steps to get EdgeX running in your environment. Some knowledge of Docker and Docker Compose are nice to have, but not required. Basic Docker and Docker Compose commands provided here enable you to run, update, and diagnose issues within EdgeX.</p>
 <h3 id="select-a-edgex-foundry-compose-file">Select a EdgeX Foundry Compose File</h3>
 <p>After installing Docker and Docker Compose, you need a EdgeX Docker Compose file.  EdgeX Foundry has over a dozen micro services, each deployed in its own Docker container.  This file is a manifest of all the EdgeX Foundry micro services to run.  The Docker Compose file provides details about how to run each of the services.  Specifically, a Docker Compose file is a manifest file, which lists:</p>
@@ -2751,6 +2750,10 @@ make gen no-secty arm64 ds-grove
 <p>In a command terminal, change directories to the location of your docker-compose.yml.  Run the following command in the terminal to pull (fetch) and then start the EdgeX containers.</p>
 <div class="highlight"><pre><span></span><code>docker-compose up -d
 </code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you are using Docker Compose Version 2, please replace <code>docker-compose</code> with <code>docker compose</code> before proceeding. This change should be applied to all the <code>docker-compose</code> in this tutorial. See:  <a href="https://www.docker.com/blog/announcing-compose-v2-general-availability/">https://www.docker.com/blog/announcing-compose-v2-general-availability/</a> for more information.</p>
+</div>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
 <p>If you wish, you can fetch the images first and then run them.  This allows you to make sure the EdgeX images you need are all available before trying to run.</p>
