@@ -16,15 +16,14 @@ Instead, Users run EdgeX micro service Docker containers. The EdgeX community bu
 
 ### Install Docker & Docker Compose
 
-To run Dockerized EdgeX, you need to install Docker. See
-<https://docs.docker.com/install/> to learn how to install
+To run Dockerized EdgeX, you need to install Docker first. See
+<https://docs.docker.com/engine/install/> to learn how to install
 Docker. If you are new to Docker, the same web site provides you
 educational information. The following short video is also very
 informative <https://www.youtube.com/watch?time_continue=3&v=VhabrYF1nms>
 
 Use Docker Compose to orchestrate the fetch (or pull), install,
-and start the EdgeX micro service containers.  Also use Docker Compose to stop the micro service containers. See: <https://docs.docker.com/compose/> to learn more about Docker
-Compose.
+and start the EdgeX micro service containers.  Also use Docker Compose to stop the micro service containers. See: <https://docs.docker.com/compose/> to learn more about Docker Compose and <https://docs.docker.com/compose/install/compose-plugin/> to install it.
 
 You do not need to be an expert with Docker (or Docker Compose) to get and run EdgeX. This guide provides the steps to get EdgeX running in your environment. Some knowledge of Docker and Docker Compose are nice to have, but not required. Basic Docker and Docker Compose commands provided here enable you to run, update, and diagnose issues within EdgeX.
 
@@ -121,6 +120,8 @@ In a command terminal, change directories to the location of your docker-compose
 ``` bash
 docker-compose up -d
 ```
+!!! Warning
+    If you are using Docker Compose Version 2, please replace `docker-compose` with `docker compose` before proceeding. This change should be applied to all the `docker-compose` in this tutorial. See:  <https://www.docker.com/blog/announcing-compose-v2-general-availability/> for more information.
 
 !!! Info
     If you wish, you can fetch the images first and then run them.  This allows you to make sure the EdgeX images you need are all available before trying to run.
