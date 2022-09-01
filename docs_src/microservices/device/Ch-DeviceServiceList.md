@@ -6,7 +6,7 @@ The following table lists the EdgeX device services and protocols they support.
 |---------------------------|----------|--------|----------|
 | [device-onvif-camera](https://github.com/edgexfoundry/device-onvif-camera/tree/v2.2.0) | ONVIF | Active | Full implementation of ONVIF spec. Note that not all cameras implement the complete ONVIF spec. |
 | [device-usb-camera](https://github.com/edgexfoundry/device-usb-camera/tree/v2.2.0) | USB | Active | USB using V4L2 API. ONLY works on Linux with kernel v5.10 or higher. Includes RTSP server for video streaming. |
-| [device-camera-go]( https://github.com/edgexfoundry/device-camera-go/tree/v2.2.0) | ONVIF | **Deprecated** | Not a full ONVIF implementation, but a good starter **Deprecated - use the new Device ONVIF Camera service** |
+| [device-camera-go]( https://github.com/edgexfoundry/device-camera-go/tree/v2.2.0) | ONVIF | **Deprecated** | **Deprecated - use the new Device ONVIF Camera service** |
 | [device-rest-go]( https://github.com/edgexfoundry/device-rest-go/tree/v2.2.0) | REST | Active| provides one-way communications only.  Allows posting of binary and JSON data via REST.  Events are single reading only.|
 | [device-rfid-llrp-go]( https://github.com/edgexfoundry/device-rfid-llrp-go/tree/v2.2.0) | LLRP | Active| Communications with RFID readers via LLRP. |
 | [device-snmp-go]( https://github.com/edgexfoundry/device-snmp-go/tree/v2.2.0) | SNMP | Active| Basic implementation of SNMP protocol.  Async callbacks and traps not currently supported. |
