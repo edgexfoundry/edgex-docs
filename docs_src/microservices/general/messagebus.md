@@ -276,7 +276,7 @@ The EdgeX Compose Builder utility provides an option to easily generate a compos
 
 #### Snaps
 
-For Snap deployment, each services' configuration has to modified manually or via environment overrides after install. For more details see the [Configuration](..getting-started/Ch-GettingStartedSnapUsers/#configuration) section in the Snaps getting started guide.
+For Snap deployment, each services' configuration has to modified manually or via environment overrides after install. For more details see the [Configuration](../../../getting-started/Ch-GettingStartedSnapUsers/#configuration) section in the Snaps getting started guide.
 
 ### NATS
 
