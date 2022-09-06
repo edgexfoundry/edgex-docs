@@ -18,7 +18,7 @@ educational information. The following short video is also very
 informative <https://www.youtube.com/watch?time_continue=3&v=VhabrYF1nms>
 
 Use Docker Compose to orchestrate the fetch (or pull), install,
-and start the EdgeX micro service containers.  Also use Docker Compose to stop the micro service containers. See: <https://docs.docker.com/compose/> to learn more about Docker Compose and <https://docs.docker.com/compose/install/compose-plugin/>  to install it.
+and start the EdgeX micro service containers.  Also use Docker Compose to stop the micro service containers. See: <https://docs.docker.com/compose/> to learn more about Docker Compose and <https://docs.docker.com/compose/install/linux/>  to install it.
 
 You do not need to be an expert with Docker (or Docker Compose) to get and run EdgeX. This guide provides the steps to get EdgeX running in your environment. Some knowledge of Docker and Docker Compose are nice to have, but not required. Basic Docker and Docker Compose commands provided here enable you to run, update, and diagnose issues within EdgeX.
 
