@@ -4,7 +4,7 @@
 - Jim White (IOTech)
 
 ## Change Log
-- [pending](URL of PR) (2022-08-11)
+- [Approved](https://github.com/edgexfoundry/edgex-docs/pull/833) (2022-09-06)
 
 ### Market Segments
 - Any/All
