@@ -19,7 +19,7 @@
     
     
       
-        <title>Device Service Support - EdgeX Foundry Documentation</title>
+        <title>Supported Device Services - EdgeX Foundry Documentation</title>
       
     
     
@@ -86,7 +86,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#device-service-support" class="md-skip">
+        <a href="#supported-device-services" class="md-skip">
           Skip to content
         </a>
       
@@ -118,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Device Service Support
+              Supported Device Services
             
           </span>
         </div>
@@ -1602,40 +1602,9 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Device Service Support
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
-        Device Service Support
+        Supported Device Services
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#device-sensor-list" class="md-nav__link">
-    Device / Sensor List
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -2944,21 +2913,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#device-sensor-list" class="md-nav__link">
-    Device / Sensor List
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -2975,172 +2929,108 @@
 
 
 
-<h1 id="device-service-support">Device Service Support</h1>
+<h1 id="supported-device-services">Supported Device Services</h1>
 <p>The following table lists the EdgeX device services and protocols they support.</p>
 <table>
 <thead>
 <tr>
 <th>Device Service Repository</th>
 <th>Protocol</th>
-<th>Releases</th>
-<th>Versions</th>
 <th>Status</th>
 <th>Comments</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="https://github.com/edgexfoundry/device-camera-go">device-camera-go</a></td>
+<td><a href="https://github.com/edgexfoundry/device-onvif-camera/tree/v2.2.0">device-onvif-camera</a></td>
 <td>ONVIF</td>
-<td>Delhi-Jakarta</td>
-<td>0.7 - 2.x</td>
 <td>Active</td>
-<td>Not a full ONVIF implementation, but a good starter</td>
+<td>Full implementation of ONVIF spec. Note that not all cameras implement the complete ONVIF spec.</td>
 </tr>
 <tr>
-<td><a href="https://github.com/edgexfoundry/device-rest-go">device-rest-go</a></td>
+<td><a href="https://github.com/edgexfoundry/device-usb-camera/tree/v2.2.0">device-usb-camera</a></td>
+<td>USB</td>
+<td>Active</td>
+<td>USB using V4L2 API. ONLY works on Linux with kernel v5.10 or higher. Includes RTSP server for video streaming.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/edgexfoundry/device-camera-go/tree/v2.2.0">device-camera-go</a></td>
+<td>ONVIF</td>
+<td><strong>Deprecated</strong></td>
+<td><strong>Deprecated - use the new Device ONVIF Camera service</strong></td>
+</tr>
+<tr>
+<td><a href="https://github.com/edgexfoundry/device-rest-go/tree/v2.2.0">device-rest-go</a></td>
 <td>REST</td>
-<td>Edinburgh-Jakarta</td>
-<td>1.0 - 2.x</td>
 <td>Active</td>
 <td>provides one-way communications only.  Allows posting of binary and JSON data via REST.  Events are single reading only.</td>
 </tr>
 <tr>
-<td><a href="https://github.com/edgexfoundry/device-rfid-llrp-go">device-rfid-llrp-go</a></td>
+<td><a href="https://github.com/edgexfoundry/device-rfid-llrp-go/tree/v2.2.0">device-rfid-llrp-go</a></td>
 <td>LLRP</td>
-<td>Hanoi</td>
-<td>1.3</td>
 <td>Active</td>
-<td>Communications with RFID readers via LLRP.  Work ongoing to update to Ireland, 2.x</td>
+<td>Communications with RFID readers via LLRP.</td>
 </tr>
 <tr>
-<td><a href="https://github.com/edgexfoundry/device-snmp-go">device-snmp-go</a></td>
+<td><a href="https://github.com/edgexfoundry/device-snmp-go/tree/v2.2.0">device-snmp-go</a></td>
 <td>SNMP</td>
-<td>Edinburgh-Jakarta</td>
-<td>1.0 and 2.x</td>
 <td>Active</td>
 <td>Basic implementation of SNMP protocol.  Async callbacks and traps not currently supported.</td>
 </tr>
 <tr>
-<td><a href="https://github.com/edgexfoundry/device-virtual-go">device-virtual-go</a></td>
+<td><a href="https://github.com/edgexfoundry/device-virtual-go/tree/v2.2.0">device-virtual-go</a></td>
 <td></td>
-<td>Edinburgh - Jakarta</td>
-<td>1.0 and 2.x</td>
 <td>Active</td>
 <td>Simulates sensor readings of type binary, Boolean, float, integer and unsigned integer</td>
 </tr>
 <tr>
-<td><a href="https://github.com/edgexfoundry/device-mqtt-go">device-mqtt-go</a></td>
+<td><a href="https://github.com/edgexfoundry/device-mqtt-go/tree/v2.2.0">device-mqtt-go</a></td>
 <td>MQTT</td>
-<td>Fuji – Jakarta</td>
-<td>1.1 and 2.x</td>
 <td>Active</td>
 <td>Two way communications via multiple MQTT topics</td>
 </tr>
 <tr>
-<td><a href="https://github.com/edgexfoundry/device-modbus-go">device-modbus-go</a></td>
+<td><a href="https://github.com/edgexfoundry/device-modbus-go/tree/v2.2.0">device-modbus-go</a></td>
 <td>Modbus</td>
-<td>Dehli – Jakarta</td>
-<td>0.7 - 2.x</td>
 <td>Active</td>
 <td>Supports Modbus over TCP or RTU</td>
 </tr>
 <tr>
-<td><a href="https://github.com/edgexfoundry/device-gpio">device-gpio</a></td>
+<td><a href="https://github.com/edgexfoundry/device-gpio/tree/v2.2.0">device-gpio</a></td>
 <td>GPIO</td>
-<td>Hanoi – Jakarta</td>
-<td>1.3 and 2.x</td>
 <td>Active</td>
 <td>Linux only; uses sysfs ABI</td>
 </tr>
 <tr>
-<td><a href="https://github.com/edgexfoundry/device-grove-c">device-grove-c</a></td>
+<td><a href="https://github.com/edgexfoundry/device-grove-c/tree/v1.3.1">device-grove-c</a></td>
 <td></td>
-<td>Edinburg – Jakarta</td>
-<td>1.0 and 2.x</td>
-<td>Active</td>
+<td><strong>2.x TBD</strong></td>
 <td>Connects the Grove sensor on Grove Raspberry Pi using libmraa library; Linux and ARM only</td>
 </tr>
 <tr>
-<td><a href="https://github.com/edgexfoundry/device-bacnet-c">device-bacnet-c</a></td>
+<td><a href="https://github.com/edgexfoundry/device-bacnet-c/tree/v1.3.1">device-bacnet-c</a></td>
 <td>BACnet</td>
-<td>Edinburg – Hanoi</td>
-<td>1.0 and 2.x</td>
-<td>Active</td>
-<td>Currently being updated for Ireland and Jakarta.  Supports BACnet via ethernet (IP) or serial (MSTP).  Uses the Steve Karag BACnet stack</td>
+<td><strong>2.x TBD</strong></td>
+<td>Supports BACnet via ethernet (IP) or serial (MSTP).  Uses the Steve Karag BACnet stack</td>
 </tr>
 <tr>
-<td><a href="https://github.com/edgexfoundry/device-coap-c">device-coap-c</a></td>
+<td><a href="https://github.com/edgexfoundry/device-coap-c/tree/v2.1.0">device-coap-c</a></td>
 <td>CoAP</td>
-<td>Hanoi - Ireland</td>
-<td>1.3 and 2.x</td>
-<td><em>Inactive</em></td>
-<td>This service is in the process of being redeveloped and expanded for Jakarta – and will support Thread as a subset of functionality.  Currently supports CoAP-based REST and is one way communications (read-only)</td>
+<td>Active (<strong>2.2.0 TBD</strong>)</td>
+<td>This service is in the process of being redeveloped and expanded for upcoming release for Kamakura – and will support Thread as a subset of functionality.  Currently supports CoAP-based REST and is one way communications (read-only)</td>
 </tr>
 <tr>
 <td><a href="https://github.com/edgexfoundry-holding/device-uart">device-uart</a></td>
 <td>UART</td>
-<td></td>
-<td>2.x</td>
 <td><strong>in Development</strong></td>
 <td>Linux only; for connecting serial UART devices to EdgeX</td>
 </tr>
 </tbody>
 </table>
-<h2 id="device-sensor-list">Device / Sensor List</h2>
-<p>The following table lists known sensors or devices that have been successfully connected to EdgeX.</p>
 <div class="admonition note">
-<p class="admonition-title">Note<p>If you have physically connected a sensor or device to EdgeX and can add to this list, please submit an issue in https://github.com/edgexfoundry/edgex-docs so that we can update the list.  Provide as many details as possible about the device.</p>
-</p>
+<p class="admonition-title">Note</p>
+<p>Check the above Device Service README(s) for known devices that have been tested with the Device Service. Not all Device Service READMEs will have this information.</p>
 </div>
-<table>
-<thead>
-<tr>
-<th>Device</th>
-<th>Model</th>
-<th>Device Service connectivity</th>
-<th>Version</th>
-<th>Reference</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Comet Temperature Probe</td>
-<td>T0310</td>
-<td>device-modbus-go</td>
-<td>Hanoi</td>
-<td>https://www.cometsystem.com/products/t0310-temperature-transmitter-with-rs232-output/reg-t0310</td>
-</tr>
-<tr>
-<td>DSD TECH USB to TTL Adapter Built-in FTDI FT232RL IC</td>
-<td>SH-U09C2</td>
-<td>device-uart</td>
-<td>development</td>
-<td>http://www.dsdtech-global.com/2017/07/dsd-tech-usb-to-ttl-serial-converter.html</td>
-</tr>
-<tr>
-<td>GPIO Soil Moisture Sensor</td>
-<td>unknown</td>
-<td>device-gpio</td>
-<td>Hanoi</td>
-<td>https://learn.sparkfun.com/tutorials/soil-moisture-sensor-hookup-guide/all</td>
-</tr>
-<tr>
-<td>Patlite Signal Tower</td>
-<td>NHL-FB2</td>
-<td>device-snmp-go</td>
-<td>Ireland</td>
-<td>https://www.patlite.com/</td>
-</tr>
-<tr>
-<td>Trendnet Network Switch</td>
-<td>TPE-082WS</td>
-<td>device-snmp-go</td>
-<td>Hanoi</td>
-<td>https://www.trendnet.com/products/managed-switch/10-Port-Gigabit-Web-Smart-PoEplus-Switch-TPE-082WS</td>
-</tr>
-</tbody>
-</table>
 
 
   
