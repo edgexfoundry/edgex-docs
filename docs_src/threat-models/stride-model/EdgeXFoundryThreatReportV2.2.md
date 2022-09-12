@@ -1,10 +1,14 @@
 # Threat Modeling Report
 
-Created on 9/6/2022 2:49:03 PM
+Created on 9/12/2022 9:10:51 AM
 
 *generated from HTML by
 https://www.convertsimple.com/convert-html-to-markdown/*
-*embedded images extracted with Pandoc https://pandoc.org (Pandoc did not do well with tables so just used for image extraction)*
+*embedded images extracted with Pandoc https://pandoc.org (Pandoc did not do well with tables so just used for image extraction) using the command below*
+
+``` sh
+  pandoc -o EdgeXFoundryThreatReportV2.2.md -t markdown -f markdown EdgeXFoundryThreatReportV2.2-original.md --extract-media=./images
+```
 
 **Threat Model Name:** EdgeX Foundry Threat Model
 
@@ -55,10 +59,10 @@ external enterprise system that EdgeX gets data to A message bus broker
 |     |     |
 | --- | --- |
 | Not Started | 0   |
-| Not Applicable | 17  |
-| Needs Investigation | 17  |
-| Mitigation Implemented | 62  |
-| Total | 96  |
+| Not Applicable | 27  |
+| Needs Investigation | 14  |
+| Mitigation Implemented | 100 |
+| Total | 141 |
 | Total Migrated | 0   |
 
 
@@ -67,23 +71,23 @@ external enterprise system that EdgeX gets data to A message bus broker
 ## Diagram: EdgeX Foundry (Big Picture)
 
 ![EdgeX Foundry (Big Picture) diagram
-screenshot](./images/58a5213e8a15694ea2f5d209d7c37c9c5872f230.png)
+screenshot](./images/83792a342fb741940bddb52b597cdb6af2ec36e9.png)
 
 ### EdgeX Foundry (Big Picture) Diagram Summary:
 
-  ------------------------ ----
+  ------------------------ -----
   Not Started              0
-  Not Applicable           10
-  Needs Investigation      6
-  Mitigation Implemented   58
-  Total                    74
+  Not Applicable           20
+  Needs Investigation      3
+  Mitigation Implemented   96
+  Total                    119
   Total Migrated           0
-  ------------------------ ----
+  ------------------------ -----
 
 ### Interaction: config
 
 ![config interaction
-screenshot](./images/ecf3c5333506362006cc52b2424e70b91919e2c9.png)
+screenshot](./images/e48630dbd203e682096d3ca689a6de47c55fa46f.png)
 
 #### 1. Weak Access Control for a Resource  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
@@ -155,7 +159,7 @@ screenshot](./images/ecf3c5333506362006cc52b2424e70b91919e2c9.png)
 ### Interaction: configuration
 
 ![configuration interaction
-screenshot](./images/af56f65371d0c62204f92068ee6d3f4c71d70866.png)
+screenshot](./images/aa0e714fe010793ca0e2d04dfedb1ee1af3c2b23.png)
 
 #### 3. Spoofing of Source Data Store Configuration Files  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
@@ -220,7 +224,7 @@ screenshot](./images/af56f65371d0c62204f92068ee6d3f4c71d70866.png)
 ### Interaction: data
 
 ![data interaction
-screenshot](./images/c7ab4add30664e0cec81b9168110e7e897a5a942.png)
+screenshot](./images/1ecbb1a4bad49a844ed51acfea68ac00a2daeab5.png)
 
 #### 5. Spoofing of Source Data Store Redis  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
@@ -307,7 +311,7 @@ screenshot](./images/c7ab4add30664e0cec81b9168110e7e897a5a942.png)
 ### Interaction: published message
 
 ![published message interaction
-screenshot](./images/cb2eb0473d8e1a765b623b86201257f18ce5f215.png)
+screenshot](./images/0ea1fa8809dc4d03c4506c5e9a5c26f131924667.png)
 
 #### 8. Potential Excessive Resource Consumption for EdgeX Foundry or Message Bus Broker  \[State: Mitigation Implemented\]  \[Priority: Medium\] 
 
@@ -382,7 +386,7 @@ screenshot](./images/cb2eb0473d8e1a765b623b86201257f18ce5f215.png)
 ### Interaction: queries & data
 
 ![queries & data interaction
-screenshot](./images/c7ab4add30664e0cec81b9168110e7e897a5a942.png)
+screenshot](./images/1ecbb1a4bad49a844ed51acfea68ac00a2daeab5.png)
 
 #### 10. Spoofing of Destination Data Store Redis  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
@@ -490,7 +494,7 @@ screenshot](./images/c7ab4add30664e0cec81b9168110e7e897a5a942.png)
 ### Interaction: query
 
 ![query interaction
-screenshot](./images/e7176a6f9f8c4c00ed2658a0e0aad5a56fc9b069.png)
+screenshot](./images/455249c6e74c3a9ac840d47a23e2b956a6b43a64.png)
 
 #### 13. Spoofing of Destination Data Store Vault  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
@@ -560,12 +564,410 @@ screenshot](./images/e7176a6f9f8c4c00ed2658a0e0aad5a56fc9b069.png)
   **Mitigation Status:**              Mitigation reviewed
   ----------------------------------- -----------------------------------
 
+### Interaction: query
+
+![query interaction
+screenshot](./images/8d418e0db9522c1b50557892a0383e08885be785.png)
+
+#### 15. Spoofing of Destination Data Store Device/Sensor (REST authenticated)  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Spoofing
+
+  **Description:**                    Device/Sensor (REST authenticated)
+                                      may be spoofed by an attacker and
+                                      this may lead to data being written
+                                      to the attacker's target instead of
+                                      Device/Sensor (REST authenticated).
+                                      Consider using a standard
+                                      authentication mechanism to
+                                      identify the destination data
+                                      store.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            With authentication in place the
+                                      REST caller would not get the
+                                      proper authenticated by a spoofed
+                                      Kong and thereby deny any query
+                                      request.
+
+  **Mitigator:**                      EdgeX Foundry
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 16. The Device/Sensor (REST authenticated) Data Store Could Be Corrupted  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Tampering
+
+  **Description:**                    Data flowing across query may be
+                                      tampered with by an attacker. This
+                                      may lead to corruption of
+                                      Device/Sensor (REST authenticated).
+                                      Ensure the integrity of the data
+                                      flow to the data store.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            REST requests and responses
+                                      to/through Kong are encrypted by
+                                      default.
+
+  **Mitigator:**                      Third Party
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 17. Data Store Denies Device/Sensor (REST authenticated) Potentially Writing Data  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Repudiation
+
+  **Description:**                    Device/Sensor (REST authenticated)
+                                      claims that it did not write data
+                                      received from an entity on the
+                                      other side of the trust boundary.
+                                      Consider using logging or auditing
+                                      to record the source, time, and
+                                      summary of the received data.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            Use of elevated log level (set
+                                      writable configuration log level to
+                                      DEBUG in the device service) can be
+                                      used to log all data
+                                      communications.
+
+  **Mitigator:**                      EdgeX Foundry
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 18. Data Flow query Is Potentially Interrupted  \[State: Mitigation Implemented\]  \[Priority: Medium\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Denial Of Service
+
+  **Description:**                    An external agent interrupts data
+                                      flowing across a trust boundary in
+                                      either direction.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            Outside influence could break the
+                                      network communication connection
+                                      causing major disruption of service
+                                      (ex: removing or cutting off comms
+                                      to a critical temperature resource
+                                      of a heating or cooling machine).
+                                      EdgeX has no means to protect the
+                                      network connection. Physical
+                                      security is required to protect the
+                                      wire and device/sensor and mitigate
+                                      this threat. The device service
+                                      does track "last connected" and
+                                      that timestamp could be monitored
+                                      for outside of normal reporting
+                                      ranges.
+
+  **Mitigator:**                      Adopter
+
+  **Mitigation Status:**              Mitigation written
+  ----------------------------------- -----------------------------------
+
+#### 19. Data Store Inaccessible  \[State: Mitigation Implemented\]  \[Priority: Medium\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Denial Of Service
+
+  **Description:**                    An external agent prevents access
+                                      to a data store on the other side
+                                      of the trust boundary.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            Outside influence could break the
+                                      network communication connection
+                                      causing major disruption of service
+                                      (ex: removing or cutting off comms
+                                      to a critical temperature resource
+                                      of a heating or cooling machine).
+                                      EdgeX has no means to protect the
+                                      network connection. Physical
+                                      security is required to protect the
+                                      wire and device/sensor and mitigate
+                                      this threat. The device service
+                                      does track "last connected" and
+                                      that timestamp could be monitored
+                                      for outside of normal reporting
+                                      ranges.
+
+  **Mitigator:**                      Adopter
+
+  **Mitigation Status:**              Mitigation written
+  ----------------------------------- -----------------------------------
+
+### Interaction: query
+
+![query interaction
+screenshot](./images/cd3b7ca620a676601b6458a694810883e7545a9b.png)
+
+#### 20. Data Store Inaccessible  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Denial Of Service
+
+  **Description:**                    An external agent prevents access
+                                      to a data store on the other side
+                                      of the trust boundary.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            Outside influence could break the
+                                      communication connection or MQTT
+                                      broker causing major disruption of
+                                      service (ex: removing or cutting
+                                      off comms to a critical temperature
+                                      sensor of a heating or cooling
+                                      machine). EdgeX has no means to
+                                      protect the connection to the
+                                      external MQTT broker, the broker
+                                      itself, or subscriber to the
+                                      broker. Physical and sytem security
+                                      is required to protect these and
+                                      mitigate this threat. Query
+                                      requests that do not receive a
+                                      response would result in an error
+                                      that could be responded to.
+
+  **Mitigator:**                      Adopter
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 21. Data Flow query Is Potentially Interrupted  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Denial Of Service
+
+  **Description:**                    An external agent interrupts data
+                                      flowing across a trust boundary in
+                                      either direction.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            Outside influence could break the
+                                      communication connection or MQTT
+                                      broker causing major disruption of
+                                      service (ex: removing or cutting
+                                      off comms to a critical temperature
+                                      sensor of a heating or cooling
+                                      machine). EdgeX has no means to
+                                      protect the connection to the
+                                      external MQTT broker, the broker
+                                      itself, or publisher to the broker.
+                                      Physical and sytem security is
+                                      required to protect these and
+                                      mitigate this threat.
+
+  **Mitigator:**                      Adopter
+
+  **Mitigation Status:**              Mitigation needed
+  ----------------------------------- -----------------------------------
+
+#### 22. Potential Excessive Resource Consumption for EdgeX Foundry or Device/Sensor (via external MQTT broker - authenticated)  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Denial Of Service
+
+  **Description:**                    Does EdgeX Foundry or Device/Sensor
+                                      (via external MQTT broker -
+                                      authenticated) take explicit steps
+                                      to control resource consumption?
+                                      Resource consumption attacks can be
+                                      hard to deal with, and there are
+                                      times that it makes sense to let
+                                      the OS do the job. Be careful that
+                                      your resource requests don't
+                                      deadlock, and that they do timeout.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            EdgeX could send too many requests
+                                      for data that cause the broker or
+                                      subscriber to go offline or appear
+                                      unresponsive - depending on the
+                                      capabilities of the broker or
+                                      subscribing application. In the
+                                      opposite direction, an MQTT
+                                      publisher could be tampered with or
+                                      improperly configured to send too
+                                      much data (overwhelming the EdgeX
+                                      system or MQTT broker) causing a
+                                      DoS. Other than writing the device
+                                      service to filter data to avoid the
+                                      "too much" data DoS, this threat is
+                                      not mitigated.
+
+  **Mitigator:**                      Adopter
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 23. Data Flow Sniffing  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Information Disclosure
+
+  **Description:**                    Data flowing across query may be
+                                      sniffed by an attacker. Depending
+                                      on what type of data an attacker
+                                      can read, it may be used to attack
+                                      other parts of the system or simply
+                                      be a disclosure of information
+                                      leading to compliance violations.
+                                      Consider encrypting the data flow.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            Requires encryption of the
+                                      communications (on both the EdgeX
+                                      and device/sensor ends) which is
+                                      not in place by default. MQTTS
+                                      could be implemented by the adopter
+                                      with the appropriate MQTT broker.
+
+  **Mitigator:**                      Adopter
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 24. Data Store Denies Device/Sensor (via external MQTT broker - authenticated) Potentially Writing Data  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Repudiation
+
+  **Description:**                    Device/Sensor (via external MQTT
+                                      broker - authenticated) claims that
+                                      it did not write data received from
+                                      an entity on the other side of the
+                                      trust boundary. Consider using
+                                      logging or auditing to record the
+                                      source, time, and summary of the
+                                      received data.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            Use of elevated log level (set
+                                      writable configuration log level to
+                                      DEBUG in the device service) can be
+                                      used to log all data
+                                      communications. Log level on the
+                                      message bus may also be elevated.
+
+  **Mitigator:**                      EdgeX Foundry
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 25. The Device/Sensor (via external MQTT broker - authenticated) Data Store Could Be Corrupted  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Tampering
+
+  **Description:**                    Data flowing across query may be
+                                      tampered with by an attacker. This
+                                      may lead to corruption of
+                                      Device/Sensor (via external MQTT
+                                      broker - authenticated). Ensure the
+                                      integrity of the data flow to the
+                                      data store.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            Requires encryption of the
+                                      communications (on both the EdgeX
+                                      and device/sensor ends) which is
+                                      not in place by default. MQTTS
+                                      could be implemented by the adopter
+                                      with the appropriate MQTT broker.
+
+  **Mitigator:**                      Adopter
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 26. Spoofing of Destination Data Store Device/Sensor (via external MQTT broker - authenticated)  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Spoofing
+
+  **Description:**                    Device/Sensor (via external MQTT
+                                      broker - authenticated) may be
+                                      spoofed by an attacker and this may
+                                      lead to data being written to the
+                                      attacker's target instead of
+                                      Device/Sensor (via external MQTT
+                                      broker - authenticated). Consider
+                                      using a standard authentication
+                                      mechanism to identify the
+                                      destination data store.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            With authentication in place the
+                                      spoofing MQTT query sendor (or the
+                                      spoofed external message broker)
+                                      would not be properly authenticated
+                                      and thereby be unable to publish.
+                                      The EdgeX framework has the support
+                                      to store secrets to authenticate
+                                      devices.
+
+  **Mitigator:**                      EdgeX Foundry
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 27. Spoofing the EdgeX Foundry Process  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Spoofing
+
+  **Description:**                    EdgeX Foundry may be spoofed by an
+                                      attacker and this may lead to
+                                      unauthorized access to
+                                      Device/Sensor (via external MQTT
+                                      broker - authenticated). Consider
+                                      using a standard authentication
+                                      mechanism to identify the source
+                                      process.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            With authentication in place the
+                                      spoofing MQTT publisher of a query
+                                      (or the spoofed external message
+                                      broker) would not be properly
+                                      authenticated and thereby be unable
+                                      to make its request. The EdgeX
+                                      framework has the support to store
+                                      secrets to authenticate devices.
+
+  **Mitigator:**                      EdgeX Foundry
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
 ### Interaction: query or actuation
 
 ![query or actuation interaction
-screenshot](./images/45202e3bd894b0bc778d85fa97f7ccc8758cc962.png)
+screenshot](./images/34b7e67ba4a1a3ff13b5df833dbbe68a1b6a124b.png)
 
-#### 15. Spoofing the EdgeX Foundry Process  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 28. Spoofing the EdgeX Foundry Process  \[State: Not Applicable\]  \[Priority: High\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Spoofing
@@ -579,19 +981,18 @@ screenshot](./images/45202e3bd894b0bc778d85fa97f7ccc8758cc962.png)
 
   **Justification:**                  \<no mitigation provided\>
 
-  **Possible Mitigation:**            Spoofing all of EdgeX would require
-                                      either replacing all of EdgeX
-                                      containers and network (requiring
-                                      host access and elevated
-                                      privileges) or intercepting and
-                                      rerouting traffic.
+  **Possible Mitigation:**            Without an authentication protocol,
+                                      there is no mitigation for this
+                                      threat. The device would not be
+                                      able to determine that the Spoofing
+                                      EdgeX caller is not EdgeX.
 
-  **Mitigator:**                      EdgeX Foundry
+  **Mitigator:**                      No mitigation or not applicable
 
-  **Mitigation Status:**              Mitigation written
+  **Mitigation Status:**              Cannot mitigate or not appilcable
   ----------------------------------- -----------------------------------
 
-#### 16. Spoofing of Destination Data Store Device/Sensor  \[State: Needs Investigation\]  \[Priority: High\] 
+#### 29. Spoofing of Destination Data Store Device/Sensor  \[State: Needs Investigation\]  \[Priority: High\] 
 
   ----------------------------------- -------------------------------------------------
   **Category:**                       Spoofing
@@ -611,22 +1012,23 @@ screenshot](./images/45202e3bd894b0bc778d85fa97f7ccc8758cc962.png)
                                       without any authentication. Auto provisioning
                                       shold be limited to pick up trusted devices.
                                       Protocols such as BACnet do allow for
-                                      authentication with the device/sensor. In this
-                                      case, the device service should be written to use
-                                      proper authentication. Commercial 3rd party
-                                      software or extensions to EdgeX (see, for
-                                      example, RSA's Netwitness IoT:
+                                      authentication with the device/sensor. Commercial
+                                      3rd party software or extensions to EdgeX (see,
+                                      for example, RSA's Netwitness IoT:
                                       https://www.netwitness.com/en-us/products/iot/)
                                       could be used to detect anomalous sensor/device
                                       communications and isolate the sensor from the
-                                      system.
+                                      system, but there is no ability in EdgeX directly
+                                      to protect against a spoofed device/sensor that
+                                      does not authenticate (which is the norm in some
+                                      older OT protocols).
 
   **Mitigator:**                      Adopter
 
   **Mitigation Status:**              Mitigation written
   ----------------------------------- -------------------------------------------------
 
-#### 17. The Device/Sensor Data Store Could Be Corrupted  \[State: Needs Investigation\]  \[Priority: High\] 
+#### 30. The Device/Sensor Data Store Could Be Corrupted  \[State: Not Applicable\]  \[Priority: High\] 
 
   ----------------------------------- -------------------------------------------------
   **Category:**                       Tampering
@@ -634,7 +1036,11 @@ screenshot](./images/45202e3bd894b0bc778d85fa97f7ccc8758cc962.png)
   **Description:**                    Data flowing across query or actuation may be
                                       tampered with by an attacker. This may lead to
                                       corruption of Device/Sensor. Ensure the integrity
-                                      of the data flow to the data store.
+                                      of the data flow to the data store. I.e. -
+                                      example: a man in the middle attack on the wire
+                                      between EdgeX and the wired device/sensor or an
+                                      attack on the sensor (giggling a vibration
+                                      sensor)
 
   **Justification:**                  \<no mitigation provided\>
 
@@ -649,29 +1055,37 @@ screenshot](./images/45202e3bd894b0bc778d85fa97f7ccc8758cc962.png)
                                       system by causing the sensor to send data too
                                       often), or not enough data (e.g., disconnecting a
                                       critical monitor sensor that would cause a system
-                                      to stop). The device service can be constructed
-                                      to filter data to avoid the "too much" data DoS.
-                                      The device service can be constructed to report
-                                      and alert when there is not enough data coming
-                                      from the device or sensor or the sensor/device
-                                      appears to be offline (provided by the last
-                                      connected tracking in EdgeX). Wrong data can be
-                                      mitigated by having the device service look for
-                                      expected ranges of values (as supported by
-                                      min/max attributes on device profiles).
+                                      to stop). EdgeX has no means to protect the
+                                      "wire" to a physically connected device/sensor.
+                                      Physical security is required to protect the wire
+                                      and mitigate this threat. Additional optional
+                                      mitigation ideas require modifications to the
+                                      EdgeX device service. The device service could be
+                                      constructed to filter data to avoid the "too
+                                      much" data DoS. The device service can be
+                                      constructed to report and alert when there is not
+                                      enough data coming from the device or sensor or
+                                      the sensor/device appears to be offline (provided
+                                      by the last connected tracking in EdgeX). Wrong
+                                      data can be mitigated by having the device
+                                      service look for expected ranges of values (as
+                                      supported by min/max attributes on device
+                                      profiles). All of these have limits and only
+                                      mitigate the data from being used in the rest of
+                                      EdgeX once received by the device service.
                                       Commercial 3rd party software or extensions to
                                       EdgeX (see, for example, RSA's Netwitness IoT:
                                       https://www.netwitness.com/en-us/products/iot/)
-                                      could be used to detect anomalous sensor/device
-                                      communications and isolate the sensor from the
-                                      system.
+                                      could also be used to detect anomalous
+                                      sensor/device communications and isolate the
+                                      sensor from the system.
 
   **Mitigator:**                      Adopter
 
-  **Mitigation Status:**              Mitigation written
+  **Mitigation Status:**              Cannot mitigate or not appilcable
   ----------------------------------- -------------------------------------------------
 
-#### 18. Data Store Denies Device/Sensor Potentially Writing Data  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 31. Data Store Denies Device/Sensor Potentially Writing Data  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Repudiation
@@ -686,183 +1100,159 @@ screenshot](./images/45202e3bd894b0bc778d85fa97f7ccc8758cc962.png)
 
   **Justification:**                  \<no mitigation provided\>
 
-  **Possible Mitigation:**            Use of elevated log level can be
+  **Possible Mitigation:**            Use of elevated log level (set
+                                      writable configuration log level to
+                                      DEBUG in the device service) can be
                                       used to log all data
                                       communications.
 
   **Mitigator:**                      EdgeX Foundry
 
-  **Mitigation Status:**              Mitigation written
+  **Mitigation Status:**              Mitigation reviewed
   ----------------------------------- -----------------------------------
 
-#### 19. Data Flow Sniffing  \[State: Mitigation Implemented\]  \[Priority: High\] 
+#### 32. Data Flow Sniffing  \[State: Not Applicable\]  \[Priority: High\] 
 
-  ----------------------------------- ----------------------------------------------------------
+  ----------------------------------- -----------------------------------
   **Category:**                       Information Disclosure
 
-  **Description:**                    Data flowing across query or actuation may be sniffed by
-                                      an attacker. Depending on what type of data an attacker
-                                      can read, it may be used to attack other parts of the
-                                      system or simply be a disclosure of information leading to
-                                      compliance violations. Consider encrypting the data flow.
+  **Description:**                    Data flowing across query or
+                                      actuation may be sniffed by an
+                                      attacker. Depending on what type of
+                                      data an attacker can read, it may
+                                      be used to attack other parts of
+                                      the system or simply be a
+                                      disclosure of information leading
+                                      to compliance violations. Consider
+                                      encrypting the data flow.
 
   **Justification:**                  \<no mitigation provided\>
 
-  **Possible Mitigation:**            Securing the data flow to/from a device or sensor is
-                                      dependent on the OT protocol. In the case of something
-                                      like BACnet secure (which is based on TLS - see
-                                      https://www.bacnetinternational.org/page/secureconnect),
-                                      the flow between EdgeX and the BACnet device can be
-                                      encryped. The Device Service would need to be written to
-                                      use that secure communications. In other simpler and
-                                      typically older OT protocols (Modbus or GPIO as examples),
-                                      there is no way to secure the communications with the
-                                      device/sensor under that protocol. Critical
-                                      sensors/devices of this nature should be physically
-                                      secured (along with their connection to the EdgeX host).
+  **Possible Mitigation:**            Securing the data flow to/from a
+                                      device or sensor is dependent on
+                                      the OT protocol. In the case of
+                                      most simple and typically older OT
+                                      protocols (Modbus or GPIO as
+                                      examples), there is no way to
+                                      secure the communications with the
+                                      device/sensor under that protocol.
+                                      Critical sensors/devices of this
+                                      nature should be physically secured
+                                      (along with their physical
+                                      connection to the EdgeX host).
+
+  **Mitigator:**                      No mitigation or not applicable
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 33. Potential Excessive Resource Consumption for EdgeX Foundry or Device/Sensor  \[State: Not Applicable\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Denial Of Service
+
+  **Description:**                    Does EdgeX Foundry or Device/Sensor
+                                      take explicit steps to control
+                                      resource consumption? Resource
+                                      consumption attacks can be hard to
+                                      deal with, and there are times that
+                                      it makes sense to let the OS do the
+                                      job. Be careful that your resource
+                                      requests don't deadlock, and that
+                                      they do timeout.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            EdgeX could send too many requests
+                                      for data or actuation requests that
+                                      cause the sensor / device to go
+                                      offline or appear unresponsive -
+                                      depending on the sophistication of
+                                      the device/sensor. In the opposite
+                                      direction, a device/sensor could be
+                                      tampered with or improperly
+                                      configured to send too much data
+                                      (overwhelming the EdgeX system)
+                                      causing a DoS. Other than writing
+                                      the device service to filter data
+                                      to avoid the "too much" data DoS,
+                                      this threat is not mitigated.
+
+  **Mitigator:**                      No mitigation or not applicable
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 34. Data Flow query or actuation Is Potentially Interrupted  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Denial Of Service
+
+  **Description:**                    An external agent interrupts data
+                                      flowing across a trust boundary in
+                                      either direction.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            Outside influence could break the
+                                      communication connection or remove
+                                      a device/senosr causing major
+                                      disruption of service (ex: removing
+                                      or cutting off comms to a critical
+                                      temperature sensor of a heating or
+                                      cooling machine). EdgeX has no
+                                      means to protect the "wire" to a
+                                      physically connected device/sensor.
+                                      Physical security is required to
+                                      protect the wire and mitigate this
+                                      threat. Query or actuation requests
+                                      that do not receive a response
+                                      would result in an error that could
+                                      be responded to.
 
   **Mitigator:**                      Adopter
 
-  **Mitigation Status:**              Mitigation written
-  ----------------------------------- ----------------------------------------------------------
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
 
-#### 20. Potential Excessive Resource Consumption for EdgeX Foundry or Device/Sensor  \[State: Mitigation Implemented\]  \[Priority: High\] 
+#### 35. Data Store Inaccessible  \[State: Mitigation Implemented\]  \[Priority: High\] 
 
-  ----------------------------------- -------------------------------------------------
+  ----------------------------------- -----------------------------------
   **Category:**                       Denial Of Service
 
-  **Description:**                    Does EdgeX Foundry or Device/Sensor take explicit
-                                      steps to control resource consumption? Resource
-                                      consumption attacks can be hard to deal with, and
-                                      there are times that it makes sense to let the OS
-                                      do the job. Be careful that your resource
-                                      requests don't deadlock, and that they do
-                                      timeout.
+  **Description:**                    An external agent prevents access
+                                      to a data store on the other side
+                                      of the trust boundary.
 
   **Justification:**                  \<no mitigation provided\>
 
-  **Possible Mitigation:**            Outside influence on a sensor or device is one of
-                                      the biggest threats to an edge system and one of
-                                      the hardest to mitigate. If tampered with, a
-                                      sensor or device could be used to send the wrong
-                                      data (e.g., force a temp sensor to send a signal
-                                      that it is too hot when it is really too cold),
-                                      too much data (overwhelming the edge system by
-                                      causing the sensor to send data too often), or
-                                      not enough data (e.g., disconnecting a critical
-                                      monitor sensor that would cause a system to
-                                      stop). The device service can be constructed to
-                                      filter data to avoid the "too much" data DoS. The
-                                      device service can be constructed to report and
-                                      alert when there is not enough data coming from
-                                      the device or sensor or the sensor/device appears
-                                      to be offline (provided by the last connected
-                                      tracking in EdgeX). Wrong data can be mitigated
-                                      by having the device service look for expected
-                                      ranges of values (as supported by min/max
-                                      attributes on device profiles). Commercial 3rd
-                                      party software or extensions to EdgeX (see, for
-                                      example, RSA's Netwitness IoT:
-                                      https://www.netwitness.com/en-us/products/iot/)
-                                      could be used to detect anomalous sensor/device
-                                      communications and isolate the sensor from the
-                                      system.
-
-  **Mitigator:**                      Third Party
-
-  **Mitigation Status:**              Mitigation written
-  ----------------------------------- -------------------------------------------------
-
-#### 21. Data Flow query or actuation Is Potentially Interrupted  \[State: Mitigation Implemented\]  \[Priority: High\] 
-
-  ----------------------------------- -------------------------------------------------
-  **Category:**                       Denial Of Service
-
-  **Description:**                    An external agent interrupts data flowing across
-                                      a trust boundary in either direction.
-
-  **Justification:**                  \<no mitigation provided\>
-
-  **Possible Mitigation:**            Outside influence on a sensor or device is one of
-                                      the biggest threats to an edge system and one of
-                                      the hardest to mitigate. If tampered with, a
-                                      sensor or device could be used to send the wrong
-                                      data (e.g., force a temp sensor to send a signal
-                                      that it is too hot when it is really too cold),
-                                      too much data (overwhelming the edge system by
-                                      causing the sensor to send data too often), or
-                                      not enough data (e.g., disconnecting a critical
-                                      monitor sensor that would cause a system to
-                                      stop). The device service can be constructed to
-                                      filter data to avoid the "too much" data DoS. The
-                                      device service can be constructed to report and
-                                      alert when there is not enough data coming from
-                                      the device or sensor or the sensor/device appears
-                                      to be offline (provided by the last connected
-                                      tracking in EdgeX). Wrong data can be mitigated
-                                      by having the device service look for expected
-                                      ranges of values (as supported by min/max
-                                      attributes on device profiles). Commercial 3rd
-                                      party software or extensions to EdgeX (see, for
-                                      example, RSA's Netwitness IoT:
-                                      https://www.netwitness.com/en-us/products/iot/)
-                                      could be used to detect anomalous sensor/device
-                                      communications and isolate the sensor from the
-                                      system.
+  **Possible Mitigation:**            Outside influence could break the
+                                      communication connection or remove
+                                      a device/senosr causing major
+                                      disruption of service (ex: removing
+                                      or cutting off comms to a critical
+                                      temperature sensor of a heating or
+                                      cooling machine). EdgeX has no
+                                      means to protect the "wire" to a
+                                      physically connected device/sensor.
+                                      Physical security is required to
+                                      protect the wire and mitigate this
+                                      threat. Query or actuation requests
+                                      that do not receive a response
+                                      would result in an error that could
+                                      be responded to.
 
   **Mitigator:**                      Adopter
 
-  **Mitigation Status:**              Mitigation written
-  ----------------------------------- -------------------------------------------------
-
-#### 22. Data Store Inaccessible  \[State: Mitigation Implemented\]  \[Priority: High\] 
-
-  ----------------------------------- -------------------------------------------------
-  **Category:**                       Denial Of Service
-
-  **Description:**                    An external agent prevents access to a data store
-                                      on the other side of the trust boundary.
-
-  **Justification:**                  \<no mitigation provided\>
-
-  **Possible Mitigation:**            Outside influence on a sensor or device is one of
-                                      the biggest threats to an edge system and one of
-                                      the hardest to mitigate. If tampered with, a
-                                      sensor or device could be used to send the wrong
-                                      data (e.g., force a temp sensor to send a signal
-                                      that it is too hot when it is really too cold),
-                                      too much data (overwhelming the edge system by
-                                      causing the sensor to send data too often), or
-                                      not enough data (e.g., disconnecting a critical
-                                      monitor sensor that would cause a system to
-                                      stop). The device service can be constructed to
-                                      filter data to avoid the "too much" data DoS. The
-                                      device service can be constructed to report and
-                                      alert when there is not enough data coming from
-                                      the device or sensor or the sensor/device appears
-                                      to be offline (provided by the last connected
-                                      tracking in EdgeX). Wrong data can be mitigated
-                                      by having the device service look for expected
-                                      ranges of values (as supported by min/max
-                                      attributes on device profiles). Commercial 3rd
-                                      party software or extensions to EdgeX (see, for
-                                      example, RSA's Netwitness IoT:
-                                      https://www.netwitness.com/en-us/products/iot/)
-                                      could be used to detect anomalous sensor/device
-                                      communications and isolate the sensor from the
-                                      system.
-
-  **Mitigator:**                      Adopter
-
-  **Mitigation Status:**              Mitigation written
-  ----------------------------------- -------------------------------------------------
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
 
 ### Interaction: query & config
 
 ![query & config interaction
-screenshot](./images/ecf3c5333506362006cc52b2424e70b91919e2c9.png)
+screenshot](./images/e48630dbd203e682096d3ca689a6de47c55fa46f.png)
 
-#### 23. Potential Excessive Resource Consumption for EdgeX Foundry or Consul (configuration)  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 36. Potential Excessive Resource Consumption for EdgeX Foundry or Consul (configuration)  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- --------------------------------------------------------------------------------------------
   **Category:**                       Denial Of Service
@@ -886,7 +1276,7 @@ screenshot](./images/ecf3c5333506362006cc52b2424e70b91919e2c9.png)
   **Mitigation Status:**              Mitigation reviewed
   ----------------------------------- --------------------------------------------------------------------------------------------
 
-#### 24. Spoofing of Destination Data Store Consul (configuration)  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 37. Spoofing of Destination Data Store Consul (configuration)  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- --------------------------------------------------------------
   **Category:**                       Spoofing
@@ -919,12 +1309,283 @@ screenshot](./images/ecf3c5333506362006cc52b2424e70b91919e2c9.png)
   **Mitigation Status:**              Mitigation reviewed
   ----------------------------------- --------------------------------------------------------------
 
+### Interaction: query or actuation
+
+![query or actuation interaction
+screenshot](./images/5183d92575032bd6f7978b17de0be7dfe9137927.png)
+
+#### 38. Data Store Inaccessible  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Denial Of Service
+
+  **Description:**                    An external agent prevents access
+                                      to a data store on the other side
+                                      of the trust boundary.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            Outside influence could break the
+                                      communication connection or remove
+                                      a device/senosr causing major
+                                      disruption of service (ex: removing
+                                      or cutting off comms to a critical
+                                      temperature sensor of a heating or
+                                      cooling machine). EdgeX has no
+                                      means to protect the "wire" to a
+                                      physically connected device/sensor.
+                                      Physical security is required to
+                                      protect the wire and mitigate this
+                                      threat. Query or actuation requests
+                                      that do not receive a response
+                                      would result in an error that could
+                                      be responded to.
+
+  **Mitigator:**                      Adopter
+
+  **Mitigation Status:**              Mitigation needed
+  ----------------------------------- -----------------------------------
+
+#### 39. Data Flow query or actuation Is Potentially Interrupted  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Denial Of Service
+
+  **Description:**                    An external agent interrupts data
+                                      flowing across a trust boundary in
+                                      either direction.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            Outside influence could break the
+                                      communication connection or remove
+                                      a device/senosr causing major
+                                      disruption of service (ex: removing
+                                      or cutting off comms to a critical
+                                      temperature sensor of a heating or
+                                      cooling machine). EdgeX has no
+                                      means to protect the "wire" to a
+                                      physically connected device/sensor.
+                                      Physical security is required to
+                                      protect the wire and mitigate this
+                                      threat. Query or actuation requests
+                                      that do not receive a response
+                                      would result in an error that could
+                                      be responded to.
+
+  **Mitigator:**                      Adopter
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 40. Potential Excessive Resource Consumption for EdgeX Foundry or Device/Sensor (physically connected authenticated)  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Denial Of Service
+
+  **Description:**                    Does EdgeX Foundry or Device/Sensor
+                                      (physically connected
+                                      authenticated) take explicit steps
+                                      to control resource consumption?
+                                      Resource consumption attacks can be
+                                      hard to deal with, and there are
+                                      times that it makes sense to let
+                                      the OS do the job. Be careful that
+                                      your resource requests don't
+                                      deadlock, and that they do timeout.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            EdgeX could send too many requests
+                                      for data or actuation requests that
+                                      cause the sensor / device to go
+                                      offline or appear unresponsive -
+                                      depending on the sophistication of
+                                      the device/sensor. In the opposite
+                                      direction, a device/sensor could be
+                                      tampered with or improperly
+                                      configured to send too much data
+                                      (overwhelming the EdgeX system)
+                                      causing a DoS. Other than writing
+                                      the device service to filter data
+                                      to avoid the "too much" data DoS,
+                                      this threat is not mitigated.
+
+  **Mitigator:**                      Adopter
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 41. Data Flow Sniffing  \[State: Not Applicable\]  \[Priority: High\] 
+
+  ----------------------------------- ----------------------------------------------------------
+  **Category:**                       Information Disclosure
+
+  **Description:**                    Data flowing across query or actuation may be sniffed by
+                                      an attacker. Depending on what type of data an attacker
+                                      can read, it may be used to attack other parts of the
+                                      system or simply be a disclosure of information leading to
+                                      compliance violations. Consider encrypting the data flow.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            Securing the data flow to/from a device or sensor is
+                                      dependent on the OT protocol. In the case of something
+                                      like BACnet secure (which is based on TLS - see
+                                      https://www.bacnetinternational.org/page/secureconnect),
+                                      the flow between EdgeX and the BACnet device can be
+                                      encryped. The Device Service would need to be written to
+                                      use that secure communications. In cases where there is no
+                                      way to secure the communications with the device/sensor
+                                      under that protocol, then mitigation is via physical
+                                      security of the device/sensor (along with their connection
+                                      to the EdgeX host).
+
+  **Mitigator:**                      No mitigation or not applicable
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- ----------------------------------------------------------
+
+#### 42. Data Store Denies Device/Sensor (physically connected authenticated) Potentially Writing Data  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Repudiation
+
+  **Description:**                    Device/Sensor (physically connected
+                                      authenticated) claims that it did
+                                      not write data received from an
+                                      entity on the other side of the
+                                      trust boundary. Consider using
+                                      logging or auditing to record the
+                                      source, time, and summary of the
+                                      received data.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            Use of elevated log level (set
+                                      writable configuration log level to
+                                      DEBUG in the device service) can be
+                                      used to log all data
+                                      communications.
+
+  **Mitigator:**                      EdgeX Foundry
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 43. The Device/Sensor (physically connected authenticated) Data Store Could Be Corrupted  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -------------------------------------------------
+  **Category:**                       Tampering
+
+  **Description:**                    Data flowing across query or actuation may be
+                                      tampered with by an attacker. This may lead to
+                                      corruption of Device/Sensor (physically connected
+                                      authenticated). Ensure the integrity of the data
+                                      flow to the data store.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            With authentication and encrypting the data
+                                      between EdgeX and the device/sensor (ex: using
+                                      TLS), the data on the wire can be protected. The
+                                      physcial security of the device/sensor still
+                                      needs to be achieved to protect someone tampering
+                                      with the device/sensor (ex: holding a match to a
+                                      thermostat). As with device/sensors that are not
+                                      authenticated, additional optional mitigation
+                                      ideas to mitigate unprotected devices/sensors
+                                      require modifications to the EdgeX device
+                                      service. The device service could be constructed
+                                      to filter data or report and alert when there is
+                                      not enough data coming from the device or sensor
+                                      or the sensor/device appears to be offline. Wrong
+                                      data can be mitigated by having the device
+                                      service look for expected ranges of values (as
+                                      supported by min/max attributes on device
+                                      profiles). All of these have limits and only
+                                      mitigate the data from being used in the rest of
+                                      EdgeX once received by the device service.
+                                      Commercial 3rd party software or extensions to
+                                      EdgeX (see, for example, RSA's Netwitness IoT:
+                                      https://www.netwitness.com/en-us/products/iot/)
+                                      could also be used to detect anomalous
+                                      sensor/device communications and isolate the
+                                      sensor from the system.
+
+  **Mitigator:**                      EdgeX Foundry
+
+  **Mitigation Status:**              Mitigation needed
+  ----------------------------------- -------------------------------------------------
+
+#### 44. Spoofing of Destination Data Store Device/Sensor (physically connected authenticated)  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Spoofing
+
+  **Description:**                    Device/Sensor (physically connected
+                                      authenticated) may be spoofed by an
+                                      attacker and this may lead to data
+                                      being written to the attacker's
+                                      target instead of Device/Sensor
+                                      (physically connected
+                                      authenticated). Consider using a
+                                      standard authentication mechanism
+                                      to identify the destination data
+                                      store.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            With authentication protocol in
+                                      place (as examplified by BACnet
+                                      secured or ONVIF cameras with
+                                      security on), the spoofing device
+                                      or sensor would not be able to
+                                      properly authenticated and thereby
+                                      be denied the ability to send data,
+                                      be queried. The EdgeX framework has
+                                      the support to store secrets to
+                                      authenticate devices.
+
+  **Mitigator:**                      EdgeX Foundry
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 45. Spoofing the EdgeX Foundry Process  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Spoofing
+
+  **Description:**                    EdgeX Foundry may be spoofed by an
+                                      attacker and this may lead to
+                                      unauthorized access to
+                                      Device/Sensor (physically connected
+                                      authenticated). Consider using a
+                                      standard authentication mechanism
+                                      to identify the source process.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            With authentication protocol in
+                                      place (as examplified by BACnet
+                                      secured or ONVIF cameras with
+                                      security on), the device would not
+                                      get the proper authenticated
+                                      requests and thereby deny any query
+                                      or actuation request.
+
+  **Mitigator:**                      EdgeX Foundry
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
 ### Interaction: read
 
 ![read interaction
-screenshot](./images/af56f65371d0c62204f92068ee6d3f4c71d70866.png)
+screenshot](./images/aa0e714fe010793ca0e2d04dfedb1ee1af3c2b23.png)
 
-#### 25. Spoofing of Destination Data Store Configuration Files  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 46. Spoofing of Destination Data Store Configuration Files  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Spoofing
@@ -959,7 +1620,7 @@ screenshot](./images/af56f65371d0c62204f92068ee6d3f4c71d70866.png)
   **Mitigation Status:**              Mitigation reviewed
   ----------------------------------- -----------------------------------
 
-#### 26. Potential Excessive Resource Consumption for EdgeX Foundry or Configuration Files  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 47. Potential Excessive Resource Consumption for EdgeX Foundry or Configuration Files  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Denial Of Service
@@ -992,9 +1653,9 @@ screenshot](./images/af56f65371d0c62204f92068ee6d3f4c71d70866.png)
 ### Interaction: request
 
 ![request interaction
-screenshot](./images/3a355c928ca913b55d05ee7d9b020d0b4b92c818.png)
+screenshot](./images/786dbf2376b2b57a2cc30173dd7579995a2e6db8.png)
 
-#### 27. Weakness in SSO Authorization  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 48. Weakness in SSO Authorization  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------------------------------------------------------------------------------------
   **Category:**                       Elevation Of Privilege
@@ -1016,9 +1677,9 @@ screenshot](./images/3a355c928ca913b55d05ee7d9b020d0b4b92c818.png)
 ### Interaction: request
 
 ![request interaction
-screenshot](./images/95f08360c41330542faa2c7a1ea36c0f19b926f7.png)
+screenshot](./images/d116598681c1ff2ae93dd4904bc9c2ff1594e063.png)
 
-#### 28. Elevation Using Impersonation  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 49. Elevation Using Impersonation  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Elevation Of Privilege
@@ -1041,7 +1702,7 @@ screenshot](./images/95f08360c41330542faa2c7a1ea36c0f19b926f7.png)
   **Mitigation Status:**              Mitigation written
   ----------------------------------- -----------------------------------
 
-#### 29. Spoofing the Kong External Entity  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 50. Spoofing the Kong External Entity  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Spoofing
@@ -1081,9 +1742,9 @@ screenshot](./images/95f08360c41330542faa2c7a1ea36c0f19b926f7.png)
 ### Interaction: request
 
 ![request interaction
-screenshot](./images/2d2403398f35d117985163fde9f6f6ae0509c20b.png)
+screenshot](./images/bd42f5b94a1ffb54bc5aa1a5caecd5dd7281ed58.png)
 
-#### 30. Elevation by Changing the Execution Flow in EdgeX UI - Web Application  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 51. Elevation by Changing the Execution Flow in EdgeX UI - Web Application  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Elevation Of Privilege
@@ -1117,7 +1778,7 @@ screenshot](./images/2d2403398f35d117985163fde9f6f6ae0509c20b.png)
   **Mitigation Status:**              Mitigation written
   ----------------------------------- -----------------------------------
 
-#### 31. EdgeX UI - Web Application May be Subject to Elevation of Privilege Using Remote Code Execution  \[State: Needs Investigation\]  \[Priority: Medium\] 
+#### 52. EdgeX UI - Web Application May be Subject to Elevation of Privilege Using Remote Code Execution  \[State: Needs Investigation\]  \[Priority: Medium\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Elevation Of Privilege
@@ -1138,7 +1799,7 @@ screenshot](./images/2d2403398f35d117985163fde9f6f6ae0509c20b.png)
   **Mitigation Status:**              Mitigation Research needed
   ----------------------------------- -----------------------------------
 
-#### 32. Elevation Using Impersonation  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 53. Elevation Using Impersonation  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Elevation Of Privilege
@@ -1163,7 +1824,7 @@ screenshot](./images/2d2403398f35d117985163fde9f6f6ae0509c20b.png)
   **Mitigation Status:**              Mitigation written
   ----------------------------------- -----------------------------------
 
-#### 33. Data Flow request Is Potentially Interrupted  \[State: Not Applicable\]  \[Priority: Low\] 
+#### 54. Data Flow request Is Potentially Interrupted  \[State: Not Applicable\]  \[Priority: Low\] 
 
   ----------------------------------- ----------------------------------------------------------------------------------
   **Category:**                       Denial Of Service
@@ -1187,7 +1848,7 @@ screenshot](./images/2d2403398f35d117985163fde9f6f6ae0509c20b.png)
   **Mitigation Status:**              Cannot mitigate or not appilcable
   ----------------------------------- ----------------------------------------------------------------------------------
 
-#### 34. Potential Process Crash or Stop for EdgeX UI - Web Application  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 55. Potential Process Crash or Stop for EdgeX UI - Web Application  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Denial Of Service
@@ -1220,7 +1881,7 @@ screenshot](./images/2d2403398f35d117985163fde9f6f6ae0509c20b.png)
   **Mitigation Status:**              Mitigation written
   ----------------------------------- -----------------------------------
 
-#### 35. Data Flow Sniffing  \[State: Mitigation Implemented\]  \[Priority: Medium\] 
+#### 56. Data Flow Sniffing  \[State: Mitigation Implemented\]  \[Priority: Medium\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Information Disclosure
@@ -1245,7 +1906,7 @@ screenshot](./images/2d2403398f35d117985163fde9f6f6ae0509c20b.png)
   **Mitigation Status:**              Mitigation written
   ----------------------------------- -----------------------------------
 
-#### 36. Potential Data Repudiation by EdgeX UI - Web Application  \[State: Not Applicable\]  \[Priority: Low\] 
+#### 57. Potential Data Repudiation by EdgeX UI - Web Application  \[State: Not Applicable\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Repudiation
@@ -1270,7 +1931,7 @@ screenshot](./images/2d2403398f35d117985163fde9f6f6ae0509c20b.png)
   **Mitigation Status:**              Cannot mitigate or not appilcable
   ----------------------------------- -----------------------------------
 
-#### 37. Cross Site Scripting  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 58. Cross Site Scripting  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Tampering
@@ -1297,7 +1958,7 @@ screenshot](./images/2d2403398f35d117985163fde9f6f6ae0509c20b.png)
   **Mitigation Status:**              Mitigation written
   ----------------------------------- -----------------------------------
 
-#### 38. Potential Lack of Input Validation for EdgeX UI - Web Application  \[State: Needs Investigation\]  \[Priority: Medium\] 
+#### 59. Potential Lack of Input Validation for EdgeX UI - Web Application  \[State: Needs Investigation\]  \[Priority: Medium\] 
 
   ----------------------------------- ------------------------------------------------------------------------------------------------------
   **Category:**                       Tampering
@@ -1322,7 +1983,7 @@ screenshot](./images/2d2403398f35d117985163fde9f6f6ae0509c20b.png)
   **Mitigation Status:**              Mitigation Research needed
   ----------------------------------- ------------------------------------------------------------------------------------------------------
 
-#### 39. Spoofing the Browser/API Caller External Entity  \[State: Not Applicable\]  \[Priority: Low\] 
+#### 60. Spoofing the Browser/API Caller External Entity  \[State: Not Applicable\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Spoofing
@@ -1349,7 +2010,7 @@ screenshot](./images/2d2403398f35d117985163fde9f6f6ae0509c20b.png)
   **Mitigation Status:**              Cannot mitigate or not appilcable
   ----------------------------------- -----------------------------------
 
-#### 40. Spoofing the EdgeX UI - Web Application Process  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 61. Spoofing the EdgeX UI - Web Application Process  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Spoofing
@@ -1383,9 +2044,9 @@ screenshot](./images/2d2403398f35d117985163fde9f6f6ae0509c20b.png)
 ### Interaction: request
 
 ![request interaction
-screenshot](./images/576e433e8eb5796c68f2bb91390ebbc998db0789.png)
+screenshot](./images/26fec6aecb55a71dd02d87e1e445252a7eb317e5.png)
 
-#### 41. Weakness in SSO Authorization  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 62. Weakness in SSO Authorization  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------------------------------------------------------------------------------------
   **Category:**                       Elevation Of Privilege
@@ -1404,7 +2065,7 @@ screenshot](./images/576e433e8eb5796c68f2bb91390ebbc998db0789.png)
   **Mitigation Status:**              Mitigation written
   ----------------------------------- -----------------------------------------------------------------------------------------------------------------
 
-#### 42. Data Flow request Is Potentially Interrupted  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 63. Data Flow request Is Potentially Interrupted  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- --------------------------------------------------------------------------------
   **Category:**                       Denial Of Service
@@ -1422,7 +2083,7 @@ screenshot](./images/576e433e8eb5796c68f2bb91390ebbc998db0789.png)
   **Mitigation Status:**              Mitigation written
   ----------------------------------- --------------------------------------------------------------------------------
 
-#### 43. External Entity Kong Potentially Denies Receiving Data  \[State: Not Applicable\]  \[Priority: Low\] 
+#### 64. External Entity Kong Potentially Denies Receiving Data  \[State: Not Applicable\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Repudiation
@@ -1449,9 +2110,9 @@ screenshot](./images/576e433e8eb5796c68f2bb91390ebbc998db0789.png)
 ### Interaction: response
 
 ![response interaction
-screenshot](./images/8c77b80e96a413e27bfd5ddc1bb8004ee0f78e8e.png)
+screenshot](./images/4456c4e7f08374bb1c764596877a7215a6c6457d.png)
 
-#### 44. Weakness in SSO Authorization  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 65. Weakness in SSO Authorization  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------------------------------------------------------------------------------------
   **Category:**                       Elevation Of Privilege
@@ -1473,9 +2134,9 @@ screenshot](./images/8c77b80e96a413e27bfd5ddc1bb8004ee0f78e8e.png)
 ### Interaction: response
 
 ![response interaction
-screenshot](./images/0658b8e643ba5473ac137acd8ab3f864a33f21da.png)
+screenshot](./images/440bbdae48492ccca4f6fe2da0976f17d75894d5.png)
 
-#### 45. Spoofing the Kong External Entity  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 66. Spoofing the Kong External Entity  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Spoofing
@@ -1500,7 +2161,7 @@ screenshot](./images/0658b8e643ba5473ac137acd8ab3f864a33f21da.png)
   **Mitigation Status:**              Mitigation written
   ----------------------------------- -----------------------------------
 
-#### 46. Cross Site Scripting  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 67. Cross Site Scripting  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Tampering
@@ -1533,7 +2194,7 @@ screenshot](./images/0658b8e643ba5473ac137acd8ab3f864a33f21da.png)
   **Mitigation Status:**              Mitigation written
   ----------------------------------- -----------------------------------
 
-#### 47. Elevation Using Impersonation  \[State: Mitigation Implemented\]  \[Priority: Medium\] 
+#### 68. Elevation Using Impersonation  \[State: Mitigation Implemented\]  \[Priority: Medium\] 
 
   ----------------------------------- ------------------------------------------------------------------------------------------------------
   **Category:**                       Elevation Of Privilege
@@ -1558,9 +2219,9 @@ screenshot](./images/0658b8e643ba5473ac137acd8ab3f864a33f21da.png)
 ### Interaction: response
 
 ![response interaction
-screenshot](./images/991c32e446da35cd1c0b0af70650326cea128e8b.png)
+screenshot](./images/c3489ead8685c44958ce3fef63bfeeb9621c17f9.png)
 
-#### 48. Data Flow response Is Potentially Interrupted  \[State: Not Applicable\]  \[Priority: Low\] 
+#### 69. Data Flow response Is Potentially Interrupted  \[State: Not Applicable\]  \[Priority: Low\] 
 
   ----------------------------------- ----------------------------------------------------------------------------------
   **Category:**                       Denial Of Service
@@ -1584,7 +2245,7 @@ screenshot](./images/991c32e446da35cd1c0b0af70650326cea128e8b.png)
   **Mitigation Status:**              Cannot mitigate or not appilcable
   ----------------------------------- ----------------------------------------------------------------------------------
 
-#### 49. External Entity Browser/API Caller Potentially Denies Receiving Data  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 70. External Entity Browser/API Caller Potentially Denies Receiving Data  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Repudiation
@@ -1607,7 +2268,7 @@ screenshot](./images/991c32e446da35cd1c0b0af70650326cea128e8b.png)
   **Mitigation Status:**              Mitigation written
   ----------------------------------- -----------------------------------
 
-#### 50. Spoofing of the Browser/API Caller External Destination Entity  \[State: Not Applicable\]  \[Priority: Low\] 
+#### 71. Spoofing of the Browser/API Caller External Destination Entity  \[State: Not Applicable\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Spoofing
@@ -1638,9 +2299,9 @@ screenshot](./images/991c32e446da35cd1c0b0af70650326cea128e8b.png)
 ### Interaction: response
 
 ![response interaction
-screenshot](./images/576e433e8eb5796c68f2bb91390ebbc998db0789.png)
+screenshot](./images/26fec6aecb55a71dd02d87e1e445252a7eb317e5.png)
 
-#### 51. Data Flow response Is Potentially Interrupted  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 72. Data Flow response Is Potentially Interrupted  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- --------------------------------------------------------------------------------
   **Category:**                       Denial Of Service
@@ -1658,7 +2319,7 @@ screenshot](./images/576e433e8eb5796c68f2bb91390ebbc998db0789.png)
   **Mitigation Status:**              Mitigation written
   ----------------------------------- --------------------------------------------------------------------------------
 
-#### 52. External Entity Browser/API Caller Potentially Denies Receiving Data  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 73. External Entity Browser/API Caller Potentially Denies Receiving Data  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Repudiation
@@ -1684,9 +2345,9 @@ screenshot](./images/576e433e8eb5796c68f2bb91390ebbc998db0789.png)
 ### Interaction: sensor data
 
 ![sensor data interaction
-screenshot](./images/45202e3bd894b0bc778d85fa97f7ccc8758cc962.png)
+screenshot](./images/34b7e67ba4a1a3ff13b5df833dbbe68a1b6a124b.png)
 
-#### 53. Spoofing the EdgeX Foundry Process  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 74. Spoofing the EdgeX Foundry Process  \[State: Not Applicable\]  \[Priority: High\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Spoofing
@@ -1701,19 +2362,18 @@ screenshot](./images/45202e3bd894b0bc778d85fa97f7ccc8758cc962.png)
 
   **Justification:**                  \<no mitigation provided\>
 
-  **Possible Mitigation:**            Spoofing all of EdgeX would require
-                                      either replacing all of EdgeX
-                                      containers and network (requiring
-                                      host access and elevated
-                                      privileges) or intercepting and
-                                      rerouting traffic.
+  **Possible Mitigation:**            Without an authentication protocol,
+                                      there is no mitigation for this
+                                      threat. The device would not be
+                                      able to determine that the Spoofing
+                                      EdgeX caller is not EdgeX.
 
-  **Mitigator:**                      EdgeX Foundry
+  **Mitigator:**                      No mitigation or not applicable
 
-  **Mitigation Status:**              Mitigation written
+  **Mitigation Status:**              Cannot mitigate or not appilcable
   ----------------------------------- -----------------------------------
 
-#### 54. Spoofing of Source Data Store Device/Sensor  \[State: Needs Investigation\]  \[Priority: High\] 
+#### 75. Spoofing of Source Data Store Device/Sensor  \[State: Not Applicable\]  \[Priority: High\] 
 
   ----------------------------------- -------------------------------------------------
   **Category:**                       Spoofing
@@ -1733,22 +2393,23 @@ screenshot](./images/45202e3bd894b0bc778d85fa97f7ccc8758cc962.png)
                                       without any authentication. Auto provisioning
                                       shold be limited to pick up trusted devices.
                                       Protocols such as BACnet do allow for
-                                      authentication with the device/sensor. In this
-                                      case, the device service should be written to use
-                                      proper authentication. Commercial 3rd party
-                                      software or extensions to EdgeX (see, for
-                                      example, RSA's Netwitness IoT:
+                                      authentication with the device/sensor. Commercial
+                                      3rd party software or extensions to EdgeX (see,
+                                      for example, RSA's Netwitness IoT:
                                       https://www.netwitness.com/en-us/products/iot/)
                                       could be used to detect anomalous sensor/device
                                       communications and isolate the sensor from the
-                                      system.
+                                      system, but there is no ability in EdgeX directly
+                                      to protect against a spoofed device/sensor that
+                                      does not authenticate (which is the norm in some
+                                      older OT protocols).
 
-  **Mitigator:**                      Adopter
+  **Mitigator:**                      No mitigation or not applicable
 
-  **Mitigation Status:**              Mitigation Research needed
+  **Mitigation Status:**              Mitigation reviewed
   ----------------------------------- -------------------------------------------------
 
-#### 55. Potential Data Repudiation by EdgeX Foundry  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 76. Potential Data Repudiation by EdgeX Foundry  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Repudiation
@@ -1762,16 +2423,18 @@ screenshot](./images/45202e3bd894b0bc778d85fa97f7ccc8758cc962.png)
 
   **Justification:**                  \<no mitigation provided\>
 
-  **Possible Mitigation:**            Use of elevated log level can be
-                                      used to log all data communications
-                                      for any EdgeX service.
+  **Possible Mitigation:**            Use of elevated log level (set
+                                      writable configuration log level to
+                                      DEBUG in the device service) can be
+                                      used to log all data
+                                      communications.
 
   **Mitigator:**                      EdgeX Foundry
 
-  **Mitigation Status:**              Mitigation written
+  **Mitigation Status:**              Mitigation reviewed
   ----------------------------------- -----------------------------------
 
-#### 56. Weak Access Control for a Resource  \[State: Needs Investigation\]  \[Priority: High\] 
+#### 77. Weak Access Control for a Resource  \[State: Not Applicable\]  \[Priority: High\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Information Disclosure
@@ -1784,23 +2447,25 @@ screenshot](./images/45202e3bd894b0bc778d85fa97f7ccc8758cc962.png)
 
   **Justification:**                  \<no mitigation provided\>
 
-  **Possible Mitigation:**            In some cases (such as BACNet), the
-                                      communications between EdgeX and
-                                      the device/sensor can be secured
-                                      (ex: secured BACNet). Otherwise, it
-                                      is up to the device service
-                                      implementer to either secure the
-                                      communications (if possible) or
-                                      mitigate the danger by making sure
-                                      the incoming data conforms to
-                                      expectations.
+  **Possible Mitigation:**            Securing the data flow to/from a
+                                      device or sensor is dependent on
+                                      the OT protocol. In the case of
+                                      most simple and typically older OT
+                                      protocols (Modbus or GPIO as
+                                      examples), there is no way to
+                                      secure the communications with the
+                                      device/sensor under that protocol.
+                                      Critical sensors/devices of this
+                                      nature should be physically secured
+                                      (along with their physical
+                                      connection to the EdgeX host).
 
-  **Mitigator:**                      Adopter
+  **Mitigator:**                      No mitigation or not applicable
 
-  **Mitigation Status:**              Mitigation written
+  **Mitigation Status:**              Mitigation reviewed
   ----------------------------------- -----------------------------------
 
-#### 57. Potential Process Crash or Stop for EdgeX Foundry  \[State: Mitigation Implemented\]  \[Priority: Medium\] 
+#### 78. Potential Process Crash or Stop for EdgeX Foundry  \[State: Mitigation Implemented\]  \[Priority: Medium\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Denial Of Service
@@ -1823,94 +2488,76 @@ screenshot](./images/45202e3bd894b0bc778d85fa97f7ccc8758cc962.png)
 
   **Mitigator:**                      EdgeX Foundry
 
-  **Mitigation Status:**              Mitigation written
+  **Mitigation Status:**              Mitigation reviewed
   ----------------------------------- -----------------------------------
 
-#### 58. Data Flow sensor data Is Potentially Interrupted  \[State: Mitigation Implemented\]  \[Priority: High\] 
+#### 79. Data Flow sensor data Is Potentially Interrupted  \[State: Mitigation Implemented\]  \[Priority: High\] 
 
-  ----------------------------------- -------------------------------------------------
+  ----------------------------------- -----------------------------------
   **Category:**                       Denial Of Service
 
-  **Description:**                    An external agent interrupts data flowing across
-                                      a trust boundary in either direction.
+  **Description:**                    An external agent interrupts data
+                                      flowing across a trust boundary in
+                                      either direction.
 
   **Justification:**                  \<no mitigation provided\>
 
-  **Possible Mitigation:**            Outside influence on a sensor or device is one of
-                                      the biggest threats to an edge system and one of
-                                      the hardest to mitigate. If tampered with, a
-                                      sensor or device could be used to send the wrong
-                                      data (e.g., force a temp sensor to send a signal
-                                      that it is too hot when it is really too cold),
-                                      too much data (overwhelming the edge system by
-                                      causing the sensor to send data too often), or
-                                      not enough data (e.g., disconnecting a critical
-                                      monitor sensor that would cause a system to
-                                      stop). The device service can be constructed to
-                                      filter data to avoid the "too much" data DoS. The
-                                      device service can be constructed to report and
-                                      alert when there is not enough data coming from
-                                      the device or sensor or the sensor/device appears
-                                      to be offline (provided by the last connected
-                                      tracking in EdgeX). Wrong data can be mitigated
-                                      by having the device service look for expected
-                                      ranges of values (as supported by min/max
-                                      attributes on device profiles). Commercial 3rd
-                                      party software or extensions to EdgeX (see, for
-                                      example, RSA's Netwitness IoT:
-                                      https://www.netwitness.com/en-us/products/iot/)
-                                      could be used to detect anomalous sensor/device
-                                      communications and isolate the sensor from the
-                                      system.
+  **Possible Mitigation:**            Outside influence could break the
+                                      communication connection or remove
+                                      a device/senosr causing major
+                                      disruption of service (ex: removing
+                                      or cutting off comms to a critical
+                                      temperature sensor of a heating or
+                                      cooling machine). EdgeX has no
+                                      means to protect the "wire" to a
+                                      physically connected device/sensor.
+                                      Physical security is required to
+                                      protect the wire and device/sensor
+                                      and mitigate this threat. The
+                                      device service does track "last
+                                      connected" and that timestamp could
+                                      be monitored for outside of normal
+                                      reporting ranges.
 
   **Mitigator:**                      Adopter
 
-  **Mitigation Status:**              Mitigation written
-  ----------------------------------- -------------------------------------------------
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
 
-#### 59. Data Store Inaccessible  \[State: Mitigation Implemented\]  \[Priority: High\] 
+#### 80. Data Store Inaccessible  \[State: Mitigation Implemented\]  \[Priority: High\] 
 
-  ----------------------------------- -------------------------------------------------
+  ----------------------------------- -----------------------------------
   **Category:**                       Denial Of Service
 
-  **Description:**                    An external agent prevents access to a data store
-                                      on the other side of the trust boundary.
+  **Description:**                    An external agent prevents access
+                                      to a data store on the other side
+                                      of the trust boundary.
 
   **Justification:**                  \<no mitigation provided\>
 
-  **Possible Mitigation:**            Outside influence on a sensor or device is one of
-                                      the biggest threats to an edge system and one of
-                                      the hardest to mitigate. If tampered with, a
-                                      sensor or device could be used to send the wrong
-                                      data (e.g., force a temp sensor to send a signal
-                                      that it is too hot when it is really too cold),
-                                      too much data (overwhelming the edge system by
-                                      causing the sensor to send data too often), or
-                                      not enough data (e.g., disconnecting a critical
-                                      monitor sensor that would cause a system to
-                                      stop). The device service can be constructed to
-                                      filter data to avoid the "too much" data DoS. The
-                                      device service can be constructed to report and
-                                      alert when there is not enough data coming from
-                                      the device or sensor or the sensor/device appears
-                                      to be offline (provided by the last connected
-                                      tracking in EdgeX). Wrong data can be mitigated
-                                      by having the device service look for expected
-                                      ranges of values (as supported by min/max
-                                      attributes on device profiles). Commercial 3rd
-                                      party software or extensions to EdgeX (see, for
-                                      example, RSA's Netwitness IoT:
-                                      https://www.netwitness.com/en-us/products/iot/)
-                                      could be used to detect anomalous sensor/device
-                                      communications and isolate the sensor from the
-                                      system.
+  **Possible Mitigation:**            Outside influence could break the
+                                      communication connection or remove
+                                      a device/senosr causing major
+                                      disruption of service (ex: removing
+                                      or cutting off comms to a critical
+                                      temperature sensor of a heating or
+                                      cooling machine). EdgeX has no
+                                      means to protect the "wire" to a
+                                      physically connected device/sensor.
+                                      Physical security is required to
+                                      protect the wire and device/sensor
+                                      and mitigate this threat. The
+                                      device service does track "last
+                                      connected" and that timestamp could
+                                      be monitored for outside of normal
+                                      reporting ranges.
 
   **Mitigator:**                      Adopter
 
-  **Mitigation Status:**              Mitigation written
-  ----------------------------------- -------------------------------------------------
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
 
-#### 60. EdgeX Foundry May be Subject to Elevation of Privilege Using Remote Code Execution  \[State: Not Applicable\]  \[Priority: Low\] 
+#### 81. EdgeX Foundry May be Subject to Elevation of Privilege Using Remote Code Execution  \[State: Not Applicable\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Elevation Of Privilege
@@ -1948,7 +2595,7 @@ screenshot](./images/45202e3bd894b0bc778d85fa97f7ccc8758cc962.png)
   **Mitigation Status:**              Cannot mitigate or not appilcable
   ----------------------------------- -----------------------------------
 
-#### 61. Elevation by Changing the Execution Flow in EdgeX Foundry  \[State: Mitigation Implemented\]  \[Priority: High\] 
+#### 82. Elevation by Changing the Execution Flow in EdgeX Foundry  \[State: Mitigation Implemented\]  \[Priority: High\] 
 
   ----------------------------------- -------------------------------------------------
   **Category:**                       Elevation Of Privilege
@@ -1964,23 +2611,17 @@ screenshot](./images/45202e3bd894b0bc778d85fa97f7ccc8758cc962.png)
                                       the hardest to mitigate. If tampered with, a
                                       sensor or device could be used to send the wrong
                                       data (e.g., force a temp sensor to send a signal
-                                      that it is too hot when it is really too cold),
-                                      too much data (overwhelming the edge system by
-                                      causing the sensor to send data too often), or
-                                      not enough data (e.g., disconnecting a critical
-                                      monitor sensor that would cause a system to
-                                      stop). The device service can be constructed to
-                                      filter data to avoid the "too much" data DoS. The
-                                      device service can be constructed to report and
-                                      alert when there is not enough data coming from
-                                      the device or sensor or the sensor/device appears
-                                      to be offline (provided by the last connected
-                                      tracking in EdgeX). Wrong data can be mitigated
-                                      by having the device service look for expected
-                                      ranges of values (as supported by min/max
-                                      attributes on device profiles). Commercial 3rd
-                                      party software or extensions to EdgeX (see, for
-                                      example, RSA's Netwitness IoT:
+                                      that it is too hot when it is really too cold).
+                                      EdgeX has no means to protect the "wire" to a
+                                      physically connected device/sensor. Physical
+                                      security is required to protect the wire and
+                                      device/sensor and mitigate this threat. Wrong
+                                      data can be mitigated by having the device
+                                      service look for expected ranges of values (as
+                                      supported by min/max attributes on device
+                                      profiles). Commercial 3rd party software or
+                                      extensions to EdgeX (see, for example, RSA's
+                                      Netwitness IoT:
                                       https://www.netwitness.com/en-us/products/iot/)
                                       could be used to detect anomalous sensor/device
                                       communications and isolate the sensor from the
@@ -1988,15 +2629,15 @@ screenshot](./images/45202e3bd894b0bc778d85fa97f7ccc8758cc962.png)
 
   **Mitigator:**                      Adopter
 
-  **Mitigation Status:**              Mitigation written
+  **Mitigation Status:**              Mitigation reviewed
   ----------------------------------- -------------------------------------------------
 
 ### Interaction: sensor data
 
 ![sensor data interaction
-screenshot](./images/90275c0fd866ee831f1791f0fe94207138f563fe.png)
+screenshot](./images/0364d43b1f3ccb702fb163bd07ffe6c8908d6ff1.png)
 
-#### 62. External Entity Megaservice - Cloud or Enterprise Potentially Denies Receiving Data  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 83. External Entity Megaservice - Cloud or Enterprise Potentially Denies Receiving Data  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Repudiation
@@ -2020,7 +2661,7 @@ screenshot](./images/90275c0fd866ee831f1791f0fe94207138f563fe.png)
   **Mitigation Status:**              Mitigation written
   ----------------------------------- -----------------------------------
 
-#### 63. Spoofing of the Megaservice - Cloud or Enterprise External Destination Entity  \[State: Not Applicable\]  \[Priority: Low\] 
+#### 84. Spoofing of the Megaservice - Cloud or Enterprise External Destination Entity  \[State: Not Applicable\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Spoofing
@@ -2053,7 +2694,7 @@ screenshot](./images/90275c0fd866ee831f1791f0fe94207138f563fe.png)
   **Mitigation Status:**              Cannot mitigate or not appilcable
   ----------------------------------- -----------------------------------
 
-#### 64. Data Flow sensor data Is Potentially Interrupted  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 85. Data Flow sensor data Is Potentially Interrupted  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Denial Of Service
@@ -2086,9 +2727,9 @@ screenshot](./images/90275c0fd866ee831f1791f0fe94207138f563fe.png)
 ### Interaction: sensor data
 
 ![sensor data interaction
-screenshot](./images/d49eafc75d4d780a7092b7c1d9a3df82cf18b9c9.png)
+screenshot](./images/8547e2e99628f30cba7f8faa68fc335f2dc26773.png)
 
-#### 65. Data Flow sensor data Is Potentially Interrupted  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 86. Data Flow sensor data Is Potentially Interrupted  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Denial Of Service
@@ -2118,7 +2759,7 @@ screenshot](./images/d49eafc75d4d780a7092b7c1d9a3df82cf18b9c9.png)
   **Mitigation Status:**              Mitigation written
   ----------------------------------- -----------------------------------
 
-#### 66. External Entity Message Topic Potentially Denies Receiving Data  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 87. External Entity Message Topic Potentially Denies Receiving Data  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Repudiation
@@ -2142,7 +2783,7 @@ screenshot](./images/d49eafc75d4d780a7092b7c1d9a3df82cf18b9c9.png)
   **Mitigation Status:**              Mitigation written
   ----------------------------------- -----------------------------------
 
-#### 67. Spoofing of the Message Topic External Destination Entity  \[State: Not Applicable\]  \[Priority: Low\] 
+#### 88. Spoofing of the Message Topic External Destination Entity  \[State: Not Applicable\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Spoofing
@@ -2174,12 +2815,724 @@ screenshot](./images/d49eafc75d4d780a7092b7c1d9a3df82cf18b9c9.png)
   **Mitigation Status:**              Cannot mitigate or not appilcable
   ----------------------------------- -----------------------------------
 
+### Interaction: sensor data
+
+![sensor data interaction
+screenshot](./images/5183d92575032bd6f7978b17de0be7dfe9137927.png)
+
+#### 89. Spoofing the EdgeX Foundry Process  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Spoofing
+
+  **Description:**                    EdgeX Foundry may be spoofed by an
+                                      attacker and this may lead to
+                                      information disclosure by
+                                      Device/Sensor (physically connected
+                                      authenticated). Consider using a
+                                      standard authentication mechanism
+                                      to identify the destination
+                                      process.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            With authentication protocol in
+                                      place (as examplified by BACnet
+                                      secured or ONVIF cameras with
+                                      security on), the device would not
+                                      get the proper authenticated
+                                      requests and thereby deny any query
+                                      or actuation request.
+
+  **Mitigator:**                      EdgeX Foundry
+
+  **Mitigation Status:**              Mitigation needed
+  ----------------------------------- -----------------------------------
+
+#### 90. Spoofing of Source Data Store Device/Sensor (physically connected authenticated)  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Spoofing
+
+  **Description:**                    Device/Sensor (physically connected
+                                      authenticated) may be spoofed by an
+                                      attacker and this may lead to
+                                      incorrect data delivered to EdgeX
+                                      Foundry. Consider using a standard
+                                      authentication mechanism to
+                                      identify the source data store.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            With authentication protocol in
+                                      place (as examplified by BACnet
+                                      secured or ONVIF cameras with
+                                      security on), the spoofing device
+                                      or sensor would not be able to
+                                      properly authenticated and thereby
+                                      be denied the ability to send data,
+                                      be queried. The EdgeX framework has
+                                      the support to store secrets to
+                                      authenticate devices.
+
+  **Mitigator:**                      EdgeX Foundry
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 91. Potential Data Repudiation by EdgeX Foundry  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Repudiation
+
+  **Description:**                    EdgeX Foundry claims that it did
+                                      not receive data from a source
+                                      outside the trust boundary.
+                                      Consider using logging or auditing
+                                      to record the source, time, and
+                                      summary of the received data.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            Use of elevated log level (set
+                                      writable configuration log level to
+                                      DEBUG in the device service) can be
+                                      used to log all data
+                                      communications.
+
+  **Mitigator:**                      EdgeX Foundry
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 92. Weak Access Control for a Resource  \[State: Not Applicable\]  \[Priority: High\] 
+
+  ----------------------------------- ----------------------------------------------------------
+  **Category:**                       Information Disclosure
+
+  **Description:**                    Improper data protection of Device/Sensor (physically
+                                      connected authenticated) can allow an attacker to read
+                                      information not intended for disclosure. Review
+                                      authorization settings.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            Securing the data flow to/from a device or sensor is
+                                      dependent on the OT protocol. In the case of something
+                                      like BACnet secure (which is based on TLS - see
+                                      https://www.bacnetinternational.org/page/secureconnect),
+                                      the flow between EdgeX and the BACnet device can be
+                                      encryped. The Device Service would need to be written to
+                                      use that secure communications. In cases where there is no
+                                      way to secure the communications with the device/sensor
+                                      under that protocol, then mitigation is via physical
+                                      security of the device/sensor (along with their connection
+                                      to the EdgeX host).
+
+  **Mitigator:**                      No mitigation or not applicable
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- ----------------------------------------------------------
+
+#### 93. Potential Process Crash or Stop for EdgeX Foundry  \[State: Mitigation Implemented\]  \[Priority: Medium\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Denial Of Service
+
+  **Description:**                    EdgeX Foundry crashes, halts, stops
+                                      or runs slowly; in all cases
+                                      violating an availability metric.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            Stopping EdgeX services requires
+                                      host access (and access to the
+                                      Docker engine, Docker containers
+                                      and Docker network) with eleveated
+                                      privileges or access to the EdgeX
+                                      system management APIs (requiring
+                                      the Kong JWT token). The system
+                                      management service can be removed
+                                      for extra security.
+
+  **Mitigator:**                      EdgeX Foundry
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 94. Data Flow sensor data Is Potentially Interrupted  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Denial Of Service
+
+  **Description:**                    An external agent interrupts data
+                                      flowing across a trust boundary in
+                                      either direction.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            Outside influence could break the
+                                      communication connection or remove
+                                      a device/senosr causing major
+                                      disruption of service (ex: removing
+                                      or cutting off comms to a critical
+                                      temperature sensor of a heating or
+                                      cooling machine). EdgeX has no
+                                      means to protect the "wire" to a
+                                      physically connected device/sensor.
+                                      Physical security is required to
+                                      protect the wire and device/sensor
+                                      and mitigate this threat. The
+                                      device service does track "last
+                                      connected" and that timestamp could
+                                      be monitored for outside of normal
+                                      reporting ranges.
+
+  **Mitigator:**                      Adopter
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 95. Data Store Inaccessible  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Denial Of Service
+
+  **Description:**                    An external agent prevents access
+                                      to a data store on the other side
+                                      of the trust boundary.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            Outside influence could break the
+                                      communication connection or remove
+                                      a device/senosr causing major
+                                      disruption of service (ex: removing
+                                      or cutting off comms to a critical
+                                      temperature sensor of a heating or
+                                      cooling machine). EdgeX has no
+                                      means to protect the "wire" to a
+                                      physically connected device/sensor.
+                                      Physical security is required to
+                                      protect the wire and device/sensor
+                                      and mitigate this threat. The
+                                      device service does track "last
+                                      connected" and that timestamp could
+                                      be monitored for outside of normal
+                                      reporting ranges.
+
+  **Mitigator:**                      Adopter
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 96. EdgeX Foundry May be Subject to Elevation of Privilege Using Remote Code Execution  \[State: Not Applicable\]  \[Priority: Low\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Elevation Of Privilege
+
+  **Description:**                    Device/Sensor (physically connected
+                                      authenticated) may be able to
+                                      remotely execute code for EdgeX
+                                      Foundry.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            EdgeX does not execute random code
+                                      based on input from a device or
+                                      sensor (as if it was from a web
+                                      application with something like
+                                      unsanitized inputs). All data is
+                                      santized by extracting expected
+                                      data values from the sensor input
+                                      data, creating an EdgeX
+                                      event/reading message and sending
+                                      that into the rest of EdgeX. The
+                                      data coming from a sensor could be
+                                      used to kill the service (ex:
+                                      buffer overflow attack and sending
+                                      too much data for the service to
+                                      consume for example - see DoS
+                                      threats). The device service in
+                                      EdgeX can be written to reject to
+                                      large of a request (for example).
+                                      In some cases, a protocol may offer
+                                      dual authentication, and if used,
+                                      help to mitigate RCE
+
+  **Mitigator:**                      No mitigation or not applicable
+
+  **Mitigation Status:**              Cannot mitigate or not appilcable
+  ----------------------------------- -----------------------------------
+
+#### 97. Elevation by Changing the Execution Flow in EdgeX Foundry  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -------------------------------------------------
+  **Category:**                       Elevation Of Privilege
+
+  **Description:**                    An attacker may pass data into EdgeX Foundry in
+                                      order to change the flow of program execution
+                                      within EdgeX Foundry to the attacker's choosing.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            Outside influence on a sensor or device is one of
+                                      the biggest threats to an edge system and one of
+                                      the hardest to mitigate. If tampered with, a
+                                      sensor or device could be used to send the wrong
+                                      data (e.g., force a temp sensor to send a signal
+                                      that it is too hot when it is really too cold).
+                                      EdgeX has no means to protect the "wire" to a
+                                      physically connected device/sensor. Physical
+                                      security is required to protect the wire and
+                                      device/sensor and mitigate this threat. Wrong
+                                      data can be mitigated by having the device
+                                      service look for expected ranges of values (as
+                                      supported by min/max attributes on device
+                                      profiles). Commercial 3rd party software or
+                                      extensions to EdgeX (see, for example, RSA's
+                                      Netwitness IoT:
+                                      https://www.netwitness.com/en-us/products/iot/)
+                                      could be used to detect anomalous sensor/device
+                                      communications and isolate the sensor from the
+                                      system.
+
+  **Mitigator:**                      Adopter
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -------------------------------------------------
+
+### Interaction: sensor data
+
+![sensor data interaction
+screenshot](./images/8d418e0db9522c1b50557892a0383e08885be785.png)
+
+#### 98. Spoofing of Source Data Store Device/Sensor (REST authenticated)  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Spoofing
+
+  **Description:**                    Device/Sensor (REST authenticated)
+                                      may be spoofed by an attacker and
+                                      this may lead to incorrect data
+                                      delivered to Kong. Consider using a
+                                      standard authentication mechanism
+                                      to identify the source data store.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            With authentication in place the
+                                      REST caller would not get the
+                                      proper authenticated by a spoofed
+                                      Kong and thereby deny any query
+                                      request.
+
+  **Mitigator:**                      EdgeX Foundry
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 99. External Entity Kong Potentially Denies Receiving Data  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Repudiation
+
+  **Description:**                    Kong claims that it did not receive
+                                      data from a process on the other
+                                      side of the trust boundary.
+                                      Consider using logging or auditing
+                                      to record the source, time, and
+                                      summary of the received data.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            Use of elevated log level (set
+                                      writable configuration log level to
+                                      DEBUG in the device service) can be
+                                      used to log all data
+                                      communications.
+
+  **Mitigator:**                      EdgeX Foundry
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 100. Weak Access Control for a Resource  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Information Disclosure
+
+  **Description:**                    Improper data protection of
+                                      Device/Sensor (REST authenticated)
+                                      can allow an attacker to read
+                                      information not intended for
+                                      disclosure. Review authorization
+                                      settings.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            REST requests and responses
+                                      to/through Kong are encrypted by
+                                      default.
+
+  **Mitigator:**                      Third Party
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 101. Data Flow sensor data Is Potentially Interrupted  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+
+  ----------------------------------- --------------------------------------------------------------------------------
+  **Category:**                       Denial Of Service
+
+  **Description:**                    An external agent interrupts data flowing across a trust boundary in either
+                                      direction.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            Kong can be configured to throttle requests to prevent a DoS attack. See
+                                      https://keyvatech.com/2019/12/03/secure-your-business-critical-apps-with-kong/
+
+  **Mitigator:**                      Third Party
+
+  **Mitigation Status:**              Mitigation written
+  ----------------------------------- --------------------------------------------------------------------------------
+
+#### 102. Data Store Inaccessible  \[State: Mitigation Implemented\]  \[Priority: Medium\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Denial Of Service
+
+  **Description:**                    An external agent prevents access
+                                      to a data store on the other side
+                                      of the trust boundary.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            Outside influence could break the
+                                      network communication connection
+                                      causing major disruption of service
+                                      (ex: removing or cutting off comms
+                                      to a critical temperature resource
+                                      of a heating or cooling machine).
+                                      EdgeX has no means to protect the
+                                      network connection. Physical
+                                      security is required to protect the
+                                      wire and device/sensor and mitigate
+                                      this threat. The device service
+                                      does track "last connected" and
+                                      that timestamp could be monitored
+                                      for outside of normal reporting
+                                      ranges.
+
+  **Mitigator:**                      Adopter
+
+  **Mitigation Status:**              Mitigation written
+  ----------------------------------- -----------------------------------
+
+#### 103. Weakness in SSO Authorization  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------------------------------------------------------------------------------------
+  **Category:**                       Elevation Of Privilege
+
+  **Description:**                    Common SSO implementations such as OAUTH2 and OAUTH Wrap are vulnerable to MitM attacks.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            In EdgeX, Kong is configured to use JWT token authentication. OAUTH2 and OAUTH are not allowed as of EdgeX 2.0
+                                      (Ireland release - see
+                                      https://docs.edgexfoundry.org/2.3/security/Ch-APIGateway/#configuration-of-jwt-authentication-for-api-gateway).
+                                      JWT token expires in one hour by default.
+
+  **Mitigator:**                      Third Party
+
+  **Mitigation Status:**              Mitigation written
+  ----------------------------------- -----------------------------------------------------------------------------------------------------------------
+
+### Interaction: sensor data
+
+![sensor data interaction
+screenshot](./images/cd3b7ca620a676601b6458a694810883e7545a9b.png)
+
+#### 104. Elevation by Changing the Execution Flow in EdgeX Foundry  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+
+  ----------------------------------- -------------------------------------------------
+  **Category:**                       Elevation Of Privilege
+
+  **Description:**                    An attacker may pass data into EdgeX Foundry in
+                                      order to change the flow of program execution
+                                      within EdgeX Foundry to the attacker's choosing.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            Access to publish data through the external MQTT
+                                      broker is protected with authentication. Wrong
+                                      data can also be mitigated by having the device
+                                      service look for expected ranges of values (as
+                                      supported by min/max attributes on device
+                                      profiles). Commercial 3rd party software or
+                                      extensions to EdgeX (see, for example, RSA's
+                                      Netwitness IoT:
+                                      https://www.netwitness.com/en-us/products/iot/)
+                                      could be used to detect anomalous sensor/device
+                                      communications and isolate the sensor from the
+                                      system.
+
+  **Mitigator:**                      EdgeX Foundry
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -------------------------------------------------
+
+#### 105. EdgeX Foundry May be Subject to Elevation of Privilege Using Remote Code Execution  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Elevation Of Privilege
+
+  **Description:**                    Device/Sensor (via external MQTT
+                                      broker - authenticated) may be able
+                                      to remotely execute code for EdgeX
+                                      Foundry.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            EdgeX does not execute random code
+                                      based on input from a device or
+                                      sensor via MQTT (as if it was from
+                                      a web application with something
+                                      like unsanitized inputs). All data
+                                      is santized by extracting expected
+                                      data values from the sensor input
+                                      data, creating an EdgeX
+                                      event/reading message and sending
+                                      that into the rest of EdgeX. The
+                                      data coming from a sensor could be
+                                      used to kill the service (ex:
+                                      buffer overflow attack and sending
+                                      too much data for the service to
+                                      consume for example - see DoS
+                                      threats). The device service in
+                                      EdgeX can be written to reject to
+                                      large of a request (for example).
+                                      In some cases, a protocol may offer
+                                      dual authentication, and if used,
+                                      help to mitigate RCE
+
+  **Mitigator:**                      EdgeX Foundry
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 106. Data Store Inaccessible  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Denial Of Service
+
+  **Description:**                    An external agent prevents access
+                                      to a data store on the other side
+                                      of the trust boundary.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            Outside influence could break the
+                                      communication connection or MQTT
+                                      broker causing major disruption of
+                                      service (ex: removing or cutting
+                                      off comms to a critical temperature
+                                      sensor of a heating or cooling
+                                      machine). EdgeX has no means to
+                                      protect the connection to the
+                                      external MQTT broker, the broker
+                                      itself, or publisher to the broker.
+                                      Physical and sytem security is
+                                      required to protect these and
+                                      mitigate this threat. The device
+                                      service does track "last connected"
+                                      and that timestamp could be
+                                      monitored for outside of normal
+                                      reporting ranges.
+
+  **Mitigator:**                      Adopter
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 107. Data Flow sensor data Is Potentially Interrupted  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Denial Of Service
+
+  **Description:**                    An external agent interrupts data
+                                      flowing across a trust boundary in
+                                      either direction.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            Outside influence could break the
+                                      communication connection or MQTT
+                                      broker causing major disruption of
+                                      service (ex: removing or cutting
+                                      off comms to a critical temperature
+                                      sensor of a heating or cooling
+                                      machine). EdgeX has no means to
+                                      protect the connection to the
+                                      external MQTT broker, the broker
+                                      itself, or publisher to the broker.
+                                      Physical and sytem security is
+                                      required to protect these and
+                                      mitigate this threat. The device
+                                      service does track "last connected"
+                                      and that timestamp could be
+                                      monitored for outside of normal
+                                      reporting ranges.
+
+  **Mitigator:**                      Adopter
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 108. Potential Process Crash or Stop for EdgeX Foundry  \[State: Mitigation Implemented\]  \[Priority: Medium\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Denial Of Service
+
+  **Description:**                    EdgeX Foundry crashes, halts, stops
+                                      or runs slowly; in all cases
+                                      violating an availability metric.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            Stopping EdgeX services requires
+                                      host access (and access to the
+                                      Docker engine, Docker containers
+                                      and Docker network) with eleveated
+                                      privileges or access to the EdgeX
+                                      system management APIs (requiring
+                                      the Kong JWT token). The system
+                                      management service can be removed
+                                      for extra security.
+
+  **Mitigator:**                      EdgeX Foundry
+
+  **Mitigation Status:**              Mitigation written
+  ----------------------------------- -----------------------------------
+
+#### 109. Weak Access Control for a Resource  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Information Disclosure
+
+  **Description:**                    Improper data protection of
+                                      Device/Sensor (via external MQTT
+                                      broker - authenticated) can allow
+                                      an attacker to read information not
+                                      intended for disclosure. Review
+                                      authorization settings.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            Requires encryption of the
+                                      communications (on both the EdgeX
+                                      and device/sensor ends) which is
+                                      not in place by default. MQTTS
+                                      could be implemented by the adopter
+                                      with the appropriate MQTT broker.
+
+  **Mitigator:**                      Adopter
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 110. Potential Data Repudiation by EdgeX Foundry  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Repudiation
+
+  **Description:**                    EdgeX Foundry claims that it did
+                                      not receive data from a source
+                                      outside the trust boundary.
+                                      Consider using logging or auditing
+                                      to record the source, time, and
+                                      summary of the received data.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            Use of elevated log level (set
+                                      writable configuration log level to
+                                      DEBUG in the device service) can be
+                                      used to log all data
+                                      communications. Log level on the
+                                      message bus may also be elevated.
+
+  **Mitigator:**                      EdgeX Foundry
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 111. Spoofing of Source Data Store Device/Sensor (via external MQTT broker - authenticated)  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Spoofing
+
+  **Description:**                    Device/Sensor (via external MQTT
+                                      broker - authenticated) may be
+                                      spoofed by an attacker and this may
+                                      lead to incorrect data delivered to
+                                      EdgeX Foundry. Consider using a
+                                      standard authentication mechanism
+                                      to identify the source data store.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            With authentication in place the
+                                      spoofing MQTT publisher of sensor
+                                      data (or the spoofed external
+                                      message broker) would not be
+                                      properly authenticated and thereby
+                                      deny any request. The EdgeX
+                                      framework has the support to store
+                                      secrets to authenticate devices.
+
+  **Mitigator:**                      EdgeX Foundry
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
+#### 112. Spoofing the EdgeX Foundry Process  \[State: Mitigation Implemented\]  \[Priority: High\] 
+
+  ----------------------------------- -----------------------------------
+  **Category:**                       Spoofing
+
+  **Description:**                    EdgeX Foundry may be spoofed by an
+                                      attacker and this may lead to
+                                      information disclosure by
+                                      Device/Sensor (via external MQTT
+                                      broker - authenticated). Consider
+                                      using a standard authentication
+                                      mechanism to identify the
+                                      destination process.
+
+  **Justification:**                  \<no mitigation provided\>
+
+  **Possible Mitigation:**            With authentication in place the
+                                      spoofing MQTT receiver of sensor
+                                      data (or the spoofed external
+                                      message broker) would not be
+                                      properly authenticated and thereby
+                                      be unable to receive. The EdgeX
+                                      framework has the support to store
+                                      secrets to authenticate devices.
+
+  **Mitigator:**                      EdgeX Foundry
+
+  **Mitigation Status:**              Mitigation reviewed
+  ----------------------------------- -----------------------------------
+
 ### Interaction: service registration
 
 ![service registration interaction
-screenshot](./images/07d84b7181df0567f94ffa3139a1017078073813.png)
+screenshot](./images/b086c69ab8ab2ffef83da2fa82c35723b80a9d6a.png)
 
-#### 68. Spoofing of Destination Data Store Consul (registry)  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 113. Spoofing of Destination Data Store Consul (registry)  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Spoofing
@@ -2219,7 +3572,7 @@ screenshot](./images/07d84b7181df0567f94ffa3139a1017078073813.png)
   **Mitigation Status:**              Mitigation reviewed
   ----------------------------------- -----------------------------------
 
-#### 69. Potential Excessive Resource Consumption for EdgeX Foundry or Consul (registry)  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 114. Potential Excessive Resource Consumption for EdgeX Foundry or Consul (registry)  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- ----------------------------------------------------------------
   **Category:**                       Denial Of Service
@@ -2248,7 +3601,7 @@ screenshot](./images/07d84b7181df0567f94ffa3139a1017078073813.png)
   **Mitigation Status:**              Mitigation reviewed
   ----------------------------------- ----------------------------------------------------------------
 
-#### 70. Authenticated Data Flow Compromised  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 115. Authenticated Data Flow Compromised  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- ------------------------------------------------------------------------------------------------------------------------------------
   **Category:**                       Tampering
@@ -2270,9 +3623,9 @@ screenshot](./images/07d84b7181df0567f94ffa3139a1017078073813.png)
 ### Interaction: service secrets
 
 ![service secrets interaction
-screenshot](./images/e7176a6f9f8c4c00ed2658a0e0aad5a56fc9b069.png)
+screenshot](./images/455249c6e74c3a9ac840d47a23e2b956a6b43a64.png)
 
-#### 71. Weak Access Control for a Resource  \[State: Mitigation Implemented\]  \[Priority: Medium\] 
+#### 116. Weak Access Control for a Resource  \[State: Mitigation Implemented\]  \[Priority: Medium\] 
 
   ----------------------------------- -------------------------------------------------------------------------------------------
   **Category:**                       Information Disclosure
@@ -2292,7 +3645,7 @@ screenshot](./images/e7176a6f9f8c4c00ed2658a0e0aad5a56fc9b069.png)
   **Mitigation Status:**              Mitigation reviewed
   ----------------------------------- -------------------------------------------------------------------------------------------
 
-#### 72. Spoofing of Source Data Store Vault  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 117. Spoofing of Source Data Store Vault  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Spoofing
@@ -2333,9 +3686,9 @@ screenshot](./images/e7176a6f9f8c4c00ed2658a0e0aad5a56fc9b069.png)
 ### Interaction: subscribed message
 
 ![subscribed message interaction
-screenshot](./images/0b90a0c293af117ac3ae56739d5422f5edfcf14f.png)
+screenshot](./images/5ed6d6929353527b79457da17d6b92b089e11b79.png)
 
-#### 73. Weak Access Control for a Resource  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 118. Weak Access Control for a Resource  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- -------------------------------------------------------------------
   **Category:**                       Information Disclosure
@@ -2359,7 +3712,7 @@ screenshot](./images/0b90a0c293af117ac3ae56739d5422f5edfcf14f.png)
   **Mitigation Status:**              Mitigation reviewed
   ----------------------------------- -------------------------------------------------------------------
 
-#### 74. Spoofing of Source Data Store Message Bus Broker  \[State: Mitigation Implemented\]  \[Priority: Low\] 
+#### 119. Spoofing of Source Data Store Message Bus Broker  \[State: Mitigation Implemented\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Spoofing
@@ -2390,7 +3743,7 @@ screenshot](./images/0b90a0c293af117ac3ae56739d5422f5edfcf14f.png)
 ## Diagram: EdgeX Service to Service HTTP comms
 
 ![EdgeX Service to Service HTTP comms diagram
-screenshot](./images/1fff065c526b312244ec8ddd15d4a2788b2af39d.png)
+screenshot](./images/44a8b2e6f100d742f5d74efbc31204583f2a8a7d.png)
 
 ### EdgeX Service to Service HTTP comms Diagram Summary:
 
@@ -2406,9 +3759,9 @@ screenshot](./images/1fff065c526b312244ec8ddd15d4a2788b2af39d.png)
 ### Interaction: HTTP
 
 ![HTTP interaction
-screenshot](./images/7c737a8daffe1b6aecfcbde9db603dc5ab70cf17.png)
+screenshot](./images/ae78f20f2ba2523956d916a849127be25fbed207.png)
 
-#### 75. EdgeX Service A Process Memory Tampered  \[State: Needs Investigation\]  \[Priority: High\] 
+#### 120. EdgeX Service A Process Memory Tampered  \[State: Needs Investigation\]  \[Priority: High\] 
 
   ----------------------------------- -------------------------------------------------------------------------------------------------------------------------------------
   **Category:**                       Tampering
@@ -2432,7 +3785,7 @@ screenshot](./images/7c737a8daffe1b6aecfcbde9db603dc5ab70cf17.png)
   **Mitigation Status:**              Mitigation written
   ----------------------------------- -------------------------------------------------------------------------------------------------------------------------------------
 
-#### 76. Elevation Using Impersonation  \[State: Needs Investigation\]  \[Priority: High\] 
+#### 121. Elevation Using Impersonation  \[State: Needs Investigation\]  \[Priority: High\] 
 
   ----------------------------------- -------------------------------------------------------------------------------------------------------------------------------------
   **Category:**                       Elevation Of Privilege
@@ -2457,7 +3810,7 @@ screenshot](./images/7c737a8daffe1b6aecfcbde9db603dc5ab70cf17.png)
 ## Diagram: EdgeX Service to Service message bus comms
 
 ![EdgeX Service to Service message bus comms diagram
-screenshot](./images/7fd90a3a832adaabe4d2baeddbf9664f474dfcc5.png)
+screenshot](./images/7457a2313fcf1289d247573e51e71d3c0c038b1a.png)
 
 ### EdgeX Service to Service message bus comms Diagram Summary:
 
@@ -2473,9 +3826,9 @@ screenshot](./images/7fd90a3a832adaabe4d2baeddbf9664f474dfcc5.png)
 ### Interaction: message bus (MQTT, Redis Pub/Sub, NATS)
 
 ![message bus (MQTT, Redis Pub/Sub, NATS) interaction
-screenshot](./images/b9973b14d0632faeeac9619d16f594f8ba37725d.png)
+screenshot](./images/dde024703044d87cf4b2cdda8064262fd66fc1e6.png)
 
-#### 77. Elevation Using Impersonation  \[State: Mitigation Implemented\]  \[Priority: Medium\] 
+#### 122. Elevation Using Impersonation  \[State: Mitigation Implemented\]  \[Priority: Medium\] 
 
   ----------------------------------- -------------------------------------------------------------------------------------------------------------------------------------
   **Category:**                       Elevation Of Privilege
@@ -2495,7 +3848,7 @@ screenshot](./images/b9973b14d0632faeeac9619d16f594f8ba37725d.png)
   **Mitigation Status:**              Mitigation written
   ----------------------------------- -------------------------------------------------------------------------------------------------------------------------------------
 
-#### 78. EdgeX Service A Process Memory Tampered  \[State: Mitigation Implemented\]  \[Priority: High\] 
+#### 123. EdgeX Service A Process Memory Tampered  \[State: Mitigation Implemented\]  \[Priority: High\] 
 
   ----------------------------------- -------------------------------------------------------------------------------------------------------------------------------------
   **Category:**                       Tampering
@@ -2579,7 +3932,7 @@ screenshot](./images/f73b4eb2d21b54e94ac6eb4c73ffbaea1641df2b.png)
 ## Diagram: Device Protocol Threats - Modbus example
 
 ![Device Protocol Threats - Modbus example diagram
-screenshot](./images/c08d88b37e006a9b9192e8e9ec9f04dce16f3cea.png)
+screenshot](./images/e36062a19f4b382be0978ef1ba7ddb8686af93bb.png)
 
 ### Device Protocol Threats - Modbus example Diagram Summary:
 
@@ -2595,9 +3948,9 @@ screenshot](./images/c08d88b37e006a9b9192e8e9ec9f04dce16f3cea.png)
 ### Interaction: Binary RTU (GET or SET)
 
 ![Binary RTU (GET or SET) interaction
-screenshot](./images/4c10423b800e184f32fcbafaae84d29ca327d40f.png)
+screenshot](./images/3795a620f3d938fe72e8c77a9a3a6299182bc4f2.png)
 
-#### 79. Spoofing of Destination Data Store Modbus Device/Sensor  \[State: Needs Investigation\]  \[Priority: High\] 
+#### 124. Spoofing of Destination Data Store Modbus Device/Sensor  \[State: Needs Investigation\]  \[Priority: High\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Spoofing
@@ -2627,7 +3980,7 @@ screenshot](./images/4c10423b800e184f32fcbafaae84d29ca327d40f.png)
   **Mitigation Status:**              Mitigation written
   ----------------------------------- -----------------------------------
 
-#### 80. Potential Excessive Resource Consumption for Modbus Device Service or Modbus Device/Sensor  \[State: Needs Investigation\]  \[Priority: High\] 
+#### 125. Potential Excessive Resource Consumption for Modbus Device Service or Modbus Device/Sensor  \[State: Needs Investigation\]  \[Priority: High\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Denial Of Service
@@ -2670,7 +4023,7 @@ screenshot](./images/4c10423b800e184f32fcbafaae84d29ca327d40f.png)
   **Mitigation Status:**              Mitigation written
   ----------------------------------- -----------------------------------
 
-#### 81. Spoofing the Modbus Device Service Process  \[State: Needs Investigation\]  \[Priority: High\] 
+#### 126. Spoofing the Modbus Device Service Process  \[State: Needs Investigation\]  \[Priority: High\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Spoofing
@@ -2703,7 +4056,7 @@ screenshot](./images/4c10423b800e184f32fcbafaae84d29ca327d40f.png)
   **Mitigation Status:**              Cannot mitigate or not appilcable
   ----------------------------------- -----------------------------------
 
-#### 82. The Modbus Device/Sensor Data Store Could Be Corrupted  \[State: Needs Investigation\]  \[Priority: High\] 
+#### 127. The Modbus Device/Sensor Data Store Could Be Corrupted  \[State: Needs Investigation\]  \[Priority: High\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Tampering
@@ -2734,7 +4087,7 @@ screenshot](./images/4c10423b800e184f32fcbafaae84d29ca327d40f.png)
   **Mitigation Status:**              Mitigation written
   ----------------------------------- -----------------------------------
 
-#### 83. Data Store Denies Modbus Device/Sensor Potentially Writing Data  \[State: Not Applicable\]  \[Priority: High\] 
+#### 128. Data Store Denies Modbus Device/Sensor Potentially Writing Data  \[State: Not Applicable\]  \[Priority: High\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Repudiation
@@ -2758,7 +4111,7 @@ screenshot](./images/4c10423b800e184f32fcbafaae84d29ca327d40f.png)
   **Mitigation Status:**              Cannot mitigate or not appilcable
   ----------------------------------- -----------------------------------
 
-#### 84. Data Flow Sniffing  \[State: Not Applicable\]  \[Priority: High\] 
+#### 129. Data Flow Sniffing  \[State: Not Applicable\]  \[Priority: High\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Information Disclosure
@@ -2793,7 +4146,7 @@ screenshot](./images/4c10423b800e184f32fcbafaae84d29ca327d40f.png)
   **Mitigation Status:**              Cannot mitigate or not appilcable
   ----------------------------------- -----------------------------------
 
-#### 85. Weak Credential Transit  \[State: Needs Investigation\]  \[Priority: High\] 
+#### 130. Weak Credential Transit  \[State: Needs Investigation\]  \[Priority: High\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Information Disclosure
@@ -2826,7 +4179,7 @@ screenshot](./images/4c10423b800e184f32fcbafaae84d29ca327d40f.png)
   **Mitigation Status:**              Mitigation written
   ----------------------------------- -----------------------------------
 
-#### 86. Data Flow Binary RTU (GET or SET) Is Potentially Interrupted  \[State: Not Applicable\]  \[Priority: High\] 
+#### 131. Data Flow Binary RTU (GET or SET) Is Potentially Interrupted  \[State: Not Applicable\]  \[Priority: High\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Denial Of Service
@@ -2854,7 +4207,7 @@ screenshot](./images/4c10423b800e184f32fcbafaae84d29ca327d40f.png)
   **Mitigation Status:**              Cannot mitigate or not appilcable
   ----------------------------------- -----------------------------------
 
-#### 87. Data Store Inaccessible  \[State: Needs Investigation\]  \[Priority: High\] 
+#### 132. Data Store Inaccessible  \[State: Needs Investigation\]  \[Priority: High\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Denial Of Service
@@ -2885,9 +4238,9 @@ screenshot](./images/4c10423b800e184f32fcbafaae84d29ca327d40f.png)
 ### Interaction: Binary RTU Response (GET or SE
 
 ![Binary RTU Response (GET or SE interaction
-screenshot](./images/2365df34bb3d0eae545edda1705cc56cbf3bdeac.png)
+screenshot](./images/9f8d3bc203d992e1bb9da51124beb619b203a25f.png)
 
-#### 88. Spoofing of Source Data Store Modbus Device/Sensor  \[State: Needs Investigation\]  \[Priority: High\] 
+#### 133. Spoofing of Source Data Store Modbus Device/Sensor  \[State: Needs Investigation\]  \[Priority: High\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Spoofing
@@ -2926,7 +4279,7 @@ screenshot](./images/2365df34bb3d0eae545edda1705cc56cbf3bdeac.png)
   **Mitigation Status:**              Mitigation written
   ----------------------------------- -----------------------------------
 
-#### 89. Weak Access Control for a Resource  \[State: Not Applicable\]  \[Priority: Low\] 
+#### 134. Weak Access Control for a Resource  \[State: Not Applicable\]  \[Priority: Low\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Information Disclosure
@@ -2951,7 +4304,7 @@ screenshot](./images/2365df34bb3d0eae545edda1705cc56cbf3bdeac.png)
   **Mitigation Status:**              Cannot mitigate or not appilcable
   ----------------------------------- -----------------------------------
 
-#### 90. Spoofing the Modbus Device Service Process  \[State: Not Applicable\]  \[Priority: High\] 
+#### 135. Spoofing the Modbus Device Service Process  \[State: Not Applicable\]  \[Priority: High\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Spoofing
@@ -2980,7 +4333,7 @@ screenshot](./images/2365df34bb3d0eae545edda1705cc56cbf3bdeac.png)
   **Mitigation Status:**              Cannot mitigate or not appilcable
   ----------------------------------- -----------------------------------
 
-#### 91. Potential Data Repudiation by Modbus Device Service  \[State: Mitigation Implemented\]  \[Priority: High\] 
+#### 136. Potential Data Repudiation by Modbus Device Service  \[State: Mitigation Implemented\]  \[Priority: High\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Repudiation
@@ -3003,7 +4356,7 @@ screenshot](./images/2365df34bb3d0eae545edda1705cc56cbf3bdeac.png)
   **Mitigation Status:**              Mitigation written
   ----------------------------------- -----------------------------------
 
-#### 92. Potential Process Crash or Stop for Modbus Device Service  \[State: Mitigation Implemented\]  \[Priority: Medium\] 
+#### 137. Potential Process Crash or Stop for Modbus Device Service  \[State: Mitigation Implemented\]  \[Priority: Medium\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Denial Of Service
@@ -3030,7 +4383,7 @@ screenshot](./images/2365df34bb3d0eae545edda1705cc56cbf3bdeac.png)
   **Mitigation Status:**              Mitigation written
   ----------------------------------- -----------------------------------
 
-#### 93. Data Flow Binary RTU Response (GET or SET Is Potentially Interrupted  \[State: Not Applicable\]  \[Priority: High\] 
+#### 138. Data Flow Binary RTU Response (GET or SET Is Potentially Interrupted  \[State: Not Applicable\]  \[Priority: High\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Denial Of Service
@@ -3058,7 +4411,7 @@ screenshot](./images/2365df34bb3d0eae545edda1705cc56cbf3bdeac.png)
   **Mitigation Status:**              Cannot mitigate or not appilcable
   ----------------------------------- -----------------------------------
 
-#### 94. Data Store Inaccessible  \[State: Needs Investigation\]  \[Priority: High\] 
+#### 139. Data Store Inaccessible  \[State: Needs Investigation\]  \[Priority: High\] 
 
   ----------------------------------- -----------------------------------
   **Category:**                       Denial Of Service
@@ -3086,7 +4439,7 @@ screenshot](./images/2365df34bb3d0eae545edda1705cc56cbf3bdeac.png)
   **Mitigation Status:**              Cannot mitigate or not appilcable
   ----------------------------------- -----------------------------------
 
-#### 95. Modbus Device Service May be Subject to Elevation of Privilege Using Remote Code Execution  \[State: Needs Investigation\]  \[Priority: High\] 
+#### 140. Modbus Device Service May be Subject to Elevation of Privilege Using Remote Code Execution  \[State: Needs Investigation\]  \[Priority: High\] 
 
   ----------------------------------- -------------------------------------------------
   **Category:**                       Elevation Of Privilege
@@ -3128,7 +4481,7 @@ screenshot](./images/2365df34bb3d0eae545edda1705cc56cbf3bdeac.png)
   **Mitigation Status:**              Mitigation Research needed
   ----------------------------------- -------------------------------------------------
 
-#### 96. Elevation by Changing the Execution Flow in Modbus Device Service  \[State: Not Applicable\]  \[Priority: High\] 
+#### 141. Elevation by Changing the Execution Flow in Modbus Device Service  \[State: Not Applicable\]  \[Priority: High\] 
 
   ----------------------------------- -------------------------------------------------
   **Category:**                       Elevation Of Privilege
