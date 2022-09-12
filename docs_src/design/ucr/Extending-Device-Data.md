@@ -5,7 +5,7 @@ This UCR describes the Use Case for Extending of Device Data by Application Serv
 - Tom Brennan (Eaton)
 
 ## Change Log
-- [pending](https://github.com/edgexfoundry/edgex-docs/pulls) (2022-08-23)
+- [pending](https://github.com/edgexfoundry/edgex-docs/pull/845) (2022-09-12)
 
 
 ### Market Segments
@@ -16,12 +16,12 @@ that are extensions of the original south-bound or service-based Device data.
 We find a consistent need as we design microservices for our industrial products:
 The new analytics, utility, and north-bound microservices almost always need to add Device Resources to manage their configuration, transforms, and status reporting. These Resources are usually needed on a per-Device basis (rather than just overall service configuration or status), which can be seen as extending (adding to) the data of the original south-bound devices.
 
-Adding configuration and status via Devices that **extend** the original south-bound Device, and new Device Resources,
+Adding configuration and status via Resources that **extend** the original south-bound Device
 make this configuration and status data easily accessible and translatable to other Application Services and to the UI via REST;
 we think that this general solution is better than disparate solutions which add custom APIs in each Application Service to Get and Set this data.
 
-What is needed is a common means of showing the relationship between these added Resources and their
-original south-bound Device; that is, to indicate that these Resources "extend" the original Device.
+What is needed is a common means of showing the relationship between these added Resources, their owning service,
+and the original south-bound Device Resources; that is, to indicate that these Resources "extend" the original Device data.
 
 It is desirable that the means of conveying this information become standardized for those EdgeX microservices
 which provide and use it, hence proposing here that there be a common EdgeX way defined to do this.
@@ -37,11 +37,11 @@ which provide and use it, hence proposing here that there be a common EdgeX way 
 
 ### Description
 Picture the extremely simple case of a south-bound sensor device that just measures Temperature and Humidity and provides these as Device Resources. If we then add analytics and north-bound microservices:
-- A Trending service that has Device Resources to indicate that Temperature and Humidity are trended for, eg, Minimum, Average, and Maximum over a 1 hour trend interval.
-- An Alarming service that has Device Resources to describe the Alarm Rules used to monitor Temperature and Humidity, plus a device-level InAlarm status.
+- A Trending service that needs Device Resources to indicate that Temperature and Humidity are trended for, eg, Minimum, Average, and Maximum over a 1 hour trend interval.
+- An Alarming service that needs Device Resources to describe the Alarm Rules used to monitor Temperature and Humidity, plus a device-level InAlarm status.
 - A Cloud service that reports not just the Temperature and Humidity but also their Trend configuration and Alarm Rule Resources. In addition, the Cloud service adds its own Resources to direct the Cadence with which this Device's data is reported.
 
-Now scale this up to 100 such Temperature/Humidity sensors, and it grows difficult to match all of the added
+Now scale this up to 100 such Temperature/Humidity sensors, and it grows difficult to match all of the free-standing 
 Resources to their original sensor data. And add the requirement that all these resources must be able to be seen 
 and managed locally via REST or Message Bus, and potentially from north-bound services like Modbus/TCP, and from 
 the Cloud (because everybody wants to control everything from the Cloud). 
@@ -56,6 +56,9 @@ Device Resources.
 In EdgeX today, Devices and their Resources such as those described in the last section can be added, but they are not
 seen as related to the south-bound Device or to each other, except perhaps by well-chosen Labels or Tags.
 
+The existing south-bound Device Profiles could be extended to simply add the new Resources, but nothing connects these
+Resources to their owning Service (ie, so core-command could be used to manage them).
+
 
 ### Requirements
 1. A means is defined to extend the Device metadata of a south-bound Device's profile with new resources that are 
@@ -65,12 +68,9 @@ added and managed by an upper-level service, such as an analytics, utility, or n
 4. The "Extended" Device Resources will extend all instances of the (south-bound) Device; the south-bound Device may be 
 extended by Resources from multiple upper-level services.
 
-Not a requirement: means of using or combining Resources from multiple south-bound Devices into one Extended Device.
-Not a requirement (yet): API changes to filter Device lists by their relationship to Extended Devices.
+Not a requirement: means of using or combining Resources from multiple south-bound Devices into one Extended Resource.
 
 ### Other Related Issues
-Potentially related to the Use Case for [Hybrid App-Device Services](./Hybrid-App-Device-Services.md) since Application
-Services will use Device Service APIs for Device Management.
 
 ### References
 
