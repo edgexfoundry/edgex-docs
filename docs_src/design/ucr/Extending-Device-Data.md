@@ -58,22 +58,18 @@ seen as related to the south-bound Device or to each other, except perhaps by we
 
 
 ### Requirements
-1. A standard EdgeX Device Property is to be added which can relate an "Extended" Device instance to a
-"south-bound" Device instance (ie, a Device added to core-metadata by a south-bound Device Service).
-2. The "Extended" Device can be added by its owning Service to core-metadata, and managed like other devices via the
-core-metadata APIs, and have its updates seen via System Events.
-3. The Device Resources added by the Extended Device can be accessed via core-command, just like the Device Resources of 
-south-bound Devices.
-4. An "Extended" Device instance can only relate to one south-bound Device; however, the south-bound Device may be 
-extended by more than one "Extended" Devices, in multiple services.
+1. A means is defined to extend the Device metadata of a south-bound Device's profile with new resources that are 
+added and managed by an upper-level service, such as an analytics, utility, or north-bound service.
+2. The services which extend the device resources must manage the data for those extended resources on a per device instance basis.
+3. Core-command must know to direct requests for these extended resources to the upper-level service that manages them.
+4. The "Extended" Device Resources will extend all instances of the (south-bound) Device; the south-bound Device may be 
+extended by Resources from multiple upper-level services.
 
 Not a requirement: means of using or combining Resources from multiple south-bound Devices into one Extended Device.
 Not a requirement (yet): API changes to filter Device lists by their relationship to Extended Devices.
 
 ### Other Related Issues
-Potentially related to Use Case for Device Parent-Child Relationships [Device Parent-Child Relationships](./Device-Parent-Child-Relationships.md) for specifying the new Device relationship property.
-
-Related to the Use Case for [Hybrid App-Device Services](./Hybrid-App-Device-Services.md) since Application
+Potentially related to the Use Case for [Hybrid App-Device Services](./Hybrid-App-Device-Services.md) since Application
 Services will use Device Service APIs for Device Management.
 
 ### References
