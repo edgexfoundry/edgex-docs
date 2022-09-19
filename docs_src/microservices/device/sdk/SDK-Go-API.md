@@ -268,7 +268,7 @@ This API returns the `LoggingClient` used to log messages.
 
 `GetSecretProvider() interfaces.SecretProvider`
 
-This API returns the SecretProvider used to get/save secrets
+This API returns the SecretProvider used to get/save the service secrets. See [Secret Provider API](../../../../security/Ch-SecretProviderApi/) section for more details.
 
 #### Stop 
 
