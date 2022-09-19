@@ -12,14 +12,14 @@
         <meta name="author" content="Michael Johanson">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/general/ContainerNames/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/security/Ch-SecretProviderApi/">
       
       <link rel="icon" href="../../assets/logo_edgex.png">
       <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.5.2">
     
     
       
-        <title>EdgeX Container Names - EdgeX Foundry Documentation</title>
+        <title>Secret Provider API - EdgeX Foundry Documentation</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#edgex-container-names" class="md-skip">
+        <a href="#secret-provider-api" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              EdgeX Container Names
+              Secret Provider API
             
           </span>
         </div>
@@ -224,13 +224,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../../security/Ch-Security/" class="md-tabs__link">
+      <a href="../Ch-Security/" class="md-tabs__link md-tabs__link--active">
         Security
       </a>
     </li>
@@ -304,15 +306,13 @@
         
   
   
-    
-  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../Definitions/" class="md-tabs__link md-tabs__link--active">
+      <a href="../../general/Definitions/" class="md-tabs__link">
         Reference
       </a>
     </li>
@@ -909,12 +909,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
       
       
       
@@ -937,7 +939,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/Ch-Security/" class="md-nav__link">
+      <a href="../Ch-Security/" class="md-nav__link">
         Security
       </a>
     </li>
@@ -951,7 +953,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/Ch-SecretStore/" class="md-nav__link">
+      <a href="../Ch-SecretStore/" class="md-nav__link">
         Secret Store
       </a>
     </li>
@@ -963,11 +965,128 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../security/Ch-SecretProviderApi/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Secret Provider API
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Secret Provider API
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    API
+  </a>
+  
+    <nav class="md-nav" aria-label="API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interface-definition" class="md-nav__link">
+    Interface definition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storesecret" class="md-nav__link">
+    StoreSecret
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getsecret" class="md-nav__link">
+    GetSecret
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hassecret" class="md-nav__link">
+    HasSecret
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#listsecretpaths" class="md-nav__link">
+    ListSecretPaths
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secretslastupdated" class="md-nav__link">
+    SecretsLastUpdated
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secretsupdated-do-not-use" class="md-nav__link">
+    SecretsUpdated - Do not use
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getaccesstoken-do-not-use" class="md-nav__link">
+    GetAccessToken  - Do not use
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -979,7 +1098,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/Ch-APIGateway/" class="md-nav__link">
+      <a href="../Ch-APIGateway/" class="md-nav__link">
         API Gateway
       </a>
     </li>
@@ -993,7 +1112,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/Ch-Secure-MessageBus/" class="md-nav__link">
+      <a href="../Ch-Secure-MessageBus/" class="md-nav__link">
         Secure MessageBus
       </a>
     </li>
@@ -1007,7 +1126,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/Ch-Configuring-Add-On-Services/" class="md-nav__link">
+      <a href="../Ch-Configuring-Add-On-Services/" class="md-nav__link">
         Configuring Add-on Service
       </a>
     </li>
@@ -1021,7 +1140,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/Ch-Secure-Consul/" class="md-nav__link">
+      <a href="../Ch-Secure-Consul/" class="md-nav__link">
         Secure Consul
       </a>
     </li>
@@ -1035,7 +1154,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/Ch-SecurityIssues/" class="md-nav__link">
+      <a href="../Ch-SecurityIssues/" class="md-nav__link">
         Reporting Security Issues
       </a>
     </li>
@@ -1049,7 +1168,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/Ch-AddGatewayUserRemotely/" class="md-nav__link">
+      <a href="../Ch-AddGatewayUserRemotely/" class="md-nav__link">
         Adding EdgeX API Gateway Users Remotely
       </a>
     </li>
@@ -1063,7 +1182,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/secrets-config/" class="md-nav__link">
+      <a href="../secrets-config/" class="md-nav__link">
         Secrets config
       </a>
     </li>
@@ -1077,7 +1196,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/secrets-config-proxy/" class="md-nav__link">
+      <a href="../secrets-config-proxy/" class="md-nav__link">
         Secrets config proxy
       </a>
     </li>
@@ -1091,7 +1210,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/SeedingServiceSecrets/" class="md-nav__link">
+      <a href="../SeedingServiceSecrets/" class="md-nav__link">
         Seeding Service Secrets
       </a>
     </li>
@@ -1105,7 +1224,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/Ch-CORS-Settings/" class="md-nav__link">
+      <a href="../Ch-CORS-Settings/" class="md-nav__link">
         CORS settings
       </a>
     </li>
@@ -1119,7 +1238,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/Ch-RemoteDeviceServices/" class="md-nav__link">
+      <a href="../Ch-RemoteDeviceServices/" class="md-nav__link">
         Remote Device Services in Secure Mode
       </a>
     </li>
@@ -2797,14 +2916,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
       
       
       
@@ -2827,7 +2944,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Definitions/" class="md-nav__link">
+      <a href="../../general/Definitions/" class="md-nav__link">
         Definitions
       </a>
     </li>
@@ -2841,7 +2958,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../PlatformRequirements/" class="md-nav__link">
+      <a href="../../general/PlatformRequirements/" class="md-nav__link">
         Platform Requirements
       </a>
     </li>
@@ -2855,7 +2972,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ServicePorts/" class="md-nav__link">
+      <a href="../../general/ServicePorts/" class="md-nav__link">
         Default Service Ports
       </a>
     </li>
@@ -2867,21 +2984,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../general/ContainerNames/" class="md-nav__link">
         EdgeX Container Names
       </a>
-      
     </li>
   
 
@@ -2893,7 +3000,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ServiceConfiguration/" class="md-nav__link">
+      <a href="../../general/ServiceConfiguration/" class="md-nav__link">
         Service Configuration
       </a>
     </li>
@@ -2927,6 +3034,97 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    API
+  </a>
+  
+    <nav class="md-nav" aria-label="API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interface-definition" class="md-nav__link">
+    Interface definition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storesecret" class="md-nav__link">
+    StoreSecret
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getsecret" class="md-nav__link">
+    GetSecret
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hassecret" class="md-nav__link">
+    HasSecret
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#listsecretpaths" class="md-nav__link">
+    ListSecretPaths
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secretslastupdated" class="md-nav__link">
+    SecretsLastUpdated
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secretsupdated-do-not-use" class="md-nav__link">
+    SecretsUpdated - Do not use
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getaccesstoken-do-not-use" class="md-nav__link">
+    GetAccessToken  - Do not use
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2939,268 +3137,61 @@
                 
                   
 
-  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/general/ContainerNames.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/security/Ch-SecretProviderApi.md" title="Edit this page" class="md-content__button md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
-<h1 id="edgex-container-names">EdgeX Container Names</h1>
-<p>The following table provides the list of the default EdgeX Docker image names to the Docker container name and Docker Compose names.</p>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the EdgeX docker image names have been simplified and made consistent across all EdgeX services.</p>
+<h1 id="secret-provider-api">Secret Provider API</h1>
+<h2 id="introduction">Introduction</h2>
+<p>The SecretProvider API is available to custom Application and Device Services to access the service's Secret Store. This API is available in both secure and non-secure modes. When in secure mode, it provides access to the service's Secret Store in Vault, otherwise it uses the service's <code>[InsecureSecrets]</code> configuration section as the Secret Store. See <a href="../../microservices/configuration/CommonConfiguration/#configuration-properties">InsecureSecrets</a> section here for more details.</p>
+<h2 id="api">API</h2>
+<h3 id="interface-definition">Interface definition</h3>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">SecretProvider</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">StoreSecret</span><span class="p">(</span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">secrets</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
+<span class="w">    </span><span class="nx">GetSecret</span><span class="p">(</span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">keys</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">HasSecret</span><span class="p">(</span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">ListSecretPaths</span><span class="p">()</span><span class="w"> </span><span class="p">([]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">SecretsLastUpdated</span><span class="p">()</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="w"></span>
+<span class="w">    </span><span class="nx">SecretsUpdated</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="nx">GetAccessToken</span><span class="p">(</span><span class="nx">tokenType</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">serviceKey</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<h3 id="storesecret">StoreSecret</h3>
+<p><code>StoreSecret(path string, secrets map[string]string) error</code></p>
+<p>Stores new secrets into the service's SecretStore at the specified path (aka secret name). An error is returned if the secrets can not be stored.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This API is only valid to call when in secure mode. It will return an error when in non-secure mode. Insecure Secrets should be added/updated directly in the configuration file or via the Configuration Provider (aka Consul).</p>
 </div>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:6"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Core</label><label for="__tabbed_1_2">Supporting</label><label for="__tabbed_1_3">Application &amp; Analytics</label><label for="__tabbed_1_4">Device</label><label for="__tabbed_1_5">Security</label><label for="__tabbed_1_6">Miscellaneous</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<table>
-<thead>
-<tr>
-<th>Docker image name</th>
-<th>Docker container name</th>
-<th>Docker network hostname</th>
-<th>Docker Compose service name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>edgexfoundry/core-data</td>
-<td>edgex-core-data</td>
-<td>edgex-core-data</td>
-<td>data</td>
-</tr>
-<tr>
-<td>edgexfoundry/core-metadata</td>
-<td>edgex-core-metadata</td>
-<td>edgex-core-metadata</td>
-<td>metadata</td>
-</tr>
-<tr>
-<td>edgexfoundry/core-command</td>
-<td>edgex-core-command</td>
-<td>edgex-core-command</td>
-<td>command</td>
-</tr>
-</tbody>
-</table>
+<h3 id="getsecret">GetSecret</h3>
+<p><code>GetSecret(path string, keys ...string) (map[string]string, error)</code></p>
+<p>Retrieves the secrets from the service's SecretStore for the specified path (aka secret name). The list of keys is optional and limits the secret data returned to just those keys specified, otherwise all keys are returned. An error is returned if the path doesn't exist in the service's Secret Store or if one or more of the optional keys specified are not present.</p>
+<h3 id="hassecret">HasSecret</h3>
+<p><code>HasSecret(path string) (bool, error)</code></p>
+<p>Returns true if the service's Secret Store contains a secret at the specified path  (aka secret name) . An error is retuned if the Secret Store can not be accessed.</p>
+<h3 id="listsecretpaths">ListSecretPaths</h3>
+<p><code>ListSecretPaths() ([]string, error)</code></p>
+<p>Returns a list of paths (aka secret names) from the current service's Secret Store. An error is retuned if the Secret Store can not be accessed.</p>
+<h3 id="secretslastupdated">SecretsLastUpdated</h3>
+<p><code>SecretsLastUpdated() time.Time</code></p>
+<p>Returns the timestamp for last time when the service's secrets were updated in its Secret Store. This is useful when using external client that is initialized with the secret and needs to be recreated if the secret has changed. </p>
+<h3 id="secretsupdated-do-not-use">SecretsUpdated - Do not use</h3>
+<p><code>SecretsUpdated()</code></p>
+<p>Sets the service's secrets last updated time to current time. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function is used internally when secrets are update either via <code>StoreSecret</code> function or when the writable <code>InscureSecrets</code> have been update in the Configuration Provider (aka Consul). <strong>Not useful for an Application or Device service to use and will be hidden in future EdgeX 3.0 release.</strong></p>
 </div>
-<div class="tabbed-block">
-<table>
-<thead>
-<tr>
-<th>Docker image name</th>
-<th>Docker container name</th>
-<th>Docker network hostname</th>
-<th>Docker Compose service name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>edgexfoundry/support-notifications</td>
-<td>edgex-support-notifications</td>
-<td>edgex-support-notifications</td>
-<td>notifications</td>
-</tr>
-<tr>
-<td>edgexfoundry/support-scheduler</td>
-<td>edgex-support-scheduler</td>
-<td>edgex-support-scheduler</td>
-<td>scheduler</td>
-</tr>
-</tbody>
-</table>
+<h3 id="getaccesstoken-do-not-use">GetAccessToken  - Do not use</h3>
+<p><code>GetAccessToken(tokenType string, serviceKey string) (string, error)</code></p>
+<p>Returns an access token for the Configuration Provider or Registry Provider for the specified token type and service key. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is used by the internal bootstrapping code and is not useful for an Application or Device service to use. <strong>This API will be hidden in future EdgeX 3.0 release.</strong>**</p>
 </div>
-<div class="tabbed-block">
-<table>
-<thead>
-<tr>
-<th>Docker image name</th>
-<th>Docker container name</th>
-<th>Docker network hostname</th>
-<th>Docker Compose service name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>edgexfoundry/app-service-configurable</td>
-<td>edgex-app-rules-engine</td>
-<td>edgex-app-rules-engine</td>
-<td>app-service-rules</td>
-</tr>
-<tr>
-<td>edgexfoundry/app-service-configurable</td>
-<td>edgex-app-http-export</td>
-<td>edgex-app-http-export</td>
-<td>app-service-http-export</td>
-</tr>
-<tr>
-<td>edgexfoundry/app-service-configurable</td>
-<td>edgex-app-mqtt-export</td>
-<td>edgex-app-mqtt-export</td>
-<td>app-service-mqtt-export</td>
-</tr>
-<tr>
-<td>emqx/kuiper</td>
-<td>edgex-kuiper</td>
-<td>edgex-kuiper</td>
-<td>rulesengine</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="tabbed-block">
-<table>
-<thead>
-<tr>
-<th>Docker image name</th>
-<th>Docker container name</th>
-<th>Docker network hostname</th>
-<th>Docker Compose service name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>edgexfoundry/device-virtual</td>
-<td>edgex-device-virtual</td>
-<td>edgex-device-virtual</td>
-<td>device-virtual</td>
-</tr>
-<tr>
-<td>edgexfoundry/device-mqtt</td>
-<td>edgex-device-mqtt</td>
-<td>edgex-device-mqtt</td>
-<td>device-mqtt</td>
-</tr>
-<tr>
-<td>edgexfoundry/device-rest</td>
-<td>edgex-device-rest</td>
-<td>edgex-device-rest</td>
-<td>device-rest</td>
-</tr>
-<tr>
-<td>edgexfoundry/device-modbus</td>
-<td>edgex-device-modbus</td>
-<td>edgex-device-modbus</td>
-<td>device-modbus</td>
-</tr>
-<tr>
-<td>edgexfoundry/device-snmp</td>
-<td>edgex-device-snmp</td>
-<td>edgex-device-snmp</td>
-<td>device-snmp</td>
-</tr>
-<tr>
-<td>edgexfoundry/device-bacnet</td>
-<td>edgex-device-bacnet</td>
-<td>edgex-device-bacnet</td>
-<td>device-bacnet</td>
-</tr>
-<tr>
-<td>edgexfoundry/device-camera</td>
-<td>edgex-device-camera</td>
-<td>edgex-device-camera</td>
-<td>device-camera</td>
-</tr>
-<tr>
-<td>edgexfoundry/device-grove</td>
-<td>edgex-device-grove</td>
-<td>edgex-device-grove</td>
-<td>device-grove</td>
-</tr>
-<tr>
-<td>edgexfoundry/device-coap</td>
-<td>edgex-device-coap</td>
-<td>edgex-device-coap</td>
-<td>device-coap</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="tabbed-block">
-<table>
-<thead>
-<tr>
-<th>Docker image name</th>
-<th>Docker container name</th>
-<th>Docker network hostname</th>
-<th>Docker Compose service name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>vault</td>
-<td>edgex-vault</td>
-<td>edgex-vault</td>
-<td>vault</td>
-</tr>
-<tr>
-<td>postgress</td>
-<td>edgex-kong-db</td>
-<td>edgex-kong-db</td>
-<td>kong-db</td>
-</tr>
-<tr>
-<td>kong</td>
-<td>edgex-kong</td>
-<td>edgex-kong</td>
-<td>kong</td>
-</tr>
-<tr>
-<td>edgexfoundry/security-proxy-setup</td>
-<td>edgex-security-proxy-setup</td>
-<td>edgex-security-proxy-setup</td>
-<td>proxy-setup</td>
-</tr>
-<tr>
-<td>edgexfoundry/security-secretstore-setup</td>
-<td>edgex-security-secretstore-setup</td>
-<td>edgex-security-secretstore-setup</td>
-<td>secretstore-setup</td>
-</tr>
-<tr>
-<td>edgexfoundry/security-bootstrapper</td>
-<td>edgex-security-bootstrapper</td>
-<td>edgex-security-bootstrapper</td>
-<td>security-bootstrapper</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="tabbed-block">
-<table>
-<thead>
-<tr>
-<th>Docker image name</th>
-<th>Docker container name</th>
-<th>Docker network hostname</th>
-<th>Docker Compose service name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>consul</td>
-<td>edgex-core-consul</td>
-<td>edgex-core-consul</td>
-<td>consul</td>
-</tr>
-<tr>
-<td>redis</td>
-<td>edgex-redis</td>
-<td>edgex-redis</td>
-<td>database</td>
-</tr>
-<tr>
-<td>edgexfoundry/sys-mgmt-agent</td>
-<td>edgex-sys-mgmt-agent</td>
-<td>edgex-sys-mgmt-agent</td>
-<td>system</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
+<h3 id="_1"></h3>
 
 
   
@@ -3223,7 +3214,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="../ServicePorts/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Default Service Ports" rel="prev">
+        <a href="../Ch-SecretStore/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Secret Store" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -3232,20 +3223,20 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              Default Service Ports
+              Secret Store
             </div>
           </div>
         </a>
       
       
         
-        <a href="../ServiceConfiguration/" class="md-footer__link md-footer__link--next" aria-label="Next: Service Configuration" rel="next">
+        <a href="../Ch-APIGateway/" class="md-footer__link md-footer__link--next" aria-label="Next: API Gateway" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Service Configuration
+              API Gateway
             </div>
           </div>
           <div class="md-footer__button md-icon">
