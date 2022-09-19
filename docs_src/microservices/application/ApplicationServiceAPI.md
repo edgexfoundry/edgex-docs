@@ -515,7 +515,7 @@ This API returns the Event Client. Note if Core Data is not specified in the Cli
 
 `CommandClient() interfaces.CommandClient`
 
-This API returns the Command Client. Note if Support Command is not specified in the Clients configuration, this will return nil. See the [Command Client interface](https://github.com/edgexfoundry/go-mod-core-contracts/blob/v2.0.0/clients/interfaces/command.go#L16-L31) for more details. Useful for issuing commands to devices.
+This API returns the Command Client. Note if Core Command is not specified in the Clients configuration, this will return nil. See the [Command Client interface](https://github.com/edgexfoundry/go-mod-core-contracts/blob/v2.0.0/clients/interfaces/command.go#L16-L31) for more details. Useful for issuing commands to devices.
 
 ### NotificationClient
 
