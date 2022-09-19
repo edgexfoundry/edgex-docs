@@ -32,6 +32,7 @@ type ApplicationService interface {
 	MakeItStop()
 	GetSecret(path string, keys ...string) (map[string]string, error)
 	StoreSecret(path string, secretData map[string]string) error 
+    SecretProvider() interfaces.SecretProvider
 	LoggingClient() logger.LoggingClient
 	EventClient() interfaces.EventClient
 	CommandClient() interfaces.CommandClient
@@ -420,7 +421,7 @@ This API  stops the configured trigger so that the functions pipeline no longer 
 
 The following `ApplicationService` APIs allow your service retrieve and store secrets from/to the service's SecretStore. See the [Secrets](../AdvancedTopics/#secrets) advanced topic for more details about using secrets.
 
-### GetSecret
+### GetSecret - DEPRECATED
 
 `GetSecret(path string, keys ...string) (map[string]string, error)`
 
@@ -438,7 +439,10 @@ This API returns the secret data from the secret store (secure or insecure) for 
     ...
     ```
 
-### StoreSecret
+!!! warning
+    GetSecret is deprecated and will be removed in EdgeX 3.0. Use `SecretProvider().GetSerect()`
+
+### StoreSecret  - DEPRECATED
 
 `StoreSecret(path string, secretData map[string]string) error`
 
@@ -464,6 +468,18 @@ An error is returned if:
     }
     ...
     ```
+
+!!! warning
+    StoreSecret is deprecated and will be removed in EdgeX 3.0. Use `SecretProvider().StoreSecret()`
+
+### SecretProvider
+
+`SecretProvider() interfaces.SecretProvider`
+
+This API returns reference to the SecretProvider instance. See [Secret Provider API](../../../security/Ch-SecretProviderApi/) section for more details.
+
+!!! edgey - "Edgex 2.3"
+    SecretProvider() is new in EdgeX 2.3
 
 ## Client APIs
 

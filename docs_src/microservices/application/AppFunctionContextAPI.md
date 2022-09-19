@@ -17,6 +17,7 @@ type AppFunctionContext interface {
     SetRetryData(data []byte)
     GetSecret(path string, keys ...string) (map[string]string, error)
     SecretsLastUpdated() time.Time
+    SecretProvider() interfaces.SecretProvider
     LoggingClient() logger.LoggingClient
     EventClient() interfaces.EventClient
     CommandClient() interfaces.CommandClient
@@ -127,17 +128,17 @@ Each of the clients above is only initialized if the Clients section of the conf
       Protocol = 'http'
       Host = 'localhost'
       Port = 59880
-  
+
       [Clients.core-metadata]
       Protocol = 'http'
       Host = 'localhost'
       Port = 59881
-
+    
       [Clients.core-command]
       Protocol = 'http'
       Host = 'localhost'
       Port = 59882
-
+    
       [Clients.support-notifications]
       Protocol = 'http'
       Host = 'localhost'
@@ -186,16 +187,31 @@ This API will replace placeholders of the form `{context-key-name}` with the val
 
 ## Secrets
 
-### GetSecret
+### GetSecret - DEPRECATED
 
 `GetSecret(path string, keys ...string)`
 
 This API is used to retrieve secrets from the secret store. `path` specifies the type or location of the secrets to retrieve. If specified, it is appended to the base path from the exclusive secret store configuration. `keys` specifies the list of secrets to be retrieved. If no keys are provided then all the keys associated with the specified path will be returned.
 
-### SecretsLastUpdated
+!!! warning
+    GetSecret is deprecated and will be removed in EdgeX 3.0. Use `SecretProvider().GetSerect()`
+
+### SecretsLastUpdated - DEPRECATED
 `SecretsLastUpdated()`
 
 This API returns that timestamp for when the secrets in the SecretStore where last updated.  Useful when a connection to external source needs to be redone when the credentials have been updated.
+
+!!! warning
+    SecretsLastUpdated is deprecated and will be removed in EdgeX 3.0. Use `SecretProvider().SecretsLastUpdated()`
+
+### SecretProvider
+
+`SecretProvider() interfaces.SecretProvider`
+
+This API returns reference to the SecretProvider instance. See [Secret Provider API](../../../security/Ch-SecretProviderApi/) section for more details.
+
+!!! edgey - "Edgex 2.3"
+    SecretProvider() is new in EdgeX 2.3
 
 ## Miscellaneous
 
