@@ -33,8 +33,11 @@ In order to render and preview the site locally (without docker) you will need a
 
 1) You will need to install python and pip
 2) After python is installed, you'll need the following python dependencies:
+
 `pip install mkdocs`
 `pip install mkdocs-material==8.2.1`
+
+
 3) Once you have all the pre-reqs installed. You can simply run `mkdocs serve` and view the rendered content locally and makes changes to your documentation and preview them in realtime with a browser at http://0.0.0.0:8001/edgex-docs.
 
 ## Checking for broken links when developing docs
