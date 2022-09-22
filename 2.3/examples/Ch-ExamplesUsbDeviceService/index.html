@@ -12,21 +12,21 @@
         <meta name="author" content="Michael Johanson">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/microservices/support/notifications/Ch-AlertsNotifications/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/examples/Ch-ExamplesUsbDeviceService/">
       
-      <link rel="icon" href="../../../../assets/logo_edgex.png">
+      <link rel="icon" href="../../assets/logo_edgex.png">
       <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.5.3">
     
     
       
-        <title>Alerts & Notifications - EdgeX Foundry Documentation</title>
+        <title>USB Camera Device Service RTSP Streaming Guide - EdgeX Foundry Documentation</title>
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.7a952b86.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7a952b86.min.css">
       
         
-        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.cbb835fc.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.cbb835fc.min.css">
         
       
       
@@ -43,15 +43,15 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/version-select.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/version-select.css">
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/branding.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/branding.css">
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/edgey.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/edgey.css">
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/newexample.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/newexample.css">
     
-    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#alerts-notifications" class="md-skip">
+        <a href="#usb-camera-device-service-rtsp-streaming-guide" class="md-skip">
           Skip to content
         </a>
       
@@ -102,9 +102,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../../.." title="EdgeX Foundry Documentation" class="md-header__button md-logo" aria-label="EdgeX Foundry Documentation" data-md-component="logo">
+    <a href="../.." title="EdgeX Foundry Documentation" class="md-header__button md-logo" aria-label="EdgeX Foundry Documentation" data-md-component="logo">
       
-  <img src="../../../../assets/logo_edgex_white.png" alt="logo">
+  <img src="../../assets/logo_edgex_white.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Alerts & Notifications
+              USB Camera Device Service RTSP Streaming Guide
             
           </span>
         </div>
@@ -198,7 +198,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../.." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         Introduction
       </a>
     </li>
@@ -214,7 +214,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../../getting-started/" class="md-tabs__link">
+      <a href="../../getting-started/" class="md-tabs__link">
         Getting Started
       </a>
     </li>
@@ -230,8 +230,24 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../../security/Ch-Security/" class="md-tabs__link">
+      <a href="../../security/Ch-Security/" class="md-tabs__link">
         Security
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../microservices/general/" class="md-tabs__link">
+        Microservices
       </a>
     </li>
   
@@ -248,23 +264,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../general/" class="md-tabs__link md-tabs__link--active">
-        Microservices
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-
-
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../../../../examples/" class="md-tabs__link">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
         Examples and Tutorials
       </a>
     </li>
@@ -280,7 +280,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../../api/Ch-APIIntroduction/" class="md-tabs__link">
+      <a href="../../api/Ch-APIIntroduction/" class="md-tabs__link">
         API Reference
       </a>
     </li>
@@ -296,7 +296,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../../design/Process/" class="md-tabs__link">
+      <a href="../../design/Process/" class="md-tabs__link">
         Use Cases & Designs
       </a>
     </li>
@@ -312,7 +312,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../../general/Definitions/" class="md-tabs__link">
+      <a href="../../general/Definitions/" class="md-tabs__link">
         Reference
       </a>
     </li>
@@ -340,9 +340,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../../.." title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation" data-md-component="logo">
+    <a href="../.." title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation" data-md-component="logo">
       
-  <img src="../../../../assets/logo_edgex_white.png" alt="logo">
+  <img src="../../assets/logo_edgex_white.png" alt="logo">
 
     </a>
     EdgeX Foundry Documentation
@@ -396,7 +396,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../.." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         Introduction
       </a>
     </li>
@@ -410,7 +410,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../V2TopLevelMigration/" class="md-nav__link">
+      <a href="../../V2TopLevelMigration/" class="md-nav__link">
         V2 Migration Guide
       </a>
     </li>
@@ -458,7 +458,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../getting-started/" class="md-nav__link">
+      <a href="../../getting-started/" class="md-nav__link">
         Getting Started
       </a>
     </li>
@@ -472,7 +472,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../getting-started/quick-start/" class="md-nav__link">
+      <a href="../../getting-started/quick-start/" class="md-nav__link">
         Quick Start
       </a>
     </li>
@@ -512,7 +512,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../getting-started/Ch-GettingStartedUsers/" class="md-nav__link">
+      <a href="../../getting-started/Ch-GettingStartedUsers/" class="md-nav__link">
         Getting Started as a User
       </a>
     </li>
@@ -526,7 +526,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../getting-started/Ch-GettingStartedDockerUsers/" class="md-nav__link">
+      <a href="../../getting-started/Ch-GettingStartedDockerUsers/" class="md-nav__link">
         Getting Started using Docker
       </a>
     </li>
@@ -540,7 +540,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../getting-started/Ch-GettingStartedSnapUsers/" class="md-nav__link">
+      <a href="../../getting-started/Ch-GettingStartedSnapUsers/" class="md-nav__link">
         Getting Started using Snaps
       </a>
     </li>
@@ -587,7 +587,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../getting-started/Ch-GettingStartedDevelopers/" class="md-nav__link">
+      <a href="../../getting-started/Ch-GettingStartedDevelopers/" class="md-nav__link">
         Getting Started as a Developer
       </a>
     </li>
@@ -601,7 +601,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../getting-started/Ch-GettingStartedGoDevelopers/" class="md-nav__link">
+      <a href="../../getting-started/Ch-GettingStartedGoDevelopers/" class="md-nav__link">
         Getting Started - Go Developers
       </a>
     </li>
@@ -615,7 +615,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../getting-started/Ch-GettingStartedCDevelopers/" class="md-nav__link">
+      <a href="../../getting-started/Ch-GettingStartedCDevelopers/" class="md-nav__link">
         Getting Started - C Developers
       </a>
     </li>
@@ -629,7 +629,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../getting-started/Ch-GettingStartedHybrid/" class="md-nav__link">
+      <a href="../../getting-started/Ch-GettingStartedHybrid/" class="md-nav__link">
         Working in a Hybrid Environment
       </a>
     </li>
@@ -669,7 +669,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../getting-started/native/Ch-BuildRunNative/" class="md-nav__link">
+      <a href="../../getting-started/native/Ch-BuildRunNative/" class="md-nav__link">
         Native Build and Run
       </a>
     </li>
@@ -683,7 +683,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../getting-started/native/Ch-BuildRunOnLinuxDistro/" class="md-nav__link">
+      <a href="../../getting-started/native/Ch-BuildRunOnLinuxDistro/" class="md-nav__link">
         Build and Run on Linux on x86/x64
       </a>
     </li>
@@ -697,7 +697,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../getting-started/native/Ch-BuildRunOnArm32/" class="md-nav__link">
+      <a href="../../getting-started/native/Ch-BuildRunOnArm32/" class="md-nav__link">
         Build and Run on Linux on ARM 32
       </a>
     </li>
@@ -711,7 +711,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../getting-started/native/Ch-BuildRunOnWindows/" class="md-nav__link">
+      <a href="../../getting-started/native/Ch-BuildRunOnWindows/" class="md-nav__link">
         Build and Run on Windows on x86/x64
       </a>
     </li>
@@ -732,7 +732,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../getting-started/ApplicationFunctionsSDK/" class="md-nav__link">
+      <a href="../../getting-started/ApplicationFunctionsSDK/" class="md-nav__link">
         Application Functions SDK
       </a>
     </li>
@@ -772,7 +772,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../getting-started/Ch-GettingStartedSDK/" class="md-nav__link">
+      <a href="../../getting-started/Ch-GettingStartedSDK/" class="md-nav__link">
         Device Service SDK
       </a>
     </li>
@@ -786,7 +786,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../getting-started/Ch-GettingStartedSDK-C/" class="md-nav__link">
+      <a href="../../getting-started/Ch-GettingStartedSDK-C/" class="md-nav__link">
         C SDK
       </a>
     </li>
@@ -800,7 +800,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../getting-started/Ch-GettingStartedSDK-Go/" class="md-nav__link">
+      <a href="../../getting-started/Ch-GettingStartedSDK-Go/" class="md-nav__link">
         Golang SDK
       </a>
     </li>
@@ -821,7 +821,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../getting-started/Ch-GettingStartedUsersNexus/" class="md-nav__link">
+      <a href="../../getting-started/Ch-GettingStartedUsersNexus/" class="md-nav__link">
         Getting Docker Images from EdgeX Nexus Repository
       </a>
     </li>
@@ -868,7 +868,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../getting-started/tools/Ch-CommandLineInterface/" class="md-nav__link">
+      <a href="../../getting-started/tools/Ch-CommandLineInterface/" class="md-nav__link">
         Command Line Interface (CLI)
       </a>
     </li>
@@ -882,7 +882,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../getting-started/tools/Ch-GUI/" class="md-nav__link">
+      <a href="../../getting-started/tools/Ch-GUI/" class="md-nav__link">
         Graphical User Interface (GUI)
       </a>
     </li>
@@ -937,7 +937,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../security/Ch-Security/" class="md-nav__link">
+      <a href="../../security/Ch-Security/" class="md-nav__link">
         Security
       </a>
     </li>
@@ -951,7 +951,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../security/Ch-SecretStore/" class="md-nav__link">
+      <a href="../../security/Ch-SecretStore/" class="md-nav__link">
         Secret Store
       </a>
     </li>
@@ -965,7 +965,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../security/Ch-SecretProviderApi/" class="md-nav__link">
+      <a href="../../security/Ch-SecretProviderApi/" class="md-nav__link">
         Secret Provider API
       </a>
     </li>
@@ -979,7 +979,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../security/Ch-APIGateway/" class="md-nav__link">
+      <a href="../../security/Ch-APIGateway/" class="md-nav__link">
         API Gateway
       </a>
     </li>
@@ -993,7 +993,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../security/Ch-Secure-MessageBus/" class="md-nav__link">
+      <a href="../../security/Ch-Secure-MessageBus/" class="md-nav__link">
         Secure MessageBus
       </a>
     </li>
@@ -1007,7 +1007,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../security/Ch-Configuring-Add-On-Services/" class="md-nav__link">
+      <a href="../../security/Ch-Configuring-Add-On-Services/" class="md-nav__link">
         Configuring Add-on Service
       </a>
     </li>
@@ -1021,7 +1021,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../security/Ch-Secure-Consul/" class="md-nav__link">
+      <a href="../../security/Ch-Secure-Consul/" class="md-nav__link">
         Secure Consul
       </a>
     </li>
@@ -1035,7 +1035,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../security/Ch-SecurityIssues/" class="md-nav__link">
+      <a href="../../security/Ch-SecurityIssues/" class="md-nav__link">
         Reporting Security Issues
       </a>
     </li>
@@ -1049,7 +1049,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../security/Ch-AddGatewayUserRemotely/" class="md-nav__link">
+      <a href="../../security/Ch-AddGatewayUserRemotely/" class="md-nav__link">
         Adding EdgeX API Gateway Users Remotely
       </a>
     </li>
@@ -1063,7 +1063,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../security/secrets-config/" class="md-nav__link">
+      <a href="../../security/secrets-config/" class="md-nav__link">
         Secrets config
       </a>
     </li>
@@ -1077,7 +1077,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../security/secrets-config-proxy/" class="md-nav__link">
+      <a href="../../security/secrets-config-proxy/" class="md-nav__link">
         Secrets config proxy
       </a>
     </li>
@@ -1091,7 +1091,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../security/SeedingServiceSecrets/" class="md-nav__link">
+      <a href="../../security/SeedingServiceSecrets/" class="md-nav__link">
         Seeding Service Secrets
       </a>
     </li>
@@ -1105,7 +1105,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../security/Ch-CORS-Settings/" class="md-nav__link">
+      <a href="../../security/Ch-CORS-Settings/" class="md-nav__link">
         CORS settings
       </a>
     </li>
@@ -1119,7 +1119,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../security/Ch-RemoteDeviceServices/" class="md-nav__link">
+      <a href="../../security/Ch-RemoteDeviceServices/" class="md-nav__link">
         Remote Device Services in Secure Mode
       </a>
     </li>
@@ -1139,14 +1139,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
       
       
       
@@ -1169,7 +1167,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../general/" class="md-nav__link">
+      <a href="../../microservices/general/" class="md-nav__link">
         Cross Cutting Concerns
       </a>
     </li>
@@ -1209,7 +1207,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/CommonConfiguration/" class="md-nav__link">
+      <a href="../../microservices/configuration/CommonConfiguration/" class="md-nav__link">
         Common Configuration
       </a>
     </li>
@@ -1223,7 +1221,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/CommonCommandLineOptions/" class="md-nav__link">
+      <a href="../../microservices/configuration/CommonCommandLineOptions/" class="md-nav__link">
         Common Command Line Options
       </a>
     </li>
@@ -1237,7 +1235,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/CommonEnvironmentVariables/" class="md-nav__link">
+      <a href="../../microservices/configuration/CommonEnvironmentVariables/" class="md-nav__link">
         Common Environment Variables
       </a>
     </li>
@@ -1251,7 +1249,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/ConfigurationAndRegistry/" class="md-nav__link">
+      <a href="../../microservices/configuration/ConfigurationAndRegistry/" class="md-nav__link">
         Configuration and Registry Providers
       </a>
     </li>
@@ -1265,7 +1263,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/V2MigrationCommonConfig/" class="md-nav__link">
+      <a href="../../microservices/configuration/V2MigrationCommonConfig/" class="md-nav__link">
         V2 Migration of Common Configuration
       </a>
     </li>
@@ -1286,7 +1284,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../general/messagebus/" class="md-nav__link">
+      <a href="../../microservices/general/messagebus/" class="md-nav__link">
         EdgeX MessageBus
       </a>
     </li>
@@ -1326,7 +1324,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/Ch-CoreServices/" class="md-nav__link">
+      <a href="../../microservices/core/Ch-CoreServices/" class="md-nav__link">
         Core Services
       </a>
     </li>
@@ -1340,7 +1338,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/data/Ch-CoreData/" class="md-nav__link">
+      <a href="../../microservices/core/data/Ch-CoreData/" class="md-nav__link">
         Core Data
       </a>
     </li>
@@ -1354,7 +1352,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/metadata/Ch-Metadata/" class="md-nav__link">
+      <a href="../../microservices/core/metadata/Ch-Metadata/" class="md-nav__link">
         Metadata
       </a>
     </li>
@@ -1368,7 +1366,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/command/Ch-Command/" class="md-nav__link">
+      <a href="../../microservices/core/command/Ch-Command/" class="md-nav__link">
         Command
       </a>
     </li>
@@ -1382,7 +1380,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/database/Ch-Redis/" class="md-nav__link">
+      <a href="../../microservices/core/database/Ch-Redis/" class="md-nav__link">
         Redis Database
       </a>
     </li>
@@ -1401,14 +1399,12 @@
               
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_5" type="checkbox" id="__nav_4_5" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_5" type="checkbox" id="__nav_4_5" >
       
       
       
@@ -1431,7 +1427,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Ch-SupportingServices/" class="md-nav__link">
+      <a href="../../microservices/support/Ch-SupportingServices/" class="md-nav__link">
         Supporting Services Microservices
       </a>
     </li>
@@ -1443,160 +1439,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Alerts & Notifications
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../microservices/support/notifications/Ch-AlertsNotifications/" class="md-nav__link">
         Alerts & Notifications
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
-    Introduction
-  </a>
-  
-    <nav class="md-nav" aria-label="Introduction">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#terminology" class="md-nav__link">
-    Terminology
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#workflow" class="md-nav__link">
-    Workflow
-  </a>
-  
-    <nav class="md-nav" aria-label="Workflow">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#normalminor-notifications" class="md-nav__link">
-    Normal/Minor Notifications
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#critical-notifications" class="md-nav__link">
-    Critical Notifications
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#data-model" class="md-nav__link">
-    Data Model
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#data-dictionary" class="md-nav__link">
-    Data Dictionary
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configuration-properties" class="md-nav__link">
-    Configuration Properties
-  </a>
-  
-    <nav class="md-nav" aria-label="Configuration Properties">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#gmail-configuration-example" class="md-nav__link">
-    Gmail Configuration Example
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#yahoo-mail-configuration-example" class="md-nav__link">
-    Yahoo Mail Configuration Example
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#v2-configuration-migration-guide" class="md-nav__link">
-    V2 Configuration Migration Guide
-  </a>
-  
-    <nav class="md-nav" aria-label="V2 Configuration Migration Guide">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#writable" class="md-nav__link">
-    Writable
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#api-reference" class="md-nav__link">
-    API Reference
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1608,7 +1455,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../eKuiper/Ch-eKuiper/" class="md-nav__link">
+      <a href="../../microservices/support/eKuiper/Ch-eKuiper/" class="md-nav__link">
         eKuiper Rules Engine
       </a>
     </li>
@@ -1622,7 +1469,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../scheduler/Ch-Scheduler/" class="md-nav__link">
+      <a href="../../microservices/support/scheduler/Ch-Scheduler/" class="md-nav__link">
         Scheduler
       </a>
     </li>
@@ -1669,7 +1516,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../system-management/Ch_SystemManagement/" class="md-nav__link">
+      <a href="../../microservices/system-management/Ch_SystemManagement/" class="md-nav__link">
         System Management Micro Services
       </a>
     </li>
@@ -1683,7 +1530,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../system-management/agent/Ch_SysMgmtAgent/" class="md-nav__link">
+      <a href="../../microservices/system-management/agent/Ch_SysMgmtAgent/" class="md-nav__link">
         System Management Agent (SMA)
       </a>
     </li>
@@ -1697,7 +1544,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../system-management/executor/Ch_SysMgmtExecutor/" class="md-nav__link">
+      <a href="../../microservices/system-management/executor/Ch_SysMgmtExecutor/" class="md-nav__link">
         System Management Executor (SME)
       </a>
     </li>
@@ -1744,7 +1591,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../device/Ch-DeviceServices/" class="md-nav__link">
+      <a href="../../microservices/device/Ch-DeviceServices/" class="md-nav__link">
         Device Services Microservices
       </a>
     </li>
@@ -1758,7 +1605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../device/Ch-DeviceServiceList/" class="md-nav__link">
+      <a href="../../microservices/device/Ch-DeviceServiceList/" class="md-nav__link">
         Supported Device Services
       </a>
     </li>
@@ -1772,7 +1619,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../device/profile/Ch-DeviceProfile/" class="md-nav__link">
+      <a href="../../microservices/device/profile/Ch-DeviceProfile/" class="md-nav__link">
         Device Profile
       </a>
     </li>
@@ -1786,7 +1633,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../device/sdk/Ch-DeviceSDK/" class="md-nav__link">
+      <a href="../../microservices/device/sdk/Ch-DeviceSDK/" class="md-nav__link">
         Device Services SDK
       </a>
     </li>
@@ -1826,7 +1673,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../device/sdk/SDK-Go-API/" class="md-nav__link">
+      <a href="../../microservices/device/sdk/SDK-Go-API/" class="md-nav__link">
         Go Device SDK API
       </a>
     </li>
@@ -1847,7 +1694,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../device/virtual/Ch-VirtualDevice/" class="md-nav__link">
+      <a href="../../microservices/device/virtual/Ch-VirtualDevice/" class="md-nav__link">
         Virtual Device
       </a>
     </li>
@@ -1861,7 +1708,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../device/V2Migration/" class="md-nav__link">
+      <a href="../../microservices/device/V2Migration/" class="md-nav__link">
         V2 Migration Guide
       </a>
     </li>
@@ -1908,7 +1755,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../application/ApplicationServices/" class="md-nav__link">
+      <a href="../../microservices/application/ApplicationServices/" class="md-nav__link">
         Introduction
       </a>
     </li>
@@ -1922,7 +1769,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../application/GettingStarted/" class="md-nav__link">
+      <a href="../../microservices/application/GettingStarted/" class="md-nav__link">
         Getting Started
       </a>
     </li>
@@ -1936,7 +1783,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../application/Triggers/" class="md-nav__link">
+      <a href="../../microservices/application/Triggers/" class="md-nav__link">
         Triggers
       </a>
     </li>
@@ -1976,7 +1823,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../application/ApplicationFunctionsSDK/" class="md-nav__link">
+      <a href="../../microservices/application/ApplicationFunctionsSDK/" class="md-nav__link">
         App Functions SDK Introduction
       </a>
     </li>
@@ -1990,7 +1837,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../application/ApplicationServiceAPI/" class="md-nav__link">
+      <a href="../../microservices/application/ApplicationServiceAPI/" class="md-nav__link">
         Application Service API
       </a>
     </li>
@@ -2004,7 +1851,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../application/AppFunctionContextAPI/" class="md-nav__link">
+      <a href="../../microservices/application/AppFunctionContextAPI/" class="md-nav__link">
         App Function Context API
       </a>
     </li>
@@ -2018,7 +1865,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../application/ErrorHandling/" class="md-nav__link">
+      <a href="../../microservices/application/ErrorHandling/" class="md-nav__link">
         Pipeline Function Error Handling
       </a>
     </li>
@@ -2032,7 +1879,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../application/BuiltIn/" class="md-nav__link">
+      <a href="../../microservices/application/BuiltIn/" class="md-nav__link">
         Built-In Pipeline Functions
       </a>
     </li>
@@ -2046,7 +1893,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../application/AdvancedTopics/" class="md-nav__link">
+      <a href="../../microservices/application/AdvancedTopics/" class="md-nav__link">
         Advanced Topics
       </a>
     </li>
@@ -2067,7 +1914,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../application/AppServiceConfigurable/" class="md-nav__link">
+      <a href="../../microservices/application/AppServiceConfigurable/" class="md-nav__link">
         App Service Configurable
       </a>
     </li>
@@ -2081,7 +1928,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../application/GeneralAppServiceConfig/" class="md-nav__link">
+      <a href="../../microservices/application/GeneralAppServiceConfig/" class="md-nav__link">
         Application Service Configuration
       </a>
     </li>
@@ -2095,7 +1942,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../application/V2Migration/" class="md-nav__link">
+      <a href="../../microservices/application/V2Migration/" class="md-nav__link">
         V2 Migration Guide
       </a>
     </li>
@@ -2122,12 +1969,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
       
       
       
@@ -2150,7 +1999,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../examples/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         EdgeX Examples
       </a>
     </li>
@@ -2164,7 +2013,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../examples/Ch-ExamplesVirtualDeviceService/" class="md-nav__link">
+      <a href="../Ch-ExamplesVirtualDeviceService/" class="md-nav__link">
         Using the Virtual Device Service
       </a>
     </li>
@@ -2176,11 +2025,208 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../../../examples/Ch-ExamplesUsbDeviceService/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          USB Camera Device Service RTSP Streaming Guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         USB Camera Device Service RTSP Streaming Guide
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-requirements" class="md-nav__link">
+    System Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tested-devices" class="md-nav__link">
+    Tested Devices
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    Dependencies
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependencies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-additional-tools" class="md-nav__link">
+    Install additional Tools
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-run-edgex-services" class="md-nav__link">
+    Download and Run EdgeX Services
+  </a>
+  
+    <nav class="md-nav" aria-label="Download and Run EdgeX Services">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#download-edgex-compose-repository-if-not-already-downloaded" class="md-nav__link">
+    Download EdgeX Compose Repository (if not already downloaded)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-the-service" class="md-nav__link">
+    Run the Service
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verify-service-and-device-profiles" class="md-nav__link">
+    Verify Service and Device Profiles
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-devices-using-rest-api" class="md-nav__link">
+    Adding Devices using REST API
+  </a>
+  
+    <nav class="md-nav" aria-label="Adding Devices using REST API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#determine-stream-uri-of-camera" class="md-nav__link">
+    Determine Stream Uri of Camera
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#play-the-rtsp-stream" class="md-nav__link">
+    Play the RTSP stream.
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stop-video-streaming" class="md-nav__link">
+    Stop Video Streaming
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shutting-down" class="md-nav__link">
+    Shutting Down
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional" class="md-nav__link">
+    Optional
+  </a>
+  
+    <nav class="md-nav" aria-label="Optional">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-options" class="md-nav__link">
+    Configuration Options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurable-rtsp-server-hostname-and-port" class="md-nav__link">
+    Configurable RTSP server hostname and port
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    Troubleshooting
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#streamingstatus" class="md-nav__link">
+    StreamingStatus
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2192,7 +2238,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../examples/Ch-ExamplesSendingAndConsumingBinary/" class="md-nav__link">
+      <a href="../Ch-ExamplesSendingAndConsumingBinary/" class="md-nav__link">
         Sending and Consuming Binary Data From EdgeX Device Services
       </a>
     </li>
@@ -2206,7 +2252,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../examples/AppServiceExamples/" class="md-nav__link">
+      <a href="../AppServiceExamples/" class="md-nav__link">
         App Service Examples
       </a>
     </li>
@@ -2220,7 +2266,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../examples/Ch-CommandingDeviceThroughRulesEngine/" class="md-nav__link">
+      <a href="../Ch-CommandingDeviceThroughRulesEngine/" class="md-nav__link">
         Command Devices with eKuiper Rules Engine
       </a>
     </li>
@@ -2234,7 +2280,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../examples/Ch-ExamplesModbusdatatypeconversion/" class="md-nav__link">
+      <a href="../Ch-ExamplesModbusdatatypeconversion/" class="md-nav__link">
         Modbus - Data Type Conversion
       </a>
     </li>
@@ -2274,7 +2320,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../examples/Ch-ExamplesAddingModbusDevice/" class="md-nav__link">
+      <a href="../Ch-ExamplesAddingModbusDevice/" class="md-nav__link">
         Modbus
       </a>
     </li>
@@ -2288,7 +2334,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../examples/Ch-ExamplesAddingSNMPDevice/" class="md-nav__link">
+      <a href="../Ch-ExamplesAddingSNMPDevice/" class="md-nav__link">
         SNMP
       </a>
     </li>
@@ -2302,7 +2348,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../examples/Ch-ExamplesAddingMQTTDevice/" class="md-nav__link">
+      <a href="../Ch-ExamplesAddingMQTTDevice/" class="md-nav__link">
         MQTT
       </a>
     </li>
@@ -2349,7 +2395,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../walk-through/Ch-Walkthrough/" class="md-nav__link">
+      <a href="../../walk-through/Ch-Walkthrough/" class="md-nav__link">
         EdgeX Demonstration API Walk Through
       </a>
     </li>
@@ -2363,7 +2409,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../walk-through/Ch-WalkthroughSetup/" class="md-nav__link">
+      <a href="../../walk-through/Ch-WalkthroughSetup/" class="md-nav__link">
         Setup up your environment
       </a>
     </li>
@@ -2377,7 +2423,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../walk-through/Ch-WalkthroughUseCase/" class="md-nav__link">
+      <a href="../../walk-through/Ch-WalkthroughUseCase/" class="md-nav__link">
         Example Use Case
       </a>
     </li>
@@ -2391,7 +2437,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../walk-through/Ch-WalkthroughDeviceProfile/" class="md-nav__link">
+      <a href="../../walk-through/Ch-WalkthroughDeviceProfile/" class="md-nav__link">
         Defining your device
       </a>
     </li>
@@ -2405,7 +2451,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../walk-through/Ch-WalkthroughDeviceService/" class="md-nav__link">
+      <a href="../../walk-through/Ch-WalkthroughDeviceService/" class="md-nav__link">
         Register your device service
       </a>
     </li>
@@ -2419,7 +2465,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../walk-through/Ch-WalkthroughProvision/" class="md-nav__link">
+      <a href="../../walk-through/Ch-WalkthroughProvision/" class="md-nav__link">
         Provision a device
       </a>
     </li>
@@ -2433,7 +2479,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../walk-through/Ch-WalkthroughCommands/" class="md-nav__link">
+      <a href="../../walk-through/Ch-WalkthroughCommands/" class="md-nav__link">
         Calling commands
       </a>
     </li>
@@ -2447,7 +2493,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../walk-through/Ch-WalkthroughReading/" class="md-nav__link">
+      <a href="../../walk-through/Ch-WalkthroughReading/" class="md-nav__link">
         Sending events and reading data
       </a>
     </li>
@@ -2461,7 +2507,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../walk-through/Ch-WalkthroughExporting/" class="md-nav__link">
+      <a href="../../walk-through/Ch-WalkthroughExporting/" class="md-nav__link">
         Exporting your device data
       </a>
     </li>
@@ -2516,7 +2562,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/Ch-APIIntroduction/" class="md-nav__link">
+      <a href="../../api/Ch-APIIntroduction/" class="md-nav__link">
         Introduction
       </a>
     </li>
@@ -2556,7 +2602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/core/Ch-APICoreCommand/" class="md-nav__link">
+      <a href="../../api/core/Ch-APICoreCommand/" class="md-nav__link">
         Core Command
       </a>
     </li>
@@ -2570,7 +2616,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/core/Ch-APICoreData/" class="md-nav__link">
+      <a href="../../api/core/Ch-APICoreData/" class="md-nav__link">
         Core Data
       </a>
     </li>
@@ -2584,7 +2630,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/core/Ch-APICoreMetadata/" class="md-nav__link">
+      <a href="../../api/core/Ch-APICoreMetadata/" class="md-nav__link">
         Core Metadata
       </a>
     </li>
@@ -2598,7 +2644,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/core/Ch-APICoreConfigurationAndRegistry/" class="md-nav__link">
+      <a href="../../api/core/Ch-APICoreConfigurationAndRegistry/" class="md-nav__link">
         Configuration and Registry
       </a>
     </li>
@@ -2645,7 +2691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/support/Ch-APISupportNotifications/" class="md-nav__link">
+      <a href="../../api/support/Ch-APISupportNotifications/" class="md-nav__link">
         Support Notifications
       </a>
     </li>
@@ -2659,7 +2705,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/support/Ch-APISupportScheduler/" class="md-nav__link">
+      <a href="../../api/support/Ch-APISupportScheduler/" class="md-nav__link">
         Support Scheduler
       </a>
     </li>
@@ -2706,7 +2752,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/management/Ch-APISystemManagement/" class="md-nav__link">
+      <a href="../../api/management/Ch-APISystemManagement/" class="md-nav__link">
         System Management Agent
       </a>
     </li>
@@ -2753,7 +2799,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/devices/Ch-APIDeviceSDK/" class="md-nav__link">
+      <a href="../../api/devices/Ch-APIDeviceSDK/" class="md-nav__link">
         Device Services
       </a>
     </li>
@@ -2800,7 +2846,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/applications/Ch-APIAppFunctionsSDK/" class="md-nav__link">
+      <a href="../../api/applications/Ch-APIAppFunctionsSDK/" class="md-nav__link">
         Application Services
       </a>
     </li>
@@ -2814,7 +2860,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/applications/Ch-APIRulesEngine/" class="md-nav__link">
+      <a href="../../api/applications/Ch-APIRulesEngine/" class="md-nav__link">
         Rules Engine
       </a>
     </li>
@@ -2869,7 +2915,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../design/Process/" class="md-nav__link">
+      <a href="../../design/Process/" class="md-nav__link">
         Use Cases and Design Process
       </a>
     </li>
@@ -2883,7 +2929,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../design/TOC/" class="md-nav__link">
+      <a href="../../design/TOC/" class="md-nav__link">
         Use Cases and Design Records
       </a>
     </li>
@@ -2923,7 +2969,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../design/legacy-design/" class="md-nav__link">
+      <a href="../../design/legacy-design/" class="md-nav__link">
         Legacy Design Documents
       </a>
     </li>
@@ -2937,7 +2983,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../design/legacy-requirements/" class="md-nav__link">
+      <a href="../../design/legacy-requirements/" class="md-nav__link">
         Legacy Requirements
       </a>
     </li>
@@ -2992,7 +3038,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../general/Definitions/" class="md-nav__link">
+      <a href="../../general/Definitions/" class="md-nav__link">
         Definitions
       </a>
     </li>
@@ -3006,7 +3052,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../general/PlatformRequirements/" class="md-nav__link">
+      <a href="../../general/PlatformRequirements/" class="md-nav__link">
         Platform Requirements
       </a>
     </li>
@@ -3020,7 +3066,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../general/ServicePorts/" class="md-nav__link">
+      <a href="../../general/ServicePorts/" class="md-nav__link">
         Default Service Ports
       </a>
     </li>
@@ -3034,7 +3080,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../general/ContainerNames/" class="md-nav__link">
+      <a href="../../general/ContainerNames/" class="md-nav__link">
         EdgeX Container Names
       </a>
     </li>
@@ -3048,7 +3094,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../general/ServiceConfiguration/" class="md-nav__link">
+      <a href="../../general/ServiceConfiguration/" class="md-nav__link">
         Service Configuration
       </a>
     </li>
@@ -3089,44 +3135,38 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
-    Introduction
+  <a href="#overview" class="md-nav__link">
+    Overview
   </a>
   
-    <nav class="md-nav" aria-label="Introduction">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-requirements" class="md-nav__link">
+    System Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tested-devices" class="md-nav__link">
+    Tested Devices
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    Dependencies
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependencies">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#terminology" class="md-nav__link">
-    Terminology
+  <a href="#install-additional-tools" class="md-nav__link">
+    Install additional Tools
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#workflow" class="md-nav__link">
-    Workflow
-  </a>
-  
-    <nav class="md-nav" aria-label="Workflow">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#normalminor-notifications" class="md-nav__link">
-    Normal/Minor Notifications
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#critical-notifications" class="md-nav__link">
-    Critical Notifications
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -3136,58 +3176,24 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#data-model" class="md-nav__link">
-    Data Model
+  <a href="#download-and-run-edgex-services" class="md-nav__link">
+    Download and Run EdgeX Services
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#data-dictionary" class="md-nav__link">
-    Data Dictionary
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configuration-properties" class="md-nav__link">
-    Configuration Properties
-  </a>
-  
-    <nav class="md-nav" aria-label="Configuration Properties">
+    <nav class="md-nav" aria-label="Download and Run EdgeX Services">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#gmail-configuration-example" class="md-nav__link">
-    Gmail Configuration Example
+  <a href="#download-edgex-compose-repository-if-not-already-downloaded" class="md-nav__link">
+    Download EdgeX Compose Repository (if not already downloaded)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#yahoo-mail-configuration-example" class="md-nav__link">
-    Yahoo Mail Configuration Example
+  <a href="#run-the-service" class="md-nav__link">
+    Run the Service
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#v2-configuration-migration-guide" class="md-nav__link">
-    V2 Configuration Migration Guide
-  </a>
-  
-    <nav class="md-nav" aria-label="V2 Configuration Migration Guide">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#writable" class="md-nav__link">
-    Writable
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -3197,9 +3203,97 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#api-reference" class="md-nav__link">
-    API Reference
+  <a href="#verify-service-and-device-profiles" class="md-nav__link">
+    Verify Service and Device Profiles
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-devices-using-rest-api" class="md-nav__link">
+    Adding Devices using REST API
+  </a>
+  
+    <nav class="md-nav" aria-label="Adding Devices using REST API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#determine-stream-uri-of-camera" class="md-nav__link">
+    Determine Stream Uri of Camera
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#play-the-rtsp-stream" class="md-nav__link">
+    Play the RTSP stream.
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stop-video-streaming" class="md-nav__link">
+    Stop Video Streaming
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shutting-down" class="md-nav__link">
+    Shutting Down
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional" class="md-nav__link">
+    Optional
+  </a>
+  
+    <nav class="md-nav" aria-label="Optional">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-options" class="md-nav__link">
+    Configuration Options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurable-rtsp-server-hostname-and-port" class="md-nav__link">
+    Configurable RTSP server hostname and port
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    Troubleshooting
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#streamingstatus" class="md-nav__link">
+    StreamingStatus
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -3217,466 +3311,266 @@
                 
                   
 
-  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/microservices/support/notifications/Ch-AlertsNotifications.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/examples/Ch-ExamplesUsbDeviceService.md" title="Edit this page" class="md-content__button md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
-<h1 id="alerts-notifications">Alerts &amp; Notifications</h1>
-<p><img alt="image" src="../EdgeX_SupportingServicesAlertsNotifications.png" /></p>
-<h2 id="introduction">Introduction</h2>
-<p>When another system or a person needs to know that something occurred in EdgeX, the
-alerts and notifications microservice sends that notification.
-Examples of alerts and notifications that other services could broadcast, include the provisioning of a new device, sensor data detected outside of certain parameters
-(usually detected by a device service or rules engine) or system or service
-malfunctions (usually detected by system management services).</p>
-<h3 id="terminology">Terminology</h3>
-<p><strong>Notifications</strong> are informative, whereas <strong>Alerts</strong> are typically of a
-more important, critical, or urgent nature, possibly requiring immediate
-action.</p>
-<p><img alt="image" src="../EdgeX_SupportingServicesAlertsArchitecture.png" /></p>
-<p>This diagram shows the high-level architecture of the notifications service.
-On the left side, the APIs are provided for other
-microservices, on-box applications, and off-box applications to use.  The APIs could be in REST, AMQP, MQTT, or any standard application
-protocols. </p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Currently in EdgeX Foundry, only the RESTful interface is provided.</p>
-</div>
-<p>On the right side, the notifications receiver could be a person or an
-application system on Cloud or in a server room. By invoking the
-Subscription RESTful interface to subscribe the specific types of
-notifications, the receiver obtains the appropriate notifications
-through defined receiving channels when events occur. The receiving
-channels include SMS message, e-mail, REST callback, AMQP, MQTT, and so
-on. </p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Currently in EdgeX Foundry, e-mail and REST callback channels are provided.</p>
-</div>
-<p>When the notifications service receives notifications from any interface, 
-the notifications are passed to the Notifications Handler internally. 
-The Notifications Handler persists the received notifications first, 
-and passes them to the Distribution Coordinator.</p>
-<p>When the Distribution Coordinator receives a notification, it first
-queries the Subscription database to get receivers who need this
-notification and their receiving channel information. According to the
-channel information, the Distribution Coordinator passes this
-notification to the corresponding channel senders. Then, the channel
-senders send out the notifications to the subscribed receivers.</p>
-<h3 id="workflow">Workflow</h3>
-<h4 id="normalminor-notifications">Normal/Minor Notifications</h4>
-<p>When a client requests a notification to be sent with "NORMAL" or "MINOR" status, 
-the notification is immediately sent to its receivers via the Distribution Coordinator, 
-and the status is updated to "PROCESSED".</p>
-<h4 id="critical-notifications">Critical Notifications</h4>
-<p>Notifications with "CRITICAL" status are also sent immediately.
-When encountering any error during sending critical notification, 
-an individual resend task is scheduled, and each transmission record persists.
-After exceeding the configurable limit (resend limit), the service escalates the notification 
-and create a new notification to notify particular receivers of the escalation subscription (name = "ESCALATION") of the failure.</p>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>For EdgeX 2.0, all notifications are processed immediately. The resend feature is only provided for critical notifications.
-The <strong>resendLimit</strong> and <strong>resendInterval</strong> properties can be defined in each subscription. 
-If the properties are not provided, use the default values in the configuration properties.</p>
-</div>
-<h2 id="data-model">Data Model</h2>
-<p>The latest developed data model will be updated in the <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-notifications/2.0.0">Swagger API document</a>.</p>
-<p><img alt="image" src="../EdgeX_SupportingServicesNotificationsModel.png" /></p>
-<p>This diagram is drawn by <a href="https://app.diagrams.net/">diagrams.net</a> with the source file <a href="../EdgeX_SupportingServicesNotificationsModel.xml">EdgeX_SupportingServicesNotificationsModel.xml</a></p>
-<h2 id="data-dictionary">Data Dictionary</h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:5"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Subscription</label><label for="__tabbed_1_2">Channel</label><label for="__tabbed_1_3">Notification</label><label for="__tabbed_1_4">Transmission</label><label for="__tabbed_1_5">TransmissionRecord</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>The object used to describe the receiver and the recipient channels</td>
-</tr>
-<tr>
-<td>ID</td>
-<td>Uniquely identifies a subscription, for example a UUID</td>
-</tr>
-<tr>
-<td>Name</td>
-<td>Uniquely identifies a subscription</td>
-</tr>
-<tr>
-<td>Receiver</td>
-<td>The name of the party interested in the notification</td>
-</tr>
-<tr>
-<td>Description</td>
-<td>Human readable description explaining the subscription intent</td>
-</tr>
-<tr>
-<td>Categories</td>
-<td>Link the subscription to one or more categories of notification.</td>
-</tr>
-<tr>
-<td>Labels</td>
-<td>An array of associated means to label or tag for categorization or identification</td>
-</tr>
-<tr>
-<td>Channels</td>
-<td>An array of channel objects indicating the destination for the notification</td>
-</tr>
-<tr>
-<td>ResendLimit</td>
-<td>The retry limit for attempts to send notifications</td>
-</tr>
-<tr>
-<td>ResendInterval</td>
-<td>The interval in ISO 8691 format of resending the notification</td>
-</tr>
-<tr>
-<td>AdminState</td>
-<td>An enumeration string indicating the subscription is locked or unlocked</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="tabbed-block">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>The object used to describe the notification end point.  Channel supports transmissions and notifications with fields for delivery via email or REST</td>
-</tr>
-<tr>
-<td>Type</td>
-<td>Object of ChannelType - indicates whether the channel facilitates email or REST</td>
-</tr>
-<tr>
-<td>MailAddress</td>
-<td>EmailAddress object for an array of string email addresses</td>
-</tr>
-<tr>
-<td>RESTAddress</td>
-<td>RESTAddress object for a REST API destination endpoint</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="tabbed-block">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>The object used to describe the message and sender content of a notification.</td>
-</tr>
-<tr>
-<td>ID</td>
-<td>Uniquely identifies a notification, for example a UUID</td>
-</tr>
-<tr>
-<td>Sender</td>
-<td>A string indicating the notification message sender</td>
-</tr>
-<tr>
-<td>Category</td>
-<td>A string categorizing the notification</td>
-</tr>
-<tr>
-<td>Severity</td>
-<td>An enumeration string indicating the severity of the notification - as either normal or critical</td>
-</tr>
-<tr>
-<td>Content</td>
-<td>The message sent to the receivers</td>
-</tr>
-<tr>
-<td>Description</td>
-<td>Human readable description explaining the reason for the notification or alert</td>
-</tr>
-<tr>
-<td>Status</td>
-<td>An enumeration string indicating the status of the notification as new, processed or escalated</td>
-</tr>
-<tr>
-<td>Labels</td>
-<td>Array of associated means to label or tag a notification for better search and filtering</td>
-</tr>
-<tr>
-<td>ContentType</td>
-<td>String indicating the type of content in the notification message</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="tabbed-block">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>The object used to group Notifications</td>
-</tr>
-<tr>
-<td>ID</td>
-<td>Uniquely identifies a transmission, for example a UUID</td>
-</tr>
-<tr>
-<td>Created</td>
-<td>A timestamp indicating when the notification was created</td>
-</tr>
-<tr>
-<td>NotificationId</td>
-<td>The notification id to be sent</td>
-</tr>
-<tr>
-<td>SubscriptionName</td>
-<td>The name of the subscription interested in the notification</td>
-</tr>
-<tr>
-<td>Channel</td>
-<td>A channel object indicating the destination for the notification</td>
-</tr>
-<tr>
-<td>Status</td>
-<td>An enumeration string indicating whether the transmission failed, was sent, was resending, was acknowledged, or was escalated</td>
-</tr>
-<tr>
-<td>ResendCount</td>
-<td>Number indicating the number of resent attempts</td>
-</tr>
-<tr>
-<td>Records</td>
-<td>An array of TransmissionRecords</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="tabbed-block">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>Information the status and response of a notification sent to a receiver</td>
-</tr>
-<tr>
-<td>Status</td>
-<td>An enumeration string indicating whether the transmission failed, was sent, was acknowledged, or escalated</td>
-</tr>
-<tr>
-<td>Response</td>
-<td>The response string from the receiver</td>
-</tr>
-<tr>
-<td>Sent</td>
-<td>A timestamp indicating when the notification was sent</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<h2 id="configuration-properties">Configuration Properties</h2>
-<p>Please refer to the general <a href="../../../configuration/CommonConfiguration/">Common Configuration documentation</a> for configuration properties common to all services. Below are only the additional settings and sections that are not common to all EdgeX Services.</p>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>For EdgeX 2.0, the SMTP username and password can be set in the Writable.InsecureSecrets.SMTP.Secrets as an insecure secret,
-or be stored in the Smtp.SecretPath for security. </p>
-</div>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Writable</label><label for="__tabbed_2_2">Databases/Databases.Primary</label><label for="__tabbed_2_3">Smtp</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Default Value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td></td>
-<td>Writable properties can be set and will dynamically take effect without service restart</td>
-</tr>
-<tr>
-<td>ResendLimit</td>
-<td>2</td>
-<td>Sets the retry limit for attempts to send notifications. CRITICAL notifications are sent to the escalation subscriber when resend limit is exceeded.</td>
-</tr>
-<tr>
-<td>ResendInterval</td>
-<td>'5s'</td>
-<td>Sets the retry interval for attempts to send notifications.</td>
-</tr>
-<tr>
-<td>Writable.InsecureSecrets.SMTP.Secrets username</td>
-<td>username@mail.example.com</td>
-<td>The email to send alerts and notifications</td>
-</tr>
-<tr>
-<td>Writable.InsecureSecrets.SMTP.Secrets password</td>
-<td></td>
-<td>The email password</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="tabbed-block">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Default Value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td></td>
-<td>Properties used by the service to access the database</td>
-</tr>
-<tr>
-<td>Name</td>
-<td>'notifications'</td>
-<td>Document store or database name</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="tabbed-block">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Default Value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td></td>
-<td>Config to connect to applicable SMTP (email) service. All the properties with prefix "smtp" are for mail server configuration. Configure the mail server appropriately to send alerts and notifications. The correct values depend on which mail server is used.</td>
-</tr>
-<tr>
-<td>Smtp Host</td>
-<td>smtp.gmail.com</td>
-<td>SMTP service host name</td>
-</tr>
-<tr>
-<td>Smtp Port</td>
-<td>587</td>
-<td>SMTP service port number</td>
-</tr>
-<tr>
-<td>Smtp EnableSelfSignedCert</td>
-<td>false</td>
-<td>Indicates whether a self-signed cert can be used for secure connectivity.</td>
-</tr>
-<tr>
-<td>Smtp SecretPath</td>
-<td>smtp</td>
-<td>Specify the secret path to store the credential(username and password) for connecting the SMTP server via the /secret API, or set Writable SMTP username and password for insecure secrets</td>
-</tr>
-<tr>
-<td>Smtp Sender</td>
-<td>jdoe@gmail.com</td>
-<td>SMTP service sender/username</td>
-</tr>
-<tr>
-<td>Smtp Subject</td>
-<td>EdgeX Notification</td>
-<td>SMTP notification message subject</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<h3 id="gmail-configuration-example">Gmail Configuration Example</h3>
-<p>Before using Gmail to send alerts and notifications, configure the
-sign-in security settings through one of the following two methods:</p>
+<h1 id="usb-camera-device-service-rtsp-streaming-guide">USB Camera Device Service RTSP Streaming Guide</h1>
+<h2 id="overview">Overview</h2>
+<p>The EdgeX usb device service is designed for communicating with USB cameras attached to Linux OS platforms. This guide will help configure and build the usb device service and start streaming video from the USB camera.</p>
+<p>This service provides the following capabilities:
+- API to get camera metadata
+- Camera status
+- Video stream reference
+- Capture video frames and stream them to an RTSP server
+- An embedded <a href="https://github.com/aler9/rtsp-simple-server">RTSP server</a></p>
+<h2 id="system-requirements">System Requirements</h2>
+<ul>
+<li>Intel&#8482; Core&#174; processor</li>
+<li>Ubuntu 20.04.4 LTS</li>
+<li>USB-compliant Camera</li>
+</ul>
+<p><strong>Time to Complete</strong></p>
+<p>10-20 minutes</p>
+<p><strong>Other Requirements</strong></p>
+<p>You must have administrator (sudo) privileges to execute the user guide commands.</p>
+<h2 id="tested-devices">Tested Devices</h2>
+<p>The following devices have been tested with EdgeX USB Camera Device Service:<br />
+Note: Results may vary based on camera hardware/firmware version and operating system support.</p>
+<!-- sorted alphabetically -->
+<ul>
+<li>AUKEY PC-LM1E Webcam</li>
+<li>HP w200 Webcam</li>
+<li>Jinpei JW-01B USB FHD Web Computer Camera</li>
+<li>Logitech Brio 4K</li>
+<li>Logitech C270 HD Webcam</li>
+<li>Logitech StreamCam</li>
+</ul>
+<h2 id="dependencies">Dependencies</h2>
+<p>The software has dependencies, including Git, Docker, Docker Compose, and assorted command line tools. Follow the instructions provided here to install any dependency that is not already installed <code>device-usb-camera/docs/setup.md</code>.</p>
+<h3 id="install-additional-tools">Install additional Tools</h3>
+<p>Install the media utility tool:</p>
+<div class="highlight"><pre><span></span><code>sudo apt install mplayer v4l-utils
+</code></pre></div>
+<ul>
+<li><code>mplayer</code> is used to view the video stream</li>
+<li><code>v4l-utils</code> is used to determine the video stream path of a usb camera</li>
+</ul>
+<h2 id="download-and-run-edgex-services">Download and Run EdgeX Services</h2>
+<h3 id="download-edgex-compose-repository-if-not-already-downloaded">Download EdgeX Compose Repository (if not already downloaded)</h3>
 <ol>
-<li>Enable 2-Step Verification and use an App Password (Recommended). An
-    App password is a 16-digit passcode that gives an app or device
-    permission to access your Google Account. For more detail about this
-    topic, please refer to this 
-    <a href="https://support.google.com/accounts/answer/185833?hl=en">Google official document</a>.</li>
-<li>Allow less secure apps: If the 2-Step Verification is not enabled,
-    you may need to allow less secure apps to access the Gmail account.
-    Please see the instruction from this 
-    <a href="https://support.google.com/accounts/answer/6010255?hl=en">Google official document</a>.</li>
+<li>
+<p>Create a directory for the EdgeX compose repository:
+   <div class="highlight"><pre><span></span><code>mkdir ~/edgex
+</code></pre></div></p>
+</li>
+<li>
+<p>Change into newly created directory:
+   <div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/edgex
+</code></pre></div></p>
+</li>
+<li>
+<p>Clone the EdgeX compose repository
+   <div class="highlight"><pre><span></span><code>git clone https://github.com/edgexfoundry/edgex-compose.git
+</code></pre></div></p>
+</li>
 </ol>
-<p>Then, use the following settings for the mail server properties:</p>
-<div class="codehilite"><pre><span></span><code>Smtp Port=25
-Smtp Host=smtp.gmail.com
-Smtp Sender=<span class="cp">${</span><span class="n">Gmail</span> <span class="n">account</span><span class="cp">}</span>
-Smtp Password=<span class="cp">${</span><span class="n">Gmail</span> <span class="n">password</span> <span class="ow">or</span> <span class="n">App</span> <span class="n">password</span><span class="cp">}</span>
-</code></pre></div>
-
-<h3 id="yahoo-mail-configuration-example">Yahoo Mail Configuration Example</h3>
-<p>Similar to Gmail, configure the sign-in security settings for Yahoo
-through one of the following two methods:</p>
+<h3 id="run-the-service">Run the Service</h3>
 <ol>
-<li>Enable 2-Step Verification and use an App Password (Recommended).
-    Please see this Yahoo official document for more detail:
-    <a href="https://help.yahoo.com/kb/SLN15241.html">https://help.yahoo.com/kb/SLN15241.html</a>.</li>
-<li>Allow apps that use less secure sign in. Please see this Yahoo
-    official document for more detail on this topic:
-    <a href="https://help.yahoo.com/kb/SLN27791.html">https://help.yahoo.com/kb/SLN27791.html</a>.</li>
+<li>Navigate to the Edgex compose directory.</li>
 </ol>
-<p>Then, use the following settings for the mail server properties:</p>
-<div class="codehilite"><pre><span></span><code>Smtp Port=25
-Smtp Host=smtp.mail.yahoo.com
-Smtp Sender=<span class="cp">${</span><span class="n">Yahoo</span> <span class="n">account</span><span class="cp">}</span>
-Smtp Password=<span class="cp">${</span><span class="n">Yahoo</span> <span class="n">password</span> <span class="ow">or</span> <span class="n">App</span> <span class="n">password</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/edgex/edgex-compose/compose-builder
 </code></pre></div>
+<ol>
+<li>Run EdgeX with the microservice:  </li>
+<li>For non secure mode
+    <div class="highlight"><pre><span></span><code>make run ds-usb-camera no-secty
+</code></pre></div></li>
+<li>For secure mode 
+    <div class="highlight"><pre><span></span><code>make run ds-usb-camera
+</code></pre></div></li>
+</ol>
+<h2 id="verify-service-and-device-profiles">Verify Service and Device Profiles</h2>
+<ol>
+<li>Check the status of the container:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>docker ps
+</code></pre></div>
+<p>The status column will indicate if the container is running and how long it has been up.</p>
+<p>Example Output:</p>
+<div class="highlight"><pre><span></span><code>CONTAINER ID   IMAGE                                         COMMAND                  CREATED       STATUS          PORTS                                                                                         NAMES
+f0a1c646f324   edgexfoundry/device-usb-camera:0.0.0-dev                        <span class="s2">&quot;/docker-entrypoint.…&quot;</span>   <span class="m">26</span> hours ago   Up <span class="m">20</span> hours   <span class="m">127</span>.0.0.1:8554-&gt;8554/tcp, <span class="m">127</span>.0.0.1:59983-&gt;59983/tcp                         edgex-device-usb-camera                                                                   edgex-device-onvif-camera
+</code></pre></div>
+<ol>
+<li>Check that the device service is added to EdgeX:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>curl -s http://localhost:59881/api/v2/deviceservice/name/device-usb-camera <span class="p">|</span> jq .
+</code></pre></div>
+<p>Successful:
+   <div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;statusCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;created&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1658769423192</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;modified&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1658872893286</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;04470def-7b5b-4362-9958-bc5ff9f54f1e&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;device-usb-camera&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;baseAddress&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://edgex-device-usb-camera:59983&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;adminState&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;UNLOCKED&quot;</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+   Unsuccessful:
+   <div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;fail to query device service by name device-usb-camera&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;statusCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">404</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div></p>
+<h2 id="adding-devices-using-rest-api">Adding Devices using REST API</h2>
+<p>Devices can either be added to the service by defining them in a static configuration file, discovering devices dynamically, or with the REST API. For this example, the device will be added using the REST API.</p>
+<ol>
+<li>Run the following command to determine the <code>Path</code> to the usb camera for video streaming:
+   <div class="highlight"><pre><span></span><code>v4l2-ctl --list-devices
+</code></pre></div></li>
+</ol>
+<p>The output should look similar to this:
+   <div class="highlight"><pre><span></span><code>NexiGo N930AF FHD Webcam: NexiG (usb-0000:00:14.0-1):
+     /dev/video6
+     /dev/video7
+     /dev/media2
+</code></pre></div></p>
+<p>For this example, the <code>Path</code> is <code>/dev/video6</code>.</p>
+<ol>
+<li>Edit the information to appropriately match the camera. The device's protocol properties contain:</li>
+<li><code>name</code> is the name of the device. For this example, the name is <code>Camera001</code></li>
+<li><code>Path</code> is a file descriptor of camera created by the OS. Use the <code>Path</code> determined in the previous step.</li>
+<li><code>AutoStreaming</code> indicates whether the device service should automatically start video streaming for cameras. Default value is false.</li>
+</ol>
+<div class="highlight"><pre><span></span><code>curl -X POST -H <span class="s1">&#39;Content-Type: application/json&#39;</span>  <span class="se">\</span>
+   http://localhost:59881/api/v2/device <span class="se">\</span>
+   -d <span class="s1">&#39;[</span>
+<span class="s1">      {</span>
+<span class="s1">      &quot;apiVersion&quot;: &quot;v2&quot;,</span>
+<span class="s1">      &quot;device&quot;: {</span>
+<span class="s1">         &quot;name&quot;: &quot;Camera001&quot;,</span>
+<span class="s1">         &quot;serviceName&quot;: &quot;device-usb-camera&quot;,</span>
+<span class="s1">         &quot;profileName&quot;: &quot;USB-Camera-General&quot;,</span>
+<span class="s1">         &quot;description&quot;: &quot;My test camera&quot;,</span>
+<span class="s1">         &quot;adminState&quot;: &quot;UNLOCKED&quot;,</span>
+<span class="s1">         &quot;operatingState&quot;: &quot;UP&quot;,</span>
+<span class="s1">         &quot;protocols&quot;: {</span>
+<span class="s1">            &quot;USB&quot;: {</span>
+<span class="s1">            &quot;CardName&quot;: &quot;NexiGo N930AF FHD Webcam: NexiG&quot;,</span>
+<span class="s1">            &quot;Path&quot;: &quot;/dev/video6&quot;,</span>
+<span class="s1">            &quot;AutoStreaming&quot;: &quot;false&quot;</span>
+<span class="s1">            }</span>
+<span class="s1">         }</span>
+<span class="s1">      }</span>
+<span class="s1">      }</span>
+<span class="s1">   ]&#39;</span>
+   <span class="sb">```</span>
 
-<h3 id="v2-configuration-migration-guide">V2 Configuration Migration Guide</h3>
-<p>Refer to the <a href="../../../configuration/V2MigrationCommonConfig">Common Configuration Migration Guide</a> for details on migrating the common configuration sections such as <code>Service</code>.</p>
-<h4 id="writable">Writable</h4>
-<p>The <code>Writable.InsecureSecrets.SMTP</code> section has been added.</p>
-<div class="admonition example">
-<p class="admonition-title">Example Writable.InsecureSecrets.SMTP section</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.InsecureSecrets.SMTP]</span><span class="w"></span>
-<span class="w">    </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;smtp&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="k">[Writable.InsecureSecrets.SMTP.Secrets]</span><span class="w"></span>
-<span class="w">      </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;username@mail.example.com&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
+   Example Output: 
+   <span class="sb">```</span>bash
+   <span class="o">[{</span><span class="s2">&quot;apiVersion&quot;</span>:<span class="s2">&quot;v2&quot;</span>,<span class="s2">&quot;statusCode&quot;</span>:201,<span class="s2">&quot;id&quot;</span>:<span class="s2">&quot;fb5fb7f2-768b-4298-a916-d4779523c6b5&quot;</span><span class="o">}]</span>
+   <span class="sb">```</span>
+
+<span class="c1">## Start Video Streaming</span>
+Unless the device service is configured to stream video from the camera automatically, a <span class="sb">`</span>StartStreaming<span class="sb">`</span> <span class="nb">command</span> must be sent to the device service.
+
+There are two types of options:
+- The options start with <span class="sb">`</span>Input<span class="sb">`</span> prefix are used <span class="k">for</span> the camera, such as specifying the image size and pixel format.
+- The options start with <span class="sb">`</span>Output<span class="sb">`</span> prefix are used <span class="k">for</span> the output video, such as specifying aspect ratio and quality.
+
+These options can be passed <span class="k">in</span> through Object value when calling StartStreaming.
+
+Query parameter:
+- <span class="sb">`</span>device name<span class="sb">`</span>: The name of the camera
+
+For example:
+<span class="sb">```</span>shell
+curl -X PUT -d <span class="s1">&#39;{</span>
+<span class="s1">    &quot;StartStreaming&quot;: {</span>
+<span class="s1">      &quot;InputImageSize&quot;: &quot;640x480&quot;,</span>
+<span class="s1">      &quot;OutputVideoQuality&quot;: &quot;5&quot;</span>
+<span class="s1">    }</span>
+<span class="s1">}&#39;</span> http://localhost:59882/api/v2/device/name/&lt;device name&gt;/StartStreaming
 </code></pre></div>
-</div>
-<h2 id="api-reference">API Reference</h2>
-<p><a href="../../../../api/support/Ch-APISupportNotifications/">Support Notifications API Reference</a></p>
+<p>Supported Input options:
+- <code>InputFps</code>: Ignore original timestamps and instead generate timestamps assuming constant frame rate fps. (default - same as source)
+- <code>InputImageSize</code>: Specifies the image size of the camera. The format is <code>wxh</code>, for example "640x480". (default - automatically selected by FFmpeg)
+- <code>InputPixelFormat</code>: Set the preferred pixel format (for raw video). (default - automatically selected by FFmpeg)</p>
+<p>Supported Output options:
+- <code>OutputFrames</code>: Set the number of video frames to output. (default - no limitation on frames)
+- <code>OutputFps</code>: Duplicate or drop input frames to achieve constant output frame rate fps. (default - same as InputFps)
+- <code>OutputImageSize</code>: Performs image rescaling. The format is <code>wxh</code>, for example "640x480". (default - same as InputImageSize)
+- <code>OutputAspect</code>: Set the video display aspect ratio specified by aspect. For example "4:3", "16:9". (default - same as source)
+- <code>OutputVideoCodec</code>: Set the video codec. For example "mpeg4", "h264". (default - mpeg4)
+- <code>OutputVideoQuality</code>: Use fixed video quality level. Range is a integer number between 1 to 31, with 31 being the worst quality. (default - dynamically set by FFmpeg)</p>
+<h3 id="determine-stream-uri-of-camera">Determine Stream Uri of Camera</h3>
+<p>The device service provides a way to determine the stream URI of a camera.</p>
+<p>Query parameter:
+- <code>device name</code>: The name of the camera</p>
+<div class="highlight"><pre><span></span><code>curl -s http://localhost:59882/api/v2/device/name/&lt;device name&gt;/StreamURI <span class="p">|</span> jq -r <span class="s1">&#39;&quot;StreamURI: &quot; + &#39;</span>.event.readings<span class="o">[]</span>.value<span class="s1">&#39;&#39;</span>
+</code></pre></div>
+<p>The response to the above call should look similar to the following:</p>
+<div class="highlight"><pre><span></span><code>StreamURI: rtsp://localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217010
+</code></pre></div>
+<h3 id="play-the-rtsp-stream">Play the RTSP stream.</h3>
+<p>mplayer can be used to stream. The command follows this format: </p>
+<p><code>mplayer rtsp://&lt;IP address&gt;:&lt;port&gt;/&lt;streamname&gt;</code>.</p>
+<p>Using the <code>streamURI</code> returned from the previous step, run mplayer:</p>
+<div class="highlight"><pre><span></span><code>mplayer rtsp://localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217010
+</code></pre></div>
+<ul>
+<li>To shut down mplayer, use the ctrl-c command.</li>
+</ul>
+<h3 id="stop-video-streaming">Stop Video Streaming</h3>
+<p>To stop the usb camera from live streaming, use the following command:</p>
+<p>Query parameter:
+- <code>device name</code>: The name of the camera</p>
+<p>For example:
+<div class="highlight"><pre><span></span><code>curl -X PUT -d <span class="s1">&#39;{</span>
+<span class="s1">    &quot;StopStreaming&quot;: &quot;true&quot;</span>
+<span class="s1">}&#39;</span> http://localhost:59882/api/v2/device/name/&lt;device name&gt;/StopStreaming
+</code></pre></div></p>
+<h2 id="shutting-down">Shutting Down</h2>
+<p>To stop all EdgeX services (containers), execute the <code>make down</code> command:</p>
+<ol>
+<li>Navigate to the <code>edgex-compose/compose-builder</code> directory.</li>
+</ol>
+<p><div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/edgex/edgex-compose/compose-builder
+</code></pre></div>
+1. Run this command
+   <div class="highlight"><pre><span></span><code>make down
+</code></pre></div>
+1. To shut down and delete all volumes, run this command
+   <div class="highlight"><pre><span></span><code>make clean
+</code></pre></div></p>
+<h2 id="optional">Optional</h2>
+<h3 id="configuration-options">Configuration Options</h3>
+<h3 id="configurable-rtsp-server-hostname-and-port">Configurable RTSP server hostname and port</h3>
+<p>The hostname and port of the RTSP server can be configured in the <code>[Driver]</code> section of the <code>/cmd/res/configuration.toml</code> file. The default vaules can be used for this guide.</p>
+<p>For example:
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">[</span><span class="nv">Driver</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">RtspServerHostName = &quot;localhost&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">RtspTcpPort = &quot;8554&quot;</span><span class="w"></span>
+</code></pre></div></p>
+<p align="left">
+      <i>Sample: Snippet from configuration.toml</i>
+</p>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="streamingstatus">StreamingStatus</h3>
+<p>To verify the usb camera is set to stream video, use the command below. </p>
+<p>Query parameter:
+- <code>device name</code>: The name of the camera</p>
+<div class="highlight"><pre><span></span><code>curl http://localhost:59882/api/v2/device/name/&lt;device name&gt;/StreamingStatus <span class="p">|</span> jq -r <span class="s1">&#39;&quot;StreamingStatus: &quot; + (.event.readings[].objectValue.IsStreaming|tostring)&#39;</span>
+</code></pre></div>
+<p>If the StreamingStatus is false, the camera is not configured to stream video. Please try the Start Video Streaming section again.</p>
 
 
   
@@ -3699,7 +3593,7 @@ Smtp Password=<span class="cp">${</span><span class="n">Yahoo</span> <span class
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="../../Ch-SupportingServices/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Supporting Services Microservices" rel="prev">
+        <a href="../Ch-ExamplesVirtualDeviceService/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Using the Virtual Device Service" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -3708,20 +3602,20 @@ Smtp Password=<span class="cp">${</span><span class="n">Yahoo</span> <span class
               <span class="md-footer__direction">
                 Previous
               </span>
-              Supporting Services Microservices
+              Using the Virtual Device Service
             </div>
           </div>
         </a>
       
       
         
-        <a href="../../eKuiper/Ch-eKuiper/" class="md-footer__link md-footer__link--next" aria-label="Next: eKuiper Rules Engine" rel="next">
+        <a href="../Ch-ExamplesSendingAndConsumingBinary/" class="md-footer__link md-footer__link--next" aria-label="Next: Sending and Consuming Binary Data From EdgeX Device Services" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              eKuiper Rules Engine
+              Sending and Consuming Binary Data From EdgeX Device Services
             </div>
           </div>
           <div class="md-footer__button md-icon">
@@ -3787,12 +3681,12 @@ Smtp Password=<span class="cp">${</span><span class="n">Yahoo</span> <span class
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs"], "search": "../../../../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "search": "../../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.37e9125f.min.js"></script>
+      <script src="../../assets/javascripts/bundle.37e9125f.min.js"></script>
       
-        <script src="../../../../assets/javascripts/version-select.js"></script>
+        <script src="../../assets/javascripts/version-select.js"></script>
       
     
   </body>
