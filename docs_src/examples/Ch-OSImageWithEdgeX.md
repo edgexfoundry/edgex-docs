@@ -2,32 +2,33 @@
 
 ## Introduction
 
-This document walks you through creating an OS image that is preloaded with an EdgeX stack. We use [Ubuntu Core] as the OS, which is optimized for IoT and allows secure deployment of applications. We build the image using the default tooling and the snapped versions of EdgeX components. Since snaps receive automatic and transactional updates, the components stay up to date reliably with the latest security and bug fixes.
+This guide walks you through creating an Ubuntu Core OS image that is preloaded with an EdgeX stack. We use Ubuntu Core as the Linux distribution because it is optimized for IoT and enforces secure deployment of applications out of the box. We build the image using the default tooling and the snapped versions of EdgeX components. The snaps receive automatic and transactional updates, and stay up-to-date reliably with the latest security and bug fixes.
 
 This guide is divided into three chapters to create:
 
 - Ubuntu Core + EdgeX, with default configurations
-- Ubuntu Core + EdgeX, with basic service configurations
-- Ubuntu Core + EdgeX, with custom configuration files
+- Ubuntu Core + EdgeX, with service configuration overrides
+- Ubuntu Core + EdgeX, with custom service and device configuration files
 
-Each chapter results in a working Ubuntu Core OS image that can be flashed on a disk and boot up with the expected EdgeX stack. 
+Each chapter results in a working Ubuntu Core OS image that can be flashed on a disk and booted with the expected EdgeX stack.
 
-In this example, we will use the Device Virtual service to simulate devices and produce synthetic events. We will create an `amd64` image, but the instructions can be adapted to other architectures and even for a Raspberry Pi.
+In this example, we will create an `amd64` image, but the instructions can be adapted to other architectures and even for a Raspberry Pi. We will use the Device Virtual service to simulate devices and produce synthetic events.
 
-We will use the following tools:
+!!! note
+    This guide has been tested on an `amd64` **Ubuntu 22.04** as the desktop OS. It may work on other Linux distributions and Ubuntu versions.
+
+    Some commands are executed on the desktop computer, but some others on the target Ubuntu Core system. For clarity, we use **🖥 Desktop** and **🚀 Ubuntu Core** titles for code blocks to distinguish where those commands are being executed.
+
+    An Intel NUC11TNH with 8GB RAM and 250GB NAND flash storage has been used as the target `amd64` hardware. 
+
+We assume the following tools are installed on the desktop machine:
 
 - [snapcraft](https://snapcraft.io/snapcraft) to manage keys in the store and build snaps
 - [YQ](https://snapcraft.io/yq) to validate YAML files and convert them to JSON
 - [ubuntu-image](https://snapcraft.io/ubuntu-image) to build the Ubuntu Core image
-- [EdgeX CLI](https://snapcraft.io/edgex-cli) to query information from EdgeX core components 
 
 It is a good idea to read through the [Getting Started using Snaps](../../getting-started/Ch-GettingStartedSnapUsers) before working on this walk-through or at any point to better understand the concepts.
 
-
-!!! note
-    This guide has been tested on **Ubuntu 22.04** as the desktop OS. It may work on other Linux distributions and Ubuntu versions. 
-
-    Some commands are executed on the desktop computer, but some others on the target Ubuntu Core system. For clarity, we use **🖥 Desktop** and **🚀 Ubuntu Core** titles for code blocks to distinguish where those commands are being executed.
 
 ## A. Create an image with EdgeX components
 
@@ -41,11 +42,7 @@ We will use the [pc-amd64-gadget](https://github.com/snapcore/pc-amd64-gadget) a
 !!! tip
     For a Raspberry Pi, you need to use the [pi-gadget](https://github.com/snapcore/pi-gadget) instead.
 
-Modify the following in `gadget.yml`. 
-Under `volumes.pc.structure`:
-
-- Find the item with name `ubuntu-seed` and increase its size to `1500M`. This is to make sure our snap will fit in the image.
-- If planning to use an emulator: Find the item with name `ubuntu-data` and increase its size to `2G`. This is to give sufficient writable storage. When flashing on actual hardware, this volume would automatically take the whole remaining space (NEED TO VERIFY).
+In `gadget.yml`: under `volumes.pc.structure`, find the item with name `ubuntu-seed` and increase its size to `1500M`. This is to make sure our seeded snaps fit in the partition.
 
 Build:
 ```bash title="🖥 Desktop"
@@ -172,6 +169,13 @@ We use ubuntu-image and set the following:
 This will download all the needed snaps and build a file called `pc.img`.
 Note that even the kernel and OS base (core20) are snap packages!
 
+> **Note**  
+> If you plan to use an emulator to install and run Ubuntu Core from the resulting image, it is a good idea to allocate additional writable storage. This necessary if you want to install additional snaps interactively or upgrade existing ones on the emulator.
+>
+> The default size of the `ubuntu-data` partition is `1G` as defined in the gadget snap. When installing on actual hardware, this partition extends automatically to take the whole remaining space on the disk volume. However, when using QEMU, the partition will have the exact same size because the image size is calculated based on the defined partition structure. The 1GB `ubuntu-data` partition will be 90% full after first boot. You can configure the image to be larger so that the installer expands the partition automatically as with a large disk volume. 
+>
+> To extend the image size, use the `--image-size` flag in the following command. For example, to add 500MB extra (the original image is around 3.5GB), set `--image-size=4G`.
+
 ```bash title="🖥 Desktop"
 $ ubuntu-image snap model.signed.yaml --validation=enforce --snap pc-amd64-gadget/pc_20-0.4_amd64.snap 
 Fetching snapd
@@ -189,6 +193,9 @@ pc.img: DOS/MBR boot sector, extended partition table (last)
 ```
 
 The warning is because we side-loaded the gadget for demonstration purposes. In production settings, a custom gadget would need to be uploaded to the [store](https://ubuntu.com/internet-of-things/appstore) to also receive updates.
+
+!!! note
+    You need to repeat the build every time you change and sign the **model** or rebuild the **gadget**.
 
 !!! done
     The image file is now ready to be flashed on a medium to create a bootable drive with the needed applications!
@@ -270,7 +277,7 @@ pc-kernel             5.4.0-122.138.1  1057   20/stable      canonical✓  kerne
 snapd                 2.56.2           16292  latest/stable  canonical✓  snapd
 ```
 
-Let's install the EdgeX CLI to easily query various APIs:
+Let's install the [EdgeX CLI](https://snapcraft.io/edgex-cli) to query information from EdgeX core components  to easily query various APIs:
 ``` title="🚀 Ubuntu Core"
 $ snap install edgex-cli
 edgex-cli 2.2.0 from Canonical✓ installed
