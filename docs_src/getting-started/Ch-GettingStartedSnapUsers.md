@@ -121,6 +121,8 @@ snap set edgexfoundry apps.core-data.config.service-port=8080
 The services load the set config options on startup. If the service has already started, a restart is necessary to load them.
 
 #### Disabling security
+[disabling security]: #disabling-security
+
 !!! Warning
     Disabling security is NOT recommended, unless for demonstration purposes, or when there are other means to secure the services.
 
@@ -141,6 +143,11 @@ They will be still accessible on the local machine for demonstration and testing
 If you really need to make an insecure service accessible remotely, set the bind address of the service to the IP address of that networking interface on the local machine. If you trust all your interfaces and want the services to accept connections from all, set it to `0.0.0.0`.
 
 After disabling the Secret Store, the external services should be configured such that they don't attempt to initialize the security. For this purpose, [EDGEX_SECURITY_SECRET_STORE](../../microservices/configuration/CommonEnvironmentVariables/#edgex_security_secret_store) should be set to false, using the corresponding snap option: `config.edgex-security-secret-store`.
+For example, to disable it on the EdgeX UI snap:
+```bash
+sudo snap set edgex-ui config.edgex-security-secret-store=false
+sudo snap start edgex-ui # restart if the service has already started
+```
 
 ### Managing services
 [managing services]: #managing-services
@@ -441,23 +448,25 @@ To better understand the snap connections, read the [interface management](https
 
 For usage instructions, please refer to the [Graphical User Interface (GUI)](../tools/Ch-GUI/) guide.
 
-By default, the UI is reachable locally at:
+The service is **not started** by default. Please refer to [configuration] and [managing services].
+
+Once started, the UI will be reachable locally and by default at:
 [http://localhost:4000](http://localhost:4000)
 
 A valid JWT token is required to access the UI; follow [Adding API Gateway users](#adding-api-gateway-users) steps to generate a token.
+In development environments, the UI access control can be disabled as described in [disabling security].
 
-To enable all the functionalities of the UI, the following support services should be running:
+To enable all the functionalities of the UI, the following services should be running:
 
 * Support Scheduler
 * Support Notifications
-* System Management Agent
 * [EdgeX eKuiper](#edgex-ekuiper)
+* System Management Agent (deprecated)
 
-For example, to start/install all:
+For example, to start/install the support services:
 ```
 sudo snap start edgexfoundry.support-scheduler
 sudo snap start edgexfoundry.support-notifications
-sudo snap start edgexfoundry.sys-mgmt-agent
 sudo snap install edgex-ekuiper
 ```
 
