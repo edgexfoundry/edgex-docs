@@ -3774,7 +3774,7 @@
 </tr>
 <tr>
 <td>RetryOnFailedConnect</td>
-<td><code>true</code></td>
+<td><code>false</code></td>
 <td>Retry on connection failure - expects a string representation of a boolean</td>
 </tr>
 <tr>
@@ -3788,8 +3788,13 @@
 <td>Specifies a durable consumer should be used with the given name.  Note that if a durable consumer with the specified name does not exist it will be considered ephemeral and deleted by the client on drain / unsubscribe (<strong>JetStream only</strong>)</td>
 </tr>
 <tr>
+<td>Subject</td>
+<td>blank</td>
+<td>Specifies the subject for subscribing stream if a Durable is not specified - will also be formatted into a stream name to be used on subscription.  This subject is used for auto-provisioning the stream if needed as well and should be configured with the 'root' topic common to all subscriptions (eg <code>edgex/#</code>) to ensure that all topics on the bus are covered.   (<strong>JetStream only</strong>)</td>
+</tr>
+<tr>
 <td>AutoProvision</td>
-<td><code>true</code></td>
+<td><code>false</code></td>
 <td>Automatically provision NATS streams. (<strong>JetStream only</strong>)</td>
 </tr>
 <tr>
