@@ -23,10 +23,8 @@ The tabs below provide a listing (may be partial based on latest updates) for re
 === "Security"
     |Example|Location|
     |---|---|
-    |Docker Swarm, remote device service via overlay network|[Github - Docker Swarm](https://github.com/edgexfoundry/edgex-examples/tree/v2.2.0/security/remote_devices/docker-swarm)|
-    |SSH Tunneling, remote device service via SSH tunneling|[Github - SSH Tunneling](https://github.com/edgexfoundry/edgex-examples/tree/v2.2.0/security/remote_devices/ssh-tunneling)|
-
-
+    |Docker Swarm, remote device service via overlay network|[Github - Docker Swarm](https://github.com/edgexfoundry/edgex-examples/tree/v2.1.0/security/remote_devices/docker-swarm)|
+    |SSH Tunneling, remote device service via SSH tunneling|[Github - SSH Tunneling](https://github.com/edgexfoundry/edgex-examples/tree/v2.1.0/security/remote_devices/ssh-tunneling)|
 
 !!! Warning
     Not all the examples in the EdgeX Examples repository are available for all EdgeX releases.  Check the documentation for details.

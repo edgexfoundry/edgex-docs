@@ -40,9 +40,9 @@ Note: "Configure the data flow" tutorial in the list below is a **new tutorial**
 - [EdgeX eKuiper Rules Engine Tutorial](https://github.com/lf-edge/ekuiper/blob/master/docs/en_US/edgex/edgex_rule_engine_tutorial.md): A 10-minute quick start tutorial, readers can refer to this article to start trying out the rules engine.
 - [Configure the data flow from EdgeX to eKuiper](https://github.com/lf-edge/ekuiper/blob/master/docs/en_US/edgex/edgex_source_tutorial.md):  a demonstrate on how to set up the various data flows from EdgeX to eKuiper.  Learn how to configure the source to adopt any kind of data flow.
 - [Control the device with the EdgeX eKuiper rules engine](https://github.com/lf-edge/ekuiper/blob/master/docs/en_US/edgex/edgex_rule_engine_command.md): This article describes how to use the eKuiper rule engine in EdgeX to control the device based on the analysis results.
-- Read [EdgeX Source](https://github.com/lf-edge/ekuiper/blob/master/docs/en_US/rules/sources/edgex.md) to get more detailed information, and type conversions.
+- Read [EdgeX Source](https://github.com/lf-edge/ekuiper/blob/master/docs/en_US/rules/sources/builtin/edgex.md) to get more detailed information, and type conversions.
 - [How to use the meta function to extract more information sent in the EdgeX message bus?](https://github.com/lf-edge/ekuiper/blob/master/docs/en_US/edgex/edgex_meta.md) When the device service sends data to the bus, some additional information is also sent, such as creation time and id. If you want to use this information in SQL statements, please refer to this article.
-- [EdgeX Message Bus Sink](https://github.com/lf-edge/ekuiper/blob/master/docs/en_US/rules/sinks/edgex.md): The document describes how to use EdgeX message bus sink. If you'd like to have your analysis result consumed by other EdgeX services, you can send analysis data with EdgeX data format through this sink, and other EdgeX services can subscribe new message bus exposed by eKuiper sink.
+- [EdgeX Message Bus Sink](https://github.com/lf-edge/ekuiper/blob/master/docs/en_US/rules/sinks/builtin/edgex.md): The document describes how to use EdgeX message bus sink. If you'd like to have your analysis result consumed by other EdgeX services, you can send analysis data with EdgeX data format through this sink, and other EdgeX services can subscribe new message bus exposed by eKuiper sink.
 
 !!! Info
   The eKuiper tutorials and documentation are available in both [English](https://github.com/lf-edge/ekuiper/tree/master/docs/en_US/edgex) and [Chinese](https://github.com/lf-edge/ekuiper/tree/master/docs/zh_CN/edgex).
@@ -50,4 +50,4 @@ Note: "Configure the data flow" tutorial in the list below is a **new tutorial**
 For more information on the LF Edge eKuiper project, please refer to the following resources.
 
 - [eKuiper Github Code library](https://github.com/lf-edge/ekuiper/)
-- [eKuiper Reference](https://github.com/lf-edge/ekuiper/blob/master/docs/en_US/reference.md)
+- [eKuiper Reference](https://github.com/lf-edge/ekuiper/blob/master/docs/en_US/README.md)
