@@ -5,7 +5,7 @@ This UCR describes the Use Case for Extending of Device Data by Application Serv
 - Tom Brennan (Eaton)
 
 ## Change Log
-- [pending](https://github.com/edgexfoundry/edgex-docs/pull/845) (2022-09-12)
+- [pending](https://github.com/edgexfoundry/edgex-docs/pull/845) (2022-09-27)
 
 
 ### Market Segments
@@ -66,8 +66,8 @@ Resources to their owning Service (ie, so core-command could be used to manage t
 added and managed by an upper-level service, such as an analytics, utility, or north-bound service.
 2. The services which extend the device resources must manage the data for those extended resources on a per device instance basis.
 3. Core-command must know to direct requests for these extended resources to the upper-level service that manages them.
-4. The "Extended" Device Resources will extend all instances of the (south-bound) Device; the south-bound Device may be 
-extended by Resources from multiple upper-level services.
+4. The "Extended" Device Resources will extend all instances of the (south-bound) Device; 
+the south-bound Device may be extended by Resources from multiple upper-level services.
 5. Some service or other means must ensure that all extended resources are uniquely named; 
 that is, no service can add a resource with an existing resource name.
 
