@@ -6,7 +6,7 @@ beyond the protocol properties currently used exclusively for matching in Provis
 - Tom Brennan (Eaton)
 
 ## Change Log
-- [pending](https://github.com/edgexfoundry/edgex-docs/pull/806) (2022-08-30)
+- [approved](https://github.com/edgexfoundry/edgex-docs/pull/806) (2022-09-27)
 
 
 ### Market Segments
