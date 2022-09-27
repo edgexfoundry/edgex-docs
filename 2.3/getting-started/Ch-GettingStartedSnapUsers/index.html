@@ -3614,7 +3614,11 @@ The API Gateway proxies external requests to internal services.
 Since disabling the Secret Store also disables the API Gateway, the service endpoint will no longer be accessible from other systems.
 They will be still accessible on the local machine for demonstration and testing.</p>
 <p>If you really need to make an insecure service accessible remotely, set the bind address of the service to the IP address of that networking interface on the local machine. If you trust all your interfaces and want the services to accept connections from all, set it to <code>0.0.0.0</code>.</p>
-<p>After disabling the Secret Store, the external services should be configured such that they don't attempt to initialize the security. For this purpose, <a href="../../microservices/configuration/CommonEnvironmentVariables/#edgex_security_secret_store">EDGEX_SECURITY_SECRET_STORE</a> should be set to false, using the corresponding snap option: <code>config.edgex-security-secret-store</code>.</p>
+<p>After disabling the Secret Store, the external services should be configured such that they don't attempt to initialize the security. For this purpose, <a href="../../microservices/configuration/CommonEnvironmentVariables/#edgex_security_secret_store">EDGEX_SECURITY_SECRET_STORE</a> should be set to false, using the corresponding snap option: <code>config.edgex-security-secret-store</code>.
+For example, to disable it on the EdgeX UI snap:
+<div class="highlight"><pre><span></span><code>sudo snap <span class="nb">set</span> edgex-ui config.edgex-security-secret-store<span class="o">=</span><span class="nb">false</span>
+sudo snap start edgex-ui <span class="c1"># restart if the service has already started</span>
+</code></pre></div></p>
 <h3 id="managing-services">Managing services</h3>
 <p>The services of a snap can be started/stopped/restarted using the snap CLI.
 When starting/stopping, you can additionally set them to enable/disable which configures whether or not the service should also start on boot.</p>
@@ -3865,20 +3869,21 @@ sudo snap restart edgexfoundry.kong-daemon
 <h3 id="edgex-ui">EdgeX UI</h3>
 <p>| <a href="https://snapcraft.io/edgex-ui">Installation</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/edgex-ui-go/tree/main/snap">Source</a> |</p>
 <p>For usage instructions, please refer to the <a href="../tools/Ch-GUI/">Graphical User Interface (GUI)</a> guide.</p>
-<p>By default, the UI is reachable locally at:
+<p>The service is <strong>not started</strong> by default. Please refer to <a href="#configuration">configuration</a> and <a href="#managing-services">managing services</a>.</p>
+<p>Once started, the UI will be reachable locally and by default at:
 <a href="http://localhost:4000">http://localhost:4000</a></p>
-<p>A valid JWT token is required to access the UI; follow <a href="#adding-api-gateway-users">Adding API Gateway users</a> steps to generate a token.</p>
-<p>To enable all the functionalities of the UI, the following support services should be running:</p>
+<p>A valid JWT token is required to access the UI; follow <a href="#adding-api-gateway-users">Adding API Gateway users</a> steps to generate a token.
+In development environments, the UI access control can be disabled as described in <a href="#disabling-security">disabling security</a>.</p>
+<p>To enable all the functionalities of the UI, the following services should be running:</p>
 <ul>
 <li>Support Scheduler</li>
 <li>Support Notifications</li>
-<li>System Management Agent</li>
 <li><a href="#edgex-ekuiper">EdgeX eKuiper</a></li>
+<li>System Management Agent (deprecated)</li>
 </ul>
-<p>For example, to start/install all:
+<p>For example, to start/install the support services:
 <div class="highlight"><pre><span></span><code>sudo snap start edgexfoundry.support-scheduler
 sudo snap start edgexfoundry.support-notifications
-sudo snap start edgexfoundry.sys-mgmt-agent
 sudo snap install edgex-ekuiper
 </code></pre></div></p>
 <h3 id="edgex-cli">EdgeX CLI</h3>
