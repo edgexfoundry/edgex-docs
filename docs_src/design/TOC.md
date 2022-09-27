@@ -8,6 +8,7 @@
 | Name/Link                                                                 | Short Description                                             |
 |---------------------------------------------------------------------------|---------------------------------------------------------------|
 | [Device Parent-Child Relationships](./ucr/Device-Parent-Child-Relationships.md) | Use Case for Device Parent-Child Relationships |
+| [Provision Watch via Device Metadata](./ucr/Provision-Watch-via-Device-Metadata.md) | Use Case for Provision Watching via Additional Device Metadata |
 | [Record and Replay](./ucr/Record-and-Replay.md)    | Use Case for Recording and Replaying event/readings     |
 | [System Events for Devices](./ucr/System-Events-for-Devices.md) | Use Case for System Events for Device add/update/delete |
 
