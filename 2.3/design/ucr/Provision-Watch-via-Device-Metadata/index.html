@@ -12,14 +12,14 @@
         <meta name="author" content="Michael Johanson">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/design/adr/0018-Service-Registry/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/design/ucr/Provision-Watch-via-Device-Metadata/">
       
       <link rel="icon" href="../../../assets/logo_edgex.png">
       <meta name="generator" content="mkdocs-1.4.0, mkdocs-material-8.5.3">
     
     
       
-        <title>Service Registry - EdgeX Foundry Documentation</title>
+        <title>Provision Watch via Device Metadata - EdgeX Foundry Documentation</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#service-registry" class="md-skip">
+        <a href="#provision-watch-via-device-metadata" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Service Registry
+              Provision Watch via Device Metadata
             
           </span>
         </div>
@@ -2924,8 +2924,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -2934,64 +2932,16 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#status" class="md-nav__link">
-    Status
+  <a href="#provision-watch-via-device-metadata" class="md-nav__link">
+    Provision Watch via Device Metadata
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#context" class="md-nav__link">
-    Context
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#existing-behavior" class="md-nav__link">
-    Existing Behavior
-  </a>
-  
-    <nav class="md-nav" aria-label="Existing Behavior">
+    <nav class="md-nav" aria-label="Provision Watch via Device Metadata">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#device-services" class="md-nav__link">
-    Device Services
-  </a>
-  
-    <nav class="md-nav" aria-label="Device Services">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#registry-client-interface-usage" class="md-nav__link">
-    Registry Client Interface Usage
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    Summary
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#core-and-support-services" class="md-nav__link">
-    Core and Support Services
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#security-proxy-setup" class="md-nav__link">
-    Security Proxy Setup
+  <a href="#submitters" class="md-nav__link">
+    Submitters
   </a>
   
 </li>
@@ -3002,37 +2952,78 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#history" class="md-nav__link">
-    History
+  <a href="#change-log" class="md-nav__link">
+    Change Log
+  </a>
+  
+    <nav class="md-nav" aria-label="Change Log">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#market-segments" class="md-nav__link">
+    Market Segments
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#problem-statement" class="md-nav__link">
-    Problem Statement
+        
+          <li class="md-nav__item">
+  <a href="#motivation" class="md-nav__link">
+    Motivation
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#decision" class="md-nav__link">
-    Decision
+        
+          <li class="md-nav__item">
+  <a href="#target-users" class="md-nav__link">
+    Target Users
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#consquences" class="md-nav__link">
-    Consquences
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
+  <a href="#extensions" class="md-nav__link">
+    Extensions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#existing-solutions" class="md-nav__link">
+    Existing solutions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-related-issues" class="md-nav__link">
+    Other Related Issues
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#references" class="md-nav__link">
     References
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -3050,181 +3041,107 @@
                 
                   
 
-  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/design/adr/0018-Service-Registry.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/design/ucr/Provision-Watch-via-Device-Metadata.md" title="Edit this page" class="md-content__button md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
-<h1 id="service-registry">Service Registry</h1>
-<!--ts-->
+  <h1>Provision Watch via Device Metadata</h1>
 
+<h2 id="provision-watch-via-device-metadata">Provision Watch via Device Metadata</h2>
+<p>This UCR describes the Use Case for Provision Watching via Additional Device Metadata,
+beyond the protocol properties currently used exclusively for matching in Provision Watchers.</p>
+<h3 id="submitters">Submitters</h3>
 <ul>
-<li><a href="#status">Status</a></li>
-<li><a href="#context">Context</a></li>
-<li><a href="#existing-behavior">Existing Behavior</a></li>
-<li><a href="#device-services">Device Services</a><ul>
-<li><a href="#registry-client-interface-usage">Registry Client Interface Usage</a></li>
+<li>Tom Brennan (Eaton)</li>
+</ul>
+<h2 id="change-log">Change Log</h2>
+<ul>
+<li><a href="https://github.com/edgexfoundry/edgex-docs/pull/806">approved</a> (2022-09-27)</li>
+</ul>
+<h3 id="market-segments">Market Segments</h3>
+<p>Any that deploy EdgeX systems with south-bound Device Services where Provisioning is dependent on device data
+discovered in devices, not just their protocol properties.
+Any that deploy EdgeX systems with analytics, utility, or north-bound microservices that must "discover"
+Devices added to the EdgeX core-metadata by south-bound Device Services.</p>
+<h3 id="motivation">Motivation</h3>
+<p>The autodiscovery of Devices using Provision Watchers is a useful feature of Device Services; currently,
+the Provision Watcher implementation in the two Device SDKs uses only the protocol properties of a discovered
+Device to match against the "identifiers" specified in the Provision Watcher metadata. The 
+implementations use regular expression matching against the "identifiers", and also filter out any 
+Devices whose protocol properties match the "blockingIdentifiers" of the Provision Watcher metadata.</p>
+<p>Provisioning for south-bound services today must have a strict knowledge of the devices that will be discovered,
+but some protocols (eg, BACnet) have discoverable device properties which can provide a further discrimination,
+for example, to use the device's modelName to determine which Device Profile should be applied to it.
+We would like that the metadata from the Device (not necessarily from core-metadata, but properties of the Device) 
+can be selected to match for provisioning, and not limit the property names to a fixed set of properties.</p>
+<p>We are finding that <a href="https://github.com/edgexfoundry/edgex-docs/pull/809">Hybrid App-Device Services</a> <em>later (./Hybrid-App-Device-Services.md)</em> also want to 
+use Provision Watchers, so that they can be configured at run-time to work with new Devices, but these 
+do not need or want to match the protocol properties of a Device; instead, they want to match or exclude
+based on Device instance metadata properties such as the "modelName", "profileName", "name", and "labels".</p>
+<p>This UCR describes the Use Case for using these additional properties for Provision Watching.</p>
+<h3 id="target-users">Target Users</h3>
+<ul>
+<li>Product Developers</li>
+<li>Device Owner</li>
+<li>Device User</li>
+<li>Device Maintainer</li>
+<li>Cloud User</li>
+<li>Service Provider</li>
+<li>Software Integrator</li>
+</ul>
+<h3 id="description">Description</h3>
+<p>Application Services using the Device SDKs (ie, Hybrid App-Device Services) can take advantage of the
+Provision Watching feature and APIs to "discover" new EdgeX devices from the south-bound Device 
+Services, match them to app-specific Device Profiles, and handle their data with analysis or transforms.</p>
+<p>A south-bound Device Service may discover devices across a range of protocol properties, and those devices may need different
+Device Profiles depending upon metadata properties of the discovered devices, for example, the ModelName field of BACnet data. 
+While the "modelName" is an obvious target, the Device Service may want to use other device metadata for Provisioning 
+as well for inclusion or exclusion.</p>
+<p>For another example, consider the case where each of three Hybrid App-Device Services (a Trending Service, an Alarm Monitoring Service, and a Cloud Service) want to handle the data originating in a south-bound
+Modbus service for any "Watt-o-Meter" (Model Name) Device. So each service is configured with a Provision Watcher that will try to match that "modelName", or else "profileName" of "Watt-o-Meter-Modbus-Profile-01", of devices discovered in core-metadata
+or shown as added via the control plane events and, if a match is found, add a new "extended" Device to each service using the appropriate Device Profile (eg, "Watt-o-Meter-Trends-Profile-01" for the Trending Service), and giving the new extended Device a name, for example based on the original and the service (eg, "Meter-333-Trending").</p>
+<h3 id="extensions">Extensions</h3>
+<p>Other Device metadata properties appear to be good candidates for a user to choose from:
+- name: The Device name may be good for regular expression matching, eg "name":"Meter-*"
+- labels: Since this one is free-form and open to the owner to add labels of their choosing, 
+this one should be good for both matching and the exclusion list. 
+Eg, if a Device had "labels": "meter, basement, energy", then it could be matched or excluded for "labels":"basement".
+- serial number: with regular expressions, this can be a powerful matching choice.
+- MAC address: similar to serial number for a specific range of vendor devices.</p>
+<p>The Device Service which discovers the Device will probably want to permit specific metadata properties to be used.</p>
+<h3 id="existing-solutions">Existing solutions</h3>
+<p>In EdgeX today, as noted, Provision Watchers match only the protocol properties, using regular expression matching and excluding. The example given for the REST API is a good one:
+<div class="highlight"><pre><span></span><code><span class="nt">&quot;identifiers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;port&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3[0-9]{2}&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="p">},</span><span class="w"></span>
+</code></pre></div>
+Note its use of regular expression matching for the port number. </p>
+<h3 id="requirements">Requirements</h3>
+<ol>
+<li>Standard EdgeX means exists for the Provision Watcher to match or exclude based on other Device metadata properties besides the protocol properties. For example, but not limited to:<ul>
+<li>"profileName" (for an existing device)</li>
+<li>"modelName" (as discovered in the device data)</li>
+<li>"name"</li>
+<li>"labels"</li>
 </ul>
 </li>
-<li><a href="#core-and-support-services">Core and Support Services</a></li>
-<li><a href="#security-proxy-setup">Security Proxy Setup</a></li>
-<li><a href="#history">History</a></li>
-<li><a href="#problem-statement">Problem Statement</a></li>
-<li><a href="#decision">Decision</a></li>
-<li><a href="#references">References</a></li>
-</ul>
-<!--te-->
-
-<h2 id="status">Status</h2>
-<p><strong>Approved</strong> (by TSC vote on 3/25/21)</p>
-<h2 id="context">Context</h2>
-<p>An EdgeX system may be run with an optional service registry, the use of which (see the related ADR 0001-Registry-Refactor [1]) can be controlled
-on a per-service basis via the <code>-r/-registry</code> commmand line options. For the purposes of this ADR, a base assumption is that the registry has been
-enabled for all services. The default service registry used by EdgeX is Consul [2] from Hashicorp. Consul is also the default configuration provider
-for EdgeX.</p>
-<p>This ADR is meant to address the current usage of the registry by EdgeX services, and in particular whether the EdgeX services
-are using the registry to determine the location of peer services vs. using static per-service configuration.
-The reason this is being investigated is that there has been a proposal that EdgeX do away with the registry functionality, as the
-current implementation is not considered <em>secure</em>, due to the current configuration of Consul as used by the latest version of EdgeX
-(Hanoi/1.3.0).</p>
-<p>According to the original Service Name Design document (v6) [3] written during the California (0.6) release of EdgeX, all EdgeX Foundry microservices
-should be able to accomplish the following tasks:</p>
+<li>Support regular expression matching for these matching and exclusion patterns.</li>
+<li>This provisioning can be applied by both devices discovered by south-bound services and by analytics or north-bound
+services using devices already added to EdgeX core-metadata.</li>
+<li>Similar to the existing "identifiers" and "blockingidentifiers" for Provisioning, the matching and excluding patterns will be given as key-value pairs.</li>
+<li>Provide means for south-bound Device Services to choose and use whatever fields of Device Metadata are appropriate to the Service, ie, not limited to a fixed set of key names or just the Device properties in core-metadata; for example, the Service might use serial number or MAC address data coming from the Device.</li>
+</ol>
+<h3 id="other-related-issues">Other Related Issues</h3>
 <ul>
-<li>Register with the configuration/registration (referred to simply as “the registry” for the rest of this document) provider (today Consul)</li>
-<li>Respond to availability requests</li>
-<li>Respond to shutdown requests by:</li>
-<li>Cleaning up resources in an orderly fashion</li>
-<li>Unregistering itself from the registry</li>
-<li><em>Get the address (host &amp; port) of another EdgeX microservice by service name through the registry (when enabled)</em></li>
+<li>Related to Use Case for describing a hybrid of App and Device Services <a href="https://github.com/edgexfoundry/edgex-docs/pull/809">Hybrid App-Device Services</a> <em>later (./Hybrid-App-Device-Services.md)</em> .</li>
 </ul>
-<p>The purpose of this design is to ensure that services themselves advertise their location to the rest of the system by first self-
-registering. Most service registries (including Consul) implement some sort of health check mechanism. If a service is failing one
-or more health checks, the registry will stop reporting its availability when queried.</p>
-<p><em>Note</em> - the design specifically excludes device services from this service lookup, as Core Metadata maintains a persistent store of
-DeviceService objects which provide service location for device services.</p>
-<h2 id="existing-behavior">Existing Behavior</h2>
-<p>This section documents the existing behavior in the Hanoi (1.3.x) version of EdgeX.</p>
-<h3 id="device-services">Device Services</h3>
-<p>Device Virtual's behavior was first tested using the edgexfoundry snap (which is configured to always use the registry) by doing the following:</p>
-<p>$ sudo snap install edgexfoundry
-$ cp /var/snap/edgexfoundry/current/config/device-virtual/res/configuration.toml .</p>
-<p>I edited the file, removing the <code>[Client.Data]</code> section completely and copied the
-file back into place. Next I enabled device-virtual while monitoring the journal output.</p>
-<div class="highlight"><pre><span></span><code>$ sudo cp configuration.toml /var/snap/edgexfoundry/current/config/device-virtual/res/
-$ sudo snap set edgexfoundry device-virtual=on
-</code></pre></div>
-<p>The following error was seen in the journal:</p>
-<div class="highlight"><pre><span></span><code>level=INFO app=device-virtual source=httpserver.go:94 msg=&quot;Web server starting (0.0.0.0:49990)&quot;
-error: fatal error; Host setting for Core Data client not configured
-</code></pre></div>
-<p>Next I followed the same steps, but instead of completely removing the client, I instead set the client ports to invalid
-values. In this case the service logged the following errors and exited:</p>
-<div class="highlight"><pre><span></span><code>level=ERROR app=device-virtual source=service.go:149 msg=&quot;DeviceServicForName failed: Get \&quot;http://localhost:3112/api/v1/deviceservice/name/device-virtual\&quot;: dial tcp 127.0.0.1:3112: connect: connection refused&quot;
-level=ERROR app=device-virtual source=init.go:45 msg=&quot;Couldn&#39;t register to metadata service: Get \&quot;http://localhost:3112/api/v1/deviceservice/name/device-virtual\&quot;: dial tcp 127.0.0.1:3112: connect: connection refused\n&quot;
-</code></pre></div>
-<p><strong>Note</strong> - in order to run this second test, the easiest way to do so is to remove and reinstall the snap vs. manually wiping
-out device-virtual's configuration in Consul. I could have also stopped the service, modified the configuration directly in Consul,
-and restarted the service.</p>
-<h4 id="registry-client-interface-usage">Registry Client Interface Usage</h4>
-<p>Next the service's usage of the go-mod-registry <code>Client</code> interface was examined:</p>
-<div class="highlight"><pre><span></span><code>type Client interface {
-        // Registers the current service with Registry for discover and health check
-        Register() error
-
-        // Un-registers the current service with Registry for discover and health check
-        Unregister() error
-
-        // Simply checks if Registry is up and running at the configured URL
-        IsAlive() bool
-
-        // Gets the service endpoint information for the target ID from the Registry
-        GetServiceEndpoint(serviceId string) (types.ServiceEndpoint, error)
-
-        // Checks with the Registry if the target service is available, i.e. registered and healthy
-        IsServiceAvailable(serviceId string) (bool, error)
-}
-</code></pre></div>
-<h4 id="summary">Summary</h4>
-<p>If a device service is started with the registry flag set:</p>
+<h3 id="references">References</h3>
 <ul>
-<li>Both Device SDKs register with the registry on startup, and unregister from the registry on normal shutdown.</li>
-<li>The Go SDK (device-sdk-go) queries the registry to check dependent service availability and health (via <code>IsServiceAvailable</code>) on startup. Regardless of the registry setting, the Go SDK always sources the addresses of its dependent services from the Client* configuration stanzas.</li>
-<li>The C SDK queries the registry for the addresses of its dependent services. It pings the services directly to determine their availbility and health.</li>
-</ul>
-<h3 id="core-and-support-services">Core and Support Services</h3>
-<p>The same approach was used for Core and Support services (i.e. reviewing the usage of go-mod-bootstrap's <code>Client</code> interface), and ironically,
-the SMA seems to be the only service in edgex-go that actually queries the registry for service location:</p>
-<div class="highlight"><pre><span></span><code>./internal/system/agent/getconfig/executor.go:      ep, err := e.registryClient.GetServiceEndpoint(serviceName)
-./internal/system/agent/direct/metrics.go:      e, err := m.registryClient.GetServiceEndpoint(serviceName)
-</code></pre></div>
-<p>In summary, other than the SMA's configuration and metrics logic, the Core and Support services behave in the same manner as device-sdk-go.</p>
-<p><strong>Note</strong> - the SMA also has a longstanding issue <a href="https://github.com/edgexfoundry/edgex-go/issues/2486">#2486</a> where it continuousy logs errors if one (or more) of the Support Services are not running. As described in the issue, this could be avoided if the SMA used the registry to determine if the services were actually available. See related issue <a href="https://github.com/edgexfoundry/edgex-go/issues/1662">#1662</a> ('Look at Driving "Default Services List" via Configuration').</p>
-<h3 id="security-proxy-setup">Security Proxy Setup</h3>
-<p>The security-proxy-setup service also relies on static service address configuration to configure the server routes for each
-of the services accessible through the API Gateway (aka Kong). Although it uses the same TOML-based client config keys as the
-other services, these configuration values are only ever read from the security-proxy-setup's local configuration.toml file,
-as the security services have never supported using our configuration provider (aka Consul).</p>
-<p><strong>Note</strong> - Another point worth mentioning with respect to security services is that in the Geneva and Hanoi releases the service health checks
-registered by the services (and the associated <code>IsServiceAvailable</code> method) are used to orchestrate the ordered startup of the security
-services via a set of Consul scripts. This additional orchestration is only performed when EdgeX is deployed via docker, and is slated to
-to be removed as part of the Ireland release.</p>
-<h2 id="history">History</h2>
-<p>After a bit of research reaching as far back as the California (0.6.1) release of EdgeX, I've managed to piece together why the
-current implementation works the way it does. This history focues solely on the core and support services.</p>
-<p>The California release of EdgeX was released in June of 2018 and was the first to include services written using Go. This version
-of EdgeX as well as versions through the Fuji release all relied on a bootstrapping service called core-config-seed which was
-responsible for seeding the configuration of all of the core and support services into Consul prior to any of the services being
-started.</p>
-<p>This release actually preceded usage of TOML for configuration files, and instead just used a flat key/value format,
-with keys converted from legacy Java property names (e.g. meta.db.device.url ) to Camel[Pascal]/Case (e.g. MetaDeviceServiceURL).</p>
-<p>I chose the config key mentioned above on purpose:</p>
-<div class="highlight"><pre><span></span><code>MetaDeviceURL = &quot;http://edgex-core-metadata:48081/api/v1/device&quot;
-</code></pre></div>
-<p>Not only did this config key provide the address of core metadata, it also provided the path of a specific REST endpoint. In later releases
-of EdgeX, the address of the service and the specific endpoint paths were de-coupled. Instead of following the Service Name design (which
-was finalized two months earlier), the initial implementation followed the legacy Java implementation and initialized its service clients
-for each required REST endpoint (belonging to another EdgeX service) directly from the associated *URL config key read from Consul (if
-enabled) or directly from the configuration file.</p>
-<p>The shared client initialization code also created an Endpoint monitor goroutine and passed it a go channel channel used by the service
-to receive updates to the REST API endpoint URL. This monitor goroutine effectively polled Consul every 15s (this became configurable in
-later versions) for the client's service address and if a change was detected, would write the updated endpoint URL to the given channel,
-effectively ensuring that the service started using the new URL.</p>
-<p>It wasn't till late in the Geneva development cycle that I noticed log messages which made me aware of the fact that every one of our
-services was making a REST call to check the address of a service endpoint every 15s, for <strong>every</strong> REST endpoint it used! An issue was
-filed (https://github.com/edgexfoundry/edgex-go/issues/2594), and the client monitoring was removed as part of the Geneva 1.2.1 release.</p>
-<h2 id="problem-statement">Problem Statement</h2>
-<p>The fundamental problem with the existing implementations (as decribed above), is that there is too much duplication of configuration across
-services. For instance, Core Data's service port can easily be changed by passing the environment variable SERVICE_PORT to the service on
-startup. This overrides the configuration read from the configuration provider, and will cause Core Data to listen on the new port,
-however it has no impact on any services which use Core Data, as the client config for each is read from the configuration provider (excluding
-security-proxy-setup).</p>
-<p>This means in order to change a service port, environment variable overrides (e.g. CLIENTS_COREDARA_PORT) need to set for every client service as well as security-proxy-setup (if required).</p>
-<h2 id="decision">Decision</h2>
-<p>Update the core, support, and security-proxy-setup services to use go-mod-registry's <code>Client.GetServiceEndpoint</code> method (if started with the
-<code>--registry</code> option) to determine (a) if a service dependency is available and (b) use the returned address information to initialize client endpoints
-(or setup the correct route in the case of proxy-setup). The same changes also need to be applied to the App Functions SDK and Go Device SDK, with
-only minor changes required in the C Device SDK (see previous commments re: the current implementation).</p>
-<p><strong>Note</strong> - this design only works if service registration occurs <em>before</em> the service initializes its clients. For instance, Core Data and Core Metadata
-both depend on the other, and thus if both defer service registration till after client initialization, neither will be able to successfully lookup
-the address of the other service.</p>
-<h2 id="consquences">Consquences</h2>
-<p>One impact of this decision is that since the security-proxy-setup service currently runs <em>before</em> any of the core and support services are
-started, it would not be possible to implement this proposal without also modifying the service to use a lazy initialization of the API Gateway's
-routes. As such, the implementation of this ADR will require more design work with respect to security-proxy-setup. Some of the issues include:</p>
-<ul>
-<li>Splitting the configuration of the API Gateway from the service route intialization logic, either by making the service long-running or splitting
-    route initialization into it's own service.</li>
-<li>Handling registry and non-registry scenarios (i.e. add <code>--registry</code> command-line support to security-proxy-setup).</li>
-<li>Handling changes to service address information (i.e. dynamically update API Gateway routes if/when service addresses change).</li>
-<li>Finally the proxy-setup's configuration needs to be updated so that its <code>Route</code> entries use service-keys instead of arbitrary names (e.g.
-    (<code>Route.core-data</code> vs. <code>Route.CoreData</code>).</li>
-</ul>
-<h2 id="references">References</h2>
-<ul>
-<li>[1] <a href="https://github.com/edgexfoundry/edgex-docs/blob/master/docs_src/design/adr/0001-Registy-Refactor.md">ADR 0001-Registry-Refactor</a></li>
-<li>[2] <a href="https://github.com/hashicorp/consul">Consul</a></li>
-<li>[3] <a href="https://wiki.edgexfoundry.org/display/FA/Architecture+Issues+and+Decisions?preview=%2F7602423%2F12124493%2FServiceNameDesign-v6.pdf">Service Name Design v6</a></li>
+<li><a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/2.2.0#/default/post_provisionwatcher">Add Provision Watcher API</a>, with examples and schema</li>
+<li><a href="https://github.com/edgexfoundry/edgex-docs/pull/809">Hybrid App-Device Services</a> <em>later (./ucr/Hybrid-App-Device-Services.md)</em></li>
 </ul>
 
 
