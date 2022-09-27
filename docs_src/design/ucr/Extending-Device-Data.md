@@ -41,7 +41,8 @@ Picture the extremely simple case of a south-bound sensor device that just measu
 - An Alarming service that needs Device Resources to describe the Alarm Rules used to monitor Temperature and Humidity, plus a device-level InAlarm status.
 - A Cloud service that reports not just the Temperature and Humidity but also their Trend configuration and Alarm Rule Resources. In addition, the Cloud service adds its own Resources to direct the Cadence with which this Device's data is reported.
 
-Now scale this up to 100 such Temperature/Humidity sensors, and it grows difficult to match all of the free-standing 
+Now scale this up to 100 such Temperature/Humidity sensors, and, if not using extended devices as described here, 
+it would grow difficult to match all of the free-standing (unassociated)
 Resources to their original sensor data. And add the requirement that all these resources must be able to be seen 
 and managed locally via REST or Message Bus, and potentially from north-bound services like Modbus/TCP, and from 
 the Cloud (because everybody wants to control everything from the Cloud). 
@@ -67,6 +68,8 @@ added and managed by an upper-level service, such as an analytics, utility, or n
 3. Core-command must know to direct requests for these extended resources to the upper-level service that manages them.
 4. The "Extended" Device Resources will extend all instances of the (south-bound) Device; the south-bound Device may be 
 extended by Resources from multiple upper-level services.
+5. Some service or other means must ensure that all extended resources are uniquely named; 
+that is, no service can add a resource with an existing resource name.
 
 Not a requirement: means of using or combining Resources from multiple south-bound Devices into one Extended Resource.
 
