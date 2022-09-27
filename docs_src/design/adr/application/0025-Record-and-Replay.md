@@ -13,7 +13,7 @@
 This design involves creating a new Application Service that is responsible for the requirements in the above referenced UCR. This new Application Service will go above and beyond that of a normal Application Service,  thus it is architecturally significant.
 
 ## Proposed Design
-A new Application Service will be created with a RESTful API to handle the Record, Replay, Export and Import capabilities. The service will not create or start a Functions Pipeline on start-up as normally done in Application Services. It will wait until the Record request has been received. Once the recording is complete the Functions Pipeline will be stopped. There will be a very rudimentary HTML page to serve as UI to access this service RESTful API.
+A new Application Service will be created with a RESTful API to handle the Record, Replay, Export and Import capabilities. The service will not create or start a Functions Pipeline on start-up as normally done in Application Services. It will wait until the Record request has been received. Once the recording is complete the Functions Pipeline will be stopped. 
 
 !!! note
     Application Services do not receive data when the Functions Pipelines are stopped.
