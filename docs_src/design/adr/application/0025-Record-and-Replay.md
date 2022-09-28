@@ -130,12 +130,14 @@ The request handler will receive the file as a [Recorded Data DTO](#recorded-dat
     Import will overwrite any previous recorded data.
 
 ## Considerations
-- Only one recorded data set is available for replay.
+- The above design is for a crawl implementation. Walk/run level enhancements can be added one the is usage and feedback .
+- Only one recorded data set may be held in memory for replay, recorded or imported.
 - The whole data set is replayed. Can not specify to replay data for specific Devices within the larger data set.
 - Wait times simulating rate of Events published will not be perfect since dependent on non-Realtime OS.
+- Using a CLI approach rather than RESTful API has been suggested. This approach doesn't fit well with the App SDK as it has support for RESTfull APIs but nothing for CLI. The above design depends on many of the App SDK features. Thus implementing a CLI would be much more complex then a RESTfull API.
 
 ## Decision
-Implement this design as outlined above
+Implement this design as outlined above using a RESTful API
 
 ## Other Related ADRs
 - None
