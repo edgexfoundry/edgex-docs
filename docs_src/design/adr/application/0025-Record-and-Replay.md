@@ -20,6 +20,8 @@ A new Application Service will be created with a RESTful API to handle the Recor
 
 ### Record Endpoint
 
+#### POST
+
 This `POST` API will start recording data as specified in the [request Data Transfer Object (DTO)](#record-request-dto) defined below. The request handler will validate the DTO and then create a new Functions Pipeline and [Start the Functions Pipeline](https://docs.edgexfoundry.org/2.3/microservices/application/ApplicationServiceAPI/#makeitrun) to process incoming data. 
 
 The Functions Pipeline will contain the following pipeline functions in the following order
@@ -33,33 +35,39 @@ The async  function receiving the data will first [stop the Functions Pipeline](
 !!! note
     Starting a new recording will overwrite any previous recorded data.
 
-#### Record Request DTO
+##### Record Request DTO
 
-##### Duration
+###### Duration
 
 Time duration in which to record data. Required if **Event Limit** is not specified.
 
-##### Event Limit 
+###### Event Limit 
 
 Maximum number `Events` to record. Required if **Duration** is not specified
 
-##### Include Device Profile Names 
+###### Include Device Profile Names 
 
 Optional list of Device Profile Names to filter for
 
-##### Include Device Names
+###### Include Device Names
 
 Optional list of Device Names to filter for
 
-##### Exclude Device Profile Names
+###### Exclude Device Profile Names
 
 Optional list of Device Profile Names to filter out
 
-##### Exclude Device Names
+###### Exclude Device Names
 
 Optional list of Device Names to filter out
 
+#### DELETE
+
+The `DELETE` API will cancel current in progress recording. An error is returned if a recording is not in progress.
+
 ### Replay endpoint
+
+#### POST
 
 This `POST` API will start replaying the recorded data as specified in the [request Data Transfer Object (DTO)](#replay-request-dto) defined below. The request handler will validate the DTO and that the appropriate Device Profiles and Devices from the data exist. It will then start an async Go function to handle the replay so the request doesn't timeout on long replays. 
 
@@ -74,37 +82,45 @@ Once the first event is published the replay function will calculate the wait ti
 
 The replay function will repeat publishing the recorded data per the `Repeat Count` in from the DTO. 
 
-#### Replay Request DTO
+##### Replay Request DTO
 
-##### Replay Rate
+###### Replay Rate
 
 Required rate at which to replay the data compared to the rate the data was recorded. Float value greater than 0 where 1 is the same rate, less than 1 is slower rate and greater than 1 is faster rate than the rate the data was recorded. 
 
-##### Repeat Count
+###### Repeat Count
 
 Optional count of number of times to repeat the replay. Default is 1 if not specified or value is 0.
 
+#### DELETE
+
+This `DELETE` API will cancel current in progress replay. An error is returned if a replay is not in progress.
+
 ### Download endpoint (Export)
+
+#### GET
 
 This `GET` API will request that the previously recorded data be exported as a file download. It will accept an optional query parameter to specify compression (NONE, ZIP or GZIP). An error is returned if no data has been recorded or invalid compression type requested.
 
 The file content will be the [Recorded Data DTO](#recorded-data-dto) as define below. The request handler will build the DTO described below by extracting the recorded `Events` from in-memory storage, pulling the referenced `Device Profiles` and `Devices` from Core Metadata using the names from in-memory storage. The file extension used will be `.json`, `.zip` or `.gzip` depending on the compression selected.
 
-#### Recorded Data DTO
+##### Recorded Data DTO
 
-##### Events
+###### Events
 
 List of `Events` (with `Readings`) that were recorded
 
-##### Device Profiles
+###### Device Profiles
 
 List of `Device Profiles` (complete profiles) that are referenced in the recorded `Events` 
 
-##### Devices
+###### Devices
 
 List of `Device defintions` that are referenced in the recorded `Events` 
 
 ### Upload endpoint (Import)
+
+#### POST
 
 This `POST` API will upload previously exported recorded data file. It will accept an optional Boolean query parameter to specify to **not** overwrite existing Device Profiles and/or Devices if they already exist. Default is to overwrite existing with those captured with the recorded data.
 
