@@ -445,14 +445,14 @@ You can follow the instructions from the [getting started](../../getting-started
 
 In this chapter, we demonstrated how to build an image that is pre-loaded with some EdgeX snaps. We then connected into a (virtual) machine instantiated with the image, verified the setup and performed additional steps to interactively start and configure the services.
 
-In the next chapter, we walk you through creating an image that comes pre-loaded with this configuration, so it boots into a working EdgeX environment that even includes your public key and user.
+In the next chapter, we walk you through creating an image that comes pre-loaded with this configuration, so it boots into a working EdgeX environment that even includes your EdgeX public key and user.
 
 ## B. Override basic configurations
     
 In this chapter, we will improve our OS image so that:
 
 - We don't need to manually start EdgeX Device Virtual
-- We have our public key inside the image and can securely access the endpoint via API Gateway.
+- We have our EdgeX public key inside the image and can securely access the service endpoints via API Gateway
 
 ### Create key pair and JWT token
 Create a private/public key pair:
@@ -503,7 +503,7 @@ JWT_SIGNATURE=`echo -n "$JWT_HEADER.$JWT_PAYLOAD" | openssl dgst -sha256 -binary
 TOKEN=$JWT_HEADER.$JWT_PAYLOAD.$JWT_SIGNATURE
 
 echo $TOKEN > admin-jwt.txt
-echo "Wrote token to admin-jwt.txt:"
+echo "Token written to admin-jwt.txt:"
 echo "$TOKEN"
 ```
 
@@ -519,10 +519,10 @@ Payload: {
     "nbf":1660314677,
     "exp":1660401077
 }
-Wrote token to admin-jwt.txt:
+Token written to admin-jwt.txt:
 eyAiYWxnIjogIkVTMjU2IiwgInR5cCI6ICJKV1QiIH0.eyAiaXNzIjoiMSIsICJpYXQiOjE2NjAzMTQ2NzcsICJuYmYiOjE2NjAzMTQ2NzcsICJleHAiOjE2NjA0MDEwNzcgfQ.giBrf2UQjMRATBXZnJ-6B3dJQbeoVjfjlVhsjCtbjJBYBjJ8_qZW_s2YPZs3fWSpMWUVTX05Jsj1Xg4wnlQrGA
 ```
-The token is printed and also written to `admin-jwt.txt`. We'll use this token in the next steps to access API Gateway securely. Note that the token is valid for a pre-defined period.
+The token is printed and also written to `admin-jwt.txt`. We'll use this token in the next steps to access API Gateway securely. Note that the token is valid for a pre-defined period (see `TTL` in the script).
 
 ### Setup defaults using a Gadget snap
 Setting up default options for snaps is possible with the gadget snap. 
@@ -663,7 +663,7 @@ curl --insecure --silent --show-err https://localhost:8443/core-data/api/v2/read
 The response is similar to if query was sent directly to Core Data (http://localhost:59880/api/v2/reading/all?limit=2), except that it was done over TLS and with authentication. We didn't need to bind the Core Data's server to other interfaces or expose its port to outside.
 
 !!! tip
-    EdgeX's API Gateway internally generated a self-signed TLS certificate. The system doesn't trust that certificate and that's why we set the `--insecure` flag for curl.
+    EdgeX's API Gateway internally generated a self-signed TLS certificate. The system doesn't trust that certificate and that's why we set the `--insecure` flag for cURL.
 
     Refer [here](../../getting-started/Ch-GettingStartedSnapUsers/#changing-tls-certificates) to learn how you can replace the certificate with one that your system trusts.
 
@@ -687,11 +687,11 @@ This chapter builds on top of what we did previously and shows how to override e
 The EdgeX Device Virtual service cannot be fully configured using environment variables / snap options. Because of that, we need to package the modified config files and replace the defaults.
 Moreover, it is tedious to override many configurations one by one, compared to having a file which contains all the needed modifications.
 
-Since we want to create an OS image pre-loaded with the configured system, we need to make sure the configurations are there without any manual user interaction. We do that by creating a snap which provides the configuration files to the Device Virtual snap:
+Since we want to create an OS image pre-loaded with the configured system, we need to make sure the configurations are there without any manual user interaction. We do that by creating a snap which provides the configuration files/directories to the Device Virtual snap:
 
 - configuration.toml
-- devices
-- profiles
+- devices/
+- profiles/
 
 For this exercise, we will modify the default configurations and remove most default devices and resources. We will also replace the startup message set in the `configuration.toml` file.
 
@@ -723,7 +723,7 @@ We need it in the next step.
 
 We have to make three adaptations:
 
-1) Remove config overrides from the gadget and re-build it
+1) Remove the Device Virtual config overrides from the gadget and re-build it
 
 Commented out (or remove):
 ```yaml title="gadget.yaml"
