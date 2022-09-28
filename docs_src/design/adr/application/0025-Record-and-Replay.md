@@ -10,7 +10,7 @@
 - [Record and Replay UCR](https://docs.edgexfoundry.org/2.3/design/ucr/Record-and-Replay/)
 
 ## Context
-This design involves creating a new Application Service that is responsible for the requirements in the above referenced UCR. This new Application Service will go above and beyond that of a normal Application Service,  thus it is architecturally significant.
+This design involves creating a new Application Service that is responsible for the requirements in the above referenced UCR. This ADR is create as a means of formal design review.
 
 ## Proposed Design
 A new Application Service will be created with a RESTful API to handle the Record, Replay, Export and Import capabilities. The service will not create or start a Functions Pipeline on start-up as normally done in Application Services. It will wait until the Record request has been received. Once the recording is complete the Functions Pipeline will be stopped. 
@@ -22,7 +22,7 @@ A new Application Service will be created with a RESTful API to handle the Recor
 
 #### POST
 
-This `POST` API will start recording data as specified in the [request Data Transfer Object (DTO)](#record-request-dto) defined below. The request handler will validate the DTO and then create a new Functions Pipeline and [Start the Functions Pipeline](https://docs.edgexfoundry.org/2.3/microservices/application/ApplicationServiceAPI/#makeitrun) to process incoming data. 
+This `POST` API will start recording data as specified in the [request Data Transfer Object (DTO)](#record-request-dto) defined below. The request handler will validate the DTO and then create a new Functions Pipeline and [Start the Functions Pipeline](https://docs.edgexfoundry.org/2.3/microservices/application/ApplicationServiceAPI/#makeitrun) to process incoming data. An error is retuned if a recording is already in progress.
 
 The Functions Pipeline will contain the following pipeline functions in the following order
 
@@ -69,7 +69,7 @@ The `DELETE` API will cancel current in progress recording. An error is returned
 
 #### POST
 
-This `POST` API will start replaying the recorded data as specified in the [request Data Transfer Object (DTO)](#replay-request-dto) defined below. The request handler will validate the DTO and that the appropriate Device Profiles and Devices from the data exist. It will then start an async Go function to handle the replay so the request doesn't timeout on long replays. 
+This `POST` API will start replaying the recorded data as specified in the [request Data Transfer Object (DTO)](#replay-request-dto) defined below. An error is retuned is there is already a replay session in progress. The request handler will validate the DTO and that the appropriate Device Profiles and Devices from the data exist. It will then start an async Go function to handle the replay so the request doesn't timeout on long replays. 
 
 The replay async Go function will use the [Background Publishing](https://docs.edgexfoundry.org/2.3/microservices/application/AdvancedTopics/#background-publishing) capability to send the recorded Events to the EdgeX MessageBus using the same publish topic scheme used by Device Services, which is `edgex/events/device/<device-profile-name>/<device-name>/<source-name>`. The App SDK has the  [Publish Topic Placeholders](https://docs.edgexfoundry.org/2.3/microservices/application/Triggers/#publish-topic-placeholders) capability built-in to facilitate this. The data for these topics is available from the Event DTO. The timestamps in the Events and Readings published will be set to the current date/time. This requires a copy be made of the Event/Readings as they are published in order to not corrupt the original data.
 
@@ -90,7 +90,7 @@ Required rate at which to replay the data compared to the rate the data was reco
 
 ###### Repeat Count
 
-Optional count of number of times to repeat the replay. Default is 1 if not specified or value is 0.
+Optional count of number of times to repeat the replay. Defaults to 1 if not specified or is set to 0.
 
 #### DELETE
 
@@ -124,7 +124,7 @@ List of `Device defintions` that are referenced in the recorded `Events`
 
 This `POST` API will upload previously exported recorded data file. It will accept an optional Boolean query parameter to specify to **not** overwrite existing Device Profiles and/or Devices if they already exist. Default is to overwrite existing with those captured with the recorded data.
 
-The request handler will receive the file as a [Recorded Data DTO](#recorded-data-dto) described above and detect if it is compressed and un-compress the contents if needed before un-marshaling the JSON into the DTO. The compression will be determined based on the file extension. The `Event` data from the DTO will then be saved to the in-memory storage along with the Device Profile and Device Names. The `Device Profiles` and `Devices` will be pushed to Core Metadata if they don't exist or if overwrite is enabled.  
+The request handler will receive the file as a [Recorded Data DTO](#recorded-data-dto) described above and detect if it is compressed and un-compress the contents if needed before un-marshaling the JSON into the DTO. The compression will be determined based the ` Content-Encoding` from the request header. The `Event` data from the DTO will then be saved to the in-memory storage along with the Device Profile and Device Names. The `Device Profiles` and `Devices` will be pushed to Core Metadata if they don't exist or if overwrite is enabled.  
 
 !!! note
     Import will overwrite any previous recorded data.
