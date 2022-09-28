@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This guide walks you through creating an Ubuntu Core OS image that is preloaded with an EdgeX stack. We use Ubuntu Core as the Linux distribution because it is optimized for IoT and enforces secure deployment of applications out of the box. We build the image using the default tooling and the snapped versions of EdgeX components. The snaps receive automatic and transactional updates, and stay up-to-date reliably with the latest security and bug fixes.
+This guide walks you through creating an Ubuntu Core OS image that is preloaded with an EdgeX stack. We use [Ubuntu Core](https://ubuntu.com/core) as the Linux distribution because it is optimized for IoT and is secure by design. We configure the image and bundle the current snapped versions of EdgeX components. After the deployment the snaps will continue to receive updates for the latest security and bug fixes (depending on the selected channel).
 
 This guide is divided into three chapters to create:
 
@@ -29,13 +29,12 @@ We assume the following tools are installed on the desktop machine:
 
 It is a good idea to read through the [Getting Started using Snaps](../../getting-started/Ch-GettingStartedSnapUsers) before working on this walk-through or at any point to better understand the concepts.
 
-
 ## A. Create an image with EdgeX components
 
 In this chapter, we will create an OS image that includes the expected EdgeX components.
 
 ### Configure the Ubuntu Core volumes
-Configuring the volumes is possible via a Gadget snap.
+Configuring the volumes is possible via a [Gadget snap](https://snapcraft.io/docs/gadget-snap).
 
 We will use the [pc-amd64-gadget](https://github.com/snapcore/pc-amd64-gadget) as basis and build on top of it.
 
@@ -55,11 +54,14 @@ Snapped pc_20-0.4_amd64.snap
     You need to rebuild the snap every time you change the `gadget.yaml` file.
 
 ### Create an Ubuntu Core model assertion
-The model assertion is a document that describes the contents of the OS image. The document needs to be signed by its owner.
+The [model assertion](https://ubuntu.com/core/docs/reference/assertions/model) is a digitally signed document that describes the content of the OS image.
 
-Refer to [this article](https://ubuntu.com/core/docs/custom-images#heading--signing) for details on how to sign the model assertion.
+Refer to [this article](https://ubuntu.com/core/docs/custom-images#heading--signing) for details on how to sign the model assertion. Here are the needed steps:
 
-1) Create and register a key if you don't already have one:
+1) Create a developer account
+Follow the instructions [here](https://snapcraft.io/docs/creating-your-developer-account) to create a developer account, if you don't already have one.
+
+2) Create and register a key
 
 ```bash title="🖥 Desktop"
 snap login
@@ -71,7 +73,7 @@ snapcraft register-key edgex-demo
 ```
 We now have a registered key named `edgex-demo` which we'll use later.
 
-2) Now, create the model assertion.
+3) Create the model assertion
 
 First, make yourself familiar with the Ubuntu Core [model assertion](https://ubuntu.com/core/docs/reference/assertions/model).
 
@@ -83,9 +85,10 @@ developer-id: SZ4OfFv8DVM9om64iYrgojDLgbzI0eiL
 ```
 or from the [Snapcraft Dashboard](https://dashboard.snapcraft.io/dev/account/).
 
-Unlike the official documentation which uses JSON, we use YAML serialization for the model. This is for consistency with all the other serialization formats in this tutorial. Moreover, it allows us to comment out some parts for testing or add comments to describe the details inline.
+!!! info
+    Unlike the official documentation which uses JSON, we use YAML serialization for the model. This is for consistency with all the other serialization formats in this tutorial. Moreover, it allows us to comment out some parts for testing or add comments to describe the details inline.
 
-Create `model.yaml` with the following content:
+Create `model.yaml` with the following content, replacing `authority-id`, `brand-id`, and `timestamp`:
 ```yaml
 type: model
 series: '16'
@@ -143,7 +146,7 @@ snaps:
   id: AmKuVTOfsN0uEKsyJG34M8CaMfnIqxc0
 ```
 
-3) Sign the model
+4) Sign the model assertion
 
 We sign the model using the `edgex-demo` key created and registered earlier. 
 
@@ -192,7 +195,7 @@ $ file pc.img
 pc.img: DOS/MBR boot sector, extended partition table (last)
 ```
 
-The warning is because we side-loaded the gadget for demonstration purposes. In production settings, a custom gadget would need to be uploaded to the [store](https://ubuntu.com/internet-of-things/appstore) to also receive updates.
+The warning is because we side-loaded the gadget for demonstration purposes. In production settings, a custom gadget would need to be uploaded to the [IoT App Store](https://ubuntu.com/internet-of-things/appstore) to also receive updates.
 
 !!! note
     You need to repeat the build every time you change and sign the **model** or rebuild the **gadget**.
@@ -215,7 +218,7 @@ You can use one of following to flash the image:
 
 For instructions specific to a device, refer to Ubuntu Core section [here](https://ubuntu.com/download/iot); for example: [Intel NUC](https://ubuntu.com/download/intel-nuc).
 
-Once the boot is complete, it will prompt for the email address of your [Ubuntu SSO account](https://login.ubuntu.com/) to deploy your [SSH public keys](https://login.ubuntu.com/ssh-keys). This is done with the help of a program called `console-conf`. Read [here](https://ubuntu.com/core/docs/system-user) to know how this manual step looks like and how it can be automated.
+Once the boot is complete, it will prompt for the email address of your [Ubuntu SSO account](https://login.ubuntu.com/), create a user account in the OS and deploy your [SSH public keys](https://login.ubuntu.com/ssh-keys) as an authorized SSH keys for that user. This is done with the help of a program called `console-conf`. Read [here](https://ubuntu.com/core/docs/system-user) to know how this manual step looks like and how it can be automated.
 
 #### Run in an emulator
 Running the image in an emulator makes it easier to quickly try the image and find out possible issues.
