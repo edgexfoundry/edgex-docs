@@ -23,6 +23,8 @@ On the left side, the APIs are provided for other
 microservices, on-box applications, and off-box applications to use.  The APIs could be in REST, AMQP, MQTT, or any standard application
 protocols. 
 
+This diagram is drawn by [diagrams.net](https://app.diagrams.net/) with the source file [EdgeX_SupportingServicesAlertsArchitecture.xml](EdgeX_SupportingServicesAlertsArchitecture.xml)
+
 !!! Warning
     Currently in EdgeX Foundry, only the RESTful interface is provided.
 
