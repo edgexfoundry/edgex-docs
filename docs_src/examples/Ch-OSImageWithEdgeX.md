@@ -223,62 +223,11 @@ You can now flash the image on your disk and boot to start the installation.
 However, during development it is best to boot in an emulator to quickly detect and diagnose possible issues.
 
 Instead of flashing and installing the OS on actual hardware, we will continue this guide using an emulator. Every other step will be similar to when image is flashed and installed on actual hardware.
-#### Flash the image on disk
-For installation instructions specific to a device, refer to Ubuntu Core section in [this page](https://ubuntu.com/download/iot); for example: [Intel NUC](https://ubuntu.com/download/intel-nuc).
 
-In some cases, a precondition is to compress `pc.img`. This speeds up the transfer and makes the input file similar to official images.
+Refer to the following to:
 
-!!! warning
-    If you have used `pc.img` to install in QEMU, you need to rebuild a new copy before compressing.
-
-To compress with the lowest compression rate of zero:
-```bash title="🖥 Desktop"
-$ xz -vk -0 pc.img
-pc.img (1/1)
-  100 %     817.2 MiB / 3,309.0 MiB = 0.247    10 MiB/s       5:30             
-
-$ ls -lh pc.*
--rw-rw-r-- 1 ubuntu ubuntu 3.3G Sep 16 17:03 pc.img
--rw-rw-r-- 1 ubuntu ubuntu 818M Sep 16 17:03 pc.img.xz
-```
-
-Once the boot is complete, it will prompt for the email address of your [Ubuntu SSO account](https://login.ubuntu.com/), create a user account in the OS and deploy your [SSH public keys](https://login.ubuntu.com/ssh-keys) as an authorized SSH keys for that user. This is done with the help of a program called `console-conf`. Read [here](https://ubuntu.com/core/docs/system-user) to know how this manual step looks like and how it can be automated.
-
-#### Run in an emulator
-Running the image in an emulator makes it easier to quickly try the image and find out possible issues.
-
-We use a `amd64` QEMU emulator. You may refer to [Testing Ubuntu Core with QEMU](https://ubuntu.com/core/docs/testing-with-qemu) and [Image building](https://ubuntu.com/core/docs/image-building#heading--testing) for more information.
-
-Run the following command and wait for the boot to complete:
-```bash title="🖥 Desktop"
-sudo qemu-system-x86_64 \
- -smp 4 \
- -m 4096 \
- -drive file=/usr/share/OVMF/OVMF_CODE.fd,if=pflash,format=raw,unit=0,readonly=on \
- -drive file=pc.img,cache=none,format=raw,id=disk1,if=none \
- -device virtio-blk-pci,drive=disk1,bootindex=1 \
- -machine accel=kvm \
- -serial mon:stdio \
- -net nic,model=virtio \
- -net user,hostfwd=tcp::8022-:22,hostfwd=tcp::8443-:8443,hostfwd=tcp::59880-:59880
-```
-
-The above command forwards:
-
-- SSH port `22` of the emulator to `8022` on the host
-- API Gateway's port `8433` for external and secure access to EdgeX endpoints
-- Core Data's port `59880` for demonstration purposes in chapter A.
-
-As mentioned before, once the initial installation is complete, you will get a prompt for your email address to deploy your public key.
-
-!!! warning
-    The `pc.img` file passed to the emulator persists any changes made to the OS and user files after startup.
-    You can stop and re-start the emulator at a later time without losing your changes.
-
-    To do a fresh start or to flash this image on disk, your need to rebuild the image!
-
-!!! failure "Could not set up host forwarding rule 'tcp::8443-:8443'"
-    This means that the port 8443 is not available on the host. Try stopping the service that uses this port or change the host port (left hand side) to another port number, e.g. `tcp::18443-:8443`.
+- [Run in an emulator](#run-in-an-emulator) - used in this guide
+- [Flash the image on disk](#flash-the-image-on-disk)
 
 ### TRY IT OUT
 In this step, we connect to the machine that has the image installed over SSH, validate the installation, and do some manual configurations.
@@ -611,13 +560,11 @@ ubuntu-image snap model.signed.yaml --validation=enforce --snap pc-amd64-gadget/
 !!! done
     The image file is now ready to be flashed on a medium to create a bootable drive with the needed applications and basic configurations.
 
-### Boot into the OS
-Boot into the OS by:
-
-- [flashing the image on disk](#flash-the-image-on-disk) and installing the OS on a device, or
-- [running it in an emulator](#run-in-an-emulator)
-
 ### TRY IT OUT
+Refer to the following to:
+
+- [Run in an emulator](#run-in-an-emulator) - used in this guide
+- [Flash the image on disk](#flash-the-image-on-disk)
 
 This time, as set in the gadget defaults, Device Virtual is started by default and we have a user to securely interact with the API Gateway.
 
@@ -810,13 +757,11 @@ Fetching edgex-config-provider-example
 !!! done
     The image file is now ready to be flashed on a medium to create a bootable drive with the needed applications and custom configuration files.
 
-### Boot into the OS
-Boot into the OS by:
-
-- [flashing the image on disk](#flash-the-image-on-disk) and installing the OS on a device, or
-- [running it in an emulator](#run-in-an-emulator)
-
 ### TRY IT OUT
+Refer to the following to:
+
+- [Run in an emulator](#run-in-an-emulator) - used in this guide
+- [Flash the image on disk](#flash-the-image-on-disk)
 
 !!! info
     SSH to the machine and verify the installations:
@@ -884,6 +829,70 @@ curl --insecure --silent --show-err https://localhost:8443/core-data/api/v2/read
 }
 ```
 
+## Run in an emulator
+Running the image in an emulator makes it easier to quickly try the image and find out possible issues.
+
+We use a `amd64` QEMU emulator. You may refer to [Testing Ubuntu Core with QEMU](https://ubuntu.com/core/docs/testing-with-qemu) and [Image building](https://ubuntu.com/core/docs/image-building#heading--testing) for more information.
+
+!!! warning
+    The `pc.img` file passed to the emulator is used as the secondary storage. It persists any changes made to the partitions during the installation and any user modifications after the boot.
+    You can stop and re-start the emulator at a later time without losing your changes.
+
+    To do a fresh start or to flash this image on disk, your need to rebuild the image.
+    Alternatively, you can make a copy before using it in QEMU.
+
+Run the following command and wait for the boot to complete:
+```bash title="🖥 Desktop"
+sudo qemu-system-x86_64 \
+ -smp 4 \
+ -m 4096 \
+ -drive file=/usr/share/OVMF/OVMF_CODE.fd,if=pflash,format=raw,unit=0,readonly=on \
+ -drive file=pc.img,cache=none,format=raw,id=disk1,if=none \
+ -device virtio-blk-pci,drive=disk1,bootindex=1 \
+ -machine accel=kvm \
+ -serial mon:stdio \
+ -net nic,model=virtio \
+ -net user,hostfwd=tcp::8022-:22,hostfwd=tcp::8443-:8443,hostfwd=tcp::59880-:59880
+```
+
+The above command forwards:
+
+- SSH port `22` of the emulator to `8022` on the host
+- API Gateway's port `8433` for external and secure access to EdgeX endpoints
+- Core Data's port `59880` for demonstration purposes in chapter A.
+
+As mentioned before, once the initial installation is complete, you will get a prompt for your email address to deploy your public key.
+
+!!! failure "Could not set up host forwarding rule 'tcp::8443-:8443'"
+    This means that the port 8443 is not available on the host. Try stopping the service that uses this port or change the host port (left hand side) to another port number, e.g. `tcp::18443-:8443`.
+## Flash the image on disk
+!!! warning
+    If you have used `pc.img` to install in QEMU, the image has changed. You need to rebuild a new copy before continuing.
+
+The installation instructions are device specific. You may refer to Ubuntu Core section in [this page](https://ubuntu.com/download/iot). For example:
+
+- [Intel NUC](https://ubuntu.com/download/intel-nuc) - applicable to most computers with an attached secondary storage
+- [Raspberry Pi](https://ubuntu.com/download/raspberry-pi)
+
+A precondition to continue with some of the instructions is to compress `pc.img`. This speeds up the transfer and makes the input file similar to official images, improving compatibility with the available instructions.
+
+
+
+To compress with the lowest compression rate of zero:
+```bash title="🖥 Desktop"
+$ xz -vk -0 pc.img
+pc.img (1/1)
+  100 %     817.2 MiB / 3,309.0 MiB = 0.247    10 MiB/s       5:30             
+
+$ ls -lh pc.*
+-rw-rw-r-- 1 ubuntu ubuntu 3.3G Sep 16 17:03 pc.img
+-rw-rw-r-- 1 ubuntu ubuntu 818M Sep 16 17:03 pc.img.xz
+```
+A higher compression rate significantly increases the processing time and needed resources, with very little gain.
+
+Follow the device specific instructions.
+
+Once the boot is complete, it will prompt for the email address of your [Ubuntu SSO account](https://login.ubuntu.com/), create a user account in the OS and deploy your [SSH public keys](https://login.ubuntu.com/ssh-keys) as an authorized SSH keys for that user. This is done with the help of a program called `console-conf`. Read [here](https://ubuntu.com/core/docs/system-user) to know how this manual step looks like and how it can be automated.
 
 ## References
 - [Getting Started using Snaps](https://docs.edgexfoundry.org/2.2/getting-started/Ch-GettingStartedSnapUsers)
