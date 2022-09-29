@@ -27,23 +27,38 @@ We assume the following tools are installed on the desktop machine:
 - [YQ](https://snapcraft.io/yq) to validate YAML files and convert them to JSON
 - [ubuntu-image](https://snapcraft.io/ubuntu-image) to build the Ubuntu Core image
 
+Install them using the following commands:
+```bash title="🖥 Desktop"
+sudo snap install snapcraft --classic
+sudo snap install yq
+sudo snap install ubuntu-image --classic
+```
+
 It is a good idea to read through the [Getting Started using Snaps](../../getting-started/Ch-GettingStartedSnapUsers) before working on this walk-through or at any point to better understand the concepts.
 
 ## A. Create an image with EdgeX components
 
 In this chapter, we will create an OS image that includes the expected EdgeX components.
 
-### Configure the Ubuntu Core volumes
-Configuring the volumes is possible via a [Gadget snap](https://snapcraft.io/docs/gadget-snap).
+### Configure the Ubuntu Core partitions
+The configuration of the partitions is defined in the [Gadget snap](https://snapcraft.io/docs/gadget-snap).
 
-We will use the [pc-amd64-gadget](https://github.com/snapcore/pc-amd64-gadget) as basis and build on top of it.
+The [`pc` gadget](https://snapcraft.io/pc) is available as a prebuilt snap in the store, however, we need to build our own to extend the size of disk partitions to have sufficient capacity for our EdgeX snaps.
+
+We will use the source code for Core20 AMD64 gadget from [here](https://github.com/snapcore/pc-amd64-gadget/tree/20) as basis.
 
 !!! tip
     For a Raspberry Pi, you need to use the [pi-gadget](https://github.com/snapcore/pi-gadget) instead.
 
+Clone the branch and enter the directory:
+```bash title="🖥 Desktop"
+git clone https://github.com/snapcore/pc-amd64-gadget.git --branch=20
+cd pc-amd64-gadget
+```
+
 In `gadget.yml`: under `volumes.pc.structure`, find the item with name `ubuntu-seed` and increase its size to `1500M`. This is to make sure our seeded snaps fit in the partition.
 
-Build:
+Then, build the gadget snap:
 ```bash title="🖥 Desktop"
 $ snapcraft
 ...
@@ -204,19 +219,28 @@ The warning is because we side-loaded the gadget for demonstration purposes. In 
     The image file is now ready to be flashed on a medium to create a bootable drive with the needed applications!
 
 ### Boot into the OS
-
 You can now flash the image on your disk and boot to start the installation.
 However, during development it is best to boot in an emulator to quickly detect and diagnose possible issues.
 
 Instead of flashing and installing the OS on actual hardware, we will continue this guide using an emulator. Every other step will be similar to when image is flashed and installed on actual hardware.
 #### Flash the image on disk
-You can use one of following to flash the image:
+For installation instructions specific to a device, refer to Ubuntu Core section in [this page](https://ubuntu.com/download/iot); for example: [Intel NUC](https://ubuntu.com/download/intel-nuc).
 
-- [Ubuntu Startup Disk Creator](https://ubuntu.com/tutorials/create-a-usb-stick-on-ubuntu)
-- [Raspberry Pi Imager](https://www.raspberrypi.com/software/)
-- [`dd` command](https://ubuntu.com/download/iot/installation-media)
+In some cases, a precondition is to compress `pc.img`. This speeds up the transfer and makes the input file similar to official images.
 
-For instructions specific to a device, refer to Ubuntu Core section [here](https://ubuntu.com/download/iot); for example: [Intel NUC](https://ubuntu.com/download/intel-nuc).
+!!! warning
+    If you have used `pc.img` to install in QEMU, you need to rebuild a new copy before compressing.
+
+To compress with the lowest compression rate of zero:
+```bash title="🖥 Desktop"
+$ xz -vk -0 pc.img
+pc.img (1/1)
+  100 %     817.2 MiB / 3,309.0 MiB = 0.247    10 MiB/s       5:30             
+
+$ ls -lh pc.*
+-rw-rw-r-- 1 ubuntu ubuntu 3.3G Sep 16 17:03 pc.img
+-rw-rw-r-- 1 ubuntu ubuntu 818M Sep 16 17:03 pc.img.xz
+```
 
 Once the boot is complete, it will prompt for the email address of your [Ubuntu SSO account](https://login.ubuntu.com/), create a user account in the OS and deploy your [SSH public keys](https://login.ubuntu.com/ssh-keys) as an authorized SSH keys for that user. This is done with the help of a program called `console-conf`. Read [here](https://ubuntu.com/core/docs/system-user) to know how this manual step looks like and how it can be automated.
 
@@ -247,16 +271,14 @@ The above command forwards:
 
 As mentioned before, once the initial installation is complete, you will get a prompt for your email address to deploy your public key.
 
-!!! tip
+!!! warning
     The `pc.img` file passed to the emulator persists any changes made to the OS and user files after startup.
     You can stop and re-start the emulator at a later time without losing your changes.
 
-    To do a fresh start, your need to rebuild the image.
+    To do a fresh start or to flash this image on disk, your need to rebuild the image!
 
-!!! failure
-    > Could not set up host forwarding rule 'tcp::8443-:8443'
-
-    This means that the port is not available on the host. Try removing the service that uses this port or change the host port (left hand side) to another port number, e.g. `tcp::18443-:8443`.
+!!! failure "Could not set up host forwarding rule 'tcp::8443-:8443'"
+    This means that the port 8443 is not available on the host. Try stopping the service that uses this port or change the host port (left hand side) to another port number, e.g. `tcp::18443-:8443`.
 
 ### TRY IT OUT
 In this step, we connect to the machine that has the image installed over SSH, validate the installation, and do some manual configurations.
