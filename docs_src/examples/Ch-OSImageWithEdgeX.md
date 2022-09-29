@@ -1,8 +1,7 @@
 # Creating an EdgeX OS Image
 
 ## Introduction
-
-This guide walks you through creating an Ubuntu Core OS image that is preloaded with an EdgeX stack. We use [Ubuntu Core](https://ubuntu.com/core) as the Linux distribution because it is optimized for IoT and is secure by design. We configure the image and bundle the current snapped versions of EdgeX components. After the deployment the snaps will continue to receive updates for the latest security and bug fixes (depending on the selected channel).
+This guide walks you through creating an Ubuntu Core OS image that is preloaded with an EdgeX stack. We use [Ubuntu Core](https://ubuntu.com/core/docs) as the Linux distribution because it is optimized for IoT and is secure by design. We configure the image and bundle the current snapped versions of EdgeX components. After the deployment the snaps will continue to receive updates for the latest security and bug fixes (depending on the selected channel).
 
 This guide is divided into three chapters to create:
 
@@ -34,7 +33,10 @@ sudo snap install yq
 sudo snap install ubuntu-image --classic
 ```
 
-It is a good idea to read through the [Getting Started using Snaps](../../getting-started/Ch-GettingStartedSnapUsers) before working on this walk-through or at any point to better understand the concepts.
+Before we start, it is a good idea to read through the following documents:
+
+- [Inside Ubuntu Core](https://ubuntu.com/core/docs/uc20/inside) to get familiar with the Ubuntu core internals
+- [Getting Started using Snaps](../../getting-started/Ch-GettingStartedSnapUsers) to understand general EdgeX snap concepts
 
 ## A. Create an image with EdgeX components
 
@@ -74,6 +76,7 @@ The [model assertion](https://ubuntu.com/core/docs/reference/assertions/model) i
 Refer to [this article](https://ubuntu.com/core/docs/custom-images#heading--signing) for details on how to sign the model assertion. Here are the needed steps:
 
 1) Create a developer account
+
 Follow the instructions [here](https://snapcraft.io/docs/creating-your-developer-account) to create a developer account, if you don't already have one.
 
 2) Create and register a key
@@ -832,7 +835,7 @@ curl --insecure --silent --show-err https://localhost:8443/core-data/api/v2/read
 ## Run in an emulator
 Running the image in an emulator makes it easier to quickly try the image and find out possible issues.
 
-We use a `amd64` QEMU emulator. You may refer to [Testing Ubuntu Core with QEMU](https://ubuntu.com/core/docs/testing-with-qemu) and [Image building](https://ubuntu.com/core/docs/image-building#heading--testing) for more information.
+We use a `amd64` QEMU emulator. Refer to [Testing Ubuntu Core with QEMU](https://ubuntu.com/core/docs/testing-with-qemu) to setup the dependencies and learn about the various emulation options. Here, we provide the command to run without TPM emulation.
 
 !!! warning
     The `pc.img` file passed to the emulator is used as the secondary storage. It persists any changes made to the partitions during the installation and any user modifications after the boot.
@@ -861,10 +864,12 @@ The above command forwards:
 - API Gateway's port `8433` for external and secure access to EdgeX endpoints
 - Core Data's port `59880` for demonstration purposes in chapter A.
 
-As mentioned before, once the initial installation is complete, you will get a prompt for your email address to deploy your public key.
-
 !!! failure "Could not set up host forwarding rule 'tcp::8443-:8443'"
     This means that the port 8443 is not available on the host. Try stopping the service that uses this port or change the host port (left hand side) to another port number, e.g. `tcp::18443-:8443`.
+    
+!!! success
+    Once the installation is complete, you'll see the initialization interface; Refer [here](#initialization) for details.
+
 ## Flash the image on disk
 !!! warning
     If you have used `pc.img` to install in QEMU, the image has changed. You need to rebuild a new copy before continuing.
@@ -875,8 +880,6 @@ The installation instructions are device specific. You may refer to Ubuntu Core 
 - [Raspberry Pi](https://ubuntu.com/download/raspberry-pi)
 
 A precondition to continue with some of the instructions is to compress `pc.img`. This speeds up the transfer and makes the input file similar to official images, improving compatibility with the available instructions.
-
-
 
 To compress with the lowest compression rate of zero:
 ```bash title="🖥 Desktop"
@@ -892,17 +895,21 @@ A higher compression rate significantly increases the processing time and needed
 
 Follow the device specific instructions.
 
-Once the boot is complete, it will prompt for the email address of your [Ubuntu SSO account](https://login.ubuntu.com/), create a user account in the OS and deploy your [SSH public keys](https://login.ubuntu.com/ssh-keys) as an authorized SSH keys for that user. This is done with the help of a program called `console-conf`. Read [here](https://ubuntu.com/core/docs/system-user) to know how this manual step looks like and how it can be automated.
+!!! success
+    You may refer [here](#initialization) for the initialization steps appearing by default.
+
+## Initialization
+Once the installation is complete, you will see the interface of the `console-conf` program. It will walk you through the networking and user account setup. You'll need to enter the email address of your Ubuntu account to create a OS user account with your registered username and have your SSH public keys deployed as authorized SSH keys for that user.
+If you haven't done so, follow the instructions [here](https://snapcraft.io/docs/creating-your-developer-account) to add your SSH keys before doing this setup.
+
+Read [here](https://ubuntu.com/core/docs/system-user) to know how the manual account setup looks like and how it can be automated.
 
 ## References
 - [Getting Started using Snaps](https://docs.edgexfoundry.org/2.2/getting-started/Ch-GettingStartedSnapUsers)
 - [EdgeX Core Data](https://docs.edgexfoundry.org/2.2/microservices/core/data/Ch-CoreData/)
+- [Inside Ubuntu Core](https://ubuntu.com/core/docs/uc20/inside)
 - [Gadget snaps](https://snapcraft.io/docs/gadget-snap)
-- [Ubuntu Core]
 - [Testing Ubuntu Core with QEMU](https://ubuntu.com/core/docs/testing-with-qemu)
 - [Ubuntu Core - Image building](https://ubuntu.com/core/docs/image-building#heading--testing)
 - [Ubuntu Core - Custom images](https://ubuntu.com/core/docs/custom-images)
 - [Ubuntu Core - Building a gadget snap](https://ubuntu.com/core/docs/gadget-building)
-
-
-[Ubuntu Core]: https://ubuntu.com/core
