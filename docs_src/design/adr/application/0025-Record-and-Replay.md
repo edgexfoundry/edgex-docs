@@ -130,14 +130,16 @@ The request handler will receive the file as a [Recorded Data DTO](#recorded-dat
     Import will overwrite any previous recorded data.
 
 ## Considerations
-- The above design is for a crawl implementation. Walk/run level enhancements can be added one the is usage and feedback .
+- The above design is for a crawl implementation. Walk/run level enhancements can be added once there is usage and feedback. One obvious area would be the storage for the recorded data. 
 - Only one recorded data set may be held in memory for replay, recorded or imported.
 - The whole data set is replayed. Can not specify to replay data for specific Devices within the larger data set.
 - Wait times simulating rate of Events published will not be perfect since dependent on non-Realtime OS.
 - Using a CLI approach rather than RESTful API has been suggested. This approach doesn't fit well with the App SDK as it has support for RESTfull APIs but nothing for CLI. The above design depends on many of the App SDK features. Thus implementing a CLI would be much more complex then a RESTfull API.
+- The EdgeX CLI could be updated in the future to make the RESTful API calls to this service as it does for the other EdgeX services
+- The EdgeX UI could be updated in the future to have a tab for controlling this service as it does for the other EdgeX services
 
 ## Decision
-Implement this design as outlined above using a RESTful API
+Implement this design as outlined above using a RESTful API and in-memory storage
 
 ## Other Related ADRs
 - None
