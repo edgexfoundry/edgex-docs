@@ -33,6 +33,7 @@ type DeviceServiceSDK interface {
 	ListenForCustomConfigChanges(configToWatch interface{}, sectionName string, changedCallback func(interface{})) error
 	GetLoggingClient() logger.LoggingClient
 	GetSecretProvider() interfaces.SecretProvider
+    GetMetricsManager() interfaces.MetricsManager
 	DriverConfigs() map[string]string
 	SetDeviceOpState(name string, state models.OperatingState) error
 }
@@ -269,6 +270,12 @@ This API returns the `LoggingClient` used to log messages.
 `GetSecretProvider() interfaces.SecretProvider`
 
 This API returns the SecretProvider used to get/save the service secrets. See [Secret Provider API](../../../../security/Ch-SecretProviderApi/) section for more details.
+
+#### GetMetricsManager 
+
+`GetMetricsManager () interfaces.MetricsManager`
+
+This API returns the MetricsManager used to register custom service metrics. See [Service Metrics](../../../general/#service-metrics) for more details
 
 #### Stop 
 

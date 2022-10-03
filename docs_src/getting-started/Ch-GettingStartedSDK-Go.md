@@ -264,6 +264,67 @@ See the [Device MQTT Service](https://github.com/edgexfoundry/device-mqtt-go/tre
 - [See here for custom section on the configuration.toml file](https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/cmd/res/configuration.toml#L86-L108)
 - [See here for loading, validating and watching the configuration](https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/internal/driver/driver.go#L54-L69)
 
+## Custom Device Service Metrics
+
+!!! edgey "EdgeX 2.3"
+    Custom Device Service Metrics are new in EdgeX 2.3, but currently only for the **Go SDK**
+
+The Custom Device Service Metrics capability allows for custom device services to define, collect and report their own custom service metrics.
+
+ The following are the steps to collect and report custom service metrics:
+
+1. Determine the metric type that needs to be collected
+    - `counter` - Track the integer count of something
+    - `gauge` - Track the integer value of something  
+    - `gaugeFloat64` - Track the float64 value of something 
+    - `timer` - Track the time it takes to accomplish a task
+    - `histogram` - Track the integer value variance of something
+
+2. Create instance of the metric type from `github.com/rcrowley/go-metrics`
+    - `myCounter = gometrics.NewCounter()`
+    - `myGauge = gometrics.NewGauge()`
+    - `myGaugeFloat64 = gometrics.NewGaugeFloat64()`
+    - `myTimer = gometrics.NewTime()`
+    - `myHistogram = gometrics.NewHistogram(gometrics.NewUniformSample(<reservoir size))`
+
+3. Determine if there are any tags to report along with your metric. Not common so `nil` is typically passed for the `tags map[strings]string` parameter in the next step.
+
+4. Register your metric(s) with the MetricsManager from the `sdk`reference. See [Device SDK API](../../microservices/device/sdk/SDK-Go-API/#getmetricsmanager) for more details:
+
+   - `service.MetricsManager().Register("MyCounterName", myCounter, nil)`
+
+5. Collect the metric
+    - `myCounter.Inc(someIntvalue)`
+    - `myCounter.Dec(someIntvalue)`
+    - `myGauge.Update(someIntvalue)`
+    - `myGaugeFloat64.Update(someFloatvalue)`
+    - `myTimer.Update(someDuration)`
+    - `myTimer.Time(func { do sometime})`
+   - `myTimer.UpdateSince(someTimeValue)`
+    - `myHistogram.Update(someIntvalue)`
+
+6. Configure reporting of the service's metrics. See `Writable.Telemetry` configuration details in the [Common Configuration](../../microservices/configuration/CommonConfiguration/) section for more detail.
+
+   !!! example "Example - Service Telemetry Configuration"
+       ```toml
+         [Writable.Telemetry]
+         Interval = "30s"
+         PublishTopicPrefix  = "edgex/telemetry" # /<service-name>/<metric-name> will be added to this Publish Topic prefix
+           [Writable.Telemetry.Metrics] # All service's metric names must be present in this list.
+           MyCounterName = true
+           MyGaugeName = true
+           MyGaugeFloat64Name = true
+           MyTimerName = true
+           MyHistogram = true
+       ```
+
+           [Writable.Telemetry.Tags] # Contains the service level tags to be attached to all the service's metrics
+       #    Gateway="my-iot-gateway" # Tag must be added here or via Consul Env Override can only change existing value, not added new ones.
+       ```
+
+   !!! note
+       The metric names used in the above configuration (to enable or disable reporting of a metric) must match the metric name used when the metric is registered. A partial match of starts with is acceptable, i.e. the metric name registered starts with the above configured name.
+
 ## Retrieving Secrets
 
 The Go Device SDK provides the `SecretProvider.GetSecret()` API to retrieve the Device Services secrets.  See the [Device MQTT Service](https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/internal/driver/config.go#L114) for an example of using the `SecretProvider.GetSecret()` API. Note that this code implements a retry loop allowing time for the secret(s) to be push into the service's `SecretStore` via the /secret endpoint. See [Storing Secrets](../../microservices/device/Ch-DeviceServices/#storing-secrets) section for more details.  
