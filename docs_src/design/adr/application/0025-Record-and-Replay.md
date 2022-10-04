@@ -65,6 +65,24 @@ Optional list of Device Names to filter out
 
 The `DELETE` API will cancel current in progress recording. An error is returned if a recording is not in progress.
 
+#### **GET**
+
+This `GET` API will return the status of Record. If Record is not active the status will be for the last Record session that was run. The API response will be the following DTO:
+
+##### Record Status DTO 
+
+###### Running
+
+Boolean indicating if Record is in progress or not.
+
+###### Event Count
+
+Count of Events that have been captured.  0 if not running and no past Record has been run.
+
+###### Duration
+
+Duration that the recording has been active.  0 if not running and no past Record has been run.
+
 ### Replay endpoint
 
 #### POST
@@ -95,6 +113,28 @@ Optional count of number of times to repeat the replay. Defaults to 1 if not spe
 #### DELETE
 
 This `DELETE` API will cancel current in progress replay. An error is returned if a replay is not in progress.
+
+#### GET
+
+This `GET` API will return the status of Replay. If Replay is not active the status will be for the last Replay that was run. The API response will be the following DTO:
+
+##### Replay Status DTO 
+
+###### Running
+
+Boolean indicating if a Replay is in progress or not
+
+###### Event Count
+
+Count of Events that have been replayed. 0 if not running and no past Replay has been run.
+
+###### Duration
+
+Duration that the Replay has been active. 0 if not running and no past Replay has been run.
+
+###### Repeat Count
+
+Count of repeats. Value indicates the Replay in progress or competed. 0 if not running and no past Replay has been run. 
 
 ### Download endpoint (Export)
 
