@@ -264,14 +264,14 @@ See the [Device MQTT Service](https://github.com/edgexfoundry/device-mqtt-go/tre
 - [See here for custom section on the configuration.toml file](https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/cmd/res/configuration.toml#L86-L108)
 - [See here for loading, validating and watching the configuration](https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/internal/driver/driver.go#L54-L69)
 
-## Custom Device Service Metrics
+## Device Service Metrics
 
 !!! edgey "EdgeX 2.3"
-    Custom Device Service Metrics are new in EdgeX 2.3, but currently only for the **Go SDK**
+    Device Service Metrics are new in EdgeX 2.3, but currently only for the **Go SDK**
 
-The Custom Device Service Metrics capability allows for custom device services to define, collect and report their own custom service metrics.
+The Device Service Metrics capability allows for device service developers to define, collect and report their own service metrics beyond the common service metrics supplied by the Device SDK. Currently the Device SDK does not implement any of the planned common service metrics. When it does a link to that documentation will be added here.
 
- The following are the steps to collect and report custom service metrics:
+ The following are the steps to collect and report service metrics:
 
 1. Determine the metric type that needs to be collected
     - `counter` - Track the integer count of something
@@ -300,7 +300,7 @@ The Custom Device Service Metrics capability allows for custom device services t
     - `myGaugeFloat64.Update(someFloatvalue)`
     - `myTimer.Update(someDuration)`
     - `myTimer.Time(func { do sometime})`
-   - `myTimer.UpdateSince(someTimeValue)`
+    - `myTimer.UpdateSince(someTimeValue)`
     - `myHistogram.Update(someIntvalue)`
 
 6. Configure reporting of the service's metrics. See `Writable.Telemetry` configuration details in the [Common Configuration](../../microservices/configuration/CommonConfiguration/) section for more detail.
