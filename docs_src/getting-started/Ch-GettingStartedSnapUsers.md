@@ -120,7 +120,8 @@ snap set edgexfoundry apps.core-data.config.service-port=8080
 
 The services load the set config options on startup. If the service has already started, a restart is necessary to load them.
 
-#### Disabling security
+#### Common configuration examples
+##### Disabling security
 [disabling security]: #disabling-security
 
 !!! Warning
@@ -147,6 +148,22 @@ For example, to disable it on the EdgeX UI snap:
 ```bash
 sudo snap set edgex-ui config.edgex-security-secret-store=false
 sudo snap start edgex-ui # restart if the service has already started
+```
+
+##### Using MQTT message bus
+The default message bus for EdgeX services is Redis Pub/Sub. If you prefer to use MQTT instead of Redis, change the [message bus configurations](../../microservices/general/messagebus/#configuration-changes) using snap options:
+```bash
+# edgexfoundry 
+snap set edgexfoundry config.messagequeue-protocol="mqtt"
+snap set edgexfoundry config.messagequeue-port=1883
+snap set edgexfoundry config.messagequeue-type="mqtt"
+snap set edgexfoundry config.messagequeue-authmode="none"
+
+# device service
+sudo snap set edgex-device-virtual config.messagequeue-protocol="mqtt"
+sudo snap set edgex-device-virtual config.messagequeue-port=1883
+sudo snap set edgex-device-virtual config.messagequeue-type="mqtt"
+sudo snap set edgex-device-virtual config.messagequeue-authmode="none"
 ```
 
 ### Managing services
