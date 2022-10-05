@@ -151,20 +151,21 @@ sudo snap start edgex-ui # restart if the service has already started
 ```
 
 ##### Using MQTT message bus
-The default message bus for EdgeX services is Redis Pub/Sub. If you prefer to use MQTT instead of Redis, change the [message bus configurations](../../microservices/general/messagebus/#configuration-changes) using snap options:
-```bash
-# edgexfoundry 
-snap set edgexfoundry config.messagequeue-protocol="mqtt"
-snap set edgexfoundry config.messagequeue-port=1883
-snap set edgexfoundry config.messagequeue-type="mqtt"
-snap set edgexfoundry config.messagequeue-authmode="none"
+The default message bus for EdgeX services is Redis Pub/Sub. If you prefer to use MQTT instead of Redis, change the [message bus configurations](../../microservices/general/messagebus/#configuration-changes) using snap options.
 
-# device service
-sudo snap set edgex-device-virtual config.messagequeue-protocol="mqtt"
-sudo snap set edgex-device-virtual config.messagequeue-port=1883
-sudo snap set edgex-device-virtual config.messagequeue-type="mqtt"
-sudo snap set edgex-device-virtual config.messagequeue-authmode="none"
-```
+!!! example
+    To switch to MQTT message bus for all core services (inside the platform snap) and the Device Virtual using snap options, set the following:
+    ```bash
+    snap set edgexfoundry config.messagequeue-protocol="mqtt"
+    snap set edgexfoundry config.messagequeue-port=1883
+    snap set edgexfoundry config.messagequeue-type="mqtt"
+    snap set edgexfoundry config.messagequeue-authmode="none"
+
+    sudo snap set edgex-device-virtual config.messagequeue-protocol="mqtt"
+    sudo snap set edgex-device-virtual config.messagequeue-port=1883
+    sudo snap set edgex-device-virtual config.messagequeue-type="mqtt"
+    sudo snap set edgex-device-virtual config.messagequeue-authmode="none"
+    ```
 
 ### Managing services
 [managing services]: #managing-services
