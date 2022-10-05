@@ -922,6 +922,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#device-service-metrics" class="md-nav__link">
+    Device Service Metrics
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#retrieving-secrets" class="md-nav__link">
     Retrieving Secrets
   </a>
@@ -3189,6 +3196,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#device-service-metrics" class="md-nav__link">
+    Device Service Metrics
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#retrieving-secrets" class="md-nav__link">
     Retrieving Secrets
   </a>
@@ -3484,6 +3498,78 @@ the request if validation failed.</p>
 <li><a href="https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/cmd/res/configuration.toml#L86-L108">See here for custom section on the configuration.toml file</a></li>
 <li><a href="https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/internal/driver/driver.go#L54-L69">See here for loading, validating and watching the configuration</a></li>
 </ul>
+<h2 id="device-service-metrics">Device Service Metrics</h2>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 2.3</p>
+<p>Device Service Metrics are new in EdgeX 2.3, but currently only for the <strong>Go SDK</strong></p>
+</div>
+<p>The Device Service Metrics capability allows for device service developers to define, collect and report their own service metrics beyond the common service metrics supplied by the Device SDK. Currently the Device SDK does not implement any of the planned common service metrics. When it does a link to that documentation will be added here.</p>
+<p>The following are the steps to collect and report service metrics:</p>
+<ol>
+<li>
+<p>Determine the metric type that needs to be collected</p>
+<ul>
+<li><code>counter</code> - Track the integer count of something</li>
+<li><code>gauge</code> - Track the integer value of something  </li>
+<li><code>gaugeFloat64</code> - Track the float64 value of something </li>
+<li><code>timer</code> - Track the time it takes to accomplish a task</li>
+<li><code>histogram</code> - Track the integer value variance of something</li>
+</ul>
+</li>
+<li>
+<p>Create instance of the metric type from <code>github.com/rcrowley/go-metrics</code></p>
+<ul>
+<li><code>myCounter = gometrics.NewCounter()</code></li>
+<li><code>myGauge = gometrics.NewGauge()</code></li>
+<li><code>myGaugeFloat64 = gometrics.NewGaugeFloat64()</code></li>
+<li><code>myTimer = gometrics.NewTime()</code></li>
+<li><code>myHistogram = gometrics.NewHistogram(gometrics.NewUniformSample(&lt;reservoir size))</code></li>
+</ul>
+</li>
+<li>
+<p>Determine if there are any tags to report along with your metric. Not common so <code>nil</code> is typically passed for the <code>tags map[strings]string</code> parameter in the next step.</p>
+</li>
+<li>
+<p>Register your metric(s) with the MetricsManager from the <code>sdk</code>reference. See <a href="../../microservices/device/sdk/SDK-Go-API/#getmetricsmanager">Device SDK API</a> for more details:</p>
+</li>
+<li>
+<p><code>service.MetricsManager().Register("MyCounterName", myCounter, nil)</code></p>
+</li>
+<li>
+<p>Collect the metric</p>
+<ul>
+<li><code>myCounter.Inc(someIntvalue)</code></li>
+<li><code>myCounter.Dec(someIntvalue)</code></li>
+<li><code>myGauge.Update(someIntvalue)</code></li>
+<li><code>myGaugeFloat64.Update(someFloatvalue)</code></li>
+<li><code>myTimer.Update(someDuration)</code></li>
+<li><code>myTimer.Time(func { do sometime})</code></li>
+<li><code>myTimer.UpdateSince(someTimeValue)</code></li>
+<li><code>myHistogram.Update(someIntvalue)</code></li>
+</ul>
+</li>
+<li>
+<p>Configure reporting of the service's metrics. See <code>Writable.Telemetry</code> configuration details in the <a href="../../microservices/configuration/CommonConfiguration/">Common Configuration</a> section for more detail.</p>
+</li>
+</ol>
+<p>!!! example "Example - Service Telemetry Configuration"
+       <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">[Writable.Telemetry]</span><span class="w"></span>
+<span class="w">  </span><span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30s&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="n">PublishTopicPrefix</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;edgex/telemetry&quot;</span><span class="w"> </span><span class="c1"># /&lt;service-name&gt;/&lt;metric-name&gt; will be added to this Publish Topic prefix</span><span class="w"></span>
+<span class="w">    </span><span class="p">[</span><span class="n">Writable</span><span class="p">.</span><span class="n">Telemetry</span><span class="p">.</span><span class="n">Metrics</span><span class="p">]</span><span class="w"> </span><span class="c1"># All service&#39;s metric names must be present in this list.</span><span class="w"></span>
+<span class="w">    </span><span class="n">MyCounterName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">    </span><span class="n">MyGaugeName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">    </span><span class="n">MyGaugeFloat64Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">    </span><span class="n">MyTimerName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">    </span><span class="n">MyHistogram</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+</code></pre></div></p>
+<div class="codehilite"><pre><span></span><code>       [Writable.Telemetry.Tags] # Contains the service level tags to be attached to all the service&#39;s metrics
+   #    Gateway=&quot;my-iot-gateway&quot; # Tag must be added here or via Consul Env Override can only change existing value, not added new ones.
+   ```
+</code></pre></div>
+
+<p>!!! note
+       The metric names used in the above configuration (to enable or disable reporting of a metric) must match the metric name used when the metric is registered. A partial match of starts with is acceptable, i.e. the metric name registered starts with the above configured name.</p>
 <h2 id="retrieving-secrets">Retrieving Secrets</h2>
 <p>The Go Device SDK provides the <code>SecretProvider.GetSecret()</code> API to retrieve the Device Services secrets.  See the <a href="https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/internal/driver/config.go#L114">Device MQTT Service</a> for an example of using the <code>SecretProvider.GetSecret()</code> API. Note that this code implements a retry loop allowing time for the secret(s) to be push into the service's <code>SecretStore</code> via the /secret endpoint. See <a href="../../microservices/device/Ch-DeviceServices/#storing-secrets">Storing Secrets</a> section for more details.  </p>
 <h2 id="rebuild-your-device-service">Rebuild your Device Service</h2>

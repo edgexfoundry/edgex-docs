@@ -3969,13 +3969,9 @@ A factory function to create these clients can then be registered with your serv
 <h3 id="custom-application-service-metrics">Custom Application Service Metrics</h3>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.2</p>
-<p>Custom Application Service Metrics are new for EdgeX 2.2</p>
+<p>Custom Application Service Metrics are new for EdgeX 2.2 and expanded in EdgeX 2.3 with the addition of <code>histogram</code></p>
 </div>
 <p>The Custom Application Service Metrics capability allows for custom application services to define, collect and report their own custom service metrics.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The SDK will soon implement a limited set of common Application Service Metrics. </p>
-</div>
 <p>The following are the steps to collect and report custom service metrics:</p>
 <ol>
 <li>
@@ -3985,6 +3981,7 @@ A factory function to create these clients can then be registered with your serv
 <li><code>gauge</code> - Track the integer value of something  </li>
 <li><code>gaugeFloat64</code> - Track the float64 value of something </li>
 <li><code>timer</code> - Track the time it takes to accomplish a task</li>
+<li><code>histogram</code> - Track the integer value variance of something</li>
 </ul>
 </li>
 <li>
@@ -3994,6 +3991,7 @@ A factory function to create these clients can then be registered with your serv
 <li><code>myGauge = gometrics.NewGauge()</code></li>
 <li><code>myGaugeFloat64 = gometrics.NewGaugeFloat64()</code></li>
 <li><code>myTimer = gometrics.NewTime()</code></li>
+<li><code>myHistogram = gometrics.NewHistogram(gometrics.NewUniformSample(&lt;reservoir size))</code></li>
 </ul>
 </li>
 <li>
@@ -4015,7 +4013,8 @@ A factory function to create these clients can then be registered with your serv
 <li><code>myGaugeFloat64.Update(someFloatvalue)</code></li>
 <li><code>myTimer.Update(someDuration)</code></li>
 <li><code>myTimer.Time(func { do sometime})</code></li>
-<li><code>myTimer.UpdateSince(someTimeValue</code>)</li>
+<li><code>myTimer.UpdateSince(someTimeValue)</code></li>
+<li><code>myHistogram.Update(someIntvalue)</code></li>
 </ul>
 </li>
 <li>
@@ -4030,6 +4029,7 @@ A factory function to create these clients can then be registered with your serv
 <span class="w">    </span><span class="n">MyGaugeName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
 <span class="w">    </span><span class="n">MyGaugeFloat64Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
 <span class="w">    </span><span class="n">MyTimerName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">    </span><span class="n">MyHistogram</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
 <span class="w">    </span><span class="p">[</span><span class="n">Writable</span><span class="p">.</span><span class="n">Telemetry</span><span class="p">.</span><span class="n">Tags</span><span class="p">]</span><span class="w"> </span><span class="c1"># Contains the service level tags to be attached to all the service&#39;s metrics</span><span class="w"></span>
 <span class="c1">#    Gateway=&quot;my-iot-gateway&quot; # Tag must be added here or via Consul Env Override can only change existing value, not added new ones.</span><span class="w"></span>
 </code></pre></div>
