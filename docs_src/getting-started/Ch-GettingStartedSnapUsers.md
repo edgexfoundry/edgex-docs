@@ -513,6 +513,16 @@ The default configuration files are installed at:
         └── configuration.toml
 ```
 
+??? tip "Filtering devices using snap options"
+    To filter out events from specific devices/profiles/sources/resources, the snap provides the following configuration options. 
+    For example, to filter out events that come from `Random-Integer-Device` and `Random-Binary-Device`:
+    ```
+    snap set edgex-app-service-configurable config.writable-pipeline-executionorder="FilterByDeviceName, SetResponseData"
+    snap set edgex-app-service-configurable config.writable-pipeline-functions-filterbydevicename-parameters-devicenames="Random-Integer-Device, Random-Binary-Device"
+    snap set edgex-app-service-configurable config.writable-pipeline-functions-filterbydevicename-parameters-filterout=true
+    ```
+    This is particularly useful when seeding the snap from a [Gadget](https://snapcraft.io/docs/gadget-snap) on an [Ubuntu Core](https://ubuntu.com/core) system.
+
 Please refer to [App Service Configurable](../../microservices/application/AppServiceConfigurable/) guide for detailed usage instructions.
 
 **Profile**
