@@ -10,10 +10,10 @@
 - [Record and Replay UCR](https://docs.edgexfoundry.org/2.3/design/ucr/Record-and-Replay/)
 
 ## Context
-This design involves creating a new Application Service that is responsible for the requirements in the above referenced UCR. This ADR is create as a means of formal design review.
+This design involves creating a new Application Service that is responsible for the requirements in the above referenced UCR. This document is created as a means of formal design review.
 
 ## Proposed Design
-A new Application Service will be created with a RESTful API to handle the Record, Replay, Export and Import capabilities. The service will not create or start a Functions Pipeline on start-up as normally done in Application Services. It will wait until the Record request has been received. Once the recording is complete the Functions Pipeline will be stopped. 
+A new Application Service will be created with a RESTful API to handle the Record, Replay, Export and Import capabilities. An Application Service has been chosen since the Record capability requires a service that can connect to the MessageBus and consume Events over a long period of time (just like other App Services). The service will not create or start a Functions Pipeline on start-up as normally done in Application Services. It will wait until the Record request has been received. Once the recording is complete the Functions Pipeline will be stopped. 
 
 !!! note
     Application Services do not receive data when the Functions Pipelines are stopped.
@@ -174,7 +174,7 @@ The request handler will receive the file as a [Recorded Data DTO](#recorded-dat
 - Only one recorded data set may be held in memory for replay, recorded or imported.
 - The whole data set is replayed. Can not specify to replay data for specific Devices within the larger data set.
 - Wait times simulating rate of Events published will not be perfect since dependent on non-Realtime OS.
-- Using a CLI approach rather than RESTful API has been suggested. This approach doesn't fit well with the App SDK as it has support for RESTfull APIs but nothing for CLI. The above design depends on many of the App SDK features. Thus implementing a CLI would be much more complex then a RESTfull API.
+- Using a CLI approach rather than RESTful API has been suggested. A CLI would have to duplicate the long running service needs in the background which is not normal for a CLI to do directly. 
 - The EdgeX CLI could be updated in the future to make the RESTful API calls to this service as it does for the other EdgeX services
 - The EdgeX UI could be updated in the future to have a tab for controlling this service as it does for the other EdgeX services
 
