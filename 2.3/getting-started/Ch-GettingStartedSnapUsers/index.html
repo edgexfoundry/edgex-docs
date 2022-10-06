@@ -629,9 +629,29 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#common-configuration-examples" class="md-nav__link">
+    Common configuration examples
+  </a>
+  
+    <nav class="md-nav" aria-label="Common configuration examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#disabling-security" class="md-nav__link">
     Disabling security
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-mqtt-message-bus" class="md-nav__link">
+    Using MQTT message bus
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -3301,9 +3321,29 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#common-configuration-examples" class="md-nav__link">
+    Common configuration examples
+  </a>
+  
+    <nav class="md-nav" aria-label="Common configuration examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#disabling-security" class="md-nav__link">
     Disabling security
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-mqtt-message-bus" class="md-nav__link">
+    Using MQTT message bus
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -3627,7 +3667,8 @@ We call these the <em>config options</em> because they a have <code>config</code
 snap <span class="nb">set</span> edgexfoundry apps.core-data.config.service-port<span class="o">=</span><span class="m">8080</span>
 </code></pre></div></p>
 <p>The services load the set config options on startup. If the service has already started, a restart is necessary to load them.</p>
-<h4 id="disabling-security">Disabling security</h4>
+<h4 id="common-configuration-examples">Common configuration examples</h4>
+<h5 id="disabling-security">Disabling security</h5>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Disabling security is NOT recommended, unless for demonstration purposes, or when there are other means to secure the services.</p>
@@ -3647,6 +3688,22 @@ For example, to disable it on the EdgeX UI snap:
 <div class="highlight"><pre><span></span><code>sudo snap <span class="nb">set</span> edgex-ui config.edgex-security-secret-store<span class="o">=</span><span class="nb">false</span>
 sudo snap start edgex-ui <span class="c1"># restart if the service has already started</span>
 </code></pre></div></p>
+<h5 id="using-mqtt-message-bus">Using MQTT message bus</h5>
+<p>The default message bus for EdgeX services is Redis Pub/Sub. If you prefer to use MQTT instead of Redis, change the <a href="../../microservices/general/messagebus/#configuration-changes">message bus configurations</a> using snap options.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>To switch to an insecure MQTT message bus for all core services (inside the platform snap) and the Device Virtual using snap options, set the following:
+<div class="highlight"><pre><span></span><code>snap <span class="nb">set</span> edgexfoundry config.messagequeue-protocol<span class="o">=</span><span class="s2">&quot;mqtt&quot;</span> <span class="se">\</span>
+                      config.messagequeue-port<span class="o">=</span><span class="m">1883</span> <span class="se">\</span>
+                      config.messagequeue-type<span class="o">=</span><span class="s2">&quot;mqtt&quot;</span> <span class="se">\</span>
+                      config.messagequeue-authmode<span class="o">=</span><span class="s2">&quot;none&quot;</span>
+
+snap <span class="nb">set</span> edgex-device-virtual config.messagequeue-protocol<span class="o">=</span><span class="s2">&quot;mqtt&quot;</span> <span class="se">\</span>
+                              config.messagequeue-port<span class="o">=</span><span class="m">1883</span> <span class="se">\</span>
+                              config.messagequeue-type<span class="o">=</span><span class="s2">&quot;mqtt&quot;</span> <span class="se">\</span>
+                              config.messagequeue-authmode<span class="o">=</span><span class="s2">&quot;none&quot;</span>
+</code></pre></div></p>
+</div>
 <h3 id="managing-services">Managing services</h3>
 <p>The services of a snap can be started/stopped/restarted using the snap CLI.
 When starting/stopping, you can additionally set them to enable/disable which configures whether or not the service should also start on boot.</p>
