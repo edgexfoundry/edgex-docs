@@ -1478,6 +1478,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#resource-provisioning-with-nats-box" class="md-nav__link">
+    Resource Provisioning with nats-box
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#nats-mqtt-mode" class="md-nav__link">
     NATS MQTT Mode
   </a>
@@ -3442,6 +3449,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#resource-provisioning-with-nats-box" class="md-nav__link">
+    Resource Provisioning with nats-box
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#nats-mqtt-mode" class="md-nav__link">
     NATS MQTT Mode
   </a>
@@ -3773,6 +3787,16 @@
 <td>blank</td>
 <td>Secret name used to look up credentials in the service's SecretStore</td>
 </tr>
+<tr>
+<td>NKeySeedFile</td>
+<td>blank</td>
+<td>Path to a seed file to use for authentication.  See the <a href="https://docs.nats.io/using-nats/developer/connecting/nkey">NATS documentation</a> for more detail</td>
+</tr>
+<tr>
+<td>CredentialsFile</td>
+<td>blank</td>
+<td>Path to a credentials file to use for authentication.  See the <a href="https://docs.nats.io/using-nats/developer/connecting/creds">NATS documentation</a> for more detail</td>
+</tr>
 </tbody>
 </table>
 <h5 id="additional-configuration_2">Additional Configuration</h5>
@@ -3837,6 +3861,11 @@
 </tr>
 </tbody>
 </table>
+<h4 id="resource-provisioning-with-nats-box">Resource Provisioning with nats-box</h4>
+<p>While the SDK will attempt to auto-provision streams needed if configured to do so, if you need specific features or policies enabled it is generally best to provision your own.  A <a href="https://hub.docker.com/r/natsio/nats-box">nats-box docker image</a> is available preloaded with various utilities to make this easier.</p>
+<p>For information on stream provisioning using the nats cli see <a href="https://docs.nats.io/running-a-nats-service/configuration/resource_management/configuration_mgmt/nats-admin-cli">here</a>.</p>
+<p>For nkey generation a utility called <a href="https://github.com/nats-io/nkeys/tree/master/nk">nk</a> is provided with nats-box.  For generating nkey seed files see <a href="https://docs.nats.io/running-a-nats-service/configuration/securing_nats/auth_intro/nkey_auth">here</a>.</p>
+<p>For credential management a utility called <a href="https://nats-io.github.io/nsc/">nsc</a> is provided with nats-box.  For using credentials files see documentation on <a href="https://docs.nats.io/running-a-nats-service/configuration/securing_nats/auth_intro/jwt/resolver">resolvers</a> and the companion <a href="https://docs.nats.io/running-a-nats-service/configuration/securing_nats/auth_intro/jwt/mem_resolver">memory resolver tutorial</a>.</p>
 <h4 id="nats-mqtt-mode">NATS MQTT Mode</h4>
 <p>A JetStream enabled server can support MQTT connections on the same set of underlying subjects.  This can be especially useful if you are using prebuilt EdgeX services like <a href="https://github.com/edgexfoundry/device-onvif-camera">device-onvif-camera</a> but want to transition your system towards using NATS.  Note that <code>format=json</code> must be used so that the NATS messagebus client can read the double-encoded envelopes sent by MQTT clients.  For more information see <a href="https://docs.nats.io/running-a-nats-service/configuration/mqtt">NATS MQTT Documentation</a>.</p>
 <h3 id="zeromq-deprecated">ZeroMQ (DEPRECATED)</h3>
