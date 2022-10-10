@@ -4,7 +4,7 @@
 - Lenny Goodell (Intel)
 
 ## Change Log
-- [Pending](https://github.com/edgexfoundry/edgex-docs/pull/863) (2022-09-20)
+- [Approved](https://github.com/edgexfoundry/edgex-docs/pull/863) (2022-10-10)
 
 ## Referenced Use Case(s)
 - [Record and Replay UCR](https://docs.edgexfoundry.org/2.3/design/ucr/Record-and-Replay/)
