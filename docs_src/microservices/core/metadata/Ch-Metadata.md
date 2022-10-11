@@ -346,12 +346,21 @@ Sequence diagrams for some of the more critical or complex events regarding meta
 Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services. Below are only the additional settings and sections that are not common to all EdgeX Services.
 
 !!! edgey - "EdgeX 2.3"
-    **RequireMessageBus**, **MessageQueue**, **Writable.UoM** and **UoM** configuration are new in EdgeX 2.3 
+    **RequireMessageBus**, **Writable.Telemetry*, **MessageQueue**, **Writable.UoM** and **UoM** configuration are new in EdgeX 2.3 
 
 === "General"
     |Property|Default Value|Description|
     |---|---|---|
     |RequireMessageBus|true|Required for backwards compatibility. Will be removed in next major release|
+=== "Writable.Telemetry"
+    |Property|Default Value|Description|
+    |---|---|---|
+    |||See `Writable.Telemetry` at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties) for the Telemetry configuration common to all services |
+    |Metrics| `<common metrics>` |Service metrics that Core Metadata collects. Boolean value indicates if reporting of the metric is enabled.|
+    |Tags|`<empty>`|List of arbitrary service level tags to included with every metric that is reported. i.e. `Gateway="my-iot-gateway"` |
+
+    !!! edgey "Edgex 2.3"
+        For EdgeX 2.3 Collecting of the some common service metrics has been added. See [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties) for more details.
 === "Writable.ProfileChange"
     |Property|Default Value|Description|
     |---|---|---|
