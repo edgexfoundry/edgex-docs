@@ -34,7 +34,7 @@ If the Event already has `Tags` when it arrives at the application service, then
 !!! edgey "Edgex 2.2/2.3"
     New for Edgex 2.2 and expanded in Edgex 2.3
 
-Limited service metrics have been added for the EdgeX 2.2 and 2.3 releases. Currently, only **Core Data**, **Application Services** and **Device Services** are  collecting a limit set of service metrics. Additional service metrics will be added to all services in future releases.  See `Writable.Telemetry` at [Common Configuration](../configuration/CommonConfiguration/#configuration-properties) for details on configuring the reporting of service metrics. 
+Service metrics have been added for the EdgeX 2.2 and 2.3 releases. All services now collect [Common Service Metrics](#common-service-metrics), only **Core Data**, **Application Services** and **Device Services** are collecting additional service specific metrics. Additional service metrics will be added to all services in future releases.  See `Writable.Telemetry` at [Common Configuration](../configuration/CommonConfiguration/#configuration-properties) for details on configuring the reporting of service metrics. 
 
 See [Custom Application Service Metrics](../application/AdvancedTopics/#custom-application-service-metrics) for more detail on Application Services capability to collect their own custom service metrics via use of the App SDK API. 
 
@@ -78,3 +78,13 @@ This can be accomplished with a custom application service that sets the functio
     ```
 !!! note
     The service name is added to the tags for every metric reported from each service. Additional tags may be added via the service's Telemetry configuration. See the `Writable.Telemetry` at [Common Configuration](../configuration/CommonConfiguration/#configuration-properties) for more details. A service may also add metric specific tags via code when it collects the individual metrics.
+
+### Common Service Metrics
+
+!!! edgey "Edgex 2.3"
+    Collection of common service metrics for all core/support/application/device services is new in Edgex 2.3. Additional common service metrics will be added in future releases.
+
+All services now have the ability to collect the following common service metrics
+
+- **SecuritySecretsRequested** - Count of secrets requested from the service's Secret Store.
+- **SecuritySecretsStored** - Count of secret stored to the service's Secret Store.
