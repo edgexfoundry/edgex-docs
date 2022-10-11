@@ -125,7 +125,7 @@ Please refer to the general [Common Configuration documentation](../../configura
     |Property|Default Value|Description|
     |---|---|---|
     |||See `Writable.Telemetry` at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties) for the Telemetry configuration common to all services |
-    |Metrics| EventsPersisted = false</br> ReadingsPersisted = false </br>`<common metrics>` |Service metrics that Core Data collects. Boolean value indicates if reporting of the metric is enabled.|
+    |Metrics| EventsPersisted = false<br> ReadingsPersisted = false <br>`<common metrics>` |Service metrics that Core Data collects. Boolean value indicates if reporting of the metric is enabled.|
     |Tags|`<empty>`|List of arbitrary service level tags to included with every metric that is reported. i.e. `Gateway="my-iot-gateway"` |
 
     !!! edgey "Edgex 2.2/2.3"
