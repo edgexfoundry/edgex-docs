@@ -3348,6 +3348,7 @@
 </div>
 <h4 id="edgex_configuration_provider">EDGEX_CONFIGURATION_PROVIDER</h4>
 <p>This environment variable overrides the <a href="../CommonCommandLineOptions#config-provider"><code>-cp/--configProvider</code> command-line option</a>. </p>
+<p>Overriding with a value of <code>none</code> disables the use of the Configuration Provider.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>All EdgeX service Docker images have this option set to <code>-cp=consul.http://edgex-core-consul:8500</code>.</p>
@@ -3356,6 +3357,11 @@
 <p class="admonition-title">Example - Using docker-compose to override with different port number</p>
 <div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span><span class="w"> </span>
 <span class="w">  </span><span class="nt">EDGEX_CONFIGURATION_PROVIDER</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;consul.http://edgex-consul:9500&quot;</span><span class="w"></span>
+
+<span class="l l-Scalar l-Scalar-Plain">or</span><span class="w"></span>
+
+<span class="nt">environment</span><span class="p">:</span><span class="w"> </span>
+<span class="w">  </span><span class="nt">EDGEX_CONFIGURATION_PROVIDER</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w"></span>
 </code></pre></div>
 </div>
 <h4 id="edgex_profile">EDGEX_PROFILE</h4>
