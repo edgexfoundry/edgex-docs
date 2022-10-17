@@ -167,7 +167,7 @@ The default message bus for EdgeX services is Redis Pub/Sub. If you prefer to us
                                   config.messagequeue-authmode="none"
     ```
 
-##### Disabling registry and config provider Consul
+##### Disabling registry and config provider
 Consul is the default Registry and Config Provider in EdgeX. To disable both, it would be sufficient to disable 
 Consul and configure the services not to use Registry and Config Provider.
 
@@ -175,7 +175,7 @@ Consul and configure the services not to use Registry and Config Provider.
     To disable Consul and configure all services (inside the platform snap) not to use Registry and Config provider 
     using snap options, set the following:
     ```bash
-    snap stop edgexfoundry.consul
+    snap stop --disable edgexfoundry.consul
     snap set edgexfoundry config.edgex-use-registry=false 
     snap set edgexfoundry config.edgex-configuration-provider=none
     ```
