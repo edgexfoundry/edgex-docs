@@ -500,18 +500,16 @@ For usage instructions, refer to [Command Line Interface (CLI)](../tools/Ch-Comm
     This version of EdgeX introduces a standalone EdgeX eKuiper snap.
     The new snap is the supported way of using eKuiper with other EdgeX snaps.
 
-The service is **not started** by default. Please refer to [managing services].
-
-**Source**
-
-The eKuiper in this snap subscribes to all EdgeX events by default. Instead, ekuiper could subscribe to 
-[App Service Configurable](#app-service-configurable) using snap options:
+The eKuiper in this snap subscribes to all EdgeX events by default. To make eKuiper subscribe to 
+events filtered by [App Service Configurable](#app-service-configurable) using snap options:
 
 ```
 snap set edgex-ekuiper source=app-service-configurable
 ```
 
-For more details of the standalone EdgeX eKuiper snap, visit the README in source code.
+Setting this option will override the `default.topic` to `rules-events` and `default.messageType` to `event`.
+
+For more details about the standalone EdgeX eKuiper snap, visit the README in source code.
 
 !!! note
     The standalone EdgeX eKuiper snap documented here should not be confused with the deprecated `edgexfoundry.kuiper` and `edgexfoundry.kuiper-cli` apps built into the platform. The standalone snap can provide similar functionality.
