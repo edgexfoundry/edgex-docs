@@ -80,6 +80,8 @@ This environment variable overrides the [`-f/--file` command-line option](../Com
 
 This environment variable overrides the [`-cp/--configProvider` command-line option](../CommonCommandLineOptions#config-provider). 
 
+Overriding with a value of `none` disables the use of the Configuration Provider.
+
 !!! note
     All EdgeX service Docker images have this option set to `-cp=consul.http://edgex-core-consul:8500`.
 
@@ -87,6 +89,11 @@ This environment variable overrides the [`-cp/--configProvider` command-line opt
     ```yaml
     environment: 
       EDGEX_CONFIGURATION_PROVIDER: "consul.http://edgex-consul:9500"
+    
+    or
+    
+    environment: 
+      EDGEX_CONFIGURATION_PROVIDER: "none"
     ```
 
 #### EDGEX_PROFILE
