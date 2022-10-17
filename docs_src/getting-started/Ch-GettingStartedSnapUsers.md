@@ -496,13 +496,22 @@ For usage instructions, refer to [Command Line Interface (CLI)](../tools/Ch-Comm
 ### EdgeX eKuiper
 | [Installation][edgex-ekuiper] | [Managing Services] | [Debugging] | [Source](https://github.com/canonical/edgex-ekuiper-snap) |
 
-The service is **not started** by default. Please refer to [managing services].
-
 !!! edgey "EdgeX 2.2"
     This version of EdgeX introduces a standalone EdgeX eKuiper snap.
     The new snap is the supported way of using eKuiper with other EdgeX snaps.
 
-For the documentation of the standalone EdgeX eKuiper snap, visit the [README](https://github.com/canonical/edgex-ekuiper-snap).
+The service is **not started** by default. Please refer to [managing services].
+
+**Source**
+
+The eKuiper in this snap subscribes to all EdgeX events by default. Instead, ekuiper could subscribe to 
+[App Service Configurable](#app-service-configurable) using snap options:
+
+```
+snap set edgex-ekuiper source=app-service-configurable
+```
+
+For more details of the standalone EdgeX eKuiper snap, visit the README in source code.
 
 !!! note
     The standalone EdgeX eKuiper snap documented here should not be confused with the deprecated `edgexfoundry.kuiper` and `edgexfoundry.kuiper-cli` apps built into the platform. The standalone snap can provide similar functionality.
