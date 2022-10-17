@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/getting-started/Ch-GettingStartedSnapUsers/">
       
       <link rel="icon" href="../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.4.0, mkdocs-material-8.5.6">
+      <meta name="generator" content="mkdocs-1.4.1, mkdocs-material-8.5.6">
     
     
       
@@ -646,6 +646,13 @@
           <li class="md-nav__item">
   <a href="#using-mqtt-message-bus" class="md-nav__link">
     Using MQTT message bus
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disabling-registry-and-config-provider" class="md-nav__link">
+    Disabling registry and config provider
   </a>
   
 </li>
@@ -3342,6 +3349,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#disabling-registry-and-config-provider" class="md-nav__link">
+    Disabling registry and config provider
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3702,6 +3716,18 @@ snap <span class="nb">set</span> edgex-device-virtual config.messagequeue-protoc
                               config.messagequeue-port<span class="o">=</span><span class="m">1883</span> <span class="se">\</span>
                               config.messagequeue-type<span class="o">=</span><span class="s2">&quot;mqtt&quot;</span> <span class="se">\</span>
                               config.messagequeue-authmode<span class="o">=</span><span class="s2">&quot;none&quot;</span>
+</code></pre></div></p>
+</div>
+<h5 id="disabling-registry-and-config-provider">Disabling registry and config provider</h5>
+<p>Consul is the default Registry and Config Provider in EdgeX. To disable both, it would be sufficient to disable 
+Consul and configure the services not to use Registry and Config Provider.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>To disable Consul and configure all services (inside the platform snap) not to use Registry and Config provider 
+using snap options, set the following:
+<div class="highlight"><pre><span></span><code>snap stop --disable edgexfoundry.consul
+snap <span class="nb">set</span> edgexfoundry config.edgex-use-registry<span class="o">=</span><span class="nb">false</span> 
+snap <span class="nb">set</span> edgexfoundry config.edgex-configuration-provider<span class="o">=</span>none
 </code></pre></div></p>
 </div>
 <h3 id="managing-services">Managing services</h3>
