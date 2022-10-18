@@ -34,7 +34,7 @@ If you're going to download the source code and run the virtual device service i
 The virtual device service is configured to send simulated data to core data every few seconds (from 10-30 seconds depending on device - see the [device configuration file](https://github.com/edgexfoundry/device-virtual-go/blob/v2.0.0/cmd/res/devices/devices.toml) for AutoEvent details).  You can exercise the `GET` request on the command service to see the generated value produced by any of the virtual device's simulated devices.  Use the curl command below to exercise the virtual device service API (via core command service).
 
 ``` bash
-curl -X GET localhost:59882/api/v2/device/name/Random-Integer-Device/Int8`
+curl -X GET localhost:59882/api/v2/device/name/Random-Integer-Device/Int8
 ```
 
 !!! Warning
