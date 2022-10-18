@@ -281,9 +281,9 @@ See [Device Service Configuration Properties](../../microservices/device/Ch-Devi
 
 ### Custom
 
-The Custom Device Service Metrics capability allows for device service developers to define, collect and report their own service metrics beyond the common built-in service metrics supplied by the Device SDK. Currently the Device SDK does not implement any of the planned common service metrics. When it does a link to that documentation will be added here.
+The Custom Device Service Metrics capability allows for device service developers to define, collect and report their own service metrics beyond the common built-in service metrics supplied by the Device SDK. 
 
- The following are the steps to collect and report service metrics:
+The following are the steps to collect and report service metrics:
 
 1. Determine the metric type that needs to be collected
     - `counter` - Track the integer count of something
