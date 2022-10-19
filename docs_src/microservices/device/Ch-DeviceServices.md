@@ -127,6 +127,19 @@ Please refer to the general [Common Configuration documentation](../configuratio
 !!! edgey "Edgex 2.2"
     `Writable.Reading.ReadingUnits` and `MaxEventSize` are new for Edgex 2.2
 
+!!! edgey "Edgex 2.3"
+Service Metrics for device services are new in EdgeX 2.3
+
+=== "Writable.Telemetry"
+    |Property|<div style="width:300px">Default Value</div>|Description|
+    |---|---|---|
+    |||See `Writable.Telemetry` at [Common Configuration](../../configuration/CommonConfiguration/#configuration-properties) for the Telemetry configuration common to all services |
+    |Metrics|     |Service metrics that the device service collects. Boolean value indicates if reporting of the metric is enabled. Common and custom metrics are also included.|
+    ||`EventsSent` = false     |Enable/disable reporting of the built-in **EventsSent** metric|
+    ||`ReadingsSent` = false     |Enable/disable reporting of the built-in **ReadingsSent** metric|
+    ||`<CommonMetric>` = false    |Enable/disable reporting of common service metric. See [Common Service Metrics](../general/#common-service-metrics) for more details.|   
+    ||`<CustomMetric>` = false    |Enable/disable reporting of custom device service's custom metric. See [Custom Device Service Metrics](../../getting-started/Ch-GettingStartedSDK-Go/#built-in) for more details.|
+    |Tags|`<empty>`|List of arbitrary service level tags to included with every metric that is reported. i.e. `Gateway="my-iot-gateway"` |
 === "Device"
     |Property|Default Value|Description|
     |---|---|---|
