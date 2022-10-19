@@ -3474,8 +3474,60 @@ and role of a device service.</p>
 <p class="admonition-title">Edgex 2.2</p>
 <p><code>Writable.Reading.ReadingUnits</code> and <code>MaxEventSize</code> are new for Edgex 2.2</p>
 </div>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:5"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Device</label><label for="__tabbed_1_2">MessageQueue</label><label for="__tabbed_1_3">MessageQueue.Optional</label><label for="__tabbed_1_4">Writable.Reading</label><label for="__tabbed_1_5">MaxEventSize</label></div>
+<div class="admonition edgey">
+<p class="admonition-title">Edgex 2.3</p>
+</div>
+<p>Service Metrics for device services are new in EdgeX 2.3</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:6"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Writable.Telemetry</label><label for="__tabbed_1_2">Device</label><label for="__tabbed_1_3">MessageQueue</label><label for="__tabbed_1_4">MessageQueue.Optional</label><label for="__tabbed_1_5">Writable.Reading</label><label for="__tabbed_1_6">MaxEventSize</label></div>
 <div class="tabbed-content">
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th><div style="width:300px">Default Value</div></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td>See <code>Writable.Telemetry</code> at <a href="../../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a> for the Telemetry configuration common to all services</td>
+</tr>
+<tr>
+<td>Metrics</td>
+<td></td>
+<td>Service metrics that the device service collects. Boolean value indicates if reporting of the metric is enabled. Common and custom metrics are also included.</td>
+</tr>
+<tr>
+<td></td>
+<td><code>EventsSent</code> = false</td>
+<td>Enable/disable reporting of the built-in <strong>EventsSent</strong> metric</td>
+</tr>
+<tr>
+<td></td>
+<td><code>ReadingsSent</code> = false</td>
+<td>Enable/disable reporting of the built-in <strong>ReadingsSent</strong> metric</td>
+</tr>
+<tr>
+<td></td>
+<td><code>&lt;CommonMetric&gt;</code> = false</td>
+<td>Enable/disable reporting of common service metric. See <a href="../general/#common-service-metrics">Common Service Metrics</a> for more details.</td>
+</tr>
+<tr>
+<td></td>
+<td><code>&lt;CustomMetric&gt;</code> = false</td>
+<td>Enable/disable reporting of custom device service's custom metric. See <a href="../../getting-started/Ch-GettingStartedSDK-Go/#built-in">Custom Device Service Metrics</a> for more details.</td>
+</tr>
+<tr>
+<td>Tags</td>
+<td><code>&lt;empty&gt;</code></td>
+<td>List of arbitrary service level tags to included with every metric that is reported. i.e. <code>Gateway="my-iot-gateway"</code></td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="tabbed-block">
 <table>
 <thead>
