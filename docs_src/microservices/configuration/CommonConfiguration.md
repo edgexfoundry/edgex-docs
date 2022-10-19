@@ -27,6 +27,8 @@ The tables in each of the tabs below document configuration properties that are 
     |Metrics||Boolean map of service metrics that are being collected. The boolean flag for each indicates if the metric is enabled for reporting. i.e. `EventsPersisted = true`. The metric name must match one defined by the service. |
     ||SecuritySecretsRequested = false| Enable/Disable reporting of number of secrets requested  |
     ||SecuritySecretsStored = false| Enable/Disable reporting of number of secrets stored  |
+    ||SecurityConsulTokensRequested = false| Enable/Disable reporting of number of Consul token requested  |
+    ||SecurityConsulTokenDuration = false| Enable/Disable reporting of duration for obtaining Consul token  |
     ||`<Service dependent>`= false | Enable/Disable reporting of service defined metric |
     |Tags|`<Service dependent>`|String map of arbitrary tags to be added to every metric that is reported for the service. i.e. `Gateway="my-iot-gateway"`. The tag names are arbitrary. |
 
