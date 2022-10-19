@@ -122,10 +122,12 @@ See [Common Configuration](#common-configuration) section above for the common c
 
 ##### Security Configuration 
 
-| Option     | Default Value | Description                                                  |
-| ---------- | ------------- | ------------------------------------------------------------ |
-| AuthMode   | `none`        | Mode of authentication to use. Values are `none`, `usernamepassword`, `clientcert`, or `cacert`. The NATS Server is currently not secured in secure mode. |
-| SecretName | blank         | Secret name used to look up credentials in the service's SecretStore |
+| Option          | Default Value | Description                                                                                                                                                     |
+|-----------------|---------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| AuthMode        | `none`        | Mode of authentication to use. Values are `none`, `usernamepassword`, `clientcert`, or `cacert`. The NATS Server is currently not secured in secure mode.       |
+| SecretName      | blank         | Secret name used to look up credentials in the service's SecretStore                                                                                            |
+| NKeySeedFile    | blank         | Path to a seed file to use for authentication.  See the [NATS documentation](https://docs.nats.io/using-nats/developer/connecting/nkey) for more detail         |
+| CredentialsFile | blank         | Path to a credentials file to use for authentication.  See the [NATS documentation](https://docs.nats.io/using-nats/developer/connecting/creds) for more detail |
 
 ##### Additional Configuration
 
@@ -141,6 +143,16 @@ See [Common Configuration](#common-configuration) section above for the common c
 | AutoProvision           | `false`       | Automatically provision NATS streams. (**JetStream only**)                                                                                                                                                                                                                                                                                                                                                                                                         |
 | Deliver                 | `new`         | Specifies delivery mode for subscriptions - options are "new", "all", "last" or "lastpersubject".  See the [NATS documentation](https://docs.nats.io/nats-concepts/jetstream/consumers#deliverpolicy-optstartseq-optstarttime) for more detail (**JetStream only**)                                                                                                                                                                                                |
 | DefaultPubRetryAttempts | `2`           | Number of times to attempt to retry on failed publish (**JetStream only**)                                                                                                                                                                                                                                                                                                                                                                                         |
+
+#### Resource Provisioning with nats-box
+
+While the SDK will attempt to auto-provision streams needed if configured to do so, if you need specific features or policies enabled it is generally best to provision your own.  A [nats-box docker image](https://hub.docker.com/r/natsio/nats-box) is available preloaded with various utilities to make this easier.
+
+For information on stream provisioning using the nats cli see [here](https://docs.nats.io/running-a-nats-service/configuration/resource_management/configuration_mgmt/nats-admin-cli).
+
+For nkey generation a utility called [nk](https://github.com/nats-io/nkeys/tree/master/nk) is provided with nats-box.  For generating nkey seed files see [here](https://docs.nats.io/running-a-nats-service/configuration/securing_nats/auth_intro/nkey_auth).
+
+For credential management a utility called [nsc](https://nats-io.github.io/nsc/) is provided with nats-box.  For using credentials files see documentation on [resolvers](https://docs.nats.io/running-a-nats-service/configuration/securing_nats/auth_intro/jwt/resolver) and the companion [memory resolver tutorial](https://docs.nats.io/running-a-nats-service/configuration/securing_nats/auth_intro/jwt/mem_resolver).
 
 #### NATS MQTT Mode
 

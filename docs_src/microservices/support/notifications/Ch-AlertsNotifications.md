@@ -23,6 +23,8 @@ On the left side, the APIs are provided for other
 microservices, on-box applications, and off-box applications to use.  The APIs could be in REST, AMQP, MQTT, or any standard application
 protocols. 
 
+This diagram is drawn by [diagrams.net](https://app.diagrams.net/) with the source file [EdgeX_SupportingServicesAlertsArchitecture.xml](EdgeX_SupportingServicesAlertsArchitecture.xml)
+
 !!! Warning
     Currently in EdgeX Foundry, only the RESTful interface is provided.
 
@@ -147,6 +149,16 @@ Please refer to the general [Common Configuration documentation](../../configura
     |ResendInterval|'5s'|Sets the retry interval for attempts to send notifications.|
     |Writable.InsecureSecrets.SMTP.Secrets username|username@mail.example.com|The email to send alerts and notifications|
     |Writable.InsecureSecrets.SMTP.Secrets password||The email password|
+=== "Writable.Telemetry"
+    |Property|Default Value|Description|
+    |---|---|---|
+    |||See `Writable.Telemetry` at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties) for the Telemetry configuration common to all services |
+    |Metrics| `<common metrics>` |Service metrics that Support Notification collects. Boolean value indicates if reporting of the metric is enabled.|
+    |Tags|`<empty>`|List of arbitrary service level tags to included with every metric that is reported. i.e. `Gateway="my-iot-gateway"` |
+
+    !!! edgey "Edgex 2.3"
+        For EdgeX 2.3 Collecting of the some common service metrics has been added. See [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties) for more details.
+
 === "Databases/Databases.Primary"
     |Property|Default Value|Description|
     |---|---|---|
@@ -178,6 +190,7 @@ sign-in security settings through one of the following two methods:
     Please see the instruction from this 
     [Google official document](https://support.google.com/accounts/answer/6010255?hl=en).
     
+
 Then, use the following settings for the mail server properties:
 
     Smtp Port=25

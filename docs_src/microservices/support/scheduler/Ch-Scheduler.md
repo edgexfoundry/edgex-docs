@@ -91,6 +91,15 @@ See [Interval](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-schedu
 
 Please refer to the general [Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services. Below are only the additional settings and sections that are not common to all EdgeX Services.
 
+=== "Writable.Telemetry"
+    |Property|Default Value|Description|
+    |---|---|---|
+    |||See `Writable.Telemetry` at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties) for the Telemetry configuration common to all services |
+    |Metrics| `<common metrics>` |Service metrics that Support Scheduler collects. Boolean value indicates if reporting of the metric is enabled.|
+    |Tags|`<empty>`|List of arbitrary service level tags to included with every metric that is reported. i.e. `Gateway="my-iot-gateway"` |
+
+    !!! edgey "Edgex 2.3"
+        For EdgeX 2.3 Collecting of the some common service metrics has been added. See [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties) for more details.
 === "ScheduleIntervalTime"
     |Property|Default Value|Description|
     |---|---|---|
@@ -113,7 +122,6 @@ Please refer to the general [Configuration documentation](../../configuration/Co
     |Method|DELETE|Make a RESTful delete operation request to core data|
     |Path|/api/v2/event/age/604800000000000|request core data's remove old events API with parameter of 7 days |
     |Interval|midnight|run the operation every midnight as specified by the configuration defined interval|
-
 
 
 ### V2 Configuration Migration Guide

@@ -24,11 +24,14 @@ The tables in each of the tabs below document configuration properties that are 
     |---|---|---|
     |Interval| 30s|The interval in seconds at which to report the metrics currently being collected and enabled. **Value of 0s disables reporting**. |
     |PublishTopicPrefix|"edgex/telemetry"|The base topic in which to publish (report) metrics currently being collected and enabled. `/<service-name>/<metric-name>` will be added to this base topic prefix.|
-    |Metrics|`<Service dependent>`|Boolean map of service metrics that are being collected. The boolean flag for each indicates if the metric is enabled for reporting. i.e. `EventsPersisted = true`. The metric name must match one defined by the service. |
+    |Metrics||Boolean map of service metrics that are being collected. The boolean flag for each indicates if the metric is enabled for reporting. i.e. `EventsPersisted = true`. The metric name must match one defined by the service. |
+    ||SecuritySecretsRequested = false| Enable/Disable reporting of number of secrets requested  |
+    ||SecuritySecretsStored = false| Enable/Disable reporting of number of secrets stored  |
+    ||`<Service dependent>`= false | Enable/Disable reporting of service defined metric |
     |Tags|`<Service dependent>`|String map of arbitrary tags to be added to every metric that is reported for the service. i.e. `Gateway="my-iot-gateway"`. The tag names are arbitrary. |
 
-    !!! edgey "Edgex 2.2"
-        For EdgeX 2.2 Service Metrics have been added. Currently only Core Data and Application Services are collecting service metrics.
+    !!! edgey "Edgex 2.2/2.3"
+        Service Metrics have been added in EdgeX 2.2 and expanded in EdgeX 2.3.
 
 === "Service"
 

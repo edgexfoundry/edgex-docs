@@ -120,7 +120,8 @@ snap set edgexfoundry apps.core-data.config.service-port=8080
 
 The services load the set config options on startup. If the service has already started, a restart is necessary to load them.
 
-#### Disabling security
+#### Common configuration examples
+##### Disabling security
 [disabling security]: #disabling-security
 
 !!! Warning
@@ -148,6 +149,36 @@ For example, to disable it on the EdgeX UI snap:
 sudo snap set edgex-ui config.edgex-security-secret-store=false
 sudo snap start edgex-ui # restart if the service has already started
 ```
+
+##### Using MQTT message bus
+The default message bus for EdgeX services is Redis Pub/Sub. If you prefer to use MQTT instead of Redis, change the [message bus configurations](../../microservices/general/messagebus/#configuration-changes) using snap options.
+
+!!! example
+    To switch to an insecure MQTT message bus for all core services (inside the platform snap) and the Device Virtual using snap options, set the following:
+    ```bash
+    snap set edgexfoundry config.messagequeue-protocol="mqtt" \
+                          config.messagequeue-port=1883 \
+                          config.messagequeue-type="mqtt" \
+                          config.messagequeue-authmode="none"
+
+    snap set edgex-device-virtual config.messagequeue-protocol="mqtt" \
+                                  config.messagequeue-port=1883 \
+                                  config.messagequeue-type="mqtt" \
+                                  config.messagequeue-authmode="none"
+    ```
+
+##### Disabling registry and config provider
+Consul is the default Registry and Config Provider in EdgeX. To disable both, it would be sufficient to disable 
+Consul and configure the services not to use Registry and Config Provider.
+
+!!! example
+    To disable Consul and configure all services (inside the platform snap) not to use Registry and Config provider 
+    using snap options, set the following:
+    ```bash
+    snap stop --disable edgexfoundry.consul
+    snap set edgexfoundry config.edgex-use-registry=false 
+    snap set edgexfoundry config.edgex-configuration-provider=none
+    ```
 
 ### Managing services
 [managing services]: #managing-services
@@ -512,6 +543,15 @@ The default configuration files are installed at:
     └── rules-engine
         └── configuration.toml
 ```
+
+??? example "Filtering devices using snap options"
+    App service configurable provides various event filtering options.
+    For example, to [filter by device names](../../microservices/application/AppServiceConfigurable/#filterbydevicename) `Random-Integer-Device` and `Random-Binary-Device` using snap options:
+    ```
+    snap set edgex-app-service-configurable config.writable-pipeline-executionorder="FilterByDeviceName, SetResponseData"
+    snap set edgex-app-service-configurable config.writable-pipeline-functions-filterbydevicename-parameters-devicenames="Random-Integer-Device, Random-Binary-Device"
+    snap set edgex-app-service-configurable config.writable-pipeline-functions-filterbydevicename-parameters-filterout=true
+    ```
 
 Please refer to [App Service Configurable](../../microservices/application/AppServiceConfigurable/) guide for detailed usage instructions.
 

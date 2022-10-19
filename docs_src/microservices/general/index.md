@@ -31,12 +31,14 @@ If the Event already has `Tags` when it arrives at the application service, then
 
 ## Service Metrics
 
-!!! edgey "Edgex 2.2"
-    New for Edgex 2.2
+!!! edgey "Edgex 2.2/2.3"
+    New for Edgex 2.2 and expanded in Edgex 2.3
 
-Limited service metrics have been added for the EdgeX 2.2 release. Currently, only **Core Data** and **Application Services** are  collecting a limit set of service metrics. Additional service metrics will be added to **Core Data**, **Application Services** and other services in future releases.  See `Writable.Telemetry` at [Common Configuration](../configuration/CommonConfiguration/#configuration-properties) for details on configuring the reporting of service metrics. 
+Service metrics have been added for the EdgeX 2.2 and 2.3 releases. All services now collect [Common Service Metrics](#common-service-metrics), only **Core Data**, **Application Services** and **Device Services** are collecting additional service specific metrics. Additional service metrics will be added to all services in future releases.  See `Writable.Telemetry` at [Common Configuration](../configuration/CommonConfiguration/#configuration-properties) for details on configuring the reporting of service metrics. 
 
 See [Custom Application Service Metrics](../application/AdvancedTopics/#custom-application-service-metrics) for more detail on Application Services capability to collect their own custom service metrics via use of the App SDK API. 
+
+See [Custom Device Service Metrics](../device/sdk/Ch-DeviceSDK/#custom-device-service-metrics) for more detail on Go Device Services capability to collect their own custom service metrics via use of the Go Device SDK API. 
 
 Each service defines (in code) a set of service metrics that it collects and optionally reports if configured. 
 The names the service gives to its metrics are used in the service's `Telemetry` configuration to enable/disable the reporting of those metrics. See Core Data's `Writable.Telemetry` at [Core Data Configuration](../core/data/Ch-CoreData/#configuration-properties) as example of the names used for the service metrics that Core Data is currently collecting.
@@ -47,6 +49,7 @@ The following metric types are available to be used by the EdgeX services:
 - **Gauge**: Integer value that is set to a specific value. Metric field name is `gauge-value`
 - **GaugeFloat64**: Float value that is set to a specific value. Metric field name is `gaugeFloat64-value`
 - **Timer**: Float value that is set to the amount of time an action takes. Metric field names are `timer-count` , `timer-min`, `timer-max`, `timer-mean`, `timer-stddev` and `timer-variance`
+- **Histogram**: Integer value that is set to some value, i.e. number of bytes exported.  Metric field names are `histogram-count` , `histogram-min`, `histogram-max`, `histogram-mean`, `histogram-stddev` and `histogram-variance`
 
 Service metrics which are enabled for reporting are published to the EdgeX MessageBug every configured interval using the configured `Telemetry` base topic. See `Writable.Telemetry` at [Common Configuration](../configuration/CommonConfiguration/#configuration-properties) for details on these configuration items. The `service name` and the `metric name` are added to the configured base topic. This allows subscribers to subscribe only for specific metrics or metrics from specific services. Each metric is published (reported) independently using the Metric DTO (Data Transfer Object) define in [go-mod-core-contracts](https://github.com/edgexfoundry/go-mod-core-contracts/blob/main/dtos/metric.go#L27).
 
@@ -75,3 +78,13 @@ This can be accomplished with a custom application service that sets the functio
     ```
 !!! note
     The service name is added to the tags for every metric reported from each service. Additional tags may be added via the service's Telemetry configuration. See the `Writable.Telemetry` at [Common Configuration](../configuration/CommonConfiguration/#configuration-properties) for more details. A service may also add metric specific tags via code when it collects the individual metrics.
+
+### Common Service Metrics
+
+!!! edgey "Edgex 2.3"
+    Collection of common service metrics for all core/support/application/device services is new in Edgex 2.3. Additional common service metrics will be added in future releases.
+
+All services now have the ability to collect the following common service metrics
+
+- **SecuritySecretsRequested** - Count of secrets requested from the service's Secret Store.
+- **SecuritySecretsStored** - Count of secret stored to the service's Secret Store.
