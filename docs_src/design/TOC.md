@@ -9,6 +9,7 @@
 |---------------------------------------------------------------------------|---------------------------------------------------------------|
 | [Device Parent-Child Relationships](./ucr/Device-Parent-Child-Relationships.md) | Use Case for Device Parent-Child Relationships |
 | [Extending Device Data](./ucr/Extending-Device-Data.md) | Use Case for Extending of Device Data by Application Services |
+| [Provision Watch via Device Metadata](./ucr/Provision-Watch-via-Device-Metadata.md) | Use Case for Provision Watching via Additional Device Metadata |
 | [Record and Replay](./ucr/Record-and-Replay.md)    | Use Case for Recording and Replaying event/readings     |
 | [System Events for Devices](./ucr/System-Events-for-Devices.md) | Use Case for System Events for Device add/update/delete |
 
@@ -42,3 +43,4 @@
 | [0022 Unit of Measure](./adr/core/0022-UoM.md)               | Unit of Measure                                              |
 | [0023 North South Messaging](./adr/0023-North-South-Messaging.md) | Provide for messaging from north side systems through command down to device services |
 | [0024 System Events](./adr/0024-system-events.md)            | System Events (aka Control Plane Events) published to the MessageBus |
+| [0025 Record and Replay](./adr/application/0025-Record-and-Replay.md) | Record data from various devices and play data back without devices present |

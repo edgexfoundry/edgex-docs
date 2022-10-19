@@ -5,7 +5,7 @@ This UCR describes the Use Case for Extending of Device Data by Application Serv
 - Tom Brennan (Eaton)
 
 ## Change Log
-- [pending](https://github.com/edgexfoundry/edgex-docs/pull/845) (2022-09-27)
+- [approved](https://github.com/edgexfoundry/edgex-docs/pull/845) (2022-10-19)
 
 
 ### Market Segments
