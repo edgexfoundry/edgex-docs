@@ -88,3 +88,5 @@ All services now have the ability to collect the following common service metric
 
 - **SecuritySecretsRequested** - Count of secrets requested from the service's Secret Store.
 - **SecuritySecretsStored** - Count of secret stored to the service's Secret Store.
+- **SecurityConsulTokensRequested** - Count of Consul tokens been requested.
+- **SecurityConsulTokenDuration** - Duration of obtaining Consul token.
