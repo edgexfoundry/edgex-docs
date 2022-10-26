@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/V2TopLevelMigration/">
       
       <link rel="icon" href="../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.4.1, mkdocs-material-8.5.6">
+      <meta name="generator" content="mkdocs-1.4.1, mkdocs-material-8.5.7">
     
     
       
@@ -477,6 +477,26 @@
   <a href="#core-data" class="md-nav__link">
     Core Data
   </a>
+  
+    <nav class="md-nav" aria-label="Core Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reading" class="md-nav__link">
+    Reading
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#event" class="md-nav__link">
+    Event
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -3244,6 +3264,26 @@
     Core Data
   </a>
   
+    <nav class="md-nav" aria-label="Core Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reading" class="md-nav__link">
+    Reading
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#event" class="md-nav__link">
+    Event
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -3480,6 +3520,98 @@
 <h3 id="core-data">Core Data</h3>
 <p>The Event/Reading data stored by Core Data is considered transient and of little value once it has become old. The V2 versions of these data collections will be empty until new Events/Readings are received from V2 Device Services. </p>
 <p>The V1 ValueDescriptors have been removed in V2.</p>
+<h4 id="reading">Reading</h4>
+<p>The following are the fields that have changed, added or removed.</p>
+<ul>
+<li><code>device</code> =&gt; <code>deviceName</code></li>
+<li><code>name</code> =&gt; <code>resourceName</code></li>
+<li><code>profileName</code> (<strong>new</strong>)</li>
+<li><code>pushed</code> (<strong>removed</strong>)</li>
+<li><code>created</code> (<strong>removed</strong> - use <code>origin</code>)</li>
+<li><code>modified</code> (<strong>removed</strong> - use <code>origin</code>)</li>
+<li><code>floatEncoding</code> (<strong>removed</strong>)</li>
+<li><code>units</code> (<strong>new</strong>)</li>
+<li><code>objectValue</code> (<strong>new</strong> since v2.1)</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Comparison between v1 and v2 Reading</p>
+<div class="highlight"><pre><span></span><code>V1 Reading:
+{
+    &quot;id&quot;: &quot;500ef2d3-a80c-4bdf-b268-0aa7b1891721&quot;,
+    &quot;created&quot;: 1666768403135,
+    &quot;origin&quot;: 1666768403135266769,
+    &quot;device&quot;: &quot;Random-Boolean-Device&quot;,
+    &quot;name&quot;: &quot;Bool&quot;,
+    &quot;value&quot;: &quot;true&quot;,
+    &quot;valueType&quot;: &quot;Bool&quot;
+}
+
+V2 Reading:
+{
+    &quot;id&quot;: &quot;27f733a1-71a5-4002-a07b-a7785c86f68f&quot;,
+    &quot;origin&quot;: 1666767570746605009,
+    &quot;deviceName&quot;: &quot;Random-Boolean-Device&quot;,
+    &quot;resourceName&quot;: &quot;Bool&quot;,
+    &quot;profileName&quot;: &quot;Random-Boolean-Device&quot;,
+    &quot;valueType&quot;: &quot;Bool&quot;,
+    &quot;value&quot;: &quot;true&quot;
+}
+</code></pre></div>
+</div>
+<h4 id="event">Event</h4>
+<p>The following are the fields that have changed, added or removed.</p>
+<ul>
+<li><code>apiVersion</code> (<strong>new</strong>)</li>
+<li><code>device</code> =&gt; <code>deviceName</code></li>
+<li><code>sourceName</code> (<strong>new</strong>)</li>
+<li><code>profileName</code> (<strong>new</strong>)</li>
+<li><code>pushed</code> (<strong>removed</strong>)</li>
+<li><code>created</code> (<strong>removed</strong> - use <code>origin</code>)</li>
+<li><code>modified</code> (<strong>removed</strong> - use <code>origin</code>)</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Comparison between v1 and v2 Event</p>
+<div class="highlight"><pre><span></span><code>V1 Event:
+{
+    &quot;id&quot;: &quot;a730daf1-9dcb-4112-9d77-8b714e4b39e1&quot;,
+    &quot;device&quot;: &quot;Random-Boolean-Device&quot;,
+    &quot;created&quot;: 1666768353173,
+    &quot;origin&quot;: 1666768353172848489,
+    &quot;readings&quot;: [
+        {
+            &quot;id&quot;: &quot;92990d19-15fd-43c8-bcab-2d93142bb997&quot;,
+            &quot;created&quot;: 1666768353173,
+            &quot;origin&quot;: 1666768353172647726,
+            &quot;device&quot;: &quot;Random-Boolean-Device&quot;,
+            &quot;name&quot;: &quot;Bool&quot;,
+            &quot;value&quot;: &quot;true&quot;,
+            &quot;valueType&quot;: &quot;Bool&quot;
+        }
+    ]
+}
+
+V2 Event:
+{
+    &quot;apiVersion&quot;: &quot;v2&quot;,
+    &quot;id&quot;: &quot;8b06a2dd-932a-4ae1-b9fd-86a76cf25b87&quot;,
+    &quot;deviceName&quot;: &quot;Random-Boolean-Device&quot;,
+    &quot;profileName&quot;: &quot;Random-Boolean-Device&quot;,
+    &quot;sourceName&quot;: &quot;Bool&quot;,
+    &quot;origin&quot;: 1666767710656641395,
+    &quot;readings&quot;: [
+        {
+            &quot;id&quot;: &quot;56af9956-5e31-47df-89ca-e8b13d7c3dd9&quot;,
+            &quot;origin&quot;: 1666767710656641395,
+            &quot;deviceName&quot;: &quot;Random-Boolean-Device&quot;,
+            &quot;resourceName&quot;: &quot;Bool&quot;,
+            &quot;profileName&quot;: &quot;Random-Boolean-Device&quot;,
+            &quot;valueType&quot;: &quot;Bool&quot;,
+            &quot;value&quot;: &quot;false&quot;
+        }
+    ]
+}
+</code></pre></div>
+</div>
 <h3 id="core-metadata">Core Metadata</h3>
 <p>Most of the data stored by Core Metadata will be recreated when the V2 versions of the Device Services start-up. The statically declared devices will automatically be created and device discovery will find and add existing devices. Any device profiles, devices, provision watchers created manually via the V1 REST APIs will have to be recreated using the V2 REST API. Any manually-applied <code>AdministrativeState</code> settings will also need to be re-applied.</p>
 <h3 id="support-notifications">Support Notifications</h3>
@@ -3706,10 +3838,10 @@ V2 Rule:
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs"], "search": "../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs"], "search": "../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.078830c0.min.js"></script>
+      <script src="../assets/javascripts/bundle.8492ddcf.min.js"></script>
       
         <script src="../assets/javascripts/version-select.js"></script>
       
