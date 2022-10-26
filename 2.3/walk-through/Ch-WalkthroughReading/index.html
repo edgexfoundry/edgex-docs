@@ -3206,7 +3206,11 @@ would transmit this information to core data via REST call.</p>
 </div>
 <h4 id="origin-timestamp">Origin Timestamp</h4>
 <p>The device service will supply an origin property in the <code>Event</code> and <code>Reading</code> object to suggest the time (in Epoch
-timestamp/milliseconds format) at which the data was sensed/collected.</p>
+timestamp/nanoseconds format) at which the data was sensed/collected.</p>
+<p>EdgeX uses nanosecond because some devices and use cases may provide and need that degree of accuracy. Also, Collisions at
+nanosecond accuracy are unlikely.</p>
+<p>The <code>Event</code> origin is always set by device service SDK and it is intended to be unique for that device service instance.
+The <code>Reading</code> origin should be set by the device service's ProtocolDriver implementation, SDK copies the <code>Event</code> origin into it if it was not set.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Smart devices will often timestamp sensor data and this timestamp
