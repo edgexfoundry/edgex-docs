@@ -89,7 +89,13 @@ Use either the Postman or Curl tab below to walkthrough sending an `Event` with 
 
 #### Origin Timestamp
 The device service will supply an origin property in the `Event` and `Reading` object to suggest the time (in Epoch
-timestamp/milliseconds format) at which the data was sensed/collected.
+timestamp/nanoseconds format) at which the data was sensed/collected.
+
+EdgeX uses nanosecond because some devices and use cases may provide and need that degree of accuracy. Also, Collisions at
+nanosecond accuracy are unlikely.
+
+The `Event` origin is always set by device service SDK and it is intended to be unique for that device service instance.
+The `Reading` origin should be set by the device service's ProtocolDriver implementation, SDK copies the `Event` origin into it if it was not set.
 
 !!! Note
     Smart devices will often timestamp sensor data and this timestamp
