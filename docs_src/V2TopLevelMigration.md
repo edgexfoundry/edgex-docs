@@ -45,6 +45,102 @@ The Event/Reading data stored by Core Data is considered transient and of little
 
 The V1 ValueDescriptors have been removed in V2.
 
+#### Reading
+
+ The following are the fields that have changed, added or removed.
+
+- `device` => `deviceName`
+- `name` => `resourceName`
+- `profileName` (**new**)
+- `pushed` (**removed**)
+- `created` (**removed** - use `origin`)
+- `modified` (**removed** - use `origin`)
+- `floatEncoding` (**removed**)
+- `units` (**new**)
+- `objectValue` (**new** since v2.1)
+
+!!! example "Comparison between v1 and v2 Reading"
+
+    ```
+    V1 Reading:
+    {
+        "id": "500ef2d3-a80c-4bdf-b268-0aa7b1891721",
+        "created": 1666768403135,
+        "origin": 1666768403135266769,
+        "device": "Random-Boolean-Device",
+        "name": "Bool",
+        "value": "true",
+        "valueType": "Bool"
+    }
+    
+    V2 Reading:
+    {
+        "id": "27f733a1-71a5-4002-a07b-a7785c86f68f",
+        "origin": 1666767570746605009,
+        "deviceName": "Random-Boolean-Device",
+        "resourceName": "Bool",
+        "profileName": "Random-Boolean-Device",
+        "valueType": "Bool",
+        "value": "true"
+    }
+    ```
+
+#### Event
+
+The following are the fields that have changed, added or removed.
+
+- `apiVersion` (**new**)
+- `device` => `deviceName`
+- `sourceName` (**new**)
+- `profileName` (**new**)
+- `pushed` (**removed**)
+- `created` (**removed** - use `origin`)
+- `modified` (**removed** - use `origin`)
+
+!!! example "Comparison between v1 and v2 Event"
+
+    ```
+    V1 Event:
+    {
+        "id": "a730daf1-9dcb-4112-9d77-8b714e4b39e1",
+        "device": "Random-Boolean-Device",
+        "created": 1666768353173,
+        "origin": 1666768353172848489,
+        "readings": [
+            {
+                "id": "92990d19-15fd-43c8-bcab-2d93142bb997",
+                "created": 1666768353173,
+                "origin": 1666768353172647726,
+                "device": "Random-Boolean-Device",
+                "name": "Bool",
+                "value": "true",
+                "valueType": "Bool"
+            }
+        ]
+    }
+    
+    V2 Event:
+    {
+        "apiVersion": "v2",
+        "id": "8b06a2dd-932a-4ae1-b9fd-86a76cf25b87",
+        "deviceName": "Random-Boolean-Device",
+        "profileName": "Random-Boolean-Device",
+        "sourceName": "Bool",
+        "origin": 1666767710656641395,
+        "readings": [
+            {
+                "id": "56af9956-5e31-47df-89ca-e8b13d7c3dd9",
+                "origin": 1666767710656641395,
+                "deviceName": "Random-Boolean-Device",
+                "resourceName": "Bool",
+                "profileName": "Random-Boolean-Device",
+                "valueType": "Bool",
+                "value": "false"
+            }
+        ]
+    }
+    ```
+
 ### Core Metadata
 
 Most of the data stored by Core Metadata will be recreated when the V2 versions of the Device Services start-up. The statically declared devices will automatically be created and device discovery will find and add existing devices. Any device profiles, devices, provision watchers created manually via the V1 REST APIs will have to be recreated using the V2 REST API. Any manually-applied `AdministrativeState` settings will also need to be re-applied.
