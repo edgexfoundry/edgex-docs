@@ -98,12 +98,21 @@ The tables in each of the tabs below document configuration properties that are 
     |Property|Default Value|Description|
     |---|---|---|
     |||Each service has it own collect of Clients that it uses|
-    |Protocol | http  | The protocol to use when building a URI to local the service endpoint|
-    |Host | localhost  | The host name or IP address where the service is hosted |
+    |Protocol | http | The protocol to use when building a URI to local the service endpoint|
+    |Host | localhost | The host name or IP address where the service is hosted|
     |Port | 598xx | The port exposed by the target service|
+    |UseMessageBus | false | indicate whether to use Messaging version of client |
+    |Topics |  | holds the MessageBus Topics used by the client to communicate to the service|
+    || CommandRequestTopicPrefix = edgex/core/command/request | for publishing the internal command request|
+    || CommandResponseTopic = edgex/core/command/response/# | for subscribing the internal command response|
+    || QueryRequestTopic = edgex/core/commandquery/request | for publishing the internal command query request|
+    || QueryResponseTopic = edgex/core/commandquery/response | for subscribing the internal command query response|
     
     !!! edgey "Edgex 2.0"
         For EdgeX 2.0 the map keys have changed to be the service's service-key, i.e. `Metadata` changed to `core-metadata`
+
+    !!! edgey "Edgex 2.3"
+        The `UseMessageBus` and `Topics` fields are only viable for Command client
 
 === "SecretStore"
 
