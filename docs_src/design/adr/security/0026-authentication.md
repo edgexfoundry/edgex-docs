@@ -7,7 +7,7 @@ DRAFT
 ## Context
 
 The AS-IS Architecture figure below depicts the current state of
-microservice communication security as of the EdgeX Jakarta release,
+microservice communication security as of the EdgeX Levski release,
 when security is enabled:
 
 ![AS-IS Architecture](0026-as-is.jpg)
@@ -24,7 +24,7 @@ have already been secured:
 * Communication with EdgeX's service registry and configuration provider,
   as implemented by Hashicorp Consul, is secured over a local HTTP
   socket with token-based authentication,
-  with the token being issued by Hashicorp Vault.
+  with the token being mediated by Hashicorp Vault.
   An access control list limits access to the keyspace of
   the configuration store.
 
@@ -42,7 +42,7 @@ All external requests are filtered at the API gateway.
 URL rewriting is used to concentrate microservices
 on a single HTTP-accessible port.
 
-In bare-metal deployments, it is not possible to verify Kong
+Behind the proxy, it is not possible to verify Kong
 as the origin of local network traffic because mutual-auth TLS
 is not supported in the open source version of Kong.
 Although the Kong JWT plugin will set request headers
@@ -53,7 +53,7 @@ performed the authentication step.
 Even though the original JWT passes through the proxy,
 the Kong authentication plugins do not expose
 token introspection endpoints that the backend service
-could use to check the token themselves.
+could use to check token validity independently.
 
 The consequence of having an API gateway that performs
 all microservice authentication is that communication
@@ -66,80 +66,65 @@ from legitimate microservice traffic.
 
 ## Decision
 
-Kamakura release recently introduced a technology called
-SPIFFE/SPIRE as part of [ADR 0020 Delay start services](./0020-spiffe.md).
-The ADR enabled remote EdgeX device services to obtain
-secret store tokens, and by extension,
-secure access to the EdgeX registry and configuration store.
+This ADR expands the use of Vault to include
+issuing and validating [JWTs](https://www.rfc-editor.org/rfc/rfc7519)
+for use in microservice authentication among EdgeX services.
+Vault, and not Kong, owns JWTs issuance and validation
+in the new propsal.
 
-This ADR broadens the use of SPIFFE/SPIRE,
-requiring its use for both its original purpose of obtaining secret store tokens,
-and for a new use of peer authentication of EdgeX microservices.
-The API gateway will be replaced with a much simpler (and smaller)
-HTTP reverse proxy that only requires URL rewriting functionality,
-with TLS termination enabled by default so as to be consistent with
-[ADR 0015 - Encryption between microservices](./0015-in-cluster-tls.md),
-which states that encryption is not required for local communication.
-The functionality of the HTTP reverse proxy is generic enough
-that in a Kubernetes environment, a generic ingress controller
-is more than capable of fulfilling this role via declarative configuration.
+Having been relieved of JWT management responsibility,
+it is now possible to replace the Kong API gateway and its associated
+Postgres database with a much simpler (and smaller) NGINX reverse proxy.
+All inbound requests can be authorized by an external plugin
+that can in turn delegate the JWT validity check to Vault.
+From the perspective of an external caller,
+the existing JWT authentication feature is unchanged.
+TLS termination enabled by default so as to be consistent with
+[ADR 0015 - Encryption between microservices](./0015-in-cluster-tls.md).
+
+Behind the proxy, there are two major changes:
+
+1. Every EdgeX service, when security is enabled,
+   requires a JWT be passed as part of the HTTP request
+   that is validated using Vault's token introspection endpoint.
+
+2. Every EdgeX service, when security is enabled,
+   uses a Vault-supplied JWT to authenticate
+   outgoing calls to peer EdgeX services.
+   For microservice chaining scenarios,
+   the original caller's identity can be passed through
+   in most cases.
 
 The new TO-BE architecture is diagrammed in the following figure:
 
 ![TO-BE Architecture](0026-to-be.jpg)
 
-In the TO-BE architecture, JWT token authentication flows from
-the remote admin client, through the HTTP reverse proxy,
-into the EdgeX microservices, where it is then validated
-and checked against a service-specific access control list.
-The access control list can be as broad as "allow any valid token"
-to as narrow as "allow only calls from specified identity."
-Authentication will be performed at the route level,
-as some routes (such as a health-checking route)
-may remain unauthenticated.
-The JWT is available to application-level code,
-so fine-grained authorization (e.g. database row filtering) is possible
-for any microservice with exceptional security requirements.
+The other architecturally signficant change to the proposal
+is the use Vault's identity features.
+Today, every EdgeX service is assigned a token with defined
+access to the EdgeX secret store.
+With this proposal, every service, and every external user,
+will will have an assigned Vault identity.
+The implication of this change is that it is now possible
+to configure Vault authentication engines against
+Vault identities.
+For example:
 
-Because not all routes require authentication
-(intentionally or accidentally),
-client-side (mutual-auth) TLS authentication is be required
-of external callers.
-Unlike backend TLS support,
-many HTTP reverse proxies support client-side TLS verification.
-Since TLS is terminated at the reverse proxy,
-a JWT-SVID is present in each request that will be passed
-along to the backend microservice.
-The client-side certificate need not be a X.509 SVID,
-but it is convenient to do so,
-especially if the SPIFFE server is configured with a fixed CA.
+* An external user identity could be authenticated by
+  an external service, such as [Auth0](https://auth0.com).
+  Alternatively, username/password or AppRole authentication
+  could be used if an external source of identity is not available.
+  This is viewed as beneficial, as downstream EdgeX implementations
+  are already building their own similar integrations.
 
-The TO-BE architecture will effectively block local unprivileged
-malware that does not have access to a valid JWT authentication token.
-Each EdgeX microservice will have a semi-unique identity
-with the same limitations as detailed in
-[ADR 0020 Delay start services](./0020-spiffe.md).
-Namely, generic services such as application services will share
-a generic SPIFFE identity, as the current implementation of
-the SPIRE workload attester cannot distinguish workloads
-by command-line differences alone.
+* An internal service identity could be authenticated by
+  a Kubernetes service account token.  This would eliminate
+  the requirement to pre-distribute Vault tokens to services
+  via a shared filesystem volume, simplyfing Kubenetes-based
+  deployments of EdgeX.
 
-In order to support familiar behavior where a public key
-used for JWT authentication is seeded into an EdgeX installation,
-this ADR proposes the introduction of an 
-optional claims transformation microservice
-that uses a privileged SPIRE agent API to exchange
-an admin JWT for another SPIFFE-issued JWT
-that will be trusted by the other EdgeX microservices.
-See the alternatives section later in this document
-for other approaches to obtaining a JWT for remote administration.
-
-JWT authentication allows for delegated identity,
-where the identity of the original caller is passed
-through a microservice call chain.
-
-As an added bonus, SPIRE, the reference implementation of SPIFFE,
-supports longer key sizes than the Kong JWT plugin.
+As an added bonus,
+Vault supports longer JWT key sizes than the Kong JWT plugin.
 
 
 ## Alternatives
@@ -149,163 +134,163 @@ supports longer key sizes than the Kong JWT plugin.
 One approach that is seen in some microservice architectures
 is to force all communication between microservices to go
 through the external API gateway.
-Besides being very difficult for the programmer,
-as the external address of the API gateway
+The main barrier to this approach is lack of
+proces-level traffic shaping in bare-metal environments.
+Additionally, external address of the API gateway
 may not be known to internal code,
-in a bare-metal environment,
-process-level traffic shaping is near-impossible.
+increasing implementation difficulty for the programmer.
 
 ### mTLS Everywhere
 
 One straightforward approach would be to use
 use mutual-auth TLS everywhere and eliminate
 the reverse proxy entirely.
-(Each service would necessarily have to be exposed
-on its own port in order to process the client certificate.)
-In this scenario, every service would be issued
-a X.509 SPIFFE identity certificate and private key.
-SPIFFE-aware services would subscribe the SVID
-updates from the SPIFFE server and perform live
-key and certificate rotation.
+Each service would necessarily have to be exposed
+on its own port in order to process the client certificate.
+A large number of exposed ports makes
+security validation more difficult.
+
+The primary problem with mutual-auth TLS
+is key and certificate management.
+Specifically,
+[NIST SP 800-57 part 1](https://csrc.nist.gov/publications/detail/sp/800-57-part-1/rev-5/final)
+recommends that authentication keys
+should be rotated every 2 years as a minimum.
+This is a potential issue for long-running
+(for multiple years) processes.
+
+### SPIFFE-based mTLS
+
+This approach is a variation on mTLS Everywhere
+where SPIFFE-aware client libraries that
+are specifically designed to support live rotation
+of TLS credentials are compiled into applications.
+This is an effective migation for NIST SP 800-57
+recommended cryptoperiods.
 
 Legacy services such as Vault, Consul, et cetera
 assume that their TLS server certificates are long-lived.
 One way of to accomodate these services would be
 to issue a long-lived X.509 SVID to these services.
-Another would be certificate and key rotation,
-with periodic service restarts,
-which would be disruptive.
-(TBD: Can leaf certificates have a TTL that exceeds
-that of the sub-CA?)
+Alternatively, certificates to these services
+could be delivered out-of-band.
+However, in both scenarios, 
+certificate and/or key rotation
+would require a disruptive service restart.
 
 Tools such as ghosttunnel could be used to proxy
 services that are not TLS-aware, but in a bare-metal
-environment the proxy can be easily bypassed.
+environment the proxy could be easily bypassed.
 
-mTLS everywhere may be a workable alternative,
-depending on answer to above question.
+While a SPIFFE-based mTLS solution solves some
+of the problems with an mTLS Everywhere approach,
+a significant amount of effort would need to be
+spent dealing with corner cases and
+third-party service integration.
 
 ### Using Kong as a Service Identity Provider
 
-Neither the JWT nor OAuth2 plugins offer a token validation endpoint,
+Neither the JWT nor OAuth2 plugins offer a token introspection endpoint,
 though it would be possible to create a fake service
 that EdgeX microservices could call to validate a bearer token.
-Using this endpoint to validate every request
-would incur a network round-trip (albeit a local one)
-that would greatly increase microservice latency.
-
 Using the Kong Admin API to obtain a public key for JWT
 validation via database dump would be unnecessarily complex.
 Validation of an opaque OAuth2 token would require direct access
 to Kong's backend database and is also unnecessarily complex.
 
-### Homegrown Authentication
+### Integrated Service Meshes
 
-This author believes that edge-based identity stores
-are difficult to manage at scale and should be avoided.
+As part of the research for this ADR,
+we conducted an architectural exploration of integrating the
+[OpenZiti service mesh](https://openziti.github.io/)
+directly into EdgeX microservices.
+Although promising, there were three primary problems
+with OpenZiti integration:
 
-### Location of SPIRE Server and Issuance of Administrator JWTs
+First is size. The OpenZiti quickstart container,
+which contains the required OpenZiti compents such as
+the OpenZiti controller and OpenZiti edge router,
+is already twice as large (compressed size)
+as the Kong container.  Since Kong is the largest
+component in the secure EdgeX implementation,
+brining in additional components that are already
+larger than the component we seek to elilminate
+is a non-starter.
 
-[ADR 0020 Delay start services](./0020-spiffe.md) suggested that
-the SPIRE server component run on the edge device,
-with the possibility that it could run in a common cloud.
-Now that the JWT authentication flow is end-to-end,
-both the remote admin and the EdgeX microservices themselves
-need access to the SPIRE server to obtain an SPIFFE
-verifiable identity (SVID).
-There are three general approaches:
+The second is bootstrapping complexity.
+There is no expedient way to leverage Vault
+to onboard an EdgeX service into the OpenZiti service mesh.
+The proposed bootstrapping process involved multiple steps:
 
-1. The SPIRE server is directly exposed to both the remote
-   admin and the edge device,
-   and the edge device and the remote admin both
-   have a SPIRE agent running for issuance of SVID's.
-   (For example, a device could only be remotely managed
-   from designated hosts.)
-   If the SPIRE server is hosted in the cloud
-   and the cloud connection fails,
-   the edge device will stop working soon thereafter.
-   (This is a new failure mode.)
-   If the SPIRE server is hosted on the edge device,
-   loss of upstream network connectivity will break
-   remote administration.
-   (Nothing new here.)
-   The SPIFFE server has the ability to issue SVID's,
-   and placing the SPIFFE server in the cloud reduces
-   the exposure of this security-critical component.
-   As stated above, centralized identity is better.
-   
-2. The SPIRE server could be located on the edge device,
-   and exposed only to the edge device.
-   Through an out-of-band mechanism,
-   an administrator could ask the SPIRE server to issue
-   a long-lived SVID and distribute it out-of-band to
-   a remote admin.
-   One benefit of this approach is that the SPIRE server
-   need not be externally exposed.
-   Another benefit of this approach is that every remote
-   admin could have a distinct SPIFFE identity.
-   A drawback of this approach is that long-lived JWT's
-   are prone to theft and are not revokable on an
-   individual basis.
-   This approach also somewhat backtracks decisions made on previous
-   EdgeX releases, which required the remote client to sign its own JWT
-   using a previously-registered key.
+* Create multiple instances of the Vault PKI engine.
+  One instance for a root CA,
+  and a second as a issuing CA for EdgeX service certificates.
+  The secrity bootstrapper would have to augment the existing
+  Vault service policies to allow EdgeX services
+  to request a role-specific X.509 certificate.
 
-3. The SPIRE server could be located on the edge device,
-   and exposed only to the edge device.  (Same as above.)
-   The difference here is that EdgeX could expose a claims
-   transformation microservice that would take a JWT
-   signed by a known, pre-configured key
-   and exchange it for a short-lived SPIFFE-based JWT.
-   There are two sub-variants of this approach.
-   One sub-variant returns to the caller the SVID of
-   the claims transformation microservice itself,
-   discarding the identity of the original caller.
-   The other sub-variant uses the
-   [SPIRE delegated identity API](https://github.com/spiffe/spire/blob/main/doc/spire_agent.md#delegated-identity-api),
-   a privileged API that allows the agent to request
-   the SVID of an arbitrary workload.
-   There would however be an extra authentication step
-   where one JWT is exchanged for another.
+* Configure the OpenZiti controller with 3rd party CA
+  auto-enrollment with the certificate CN as the identity.
+  It would also be necessary to pre-configure the controller
+  with service policies that govern which EdgeX services
+  where allowed to talk to each other,
+  and to do this before any EdgeX services were actually
+  started for the first time and made known to the controller.
 
-This last approach is most consistent with approaches used in
-previous versions of EdgeX and the approach that is chosen by default,
-though the architecture does not preclude an implementer
-from choosing any combination of all three approaches.
+* When an EdgeX service comes up and wants to talk on the network,
+  it would have to request a key and certificate from Vault
+  and cache it in memory,
+  set a timer to replace the key/certificate before it expired,
+  start its HTTP listener using the OpenZiti SDK,
+  and use the OpenZiti SDK to dial other microservices.
 
-In none of these solutions is it practical to check the
-validity of an JWT SVID at the HTTP reverse proxy,
-as the SVID may be issued by a rotating sub-CA.
-Client-side TLS identity for external callers,
-on the other hand, is very simple to verify,
-and prevents attackers from proving the system
-with randomly-generated JWTs.
+The third is awkwardness for external clients.
+In order to replace Kong,
+it would be necessary to expose the OpenZiti controller
+and OpenZiti edge router externally,
+create an identity with username/password authentication,
+authenticate with the controller to get an API session,
+obtain a session key/certificate to onboard the OpenZiti tunneler,
+remap local ports to remote services,
+and then interact with the tunner to make remote calls.
+The above procedure would resemble an SSH port-forwarding tunnel,
+and the client could only talk to a single EdgeX instance at one time.
+
+Although OpenZiti would solve some problems regarding
+encrypted communicaiton across a network,
+at this time the priority is microservice authentiation,
+which an be achieved with less complexity than an OpenZiti integration.
 
 
 ## Consequences
 
-While `security-secretstore-setup` and `security-file-token-provider`
-may still be needed to generate secret store tokens 
-for setting the base services for EdgeX,
-all EdgeX microservices will be required to obtain a SPIFFE verifiable
-identity (SVID) in order to authenticate to remote callers,
-or to verify the identity of a remote caller.
+Adopting this ADR has the following consequences:
 
-At a minimum, the gRPC libraries for Go will add approximately
-8MB to every service executable.
+* Deprecation of Kong and Postgres as the reverse proxy solution.
 
-SPIRE support for Windows native environments is 
-[forthcoming](https://github.com/spiffe/spire/issues/2342).
-Windows build 1809 or later (Windows 10 enterprise LTSC release)
-and Go 1.12 or later are required as prerequisites.
+* Removal of Postgres and Kong from the bootstrapper scripts
+  and docker-compose files and snap service lists.
+
+* Modification to EdgeX security-secretstore-setup
+  to create service identities to back existing Vault tokens.
+
+* Modification of all REST API listeners to validate received JWTs.
+
+* Modification of all outgoing EdgeX service requests
+  (to other EdgeX services) to include JWT authentication.
+
+* Modification of the EdgeX SPIFFE token provider
+  to issue identity-backed Vault tokens.
+
+* Validation that there are no additional impediments
+  to the ability of EdgeX services to renew their tokens.
+
+* Proxy service documentation updates.
 
 
 ## References
 
 - [ADR 0015 Encryption between microservices](./0015-in-cluster-tls.md) 
 - [ADR 0020 Delay start services (SPIFFE/SPIRE)](./0020-spiffe.md)
+- [OpenZiti service mesh](https://openziti.github.io/)
 - [SPIFFE](https://spiffe.io/)
-  - [SPIFFE ID](https://github.com/spiffe/spiffe/blob/main/standards/SPIFFE.md)
-  - [X.500 SVID](https://github.com/spiffe/spiffe/blob/main/standards/X509-SVID.md)
-  - [JWT SVID](https://github.com/spiffe/spiffe/blob/main/standards/JWT-SVID.md)
-  - [Turtle book](https://thebottomturtle.io/Solving-the-bottom-turtle-SPIFFE-SPIRE-Book.pdf)
