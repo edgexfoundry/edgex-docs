@@ -18,7 +18,7 @@ Currently the configuration for each of the EdgeX services have many common sett
 - Software Integrator
 
 ### Description
-See [Common Configuration](https://docs.edgexfoundry.org/latest/microservices/configuration/CommonConfiguration/) for complete list of common configuration sections. As stated above most of the values for these common settings are the same across all the EdgeX Services. Below are a couple examples.
+See [Common Configuration](../../../microservices/configuration/CommonConfiguration/#configuration-properties) for complete list of common configuration sections. As stated above most of the values for these common settings are the same across all the EdgeX Services. Below are a couple examples.
 
 !!! example - "Example - Common configuration - **Service** & **Registry**"
     ```toml
@@ -165,5 +165,5 @@ There are no existing solutions for global configuration for EdgeX since the cur
 - TBD UCR for URI for files (Units or Measurements, Config, Profiles, etc.)
 
 ### References
-- [https://docs.edgexfoundry.org/latest/design/adr/0001-Registy-Refactor/](https://docs.edgexfoundry.org/latest/design/adr/0001-Registy-Refactor/)
-- [https://docs.edgexfoundry.org/latest/design/adr/0005-Service-Self-Config/](https://docs.edgexfoundry.org/latest/design/adr/0005-Service-Self-Config/)
+- [0001-Registry-Refactor](../../adr/0001-Registy-Refactor/)
+- [0005-Service-Self-Config](../../adr/0005-Service-Self-Config/)
