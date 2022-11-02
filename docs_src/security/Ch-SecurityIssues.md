@@ -18,7 +18,7 @@ thoroughly investigated by a set of community volunteers.
 To make a report, please email the private list:
 <security-issues@edgexfoundry.org>, providing as much detail as
 possible. Use the security issue template:
-[security\_issue\_template](https://github.com/edgexfoundry/edgex-go/blob/master/.github/ISSUE_TEMPLATE/4-security-issue-disclosure.md.).
+[security\_issue\_template](https://github.com/edgexfoundry/.github/blob/main/.github/ISSUE_TEMPLATE/4-security-issue-disclosure.md).
 
 At this time we do not yet offer an encrypted bug reporting option.
 
