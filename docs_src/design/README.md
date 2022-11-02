@@ -10,7 +10,7 @@ At the root of the ADR folder (/design/adr) are decisions that are relevant to m
 
 ## Naming and Formatting
 ADR documents are requested to follow RFC (request for comments) naming standard.  Specifically, authors should name their documents with a sequentially increasing integer (or serial number) and then the architectural design topic:  (sequence number - topic).  Example:  0001-SeparateConfigurationInterface.  The sequence is a global sequence for all EdgeX ADR.  
-Per RFC and Michael Nygard [suggestions](https://github.com/joelparkerhenderson/architecture_decision_record/blob/master/adr_template_by_michael_nygard.md) the makeup of the ADR document should generally include:
+Per RFC and Michael Nygard [suggestions](https://github.com/joelparkerhenderson/architecture-decision-record/blob/main/templates/decision-record-template-by-michael-nygard/index.md) the makeup of the ADR document should generally include:
 
 -	Title
 -	Status (proposed, accepted, rejected, deprecated, superseded, etc.)
