@@ -18,7 +18,7 @@ type Device struct {
 The device name field contains the following validation:
 
 - **required** validation tag ensures the value is not zero, empty string, or nil
-- **edgex-dto-none-empty-string** validation tag trims white space and ensures the value that is not an empty string
+- **edgex-dto-none-empty-string** validation tag trims white space and ensures the value is not an empty string
 - **edgex-dto-rfc3986-unreserved-chars** validation tag checks the value that does not contain reserved characters
 
 You can find more validations in the [go-playground/validator](https://pkg.go.dev/github.com/go-playground/validator/v10) and EdgeX custom validations in the [go-mod-core-contracts](https://github.com/edgexfoundry/go-mod-core-contracts/blob/main/common/validator.go).
@@ -33,7 +33,7 @@ This validation allows for only the following characters:
 - special character: - _ ~ : ; =
 
 !!! edgey "EdgeX 2.3"
-    We need to reduce the character restriction for the following use cases:
+    In EdgeX 2.3 the character restriction was reduced to support the following use cases:
 
      - In BACNet protocol, the user might combine object type and property as the resourceName, for example, analog_input_0:present-value
      - In OPC_UA protocol, the user might use NodeId as the resourceName, for example, ns=10;s=Hello:World
