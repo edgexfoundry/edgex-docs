@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/microservices/device/Ch-DeviceServices/">
       
       <link rel="icon" href="../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.4.1, mkdocs-material-8.5.7">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.7">
     
     
       
@@ -3461,7 +3461,7 @@ and role of a device service.</p>
 <p>The virtual device service (<a href="https://github.com/edgexfoundry/device-virtual-go">device-virtual-go</a>) is also used for demonstration, education and testing.  It is a more complex simulator in that it allows any type of data to be generated on a scheduled basis and used an embedded SQL database (ql) to provide simulated data.  Manipulating the data in the embedded database allows the service to mimic almost any type of sensing device.   More information on the <a href="../virtual/Ch-VirtualDevice/">virtual device service</a> is available in this documentation.</p>
 <h2 id="running-multiple-instances">Running multiple instances</h2>
 <p>Device services support one additional command-line argument, <code>--instance</code> or <code>-i</code>. This allows for running multiple instances of a device service in an EdgeX deployment, by giving them different names.</p>
-<p>For example, running <code>device-modbus -i 1</code> results in a service named <code>device-modbus_1</code>, ie the parameter given to the <code>instance</code> argument is added as a suffix to the device service name. The same effect may be obtained by setting the <code>EDGEX_INSTANCE</code> environment variable.</p>
+<p>For example, running <code>device-modbus -i 1</code> results in a service named <code>device-modbus_1</code>, ie the parameter given to the <code>instance</code> argument is added as a suffix to the device service name. The same effect may be obtained by setting the <code>EDGEX_INSTANCE_NAME</code> environment variable.</p>
 <h2 id="publish-to-messagebus">Publish to MessageBus</h2>
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 2.0</p>
