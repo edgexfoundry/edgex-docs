@@ -266,15 +266,23 @@ The definitions for the Pipeline Function return values have not changed.
 
 ##### Data
 
-The `data` passed in either set to a single instance for the function to process or nil.  Now you no longer need to check the length of the incoming data.
+The `data` passed in is set either to a data object for the function to process or nil.  Check the length of the incoming data is no longer needed. The default `TargetType` for pipeline functions has changed from `models.Event` to `dtos.Event`. The data type should be validated to ensure the data received is the type the function expects to process.
 
-!!! example - Example - Validating data before processing
+!!! example - "Example - Validating data before processing"
 
     ```go
     	if data == nil {
     		return false, errors.New("No Data Received")
     	}
+    	
+    	event, ok := data.(dtos.Event)
+        if !ok {
+            return false, fmt.Errorf("data type received is not an Event")
+        }
     ```
+
+!!! note
+    The `models.Event` still exists, but is for internal use only for those services that persist the `Events` to a database.
 
 ##### Logging Client
 
