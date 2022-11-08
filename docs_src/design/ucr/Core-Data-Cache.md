@@ -34,9 +34,9 @@ Today, core data will persist all data sent it.  The scheduler can be used to â€
 
 ### Requirements
 
-- Cap the number of a particular deviceâ€™s readings are kept/persisted in core data.
-- The number of persisted device readings is configurable
-- Queries of core data should allow for returning the latest X number of readings 
+- Cap the number of a device readings, per resource name, that are kept/persisted in core data.
+- The number of persisted device readings is configurable, and this configuration setting applies to all resources o all devices in core-data.
+- Queries of core data should allow for returning the latest X number of readings per resource name. 
 
 ### Other Related Issues
 
