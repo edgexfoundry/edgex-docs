@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/microservices/application/V2Migration/">
       
       <link rel="icon" href="../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.8">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.9">
     
     
       
@@ -26,7 +26,7 @@
       <link rel="stylesheet" href="../../../assets/stylesheets/main.20d9efc8.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.815d1a91.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.08040f6c.min.css">
         
       
       
@@ -78,7 +78,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
     
     
@@ -3747,13 +3747,22 @@
 <h5 id="return-values">Return Values</h5>
 <p>The definitions for the Pipeline Function return values have not changed.</p>
 <h5 id="data">Data</h5>
-<p>The <code>data</code> passed in either set to a single instance for the function to process or nil.  Now you no longer need to check the length of the incoming data.</p>
-<div class="admonition example - example - validating data before processing">
-<p class="admonition-title">Example</p>
+<p>The <code>data</code> passed in is set either to a data object for the function to process or nil.  Check the length of the incoming data is no longer needed. The default <code>TargetType</code> for pipeline functions has changed from <code>models.Event</code> to <code>dtos.Event</code>. The data type should be validated to ensure the data received is the type the function expects to process.</p>
+<div class="admonition example -">
+<p class="admonition-title">Example - Validating data before processing</p>
 <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;No Data Received&quot;</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="nx">event</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">data</span><span class="p">.(</span><span class="nx">dtos</span><span class="p">.</span><span class="nx">Event</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;data type received is not an Event&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 </code></pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>models.Event</code> still exists, but is for internal use only for those services that persist the <code>Events</code> to a database.</p>
 </div>
 <h5 id="logging-client_1">Logging Client</h5>
 <p>The <code>Logging</code> client is now accessible from the <code>ctx.LoggingClient()</code> API. </p>
