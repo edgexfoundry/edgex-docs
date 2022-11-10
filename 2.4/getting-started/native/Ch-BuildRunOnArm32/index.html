@@ -1,0 +1,3922 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for use of EdgeX Foundry">
+      
+      
+        <meta name="author" content="Michael Johanson">
+      
+      
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/getting-started/native/Ch-BuildRunOnArm32/">
+      
+      <link rel="icon" href="../../../assets/logo_edgex.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.8">
+    
+    
+      
+        <title>Build and Run on Linux on ARM 32 - EdgeX Foundry Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.20d9efc8.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.815d1a91.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/version-select.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/branding.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/edgey.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/newexample.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+
+  <script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-38531ZZHBN"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-38531ZZHBN",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-38531ZZHBN",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#build-and-run-on-linux-on-arm-32" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="EdgeX Foundry Documentation" class="md-header__button md-logo" aria-label="EdgeX Foundry Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/logo_edgex_white.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            EdgeX Foundry Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Build and Run on Linux on ARM 32
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    edgex/edgex-go
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        Introduction
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../" class="md-tabs__link md-tabs__link--active">
+        Getting Started
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../security/Ch-Security/" class="md-tabs__link">
+        Security
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../microservices/general/" class="md-tabs__link">
+        Microservices
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../examples/" class="md-tabs__link">
+        Examples and Tutorials
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../api/Ch-APIIntroduction/" class="md-tabs__link">
+        API Reference
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../design/Process/" class="md-tabs__link">
+        Use Cases & Designs
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../general/Definitions/" class="md-tabs__link">
+        Reference
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/logo_edgex_white.png" alt="logo">
+
+    </a>
+    EdgeX Foundry Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    edgex/edgex-go
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Introduction
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../V2TopLevelMigration/" class="md-nav__link">
+        V2 Migration Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Getting Started
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quick-start/" class="md-nav__link">
+        Quick Start
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Users
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Users" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Users
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ch-GettingStartedUsers/" class="md-nav__link">
+        Getting Started as a User
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ch-GettingStartedDockerUsers/" class="md-nav__link">
+        Getting Started using Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ch-GettingStartedSnapUsers/" class="md-nav__link">
+        Getting Started using Snaps
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ch-GettingStartedDTOValidation/" class="md-nav__link">
+        DTO Validation
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          Developers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Developers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Developers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ch-GettingStartedDevelopers/" class="md-nav__link">
+        Getting Started as a Developer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ch-GettingStartedGoDevelopers/" class="md-nav__link">
+        Getting Started - Go Developers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ch-GettingStartedCDevelopers/" class="md-nav__link">
+        Getting Started - C Developers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ch-GettingStartedHybrid/" class="md-nav__link">
+        Working in a Hybrid Environment
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4_5" type="checkbox" id="__nav_2_4_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4_5">
+          Native Build and Run Guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Native Build and Run Guides" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_4_5">
+          <span class="md-nav__icon md-icon"></span>
+          Native Build and Run Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Ch-BuildRunNative/" class="md-nav__link">
+        Native Build and Run
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Ch-BuildRunOnLinuxDistro/" class="md-nav__link">
+        Build and Run on Linux on x86/x64
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Build and Run on Linux on ARM 32
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Build and Run on Linux on ARM 32
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#specifically-build-and-run-edgex-natively-on-a-raspberry-pi" class="md-nav__link">
+    Specifically - build and run EdgeX natively on a Raspberry Pi
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment" class="md-nav__link">
+    Environment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#required-software" class="md-nav__link">
+    Required Software
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prepare-your-environment" class="md-nav__link">
+    Prepare your environment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-edgex-source" class="md-nav__link">
+    Download EdgeX Source
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-edgex-services" class="md-nav__link">
+    Build EdgeX Services
+  </a>
+  
+    <nav class="md-nav" aria-label="Build EdgeX Services">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#build-core-and-supporting-services" class="md-nav__link">
+    Build Core and Supporting Services
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-the-virtual-device-service" class="md-nav__link">
+    Build the Virtual Device Service
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-the-configurable-application-service" class="md-nav__link">
+    Build the Configurable Application Service
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-ekuiper" class="md-nav__link">
+    Build eKuiper
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-the-gui" class="md-nav__link">
+    Build the GUI
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-edgex" class="md-nav__link">
+    Run EdgeX
+  </a>
+  
+    <nav class="md-nav" aria-label="Run EdgeX">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#start-consul" class="md-nav__link">
+    Start Consul
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-core-metadata" class="md-nav__link">
+    Start Core Metadata
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-the-other-core-and-supporting-services" class="md-nav__link">
+    Start the other Core and Supporting Services
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-configurable-application-service" class="md-nav__link">
+    Start Configurable Application Service
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-the-virtual-device-service" class="md-nav__link">
+    Start the Virtual Device Service
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-the-gui" class="md-nav__link">
+    Start the GUI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-ekuiper" class="md-nav__link">
+    Start eKuiper
+  </a>
+  
+    <nav class="md-nav" aria-label="Start eKuiper">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-ekuiper-environment-variables" class="md-nav__link">
+    Set eKuiper Environment Variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-ekuiper" class="md-nav__link">
+    Run eKuiper
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-and-explore-edgex" class="md-nav__link">
+    Test and Explore EdgeX
+  </a>
+  
+    <nav class="md-nav" aria-label="Test and Explore EdgeX">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#see-sensor-data-flowing-through-edgex" class="md-nav__link">
+    See sensor data flowing through EdgeX
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-edgex-service-api" class="md-nav__link">
+    Check EdgeX service API
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-up-an-ekuiper-stream-and-rule" class="md-nav__link">
+    Set up an eKuiper Stream and Rule
+  </a>
+  
+    <nav class="md-nav" aria-label="Set up an eKuiper Stream and Rule">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#establish-the-stream" class="md-nav__link">
+    Establish the Stream
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#establish-the-rule" class="md-nav__link">
+    Establish the Rule
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-the-rule-engine-is-firing" class="md-nav__link">
+    Check the Rule Engine is firing
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debugging-and-troubleshooting" class="md-nav__link">
+    Debugging and Troubleshooting
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Ch-BuildRunOnWindows/" class="md-nav__link">
+        Build and Run on Windows on x86/x64
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ApplicationFunctionsSDK/" class="md-nav__link">
+        Application Functions SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4_7" type="checkbox" id="__nav_2_4_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4_7">
+          Device Services
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Device Services" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_4_7">
+          <span class="md-nav__icon md-icon"></span>
+          Device Services
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ch-GettingStartedSDK/" class="md-nav__link">
+        Device Service SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ch-GettingStartedSDK-C/" class="md-nav__link">
+        C SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ch-GettingStartedSDK-Go/" class="md-nav__link">
+        Golang SDK
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Ch-GettingStartedUsersNexus/" class="md-nav__link">
+        Getting Docker Images from EdgeX Nexus Repository
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_5">
+          Tools
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tools" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Tools
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/Ch-CommandLineInterface/" class="md-nav__link">
+        Command Line Interface (CLI)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/Ch-GUI/" class="md-nav__link">
+        Graphical User Interface (GUI)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Security
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Security" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Security
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-Security/" class="md-nav__link">
+        Security
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-SecretStore/" class="md-nav__link">
+        Secret Store
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-SecretProviderApi/" class="md-nav__link">
+        Secret Provider API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-APIGateway/" class="md-nav__link">
+        API Gateway
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-Secure-MessageBus/" class="md-nav__link">
+        Secure MessageBus
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-Configuring-Add-On-Services/" class="md-nav__link">
+        Configuring Add-on Service
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-Secure-Consul/" class="md-nav__link">
+        Secure Consul
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-SecurityIssues/" class="md-nav__link">
+        Reporting Security Issues
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-AddGatewayUserRemotely/" class="md-nav__link">
+        Adding EdgeX API Gateway Users Remotely
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/secrets-config/" class="md-nav__link">
+        Secrets config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/secrets-config-proxy/" class="md-nav__link">
+        Secrets config proxy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/SeedingServiceSecrets/" class="md-nav__link">
+        Seeding Service Secrets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-CORS-Settings/" class="md-nav__link">
+        CORS settings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../security/Ch-RemoteDeviceServices/" class="md-nav__link">
+        Remote Device Services in Secure Mode
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Microservices
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Microservices" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Microservices
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/general/" class="md-nav__link">
+        Cross Cutting Concerns
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_2">
+          Configuration & Registry
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Configuration & Registry" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Configuration & Registry
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/configuration/CommonConfiguration/" class="md-nav__link">
+        Common Configuration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/configuration/CommonCommandLineOptions/" class="md-nav__link">
+        Common Command Line Options
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/configuration/CommonEnvironmentVariables/" class="md-nav__link">
+        Common Environment Variables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/configuration/ConfigurationAndRegistry/" class="md-nav__link">
+        Configuration and Registry Providers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/configuration/V2MigrationCommonConfig/" class="md-nav__link">
+        V2 Migration of Common Configuration
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/general/messagebus/" class="md-nav__link">
+        EdgeX MessageBus
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_4" type="checkbox" id="__nav_4_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_4">
+          Core Services
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Core Services" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          Core Services
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/core/Ch-CoreServices/" class="md-nav__link">
+        Core Services
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/core/data/Ch-CoreData/" class="md-nav__link">
+        Core Data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/core/metadata/Ch-Metadata/" class="md-nav__link">
+        Metadata
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/core/command/Ch-Command/" class="md-nav__link">
+        Command
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/core/database/Ch-Redis/" class="md-nav__link">
+        Redis Database
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_5" type="checkbox" id="__nav_4_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_5">
+          Supporting Services
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Supporting Services" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_5">
+          <span class="md-nav__icon md-icon"></span>
+          Supporting Services
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/support/Ch-SupportingServices/" class="md-nav__link">
+        Supporting Services Microservices
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/support/notifications/Ch-AlertsNotifications/" class="md-nav__link">
+        Alerts & Notifications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/support/eKuiper/Ch-eKuiper/" class="md-nav__link">
+        eKuiper Rules Engine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/support/scheduler/Ch-Scheduler/" class="md-nav__link">
+        Scheduler
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6" type="checkbox" id="__nav_4_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_6">
+          System Management
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="System Management" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_6">
+          <span class="md-nav__icon md-icon"></span>
+          System Management
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/system-management/Ch_SystemManagement/" class="md-nav__link">
+        System Management Micro Services
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/system-management/agent/Ch_SysMgmtAgent/" class="md-nav__link">
+        System Management Agent (SMA)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/system-management/executor/Ch_SysMgmtExecutor/" class="md-nav__link">
+        System Management Executor (SME)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_7" type="checkbox" id="__nav_4_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_7">
+          Devices Services
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Devices Services" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_7">
+          <span class="md-nav__icon md-icon"></span>
+          Devices Services
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/device/Ch-DeviceServices/" class="md-nav__link">
+        Device Services Microservices
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/device/Ch-DeviceServiceList/" class="md-nav__link">
+        Supported Device Services
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/device/profile/Ch-DeviceProfile/" class="md-nav__link">
+        Device Profile
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/device/sdk/Ch-DeviceSDK/" class="md-nav__link">
+        Device Services SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_7_5" type="checkbox" id="__nav_4_7_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_7_5">
+          Device SDK API
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Device SDK API" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_7_5">
+          <span class="md-nav__icon md-icon"></span>
+          Device SDK API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/device/sdk/SDK-Go-API/" class="md-nav__link">
+        Go Device SDK API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/device/virtual/Ch-VirtualDevice/" class="md-nav__link">
+        Virtual Device
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/device/V2Migration/" class="md-nav__link">
+        V2 Migration Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_8" type="checkbox" id="__nav_4_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_8">
+          Application Services
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Application Services" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_8">
+          <span class="md-nav__icon md-icon"></span>
+          Application Services
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/application/ApplicationServices/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/application/GettingStarted/" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/application/Triggers/" class="md-nav__link">
+        Triggers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_8_4" type="checkbox" id="__nav_4_8_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_8_4">
+          Application Functions SDK
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Application Functions SDK" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_8_4">
+          <span class="md-nav__icon md-icon"></span>
+          Application Functions SDK
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/application/ApplicationFunctionsSDK/" class="md-nav__link">
+        App Functions SDK Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/application/ApplicationServiceAPI/" class="md-nav__link">
+        Application Service API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/application/AppFunctionContextAPI/" class="md-nav__link">
+        App Function Context API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/application/ErrorHandling/" class="md-nav__link">
+        Pipeline Function Error Handling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/application/BuiltIn/" class="md-nav__link">
+        Built-In Pipeline Functions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/application/AdvancedTopics/" class="md-nav__link">
+        Advanced Topics
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/application/AppServiceConfigurable/" class="md-nav__link">
+        App Service Configurable
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/application/GeneralAppServiceConfig/" class="md-nav__link">
+        Application Service Configuration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../microservices/application/V2Migration/" class="md-nav__link">
+        V2 Migration Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Examples and Tutorials
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Examples and Tutorials" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Examples and Tutorials
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/" class="md-nav__link">
+        EdgeX Examples
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Ch-ExamplesVirtualDeviceService/" class="md-nav__link">
+        Using the Virtual Device Service
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Ch-ExamplesUsbDeviceService/" class="md-nav__link">
+        USB Camera Device Service RTSP Streaming Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Ch-ExamplesSendingAndConsumingBinary/" class="md-nav__link">
+        Sending and Consuming Binary Data From EdgeX Device Services
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/AppServiceExamples/" class="md-nav__link">
+        App Service Examples
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Ch-CommandingDeviceThroughRulesEngine/" class="md-nav__link">
+        Command Devices with eKuiper Rules Engine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Ch-ExamplesModbusdatatypeconversion/" class="md-nav__link">
+        Modbus - Data Type Conversion
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Ch-OSImageWithEdgeX/" class="md-nav__link">
+        Creating an EdgeX OS Image
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_9" type="checkbox" id="__nav_5_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_9">
+          Adding a Device
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Adding a Device" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_9">
+          <span class="md-nav__icon md-icon"></span>
+          Adding a Device
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Ch-ExamplesAddingModbusDevice/" class="md-nav__link">
+        Modbus
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Ch-ExamplesAddingSNMPDevice/" class="md-nav__link">
+        SNMP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Ch-ExamplesAddingMQTTDevice/" class="md-nav__link">
+        MQTT
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_10" type="checkbox" id="__nav_5_10" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_10">
+          Walkthrough
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Walkthrough" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_10">
+          <span class="md-nav__icon md-icon"></span>
+          Walkthrough
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../walk-through/Ch-Walkthrough/" class="md-nav__link">
+        EdgeX Demonstration API Walk Through
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../walk-through/Ch-WalkthroughSetup/" class="md-nav__link">
+        Setup up your environment
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../walk-through/Ch-WalkthroughUseCase/" class="md-nav__link">
+        Example Use Case
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../walk-through/Ch-WalkthroughDeviceProfile/" class="md-nav__link">
+        Defining your device
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../walk-through/Ch-WalkthroughDeviceService/" class="md-nav__link">
+        Register your device service
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../walk-through/Ch-WalkthroughProvision/" class="md-nav__link">
+        Provision a device
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../walk-through/Ch-WalkthroughCommands/" class="md-nav__link">
+        Calling commands
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../walk-through/Ch-WalkthroughReading/" class="md-nav__link">
+        Sending events and reading data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../walk-through/Ch-WalkthroughExporting/" class="md-nav__link">
+        Exporting your device data
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          API Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          API Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/Ch-APIIntroduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2" type="checkbox" id="__nav_6_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2">
+          Core
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Core" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          Core
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/core/Ch-APICoreCommand/" class="md-nav__link">
+        Core Command
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/core/Ch-APICoreData/" class="md-nav__link">
+        Core Data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/core/Ch-APICoreMetadata/" class="md-nav__link">
+        Core Metadata
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/core/Ch-APICoreConfigurationAndRegistry/" class="md-nav__link">
+        Configuration and Registry
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3" type="checkbox" id="__nav_6_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3">
+          Support
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Support" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          Support
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/support/Ch-APISupportNotifications/" class="md-nav__link">
+        Support Notifications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/support/Ch-APISupportScheduler/" class="md-nav__link">
+        Support Scheduler
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4" type="checkbox" id="__nav_6_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4">
+          Management
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Management" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_4">
+          <span class="md-nav__icon md-icon"></span>
+          Management
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/management/Ch-APISystemManagement/" class="md-nav__link">
+        System Management Agent
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_5" type="checkbox" id="__nav_6_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_5">
+          Device
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Device" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_5">
+          <span class="md-nav__icon md-icon"></span>
+          Device
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/devices/Ch-APIDeviceSDK/" class="md-nav__link">
+        Device Services
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_6" type="checkbox" id="__nav_6_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_6">
+          Application
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Application" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_6">
+          <span class="md-nav__icon md-icon"></span>
+          Application
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/applications/Ch-APIAppFunctionsSDK/" class="md-nav__link">
+        Application Services
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/applications/Ch-APIRulesEngine/" class="md-nav__link">
+        Rules Engine
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Use Cases & Designs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Use Cases & Designs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Use Cases & Designs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../design/Process/" class="md-nav__link">
+        Use Cases and Design Process
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../design/TOC/" class="md-nav__link">
+        Use Cases and Design Records
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Legacy
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Legacy" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Legacy
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../design/legacy-design/" class="md-nav__link">
+        Legacy Design Documents
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../design/legacy-requirements/" class="md-nav__link">
+        Legacy Requirements
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../general/Definitions/" class="md-nav__link">
+        Definitions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../general/PlatformRequirements/" class="md-nav__link">
+        Platform Requirements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../general/ServicePorts/" class="md-nav__link">
+        Default Service Ports
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../general/ContainerNames/" class="md-nav__link">
+        EdgeX Container Names
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../general/ServiceConfiguration/" class="md-nav__link">
+        Service Configuration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../general/EdgeX_CN/" class="md-nav__link">
+        Is EdgeX Foundry Cloud Native?
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#specifically-build-and-run-edgex-natively-on-a-raspberry-pi" class="md-nav__link">
+    Specifically - build and run EdgeX natively on a Raspberry Pi
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment" class="md-nav__link">
+    Environment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#required-software" class="md-nav__link">
+    Required Software
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prepare-your-environment" class="md-nav__link">
+    Prepare your environment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-edgex-source" class="md-nav__link">
+    Download EdgeX Source
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-edgex-services" class="md-nav__link">
+    Build EdgeX Services
+  </a>
+  
+    <nav class="md-nav" aria-label="Build EdgeX Services">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#build-core-and-supporting-services" class="md-nav__link">
+    Build Core and Supporting Services
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-the-virtual-device-service" class="md-nav__link">
+    Build the Virtual Device Service
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-the-configurable-application-service" class="md-nav__link">
+    Build the Configurable Application Service
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-ekuiper" class="md-nav__link">
+    Build eKuiper
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-the-gui" class="md-nav__link">
+    Build the GUI
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-edgex" class="md-nav__link">
+    Run EdgeX
+  </a>
+  
+    <nav class="md-nav" aria-label="Run EdgeX">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#start-consul" class="md-nav__link">
+    Start Consul
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-core-metadata" class="md-nav__link">
+    Start Core Metadata
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-the-other-core-and-supporting-services" class="md-nav__link">
+    Start the other Core and Supporting Services
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-configurable-application-service" class="md-nav__link">
+    Start Configurable Application Service
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-the-virtual-device-service" class="md-nav__link">
+    Start the Virtual Device Service
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-the-gui" class="md-nav__link">
+    Start the GUI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-ekuiper" class="md-nav__link">
+    Start eKuiper
+  </a>
+  
+    <nav class="md-nav" aria-label="Start eKuiper">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-ekuiper-environment-variables" class="md-nav__link">
+    Set eKuiper Environment Variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-ekuiper" class="md-nav__link">
+    Run eKuiper
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-and-explore-edgex" class="md-nav__link">
+    Test and Explore EdgeX
+  </a>
+  
+    <nav class="md-nav" aria-label="Test and Explore EdgeX">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#see-sensor-data-flowing-through-edgex" class="md-nav__link">
+    See sensor data flowing through EdgeX
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-edgex-service-api" class="md-nav__link">
+    Check EdgeX service API
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-up-an-ekuiper-stream-and-rule" class="md-nav__link">
+    Set up an eKuiper Stream and Rule
+  </a>
+  
+    <nav class="md-nav" aria-label="Set up an eKuiper Stream and Rule">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#establish-the-stream" class="md-nav__link">
+    Establish the Stream
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#establish-the-rule" class="md-nav__link">
+    Establish the Rule
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-the-rule-engine-is-firing" class="md-nav__link">
+    Check the Rule Engine is firing
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debugging-and-troubleshooting" class="md-nav__link">
+    Debugging and Troubleshooting
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/getting-started/native/Ch-BuildRunOnArm32.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="build-and-run-on-linux-on-arm-32">Build and Run on Linux on ARM 32</h1>
+<h2 id="specifically-build-and-run-edgex-natively-on-a-raspberry-pi">Specifically - build and run EdgeX natively on a Raspberry Pi</h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This build and run guide offers some assistance to seasoned developers or administrators to help build and run EdgeX on Linux OS with ARM 32 hardware natively (not using Docker and not running with snaps).   Running on ARM 32 is <strong>not supported by the project</strong>.  EdgeX was built to be platform independent.  As such, we believe most of EdgeX can run on almost any environment (on any hardware architecture and almost any operating system).</p>
+<p>Existence of this guide <strong>does not imply current or future support</strong>.  Use of this guide should be used with care and with an understanding that it is the community's best effort to provide advanced developers with the means to begin their own custom EdgeX development and execution on Linux distributions running on ARM 32 hardware.</p>
+</div>
+<p>This build and run guide shows you how to get, compile/build, execute and test EdgeX (including the core and supporting services, the configurable application service, eKuiper rules engine and a virtual device service) in Linux on ARM 32 hardware.  Specifically, this guide was done using a <a href="https://www.raspberrypi.com/products/raspberry-pi-3-model-b/">Raspberry Pi 3</a> running <a href="https://www.raspberrypi.com/software/">Raspberry Pi OS - version 5.15</a>.  For the most part, the guide should assist in building and running EdgeX in almost any Linux distribution on almost any ARM 32 hardware, but some instructions will vary based on the nuances of the underlying distribution.</p>
+<h2 id="environment">Environment</h2>
+<p>Building and running EdgeX on Linux natively will require you have:</p>
+<ul>
+<li>A relatively modern Linux OS (this guide was written using Raspberry Pi OS version 5.15)</li>
+<li><code>sudo</code> or root access</li>
+<li>Access from the host machine to the Internet in order to get tools and source code (e.g., to clone code from GitHub)</li>
+<li>ARM 32 hardware platform - such as that found on the Raspberry Pi platform</li>
+<li>Sufficient memory to build and run EdgeX micro services (<a href="../../../general/PlatformRequirements/">EdgeX suggests</a> 1GB minimum.)<ul>
+<li>1GB is sufficient memory to run all the required software as well as build/run EdgeX services listed below</li>
+</ul>
+</li>
+<li>Sufficient disk space to pull the required tools, libraries, code, etc. to build and run EdgeX (<a href="../../../general/PlatformRequirements/">EdgeX suggests</a> 10GB minimum )<ul>
+<li>10GB is inclusive of space needed to download and setup all the required software/tools as well as EdgeX</li>
+</ul>
+</li>
+</ul>
+<h2 id="required-software">Required Software</h2>
+<p>The following software is assumed to already be installed and available on the host platform.  Follow the referenced guides if you need to install or setup this software.  Please note, the commands to check for the required software documented below are correct, but the actual results of the check may vary per OS distribution and version.</p>
+<ul>
+<li>
+<p>Go Lang, version 1.17 or later as of the Kamakura release</p>
+<ul>
+<li>See <a href="https://go.dev/doc/install">Go Download and install guide for help</a></li>
+<li>
+<p>How to check for existence and version on your machine</p>
+<p><img alt="image" src="../GoLangCheck.png" /></p>
+</li>
+</ul>
+</li>
+<li>
+<p>GCC Build Essentials (for C++)</p>
+<ul>
+<li>See <a href="https://lindevs.com/install-build-essential-on-raspberry-pi/">How to Install Build Essentials on Raspberry Pi</a></li>
+<li>
+<p>How to check for existence and version on your machine</p>
+<p><img alt="image" src="../BuildEssentialCheck.png" /></p>
+</li>
+<li>
+<p>Your installation process may vary based on Linux version/distribution</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Consul, version 1.10 or later as of the Kamakura release</p>
+<ul>
+<li>See <a href="https://www.consul.io/">Open Source Consul for help</a></li>
+<li>
+<p>How to check for existence and version on your machine</p>
+<p><img alt="image" src="../ConsulCheck.png" /></p>
+</li>
+</ul>
+</li>
+<li>
+<p>Redis,version 6.2 or later as of the Kamakura release</p>
+<ul>
+<li>See <a href="https://amalgjose.com/2020/08/11/how-to-install-redis-in-raspberry-pi/">How to install Redis on Arm (32)/Raspberry Pi</a></li>
+<li>
+<p>How to check for existence and version on your machine</p>
+<p><img alt="image" src="../RedisCheck.png" /></p>
+</li>
+<li>
+<p>Your installation process may vary based on Linux version/distribution</p>
+</li>
+</ul>
+</li>
+<li>
+<p>ZeroMQ</p>
+<ul>
+<li>See <a href="https://github.com/MonsieurV/ZeroMQ-RPi">this guide for getting ZMQ installed on ARM - specifically on Raspberry Pis</a></li>
+<li>
+<p>How to check for existence and version on your machine</p>
+<p><img alt="image" src="../ZeroMQCheck-arm.png" /></p>
+</li>
+</ul>
+</li>
+<li>
+<p>Git</p>
+<ul>
+<li>Git is already installed with Raspberry Pi OS</li>
+<li>If not already provided with your OS, see <a href="https://www.atlassian.com/git/tutorials/install-git#linux">Install Git on Linux</a></li>
+<li>
+<p>How to check for existence and version on your machine</p>
+<p><img alt="image" src="../GitCheck.png" /></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="prepare-your-environment">Prepare your environment</h2>
+<p>In this guide, you will be building and running EdgeX in "non-secure" mode.  That is, you will be building and running the EdgeX platform without the security services and security configuration.  An environmental variable, <code>EDGEX_SECURITY_SECRET_STORE</code>,  is set to indicate whether the EdgeX services are expected to initialize and use the secure secret store.  By default, this variable is set to <code>true</code>.  Prior to building and running EdgeX, set this environment variable to false.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span> <span class="nv">EDGEX_SECURITY_SECRET_STORE</span><span class="o">=</span><span class="nb">false</span> 
+</code></pre></div>
+<p>This can be done in the terminal from which you build and run EdgeX or you can set it in your user's profile to make an environment persist across terminal sessions.  See <a href="https://www.serverlab.ca/tutorials/linux/administration-linux/how-to-set-environment-variables-in-linux/">How to Set Environment Variables in Linux</a> for assistance.</p>
+<h2 id="download-edgex-source">Download EdgeX Source</h2>
+<p>In order to build and run EdgeX micro services, you will first need to get the source code for the platform.  Using git, clone the EdgeX repositories with the following commands:</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You may wish to create a new folder and then issue these git commands from that folder so that all EdgeX code is neatly stored in a single folder.</p>
+</div>
+<div class="highlight"><pre><span></span><code>git clone https://github.com/edgexfoundry/edgex-go.git
+git clone https://github.com/edgexfoundry/device-virtual-go.git
+git clone https://github.com/edgexfoundry/app-service-configurable.git
+git clone https://github.com/lf-edge/ekuiper.git
+git clone https://github.com/edgexfoundry/edgex-ui-go.git
+</code></pre></div>
+<p>Note that a new folder, named for the repository, gets created containing source code with each of the git clones above.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>These git clone operations pull from the main branch of the EdgeX repositories.  This is the current working branch in EdgeX development.  See the <a href="https://git-scm.com/docs/git-clone">git clone documentation</a> for how to clone a specific named release branch or version tag.</p>
+</div>
+<h2 id="build-edgex-services">Build EdgeX Services</h2>
+<p>With the source code, you can now build the EdgeX services, GUI, as well as eKuiper rules engine.  </p>
+<h3 id="build-core-and-supporting-services">Build Core and Supporting Services</h3>
+<p>Most of the services are in the <code>edgex-go</code> folder.  This folder contains the code for the <a href="../../../microservices/core/Ch-CoreServices/">core</a> and <a href="../../../microservices/support/Ch-SupportingServices/">supporting</a> services.  A single command in this repository will build several of the services.</p>
+<p>Enter the <code>edgex-go</code> folder and issue the <code>make build</code> command as shown below.</p>
+<p><img alt="image" src="../BuildEdgeXGoServices.png" /></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Depending on the amount of memory your system has, building the services in <code>edgex-go</code> can take several minutes (in the case of a Raspberry Pi 3, build time for edgex-go services can take as much as 30-45 minutes and a device service is taking about 10-15 minutes to build).</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Building the services in edgex-go folder will actually build some of the services (such as the security services) not used in this guide, but issuing a single command is the easiest way to build the services needed without having to build services one by one.</p>
+</div>
+<h3 id="build-the-virtual-device-service">Build the Virtual Device Service</h3>
+<p>The <a href="../../../microservices/device/virtual/Ch-VirtualDevice/">virtual device service</a> simulates devices/sensors sending data to EdgeX as if it was a "thing".  This guide uses the virtual device service to exemplify how other devices services can be built and run.</p>
+<p>Enter the <code>device-virtual-go</code> folder and issue the <code>make build</code> command as shown below.</p>
+<p><img alt="image" src="../BuildDeviceVirtual.png" /></p>
+<h3 id="build-the-configurable-application-service">Build the Configurable Application Service</h3>
+<p>The <a href="../../../microservices/application/AppServiceConfigurable/">configurable application service</a> helps prepare device/sensor data for enterprise or cloud systems.  It also prepares data for use by the rules engine - <a href="../../../microservices/support/eKuiper/Ch-eKuiper/">eKuiper</a></p>
+<p>Enter the <code>app-service-configurable</code> folder and issue the <code>make build</code> command as shown below.</p>
+<p><img alt="image" src="../BuildAppServiceConf.png" /></p>
+<h3 id="build-ekuiper">Build eKuiper</h3>
+<p>Sister Linux Foundation, LF Edge project <a href="https://www.lfedge.org/projects/ekuiper/">eKuiper</a> is the reference implementation rules engine for EdgeX.</p>
+<p>Enter the <code>ekuiper</code> folder and issue the <code>make build_with_edgex</code> command as shown below.</p>
+<p><img alt="image" src="../BuildeKuiper.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>eKuiper does also provide <a href="https://github.com/lf-edge/ekuiper/releases">binaries</a> which can be downloaded and used without the need for builds.  </p>
+</div>
+<h3 id="build-the-gui">Build the GUI</h3>
+<p>EdgeX provides a <a href="../../tools/Ch-GUI/">graphical user interface</a> for exploring a single instance of the EdgeX platform.  The GUI makes it easier to work with EdgeX and see sample data coming from sensors.  It provides a means to check that EdgeX is working correctly, monitor EdgeX and even make some configuration changes.</p>
+<p>Enter the <code>edgex-ui-go</code> folder and issue the <code>make build</code> command as shown below.</p>
+<p><img alt="image" src="../BuildGUI.png" /></p>
+<h2 id="run-edgex">Run EdgeX</h2>
+<p>Provided everything built correctly and without issue, you can now start your EdgeX services one at a time.  First make sure Redis Server is running.  If Redis is not running, start it before the other services.  If it is running, you can start each of the EdgeX services <strong>in order</strong> as listed below.</p>
+<h3 id="start-consul">Start Consul</h3>
+<p>Start Consul Agent with the following command.</p>
+<div class="highlight"><pre><span></span><code>nohup consul agent -ui -bootstrap -server -client <span class="m">0</span>.0.0.0 -data-dir<span class="o">=</span>tmp/consul <span class="p">&amp;</span>
+</code></pre></div>
+<p>The <code>nohup</code> is used to execute the command and ignore all SIGHUP (hangup) signals.  The <code>&amp;</code> says to execute the process in the background.  Both <code>nohup</code> and <code>&amp;</code> will be used to run each of the services so that the same terminal can be used and the output will be directed to local nohup.out log files.</p>
+<p>If Consul is running correctly, you should be able to reach the Consul UI through a browser at http://(host address):8500</p>
+<p><img alt="image" src="../RunConsulUI.png" /></p>
+<h3 id="start-core-metadata">Start Core Metadata</h3>
+<p>Each of core and supporting EdgeX services are located in <code>edgex-go/cmd</code> under a subfolder by the service name.  In the first case, core-metadate is located in <code>edgex-go/cmd/core-metadata</code>.  Change directories to the core-metadata service subfolder and then run the executable found in the subfolder with <code>-cp</code> and <code>-registry</code> command line options as shown below.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> edgex-go/cmd/core-metadata/
+nohup ./core-metadata -cp<span class="o">=</span>consul.http://localhost:8500 -registry <span class="p">&amp;</span>
+</code></pre></div>
+<p>The <code>-cp=consul.http://localhost:8500</code> command line parameter tells core-metadata to use Consul and where to find Consul running.  The <code>-registry</code> command line parameter tells core-metadata to use (and register with) the registry service.  Both of these command line parameters will be use when launching all EdgeX services.</p>
+<h3 id="start-the-other-core-and-supporting-services">Start the other Core and Supporting Services</h3>
+<p>In a similar fashion, enter each of the other core and supporting service folders in <code>edgex-go/cmd</code> and launch the services.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> ../core-data
+nohup ./core-data -cp<span class="o">=</span>consul.http://localhost:8500 -registry <span class="p">&amp;</span>
+<span class="nb">cd</span> ../core-command
+nohup ./core-command -cp<span class="o">=</span>consul.http://localhost:8500 -registry <span class="p">&amp;</span>
+<span class="nb">cd</span> ../support-notifications/
+nohup ./support-notifications -cp<span class="o">=</span>consul.http://localhost:8500 -registry <span class="p">&amp;</span>
+<span class="nb">cd</span> ../support-scheduler/
+nohup ./support-scheduler -cp<span class="o">=</span>consul.http://localhost:8500 -registry <span class="p">&amp;</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you still have the Consul UI up, you should see each of the EdgeX core and supporting services listed in Consul's <code>Services</code> page with green check marks next to them suggesting they are running.</p>
+<p><img alt="image" src="../CoreSupportingServicesRunning.png" /></p>
+</div>
+<h3 id="start-configurable-application-service">Start Configurable Application Service</h3>
+<p>The configurable application service is located in the root of <code>app-service-configurable</code> folder.</p>
+<p><img alt="image" src="../LocationConfigAppService.png" /></p>
+<p>The configurable application service is started in a similar way as the other EdgeX services.  The configurable application service is going to be used to route data to the rules engine.  Therefore, an additional command line parameter (<code>p</code>) is added to its launch command to tell the app service to use the rules engine configuration and profile.</p>
+<div class="highlight"><pre><span></span><code>nohup ./app-service-configurable -cp<span class="o">=</span>consul.http://localhost:8500 -registry -p<span class="o">=</span>rules-engine <span class="p">&amp;</span>
+</code></pre></div>
+<h3 id="start-the-virtual-device-service">Start the Virtual Device Service</h3>
+<p>The virtual device service is also started in similar way as the other EdgeX services.  The virtual device service manufactures data as if it was to come from a sensor and sends that data into the rest of EdgeX.  By default, the virtual device service will generate random numbers (integers, unsigned integers, floats), booleans and even binary data as simulated sensor data.  The virtual device service is located in the <code>device-virtual-go/cmd</code> folder.  </p>
+<p><img alt="image" src="../LocationDeviceVirtualService.png" /></p>
+<p>Change directories to the virtual device service's <code>cmd</code> folder and then launch the service with the command shown below.</p>
+<div class="highlight"><pre><span></span><code>nohup ./device-virtual -cp<span class="o">=</span>consul.http://localhost:8500 -registry <span class="p">&amp;</span>
+</code></pre></div>
+<h3 id="start-the-gui">Start the GUI</h3>
+<p>The EdgeX graphical user interface (GUI) provides an easy to use visual tool to monitor data passing through EdgeX services.  It also provides some capability to change an EdgeX instance's configuration or metadata.  The EdgeX GUI is located in the <code>edgex-ui-go/cmd/edgex-ui-server</code> folder.</p>
+<p><img alt="image" src="../LocationEdgeXGUI.png" /></p>
+<p>Change directories to the GUI's <code>cmd/edgex-ui-server</code> folder and then launch the GUI with the command shown below.</p>
+<div class="highlight"><pre><span></span><code>nohup ./edgex-ui-server <span class="p">&amp;</span>
+</code></pre></div>
+<p>If the GUI is running correctly, you should be able to reach the GUI through a browser at http://(host address):4000.  It may take a few seconds for the GUI to initialize once you hit the URL.</p>
+<p><img alt="image" src="../RunGUI.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some elements of the GUI will not work as you do not have all available EdgeX services running.  Notably, the System Management service and its executor are not running so the System view of the GUI will display an error.  By default, the System Management service and its executor operate by checking on the other services memory, CPU, etc. via Docker Stats.  In this case, since you are not running Docker containers, the System Management service would not function.</p>
+</div>
+<h3 id="start-ekuiper">Start eKuiper</h3>
+<p><a href="https://ekuiper.org/">eKuiper</a> is the reference implementation rules engine that is typically run with EdgeX by default.  It is a lightweight, easy to use rules engine.  Rules can be established using SQL.  It is a sister project under the LF Edge umbrella project.</p>
+<p>eKuiper's executable (called <code>kuiperd</code>) is located in the <code>ekuiper/_build/kuiper-*version*-linux-arm/bin</code> folder.  Note that the location is in a <code>_build</code> folder subfolder created when you built eKuiper.  The subfolder is named for the eKuiper version, OS, architecture.</p>
+<p><img alt="image" src="../LocationeKuiper-arm.png" /></p>
+<p>Change directories to the <code>ekuiper/_build/kuiper-*version*-linux-arm/bin</code> folder.</p>
+<h4 id="set-ekuiper-environment-variables">Set eKuiper Environment Variables</h4>
+<p>As a 3rd party component, eKuiper can be setup to work with many streams of data from various systems or engines.  It must be provided knowledge about where it is receiving data and how to handle/treat the incoming data.  Therefore, before launching eKuiper, execute the following export of environmental variables in order to tell eKuiper where to receive data coming from the EdgeX configurable application service (via the EdgeX message bus).</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span> <span class="nv">CONNECTION__EDGEX__REDISMSGBUS__PORT</span><span class="o">=</span><span class="m">6379</span>
+<span class="nb">export</span> <span class="nv">CONNECTION__EDGEX__REDISMSGBUS__PROTOCOL</span><span class="o">=</span>redis
+<span class="nb">export</span> <span class="nv">CONNECTION__EDGEX__REDISMSGBUS__SERVER</span><span class="o">=</span>localhost
+<span class="nb">export</span> <span class="nv">CONNECTION__EDGEX__REDISMSGBUS__TYPE</span><span class="o">=</span>redis
+<span class="nb">export</span> <span class="nv">EDGEX__DEFAULT__PORT</span><span class="o">=</span><span class="m">6379</span>
+<span class="nb">export</span> <span class="nv">EDGEX__DEFAULT__PROTOCOL</span><span class="o">=</span>redis
+<span class="nb">export</span> <span class="nv">EDGEX__DEFAULT__SERVER</span><span class="o">=</span>localhost
+<span class="nb">export</span> <span class="nv">EDGEX__DEFAULT__TOPIC</span><span class="o">=</span>rules-events
+<span class="nb">export</span> <span class="nv">EDGEX__DEFAULT__TYPE</span><span class="o">=</span>redis
+<span class="nb">export</span> <span class="nv">KUIPER__BASIC__CONSOLELOG</span><span class="o">=</span><span class="s2">&quot;true&quot;</span>
+<span class="nb">export</span> <span class="nv">KUIPER__BASIC__RESTPORT</span><span class="o">=</span><span class="m">59720</span>
+</code></pre></div>
+<p>Setting these environment variables must be done in the same terminal from which you plan to execute the eKuiper server.</p>
+<h4 id="run-ekuiper">Run eKuiper</h4>
+<p>From the <code>ekuiper/_build/kuiper-*version*-linux-arm</code> folder, and with the environmental variables set, launch eKuiper's server with the command shown below.</p>
+<div class="highlight"><pre><span></span><code>nohup ./bin/kuiperd <span class="p">&amp;</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>There is both a <code>kuiper</code> and a <code>kuiperd</code> executable in the <code>bin</code> folder.  Make sure you are running <code>kuiperd</code>.</p>
+</div>
+<p>If eKuiper is running correctly, the RuleEngine tab in the EdgeX GUI should offer the ability to define eKuiper Streams and Rules as shown below.</p>
+<p><img alt="image" src="../CheckeKuiperRunning-OK.png" /></p>
+<p>If eKuiper is not running correctly or if the environmental variables where incorrectly set, then you will see an error screen like that shown below.</p>
+<p><img alt="image" src="../CheckeKuiperRunning-Oops.png" /></p>
+<h2 id="test-and-explore-edgex">Test and Explore EdgeX</h2>
+<p>With EdgeX up and running (inclusive of Consul, Redis, and eKuiper), you can try these quick tests to see that EdgeX is running correctly.</p>
+<h3 id="see-sensor-data-flowing-through-edgex">See sensor data flowing through EdgeX</h3>
+<p>You have already been using Consul and the EdgeX GUI to check on some items of EdgeX in this tutorial.  You can use the EdgeX GUI to further check that sensor data is flowing through the system.</p>
+<p>In a browser, go to http://(host address):4000.  Remember, it may take a few seconds for the GUI to initialize once you hit the URL.  Once the GUI displays, find and click on the <code>DataCenter</code> link on the left hand navigation bar (highlighted below).</p>
+<p><img alt="image" src="../DataCenterDisplayData.png" /></p>
+<p>The <code>DataCenter</code> display allows you to see the EdgeX event/readings as they are persisted by the core data service to Redis.  Simply press the <code>&gt;Start</code> button to see the "stream" of simulated sensor data that was generated by the virtual device service and sent to EdgeX. The simulated data may take a second or two to start to display in the <code>EventDataStream</code> area of the GUI.</p>
+<p><img alt="image" src="../StreamOfEventReadings.png" /></p>
+<p>Press the <code>Pause</code> button to stop this display of data.  Notice that you can see the EdgeX Events (and associated Readings) or just the Readings with the two tabs on this <code>DataCenter</code> display.</p>
+<h3 id="check-edgex-service-api">Check EdgeX service API</h3>
+<p>Each EdgeX micro service has a REST API associated with it.  You can use curl or a browser to test that the service is up using its <code>ping</code> API.  Below are curl commands to "ping" both core data and core metadata.</p>
+<div class="highlight"><pre><span></span><code>  curl http://localhost:59880/api/v2/ping
+  curl http://localhost:59881/api/v2/ping
+</code></pre></div>
+<p>Each service should respond with JSON data to indicate it is able to respond to requests.  Below is an example response from the core metadata "Ping" request.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="s2">&quot;Thu May 12 23:25:04 UTC 2022&quot;</span><span class="p">,</span><span class="nt">&quot;serviceName&quot;</span><span class="p">:</span><span class="s2">&quot;core-metadata&quot;</span><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>See <a href="../../../general/ServicePorts/">the service port reference page</a> for a list of service ports to check the <code>ping</code> API of other services.</p>
+<p>As an added test, use curl to get the count of the number of events persisted by core data with the command below (you can also use a browser with the URL to get the same).</p>
+<div class="highlight"><pre><span></span><code>curl http://localhost:59880/api/v2/event/count
+</code></pre></div>
+<p>The response will indicate a "count" of events stored (in this case 6270).</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="nt">&quot;statusCode&quot;</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span><span class="nt">&quot;Count&quot;</span><span class="p">:</span><span class="mi">6270</span><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The full set of APIs for each service can be found in <a href="https://app.swaggerhub.com/search?owner=EdgeXFoundry1">SwaggerHub</a>.  You can use the documentation to test other APIs as well.</p>
+</div>
+<h3 id="set-up-an-ekuiper-stream-and-rule">Set up an eKuiper Stream and Rule</h3>
+<p>While eKuiper is running, it is currently sitting idle since it has no rules on which to watch for data and execute commands.  Set up a simple eKuiper rule to log any sensor data it sees.  Use the GUI tool to establish the eKuiper <code>stream</code> and <code>rule</code>.  Learn about Streams and Rules in the <a href="https://ekuiper.org/docs/en/latest/concepts/ekuiper.html">eKuiper documentation</a>.</p>
+<h4 id="establish-the-stream">Establish the Stream</h4>
+<p>In the GUI, click on the <code>Rules Engine</code> link in the navigation bar on the left.  Then, click on the <code>Add</code> button on the Stream tab.  Allow the default EdgeX stream be created by hitting the <code>Submit</code> button.</p>
+<p><img alt="image" src="../CreateeKuiperStream.png" /></p>
+<h4 id="establish-the-rule">Establish the Rule</h4>
+<p>Next, click on the <code>Rules</code> tab on the <code>Rules Engine</code> page.  Then click on the <code>Add</code> button on the <code>Rules</code> tab in order to create a new eKuiper rule.  In the form that appears, enter any name for the rule (<code>TestRule</code> is used below) in the Name field.  Enter <code>SELECT * FROM EdgeXStream</code> in the RuleSQL field and add a <code>log</code> action - all as shown below in the form.  Hit the <code>Submit</code> button when you have your rule established.</p>
+<p><img alt="image" src="../CreateeKuiperRule.png" /></p>
+<h4 id="check-the-rule-engine-is-firing">Check the Rule Engine is firing</h4>
+<p>With the stream and rule defined, you have asked eKuiper to fire a log entry each time it sees a new EdgeX event/reading come through it.  In the future, you could have eKuiper look for particular events/readings (e.g., thermostat readings above a specified temperature) produced by a particular sensor in order to issue commands to some device.  But for now, you can check the eKuiper log to see that the rule engine is working and publishing a message to the log with each event/reading.</p>
+<p>In the <code>ekuiper/_build/kuiper-*version*-linux-arm/log</code> folder, you will find a <code>stream.log</code> file.  </p>
+<p><img alt="image" src="../LocationeKuiperStreamLog-arm.png" /></p>
+<p>If you use Linux <code>tail</code>, you can see that the eKuiper rules engine is firing a log entry for each virtual device service record that flows through EdgeX.  Issue the following command to see the log entries occur in real time:</p>
+<div class="highlight"><pre><span></span><code>  tail -f stream.log
+</code></pre></div>
+<p><img alt="image" src="../TaileKuiperLog-arm.png" /></p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+</div>
+<p>Seeing the eKuiper rules engine fire a log entry into a file for each EdgeX event/reading that comes through, has allowed you to confirm and see the entire EdgeX system is working properly.</p>
+<ul>
+<li>It started with the virtual device service creating an EdgeX event/reading to simulate a real sensor reading that was sent via message bus to both the core data and the configurable application services.<ul>
+<li>The GUI allowed you to see the EdgeX event/readings that were stored in the database by the core data service.</li>
+</ul>
+</li>
+<li>The application service had to pick up the EdgeX event/reading off the message bus and send it to the eKuiper rules engine.</li>
+<li>The rules engine then picked up the EdgeX event/reading and fire an entry into the log.</li>
+</ul>
+<h2 id="debugging-and-troubleshooting">Debugging and Troubleshooting</h2>
+<p>With the <code>nohup</code> command on each service, the log file contents are redirected to a file (<code>nohup.out</code>) in the directory where you started each service.  if you find that a service does not appear to be running or if it is running but not working correctly, check the <code>nohup.out</code> file for any errors or issues.  In the example below, the core data's <code>nohup.out</code> log file is explored.</p>
+<p><img alt="image" src="../NohupTailFile.png" /></p>
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../Ch-BuildRunOnLinuxDistro/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Build and Run on Linux on x86/x64" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Build and Run on Linux on x86/x64
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../Ch-BuildRunOnWindows/" class="md-footer__link md-footer__link--next" aria-label="Next: Build and Run on Windows on x86/x64" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Build and Run on Windows on x86/x64
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2022 EdgeX Foundry
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://github.com/edgexfoundry" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/edgexfoundry" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/company/edgexfoundry" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs"], "search": "../../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d6c3db9e.min.js"></script>
+      
+        <script src="../../../assets/javascripts/version-select.js"></script>
+      
+    
+  </body>
+</html>
