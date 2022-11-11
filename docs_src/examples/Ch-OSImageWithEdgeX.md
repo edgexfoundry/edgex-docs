@@ -155,12 +155,12 @@ snaps:
 
 - name: edgexfoundry
   type: app
-  default-channel: latest/edge # using features added in 2.3 (unreleased)
+  default-channel: latest/stable
   id: AZGf0KNnh8aqdkbGATNuRuxnt1GNRKkV
 
 - name: edgex-device-virtual
   type: app
-  default-channel: latest/edge # device virtual has not been released
+  default-channel: latest/stable
   id: AmKuVTOfsN0uEKsyJG34M8CaMfnIqxc0
 ```
 
