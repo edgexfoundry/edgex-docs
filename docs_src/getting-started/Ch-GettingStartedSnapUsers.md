@@ -265,7 +265,6 @@ The following snaps are maintained by the EdgeX working groups:
     - [App Service Configurable](#app-service-configurable)
     - [App RFID LLRP Inventory](#app-rfid-llrp-inventory)
 - Device Services
-    - [Device Camera](#device-camera)
     - [Device GPIO](#device-gpio)
     - [Device Grove](#device-grove)
     - [Device Modbus](#device-modbus)
@@ -273,7 +272,9 @@ The following snaps are maintained by the EdgeX working groups:
     - [Device REST](#device-rest)
     - [Device RFID LLRP](#device-rfid-llrp)
     - [Device SNMP](#device-snmp)
+    - [Device USB Camera](#device-usb-camera)
     - [Device Virtual](#device-virtual)
+    - [Device ONVIF Camera](#device-onvif-camera)
 
 To find all EdgeX snaps on the public Snap Store, [search by keyword](https://snapcraft.io/search?q=edgex).
 
@@ -589,25 +590,6 @@ For the snap, this can either be by:
 
 - using a [config-provider-snap] to provide a `configuration.toml` file with the correct aliases, before startup
 - setting the values manually in Consul during or after deployment
-
-### Device Camera
-| [Installation][edgex-device-camera]  | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-camera-go/tree/main/snap) |
-
-The service is **not started** by default. Please refer to [configuration] and [managing services].
-
-The default configuration files are installed at:
-```
-/var/snap/edgex-device-camera/current/config/
-└── device-camera
-    └── res
-        ├── configuration.toml
-        ├── devices
-        │   └── camera.toml
-        └── profiles
-            ├── camera-axis.yaml
-            ├── camera-bosch.yaml
-            └── camera.yaml
-```
 
 ### Device GPIO
 | [Installation][edgex-device-gpio] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-gpio/tree/main/snap) |
