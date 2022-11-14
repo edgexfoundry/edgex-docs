@@ -771,13 +771,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#device-camera" class="md-nav__link">
-    Device Camera
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#device-gpio" class="md-nav__link">
     Device GPIO
   </a>
@@ -3484,13 +3477,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#device-camera" class="md-nav__link">
-    Device Camera
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#device-gpio" class="md-nav__link">
     Device GPIO
   </a>
@@ -3819,7 +3805,6 @@ Check <code>snap logs --help</code> for details.</p>
 </ul>
 </li>
 <li>Device Services<ul>
-<li><a href="#device-camera">Device Camera</a></li>
 <li><a href="#device-gpio">Device GPIO</a></li>
 <li><a href="#device-grove">Device Grove</a></li>
 <li><a href="#device-modbus">Device Modbus</a></li>
@@ -3827,7 +3812,9 @@ Check <code>snap logs --help</code> for details.</p>
 <li><a href="#device-rest">Device REST</a></li>
 <li><a href="#device-rfid-llrp">Device RFID LLRP</a></li>
 <li><a href="#device-snmp">Device SNMP</a></li>
+<li><a href="#device-usb-camera">Device USB Camera</a></li>
 <li><a href="#device-virtual">Device Virtual</a></li>
+<li><a href="#device-onvif-camera">Device ONVIF Camera</a></li>
 </ul>
 </li>
 </ul>
@@ -4084,21 +4071,6 @@ using snap options.</p>
 <li>using a <a href="#config-provider-snap">config-provider-snap</a> to provide a <code>configuration.toml</code> file with the correct aliases, before startup</li>
 <li>setting the values manually in Consul during or after deployment</li>
 </ul>
-<h3 id="device-camera">Device Camera</h3>
-<p>| <a href="https://snapcraft.io/edgex-device-camera">Installation</a>  | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/device-camera-go/tree/main/snap">Source</a> |</p>
-<p>The service is <strong>not started</strong> by default. Please refer to <a href="#configuration">configuration</a> and <a href="#managing-services">managing services</a>.</p>
-<p>The default configuration files are installed at:
-<div class="highlight"><pre><span></span><code>/var/snap/edgex-device-camera/current/config/
-└── device-camera
-    └── res
-        ├── configuration.toml
-        ├── devices
-        │   └── camera.toml
-        └── profiles
-            ├── camera-axis.yaml
-            ├── camera-bosch.yaml
-            └── camera.yaml
-</code></pre></div></p>
 <h3 id="device-gpio">Device GPIO</h3>
 <p>| <a href="https://snapcraft.io/edgex-device-gpio">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/device-gpio/tree/main/snap">Source</a> |</p>
 <p>The service is <strong>not started</strong> by default. Please refer to <a href="#configuration">configuration</a> and <a href="#managing-services">managing services</a>.</p>
