@@ -15,7 +15,7 @@
 ### Motivation
 
 Modern cybersecurity standards for IoT
-require peer-to-peer authentication of software compoenents.
+require peer-to-peer authentication of software components.
 Representative IoT security standards make explicit reference
 to authentication of both human and non-human interactions between components:
 
@@ -32,7 +32,7 @@ to authentication of both human and non-human interactions between components:
   identify and authenticate all software processes and devices. This capability
   shall enforce such identification and authentication on all interfaces which
   provide access to the control system to support least privilege in accordance
-  with applicable security policies and procuedures._
+  with applicable security policies and procedures._
 
 - [Critical Manufacturing Sector Cybersecurity Framework Implementation Guidance](https://www.cisa.gov/sites/default/files/publications/Critical_Manufacturing_Sector_Cybersecurity_Framework_Implementation_Guidance_FINAL_508.pdf)
 
@@ -48,7 +48,7 @@ to authentication of both human and non-human interactions between components:
 
 ### Description
 
-Miroservice authentication provides the following benfits,
+Microservice authentication provides the following benefits,
 which are potentially valuable to all of the listed target users:
 
 - Provides a defense against malware running on the device,
@@ -62,6 +62,10 @@ which are potentially valuable to all of the listed target users:
   access that was previously granted,
   or allow customers to tie in to enterprise
   identity management systems.
+
+For purposes of this UCR, microservice authentication implies
+that the receiving microservice has access to the identity
+of the caller and can write program logic based on that identity.
 
 
 ### Existing solutions
@@ -77,6 +81,8 @@ Microservice authentication is currently implemented around two primary vectors:
   whereby the identifier can be passed through a chain of calls to
   preserve the identity of the original initiator.
   The identifier can often be tunned through other protocols.
+  Another benefit of token-based authentication is that
+  it flows easily through a web application firewall.
 
   A drawback of token-based authentication is that due to man-in-the-middle
   threats, token-based authentication over an unencrypted network is insecure.
@@ -84,24 +90,32 @@ Microservice authentication is currently implemented around two primary vectors:
   the receiver can authenticate the initiator, but not vice-versa.
 
 - Mutual-auth TLS.
-  Both the intitiator and the receiver particpate in a session-oriented message
+  Both the initiator and the receiver participate in a session-oriented message
   exchange based on public-key cryptography, where each trusts the other's
   digital signature authority.
 
   A benefit of mutual-auth TLS is that it enforces proof-of-possession
   (of a cryptographic key), thus preventing token-stealing attacks.
 
-  A drawback of mutual-auth TLS is that it requires direct 
-  service-to-service network connectivity: services cannot be proxied
-  without losing the identity of the original caller.
+  A drawback of mutual-auth TLS is that it requires layer 4
+  (IP:port) network connectivity.
+  Layer 7 (e.g. HTTP) interpretation of the traffic stream,
+  such as a URL-rewriting HTTP router, breaks end-to-end encryption
+  and the ability to cryptographically identify the caller.
   Another drawback is that mutual-auth TLS requires encryption
-  for all use cases, including same-host communication,
-  which results in multiple redundant layers of encryption
-  when lower layers of the network stack are also encrypted.
+  for all use cases, including same-host communication.
+  Encryption may be redundant if encryption is implemented
+  at lower layers in the network stack.
+  Combining authentication and encryption may also complicate debugging.
 
-  This most onerous drawback to mutual-auth TLS is overhead associated with
+  The most onerous drawback to mutual-auth TLS is overhead associated with
   certificate and key rotation on both the initiator and receiver when
-  the cryptoperiods of their cryptographic materials expire. 
+  the cryptoperiods of their cryptographic materials expire.
+
+  Many service mesh products are based on mutual-auth TLS
+  for confidentiality and enforcement of network policy,
+  but application access to the authenticated caller identity is not a given,
+  and varies from product to product.
 
 
 ### Requirements
