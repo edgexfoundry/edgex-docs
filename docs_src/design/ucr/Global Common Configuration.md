@@ -3,19 +3,10 @@
 - Lenny Goodell (Intel)
 
 ## Change Log
-- [pending](URL of PR) (2022-11-??)
-
-### Market Segments
-- All
+- [pending](https://github.com/edgexfoundry/edgex-docs/pull/892) (2022-11-16)
 
 ### Motivation
-Currently the configuration for each of the EdgeX services have many common settings.  Most of these common settings have the same value for every service deployed in a single EdgeX based solution and possible across identical deployments of the same solution. The motivation for the UCR is to reduce this redundancy allowing for better manageability of service configuration across EdgeX services.
-
-### Target Users
-- Service Provider
-- Software Developer
-- Software Deployer
-- Software Integrator
+Currently the configuration for all the EdgeX services have many common settings.  Most of these common settings have the same value for every service deployed in a single EdgeX based solution and possible across identical deployments of the same solution. The motivation for the UCR is to limit this redundancy allowing to have a the common settings set one in one location which are across all EdgeX services.
 
 ### Description
 See [Common Configuration](../../../microservices/configuration/CommonConfiguration/#configuration-properties) for complete list of common configuration sections. As stated above most of the values for these common settings are the same across all the EdgeX Services. Below are a couple examples.
@@ -48,10 +39,10 @@ See [Common Configuration](../../../microservices/configuration/CommonConfigurat
     Type = "consul"
     ```
 
-In the above example only the  **Port** and **StartupMsg** settings have unique values to that of the default EdgeX deployment values. 
+In the above example only the  **Port** and **StartupMsg** settings have unique values for each EdgeX Service. 
 
 
-In the Levski release with the addition common security metrics all services must have the **Writable.Telemetry** and **MessageQueue** and sections.
+In the Levski release the additional common security metrics require all services must have the **Writable.Telemetry** and **MessageQueue** and sections.
 
 !!! example - "Example - Common configuration -  **Writable.Telemetry** and **MessageQueue**"
     ```toml
@@ -108,61 +99,73 @@ In the above example only the **PublishTopicPrefix**, **SubscribeTopic**, **Subs
 !!! note
     In Levski release App Services don't have the **MessageQueue** section and Core Command's is **MessageQueue.Internal**. These inconstancies will be rectified in EdgeX 3.0 so all EdgeX services have the same **MessageQueue** section specified in the same manner. Also in EdgeX 3.0, the **PublishTopicPrefix** and **SubscribeTopic** settings will be replaced by entries in **MessageQueue.Topics**.
 
-There are other similar common sections not shown shown above. As can be seen from the two examples above there is much duplication of configuration settings across all the EdgeX services. This gives rise to the need to have all these common duplicate configuration settings in a single global source. 
+There are other similar common sections not shown above. As can be seen from the two examples above there is much duplication of configuration settings across all the EdgeX services. This gives rise to the need to have all these common duplicate configuration settings in a single global source. 
+
+In addition to the above common settings, Application services and Device services have their own common configuration settings that may have the same values across deployed application or devices services. For Application services these are the **Trigger**,  **Writable.Telemetry.Metrics** and **Clients.core-metadata** configuration sections. For Device services these are the **Device**, **Clients** and **Writable.Telemetry.Metrics** configuration sections.
 
 ### Existing solutions
-There are no existing solutions for global configuration for EdgeX since the current configuration implementation is specific to EdgeX.
+There are no existing solutions for global configuration that would apply to EdgeX since the current configuration implementation is specific to EdgeX. See [0005-Service-Self-Config](../../adr/0005-Service-Self-Config/) for more details on current configuration design.
 
-### Requirements
+### Requirements.
 
 #### General
 
-- Services shall be able reference a global common configuration in a manner that is flexible for use with and without the Service Provider
+- Services shall be able reference a global common configuration in a manner that is flexible for use with and without the Configuration Provider
+
 - Common environment overrides shall be applied to global common configuration settings only once before the services receive the setting values
 
     - This avoids the need for duplicate environment overrides on each service in the docker compose files
 
-- Services must be able to override any of the global common configuration settings with local service specific TOML values
+- Services must be able to override any of the global common configuration settings with local service specific configuration values
 
-    !!! example - "Example Core Data specific **Writable.Telemetry** and **Service** configuration settings in local TOML file"
+    !!! example - "Example Core Data specific **Writable.Telemetry** and **Service** configuration settings in local configuration file"
         ```toml
           [Writable.Telemetry]
             [Writable.Telemetry.Metrics] # All service's metric names must be present in this list.
             EventsPersisted = false
             ReadingsPersisted = false
+        ```
 
+    ```
+    
         ...
         
         [Service]
         Port = 59880
         StartupMsg = "This is the Core Data Microservice"
-        ```
+    ```
 
-- Environment variable overrides shall be applied in the same manner as they are today. 
-    - After loaded from file (prior to pushing into the the Configuration Provider) 
-    - After loaded from the Configuration Provider
+- Application services shall be able to load separate common configuration specific to Application services
+- Device services shall be able to load separate common configuration specific to Device services
+- **For design discussion**: Should the application and device service common sections just be in the single Global common configuration and be ignored by services that don't use them?
+- Service shall have a common way to specify the global common configurations to load.
 
 #### With Configuration Provider
 
-- Global common configuration shall be pre-loaded into the Configuration Provider where it is pulled from by each service.
-    - How and where the configuration is loaded into the Configuration Provider is left to design
-- Pre-loading of global common configuration must have a mechanism to indicate that the configuration pre-load is complete 
-- Each service must wait until the global common configuration pre-load is complete.
-- Each service's full configuration, global common and local TOML overrides, shall be pushed into the Configuration Provider
-    - Once initially loaded the service's full configuration is solely referenced from the Configuration Provider as it is today
-- The services shall be notified when a setting in the **Writeable** section of global common configuration has changed. Each service shall consume the updated setting into its on `Writable` section and push the update back into the Configuration Provider under the service's own full configuration
-- On subsequent startups each service shall load the global common configuration from the Configuration Provider and merge it with the service's previous complete configuration from the Configuration Provider and push resulting configuration back to service's full configuration in the Configuration Provider
+- Global common configuration(s) shall be pre-loaded into the Configuration Provider where they are pulled by each service.
+- Each service shall override any global common configuration(s) setting with any local setting values.
+- Post bootstrapping, the service's full configuration is present in the Configuration Provider as it is today.
+    - **For discussion**: Or do we only push the service's local settings.
+
+- The services shall be **NOT** be notified when **Writeable** section of global common configuration(s) have changed. It is there only to seed the services **Writable** sections.
+
+- On subsequent startups each service shall pull their full configuration from the Configuration Provider as they do today. 
+    - **For discussion**: Currently override are applied after pulling from config provider. Do we want a requirement that what is in the Config Provider is final? i.e. overrides applied prior to pushing into the Configuration Provider.
+
+- Services shall not attempt to pull global common configuration and merge local with settings on every started up, this is only done when the service configuration is not found in the configuration provider.
 
 #### Without Configuration Provider
 
-- Services shall have some manner to load a global common configuration TOML file via a URI
-    - How to specify the URI is left to design
-- Services shall on every start-up create the service's full configuration by merging the global common configuration with the service's local TOML overrides. 
-- Services shall **not** be informed when global common configuration has changed and must be restarted to consume the changes.
+- Services shall have some manner to load global common configuration files via a URI (local file, file via HTTP or HTTPS). 
+     HTTP and HTTPS shall be support authentication. 
+- Services shall on every start-up create the service's full configuration by merging the global common configuration with the service's local configuration  in such a way the all local settings override any global common settings.
+- Services shall **NOT** be informed when global common configuration settings have changed and must be restarted to consume the changes.
 
 ### Other Related Issues
 
-- TBD UCR for URI for files (Units or Measurements, Config, Profiles, etc.)
+- UCR for URI for files (Units or Measurements, Config, Profiles, etc.)
+  - Once defined the same URI approach shall be used for loading the global common configuration files when the Configuration Provider is not used.
+
 
 ### References
 - [0001-Registry-Refactor](../../adr/0001-Registy-Refactor/)
