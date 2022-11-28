@@ -112,10 +112,6 @@ There are no existing solutions for global configuration that would apply to Edg
 
 - Services shall be able reference a global common configuration in a manner that is flexible for use with and without the Configuration Provider
 
-- Common environment overrides shall be applied to global common configuration settings only once before the services receive the setting values
-
-    - This avoids the need for duplicate environment overrides on each service in the docker compose files
-
 - Services must be able to override any of the global common configuration settings with local service specific configuration values
 
     !!! example - "Example Core Data specific **Writable.Telemetry** and **Service** configuration settings in local configuration file"
@@ -136,25 +132,20 @@ There are no existing solutions for global configuration that would apply to Edg
     ```
 
 - Application services shall be able to load separate common configuration specific to Application services
+
 - Device services shall be able to load separate common configuration specific to Device services
-- **For design discussion**: Should the application and device service common sections just be in the single Global common configuration and be ignored by services that don't use them?
+
 - Service shall have a common way to specify the global common configurations to load.
+
+- Secret Store configuration shall no longer be part of the each services' standard configuration as it is needed prior to connecting to the Configuration Provider.
 
 #### With Configuration Provider
 
 - Global common configuration(s) shall be pre-loaded into the Configuration Provider where they are pulled by each service.
-- Each service shall override any global common configuration(s) setting with any local setting values.
-- Post bootstrapping, the service's full configuration is present in the Configuration Provider as it is today.
-    - **For discussion**: Or do we only push the service's local settings.
+- Post bootstrapping, the only the service's private configuration is present in the Configuration Provider under the service specific area.
+- The services shall be notified when **Writeable** section of global common configuration(s) have changed. 
 
-- The services shall be **NOT** be notified when **Writeable** section of global common configuration(s) have changed. It is there only to seed the services **Writable** sections.
-
-- On subsequent startups each service shall pull their full configuration from the Configuration Provider as they do today. 
-    - **For discussion**: Currently override are applied after pulling from config provider. Do we want a requirement that what is in the Config Provider is final? i.e. overrides applied prior to pushing into the Configuration Provider.
-
-- Services shall not attempt to pull global common configuration and merge local with settings on every started up, this is only done when the service configuration is not found in the configuration provider.
-
-#### Without Configuration Provider
+#### With file based Configuration Provider
 
 - Services shall have some manner to load global common configuration files via a URI (local file, file via HTTP or HTTPS). 
      HTTP and HTTPS shall be support authentication. 
@@ -164,7 +155,7 @@ There are no existing solutions for global configuration that would apply to Edg
 ### Other Related Issues
 
 - UCR for URI for files (Units or Measurements, Config, Profiles, etc.)
-  - Once defined the same URI approach shall be used for loading the global common configuration files when the Configuration Provider is not used.
+  - Once defined the same URI approach shall be used for loading the global common configuration files from file based Configuration Provider.
 
 
 ### References
