@@ -84,8 +84,8 @@ Microservice authentication is currently implemented around two primary vectors:
   Another benefit of token-based authentication is that
   it flows easily through a web application firewall.
 
-  A drawback of token-based authentication is that due to man-in-the-middle
-  threats, token-based authentication over an unencrypted network is insecure.
+  A drawback of token-based authentication is that due to MITM threats,
+  token-based authentication over an unencrypted network is insecure.
   Another drawback of token-based authentication is that it is unidirectional:
   the receiver can authenticate the initiator, but not vice-versa.
 
@@ -120,13 +120,17 @@ Microservice authentication is currently implemented around two primary vectors:
 
 ### Requirements
 
-While running in secure mode, each EdgeX service must
-receive requests over an authenticated interface
-and must provide authentication information
-to components that require it.
-REST APIs must receive authentication information over the connection,
-and message bus APIs must receive messages over an authenticated message bus.
+- When an EdgeX service is running in secure mode,
+  unauthenticated inbound requests shall be rejected.
 
+- When an EdgeX service is running in secure mode
+  and initiating an outbound request to a peer EdgeX service,
+  the outbound request shall be authenticated.
+
+- Authentication shall work in the context of bare-metal deployments,
+  snap-based deployments, docker-based deployments, and Kubernetes-based deployments.
+
+This UCR does not prescribe what layer in the software stack performs authentication.
 
 ### Other Related Issues
 
