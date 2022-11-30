@@ -6,7 +6,7 @@
 - [pending](https://github.com/edgexfoundry/edgex-docs/pull/892) (2022-11-16)
 
 ### Motivation
-Currently the configuration for all the EdgeX services have many common settings.  Most of these common settings have the same value for every service deployed in a single EdgeX based solution and possible across identical deployments of the same solution. The motivation for the UCR is to limit this redundancy allowing to have a the common settings set one in one location which are across all EdgeX services.
+Currently the configuration for all the EdgeX services have many common settings.  Most of these common settings have the same value for every service deployed in a single EdgeX based solution and possible across identical deployments of the same solution. The motivation for the UCR is to limit this redundancy by having common settings in one location which are then used across all EdgeX services.
 
 ### Description
 See [Common Configuration](../../../microservices/configuration/CommonConfiguration/#configuration-properties) for complete list of common configuration sections. As stated above most of the values for these common settings are the same across all the EdgeX Services. Below are a couple examples.
@@ -31,6 +31,8 @@ See [Common Configuration](../../../microservices/configuration/CommonConfigurat
       CORSExposeHeaders = "Cache-Control, Content-Language, Content-Length, Content-Type, Expires, Last-Modified, Pragma, X-Correlation-ID"
       CORSMaxAge = 3600
     
+    ```
+
     ...
     
     [Registry]
