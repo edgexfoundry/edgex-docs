@@ -50,7 +50,6 @@ Each service that uses the EdgeX MessageBus has a configuration section which de
 - **MQTT 3.1** - `Type=mqtt`
 - **NATS Core** - `Type=nats-core` 
 - **NATS JetStream** - `Type=nats-jetstream` 
-- **ZeroMQ** (**DEPRECATED**) - `Type=zero` 
 
 !!! note
     In general all EdgeX Services running in a deployment must be configured to use the same EdgeX MessageBus implementation. By default all services that use the EdgeX MessageBus are configured to use the Redis Pub/Sub implementation. NATS does support a compatibility mode with MQTT. See the [NATS MQTT Mode](#nats-mqtt-mode) section below for details.
@@ -157,10 +156,6 @@ For credential management a utility called [nsc](https://nats-io.github.io/nsc/)
 #### NATS MQTT Mode
 
 A JetStream enabled server can support MQTT connections on the same set of underlying subjects.  This can be especially useful if you are using prebuilt EdgeX services like [device-onvif-camera](https://github.com/edgexfoundry/device-onvif-camera) but want to transition your system towards using NATS.  Note that `format=json` must be used so that the NATS messagebus client can read the double-encoded envelopes sent by MQTT clients.  For more information see [NATS MQTT Documentation](https://docs.nats.io/running-a-nats-service/configuration/mqtt).
-
-### ZeroMQ (DEPRECATED)
-
-ZeroMQ is a broker-less TCP based message bus protocol. Since it is broker-less, there can only a be a single publisher and many subscribers. Once Device Services also started publishing to the EdgeX MessageBus, ZeroMQ became unusable, thus it has been deprecated and will be removed in the next major release.
 
 ## Multi-level topics and wildcards
 
@@ -375,7 +370,3 @@ The EdgeX Compose Builder utility provides an option to easily generate a compos
 #### Snaps
 
 The published Snaps are built without NATS included, so the use of NATS in those Snaps is not possible. One could modify the Makefiles as described above and then build and install local snap packages. In this case it would be easier to modify each service's configuration as describe above so that the locally built and installed snaps are already configured for NATS.
-
-### ZeroMQ (DEPRECATED)
-
-Since ZeroMQ only allows one publisher, it has been deprecated and will be removed in the next major release. Please deploy using one of the other implementations.

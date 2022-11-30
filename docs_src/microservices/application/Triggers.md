@@ -21,7 +21,7 @@ An EdgeX MessageBus trigger will execute the pipeline every time data is receive
 !!! edgey "Edgex 2.3"
     For Edgex 2.3 two new MessageBus implementations have been added to support NATS messaging, with and without the JetStream persistence layer.  These options can be made available by building with the `include_nats_messaging` flag.
 
-There currently are five implementations of the EdgeX MessageBus available to be used. Three of these are available out of the box: `Redis Pub/Sub`(default), `MQTT` and `ZeroMQ`(ZMQ).  Additionally NATS (both core and JetStream) options can be made available with the build flag mentioned above.  The implementation type is selected via the `[Trigger.EdgexMessageBus]` configuration described below.
+There currently are four implementations of the EdgeX MessageBus available to be used. Two of these are available out of the box: `Redis Pub/Sub`(default) and `MQTT`. Additionally NATS (both core and JetStream) options can be made available with the build flag mentioned above.  The implementation type is selected via the `[Trigger.EdgexMessageBus]` configuration described below.
 
 ### Type Configuration 
 
@@ -41,7 +41,7 @@ The `Type=` is set to `edgex-messagebus` trigger type. The Context function `ctx
 The other piece of configuration required are the connection settings:
 ```toml
 [Trigger.EdgexMessageBus]
-Type = "redis" # message bus type (i.e "redis`, `mqtt` or `zero` for ZeroMQ)
+Type = "redis" # message bus type (i.e "redis`, `mqtt`, `nats-core` or `nats-jetstream`)
     [Trigger.EdgexMessageBus.SubscribeHost]
         Host = "localhost"
         Port = 6379
@@ -63,7 +63,6 @@ Type = "redis" # message bus type (i.e "redis`, `mqtt` or `zero` for ZeroMQ)
 ```
 redis - for Redis Pub/Sub (Requires Redis running and Core Data and/or Device Services configure to use Redis Pub/Sub)
 mqtt  - for MQTT (Requires a MQTT Broker running and Core Data and/or Device Services configure to use MQTT)
-zero  - for ZeroMQ (No Broker/Service required. Core Data must be configured to use Zero and Device service configure to use REST to Core Data)
 nats-core - for standard NATS messaging
 nats-jetstream - for NATS messaging with JetStream persistence layer
 ```
@@ -71,11 +70,8 @@ nats-jetstream - for NATS messaging with JetStream persistence layer
 !!! edgey "Edgex 2.0"
     For Edgex 2.0 Redis is now the default EdgeX MessageBus implementation used. Also, the Redis implementation changed from `Redis streams` to `Redis Pub/Sub`, thus the type value changed from `redisstreams` to `redis`
 
-!!! edgey "EdgeX 2.0"
-    New for EdgeX 2.0 is the Secure MessageBus when use the `Redis Pub/Sub` implementation. See the [Secure MessageBus](../../security/Ch-Secure-MessageBus.md) documentation for more details.
-
-!!! important
-    When using ZMQ for the message bus, the Publish Host **MUST** be different for each publisher to since the they will bind to the specific port. 5563 for example cannot be used to publish since `EdgeX Core Data` has bound to that port. Similarly, you cannot have two separate instances of the app functions SDK running and publishing to the same port. This is why once Device services started publishing the the EdgeX MessageBus the default was changed to `Redis Pub/Sub`
+!!! edgey "EdgeX 2.3"
+    New for EdgeX 2.3 is the Secure MessageBus when use the `Redis Pub/Sub` implementation. See the [Secure MessageBus](../../security/Ch-Secure-MessageBus.md) documentation for more details.
 
 !!! note
     When using MQTT or NATS for the message bus, there is additional configuration required for specifying the broker-specific options. 
