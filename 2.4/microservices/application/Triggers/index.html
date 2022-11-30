@@ -3353,7 +3353,7 @@
 <p class="admonition-title">Edgex 2.3</p>
 <p>For Edgex 2.3 two new MessageBus implementations have been added to support NATS messaging, with and without the JetStream persistence layer.  These options can be made available by building with the <code>include_nats_messaging</code> flag.</p>
 </div>
-<p>There currently are five implementations of the EdgeX MessageBus available to be used. Three of these are available out of the box: <code>Redis Pub/Sub</code>(default), <code>MQTT</code> and <code>ZeroMQ</code>(ZMQ).  Additionally NATS (both core and JetStream) options can be made available with the build flag mentioned above.  The implementation type is selected via the <code>[Trigger.EdgexMessageBus]</code> configuration described below.</p>
+<p>There currently are four implementations of the EdgeX MessageBus available to be used. Two of these are available out of the box: <code>Redis Pub/Sub</code>(default) and <code>MQTT</code>. Additionally NATS (both core and JetStream) options can be made available with the build flag mentioned above.  The implementation type is selected via the <code>[Trigger.EdgexMessageBus]</code> configuration described below.</p>
 <h3 id="type-configuration">Type Configuration</h3>
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 2.0</p>
@@ -3367,7 +3367,7 @@ The <code>Type=</code> is set to <code>edgex-messagebus</code> trigger type. The
 <h3 id="messagebus-connection-configuration">MessageBus Connection Configuration</h3>
 <p>The other piece of configuration required are the connection settings:
 <div class="highlight"><pre><span></span><code><span class="k">[Trigger.EdgexMessageBus]</span><span class="w"></span>
-<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redis&quot;</span><span class="w"> </span><span class="c1"># message bus type (i.e &quot;redis`, `mqtt` or `zero` for ZeroMQ)</span><span class="w"></span>
+<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redis&quot;</span><span class="w"> </span><span class="c1"># message bus type (i.e &quot;redis`, `mqtt`, `nats-core` or `nats-jetstream`)</span><span class="w"></span>
 <span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.SubscribeHost]</span><span class="w"></span>
 <span class="w">        </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6379</span><span class="w"></span>
@@ -3386,7 +3386,6 @@ The <code>Type=</code> is set to <code>edgex-messagebus</code> trigger type. The
 <p>As stated above there are five EdgeX MessageBus implementations you can choose from. These type values are as follows:</p>
 <div class="highlight"><pre><span></span><code>redis - for Redis Pub/Sub (Requires Redis running and Core Data and/or Device Services configure to use Redis Pub/Sub)
 mqtt  - for MQTT (Requires a MQTT Broker running and Core Data and/or Device Services configure to use MQTT)
-zero  - for ZeroMQ (No Broker/Service required. Core Data must be configured to use Zero and Device service configure to use REST to Core Data)
 nats-core - for standard NATS messaging
 nats-jetstream - for NATS messaging with JetStream persistence layer
 </code></pre></div>
@@ -3395,12 +3394,8 @@ nats-jetstream - for NATS messaging with JetStream persistence layer
 <p>For Edgex 2.0 Redis is now the default EdgeX MessageBus implementation used. Also, the Redis implementation changed from <code>Redis streams</code> to <code>Redis Pub/Sub</code>, thus the type value changed from <code>redisstreams</code> to <code>redis</code></p>
 </div>
 <div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>New for EdgeX 2.0 is the Secure MessageBus when use the <code>Redis Pub/Sub</code> implementation. See the <a href="../../../security/Ch-Secure-MessageBus/">Secure MessageBus</a> documentation for more details.</p>
-</div>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>When using ZMQ for the message bus, the Publish Host <strong>MUST</strong> be different for each publisher to since the they will bind to the specific port. 5563 for example cannot be used to publish since <code>EdgeX Core Data</code> has bound to that port. Similarly, you cannot have two separate instances of the app functions SDK running and publishing to the same port. This is why once Device services started publishing the the EdgeX MessageBus the default was changed to <code>Redis Pub/Sub</code></p>
+<p class="admonition-title">EdgeX 2.3</p>
+<p>New for EdgeX 2.3 is the Secure MessageBus when use the <code>Redis Pub/Sub</code> implementation. See the <a href="../../../security/Ch-Secure-MessageBus/">Secure MessageBus</a> documentation for more details.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>

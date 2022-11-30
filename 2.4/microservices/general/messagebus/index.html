@@ -1510,13 +1510,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#zeromq-deprecated" class="md-nav__link">
-    ZeroMQ (DEPRECATED)
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -1609,13 +1602,6 @@
         
       </ul>
     </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#zeromq-deprecated_1" class="md-nav__link">
-    ZeroMQ (DEPRECATED)
-  </a>
   
 </li>
         
@@ -3481,13 +3467,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#zeromq-deprecated" class="md-nav__link">
-    ZeroMQ (DEPRECATED)
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -3583,13 +3562,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#zeromq-deprecated_1" class="md-nav__link">
-    ZeroMQ (DEPRECATED)
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -3662,7 +3634,6 @@
 <li><strong>MQTT 3.1</strong> - <code>Type=mqtt</code></li>
 <li><strong>NATS Core</strong> - <code>Type=nats-core</code> </li>
 <li><strong>NATS JetStream</strong> - <code>Type=nats-jetstream</code> </li>
-<li><strong>ZeroMQ</strong> (<strong>DEPRECATED</strong>) - <code>Type=zero</code> </li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3882,8 +3853,6 @@
 <p>For credential management a utility called <a href="https://nats-io.github.io/nsc/">nsc</a> is provided with nats-box.  For using credentials files see documentation on <a href="https://docs.nats.io/running-a-nats-service/configuration/securing_nats/auth_intro/jwt/resolver">resolvers</a> and the companion <a href="https://docs.nats.io/running-a-nats-service/configuration/securing_nats/auth_intro/jwt/mem_resolver">memory resolver tutorial</a>.</p>
 <h4 id="nats-mqtt-mode">NATS MQTT Mode</h4>
 <p>A JetStream enabled server can support MQTT connections on the same set of underlying subjects.  This can be especially useful if you are using prebuilt EdgeX services like <a href="https://github.com/edgexfoundry/device-onvif-camera">device-onvif-camera</a> but want to transition your system towards using NATS.  Note that <code>format=json</code> must be used so that the NATS messagebus client can read the double-encoded envelopes sent by MQTT clients.  For more information see <a href="https://docs.nats.io/running-a-nats-service/configuration/mqtt">NATS MQTT Documentation</a>.</p>
-<h3 id="zeromq-deprecated">ZeroMQ (DEPRECATED)</h3>
-<p>ZeroMQ is a broker-less TCP based message bus protocol. Since it is broker-less, there can only a be a single publisher and many subscribers. Once Device Services also started publishing to the EdgeX MessageBus, ZeroMQ became unusable, thus it has been deprecated and will be removed in the next major release.</p>
 <h2 id="multi-level-topics-and-wildcards">Multi-level topics and wildcards</h2>
 <p>The EdgeX MessageBus uses multi-level topics and wildcards to allow filtering of data via subscriptions and has standardized on a MQTT like scheme. See <a href="https://www.hivemq.com/blog/mqtt-essentials-part-5-mqtt-topics-best-practices">MQTT multi-level topics and wildcards</a> for more information.</p>
 <p>The Redis implementation converts the Redis Pub/Sub multi-level topic scheme to one similar to MQTT. In Redis Pub/Sub the "<strong>.</strong>" is used as a level separator and the "*" is used as a wildcard. These are converted to "/" and "#" respectively, which are used by MQTT. MQTT additionally uses the "+" as a wildcard for single levels and the "#" for multi-level (only at the end). The Redis implementation uses the "#" for both the single and multi-level wildcard.</p>
@@ -4080,8 +4049,6 @@
 </div>
 <h4 id="snaps_1">Snaps</h4>
 <p>The published Snaps are built without NATS included, so the use of NATS in those Snaps is not possible. One could modify the Makefiles as described above and then build and install local snap packages. In this case it would be easier to modify each service's configuration as describe above so that the locally built and installed snaps are already configured for NATS.</p>
-<h3 id="zeromq-deprecated_1">ZeroMQ (DEPRECATED)</h3>
-<p>Since ZeroMQ only allows one publisher, it has been deprecated and will be removed in the next major release. Please deploy using one of the other implementations.</p>
 
 
   

@@ -3098,7 +3098,7 @@
 <h2 id="what-is-lf-edge-ekuiper">What is LF Edge eKuiper?</h2>
 <p>LF Edge eKuiper is a lightweight open source software (Apache 2.0 open source license agreement) package for IoT edge analytics and stream processing implemented in Go lang, which can run on various resource constrained edge devices. Users can realize fast data processing on the edge and write rules in SQL. The eKuiper rules engine is based on three components <code>Source</code>, <code>SQL</code> and <code>Sink</code>.</p>
 <ul>
-<li>Source: Source of stream data, such as data from an MQTT server. For EdgeX, the data source is an EdgeX message bus, which can be implemented by ZeroMQ or MQTT;</li>
+<li>Source: Source of stream data, such as data from an MQTT server. For EdgeX, the data source is an EdgeX message bus, which can be implemented by Redis Pub/Sub, MQTT or NATS;</li>
 <li>SQL: SQL is where the specified business logic is processed. eKuiper provides SQL statements to extract, filter, and transform data;</li>
 <li>Sink: Used to send the analysis result to a specific target, such as sending the analysis results to EdgeX's Command service, or an MQTT broker in the cloud;</li>
 </ul>
@@ -3106,7 +3106,7 @@
 <p><img alt="" src="../arch.png" /></p>
 <p>eKuiper runs very efficiently on resource constrained edge devices. For common IoT data processing, the throughput can reach 12k per second. Readers can refer to <a href="https://github.com/lf-edge/ekuiper#performance-test-result">here</a> to get more performance benchmark data for eKuiper.</p>
 <h2 id="ekuiper-rules-engine-of-edgex">eKuiper rules engine of EdgeX</h2>
-<p>An extension mechanism allows eKuiper to be customized to analyze and process data from different data sources. By default for the EdgeX configuration, eKuiper analyzes data coming from the EdgeX <a href="https://github.com/edgexfoundry/go-mod-messaging">message bus</a>. EdgeX provides an abstract message bus interface, and implements the ZeroMQ and MQTT protocols respectively to support information exchange between different micro-services. The integration of eKuiper and EdgeX mainly includes the following:</p>
+<p>An extension mechanism allows eKuiper to be customized to analyze and process data from different data sources. By default for the EdgeX configuration, eKuiper analyzes data coming from the EdgeX <a href="https://github.com/edgexfoundry/go-mod-messaging">message bus</a>. EdgeX provides an abstract message bus interface, and implements the Redis Pub/Sub, MQTT and NATS protocols respectively to support information exchange between different micro-services. The integration of eKuiper and EdgeX mainly includes the following:</p>
 <ul>
 <li>Extend an EdgeX message bus source to support receiving data from the EdgeX message bus. By default, eKuiper listens to the port <code>5566</code> on which the Application Service publishes messages. After the data from the Core Data Service is processed by the Application Service, it will flow into the eKuiper rules engine for processing.</li>
 <li>Read the data type definition from Core Contract Service, convert EdgeX data to eKuiper data type, and process it according to the rules specified by the user.</li>

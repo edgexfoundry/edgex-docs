@@ -3266,7 +3266,9 @@ Enterprise and cloud systems.  Core data persists the data in a local database. 
 <p><img alt="image" src="../EdgeX_CoreDataRESTEndpoint.png" /></p>
 </li>
 </ol>
-<p>Core data moves data to the application service (and <a href="../../../../general/Definitions/#edge-analytics">edge analytcs</a>) via Redis Pub/Sub by default. MQTT or ZeroMQ can alternately be used.  Use of MQTT requires the installation of a broker such as ActiveMQ.  A messaging infrastructure abstraction is in place that allows for other message bus (e.g., AMQP) implementations to be created and used.</p>
+<p>Core data moves data to the application service (and <a href="../../../../general/Definitions/#edge-analytics">edge analytcs</a>) via Redis Pub/Sub by default. MQTT or NATS (opt-in at build time) can alternately be used.  Use of MQTT requires the installation of a broker such as ActiveMQ. 
+Use of NATS requires all service to be built with NATS enabled and the installation of NATS Server.<br />
+A messaging infrastructure abstraction is in place that allows for other message bus (e.g., AMQP) implementations to be created and used.</p>
 <h2 id="core-data-streaming">Core Data "Streaming"</h2>
 <p>By default, core data persists all data sent to it by services and other systems. However, when the data is too sensitive to keep at the edge, or there is no use for the data at the edge by other local services (e.g., by an analytics micro service), the data can be "streamed" through core data without persisting it. A
 configuration change to core data (Writable.PersistData=false) has core data
