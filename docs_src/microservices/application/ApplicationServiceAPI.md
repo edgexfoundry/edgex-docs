@@ -23,7 +23,6 @@ type ApplicationService interface {
 	GetAppSettingStrings(setting string) ([]string, error)
 	LoadCustomConfig(config UpdatableConfig, sectionName string) error
 	ListenForCustomConfigChanges(configToWatch interface{}, sectionName string, changedCallback func(interface{})) error
-	SetFunctionsPipeline(transforms ...AppFunction) error *** DEPRECATED ***
     SetDefaultFunctionsPipeline(transforms ...AppFunction) error
 	AddFunctionsPipelineByTopics(id string, topics []string, transforms ...AppFunction) error
 	LoadConfigurablePipeline() ([]AppFunction, error) *** DEPRECATED by LoadConfigurableFunctionPipelines ***
@@ -294,12 +293,6 @@ type FunctionPipeline struct {
 }
 ```
 
-### SetFunctionsPipeline
-
-`SetFunctionsPipeline(transforms ...AppFunction) error`
-
-This API has been deprecated (Replaced by SetDefaultFunctionsPipeline) and will be removed in a future release. Functions the same as SetDefaultFunctionsPipeline.
-
 ### SetDefaultFunctionsPipeline
 
 `SetDefaultFunctionsPipeline(transforms ...AppFunction) error`
@@ -372,7 +365,7 @@ This API loads the function pipelines (default and per topic) from configuration
     for _, pipeline := range configuredPipelines {
         switch pipeline.Id {
         case interfaces.DefaultPipelineId:
-            if err = service.SetFunctionsPipeline(pipeline.Transforms...); err != nil {
+            if err = service.SetDefaultFunctionsPipeline(pipeline.Transforms...); err != nil {
                 ...
                 os.Exit(-1)
             }

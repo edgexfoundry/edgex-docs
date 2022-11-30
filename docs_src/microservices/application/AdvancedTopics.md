@@ -407,7 +407,7 @@ Application Services using the MessageBus trigger can request a background publi
      	//pass publisher to your background job
      	runJob(service, done)
      
-     	service.SetFunctionsPipeline(
+     	service.SetDefaultFunctionsPipeline(
      		All,
      		My,
      		Functions,
