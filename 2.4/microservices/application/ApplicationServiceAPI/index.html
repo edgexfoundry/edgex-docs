@@ -1988,13 +1988,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#setfunctionspipeline" class="md-nav__link">
-    SetFunctionsPipeline
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#setdefaultfunctionspipeline" class="md-nav__link">
     SetDefaultFunctionsPipeline
   </a>
@@ -3458,13 +3451,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#setfunctionspipeline" class="md-nav__link">
-    SetFunctionsPipeline
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#setdefaultfunctionspipeline" class="md-nav__link">
     SetDefaultFunctionsPipeline
   </a>
@@ -3745,7 +3731,6 @@
 <span class="w">    </span><span class="nx">GetAppSettingStrings</span><span class="p">(</span><span class="nx">setting</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">([]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="nx">LoadCustomConfig</span><span class="p">(</span><span class="nx">config</span><span class="w"> </span><span class="nx">UpdatableConfig</span><span class="p">,</span><span class="w"> </span><span class="nx">sectionName</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
 <span class="w">    </span><span class="nx">ListenForCustomConfigChanges</span><span class="p">(</span><span class="nx">configToWatch</span><span class="w"> </span><span class="kd">interface</span><span class="p">{},</span><span class="w"> </span><span class="nx">sectionName</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">changedCallback</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="kd">interface</span><span class="p">{}))</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
-<span class="w">    </span><span class="nx">SetFunctionsPipeline</span><span class="p">(</span><span class="nx">transforms</span><span class="w"> </span><span class="o">...</span><span class="nx">AppFunction</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="o">***</span><span class="w"> </span><span class="nx">DEPRECATED</span><span class="w"> </span><span class="o">***</span><span class="w"></span>
 <span class="w">    </span><span class="nx">SetDefaultFunctionsPipeline</span><span class="p">(</span><span class="nx">transforms</span><span class="w"> </span><span class="o">...</span><span class="nx">AppFunction</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
 <span class="w">    </span><span class="nx">AddFunctionsPipelineByTopics</span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">topics</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">transforms</span><span class="w"> </span><span class="o">...</span><span class="nx">AppFunction</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
 <span class="w">    </span><span class="nx">LoadConfigurablePipeline</span><span class="p">()</span><span class="w"> </span><span class="p">([]</span><span class="nx">AppFunction</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="o">***</span><span class="w"> </span><span class="nx">DEPRECATED</span><span class="w"> </span><span class="nx">by</span><span class="w"> </span><span class="nx">LoadConfigurableFunctionPipelines</span><span class="w"> </span><span class="o">***</span><span class="w"></span>
@@ -3961,9 +3946,6 @@
 <span class="w">    </span><span class="nx">Hash</span><span class="w">       </span><span class="kt">string</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
-<h3 id="setfunctionspipeline">SetFunctionsPipeline</h3>
-<p><code>SetFunctionsPipeline(transforms ...AppFunction) error</code></p>
-<p>This API has been deprecated (Replaced by SetDefaultFunctionsPipeline) and will be removed in a future release. Functions the same as SetDefaultFunctionsPipeline.</p>
 <h3 id="setdefaultfunctionspipeline">SetDefaultFunctionsPipeline</h3>
 <p><code>SetDefaultFunctionsPipeline(transforms ...AppFunction) error</code></p>
 <p>This API sets the default functions pipeline with the specified list of Application Functions.  This pipeline is executed for all messages received from the configured trigger. Note that the functions are executed in the order provided in the list.  An error is returned if the list is empty.</p>
@@ -4026,7 +4008,7 @@
 <span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">pipeline</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">configuredPipelines</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="nx">pipeline</span><span class="p">.</span><span class="nx">Id</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">DefaultPipelineId</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">SetFunctionsPipeline</span><span class="p">(</span><span class="nx">pipeline</span><span class="p">.</span><span class="nx">Transforms</span><span class="o">...</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">SetDefaultFunctionsPipeline</span><span class="p">(</span><span class="nx">pipeline</span><span class="p">.</span><span class="nx">Transforms</span><span class="o">...</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">            </span><span class="o">...</span><span class="w"></span>
 <span class="w">            </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
 <span class="w">        </span><span class="p">}</span><span class="w"></span>

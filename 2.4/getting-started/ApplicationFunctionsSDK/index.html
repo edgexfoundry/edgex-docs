@@ -3092,11 +3092,11 @@
 
 <span class="w">    </span><span class="c1">// 3) This is our pipeline configuration, the collection of functions to</span><span class="w"></span>
 <span class="w">    </span><span class="c1">// execute every time an event is triggered.</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">SetFunctionsPipeline</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">SetDefaultFunctionsPipeline</span><span class="p">(</span><span class="w"></span>
 <span class="w">        </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewFilterFor</span><span class="p">(</span><span class="nx">deviceNames</span><span class="p">).</span><span class="nx">FilterByDeviceName</span><span class="p">,</span><span class="w"></span>
 <span class="w">        </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewConversion</span><span class="p">().</span><span class="nx">TransformToXML</span><span class="w"></span>
 <span class="w">    </span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nx">lc</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;SetFunctionsPipeline returned error: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span><span class="w"></span>
+<span class="w">        </span><span class="nx">lc</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;SetDefaultFunctionsPipeline returned error: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span><span class="w"></span>
 <span class="w">        </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 
@@ -3132,7 +3132,7 @@
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
 After placing the above function in your code, the next step is to modify the pipeline to call this function:</p>
-<p><div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">SetFunctionsPipeline</span><span class="p">(</span><span class="w"></span>
+<p><div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">SetDefaultFunctionsPipeline</span><span class="p">(</span><span class="w"></span>
 <span class="w">        </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewFilterFor</span><span class="p">(</span><span class="nx">deviceNames</span><span class="p">).</span><span class="nx">FilterByDeviceName</span><span class="p">,</span><span class="w"></span>
 <span class="w">        </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewConversion</span><span class="p">().</span><span class="nx">TransformToXML</span><span class="p">,</span><span class="w"></span>
 <span class="w">        </span><span class="nx">printXMLToConsole</span><span class="w"> </span><span class="c1">//notice this is not a function call, but simply a function pointer. </span><span class="w"></span>
