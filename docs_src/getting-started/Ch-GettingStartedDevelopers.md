@@ -48,38 +48,7 @@ and installation instructions.
 !!! Warning
     Use of MongoDB is deprecated with the Geneva release.  EdgeX will remove MongoDB support in a future
     release.  Developers should start to migrate to Redis in all development efforts targeting
-    future EdgeX releases. 
-
-#### ZeroMQ
-Several EdgeX Foundry services depend on ZeroMQ for
-communications by default.  See the installation for your OS.
-
-=== "Linux/Unix"
-    The easiest way to get and install ZeroMQ on
-    Linux is to use this setup script:
-    <https://gist.github.com/katopz/8b766a5cb0ca96c816658e9407e83d00>. 
-
-    !!! Note
-        The 0MQ install script above assumes bash is available on your system and the
-        bash executable is in /usr/bin. Before running the script at the
-        link, run
-        ``` bash
-        which bash
-        ```
-        at your Linux terminal to insure that bash is in /usr/bin. If
-        not, change the first line of the script so that it points to the
-        correct location of bash. 
-
-=== "MacOS"
-    For MacOS, use brew to install ZeroMQ.
-    ``` bash
-    brew install zeromq
-    ```
-
-=== "Windows"
-    For directions installing ZeroMQ on Windows, please see the Windows
-    documentation:
-    <https://github.com/edgexfoundry/edgex-go/blob/master/ZMQWindows.md>
+    future EdgeX releases.
 
 #### Docker (Optional)
 If you intend to create Docker images for your updated or newly created EdgeX services, you need to install Docker. See https://docs.docker.com/install/ to learn how to install Docker. If you are new to Docker, the same web site provides you educational information.

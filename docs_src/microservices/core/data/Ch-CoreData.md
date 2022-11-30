@@ -28,7 +28,9 @@ Sensor data can be sent to core data via two different means:
     ![image](EdgeX_CoreDataRESTEndpoint.png)
 
 
-Core data moves data to the application service (and [edge analytcs](../../../general/Definitions.md#edge-analytics)) via Redis Pub/Sub by default. MQTT or ZeroMQ can alternately be used.  Use of MQTT requires the installation of a broker such as ActiveMQ.  A messaging infrastructure abstraction is in place that allows for other message bus (e.g., AMQP) implementations to be created and used.
+Core data moves data to the application service (and [edge analytcs](../../../general/Definitions.md#edge-analytics)) via Redis Pub/Sub by default. MQTT or NATS (opt-in at build time) can alternately be used.  Use of MQTT requires the installation of a broker such as ActiveMQ. 
+Use of NATS requires all service to be built with NATS enabled and the installation of NATS Server.  
+A messaging infrastructure abstraction is in place that allows for other message bus (e.g., AMQP) implementations to be created and used.
 
 ## Core Data "Streaming"
 

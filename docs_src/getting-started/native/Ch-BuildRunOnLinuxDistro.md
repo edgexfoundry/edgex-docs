@@ -47,12 +47,6 @@ The following software is assumed to already be installed and available on the h
 
     - Your installation process may vary based on Linux version/distribution
 
-- ZeroMQ
-    - See [this guide for a script to install ZMQ](https://gist.github.com/katopz/8b766a5cb0ca96c816658e9407e83d00)
-    - How to check for existence and version on your machine
-
-        ![image](ZeroMQCheck.png)
-
 - Git
     - Git is already installed with Ubuntu 20.04
     - If not already provided with your OS, see [Install Git on Linux](https://www.atlassian.com/git/tutorials/install-git#linux)

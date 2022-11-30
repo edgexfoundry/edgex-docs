@@ -53,12 +53,6 @@ The following software is assumed to already be installed and available on the h
 
     - Your installation process may vary based on Linux version/distribution
 
-- ZeroMQ
-    - See [this guide for getting ZMQ installed on ARM - specifically on Raspberry Pis](https://github.com/MonsieurV/ZeroMQ-RPi)
-    - How to check for existence and version on your machine
-
-        ![image](ZeroMQCheck-arm.png)
-
 - Git
     - Git is already installed with Raspberry Pi OS
     - If not already provided with your OS, see [Install Git on Linux](https://www.atlassian.com/git/tutorials/install-git#linux)
