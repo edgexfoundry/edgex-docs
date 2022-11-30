@@ -21,7 +21,7 @@ An EdgeX MessageBus trigger will execute the pipeline every time data is receive
 !!! edgey "Edgex 2.3"
     For Edgex 2.3 two new MessageBus implementations have been added to support NATS messaging, with and without the JetStream persistence layer.  These options can be made available by building with the `include_nats_messaging` flag.
 
-There currently are five implementations of the EdgeX MessageBus available to be used. Three of these are available out of the box: `Redis Pub/Sub`(default) and `MQTT`. Additionally NATS (both core and JetStream) options can be made available with the build flag mentioned above.  The implementation type is selected via the `[Trigger.EdgexMessageBus]` configuration described below.
+There currently are four implementations of the EdgeX MessageBus available to be used. Two of these are available out of the box: `Redis Pub/Sub`(default) and `MQTT`. Additionally NATS (both core and JetStream) options can be made available with the build flag mentioned above.  The implementation type is selected via the `[Trigger.EdgexMessageBus]` configuration described below.
 
 ### Type Configuration 
 
