@@ -10,11 +10,11 @@
 - [Common Configuration UCR](URL of use case link TBD)
 
 ## Context
-This ADR describes the architecture of  the new common configuration capability which impacts all services. Requirements for this new capability are describe in the above referenced UCR. This is deemed architecturally significant due to the cross cutting impacts.
+This ADR describes the architecture of the new common configuration capability which impacts all services. Requirements for this new capability are described in the above referenced UCR. This is deemed architecturally significant due to the cross-cutting impacts.
 
 ### Current Design
 
-The following flow chart the bootstrapping of each services' configuration in the current Levski release.
+The following flow chart demonstrates the bootstrapping of each services' configuration in the current Levski release.
 
 ![](common-config-images/EdgeX 2.x Configuration bootstrapping flowchart.png)
 
@@ -33,13 +33,13 @@ The following flow chart demonstrates the bootstrapping of each services' config
 
 ### Secret Store Configuration
 
-As part of this design, the Secret Store configuration is being removed from the service configuration (common and private). This is so the Secret Provider can be instantiated prior to processing the service's configuration which may require the Secret Provider. The Secret Store configuration will now be a combination of default values and environment variable overrides.
+As part of this design, the Secret Store configuration is being removed from the service configuration (common and private). This is so the Secret Provider can be instantiated prior to processing the service's configuration which may require the Secret Provider. The Secret Store configuration will now be a combination of default values and environment variable overrides. These environment variables will be the same as the ones that are currently used to override the configuration.
 
 ### Specifying the Common Configuration location
 
 If the `-cp/--configProvider` command line option is used the service will default to pulling the common configuration from a standard path in the Configuration Provider. i.e. `edgex/3.0/common/`
 
-The new `-cc/--commonConfig` command line option will be added for all services. This option will take the URI that specifies where the common configuration is pulled when not using the Configuration Provider. If no is URI specified with the option (ie. just `-cc`), the URI will default to the new configuration service's REST API. In addition a new environment override variable will be added which allows overriding this new command line option.
+The new `-cc/--commonConfig` command line option will be added for all services. This option will take the URI that specifies where the common configuration is pulled when not using the Configuration Provider. If no URI is specified with the option (ie. just `-cc`), the URI will default to the new configuration service's REST API. Authentication will be limited to `basic-auth`. In addition, a new environment override variable `EDGEX_COMMON_CONFIG` will be added which allows overriding this new command line option.
 
 ### Writable Sections
 
@@ -374,12 +374,13 @@ The following modules and services are impacted:
     - This service is responsible for 
       - Pushing the common settings into the Configuration Provider during first start-up
       - Providing a REST API to pull the common settings for services not using the Configuration Provider
+      - Providing the override flag common to all services to force re-pushing the configuration into the Configuration Provider
 - TAF test scripts may be impacted based on which settings are modified via the Configuration Provider
 
 ## Considerations
 
 - New service which owns the common configuration could be integrated into Core Metadata rather than creating a new micro service. This violates the micro service design principle of single responsibility.
-- Overrides pushed into Configuration Provider rather than applying the overrides once configuration is pulled from the Configuration Provider . Consensus is that the overridden values should not be stored in the Configuration Provider. 
+- Environment overrides pushed into Configuration Provider rather than applying the overrides once configuration is pulled from the Configuration Provider . Consensus is that the overridden values should not be stored in the Configuration Provider. 
 - Service full configuration store in Configuration Provider rather than just private settings. Consensus is that this is redundant for the common settings and should only be the service's private settings.
 - Separate Application Service and Device Service common configuration settings could be in their own configuration sources which are loaded separately by Application and Device Services. This would add undue complexity that is mitigated by these settings being ignored by the marshaller in those services that do not use them.
 
