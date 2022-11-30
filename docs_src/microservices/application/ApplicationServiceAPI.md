@@ -297,12 +297,6 @@ type FunctionPipeline struct {
 
 `SetDefaultFunctionsPipeline(transforms ...AppFunction) error`
 
-This API has been deprecated (Replaced by SetDefaultFunctionsPipeline) and will be removed in a future release. Functions the same as SetDefaultFunctionsPipeline.
-
-### SetDefaultFunctionsPipeline
-
-`SetDefaultFunctionsPipeline(transforms ...AppFunction) error`
-
 This API sets the default functions pipeline with the specified list of Application Functions.  This pipeline is executed for all messages received from the configured trigger. Note that the functions are executed in the order provided in the list.  An error is returned if the list is empty.
 
 !!! example "Example - SetDefaultFunctionsPipeline"
