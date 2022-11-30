@@ -1,4 +1,4 @@
-## Global Common Configuration 
+## Common Configuration 
 ### Submitters
 - Lenny Goodell (Intel)
 
@@ -106,15 +106,15 @@ In addition to the above common settings, Application services and Device servic
 ### Existing solutions
 There are no existing solutions for global configuration that would apply to EdgeX since the current configuration implementation is specific to EdgeX. See [0005-Service-Self-Config](../../adr/0005-Service-Self-Config/) for more details on current configuration design.
 
-### Requirements.
+### Requirements
 
 #### General
 
-- Services shall be able reference a global common configuration in a manner that is flexible for use with and without the Configuration Provider
+- Services shall be able reference a common configuration in a manner that is flexible for use with and without the Configuration Provider
 
-- Services must be able to override any of the global common configuration settings with local service specific configuration values
+- Services must be able to override any of the common configuration settings with private service specific configuration values
 
-    !!! example - "Example Core Data specific **Writable.Telemetry** and **Service** configuration settings in local configuration file"
+    !!! example - "Example Core Data specific **Writable.Telemetry** and **Service** configuration settings in private configuration file"
         ```toml
           [Writable.Telemetry]
             [Writable.Telemetry.Metrics] # All service's metric names must be present in this list.
@@ -135,27 +135,27 @@ There are no existing solutions for global configuration that would apply to Edg
 
 - Device services shall be able to load separate common configuration specific to Device services
 
-- Service shall have a common way to specify the global common configurations to load.
+- Service shall have a common way to specify the common configurations to load.
 
 - Secret Store configuration shall no longer be part of the each services' standard configuration as it is needed prior to connecting to the Configuration Provider.
 
 #### With Configuration Provider
 
-- Global common configuration(s) shall be pre-loaded into the Configuration Provider where they are pulled by each service.
-- Post bootstrapping, the only the service's private configuration is present in the Configuration Provider under the service specific area.
-- The services shall be notified when **Writeable** section of global common configuration(s) have changed. 
+- common configuration(s) shall be pre-loaded into the Configuration Provider where they are pulled by each service.
+- Post bootstrapping, only the service's private configuration is present in the Configuration Provider under the service specific area.
+- The services shall be notified when **Writeable** section of common configuration(s) have changed. 
 
 #### With file based Configuration Provider
 
-- Services shall have some manner to load global common configuration files via a URI (local file, file via HTTP or HTTPS). 
-     HTTP and HTTPS shall be support authentication. 
-- Services shall on every start-up create the service's full configuration by merging the global common configuration with the service's local configuration  in such a way the all local settings override any global common settings.
-- Services shall **NOT** be informed when global common configuration settings have changed and must be restarted to consume the changes.
+- Services shall have some manner to load common configuration files via a URI (local file, file via HTTP or HTTPS). 
+     HTTP and HTTPS shall support authentication. 
+- Services shall on every start-up create the service's full configuration by merging the common configuration with the service's private configuration  in such a way the all private settings override any common settings.
+- Services shall **NOT** be informed when common configuration settings have changed and must be restarted to consume the changes.
 
 ### Other Related Issues
 
 - UCR for URI for files (Units or Measurements, Config, Profiles, etc.)
-  - Once defined the same URI approach shall be used for loading the global common configuration files from file based Configuration Provider.
+  - Once defined the same URI approach shall be used for loading the common configuration files from file based Configuration Provider.
 
 
 ### References
