@@ -2002,13 +2002,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#loadconfigurablepipeline" class="md-nav__link">
-    LoadConfigurablePipeline
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#loadconfigurablefunctionpipelines" class="md-nav__link">
     LoadConfigurableFunctionPipelines
   </a>
@@ -3465,13 +3458,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#loadconfigurablepipeline" class="md-nav__link">
-    LoadConfigurablePipeline
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#loadconfigurablefunctionpipelines" class="md-nav__link">
     LoadConfigurableFunctionPipelines
   </a>
@@ -3733,7 +3719,6 @@
 <span class="w">    </span><span class="nx">ListenForCustomConfigChanges</span><span class="p">(</span><span class="nx">configToWatch</span><span class="w"> </span><span class="kd">interface</span><span class="p">{},</span><span class="w"> </span><span class="nx">sectionName</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">changedCallback</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="kd">interface</span><span class="p">{}))</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
 <span class="w">    </span><span class="nx">SetDefaultFunctionsPipeline</span><span class="p">(</span><span class="nx">transforms</span><span class="w"> </span><span class="o">...</span><span class="nx">AppFunction</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
 <span class="w">    </span><span class="nx">AddFunctionsPipelineByTopics</span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">topics</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">transforms</span><span class="w"> </span><span class="o">...</span><span class="nx">AppFunction</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
-<span class="w">    </span><span class="nx">LoadConfigurablePipeline</span><span class="p">()</span><span class="w"> </span><span class="p">([]</span><span class="nx">AppFunction</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="o">***</span><span class="w"> </span><span class="nx">DEPRECATED</span><span class="w"> </span><span class="nx">by</span><span class="w"> </span><span class="nx">LoadConfigurableFunctionPipelines</span><span class="w"> </span><span class="o">***</span><span class="w"></span>
 <span class="w">    </span><span class="nx">LoadConfigurableFunctionPipelines</span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">FunctionPipeline</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="nx">MakeItRun</span><span class="p">()</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
 <span class="w">    </span><span class="nx">MakeItStop</span><span class="p">()</span><span class="w"></span>
@@ -3980,13 +3965,6 @@
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
-</div>
-<h3 id="loadconfigurablepipeline">LoadConfigurablePipeline</h3>
-<p><code>LoadConfigurablePipeline() ([]AppFunction, error)</code></p>
-<p>This API loads the default function pipeline from configuration.  An error is returned if the configuration is not valid, i.e. missing required function parameters, invalid function name, etc.  </p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This API is <code>Deprecated</code>, has been replaced by <code>LoadConfigurableFunctionPipelines</code> below and will be removed in a future release.</p>
 </div>
 <h3 id="loadconfigurablefunctionpipelines">LoadConfigurableFunctionPipelines</h3>
 <p><code>LoadConfigurableFunctionPipelines() (map[string]FunctionPipeline, error)</code></p>
