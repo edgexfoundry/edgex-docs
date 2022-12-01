@@ -375,6 +375,7 @@ The following modules and services are impacted:
       - Pushing the common settings into the Configuration Provider during first start-up
       - Providing a REST API to pull the common settings for services not using the Configuration Provider
       - Providing the override flag common to all services to force re-pushing the configuration into the Configuration Provider
+- Changes to security-secret-store-setup are needed to seed the Basic Auth secret for the new configuration service and distribute it to the consuming microservice(s) 
 - TAF test scripts may be impacted based on which settings are modified via the Configuration Provider
 
 ## Considerations
