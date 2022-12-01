@@ -25,7 +25,6 @@ type ApplicationService interface {
 	ListenForCustomConfigChanges(configToWatch interface{}, sectionName string, changedCallback func(interface{})) error
     SetDefaultFunctionsPipeline(transforms ...AppFunction) error
 	AddFunctionsPipelineByTopics(id string, topics []string, transforms ...AppFunction) error
-	LoadConfigurablePipeline() ([]AppFunction, error) *** DEPRECATED by LoadConfigurableFunctionPipelines ***
 	LoadConfigurableFunctionPipelines() (map[string]FunctionPipeline, error)
 	MakeItRun() error
 	MakeItStop()
@@ -333,15 +332,6 @@ This API adds a functions pipeline with the specified unique ID and list of func
         return -1
     }
     ```
-
-### LoadConfigurablePipeline
-
-`LoadConfigurablePipeline() ([]AppFunction, error)`
-
-This API loads the default function pipeline from configuration.  An error is returned if the configuration is not valid, i.e. missing required function parameters, invalid function name, etc.  
-
-!!! warning
-    This API is `Deprecated`, has been replaced by `LoadConfigurableFunctionPipelines` below and will be removed in a future release.
 
 ### LoadConfigurableFunctionPipelines
 
