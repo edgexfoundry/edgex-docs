@@ -19,7 +19,7 @@ The following flow chart demonstrates the bootstrapping of each services' config
 ![](common-config-images/EdgeX 2.x Configuration bootstrapping flowchart.png)
 
 ## Proposed Design
-The configuration settings that are common to all services will be partitioned out into a separate common configuration source. This  common configuration source will be pushed into the Configuration Provider by a new service. When the Configuration Provider is not used this new service will provide the common configuration via a RESTful endpoint.
+The configuration settings that are common to all services will be partitioned out into a separate common configuration source. This  common configuration source will be pushed into the Configuration Provider by a new `core-common-config` service. When the Configuration Provider is not used the `core-common-config` service will provide the common configuration via a RESTful endpoint.
 
 During bootstrapping, each service will either load the common configuration from the Configuration Provider or via URI to some endpoint that provides the common configuration. This could be the new service's REST endpoint. Each service will have additional private configuration, which may overwrite and/or extend the common configuration.  
 
@@ -37,9 +37,9 @@ As part of this design, the Secret Store configuration is being removed from the
 
 ### Specifying the Common Configuration location
 
-If the `-cp/--configProvider` command line option is used the service will default to pulling the common configuration from a standard path in the Configuration Provider. i.e. `edgex/3.0/common/`
+If the `-cp/--configProvider` command line option is used, the service will default to pulling the common configuration from a standard path in the Configuration Provider. i.e. `edgex/3.0/common/` The `-cp/--configProvider` option assumes the usage of the core-common-config service and cannot be used with the `-cc/--commonConfig` option.
 
-The new `-cc/--commonConfig` command line option will be added for all services. This option will take the URI that specifies where the common configuration is pulled when not using the Configuration Provider. If no URI is specified with the option (ie. just `-cc`), the URI will default to the new configuration service's REST API. Authentication will be limited to `basic-auth`. In addition, a new environment override variable `EDGEX_COMMON_CONFIG` will be added which allows overriding this new command line option.
+The new `-cc/--commonConfig` command line option will be added for all services. This option will take the URI that specifies where the common configuration is pulled when not using the Configuration Provider. If the `-cc/--commonConfig` option is not specified, the URI will default to the new `core-common-config` service's REST API. Authentication will be limited to `basic-auth`. In addition, a new environment override variable `EDGEX_COMMON_CONFIG` will be added which allows overriding this new command line option.
 
 ### Writable Sections
 
