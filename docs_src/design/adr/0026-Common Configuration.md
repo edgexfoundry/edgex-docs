@@ -41,6 +41,12 @@ If the `-cp/--configProvider` command line option is used, the service will defa
 
 The new `-cc/--commonConfig` command line option will be added for all services. This option will take the URI that specifies where the common configuration is pulled when not using the Configuration Provider. If the `-cc/--commonConfig` option is not specified, the URI will default to the new `core-common-config` service's REST API. Authentication will be limited to `basic-auth`. In addition, a new environment override variable `EDGEX_COMMON_CONFIG` will be added which allows overriding this new command line option.
 
+#### Options for Providing the Common Configuration
+
+1. From the configuration provider, using the `-cp/--configProvider` command line option
+2. From the new `core-common-config` service, either using `-cc/--commonConfig` command line option, or if `-cp/--configProvider` and `-cc/--commonConfig` are not specified, the URI will default to the new `core-common-config` service`s REST API.
+3. For the simplest setup, without the `-cp/--configProvider` and `core-common-config` service, the `-cc/--configProvider` option may be used to provide the URI for a text file. This simple approach has no authentication and no update mechanism.
+
 ### Writable Sections
 
 The Writable sections in common and in private configurations will be watched for changes when using the Configuration Provider.  When changes to the common Writable are processed, each changed setting must be checked to see if the setting exists in the service's private section. The change will be ignored if the setting exists in the service's private section. This is so that the service's private overrides are always retained.
@@ -366,10 +372,10 @@ The following modules and services are impacted:
 - go-mod-bootstrap
     - All service configuration bootstrapping is handled in this module
 - All services which consume go-mod-bootstrap
-    - The configuration TOML files will be updated to remove all common  settings
+    - The configuration files will be updated to remove all common  settings
     - This leaves only the private settings and overrides of certain common settings (See examples above)
 - New service which provides the common configuration
-    - Contains new configuration TOML which contains all the common settings (See example above) 
+    - Contains new configuration file which contains all the common settings (See example above) 
     - No environment overrides will be applied to the common settings
     - This service is responsible for 
       - Pushing the common settings into the Configuration Provider during first start-up
