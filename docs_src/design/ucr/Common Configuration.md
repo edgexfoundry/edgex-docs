@@ -3,7 +3,7 @@
 - Lenny Goodell (Intel)
 
 ## Change Log
-- [pending](https://github.com/edgexfoundry/edgex-docs/pull/892) (2022-11-16)
+- [approved](https://github.com/edgexfoundry/edgex-docs/pull/892) (2022-12-01)
 
 ### Motivation
 Currently the configuration for all the EdgeX services have many common settings.  Most of these common settings have the same value for every service deployed in a single EdgeX based solution and possible across identical deployments of the same solution. The motivation for the UCR is to limit this redundancy by having common settings in one location which are then used across all EdgeX services.
@@ -32,7 +32,7 @@ See [Common Configuration](../../../microservices/configuration/CommonConfigurat
       CORSMaxAge = 3600
     
     ```
-
+    
     ...
     
     [Registry]
