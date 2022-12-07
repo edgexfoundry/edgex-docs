@@ -10,6 +10,9 @@ Specify local configuration directory. Default is `./res`
 
 Can be overridden with [EDGEX_CONF_DIR](./CommonEnvironmentVariables.md#edgex_conf_dir) environment variable.
 
+!!! edgey "EdgeX 3.0"
+    The `EDGEX_CONF_DIR` environment variable is replaced by `EDGEX_CONFIG_DIR` in EdgeX 3.0.
+
 ## File
 
 `-f/--file <name>`
@@ -25,6 +28,9 @@ Can be overridden with [EDGEX_CONFIG_FILE](./CommonEnvironmentVariables.md#edgex
 Indicates to use Configuration Provider service at specified URL. URL Format: `{type}.{protocol}://{host}:{port} ex: consul.http://localhost:8500`
 
 Can be overridden with [EDGEX_CONFIGURATION_PROVIDER](./CommonEnvironmentVariables.md#edgex_configuration_provider) environment variable.
+
+!!! edgey "EdgeX 3.0"
+    The `EDGEX_CONFIGURATION_PROVIDER` environment variable is replaced by `EDGEX_CONFIG_PROVIDER` in EdgeX 3.0.
 
 ## Profile
 
