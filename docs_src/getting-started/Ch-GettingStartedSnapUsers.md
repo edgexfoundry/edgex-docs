@@ -304,9 +304,6 @@ The following services are disabled by default:
 - support-notifications
 - support-scheduler
 - sys-mgmt-agent - *deprecated EdgeX component*
-- kuiper (Rules Engine / eKuiper) - *deprecated; use the standalone [EdgeX eKuiper snap](#edgex-ekuiper)*
-- app-service-configurable (used to filter events for kuiper) - *deprecated; use the standalone [App Service Configurable snap](#app-service-configurable)*
-
 
 The disabled services can be manually enabled and started; see [managing services].
 
@@ -516,9 +513,6 @@ For usage instructions, refer to [Command Line Interface (CLI)](../tools/Ch-Comm
 
 For the documentation of the standalone EdgeX eKuiper snap, visit the [README](https://github.com/canonical/edgex-ekuiper-snap).
 
-!!! note
-    The standalone EdgeX eKuiper snap documented here should not be confused with the deprecated `edgexfoundry.kuiper` and `edgexfoundry.kuiper-cli` apps built into the platform. The standalone snap can provide similar functionality.
-
 <!-- sorted alphabetically -->
 ### App Service Configurable
 | [Installation][edgex-app-service-configurable] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/app-service-configurable/tree/main/snap) |
@@ -565,9 +559,6 @@ For example, to set `mqtt-export` profile using the snap CLI:
 ```bash
 sudo snap set edgex-app-service-configurable profile=mqtt-export
 ```
-
-!!! note
-    The standalone App Service Configurable snap documented above should not be confused with the deprecated `edgexfoundry.app-service-configurable`, built into the platform snap. The standalone snap can serve the same functionality of filtering events for eKuiper by using the rules-engine profile.
 
 ### App RFID LLRP Inventory
 | [Installation][edgex-app-rfid-llrp-inventory] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/app-rfid-llrp-inventory/tree/main/snap) |
