@@ -3843,8 +3843,6 @@ all reference core and security services along with a few supporting and applica
 <li>support-notifications</li>
 <li>support-scheduler</li>
 <li>sys-mgmt-agent - <em>deprecated EdgeX component</em></li>
-<li>kuiper (Rules Engine / eKuiper) - <em>deprecated; use the standalone <a href="#edgex-ekuiper">EdgeX eKuiper snap</a></em></li>
-<li>app-service-configurable (used to filter events for kuiper) - <em>deprecated; use the standalone <a href="#app-service-configurable">App Service Configurable snap</a></em></li>
 </ul>
 <p>The disabled services can be manually enabled and started; see <a href="#managing-services">managing services</a>.</p>
 <p>For the configuration of services, refer to <a href="#configuration">configuration</a>.</p>
@@ -4009,10 +4007,6 @@ sudo snap install edgex-ekuiper
 The new snap is the supported way of using eKuiper with other EdgeX snaps.</p>
 </div>
 <p>For the documentation of the standalone EdgeX eKuiper snap, visit the <a href="https://github.com/canonical/edgex-ekuiper-snap">README</a>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The standalone EdgeX eKuiper snap documented here should not be confused with the deprecated <code>edgexfoundry.kuiper</code> and <code>edgexfoundry.kuiper-cli</code> apps built into the platform. The standalone snap can provide similar functionality.</p>
-</div>
 <!-- sorted alphabetically -->
 <h3 id="app-service-configurable">App Service Configurable</h3>
 <p>| <a href="https://snapcraft.io/edgex-app-service-configurable">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/app-service-configurable/tree/main/snap">Source</a> |</p>
@@ -4051,10 +4045,6 @@ using snap options.</p>
 <p>For example, to set <code>mqtt-export</code> profile using the snap CLI:
 <div class="highlight"><pre><span></span><code>sudo snap <span class="nb">set</span> edgex-app-service-configurable <span class="nv">profile</span><span class="o">=</span>mqtt-export
 </code></pre></div></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The standalone App Service Configurable snap documented above should not be confused with the deprecated <code>edgexfoundry.app-service-configurable</code>, built into the platform snap. The standalone snap can serve the same functionality of filtering events for eKuiper by using the rules-engine profile.</p>
-</div>
 <h3 id="app-rfid-llrp-inventory">App RFID LLRP Inventory</h3>
 <p>| <a href="https://snapcraft.io/edgex-app-rfid-llrp-inventory">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/app-rfid-llrp-inventory/tree/main/snap">Source</a> |</p>
 <p>The service is <strong>not started</strong> by default. Please refer to <a href="#configuration">configuration</a> and <a href="#managing-services">managing services</a>.</p>
