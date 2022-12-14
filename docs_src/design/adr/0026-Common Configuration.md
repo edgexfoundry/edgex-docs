@@ -19,9 +19,9 @@ The following flow chart demonstrates the bootstrapping of each services' config
 ![](common-config-images/EdgeX 2.x Configuration bootstrapping flowchart.png)
 
 ## Proposed Design
-The configuration settings that are common to all services will be partitioned out into a separate common configuration source. This  common configuration source will be pushed into the Configuration Provider by a new `core-common-config` service. When the Configuration Provider is not used the `core-common-config` service will provide the common configuration via a RESTful endpoint.
+The configuration settings that are common to all services will be partitioned out into a separate common configuration source. This common configuration source will be pushed into the Configuration Provider by the new `core-common-config-bootstrapper` service.
 
-During bootstrapping, each service will either load the common configuration from the Configuration Provider or via URI to some endpoint that provides the common configuration. This could be the new service's REST endpoint. Each service will have additional private configuration, which may overwrite and/or extend the common configuration.  
+During bootstrapping, each service will either load the common configuration from the Configuration Provider or via URI to some endpoint that provides the common configuration. Each service will have additional private configuration, which may overwrite and/or extend the common configuration.  
 
 An additional common configuration setting must be present to indicate all other common settings have been pushed to the Configuration Provider. This setting is stored last and the services must wait for this setting to be present prior to pulling the common settings.
 
@@ -37,15 +37,19 @@ As part of this design, the Secret Store configuration is being removed from the
 
 ### Specifying the Common Configuration location
 
-If the `-cp/--configProvider` command line option is used, the service will default to pulling the common configuration from a standard path in the Configuration Provider. i.e. `edgex/3.0/common/` The `-cp/--configProvider` option assumes the usage of the core-common-config service and cannot be used with the `-cc/--commonConfig` option.
+If the `-cp/--configProvider` command line option is used, the service will default to pulling the common configuration from a standard path in the Configuration Provider. i.e. `edgex/3.0/common/` The `-cp/--configProvider` option assumes the usage of the core-common-config-bootstrapper service and cannot be used with the `-cc/--commonConfig` option.
 
-The new `-cc/--commonConfig` command line option will be added for all services. This option will take the URI that specifies where the common configuration is pulled when not using the Configuration Provider. If the `-cc/--commonConfig` option is not specified, the URI will default to the new `core-common-config` service's REST API. Authentication will be limited to `basic-auth`. In addition, a new environment override variable `EDGEX_COMMON_CONFIG` will be added which allows overriding this new command line option.
+The new `-cc/--commonConfig` command line option will be added for all services. This option will take the URI that specifies where the common configuration is pulled when not using the Configuration Provider. Authentication will be limited to `basic-auth`. In addition, a new environment override variable `EDGEX_COMMON_CONFIG` will be added which allows overriding this new command line option. 
+
+If the `-cp/--configProvider` option is not specified and the `-cc/--commonConfig` option is not specified, then the service will error out. The error message for this could point to the documentation and the common configuration file in GitHub. 
 
 #### Options for Providing the Common Configuration
 
 1. From the configuration provider, using the `-cp/--configProvider` command line option
-2. From the new `core-common-config` service, either using `-cc/--commonConfig` command line option, or if `-cp/--configProvider` and `-cc/--commonConfig` are not specified, the URI will default to the new `core-common-config` service`s REST API.
-3. For the simplest setup, without the `-cp/--configProvider` and `core-common-config` service, the `-cc/--configProvider` option may be used to provide the URI for a text file. This simple approach has no authentication and no update mechanism.
+2. When the Configuration Provider is not used, the `-cc/--commonConfig` command line option or the `EDGEX_COMMON_CONFIG` environment variable may be specified using 
+   1. An HTTP endpoint that returns the common configuration file in response
+   2. A local file that contains the common configuration
+3. If a common configuration is not provided by one of the means listed, then the services cannot start.
 
 ### Writable Sections
 
@@ -386,10 +390,11 @@ The following modules and services are impacted:
 
 ## Considerations
 
-- New service which owns the common configuration could be integrated into Core Metadata rather than creating a new micro service. This violates the micro service design principle of single responsibility.
+- New service which owns the common configuration could be integrated into Core Metadata rather than creating a new microservice. This violates the microservice design principle of single responsibility.
 - Environment overrides pushed into Configuration Provider rather than applying the overrides once configuration is pulled from the Configuration Provider . Consensus is that the overridden values should not be stored in the Configuration Provider. 
 - Service full configuration store in Configuration Provider rather than just private settings. Consensus is that this is redundant for the common settings and should only be the service's private settings.
 - Separate Application Service and Device Service common configuration settings could be in their own configuration sources which are loaded separately by Application and Device Services. This would add undue complexity that is mitigated by these settings being ignored by the marshaller in those services that do not use them.
+- The new service could provide a rest endpoint to serve the common configuration. Consensus is to have no default configuration, thus no need for an endpoint.
 
 ## Decision
 - Accept this new capability as described above.
