@@ -66,6 +66,9 @@ This environment variable overrides the [`-c/--confdir` command-line option](../
       EDGEX_CONF_DIR: "/my-config"
     ```
 
+!!! edgey "EdgeX 3.0"
+    The `EDGEX_CONF_DIR` environment variable is replaced by `EDGEX_CONFIG_DIR` in EdgeX 3.0.
+
 #### EDGEX_CONFIG_FILE
 
 This environment variable overrides the [`-f/--file` command-line option](../CommonCommandLineOptions#file).
@@ -95,6 +98,9 @@ Overriding with a value of `none` disables the use of the Configuration Provider
     environment: 
       EDGEX_CONFIGURATION_PROVIDER: "none"
     ```
+
+!!! edgey "EdgeX 3.0"
+    The `EDGEX_CONFIGURATION_PROVIDER` environment variable is replaced by `EDGEX_CONFIG_PROVIDER` in EdgeX 3.0.
 
 #### EDGEX_PROFILE
 
