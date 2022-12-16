@@ -383,7 +383,6 @@ The following modules and services are impacted:
     - No environment overrides will be applied to the common settings
     - This service is responsible for 
       - Pushing the common settings into the Configuration Provider during first start-up
-      - Providing a REST API to pull the common settings for services not using the Configuration Provider
       - Providing the override flag common to all services to force re-pushing the configuration into the Configuration Provider
 - Changes to security-secret-store-setup are needed to seed the Basic Auth secret for the new configuration service and distribute it to the consuming microservice(s) 
 - TAF test scripts may be impacted based on which settings are modified via the Configuration Provider
@@ -394,7 +393,7 @@ The following modules and services are impacted:
 - Environment overrides pushed into Configuration Provider rather than applying the overrides once configuration is pulled from the Configuration Provider . Consensus is that the overridden values should not be stored in the Configuration Provider. 
 - Service full configuration store in Configuration Provider rather than just private settings. Consensus is that this is redundant for the common settings and should only be the service's private settings.
 - Separate Application Service and Device Service common configuration settings could be in their own configuration sources which are loaded separately by Application and Device Services. This would add undue complexity that is mitigated by these settings being ignored by the marshaller in those services that do not use them.
-- The new service could provide a rest endpoint to serve the common configuration. Consensus is to have no default configuration, thus no need for an endpoint.
+- The new service could provide a REST endpoint to serve the common configuration. Consensus is to have no default configuration, thus no need for an endpoint.
 
 ## Decision
 - Accept this new capability as described above.
