@@ -80,7 +80,7 @@ Microservice authentication is currently implemented around two primary vectors:
   A benefit of token-based authentication schemes is identity delegation,
   whereby the identifier can be passed through a chain of calls to
   preserve the identity of the original initiator.
-  The identifier can often be tunned through other protocols.
+  The identifier can often be tunneled through other protocols.
   Another benefit of token-based authentication is that
   it flows easily through a web application firewall.
 
@@ -89,33 +89,28 @@ Microservice authentication is currently implemented around two primary vectors:
   Another drawback of token-based authentication is that it is unidirectional:
   the receiver can authenticate the initiator, but not vice-versa.
 
-- Mutual-auth TLS.
-  Both the initiator and the receiver participate in a session-oriented message
-  exchange based on public-key cryptography, where each trusts the other's
-  digital signature authority.
-
-  A benefit of mutual-auth TLS is that it enforces proof-of-possession
+- End-to-end encryption schemes.
+  Both the initiator and the receiver participate in a session-oriented message exchange over an encrypted transport,
+  where both parties cryptographically validate each other's identity.
+  
+  A benefit of end-to-end encryption schemes is that it enforces proof-of-possession
   (of a cryptographic key), thus preventing token-stealing attacks.
 
-  A drawback of mutual-auth TLS is that it requires layer 4
-  (IP:port) network connectivity.
-  Layer 7 (e.g. HTTP) interpretation of the traffic stream,
-  such as a URL-rewriting HTTP router, breaks end-to-end encryption
-  and the ability to cryptographically identify the caller.
-  Another drawback is that mutual-auth TLS requires encryption
-  for all use cases, including same-host communication.
-  Encryption may be redundant if encryption is implemented
-  at lower layers in the network stack.
-  Combining authentication and encryption may also complicate debugging.
+  End-to-end encryption schemes are strongest when implemented at the application level,
+  as it does not require trust in the underlying network,
+  with the potential drawback that if network-level encryption is used,
+  or if all communication is done via local IPC interfaces,
+  the system may waste processing power on redundant encryption.
+  Additionally, authentication schemes based on end-to-end encryption
+  may complicate debugging because removing encryption also removes the authentication.
 
-  The most onerous drawback to mutual-auth TLS is overhead associated with
-  certificate and key rotation on both the initiator and receiver when
-  the cryptoperiods of their cryptographic materials expire.
-
-  Many service mesh products are based on mutual-auth TLS
-  for confidentiality and enforcement of network policy,
-  but application access to the authenticated caller identity is not a given,
-  and varies from product to product.
+  Service meshes are one example of an end-to-end encryption scheme.
+  Mutual-auth TLS (mTLS) is another example of an end-to-end encryption scheme.
+  Mutual-auth TLS has the additional drawback that it requires
+  layer 4 (IP:port) network connectivity and blocks layer 7 (e.g. HTTP)
+  interpretation of the traffic stream (such as HTTP reverse proxies),
+  though creative solutions have been developed to minimize the issue,
+  such as SNI-based routing schemes.
 
 
 ### Requirements
@@ -134,7 +129,7 @@ This UCR does not prescribe what layer in the software stack performs authentica
 
 ### Other Related Issues
 
-- Including identity and access management in edgex system
+- Including identity and access management in EdgeX system
   ([edgex-go#3845](https://github.com/edgexfoundry/edgex-go/issues/3845)):
   Expresses the desire to integrate human identity into the EdgeX system.
   The BSI presentation to EdgeX TSC also explicitly mentions Auth0 integration.
