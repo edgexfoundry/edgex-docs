@@ -41,7 +41,7 @@ If the `-cp/--configProvider` command line option is used, the service will defa
 
 The new `-cc/--commonConfig` command line option will be added for all services. This option will take the URI that specifies where the common configuration is pulled when not using the Configuration Provider. Authentication will be limited to `basic-auth`. In addition, a new environment override variable `EDGEX_COMMON_CONFIG` will be added which allows overriding this new command line option. 
 
-If the `-cp/--configProvider` option is not specified and the `-cc/--commonConfig` option is not specified, then the service will error out. The error message for this could point to the documentation and the common configuration file in GitHub. 
+If the `-cp/--configProvider` option is not specified and the `-cc/--commonConfig` option is not specified, then the service will start using solely the private configuration. In this scenario, any information in the common configuration must be added to the service's private configuration. The individual bootstrap handlers will need to be enhanced to detect an empty configuration for robust error messaging.
 
 #### Options for Providing the Common Configuration
 
@@ -49,7 +49,7 @@ If the `-cp/--configProvider` option is not specified and the `-cc/--commonConfi
 2. When the Configuration Provider is not used, the `-cc/--commonConfig` command line option or the `EDGEX_COMMON_CONFIG` environment variable may be specified using 
    1. An HTTP endpoint that returns the common configuration file in response
    2. A local file that contains the common configuration
-3. If a common configuration is not provided by one of the means listed, then the services cannot start.
+3. From the private configuration file, alongside other private configurations
 
 ### Writable Sections
 
