@@ -21,7 +21,7 @@ The following flow chart demonstrates the bootstrapping of each services' config
 ## Proposed Design
 The configuration settings that are common to all services will be partitioned out into a separate common configuration source. This common configuration source will be pushed into the Configuration Provider by the new `core-common-config-bootstrapper` service.
 
-During bootstrapping, each service will either load the common configuration from the Configuration Provider or via URI to some endpoint that provides the common configuration. Each service will have additional private configuration, which may overwrite and/or extend the common configuration.  
+During bootstrapping, each service will either load the common configuration from the Configuration Provider or via URI to some endpoint that provides the common configuration. Each service will have additional private configuration, which may override and/or extend the common configuration.  
 
 An additional common configuration setting must be present to indicate all other common settings have been pushed to the Configuration Provider. This setting is stored last and the services must wait for this setting to be present prior to pulling the common settings.
 
