@@ -45,7 +45,7 @@ If the `-cp/--configProvider` option is not specified and the `-cc/--commonConfi
 
 #### Options for Providing the Common Configuration
 
-1. From the configuration provider, using the `-cp/--configProvider` command line option
+1. From the configuration provider, using the `-cp/--configProvider` command line option or the `EDGEX_CONFIG_PROVIDER` environment variable.
 2. When the Configuration Provider is not used, the `-cc/--commonConfig` command line option or the `EDGEX_COMMON_CONFIG` environment variable may be specified using 
    1. An HTTP endpoint that returns the common configuration file in response
    2. A local file that contains the common configuration
