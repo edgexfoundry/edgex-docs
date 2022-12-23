@@ -4,8 +4,11 @@ security-file-token-provider -- Generate Vault tokens for EdgeX services
 
 # SYNOPSIS
 
-security-file-token-provider \[-h\--confdir \<confdir\>\]
+security-file-token-provider \[-h\--configDir \<configDir\>\]
 \[-p\|\--profile \<name\>\]
+
+!!! edgey "EdgeX 3.0"
+    The `--confdir` command line option is replaced by `--configDir` in EdgeX 3.0.
 
 # DESCRIPTION
 
@@ -26,14 +29,17 @@ services from reading each other's tokens.
 >
 > :   Display help text
 >
-> -c, \--confdir \<confdir\>
+> -cd, \--configDir \<configDir\>
 >
 > :   Look in this directory for configuration.toml instead.
 >
 > -p, \--profile \<name\>
 >
 > :   Indicate configuration profile other than default
->
+
+!!! edgey "EdgeX 3.0"
+    The `-c, --confdir` command line option is replaced by `-cd, --configDir` in EdgeX 3.0.
+
 # FILES
 
 ## configuration.toml

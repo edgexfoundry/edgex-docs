@@ -4,18 +4,26 @@ This section describes the command line options that are common to all EdgeX ser
 
 ## ConfDir 
 
-`-c/--confdir`
+`-cd/--configDir`
+
+!!! edgey "EdgeX 3.0"
+    The `-c/--confdir` command line option is replaced by `-cd/--configDir` in EdgeX 3.0.
+
 
 Specify local configuration directory. Default is `./res`
 
-Can be overridden with [EDGEX_CONF_DIR](./CommonEnvironmentVariables.md#edgex_conf_dir) environment variable.
+Can be overridden with [EDGEX_CONFIG_DIR](./CommonEnvironmentVariables.md#edgex_config_dir) environment variable.
 
 !!! edgey "EdgeX 3.0"
     The `EDGEX_CONF_DIR` environment variable is replaced by `EDGEX_CONFIG_DIR` in EdgeX 3.0.
 
 ## File
 
-`-f/--file <name>`
+`-cf/--configFile <name>`
+
+!!! edgey "EdgeX 3.0"
+    The `-f/--file` command line option is replaced by `-cf/--configFile` in EdgeX 3.0.
+
 
 Indicates the name of the local configuration file. Default is `configuration.toml`
 
@@ -27,7 +35,7 @@ Can be overridden with [EDGEX_CONFIG_FILE](./CommonEnvironmentVariables.md#edgex
 
 Indicates to use Configuration Provider service at specified URL. URL Format: `{type}.{protocol}://{host}:{port} ex: consul.http://localhost:8500`
 
-Can be overridden with [EDGEX_CONFIGURATION_PROVIDER](./CommonEnvironmentVariables.md#edgex_configuration_provider) environment variable.
+Can be overridden with [EDGEX_CONFIG_PROVIDER](./CommonEnvironmentVariables.md#edgex_config_provider) environment variable.
 
 !!! edgey "EdgeX 3.0"
     The `EDGEX_CONFIGURATION_PROVIDER` environment variable is replaced by `EDGEX_CONFIG_PROVIDER` in EdgeX 3.0.
