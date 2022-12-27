@@ -11,7 +11,7 @@
 | [Provision Watch via Device Metadata](./ucr/Provision-Watch-via-Device-Metadata.md) | Use Case for Provision Watching via Additional Device Metadata |
 | [Record and Replay](./ucr/Record-and-Replay.md)    | Use Case for Recording and Replaying event/readings     |
 | [System Events for Devices](./ucr/System-Events-for-Devices.md) | Use Case for System Events for Device add/update/delete |
-| [Core Data Cache](./ucr/Core-Data-Cache.md) | Use Case for adding cache like capability to Core Data |
+| [Core Data Retention and Persistent Cap](./ucr/Core-Data-Retention.md) | Use Case for capping readings in Core Data |
 
 ## Architectural Design Records (ADRs)
 
