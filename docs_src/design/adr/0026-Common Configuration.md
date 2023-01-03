@@ -4,7 +4,7 @@
 - Elizabeth Lee (Intel)
 
 ## Change Log
-- [pending](URL of PR TBD) (2022-11-29)
+- [approved](URL of PR TBD) (2023-01-03)
 
 ## Referenced Use Case(s)
 - [Common Configuration UCR](URL of use case link TBD)
