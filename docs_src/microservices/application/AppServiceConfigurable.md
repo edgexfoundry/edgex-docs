@@ -425,35 +425,19 @@ Please refer to the function's detailed documentation by clicking the function n
 ### [Encrypt](../BuiltIn/#dataprotection)
 **Parameters**
 
-- `Algorithm` - AES (deprecated) or AES256
-- `Key` -  (optional, deprecated) Encryption key used for the encryption. Required if not using Secret Store for the encryption key data
-- `InitVector` - (deprecated) Initialization vector used for the encryption.
-- `SecretPath` - (required for AES256) Path in the `Secret Store` where the encryption key is located. Required if `Key` not specified.
-- `SecretName` - (required for AES256) Name of the secret for the encryption key in the `Secret Store`.  Required if `Key` not specified.
+- `Algorithm` - AES256
+- `SecretPath` - (required for AES256) Path in the `Secret Store` where the encryption key is located.
+- `SecretName` - (required for AES256) Name of the secret for the encryption key in the `Secret Store`.
 
 !!! example
-    ```toml
-        # Encrypt with key specified in configuration
-        [Writable.Pipeline.Functions.Encrypt]
-          [Writable.Pipeline.Functions.Encrypt.Parameters]
-          Algorithm = "aes" 
-          Key = "aquqweoruqwpeoruqwpoeruqwpoierupqoweiurpoqwiuerpqowieurqpowieurpoqiweuroipwqure"
-          InitVector = "123456789012345678901234567890"
-    ```
     ```toml
         # Encrypt with key pulled from Secret Store
         [Writable.Pipeline.Functions.Encrypt]
           [Writable.Pipeline.Functions.Encrypt.Parameters]
-          Algorithm = "aes"
-          InitVector = "123456789012345678901234567890"
+          Algorithm = "aes256"
           SecretPath = "aes"
           SecretName = "key"
     ```
-
-
-
-!!! edgey "EdgeX 2.0"
-    For EdgeX 2.0 the `EncryptWithAES` configurable pipeline function have been replaced by the `Encrypt` configurable pipeline function with additional `Algorithm ` parameter. In addition the ability to pull the encryption key from the `Secret Store` has been added.
 
 ### [FilterByDeviceName](../BuiltIn/#by-device-name)
 
