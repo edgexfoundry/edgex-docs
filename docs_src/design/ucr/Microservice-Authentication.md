@@ -73,6 +73,7 @@ of the caller and can write program logic based on that identity.
 Microservice authentication is currently implemented around two primary vectors:
 
 - Token-based authentication schemes.
+
   Initiator sends an identifier along with a request to the receiver.
   The identifier is cryptographically validated using a key trusted by
   the receiver, or the receiver asks a trusted third party to verify the identifier.
@@ -89,29 +90,16 @@ Microservice authentication is currently implemented around two primary vectors:
   Another drawback of token-based authentication is that it is unidirectional:
   the receiver can authenticate the initiator, but not vice-versa.
 
-- End-to-end encryption schemes.
-  Both the initiator and the receiver participate in a session-oriented message exchange over an encrypted transport,
-  where both parties cryptographically validate each other's identity.
-  
-  A benefit of end-to-end encryption schemes is that it enforces proof-of-possession
-  (of a cryptographic key), thus preventing token-stealing attacks.
+- End-to-end encryption (E2EE) schemes.
 
-  End-to-end encryption schemes are strongest when implemented at the application level,
-  as it does not require trust in the underlying network,
-  with the potential drawback that if network-level encryption is used,
-  or if all communication is done via local IPC interfaces,
-  the system may waste processing power on redundant encryption.
-  Additionally, authentication schemes based on end-to-end encryption
-  may complicate debugging because removing encryption also removes the authentication.
-
-  Service meshes are one example of an end-to-end encryption scheme.
-  Mutual-auth TLS (mTLS) is another example of an end-to-end encryption scheme.
-  Mutual-auth TLS has the additional drawback that it requires
-  layer 4 (IP:port) network connectivity and blocks layer 7 (e.g. HTTP)
-  interpretation of the traffic stream (such as HTTP reverse proxies),
-  though creative solutions have been developed to minimize the issue,
-  such as SNI-based routing schemes.
-
+  End-to-end encryption implies that only the original sender 
+  and the final intended receiver ever see the unencrypted message contents.
+  If a message is simply encrypted from process-to-process or machine-to-machine,
+  where an intermediary can decrypt the message,
+  even if the entire flow encrypted point-to-point,
+  then the message is simply said to be "encrypted in-transit."
+  If the architecture of the system requires a server-based intermediary between two clients,
+  then in a E2EE system, only the two communicating clients have access the unencrypted data.
 
 ### Requirements
 
