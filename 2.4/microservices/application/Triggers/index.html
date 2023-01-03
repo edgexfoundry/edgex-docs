@@ -3360,24 +3360,24 @@
 <p>For EdgeX 2.0 the <code>SubscribeTopic</code> has been renamed to <code>SubscribeTopics</code> and moved under the <strong>EdgexMessageBus</strong> <code>SubscribeHost</code> section. The <code>PublishTopic</code> has also been moved under the <strong>EdgexMessageBus</strong> <code>PublishHost</code> section. Also the legacy <code>type</code> of <code>messagebus</code> has been removed.</p>
 </div>
 <p>Here's an example:</p>
-<p><div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span><span class="w"></span>
-<span class="n">Type</span><span class="o">=</span><span class="s">&quot;edgex-messagebus&quot;</span><span class="w"></span>
+<p><div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span>
+<span class="n">Type</span><span class="o">=</span><span class="s">&quot;edgex-messagebus&quot;</span>
 </code></pre></div>
 The <code>Type=</code> is set to <code>edgex-messagebus</code> trigger type. The Context function <code>ctx.SetResponseData([]byte outputData)</code> stores the data to send back to the EdgeX MessageBus on the topic specified by the PublishHost <code>PublishTopic=</code> setting.</p>
 <h3 id="messagebus-connection-configuration">MessageBus Connection Configuration</h3>
 <p>The other piece of configuration required are the connection settings:
-<div class="highlight"><pre><span></span><code><span class="k">[Trigger.EdgexMessageBus]</span><span class="w"></span>
-<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redis&quot;</span><span class="w"> </span><span class="c1"># message bus type (i.e &quot;redis`, `mqtt`, `nats-core` or `nats-jetstream`)</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.SubscribeHost]</span><span class="w"></span>
-<span class="w">        </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6379</span><span class="w"></span>
-<span class="w">        </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redis&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.PublishHost]</span><span class="w"></span>
-<span class="w">        </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6379</span><span class="w"></span>
-<span class="w">        </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redis&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="n">PublishTopic</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="c1"># optional if publishing response back to the MessageBus</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Trigger.EdgexMessageBus]</span>
+<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redis&quot;</span><span class="w"> </span><span class="c1"># message bus type (i.e &quot;redis`, `mqtt`, `nats-core` or `nats-jetstream`)</span>
+<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.SubscribeHost]</span>
+<span class="w">        </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span>
+<span class="w">        </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6379</span>
+<span class="w">        </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redis&quot;</span>
+<span class="w">        </span><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#&quot;</span>
+<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.PublishHost]</span>
+<span class="w">        </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span>
+<span class="w">        </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6379</span>
+<span class="w">        </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redis&quot;</span>
+<span class="w">        </span><span class="n">PublishTopic</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="c1"># optional if publishing response back to the MessageBus</span>
 </code></pre></div></p>
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 2.0</p>
@@ -3403,29 +3403,29 @@ nats-jetstream - for NATS messaging with JetStream persistence layer
 </div>
 <h3 id="example-using-mqtt">Example Using MQTT</h3>
 <p>Here is example <code>EdgexMessageBus</code> configuration when using MQTT as the message bus:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Trigger.EdgexMessageBus]</span><span class="w"></span>
-<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.SubscribeHost]</span><span class="w"></span>
-<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span><span class="w"></span>
-<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.PublishHost]</span><span class="w"></span>
-<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span><span class="w"></span>
-<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">PublishTopic</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="c1"># optional if publishing response back to the MessageBus</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.Optional]</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># MQTT Specific options</span><span class="w"></span>
-<span class="w">    </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;new-app-service&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">Qos</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="c1"># Quality of Service values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</span><span class="w"></span>
-<span class="w">    </span><span class="n">KeepAlive</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span><span class="w"></span>
-<span class="w">    </span><span class="n">Retained</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">AutoReconnect</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30&quot;</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
-<span class="w">    </span><span class="n">SkipCertVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">authmode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w">  </span><span class="c1"># change to &quot;usernamepassword&quot;, &quot;clientcert&quot;, or &quot;cacert&quot; for secure MQTT messagebus.</span><span class="w"></span>
-<span class="w">    </span><span class="n">secretname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt-bus&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Trigger.EdgexMessageBus]</span>
+<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt&quot;</span>
+<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.SubscribeHost]</span>
+<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span>
+<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span>
+<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span>
+<span class="w">    </span><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#&quot;</span>
+<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.PublishHost]</span>
+<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span>
+<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span>
+<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span>
+<span class="w">    </span><span class="n">PublishTopic</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="c1"># optional if publishing response back to the MessageBus</span>
+<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.Optional]</span>
+<span class="w">    </span><span class="c1"># MQTT Specific options</span>
+<span class="w">    </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;new-app-service&quot;</span>
+<span class="w">    </span><span class="n">Qos</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="c1"># Quality of Service values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</span>
+<span class="w">    </span><span class="n">KeepAlive</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span>
+<span class="w">    </span><span class="n">Retained</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
+<span class="w">    </span><span class="n">AutoReconnect</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">    </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30&quot;</span><span class="w"> </span><span class="c1"># Seconds</span>
+<span class="w">    </span><span class="n">SkipCertVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
+<span class="w">    </span><span class="n">authmode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w">  </span><span class="c1"># change to &quot;usernamepassword&quot;, &quot;clientcert&quot;, or &quot;cacert&quot; for secure MQTT messagebus.</span>
+<span class="w">    </span><span class="n">secretname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt-bus&quot;</span>
 </code></pre></div>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
@@ -3433,28 +3433,28 @@ nats-jetstream - for NATS messaging with JetStream persistence layer
 <p>Also new for EdgeX 2.0 is the MQTT MessageBus implementation now supports retrieving secrets from the <code>Secret Store</code> for secure MQTT connection, but there is not any facility yet to generate the credentials on first startup and distribute them to all services, as is done with <code>Redis Pub/sub</code>. This MQTT credentials generation and distribution is a future enhancement for EdgeX security services.</p>
 <h3 id="example-using-nats">Example Using NATS</h3>
 <p>Here is an example <code>EdgexMessageBus</code> configuration using NATS:</p>
-<p><div class="highlight"><pre><span></span><code><span class="k">[Trigger.EdgexMessageBus]</span><span class="w"></span>
-<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;nats-jetstream&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.SubscribeHost]</span><span class="w"></span>
-<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4222</span><span class="w"></span>
-<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.PublishHost]</span><span class="w"></span>
-<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4222</span><span class="w"></span>
+<p><div class="highlight"><pre><span></span><code><span class="k">[Trigger.EdgexMessageBus]</span>
+<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;nats-jetstream&quot;</span>
+<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.SubscribeHost]</span>
+<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span>
+<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4222</span>
+<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span>
+<span class="w">    </span><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#&quot;</span>
+<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.PublishHost]</span>
+<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span>
+<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4222</span>
 <span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span><span class="w">        </span>
-<span class="w">    </span><span class="n">PublishTopic</span><span class="o">=</span><span class="s">&quot;edgex/events/processed&quot;</span><span class="w"> </span><span class="c1"># optional if publishing response back to the MessageBus</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.Optional]</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># NATS Specific options</span><span class="w"></span>
-<span class="w">    </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># seconds</span><span class="w"></span>
-<span class="w">    </span><span class="n">Format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;json&quot;</span><span class="w"> </span><span class="c1"># json message envelopes can be used for backward compatibility</span><span class="w"></span>
-<span class="w">    </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;new-app-service&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># note durable consumers are typically created out of band eg at gateway onboarding.</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># durable consumers provisioned by the NATS client will be auto deleted</span><span class="w"></span>
+<span class="w">    </span><span class="n">PublishTopic</span><span class="o">=</span><span class="s">&quot;edgex/events/processed&quot;</span><span class="w"> </span><span class="c1"># optional if publishing response back to the MessageBus</span>
+<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.Optional]</span>
+<span class="w">    </span><span class="c1"># NATS Specific options</span>
+<span class="w">    </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># seconds</span>
+<span class="w">    </span><span class="n">Format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;json&quot;</span><span class="w"> </span><span class="c1"># json message envelopes can be used for backward compatibility</span>
+<span class="w">    </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;new-app-service&quot;</span>
+<span class="w">    </span><span class="c1"># note durable consumers are typically created out of band eg at gateway onboarding.</span>
+<span class="w">    </span><span class="c1"># durable consumers provisioned by the NATS client will be auto deleted</span>
 <span class="w">    </span><span class="n">Durable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;my-durable-name&quot;</span><span class="w"> </span>
-<span class="w">    </span><span class="n">Username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;edgex&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;edgex&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;edgex&quot;</span>
+<span class="w">    </span><span class="n">Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;edgex&quot;</span>
 </code></pre></div>
 For a complete list of supported NATS / JetStream options see <a href="https://github.com/edgexfoundry/go-mod-messaging/blob/main/internal/pkg/nats/README.md">go-mod-messaging NATS readme</a></p>
 <h3 id="filter-by-topics">Filter By Topics</h3>
@@ -3474,27 +3474,27 @@ edgex/events/device/&lt;profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;
 <ul>
 <li>Filter for all Events </li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#&quot;</span>
 </code></pre></div>
 <ul>
 <li>Filter for Events only from a single class of devices (device profile defines a class of device)</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#/trendnet/#&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#/trendnet/#&quot;</span>
 </code></pre></div>
 <ul>
 <li>Filter for Events only from a single actual device</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#/#/trendnet01/#&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#/#/trendnet01/#&quot;</span>
 </code></pre></div>
 <ul>
 <li>Filter for Events from two specific actual devices</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#/#/trendnet01/#, edgex/events/#/#/trendnet02/#&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#/#/trendnet01/#, edgex/events/#/#/trendnet02/#&quot;</span>
 </code></pre></div>
 <ul>
 <li>Filter for Events from two specific sources. </li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#/#/#/Uptime, edgex/events/#/#/#/MacAddress&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#/#/#/Uptime, edgex/events/#/#/#/MacAddress&quot;</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3503,11 +3503,11 @@ edgex/events/device/&lt;profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>For the MQTT implementation of the EdgeX MessageBus, the <code>#</code> is also used for the multi-level wildcard, but the single-level wildcard is the <code>+</code> character. So the first and last examples above would be as follows for when using the MQTT implementation</p>
-<div class="highlight"><pre><span></span><code><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#&quot;</span><span class="w"></span>
-<span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/+/trendnet/#&quot;</span><span class="w"></span>
-<span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/+/+/trendnet01/#&quot;</span><span class="w"></span>
-<span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/+/+/trendnet01/#, edgex/events/+/+/trendnet02/#&quot;</span><span class="w"></span>
-<span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/+/+/+/Uptime, edgex/events/+/+/+/MacAddress&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#&quot;</span>
+<span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/+/trendnet/#&quot;</span>
+<span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/+/+/trendnet01/#&quot;</span>
+<span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/+/+/trendnet01/#, edgex/events/+/+/trendnet02/#&quot;</span>
+<span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/+/+/+/Uptime, edgex/events/+/+/+/MacAddress&quot;</span>
 </code></pre></div>
 </div>
 <h2 id="external-mqtt-trigger">External MQTT Trigger</h2>
@@ -3522,22 +3522,22 @@ edgex/events/device/&lt;profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;
 </div>
 <h3 id="type-configuration_1">Type Configuration</h3>
 <p>Here's an example:
-<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span><span class="w"></span>
-<span class="n">Type</span><span class="o">=</span><span class="s">&quot;external-mqtt&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="k">[Trigger.externalmqtt]</span><span class="w"></span>
-<span class="w">  </span><span class="n">Url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tls://test.mosquitto.org:8884&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/#&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;app-external-mqtt-trigger&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">Qos</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
-<span class="w">  </span><span class="n">KeepAlive</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="w"></span>
-<span class="w">  </span><span class="n">Retained</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
-<span class="w">  </span><span class="n">AutoReconnect</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
-<span class="w">  </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30s&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">SkipCertVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
-<span class="w">  </span><span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;clientcert&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">SecretPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;external-mqtt&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">RetryDuration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">600</span><span class="w"></span>
-<span class="w">  </span><span class="n">RetryInterval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span>
+<span class="n">Type</span><span class="o">=</span><span class="s">&quot;external-mqtt&quot;</span>
+<span class="w">  </span><span class="k">[Trigger.externalmqtt]</span>
+<span class="w">  </span><span class="n">Url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tls://test.mosquitto.org:8884&quot;</span>
+<span class="w">  </span><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/#&quot;</span>
+<span class="w">  </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;app-external-mqtt-trigger&quot;</span>
+<span class="w">  </span><span class="n">Qos</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="n">KeepAlive</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span>
+<span class="w">  </span><span class="n">Retained</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">  </span><span class="n">AutoReconnect</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30s&quot;</span>
+<span class="w">  </span><span class="n">SkipCertVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;clientcert&quot;</span>
+<span class="w">  </span><span class="n">SecretPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;external-mqtt&quot;</span>
+<span class="w">  </span><span class="n">RetryDuration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">600</span>
+<span class="w">  </span><span class="n">RetryInterval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span>
 </code></pre></div></p>
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 2.0</p>
@@ -3550,19 +3550,19 @@ edgex/events/device/&lt;profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;
 </div>
 <h3 id="external-mqtt-broker-configuration">External MQTT Broker Configuration</h3>
 <p>The other piece of configuration required are the MQTT Broker connection settings:
-<div class="highlight"><pre><span></span><code><span class="k">[Trigger.ExternalMqtt]</span><span class="w"></span>
-<span class="w">    </span><span class="n">Url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp://localhost:1883&quot;</span><span class="w"> </span><span class="c1">#  fully qualified URL to connect to the MQTT broker</span><span class="w"></span>
-<span class="w">    </span><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;SomeTopics&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">PublishTopic</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="c1"># optional if publishing response back to the the External MQTT Broker</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Trigger.ExternalMqtt]</span>
+<span class="w">    </span><span class="n">Url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp://localhost:1883&quot;</span><span class="w"> </span><span class="c1">#  fully qualified URL to connect to the MQTT broker</span>
+<span class="w">    </span><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;SomeTopics&quot;</span>
+<span class="w">    </span><span class="n">PublishTopic</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="c1"># optional if publishing response back to the the External MQTT Broker</span>
 <span class="w">    </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;AppService&quot;</span><span class="w"> </span>
-<span class="w">    </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5s&quot;</span><span class="w"> </span><span class="c1"># 5 seconds</span><span class="w"></span>
-<span class="w">    </span><span class="n">AutoReconnect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
-<span class="w">    </span><span class="n">KeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span><span class="w"></span>
-<span class="w">    </span><span class="n">QoS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="c1"># Quality of Service 0 (At most once), 1 (At least once) or 2 (Exactly once)</span><span class="w"></span>
-<span class="w">    </span><span class="n">Retain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
-<span class="w">    </span><span class="n">SkipCertVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="w">    </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5s&quot;</span><span class="w"> </span><span class="c1"># 5 seconds</span>
+<span class="w">    </span><span class="n">AutoReconnect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="n">KeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span>
+<span class="w">    </span><span class="n">QoS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="c1"># Quality of Service 0 (At most once), 1 (At least once) or 2 (Exactly once)</span>
+<span class="w">    </span><span class="n">Retain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="n">SkipCertVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
 <span class="w">    </span><span class="n">SecretPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt-trigger&quot;</span><span class="w"> </span>
-<span class="w">    </span><span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w"> </span><span class="c1"># Options are &quot;none&quot;, &quot;cacert&quot; , &quot;usernamepassword&quot;, &quot;clientcert&quot;.</span><span class="w"></span>
+<span class="w">    </span><span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w"> </span><span class="c1"># Options are &quot;none&quot;, &quot;cacert&quot; , &quot;usernamepassword&quot;, &quot;clientcert&quot;.</span>
 </code></pre></div></p>
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 2.0</p>
@@ -3572,7 +3572,7 @@ edgex/events/device/&lt;profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;
 <p>Designating an HTTP trigger will allow the pipeline to be triggered by a RESTful <code>POST</code> call to <code>http://[host]:[port]/api/v2/trigger/</code>. </p>
 <h3 id="type-configuration_2">Type Configuration</h3>
 <p>Here's an example:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span>
 <span class="n">Type</span><span class="o">=</span><span class="s">&quot;http&quot;</span><span class="w"> </span>
 </code></pre></div>
 <p>The <code>Type=</code> is set to <code>http</code>. This will will enable listening to the <code>api/v2/trigger/</code> endpoint. No other configuration is required. The Context function <code>ctx.SetResponseData([]byte outputData)</code> stores the data to send back as the response to the requestor that originally triggered the HTTP Request. </p>
@@ -3597,14 +3597,14 @@ edgex/events/device/&lt;profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;
 <p>You can <strong>NOT</strong> override trigger names built into the SDK ( "edgex-messagebus", "external-mqtt", or "http") for a custom trigger.</p>
 </div>
 <p>The trigger factory function is bound to an instance of a trigger configuration struct that is provided by the SDK:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">TriggerConfig</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">Logger</span><span class="w">           </span><span class="nx">logger</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="w"></span>
-<span class="w">    </span><span class="nx">ContextBuilder</span><span class="w">   </span><span class="nx">TriggerContextBuilder</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// Deprecated: use MessageReceived</span><span class="w"></span>
-<span class="w">    </span><span class="nx">MessageProcessor</span><span class="w"> </span><span class="nx">TriggerMessageProcessor</span><span class="w"></span>
-<span class="w">    </span><span class="nx">MessageReceived</span><span class="w">  </span><span class="nx">TriggerMessageHandler</span><span class="w"></span>
-<span class="w">    </span><span class="nx">ConfigLoader</span><span class="w">     </span><span class="nx">TriggerConfigLoader</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">TriggerConfig</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Logger</span><span class="w">           </span><span class="nx">logger</span><span class="p">.</span><span class="nx">LoggingClient</span>
+<span class="w">    </span><span class="nx">ContextBuilder</span><span class="w">   </span><span class="nx">TriggerContextBuilder</span>
+<span class="w">    </span><span class="c1">// Deprecated: use MessageReceived</span>
+<span class="w">    </span><span class="nx">MessageProcessor</span><span class="w"> </span><span class="nx">TriggerMessageProcessor</span>
+<span class="w">    </span><span class="nx">MessageReceived</span><span class="w">  </span><span class="nx">TriggerMessageHandler</span>
+<span class="w">    </span><span class="nx">ConfigLoader</span><span class="w">     </span><span class="nx">TriggerConfigLoader</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>This type carries a pointer to the internal edgex logger, along with three functions:</p>
 <ul>
@@ -3621,82 +3621,82 @@ edgex/events/device/&lt;profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;
 </ul>
 <p>If you need to override these functions it can be done in the factory function registered with the service.</p>
 <p>The custom trigger constructed here will then need to implement the trigger interface so that the SDK can invoke it:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">Trigger</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">Initialize</span><span class="p">(</span><span class="nx">wg</span><span class="w"> </span><span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">,</span><span class="w"> </span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">background</span><span class="w"> </span><span class="o">&lt;-</span><span class="kd">chan</span><span class="w"> </span><span class="nx">BackgroundMessage</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">bootstrap</span><span class="p">.</span><span class="nx">Deferred</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">Trigger</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Initialize</span><span class="p">(</span><span class="nx">wg</span><span class="w"> </span><span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">,</span><span class="w"> </span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">background</span><span class="w"> </span><span class="o">&lt;-</span><span class="kd">chan</span><span class="w"> </span><span class="nx">BackgroundMessage</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">bootstrap</span><span class="p">.</span><span class="nx">Deferred</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
+<span class="p">}</span>
 
-<span class="kd">type</span><span class="w"> </span><span class="nx">BackgroundMessage</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">Message</span><span class="p">()</span><span class="w"> </span><span class="nx">types</span><span class="p">.</span><span class="nx">MessageEnvelope</span><span class="w"></span>
-<span class="w">    </span><span class="nx">Topic</span><span class="p">()</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">BackgroundMessage</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Message</span><span class="p">()</span><span class="w"> </span><span class="nx">types</span><span class="p">.</span><span class="nx">MessageEnvelope</span>
+<span class="w">    </span><span class="nx">Topic</span><span class="p">()</span><span class="w"> </span><span class="kt">string</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>This leaves a lot of flexibility for how you want the trigger to behave (for example you could write a trigger to watch for file changes, or run on a timer).  Below is a sample implementation of a trigger that reads lines from os.Stdin and pass the captured string through the edgex function pipeline.  In this case the target type for the service is set to <code>&amp;[]byte{}</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">stdinTrigger</span><span class="w"> </span><span class="kd">struct</span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">tc</span><span class="w"> </span><span class="nx">appsdk</span><span class="p">.</span><span class="nx">TriggerConfig</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">stdinTrigger</span><span class="w"> </span><span class="kd">struct</span><span class="p">{</span>
+<span class="w">    </span><span class="nx">tc</span><span class="w"> </span><span class="nx">appsdk</span><span class="p">.</span><span class="nx">TriggerConfig</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">stdinTrigger</span><span class="p">)</span><span class="w"> </span><span class="nx">Initialize</span><span class="p">(</span><span class="nx">wg</span><span class="w"> </span><span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">,</span><span class="w"> </span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">&lt;-</span><span class="kd">chan</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">BackgroundMessage</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">bootstrap</span><span class="p">.</span><span class="nx">Deferred</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">msgs</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">chan</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">)</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">stdinTrigger</span><span class="p">)</span><span class="w"> </span><span class="nx">Initialize</span><span class="p">(</span><span class="nx">wg</span><span class="w"> </span><span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">,</span><span class="w"> </span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">&lt;-</span><span class="kd">chan</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">BackgroundMessage</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">bootstrap</span><span class="p">.</span><span class="nx">Deferred</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">msgs</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">chan</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">)</span>
 
-<span class="w">    </span><span class="nx">receiveMessage</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">    </span><span class="nx">receiveMessage</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kc">true</span>
 
-<span class="w">    </span><span class="nx">responseHandler</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">AppFunctionContext</span><span class="p">,</span><span class="w"> </span><span class="nx">pipeline</span><span class="w"> </span><span class="o">*</span><span class="nx">FunctionPipeline</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="c1">// do stuff</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="nx">responseHandler</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">AppFunctionContext</span><span class="p">,</span><span class="w"> </span><span class="nx">pipeline</span><span class="w"> </span><span class="o">*</span><span class="nx">FunctionPipeline</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// do stuff</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="k">go</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Print</span><span class="p">(</span><span class="s">&quot;&gt; &quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="nx">rdr</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">bufio</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdin</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="nx">receiveMessage</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nx">s</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">rdr</span><span class="p">.</span><span class="nx">ReadString</span><span class="p">(</span><span class="sc">&#39;\n&#39;</span><span class="p">)</span><span class="w"></span>
-<span class="w">            </span><span class="nx">s</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">strings</span><span class="p">.</span><span class="nx">TrimRight</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;\n&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">go</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Print</span><span class="p">(</span><span class="s">&quot;&gt; &quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="nx">rdr</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">bufio</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdin</span><span class="p">)</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="nx">receiveMessage</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">s</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">rdr</span><span class="p">.</span><span class="nx">ReadString</span><span class="p">(</span><span class="sc">&#39;\n&#39;</span><span class="p">)</span>
+<span class="w">            </span><span class="nx">s</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">strings</span><span class="p">.</span><span class="nx">TrimRight</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;\n&quot;</span><span class="p">)</span>
 
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                </span><span class="nx">t</span><span class="p">.</span><span class="nx">tc</span><span class="p">.</span><span class="nx">Logger</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span><span class="w"></span>
-<span class="w">                </span><span class="k">continue</span><span class="w"></span>
-<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nx">t</span><span class="p">.</span><span class="nx">tc</span><span class="p">.</span><span class="nx">Logger</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
+<span class="w">                </span><span class="k">continue</span>
+<span class="w">            </span><span class="p">}</span>
 
-<span class="w">            </span><span class="nx">msgs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">}()</span><span class="w"></span>
+<span class="w">            </span><span class="nx">msgs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}()</span>
 
-<span class="w">    </span><span class="k">go</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="nx">receiveMessage</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="k">select</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="o">&lt;-</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">Done</span><span class="p">():</span><span class="w"></span>
-<span class="w">                </span><span class="nx">receiveMessage</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="w">    </span><span class="k">go</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="nx">receiveMessage</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">select</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="o">&lt;-</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">Done</span><span class="p">():</span>
+<span class="w">                </span><span class="nx">receiveMessage</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">false</span>
 
-<span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="nx">m</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&lt;-</span><span class="nx">msgs</span><span class="p">:</span><span class="w"></span>
-<span class="w">                </span><span class="k">go</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                    </span><span class="nx">env</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">types</span><span class="p">.</span><span class="nx">MessageEnvelope</span><span class="p">{</span><span class="w"></span>
-<span class="w">                        </span><span class="nx">Payload</span><span class="p">:</span><span class="w"> </span><span class="nx">m</span><span class="p">,</span><span class="w"></span>
-<span class="w">                    </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="nx">m</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&lt;-</span><span class="nx">msgs</span><span class="p">:</span>
+<span class="w">                </span><span class="k">go</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="nx">env</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">types</span><span class="p">.</span><span class="nx">MessageEnvelope</span><span class="p">{</span>
+<span class="w">                        </span><span class="nx">Payload</span><span class="p">:</span><span class="w"> </span><span class="nx">m</span><span class="p">,</span>
+<span class="w">                    </span><span class="p">}</span>
 
-<span class="w">                    </span><span class="nx">ctx</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">t</span><span class="p">.</span><span class="nx">tc</span><span class="p">.</span><span class="nx">ContextBuilder</span><span class="p">(</span><span class="nx">env</span><span class="p">)</span><span class="w"></span>
+<span class="w">                    </span><span class="nx">ctx</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">t</span><span class="p">.</span><span class="nx">tc</span><span class="p">.</span><span class="nx">ContextBuilder</span><span class="p">(</span><span class="nx">env</span><span class="p">)</span>
 
-<span class="w">                    </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">t</span><span class="p">.</span><span class="nx">tc</span><span class="p">.</span><span class="nx">MessageReceived</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">env</span><span class="p">,</span><span class="w"> </span><span class="nx">responseHandler</span><span class="p">)</span><span class="w"></span>
+<span class="w">                    </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">t</span><span class="p">.</span><span class="nx">tc</span><span class="p">.</span><span class="nx">MessageReceived</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">env</span><span class="p">,</span><span class="w"> </span><span class="nx">responseHandler</span><span class="p">)</span>
 
-<span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                        </span><span class="nx">t</span><span class="p">.</span><span class="nx">tc</span><span class="p">.</span><span class="nx">Logger</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span><span class="w"></span>
-<span class="w">                    </span><span class="p">}</span><span class="w"></span>
-<span class="w">                </span><span class="p">}()</span><span class="w"></span>
-<span class="w">            </span><span class="p">}</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">}()</span><span class="w"></span>
+<span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="nx">t</span><span class="p">.</span><span class="nx">tc</span><span class="p">.</span><span class="nx">Logger</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">}()</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}()</span>
 
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">cancel</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">cancel</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>This trigger can then be registered by calling:</p>
-<div class="highlight"><pre><span></span><code><span class="nx">appService</span><span class="p">.</span><span class="nx">RegisterCustomTriggerFactory</span><span class="p">(</span><span class="s">&quot;custom-stdin&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">config</span><span class="w"> </span><span class="nx">appsdk</span><span class="p">.</span><span class="nx">TriggerConfig</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">appsdk</span><span class="p">.</span><span class="nx">Trigger</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">stdinTrigger</span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nx">tc</span><span class="p">:</span><span class="w"> </span><span class="nx">config</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="p">},</span><span class="w"> </span><span class="kc">nil</span><span class="w"></span>
-<span class="p">})</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">appService</span><span class="p">.</span><span class="nx">RegisterCustomTriggerFactory</span><span class="p">(</span><span class="s">&quot;custom-stdin&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">config</span><span class="w"> </span><span class="nx">appsdk</span><span class="p">.</span><span class="nx">TriggerConfig</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">appsdk</span><span class="p">.</span><span class="nx">Trigger</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">stdinTrigger</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">tc</span><span class="p">:</span><span class="w"> </span><span class="nx">config</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span><span class="w"> </span><span class="kc">nil</span>
+<span class="p">})</span>
 </code></pre></div>
 <h3 id="type-configuration_3">Type Configuration</h3>
 <p>Here's an example:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span>
 <span class="n">Type</span><span class="o">=</span><span class="s">&quot;custom-stdin&quot;</span><span class="w"> </span>
 </code></pre></div>
 <p>Now the custom trigger is configured to be used rather than one of the built-in triggers.</p>
@@ -3709,7 +3709,7 @@ edgex/events/device/&lt;profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;
 <p>Both the <code>EdgeX MessageBus</code>and the <code>External MQTT</code> triggers support the new <strong>Publish Topic Placeholders</strong> capability. The configured <code>PublishTopic</code> for either of these triggers can contain placeholders for runtime replacements. The placeholders are replaced with values from the new <code>Context Storage</code> whose key match the placeholder name. Function pipelines can add values to the <code>Context Storage</code> which can then be used as replacement values in the publish topic. If an EdgeX Event is received by the configured trigger the Event's <code>profilename</code>, <code>devicename</code> and <code>sourcename</code> as well as the will be seeded into the <code>Context Storage</code>. See the <a href="../AppFunctionContextAPI/#context-storage">Context Storage</a> documentation for more details.</p>
 <p>The <strong>Publish Topic Placeholders</strong> format is a simple <code>{&lt;key-name&gt;}</code> that can appear anywhere in the topic multiple times. An error will occur if a specified placeholder does not exist in the  <code>Context Storage</code>. </p>
 <h3 id="example">Example</h3>
-<div class="highlight"><pre><span></span><code><span class="n">PublishTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;data/{profilename}/{devicename}/{custom}&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">PublishTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;data/{profilename}/{devicename}/{custom}&quot;</span>
 </code></pre></div>
 <h2 id="received-topic">Received Topic</h2>
 <div class="admonition edgey">

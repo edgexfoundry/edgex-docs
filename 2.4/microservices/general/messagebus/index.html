@@ -3916,44 +3916,44 @@
 <div class="admonition example -">
 <p class="admonition-title">Example MQTT Configurations changes for Core/Support/Device Services</p>
 <p>The following <code>MessageQueue</code> configuration settings must be changed for all EdgeX Core/Support/Device Services to use MQTT 3.1
-<div class="highlight"><pre><span></span><code><span class="k">[MessageQueue]</span><span class="w"></span>
-<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[MessageQueue]</span>
+<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt&quot;</span>
 <span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span><span class="w"> </span>
-<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"> </span><span class="c1"># in docker this must be overriden to be the docker host name of the MQTT Broker</span><span class="w"></span>
-<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span><span class="w"></span>
-<span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w">  </span><span class="c1"># Currently in secure mode the MQTT Broker is not secured</span><span class="w"></span>
-<span class="w">  </span><span class="k">[MessageQueue.Optional]</span><span class="w"></span>
-<span class="w">  </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;&lt;service-key&gt;&quot;</span><span class="w"> </span><span class="c1"># must be unique name of the service, thus the service key (core-data, etc) is used</span><span class="w"></span>
-<span class="w">  </span><span class="n">Qos</span><span class="w">          </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="c1"># Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</span><span class="w"></span>
-<span class="w">  </span><span class="n">KeepAlive</span><span class="w">    </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span><span class="w"></span>
-<span class="w">  </span><span class="n">Retained</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">AutoReconnect</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
+<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"> </span><span class="c1"># in docker this must be overriden to be the docker host name of the MQTT Broker</span>
+<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span>
+<span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w">  </span><span class="c1"># Currently in secure mode the MQTT Broker is not secured</span>
+<span class="w">  </span><span class="k">[MessageQueue.Optional]</span>
+<span class="w">  </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;&lt;service-key&gt;&quot;</span><span class="w"> </span><span class="c1"># must be unique name of the service, thus the service key (core-data, etc) is used</span>
+<span class="w">  </span><span class="n">Qos</span><span class="w">          </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="c1"># Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</span>
+<span class="w">  </span><span class="n">KeepAlive</span><span class="w">    </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span>
+<span class="w">  </span><span class="n">Retained</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
+<span class="w">  </span><span class="n">AutoReconnect</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">  </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># Seconds</span>
 </code></pre></div></p>
 </div>
 <div class="admonition example -">
 <p class="admonition-title">Example MQTT Configurations changes for Application Services</p>
 <p>The following <code>Trigger.EdgexMessageBus</code> configuration settings must be changed for all EdgeX Application Services to use MQTT 3.1</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span><span class="w"></span>
-<span class="n">Type</span><span class="o">=</span><span class="s">&quot;edgex-messagebus&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="k">[Trigger.EdgexMessageBus]</span><span class="w"></span>
-<span class="w">  </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.SubscribeHost]</span><span class="w"></span>
-<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"> </span><span class="c1"># in docker this must be overriden to be the docker host name of the MQTT Broker</span><span class="w"></span>
-<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.PublishHost]</span><span class="w"></span>
-<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"> </span><span class="c1"># in docker this must be overriden to be the docker host name of the MQTT Broker</span><span class="w"></span>
-<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.Optional]</span><span class="w"></span>
-<span class="w">    </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;&lt;service-key&gt;&quot;</span><span class="w"> </span><span class="c1"># must be unique name of the service, thus the service key (app-rule-engine, etc) is used</span><span class="w"></span>
-<span class="w">    </span><span class="n">Qos</span><span class="w">          </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="c1"># Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</span><span class="w"></span>
-<span class="w">    </span><span class="n">KeepAlive</span><span class="w">    </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span><span class="w"></span>
-<span class="w">    </span><span class="n">Retained</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">AutoReconnect</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
-<span class="w">    </span><span class="n">authmode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w">  </span><span class="c1"># Currently in secure mode the MQTT Broker is not secured</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span>
+<span class="n">Type</span><span class="o">=</span><span class="s">&quot;edgex-messagebus&quot;</span>
+<span class="w">  </span><span class="k">[Trigger.EdgexMessageBus]</span>
+<span class="w">  </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt&quot;</span>
+<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.SubscribeHost]</span>
+<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span>
+<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"> </span><span class="c1"># in docker this must be overriden to be the docker host name of the MQTT Broker</span>
+<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span>
+<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.PublishHost]</span>
+<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span>
+<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"> </span><span class="c1"># in docker this must be overriden to be the docker host name of the MQTT Broker</span>
+<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span>
+<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.Optional]</span>
+<span class="w">    </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;&lt;service-key&gt;&quot;</span><span class="w"> </span><span class="c1"># must be unique name of the service, thus the service key (app-rule-engine, etc) is used</span>
+<span class="w">    </span><span class="n">Qos</span><span class="w">          </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="c1"># Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</span>
+<span class="w">    </span><span class="n">KeepAlive</span><span class="w">    </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span>
+<span class="w">    </span><span class="n">Retained</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
+<span class="w">    </span><span class="n">AutoReconnect</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">    </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># Seconds</span>
+<span class="w">    </span><span class="n">authmode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w">  </span><span class="c1"># Currently in secure mode the MQTT Broker is not secured</span>
 </code></pre></div>
 </div>
 <h4 id="docker">Docker</h4>
@@ -3979,7 +3979,7 @@
 <div class="admonition example -">
 <p class="admonition-title">Core Data make target modified to include NATS</p>
 <div class="highlight"><pre><span></span><code><span class="nf">cmd/core-data/core-data</span><span class="o">:</span>
-    <span class="k">$(</span>GOCGO<span class="k">)</span> build -tags <span class="s2">&quot;include_nats_messaging </span><span class="k">$(</span>NON_DELAYED_START_GO_BUILD_TAG_FOR_CORE<span class="k">)</span><span class="s2">&quot;</span> <span class="k">$(</span>CGOFLAGS<span class="k">)</span> -o <span class="nv">$@</span> ./cmd/core-data
+<span class="w">    </span><span class="k">$(</span>GOCGO<span class="k">)</span><span class="w"> </span>build<span class="w"> </span>-tags<span class="w"> </span><span class="s2">&quot;include_nats_messaging </span><span class="k">$(</span>NON_DELAYED_START_GO_BUILD_TAG_FOR_CORE<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="k">$(</span>CGOFLAGS<span class="k">)</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">$@</span><span class="w"> </span>./cmd/core-data
 </code></pre></div>
 </div>
 <div class="admonition note">
@@ -3990,49 +3990,49 @@
 <div class="admonition example -">
 <p class="admonition-title">Example NATS Configurations changes for Core/Support/Device Services</p>
 <p>The following <code>MessageQueue</code> configuration settings must be changed for all EdgeX Core/Support/Device Services to use NATS Jetstream</p>
-<div class="highlight"><pre><span></span><code><span class="k">[MessageQueue]</span><span class="w"></span>
-<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;nats-jetstream&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[MessageQueue]</span>
+<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;nats-jetstream&quot;</span>
 <span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span><span class="w"> </span>
-<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"> </span><span class="c1"># in docker this must be overriden to be the docker host name of the MQTT Broker</span><span class="w"></span>
-<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4222</span><span class="w"></span>
-<span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w">  </span><span class="c1"># Currently in secure mode the NATS server is not secured</span><span class="w"></span>
-<span class="w">  </span><span class="k">[MessageQueue.Optional]</span><span class="w"></span>
-<span class="w">  </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;&lt;service-key&gt;&quot;</span><span class="w"> </span><span class="c1"># must be unique name of the service, thus the service key (core-data, etc) is used</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># Connection information</span><span class="w"></span>
-<span class="w">  </span><span class="n">Format</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;nats&quot;</span><span class="w"> </span><span class="c1"># Use &#39;json&#39; for backward compatability with services using MQTT</span><span class="w"></span>
-<span class="w">  </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
-<span class="w">  </span><span class="n">RetryOnFailedConnect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"></span>
+<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"> </span><span class="c1"># in docker this must be overriden to be the docker host name of the MQTT Broker</span>
+<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4222</span>
+<span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w">  </span><span class="c1"># Currently in secure mode the NATS server is not secured</span>
+<span class="w">  </span><span class="k">[MessageQueue.Optional]</span>
+<span class="w">  </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;&lt;service-key&gt;&quot;</span><span class="w"> </span><span class="c1"># must be unique name of the service, thus the service key (core-data, etc) is used</span>
+<span class="w">  </span><span class="c1"># Connection information</span>
+<span class="w">  </span><span class="n">Format</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;nats&quot;</span><span class="w"> </span><span class="c1"># Use &#39;json&#39; for backward compatability with services using MQTT</span>
+<span class="w">  </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># Seconds</span>
+<span class="w">  </span><span class="n">RetryOnFailedConnect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
 <span class="w">  </span><span class="n">QueueGroup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span>
-<span class="w">  </span><span class="n">Durable</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="c1"># Jetstream only</span><span class="w"></span>
-<span class="w">  </span><span class="n">AutoProvision</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"> </span><span class="c1"># Jetstream only</span><span class="w"></span>
-<span class="w">  </span><span class="n">Deliver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;new&quot;</span><span class="w"> </span><span class="c1"># Jetstream only</span><span class="w"></span>
+<span class="w">  </span><span class="n">Durable</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="c1"># Jetstream only</span>
+<span class="w">  </span><span class="n">AutoProvision</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"> </span><span class="c1"># Jetstream only</span>
+<span class="w">  </span><span class="n">Deliver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;new&quot;</span><span class="w"> </span><span class="c1"># Jetstream only</span>
 </code></pre></div>
 </div>
 <div class="admonition example -">
 <p class="admonition-title">Example NATS Configurations changes for Application Services</p>
 <p>The following <code>Trigger.EdgexMessageBus</code> configuration settings must be changed for all EdgeX Application Services to use NATsJetstream</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span><span class="w"></span>
-<span class="n">Type</span><span class="o">=</span><span class="s">&quot;edgex-messagebus&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="k">[Trigger.EdgexMessageBus]</span><span class="w"></span>
-<span class="w">  </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;nats-jetstream&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.SubscribeHost]</span><span class="w"></span>
-<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"> </span><span class="c1"># in docker this must be overriden to be the docker host name of the MQTT Broker</span><span class="w"></span>
-<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4222</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.PublishHost]</span><span class="w"></span>
-<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"> </span><span class="c1"># in docker this must be overriden to be the docker host name of the MQTT Broker</span><span class="w"></span>
-<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4222</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.Optional]</span><span class="w"></span>
-<span class="w">    </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;&lt;service-key&gt;&quot;</span><span class="w"> </span><span class="c1"># must be unique name of the service, thus the service key (app-rule-engine, etc) is used</span><span class="w"></span>
-<span class="w">    </span><span class="n">Format</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;nats&quot;</span><span class="w"> </span><span class="c1"># Use &#39;json&#39; for backward compatability with services using MQTT</span><span class="w"></span>
-<span class="w">    </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
-<span class="w">    </span><span class="n">RetryOnFailedConnect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span>
+<span class="n">Type</span><span class="o">=</span><span class="s">&quot;edgex-messagebus&quot;</span>
+<span class="w">  </span><span class="k">[Trigger.EdgexMessageBus]</span>
+<span class="w">  </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;nats-jetstream&quot;</span>
+<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.SubscribeHost]</span>
+<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span>
+<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"> </span><span class="c1"># in docker this must be overriden to be the docker host name of the MQTT Broker</span>
+<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4222</span>
+<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.PublishHost]</span>
+<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span>
+<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"> </span><span class="c1"># in docker this must be overriden to be the docker host name of the MQTT Broker</span>
+<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4222</span>
+<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.Optional]</span>
+<span class="w">    </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;&lt;service-key&gt;&quot;</span><span class="w"> </span><span class="c1"># must be unique name of the service, thus the service key (app-rule-engine, etc) is used</span>
+<span class="w">    </span><span class="n">Format</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;nats&quot;</span><span class="w"> </span><span class="c1"># Use &#39;json&#39; for backward compatability with services using MQTT</span>
+<span class="w">    </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># Seconds</span>
+<span class="w">    </span><span class="n">RetryOnFailedConnect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
 <span class="w">    </span><span class="n">QueueGroup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span>
-<span class="w">    </span><span class="n">Durable</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="c1"># Jetstream only</span><span class="w"></span>
-<span class="w">    </span><span class="n">AutoProvision</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"> </span><span class="c1"># Jetstream only</span><span class="w"></span>
-<span class="w">    </span><span class="n">Deliver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;new&quot;</span><span class="w"> </span><span class="c1"># Jetstream only</span><span class="w"></span>
-<span class="w">    </span><span class="n">authmode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w">  </span><span class="c1"># Currently in secure mode the NATS Server is not secured</span><span class="w"></span>
+<span class="w">    </span><span class="n">Durable</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="c1"># Jetstream only</span>
+<span class="w">    </span><span class="n">AutoProvision</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"> </span><span class="c1"># Jetstream only</span>
+<span class="w">    </span><span class="n">Deliver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;new&quot;</span><span class="w"> </span><span class="c1"># Jetstream only</span>
+<span class="w">    </span><span class="n">authmode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w">  </span><span class="c1"># Currently in secure mode the NATS Server is not secured</span>
 </code></pre></div>
 </div>
 <h4 id="docker_1">Docker</h4>

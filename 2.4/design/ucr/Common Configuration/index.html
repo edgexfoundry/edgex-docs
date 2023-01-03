@@ -3112,23 +3112,23 @@
 <p>See <a href="../../../microservices/configuration/CommonConfiguration/#configuration-properties">Common Configuration</a> for complete list of common configuration sections. As stated above most of the values for these common settings are the same across all the EdgeX Services. Below are a couple examples.</p>
 <div class="admonition example -">
 <p class="admonition-title">Example - Common configuration - <strong>Service</strong> &amp; <strong>Registry</strong></p>
-<div class="highlight"><pre><span></span><code><span class="k">[Service]</span><span class="w"></span>
-<span class="n">HealthCheckInterval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;10s&quot;</span><span class="w"></span>
-<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"> </span><span class="err">&lt;</span><span class="n">overriden</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">compose</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">service</span><span class="w"> </span><span class="n">specific</span><span class="err">&gt;</span><span class="w"></span>
-<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">&lt;</span><span class="n">Service</span><span class="w"> </span><span class="n">Specific</span><span class="err">&gt;</span><span class="w"></span>
-<span class="n">ServerBindAddr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="c1"># Leave blank so default to Host value unless different value is needed.</span><span class="w"></span>
-<span class="n">StartupMsg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">&lt;</span><span class="n">Service</span><span class="w"> </span><span class="n">Specific</span><span class="err">&gt;</span><span class="w"></span>
-<span class="n">MaxResultCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1024</span><span class="w"></span>
-<span class="n">MaxRequestSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="c1"># Not curently used. Defines the maximum size of http request body in bytes</span><span class="w"></span>
-<span class="n">RequestTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5s&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="k">[Service.CORSConfiguration]</span><span class="w"></span>
-<span class="w">  </span><span class="n">EnableCORS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
-<span class="w">  </span><span class="n">CORSAllowCredentials</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
-<span class="w">  </span><span class="n">CORSAllowedOrigin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;https://localhost&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">CORSAllowedMethods</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;GET, POST, PUT, PATCH, DELETE&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">CORSAllowedHeaders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Authorization, Accept, Accept-Language, Content-Language, Content-Type, X-Correlation-ID&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">CORSExposeHeaders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Cache-Control, Content-Language, Content-Length, Content-Type, Expires, Last-Modified, Pragma, X-Correlation-ID&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">CORSMaxAge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3600</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Service]</span>
+<span class="n">HealthCheckInterval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;10s&quot;</span>
+<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"> </span><span class="err">&lt;</span><span class="n">overriden</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">compose</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">service</span><span class="w"> </span><span class="n">specific</span><span class="err">&gt;</span>
+<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">&lt;</span><span class="n">Service</span><span class="w"> </span><span class="n">Specific</span><span class="err">&gt;</span>
+<span class="n">ServerBindAddr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="c1"># Leave blank so default to Host value unless different value is needed.</span>
+<span class="n">StartupMsg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">&lt;</span><span class="n">Service</span><span class="w"> </span><span class="n">Specific</span><span class="err">&gt;</span>
+<span class="n">MaxResultCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1024</span>
+<span class="n">MaxRequestSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="c1"># Not curently used. Defines the maximum size of http request body in bytes</span>
+<span class="n">RequestTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5s&quot;</span>
+<span class="w">  </span><span class="k">[Service.CORSConfiguration]</span>
+<span class="w">  </span><span class="n">EnableCORS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">  </span><span class="n">CORSAllowCredentials</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">  </span><span class="n">CORSAllowedOrigin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;https://localhost&quot;</span>
+<span class="w">  </span><span class="n">CORSAllowedMethods</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;GET, POST, PUT, PATCH, DELETE&quot;</span>
+<span class="w">  </span><span class="n">CORSAllowedHeaders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Authorization, Accept, Accept-Language, Content-Language, Content-Type, X-Correlation-ID&quot;</span>
+<span class="w">  </span><span class="n">CORSExposeHeaders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Cache-Control, Content-Language, Content-Length, Content-Type, Expires, Last-Modified, Pragma, X-Correlation-ID&quot;</span>
+<span class="w">  </span><span class="n">CORSMaxAge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3600</span>
 </code></pre></div>
 <p>...</p>
 <p>[Registry]
@@ -3141,53 +3141,53 @@ Type = "consul"
 <p>In the Levski release the additional common security metrics require all services must have the <strong>Writable.Telemetry</strong> and <strong>MessageQueue</strong> and sections.</p>
 <div class="admonition example -">
 <p class="admonition-title">Example - Common configuration -  <strong>Writable.Telemetry</strong> and <strong>MessageQueue</strong></p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="p">...</span><span class="w"></span>
-<span class="w">  </span><span class="k">[Writable.Telemetry]</span><span class="w"></span>
-<span class="w">  </span><span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30s&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">PublishTopicPrefix</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;edgex/telemetry&quot;</span><span class="w"> </span><span class="c1"># /&lt;service-name&gt;/&lt;metric-name&gt; will be added to this Publish Topic prefix</span><span class="w"></span>
-<span class="w">    </span><span class="p">[</span><span class="n">Writable</span><span class="p">.</span><span class="n">Telemetry</span><span class="p">.</span><span class="n">Metrics</span><span class="p">]</span><span class="w"> </span><span class="c1"># All service&#39;s metric names must be present in this list.</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># Service Specifc Metrics</span><span class="w"></span>
-<span class="w">    </span><span class="err">&lt;</span><span class="n">Service</span><span class="w"> </span><span class="n">Specific</span><span class="w"> </span><span class="n">metric</span><span class="w"> </span><span class="n">name</span><span class="err">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
-<span class="w">    </span><span class="p">...</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># Common Security Service Metrics</span><span class="w"></span>
-<span class="w">    </span><span class="n">SecuritySecretsRequested</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
-<span class="w">    </span><span class="n">SecuritySecretsStored</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
-<span class="w">    </span><span class="n">SecurityConsulTokensRequested</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
-<span class="w">    </span><span class="n">SecurityConsulTokenDuration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
-<span class="w">    </span><span class="p">[</span><span class="n">Writable</span><span class="p">.</span><span class="n">Telemetry</span><span class="p">.</span><span class="n">Tags</span><span class="p">]</span><span class="w"> </span><span class="c1"># Contains the service level tags to be attached to all the service&#39;s metrics</span><span class="w"></span>
-<span class="c1">#    Gateway=&quot;my-iot-gateway&quot; # Tag must be added here or via Consul Env Override can only chnage existing value, not added new ones.</span><span class="w"></span>
-<span class="p">...</span><span class="w"></span>
-<span class="k">[MessageQueue]</span><span class="w"></span>
-<span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redis&quot;</span><span class="w"></span>
-<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"> </span><span class="err">&lt;</span><span class="n">override</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">compose</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">same</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">every</span><span class="w"> </span><span class="n">service</span><span class="err">&gt;</span><span class="w"></span>
-<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6379</span><span class="w"></span>
-<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redis&quot;</span><span class="w"></span>
-<span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;usernamepassword&quot;</span><span class="w">  </span><span class="c1"># required for redis messagebus (secure or insecure).</span><span class="w"></span>
-<span class="n">SecretName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redisdb&quot;</span><span class="w"></span>
-<span class="n">PublishTopicPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">&lt;</span><span class="n">Service</span><span class="w"> </span><span class="n">Specific</span><span class="err">&gt;</span><span class="w"></span>
-<span class="n">SubscribeEnabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">&lt;</span><span class="n">Service</span><span class="w"> </span><span class="n">Specific</span><span class="err">&gt;</span><span class="w"></span>
-<span class="n">SubscribeTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">&lt;</span><span class="n">Service</span><span class="w"> </span><span class="n">Specific</span><span class="err">&gt;</span><span class="w"></span>
-<span class="w">  </span><span class="k">[MessageQueue.Topics]</span><span class="w"></span>
-<span class="w">  </span><span class="err">&lt;</span><span class="n">service</span><span class="w"> </span><span class="n">specific</span><span class="w"> </span><span class="n">name</span><span class="err">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">&lt;</span><span class="n">Service</span><span class="w"> </span><span class="n">specific</span><span class="w"> </span><span class="n">value</span><span class="err">&gt;</span><span class="w"></span>
-<span class="w">  </span><span class="p">...</span><span class="w"></span>
-<span class="w">  </span><span class="k">[MessageQueue.Optional]</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># Default MQTT Specific options that need to be here to enable evnironment variable overrides of them</span><span class="w"></span>
-<span class="w">  </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">&lt;</span><span class="n">Service</span><span class="w"> </span><span class="n">Specific</span><span class="err">&gt;</span><span class="w"></span>
-<span class="w">  </span><span class="n">Qos</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="c1"># Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</span><span class="w"></span>
-<span class="w">  </span><span class="n">KeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span><span class="w"></span>
-<span class="w">  </span><span class="n">Retained</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">AutoReconnect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
-<span class="w">  </span><span class="n">SkipCertVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># Additional Default NATS Specific options that need to be here to enable evnironment variable overrides of them</span><span class="w"></span>
-<span class="w">  </span><span class="n">Format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;nats&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">RetryOnFailedConnect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">QueueGroup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">Durable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">AutoProvision</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">Deliver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;new&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">DefaultPubRetryAttempts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;2&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">Subject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;edgex/#&quot;</span><span class="w"> </span><span class="c1"># Required for NATS Jetstram only for stream autoprovsioning</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="k">[Writable.Telemetry]</span>
+<span class="w">  </span><span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30s&quot;</span>
+<span class="w">  </span><span class="n">PublishTopicPrefix</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;edgex/telemetry&quot;</span><span class="w"> </span><span class="c1"># /&lt;service-name&gt;/&lt;metric-name&gt; will be added to this Publish Topic prefix</span>
+<span class="w">    </span><span class="p">[</span><span class="n">Writable</span><span class="p">.</span><span class="n">Telemetry</span><span class="p">.</span><span class="n">Metrics</span><span class="p">]</span><span class="w"> </span><span class="c1"># All service&#39;s metric names must be present in this list.</span>
+<span class="w">    </span><span class="c1"># Service Specifc Metrics</span>
+<span class="w">    </span><span class="err">&lt;</span><span class="n">Service</span><span class="w"> </span><span class="n">Specific</span><span class="w"> </span><span class="n">metric</span><span class="w"> </span><span class="n">name</span><span class="err">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">    </span><span class="c1"># Common Security Service Metrics</span>
+<span class="w">    </span><span class="n">SecuritySecretsRequested</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">    </span><span class="n">SecuritySecretsStored</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">    </span><span class="n">SecurityConsulTokensRequested</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">    </span><span class="n">SecurityConsulTokenDuration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">    </span><span class="p">[</span><span class="n">Writable</span><span class="p">.</span><span class="n">Telemetry</span><span class="p">.</span><span class="n">Tags</span><span class="p">]</span><span class="w"> </span><span class="c1"># Contains the service level tags to be attached to all the service&#39;s metrics</span>
+<span class="c1">#    Gateway=&quot;my-iot-gateway&quot; # Tag must be added here or via Consul Env Override can only chnage existing value, not added new ones.</span>
+<span class="p">...</span>
+<span class="k">[MessageQueue]</span>
+<span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redis&quot;</span>
+<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"> </span><span class="err">&lt;</span><span class="n">override</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">compose</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">same</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">every</span><span class="w"> </span><span class="n">service</span><span class="err">&gt;</span>
+<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6379</span>
+<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redis&quot;</span>
+<span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;usernamepassword&quot;</span><span class="w">  </span><span class="c1"># required for redis messagebus (secure or insecure).</span>
+<span class="n">SecretName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redisdb&quot;</span>
+<span class="n">PublishTopicPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">&lt;</span><span class="n">Service</span><span class="w"> </span><span class="n">Specific</span><span class="err">&gt;</span>
+<span class="n">SubscribeEnabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">&lt;</span><span class="n">Service</span><span class="w"> </span><span class="n">Specific</span><span class="err">&gt;</span>
+<span class="n">SubscribeTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">&lt;</span><span class="n">Service</span><span class="w"> </span><span class="n">Specific</span><span class="err">&gt;</span>
+<span class="w">  </span><span class="k">[MessageQueue.Topics]</span>
+<span class="w">  </span><span class="err">&lt;</span><span class="n">service</span><span class="w"> </span><span class="n">specific</span><span class="w"> </span><span class="n">name</span><span class="err">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">&lt;</span><span class="n">Service</span><span class="w"> </span><span class="n">specific</span><span class="w"> </span><span class="n">value</span><span class="err">&gt;</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="k">[MessageQueue.Optional]</span>
+<span class="w">  </span><span class="c1"># Default MQTT Specific options that need to be here to enable evnironment variable overrides of them</span>
+<span class="w">  </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">&lt;</span><span class="n">Service</span><span class="w"> </span><span class="n">Specific</span><span class="err">&gt;</span>
+<span class="w">  </span><span class="n">Qos</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="c1"># Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</span>
+<span class="w">  </span><span class="n">KeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span>
+<span class="w">  </span><span class="n">Retained</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
+<span class="w">  </span><span class="n">AutoReconnect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">  </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># Seconds</span>
+<span class="w">  </span><span class="n">SkipCertVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
+<span class="w">  </span><span class="c1"># Additional Default NATS Specific options that need to be here to enable evnironment variable overrides of them</span>
+<span class="w">  </span><span class="n">Format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;nats&quot;</span>
+<span class="w">  </span><span class="n">RetryOnFailedConnect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">  </span><span class="n">QueueGroup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">  </span><span class="n">Durable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">  </span><span class="n">AutoProvision</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">  </span><span class="n">Deliver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;new&quot;</span>
+<span class="w">  </span><span class="n">DefaultPubRetryAttempts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;2&quot;</span>
+<span class="w">  </span><span class="n">Subject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;edgex/#&quot;</span><span class="w"> </span><span class="c1"># Required for NATS Jetstram only for stream autoprovsioning</span>
 </code></pre></div>
 </div>
 <p>In the above example only the <strong>PublishTopicPrefix</strong>, <strong>SubscribeTopic</strong>, <strong>SubscribeEnabled</strong>, <strong>MessageQueue.Topics</strong> and <strong>ClientId</strong> settings have unique values to that of the default EdgeX deployment values. </p>
@@ -3209,10 +3209,10 @@ Type = "consul"
 <p>Services must be able to override any of the common configuration settings with private service specific configuration values</p>
 <div class="admonition example -">
 <p class="admonition-title">Example Core Data specific <strong>Writable.Telemetry</strong> and <strong>Service</strong> configuration settings in private configuration file</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">[Writable.Telemetry]</span><span class="w"></span>
-<span class="w">    </span><span class="p">[</span><span class="n">Writable</span><span class="p">.</span><span class="n">Telemetry</span><span class="p">.</span><span class="n">Metrics</span><span class="p">]</span><span class="w"> </span><span class="c1"># All service&#39;s metric names must be present in this list.</span><span class="w"></span>
-<span class="w">    </span><span class="n">EventsPersisted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
-<span class="w">    </span><span class="n">ReadingsPersisted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">[Writable.Telemetry]</span>
+<span class="w">    </span><span class="p">[</span><span class="n">Writable</span><span class="p">.</span><span class="n">Telemetry</span><span class="p">.</span><span class="n">Metrics</span><span class="p">]</span><span class="w"> </span><span class="c1"># All service&#39;s metric names must be present in this list.</span>
+<span class="w">    </span><span class="n">EventsPersisted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">    </span><span class="n">ReadingsPersisted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
 </code></pre></div>
 </div>
 <div class="highlight"><pre><span></span><code>    ...

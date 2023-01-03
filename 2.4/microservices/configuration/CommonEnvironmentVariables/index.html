@@ -3302,7 +3302,7 @@
 <div class="admonition example">
 <p class="admonition-title">Example - Using docker-compose to disable secure SecretStore</p>
 <div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span><span class="w"> </span>
-<span class="w">  </span><span class="nt">EDGEX_SECURITY_SECRET_STORE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">EDGEX_SECURITY_SECRET_STORE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
 </code></pre></div>
 </div>
 <div class="admonition edgey">
@@ -3314,7 +3314,7 @@
 <div class="admonition example">
 <p class="admonition-title">Example - Using docker-compose to set start-up duration to 120 seconds</p>
 <div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span><span class="w"> </span>
-<span class="w">  </span><span class="nt">EDGEX_STARTUP_DURATION</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;120&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">EDGEX_STARTUP_DURATION</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;120&quot;</span>
 </code></pre></div>
 </div>
 <div class="admonition edgey">
@@ -3326,7 +3326,7 @@
 <div class="admonition example">
 <p class="admonition-title">Example - Using docker-compose to set start-up interval to 3 seconds</p>
 <div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span><span class="w"> </span>
-<span class="w">  </span><span class="nt">EDGEX_STARTUP_INTERVAL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;3&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">EDGEX_STARTUP_INTERVAL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;3&quot;</span>
 </code></pre></div>
 </div>
 <div class="admonition edgey">
@@ -3349,7 +3349,7 @@
 <div class="admonition example">
 <p class="admonition-title">Example - Using docker-compose to override the configuration folder name</p>
 <div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span><span class="w"> </span>
-<span class="w">  </span><span class="nt">EDGEX_CONF_DIR</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/my-config&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">EDGEX_CONF_DIR</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/my-config&quot;</span>
 </code></pre></div>
 </div>
 <div class="admonition edgey">
@@ -3361,7 +3361,7 @@
 <div class="admonition example">
 <p class="admonition-title">Example - Using docker-compose to override the configuration file name used</p>
 <div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span><span class="w"> </span>
-<span class="w">  </span><span class="nt">EDGEX_CONFIG_FILE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-config.toml&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">EDGEX_CONFIG_FILE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-config.toml&quot;</span>
 </code></pre></div>
 </div>
 <h4 id="edgex_configuration_provider">EDGEX_CONFIGURATION_PROVIDER</h4>
@@ -3374,12 +3374,12 @@
 <div class="admonition example">
 <p class="admonition-title">Example - Using docker-compose to override with different port number</p>
 <div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span><span class="w"> </span>
-<span class="w">  </span><span class="nt">EDGEX_CONFIGURATION_PROVIDER</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;consul.http://edgex-consul:9500&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">EDGEX_CONFIGURATION_PROVIDER</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;consul.http://edgex-consul:9500&quot;</span>
 
-<span class="l l-Scalar l-Scalar-Plain">or</span><span class="w"></span>
+<span class="l l-Scalar l-Scalar-Plain">or</span>
 
 <span class="nt">environment</span><span class="p">:</span><span class="w"> </span>
-<span class="w">  </span><span class="nt">EDGEX_CONFIGURATION_PROVIDER</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">EDGEX_CONFIGURATION_PROVIDER</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;none&quot;</span>
 </code></pre></div>
 </div>
 <div class="admonition edgey">
@@ -3390,11 +3390,11 @@
 <p>This environment variable overrides the <a href="../CommonCommandLineOptions#profile"><code>-p/--profile</code> command-line option</a>. When non-empty,  the value is used in the path to the configuration file. i.e. /res/my-profile/configuation.toml.  This is useful when running multiple instances of a service such as App Service Configurable.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - Using docker-compose to override the profile to use</p>
-<div class="highlight"><pre><span></span><code><span class="nt">app-service-rules</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgexfoundry/docker-app-service-configurable:2.0.0</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">app-service-rules</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgexfoundry/docker-app-service-configurable:2.0.0</span>
 <span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w"> </span>
-<span class="w">      </span><span class="nt">EDGEX_PROFILE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rules-engine&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
+<span class="w">      </span><span class="nt">EDGEX_PROFILE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rules-engine&quot;</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
 </code></pre></div>
 </div>
 <p>This sets the <code>profile</code> so that the App Service Configurable uses the <code>rules-engine</code> configuration profile which resides at <code>/res/rules-engine/configuration.toml</code></p>
@@ -3411,7 +3411,7 @@
 <div class="admonition example">
 <p class="admonition-title">Example - Using docker-compose to override use of the Registry</p>
 <div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span><span class="w"> </span>
-<span class="w">  </span><span class="nt">EDGEX_USE_REGISTRY</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">EDGEX_USE_REGISTRY</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
 </code></pre></div>
 </div>
 <div class="admonition edgey">
@@ -3420,8 +3420,8 @@
 </div>
 <h3 id="configuration-overrides">Configuration Overrides</h3>
 <p>Any configuration setting from a service's <code>configuration.toml</code> file can be overridden by environment variables. The environment variable names have the following format:</p>
-<div class="highlight"><pre><span></span><code><span class="err">&lt;</span><span class="n">TOM-SECTION-NAME</span><span class="err">&gt;</span><span class="n">_</span><span class="err">&lt;</span><span class="n">TOML-KEY-NAME</span><span class="err">&gt;</span><span class="w"></span>
-<span class="err">&lt;</span><span class="n">TOML-SECTION-NAME</span><span class="err">&gt;</span><span class="n">_</span><span class="err">&lt;</span><span class="n">TOML-SUB-SECTION-NAME</span><span class="err">&gt;</span><span class="n">_</span><span class="err">&lt;</span><span class="n">TOML-KEY-NAME</span><span class="err">&gt;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="err">&lt;</span><span class="n">TOM-SECTION-NAME</span><span class="err">&gt;</span><span class="n">_</span><span class="err">&lt;</span><span class="n">TOML-KEY-NAME</span><span class="err">&gt;</span>
+<span class="err">&lt;</span><span class="n">TOML-SECTION-NAME</span><span class="err">&gt;</span><span class="n">_</span><span class="err">&lt;</span><span class="n">TOML-SUB-SECTION-NAME</span><span class="err">&gt;</span><span class="n">_</span><span class="err">&lt;</span><span class="n">TOML-KEY-NAME</span><span class="err">&gt;</span>
 </code></pre></div>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
@@ -3435,9 +3435,9 @@
 <span class="w">         </span><span class="n">LogLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;INFO&quot;</span><span class="w">    </span>
 <span class="n">ENVVAR</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">WRITABLE_LOGLEVEL</span><span class="o">=</span><span class="n">DEBUG</span><span class="w">    </span>
 
-<span class="n">TOML</span><span class="w">   </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">Clients</span><span class="p">]</span><span class="w"></span>
-<span class="w">            </span><span class="k">[Clients.core-data]</span><span class="w"></span>
-<span class="w">            </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
+<span class="n">TOML</span><span class="w">   </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">Clients</span><span class="p">]</span>
+<span class="w">            </span><span class="k">[Clients.core-data]</span>
+<span class="w">            </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span>
 <span class="n">ENVVAR</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">CLIENTS_CORE_DATA_HOST</span><span class="o">=</span><span class="n">edgex-core-data</span><span class="w">    </span>
 <span class="err">```</span><span class="w">    </span>
 </code></pre></div>

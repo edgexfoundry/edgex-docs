@@ -3111,7 +3111,7 @@ other containers from the current release.</p>
 <h2 id="using-nexus-images">Using Nexus Images</h2>
 <p>The operations to pull the images and run the Nexus Repository containers are the same as when using EdgeX images from Docker Hub (see <a href="../Ch-GettingStartedDockerUsers/#run-edgex-foundry">Getting Started using Docker</a>).</p>
 <p>To get container images from the Nexus Repository, in a command terminal, change directories to the location of your downloaded Nexus Docker Compose yaml.  Rename the file to docker-compose.yml.  Then run the following command in the terminal to pull (fetch) and then start the EdgeX Nexus-image containers.</p>
-<div class="highlight"><pre><span></span><code>docker-compose up -d
+<div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
 </code></pre></div>
 <h2 id="using-a-single-nexus-image">Using a Single Nexus Image</h2>
 <p>In some cases, you may only need to use a single image from Nexus while other EdgeX services are created from the Docker Hub images.  In this case, you can simply replace the image location for the selected image in your original Docker Compose file.  The address of Nexus is <strong>nexus3.edgexfoundry.org</strong> at port <strong>10004</strong>.  So, if you wished to use the EdgeX core data image from Nexus, you would replace the name and location of the core data image <code>edgexfoundry/core-data:2.0.0</code> with <code>nexus3.edgexfoundry.org:10004/core-data:latest</code> in the Compose file.</p>

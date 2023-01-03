@@ -3539,70 +3539,70 @@ Services</a></p>
 nano temperature.profile.yml
 </code></pre></div></p>
 <p>Fill in the device profile according to the <a href="#modbus-register-table">Modbus Register Table</a>, as shown below:
-<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Ethernet-Temperature-Sensor&quot;</span><span class="w"></span>
-<span class="nt">manufacturer</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Audon</span><span class="nv"> </span><span class="s">Electronics&quot;</span><span class="w"></span>
-<span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Temperature&quot;</span><span class="w"></span>
-<span class="nt">labels</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;Web&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;Modbus</span><span class="nv"> </span><span class="s">TCP&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;SNMP&quot;</span><span class="w"></span>
-<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;The</span><span class="nv"> </span><span class="s">NANO_TEMP</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">Ethernet</span><span class="nv"> </span><span class="s">Thermometer</span><span class="nv"> </span><span class="s">measuring</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">-55°C</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">125°C</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">web</span><span class="nv"> </span><span class="s">interface</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">Modbus</span><span class="nv"> </span><span class="s">TCP</span><span class="nv"> </span><span class="s">communications.&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Ethernet-Temperature-Sensor&quot;</span>
+<span class="nt">manufacturer</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Audon</span><span class="nv"> </span><span class="s">Electronics&quot;</span>
+<span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Temperature&quot;</span>
+<span class="nt">labels</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;Web&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;Modbus</span><span class="nv"> </span><span class="s">TCP&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;SNMP&quot;</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;The</span><span class="nv"> </span><span class="s">NANO_TEMP</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">Ethernet</span><span class="nv"> </span><span class="s">Thermometer</span><span class="nv"> </span><span class="s">measuring</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">-55°C</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">125°C</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">web</span><span class="nv"> </span><span class="s">interface</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">Modbus</span><span class="nv"> </span><span class="s">TCP</span><span class="nv"> </span><span class="s">communications.&quot;</span>
 
-<span class="nt">deviceResources</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ThermostatL&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Lower</span><span class="nv"> </span><span class="s">alarm</span><span class="nv"> </span><span class="s">threshold</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">temperature&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">{</span><span class="nt"> primaryTable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;HOLDING_REGISTERS&quot;</span><span class="p p-Indicator">,</span><span class="nt"> startingAddress</span><span class="p">:</span><span class="w"> </span><span class="nv">3999</span><span class="p p-Indicator">,</span><span class="nt"> rawType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Int16&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Float32&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">scale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0.1&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ThermostatH&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Upper</span><span class="nv"> </span><span class="s">alarm</span><span class="nv"> </span><span class="s">threshold</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">temperature&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">{</span><span class="nt"> primaryTable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;HOLDING_REGISTERS&quot;</span><span class="p p-Indicator">,</span><span class="nt"> startingAddress</span><span class="p">:</span><span class="w"> </span><span class="nv">4000</span><span class="p p-Indicator">,</span><span class="nt"> rawType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Int16&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Float32&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">scale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0.1&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AlarmMode&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">OFF</span><span class="nv"> </span><span class="s">(disabled),</span><span class="nv"> </span><span class="s">2</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">Lower,</span><span class="nv"> </span><span class="s">3</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">Higher,</span><span class="nv"> </span><span class="s">4</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">Lower</span><span class="nv"> </span><span class="s">or</span><span class="nv"> </span><span class="s">Higher&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">{</span><span class="nt"> primaryTable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;HOLDING_REGISTERS&quot;</span><span class="p p-Indicator">,</span><span class="nt"> startingAddress</span><span class="p">:</span><span class="w"> </span><span class="nv">4001</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Int16&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Temperature&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Temperature</span><span class="nv"> </span><span class="s">x</span><span class="nv"> </span><span class="s">10</span><span class="nv"> </span><span class="s">(np.</span><span class="nv"> </span><span class="s">10,5</span><span class="nv"> </span><span class="s">st.C</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">105)&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">{</span><span class="nt"> primaryTable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;HOLDING_REGISTERS&quot;</span><span class="p p-Indicator">,</span><span class="nt"> startingAddress</span><span class="p">:</span><span class="w"> </span><span class="nv">4003</span><span class="p p-Indicator">,</span><span class="nt"> rawType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Int16&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Float32&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">scale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0.1&quot;</span><span class="w"></span>
+<span class="nt">deviceResources</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ThermostatL&quot;</span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Lower</span><span class="nv"> </span><span class="s">alarm</span><span class="nv"> </span><span class="s">threshold</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">temperature&quot;</span>
+<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">{</span><span class="nt"> primaryTable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;HOLDING_REGISTERS&quot;</span><span class="p p-Indicator">,</span><span class="nt"> startingAddress</span><span class="p">:</span><span class="w"> </span><span class="nv">3999</span><span class="p p-Indicator">,</span><span class="nt"> rawType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Int16&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Float32&quot;</span>
+<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span>
+<span class="w">      </span><span class="nt">scale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0.1&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ThermostatH&quot;</span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Upper</span><span class="nv"> </span><span class="s">alarm</span><span class="nv"> </span><span class="s">threshold</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">temperature&quot;</span>
+<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">{</span><span class="nt"> primaryTable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;HOLDING_REGISTERS&quot;</span><span class="p p-Indicator">,</span><span class="nt"> startingAddress</span><span class="p">:</span><span class="w"> </span><span class="nv">4000</span><span class="p p-Indicator">,</span><span class="nt"> rawType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Int16&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Float32&quot;</span>
+<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span>
+<span class="w">      </span><span class="nt">scale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0.1&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AlarmMode&quot;</span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">OFF</span><span class="nv"> </span><span class="s">(disabled),</span><span class="nv"> </span><span class="s">2</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">Lower,</span><span class="nv"> </span><span class="s">3</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">Higher,</span><span class="nv"> </span><span class="s">4</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">Lower</span><span class="nv"> </span><span class="s">or</span><span class="nv"> </span><span class="s">Higher&quot;</span>
+<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">{</span><span class="nt"> primaryTable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;HOLDING_REGISTERS&quot;</span><span class="p p-Indicator">,</span><span class="nt"> startingAddress</span><span class="p">:</span><span class="w"> </span><span class="nv">4001</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Int16&quot;</span>
+<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Temperature&quot;</span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Temperature</span><span class="nv"> </span><span class="s">x</span><span class="nv"> </span><span class="s">10</span><span class="nv"> </span><span class="s">(np.</span><span class="nv"> </span><span class="s">10,5</span><span class="nv"> </span><span class="s">st.C</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">105)&quot;</span>
+<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">{</span><span class="nt"> primaryTable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;HOLDING_REGISTERS&quot;</span><span class="p p-Indicator">,</span><span class="nt"> startingAddress</span><span class="p">:</span><span class="w"> </span><span class="nv">4003</span><span class="p p-Indicator">,</span><span class="nt"> rawType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Int16&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Float32&quot;</span>
+<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span>
+<span class="w">      </span><span class="nt">scale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0.1&quot;</span>
 
-<span class="nt">deviceCommands</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AlarmThreshold&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="w">    </span><span class="nt">resourceOperations</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ThermostatL&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ThermostatH&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AlarmMode&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="w">    </span><span class="nt">resourceOperations</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AlarmMode&quot;</span><span class="p p-Indicator">,</span><span class="nt"> mappings</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p p-Indicator">:</span><span class="s">&quot;OFF&quot;</span><span class="p p-Indicator">,</span><span class="s">&quot;2&quot;</span><span class="p p-Indicator">:</span><span class="s">&quot;Lower&quot;</span><span class="p p-Indicator">,</span><span class="s">&quot;3&quot;</span><span class="p p-Indicator">:</span><span class="s">&quot;Higher&quot;</span><span class="p p-Indicator">,</span><span class="s">&quot;4&quot;</span><span class="p p-Indicator">:</span><span class="s">&quot;Lower</span><span class="nv"> </span><span class="s">or</span><span class="nv"> </span><span class="s">Higher&quot;</span><span class="p p-Indicator">}</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="nt">deviceCommands</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AlarmThreshold&quot;</span>
+<span class="w">    </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">resourceOperations</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ThermostatL&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ThermostatH&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AlarmMode&quot;</span>
+<span class="w">    </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">resourceOperations</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AlarmMode&quot;</span><span class="p p-Indicator">,</span><span class="nt"> mappings</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p p-Indicator">:</span><span class="s">&quot;OFF&quot;</span><span class="p p-Indicator">,</span><span class="s">&quot;2&quot;</span><span class="p p-Indicator">:</span><span class="s">&quot;Lower&quot;</span><span class="p p-Indicator">,</span><span class="s">&quot;3&quot;</span><span class="p p-Indicator">:</span><span class="s">&quot;Higher&quot;</span><span class="p p-Indicator">,</span><span class="s">&quot;4&quot;</span><span class="p p-Indicator">:</span><span class="s">&quot;Lower</span><span class="nv"> </span><span class="s">or</span><span class="nv"> </span><span class="s">Higher&quot;</span><span class="p p-Indicator">}</span><span class="w"> </span><span class="p p-Indicator">}</span>
 </code></pre></div>
 In the Modbus protocol, we provide the following attributes:</p>
 <p>1.<code>primaryTable</code>: HOLDING_REGISTERS, INPUT_REGISTERS, COILS,
@@ -3633,17 +3633,17 @@ In the Modbus protocol, we provide the following attributes:</p>
 <p>4.<code>RAW_TYPE</code>: This attribute defines the binary data read from the Modbus device, then we can use the value type to indicate the data type that the user wants to receive.</p>
 <p>We only support <code>Int16</code> and <code>Uint16</code> for rawType. The corresponding value type must be <code>Float32</code> and <code>Float64</code>.
 For example:
-<div class="highlight"><pre><span></span><code><span class="nt">deviceResources</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Temperature&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Temperature</span><span class="nv"> </span><span class="s">x</span><span class="nv"> </span><span class="s">10</span><span class="nv"> </span><span class="s">(np.</span><span class="nv"> </span><span class="s">10,5</span><span class="nv"> </span><span class="s">st.C</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">105)&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">{</span><span class="nt"> primaryTable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;HOLDING_REGISTERS&quot;</span><span class="p p-Indicator">,</span><span class="nt"> startingAddress</span><span class="p">:</span><span class="w"> </span><span class="nv">4003</span><span class="p p-Indicator">,</span><span class="nt"> rawType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Int16&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Float32&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">scale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0.1&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">deviceResources</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Temperature&quot;</span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Temperature</span><span class="nv"> </span><span class="s">x</span><span class="nv"> </span><span class="s">10</span><span class="nv"> </span><span class="s">(np.</span><span class="nv"> </span><span class="s">10,5</span><span class="nv"> </span><span class="s">st.C</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">105)&quot;</span>
+<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">{</span><span class="nt"> primaryTable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;HOLDING_REGISTERS&quot;</span><span class="p p-Indicator">,</span><span class="nt"> startingAddress</span><span class="p">:</span><span class="w"> </span><span class="nv">4003</span><span class="p p-Indicator">,</span><span class="nt"> rawType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Int16&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Float32&quot;</span>
+<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span>
+<span class="w">      </span><span class="nt">scale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0.1&quot;</span>
 </code></pre></div></p>
 <p>In the device-modbus, the Property <code>valueType</code> decides how many registers will be read. Like
 Holding registers, a register has 16 bits. If the Modbus device's user manual
@@ -3658,22 +3658,22 @@ write value using the modbus protocol.</p>
 nano device.config.toml
 </code></pre></div>
 Fill in the device.config.toml file, as shown below:
-<div class="highlight"><pre><span></span><code><span class="k">[[DeviceList]]</span><span class="w"></span>
-<span class="w">    </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Modbus-TCP-Temperature-Sensor&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">ProfileName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Ethernet-Temperature-Sensor&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">Description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;This device is a product for monitoring the temperature via the ethernet&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s">&quot;temperature&quot;</span><span class="p">,</span><span class="s">&quot;modbus TCP&quot;</span><span class="w"> </span><span class="p">]</span><span class="w"></span>
-<span class="w">    </span><span class="k">[DeviceList.Protocols]</span><span class="w"></span>
-<span class="w">        </span><span class="k">[DeviceList.Protocols.modbus-tcp]</span><span class="w"></span>
-<span class="w">            </span><span class="n">Address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;172.17.0.1&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;502&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="n">UnitID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="n">Timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="n">IdleTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="k">[[DeviceList.AutoEvents]]</span><span class="w"></span>
-<span class="w">        </span><span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30s&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="n">OnChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
-<span class="w">        </span><span class="n">SourceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Temperature&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[[DeviceList]]</span>
+<span class="w">    </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Modbus-TCP-Temperature-Sensor&quot;</span>
+<span class="w">    </span><span class="n">ProfileName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Ethernet-Temperature-Sensor&quot;</span>
+<span class="w">    </span><span class="n">Description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;This device is a product for monitoring the temperature via the ethernet&quot;</span>
+<span class="w">    </span><span class="n">labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s">&quot;temperature&quot;</span><span class="p">,</span><span class="s">&quot;modbus TCP&quot;</span><span class="w"> </span><span class="p">]</span>
+<span class="w">    </span><span class="k">[DeviceList.Protocols]</span>
+<span class="w">        </span><span class="k">[DeviceList.Protocols.modbus-tcp]</span>
+<span class="w">            </span><span class="n">Address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;172.17.0.1&quot;</span>
+<span class="w">            </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;502&quot;</span>
+<span class="w">            </span><span class="n">UnitID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;1&quot;</span>
+<span class="w">            </span><span class="n">Timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span>
+<span class="w">            </span><span class="n">IdleTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span>
+<span class="w">        </span><span class="k">[[DeviceList.AutoEvents]]</span>
+<span class="w">        </span><span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30s&quot;</span>
+<span class="w">        </span><span class="n">OnChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">        </span><span class="n">SourceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Temperature&quot;</span>
 </code></pre></div></p>
 <blockquote>
 <p>The address <code>172.17.0.1</code> is point to the docker bridge network which means it can forward the request from docker network to the host.</p>
@@ -3748,15 +3748,15 @@ $ make gen ds-modbus
 <p>Add prepared configuration files to docker-compose file, you can mount them using
 volumes and change the environment for device-modbus internal use.</p>
 <p>Open the <code>docker-compose.yml</code> file and then add volumes path and environment as shown below:
-<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="nt">device-modbus</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">environment</span><span class="p p-Indicator">:</span><span class="w"></span>
-<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">DEVICE_DEVICESDIR</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/custom-config</span><span class="w"></span>
-<span class="w">      </span><span class="nt">DEVICE_PROFILESDIR</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/custom-config</span><span class="w"></span>
-<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/custom-config:/custom-config</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="nt">device-modbus</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">environment</span><span class="p p-Indicator">:</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">DEVICE_DEVICESDIR</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/custom-config</span>
+<span class="w">      </span><span class="nt">DEVICE_PROFILESDIR</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/custom-config</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/custom-config:/custom-config</span>
 </code></pre></div></p>
 <h2 id="start-edgex-foundry-on-docker">Start EdgeX Foundry on Docker</h2>
 <p>Since we generate the <code>docker-compose.yml</code> file at the previous step, we can deploy EdgeX as shown below:
@@ -3841,62 +3841,62 @@ from the previous steps.</p>
 <p>Now we're ready to run some commands.</p>
 <h3 id="find-executable-commands">Find Executable Commands</h3>
 <p>Use the following query to find executable commands:
-<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//localhost:59882/api/v2/device/all | json_pp</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//localhost:59882/api/v2/device/all | json_pp</span>
 
-<span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;apiVersion&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;deviceCoreCommands&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">      </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;deviceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Modbus-TCP-Temperature-Sensor&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;profileName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ethernet-Temperature-Sensor&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;coreCommands&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">            </span><span class="p">{</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;url&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://edgex-core-command:59882&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AlarmThreshold&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;get&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;set&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;parameters&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">                  </span><span class="p">{</span><span class="w"></span>
-<span class="w">                     </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Float32&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                     </span><span class="nt">&quot;resourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ThermostatL&quot;</span><span class="w"></span>
-<span class="w">                  </span><span class="p">},</span><span class="w"></span>
-<span class="w">                  </span><span class="p">{</span><span class="w"></span>
-<span class="w">                     </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Float32&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                     </span><span class="nt">&quot;resourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ThermostatH&quot;</span><span class="w"></span>
-<span class="w">                  </span><span class="p">}</span><span class="w"></span>
-<span class="w">               </span><span class="p">],</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;path&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/api/v2/device/name/Modbus-TCP-Temperature-Sensor/AlarmThreshold&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="p">},</span><span class="w"></span>
-<span class="w">            </span><span class="p">{</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;get&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;url&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://edgex-core-command:59882&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AlarmMode&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;set&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;path&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/api/v2/device/name/Modbus-TCP-Temperature-Sensor/AlarmMode&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;parameters&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">                  </span><span class="p">{</span><span class="w"></span>
-<span class="w">                     </span><span class="nt">&quot;resourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AlarmMode&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                     </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Int16&quot;</span><span class="w"></span>
-<span class="w">                  </span><span class="p">}</span><span class="w"></span>
-<span class="w">               </span><span class="p">]</span><span class="w"></span>
-<span class="w">            </span><span class="p">},</span><span class="w"></span>
-<span class="w">            </span><span class="p">{</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;get&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;url&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://edgex-core-command:59882&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Temperature&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;path&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/api/v2/device/name/Modbus-TCP-Temperature-Sensor/Temperature&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;parameters&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">                  </span><span class="p">{</span><span class="w"></span>
-<span class="w">                     </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Float32&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                     </span><span class="nt">&quot;resourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Temperature&quot;</span><span class="w"></span>
-<span class="w">                  </span><span class="p">}</span><span class="w"></span>
-<span class="w">               </span><span class="p">]</span><span class="w"></span>
-<span class="w">            </span><span class="p">}</span><span class="w"></span>
-<span class="w">         </span><span class="p">]</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="w">   </span><span class="p">],</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;statusCode&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;apiVersion&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;deviceCoreCommands&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;deviceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Modbus-TCP-Temperature-Sensor&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;profileName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ethernet-Temperature-Sensor&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;coreCommands&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;url&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://edgex-core-command:59882&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AlarmThreshold&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;get&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;set&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;parameters&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                  </span><span class="p">{</span>
+<span class="w">                     </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Float32&quot;</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">&quot;resourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ThermostatL&quot;</span>
+<span class="w">                  </span><span class="p">},</span>
+<span class="w">                  </span><span class="p">{</span>
+<span class="w">                     </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Float32&quot;</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">&quot;resourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ThermostatH&quot;</span>
+<span class="w">                  </span><span class="p">}</span>
+<span class="w">               </span><span class="p">],</span>
+<span class="w">               </span><span class="nt">&quot;path&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/api/v2/device/name/Modbus-TCP-Temperature-Sensor/AlarmThreshold&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;get&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;url&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://edgex-core-command:59882&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AlarmMode&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;set&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;path&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/api/v2/device/name/Modbus-TCP-Temperature-Sensor/AlarmMode&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;parameters&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                  </span><span class="p">{</span>
+<span class="w">                     </span><span class="nt">&quot;resourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AlarmMode&quot;</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Int16&quot;</span>
+<span class="w">                  </span><span class="p">}</span>
+<span class="w">               </span><span class="p">]</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;get&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;url&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://edgex-core-command:59882&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Temperature&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;path&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/api/v2/device/name/Modbus-TCP-Temperature-Sensor/Temperature&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;parameters&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                  </span><span class="p">{</span>
+<span class="w">                     </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Float32&quot;</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">&quot;resourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Temperature&quot;</span>
+<span class="w">                  </span><span class="p">}</span>
+<span class="w">               </span><span class="p">]</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">         </span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">   </span><span class="p">],</span>
+<span class="w">   </span><span class="nt">&quot;statusCode&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">200</span>
+<span class="p">}</span>
 </code></pre></div></p>
 <h3 id="execute-set-command">Execute SET command</h3>
 <p>Execute SET command according to <code>url</code> and <code>parameterNames</code>, replacing [host] with the server IP when running the SET command.</p>
@@ -3906,105 +3906,105 @@ from the previous steps.</p>
 </code></pre></div>
 <h3 id="execute-get-command">Execute GET command</h3>
 <p>Replace <em>\&lt;host></em> with the server IP when running the GET command.</p>
-<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//localhost:59882/api/v2/device/name/Modbus-TCP-Temperature-Sensor/AlarmThreshold | json_pp</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//localhost:59882/api/v2/device/name/Modbus-TCP-Temperature-Sensor/AlarmThreshold | json_pp</span>
 
-<span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;statusCode&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;apiVersion&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;event&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;origin&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1624324686964377495</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;deviceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Modbus-TCP-Temperature-Sensor&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;f3d44a0f-d2c3-4ef6-9441-ad6b1bfb8a9e&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;sourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AlarmThreshold&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;readings&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">         </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;resourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ThermostatL&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.500000e+01&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;deviceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Modbus-TCP-Temperature-Sensor&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;9aa879a0-c184-476b-8124-34d35a2a51f3&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Float32&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;mediaType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;binaryValue&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;origin&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1624324686963970614</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;profileName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ethernet-Temperature-Sensor&quot;</span><span class="w"></span>
-<span class="w">         </span><span class="p">},</span><span class="w"></span>
-<span class="w">         </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.000000e+02&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;resourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ThermostatH&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;deviceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Modbus-TCP-Temperature-Sensor&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bf7df23b-4338-4b93-a8bd-7abd5e848379&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Float32&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;mediaType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;binaryValue&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;origin&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1624324686964343768</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;profileName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ethernet-Temperature-Sensor&quot;</span><span class="w"></span>
-<span class="w">         </span><span class="p">}</span><span class="w"></span>
-<span class="w">      </span><span class="p">],</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;apiVersion&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;profileName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ethernet-Temperature-Sensor&quot;</span><span class="w"></span>
-<span class="w">   </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;statusCode&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;apiVersion&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;event&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;origin&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1624324686964377495</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;deviceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Modbus-TCP-Temperature-Sensor&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;f3d44a0f-d2c3-4ef6-9441-ad6b1bfb8a9e&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;sourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AlarmThreshold&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;readings&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;resourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ThermostatL&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.500000e+01&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;deviceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Modbus-TCP-Temperature-Sensor&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;9aa879a0-c184-476b-8124-34d35a2a51f3&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Float32&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;mediaType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;binaryValue&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;origin&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1624324686963970614</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;profileName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ethernet-Temperature-Sensor&quot;</span>
+<span class="w">         </span><span class="p">},</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.000000e+02&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;resourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ThermostatH&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;deviceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Modbus-TCP-Temperature-Sensor&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bf7df23b-4338-4b93-a8bd-7abd5e848379&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Float32&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;mediaType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;binaryValue&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;origin&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1624324686964343768</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;profileName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ethernet-Temperature-Sensor&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;apiVersion&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;profileName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ethernet-Temperature-Sensor&quot;</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
 <h2 id="autoevent">AutoEvent</h2>
 <p>The AutoEvent is defined in the [[DeviceList.AutoEvents]] section of the device configuration file:
-<div class="highlight"><pre><span></span><code><span class="k">[[DeviceList.AutoEvents]]</span><span class="w"></span>
-<span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30s&quot;</span><span class="w"></span>
-<span class="n">OnChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
-<span class="n">SourceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Temperature&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[[DeviceList.AutoEvents]]</span>
+<span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30s&quot;</span>
+<span class="n">OnChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="n">SourceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Temperature&quot;</span>
 </code></pre></div>
 After service startup, query core-data's API. The results show
 that the service auto-executes the command every 30 seconds.</p>
-<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//localhost:59880/api/v2/event/device/name/Modbus-TCP-Temperature-Sensor | json_pp</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//localhost:59880/api/v2/event/device/name/Modbus-TCP-Temperature-Sensor | json_pp</span>
 
-<span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;events&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">      </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;readings&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">            </span><span class="p">{</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5.300000e+01&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;binaryValue&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;origin&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1624325219186870396</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;68a66a35-d3cf-48a2-9bf0-09578267a3f7&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;deviceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Modbus-TCP-Temperature-Sensor&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;mediaType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Float32&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;resourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Temperature&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;profileName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ethernet-Temperature-Sensor&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="p">}</span><span class="w"></span>
-<span class="w">         </span><span class="p">],</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;apiVersion&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;origin&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1624325219186977564</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4b235616-7304-419e-97ae-17a244911b1c&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;deviceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Modbus-TCP-Temperature-Sensor&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;sourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Temperature&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;profileName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ethernet-Temperature-Sensor&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="p">},</span><span class="w"></span>
-<span class="w">      </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;readings&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">            </span><span class="p">{</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;profileName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ethernet-Temperature-Sensor&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;resourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Temperature&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Float32&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;56b7e8be-7ce8-4fa9-89e2-3a1a7ef09050&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;origin&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1624325189184675483</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5.300000e+01&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;binaryValue&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;mediaType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;deviceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Modbus-TCP-Temperature-Sensor&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="p">}</span><span class="w"></span>
-<span class="w">         </span><span class="p">],</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;profileName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ethernet-Temperature-Sensor&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;sourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Temperature&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;deviceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Modbus-TCP-Temperature-Sensor&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;fbab44f5-9775-4c09-84bd-cbfb00001115&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;origin&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1624325189184721223</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;apiVersion&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="p">},</span><span class="w"></span>
-<span class="w">      </span><span class="err">...</span><span class="w"></span>
-<span class="w">   </span><span class="p">],</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;apiVersion&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;statusCode&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;events&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;readings&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5.300000e+01&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;binaryValue&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;origin&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1624325219186870396</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;68a66a35-d3cf-48a2-9bf0-09578267a3f7&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;deviceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Modbus-TCP-Temperature-Sensor&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;mediaType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Float32&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;resourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Temperature&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;profileName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ethernet-Temperature-Sensor&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">         </span><span class="p">],</span>
+<span class="w">         </span><span class="nt">&quot;apiVersion&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;origin&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1624325219186977564</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4b235616-7304-419e-97ae-17a244911b1c&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;deviceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Modbus-TCP-Temperature-Sensor&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;sourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Temperature&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;profileName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ethernet-Temperature-Sensor&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;readings&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;profileName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ethernet-Temperature-Sensor&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;resourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Temperature&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Float32&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;56b7e8be-7ce8-4fa9-89e2-3a1a7ef09050&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;origin&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1624325189184675483</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5.300000e+01&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;binaryValue&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;mediaType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;deviceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Modbus-TCP-Temperature-Sensor&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">         </span><span class="p">],</span>
+<span class="w">         </span><span class="nt">&quot;profileName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ethernet-Temperature-Sensor&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;sourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Temperature&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;deviceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Modbus-TCP-Temperature-Sensor&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;fbab44f5-9775-4c09-84bd-cbfb00001115&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;origin&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1624325189184721223</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;apiVersion&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="err">...</span>
+<span class="w">   </span><span class="p">],</span>
+<span class="w">   </span><span class="nt">&quot;apiVersion&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;statusCode&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">200</span>
+<span class="p">}</span>
 </code></pre></div>
 <h2 id="set-up-the-modbus-rtu-device">Set up the Modbus RTU Device</h2>
 <p>This section describes how to connect the Modbus RTU device. We use Ubuntu OS and a Modbus RTU device for this example. </p>
@@ -4034,15 +4034,15 @@ that the service auto-executes the command every 30 seconds.</p>
 </ol>
 <h3 id="change-the-owner-of-the-device">Change the Owner of the Device</h3>
 <p>For security reason, the EdgeX set up the user permission as below:
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">device-modbus</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">user</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2002:2001</span><span class="w">  </span><span class="c1"># UID:GID</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">device-modbus</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">user</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2002:2001</span><span class="w">  </span><span class="c1"># UID:GID</span>
 </code></pre></div>
 So we need to change the owner for the specified group by the following command:
-<div class="highlight"><pre><span></span><code>sudo chown :2001 /dev/ttyUSB0
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>chown<span class="w"> </span>:2001<span class="w"> </span>/dev/ttyUSB0
 
 <span class="c1"># Or change the permissions for multiple files</span>
-sudo chown :2001 /dev/tty*
+sudo<span class="w"> </span>chown<span class="w"> </span>:2001<span class="w"> </span>/dev/tty*
 </code></pre></div></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -4053,20 +4053,20 @@ sudo chown :2001 /dev/tty*
 <ol>
 <li>
 <p>Using <code>devices</code>:
-    <div class="highlight"><pre><span></span><code><span class="nt">device-modbus</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">devices</span><span class="p p-Indicator">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/ttyUSB0</span><span class="w"></span>
+    <div class="highlight"><pre><span></span><code><span class="nt">device-modbus</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">devices</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/ttyUSB0</span>
 </code></pre></div></p>
 </li>
 <li>
 <p>Or using <code>volumes</code> and <code>device_cgroup_rules</code>:
-    <div class="highlight"><pre><span></span><code><span class="nt">device-modbus</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">volumes</span><span class="p p-Indicator">:</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- /dev:/dev</span><span class="w"></span>
-<span class="w">  </span><span class="nt">device_cgroup_rules</span><span class="p">:</span><span class="w"></span>
+    <div class="highlight"><pre><span></span><code><span class="nt">device-modbus</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">volumes</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- /dev:/dev</span>
+<span class="w">  </span><span class="nt">device_cgroup_rules</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;c</span><span class="nv"> </span><span class="s">188:*</span><span class="nv"> </span><span class="s">rw&#39;</span><span class="w"> </span>
 </code></pre></div></p>
 <ul>
@@ -4085,52 +4085,52 @@ sudo chown :2001 /dev/tty*
 <li>Create the device profile according to the register table
     <div class="highlight"><pre><span></span><code>$ nano modbus.rtu.demo.profile.yml
 </code></pre></div>
-    <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Modbus-RTU-IO-Module&quot;</span><span class="w"></span>
-<span class="nt">manufacturer</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;icpdas&quot;</span><span class="w"></span>
-<span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;M-7055&quot;</span><span class="w"></span>
-<span class="nt">labels</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;Modbus</span><span class="nv"> </span><span class="s">RTU&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;IO</span><span class="nv"> </span><span class="s">Module&quot;</span><span class="w"></span>
-<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;This</span><span class="nv"> </span><span class="s">IO</span><span class="nv"> </span><span class="s">module</span><span class="nv"> </span><span class="s">offers</span><span class="nv"> </span><span class="s">8</span><span class="nv"> </span><span class="s">isolated</span><span class="nv"> </span><span class="s">channels</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">digital</span><span class="nv"> </span><span class="s">input</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">8</span><span class="nv"> </span><span class="s">isolated</span><span class="nv"> </span><span class="s">channels</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">digital</span><span class="nv"> </span><span class="s">output.&quot;</span><span class="w"></span>
+    <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Modbus-RTU-IO-Module&quot;</span>
+<span class="nt">manufacturer</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;icpdas&quot;</span>
+<span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;M-7055&quot;</span>
+<span class="nt">labels</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;Modbus</span><span class="nv"> </span><span class="s">RTU&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;IO</span><span class="nv"> </span><span class="s">Module&quot;</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;This</span><span class="nv"> </span><span class="s">IO</span><span class="nv"> </span><span class="s">module</span><span class="nv"> </span><span class="s">offers</span><span class="nv"> </span><span class="s">8</span><span class="nv"> </span><span class="s">isolated</span><span class="nv"> </span><span class="s">channels</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">digital</span><span class="nv"> </span><span class="s">input</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">8</span><span class="nv"> </span><span class="s">isolated</span><span class="nv"> </span><span class="s">channels</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">digital</span><span class="nv"> </span><span class="s">output.&quot;</span>
 
-<span class="nt">deviceResources</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DO0&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;On/Off</span><span class="nv"> </span><span class="s">,</span><span class="nv"> </span><span class="s">0-OFF</span><span class="nv"> </span><span class="s">1-ON&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">{</span><span class="nt"> primaryTable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;COILS&quot;</span><span class="p p-Indicator">,</span><span class="nt"> startingAddress</span><span class="p">:</span><span class="w"> </span><span class="nv">0</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Bool&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DO1&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;On/Off</span><span class="nv"> </span><span class="s">,</span><span class="nv"> </span><span class="s">0-OFF</span><span class="nv"> </span><span class="s">1-ON&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">{</span><span class="nt"> primaryTable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;COILS&quot;</span><span class="p p-Indicator">,</span><span class="nt"> startingAddress</span><span class="p">:</span><span class="w"> </span><span class="nv">1</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Bool&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DO2&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;On/Off</span><span class="nv"> </span><span class="s">,</span><span class="nv"> </span><span class="s">0-OFF</span><span class="nv"> </span><span class="s">1-ON&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">{</span><span class="nt"> primaryTable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;COILS&quot;</span><span class="p p-Indicator">,</span><span class="nt"> startingAddress</span><span class="p">:</span><span class="w"> </span><span class="nv">2</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Bool&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span><span class="w"></span>
+<span class="nt">deviceResources</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DO0&quot;</span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;On/Off</span><span class="nv"> </span><span class="s">,</span><span class="nv"> </span><span class="s">0-OFF</span><span class="nv"> </span><span class="s">1-ON&quot;</span>
+<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">{</span><span class="nt"> primaryTable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;COILS&quot;</span><span class="p p-Indicator">,</span><span class="nt"> startingAddress</span><span class="p">:</span><span class="w"> </span><span class="nv">0</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Bool&quot;</span>
+<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DO1&quot;</span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;On/Off</span><span class="nv"> </span><span class="s">,</span><span class="nv"> </span><span class="s">0-OFF</span><span class="nv"> </span><span class="s">1-ON&quot;</span>
+<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">{</span><span class="nt"> primaryTable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;COILS&quot;</span><span class="p p-Indicator">,</span><span class="nt"> startingAddress</span><span class="p">:</span><span class="w"> </span><span class="nv">1</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Bool&quot;</span>
+<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DO2&quot;</span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;On/Off</span><span class="nv"> </span><span class="s">,</span><span class="nv"> </span><span class="s">0-OFF</span><span class="nv"> </span><span class="s">1-ON&quot;</span>
+<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">{</span><span class="nt"> primaryTable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;COILS&quot;</span><span class="p p-Indicator">,</span><span class="nt"> startingAddress</span><span class="p">:</span><span class="w"> </span><span class="nv">2</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Bool&quot;</span>
+<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span>
 
-<span class="nt">deviceCommands</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DO&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="w">    </span><span class="nt">resourceOperations</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DO0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DO1&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DO2&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="nt">deviceCommands</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DO&quot;</span>
+<span class="w">    </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">resourceOperations</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DO0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DO1&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DO2&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
 </code></pre></div></li>
 <li>
 <p>Upload the device profile
@@ -4141,36 +4141,36 @@ sudo chown :2001 /dev/tty*
 <li>
 <p>Create the device entity to the EdgeX.
     You can find the Modbus RTU setting on the device or the user manual.
-    <div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//localhost:59881/api/v2/device -H &quot;Content-Type:application/json&quot; -X POST \</span><span class="w"></span>
-<span class="w">  </span><span class="mi">-</span><span class="err">d</span><span class="w"> </span><span class="err">&#39;</span><span class="p">[</span><span class="w"></span>
-<span class="w">        </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;device&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="s2">&quot;Modbus-RTU-IO-Module&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;The device can be used to monitor the status of the digital input and digital output channels.&quot;</span><span class="p">,</span><span class="w"></span>
+    <div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//localhost:59881/api/v2/device -H &quot;Content-Type:application/json&quot; -X POST \</span>
+<span class="w">  </span><span class="mi">-</span><span class="err">d</span><span class="w"> </span><span class="err">&#39;</span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;device&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="s2">&quot;Modbus-RTU-IO-Module&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;The device can be used to monitor the status of the digital input and digital output channels.&quot;</span><span class="p">,</span>
 <span class="w">               </span><span class="nt">&quot;labels&quot;</span><span class="p">:[</span><span class="w"> </span>
-<span class="w">                  </span><span class="s2">&quot;IO Module&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                  </span><span class="s2">&quot;Modbus RTU&quot;</span><span class="w"></span>
-<span class="w">               </span><span class="p">],</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;serviceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;device-modbus&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;profileName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ethernet-Temperature-Sensor&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;protocols&quot;</span><span class="p">:{</span><span class="w"></span>
-<span class="w">                  </span><span class="nt">&quot;modbus-tcp&quot;</span><span class="p">:{</span><span class="w"></span>
-<span class="w">                     </span><span class="nt">&quot;Address&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/dev/ttyUSB0&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                     </span><span class="nt">&quot;BaudRate&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;19200&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                     </span><span class="nt">&quot;DataBits&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                     </span><span class="nt">&quot;StopBits&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                     </span><span class="nt">&quot;Parity&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;N&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                     </span><span class="nt">&quot;UnitID&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                     </span><span class="nt">&quot;Timeout&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                     </span><span class="nt">&quot;IdleTimeout&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5&quot;</span><span class="w"></span>
-<span class="w">                  </span><span class="p">}</span><span class="w"></span>
-<span class="w">               </span><span class="p">},</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;adminState&quot;</span><span class="p">:</span><span class="s2">&quot;UNLOCKED&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">               </span><span class="nt">&quot;operatingState&quot;</span><span class="p">:</span><span class="s2">&quot;UP&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="p">}</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">]</span><span class="err">&#39;</span><span class="w"></span>
+<span class="w">                  </span><span class="s2">&quot;IO Module&quot;</span><span class="p">,</span>
+<span class="w">                  </span><span class="s2">&quot;Modbus RTU&quot;</span>
+<span class="w">               </span><span class="p">],</span>
+<span class="w">               </span><span class="nt">&quot;serviceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;device-modbus&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;profileName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ethernet-Temperature-Sensor&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;protocols&quot;</span><span class="p">:{</span>
+<span class="w">                  </span><span class="nt">&quot;modbus-tcp&quot;</span><span class="p">:{</span>
+<span class="w">                     </span><span class="nt">&quot;Address&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/dev/ttyUSB0&quot;</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">&quot;BaudRate&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;19200&quot;</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">&quot;DataBits&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8&quot;</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">&quot;StopBits&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">&quot;Parity&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;N&quot;</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">&quot;UnitID&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">&quot;Timeout&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5&quot;</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">&quot;IdleTimeout&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5&quot;</span>
+<span class="w">                  </span><span class="p">}</span>
+<span class="w">               </span><span class="p">},</span>
+<span class="w">               </span><span class="nt">&quot;adminState&quot;</span><span class="p">:</span><span class="s2">&quot;UNLOCKED&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;operatingState&quot;</span><span class="p">:</span><span class="s2">&quot;UP&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span><span class="err">&#39;</span>
 </code></pre></div></p>
 </li>
 <li>Test the GET or SET command</li>

@@ -3394,7 +3394,7 @@ Note: Results may vary based on camera hardware/firmware version and operating s
 <p>The software has dependencies, including Git, Docker, Docker Compose, and assorted command line tools. Follow the instructions provided here to install any dependency that is not already installed <code>device-usb-camera/docs/setup.md</code>.</p>
 <h3 id="install-additional-tools">Install additional Tools</h3>
 <p>Install the media utility tool:</p>
-<div class="highlight"><pre><span></span><code>sudo apt install mplayer v4l-utils
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>mplayer<span class="w"> </span>v4l-utils
 </code></pre></div>
 <ul>
 <li><code>mplayer</code> is used to view the video stream</li>
@@ -3405,17 +3405,17 @@ Note: Results may vary based on camera hardware/firmware version and operating s
 <ol>
 <li>
 <p>Create a directory for the EdgeX compose repository:
-   <div class="highlight"><pre><span></span><code>mkdir ~/edgex
+   <div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>~/edgex
 </code></pre></div></p>
 </li>
 <li>
 <p>Change into newly created directory:
-   <div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/edgex
+   <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/edgex
 </code></pre></div></p>
 </li>
 <li>
 <p>Clone the EdgeX compose repository
-   <div class="highlight"><pre><span></span><code>git clone https://github.com/edgexfoundry/edgex-compose.git
+   <div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/edgexfoundry/edgex-compose.git
 </code></pre></div></p>
 </li>
 </ol>
@@ -3423,7 +3423,7 @@ Note: Results may vary based on camera hardware/firmware version and operating s
 <ol>
 <li>Navigate to the Edgex compose directory.</li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/edgex/edgex-compose/compose-builder
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/edgex/edgex-compose/compose-builder
 </code></pre></div>
 <ol>
 <li>Run EdgeX with the microservice:  </li>
@@ -3438,44 +3438,44 @@ Note: Results may vary based on camera hardware/firmware version and operating s
 <ol>
 <li>Check the status of the container:</li>
 </ol>
-<div class="highlight"><pre><span></span><code>docker ps
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>ps
 </code></pre></div>
 <p>The status column will indicate if the container is running and how long it has been up.</p>
 <p>Example Output:</p>
-<div class="highlight"><pre><span></span><code>CONTAINER ID   IMAGE                                         COMMAND                  CREATED       STATUS          PORTS                                                                                         NAMES
-f0a1c646f324   edgexfoundry/device-usb-camera:0.0.0-dev                        <span class="s2">&quot;/docker-entrypoint.…&quot;</span>   <span class="m">26</span> hours ago   Up <span class="m">20</span> hours   <span class="m">127</span>.0.0.1:8554-&gt;8554/tcp, <span class="m">127</span>.0.0.1:59983-&gt;59983/tcp                         edgex-device-usb-camera                                                                   edgex-device-onvif-camera
+<div class="highlight"><pre><span></span><code>CONTAINER<span class="w"> </span>ID<span class="w">   </span>IMAGE<span class="w">                                         </span>COMMAND<span class="w">                  </span>CREATED<span class="w">       </span>STATUS<span class="w">          </span>PORTS<span class="w">                                                                                         </span>NAMES
+f0a1c646f324<span class="w">   </span>edgexfoundry/device-usb-camera:0.0.0-dev<span class="w">                        </span><span class="s2">&quot;/docker-entrypoint.…&quot;</span><span class="w">   </span><span class="m">26</span><span class="w"> </span>hours<span class="w"> </span>ago<span class="w">   </span>Up<span class="w"> </span><span class="m">20</span><span class="w"> </span>hours<span class="w">   </span><span class="m">127</span>.0.0.1:8554-&gt;8554/tcp,<span class="w"> </span><span class="m">127</span>.0.0.1:59983-&gt;59983/tcp<span class="w">                         </span>edgex-device-usb-camera<span class="w">                                                                   </span>edgex-device-onvif-camera
 </code></pre></div>
 <ol>
 <li>Check that the device service is added to EdgeX:</li>
 </ol>
-<div class="highlight"><pre><span></span><code>curl -s http://localhost:59881/api/v2/deviceservice/name/device-usb-camera <span class="p">|</span> jq .
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:59881/api/v2/deviceservice/name/device-usb-camera<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 </code></pre></div>
 <p>Successful:
-   <div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;statusCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;created&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1658769423192</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;modified&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1658872893286</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;04470def-7b5b-4362-9958-bc5ff9f54f1e&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;device-usb-camera&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;baseAddress&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://edgex-device-usb-camera:59983&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;adminState&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;UNLOCKED&quot;</span><span class="w"></span>
-<span class="w">   </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+   <div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;statusCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;created&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1658769423192</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;modified&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1658872893286</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;04470def-7b5b-4362-9958-bc5ff9f54f1e&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;device-usb-camera&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;baseAddress&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://edgex-device-usb-camera:59983&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;adminState&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;UNLOCKED&quot;</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
    Unsuccessful:
-   <div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;fail to query device service by name device-usb-camera&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;statusCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">404</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+   <div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;fail to query device service by name device-usb-camera&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;statusCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">404</span>
+<span class="p">}</span>
 </code></pre></div></p>
 <h2 id="adding-devices-using-rest-api">Adding Devices using REST API</h2>
 <p>Devices can either be added to the service by defining them in a static configuration file, discovering devices dynamically, or with the REST API. For this example, the device will be added using the REST API.</p>
 <ol>
 <li>Run the following command to determine the <code>Path</code> to the usb camera for video streaming:
-   <div class="highlight"><pre><span></span><code>v4l2-ctl --list-devices
+   <div class="highlight"><pre><span></span><code>v4l2-ctl<span class="w"> </span>--list-devices
 </code></pre></div></li>
 </ol>
 <p>The output should look similar to this:
@@ -3491,9 +3491,9 @@ f0a1c646f324   edgexfoundry/device-usb-camera:0.0.0-dev                        <
 <li><code>Path</code> is a file descriptor of camera created by the OS. Use the <code>Path</code> determined in the previous step.</li>
 <li><code>AutoStreaming</code> indicates whether the device service should automatically start video streaming for cameras. Default value is false.</li>
 </ol>
-<div class="highlight"><pre><span></span><code>curl -X POST -H <span class="s1">&#39;Content-Type: application/json&#39;</span>  <span class="se">\</span>
-   http://localhost:59881/api/v2/device <span class="se">\</span>
-   -d <span class="s1">&#39;[</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w">  </span><span class="se">\</span>
+<span class="w">   </span>http://localhost:59881/api/v2/device<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>-d<span class="w"> </span><span class="s1">&#39;[</span>
 <span class="s1">      {</span>
 <span class="s1">      &quot;apiVersion&quot;: &quot;v2&quot;,</span>
 <span class="s1">      &quot;device&quot;: {</span>
@@ -3513,33 +3513,33 @@ f0a1c646f324   edgexfoundry/device-usb-camera:0.0.0-dev                        <
 <span class="s1">      }</span>
 <span class="s1">      }</span>
 <span class="s1">   ]&#39;</span>
-   <span class="sb">```</span>
+<span class="w">   </span><span class="sb">```</span>
 
-   Example Output: 
-   <span class="sb">```</span>bash
-   <span class="o">[{</span><span class="s2">&quot;apiVersion&quot;</span>:<span class="s2">&quot;v2&quot;</span>,<span class="s2">&quot;statusCode&quot;</span>:201,<span class="s2">&quot;id&quot;</span>:<span class="s2">&quot;fb5fb7f2-768b-4298-a916-d4779523c6b5&quot;</span><span class="o">}]</span>
-   <span class="sb">```</span>
+<span class="w">   </span>Example<span class="w"> </span>Output:<span class="w"> </span>
+<span class="w">   </span><span class="sb">```</span>bash
+<span class="w">   </span><span class="o">[{</span><span class="s2">&quot;apiVersion&quot;</span>:<span class="s2">&quot;v2&quot;</span>,<span class="s2">&quot;statusCode&quot;</span>:201,<span class="s2">&quot;id&quot;</span>:<span class="s2">&quot;fb5fb7f2-768b-4298-a916-d4779523c6b5&quot;</span><span class="o">}]</span>
+<span class="w">   </span><span class="sb">```</span>
 
 <span class="c1">## Start Video Streaming</span>
-Unless the device service is configured to stream video from the camera automatically, a <span class="sb">`</span>StartStreaming<span class="sb">`</span> <span class="nb">command</span> must be sent to the device service.
+Unless<span class="w"> </span>the<span class="w"> </span>device<span class="w"> </span>service<span class="w"> </span>is<span class="w"> </span>configured<span class="w"> </span>to<span class="w"> </span>stream<span class="w"> </span>video<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>camera<span class="w"> </span>automatically,<span class="w"> </span>a<span class="w"> </span><span class="sb">`</span>StartStreaming<span class="sb">`</span><span class="w"> </span><span class="nb">command</span><span class="w"> </span>must<span class="w"> </span>be<span class="w"> </span>sent<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>device<span class="w"> </span>service.
 
-There are two types of options:
-- The options start with <span class="sb">`</span>Input<span class="sb">`</span> prefix are used <span class="k">for</span> the camera, such as specifying the image size and pixel format.
-- The options start with <span class="sb">`</span>Output<span class="sb">`</span> prefix are used <span class="k">for</span> the output video, such as specifying aspect ratio and quality.
+There<span class="w"> </span>are<span class="w"> </span>two<span class="w"> </span>types<span class="w"> </span>of<span class="w"> </span>options:
+-<span class="w"> </span>The<span class="w"> </span>options<span class="w"> </span>start<span class="w"> </span>with<span class="w"> </span><span class="sb">`</span>Input<span class="sb">`</span><span class="w"> </span>prefix<span class="w"> </span>are<span class="w"> </span>used<span class="w"> </span><span class="k">for</span><span class="w"> </span>the<span class="w"> </span>camera,<span class="w"> </span>such<span class="w"> </span>as<span class="w"> </span>specifying<span class="w"> </span>the<span class="w"> </span>image<span class="w"> </span>size<span class="w"> </span>and<span class="w"> </span>pixel<span class="w"> </span>format.
+-<span class="w"> </span>The<span class="w"> </span>options<span class="w"> </span>start<span class="w"> </span>with<span class="w"> </span><span class="sb">`</span>Output<span class="sb">`</span><span class="w"> </span>prefix<span class="w"> </span>are<span class="w"> </span>used<span class="w"> </span><span class="k">for</span><span class="w"> </span>the<span class="w"> </span>output<span class="w"> </span>video,<span class="w"> </span>such<span class="w"> </span>as<span class="w"> </span>specifying<span class="w"> </span>aspect<span class="w"> </span>ratio<span class="w"> </span>and<span class="w"> </span>quality.
 
-These options can be passed <span class="k">in</span> through Object value when calling StartStreaming.
+These<span class="w"> </span>options<span class="w"> </span>can<span class="w"> </span>be<span class="w"> </span>passed<span class="w"> </span><span class="k">in</span><span class="w"> </span>through<span class="w"> </span>Object<span class="w"> </span>value<span class="w"> </span>when<span class="w"> </span>calling<span class="w"> </span>StartStreaming.
 
-Query parameter:
-- <span class="sb">`</span>device name<span class="sb">`</span>: The name of the camera
+Query<span class="w"> </span>parameter:
+-<span class="w"> </span><span class="sb">`</span>device<span class="w"> </span>name<span class="sb">`</span>:<span class="w"> </span>The<span class="w"> </span>name<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>camera
 
-For example:
+For<span class="w"> </span>example:
 <span class="sb">```</span>shell
-curl -X PUT -d <span class="s1">&#39;{</span>
+curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
 <span class="s1">    &quot;StartStreaming&quot;: {</span>
 <span class="s1">      &quot;InputImageSize&quot;: &quot;640x480&quot;,</span>
 <span class="s1">      &quot;OutputVideoQuality&quot;: &quot;5&quot;</span>
 <span class="s1">    }</span>
-<span class="s1">}&#39;</span> http://localhost:59882/api/v2/device/name/&lt;device name&gt;/StartStreaming
+<span class="s1">}&#39;</span><span class="w"> </span>http://localhost:59882/api/v2/device/name/&lt;device<span class="w"> </span>name&gt;/StartStreaming
 </code></pre></div>
 <p>Supported Input options:
 - <code>InputFps</code>: Ignore original timestamps and instead generate timestamps assuming constant frame rate fps. (default - same as source)
@@ -3556,7 +3556,7 @@ curl -X PUT -d <span class="s1">&#39;{</span>
 <p>The device service provides a way to determine the stream URI of a camera.</p>
 <p>Query parameter:
 - <code>device name</code>: The name of the camera</p>
-<div class="highlight"><pre><span></span><code>curl -s http://localhost:59882/api/v2/device/name/&lt;device name&gt;/StreamURI <span class="p">|</span> jq -r <span class="s1">&#39;&quot;StreamURI: &quot; + &#39;</span>.event.readings<span class="o">[]</span>.value<span class="s1">&#39;&#39;</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:59882/api/v2/device/name/&lt;device<span class="w"> </span>name&gt;/StreamURI<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;&quot;StreamURI: &quot; + &#39;</span>.event.readings<span class="o">[]</span>.value<span class="s1">&#39;&#39;</span>
 </code></pre></div>
 <p>The response to the above call should look similar to the following:</p>
 <div class="highlight"><pre><span></span><code>StreamURI: rtsp://localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217010
@@ -3565,7 +3565,7 @@ curl -X PUT -d <span class="s1">&#39;{</span>
 <p>mplayer can be used to stream. The command follows this format: </p>
 <p><code>mplayer rtsp://&lt;IP address&gt;:&lt;port&gt;/&lt;streamname&gt;</code>.</p>
 <p>Using the <code>streamURI</code> returned from the previous step, run mplayer:</p>
-<div class="highlight"><pre><span></span><code>mplayer rtsp://localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217010
+<div class="highlight"><pre><span></span><code>mplayer<span class="w"> </span>rtsp://localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217010
 </code></pre></div>
 <ul>
 <li>To shut down mplayer, use the ctrl-c command.</li>
@@ -3575,31 +3575,31 @@ curl -X PUT -d <span class="s1">&#39;{</span>
 <p>Query parameter:
 - <code>device name</code>: The name of the camera</p>
 <p>For example:
-<div class="highlight"><pre><span></span><code>curl -X PUT -d <span class="s1">&#39;{</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
 <span class="s1">    &quot;StopStreaming&quot;: &quot;true&quot;</span>
-<span class="s1">}&#39;</span> http://localhost:59882/api/v2/device/name/&lt;device name&gt;/StopStreaming
+<span class="s1">}&#39;</span><span class="w"> </span>http://localhost:59882/api/v2/device/name/&lt;device<span class="w"> </span>name&gt;/StopStreaming
 </code></pre></div></p>
 <h2 id="shutting-down">Shutting Down</h2>
 <p>To stop all EdgeX services (containers), execute the <code>make down</code> command:</p>
 <ol>
 <li>Navigate to the <code>edgex-compose/compose-builder</code> directory.</li>
 </ol>
-<p><div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/edgex/edgex-compose/compose-builder
+<p><div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/edgex/edgex-compose/compose-builder
 </code></pre></div>
 1. Run this command
-   <div class="highlight"><pre><span></span><code>make down
+   <div class="highlight"><pre><span></span><code>make<span class="w"> </span>down
 </code></pre></div>
 1. To shut down and delete all volumes, run this command
-   <div class="highlight"><pre><span></span><code>make clean
+   <div class="highlight"><pre><span></span><code>make<span class="w"> </span>clean
 </code></pre></div></p>
 <h2 id="optional">Optional</h2>
 <h3 id="configuration-options">Configuration Options</h3>
 <h3 id="configurable-rtsp-server-hostname-and-port">Configurable RTSP server hostname and port</h3>
 <p>The hostname and port of the RTSP server can be configured in the <code>[Driver]</code> section of the <code>/cmd/res/configuration.toml</code> file. The default vaules can be used for this guide.</p>
 <p>For example:
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">[</span><span class="nv">Driver</span><span class="p p-Indicator">]</span><span class="w"></span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">RtspServerHostName = &quot;localhost&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">RtspTcpPort = &quot;8554&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">[</span><span class="nv">Driver</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">RtspServerHostName = &quot;localhost&quot;</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">RtspTcpPort = &quot;8554&quot;</span>
 </code></pre></div></p>
 <p align="left">
       <i>Sample: Snippet from configuration.toml</i>
@@ -3610,7 +3610,7 @@ curl -X PUT -d <span class="s1">&#39;{</span>
 <p>To verify the usb camera is set to stream video, use the command below. </p>
 <p>Query parameter:
 - <code>device name</code>: The name of the camera</p>
-<div class="highlight"><pre><span></span><code>curl http://localhost:59882/api/v2/device/name/&lt;device name&gt;/StreamingStatus <span class="p">|</span> jq -r <span class="s1">&#39;&quot;StreamingStatus: &quot; + (.event.readings[].objectValue.IsStreaming|tostring)&#39;</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:59882/api/v2/device/name/&lt;device<span class="w"> </span>name&gt;/StreamingStatus<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;&quot;StreamingStatus: &quot; + (.event.readings[].objectValue.IsStreaming|tostring)&#39;</span>
 </code></pre></div>
 <p>If the StreamingStatus is false, the camera is not configured to stream video. Please try the Start Video Streaming section again.</p>
 

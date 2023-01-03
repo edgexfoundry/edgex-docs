@@ -3353,7 +3353,7 @@ make gen no-secty arm64 ds-grove
 <h3 id="run-edgex-foundry">Run EdgeX Foundry</h3>
 <p>Now that you have the EdgeX Docker Compose file, you are ready to run EdgeX. Follow these steps to get the container images and start EdgeX!</p>
 <p>In a command terminal, change directories to the location of your docker-compose.yml.  Run the following command in the terminal to pull (fetch) and then start the EdgeX containers.</p>
-<div class="highlight"><pre><span></span><code>docker-compose up -d
+<div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -3362,8 +3362,8 @@ make gen no-secty arm64 ds-grove
 <div class="admonition info">
 <p class="admonition-title">Info</p>
 <p>If you wish, you can fetch the images first and then run them.  This allows you to make sure the EdgeX images you need are all available before trying to run.</p>
-<div class="highlight"><pre><span></span><code>docker-compose pull
-docker-compose up -d
+<div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>pull
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d
 </code></pre></div>
 </div>
 <div class="admonition note">
@@ -3373,7 +3373,7 @@ docker-compose up -d
 <h3 id="verify-edgex-foundry-running">Verify EdgeX Foundry Running</h3>
 <p>In the same terminal, run the process status command shown below to confirm that all the
 containers downloaded and started.</p>
-<div class="highlight"><pre><span></span><code>docker-compose ps
+<div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>ps
 </code></pre></div>
 <p><img alt="image" src="../EdgeX_GettingStartedUsrActiveContainers.png" />
 <em>If all EdgeX containers pulled and started correctly and without error, you should see a process status (ps) that looks similar to the image above.  If you are using a custom Compose file, your containers list may vary.  Also note that some "setup" containers are designed to start and then exit after configuring your EdgeX instance.</em></p>
@@ -3382,9 +3382,9 @@ containers downloaded and started.</p>
 <h3 id="edgex-foundry-container-logs">EdgeX Foundry Container Logs</h3>
 <p>Use the command below to see the log of any service.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># see the logs of a service</span>
-docker-compose logs -f <span class="o">[</span>compose-service-name<span class="o">]</span>
+docker-compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span><span class="o">[</span>compose-service-name<span class="o">]</span>
 <span class="c1"># example - core data</span>
-docker-compose logs -f data
+docker-compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>data
 </code></pre></div>
 <p>See <a href="../quick-start/#REFERENCE-EdgeX-Container-Names">EdgeX Container Names</a> for a list of the EdgeX Docker Compose service names.</p>
 <p><img alt="image" src="../EdgeX_GettingStartedUsrLogs.png" />

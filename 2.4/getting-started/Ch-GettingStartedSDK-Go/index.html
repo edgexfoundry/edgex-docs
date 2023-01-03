@@ -3308,13 +3308,13 @@ download the <a href="../../microservices/device/sdk/Ch-DeviceSDK">Device SDK</a
 <ol>
 <li>
 <p>Create a collection of nested folders, <code>~/edgexfoundry</code> on your file system. This folder will hold your new Device Service. In Linux, create a directory with a single mkdir command
-    <div class="highlight"><pre><span></span><code>mkdir -p ~/edgexfoundry
+    <div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>~/edgexfoundry
 </code></pre></div></p>
 </li>
 <li>
 <p>In a terminal window, change directories to the folder just created and pull down the SDK in Go with the commands as shown.
-    <div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/edgexfoundry
-git clone --depth <span class="m">1</span> --branch v2.0.0 https://github.com/edgexfoundry/device-sdk-go.git
+    <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/edgexfoundry
+git<span class="w"> </span>clone<span class="w"> </span>--depth<span class="w"> </span><span class="m">1</span><span class="w"> </span>--branch<span class="w"> </span>v2.0.0<span class="w"> </span>https://github.com/edgexfoundry/device-sdk-go.git
 </code></pre></div></p>
 <p><img alt="image" src="../EdgeX_GettingStartedSDKClone.png" /></p>
 <div class="admonition note">
@@ -3324,22 +3324,22 @@ git clone --depth <span class="m">1</span> --branch v2.0.0 https://github.com/ed
 </li>
 <li>
 <p>Create a folder that will hold the new device service.  The name of the folder is also the name you want to give your new device service. Standard practice in EdgeX is to prefix the name of a device service with <code>device-</code>.  In this example, the name 'device-simple' is used.
-    <div class="highlight"><pre><span></span><code>mkdir -p ~/edgexfoundry/device-simple
+    <div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>~/edgexfoundry/device-simple
 </code></pre></div></p>
 </li>
 <li>
 <p>Copy the example code from <strong>device-sdk-go</strong> to <strong>device-simple</strong>:
-    <div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/edgexfoundry
-cp -rf ./device-sdk-go/example/* ./device-simple/
+    <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/edgexfoundry
+cp<span class="w"> </span>-rf<span class="w"> </span>./device-sdk-go/example/*<span class="w"> </span>./device-simple/
 </code></pre></div></p>
 </li>
 <li>
 <p>Copy Makefile to device-simple:
-    <div class="highlight"><pre><span></span><code>cp ./device-sdk-go/Makefile ./device-simple
+    <div class="highlight"><pre><span></span><code>cp<span class="w"> </span>./device-sdk-go/Makefile<span class="w"> </span>./device-simple
 </code></pre></div></p>
 </li>
 <li>Copy version.go to device-simple:
-    <div class="highlight"><pre><span></span><code>cp ./device-sdk-go/version.go ./device-simple/
+    <div class="highlight"><pre><span></span><code>cp<span class="w"> </span>./device-sdk-go/version.go<span class="w"> </span>./device-simple/
 </code></pre></div></li>
 </ol>
 <p>After completing these steps, your device-simple folder should look like the listing below.</p>
@@ -3349,7 +3349,7 @@ cp -rf ./device-sdk-go/example/* ./device-simple/
 <ol>
 <li>
 <p>Change folders to the device-simple directory.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/edgexfoundry/device-simple
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/edgexfoundry/device-simple
 </code></pre></div>
 </li>
 <li>
@@ -3374,25 +3374,25 @@ cp -rf ./device-sdk-go/example/* ./device-simple/
 </li>
 <li>
 <p>Change:</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">GOFLAGS</span><span class="o">=</span>-ldflags <span class="s2">&quot;-X github.com/edgexfoundry/device-sdk-go/v2.Version=</span><span class="k">$(</span>VERSION<span class="k">)</span><span class="s2">&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">GOFLAGS</span><span class="o">=</span>-ldflags<span class="w"> </span><span class="s2">&quot;-X github.com/edgexfoundry/device-sdk-go/v2.Version=</span><span class="k">$(</span>VERSION<span class="k">)</span><span class="s2">&quot;</span>
 </code></pre></div>
 
 <p>to refer to the new service with:</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">GOFLAGS</span><span class="o">=</span>-ldflags <span class="s2">&quot;-X github.com/edgexfoundry/device-simple.Version=</span><span class="k">$(</span>VERSION<span class="k">)</span><span class="s2">&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">GOFLAGS</span><span class="o">=</span>-ldflags<span class="w"> </span><span class="s2">&quot;-X github.com/edgexfoundry/device-simple.Version=</span><span class="k">$(</span>VERSION<span class="k">)</span><span class="s2">&quot;</span>
 </code></pre></div>
 
 </li>
 <li>
 <p>Change:</p>
 <div class="codehilite"><pre><span></span><code><span class="nf">example/cmd/device-simple/device-simple</span><span class="o">:</span>
-  go mod tidy
-  <span class="k">$(</span>GOCGO<span class="k">)</span> build <span class="k">$(</span>GOFLAGS<span class="k">)</span> -o <span class="nv">$@</span> ./example/cmd/device-simple
+<span class="w">  </span>go<span class="w"> </span>mod<span class="w"> </span>tidy
+<span class="w">  </span><span class="k">$(</span>GOCGO<span class="k">)</span><span class="w"> </span>build<span class="w"> </span><span class="k">$(</span>GOFLAGS<span class="k">)</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">$@</span><span class="w"> </span>./example/cmd/device-simple
 </code></pre></div>
 
 <p>to:</p>
 <div class="codehilite"><pre><span></span><code><span class="nf">cmd/device-simple/device-simple</span><span class="o">:</span>
-  go mod tidy
-  <span class="k">$(</span>GOCGO<span class="k">)</span> build <span class="k">$(</span>GOFLAGS<span class="k">)</span> -o <span class="nv">$@</span> ./cmd/device-simple
+<span class="w">  </span>go<span class="w"> </span>mod<span class="w"> </span>tidy
+<span class="w">  </span><span class="k">$(</span>GOCGO<span class="k">)</span><span class="w"> </span>build<span class="w"> </span><span class="k">$(</span>GOFLAGS<span class="k">)</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">$@</span><span class="w"> </span>./cmd/device-simple
 </code></pre></div>
 
 </li>
@@ -3404,17 +3404,17 @@ cp -rf ./device-sdk-go/example/* ./device-simple/
 <li>
 <p>Enter the following command to create the initial module definition
     and write it to the go.mod file:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">GO111MODULE</span><span class="o">=</span><span class="k">on</span><span class="w"> </span><span class="k">go</span><span class="w"> </span><span class="k">mod</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">edgexfoundry</span><span class="o">/</span><span class="n">device</span><span class="o">-</span><span class="n">simple</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="n">GO111MODULE</span><span class="o">=</span><span class="k">on</span><span class="w"> </span><span class="k">go</span><span class="w"> </span><span class="k">mod</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">edgexfoundry</span><span class="o">/</span><span class="n">device</span><span class="o">-</span><span class="n">simple</span>
 </code></pre></div>
 
 <p><img alt="image" src="../EdgeX_GettingStartedGoModInit.png" /></p>
 </li>
 <li>
 <p>Use an editor to open and edit the go.mod file created in ~/edgexfoundry/device-simple.  Add the code highlighted below to the bottom of the file.  This code indicates which version of the device service SDK and the associated EdgeX contracts module to use.</p>
-<p><div class="highlight"><pre><span></span><code><span class="nx">require</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">    </span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">edgexfoundry</span><span class="o">/</span><span class="nx">device</span><span class="o">-</span><span class="nx">sdk</span><span class="o">-</span><span class="k">go</span><span class="o">/</span><span class="nx">v2</span><span class="w"> </span><span class="nx">v2</span><span class="mf">.0.0</span><span class="w"></span>
-<span class="w">    </span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">edgexfoundry</span><span class="o">/</span><span class="k">go</span><span class="o">-</span><span class="nx">mod</span><span class="o">-</span><span class="nx">core</span><span class="o">-</span><span class="nx">contracts</span><span class="o">/</span><span class="nx">v2</span><span class="w"> </span><span class="nx">v2</span><span class="mf">.0.0</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<p><div class="highlight"><pre><span></span><code><span class="nx">require</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">edgexfoundry</span><span class="o">/</span><span class="nx">device</span><span class="o">-</span><span class="nx">sdk</span><span class="o">-</span><span class="k">go</span><span class="o">/</span><span class="nx">v2</span><span class="w"> </span><span class="nx">v2</span><span class="mf">.0.0</span>
+<span class="w">    </span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">edgexfoundry</span><span class="o">/</span><span class="k">go</span><span class="o">-</span><span class="nx">mod</span><span class="o">-</span><span class="nx">core</span><span class="o">-</span><span class="nx">contracts</span><span class="o">/</span><span class="nx">v2</span><span class="w"> </span><span class="nx">v2</span><span class="mf">.0.0</span>
+<span class="p">)</span>
 </code></pre></div>
 <img alt="image" src="../EdgeX_GettingStartedSDKGoMod.png" /></p>
 <div class="admonition note">
@@ -3426,7 +3426,7 @@ cp -rf ./device-sdk-go/example/* ./device-simple/
 <h2 id="build-your-device-service">Build your Device Service</h2>
 <p>To ensure that the code you have moved and updated still works, build
 the device service. In a terminal window, make sure you are still in the device-simple folder (the folder containing the Makefile).  Build the service by issuing the following command:</p>
-<div class="highlight"><pre><span></span><code>make build
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>build
 </code></pre></div>
 <p>If there are no errors, your service is ready for you to add
 custom code to generate data values as if there was a sensor
@@ -3448,16 +3448,16 @@ service would ordinarily make a call to get sensor data from the actual device.<
 <li>
 <p>Locate the HandleReadCommands() function in this same file (simpledriver.go). Find the
     following lines of code in this file (around line 139):</p>
-<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">reqs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">DeviceResourceName</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;SwitchButton&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">reqs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">DeviceResourceName</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;SwitchButton&quot;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">cv</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sdkModels</span><span class="p">.</span><span class="nx">NewCommandValue</span><span class="p">(</span><span class="nx">reqs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">DeviceResourceName</span><span class="p">,</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">ValueTypeBool</span><span class="p">,</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">switchButton</span><span class="p">)</span><span class="w">  </span>
-<span class="w">    </span><span class="nx">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">cv</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="nx">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">cv</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>Add the conditional (if-else) code in front of the above conditional:</p>
-<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">reqs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">DeviceResourceName</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;randomnumber&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">cv</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sdkModels</span><span class="p">.</span><span class="nx">NewCommandValue</span><span class="p">(</span><span class="nx">reqs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">DeviceResourceName</span><span class="p">,</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">ValueTypeInt32</span><span class="p">,</span><span class="w"> </span><span class="nb">int32</span><span class="p">(</span><span class="nx">rand</span><span class="p">.</span><span class="nx">Intn</span><span class="p">(</span><span class="mi">100</span><span class="p">)))</span><span class="w"></span>
-<span class="w">    </span><span class="nx">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">cv</span><span class="w"></span>
-<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">reqs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">DeviceResourceName</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;randomnumber&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">cv</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sdkModels</span><span class="p">.</span><span class="nx">NewCommandValue</span><span class="p">(</span><span class="nx">reqs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">DeviceResourceName</span><span class="p">,</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">ValueTypeInt32</span><span class="p">,</span><span class="w"> </span><span class="nb">int32</span><span class="p">(</span><span class="nx">rand</span><span class="p">.</span><span class="nx">Intn</span><span class="p">(</span><span class="mi">100</span><span class="p">)))</span>
+<span class="w">    </span><span class="nx">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">cv</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span>
 </code></pre></div>
 <p><img alt="image" src="../EdgeX_GettingStartedSDKGoGenNumber.png" /></p>
 <p>The first line of code checks that the current request is for a resource called "RandomNumber". The second line of code generates
@@ -3507,13 +3507,13 @@ EdgeX. General characteristics about the type of device, the data these devices 
 <p>Go Device Services provide <code>/api/v2/validate/device</code> API to validate device's ProtocolProperties.<br />
 This feature allows Device Services whose protocol has strict rule to validate their devices before adding them into EdgeX.</p>
 <p>Go SDK provides <code>DeviceValidator</code> interface:
-<div class="highlight"><pre><span></span><code><span class="c1">// DeviceValidator is a low-level device-specific interface implemented</span><span class="w"></span>
-<span class="c1">// by device services that validate device&#39;s protocol properties.</span><span class="w"></span>
-<span class="kd">type</span><span class="w"> </span><span class="nx">DeviceValidator</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// ValidateDevice triggers device&#39;s protocol properties validation, returns error</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// if validation failed and the incoming device will not be added into EdgeX.</span><span class="w"></span>
-<span class="w">    </span><span class="nx">ValidateDevice</span><span class="p">(</span><span class="nx">device</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">Device</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="c1">// DeviceValidator is a low-level device-specific interface implemented</span>
+<span class="c1">// by device services that validate device&#39;s protocol properties.</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">DeviceValidator</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ValidateDevice triggers device&#39;s protocol properties validation, returns error</span>
+<span class="w">    </span><span class="c1">// if validation failed and the incoming device will not be added into EdgeX.</span>
+<span class="w">    </span><span class="nx">ValidateDevice</span><span class="p">(</span><span class="nx">device</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">Device</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
+<span class="p">}</span>
 </code></pre></div></p>
 <p>By implementing <code>DeviceValidator</code> interface whenever a device is added or updated,
 <code>ValidateDevice</code> function will be called to validate incoming device's ProtocolProperties and reject
@@ -3616,15 +3616,15 @@ the request if validation failed.</p>
 </li>
 </ol>
 <p>!!! example "Example - Service Telemetry Configuration"
-       <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">[Writable.Telemetry]</span><span class="w"></span>
-<span class="w">  </span><span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30s&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">PublishTopicPrefix</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;edgex/telemetry&quot;</span><span class="w"> </span><span class="c1"># /&lt;service-name&gt;/&lt;metric-name&gt; will be added to this Publish Topic prefix</span><span class="w"></span>
-<span class="w">    </span><span class="p">[</span><span class="n">Writable</span><span class="p">.</span><span class="n">Telemetry</span><span class="p">.</span><span class="n">Metrics</span><span class="p">]</span><span class="w"> </span><span class="c1"># All service&#39;s metric names must be present in this list.</span><span class="w"></span>
-<span class="w">    </span><span class="n">MyCounterName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
-<span class="w">    </span><span class="n">MyGaugeName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
-<span class="w">    </span><span class="n">MyGaugeFloat64Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
-<span class="w">    </span><span class="n">MyTimerName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
-<span class="w">    </span><span class="n">MyHistogram</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+       <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">[Writable.Telemetry]</span>
+<span class="w">  </span><span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30s&quot;</span>
+<span class="w">  </span><span class="n">PublishTopicPrefix</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;edgex/telemetry&quot;</span><span class="w"> </span><span class="c1"># /&lt;service-name&gt;/&lt;metric-name&gt; will be added to this Publish Topic prefix</span>
+<span class="w">    </span><span class="p">[</span><span class="n">Writable</span><span class="p">.</span><span class="n">Telemetry</span><span class="p">.</span><span class="n">Metrics</span><span class="p">]</span><span class="w"> </span><span class="c1"># All service&#39;s metric names must be present in this list.</span>
+<span class="w">    </span><span class="n">MyCounterName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="n">MyGaugeName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="n">MyGaugeFloat64Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="n">MyTimerName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="n">MyHistogram</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
 </code></pre></div></p>
 <div class="codehilite"><pre><span></span><code>       [Writable.Telemetry.Tags] # Contains the service level tags to be attached to all the service&#39;s metrics
    #    Gateway=&quot;my-iot-gateway&quot; # Tag must be added here or via Consul Env Override can only change existing value, not added new ones.
@@ -3637,8 +3637,8 @@ the request if validation failed.</p>
 <p>The Go Device SDK provides the <code>SecretProvider.GetSecret()</code> API to retrieve the Device Services secrets.  See the <a href="https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/internal/driver/config.go#L114">Device MQTT Service</a> for an example of using the <code>SecretProvider.GetSecret()</code> API. Note that this code implements a retry loop allowing time for the secret(s) to be push into the service's <code>SecretStore</code> via the /secret endpoint. See <a href="../../microservices/device/Ch-DeviceServices/#storing-secrets">Storing Secrets</a> section for more details.  </p>
 <h2 id="rebuild-your-device-service">Rebuild your Device Service</h2>
 <p>Just as you did in the <a href="./#build-your-device-service">Build your Device Service</a> step above, build the device-simple service, which creates the executable program that is your device service.  In a terminal window, make sure you are in the device-simple folder (the folder containing the Makefile).  Build the service by issuing the following command:</p>
-<p><div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/edgexfoundry/device-simple
-make build
+<p><div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/edgexfoundry/device-simple
+make<span class="w"> </span>build
 </code></pre></div>
 <img alt="image" src="../EdgeX_GettingStartedSDKBuild.png" /></p>
 <p>If there are no errors, your service is created and put in the 
@@ -3652,13 +3652,13 @@ sends to EdgeX:</p>
 <p>Follow the <a href="../Ch-GettingStartedDockerUsers/">Getting Started using Docker</a> guide to start all of EdgeX. From
     the folder containing the docker-compose file, start EdgeX with the
     following call (we're using non-security EdgeX in this example):</p>
-<div class="highlight"><pre><span></span><code>docker-compose -f docker-compose-no-secty.yml up -d
+<div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>-f<span class="w"> </span>docker-compose-no-secty.yml<span class="w"> </span>up<span class="w"> </span>-d
 </code></pre></div>
 </li>
 <li>
 <p>In a terminal window, change directories to the device-simple's
     cmd/device-simple folder and run the new device-simple service.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/edgexfoundry/device-simple/cmd/device-simple
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/edgexfoundry/device-simple/cmd/device-simple
 ./device-simple
 </code></pre></div>
 <p>This starts the service and immediately displays log entries in the
