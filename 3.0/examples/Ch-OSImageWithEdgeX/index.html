@@ -1,0 +1,4252 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for use of EdgeX Foundry">
+      
+      
+        <meta name="author" content="Michael Johanson">
+      
+      
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/examples/Ch-OSImageWithEdgeX/">
+      
+      <link rel="icon" href="../../assets/logo_edgex.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.8">
+    
+    
+      
+        <title>Creating an EdgeX OS Image - EdgeX Foundry Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.20d9efc8.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.815d1a91.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/version-select.css">
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/branding.css">
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/edgey.css">
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/newexample.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+
+  <script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-38531ZZHBN"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-38531ZZHBN",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-38531ZZHBN",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#creating-an-edgex-os-image" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="EdgeX Foundry Documentation" class="md-header__button md-logo" aria-label="EdgeX Foundry Documentation" data-md-component="logo">
+      
+  <img src="../../assets/logo_edgex_white.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            EdgeX Foundry Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Creating an EdgeX OS Image
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    edgex/edgex-go
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        Introduction
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../getting-started/" class="md-tabs__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../security/Ch-Security/" class="md-tabs__link">
+        Security
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../microservices/general/" class="md-tabs__link">
+        Microservices
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
+        Examples and Tutorials
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../api/Ch-APIIntroduction/" class="md-tabs__link">
+        API Reference
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../design/Process/" class="md-tabs__link">
+        Use Cases & Designs
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../general/Definitions/" class="md-tabs__link">
+        Reference
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation" data-md-component="logo">
+      
+  <img src="../../assets/logo_edgex_white.png" alt="logo">
+
+    </a>
+    EdgeX Foundry Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    edgex/edgex-go
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Introduction
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../V2TopLevelMigration/" class="md-nav__link">
+        V2 Migration Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Getting Started
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/quick-start/" class="md-nav__link">
+        Quick Start
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Users
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Users" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Users
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/Ch-GettingStartedUsers/" class="md-nav__link">
+        Getting Started as a User
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/Ch-GettingStartedDockerUsers/" class="md-nav__link">
+        Getting Started using Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/Ch-GettingStartedSnapUsers/" class="md-nav__link">
+        Getting Started using Snaps
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/Ch-GettingStartedDTOValidation/" class="md-nav__link">
+        DTO Validation
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          Developers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Developers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Developers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/Ch-GettingStartedDevelopers/" class="md-nav__link">
+        Getting Started as a Developer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/Ch-GettingStartedGoDevelopers/" class="md-nav__link">
+        Getting Started - Go Developers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/Ch-GettingStartedCDevelopers/" class="md-nav__link">
+        Getting Started - C Developers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/Ch-GettingStartedHybrid/" class="md-nav__link">
+        Working in a Hybrid Environment
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4_5" type="checkbox" id="__nav_2_4_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4_5">
+          Native Build and Run Guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Native Build and Run Guides" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_4_5">
+          <span class="md-nav__icon md-icon"></span>
+          Native Build and Run Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/native/Ch-BuildRunNative/" class="md-nav__link">
+        Native Build and Run
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/native/Ch-BuildRunOnLinuxDistro/" class="md-nav__link">
+        Build and Run on Linux on x86/x64
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/native/Ch-BuildRunOnArm32/" class="md-nav__link">
+        Build and Run on Linux on ARM 32
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/native/Ch-BuildRunOnWindows/" class="md-nav__link">
+        Build and Run on Windows on x86/x64
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/ApplicationFunctionsSDK/" class="md-nav__link">
+        Application Functions SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4_7" type="checkbox" id="__nav_2_4_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4_7">
+          Device Services
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Device Services" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_4_7">
+          <span class="md-nav__icon md-icon"></span>
+          Device Services
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/Ch-GettingStartedSDK/" class="md-nav__link">
+        Device Service SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/Ch-GettingStartedSDK-C/" class="md-nav__link">
+        C SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/Ch-GettingStartedSDK-Go/" class="md-nav__link">
+        Golang SDK
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/Ch-GettingStartedUsersNexus/" class="md-nav__link">
+        Getting Docker Images from EdgeX Nexus Repository
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_5">
+          Tools
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tools" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Tools
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/tools/Ch-CommandLineInterface/" class="md-nav__link">
+        Command Line Interface (CLI)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/tools/Ch-GUI/" class="md-nav__link">
+        Graphical User Interface (GUI)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Security
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Security" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Security
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security/Ch-Security/" class="md-nav__link">
+        Security
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security/Ch-SecretStore/" class="md-nav__link">
+        Secret Store
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security/Ch-SecretProviderApi/" class="md-nav__link">
+        Secret Provider API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security/Ch-APIGateway/" class="md-nav__link">
+        API Gateway
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security/Ch-Secure-MessageBus/" class="md-nav__link">
+        Secure MessageBus
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security/Ch-Configuring-Add-On-Services/" class="md-nav__link">
+        Configuring Add-on Service
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security/Ch-Secure-Consul/" class="md-nav__link">
+        Secure Consul
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security/Ch-SecurityIssues/" class="md-nav__link">
+        Reporting Security Issues
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security/Ch-AddGatewayUserRemotely/" class="md-nav__link">
+        Adding EdgeX API Gateway Users Remotely
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security/secrets-config/" class="md-nav__link">
+        Secrets config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security/secrets-config-proxy/" class="md-nav__link">
+        Secrets config proxy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security/SeedingServiceSecrets/" class="md-nav__link">
+        Seeding Service Secrets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security/Ch-CORS-Settings/" class="md-nav__link">
+        CORS settings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security/Ch-RemoteDeviceServices/" class="md-nav__link">
+        Remote Device Services in Secure Mode
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Microservices
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Microservices" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Microservices
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/general/" class="md-nav__link">
+        Cross Cutting Concerns
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_2">
+          Configuration & Registry
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Configuration & Registry" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Configuration & Registry
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/configuration/CommonConfiguration/" class="md-nav__link">
+        Common Configuration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/configuration/CommonCommandLineOptions/" class="md-nav__link">
+        Common Command Line Options
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/configuration/CommonEnvironmentVariables/" class="md-nav__link">
+        Common Environment Variables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/configuration/ConfigurationAndRegistry/" class="md-nav__link">
+        Configuration and Registry Providers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/configuration/V2MigrationCommonConfig/" class="md-nav__link">
+        V2 Migration of Common Configuration
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/general/messagebus/" class="md-nav__link">
+        EdgeX MessageBus
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_4" type="checkbox" id="__nav_4_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_4">
+          Core Services
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Core Services" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          Core Services
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/core/Ch-CoreServices/" class="md-nav__link">
+        Core Services
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/core/data/Ch-CoreData/" class="md-nav__link">
+        Core Data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/core/metadata/Ch-Metadata/" class="md-nav__link">
+        Metadata
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/core/command/Ch-Command/" class="md-nav__link">
+        Command
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/core/database/Ch-Redis/" class="md-nav__link">
+        Redis Database
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_5" type="checkbox" id="__nav_4_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_5">
+          Supporting Services
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Supporting Services" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_5">
+          <span class="md-nav__icon md-icon"></span>
+          Supporting Services
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/support/Ch-SupportingServices/" class="md-nav__link">
+        Supporting Services Microservices
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/support/notifications/Ch-AlertsNotifications/" class="md-nav__link">
+        Alerts & Notifications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/support/eKuiper/Ch-eKuiper/" class="md-nav__link">
+        eKuiper Rules Engine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/support/scheduler/Ch-Scheduler/" class="md-nav__link">
+        Scheduler
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6" type="checkbox" id="__nav_4_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_6">
+          System Management
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="System Management" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_6">
+          <span class="md-nav__icon md-icon"></span>
+          System Management
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/system-management/Ch_SystemManagement/" class="md-nav__link">
+        System Management Micro Services
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/system-management/agent/Ch_SysMgmtAgent/" class="md-nav__link">
+        System Management Agent (SMA)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/system-management/executor/Ch_SysMgmtExecutor/" class="md-nav__link">
+        System Management Executor (SME)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_7" type="checkbox" id="__nav_4_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_7">
+          Devices Services
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Devices Services" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_7">
+          <span class="md-nav__icon md-icon"></span>
+          Devices Services
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/device/Ch-DeviceServices/" class="md-nav__link">
+        Device Services Microservices
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/device/Ch-DeviceServiceList/" class="md-nav__link">
+        Supported Device Services
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/device/profile/Ch-DeviceProfile/" class="md-nav__link">
+        Device Profile
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/device/sdk/Ch-DeviceSDK/" class="md-nav__link">
+        Device Services SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_7_5" type="checkbox" id="__nav_4_7_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_7_5">
+          Device SDK API
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Device SDK API" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_7_5">
+          <span class="md-nav__icon md-icon"></span>
+          Device SDK API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/device/sdk/SDK-Go-API/" class="md-nav__link">
+        Go Device SDK API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/device/virtual/Ch-VirtualDevice/" class="md-nav__link">
+        Virtual Device
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/device/V2Migration/" class="md-nav__link">
+        V2 Migration Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_8" type="checkbox" id="__nav_4_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_8">
+          Application Services
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Application Services" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_8">
+          <span class="md-nav__icon md-icon"></span>
+          Application Services
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/application/ApplicationServices/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/application/GettingStarted/" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/application/Triggers/" class="md-nav__link">
+        Triggers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_8_4" type="checkbox" id="__nav_4_8_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_8_4">
+          Application Functions SDK
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Application Functions SDK" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_8_4">
+          <span class="md-nav__icon md-icon"></span>
+          Application Functions SDK
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/application/ApplicationFunctionsSDK/" class="md-nav__link">
+        App Functions SDK Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/application/ApplicationServiceAPI/" class="md-nav__link">
+        Application Service API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/application/AppFunctionContextAPI/" class="md-nav__link">
+        App Function Context API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/application/ErrorHandling/" class="md-nav__link">
+        Pipeline Function Error Handling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/application/BuiltIn/" class="md-nav__link">
+        Built-In Pipeline Functions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/application/AdvancedTopics/" class="md-nav__link">
+        Advanced Topics
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/application/AppServiceConfigurable/" class="md-nav__link">
+        App Service Configurable
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/application/GeneralAppServiceConfig/" class="md-nav__link">
+        Application Service Configuration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microservices/application/V2Migration/" class="md-nav__link">
+        V2 Migration Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Examples and Tutorials
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Examples and Tutorials" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Examples and Tutorials
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        EdgeX Examples
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Ch-ExamplesVirtualDeviceService/" class="md-nav__link">
+        Using the Virtual Device Service
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Ch-ExamplesUsbDeviceService/" class="md-nav__link">
+        USB Camera Device Service RTSP Streaming Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Ch-ExamplesSendingAndConsumingBinary/" class="md-nav__link">
+        Sending and Consuming Binary Data From EdgeX Device Services
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AppServiceExamples/" class="md-nav__link">
+        App Service Examples
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Ch-CommandingDeviceThroughRulesEngine/" class="md-nav__link">
+        Command Devices with eKuiper Rules Engine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Ch-ExamplesModbusdatatypeconversion/" class="md-nav__link">
+        Modbus - Data Type Conversion
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Creating an EdgeX OS Image
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Creating an EdgeX OS Image
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-create-an-image-with-edgex-components" class="md-nav__link">
+    A. Create an image with EdgeX components
+  </a>
+  
+    <nav class="md-nav" aria-label="A. Create an image with EdgeX components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configure-the-ubuntu-core-partitions" class="md-nav__link">
+    Configure the Ubuntu Core partitions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-an-ubuntu-core-model-assertion" class="md-nav__link">
+    Create an Ubuntu Core model assertion
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-the-ubuntu-core-image" class="md-nav__link">
+    Build the Ubuntu Core image
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boot-into-the-os" class="md-nav__link">
+    Boot into the OS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#try-it-out" class="md-nav__link">
+    TRY IT OUT
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#b-override-basic-configurations" class="md-nav__link">
+    B. Override basic configurations
+  </a>
+  
+    <nav class="md-nav" aria-label="B. Override basic configurations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-key-pair-and-jwt-token" class="md-nav__link">
+    Create key pair and JWT token
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup-defaults-using-a-gadget-snap" class="md-nav__link">
+    Setup defaults using a Gadget snap
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-the-image" class="md-nav__link">
+    Build the image
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#try-it-out_1" class="md-nav__link">
+    TRY IT OUT
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c-override-configuration-files" class="md-nav__link">
+    C. Override configuration files
+  </a>
+  
+    <nav class="md-nav" aria-label="C. Override configuration files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-config-provider-for-device-virtual" class="md-nav__link">
+    Create a config provider for Device Virtual
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-the-config-provider-to-the-image" class="md-nav__link">
+    Add the config provider to the image
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-the-image_1" class="md-nav__link">
+    Build the image
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#try-it-out_2" class="md-nav__link">
+    TRY IT OUT
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-in-an-emulator" class="md-nav__link">
+    Run in an emulator
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flash-the-image-on-disk" class="md-nav__link">
+    Flash the image on disk
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initialization" class="md-nav__link">
+    Initialization
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_9" type="checkbox" id="__nav_5_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_9">
+          Adding a Device
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Adding a Device" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_9">
+          <span class="md-nav__icon md-icon"></span>
+          Adding a Device
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Ch-ExamplesAddingModbusDevice/" class="md-nav__link">
+        Modbus
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Ch-ExamplesAddingSNMPDevice/" class="md-nav__link">
+        SNMP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Ch-ExamplesAddingMQTTDevice/" class="md-nav__link">
+        MQTT
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_10" type="checkbox" id="__nav_5_10" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_10">
+          Walkthrough
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Walkthrough" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_10">
+          <span class="md-nav__icon md-icon"></span>
+          Walkthrough
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../walk-through/Ch-Walkthrough/" class="md-nav__link">
+        EdgeX Demonstration API Walk Through
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../walk-through/Ch-WalkthroughSetup/" class="md-nav__link">
+        Setup up your environment
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../walk-through/Ch-WalkthroughUseCase/" class="md-nav__link">
+        Example Use Case
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../walk-through/Ch-WalkthroughDeviceProfile/" class="md-nav__link">
+        Defining your device
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../walk-through/Ch-WalkthroughDeviceService/" class="md-nav__link">
+        Register your device service
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../walk-through/Ch-WalkthroughProvision/" class="md-nav__link">
+        Provision a device
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../walk-through/Ch-WalkthroughCommands/" class="md-nav__link">
+        Calling commands
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../walk-through/Ch-WalkthroughReading/" class="md-nav__link">
+        Sending events and reading data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../walk-through/Ch-WalkthroughExporting/" class="md-nav__link">
+        Exporting your device data
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          API Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          API Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/Ch-APIIntroduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2" type="checkbox" id="__nav_6_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2">
+          Core
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Core" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          Core
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/core/Ch-APICoreCommand/" class="md-nav__link">
+        Core Command
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/core/Ch-APICoreData/" class="md-nav__link">
+        Core Data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/core/Ch-APICoreMetadata/" class="md-nav__link">
+        Core Metadata
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/core/Ch-APICoreConfigurationAndRegistry/" class="md-nav__link">
+        Configuration and Registry
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3" type="checkbox" id="__nav_6_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3">
+          Support
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Support" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          Support
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/support/Ch-APISupportNotifications/" class="md-nav__link">
+        Support Notifications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/support/Ch-APISupportScheduler/" class="md-nav__link">
+        Support Scheduler
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4" type="checkbox" id="__nav_6_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4">
+          Management
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Management" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_4">
+          <span class="md-nav__icon md-icon"></span>
+          Management
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/management/Ch-APISystemManagement/" class="md-nav__link">
+        System Management Agent
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_5" type="checkbox" id="__nav_6_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_5">
+          Device
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Device" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_5">
+          <span class="md-nav__icon md-icon"></span>
+          Device
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/devices/Ch-APIDeviceSDK/" class="md-nav__link">
+        Device Services
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_6" type="checkbox" id="__nav_6_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_6">
+          Application
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Application" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_6">
+          <span class="md-nav__icon md-icon"></span>
+          Application
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/applications/Ch-APIAppFunctionsSDK/" class="md-nav__link">
+        Application Services
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/applications/Ch-APIRulesEngine/" class="md-nav__link">
+        Rules Engine
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Use Cases & Designs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Use Cases & Designs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Use Cases & Designs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/Process/" class="md-nav__link">
+        Use Cases and Design Process
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/TOC/" class="md-nav__link">
+        Use Cases and Design Records
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Legacy
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Legacy" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Legacy
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/legacy-design/" class="md-nav__link">
+        Legacy Design Documents
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/legacy-requirements/" class="md-nav__link">
+        Legacy Requirements
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../general/Definitions/" class="md-nav__link">
+        Definitions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../general/PlatformRequirements/" class="md-nav__link">
+        Platform Requirements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../general/ServicePorts/" class="md-nav__link">
+        Default Service Ports
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../general/ContainerNames/" class="md-nav__link">
+        EdgeX Container Names
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../general/ServiceConfiguration/" class="md-nav__link">
+        Service Configuration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../general/EdgeX_CN/" class="md-nav__link">
+        Is EdgeX Foundry Cloud Native?
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-create-an-image-with-edgex-components" class="md-nav__link">
+    A. Create an image with EdgeX components
+  </a>
+  
+    <nav class="md-nav" aria-label="A. Create an image with EdgeX components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configure-the-ubuntu-core-partitions" class="md-nav__link">
+    Configure the Ubuntu Core partitions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-an-ubuntu-core-model-assertion" class="md-nav__link">
+    Create an Ubuntu Core model assertion
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-the-ubuntu-core-image" class="md-nav__link">
+    Build the Ubuntu Core image
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boot-into-the-os" class="md-nav__link">
+    Boot into the OS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#try-it-out" class="md-nav__link">
+    TRY IT OUT
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#b-override-basic-configurations" class="md-nav__link">
+    B. Override basic configurations
+  </a>
+  
+    <nav class="md-nav" aria-label="B. Override basic configurations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-key-pair-and-jwt-token" class="md-nav__link">
+    Create key pair and JWT token
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup-defaults-using-a-gadget-snap" class="md-nav__link">
+    Setup defaults using a Gadget snap
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-the-image" class="md-nav__link">
+    Build the image
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#try-it-out_1" class="md-nav__link">
+    TRY IT OUT
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c-override-configuration-files" class="md-nav__link">
+    C. Override configuration files
+  </a>
+  
+    <nav class="md-nav" aria-label="C. Override configuration files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-config-provider-for-device-virtual" class="md-nav__link">
+    Create a config provider for Device Virtual
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-the-config-provider-to-the-image" class="md-nav__link">
+    Add the config provider to the image
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-the-image_1" class="md-nav__link">
+    Build the image
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#try-it-out_2" class="md-nav__link">
+    TRY IT OUT
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-in-an-emulator" class="md-nav__link">
+    Run in an emulator
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flash-the-image-on-disk" class="md-nav__link">
+    Flash the image on disk
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initialization" class="md-nav__link">
+    Initialization
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/examples/Ch-OSImageWithEdgeX.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="creating-an-edgex-os-image">Creating an EdgeX OS Image</h1>
+<h2 id="introduction">Introduction</h2>
+<p>This guide walks you through creating an Ubuntu Core OS image that is preloaded with an EdgeX stack. We use <a href="https://ubuntu.com/core/docs">Ubuntu Core</a> as the Linux distribution because it is optimized for IoT and is secure by design. We configure the image and bundle the current snapped versions of EdgeX components. After the deployment the snaps will continue to receive updates for the latest security and bug fixes (depending on the selected channel).</p>
+<p>This guide is divided into three chapters to create:</p>
+<ul>
+<li>Ubuntu Core + EdgeX, with default configurations</li>
+<li>Ubuntu Core + EdgeX, with service configuration overrides</li>
+<li>Ubuntu Core + EdgeX, with custom service and device configuration files</li>
+</ul>
+<p>Each chapter results in a working Ubuntu Core OS image that can be flashed on a disk and booted with the expected EdgeX stack.</p>
+<p>In this example, we will create an <code>amd64</code> image, but the instructions can be adapted to other architectures and even for a Raspberry Pi. We will use the Device Virtual service to simulate devices and produce synthetic events.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This guide has been tested on an <code>amd64</code> <strong>Ubuntu 22.04</strong> as the desktop OS. It may work on other Linux distributions and Ubuntu versions.</p>
+<p>Some commands are executed on the desktop computer, but some others on the target Ubuntu Core system. For clarity, we use <strong>🖥 Desktop</strong> and <strong>🚀 Ubuntu Core</strong> titles for code blocks to distinguish where those commands are being executed.</p>
+<p>An Intel NUC11TNH with 8GB RAM and 250GB NAND flash storage has been used as the target <code>amd64</code> hardware. </p>
+</div>
+<p>We assume the following tools are installed on the desktop machine:</p>
+<ul>
+<li><a href="https://snapcraft.io/snapcraft">snapcraft</a> to manage keys in the store and build snaps</li>
+<li><a href="https://snapcraft.io/yq">YQ</a> to validate YAML files and convert them to JSON</li>
+<li><a href="https://snapcraft.io/ubuntu-image">ubuntu-image</a> to build the Ubuntu Core image</li>
+</ul>
+<p>Install them using the following commands:
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>snapcraft<span class="w"> </span>--classic
+sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>yq
+sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>ubuntu-image<span class="w"> </span>--classic
+</code></pre></div></p>
+<p>Before we start, it is a good idea to read through the following documents:</p>
+<ul>
+<li><a href="https://ubuntu.com/core/docs/uc20/inside">Inside Ubuntu Core</a> to get familiar with the Ubuntu core internals</li>
+<li><a href="../../getting-started/Ch-GettingStartedSnapUsers">Getting Started using Snaps</a> to understand general EdgeX snap concepts</li>
+</ul>
+<h2 id="a-create-an-image-with-edgex-components">A. Create an image with EdgeX components</h2>
+<p>In this chapter, we will create an OS image that includes the expected EdgeX components.</p>
+<h3 id="configure-the-ubuntu-core-partitions">Configure the Ubuntu Core partitions</h3>
+<p>The configuration of the partitions is defined in the <a href="https://snapcraft.io/docs/gadget-snap">Gadget snap</a>.</p>
+<p>The <a href="https://snapcraft.io/pc"><code>pc</code> gadget</a> is available as a prebuilt snap in the store, however, we need to build our own to extend the size of disk partitions to have sufficient capacity for our EdgeX snaps.</p>
+<p>We will use the source code for Core20 AMD64 gadget from <a href="https://github.com/snapcore/pc-amd64-gadget/tree/20">here</a> as basis.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>For a Raspberry Pi, you need to use the <a href="https://github.com/snapcore/pi-gadget">pi-gadget</a> instead.</p>
+</div>
+<p>Clone the branch and enter the directory:
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/snapcore/pc-amd64-gadget.git<span class="w"> </span>--branch<span class="o">=</span><span class="m">20</span>
+<span class="nb">cd</span><span class="w"> </span>pc-amd64-gadget
+</code></pre></div></p>
+<p>In <code>gadget.yml</code>: under <code>volumes.pc.structure</code>, find the item with name <code>ubuntu-seed</code> and increase its size to <code>1500M</code>. This is to make sure our seeded snaps fit in the partition.</p>
+<p>Then, build the gadget snap:
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$<span class="w"> </span>snapcraft
+...
+Snapped<span class="w"> </span>pc_20-0.4_amd64.snap
+</code></pre></div></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You need to rebuild the snap every time you change the <code>gadget.yaml</code> file.</p>
+</div>
+<h3 id="create-an-ubuntu-core-model-assertion">Create an Ubuntu Core model assertion</h3>
+<p>The <a href="https://ubuntu.com/core/docs/reference/assertions/model">model assertion</a> is a digitally signed document that describes the content of the OS image.</p>
+<p>Refer to <a href="https://ubuntu.com/core/docs/custom-images#heading--signing">this article</a> for details on how to sign the model assertion. Here are the needed steps:</p>
+<p>1) Create a developer account</p>
+<p>Follow the instructions <a href="https://snapcraft.io/docs/creating-your-developer-account">here</a> to create a developer account, if you don't already have one.</p>
+<p>2) Create and register a key</p>
+<p><div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>snap<span class="w"> </span>login
+snap<span class="w"> </span>keys
+<span class="c1"># continue if you have no existing keys</span>
+<span class="c1"># you&#39;ll be asked to set a passphrase which is needed before signing</span>
+snap<span class="w"> </span>create-key<span class="w"> </span>edgex-demo
+snapcraft<span class="w"> </span>register-key<span class="w"> </span>edgex-demo
+</code></pre></div>
+We now have a registered key named <code>edgex-demo</code> which we'll use later.</p>
+<p>3) Create the model assertion</p>
+<p>First, make yourself familiar with the Ubuntu Core <a href="https://ubuntu.com/core/docs/reference/assertions/model">model assertion</a>.</p>
+<p>Find your developer ID using the Snapcraft CLI:
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$<span class="w"> </span>snapcraft<span class="w"> </span>whoami
+...
+developer-id:<span class="w"> </span>SZ4OfFv8DVM9om64iYrgojDLgbzI0eiL
+</code></pre></div>
+or from the <a href="https://dashboard.snapcraft.io/dev/account/">Snapcraft Dashboard</a>.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Unlike the official documentation which uses JSON, we use YAML serialization for the model. This is for consistency with all the other serialization formats in this tutorial. Moreover, it allows us to comment out some parts for testing or add comments to describe the details inline.</p>
+</div>
+<p>Create <code>model.yaml</code> with the following content, replacing <code>authority-id</code>, <code>brand-id</code>, and <code>timestamp</code>:
+<div class="highlight"><pre><span></span><code><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">model</span>
+<span class="nt">series</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;16&#39;</span>
+
+<span class="c1"># authority-id and brand-id must be set to your developer-id</span>
+<span class="nt">authority-id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SZ4OfFv8DVM9om64iYrgojDLgbzI0eiL</span>
+<span class="nt">brand-id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SZ4OfFv8DVM9om64iYrgojDLgbzI0eiL</span>
+
+<span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-core-20-amd64</span>
+<span class="nt">architecture</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">amd64</span>
+
+<span class="c1"># timestamp should be within your signature&#39;s validity period</span>
+<span class="nt">timestamp</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2022-06-21T10:45:00+00:00&#39;</span>
+<span class="nt">base</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">core20</span>
+
+<span class="nt">grade</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dangerous</span>
+
+<span class="nt">snaps</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="c1"># This is our custom, dev gadget snap</span>
+<span class="w">  </span><span class="c1"># It has no channel and id, because it isn&#39;t in the store.</span>
+<span class="w">  </span><span class="c1"># We&#39;re going to build it locally and pass it to the image builder. </span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pc</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gadget</span>
+<span class="w">  </span><span class="c1"># default-channel: 20/stable</span>
+<span class="w">  </span><span class="c1"># id: UqFziVZDHLSyO3TqSWgNBoAdHbLI4dAH</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pc-kernel</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kernel</span>
+<span class="w">  </span><span class="nt">default-channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20/stable</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pYVQrBcKmBa0mZ4CCN7ExT6jH8rY1hza</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">snapd</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">snapd</span>
+<span class="w">  </span><span class="nt">default-channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest/stable</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PMrrV4ml8uWuEUDBT8dSGnKUYbevVhc4</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">core20</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">base</span>
+<span class="w">  </span><span class="nt">default-channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest/stable</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DLqre5XGLbDqg9jPtiAhRRjDuPVa5X1q</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">core22</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">base</span>
+<span class="w">  </span><span class="nt">default-channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest/stable</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">amcUKQILKXHHTlmSa7NMdnXSx02dNeeT</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgexfoundry</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app</span>
+<span class="w">  </span><span class="nt">default-channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest/stable</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AZGf0KNnh8aqdkbGATNuRuxnt1GNRKkV</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-device-virtual</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app</span>
+<span class="w">  </span><span class="nt">default-channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest/stable</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AmKuVTOfsN0uEKsyJG34M8CaMfnIqxc0</span>
+</code></pre></div></p>
+<p>4) Sign the model assertion</p>
+<p>We sign the model using the <code>edgex-demo</code> key created and registered earlier. </p>
+<p>The <code>snap sign</code> command takes JSON as input and produces YAML as output! We use the YQ app to convert our model assertion to JSON before passing it in for signing.</p>
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code><span class="c1"># sign</span>
+yq<span class="w"> </span><span class="nb">eval</span><span class="w"> </span>model.yaml<span class="w"> </span>-o<span class="o">=</span>json<span class="w"> </span><span class="p">|</span><span class="w"> </span>snap<span class="w"> </span>sign<span class="w"> </span>-k<span class="w"> </span>edgex-demo<span class="w"> </span>&gt;<span class="w"> </span>model.signed.yaml
+
+<span class="c1"># check the signed model</span>
+cat<span class="w"> </span>model.signed.yaml
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You need to repeat the signing every time you change the input model, because the signature is calculated based on the model.</p>
+</div>
+<h3 id="build-the-ubuntu-core-image">Build the Ubuntu Core image</h3>
+<p>We use ubuntu-image and set the following:</p>
+<ul>
+<li>Path to signed model assertion YAML file</li>
+<li>Path to gadget snap that we built in the previous steps</li>
+</ul>
+<p>This will download all the needed snaps and build a file called <code>pc.img</code>.
+Note that even the kernel and OS base (core20) are snap packages!</p>
+<blockquote>
+<p><strong>Note</strong><br />
+If you plan to use an emulator to install and run Ubuntu Core from the resulting image, it is a good idea to allocate additional writable storage. This necessary if you want to install additional snaps interactively or upgrade existing ones on the emulator.</p>
+<p>The default size of the <code>ubuntu-data</code> partition is <code>1G</code> as defined in the gadget snap. When installing on actual hardware, this partition extends automatically to take the whole remaining space on the disk volume. However, when using QEMU, the partition will have the exact same size because the image size is calculated based on the defined partition structure. The 1GB <code>ubuntu-data</code> partition will be 90% full after first boot. You can configure the image to be larger so that the installer expands the partition automatically as with a large disk volume. </p>
+<p>To extend the image size, use the <code>--image-size</code> flag in the following command. For example, to add 500MB extra (the original image is around 3.5GB), set <code>--image-size=4G</code>.</p>
+</blockquote>
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$<span class="w"> </span>ubuntu-image<span class="w"> </span>snap<span class="w"> </span>model.signed.yaml<span class="w"> </span>--validation<span class="o">=</span>enforce<span class="w"> </span>--snap<span class="w"> </span>pc-amd64-gadget/pc_20-0.4_amd64.snap<span class="w"> </span>
+Fetching<span class="w"> </span>snapd
+Fetching<span class="w"> </span>pc-kernel
+Fetching<span class="w"> </span>core20
+Fetching<span class="w"> </span>core22
+Fetching<span class="w"> </span>edgexfoundry
+Fetching<span class="w"> </span>edgex-device-virtual
+WARNING:<span class="w"> </span><span class="s2">&quot;pc&quot;</span><span class="w"> </span>installed<span class="w"> </span>from<span class="w"> </span><span class="nb">local</span><span class="w"> </span>snaps<span class="w"> </span>disconnected<span class="w"> </span>from<span class="w"> </span>a<span class="w"> </span>store<span class="w"> </span>cannot<span class="w"> </span>be<span class="w"> </span>refreshed<span class="w"> </span>subsequently!
+Copying<span class="w"> </span><span class="s2">&quot;pc-amd64-gadget/pc_20-0.4_amd64.snap&quot;</span><span class="w"> </span><span class="o">(</span>pc<span class="o">)</span>
+
+<span class="c1"># check the image file</span>
+$<span class="w"> </span>file<span class="w"> </span>pc.img
+pc.img:<span class="w"> </span>DOS/MBR<span class="w"> </span>boot<span class="w"> </span>sector,<span class="w"> </span>extended<span class="w"> </span>partition<span class="w"> </span>table<span class="w"> </span><span class="o">(</span>last<span class="o">)</span>
+</code></pre></div>
+<p>The warning is because we side-loaded the gadget for demonstration purposes. In production settings, a custom gadget would need to be uploaded to the <a href="https://ubuntu.com/internet-of-things/appstore">IoT App Store</a> to also receive updates.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You need to repeat the build every time you change and sign the <strong>model</strong> or rebuild the <strong>gadget</strong>.</p>
+</div>
+<div class="admonition done">
+<p class="admonition-title">Done</p>
+<p>The image file is now ready to be flashed on a medium to create a bootable drive with the needed applications!</p>
+</div>
+<h3 id="boot-into-the-os">Boot into the OS</h3>
+<p>You can now flash the image on your disk and boot to start the installation.
+However, during development it is best to boot in an emulator to quickly detect and diagnose possible issues.</p>
+<p>Instead of flashing and installing the OS on actual hardware, we will continue this guide using an emulator. Every other step will be similar to when image is flashed and installed on actual hardware.</p>
+<p>Refer to the following to:</p>
+<ul>
+<li><a href="#run-in-an-emulator">Run in an emulator</a> - used in this guide</li>
+<li><a href="#flash-the-image-on-disk">Flash the image on disk</a></li>
+</ul>
+<h3 id="try-it-out">TRY IT OUT</h3>
+<p>In this step, we connect to the machine that has the image installed over SSH, validate the installation, and do some manual configurations.</p>
+<p>We SSH to the emulator from the previous step:
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>ssh<span class="w"> </span>&lt;user&gt;@localhost<span class="w"> </span>-p<span class="w"> </span><span class="m">8022</span>
+</code></pre></div>
+If you used the default approach (using <code>console-conf</code>) and entered your Ubuntu account email address at the end of the installation, then <code>&lt;user&gt;</code> is your Ubuntu account ID. If you don't know your ID, look it up using a browser from <a href="https://login.ubuntu.com/">here</a> or programmatically from <code>https://login.ubuntu.com/api/v2/keys/&lt;email&gt;</code>.</p>
+<p>List the installed snaps:
+<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ snap list
+Name                  Version          Rev    Tracking       Publisher   Notes
+core20                20220719         1587   latest/stable  canonical✓  base
+core22                20220607         188    latest/stable  canonical✓  base
+edgex-device-virtual  2.3.0            335    latest/edge    canonical✓  -
+edgexfoundry          2.3.0            4101   latest/edge    canonical✓  -
+pc                    20-0.4           x1     -              -           gadget
+pc-kernel             5.4.0-122.138.1  1057   20/stable      canonical✓  kernel
+snapd                 2.56.2           16292  latest/stable  canonical✓  snapd
+</code></pre></div></p>
+<p>Let's install the <a href="https://snapcraft.io/edgex-cli">EdgeX CLI</a> to query information from EdgeX core components  to easily query various APIs:
+<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ snap install edgex-cli
+edgex-cli 2.2.0 from Canonical✓ installed
+$ edgex-cli --help
+EdgeX-CLI
+
+Usage:
+  edgex-cli [command]
+
+Available Commands:
+  command          Read, write and list commands [Core Command]
+  completion       Generate the autocompletion script for the specified shell
+  config           Return the current configuration of all EdgeX core/support microservices
+  device           Add, remove, get, list and modify devices [Core Metadata]
+  deviceprofile    Add, remove, get and list device profiles [Core Metadata]
+  deviceservice    Add, remove, get, list and modify device services [Core Metadata]
+  event            Add, remove and list events
+  help             Help about any command
+  interval         Add, get and list intervals [Support Scheduler]
+  intervalaction   Get, list, update and remove interval actions [Support Scheduler]
+  metrics          Output the CPU/memory usage stats for all EdgeX core/support microservices
+  notification     Add, remove and list notifications [Support Notifications]
+  ping             Ping (health check) all EdgeX core/support microservices
+  provisionwatcher Add, remove, get, list and modify provison watchers [Core Metadata]
+  reading          Count and list readings
+  subscription     Add, remove and list subscriptions [Support Notificationss]
+  transmission     Remove and list transmissions [Support Notifications]
+  version          Output the current version of EdgeX CLI and EdgeX microservices
+
+Flags:
+  -h, --help   help for edgex-cli
+
+Use &quot;edgex-cli [command] --help&quot; for more information about a command.
+
+$ edgex-cli ping
+core-metadata: Thu Aug 11 10:27:47 UTC 2022
+core-data: Thu Aug 11 10:27:47 UTC 2022
+core-command: Thu Aug 11 10:27:47 UTC 2022
+</code></pre></div></p>
+<p>We can verify that the core services are alive.</p>
+<p>Let's now query the devices:
+<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ edgex-cli device list
+No devices available
+</code></pre></div></p>
+<p>There are no devices, because the installed EdgeX Device Virtual is disabled and not started by default.</p>
+<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ snap start edgex-device-virtual 
+Started.
+$ snap logs -f edgex-device-virtual 
+2022-08-11T10:34:19Z edgex-device-virtual.device-virtual[5483]: level=INFO ts=2022-08-11T10:34:19.238771398Z app=device-virtual source=devices.go:87 msg=&quot;Device Random-UnsignedInteger-Device not found in Metadata, adding it ...&quot;
+...
+2022-08-11T10:34:19Z edgex-device-virtual.device-virtual[5483]: level=INFO ts=2022-08-11T10:34:19.247960347Z app=device-virtual source=message.go:58 msg=&quot;Service started in: 417.152451ms&quot;
+</code></pre></div>
+<p>This shows that the virtual devices have been added to Core Metadata and the service has started. Rerun the same CLI command:</p>
+<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ edgex-cli device list
+Name                           Description                ServiceName     ProfileName                    Labels                    AutoEvents
+Random-Float-Device            Example of Device Virtual  device-virtual  Random-Float-Device            [device-virtual-example]  [{30s false Float32} {30s false Float64}]
+Random-Integer-Device          Example of Device Virtual  device-virtual  Random-Integer-Device          [device-virtual-example]  [{15s false Int8} {15s false Int16} {15s false Int32} {15s false Int64}]
+Random-Binary-Device           Example of Device Virtual  device-virtual  Random-Binary-Device           [device-virtual-example]  []
+Random-Boolean-Device          Example of Device Virtual  device-virtual  Random-Boolean-Device          [device-virtual-example]  [{10s false Bool}]
+Random-UnsignedInteger-Device  Example of Device Virtual  device-virtual  Random-UnsignedInteger-Device  [device-virtual-example]  [{20s false Uint8} {20s false Uint16} {20s false Uint32} {20s false Uint64}]
+</code></pre></div>
+<p>From the service logs, we can't see if the service is actually producing data. We can increase the logging verbosity by modifying the service log level:</p>
+<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ snap set edgex-device-virtual config.writable-loglevel=DEBUG
+$ snap restart edgex-device-virtual 
+Restarted.
+$ snap logs -f edgex-device-virtual 
+...
+2022-08-11T10:35:39Z edgex-device-virtual.device-virtual[5731]: level=INFO ts=2022-08-11T10:35:39.445141593Z app=device-virtual source=message.go:58 msg=&quot;Service started in: 74.554045ms&quot;
+2022-08-11T10:35:49Z edgex-device-virtual.device-virtual[5731]: level=DEBUG ts=2022-08-11T10:35:49.445151427Z app=device-virtual source=executor.go:52 msg=&quot;AutoEvent - reading Bool&quot;
+2022-08-11T10:35:49Z edgex-device-virtual.device-virtual[5731]: level=DEBUG ts=2022-08-11T10:35:49.445224126Z app=device-virtual source=command.go:127 msg=&quot;Application - readDeviceResource: reading deviceResource: Bool; X-Correlation-ID: &quot;
+2022-08-11T10:35:49Z edgex-device-virtual.device-virtual[5731]: level=DEBUG ts=2022-08-11T10:35:49.445329507Z app=device-virtual source=transform.go:121 msg=&quot;device: Random-Boolean-Device DeviceResource: Bool reading: {Id:3d7322bb-6d67-436d-a7f5-37fe90acf885 Origin:1660214149445259654 DeviceName:Random-Boolean-Device ResourceName:Bool ProfileName:Random-Boolean-Device ValueType:Bool Units: BinaryReading:{BinaryValue:[] MediaType:} SimpleReading:{Value:false} ObjectReading:{ObjectValue:&lt;nil&gt;}}&quot;
+2022-08-11T10:35:49Z edgex-device-virtual.device-virtual[5731]: level=DEBUG ts=2022-08-11T10:35:49.45082594Z app=device-virtual source=utils.go:80 msg=&quot;Event(profileName: Random-Boolean-Device, deviceName: Random-Boolean-Device, sourceName: Bool, id: 8dbf1a85-9876-4165-bc07-88e043bb7904) published to MessageBus&quot;
+</code></pre></div>
+<p>The data is being published to the message bus and Core Data will be storing it. We can query to find out:</p>
+<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ edgex-cli reading list --limit=2
+Origin               Device                         ProfileName                    Value                 ValueType
+11 Aug 22 10:50 UTC  Random-UnsignedInteger-Device  Random-UnsignedInteger-Device  14610331353796717782  Uint64
+11 Aug 22 10:50 UTC  Random-UnsignedInteger-Device  Random-UnsignedInteger-Device  62286                 Uint16
+</code></pre></div>
+<p>We now have a running EdgeX platform with dummy devices, producing synthetic readings. We can access this data on the localhost, but not from another host. This is because the local service ports only listen on the loopback interface. Access from outside is only allowed via the API Gateway and after authentication. </p>
+<p>It is possible to configure the services to listen to other or all interfaces and access them from outside. Note that this will expose the endpoint without any access control!</p>
+<p>To make Core Data's server listen to all interfaces (at your own risk):
+<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ snap set edgexfoundry app-options=true
+$ snap set edgexfoundry apps.core-data.config.service-serverbindaddr=&quot;0.0.0.0&quot;
+$ snap restart edgexfoundry.core-data
+Restarted
+</code></pre></div></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Drop the <code>apps.core-data.</code> prefix to make this a global configuration setting for all EdgeX services inside that snap!</p>
+</div>
+<p>Let's exit the SSH session:
+<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ exit
+logout
+Connection to localhost closed.
+</code></pre></div></p>
+<p>... and query data from outside
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>curl<span class="w"> </span>--silent<span class="w"> </span>--show-err<span class="w"> </span>http://localhost:59880/api/v2/reading/all?limit<span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq
+</code></pre></div></p>
+<div class="highlight"><span class="filename">Response</span><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;statusCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;totalCount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">7040</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;readings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5907adb3-18f6-4cf9-9826-216285b7f519&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1660225195484643300</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;deviceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Integer-Device&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;resourceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Int32&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;profileName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Integer-Device&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;valueType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Int32&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;445276022&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;86c87583-a220-44d9-b29a-e412efa97cc3&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1660225195423943200</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;deviceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Integer-Device&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;resourceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Int64&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;profileName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Integer-Device&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;valueType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Int64&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;-6696458089943342374&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>However, as expected, we can't access securely via the API Gateway:
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>curl<span class="w"> </span>--insecure<span class="w"> </span>https://localhost:8443/core-data/api/v2/reading/all?limit<span class="o">=</span><span class="m">2</span>
+</code></pre></div></p>
+<div class="highlight"><span class="filename">Response</span><pre><span></span><code><span class="p">{</span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="s2">&quot;Unauthorized&quot;</span><span class="p">}</span>
+</code></pre></div>
+<p>You can follow the instructions from the <a href="../../getting-started/Ch-GettingStartedSnapUsers/#adding-api-gateway-users">getting started</a> to create a key pair, add a user to API Gateway, and generate a JWT token to access the API securely.</p>
+<p>In this chapter, we demonstrated how to build an image that is pre-loaded with some EdgeX snaps. We then connected into a (virtual) machine instantiated with the image, verified the setup and performed additional steps to interactively start and configure the services.</p>
+<p>In the next chapter, we walk you through creating an image that comes pre-loaded with this configuration, so it boots into a working EdgeX environment that even includes your EdgeX public key and user.</p>
+<h2 id="b-override-basic-configurations">B. Override basic configurations</h2>
+<p>In this chapter, we will improve our OS image so that:</p>
+<ul>
+<li>We don't need to manually start EdgeX Device Virtual</li>
+<li>We have our EdgeX public key inside the image and can securely access the service endpoints via API Gateway</li>
+</ul>
+<h3 id="create-key-pair-and-jwt-token">Create key pair and JWT token</h3>
+<p>Create a private/public key pair:
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$ openssl ecparam -genkey -name prime256v1 -noout -out private.pem
+$ openssl ec -in private.pem -pubout -out public.pem
+read EC key
+writing EC key
+</code></pre></div></p>
+<p>Print the public key:
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$ cat public.pem 
+-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE5slZTyp5Zfxoos7TljHgPSbGm3As
+NZGr6EEet300xbC4VUVGcQBSEsSZmGMTxaCMlzvKt1dwUNxBFDAemWXSyg==
+-----END PUBLIC KEY-----
+</code></pre></div>
+In the next section, we will add this as the public key of the admin user.</p>
+<p>Create a script called <code>create-jwt.sh</code> with the following content:
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash -e</span>
+
+<span class="c1"># this is hardcoded because we&#39;ll be adding an admin user with this ID to the image</span>
+<span class="nv">USER_ID</span><span class="o">=</span><span class="m">1</span>
+
+<span class="nv">header</span><span class="o">=</span><span class="s1">&#39;{</span>
+<span class="s1">    &quot;alg&quot;: &quot;ES256&quot;,</span>
+<span class="s1">    &quot;typ&quot;: &quot;JWT&quot;</span>
+<span class="s1">}&#39;</span>
+
+<span class="nv">TTL</span><span class="o">=</span><span class="k">$((</span>EPOCHSECONDS+86400<span class="k">))</span><span class="w"> </span><span class="c1"># valid for 1 day</span>
+
+<span class="nv">payload</span><span class="o">=</span><span class="s1">&#39;{</span>
+<span class="s1">    &quot;iss&quot;:&quot;&#39;</span><span class="nv">$USER_ID</span><span class="s1">&#39;&quot;,</span>
+<span class="s1">    &quot;iat&quot;:&#39;</span><span class="nv">$EPOCHSECONDS</span><span class="s1">&#39;,</span>
+<span class="s1">    &quot;nbf&quot;:&#39;</span><span class="nv">$EPOCHSECONDS</span><span class="s1">&#39;,</span>
+<span class="s1">    &quot;exp&quot;:&#39;</span><span class="nv">$TTL</span><span class="s1">&#39;</span>
+<span class="s1">}&#39;</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Payload: </span><span class="nv">$payload</span><span class="s2">&quot;</span>
+
+<span class="nv">JWT_HEADER</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="nv">$header</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>base64<span class="w"> </span>-e<span class="w"> </span>-A<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span>s/<span class="se">\+</span>/-/<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span>-E<span class="w"> </span>s/<span class="o">=</span>+$//<span class="sb">`</span>
+<span class="nv">JWT_PAYLOAD</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="nv">$payload</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>base64<span class="w"> </span>-e<span class="w"> </span>-A<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span>s/<span class="se">\+</span>/-/<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span>-E<span class="w"> </span>s/<span class="o">=</span>+$//<span class="sb">`</span>
+<span class="nv">JWT_SIGNATURE</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$JWT_HEADER</span><span class="s2">.</span><span class="nv">$JWT_PAYLOAD</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>dgst<span class="w"> </span>-sha256<span class="w"> </span>-binary<span class="w"> </span>-sign<span class="w"> </span>private.pem<span class="w">  </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>asn1parse<span class="w"> </span>-inform<span class="w"> </span>DER<span class="w">  </span>-offset<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-o<span class="w"> </span><span class="s2">&quot;[0-9A-F]\+</span>$<span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xxd<span class="w"> </span>-r<span class="w"> </span>-p<span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-w0<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;=&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span><span class="s1">&#39;+/&#39;</span><span class="w"> </span><span class="s1">&#39;-_&#39;</span><span class="sb">`</span>
+
+<span class="nv">TOKEN</span><span class="o">=</span><span class="nv">$JWT_HEADER</span>.<span class="nv">$JWT_PAYLOAD</span>.<span class="nv">$JWT_SIGNATURE</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="nv">$TOKEN</span><span class="w"> </span>&gt;<span class="w"> </span>admin-jwt.txt
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Token written to admin-jwt.txt:&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$TOKEN</span><span class="s2">&quot;</span>
+</code></pre></div></p>
+<p>The script will read the <code>private.pem</code> file from the same directory.</p>
+<p>Make the script executable and run it to get a JWT (JSON Web Token):
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$ chmod +x create-jwt.sh
+$ ./create-jwt.sh 
+Payload: {
+    &quot;iss&quot;:&quot;1&quot;,
+    &quot;iat&quot;:1660314677,
+    &quot;nbf&quot;:1660314677,
+    &quot;exp&quot;:1660401077
+}
+Token written to admin-jwt.txt:
+eyAiYWxnIjogIkVTMjU2IiwgInR5cCI6ICJKV1QiIH0.eyAiaXNzIjoiMSIsICJpYXQiOjE2NjAzMTQ2NzcsICJuYmYiOjE2NjAzMTQ2NzcsICJleHAiOjE2NjA0MDEwNzcgfQ.giBrf2UQjMRATBXZnJ-6B3dJQbeoVjfjlVhsjCtbjJBYBjJ8_qZW_s2YPZs3fWSpMWUVTX05Jsj1Xg4wnlQrGA
+</code></pre></div>
+The token is printed and also written to <code>admin-jwt.txt</code>. We'll use this token in the next steps to access API Gateway securely. Note that the token is valid for a pre-defined period (see <code>TTL</code> in the script).</p>
+<h3 id="setup-defaults-using-a-gadget-snap">Setup defaults using a Gadget snap</h3>
+<p>Setting up default options for snaps is possible with the gadget snap. 
+We will go back to the same <code>gadget.yml</code> file for the gadget that we used to resize the volumes, but this time also add a new top level <code>defaults</code> key:</p>
+<p>Add the following to <code>gadget.yml</code>.
+Replace the public key with the content of your public key in <code>public.pem</code>:
+<div class="highlight"><pre><span></span><code># Add default config options
+# The keys are unique snap IDs
+defaults:
+  AZGf0KNnh8aqdkbGATNuRuxnt1GNRKkV: # edgexfoundry
+    # Enable app options
+    app-options: true
+    # Set the admin user&#39;s public key
+    apps.secrets-config.proxy.admin.public-key: |
+      -----BEGIN PUBLIC KEY-----
+      MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE5slZTyp5Zfxoos7TljHgPSbGm3As
+      NZGr6EEet300xbC4VUVGcQBSEsSZmGMTxaCMlzvKt1dwUNxBFDAemWXSyg==
+      -----END PUBLIC KEY-----
+
+  AmKuVTOfsN0uEKsyJG34M8CaMfnIqxc0: # edgex-device-virtual
+    # automatically start the service
+    autostart: true
+    # Enable app options
+    app-options: true # not necessary because this service has it by default
+    # Override the startup message (because we can)
+    # The same syntax can be used to override most of the server configurations
+    apps.device-virtual.config.service-startupmsg: &quot;Startup message from gadget!&quot;
+</code></pre></div></p>
+<div class="admonition tip">
+<p class="admonition-title">Snap ID</p>
+<p>Query the unique store ID of a snap, for example the <code>edgexfoundry</code> snap:
+<div class="highlight"><pre><span></span><code>$ snap info edgexfoundry | grep snap-id
+snap-id: AZGf0KNnh8aqdkbGATNuRuxnt1GNRKkV
+</code></pre></div></p>
+</div>
+<p>The public key is taken from <code>public.pem</code> generated in the previous section.</p>
+<p>Refer to the following for details:</p>
+<ul>
+<li><a href="../../getting-started/Ch-GettingStartedSnapUsers/#managing-services">Managing services</a></li>
+<li><a href="../../getting-started/Ch-GettingStartedSnapUsers/#adding-api-gateway-users">Adding API Gateway Users</a></li>
+</ul>
+<p>Build:
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$<span class="w"> </span>snapcraft
+...
+Snapped<span class="w"> </span>pc_20-0.4_amd64.snap
+</code></pre></div></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You need to rebuild the snap every time you change the gadget.yaml file.</p>
+</div>
+<h3 id="build-the-image">Build the image</h3>
+<p>Use ubuntu-image tool again to build a new image. Use the same instructions as <a href="#build-the-ubuntu-core-image">before</a> to build:</p>
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>ubuntu-image<span class="w"> </span>snap<span class="w"> </span>model.signed.yaml<span class="w"> </span>--validation<span class="o">=</span>enforce<span class="w"> </span>--snap<span class="w"> </span>pc-amd64-gadget/pc_20-0.4_amd64.snap
+</code></pre></div>
+<div class="admonition done">
+<p class="admonition-title">Done</p>
+<p>The image file is now ready to be flashed on a medium to create a bootable drive with the needed applications and basic configurations.</p>
+</div>
+<h3 id="try-it-out_1">TRY IT OUT</h3>
+<p>Refer to the following to:</p>
+<ul>
+<li><a href="#run-in-an-emulator">Run in an emulator</a> - used in this guide</li>
+<li><a href="#flash-the-image-on-disk">Flash the image on disk</a></li>
+</ul>
+<p>This time, as set in the gadget defaults, Device Virtual is started by default and we have a user to securely interact with the API Gateway.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>SSH to the machine and verify that Device Virtual is enabled (to start on boot) and active (running):
+<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ snap services edgex-device-virtual
+Service                              Startup  Current  Notes
+edgex-device-virtual.device-virtual  enabled  active   -
+</code></pre></div></p>
+<p>Verify that the public key is there as a snap option:
+<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ snap get edgexfoundry apps.secrets-config -d
+{
+  &quot;apps.secrets-config&quot;: {
+    &quot;proxy&quot;: {
+      &quot;admin&quot;: {
+        &quot;public-key&quot;: &quot;-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE5slZTyp5Zfxoos7TljHgPSbGm3As\nNZGr6EEet300xbC4VUVGcQBSEsSZmGMTxaCMlzvKt1dwUNxBFDAemWXSyg==\n-----END PUBLIC KEY-----\n&quot;
+      }
+    }
+  }
+}
+</code></pre></div></p>
+<p>Verify that Device Virtual has the startup message set from the gadget:
+<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ snap logs -n=all edgex-device-virtual | grep &quot;Startup message&quot;
+2022-08-19T13:51:28Z edgex-device-virtual.device-virtual[4660]: level=INFO ts=2022-08-19T13:51:28.868688382Z app=device-virtual source=variables.go:352 msg=&quot;Variables override of &#39;Service.StartupMsg&#39; by environment variable: SERVICE_STARTUPMSG=Startup message from gadget!&quot;
+</code></pre></div></p>
+</div>
+<p>To query data securely from another host, we need to query the API Gateway. Let's query API Gateway from outside of the machine. The hostname is still <code>localhost</code> because this guide runs the image in an emulator on the same machine.
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>curl<span class="w"> </span>--insecure<span class="w"> </span>--silent<span class="w"> </span>--show-err<span class="w"> </span>https://localhost:8443/core-data/api/v2/reading/all?limit<span class="o">=</span><span class="m">2</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: Bearer </span><span class="k">$(</span>cat<span class="w"> </span>admin-jwt.txt<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq
+</code></pre></div></p>
+<div class="highlight"><span class="filename">Response</span><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;statusCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;totalCount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">939</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;readings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eb1faad8-d93d-4793-b2e7-19d0cf13c183&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1660314781398850300</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;deviceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Boolean-Device&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;resourceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bool&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;profileName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Boolean-Device&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;valueType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bool&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;true&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2c1ea95a-b5b0-4051-a5b6-24d98f40a5c3&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1660314776365793500</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;deviceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Integer-Device&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;resourceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Int64&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;profileName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Integer-Device&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;valueType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Int64&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;-8755202057804760537&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The response is similar to if query was sent directly to Core Data (http://localhost:59880/api/v2/reading/all?limit=2), except that it was done over TLS and with authentication. We didn't need to bind the Core Data's server to other interfaces or expose its port to outside.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>EdgeX's API Gateway internally generated a self-signed TLS certificate. The system doesn't trust that certificate and that's why we set the <code>--insecure</code> flag for cURL.</p>
+<p>Refer <a href="../../getting-started/Ch-GettingStartedSnapUsers/#changing-tls-certificates">here</a> to learn how you can replace the certificate with one that your system trusts.</p>
+</div>
+<p>In this chapter, we created an OS image which comes with EdgeX components that are automatically started and configured to securely receive external requests. 
+We can extend the server configurations by setting other defaults in the gadget.
+This is sufficient in most scenarios and allows creating an image that is configured and ready for production.</p>
+<p>The server configuration is made possible via a combination of snap options and environment variable overrides implemented for EdgeX services. There are two situations in which we need to override entire configuration files instead of fields one by one:</p>
+<ol>
+<li>When we have to easily override many configuration fields: it is very cumbersome to override many configuration fields one by one.</li>
+<li>When we need to add or change device, profile, and provision watcher configurations.</li>
+</ol>
+<p>For the above cases, we need to supply whole configuration files to applications.
+In the next chapter, we walk through creating a Snap package with our custom configuration files. The package will become part of the OS image and supply necessary configurations to all other EdgeX applications.</p>
+<h2 id="c-override-configuration-files">C. Override configuration files</h2>
+<p>This chapter builds on top of what we did previously and shows how to override entire configuration files with a packaged copy, prepared for an specific use case.</p>
+<h3 id="create-a-config-provider-for-device-virtual">Create a config provider for Device Virtual</h3>
+<p>The EdgeX Device Virtual service cannot be fully configured using environment variables / snap options. Because of that, we need to package the modified config files and replace the defaults.
+Moreover, it is tedious to override many configurations one by one, compared to having a file which contains all the needed modifications.</p>
+<p>Since we want to create an OS image pre-loaded with the configured system, we need to make sure the configurations are there without any manual user interaction. We do that by creating a snap which provides the configuration files/directories to the Device Virtual snap:</p>
+<ul>
+<li>configuration.toml</li>
+<li>devices/</li>
+<li>profiles/</li>
+</ul>
+<p>For this exercise, we will modify the default configurations and remove most default devices and resources. We will also replace the startup message set in the <code>configuration.toml</code> file.</p>
+<p>This snap should be build and uploaded to the store. We use <code>edgex-config-provider-example</code> as the snap name. Refer to <a href="../../getting-started/Ch-GettingStartedSnapUsers/#config-provider-snap">docs</a> for more details and example source code.</p>
+<p>Build:
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$<span class="w"> </span>snapcraft
+...
+Snapped<span class="w"> </span>edgex-config-provider-example_2.3_amd64.snap
+</code></pre></div></p>
+<p>This will build for your host architecture, so if your machine is <code>amd64</code>, it will result in a snap that has the same architecture. You can perform <a href="https://snapcraft.io/docs/remote-build">remote builds</a> to build for other architectures.</p>
+<p>Let's upload the <code>amd64</code> snap and release it to the <code>latest/edge</code> channel:
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>snapcraft<span class="w"> </span>upload<span class="w"> </span>--release<span class="o">=</span>latest/edge<span class="w"> </span>./edgex-config-provider-example_2.3_amd64.snap
+</code></pre></div></p>
+<p>Now, we can query the snap ID from the store:
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$<span class="w"> </span>snap<span class="w"> </span>info<span class="w"> </span>edgex-config-provider-example<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>snap-id
+snap-id:<span class="w"> </span>WWPGZGi1bImphPwrRfw46aP7YMyZYl6w
+</code></pre></div>
+We need it in the next step.</p>
+<h3 id="add-the-config-provider-to-the-image">Add the config provider to the image</h3>
+<p>We have to make three adaptations:</p>
+<p>1) Remove the Device Virtual config overrides from the gadget and re-build it</p>
+<p>Commented out (or remove):
+<div class="highlight"><span class="filename">gadget.yaml</span><pre><span></span><code><span class="w">    </span><span class="c1"># # Enable app options</span>
+<span class="w">    </span><span class="c1"># app-options: true # not necessary because this service has it by default</span>
+<span class="w">    </span><span class="c1"># # Override the startup message (because we can)</span>
+<span class="w">    </span><span class="c1"># # The same syntax can be used to override most of the server configurations</span>
+<span class="w">    </span><span class="c1"># apps.device-virtual.config.service-startupmsg: &quot;Startup message from gadget!&quot;</span>
+</code></pre></div></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>It is important to do this because overrides are ineffective when configurations are replaced from a config provider.
+This is because the config provider in our example is providing a read-only file system that doesn't allow the write access necessary to inject an environment file when setting the <code>app</code> options.</p>
+</div>
+<p>2) Connect the config provider </p>
+<p><div class="highlight"><span class="filename">gadget.yaml</span><pre><span></span><code><span class="nt">connections</span><span class="p">:</span>
+<span class="w">   </span><span class="p p-Indicator">-</span><span class="w">  </span><span class="c1"># Connect edgex-device-virtual&#39;s plug (consumer)</span>
+<span class="w">      </span><span class="nt">plug</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AmKuVTOfsN0uEKsyJG34M8CaMfnIqxc0:device-virtual-config</span>
+<span class="w">      </span><span class="c1"># to edgex-config-provider-example&#39;s slot (provider) to override the default configuration files.</span>
+<span class="w">      </span><span class="nt">slot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WWPGZGi1bImphPwrRfw46aP7YMyZYl6w:device-virtual-config</span>
+</code></pre></div>
+This internally bind-mounts provider's "res" directory on top of the consumer's "res" directory.</p>
+<p>3) Rebuild the gadget
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$<span class="w"> </span>snapcraft
+...
+Snapped<span class="w"> </span>pc_20-0.4_amd64.snap
+</code></pre></div></p>
+<p>4) Add the config provider snap to the model assertion, <strong>after</strong> all other edgex snaps:</p>
+<div class="highlight"><span class="filename">model.yaml</span><pre><span></span><code><span class="c1"># This snap contains our configuration files</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-config-provider-example</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app</span>
+<span class="w">  </span><span class="nt">default-channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest/edge</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WWPGZGi1bImphPwrRfw46aP7YMyZYl6w</span>
+</code></pre></div>
+<p>5) Sign the model as before
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>yq<span class="w"> </span><span class="nb">eval</span><span class="w"> </span>model.yaml<span class="w"> </span>-o<span class="o">=</span>json<span class="w"> </span><span class="p">|</span><span class="w"> </span>snap<span class="w"> </span>sign<span class="w"> </span>-k<span class="w"> </span>edgex-demo<span class="w"> </span>&gt;<span class="w"> </span>model.signed.yaml
+</code></pre></div></p>
+<h3 id="build-the-image_1">Build the image</h3>
+<p>Use ubuntu-image tool again to build a new image. Use the same instructions as <a href="#build-the-ubuntu-core-image">before</a> to build:</p>
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>ubuntu-image<span class="w"> </span>snap<span class="w"> </span>model.signed.yaml<span class="w"> </span>--validation<span class="o">=</span>enforce<span class="w"> </span>--snap<span class="w"> </span>pc-amd64-gadget/pc_20-0.4_amd64.snap
+</code></pre></div>
+<p>Note the addition of our config provider in output:
+<div class="highlight"><pre><span></span><code>...
+Fetching edgex-config-provider-example
+...
+</code></pre></div></p>
+<div class="admonition done">
+<p class="admonition-title">Done</p>
+<p>The image file is now ready to be flashed on a medium to create a bootable drive with the needed applications and custom configuration files.</p>
+</div>
+<h3 id="try-it-out_2">TRY IT OUT</h3>
+<p>Refer to the following to:</p>
+<ul>
+<li><a href="#run-in-an-emulator">Run in an emulator</a> - used in this guide</li>
+<li><a href="#flash-the-image-on-disk">Flash the image on disk</a></li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>SSH to the machine and verify the installations:</p>
+<p>List of snaps:
+<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ snap list
+Name                           Version          Rev    Tracking       Publisher   Notes
+core20                         20220805         1611   latest/stable  canonical✓  base
+core22                         20220607         188    latest/stable  canonical✓  base
+edgex-config-provider-example  2.3              2      latest/edge    farshidtz   -
+edgex-device-virtual           2.3.0            335    latest/edge    canonical✓  -
+edgexfoundry                   2.3.0            4101   latest/edge    canonical✓  -
+pc                             20-0.4           x1     -              -           gadget
+pc-kernel                      5.4.0-124.140.1  1077   20/stable      canonical✓  kernel
+snapd                          2.56.2           16292  latest/stable  canonical✓  snapd
+</code></pre></div>
+Note that we now also have <code>edgex-config-provider-example</code> in the list.</p>
+<p>Verify that Device Virtual only has one profile, as configured in the config provider:
+<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ snap install edgex-cli
+edgex-cli 2.2.0 from Canonical✓ installed
+$ edgex-cli device list
+Name                 Description                ServiceName     ProfileName          Labels                    AutoEvents
+Random-Float-Device  Example of Device Virtual  device-virtual  Random-Float-Device  [device-virtual-example]  [{30s false Float64}]
+</code></pre></div></p>
+<p>Verify that Device Virtual has the startup message set from the provider:
+<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ snap logs -n=all edgex-device-virtual | grep &quot;Startup message&quot;
+2022-08-19T14:42:24Z edgex-device-virtual.device-virtual[5402]: level=INFO ts=2022-08-19T14:42:24.438798115Z app=device-virtual source=message.go:55 msg=&quot;Startup message from config provider&quot;
+</code></pre></div></p>
+</div>
+<p>Query the metadata of Device Virtual from your host machine. 
+We have to use the same JWT created in chapter B.
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>curl<span class="w"> </span>--insecure<span class="w"> </span>--silent<span class="w"> </span>--show-err<span class="w"> </span>https://localhost:8443/core-data/api/v2/reading/all?limit<span class="o">=</span><span class="m">2</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: Bearer </span><span class="k">$(</span>cat<span class="w"> </span>admin-jwt.txt<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq
+</code></pre></div>
+<div class="highlight"><span class="filename">Response</span><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;statusCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;totalCount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">133</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;readings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;f6a53b5c-045f-4913-ae45-4e32642f6102&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1660923144514370300</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;deviceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Float-Device&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;resourceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Float64&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;profileName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Float-Device&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;valueType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Float64&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.436784e+308&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;95b5aa9c-e80d-488c-ab5d-1b625a9d0f76&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1660923114513963300</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;deviceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Float-Device&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;resourceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Float64&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;profileName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Float-Device&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;valueType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Float64&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;7.737701e+307&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h2 id="run-in-an-emulator">Run in an emulator</h2>
+<p>Running the image in an emulator makes it easier to quickly try the image and find out possible issues.</p>
+<p>We use a <code>amd64</code> QEMU emulator. Refer to <a href="https://ubuntu.com/core/docs/testing-with-qemu">Testing Ubuntu Core with QEMU</a> to setup the dependencies and learn about the various emulation options. Here, we provide the command to run without TPM emulation.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code>pc.img</code> file passed to the emulator is used as the secondary storage. It persists any changes made to the partitions during the installation and any user modifications after the boot.
+You can stop and re-start the emulator at a later time without losing your changes.</p>
+<p>To do a fresh start or to flash this image on disk, your need to rebuild the image.
+Alternatively, you can make a copy before using it in QEMU.</p>
+</div>
+<p>Run the following command and wait for the boot to complete:
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>sudo<span class="w"> </span>qemu-system-x86_64<span class="w"> </span><span class="se">\</span>
+<span class="w"> </span>-smp<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
+<span class="w"> </span>-m<span class="w"> </span><span class="m">4096</span><span class="w"> </span><span class="se">\</span>
+<span class="w"> </span>-drive<span class="w"> </span><span class="nv">file</span><span class="o">=</span>/usr/share/OVMF/OVMF_CODE.fd,if<span class="o">=</span>pflash,format<span class="o">=</span>raw,unit<span class="o">=</span><span class="m">0</span>,readonly<span class="o">=</span>on<span class="w"> </span><span class="se">\</span>
+<span class="w"> </span>-drive<span class="w"> </span><span class="nv">file</span><span class="o">=</span>pc.img,cache<span class="o">=</span>none,format<span class="o">=</span>raw,id<span class="o">=</span>disk1,if<span class="o">=</span>none<span class="w"> </span><span class="se">\</span>
+<span class="w"> </span>-device<span class="w"> </span>virtio-blk-pci,drive<span class="o">=</span>disk1,bootindex<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w"> </span>-machine<span class="w"> </span><span class="nv">accel</span><span class="o">=</span>kvm<span class="w"> </span><span class="se">\</span>
+<span class="w"> </span>-serial<span class="w"> </span>mon:stdio<span class="w"> </span><span class="se">\</span>
+<span class="w"> </span>-net<span class="w"> </span>nic,model<span class="o">=</span>virtio<span class="w"> </span><span class="se">\</span>
+<span class="w"> </span>-net<span class="w"> </span>user,hostfwd<span class="o">=</span>tcp::8022-:22,hostfwd<span class="o">=</span>tcp::8443-:8443,hostfwd<span class="o">=</span>tcp::59880-:59880
+</code></pre></div></p>
+<p>The above command forwards:</p>
+<ul>
+<li>SSH port <code>22</code> of the emulator to <code>8022</code> on the host</li>
+<li>API Gateway's port <code>8433</code> for external and secure access to EdgeX endpoints</li>
+<li>Core Data's port <code>59880</code> for demonstration purposes in chapter A.</li>
+</ul>
+<div class="admonition failure">
+<p class="admonition-title">Could not set up host forwarding rule 'tcp::8443-:8443'</p>
+<p>This means that the port 8443 is not available on the host. Try stopping the service that uses this port or change the host port (left hand side) to another port number, e.g. <code>tcp::18443-:8443</code>.</p>
+</div>
+<div class="admonition success">
+<p class="admonition-title">Success</p>
+<p>Once the installation is complete, you'll see the initialization interface; Refer <a href="#initialization">here</a> for details.</p>
+</div>
+<h2 id="flash-the-image-on-disk">Flash the image on disk</h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you have used <code>pc.img</code> to install in QEMU, the image has changed. You need to rebuild a new copy before continuing.</p>
+</div>
+<p>The installation instructions are device specific. You may refer to Ubuntu Core section in <a href="https://ubuntu.com/download/iot">this page</a>. For example:</p>
+<ul>
+<li><a href="https://ubuntu.com/download/intel-nuc">Intel NUC</a> - applicable to most computers with an attached secondary storage</li>
+<li><a href="https://ubuntu.com/download/raspberry-pi">Raspberry Pi</a></li>
+</ul>
+<p>A precondition to continue with some of the instructions is to compress <code>pc.img</code>. This speeds up the transfer and makes the input file similar to official images, improving compatibility with the available instructions.</p>
+<p>To compress with the lowest compression rate of zero:
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$<span class="w"> </span>xz<span class="w"> </span>-vk<span class="w"> </span>-0<span class="w"> </span>pc.img
+pc.img<span class="w"> </span><span class="o">(</span><span class="m">1</span>/1<span class="o">)</span>
+<span class="w">  </span><span class="m">100</span><span class="w"> </span>%<span class="w">     </span><span class="m">817</span>.2<span class="w"> </span>MiB<span class="w"> </span>/<span class="w"> </span><span class="m">3</span>,309.0<span class="w"> </span><span class="nv">MiB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>.247<span class="w">    </span><span class="m">10</span><span class="w"> </span>MiB/s<span class="w">       </span><span class="m">5</span>:30<span class="w">             </span>
+
+$<span class="w"> </span>ls<span class="w"> </span>-lh<span class="w"> </span>pc.*
+-rw-rw-r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>ubuntu<span class="w"> </span>ubuntu<span class="w"> </span><span class="m">3</span>.3G<span class="w"> </span>Sep<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">17</span>:03<span class="w"> </span>pc.img
+-rw-rw-r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>ubuntu<span class="w"> </span>ubuntu<span class="w"> </span>818M<span class="w"> </span>Sep<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">17</span>:03<span class="w"> </span>pc.img.xz
+</code></pre></div>
+A higher compression rate significantly increases the processing time and needed resources, with very little gain.</p>
+<p>Follow the device specific instructions.</p>
+<div class="admonition success">
+<p class="admonition-title">Success</p>
+<p>You may refer <a href="#initialization">here</a> for the initialization steps appearing by default.</p>
+</div>
+<h2 id="initialization">Initialization</h2>
+<p>Once the installation is complete, you will see the interface of the <code>console-conf</code> program. It will walk you through the networking and user account setup. You'll need to enter the email address of your Ubuntu account to create a OS user account with your registered username and have your SSH public keys deployed as authorized SSH keys for that user.
+If you haven't done so, follow the instructions <a href="https://snapcraft.io/docs/creating-your-developer-account">here</a> to add your SSH keys before doing this setup.</p>
+<p>Read <a href="https://ubuntu.com/core/docs/system-user">here</a> to know how the manual account setup looks like and how it can be automated.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://docs.edgexfoundry.org/2.2/getting-started/Ch-GettingStartedSnapUsers">Getting Started using Snaps</a></li>
+<li><a href="https://docs.edgexfoundry.org/2.2/microservices/core/data/Ch-CoreData/">EdgeX Core Data</a></li>
+<li><a href="https://ubuntu.com/core/docs/uc20/inside">Inside Ubuntu Core</a></li>
+<li><a href="https://snapcraft.io/docs/gadget-snap">Gadget snaps</a></li>
+<li><a href="https://ubuntu.com/core/docs/testing-with-qemu">Testing Ubuntu Core with QEMU</a></li>
+<li><a href="https://ubuntu.com/core/docs/image-building#heading--testing">Ubuntu Core - Image building</a></li>
+<li><a href="https://ubuntu.com/core/docs/custom-images">Ubuntu Core - Custom images</a></li>
+<li><a href="https://ubuntu.com/core/docs/gadget-building">Ubuntu Core - Building a gadget snap</a></li>
+</ul>
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../Ch-ExamplesModbusdatatypeconversion/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Modbus - Data Type Conversion" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Modbus - Data Type Conversion
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../Ch-ExamplesAddingModbusDevice/" class="md-footer__link md-footer__link--next" aria-label="Next: Modbus" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Modbus
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2022 EdgeX Foundry
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://github.com/edgexfoundry" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/edgexfoundry" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/company/edgexfoundry" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "search": "../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d6c3db9e.min.js"></script>
+      
+        <script src="../../assets/javascripts/version-select.js"></script>
+      
+    
+  </body>
+</html>
