@@ -2055,13 +2055,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#encryption-deprecated" class="md-nav__link">
-    Encryption (Deprecated)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#aesprotection" class="md-nav__link">
     AESProtection
   </a>
@@ -3476,13 +3469,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#encryption-deprecated" class="md-nav__link">
-    Encryption (Deprecated)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#aesprotection" class="md-nav__link">
     AESProtection
   </a>
@@ -3931,45 +3917,6 @@ batch.Batch
 </div>
 <h2 id="data-protection"><a name="dataprotection"></a>Data Protection</h2>
 <p>There are two transforms included in the SDK that can be added to your pipeline for data protection. </p>
-<h3 id="encryption-deprecated">Encryption (Deprecated)</h3>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.1</p>
-<p>This is deprecated in EdgeX 2.1 - it is recommended to use the new <code>AESProtection</code> transform.  Please see <a href="https://github.com/edgexfoundry/app-functions-sdk-go/security/advisories/GHSA-6c7m-qwxj-mvhp">this security advisory</a> for more detail.</p>
-</div>
-<table>
-<thead>
-<tr>
-<th>Factory Method</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>NewEncryption(key string, initializationVector string)</td>
-<td>This function returns a <code>Encryption</code> instance initialized with the passed in <code>key</code> and <code>initialization vector</code>. This <code>Encryption</code> instance is used to access the following encryption function that will use the specified <code>key</code> and <code>initialization vector</code>.</td>
-</tr>
-<tr>
-<td>NewEncryptionWithSecrets(secretPath string, secretName string, initializationVector string)</td>
-<td>This function returns a <code>Encryption</code> instance initialized with the passed in <code>secret path</code>, <code>Secret name</code> and <code>initialization vector</code>. This <code>Encryption</code> instance is used to access the following encryption function that will use the encryption key from the Secret Store and the passed in <code>initialization vector</code>. It uses the passed in<code>secret path</code> and <code>secret name</code> to pull the encryption key from the Secret Store</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>New for EdgeX 2.0 is the ability to pull the encryption key from the Secret Store. The encryption key must be seeded into the Secret Store using the <code>/api/v2/secret</code> endpoint on the running instance of the Application Service prior to the Encryption function executing. See <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/app-functions-sdk/2.0.0#/default/post_secret">App Functions SDK swagger</a> for more details on this endpoint.</p>
-</div>
-<p><code>EncryptWithAES</code> - This pipeline function receives either a <code>string</code>, <code>[]byte</code>, or <code>json.Marshaller</code> type and encrypts it using AES encryption and returns a <code>[]byte</code> to the pipeline.</p>
-<div class="admonition example">
-<p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="nx">NewEncryption</span><span class="p">(</span><span class="s">&quot;key&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;initializationVector&quot;</span><span class="p">).</span><span class="nx">EncryptWithAES</span>
-<span class="nx">or</span>
-<span class="nx">NewEncryptionWithSecrets</span><span class="p">(</span><span class="s">&quot;aes&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;aes-key&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;initializationVector&quot;</span><span class="p">).</span><span class="nx">EncryptWithAES</span><span class="p">)</span>
-</code></pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The <code>algorithm</code> used used with app-service-configurable configuration to access this transform is <code>AES</code> </p>
-</div>
 <h3 id="aesprotection">AESProtection</h3>
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 2.1</p>

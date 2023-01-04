@@ -3948,33 +3948,19 @@
 <h3 id="encrypt"><a href="../BuiltIn/#dataprotection">Encrypt</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
-<li><code>Algorithm</code> - AES (deprecated) or AES256</li>
-<li><code>Key</code> -  (optional, deprecated) Encryption key used for the encryption. Required if not using Secret Store for the encryption key data</li>
-<li><code>InitVector</code> - (deprecated) Initialization vector used for the encryption.</li>
-<li><code>SecretPath</code> - (required for AES256) Path in the <code>Secret Store</code> where the encryption key is located. Required if <code>Key</code> not specified.</li>
-<li><code>SecretName</code> - (required for AES256) Name of the secret for the encryption key in the <code>Secret Store</code>.  Required if <code>Key</code> not specified.</li>
+<li><code>Algorithm</code> - AES256</li>
+<li><code>SecretPath</code> - (required for AES256) Path in the <code>Secret Store</code> where the encryption key is located.</li>
+<li><code>SecretName</code> - (required for AES256) Name of the secret for the encryption key in the <code>Secret Store</code>.</li>
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<p><div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1"># Encrypt with key specified in configuration</span>
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Encrypt]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Encrypt.Parameters]</span>
-<span class="w">      </span><span class="n">Algorithm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;aes&quot;</span><span class="w"> </span>
-<span class="w">      </span><span class="n">Key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;aquqweoruqwpeoruqwpoeruqwpoierupqoweiurpoqwiuerpqowieurqpowieurpoqiweuroipwqure&quot;</span>
-<span class="w">      </span><span class="n">InitVector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;123456789012345678901234567890&quot;</span>
-</code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1"># Encrypt with key pulled from Secret Store</span>
 <span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Encrypt]</span>
 <span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Encrypt.Parameters]</span>
-<span class="w">      </span><span class="n">Algorithm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;aes&quot;</span>
-<span class="w">      </span><span class="n">InitVector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;123456789012345678901234567890&quot;</span>
+<span class="w">      </span><span class="n">Algorithm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;aes256&quot;</span>
 <span class="w">      </span><span class="n">SecretPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;aes&quot;</span>
 <span class="w">      </span><span class="n">SecretName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;key&quot;</span>
-</code></pre></div></p>
-</div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the <code>EncryptWithAES</code> configurable pipeline function have been replaced by the <code>Encrypt</code> configurable pipeline function with additional <code>Algorithm</code> parameter. In addition the ability to pull the encryption key from the <code>Secret Store</code> has been added.</p>
+</code></pre></div>
 </div>
 <h3 id="filterbydevicename"><a href="../BuiltIn/#by-device-name">FilterByDeviceName</a></h3>
 <p><strong>Parameters</strong></p>
