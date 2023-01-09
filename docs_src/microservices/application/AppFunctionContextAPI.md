@@ -187,15 +187,6 @@ This API will replace placeholders of the form `{context-key-name}` with the val
 
 ## Secrets
 
-### GetSecret - DEPRECATED
-
-`GetSecret(path string, keys ...string)`
-
-This API is used to retrieve secrets from the secret store. `path` specifies the type or location of the secrets to retrieve. If specified, it is appended to the base path from the exclusive secret store configuration. `keys` specifies the list of secrets to be retrieved. If no keys are provided then all the keys associated with the specified path will be returned.
-
-!!! warning
-    GetSecret is deprecated and will be removed in EdgeX 3.0. Use `SecretProvider().GetSerect()`
-
 ### SecretsLastUpdated - DEPRECATED
 `SecretsLastUpdated()`
 
