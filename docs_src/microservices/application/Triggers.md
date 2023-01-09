@@ -310,8 +310,6 @@ The trigger factory function is bound to an instance of a trigger configuration 
 type TriggerConfig struct {
 	Logger           logger.LoggingClient
 	ContextBuilder   TriggerContextBuilder
-	// Deprecated: use MessageReceived
-	MessageProcessor TriggerMessageProcessor
 	MessageReceived  TriggerMessageHandler
 	ConfigLoader     TriggerConfigLoader
 }
@@ -320,7 +318,6 @@ type TriggerConfig struct {
 This type carries a pointer to the internal edgex logger, along with three functions:
 
 - `ContextBuilder` builds an `interfaces.AppFunctionContext` from a message envelope you construct.
-- `MessageProcessor` (DEPRECATED) exposes a function that sends your message envelope and context built above into the default function pipeline.
 - `MessageReceived` exposes a function that sends your message envelope and context to any pipelines configured in the EdgeX service.  It also takes a function that will be run to process the response for each successful pipeline.
 !!! note
     The context passed in to `Received` will be cloned for each pipeline configured to run.  If a nil context is passed a new one will be initialized from the message.
