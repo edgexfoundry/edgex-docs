@@ -187,14 +187,6 @@ This API will replace placeholders of the form `{context-key-name}` with the val
 
 ## Secrets
 
-### SecretsLastUpdated - DEPRECATED
-`SecretsLastUpdated()`
-
-This API returns that timestamp for when the secrets in the SecretStore where last updated.  Useful when a connection to external source needs to be redone when the credentials have been updated.
-
-!!! warning
-    SecretsLastUpdated is deprecated and will be removed in EdgeX 3.0. Use `SecretProvider().SecretsLastUpdated()`
-
 ### SecretProvider
 
 `SecretProvider() interfaces.SecretProvider`
