@@ -28,7 +28,6 @@ type ApplicationService interface {
 	LoadConfigurableFunctionPipelines() (map[string]FunctionPipeline, error)
 	MakeItRun() error
 	MakeItStop()
-	StoreSecret(path string, secretData map[string]string) error 
     SecretProvider() interfaces.SecretProvider
 	LoggingClient() logger.LoggingClient
 	EventClient() interfaces.EventClient
@@ -402,36 +401,6 @@ This API  stops the configured trigger so that the functions pipeline no longer 
 ## Secrets APIs
 
 The following `ApplicationService` APIs allow your service retrieve and store secrets from/to the service's SecretStore. See the [Secrets](../AdvancedTopics/#secrets) advanced topic for more details about using secrets.
-
-### StoreSecret  - DEPRECATED
-
-`StoreSecret(path string, secretData map[string]string) error`
-
-This API stores the specified secret data into the secret store (secure mode only) for the specified path
-An error is returned if:
-
-- Specified secret data is empty
-- Not using the secure secret store, i.e. not valid with InsecureSecrets configuration
-- Secure secret provider is not properly initialized
-- Connection issues with Secret Store service.
-
-!!! note 
-    Typically Application Services only needs to retrieve secrets via the code. The `/secret` REST API is used to seed secrets into the service's SecretStore.
-
-!!! example "Example - StoreSecret"
-
-    ```go
-    
-    secretData := generateMqttCredentials()
-    err := service.StoreSecret("mqtt", secretData)
-    if err != nil {
-       ...
-    }
-    ...
-    ```
-
-!!! warning
-    StoreSecret is deprecated and will be removed in EdgeX 3.0. Use `SecretProvider().StoreSecret()`
 
 ### SecretProvider
 
