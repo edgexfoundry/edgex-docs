@@ -315,7 +315,7 @@ The Rules tab allows eKuiper rules to be added, removed or updated/edited as wel
 - send the result to the EdgeX message bus
 - send the result to a log file 
 
-See the [eKuiper documentation](https://github.com/lf-edge/ekuiper/blob/master/docs/en_US/rules/overview.md) for more information on how to define rules.
+See the [eKuiper documentation](https://github.com/lf-edge/ekuiper/blob/master/docs/en_US/guide/rules/overview.md) for more information on how to define rules.
 
 ![image](EdgeX_AddeKuiperRule.png)
 
