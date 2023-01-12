@@ -217,7 +217,6 @@ The following are where you can find the configuration migration specifics for i
 - [Core Command](../microservices/core/command/Ch-Command/#v2-configuration-migration-guide)
 - [Support Notifications](../microservices/support/notifications/Ch-AlertsNotifications/#v2-configuration-migration-guide)
 - [Support Scheduler](../microservices/support/scheduler/Ch-Scheduler/#v2-configuration-migration-guide)
-- [System Management Agent](../microservices/system-management/agent/Ch_SysMgmtAgent/#v2-configuration-migration-guide)  (DEPRECATED)
 - [Application Services](../microservices/application/V2Migration/#configuration)
 - [Device Services (common)](../microservices/device/V2Migration/#configuration)
 - [Device MQTT](../microservices/device/V2Migration/#device-mqtt)

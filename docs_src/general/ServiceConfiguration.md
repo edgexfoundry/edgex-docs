@@ -38,7 +38,3 @@ Please refer to the general [Common Configuration documentation](../microservice
     |---|---|
     |API Gateway|[Kong Configuration](../security/Ch-APIGateway.md#configuring-api-gateway)|
     |Add-on Services |[Configuring Add-on Service](../security/Ch-Configuring-Add-On-Services.md)|
-=== "System Management"
-    |Services Name|	Configuration Reference|
-    |---|---|
-    |system	management|[System Management Agent Configuration](../microservices/system-management/agent/Ch_SysMgmtAgent.md#configuration-properties)|
