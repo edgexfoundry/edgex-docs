@@ -222,57 +222,6 @@ There are two problems with this approach:
   increasing implementation difficulty for the programmer.
 
 
-### Alternative: mTLS Everywhere
-
-One straightforward approach would be to use mutual-auth TLS (mTLS) everywhere
-and eliminate the reverse proxy entirely.
-There are several problems with this approach:
-
-- Each EdgeX service would be exposed directly on the host,
-  resulting in a more attractive attack target.
-
-- mTLS would break Consul-based service health checks.
-
-- Enabling the Vault PKI secrets engine to allow issuance of
-  client and server certificates would add a lot of code to EdgeX.
-
-- Certificate and key rotation,
-  as recommended by 
-  [NIST SP 800-57 part 1](https://csrc.nist.gov/publications/detail/sp/800-57-part-1/rev-5/final),
-  would have to be solved,
-  including live rotation of certificates for long-running processes.
-
-
-### Alternative: SPIFFE-based mTLS
-
-This approach is a variation on mTLS Everywhere
-where SPIFFE-aware client libraries that
-are specifically designed to support live rotation
-of TLS credentials are compiled into applications.
-This is an effective mitigation for NIST SP 800-57
-recommended cryptoperiods.
-
-Legacy services such as Vault, Consul, et cetera
-assume that their TLS server certificates are long-lived.
-One way of to accommodate these services would be
-to issue a long-lived X.509 SVID to these services.
-Alternatively, certificates to these services
-could be delivered out-of-band.
-However, in both scenarios, 
-certificate and/or key rotation
-would require a disruptive service restart.
-
-Tools such as ghosttunnel could be used to proxy
-services that are not TLS-aware, but in a bare-metal
-environment the proxy could be easily bypassed.
-
-While a SPIFFE-based mTLS solution solves some
-of the problems with an mTLS Everywhere approach,
-a significant amount of effort would need to be
-spent dealing with corner cases and
-third-party service integration.
-
-
 ### Alternative: Using Kong as a Service Identity Provider
 
 Neither the JWT nor OAuth2 plugins offer a token introspection endpoint,
