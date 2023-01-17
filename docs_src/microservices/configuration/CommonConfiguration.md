@@ -4,9 +4,8 @@ The tables in each of the tabs below document configuration properties that are 
 
 ## Configuration Properties
 
-!!! edgey "Edgex 2.0"
-    For EdgeX 2.0 the `Logging` and `Startup` sections have been removed. `Startup` has been replaced with the `EDGEX_STARTUP_DURATION` (default is 60 secs) and `EDGEX_STARTUP_INTERVAL` (default is 1 sec) environment variables.
-
+!!! edgey "Edgex 3.0"
+    For EdgeX 3.0 the **SecretStore** configuration has been removed from each service's configuration files. It has default values which can be overridden with environment variables. See the [SecretStore Overrides](../CommonEnvironmentVariables/#secretstore-overrides) section for more details.
 
 === "Writable"
 
@@ -110,29 +109,9 @@ The tables in each of the tabs below document configuration properties that are 
     
     !!! edgey "Edgex 2.0"
         For EdgeX 2.0 the map keys have changed to be the service's service-key, i.e. `Metadata` changed to `core-metadata`
-
+    
     !!! edgey "Edgex 2.3"
         The `UseMessageBus` and `Topics` fields are only viable for Command client
-
-=== "SecretStore"
-
-    |Property|Default Value|Description|
-    |---|---|---|
-    |||these config values are used when security is enabled and `SecretStore` service access is required for obtaining secrets, such as database credentials|
-    |Type | vault  | The type of the `SecretStore` service to use. Currenly only `vault` is supported.|
-    |Host | localhost  | The host name or IP address associated with the `SecretStore` service|
-    |Port | 8200  | The configured port on which the `SecretStore` service is listening|
-    |Path | `<service-key>`/ | The service-specific path where the secrets are kept. This path will differ according to the given service. |
-    |Protocol | http  | The protocol to be used when communicating with the `SecretStore` service|
-    |RootCaCertPath | blank | Default is to not use HTTPS |
-    |ServerName | blank | Not needed for HTTP |
-    |TokenFile | /tmp/edgex/secrets/`<service-key>`/secrets-token.json | Fully-qualified path to the location of the service's `SecretStore` access token. This path will differ according to the given service. |
-    |SecretsFile| blank | Fully-qualified path to the location of the service's JSON secrets file  contains secrets to seed at start-up. See [Seeding Service Secrets](../../security/SeedingServiceSecrets.md) section for more details on seed a service's secrets. |
-    |DisableScrubSecretsFile| false | Controls if the secrets file is scrubbed (secret data remove) and rewritten after importing the secrets.|
-    |Authentication AuthType | X-Vault-Token  | A header used to indicate how the given service will authenticate with the `SecretStore` service|
-    
-    !!! edgey "Edgex 2.0"
-        For EdgeX 2.0 the `Protocol` default has changed to `HTTP` which no longer requires `RootCaCertPath` and `ServerName` to be set. `Path` has been reduce to the sub-path for the service since the based path is fixed. `TokenFile` default value has changed and requires the `service-key` be used in the path.
 
 ## Writable vs Readable Settings
 
@@ -146,7 +125,6 @@ for edgex-core-data are:
 - /edgex/core/2.0/edgex-core-data/Databases
 - /edgex/core/2.0/edgex-core-data/MessageQueue
 - /edgex/core/2.0/edgex-core-data/Registry
-- /edgex/core/2.0/edgex-core-data/SecretStore
 
 Any configuration settings found in a service's `Writable` section may be changed and affect a service's behavior without a restart. Any
 modifications to the other settings (read-only configuration) would require a restart.

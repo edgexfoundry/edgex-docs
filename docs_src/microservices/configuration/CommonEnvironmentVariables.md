@@ -163,6 +163,19 @@ ENVVAR : CLIENTS_CORE_DATA_HOST=edgex-core-data
 ```    
 ~~~
 
+### SecretStore Overrides
+
+!!! edgey "EdgeX 3.0"
+    For EdgeX 3.0 the **SecretStore** configuration has been removed from each service's configuration files. It now has default values which can be overridden with environment variables.
+
+The environment variables overrides for **SecretStore** configuration remain the same as in 2.x releases. The following are SecretStore** fields that commonly need to be overridden.
+
+- SECRETSTORE_HOST
+- SECRETSTORE_RUNTIMETOKENPROVIDER_ENABLED
+- SECRETSTORE_RUNTIMETOKENPROVIDER_HOST
+
+The  complete list of **SecretStore** fields and defaults can be found [here](https://github.com/edgexfoundry/go-mod-bootstrap/blob/main/config/types.go#L164-L187). The defaults for the remaining fields typically do not need to be overridden, but may be overridden if needed using that same naming scheme as above.
+
 ### Notable Configuration Overrides
 
 This section describes environment variable overrides that have special utility,
