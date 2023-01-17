@@ -85,29 +85,10 @@ when the entrypoint script is overridden.  In this case, we also override the `c
 
 ## Configure the service's `Secret Store` to use
 
-Make sure the TOML configuration file of add-on service like `device-camera` contains
-the proper `[SecretStore]` section.
+!!! edgey "Edgex 3.0"
+    For EdgeX 3.0 the **SecretStore** configuration has been removed from each service's configuration files. It has default values which can be overridden with environment variables. See the [SecretStore Overrides](../../microservices/configuration/CommonEnvironmentVariables/#secretstore-overrides) section for more details.
 
-Example:
-
-```toml
-[SecretStore]
-Type = "vault"
-Host = "localhost"
-Port = 8200
-Path = "device-camera/"
-Protocol = "http"
-RootCaCertPath = ""
-ServerName = ""
-TokenFile = "/tmp/edgex/secrets/device-camera/secrets-token.json"
-  [SecretStore.Authentication]
-  AuthType = "X-Vault-Token"
-```
-
-Note that the service key `device-camera` must be used for the `Path` and in the `TokenFile` path
-to keep it consistent and easier to maintain.
-And then add the add-on service's service key to EdgeX service `secretstore-setup`'s
-`ADD_SECRETSTORE_TOKENS` environment variable in the `environment` section of `docker-compose`
+Note that the service key , i.e.`device-onvif-camera`, must be used for the `Path` and in the `TokenFile` path to keep it consistent and easier to maintain. These are now part of the built in default values for the **SecretStore** configuration. Then the add-on service's service key must be added to the EdgeX service `secretstore-setup`'s`ADD_SECRETSTORE_TOKENS` environment variable in the `environment` section of `docker-compose`
 as the example shown below:
 
 ```yaml
@@ -118,13 +99,12 @@ as the example shown below:
     - security-bootstrapper
     - vault
     environment:
-      ADD_SECRETSTORE_TOKENS: 'device-camera'
+      ADD_SECRETSTORE_TOKENS: 'device-onvif-camera'
 ...
-
 ```
 
 With that, `secretstore-setup` then will generate `Secret Store` token from `Vault` and store it in
-the `TokenFile` path specified in the TOML configuration file like the above example.
+the `TokenFile` path specified in the **SecretStore** configuration.
 
 Also note that the value of `ADD_SECRETSTORE_TOKENS` can take more than one service in a form of
 comma separated list like "`device-camera`, `device-modbus`" if needed.
@@ -162,7 +142,7 @@ the `known secret` and `device-virtual` is the service key of the add-on service
     - security-bootstrapper
     - vault
     environment:
-      ADD_SECRETSTORE_TOKENS: 'device-camera, my-service'
+      ADD_SECRETSTORE_TOKENS: 'device-onvif-camera, my-service'
       ADD_KNOWN_SECRETS: redisdb[app-rules-engine],redisdb[device-rest],redisdb[device-virtual]
 ...
 
@@ -232,17 +212,17 @@ edgex-proxy:
       ...
     environment:
       ...
-      ADD_PROXY_ROUTE: "device-camera.http://edgex-device-camera:59985, device-modbus.http://edgex-device-modbus:59901"
+      ADD_PROXY_ROUTE: "device-camera.http://edgex-device-onvif-camera:59984, device-modbus.http://edgex-device-modbus:59901"
       ...
 ...
 ```
 
-where in the comma separated list, the first part of configured value `device-camera` is the service key
-and the URL format is the service's hostname with its docker network port number `59985`
+where in the comma separated list, the first part of configured value `device-onvif-camera` is the service key
+and the URL format is the service's hostname with its docker network port number `59984`
 for `device-camera`.  The same idea applies to `device-modbus` with its values.
 
 With that setup, we can then access the endpoints of `device-camera` from Kong's host like
-`https://<HostName>:8443/device-camera/{device-name}/name` assuming the caller can resolve
+`https://<HostName>:8443/device-onvif-camera/{device-name}/name` assuming the caller can resolve
 `<HostName>` from DNS server.
 
 For more details on the introduction to the API gateway and how it works,
