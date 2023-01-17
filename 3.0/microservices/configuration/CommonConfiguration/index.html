@@ -3020,10 +3020,10 @@
 <p>The tables in each of the tabs below document configuration properties that are common to all services in the EdgeX Foundry platform. Service-specific properties can be found on the respective documentation page for each service.</p>
 <h2 id="configuration-properties">Configuration Properties</h2>
 <div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>For EdgeX 2.0 the <code>Logging</code> and <code>Startup</code> sections have been removed. <code>Startup</code> has been replaced with the <code>EDGEX_STARTUP_DURATION</code> (default is 60 secs) and <code>EDGEX_STARTUP_INTERVAL</code> (default is 1 sec) environment variables.</p>
+<p class="admonition-title">Edgex 3.0</p>
+<p>For EdgeX 3.0 the <strong>SecretStore</strong> configuration has been removed from each service's configuration files. It has default values which can be overridden with environment variables. See the <a href="../CommonEnvironmentVariables/#secretstore-overrides">SecretStore Overrides</a> section for more details.</p>
 </div>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:8"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><input id="__tabbed_1_7" name="__tabbed_1" type="radio" /><input id="__tabbed_1_8" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Writable</label><label for="__tabbed_1_2">Writable.Telemetry</label><label for="__tabbed_1_3">Service</label><label for="__tabbed_1_4">Service.CORSConfiguration</label><label for="__tabbed_1_5">Databases.Primary</label><label for="__tabbed_1_6">Registry</label><label for="__tabbed_1_7">Clients.[service-key]</label><label for="__tabbed_1_8">SecretStore</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:7"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><input id="__tabbed_1_7" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Writable</label><label for="__tabbed_1_2">Writable.Telemetry</label><label for="__tabbed_1_3">Service</label><label for="__tabbed_1_4">Service.CORSConfiguration</label><label for="__tabbed_1_5">Databases.Primary</label><label for="__tabbed_1_6">Registry</label><label for="__tabbed_1_7">Clients.[service-key]</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table>
@@ -3389,83 +3389,6 @@
 <p>The <code>UseMessageBus</code> and <code>Topics</code> fields are only viable for Command client</p>
 </div>
 </div>
-<div class="tabbed-block">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Default Value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td></td>
-<td>these config values are used when security is enabled and <code>SecretStore</code> service access is required for obtaining secrets, such as database credentials</td>
-</tr>
-<tr>
-<td>Type</td>
-<td>vault</td>
-<td>The type of the <code>SecretStore</code> service to use. Currenly only <code>vault</code> is supported.</td>
-</tr>
-<tr>
-<td>Host</td>
-<td>localhost</td>
-<td>The host name or IP address associated with the <code>SecretStore</code> service</td>
-</tr>
-<tr>
-<td>Port</td>
-<td>8200</td>
-<td>The configured port on which the <code>SecretStore</code> service is listening</td>
-</tr>
-<tr>
-<td>Path</td>
-<td><code>&lt;service-key&gt;</code>/</td>
-<td>The service-specific path where the secrets are kept. This path will differ according to the given service.</td>
-</tr>
-<tr>
-<td>Protocol</td>
-<td>http</td>
-<td>The protocol to be used when communicating with the <code>SecretStore</code> service</td>
-</tr>
-<tr>
-<td>RootCaCertPath</td>
-<td>blank</td>
-<td>Default is to not use HTTPS</td>
-</tr>
-<tr>
-<td>ServerName</td>
-<td>blank</td>
-<td>Not needed for HTTP</td>
-</tr>
-<tr>
-<td>TokenFile</td>
-<td>/tmp/edgex/secrets/<code>&lt;service-key&gt;</code>/secrets-token.json</td>
-<td>Fully-qualified path to the location of the service's <code>SecretStore</code> access token. This path will differ according to the given service.</td>
-</tr>
-<tr>
-<td>SecretsFile</td>
-<td>blank</td>
-<td>Fully-qualified path to the location of the service's JSON secrets file  contains secrets to seed at start-up. See <a href="../../../security/SeedingServiceSecrets/">Seeding Service Secrets</a> section for more details on seed a service's secrets.</td>
-</tr>
-<tr>
-<td>DisableScrubSecretsFile</td>
-<td>false</td>
-<td>Controls if the secrets file is scrubbed (secret data remove) and rewritten after importing the secrets.</td>
-</tr>
-<tr>
-<td>Authentication AuthType</td>
-<td>X-Vault-Token</td>
-<td>A header used to indicate how the given service will authenticate with the <code>SecretStore</code> service</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>For EdgeX 2.0 the <code>Protocol</code> default has changed to <code>HTTP</code> which no longer requires <code>RootCaCertPath</code> and <code>ServerName</code> to be set. <code>Path</code> has been reduce to the sub-path for the service since the based path is fixed. <code>TokenFile</code> default value has changed and requires the <code>service-key</code> be used in the path.</p>
-</div>
-</div>
 </div>
 </div>
 <h2 id="writable-vs-readable-settings">Writable vs Readable Settings</h2>
@@ -3479,7 +3402,6 @@ for edgex-core-data are:</p>
 <li>/edgex/core/2.0/edgex-core-data/Databases</li>
 <li>/edgex/core/2.0/edgex-core-data/MessageQueue</li>
 <li>/edgex/core/2.0/edgex-core-data/Registry</li>
-<li>/edgex/core/2.0/edgex-core-data/SecretStore</li>
 </ul>
 <p>Any configuration settings found in a service's <code>Writable</code> section may be changed and affect a service's behavior without a restart. Any
 modifications to the other settings (read-only configuration) would require a restart.</p>

@@ -3120,25 +3120,11 @@ Docker's entrypoint script in the original Dockerfile and Docker ignores the ori
 when the entrypoint script is overridden.  In this case, we also override the <code>command</code> for
 <code>app-service-rules</code> service with arguments to execute.</p>
 <h2 id="configure-the-services-secret-store-to-use">Configure the service's <code>Secret Store</code> to use</h2>
-<p>Make sure the TOML configuration file of add-on service like <code>device-camera</code> contains
-the proper <code>[SecretStore]</code> section.</p>
-<p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[SecretStore]</span>
-<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;vault&quot;</span>
-<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span>
-<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8200</span>
-<span class="n">Path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;device-camera/&quot;</span>
-<span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http&quot;</span>
-<span class="n">RootCaCertPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
-<span class="n">ServerName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
-<span class="n">TokenFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/tmp/edgex/secrets/device-camera/secrets-token.json&quot;</span>
-<span class="w">  </span><span class="k">[SecretStore.Authentication]</span>
-<span class="w">  </span><span class="n">AuthType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;X-Vault-Token&quot;</span>
-</code></pre></div>
-<p>Note that the service key <code>device-camera</code> must be used for the <code>Path</code> and in the <code>TokenFile</code> path
-to keep it consistent and easier to maintain.
-And then add the add-on service's service key to EdgeX service <code>secretstore-setup</code>'s
-<code>ADD_SECRETSTORE_TOKENS</code> environment variable in the <code>environment</code> section of <code>docker-compose</code>
+<div class="admonition edgey">
+<p class="admonition-title">Edgex 3.0</p>
+<p>For EdgeX 3.0 the <strong>SecretStore</strong> configuration has been removed from each service's configuration files. It has default values which can be overridden with environment variables. See the <a href="../../microservices/configuration/CommonEnvironmentVariables/#secretstore-overrides">SecretStore Overrides</a> section for more details.</p>
+</div>
+<p>Note that the service key , i.e.<code>device-onvif-camera</code>, must be used for the <code>Path</code> and in the <code>TokenFile</code> path to keep it consistent and easier to maintain. These are now part of the built in default values for the <strong>SecretStore</strong> configuration. Then the add-on service's service key must be added to the EdgeX service <code>secretstore-setup</code>'s<code>ADD_SECRETSTORE_TOKENS</code> environment variable in the <code>environment</code> section of <code>docker-compose</code>
 as the example shown below:</p>
 <div class="highlight"><pre><span></span><code><span class="nn">...</span>
 <span class="w">  </span><span class="nt">secretstore-setup</span><span class="p">:</span>
@@ -3147,11 +3133,11 @@ as the example shown below:</p>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-bootstrapper</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault</span>
 <span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">ADD_SECRETSTORE_TOKENS</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;device-camera&#39;</span>
+<span class="w">      </span><span class="nt">ADD_SECRETSTORE_TOKENS</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;device-onvif-camera&#39;</span>
 <span class="nn">...</span>
 </code></pre></div>
 <p>With that, <code>secretstore-setup</code> then will generate <code>Secret Store</code> token from <code>Vault</code> and store it in
-the <code>TokenFile</code> path specified in the TOML configuration file like the above example.</p>
+the <code>TokenFile</code> path specified in the <strong>SecretStore</strong> configuration.</p>
 <p>Also note that the value of <code>ADD_SECRETSTORE_TOKENS</code> can take more than one service in a form of
 comma separated list like "<code>device-camera</code>, <code>device-modbus</code>" if needed.</p>
 <h2 id="optional-configure-known-secrets-for-add-on-services">(Optional) Configure known secrets for add-on services</h2>
@@ -3181,7 +3167,7 @@ the <code>known secret</code> and <code>device-virtual</code> is the service key
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-bootstrapper</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault</span>
 <span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">ADD_SECRETSTORE_TOKENS</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;device-camera,</span><span class="nv"> </span><span class="s">my-service&#39;</span>
+<span class="w">      </span><span class="nt">ADD_SECRETSTORE_TOKENS</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;device-onvif-camera,</span><span class="nv"> </span><span class="s">my-service&#39;</span>
 <span class="w">      </span><span class="nt">ADD_KNOWN_SECRETS</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redisdb[app-rules-engine],redisdb[device-rest],redisdb[device-virtual]</span>
 <span class="nn">...</span>
 </code></pre></div>
@@ -3231,15 +3217,15 @@ is given as follows:</p>
 <span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
 <span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">environment</span><span class="p p-Indicator">:</span>
 <span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
-<span class="w">      </span><span class="nt">ADD_PROXY_ROUTE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;device-camera.http://edgex-device-camera:59985,</span><span class="nv"> </span><span class="s">device-modbus.http://edgex-device-modbus:59901&quot;</span>
+<span class="w">      </span><span class="nt">ADD_PROXY_ROUTE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;device-camera.http://edgex-device-onvif-camera:59984,</span><span class="nv"> </span><span class="s">device-modbus.http://edgex-device-modbus:59901&quot;</span>
 <span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
 <span class="nn">...</span>
 </code></pre></div>
-<p>where in the comma separated list, the first part of configured value <code>device-camera</code> is the service key
-and the URL format is the service's hostname with its docker network port number <code>59985</code>
+<p>where in the comma separated list, the first part of configured value <code>device-onvif-camera</code> is the service key
+and the URL format is the service's hostname with its docker network port number <code>59984</code>
 for <code>device-camera</code>.  The same idea applies to <code>device-modbus</code> with its values.</p>
 <p>With that setup, we can then access the endpoints of <code>device-camera</code> from Kong's host like
-<code>https://&lt;HostName&gt;:8443/device-camera/{device-name}/name</code> assuming the caller can resolve
+<code>https://&lt;HostName&gt;:8443/device-onvif-camera/{device-name}/name</code> assuming the caller can resolve
 <code>&lt;HostName&gt;</code> from DNS server.</p>
 <p>For more details on the introduction to the API gateway and how it works,
 please see <a href="../Ch-APIGateway/">APIGateway documentation page</a>.</p>

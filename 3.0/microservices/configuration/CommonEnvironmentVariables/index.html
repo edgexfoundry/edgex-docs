@@ -1459,6 +1459,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#secretstore-overrides" class="md-nav__link">
+    SecretStore Overrides
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#notable-configuration-overrides" class="md-nav__link">
     Notable Configuration Overrides
   </a>
@@ -3195,6 +3202,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#secretstore-overrides" class="md-nav__link">
+    SecretStore Overrides
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#notable-configuration-overrides" class="md-nav__link">
     Notable Configuration Overrides
   </a>
@@ -3394,6 +3408,18 @@
 <span class="n">ENVVAR</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">CLIENTS_CORE_DATA_HOST</span><span class="o">=</span><span class="n">edgex-core-data</span><span class="w">    </span>
 <span class="err">```</span><span class="w">    </span>
 </code></pre></div>
+<h3 id="secretstore-overrides">SecretStore Overrides</h3>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 3.0</p>
+<p>For EdgeX 3.0 the <strong>SecretStore</strong> configuration has been removed from each service's configuration files. It now has default values which can be overridden with environment variables.</p>
+</div>
+<p>The environment variables overrides for <strong>SecretStore</strong> configuration remain the same as in 2.x releases. The following are SecretStore** fields that commonly need to be overridden.</p>
+<ul>
+<li>SECRETSTORE_HOST</li>
+<li>SECRETSTORE_RUNTIMETOKENPROVIDER_ENABLED</li>
+<li>SECRETSTORE_RUNTIMETOKENPROVIDER_HOST</li>
+</ul>
+<p>The  complete list of <strong>SecretStore</strong> fields and defaults can be found <a href="https://github.com/edgexfoundry/go-mod-bootstrap/blob/main/config/types.go#L164-L187">here</a>. The defaults for the remaining fields typically do not need to be overridden, but may be overridden if needed using that same naming scheme as above.</p>
 <h3 id="notable-configuration-overrides">Notable Configuration Overrides</h3>
 <p>This section describes environment variable overrides that have special utility,
 such as enabling a debug capability or facilitating code development.</p>

@@ -3015,28 +3015,18 @@
 
 
 <h1 id="seeding-service-secrets">Seeding Service Secrets</h1>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.1</p>
-<p>New for EdgeX 2.1 is the ability to seed service specific secrets during the service's start-up. </p>
-</div>
 <p>All EdgeX services now have the capability to specify a JSON file that contains the service's secrets which are seeded into the service's <code>SecretStore</code> during service start-up. This allows the secrets to be present in the service's <code>SecretStore</code> when the service needs to use them.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The service must already have a <code>SecretStore</code> configured. This is done by default for the Core/Support services. See <a href="../Ch-Configuring-Add-On-Services/#configure-the-services-secret-store-to-use">Configure the service's Secret Store</a> section for details for add-on App and Device services </p>
 </div>
+<div class="admonition edgey">
+<p class="admonition-title">Edgex 3.0</p>
+<p>For EdgeX 3.0 the <strong>SecretStore</strong> configuration has been removed from each service's configuration files. It has default values which can be overridden with environment variables. See the <a href="../../microservices/configuration/CommonEnvironmentVariables/#secretstore-overrides">SecretStore Overrides</a> section for more details.</p>
+</div>
 <h2 id="secrets-file">Secrets File</h2>
 <p>The new <code>SecretsFile</code> setting on the <code>SecretStore</code> configuration allows the service to specify the fully-qualified path to the location of the service's secrets file. Normally this setting is left blank when a service has no secrets to be seeded.</p>
-<div class="admonition example">
-<p class="admonition-title">Example - Setting SecretsFile in TOML</p>
-<div class="highlight"><pre><span></span><code><span class="k">[SecretStore]</span>
-<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;vault&quot;</span>
-<span class="p">...</span>
-<span class="n">SecretsFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/tmp/my-service/secrets.json&quot;</span>
-<span class="n">DisableScrubSecretsFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
-<span class="p">...</span>
-</code></pre></div>
-</div>
-<p>This setting can also be overridden with the <code>SECRETSTORE_SECRETSFILE</code> environment variable. When EdgeX is deployed using Docker/docker-compose the setting can be overridden in the docker-compose file and the file can be volume mounted into the service's container.</p>
+<p>This setting can overridden with the <code>SECRETSTORE_SECRETSFILE</code> environment variable. When EdgeX is deployed using Docker/docker-compose the setting can be overridden in the docker-compose file and the file can be volume mounted into the service's container.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - Setting SecretsFile via environment override</p>
 <div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span>
@@ -3107,17 +3097,7 @@
 <p>The secrets file must be have write permissions for the file to be scrubbed of the secret data. If not the service with fail to start-up with an error re-writing the file.</p>
 </div>
 <h2 id="disable-scrubbing">Disable Scrubbing</h2>
-<p>Scrubbing of the secret data can be disabled by setting <code>SecretStore.DisableScrubSecretsFile</code> to <code>true</code>. This can be done in the configuration.toml file or by using the <code>SECRETSTORE_DISABLESCRUBSECRETSFILE</code> environment variable override. </p>
-<div class="admonition example">
-<p class="admonition-title">Example - Set DisableScrubSecretsFile in TOML</p>
-<div class="highlight"><pre><span></span><code><span class="k">[SecretStore]</span>
-<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;vault&quot;</span>
-<span class="p">...</span>
-<span class="n">SecretsFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/tmp/my-service/secrets.json&quot;</span>
-<span class="n">DisableScrubSecretsFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="p">...</span>
-</code></pre></div>
-</div>
+<p>Scrubbing of the secret data can be disabled by setting <code>SecretStore.DisableScrubSecretsFile</code> to <code>true</code>. This can be done in the by using the <code>SECRETSTORE_DISABLESCRUBSECRETSFILE</code> environment variable override. </p>
 <div class="admonition example">
 <p class="admonition-title">Example - Set DisableScrubSecretsFile via environment variable</p>
 <div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span>

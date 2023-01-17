@@ -3719,31 +3719,16 @@ and role of a device service.</p>
 </div>
 </div>
 <h2 id="secrets">Secrets</h2>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>New in EdgeX 2.0 the Device Services now have the capability to store and retrieve secure secrets. Note that currently this only applies to Go based Device Services. The C SDK currently does not have support for <code>secrets</code> which is planned for the Jakarta 2.1 release.</p>
-</div>
 <h4 id="configuration">Configuration</h4>
+<div class="admonition edgey">
+<p class="admonition-title">Edgex 3.0</p>
+<p>For EdgeX 3.0 the <strong>SecretStore</strong> configuration has been removed from each service's configuration files. It has default values which can be overridden with environment variables. See the <a href="../CommonEnvironmentVariables/#secretstore-overrides">SecretStore Overrides</a> section for more details.</p>
+</div>
 <p>All instances of Device Services running in secure mode require a <code>SecretStore</code> to be created for the service by the Security Services. See <a href="../../../security/Ch-Configuring-Add-On-Services">Configuring Add-on Service</a> for details on configuring a <code>SecretStore</code> to be created for the Device Service. With the use of <code>Redis Pub/Sub</code> as the default EdgeX MessageBus all Device Services need the <code>redisdb</code> known secret added to their <code>SecretStore</code> so they can connect to the Secure EdgeX MessageBus. See the <a href="../../../security/Ch-Secure-MessageBus">Secure MessageBus</a> documentation for more details.</p>
 <p>Each Device Service also has detailed configuration to enable connection to it's exclusive <code>SecretStore</code></p>
-<div class="admonition example">
-<p class="admonition-title">Example - SecretStore configuration for Device MQTT</p>
-<div class="highlight"><pre><span></span><code><span class="k">[SecretStore]</span>
-<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;vault&quot;</span>
-<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span>
-<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8200</span>
-<span class="n">Path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;device-mqtt/&quot;</span>
-<span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http&quot;</span>
-<span class="n">RootCaCertPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
-<span class="n">ServerName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
-<span class="n">TokenFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/tmp/edgex/secrets/device-mqtt/secrets-token.json&quot;</span>
-<span class="w">  </span><span class="k">[SecretStore.Authentication]</span>
-<span class="w">  </span><span class="n">AuthType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;X-Vault-Token&quot;</span>
-</code></pre></div>
-</div>
 <h4 id="storing-secrets">Storing Secrets</h4>
 <h5 id="secure-mode">Secure Mode</h5>
-<p>When running an Device Service in secure mode, secrets can be stored in the SecretStore by making an HTTP <code>POST</code> call to the <code>/api/v2/secret</code> API route on the Device Service. The secret data POSTed is stored to the <code>SecretStore</code> based on values in the <code>[SecretStore]</code> section of the configuration. Once a secret is stored, only the service that added the secret will be able to retrieve it.  See the <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.0.0#/default/post_secret">Secret API Reference</a> for more details and example.</p>
+<p>When running an Device Service in secure mode, secrets can be stored in the SecretStore by making an HTTP <code>POST</code> call to the <code>/api/v2/secret</code> API route on the Device Service. The secret data POSTed is stored to the service's secure<code>SecretStore</code> . Once a secret is stored, only the service that added the secret will be able to retrieve it.  See the <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.0.0#/default/post_secret">Secret API Reference</a> for more details and example.</p>
 <h5 id="insecure-mode">Insecure Mode</h5>
 <p>When running in insecure mode, the secrets are stored and retrieved from the <em>Writable.InsecureSecrets</em> section of the service's configuration.toml file. Insecure secrets and their paths can be configured as below.</p>
 <div class="admonition example">
@@ -3762,7 +3747,7 @@ and role of a device service.</p>
 </code></pre></div>
 </div>
 <h4 id="retrieving-secrets">Retrieving Secrets</h4>
-<p>Device Services retrieve secrets from their <code>SecretStore</code> using the SDK API.  See <a href="../../getting-started/Ch-GettingStartedSDK-Go/#retrieving-secrets">Retrieving Secrets</a> for more details using the Go SDK. </p>
+<p>Device Services retrieve secrets from their <code>SecretStore</code> using the SDK API.  See <a href="../../../getting-started/Ch-GettingStartedSDK-Go/#retrieving-secrets">Retrieving Secrets</a> for more details using the Go SDK. </p>
 <h2 id="api-reference">API Reference</h2>
 <p><a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.0.0">Device Service - SDK- API Reference</a></p>
 

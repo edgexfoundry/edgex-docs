@@ -3693,29 +3693,14 @@ A factory function to create these clients can then be registered with your serv
 </code></pre></div>
 <h3 id="secrets">Secrets</h3>
 <h4 id="configuration_1">Configuration</h4>
-<p>All instances of App Services running in secure mode require a SecretStore to be configured. With the use of <code>Redis Pub/Sub</code> as the default EdgeX MessageBus all App Services need the <code>redisdb</code> known secret added to their SecretStore      so they can connect to the Secure EdgeX MessageBus. See the <a href="../../../security/Ch-Secure-MessageBus/">Secure MessageBus</a> documentation for more details.</p>
-<div class="admonition example">
-<p class="admonition-title">Example - SecretStore configuration</p>
-<div class="highlight"><pre><span></span><code><span class="k">[SecretStore]</span>
-<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;vault&quot;</span>
-<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span>
-<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8200</span>
-<span class="n">Path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;app-sample/&quot;</span>
-<span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http&quot;</span>
-<span class="n">RootCaCertPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
-<span class="n">ServerName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
-<span class="n">TokenFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/tmp/edgex/secrets/app-sample/secrets-token.json&quot;</span>
-<span class="w">  </span><span class="k">[SecretStore.Authentication]</span>
-<span class="w">  </span><span class="n">AuthType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;X-Vault-Token&quot;</span>
-</code></pre></div>
-</div>
+<p>All instances of App Services running in secure mode require a SecretStore to be configured. With the use of <code>Redis Pub/Sub</code> as the default EdgeX MessageBus all App Services need the <code>redisdb</code> known secret added to their SecretStore so they can connect to the Secure EdgeX MessageBus. See the <a href="../../../security/Ch-Secure-MessageBus/">Secure MessageBus</a> documentation for more details.</p>
 <div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For Edgex 2.0 all Application Service Secret Stores are <code>exclusive</code> so the explicit <code>[SecretStoreExclusive]</code> configuration has been removed.</p>
+<p class="admonition-title">Edgex 3.0</p>
+<p>For EdgeX 3.0 the <strong>SecretStore</strong> configuration has been removed from each service's configuration files. It now has default values which can be overridden with environment variables. See the <a href="../../configuration/CommonEnvironmentVariables/#secretstore-overrides">SecretStore Overrides</a> section for more details.</p>
 </div>
 <h4 id="storing-secrets">Storing Secrets</h4>
 <h5 id="secure-mode">Secure Mode</h5>
-<p>When running an application service in secure mode, secrets can be stored in the SecretStore      by making an HTTP <code>POST</code> call to the <code>/api/v2/secret</code> API route in the application service. The secret data POSTed is stored and retrieved from the SecretStore based on values in the <code>[SecretStore]</code> section of the configuration file. Once a secret is stored, only the service that added the secret will be able to retrieve it.  For secret retrieval see <a href="#getting-secrets">Getting Secrets</a> section below.</p>
+<p>When running an application service in secure mode, secrets can be stored in the service's secure SecretStore by making an HTTP <code>POST</code> call to the <code>/api/v2/secret</code> API route in the application service. The secret data POSTed is stored and retrieved from the service's secure SecretStore . Once a secret is stored, only the service that added the secret will be able to retrieve it.  For secret retrieval see <a href="#getting-secrets">Getting Secrets</a> section below.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - JSON message body</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
@@ -3731,7 +3716,7 @@ A factory function to create these clients can then be registered with your serv
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Path specifies the type or location of the secret in the SecretStore. It is appended to the base path from the <code>[SecretStore]</code> configuration. </p>
+<p>Path specifies the type or location of the secret within the service's SecretStore. </p>
 </div>
 <h5 id="insecure-mode">Insecure Mode</h5>
 <p>When running in insecure mode, the secrets are stored and retrieved from the <em>Writable.InsecureSecrets</em> section of the service's configuration toml file. Insecure secrets and their paths can be configured as below.</p>
@@ -3752,8 +3737,8 @@ A factory function to create these clients can then be registered with your serv
 </code></pre></div>
 </div>
 <h4 id="getting-secrets">Getting Secrets</h4>
-<p>Application Services can retrieve their secrets from their SecretStore      using the  <a href="../ApplicationServiceAPI/#getsecret">interfaces.ApplicationService.GetSecret()</a> API or from the <a href="../AppFunctionContextAPI/#getsecret">interfaces.AppFunctionContext.GetSecret()</a> API  </p>
-<p>When in secure mode, the secrets are retrieved from the SecretStore      based on the <code>[SecretStore]</code>  configuration values. </p>
+<p>Application Services can retrieve their secrets from their SecretStore using the  <a href="../ApplicationServiceAPI/#secretprovider">interfaces.ApplicationService.SecretProvider.GetSecret()</a> API or from the <a href="../AppFunctionContextAPI/#secretprovider">interfaces.AppFunctionContext.SecretProvider.GetSecret()</a> API  </p>
+<p>When in secure mode, the secrets are retrieved from the service secure SecretStore. </p>
 <p>When running in insecure mode, the secrets are retrieved from the <code>[Writable.InsecureSecrets]</code> configuration.</p>
 <h3 id="background-publishing">Background Publishing</h3>
 <p>Application Services using the MessageBus trigger can request a background publisher using the AddBackgroundPublisher API in the SDK.  This method takes an int representing the background channel's capacity as the only parameter and returns a reference to a BackgroundPublisher.  This reference can then be used by background processes to publish to the configured MessageBus output.  A custom topic can be provided to use instead of the configured message bus output as well.</p>
