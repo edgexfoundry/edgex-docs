@@ -56,8 +56,8 @@ Upon a connection between consumer and provider snaps, the packaged config files
 Please refer to [edgex-config-provider](https://github.com/canonical/edgex-config-provider), for an example.
 
 #### Config overrides
-!!! edgey "EdgeX 2.2 - app options"
-    This version of EdgeX snaps introduce a new scheme for the snap configuration options:
+??? Tip "EdgeX snap options scheme"
+    Since EdgeX v2.2, the snaps use the following scheme for the snap configuration options:
     ```
     apps.<app>.<type>.<key>
     ```
@@ -67,21 +67,15 @@ Please refer to [edgex-config-provider](https://github.com/canonical/edgex-confi
     - `<type>` is the type of option with respect to the app
     - `<key>` is key for the option. It could contain a path to set a value inside an object, e.g. `x.y=z` sets `{"x": {"y": "z"}}`.
 
-    The app options are **disabled by default**. This is for usability purposes and to avoid confusion with legacy options. The app options may be enabled by default in the next major release of EdgeX.
+    We call these *app options* because of the `apps.<app>` prefix which is used to apply configurations to specific services. This prefix can be dropped to apply the configuration globally to all apps within a snap!
 
-    Refer to [edgexfoundry/edgex-go#3986](https://github.com/edgexfoundry/edgex-go/pull/3986) for details.
+    This scheme is used for *config options* (described in this section) as well as *autostart options* described in [managing services].
 
-!!! edgey "EdgeX 2.2 - config options"
-    The snaps now provide an interface to set any environment variable for supported apps.
-    We call these the *config options* because they use a `config` prefix for the variable names. The config options are a subset of app options, which are **disabled by default**.
+    To know more about snap configuration, refer [here](https://snapcraft.io/docs/configuration-in-snaps).
 
-    This functionality supersedes for the snap *env options* (prefix `env.`) which allow setting a pre-defined set of configurations. Existing env options will continue to work until the next major EdgeX release. Please refer to snap READMEs (`jakarta` branch) for the documentation of the deprecated options.
+The EdgeX services allow overriding server configurations using environment variables. Moreover, the services read [EdgeX Common Environment Variables](../../microservices/configuration/CommonEnvironmentVariables/) that override configurations that are hardcoded in source code or set as command-line options.
 
-    Enabling app options will migrate internal env options and persistently remove any newly set env option.
-
-The EdgeX services allow overriding server configurations using environment variables. Moreover, the services read EdgeX [Common Environment Variables](../../microservices/configuration/CommonEnvironmentVariables/) to change configurations that aren't defined in config files.
-The EdgeX snaps provide an interface via [snap configuration options](https://snapcraft.io/docs/configuration-in-snaps) to set environment variables for the services.
-We call these the *config options* because they a have `config` prefix for the variable names.
+The EdgeX snaps provide an mechanism that reads stored key-value options and internally export environment variables to specific services and apps.
 
 The snap options for setting environment variable uses the the following format:
 
@@ -91,7 +85,9 @@ The snap options for setting environment variable uses the the following format:
 where:
 
 * `<app>` is the name of the app (service, executable)
-* `<env-var>` is a lowercase, dash-separated mapping to uppercase, underscore-separate environment variable name (e.g. `x-y`->`X_Y`). The reason for such mapping is that uppercase and underscore characters are not supported as config keys for snaps.
+* `<env-var>` is a lowercase, dash-separated mapping from the uppercase, underscore-separate environment variable name (e.g. `x-y`->`X_Y`). The reason for such mapping is that uppercase and underscore characters are not supported as config keys for snaps.
+
+We call these the *config options*, because they a have `config` prefix for the variable names.
 
 Mapping examples:
 
@@ -105,50 +101,79 @@ Mapping examples:
 [EDGEX_STARTUP_DURATION]: ../../microservices/configuration/CommonEnvironmentVariables/#edgex_startup_duration
 [ADD_SECRETSTORE_TOKENS]: ../../security/Ch-Configuring-Add-On-Services/#configure-the-services-secret-store-to-use
 
-!!! note
-    The config options are supported as of EdgeX 2.2 and are disabled by default!
+!!! Example 
+    To change the service port of the `core-data` service on `edgexfoundry` snap to 8080:
+    ```bash
+    snap set edgexfoundry apps.core-data.config.service-port=8080
+    ```
+    This would internally export `SERVICE_PORT=8080` to `core-data` service.
 
-    Setting `app-options=true` is necessary to enable their support.
+!!! Note
+    The services load the set config options on startup. If a service has already started, a restart will be necessary to load the configurations.
 
-    Enabling app options will migrate internal env options and persistently remove any newly set env option.
-
-For example, to change the service port of the core-data service on `edgexfoundry` snap to 8080:
-```bash
-snap set edgexfoundry app-options=true
-snap set edgexfoundry apps.core-data.config.service-port=8080
-```
-
-The services load the set config options on startup. If the service has already started, a restart is necessary to load them.
-
-#### Common configuration examples
+#### Examples
 ##### Disabling security
 [disabling security]: #disabling-security
-
+    
 !!! Warning
     Disabling security is NOT recommended, unless for demonstration purposes, or when there are other means to secure the services.
 
-    The snap will NOT allow the Secret Store to be re-enabled. The only way to re-enable the Secret Store is to re-install the snap.
-    
-The Secret Store is used by EdgeX for secret management (e.g. certificates, keys, passwords). Use of the Secret Store by all services can be disabled globally. Note that doing so will also disable the API Gateway, as it depends on the Secret Store.
+    The [platform snap] snap does NOT allow the security to be re-enabled. The only way to re-enable it is to re-install the snap.
 
-The following command disables the Secret Store and in turn the API Gateway:
+Disabling security involves two steps:
+
+1. Stopping the security services and disabling them so that they don't run again.
+2. Configuring EdgeX services to NOT use the Secret Store by setting [EDGEX_SECURITY_SECRET_STORE](../../microservices/configuration/CommonEnvironmentVariables/#edgex_security_secret_store) to false.
+
+The [platform snap] includes all the reference security components. The security components are enabled by default. The platform snap provides a convenience way to perform both of the above by setting `security=false`:
 ```bash
-sudo snap set edgexfoundry security-secret-store=off
+snap set edgexfoundry security=false
 ```
 
-All services in the snap except for the API Gateway are restricted by default to listening on localhost (127.0.0.1).
-The API Gateway proxies external requests to internal services.
-Since disabling the Secret Store also disables the API Gateway, the service endpoint will no longer be accessible from other systems.
-They will be still accessible on the local machine for demonstration and testing.
+The above command results in stopping and disabling the security components as well as setting `config.edgex-security-secret-store=false` internally so that core services stop using the Secret Store. The services are automatically restarted to pick up the new configuration.
 
-If you really need to make an insecure service accessible remotely, set the bind address of the service to the IP address of that networking interface on the local machine. If you trust all your interfaces and want the services to accept connections from all, set it to `0.0.0.0`.
+After disabling the security on the platform, the external services should be similarly configured by setting `config.edgex-security-secret-store=false` such that they don't attempt to initialize the security.
 
-After disabling the Secret Store, the external services should be configured such that they don't attempt to initialize the security. For this purpose, [EDGEX_SECURITY_SECRET_STORE](../../microservices/configuration/CommonEnvironmentVariables/#edgex_security_secret_store) should be set to false, using the corresponding snap option: `config.edgex-security-secret-store`.
-For example, to disable it on the EdgeX UI snap:
-```bash
-sudo snap set edgex-ui config.edgex-security-secret-store=false
-sudo snap start edgex-ui # restart if the service has already started
-```
+!!! Example
+    To disable security for the [edgex-ui] snap:
+    ```bash
+    snap set edgex-ui config.edgex-security-secret-store=false
+    snap restart edgex-ui
+    ```
+
+!!! Note
+    All snapped services except for the API Gateway are restricted by default to listening on localhost (127.0.0.1).
+    On the [platform snap], the API Gateway proxies external requests to internal services.
+    Since disabling security on the platform snap disables the API Gateway, the service endpoints will no longer be accessible from other systems.
+    They will be still accessible on the local machine and reachable by other local services.
+
+    If you need to make an insecure service accessible remotely, set the bind address of the service to the IP address of that networking interface on the local machine. If you trust all your interfaces and want the services to accept connections from all, set it to `0.0.0.0`.
+    ??? Example
+        By default, `core-data` listens on `127.0.0.1:59880`:
+        ```
+        $ sudo lsof -nPi :59880
+        COMMAND     PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+        core-data 30944 root   12u  IPv4 198726      0t0  TCP 127.0.0.1:59880 (LISTEN)
+        ```
+
+        To set the bind address of `core-data` in the platform snap to `0.0.0.0`:
+        ```bash
+        snap set edgexfoundry apps.core-data.config.service-serverbindaddr="0.0.0.0"
+        ```
+
+        Now, core data is listening an all interfaces (`*:59880`):
+        ```
+        $ sudo lsof -nPi :59880
+        COMMAND     PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+        core-data 30548 root   12u  IPv6 185059      0t0  TCP *:59880 (LISTEN)
+        ```
+
+        To set it for all services inside the platform snap:
+        ```bash
+        snap set edgexfoundry config.service-serverbindaddr="0.0.0.0"
+        ```
+
+
 
 ##### Using MQTT message bus
 The default message bus for EdgeX services is Redis Pub/Sub. If you prefer to use MQTT instead of Redis, change the [message bus configurations](../../microservices/general/messagebus/#configuration-changes) using snap options.
@@ -175,7 +200,7 @@ Consul and configure the services not to use Registry and Config Provider.
     To disable Consul and configure all services (inside the platform snap) not to use Registry and Config provider 
     using snap options, set the following:
     ```bash
-    snap stop --disable edgexfoundry.consul
+    snap set edgexfoundry apps.consul.autostart=false
     snap set edgexfoundry config.edgex-use-registry=false 
     snap set edgexfoundry config.edgex-configuration-provider=none
     ```
@@ -202,23 +227,8 @@ snap start --enable <snap>.<app>
 
 Similarly, a service can be stopped and optionally disabled using `snap stop --disable`.
 
-??? info "Seeding custom service startup using snap options"
-    To spin up an EdgeX instance with a different startup configuration (e.g. enabled instead of disabled), the `edgexfoundry` snap provides the following config options that accept values `"on"`/`"off"` to enable/disable a service by default:
-    
-    * `consul`
-    * `redis`
-    * `core-metadata`
-    * `core-command`
-    * `core-data`
-    * `support-notifications`
-    * `support-scheduler`
-    * `device-virtual`
-    * `security-secret-store`
-    * `security-proxy`
-
-    Device and app service snaps provide a similar functionality using the `autostart` option.
-
-    This is particularly useful when seeding the snap from a [Gadget](https://snapcraft.io/docs/gadget-snap) on an [Ubuntu Core](https://ubuntu.com/core) system.
+!!! Note
+    The [service autostart](#service-autostart) overrides the status and startup setting of the services. In other words, if autostart is set explicitly to true/false, it will apply that setting every time the snap is re-configured, e.g. by executing `snap set|unset`.
 
 To restart services, e.g. to load the configurations:
 ```bash
@@ -228,6 +238,31 @@ snap restart <snap>
 # one service
 snap restart <snap>.<app>
 ```
+
+#### Service autostart
+The EdgeX snaps provide a mechanism to change the default startup of services (e.g. enabled instead of disabled).
+
+The EdgeX snaps allows the change using snap options following the below scheme: 
+
+* `apps.<app>.autostart=true|false`: changing the default startup of one app
+* `autostart=true|false`: changing the default startup of all apps
+    
+where `<app>` is the name of the app (simple, forking or oneshot service).
+
+We call these the *autostart options*.
+
+??? Example
+    Disable the autostart of support-scheduler on the [platform snap]:
+    ```bash
+    snap set edgexfoundry apps.support-scheduler.autostart=false
+    ```
+
+    Enable the autostart of all [Device USB Camera](#device-usb-camera) services:
+    ```bash
+    snap set edgex-device-virtual autostart=true
+    ```
+
+The autostart options are also useful for changing the startup behavior when seeding the snap from a [Gadget](https://snapcraft.io/docs/gadget-snap) on [Ubuntu Core](https://ubuntu.com/core).
 
 ### Debugging
 [debugging]: #debugging
@@ -279,6 +314,7 @@ The following snaps are maintained by the EdgeX working groups:
 To find all EdgeX snaps on the public Snap Store, [search by keyword](https://snapcraft.io/search?q=edgex).
 
 ### Platform Snap
+[platform snap]: #platform-snap
 | [Installation][edgexfoundry] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/edgex-go/tree/main/snap) |
 
 The main platform snap, simply called `edgexfoundry` contains
