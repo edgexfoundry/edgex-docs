@@ -6,7 +6,7 @@
 
 ### Change Log
 
-- [First draft](https://github.com/edgexfoundry/edgex-docs/pull/659) (2022-10-31)
+- [approved](https://github.com/edgexfoundry/edgex-docs/pull/920) (2023-01-12)
 
 ### Market Segments
 
