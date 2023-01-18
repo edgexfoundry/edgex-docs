@@ -9,7 +9,7 @@
 - All
 
 ### Motivation
-Deployment at scale, i.e. identical or almost identical deployments across many locations, would benefit from the ability to loaded service files from a central location. This would allow the maintainer to make changes once to a shared file and have them apply to all or a subset of deployments. The following are some EdgeX service files that would benefit for this capability:
+Deployment at scale, i.e. identical or almost identical deployments across many locations, would benefit from the ability to load service files from a central location. This would allow the maintainer to make changes once to a shared file and have them apply to all or a subset of deployments. The following are some EdgeX service files that would benefit for this capability:
 
 - [Unit of Measure](https://github.com/edgexfoundry/edgex-go/blob/v2.3.0/cmd/core-metadata/res/uom.toml) file used by Core Metadata
 
@@ -18,6 +18,10 @@ Deployment at scale, i.e. identical or almost identical deployments across many 
 - Service Configuration files
     - Location of these files are currently defaulted to be `./res/configuration.toml`, but can be overridden  via -cf/--configFile command line flag.
     - The Common Configuration ADR adds a new [common configuration file](https://docs.edgexfoundry.org/3.0/design/adr/0026-Common%20Configuration/#specifying-the-common-configuration-location) specified via the future -cc/--commonConfig command line flag.
+
+- [Token Configuration](https://github.com/edgexfoundry/edgex-go/blob/v2.3.0/cmd/security-file-token-provider/res/token-config.json) file for Security File Token Provider 
+
+    - This file specifies the list of services to generate Vault tokens for. 
 
 - Device Profiles, Device Definition and Provision Watchers
 
