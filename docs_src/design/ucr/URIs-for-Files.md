@@ -49,8 +49,9 @@ Loading shared files via a URI is not new in the software industry. Here is the 
 - Single EdgeX service files shall optionally be loaded via a specified URI. 
 - Sets of EdgeX service files (i.e. device service files) shall optionally be loaded via a URI. Details on how are left to the ADR.
 - The URIs specified shall follow the [Uniform Resource Identifier](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier) spec when authentication not required or using **basic-auth** in plain text in the URI,  i.e. `username:password@`
-  - Only the `http`, `https`, and `file` schemes from the above spec shall be supported.
-
+  - Only the `http` and `https` schemes from the above spec shall be supported as well as `plain paths` as is today
+  - The `file` scheme shall not be supported as it doesn't allow for relative paths
+  
 - The URI spec shall be extended to allow the specifying of EdgeX service secrets from the service's Secret Store in order to avoid credentials in plain text. Details on how are left to the ADR.
 
 ### Other Related Issues
