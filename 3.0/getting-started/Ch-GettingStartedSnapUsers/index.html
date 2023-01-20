@@ -629,11 +629,11 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#common-configuration-examples" class="md-nav__link">
-    Common configuration examples
+  <a href="#examples" class="md-nav__link">
+    Examples
   </a>
   
-    <nav class="md-nav" aria-label="Common configuration examples">
+    <nav class="md-nav" aria-label="Examples">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -671,6 +671,19 @@
   <a href="#managing-services" class="md-nav__link">
     Managing services
   </a>
+  
+    <nav class="md-nav" aria-label="Managing services">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#service-autostart" class="md-nav__link">
+    Service autostart
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -3288,11 +3301,11 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#common-configuration-examples" class="md-nav__link">
-    Common configuration examples
+  <a href="#examples" class="md-nav__link">
+    Examples
   </a>
   
-    <nav class="md-nav" aria-label="Common configuration examples">
+    <nav class="md-nav" aria-label="Examples">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -3330,6 +3343,19 @@
   <a href="#managing-services" class="md-nav__link">
     Managing services
   </a>
+  
+    <nav class="md-nav" aria-label="Managing services">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#service-autostart" class="md-nav__link">
+    Service autostart
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -3557,9 +3583,9 @@ This is useful for replacing all the configuration files in a service snap via a
 Upon a connection between consumer and provider snaps, the packaged config files get mounted inside the consumer snap, to be used by services.</p>
 <p>Please refer to <a href="https://github.com/canonical/edgex-config-provider">edgex-config-provider</a>, for an example.</p>
 <h4 id="config-overrides">Config overrides</h4>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.2 - app options</p>
-<p>This version of EdgeX snaps introduce a new scheme for the snap configuration options:
+<details class="tip">
+<summary>EdgeX snap options scheme</summary>
+<p>Since EdgeX v2.2, the snaps use the following scheme for the snap configuration options:
 <div class="highlight"><pre><span></span><code>apps.&lt;app&gt;.&lt;type&gt;.&lt;key&gt;
 </code></pre></div>
 where:</p>
@@ -3568,28 +3594,21 @@ where:</p>
 <li><code>&lt;type&gt;</code> is the type of option with respect to the app</li>
 <li><code>&lt;key&gt;</code> is key for the option. It could contain a path to set a value inside an object, e.g. <code>x.y=z</code> sets <code>{"x": {"y": "z"}}</code>.</li>
 </ul>
-<p>The app options are <strong>disabled by default</strong>. This is for usability purposes and to avoid confusion with legacy options. The app options may be enabled by default in the next major release of EdgeX.</p>
-<p>Refer to <a href="https://github.com/edgexfoundry/edgex-go/pull/3986">edgexfoundry/edgex-go#3986</a> for details.</p>
-</div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.2 - config options</p>
-<p>The snaps now provide an interface to set any environment variable for supported apps.
-We call these the <em>config options</em> because they use a <code>config</code> prefix for the variable names. The config options are a subset of app options, which are <strong>disabled by default</strong>.</p>
-<p>This functionality supersedes for the snap <em>env options</em> (prefix <code>env.</code>) which allow setting a pre-defined set of configurations. Existing env options will continue to work until the next major EdgeX release. Please refer to snap READMEs (<code>jakarta</code> branch) for the documentation of the deprecated options.</p>
-<p>Enabling app options will migrate internal env options and persistently remove any newly set env option.</p>
-</div>
-<p>The EdgeX services allow overriding server configurations using environment variables. Moreover, the services read EdgeX <a href="../../microservices/configuration/CommonEnvironmentVariables/">Common Environment Variables</a> to change configurations that aren't defined in config files.
-The EdgeX snaps provide an interface via <a href="https://snapcraft.io/docs/configuration-in-snaps">snap configuration options</a> to set environment variables for the services.
-We call these the <em>config options</em> because they a have <code>config</code> prefix for the variable names.</p>
+<p>We call these <em>app options</em> because of the <code>apps.&lt;app&gt;</code> prefix which is used to apply configurations to specific services. This prefix can be dropped to apply the configuration globally to all apps within a snap!</p>
+<p>This scheme is used for config overrides (described in this section) as well as autostart described in <a href="#managing-services">managing services</a>, among others.</p>
+<p>To know more about snap configuration, refer <a href="https://snapcraft.io/docs/configuration-in-snaps">here</a>.</p>
+</details>
+<p>The EdgeX services allow overriding server configurations using environment variables. Moreover, the services read <a href="../../microservices/configuration/CommonEnvironmentVariables/">EdgeX Common Environment Variables</a> that override configurations that are hardcoded in source code or set as command-line options.</p>
+<p>The EdgeX snaps provide an mechanism that reads stored key-value options and internally export environment variables to specific services and apps.</p>
 <p>The snap options for setting environment variable uses the the following format:</p>
 <ul>
 <li><code>apps.&lt;app&gt;.config.&lt;env-var&gt;</code>: setting an app-specific value (e.g. <code>apps.core-data.config.service-port=1000</code>).</li>
-<li><code>config.&lt;env-var&gt;</code>: setting a global value (e.g. <code>config.service-host=localhost</code> or <code>config.writable-loglevel=DEBUG</code></li>
+<li><code>config.&lt;env-var&gt;</code>: setting a global value (e.g. <code>config.service-host=localhost</code> or <code>config.writable-loglevel=DEBUG</code>)</li>
 </ul>
 <p>where:</p>
 <ul>
 <li><code>&lt;app&gt;</code> is the name of the app (service, executable)</li>
-<li><code>&lt;env-var&gt;</code> is a lowercase, dash-separated mapping to uppercase, underscore-separate environment variable name (e.g. <code>x-y</code>-&gt;<code>X_Y</code>). The reason for such mapping is that uppercase and underscore characters are not supported as config keys for snaps.</li>
+<li><code>&lt;env-var&gt;</code> is a lowercase, dash-separated mapping from the uppercase, underscore-separate environment variable name (e.g. <code>X_Y</code>-&gt;<code>x-y</code>). The reason for such mapping is that uppercase and underscore characters are not supported as config keys for snaps.</li>
 </ul>
 <p>Mapping examples:</p>
 <table>
@@ -3623,38 +3642,68 @@ We call these the <em>config options</em> because they a have <code>config</code
 </tr>
 </tbody>
 </table>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>To change the service port of the <code>core-data</code> service on <code>edgexfoundry</code> snap to 8080:
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>apps.core-data.config.service-port<span class="o">=</span><span class="m">8080</span>
+</code></pre></div>
+This would internally export <code>SERVICE_PORT=8080</code> to <code>core-data</code> service.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The config options are supported as of EdgeX 2.2 and are disabled by default!</p>
-<p>Setting <code>app-options=true</code> is necessary to enable their support.</p>
-<p>Enabling app options will migrate internal env options and persistently remove any newly set env option.</p>
+<p>The services load the set configuration on startup. If a service has already started, a restart will be necessary to load the configurations.</p>
 </div>
-<p>For example, to change the service port of the core-data service on <code>edgexfoundry</code> snap to 8080:
-<div class="highlight"><pre><span></span><code>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>app-options<span class="o">=</span><span class="nb">true</span>
-snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>apps.core-data.config.service-port<span class="o">=</span><span class="m">8080</span>
-</code></pre></div></p>
-<p>The services load the set config options on startup. If the service has already started, a restart is necessary to load them.</p>
-<h4 id="common-configuration-examples">Common configuration examples</h4>
+<h4 id="examples">Examples</h4>
 <h5 id="disabling-security">Disabling security</h5>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Disabling security is NOT recommended, unless for demonstration purposes, or when there are other means to secure the services.</p>
-<p>The snap will NOT allow the Secret Store to be re-enabled. The only way to re-enable the Secret Store is to re-install the snap.</p>
+<p>The <a href="#platform-snap">platform snap</a> snap does NOT allow the security to be re-enabled. The only way to re-enable it is to re-install the snap.</p>
 </div>
-<p>The Secret Store is used by EdgeX for secret management (e.g. certificates, keys, passwords). Use of the Secret Store by all services can be disabled globally. Note that doing so will also disable the API Gateway, as it depends on the Secret Store.</p>
-<p>The following command disables the Secret Store and in turn the API Gateway:
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>security-secret-store<span class="o">=</span>off
+<p>Disabling security involves two steps:</p>
+<ol>
+<li>Stopping the security services and disabling them so that they don't run again.</li>
+<li>Configuring EdgeX services to NOT use the Secret Store by setting <a href="../../microservices/configuration/CommonEnvironmentVariables/#edgex_security_secret_store">EDGEX_SECURITY_SECRET_STORE</a> to false. The services include Core Data, Core Command, Core Metadata, EdgeX UI, device services, app services, and any other service that uses EdgeX's <a href="https://github.com/edgexfoundry/go-mod-bootstrap">go-mod-bootstrap</a>.</li>
+</ol>
+<p>The <a href="#platform-snap">platform snap</a> includes all the reference security components. The security components are enabled by default. The platform snap provides a convenience way to perform both of the above by setting <code>security=false</code>:
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span><span class="nv">security</span><span class="o">=</span><span class="nb">false</span>
 </code></pre></div></p>
-<p>All services in the snap except for the API Gateway are restricted by default to listening on localhost (127.0.0.1).
-The API Gateway proxies external requests to internal services.
-Since disabling the Secret Store also disables the API Gateway, the service endpoint will no longer be accessible from other systems.
-They will be still accessible on the local machine for demonstration and testing.</p>
-<p>If you really need to make an insecure service accessible remotely, set the bind address of the service to the IP address of that networking interface on the local machine. If you trust all your interfaces and want the services to accept connections from all, set it to <code>0.0.0.0</code>.</p>
-<p>After disabling the Secret Store, the external services should be configured such that they don't attempt to initialize the security. For this purpose, <a href="../../microservices/configuration/CommonEnvironmentVariables/#edgex_security_secret_store">EDGEX_SECURITY_SECRET_STORE</a> should be set to false, using the corresponding snap option: <code>config.edgex-security-secret-store</code>.
-For example, to disable it on the EdgeX UI snap:
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgex-ui<span class="w"> </span>config.edgex-security-secret-store<span class="o">=</span><span class="nb">false</span>
-sudo<span class="w"> </span>snap<span class="w"> </span>start<span class="w"> </span>edgex-ui<span class="w"> </span><span class="c1"># restart if the service has already started</span>
+<p>The above command results in stopping and disabling the security components as well as setting <code>config.edgex-security-secret-store=false</code> internally so that core services stop using the Secret Store. The services are automatically restarted to pick up the new configuration.</p>
+<p>After disabling the security on the platform, the external services should be similarly configured by setting <code>config.edgex-security-secret-store=false</code> such that they don't attempt to initialize the security.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>To disable security for the <a href="https://snapcraft.io/edgex-ui">edgex-ui</a> snap:
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgex-ui<span class="w"> </span>config.edgex-security-secret-store<span class="o">=</span><span class="nb">false</span>
+snap<span class="w"> </span>restart<span class="w"> </span>edgex-ui
 </code></pre></div></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All snapped services except for the API Gateway are restricted by default to listening on localhost (127.0.0.1).
+On the <a href="#platform-snap">platform snap</a>, the API Gateway proxies external requests to internal services.
+Since disabling security on the platform snap disables the API Gateway, the service endpoints will no longer be accessible from other systems.
+They will be still accessible on the local machine and reachable by other local services.</p>
+<p>If you need to make an insecure service accessible remotely, set the bind address of the service to the IP address of that networking interface on the local machine. If you trust all your interfaces and want the services to accept connections from all, set it to <code>0.0.0.0</code>.</p>
+<details class="example">
+<summary>Example</summary>
+<p>By default, <code>core-data</code> listens on <code>127.0.0.1:59880</code>:
+<div class="highlight"><pre><span></span><code>$ sudo lsof -nPi :59880
+COMMAND     PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+core-data 30944 root   12u  IPv4 198726      0t0  TCP 127.0.0.1:59880 (LISTEN)
+</code></pre></div></p>
+<p>To set the bind address of <code>core-data</code> in the platform snap to <code>0.0.0.0</code>:
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>apps.core-data.config.service-serverbindaddr<span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span>
+</code></pre></div></p>
+<p>Now, core data is listening an all interfaces (<code>*:59880</code>):
+<div class="highlight"><pre><span></span><code>$ sudo lsof -nPi :59880
+COMMAND     PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+core-data 30548 root   12u  IPv6 185059      0t0  TCP *:59880 (LISTEN)
+</code></pre></div></p>
+<p>To set it for all services inside the platform snap:
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>config.service-serverbindaddr<span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span>
+</code></pre></div></p>
+</details>
+</div>
 <h5 id="using-mqtt-message-bus">Using MQTT message bus</h5>
 <p>The default message bus for EdgeX services is Redis Pub/Sub. If you prefer to use MQTT instead of Redis, change the <a href="../../microservices/general/messagebus/#configuration-changes">message bus configurations</a> using snap options.</p>
 <div class="admonition example">
@@ -3678,7 +3727,7 @@ Consul and configure the services not to use Registry and Config Provider.</p>
 <p class="admonition-title">Example</p>
 <p>To disable Consul and configure all services (inside the platform snap) not to use Registry and Config provider 
 using snap options, set the following:
-<div class="highlight"><pre><span></span><code>snap<span class="w"> </span>stop<span class="w"> </span>--disable<span class="w"> </span>edgexfoundry.consul
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>apps.consul.autostart<span class="o">=</span><span class="nb">false</span>
 snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>config.edgex-use-registry<span class="o">=</span><span class="nb">false</span><span class="w"> </span>
 snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>config.edgex-configuration-provider<span class="o">=</span>none
 </code></pre></div></p>
@@ -3697,24 +3746,10 @@ snap<span class="w"> </span>start<span class="w"> </span>--enable<span class="w"
 snap<span class="w"> </span>start<span class="w"> </span>--enable<span class="w"> </span>&lt;snap&gt;.&lt;app&gt;
 </code></pre></div></p>
 <p>Similarly, a service can be stopped and optionally disabled using <code>snap stop --disable</code>.</p>
-<details class="info">
-<summary>Seeding custom service startup using snap options</summary>
-<p>To spin up an EdgeX instance with a different startup configuration (e.g. enabled instead of disabled), the <code>edgexfoundry</code> snap provides the following config options that accept values <code>"on"</code>/<code>"off"</code> to enable/disable a service by default:</p>
-<ul>
-<li><code>consul</code></li>
-<li><code>redis</code></li>
-<li><code>core-metadata</code></li>
-<li><code>core-command</code></li>
-<li><code>core-data</code></li>
-<li><code>support-notifications</code></li>
-<li><code>support-scheduler</code></li>
-<li><code>device-virtual</code></li>
-<li><code>security-secret-store</code></li>
-<li><code>security-proxy</code></li>
-</ul>
-<p>Device and app service snaps provide a similar functionality using the <code>autostart</code> option.</p>
-<p>This is particularly useful when seeding the snap from a <a href="https://snapcraft.io/docs/gadget-snap">Gadget</a> on an <a href="https://ubuntu.com/core">Ubuntu Core</a> system.</p>
-</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <a href="#service-autostart">service autostart</a> overrides the status and startup setting of the services. In other words, if autostart is set explicitly to true/false, it will apply that setting every time the snap is re-configured, e.g. by executing <code>snap set|unset</code>.</p>
+</div>
 <p>To restart services, e.g. to load the configurations:
 <div class="highlight"><pre><span></span><code><span class="c1"># all services</span>
 snap<span class="w"> </span>restart<span class="w"> </span>&lt;snap&gt;
@@ -3722,6 +3757,24 @@ snap<span class="w"> </span>restart<span class="w"> </span>&lt;snap&gt;
 <span class="c1"># one service</span>
 snap<span class="w"> </span>restart<span class="w"> </span>&lt;snap&gt;.&lt;app&gt;
 </code></pre></div></p>
+<h4 id="service-autostart">Service autostart</h4>
+<p>The EdgeX snaps provide a mechanism to change the default startup of services (e.g. enabled instead of disabled).</p>
+<p>The EdgeX snaps allows the change using snap options following the below scheme: </p>
+<ul>
+<li><code>apps.&lt;app&gt;.autostart=true|false</code>: changing the default startup of one app</li>
+<li><code>autostart=true|false</code>: changing the default startup of all apps</li>
+</ul>
+<p>where <code>&lt;app&gt;</code> is the name of the app which can run as a service.</p>
+<details class="example">
+<summary>Example</summary>
+<p>Disable the autostart of support-scheduler on the <a href="#platform-snap">platform snap</a>:
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>apps.support-scheduler.autostart<span class="o">=</span><span class="nb">false</span>
+</code></pre></div></p>
+<p>Enable the autostart of all <a href="#device-usb-camera">Device USB Camera</a> services:
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgex-device-virtual<span class="w"> </span><span class="nv">autostart</span><span class="o">=</span><span class="nb">true</span>
+</code></pre></div></p>
+</details>
+<p>The autostart options are also useful for changing the startup behavior when seeding the snap from a <a href="https://snapcraft.io/docs/gadget-snap">Gadget</a> on <a href="https://ubuntu.com/core">Ubuntu Core</a>.</p>
 <h3 id="debugging">Debugging</h3>
 <p>The service logs can be queried using the <code>snap log</code> command.</p>
 <p>For example, to query 100 lines and follow:
