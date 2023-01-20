@@ -82,9 +82,9 @@ This ADR proposes to relieve the Kong API gateway of its
 [JWT](https://www.rfc-editor.org/rfc/rfc7519) management responsibility,
 and instead use Hashicorp Vault for this purpose,
 which is already used as EdgeX's secret store.
-This change allows for selection of a simpler reverse proxy
-that can reduce EdgeX's memory footprint by over 50MB
-and its storage footprint by over 300MB.
+In turn, EdgeX can use a simpler reverse proxy, NGINX,
+resulting in a total savings of 150MB of memory
+and 300MB of storage (in the docker implementation).
 This change requires minimal modification of existing
 clients written to perform JWT-based authentication at the Kong gateway:
 they simply use a Vault-issued JWT
@@ -158,6 +158,8 @@ This refactoring results in several benefits:
 A proof of concept implementation required the following high-level list of changes:
 
 - Kong and Postgres to be removed from compose files and snaps.
+
+- Add an NGINX reverse proxy.
 
 - Replace `security-proxy-setup` with a very small proxy authentication service.
 
