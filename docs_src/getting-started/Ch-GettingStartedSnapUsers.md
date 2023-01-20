@@ -69,7 +69,7 @@ Please refer to [edgex-config-provider](https://github.com/canonical/edgex-confi
 
     We call these *app options* because of the `apps.<app>` prefix which is used to apply configurations to specific services. This prefix can be dropped to apply the configuration globally to all apps within a snap!
 
-    This scheme is used for *config options* (described in this section) as well as *autostart options* described in [managing services].
+    This scheme is used for config overrides (described in this section) as well as autostart described in [managing services], among others.
 
     To know more about snap configuration, refer [here](https://snapcraft.io/docs/configuration-in-snaps).
 
@@ -80,14 +80,12 @@ The EdgeX snaps provide an mechanism that reads stored key-value options and int
 The snap options for setting environment variable uses the the following format:
 
 * `apps.<app>.config.<env-var>`: setting an app-specific value (e.g. `apps.core-data.config.service-port=1000`).
-* `config.<env-var>`: setting a global value (e.g. `config.service-host=localhost` or `config.writable-loglevel=DEBUG`
+* `config.<env-var>`: setting a global value (e.g. `config.service-host=localhost` or `config.writable-loglevel=DEBUG`)
 
 where:
 
 * `<app>` is the name of the app (service, executable)
-* `<env-var>` is a lowercase, dash-separated mapping from the uppercase, underscore-separate environment variable name (e.g. `x-y`->`X_Y`). The reason for such mapping is that uppercase and underscore characters are not supported as config keys for snaps.
-
-We call these the *config options*, because they a have `config` prefix for the variable names.
+* `<env-var>` is a lowercase, dash-separated mapping from the uppercase, underscore-separate environment variable name (e.g. `X_Y`->`x-y`). The reason for such mapping is that uppercase and underscore characters are not supported as config keys for snaps.
 
 Mapping examples:
 
@@ -109,7 +107,7 @@ Mapping examples:
     This would internally export `SERVICE_PORT=8080` to `core-data` service.
 
 !!! Note
-    The services load the set config options on startup. If a service has already started, a restart will be necessary to load the configurations.
+    The services load the set configuration on startup. If a service has already started, a restart will be necessary to load the configurations.
 
 #### Examples
 ##### Disabling security
@@ -123,7 +121,7 @@ Mapping examples:
 Disabling security involves two steps:
 
 1. Stopping the security services and disabling them so that they don't run again.
-2. Configuring EdgeX services to NOT use the Secret Store by setting [EDGEX_SECURITY_SECRET_STORE](../../microservices/configuration/CommonEnvironmentVariables/#edgex_security_secret_store) to false.
+2. Configuring EdgeX services to NOT use the Secret Store by setting [EDGEX_SECURITY_SECRET_STORE](../../microservices/configuration/CommonEnvironmentVariables/#edgex_security_secret_store) to false. The services include Core Data, Core Command, Core Metadata, EdgeX UI, device services, app services, and any other service that uses EdgeX's [go-mod-bootstrap](https://github.com/edgexfoundry/go-mod-bootstrap).
 
 The [platform snap] includes all the reference security components. The security components are enabled by default. The platform snap provides a convenience way to perform both of the above by setting `security=false`:
 ```bash
@@ -247,9 +245,8 @@ The EdgeX snaps allows the change using snap options following the below scheme:
 * `apps.<app>.autostart=true|false`: changing the default startup of one app
 * `autostart=true|false`: changing the default startup of all apps
     
-where `<app>` is the name of the app (simple, forking or oneshot service).
+where `<app>` is the name of the app which can run as a service.
 
-We call these the *autostart options*.
 
 ??? Example
     Disable the autostart of support-scheduler on the [platform snap]:
