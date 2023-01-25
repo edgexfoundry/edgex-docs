@@ -5,15 +5,16 @@
 !!! note 
     UCRs are listed in alphabetical order by title.
 
-| Name/Link                                                    | Short Description                                                   |
-| ------------------------------------------------------------ |---------------------------------------------------------------------|
-| [Common Configuration](./ucr/Common Configuration.md) | Use Case for having Common configuration used by all EdgeX services |
-| [Device Parent-Child Relationships](./ucr/Device-Parent-Child-Relationships.md) | Use Case for Device Parent-Child Relationships                      |
-| [Extending Device Data](./ucr/Extending-Device-Data.md)      | Use Case for Extending of Device Data by Application Services       |
+| Name/Link                                                                           | Short Description                                                   |
+|-------------------------------------------------------------------------------------|---------------------------------------------------------------------|
+| [Common Configuration](./ucr/Common Configuration.md)                               | Use Case for having Common configuration used by all EdgeX services |
+| [Device Parent-Child Relationships](./ucr/Device-Parent-Child-Relationships.md)     | Use Case for Device Parent-Child Relationships                      |
+| [Extending Device Data](./ucr/Extending-Device-Data.md)                             | Use Case for Extending of Device Data by Application Services       |
 | [Provision Watch via Device Metadata](./ucr/Provision-Watch-via-Device-Metadata.md) | Use Case for Provision Watching via Additional Device Metadata      |
-| [Record and Replay](./ucr/Record-and-Replay.md)              | Use Case for Recording and Replaying event/readings                 |
-| [System Events for Devices](./ucr/System-Events-for-Devices.md) | Use Case for System Events for Device add/update/delete             |
-| [Microservice Authentication](./ucr/Microservice-Authentication.md) | Use Case for Microservice Authentication |
+| [Record and Replay](./ucr/Record-and-Replay.md)                                     | Use Case for Recording and Replaying event/readings                 |
+| [System Events for Devices](./ucr/System-Events-for-Devices.md)                     | Use Case for System Events for Device add/update/delete             |
+| [Microservice Authentication](./ucr/Microservice-Authentication.md)                 | Use Case for Microservice Authentication                            |
+| [URIs for files](.//ucr/URIs-for-Files.md)                                          | Use Case for loading service files from URIs                        |
 
 ## Architectural Design Records (ADRs)
 
