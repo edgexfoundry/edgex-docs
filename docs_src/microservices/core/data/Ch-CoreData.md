@@ -133,7 +133,7 @@ Please refer to the general [Common Configuration documentation](../../configura
     !!! edgey "Edgex 2.2/2.3"
         For EdgeX 2.2 Collecting of the `EventsPersisted` and `ReadingsPersisted` Core Data Service Metrics have been added.Some common service metrics have been added in 2.3
 
-=== "Databases/Databases.Primary"
+=== "Database"
     |Property|Default Value|Description|
     |---|---|---|
     |Name|'coredata'|Document store or database name|

@@ -149,13 +149,13 @@ Because Redis is not running on your Windows machine, the configuration of all t
 
 #### Modify the Configuration of EdgeX Core and Supporting Services
 
-Each of core and supporting EdgeX services are located in `edgex-go\cmd` under a subfolder by the service name.  In the first case, core-metadate is located in `edgex-go\cmd\core-metadata`.  Core-metadata's configuration is located in a `configuration.toml` file in `edgex-go\cmd\core-metadata\res`.  Use your favorite editor to open the configuration file and locate the `Databases.Primary` section in that file (about 1/2 the way down the configuration listings).  Change the host address from `localhost` to the IP address of your Redis hosting machine (changed to 10.0.0.75 in the example below).
+Each of core and supporting EdgeX services are located in `edgex-go\cmd` under a subfolder by the service name.  In the first case, core-metadate is located in `edgex-go\cmd\core-metadata`.  Core-metadata's configuration is located in a `configuration.toml` file in `edgex-go\cmd\core-metadata\res`.  Use your favorite editor to open the configuration file and locate the `Database` section in that file (about 1/2 the way down the configuration listings).  Change the host address from `localhost` to the IP address of your Redis hosting machine (changed to 10.0.0.75 in the example below).
 
 ![image](Windows-ChangeDatabaseHost.png)
 
-Modify the host location for Redis in the `Databases.Primary` section of `configuration.toml` files for notifications (`edgex-go\cmd\support-notifications\res`) and scheduler (`edgex-go\cmd\support-scheduler\res`) services in the same way.
+Modify the host location for Redis in the `Database` section of `configuration.toml` files for notifications (`edgex-go\cmd\support-notifications\res`) and scheduler (`edgex-go\cmd\support-scheduler\res`) services in the same way.
 
-In core-data, you need to modify two host settings.  You need to change the location for Redis in the `Databases.Primary` section as well as the host location for Redis in the `MessageQueue` section of `configuration.toml`.  The latter setting is for accessing the Redis Pub/Sub message bus.
+In core-data, you need to modify two host settings.  You need to change the location for Redis in the `Database` section as well as the host location for Redis in the `MessageQueue` section of `configuration.toml`.  The latter setting is for accessing the Redis Pub/Sub message bus.
 
 ![image](Windows-ChangeRedisHost.png)
 

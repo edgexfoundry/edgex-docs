@@ -159,7 +159,7 @@ Please refer to the general [Common Configuration documentation](../../configura
     !!! edgey "Edgex 2.3"
         For EdgeX 2.3 Collecting of the some common service metrics has been added. See [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties) for more details.
 
-=== "Databases/Databases.Primary"
+=== "Database"
     |Property|Default Value|Description|
     |---|---|---|
     |||Properties used by the service to access the database|

@@ -69,7 +69,7 @@ The tables in each of the tabs below document configuration properties that are 
         New for EdgeX 2.1 is the ability to enable CORS access to EdgeX microservices through configuration. 
     To understand more details about these HTTP headers, please refer to [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#the_http_response_headers), and refer to [CORS enabling](../../security/Ch-CORS-Settings.md) to learn more.
 
-=== "Databases.Primary"
+=== "Database"
 
     |Property|Default Value|Description|
     |---|---|---|
@@ -122,7 +122,7 @@ for edgex-core-data are:
 - **/edgex/core/2.0/edgex-core-data/Writable**
 - /edgex/core/2.0/edgex-core-data/Service
 - /edgex/core/2.0/edgex-core-data/Clients
-- /edgex/core/2.0/edgex-core-data/Databases
+- /edgex/core/2.0/edgex-core-data/Database
 - /edgex/core/2.0/edgex-core-data/MessageQueue
 - /edgex/core/2.0/edgex-core-data/Registry
 
