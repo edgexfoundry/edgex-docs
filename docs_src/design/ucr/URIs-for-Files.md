@@ -3,7 +3,7 @@
 - Lenny Goodell (Intel)
 
 ## Change Log
-- [pending](URL of PR) (2023-01-18)
+- [approved](https://github.com/edgexfoundry/edgex-docs/pull/938) (2023-01-25)
 
 ### Market Segments
 - All
