@@ -102,7 +102,7 @@ EdgeX services no longer have docker specific profiles. They now rely on environ
           CLIENTS_CORE_METADATA_HOST: edgex-core-metadata
           CLIENTS_SUPPORT_NOTIFICATIONS_HOST: edgex-support-notifications
           CLIENTS_SUPPORT_SCHEDULER_HOST: edgex-support-scheduler
-          DATABASES_PRIMARY_HOST: edgex-redis
+          DATABASE_HOST: edgex-redis
           MESSAGEQUEUE_HOST: edgex-redis
           REGISTRY_HOST: edgex-core-consul
           TRIGGER_EDGEXMESSAGEBUS_PUBLISHHOST_HOST: edgex-redis
@@ -122,7 +122,7 @@ EdgeX services no longer have docker specific profiles. They now rely on environ
           CLIENTS_CORE_METADATA_HOST: edgex-core-metadata
           CLIENTS_SUPPORT_NOTIFICATIONS_HOST: edgex-support-notifications
           CLIENTS_SUPPORT_SCHEDULER_HOST: edgex-support-scheduler
-          DATABASES_PRIMARY_HOST: edgex-redis
+          DATABASE_HOST: edgex-redis
           EDGEX_PROFILE: rules-engine
           EDGEX_SECURITY_SECRET_STORE: "false"
           MESSAGEQUEUE_HOST: edgex-redis
