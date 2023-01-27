@@ -12,7 +12,7 @@
         <meta name="author" content="Michael Johanson">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/microservices/system-management/executor/Ch_SysMgmtExecutor/">
+        <link rel="canonical" href="https://docs.edgexfoundry.org/microservices/system-management/executor/Ch_SysMgmtExecutor/">
       
       <link rel="icon" href="../../../../assets/logo_edgex.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.8">
@@ -3123,7 +3123,7 @@
 <p>Metrics collection is accomplished by making calls to <code>docker stats</code>.</p>
 </div>
 <h3 id="docker-executor-internals">Docker Executor Internals</h3>
-<p>Again, the makeup of the executors is at the implementer’s discretion.  In the Docker executor reference implementation, code for calling Docker to execute start, stop and restart commands is exemplifeid in <a href="https://github.com/edgexfoundry/edgex-go/blob/master/internal/system/executor/commands.go">command.go</a> while metrics collection (using <code>docker stats</code>) is exemplified in <a href="https://github.com/edgexfoundry/edgex-go/blob/master/internal/system/executor/metrics.go">metrics.go</a>.  Other executors for other environments can use these function templates to perform service operations and metrics collection by a variety of means.</p>
+<p>Again, the makeup of the executors is at the implementer’s discretion.  In the Docker executor reference implementation, code for calling Docker to execute start, stop and restart commands is exemplifeid in <a href="https://github.com/edgexfoundry/edgex-go/blob/v2.3.0/internal/system/executor/commands.go">command.go</a> while metrics collection (using <code>docker stats</code>) is exemplified in <a href="https://github.com/edgexfoundry/edgex-go/blob/v2.3.0/internal/system/executor/metrics.go">metrics.go</a>.  Other executors for other environments can use these function templates to perform service operations and metrics collection by a variety of means.</p>
 <p>The reference implementation Docker executor is deployed inside of the SMA container.  Therefore, there are no exposed APIs.  The SMA makes a direct call to the executor executable inside the container. </p>
 
 

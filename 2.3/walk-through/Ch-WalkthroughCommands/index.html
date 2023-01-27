@@ -12,7 +12,7 @@
         <meta name="author" content="Michael Johanson">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/walk-through/Ch-WalkthroughCommands/">
+        <link rel="canonical" href="https://docs.edgexfoundry.org/walk-through/Ch-WalkthroughCommands/">
       
       <link rel="icon" href="../../assets/logo_edgex.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.8">
@@ -3185,7 +3185,7 @@ way that enables simplified communications with the devices for</p>
 </div>
 <div class="tabbed-block">
 <p>Make a curl GET request as shown below.</p>
-<div class="highlight"><pre><span></span><code>curl -X GET localhost:59882/api/v2/device/name/countcamera1 <span class="p">|</span> json_pp
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>localhost:59882/api/v2/device/name/countcamera1<span class="w"> </span><span class="p">|</span><span class="w"> </span>json_pp
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3211,13 +3211,13 @@ core data.</p>
 </div>
 <div class="tabbed-block">
 <p>Make a curl GET request as shown below.</p>
-<div class="highlight"><pre><span></span><code>curl -X GET localhost:59880/api/v2/event/count/device/name/countcamera1
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>localhost:59880/api/v2/event/count/device/name/countcamera1
 </code></pre></div>
 </div>
 </div>
 </div>
 <p>The response returned should indicate no events for the camera in core data.</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="nt">&quot;statusCode&quot;</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span><span class="nt">&quot;Count&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="nt">&quot;statusCode&quot;</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span><span class="nt">&quot;Count&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">}</span>
 </code></pre></div>
 <h2 id="execute-a-command">Execute a Command</h2>
 <p>While there is no real device or device service in this walkthrough,
@@ -3245,7 +3245,7 @@ highlighted - yours will vary based on IDs.</p>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Make a PUT request to <code>http://localhost:59882/api/v2/device/name/countcamera1/ScanDepth</code> with the following body.</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;depth&quot;</span><span class="p">:</span><span class="s2">&quot;9&quot;</span><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;depth&quot;</span><span class="p">:</span><span class="s2">&quot;9&quot;</span><span class="p">}</span>
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -3254,7 +3254,7 @@ highlighted - yours will vary based on IDs.</p>
 </div>
 <div class="tabbed-block">
 <p>Make a curl PUT request as shown below.</p>
-<div class="highlight"><pre><span></span><code>curl -X PUT -d <span class="s1">&#39;{&quot;depth&quot;:&quot;9&quot;}&#39;</span> localhost:59882/api/v2/device/name/countcamera1/ScanDepth
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;depth&quot;:&quot;9&quot;}&#39;</span><span class="w"> </span>localhost:59882/api/v2/device/name/countcamera1/ScanDepth
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -3268,7 +3268,7 @@ highlighted - yours will vary based on IDs.</p>
 command will respond with a <code>Failed to send a http request</code> error. However,
 checking the logging output will prove that the core command micro service did receive the request and attempted to call on the
 non-existent device service (at the address provided for the device service - defined earlier in this walkthrough) to issue the actuating command.  To see the core command service log issue the following Docker command :</p>
-<p><div class="highlight"><pre><span></span><code>docker logs edgex-core-command
+<p><div class="highlight"><pre><span></span><code>docker<span class="w"> </span>logs<span class="w"> </span>edgex-core-command
 </code></pre></div>
 The last lines of the log entries should highlight the attempt to contact the non-existent device.</p>
 <div class="highlight"><pre><span></span><code>level=ERROR ts=2021-09-16T20:50:09.965368572Z app=core-command source=http.go:47 X-Correlation-ID=49cc97f5-1e84-4a46-9eb5-543ae8bd5284 msg=&quot;failed to send a http request -&gt; Put \&quot;camera-device-service:59990/api/v2/device/name/countcamera1/ScanDepth?\&quot;: unsupported protocol scheme \&quot;camera-device-service\&quot;&quot;

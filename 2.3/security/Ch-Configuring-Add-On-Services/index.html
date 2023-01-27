@@ -12,7 +12,7 @@
         <meta name="author" content="Michael Johanson">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/security/Ch-Configuring-Add-On-Services/">
+        <link rel="canonical" href="https://docs.edgexfoundry.org/security/Ch-Configuring-Add-On-Services/">
       
       <link rel="icon" href="../../assets/logo_edgex.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.8">
@@ -3144,23 +3144,23 @@ via <code>apk add --update</code> command.</p>
 <span class="k">FROM</span><span class="w"> </span><span class="s">alpine:3.12</span>
 
 <span class="c"># dumb-init needed for injected secure bootstrapping entrypoint script when run in secure mode.</span>
-<span class="k">RUN</span><span class="w"> </span>apk add --update --no-cache dumb-init
+<span class="k">RUN</span><span class="w"> </span>apk<span class="w"> </span>add<span class="w"> </span>--update<span class="w"> </span>--no-cache<span class="w"> </span>dumb-init
 ......
 </code></pre></div>
 <p>and then for the service itself should add <code>/edgex-init/ready_to_run_wait_install.sh</code>
 as the entrypoint script for the service in gating fashion and add related Docker volumes
 for <code>edgex-init</code> and for <code>Secret Store</code> token, which will be outlined in the next section.</p>
 <p>A good example of this will be like <code>app-service-rules</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nn">...</span><span class="w"></span>
-<span class="w">  </span><span class="nt">app-service-rules</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;/edgex-init/ready_to_run_wait_install.sh&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
-<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/app-service-configurable</span><span class="nv"> </span><span class="s">${DEFAULT_EDGEX_RUN_CMD_PARMS}&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-init:/edgex-init:ro,z</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/tmp/edgex/secrets/app-rules-engine:/tmp/edgex/secrets/app-rules-engine:ro,z</span><span class="w"></span>
-<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-bootstrapper</span><span class="w"></span>
-<span class="nn">...</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nn">...</span>
+<span class="w">  </span><span class="nt">app-service-rules</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;/edgex-init/ready_to_run_wait_install.sh&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/app-service-configurable</span><span class="nv"> </span><span class="s">${DEFAULT_EDGEX_RUN_CMD_PARMS}&quot;</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-init:/edgex-init:ro,z</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/tmp/edgex/secrets/app-rules-engine:/tmp/edgex/secrets/app-rules-engine:ro,z</span>
+<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-bootstrapper</span>
+<span class="nn">...</span>
 </code></pre></div>
 <p>Note that we also add <code>command</code> directive override in the above example because we override
 Docker's entrypoint script in the original Dockerfile and Docker ignores the original command
@@ -3170,32 +3170,32 @@ when the entrypoint script is overridden.  In this case, we also override the <c
 <p>Make sure the TOML configuration file of add-on service like <code>device-camera</code> contains
 the proper <code>[SecretStore]</code> section.</p>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[SecretStore]</span><span class="w"></span>
-<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;vault&quot;</span><span class="w"></span>
-<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
-<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8200</span><span class="w"></span>
-<span class="n">Path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;device-camera/&quot;</span><span class="w"></span>
-<span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http&quot;</span><span class="w"></span>
-<span class="n">RootCaCertPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
-<span class="n">ServerName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
-<span class="n">TokenFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/tmp/edgex/secrets/device-camera/secrets-token.json&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="k">[SecretStore.Authentication]</span><span class="w"></span>
-<span class="w">  </span><span class="n">AuthType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;X-Vault-Token&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[SecretStore]</span>
+<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;vault&quot;</span>
+<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span>
+<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8200</span>
+<span class="n">Path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;device-camera/&quot;</span>
+<span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http&quot;</span>
+<span class="n">RootCaCertPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="n">ServerName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="n">TokenFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/tmp/edgex/secrets/device-camera/secrets-token.json&quot;</span>
+<span class="w">  </span><span class="k">[SecretStore.Authentication]</span>
+<span class="w">  </span><span class="n">AuthType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;X-Vault-Token&quot;</span>
 </code></pre></div>
 <p>Note that the service key <code>device-camera</code> must be used for the <code>Path</code> and in the <code>TokenFile</code> path
 to keep it consistent and easier to maintain.
 And then add the add-on service's service key to EdgeX service <code>secretstore-setup</code>'s
 <code>ADD_SECRETSTORE_TOKENS</code> environment variable in the <code>environment</code> section of <code>docker-compose</code>
 as the example shown below:</p>
-<div class="highlight"><pre><span></span><code><span class="nn">...</span><span class="w"></span>
-<span class="w">  </span><span class="nt">secretstore-setup</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-secretstore-setup</span><span class="w"></span>
-<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-bootstrapper</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault</span><span class="w"></span>
-<span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">ADD_SECRETSTORE_TOKENS</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;device-camera&#39;</span><span class="w"></span>
-<span class="nn">...</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nn">...</span>
+<span class="w">  </span><span class="nt">secretstore-setup</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-secretstore-setup</span>
+<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-bootstrapper</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">ADD_SECRETSTORE_TOKENS</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;device-camera&#39;</span>
+<span class="nn">...</span>
 </code></pre></div>
 <p>With that, <code>secretstore-setup</code> then will generate <code>Secret Store</code> token from <code>Vault</code> and store it in
 the <code>TokenFile</code> path specified in the TOML configuration file like the above example.</p>
@@ -3221,22 +3221,22 @@ we need to tell <code>secretstore-setup</code> to add the <code>redisdb</code> k
 This can be done through the configuration of adding <code>redisdb[device-virtual]</code> into the environment variable
 <code>ADD_KNOWN_SECRETS</code> in <code>secretstore-setup</code> service's environment section, in which <code>redisdb</code> is the name of
 the <code>known secret</code> and <code>device-virtual</code> is the service key of the add-on service.</p>
-<div class="highlight"><pre><span></span><code><span class="nn">...</span><span class="w"></span>
-<span class="w">  </span><span class="nt">secretstore-setup</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-secretstore-setup</span><span class="w"></span>
-<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-bootstrapper</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault</span><span class="w"></span>
-<span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">ADD_SECRETSTORE_TOKENS</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;device-camera,</span><span class="nv"> </span><span class="s">my-service&#39;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">ADD_KNOWN_SECRETS</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redisdb[app-rules-engine],redisdb[device-rest],redisdb[device-virtual]</span><span class="w"></span>
-<span class="nn">...</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nn">...</span>
+<span class="w">  </span><span class="nt">secretstore-setup</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-secretstore-setup</span>
+<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-bootstrapper</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">ADD_SECRETSTORE_TOKENS</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;device-camera,</span><span class="nv"> </span><span class="s">my-service&#39;</span>
+<span class="w">      </span><span class="nt">ADD_KNOWN_SECRETS</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redisdb[app-rules-engine],redisdb[device-rest],redisdb[device-virtual]</span>
+<span class="nn">...</span>
 </code></pre></div>
 <p>In the above <code>docker-compose</code> section of <code>secretstore-setup</code>, we specify the known secret of
 <code>redisdb</code> to add/copy the Redis database credentials to the <code>Secret Store</code> for the <code>app-rules-engine</code>,
 <code>device-rest</code>, and <code>device-virtual</code> services.</p>
 <p>We can also use the alternative or simpler form of <code>ADD_KNOWN_SECRETS</code> environment variable's value like</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">ADD_KNOWN_SECRETS</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redisdb[app-rules-engine, device-rest, device-virtual]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">ADD_KNOWN_SECRETS</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redisdb[app-rules-engine, device-rest, device-virtual]</span>
 </code></pre></div>
 <p>in which all add-on services are put together in a comma separated list associated with the
 known secret <code>redisdb</code>.</p>
@@ -3247,17 +3247,17 @@ configure the environment variable <code>ADD_REGISTRY_ACL_ROLES</code> to tell <
 an ACL role for <code>Consul</code> to associate with its token.</p>
 <p>An example of configuring ACL roles of the registry <code>Consul</code> for the add-on services
 <code>device-modbus</code> and <code>app-http-export</code> is shown as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="nn">...</span><span class="w"></span>
-<span class="w">  </span><span class="nt">consul</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-core-consul</span><span class="w"></span>
-<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-bootstrapper</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault</span><span class="w"></span>
-<span class="w">    </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/edgex-init/consul_wait_install.sh</span><span class="w"></span>
-<span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">ADD_REGISTRY_ACL_ROLES</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app-http-export,device-modbus</span><span class="w"></span>
-<span class="nn">...</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nn">...</span>
+<span class="w">  </span><span class="nt">consul</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-core-consul</span>
+<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-bootstrapper</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault</span>
+<span class="w">    </span><span class="nt">entrypoint</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/edgex-init/consul_wait_install.sh</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">ADD_REGISTRY_ACL_ROLES</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app-http-export,device-modbus</span>
+<span class="nn">...</span>
 </code></pre></div>
 <p>The configuration of Edgex service <code>consul</code>'s environment variable <code>ADD_REGISTRY_ACL_ROLES</code> tells
 the <code>security-bootstrapper</code> to set up <code>Consul</code> ACL role so that the ACL token is generated,
@@ -3273,14 +3273,14 @@ variable into the API gateway (also known as Kong) route so that the endpoint ca
 using Kong's proxy endpoint.</p>
 <p>One example of adding API gateway access routes for both <code>device-camera</code> and <code>device-modbus</code>
 is given as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="nn">...</span><span class="w"></span>
-<span class="nt">edgex-proxy</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">environment</span><span class="p p-Indicator">:</span><span class="w"></span>
-<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">      </span><span class="nt">ADD_PROXY_ROUTE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;device-camera.http://edgex-device-camera:59985,</span><span class="nv"> </span><span class="s">device-modbus.http://edgex-device-modbus:59901&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="nn">...</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nn">...</span>
+<span class="nt">edgex-proxy</span><span class="p">:</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">environment</span><span class="p p-Indicator">:</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">      </span><span class="nt">ADD_PROXY_ROUTE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;device-camera.http://edgex-device-camera:59985,</span><span class="nv"> </span><span class="s">device-modbus.http://edgex-device-modbus:59901&quot;</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="nn">...</span>
 </code></pre></div>
 <p>where in the comma separated list, the first part of configured value <code>device-camera</code> is the service key
 and the URL format is the service's hostname with its docker network port number <code>59985</code>

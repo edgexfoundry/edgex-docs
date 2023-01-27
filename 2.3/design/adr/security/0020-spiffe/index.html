@@ -12,7 +12,7 @@
         <meta name="author" content="Michael Johanson">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/design/adr/security/0020-spiffe/">
+        <link rel="canonical" href="https://docs.edgexfoundry.org/design/adr/security/0020-spiffe/">
       
       <link rel="icon" href="../../../../assets/logo_edgex.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.8">
@@ -3374,7 +3374,7 @@ is intended for development and test only.
 We will use SQlite anyway because because Redis is not supported.)</p>
 <p>The only service that needs to be seeded to the database as this time
 is <code>security-spiffe-token-provier</code>.  For example:</p>
-<div class="highlight"><pre><span></span><code>spire-server entry create -parentID <span class="s2">&quot;</span><span class="si">${</span><span class="nv">local_agent_svid</span><span class="si">}</span><span class="s2">&quot;</span> -dns edgex-spiffe-token-provider -spiffeID <span class="s2">&quot;</span><span class="si">${</span><span class="nv">svid_service_base</span><span class="si">}</span><span class="s2">/edgex-spiffe-token-provider&quot;</span> -selector <span class="s2">&quot;docker:label:com.docker.compose.service:edgex-spiffe-token-provider&quot;</span>
+<div class="highlight"><pre><span></span><code>spire-server<span class="w"> </span>entry<span class="w"> </span>create<span class="w"> </span>-parentID<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">local_agent_svid</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>-dns<span class="w"> </span>edgex-spiffe-token-provider<span class="w"> </span>-spiffeID<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">svid_service_base</span><span class="si">}</span><span class="s2">/edgex-spiffe-token-provider&quot;</span><span class="w"> </span>-selector<span class="w"> </span><span class="s2">&quot;docker:label:com.docker.compose.service:edgex-spiffe-token-provider&quot;</span>
 </code></pre></div>
 <p>The above command associates a SPIFFE ID with a <em>selector</em>,
 in this case, a container label, and configures a DNS

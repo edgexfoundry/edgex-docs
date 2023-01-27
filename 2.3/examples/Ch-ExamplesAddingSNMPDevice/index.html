@@ -12,7 +12,7 @@
         <meta name="author" content="Michael Johanson">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/examples/Ch-ExamplesAddingSNMPDevice/">
+        <link rel="canonical" href="https://docs.edgexfoundry.org/examples/Ch-ExamplesAddingSNMPDevice/">
       
       <link rel="icon" href="../../assets/logo_edgex.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.8">
@@ -3280,51 +3280,51 @@
 <li>Timer, a write request device resource used in combination with the control state to set the state after the number of seconds provided by the timer resource</li>
 </ul>
 <p>Note that the attributes of each device resource specify the SNMP OID that the device service will use to make a request of the signal tower.  For example, the device resource YAML below (taken from the profile) provides the means to get the current <code>Red</code> light state.  Note that a specific OID is provided that is unique to the <code>RED</code> light, current state property.</p>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RedLightCurrentState&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;red</span><span class="nv"> </span><span class="s">light</span><span class="nv"> </span><span class="s">current</span><span class="nv"> </span><span class="s">state&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">attributes</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RedLightCurrentState&quot;</span>
+<span class="w">  </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;red</span><span class="nv"> </span><span class="s">light</span><span class="nv"> </span><span class="s">current</span><span class="nv"> </span><span class="s">state&quot;</span>
+<span class="w">  </span><span class="nt">attributes</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">{</span><span class="nt"> oid</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.3.6.1.4.1.20440.4.1.5.1.2.1.4.1&quot;</span><span class="p p-Indicator">,</span><span class="nt"> community</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;private&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w">  </span>
-<span class="w">  </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">valueType</span><span class="p">:</span><span class="w">  </span><span class="s">&quot;Int32&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">valueType</span><span class="p">:</span><span class="w">  </span><span class="s">&quot;Int32&quot;</span>
+<span class="w">    </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span>
+<span class="w">    </span><span class="nt">defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span>
 </code></pre></div>
 <p>Below is the device resource definitions for the <code>Red</code> light control state and timer.  Again, unique OIDs are provided as attributes for each property.</p>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RedLightControlState&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;red</span><span class="nv"> </span><span class="s">light</span><span class="nv"> </span><span class="s">state&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">attributes</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RedLightControlState&quot;</span>
+<span class="w">  </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;red</span><span class="nv"> </span><span class="s">light</span><span class="nv"> </span><span class="s">state&quot;</span>
+<span class="w">  </span><span class="nt">attributes</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">{</span><span class="nt"> oid</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.3.6.1.4.1.20440.4.1.5.1.2.1.2.1&quot;</span><span class="p p-Indicator">,</span><span class="nt"> community</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;private&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w">  </span>
-<span class="w">  </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">valueType</span><span class="p">:</span><span class="w">  </span><span class="s">&quot;Int32&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;W&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RedLightTimer&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;red</span><span class="nv"> </span><span class="s">light</span><span class="nv"> </span><span class="s">timer&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">attributes</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">valueType</span><span class="p">:</span><span class="w">  </span><span class="s">&quot;Int32&quot;</span>
+<span class="w">    </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;W&quot;</span>
+<span class="w">    </span><span class="nt">defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span>
+<span class="p p-Indicator">-</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RedLightTimer&quot;</span>
+<span class="w">  </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;red</span><span class="nv"> </span><span class="s">light</span><span class="nv"> </span><span class="s">timer&quot;</span>
+<span class="w">  </span><span class="nt">attributes</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">{</span><span class="nt"> oid</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.3.6.1.4.1.20440.4.1.5.1.2.1.3.1&quot;</span><span class="p p-Indicator">,</span><span class="nt"> community</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;private&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w">  </span>
-<span class="w">  </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">valueType</span><span class="p">:</span><span class="w">  </span><span class="s">&quot;Int32&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;W&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">valueType</span><span class="p">:</span><span class="w">  </span><span class="s">&quot;Int32&quot;</span>
+<span class="w">    </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;W&quot;</span>
+<span class="w">    </span><span class="nt">defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span>
 </code></pre></div>
 <p>In order to set the <code>Red</code> light on, one would need to send an SNMP request to set OID <code>1.3.6.1.4.1.20440.4.1.5.1.2.1.2.1</code> to a value of 2 (on state) along with a number of seconds delay to the time at OID <code>1.3.6.1.4.1.20440.4.1.5.1.2.1.3.1</code>.  Sending a zero value (0) to the timer would say you want to turn the light on immediately.</p>
 <p>Because setting a light or buzzer requires both of the control state and timer OIDs to be set together (simultaneously), the device profile contains <code>deviceCommands</code> to set the light and timer device resources (and therefore their SNMP property OIDs) in a single operation.  Here is the device command to set the <code>Red</code> light.</p>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RedLight&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;W&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="w">  </span><span class="nt">resourceOperations</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RedLightControlState&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RedLightTimer&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RedLight&quot;</span>
+<span class="w">  </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;W&quot;</span>
+<span class="w">  </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">resourceOperations</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RedLightControlState&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RedLightTimer&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
 </code></pre></div>
 <p>You will need to upload this profile into core metadata.  Download the <a href="../patlite-snmp.yml">Patlite device profile</a> to a convenient directory.  Then, using the following <code>curl</code> command, request the profile be uploaded into core metadata.</p>
-<div class="highlight"><pre><span></span><code>curl -X <span class="s1">&#39;POST&#39;</span> <span class="s1">&#39;http://localhost:59881/api/v2/deviceprofile/uploadfile&#39;</span> --form <span class="s1">&#39;file=@&quot;/home/yourfilelocationhere/patlite-snmp.yml&quot;&#39;</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">&#39;POST&#39;</span><span class="w"> </span><span class="s1">&#39;http://localhost:59881/api/v2/deviceprofile/uploadfile&#39;</span><span class="w"> </span>--form<span class="w"> </span><span class="s1">&#39;file=@&quot;/home/yourfilelocationhere/patlite-snmp.yml&quot;&#39;</span>
 </code></pre></div>
 <div class="admonition alert">
 <p class="admonition-title">Alert</p>
@@ -3334,7 +3334,7 @@ Also note that you will need to replace the <code>/home/yourfilelocationhere</co
 <h3 id="add-the-patlite-device">Add the Patlite Device</h3>
 <p>With the Patlite device profile now in metadata, you can add the Patlite device in metadata.  When adding the device, you typically need to provide the name, description, labels and admin/op states of the device when creating it.  You will also need to associate the device to a device service (in this case the <code>device-snmp</code> device service).  You will ned to associate the new device to a profile - the patlite profile just added in the step above.  And you will need to provide the protocol information (such as the address and port of the device) to tell the device service where it can find the physical device.  If you wish the device service to automatically get readings from the device, you will also need to provide <a href="../../design/legacy-requirements/device-service/#autoevents">AutoEvent</a> properties when creating the device.</p>
 <p>The curl command to POST the new Patlite device (named <code>patlite1</code>) into metadata is provide below.  You will need to change the protocol <code>Address</code> (currently <code>10.0.0.14</code>) and <code>Port</code> (currently <code>161</code>) to point to your Patlite on your network.  In this request to add a new device, AutoEvents are setup to collect the current state of the 3 lights and buzzer every 10 seconds. Notice the reference to the current state device resources in setting up the AutoEvents.</p>
-<div class="highlight"><pre><span></span><code>curl -X <span class="s1">&#39;POST&#39;</span> <span class="s1">&#39;http://localhost:59881/api/v2/device&#39;</span> -d <span class="s1">&#39;[{&quot;apiVersion&quot;: &quot;v2&quot;, &quot;device&quot;: {&quot;name&quot;: &quot;patlite1&quot;,&quot;description&quot;: &quot;patlite #1&quot;,&quot;adminState&quot;: &quot;UNLOCKED&quot;,&quot;operatingState&quot;: &quot;UP&quot;,&quot;labels&quot;: [&quot;patlite&quot;],&quot;serviceName&quot;: &quot;device-snmp&quot;,&quot;profileName&quot;: &quot;patlite-snmp-profile&quot;,&quot;protocols&quot;: {&quot;TCP&quot;: {&quot;Address&quot;: &quot;10.0.0.14&quot;,&quot;Port&quot;: &quot;161&quot;}}, &quot;AutoEvents&quot;:[{&quot;Interval&quot;:&quot;10s&quot;,&quot;OnChange&quot;:true,&quot;SourceName&quot;:&quot;RedLightCurrentState&quot;}, {&quot;Interval&quot;:&quot;10s&quot;,&quot;OnChange&quot;:true,&quot;SourceName&quot;:&quot;GreenLightCurrentState&quot;}, {&quot;Interval&quot;:&quot;10s&quot;,&quot;OnChange&quot;:true,&quot;SourceName&quot;:&quot;AmberLightCurrentState&quot;}, {&quot;Interval&quot;:&quot;10s&quot;,&quot;OnChange&quot;:true,&quot;SourceName&quot;:&quot;BuzzerCurrentState&quot;}]}}]&#39;</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">&#39;POST&#39;</span><span class="w"> </span><span class="s1">&#39;http://localhost:59881/api/v2/device&#39;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;[{&quot;apiVersion&quot;: &quot;v2&quot;, &quot;device&quot;: {&quot;name&quot;: &quot;patlite1&quot;,&quot;description&quot;: &quot;patlite #1&quot;,&quot;adminState&quot;: &quot;UNLOCKED&quot;,&quot;operatingState&quot;: &quot;UP&quot;,&quot;labels&quot;: [&quot;patlite&quot;],&quot;serviceName&quot;: &quot;device-snmp&quot;,&quot;profileName&quot;: &quot;patlite-snmp-profile&quot;,&quot;protocols&quot;: {&quot;TCP&quot;: {&quot;Address&quot;: &quot;10.0.0.14&quot;,&quot;Port&quot;: &quot;161&quot;}}, &quot;AutoEvents&quot;:[{&quot;Interval&quot;:&quot;10s&quot;,&quot;OnChange&quot;:true,&quot;SourceName&quot;:&quot;RedLightCurrentState&quot;}, {&quot;Interval&quot;:&quot;10s&quot;,&quot;OnChange&quot;:true,&quot;SourceName&quot;:&quot;GreenLightCurrentState&quot;}, {&quot;Interval&quot;:&quot;10s&quot;,&quot;OnChange&quot;:true,&quot;SourceName&quot;:&quot;AmberLightCurrentState&quot;}, {&quot;Interval&quot;:&quot;10s&quot;,&quot;OnChange&quot;:true,&quot;SourceName&quot;:&quot;BuzzerCurrentState&quot;}]}}]&#39;</span>
 </code></pre></div>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
@@ -3344,36 +3344,36 @@ Also note that you will need to replace the <code>/home/yourfilelocationhere</co
 <p>If the device service is up and running and the profile and device have been added correctly, you should now be able to interact with the Patlite via the core command service (and SNMP under the covers via the SNMP device service).</p>
 <h3 id="get-the-current-state">Get the Current State</h3>
 <p>To get the current state of a light (in the example below the <code>Green</code> light), make a curl request like the following of the command service.</p>
-<div class="highlight"><pre><span></span><code>curl <span class="s1">&#39;http://localhost:59882/api/v2/device/name/patlite1/GreenLightCurrentState&#39;</span> <span class="p">|</span> json_pp
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span><span class="s1">&#39;http://localhost:59882/api/v2/device/name/patlite1/GreenLightCurrentState&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>json_pp
 </code></pre></div>
 <div class="admonition alert">
 <p class="admonition-title">Alert</p>
 <p>Note that the curl command above assumes that the core command service is available at <code>localhost</code>.  Change the host address of your core command service if it is not available at <code>localhost</code>.  </p>
 </div>
 <p>The results should look something like that below.</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;statusCode&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;apiVersion&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;event&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;origin&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1632188382048586660</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;deviceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;patlite1&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;sourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GreenLightCurrentState&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1e2a7ba1-c273-46d1-b919-207aafbc60ba&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;profileName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;patlite-snmp-profile&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;apiVersion&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;readings&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">         </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;origin&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1632188382048586660</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;resourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GreenLightCurrentState&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;deviceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;patlite1&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a41ac1cf-703b-4572-bdef-8487e9a7100e&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Int32&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;profileName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;patlite-snmp-profile&quot;</span><span class="w"></span>
-<span class="w">         </span><span class="p">}</span><span class="w"></span>
-<span class="w">      </span><span class="p">]</span><span class="w"></span>
-<span class="w">   </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;statusCode&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;apiVersion&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;event&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;origin&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1632188382048586660</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;deviceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;patlite1&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;sourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GreenLightCurrentState&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1e2a7ba1-c273-46d1-b919-207aafbc60ba&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;profileName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;patlite-snmp-profile&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;apiVersion&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;readings&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;origin&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1632188382048586660</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;resourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GreenLightCurrentState&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;deviceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;patlite1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a41ac1cf-703b-4572-bdef-8487e9a7100e&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;valueType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Int32&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;profileName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;patlite-snmp-profile&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
@@ -3407,7 +3407,7 @@ Also note that you will need to replace the <code>/home/yourfilelocationhere</co
 </div>
 <h3 id="set-a-light-or-buzzer-on">Set a light or buzzer on</h3>
 <p>To turn a signal tower light or the buzzer on, you can issue a PUT device command via the core command service.  The example below turns on the <code>Green</code> light.</p>
-<div class="highlight"><pre><span></span><code>curl --location --request PUT <span class="s1">&#39;http://localhost:59882/api/v2/device/name/patlite1/GreenLight&#39;</span> --header <span class="s1">&#39;cont: application/json&#39;</span> --data-raw <span class="s1">&#39;{&quot;GreenLightControlState&quot;:&quot;2&quot;,&quot;GreenLightTimer&quot;:&quot;0&quot;}&#39;</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--location<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">&#39;http://localhost:59882/api/v2/device/name/patlite1/GreenLight&#39;</span><span class="w"> </span>--header<span class="w"> </span><span class="s1">&#39;cont: application/json&#39;</span><span class="w"> </span>--data-raw<span class="w"> </span><span class="s1">&#39;{&quot;GreenLightControlState&quot;:&quot;2&quot;,&quot;GreenLightTimer&quot;:&quot;0&quot;}&#39;</span>
 </code></pre></div>
 <p><img alt="image" src="../EdgeX_Patlite_Green_On.jpg" /></p>
 <p>This command sets the light on (solid versus flashing) immediate (as denoted by the GreenLightTimer parameter is set to 0).  The timer value is the number of seconds delay in making the request to the light or buzzer.  Again, the control state can be set to one of four values as listed in the table above. </p>

@@ -12,7 +12,7 @@
         <meta name="author" content="Michael Johanson">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/design/ucr/Provision-Watch-via-Device-Metadata/">
+        <link rel="canonical" href="https://docs.edgexfoundry.org/design/ucr/Provision-Watch-via-Device-Metadata/">
       
       <link rel="icon" href="../../../assets/logo_edgex.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.8">
@@ -3155,10 +3155,10 @@ Eg, if a Device had "labels": "meter, basement, energy", then it could be matche
 <p>The Device Service which discovers the Device will probably want to permit specific metadata properties to be used.</p>
 <h3 id="existing-solutions">Existing solutions</h3>
 <p>In EdgeX today, as noted, Provision Watchers match only the protocol properties, using regular expression matching and excluding. The example given for the REST API is a good one:
-<div class="highlight"><pre><span></span><code><span class="nt">&quot;identifiers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;port&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3[0-9]{2}&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="p">},</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">&quot;identifiers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;port&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3[0-9]{2}&quot;</span>
+<span class="w">      </span><span class="p">},</span>
 </code></pre></div>
 Note its use of regular expression matching for the port number. </p>
 <h3 id="requirements">Requirements</h3>

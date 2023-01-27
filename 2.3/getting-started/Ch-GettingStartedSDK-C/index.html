@@ -12,7 +12,7 @@
         <meta name="author" content="Michael Johanson">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/getting-started/Ch-GettingStartedSDK-C/">
+        <link rel="canonical" href="https://docs.edgexfoundry.org/getting-started/Ch-GettingStartedSDK-C/">
       
       <link rel="icon" href="../../assets/logo_edgex.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.8">
@@ -3213,8 +3213,8 @@ random number as a means to simulate getting data from an actual device. In this
 <ol>
 <li>
 <p>First, clone the device-sdk-c from Github:
-    <div class="highlight"><pre><span></span><code>git clone -b v2.0.0 https://github.com/edgexfoundry/device-sdk-c.git
-<span class="nb">cd</span> ./device-sdk-c
+    <div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>v2.0.0<span class="w"> </span>https://github.com/edgexfoundry/device-sdk-c.git
+<span class="nb">cd</span><span class="w"> </span>./device-sdk-c
 </code></pre></div></p>
 <p><img alt="image" src="../EdgeX_GettingStartedSDKCloneC.png" /></p>
 <div class="admonition note">
@@ -3234,10 +3234,10 @@ C SDK as a starting point for a new device service.  You modify the device servi
 values.</p>
 <p>Begin by copying the template example source into a new directory
     named <code>example-device-c</code>:
-    <div class="highlight"><pre><span></span><code>mkdir -p ../example-device-c/res/profiles
-mkdir -p ../example-device-c/res/devices
-cp ./src/c/examples/template.c ../example-device-c
-<span class="nb">cd</span> ../example-device-c
+    <div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>../example-device-c/res/profiles
+mkdir<span class="w"> </span>-p<span class="w"> </span>../example-device-c/res/devices
+cp<span class="w"> </span>./src/c/examples/template.c<span class="w"> </span>../example-device-c
+<span class="nb">cd</span><span class="w"> </span>../example-device-c
 </code></pre></div></p>
 <p><img alt="image" src="../EdgeX_GettingStartedSDKCopyFilesC.png" /></p>
 <div class="admonition edgey">
@@ -3250,7 +3250,7 @@ compiled in an earlier step.</p>
 <ol>
 <li>
 <p>Tell the compiler where to find the C SDK files:
-    <div class="highlight"><pre><span></span><code><span class="nb">export</span> <span class="nv">CSDK_DIR</span><span class="o">=</span>../device-sdk-c/build/release/_CPack_Packages/Linux/TGZ/csdk-2.0.0
+    <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">CSDK_DIR</span><span class="o">=</span>../device-sdk-c/build/release/_CPack_Packages/Linux/TGZ/csdk-2.0.0
 </code></pre></div></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3259,7 +3259,7 @@ compiled in an earlier step.</p>
 </li>
 <li>
 <p>Now build your device service executable:</p>
-<div class="highlight"><pre><span></span><code>gcc -I<span class="nv">$CSDK_DIR</span>/include -L<span class="nv">$CSDK_DIR</span>/lib -o device-example-c template.c -lcsdk
+<div class="highlight"><pre><span></span><code>gcc<span class="w"> </span>-I<span class="nv">$CSDK_DIR</span>/include<span class="w"> </span>-L<span class="nv">$CSDK_DIR</span>/lib<span class="w"> </span>-o<span class="w"> </span>device-example-c<span class="w"> </span>template.c<span class="w"> </span>-lcsdk
 </code></pre></div>
 <p>If everything is working properly, a <code>device-example-c</code> executable will be created in the directory.</p>
 <p><img alt="image" src="../EdgeX_GettingStartedSDKCompileC.png" /></p>
@@ -3270,40 +3270,40 @@ compiled in an earlier step.</p>
 the C SDK. In order to change it to a device service that generates
 random numbers, you need to modify your <code>template.c</code> method
 <strong>template_get_handler</strong>.  Replace the following code:</p>
-<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">nreadings</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="cm">/* Log the attributes for each requested resource */</span><span class="w"></span>
-<span class="w">    </span><span class="n">iot_log_debug</span><span class="w"> </span><span class="p">(</span><span class="n">driver</span><span class="o">-&gt;</span><span class="n">lc</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;  Requested reading %u:&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">dump_attributes</span><span class="w"> </span><span class="p">(</span><span class="n">driver</span><span class="o">-&gt;</span><span class="n">lc</span><span class="p">,</span><span class="w"> </span><span class="n">requests</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">resource</span><span class="o">-&gt;</span><span class="n">attrs</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="cm">/* Fill in a result regardless */</span><span class="w"></span>
-<span class="w">    </span><span class="n">readings</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iot_data_alloc_string</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;Template result&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">IOT_DATA_REF</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-<span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">nreadings</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="cm">/* Log the attributes for each requested resource */</span>
+<span class="w">    </span><span class="n">iot_log_debug</span><span class="w"> </span><span class="p">(</span><span class="n">driver</span><span class="o">-&gt;</span><span class="n">lc</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;  Requested reading %u:&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span>
+<span class="w">    </span><span class="n">dump_attributes</span><span class="w"> </span><span class="p">(</span><span class="n">driver</span><span class="o">-&gt;</span><span class="n">lc</span><span class="p">,</span><span class="w"> </span><span class="n">requests</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">resource</span><span class="o">-&gt;</span><span class="n">attrs</span><span class="p">);</span>
+<span class="w">    </span><span class="cm">/* Fill in a result regardless */</span>
+<span class="w">    </span><span class="n">readings</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iot_data_alloc_string</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;Template result&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">IOT_DATA_REF</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
 </code></pre></div>
 <p>with this code:</p>
-<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">nreadings</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">rdtype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iot_data_string_map_get_string</span><span class="w"> </span><span class="p">(</span><span class="n">requests</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">resource</span><span class="o">-&gt;</span><span class="n">attrs</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;type&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rdtype</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">strcmp</span><span class="w"> </span><span class="p">(</span><span class="n">rdtype</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;random&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="cm">/* Set the reading as a random value between 0 and 100 */</span><span class="w"></span>
-<span class="w">        </span><span class="n">readings</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iot_data_alloc_i32</span><span class="w"> </span><span class="p">(</span><span class="n">rand</span><span class="p">()</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">100</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">        </span><span class="k">else</span><span class="w"></span>
-<span class="w">        </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="o">*</span><span class="n">exception</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iot_data_alloc_string</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;Unknown sensor type requested&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">IOT_DATA_REF</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="k">else</span><span class="w"></span>
-<span class="w">    </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="o">*</span><span class="n">exception</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iot_data_alloc_string</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;Unable to read value, no </span><span class="se">\&quot;</span><span class="s">type</span><span class="se">\&quot;</span><span class="s"> attribute given&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">IOT_DATA_REF</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-<span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">nreadings</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">rdtype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iot_data_string_map_get_string</span><span class="w"> </span><span class="p">(</span><span class="n">requests</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">resource</span><span class="o">-&gt;</span><span class="n">attrs</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;type&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rdtype</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">strcmp</span><span class="w"> </span><span class="p">(</span><span class="n">rdtype</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;random&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">        </span><span class="cm">/* Set the reading as a random value between 0 and 100 */</span>
+<span class="w">        </span><span class="n">readings</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iot_data_alloc_i32</span><span class="w"> </span><span class="p">(</span><span class="n">rand</span><span class="p">()</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">100</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">else</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">        </span><span class="o">*</span><span class="n">exception</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iot_data_alloc_string</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;Unknown sensor type requested&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">IOT_DATA_REF</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="o">*</span><span class="n">exception</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iot_data_alloc_string</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;Unable to read value, no </span><span class="se">\&quot;</span><span class="s">type</span><span class="se">\&quot;</span><span class="s"> attribute given&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">IOT_DATA_REF</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
 </code></pre></div>
 <p>Here the reading value is set to a random signed integer. Various <code>iot_data_alloc_</code> functions are defined in the <code>iot/data.h</code> header allowing readings of different types to be generated.</p>
 <h2 id="creating-your-device-profile">Creating your Device Profile</h2>
@@ -3362,7 +3362,7 @@ number, as well as a configuration file that will let your device
 service register itself and its device profile with EdgeX, and begin
 taking readings every 10 seconds.</p>
 <p>Rebuild your Device Service to reflect the changes that you have made:</p>
-<div class="highlight"><pre><span></span><code>gcc -I<span class="nv">$CSDK_DIR</span>/include -L<span class="nv">$CSDK_DIR</span>/lib -o device-example-c template.c -lcsdk
+<div class="highlight"><pre><span></span><code>gcc<span class="w"> </span>-I<span class="nv">$CSDK_DIR</span>/include<span class="w"> </span>-L<span class="nv">$CSDK_DIR</span>/lib<span class="w"> </span>-o<span class="w"> </span>device-example-c<span class="w"> </span>template.c<span class="w"> </span>-lcsdk
 </code></pre></div>
 <h2 id="run-your-device-service">Run your Device Service</h2>
 <p>Allow your newly created Device Service, which was formed out of the
@@ -3373,13 +3373,13 @@ sends to EdgeX.</p>
 <p>Follow the <a href="../Ch-GettingStartedDockerUsers/">Getting Started using Docker</a> guide to start all of EdgeX. From
     the folder containing the docker-compose file, start EdgeX with the
     following call:</p>
-<div class="highlight"><pre><span></span><code>docker-compose up -d
+<div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
 </code></pre></div>
 </li>
 <li>
 <p>Back in your custom device service directory, tell your device
     service where to find the <code>libcsdk.so</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$CSDK_DIR</span>/lib
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$CSDK_DIR</span>/lib
 </code></pre></div>
 </li>
 <li>
@@ -3392,14 +3392,14 @@ sends to EdgeX.</p>
     called every 10 seconds. You can verify that it is sending data into
     EdgeX by watching the logs of the <code>edgex-core-data</code>
     service:</p>
-<div class="highlight"><pre><span></span><code>docker logs -f edgex-core-data
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>edgex-core-data
 </code></pre></div>
 <p>Which would print an event record every time your device service is called.</p>
 </li>
 <li>
 <p>You can manually generate an event using curl to query the device
     service directly:</p>
-<div class="highlight"><pre><span></span><code>curl <span class="m">0</span>:59992/api/v2/device/name/RandNum-Device01/RandomNumber
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span><span class="m">0</span>:59992/api/v2/device/name/RandNum-Device01/RandomNumber
 </code></pre></div>
 </li>
 <li>

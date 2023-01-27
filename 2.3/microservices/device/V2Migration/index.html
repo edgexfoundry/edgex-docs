@@ -12,7 +12,7 @@
         <meta name="author" content="Michael Johanson">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/microservices/device/V2Migration/">
+        <link rel="canonical" href="https://docs.edgexfoundry.org/microservices/device/V2Migration/">
       
       <link rel="icon" href="../../../assets/logo_edgex.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.8">
@@ -3621,8 +3621,8 @@
 <div class="admonition example">
 <p class="admonition-title">Example configuration</p>
 <div class="highlight"><pre><span></span><code><span class="p">[</span><span class="n">Device</span><span class="p">]</span><span class="w"> </span>
-<span class="n">DevicesDir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;./res/devices&quot;</span><span class="w"></span>
-<span class="n">ProfilesDir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;./res/profiles&quot;</span><span class="w"></span>
+<span class="n">DevicesDir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;./res/devices&quot;</span>
+<span class="n">ProfilesDir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;./res/profiles&quot;</span>
 <span class="p">...</span><span class="w"> </span>
 </code></pre></div>
 </div>
@@ -3647,25 +3647,25 @@ A <code>MessageQueue</code> section is added in configuration to specify the det
 <div class="admonition example">
 <p class="admonition-title">MessageQueue Example</p>
 </div>
-<div class="highlight"><pre><span></span><code><span class="k">[MessageQueue]</span><span class="w"></span>
-<span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redis&quot;</span><span class="w"></span>
-<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
-<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6379</span><span class="w"></span>
-<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redis&quot;</span><span class="w"></span>
-<span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;usernamepassword&quot;</span><span class="w">  </span><span class="c1"># required for redis messagebus (secure or insecure).</span><span class="w"></span>
-<span class="n">SecretName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redisdb&quot;</span><span class="w"></span>
-<span class="n">PublishTopicPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;edgex/events/device&quot;</span><span class="w"> </span><span class="c1"># /&lt;device-profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt; will be added to this Publish Topic prefix</span><span class="w"></span>
-<span class="w">  </span><span class="k">[MessageQueue.Optional]</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># Default MQTT Specific options that need to be here to enable environment variable overrides of them</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># Client Identifiers</span><span class="w"></span>
-<span class="w">  </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;device-simple&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># Connection information</span><span class="w"></span>
-<span class="w">  </span><span class="n">Qos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="c1"># Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</span><span class="w"></span>
-<span class="w">  </span><span class="n">KeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span><span class="w"></span>
-<span class="w">  </span><span class="n">Retained</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">AutoReconnect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
-<span class="w">  </span><span class="n">SkipCertVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"> </span><span class="c1"># Only used if Cert/Key file or Cert/Key PEMblock are specified</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[MessageQueue]</span>
+<span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redis&quot;</span>
+<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span>
+<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6379</span>
+<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redis&quot;</span>
+<span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;usernamepassword&quot;</span><span class="w">  </span><span class="c1"># required for redis messagebus (secure or insecure).</span>
+<span class="n">SecretName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redisdb&quot;</span>
+<span class="n">PublishTopicPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;edgex/events/device&quot;</span><span class="w"> </span><span class="c1"># /&lt;device-profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt; will be added to this Publish Topic prefix</span>
+<span class="w">  </span><span class="k">[MessageQueue.Optional]</span>
+<span class="w">  </span><span class="c1"># Default MQTT Specific options that need to be here to enable environment variable overrides of them</span>
+<span class="w">  </span><span class="c1"># Client Identifiers</span>
+<span class="w">  </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;device-simple&quot;</span>
+<span class="w">  </span><span class="c1"># Connection information</span>
+<span class="w">  </span><span class="n">Qos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="c1"># Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</span>
+<span class="w">  </span><span class="n">KeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span>
+<span class="w">  </span><span class="n">Retained</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
+<span class="w">  </span><span class="n">AutoReconnect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">  </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># Seconds</span>
+<span class="w">  </span><span class="n">SkipCertVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"> </span><span class="c1"># Only used if Cert/Key file or Cert/Key PEMblock are specified</span>
 </code></pre></div>
 <p>See the <a href="../../../design/adr/013-Device-Service-Events-Message-Bus/#device-services">Device Service MessageQueue</a> section for details.</p>
 <h3 id="code-golang">Code (Golang)</h3>
@@ -3673,26 +3673,26 @@ A <code>MessageQueue</code> section is added in configuration to specify the det
 <p>You first need to update the <code>go.mod</code> file to specify <code>go 1.16</code> and the V2 versions of the Device SDK and any EdgeX go-mods directly used by your service. Note the extra <code>/v2</code> for the modules.</p>
 <div class="admonition example">
 <p class="admonition-title">Example go.mod for V2</p>
-<div class="highlight"><pre><span></span><code><span class="nx">module</span><span class="w"> </span><span class="p">&lt;</span><span class="nx">your</span><span class="w"> </span><span class="nx">service</span><span class="p">&gt;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">module</span><span class="w"> </span><span class="p">&lt;</span><span class="nx">your</span><span class="w"> </span><span class="nx">service</span><span class="p">&gt;</span>
 
-<span class="k">go</span><span class="w"> </span><span class="mf">1.16</span><span class="w"></span>
+<span class="k">go</span><span class="w"> </span><span class="mf">1.16</span>
 
-<span class="nx">require</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">    </span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">edgexfoundry</span><span class="o">/</span><span class="nx">device</span><span class="o">-</span><span class="nx">sdk</span><span class="o">-</span><span class="k">go</span><span class="o">/</span><span class="nx">v2</span><span class="w"> </span><span class="nx">v2</span><span class="mf">.0.0</span><span class="w"></span>
-<span class="w">    </span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">edgexfoundry</span><span class="o">/</span><span class="k">go</span><span class="o">-</span><span class="nx">mod</span><span class="o">-</span><span class="nx">core</span><span class="o">-</span><span class="nx">contracts</span><span class="o">/</span><span class="nx">v2</span><span class="w"> </span><span class="nx">v2</span><span class="mf">.0.0</span><span class="w"></span>
-<span class="w">    </span><span class="o">...</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="nx">require</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">edgexfoundry</span><span class="o">/</span><span class="nx">device</span><span class="o">-</span><span class="nx">sdk</span><span class="o">-</span><span class="k">go</span><span class="o">/</span><span class="nx">v2</span><span class="w"> </span><span class="nx">v2</span><span class="mf">.0.0</span>
+<span class="w">    </span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">edgexfoundry</span><span class="o">/</span><span class="k">go</span><span class="o">-</span><span class="nx">mod</span><span class="o">-</span><span class="nx">core</span><span class="o">-</span><span class="nx">contracts</span><span class="o">/</span><span class="nx">v2</span><span class="w"> </span><span class="nx">v2</span><span class="mf">.0.0</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="p">)</span>
 </code></pre></div>
 </div>
 <p>Once that is complete then the import statements for these dependencies must be updated to include the <code>/v2</code> in the path.</p>
 <div class="admonition example">
 <p class="admonition-title">Example import statements for V2</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">    </span><span class="o">...</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="o">...</span>
 
-<span class="w">    </span><span class="s">&quot;github.com/edgexfoundry/device-sdk-go/v2/pkg/models&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="s">&quot;github.com/edgexfoundry/go-mod-core-contracts/v2/common&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;github.com/edgexfoundry/device-sdk-go/v2/pkg/models&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/edgexfoundry/go-mod-core-contracts/v2/common&quot;</span>
+<span class="p">)</span>
 </code></pre></div>
 </div>
 <h4 id="commandvalue">CommandValue</h4>
@@ -3701,12 +3701,12 @@ As a result, you might notice the original API to create CommandValue is no long
 In V2 we refactor all those API functions to create CommandValue of different type to a generic function:</p>
 <div class="admonition example">
 <p class="admonition-title">Create CommandValue with string Type</p>
-<div class="highlight"><pre><span></span><code><span class="nx">cv</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">NewCommandValue</span><span class="p">(</span><span class="nx">deviceResourceName</span><span class="p">,</span><span class="w"> </span><span class="nx">v2</span><span class="p">.</span><span class="nx">ValueTypeString</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;foobar&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="o">...</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-<span class="nx">cv</span><span class="p">.</span><span class="nx">Origin</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">Unixnano</span><span class="p">()</span><span class="w"></span>
-<span class="nx">cv</span><span class="p">.</span><span class="nx">Tags</span><span class="p">[</span><span class="s">&quot;foo&quot;</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;bar&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">cv</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">NewCommandValue</span><span class="p">(</span><span class="nx">deviceResourceName</span><span class="p">,</span><span class="w"> </span><span class="nx">v2</span><span class="p">.</span><span class="nx">ValueTypeString</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;foobar&quot;</span><span class="p">)</span>
+<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="p">}</span>
+<span class="nx">cv</span><span class="p">.</span><span class="nx">Origin</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">Unixnano</span><span class="p">()</span>
+<span class="nx">cv</span><span class="p">.</span><span class="nx">Tags</span><span class="p">[</span><span class="s">&quot;foo&quot;</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;bar&quot;</span>
 </code></pre></div>
 </div>
 <p>The 3rd argument in the function must be able to cast into the Type defined in 2nd argument otherwise there will be error.
@@ -3753,50 +3753,50 @@ void xxx_free_resource_attr (void *impl, devsdk_resource_attr_t attr);
 <li><code>Float32</code> and <code>Float64</code> type are both only represented in eNotation. Base64 encoding is removed so there is no <code>floatEncoding</code> field anymore</li>
 </ul>
 <p>V1:
-<div class="highlight"><pre><span></span><code><span class="nt">deviceResources</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xrotation&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;X</span><span class="nv"> </span><span class="s">axis</span><span class="nv"> </span><span class="s">rotation</span><span class="nv"> </span><span class="s">rate&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Int32&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">      </span><span class="nt">units</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;string&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;degrees/sec&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">deviceResources</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xrotation&quot;</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;X</span><span class="nv"> </span><span class="s">axis</span><span class="nv"> </span><span class="s">rotation</span><span class="nv"> </span><span class="s">rate&quot;</span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">value</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Int32&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">      </span><span class="nt">units</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;string&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;degrees/sec&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
 </code></pre></div></p>
 <p>V2:
-<div class="highlight"><pre><span></span><code><span class="nt">deviceResources</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xrotation&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;X</span><span class="nv"> </span><span class="s">axis</span><span class="nv"> </span><span class="s">rotation</span><span class="nv"> </span><span class="s">rate&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Int32&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">deviceResources</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xrotation&quot;</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;X</span><span class="nv"> </span><span class="s">axis</span><span class="nv"> </span><span class="s">rotation</span><span class="nv"> </span><span class="s">rate&quot;</span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Int32&quot;</span>
+<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span>
 </code></pre></div></p>
 <h4 id="device-command">Device Command</h4>
 <p><code>get</code> and <code>set</code> ResourceOperation field is replaced with a single <code>readWrite</code> field to eliminate the duplicate definition.</p>
 <p>V1:
-<div class="highlight"><pre><span></span><code><span class="nt">deviceCommands</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Rotation&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">get</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xrotation&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Yrotation&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Zrotation&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">    </span><span class="nt">set</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;set&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> parameter</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;set&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Yrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> parameter</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;set&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Zrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> parameter</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">deviceCommands</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Rotation&quot;</span>
+<span class="w">    </span><span class="nt">get</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xrotation&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Yrotation&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Zrotation&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">set</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;set&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> parameter</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;set&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Yrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> parameter</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;set&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Zrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> parameter</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
 </code></pre></div>
 V2:
-<div class="highlight"><pre><span></span><code><span class="nt">deviceCommands</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Rotation&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="w">    </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">resourceOperations</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Yrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Zrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">deviceCommands</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Rotation&quot;</span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span>
+<span class="w">    </span><span class="nt">resourceOperations</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Yrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Zrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
 </code></pre></div></p>
 <h4 id="core-command">Core Command</h4>
 <p><code>coreCommands</code> section is removed in V2. We use <code>isHidden</code> field in both deviceResource and deviceCommand to indicates
@@ -3809,23 +3809,23 @@ and deviceCommand is able to be called via Command Service REST API. Set <code>i
 <p>In V2 pre-defined devices are in their own file, SDK allows both TOML and JSON format.</p>
 <div class="admonition example">
 <p class="admonition-title">Pre-defined devices</p>
-<div class="highlight"><pre><span></span><code><span class="k">[[DeviceList]]</span><span class="w"></span>
-<span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Simple-Device01&quot;</span><span class="w"></span>
-<span class="n">ProfileName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Simple-Device&quot;</span><span class="w"></span>
-<span class="n">Description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Example of Simple Device&quot;</span><span class="w"></span>
-<span class="n">Labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s">&quot;industrial&quot;</span><span class="w"> </span><span class="p">]</span><span class="w"></span>
-<span class="w">  </span><span class="k">[DeviceList.Protocols]</span><span class="w"></span>
-<span class="w">    </span><span class="k">[DeviceList.Protocols.other]</span><span class="w"></span>
-<span class="w">    </span><span class="n">Address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;simple01&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;300&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="k">[[DeviceList.AutoEvents]]</span><span class="w"></span>
-<span class="w">  </span><span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;10s&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">OnChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
-<span class="w">  </span><span class="n">SourceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Switch&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="k">[[DeviceList.AutoEvents]]</span><span class="w"></span>
-<span class="w">  </span><span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30s&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">OnChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
-<span class="w">  </span><span class="n">SourceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Image&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[[DeviceList]]</span>
+<span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Simple-Device01&quot;</span>
+<span class="n">ProfileName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Simple-Device&quot;</span>
+<span class="n">Description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Example of Simple Device&quot;</span>
+<span class="n">Labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s">&quot;industrial&quot;</span><span class="w"> </span><span class="p">]</span>
+<span class="w">  </span><span class="k">[DeviceList.Protocols]</span>
+<span class="w">    </span><span class="k">[DeviceList.Protocols.other]</span>
+<span class="w">    </span><span class="n">Address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;simple01&quot;</span>
+<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;300&quot;</span>
+<span class="w">  </span><span class="k">[[DeviceList.AutoEvents]]</span>
+<span class="w">  </span><span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;10s&quot;</span>
+<span class="w">  </span><span class="n">OnChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">  </span><span class="n">SourceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Switch&quot;</span>
+<span class="w">  </span><span class="k">[[DeviceList.AutoEvents]]</span>
+<span class="w">  </span><span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30s&quot;</span>
+<span class="w">  </span><span class="n">OnChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">  </span><span class="n">SourceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Image&quot;</span>
 </code></pre></div>
 </div>
 <p>Notice that we renamed some fields:  </p>
@@ -3840,80 +3840,80 @@ and deviceCommand is able to be called via Command Service REST API. Set <code>i
 <p>The <code>[Driver]</code> section has been replaced with the new <code>[MQTTBrokerInfo]</code>structured custom configuration section. The setting under <code>[MQTTBrokerInfo.Writable]</code>can be dynamically updated from Consul without needing to restart the service.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - V1 Driver configuration</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Driver configs</span><span class="w"></span>
-<span class="k">[Driver]</span><span class="w"></span>
-<span class="n">IncomingSchema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;tcp&#39;</span><span class="w"></span>
-<span class="n">IncomingHost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;0.0.0.0&#39;</span><span class="w"></span>
-<span class="n">IncomingPort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;1883&#39;</span><span class="w"></span>
-<span class="n">IncomingUser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;admin&#39;</span><span class="w"></span>
-<span class="n">IncomingPassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;public&#39;</span><span class="w"></span>
-<span class="n">IncomingQos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;0&#39;</span><span class="w"></span>
-<span class="n">IncomingKeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;3600&#39;</span><span class="w"></span>
-<span class="n">IncomingClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;IncomingDataSubscriber&#39;</span><span class="w"></span>
-<span class="n">IncomingTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;DataTopic&#39;</span><span class="w"></span>
-<span class="n">ResponseSchema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;tcp&#39;</span><span class="w"></span>
-<span class="n">ResponseHost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;0.0.0.0&#39;</span><span class="w"></span>
-<span class="n">ResponsePort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;1883&#39;</span><span class="w"></span>
-<span class="n">ResponseUser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;admin&#39;</span><span class="w"></span>
-<span class="n">ResponsePassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;public&#39;</span><span class="w"></span>
-<span class="n">ResponseQos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;0&#39;</span><span class="w"></span>
-<span class="n">ResponseKeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;3600&#39;</span><span class="w"></span>
-<span class="n">ResponseClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;CommandResponseSubscriber&#39;</span><span class="w"></span>
-<span class="n">ResponseTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;ResponseTopic&#39;</span><span class="w"></span>
-<span class="n">ConnEstablishingRetry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;10&#39;</span><span class="w"></span>
-<span class="n">ConnRetryWaitTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;5&#39;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Driver configs</span>
+<span class="k">[Driver]</span>
+<span class="n">IncomingSchema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;tcp&#39;</span>
+<span class="n">IncomingHost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;0.0.0.0&#39;</span>
+<span class="n">IncomingPort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;1883&#39;</span>
+<span class="n">IncomingUser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;admin&#39;</span>
+<span class="n">IncomingPassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;public&#39;</span>
+<span class="n">IncomingQos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;0&#39;</span>
+<span class="n">IncomingKeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;3600&#39;</span>
+<span class="n">IncomingClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;IncomingDataSubscriber&#39;</span>
+<span class="n">IncomingTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;DataTopic&#39;</span>
+<span class="n">ResponseSchema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;tcp&#39;</span>
+<span class="n">ResponseHost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;0.0.0.0&#39;</span>
+<span class="n">ResponsePort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;1883&#39;</span>
+<span class="n">ResponseUser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;admin&#39;</span>
+<span class="n">ResponsePassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;public&#39;</span>
+<span class="n">ResponseQos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;0&#39;</span>
+<span class="n">ResponseKeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;3600&#39;</span>
+<span class="n">ResponseClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;CommandResponseSubscriber&#39;</span>
+<span class="n">ResponseTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;ResponseTopic&#39;</span>
+<span class="n">ConnEstablishingRetry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;10&#39;</span>
+<span class="n">ConnRetryWaitTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;5&#39;</span>
 </code></pre></div>
 </div>
 <div class="admonition example">
 <p class="admonition-title">Example - V2 MQTTBrokerInfo configuration section</p>
-<div class="highlight"><pre><span></span><code><span class="k">[MQTTBrokerInfo]</span><span class="w"></span>
-<span class="n">Schema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span><span class="w"></span>
-<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;0.0.0.0&quot;</span><span class="w"></span>
-<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span><span class="w"></span>
-<span class="n">Qos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
-<span class="n">KeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3600</span><span class="w"></span>
-<span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;device-mqtt&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[MQTTBrokerInfo]</span>
+<span class="n">Schema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span>
+<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;0.0.0.0&quot;</span>
+<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span>
+<span class="n">Qos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="n">KeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3600</span>
+<span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;device-mqtt&quot;</span>
 
-<span class="n">CredentialsRetryTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">120</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
-<span class="n">CredentialsRetryWait</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
-<span class="n">ConnEstablishingRetry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="w"></span>
-<span class="n">ConnRetryWaitTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="n">CredentialsRetryTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">120</span><span class="w"> </span><span class="c1"># Seconds</span>
+<span class="n">CredentialsRetryWait</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1"># Seconds</span>
+<span class="n">ConnEstablishingRetry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span>
+<span class="n">ConnRetryWaitTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span>
 
-<span class="c1"># AuthMode is the MQTT broker authentication mechanism. </span><span class="w"></span>
-<span class="c1"># Currently, &quot;none&quot; and &quot;usernamepassword&quot; is the only AuthMode</span><span class="w"></span>
-<span class="c1"># supported by this service, and the secret keys are &quot;username&quot; and &quot;password&quot;.</span><span class="w"></span>
-<span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w"></span>
-<span class="n">CredentialsPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;credentials&quot;</span><span class="w"></span>
+<span class="c1"># AuthMode is the MQTT broker authentication mechanism. </span>
+<span class="c1"># Currently, &quot;none&quot; and &quot;usernamepassword&quot; is the only AuthMode</span>
+<span class="c1"># supported by this service, and the secret keys are &quot;username&quot; and &quot;password&quot;.</span>
+<span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span>
+<span class="n">CredentialsPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;credentials&quot;</span>
 
-<span class="n">IncomingTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;DataTopic&quot;</span><span class="w"></span>
-<span class="n">responseTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ResponseTopic&quot;</span><span class="w"></span>
+<span class="n">IncomingTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;DataTopic&quot;</span>
+<span class="n">responseTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ResponseTopic&quot;</span>
 
-<span class="w">    </span><span class="k">[MQTTBrokerInfo.Writable]</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># ResponseFetchInterval specifies the retry </span><span class="w"></span>
-<span class="w">    </span><span class="c1"># interval(milliseconds) to fetch the command response from the MQTT broker</span><span class="w"></span>
-<span class="w">    </span><span class="n">ResponseFetchInterval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">500</span><span class="w"></span>
+<span class="w">    </span><span class="k">[MQTTBrokerInfo.Writable]</span>
+<span class="w">    </span><span class="c1"># ResponseFetchInterval specifies the retry </span>
+<span class="w">    </span><span class="c1"># interval(milliseconds) to fetch the command response from the MQTT broker</span>
+<span class="w">    </span><span class="n">ResponseFetchInterval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">500</span>
 </code></pre></div>
 </div>
 <h3 id="devicelistprotocolsmqtt">DeviceList.Protocols.mqtt</h3>
 <p>Now that there is a single MQTT Broker connection, the configuration in <code>[DeviceList.Protocols.mqtt]</code> for each device has been greatly simplified to just the CommandTopic the device is subscribed. Note that this topic needs to be a unique topic for each device defined.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - V1 DeviceList.Protocols.mqtt device configuration section</p>
-<div class="highlight"><pre><span></span><code><span class="k">[DeviceList.Protocols]</span><span class="w"></span>
-<span class="w">  </span><span class="k">[DeviceList.Protocols.mqtt]</span><span class="w"></span>
-<span class="w">   </span><span class="n">Schema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;tcp&#39;</span><span class="w"></span>
-<span class="w">   </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;0.0.0.0&#39;</span><span class="w"></span>
-<span class="w">   </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;1883&#39;</span><span class="w"></span>
-<span class="w">   </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;CommandPublisher&#39;</span><span class="w"></span>
-<span class="w">   </span><span class="n">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;admin&#39;</span><span class="w"></span>
-<span class="w">   </span><span class="n">Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;public&#39;</span><span class="w"></span>
-<span class="w">   </span><span class="n">Topic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;CommandTopic&#39;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[DeviceList.Protocols]</span>
+<span class="w">  </span><span class="k">[DeviceList.Protocols.mqtt]</span>
+<span class="w">   </span><span class="n">Schema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;tcp&#39;</span>
+<span class="w">   </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;0.0.0.0&#39;</span>
+<span class="w">   </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;1883&#39;</span>
+<span class="w">   </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;CommandPublisher&#39;</span>
+<span class="w">   </span><span class="n">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;admin&#39;</span>
+<span class="w">   </span><span class="n">Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;public&#39;</span>
+<span class="w">   </span><span class="n">Topic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;CommandTopic&#39;</span>
 </code></pre></div>
 </div>
 <div class="admonition example">
 <p class="admonition-title">Example - V2 DeviceList.Protocols.mqtt device configuration section</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">[DeviceList.Protocols]</span><span class="w"></span>
-<span class="w">    </span><span class="k">[DeviceList.Protocols.mqtt]</span><span class="w"></span>
-<span class="w">       </span><span class="n">CommandTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;CommandTopic&#39;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">[DeviceList.Protocols]</span>
+<span class="w">    </span><span class="k">[DeviceList.Protocols.mqtt]</span>
+<span class="w">       </span><span class="n">CommandTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;CommandTopic&#39;</span>
 </code></pre></div>
 </div>
 <h3 id="secretstore">SecretStore</h3>
@@ -3921,26 +3921,26 @@ and deviceCommand is able to be called via Command Service REST API. Set <code>i
 <p>See the <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.0.0#/default/post_secret">Secret API reference</a> for injecting authentication credentials into a Device Service's secure SecretStore. </p>
 <div class="admonition example -">
 <p class="admonition-title">Example - Authentication credentials injected via Device MQTT's <code>Secret</code> endpoint</p>
-<div class="highlight"><pre><span></span><code>curl -X POST http://localhost:59982/api/v2/secret  -H <span class="s1">&#39;Content-Type: application/json&#39;</span> -d <span class="s1">&#39;{ &quot;apiVersion&quot;: &quot;v2&quot;, &quot;requestId&quot;: &quot;e6e8a2f4-eb14-4649-9e2b-175247911369&quot;, &quot;path&quot;: &quot;credentials&quot;, &quot;secretData&quot;: [  {   &quot;key&quot;: &quot;username&quot;, &quot;value&quot;: &quot;mqtt-user&quot;  }, {  &quot;key&quot;: &quot;password&quot;, &quot;value&quot;: &quot;mqtt-password&quot; } ]}&#39;</span>  
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:59982/api/v2/secret<span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{ &quot;apiVersion&quot;: &quot;v2&quot;, &quot;requestId&quot;: &quot;e6e8a2f4-eb14-4649-9e2b-175247911369&quot;, &quot;path&quot;: &quot;credentials&quot;, &quot;secretData&quot;: [  {   &quot;key&quot;: &quot;username&quot;, &quot;value&quot;: &quot;mqtt-user&quot;  }, {  &quot;key&quot;: &quot;password&quot;, &quot;value&quot;: &quot;mqtt-password&quot; } ]}&#39;</span><span class="w">  </span>
 </code></pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The service has to be running for this endpoint to be available.  The following <code>[MQTTBrokerInfo]</code> settings from above allow a window of time to inject the credentials.
-<div class="highlight"><pre><span></span><code><span class="n">CredentialsRetryTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">120</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
-<span class="n">CredentialsRetryWait</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">CredentialsRetryTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">120</span><span class="w"> </span><span class="c1"># Seconds</span>
+<span class="n">CredentialsRetryWait</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1"># Seconds</span>
 </code></pre></div></p>
 </div>
 <h4 id="non-secure">Non Secure</h4>
 <p>For non-secure mode the authentication credentials need to be added to the [InsecureSecrets] configuration section. </p>
 <div class="admonition example -">
 <p class="admonition-title">Example - Authentication credentials in Device MQTT's <code>[InsecureSecrets]</code> configuration section</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Writable.InsecureSecrets]</span><span class="w"></span>
-<span class="w">  </span><span class="k">[Writable.InsecureSecrets.MQTT]</span><span class="w"></span>
-<span class="w">  </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;credentials&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Writable.InsecureSecrets.MQTT.Secrets]</span><span class="w"></span>
-<span class="w">    </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt-user&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt-password&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Writable.InsecureSecrets]</span>
+<span class="w">  </span><span class="k">[Writable.InsecureSecrets.MQTT]</span>
+<span class="w">  </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;credentials&quot;</span>
+<span class="w">    </span><span class="k">[Writable.InsecureSecrets.MQTT.Secrets]</span>
+<span class="w">    </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt-user&quot;</span>
+<span class="w">    </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt-password&quot;</span>
 </code></pre></div>
 </div>
 <h2 id="device-camera">Device Camera</h2>
@@ -3948,44 +3948,44 @@ and deviceCommand is able to be called via Command Service REST API. Set <code>i
 <h3 id="driver">Driver</h3>
 <div class="admonition example">
 <p class="admonition-title">Example V1 Driver configuration section</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Driver]</span><span class="w"></span>
-<span class="n">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;service&#39;</span><span class="w"></span>
-<span class="n">Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;Password!1&#39;</span><span class="w"></span>
-<span class="c1"># Assign AuthMethod to &#39;digest&#39; | &#39;basic&#39; | &#39;none&#39;</span><span class="w"></span>
-<span class="c1"># AuthMethod specifies the authentication method used when</span><span class="w"></span>
-<span class="c1"># requesting still images from the URL returned by the ONVIF</span><span class="w"></span>
-<span class="c1"># &quot;GetSnapshotURI&quot; command.  All ONVIF requests will be</span><span class="w"></span>
-<span class="c1"># carried out using digest auth.</span><span class="w"></span>
-<span class="n">AuthMethod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;basic&#39;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Driver]</span>
+<span class="n">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;service&#39;</span>
+<span class="n">Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;Password!1&#39;</span>
+<span class="c1"># Assign AuthMethod to &#39;digest&#39; | &#39;basic&#39; | &#39;none&#39;</span>
+<span class="c1"># AuthMethod specifies the authentication method used when</span>
+<span class="c1"># requesting still images from the URL returned by the ONVIF</span>
+<span class="c1"># &quot;GetSnapshotURI&quot; command.  All ONVIF requests will be</span>
+<span class="c1"># carried out using digest auth.</span>
+<span class="n">AuthMethod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;basic&#39;</span>
 </code></pre></div>
 </div>
 <div class="admonition example">
 <p class="admonition-title">Example V2 Driver configuration section</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Driver]</span><span class="w"></span>
-<span class="n">CredentialsRetryTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;120&#39;</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
-<span class="n">CredentialsRetryWait</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;1&#39;</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Driver]</span>
+<span class="n">CredentialsRetryTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;120&#39;</span><span class="w"> </span><span class="c1"># Seconds</span>
+<span class="n">CredentialsRetryWait</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;1&#39;</span><span class="w"> </span><span class="c1"># Seconds</span>
 </code></pre></div>
 </div>
 <h3 id="devicelistprotocolshttp">DeviceList.Protocols.HTTP</h3>
 <div class="admonition example">
 <p class="admonition-title">Example V1 DeviceList.Protocols.HTTP device configuration section</p>
-<div class="highlight"><pre><span></span><code><span class="k">[DeviceList.Protocols]</span><span class="w"></span>
-<span class="w">  </span><span class="k">[DeviceList.Protocols.HTTP]</span><span class="w"></span>
-<span class="w">  </span><span class="n">Address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;192.168.2.105&#39;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[DeviceList.Protocols]</span>
+<span class="w">  </span><span class="k">[DeviceList.Protocols.HTTP]</span>
+<span class="w">  </span><span class="n">Address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;192.168.2.105&#39;</span>
 </code></pre></div>
 </div>
 <div class="admonition example">
 <p class="admonition-title">Example V2 DeviceList.Protocols.HTTP device configuration section</p>
-<div class="highlight"><pre><span></span><code><span class="k">[DeviceList.Protocols]</span><span class="w"></span>
-<span class="w">  </span><span class="k">[DeviceList.Protocols.HTTP]</span><span class="w"></span>
-<span class="w">  </span><span class="n">Address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;192.168.2.105&#39;</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># Assign AuthMethod to &#39;digest&#39; | &#39;usernamepassword&#39; | &#39;none&#39;</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># AuthMethod specifies the authentication method used when</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># requesting still images from the URL returned by the ONVIF</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># &quot;GetSnapshotURI&quot; command.  All ONVIF requests will be</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># carried out using digest auth.</span><span class="w"></span>
-<span class="w">  </span><span class="n">AuthMethod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;usernamepassword&#39;</span><span class="w"></span>
-<span class="w">  </span><span class="n">CredentialsPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;credentials001&#39;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[DeviceList.Protocols]</span>
+<span class="w">  </span><span class="k">[DeviceList.Protocols.HTTP]</span>
+<span class="w">  </span><span class="n">Address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;192.168.2.105&#39;</span>
+<span class="w">  </span><span class="c1"># Assign AuthMethod to &#39;digest&#39; | &#39;usernamepassword&#39; | &#39;none&#39;</span>
+<span class="w">  </span><span class="c1"># AuthMethod specifies the authentication method used when</span>
+<span class="w">  </span><span class="c1"># requesting still images from the URL returned by the ONVIF</span>
+<span class="w">  </span><span class="c1"># &quot;GetSnapshotURI&quot; command.  All ONVIF requests will be</span>
+<span class="w">  </span><span class="c1"># carried out using digest auth.</span>
+<span class="w">  </span><span class="n">AuthMethod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;usernamepassword&#39;</span>
+<span class="w">  </span><span class="n">CredentialsPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;credentials001&#39;</span>
 </code></pre></div>
 </div>
 <h3 id="secretstore_1">SecretStore</h3>
@@ -3993,25 +3993,25 @@ and deviceCommand is able to be called via Command Service REST API. Set <code>i
 <p>See the <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.0.0#/default/post_secret">Secret API reference</a> for injecting authentication credentials into a Device Service's secure SecretStore. An entry is required for each camera that is configured with <code>AuthMethod = 'usernamepassword'</code></p>
 <div class="admonition example -">
 <p class="admonition-title">Example - Authentication credentials injected via Device Camera's <code>Secret</code> endpoint</p>
-<div class="highlight"><pre><span></span><code>curl -X POST http://localhost:59985/api/v2/secret  -H <span class="s1">&#39;Content-Type: application/json&#39;</span> -d <span class="s1">&#39;{ &quot;apiVersion&quot;: &quot;v2&quot;, &quot;requestId&quot;: &quot;e6e8a2f4-eb14-4649-9e2b-175247911369&quot;, &quot;path&quot;: &quot;credentials001&quot;, &quot;secretData&quot;: [  {   &quot;key&quot;: &quot;username&quot;, &quot;value&quot;: &quot;camera-user&quot;  }, {  &quot;key&quot;: &quot;password&quot;, &quot;value&quot;: &quot;camera-password&quot; } ]}&#39;</span>  
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:59985/api/v2/secret<span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{ &quot;apiVersion&quot;: &quot;v2&quot;, &quot;requestId&quot;: &quot;e6e8a2f4-eb14-4649-9e2b-175247911369&quot;, &quot;path&quot;: &quot;credentials001&quot;, &quot;secretData&quot;: [  {   &quot;key&quot;: &quot;username&quot;, &quot;value&quot;: &quot;camera-user&quot;  }, {  &quot;key&quot;: &quot;password&quot;, &quot;value&quot;: &quot;camera-password&quot; } ]}&#39;</span><span class="w">  </span>
 </code></pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The service has to be running for this endpoint to be available.  The following <code>[Driver]</code> settings from above allow a window of time to inject the credentials.</p>
-<div class="highlight"><pre><span></span><code><span class="n">CredentialsRetryTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">120</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
-<span class="n">CredentialsRetryWait</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">CredentialsRetryTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">120</span><span class="w"> </span><span class="c1"># Seconds</span>
+<span class="n">CredentialsRetryWait</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1"># Seconds</span>
 </code></pre></div>
 </div>
 <h4 id="non-secure_1">Non Secure</h4>
 <p>For non-secure mode the authentication credentials need to be added to the [InsecureSecrets] configuration section. An entry is required for each camera that is configured with <code>AuthMethod = 'usernamepassword'</code></p>
 <div class="admonition example -">
 <p class="admonition-title">Example - Authentication credentials in Device Camera's <code>[InsecureSecrets]</code> configuration section</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Writable.InsecureSecrets.Camera001]</span><span class="w"></span>
-<span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;credentials001&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="k">[Writable.InsecureSecrets.Camera001.Secrets]</span><span class="w"></span>
-<span class="w">  </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;camera-user&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;camera-password&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Writable.InsecureSecrets.Camera001]</span>
+<span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;credentials001&quot;</span>
+<span class="w">  </span><span class="k">[Writable.InsecureSecrets.Camera001.Secrets]</span>
+<span class="w">  </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;camera-user&quot;</span>
+<span class="w">  </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;camera-password&quot;</span>
 </code></pre></div>
 </div>
 

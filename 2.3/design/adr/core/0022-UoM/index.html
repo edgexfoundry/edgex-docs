@@ -12,7 +12,7 @@
         <meta name="author" content="Michael Johanson">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/design/adr/core/0022-UoM/">
+        <link rel="canonical" href="https://docs.edgexfoundry.org/design/adr/core/0022-UoM/">
       
       <link rel="icon" href="../../../../assets/logo_edgex.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.8">
@@ -3148,25 +3148,25 @@
 <p>The units of measure in the configuration file can be attributed, optionally, to a specification, document, or other UoM definition source.  The <code>source</code> only helps provide the location of documentation about the origins and details of the units specified for the reader, but it will not be used or checked by EdgeX.  An optional default source can be provided at the top level configuration (as shown in the examples below) so that other sources are only needed when there are specific units used that are not found in the default source.</p>
 <p>The units of measure can be categorized for better organization and to allow for different sources to be specified for different units.  The categories are defined by the TOML section names (the UoM dot labels).</p>
 <p><strong>Sample TOML unit of measure configuration</strong></p>
-<div class="highlight"><pre><span></span><code><span class="k">[Uom]</span><span class="w"></span>
-<span class="w">    </span><span class="n">Source</span><span class="o">=</span><span class="s">&quot;reference to source for all UoM if not specified below&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Uom.temperature]</span><span class="w"></span>
-<span class="w">    </span><span class="n">Source</span><span class="o">=</span><span class="s">&quot;www.weather.com&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">Values</span><span class="o">=</span><span class="s">&quot;C,F,K&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Uom.weights]</span><span class="w"></span>
-<span class="w">    </span><span class="n">Source</span><span class="o">=</span><span class="s">&quot;www.usa.gov/federal-agencies/weights-and-measures-division&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">Values</span><span class="o">=</span><span class="s">&quot;lbs,ounces,kilos,grams&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Uom]</span>
+<span class="w">    </span><span class="n">Source</span><span class="o">=</span><span class="s">&quot;reference to source for all UoM if not specified below&quot;</span>
+<span class="w">    </span><span class="k">[Uom.temperature]</span>
+<span class="w">    </span><span class="n">Source</span><span class="o">=</span><span class="s">&quot;www.weather.com&quot;</span>
+<span class="w">    </span><span class="n">Values</span><span class="o">=</span><span class="s">&quot;C,F,K&quot;</span>
+<span class="w">    </span><span class="k">[Uom.weights]</span>
+<span class="w">    </span><span class="n">Source</span><span class="o">=</span><span class="s">&quot;www.usa.gov/federal-agencies/weights-and-measures-division&quot;</span>
+<span class="w">    </span><span class="n">Values</span><span class="o">=</span><span class="s">&quot;lbs,ounces,kilos,grams&quot;</span>
 </code></pre></div>
 <h4 id="specifying-the-uom-file-location">Specifying the UoM File Location</h4>
 <p>The location of the UoM file will be specified in core metadata's configuration (currently in <code>res/configuration.toml</code>) - see example A below.  </p>
 <p><strong>Example Metadata Configuration - location of of the UoM configuration file</strong>
-<div class="highlight"><pre><span></span><code><span class="k">[Writable]</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Writable.UoM]</span><span class="w"></span>
-<span class="w">    </span><span class="n">Validation</span><span class="o">=</span><span class="n">false</span><span class="w">  </span><span class="c1">## false (meaning off) by default</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Writable]</span>
+<span class="w">    </span><span class="k">[Writable.UoM]</span>
+<span class="w">    </span><span class="n">Validation</span><span class="o">=</span><span class="n">false</span><span class="w">  </span><span class="c1">## false (meaning off) by default</span>
 
-<span class="c1">## in the non-writable area - example file specified to units of measure</span><span class="w"></span>
-<span class="k">[UoM]</span><span class="w"></span>
-<span class="w">    </span><span class="n">UoMFile</span><span class="o">=</span><span class="s">&quot;./res/uom.toml&quot;</span><span class="w">  </span><span class="c1"># the UoMFile location can be either absolute or relative path location</span><span class="w"></span>
+<span class="c1">## in the non-writable area - example file specified to units of measure</span>
+<span class="k">[UoM]</span>
+<span class="w">    </span><span class="n">UoMFile</span><span class="o">=</span><span class="s">&quot;./res/uom.toml&quot;</span><span class="w">  </span><span class="c1"># the UoMFile location can be either absolute or relative path location</span>
 </code></pre></div></p>
 <p>The location of the UoM file should point to an accessible file (relative to application executable or absolute path).  The file must be something that the service can reach (ex: in shared volume, volume mount, etc.) in order to allow for the adopter to provide the units of measure independently during configuration/setup of the EdgeX instance without requiring a build of the metadata service or a reconstruction of the Docker image/container.</p>
 <div class="admonition info">
@@ -3197,18 +3197,18 @@
 <p>Importantly (as discussed in Core WG 2/17/22), the <code>units</code> field on a profile is and shall remain optional.  If the <code>units</code> field is not specified in the device profile, then it is assumed that the device resource does not have well defined units of measure.  In other words, core metadata will not fail a profile with no <code>units</code> field specified on a device resource.</p>
 </div>
 <p>In the example device resource below, core metadata would check that <code>C</code> is in the list of units of measure in the configuration.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">deviceResources</span><span class="p">:</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RoomTemperature&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Room</span><span class="nv"> </span><span class="s">Temperature</span><span class="nv"> </span><span class="s">x10</span><span class="nv"> </span><span class="s">°C</span><span class="nv"> </span><span class="s">(Read</span><span class="nv"> </span><span class="s">Only)&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">attributes</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">{</span><span class="nt"> primaryTable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;INPUT_REGISTERS&quot;</span><span class="p p-Indicator">,</span><span class="nt"> startingAddress</span><span class="p">:</span><span class="w"> </span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="nt"> rawType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Int16&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">  </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Float32&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">scale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0.1&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">units</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="w">    </span><span class="c1">## core metadata checks this value against its list of valid units of measure</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">deviceResources</span><span class="p">:</span>
+<span class="p p-Indicator">-</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RoomTemperature&quot;</span>
+<span class="w">  </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Room</span><span class="nv"> </span><span class="s">Temperature</span><span class="nv"> </span><span class="s">x10</span><span class="nv"> </span><span class="s">°C</span><span class="nv"> </span><span class="s">(Read</span><span class="nv"> </span><span class="s">Only)&quot;</span>
+<span class="w">  </span><span class="nt">attributes</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">{</span><span class="nt"> primaryTable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;INPUT_REGISTERS&quot;</span><span class="p p-Indicator">,</span><span class="nt"> startingAddress</span><span class="p">:</span><span class="w"> </span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="nt"> rawType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Int16&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">  </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Float32&quot;</span>
+<span class="w">    </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span>
+<span class="w">    </span><span class="nt">scale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0.1&quot;</span>
+<span class="w">    </span><span class="nt">units</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="w">    </span><span class="c1">## core metadata checks this value against its list of valid units of measure</span>
 </code></pre></div>
 <p>By checking the <code>units</code> property of the device resources (on creation or updates of the device profile or create/update of the device resources), and rejecting any additions or changes that include non-valid units of measure, then we can be assured that all readings created by the device service will contain valid units by default (assuming that validation of the units of measure is always on) or that the units are inconsequential (when the <code>units</code> field is not specified for a device resource).  This means, the units in a reading do not need to be validated separately.</p>
 <h2 id="considerations">Considerations</h2>
@@ -3218,11 +3218,11 @@
 <h3 id="use-of-senml">Use of SenML</h3>
 <p><a href="https://datatracker.ietf.org/doc/html/rfc8428">SenML</a> was suggested as a specification (currently a proposed standard) from which EdgeX may draw some guidance or inspiration with regard to unit of measure representation in "simple sensor measurements and device parameters."</p>
 <p>In fact, SenML defines a simple data model (in JSON, CBOR, XML, EXI) for the exchange of what EdgeX would call readings.  A JSON example is below:</p>
-<div class="highlight"><pre><span></span><code><span class="p">[{</span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="s2">&quot;urn:dev:ow:10e2073a01080063&quot;</span><span class="p">,</span><span class="nt">&quot;u&quot;</span><span class="p">:</span><span class="s2">&quot;Cel&quot;</span><span class="p">,</span><span class="nt">&quot;v&quot;</span><span class="p">:</span><span class="mf">23.1</span><span class="p">}]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p">[{</span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="s2">&quot;urn:dev:ow:10e2073a01080063&quot;</span><span class="p">,</span><span class="nt">&quot;u&quot;</span><span class="p">:</span><span class="s2">&quot;Cel&quot;</span><span class="p">,</span><span class="nt">&quot;v&quot;</span><span class="p">:</span><span class="mf">23.1</span><span class="p">}]</span>
 </code></pre></div>
 <p>In the example above, the array (what EdgeX would consider a collection of readings) has a single SenML Record with a
 measurement for a sensor named "urn:dev:ow:10e2073a01080063" with a current value of 23.1 for degrees measured in Celsius (Cel) unit of measure.  However, SenML suggests the use of short names for the keys in most cases, but long names could be used.  In which case, the JSON SenML reading would look like the following:</p>
-<div class="highlight"><pre><span></span><code><span class="p">[{</span><span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="s2">&quot;urn:dev:ow:10e2073a01080063&quot;</span><span class="p">,</span><span class="nt">&quot;Unit&quot;</span><span class="p">:</span><span class="s2">&quot;Cel&quot;</span><span class="p">,</span><span class="nt">&quot;Value&quot;</span><span class="p">:</span><span class="mf">23.1</span><span class="p">}]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p">[{</span><span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="s2">&quot;urn:dev:ow:10e2073a01080063&quot;</span><span class="p">,</span><span class="nt">&quot;Unit&quot;</span><span class="p">:</span><span class="s2">&quot;Cel&quot;</span><span class="p">,</span><span class="nt">&quot;Value&quot;</span><span class="p">:</span><span class="mf">23.1</span><span class="p">}]</span>
 </code></pre></div>
 <p>In this way, the parallels to EdgeX model are, by accident, uncanny - at least in the JSON instance.  SenML goes to much more depth to provide extensions and more definitions around measurements.  But at its base, the EdgeX format is not unlike SenML and could easily be aligned with SenML in the future (or allow for an application service to export in SenML with an additional function fairly easily and if there were demand).</p>
 <p>However, on the basis of "unit of measure", SenML is actually light on details.  With regard to UoM, the SenML specification only says:</p>

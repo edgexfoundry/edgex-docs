@@ -12,7 +12,7 @@
         <meta name="author" content="Michael Johanson">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/security/Ch-SecretStore/">
+        <link rel="canonical" href="https://docs.edgexfoundry.org/security/Ch-SecretStore/">
       
       <link rel="icon" href="../../assets/logo_edgex.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.8">
@@ -3242,9 +3242,9 @@ must be started for the first time with root token revokation disabled.</p>
 <p>Edit <code>docker-compose.yml</code> and add an environment variable override for <code>SECRETSTORE_REVOKEROOTTOKENS</code></p>
 </li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">secretstore-setup</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">SECRETSTORE_REVOKEROOTTOKENS</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">secretstore-setup</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">SECRETSTORE_REVOKEROOTTOKENS</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
 </code></pre></div>
 <ol>
 <li>
@@ -3269,7 +3269,7 @@ if <code>SECRETSTORE_REVOKEROOTTOKENS</code> remains set to its default value: a
 are revoked every time the framework is started if <code>SECRETSTORE_REVOKEROOTTOKENS</code> is <code>true</code>.</p>
 <h3 id="using-the-vault-cli">Using the Vault CLI</h3>
 <p>Execute a shell session in the running Vault container:</p>
-<div class="highlight"><pre><span></span><code>  docker <span class="nb">exec</span> -it edgex-vault sh -l
+<div class="highlight"><pre><span></span><code><span class="w">  </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>edgex-vault<span class="w"> </span>sh<span class="w"> </span>-l
 </code></pre></div>
 <p>Login to Vault using Vault CLI and the gathered Root Token:</p>
 <div class="highlight"><pre><span></span><code>edgex-vault:/# vault login s.ULr5bcjwy8S0I5g3h4xZ5uWa

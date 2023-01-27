@@ -12,7 +12,7 @@
         <meta name="author" content="Michael Johanson">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/getting-started/Ch-GettingStartedSnapUsers/">
+        <link rel="canonical" href="https://docs.edgexfoundry.org/getting-started/Ch-GettingStartedSnapUsers/">
       
       <link rel="icon" href="../../assets/logo_edgex.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.8">
@@ -3580,7 +3580,7 @@ Snaps can be installed on any Linux distribution with <a href="https://snapcraft
 <p>For the list of EdgeX snaps and specific instructions, please refer to the <strong><a href="#edgex-snaps">EdgeX Snaps</a></strong> section.</p>
 <h3 id="installation">Installation</h3>
 <p>When using the snap CLI, the installation is possible by simply executing:
-<div class="highlight"><pre><span></span><code>snap install &lt;snap&gt;
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span>install<span class="w"> </span>&lt;snap&gt;
 </code></pre></div></p>
 <p>This is similar to setting <code>--channel=latest/stable</code> or shorthand <code>--stable</code> and will install the latest stable release of a snap. In this case, <code>latest/stable</code> is the <a href="https://snapcraft.io/docs/channels">channel</a>, composed of <code>latest</code> track and <code>stable</code> risk level.</p>
 <p>To install a specific version with long term support (e.g. 2.1), or to install a beta or development release, refer to the store page for the snap, choose install, and then pick the desired channel.
@@ -3677,8 +3677,8 @@ We call these the <em>config options</em> because they a have <code>config</code
 <p>Enabling app options will migrate internal env options and persistently remove any newly set env option.</p>
 </div>
 <p>For example, to change the service port of the core-data service on <code>edgexfoundry</code> snap to 8080:
-<div class="highlight"><pre><span></span><code>snap <span class="nb">set</span> edgexfoundry app-options<span class="o">=</span><span class="nb">true</span>
-snap <span class="nb">set</span> edgexfoundry apps.core-data.config.service-port<span class="o">=</span><span class="m">8080</span>
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>app-options<span class="o">=</span><span class="nb">true</span>
+snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>apps.core-data.config.service-port<span class="o">=</span><span class="m">8080</span>
 </code></pre></div></p>
 <p>The services load the set config options on startup. If the service has already started, a restart is necessary to load them.</p>
 <h4 id="common-configuration-examples">Common configuration examples</h4>
@@ -3690,7 +3690,7 @@ snap <span class="nb">set</span> edgexfoundry apps.core-data.config.service-port
 </div>
 <p>The Secret Store is used by EdgeX for secret management (e.g. certificates, keys, passwords). Use of the Secret Store by all services can be disabled globally. Note that doing so will also disable the API Gateway, as it depends on the Secret Store.</p>
 <p>The following command disables the Secret Store and in turn the API Gateway:
-<div class="highlight"><pre><span></span><code>sudo snap <span class="nb">set</span> edgexfoundry security-secret-store<span class="o">=</span>off
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>security-secret-store<span class="o">=</span>off
 </code></pre></div></p>
 <p>All services in the snap except for the API Gateway are restricted by default to listening on localhost (127.0.0.1).
 The API Gateway proxies external requests to internal services.
@@ -3699,23 +3699,23 @@ They will be still accessible on the local machine for demonstration and testing
 <p>If you really need to make an insecure service accessible remotely, set the bind address of the service to the IP address of that networking interface on the local machine. If you trust all your interfaces and want the services to accept connections from all, set it to <code>0.0.0.0</code>.</p>
 <p>After disabling the Secret Store, the external services should be configured such that they don't attempt to initialize the security. For this purpose, <a href="../../microservices/configuration/CommonEnvironmentVariables/#edgex_security_secret_store">EDGEX_SECURITY_SECRET_STORE</a> should be set to false, using the corresponding snap option: <code>config.edgex-security-secret-store</code>.
 For example, to disable it on the EdgeX UI snap:
-<div class="highlight"><pre><span></span><code>sudo snap <span class="nb">set</span> edgex-ui config.edgex-security-secret-store<span class="o">=</span><span class="nb">false</span>
-sudo snap start edgex-ui <span class="c1"># restart if the service has already started</span>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgex-ui<span class="w"> </span>config.edgex-security-secret-store<span class="o">=</span><span class="nb">false</span>
+sudo<span class="w"> </span>snap<span class="w"> </span>start<span class="w"> </span>edgex-ui<span class="w"> </span><span class="c1"># restart if the service has already started</span>
 </code></pre></div></p>
 <h5 id="using-mqtt-message-bus">Using MQTT message bus</h5>
 <p>The default message bus for EdgeX services is Redis Pub/Sub. If you prefer to use MQTT instead of Redis, change the <a href="../../microservices/general/messagebus/#configuration-changes">message bus configurations</a> using snap options.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <p>To switch to an insecure MQTT message bus for all core services (inside the platform snap) and the Device Virtual using snap options, set the following:
-<div class="highlight"><pre><span></span><code>snap <span class="nb">set</span> edgexfoundry config.messagequeue-protocol<span class="o">=</span><span class="s2">&quot;mqtt&quot;</span> <span class="se">\</span>
-                      config.messagequeue-port<span class="o">=</span><span class="m">1883</span> <span class="se">\</span>
-                      config.messagequeue-type<span class="o">=</span><span class="s2">&quot;mqtt&quot;</span> <span class="se">\</span>
-                      config.messagequeue-authmode<span class="o">=</span><span class="s2">&quot;none&quot;</span>
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>config.messagequeue-protocol<span class="o">=</span><span class="s2">&quot;mqtt&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">                      </span>config.messagequeue-port<span class="o">=</span><span class="m">1883</span><span class="w"> </span><span class="se">\</span>
+<span class="w">                      </span>config.messagequeue-type<span class="o">=</span><span class="s2">&quot;mqtt&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">                      </span>config.messagequeue-authmode<span class="o">=</span><span class="s2">&quot;none&quot;</span>
 
-snap <span class="nb">set</span> edgex-device-virtual config.messagequeue-protocol<span class="o">=</span><span class="s2">&quot;mqtt&quot;</span> <span class="se">\</span>
-                              config.messagequeue-port<span class="o">=</span><span class="m">1883</span> <span class="se">\</span>
-                              config.messagequeue-type<span class="o">=</span><span class="s2">&quot;mqtt&quot;</span> <span class="se">\</span>
-                              config.messagequeue-authmode<span class="o">=</span><span class="s2">&quot;none&quot;</span>
+snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgex-device-virtual<span class="w"> </span>config.messagequeue-protocol<span class="o">=</span><span class="s2">&quot;mqtt&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">                              </span>config.messagequeue-port<span class="o">=</span><span class="m">1883</span><span class="w"> </span><span class="se">\</span>
+<span class="w">                              </span>config.messagequeue-type<span class="o">=</span><span class="s2">&quot;mqtt&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">                              </span>config.messagequeue-authmode<span class="o">=</span><span class="s2">&quot;none&quot;</span>
 </code></pre></div></p>
 </div>
 <h5 id="disabling-registry-and-config-provider">Disabling registry and config provider</h5>
@@ -3725,23 +3725,23 @@ Consul and configure the services not to use Registry and Config Provider.</p>
 <p class="admonition-title">Example</p>
 <p>To disable Consul and configure all services (inside the platform snap) not to use Registry and Config provider 
 using snap options, set the following:
-<div class="highlight"><pre><span></span><code>snap stop --disable edgexfoundry.consul
-snap <span class="nb">set</span> edgexfoundry config.edgex-use-registry<span class="o">=</span><span class="nb">false</span> 
-snap <span class="nb">set</span> edgexfoundry config.edgex-configuration-provider<span class="o">=</span>none
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span>stop<span class="w"> </span>--disable<span class="w"> </span>edgexfoundry.consul
+snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>config.edgex-use-registry<span class="o">=</span><span class="nb">false</span><span class="w"> </span>
+snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>config.edgex-configuration-provider<span class="o">=</span>none
 </code></pre></div></p>
 </div>
 <h3 id="managing-services">Managing services</h3>
 <p>The services of a snap can be started/stopped/restarted using the snap CLI.
 When starting/stopping, you can additionally set them to enable/disable which configures whether or not the service should also start on boot.</p>
 <p>To list the services and check their status:
-<div class="highlight"><pre><span></span><code>snap services &lt;snap&gt;
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span>services<span class="w"> </span>&lt;snap&gt;
 </code></pre></div></p>
 <p>To start and optionally enable services:
 <div class="highlight"><pre><span></span><code><span class="c1"># all services</span>
-snap start --enable &lt;snap&gt;
+snap<span class="w"> </span>start<span class="w"> </span>--enable<span class="w"> </span>&lt;snap&gt;
 
 <span class="c1"># one service</span>
-snap start --enable &lt;snap&gt;.&lt;app&gt;
+snap<span class="w"> </span>start<span class="w"> </span>--enable<span class="w"> </span>&lt;snap&gt;.&lt;app&gt;
 </code></pre></div></p>
 <p>Similarly, a service can be stopped and optionally disabled using <code>snap stop --disable</code>.</p>
 <details class="info">
@@ -3764,23 +3764,23 @@ snap start --enable &lt;snap&gt;.&lt;app&gt;
 </details>
 <p>To restart services, e.g. to load the configurations:
 <div class="highlight"><pre><span></span><code><span class="c1"># all services</span>
-snap restart &lt;snap&gt;
+snap<span class="w"> </span>restart<span class="w"> </span>&lt;snap&gt;
 
 <span class="c1"># one service</span>
-snap restart &lt;snap&gt;.&lt;app&gt;
+snap<span class="w"> </span>restart<span class="w"> </span>&lt;snap&gt;.&lt;app&gt;
 </code></pre></div></p>
 <h3 id="debugging">Debugging</h3>
 <p>The service logs can be queried using the <code>snap log</code> command.</p>
 <p>For example, to query 100 lines and follow:
 <div class="highlight"><pre><span></span><code><span class="c1"># all services</span>
-snap logs -n<span class="o">=</span><span class="m">100</span> -f &lt;snap&gt;
+snap<span class="w"> </span>logs<span class="w"> </span>-n<span class="o">=</span><span class="m">100</span><span class="w"> </span>-f<span class="w"> </span>&lt;snap&gt;
 
 <span class="c1"># one service</span>
-snap logs -n<span class="o">=</span><span class="m">100</span> -f &lt;snap&gt;.&lt;app&gt;
+snap<span class="w"> </span>logs<span class="w"> </span>-n<span class="o">=</span><span class="m">100</span><span class="w"> </span>-f<span class="w"> </span>&lt;snap&gt;.&lt;app&gt;
 </code></pre></div>
 Check <code>snap logs --help</code> for details.</p>
 <p>To query not only the service logs, but also the snap logs (incl. hook apps such as install and configure), use <code>journalctl</code>:
-<div class="highlight"><pre><span></span><code>sudo journalctl -n <span class="m">100</span> -f <span class="p">|</span> grep &lt;snap&gt;
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>journalctl<span class="w"> </span>-n<span class="w"> </span><span class="m">100</span><span class="w"> </span>-f<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>&lt;snap&gt;
 </code></pre></div></p>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
@@ -3852,20 +3852,20 @@ all reference core and security services along with a few supporting and applica
 <h4 id="adding-api-gateway-users">Adding API Gateway users</h4>
 <p>The service endpoints can be accessed securely through the API Gateway. The API Gateway requires a JSON Web Token (JWT) to authorize requests. Please refer to <a href="../../security/Ch-AddGatewayUserRemotely/">Adding EdgeX API Gateway Users Remotely</a> and use the snapped <code>edgexfoundry.secrets-config</code> utility.</p>
 <p>To get the usage help:
-<div class="highlight"><pre><span></span><code>edgexfoundry.secrets-config proxy adduser -h
+<div class="highlight"><pre><span></span><code>edgexfoundry.secrets-config<span class="w"> </span>proxy<span class="w"> </span>adduser<span class="w"> </span>-h
 </code></pre></div>
 You may also refer to the <a href="../../security/secrets-config-proxy/">secrets-config proxy</a> documentation.</p>
 <div class="admonition example">
 <p class="admonition-title">Creating an example user</p>
 <p>Create private and public keys:
-<div class="highlight"><pre><span></span><code>openssl ecparam -genkey -name prime256v1 -noout -out private.pem
-openssl ec -in private.pem -pubout -out public.pem
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>ecparam<span class="w"> </span>-genkey<span class="w"> </span>-name<span class="w"> </span>prime256v1<span class="w"> </span>-noout<span class="w"> </span>-out<span class="w"> </span>private.pem
+openssl<span class="w"> </span>ec<span class="w"> </span>-in<span class="w"> </span>private.pem<span class="w"> </span>-pubout<span class="w"> </span>-out<span class="w"> </span>public.pem
 </code></pre></div></p>
 <p>Read the API Gateway token:
-<div class="highlight"><pre><span></span><code><span class="nv">KONG_ADMIN_JWT</span><span class="o">=</span><span class="sb">`</span>sudo cat /var/snap/edgexfoundry/current/secrets/security-proxy-setup/kong-admin-jwt<span class="sb">`</span>
+<div class="highlight"><pre><span></span><code><span class="nv">KONG_ADMIN_JWT</span><span class="o">=</span><span class="sb">`</span>sudo<span class="w"> </span>cat<span class="w"> </span>/var/snap/edgexfoundry/current/secrets/security-proxy-setup/kong-admin-jwt<span class="sb">`</span>
 </code></pre></div></p>
 <p>Use secrets-config to add a user <code>example</code> with id <code>1000</code>:
-<div class="highlight"><pre><span></span><code>edgexfoundry.secrets-config proxy adduser --token-type jwt --user example --algorithm ES256 --public_key public.pem --id <span class="m">1000</span> --jwt <span class="nv">$KONG_ADMIN_JWT</span>
+<div class="highlight"><pre><span></span><code>edgexfoundry.secrets-config<span class="w"> </span>proxy<span class="w"> </span>adduser<span class="w"> </span>--token-type<span class="w"> </span>jwt<span class="w"> </span>--user<span class="w"> </span>example<span class="w"> </span>--algorithm<span class="w"> </span>ES256<span class="w"> </span>--public_key<span class="w"> </span>public.pem<span class="w"> </span>--id<span class="w"> </span><span class="m">1000</span><span class="w"> </span>--jwt<span class="w"> </span><span class="nv">$KONG_ADMIN_JWT</span>
 </code></pre></div>
 On success, the above command prints the user id.</p>
 </div>
@@ -3879,14 +3879,14 @@ On success, the above command prints the user id.</p>
 <p class="admonition-title">Generating a JWT token for the example user</p>
 <p>On success, a JWT token is printed out and written to <code>user-jwt.txt</code> file.
 We use the user id <code>1000</code> as set in the previous example.
-<div class="highlight"><pre><span></span><code>edgexfoundry.secrets-config proxy jwt --algorithm ES256 --private_key private.pem --id <span class="m">1000</span> --expiration<span class="o">=</span>1h <span class="p">|</span> tee user-jwt.txt
+<div class="highlight"><pre><span></span><code>edgexfoundry.secrets-config<span class="w"> </span>proxy<span class="w"> </span>jwt<span class="w"> </span>--algorithm<span class="w"> </span>ES256<span class="w"> </span>--private_key<span class="w"> </span>private.pem<span class="w"> </span>--id<span class="w"> </span><span class="m">1000</span><span class="w"> </span>--expiration<span class="o">=</span>1h<span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>user-jwt.txt
 </code></pre></div></p>
 </div>
 <p>It is also possible to create the JWT token using bash and openssl. But that is beyond the scope of this guide.</p>
 <p>Once you have the token, you can access the services via the API Gateway.</p>
 <div class="admonition example">
 <p class="admonition-title">Calling an API on behalf of example user</p>
-<p><div class="highlight"><pre><span></span><code>curl --insecure https://localhost:8443/core-data/api/v2/ping -H <span class="s2">&quot;Authorization: Bearer </span><span class="k">$(</span>cat user-jwt.txt<span class="k">)</span><span class="s2">&quot;</span>
+<p><div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--insecure<span class="w"> </span>https://localhost:8443/core-data/api/v2/ping<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: Bearer </span><span class="k">$(</span>cat<span class="w"> </span>user-jwt.txt<span class="k">)</span><span class="s2">&quot;</span>
 </code></pre></div>
 Output: <code>{"apiVersion":"v2","timestamp":"Mon May  2 12:14:17 CEST 2022","serviceName":"core-data"}</code></p>
 </div>
@@ -3895,21 +3895,21 @@ Output: <code>{"apiVersion":"v2","timestamp":"Mon May  2 12:14:17 CEST 2022","se
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <p>To get the token:
-<div class="highlight"><pre><span></span><code>sudo cat /var/snap/edgexfoundry/current/secrets/consul-acl-token/mgmt_token.json <span class="p">|</span> jq -r <span class="s1">&#39;.SecretID&#39;</span> <span class="p">|</span> tee consul-token.txt
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>cat<span class="w"> </span>/var/snap/edgexfoundry/current/secrets/consul-acl-token/mgmt_token.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.SecretID&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>consul-token.txt
 </code></pre></div>
 The output is printed out and written to <code>consul-token.txt</code>. Example output: <code>ee3964d0-505f-6b62-4c88-0d29a8226daa</code></p>
 <p>Try it out locally:
-<div class="highlight"><pre><span></span><code>curl --insecure --silent http://localhost:8500/v1/kv/edgex/core/2.0/core-data/Service/Port -H <span class="s2">&quot;X-Consul-Token:</span><span class="k">$(</span>cat consul-token.txt<span class="k">)</span><span class="s2">&quot;</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--insecure<span class="w"> </span>--silent<span class="w"> </span>http://localhost:8500/v1/kv/edgex/core/2.0/core-data/Service/Port<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;X-Consul-Token:</span><span class="k">$(</span>cat<span class="w"> </span>consul-token.txt<span class="k">)</span><span class="s2">&quot;</span>
 </code></pre></div></p>
 <p>Through the API Gateway:<br />
 We need to pass both the Consul token and Secret Store token obtained in <a href="#adding-api-gateway-users">Adding API Gateway users</a> examples.
-<div class="highlight"><pre><span></span><code>curl --insecure --silent https://localhost:8443/consul/v1/kv/edgex/core/2.0/core-data/Service/Port -H <span class="s2">&quot;X-Consul-Token:</span><span class="k">$(</span>cat consul-token.txt<span class="k">)</span><span class="s2">&quot;</span> -H <span class="s2">&quot;Authorization: Bearer </span><span class="k">$(</span>cat user-jwt.txt<span class="k">)</span><span class="s2">&quot;</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--insecure<span class="w"> </span>--silent<span class="w"> </span>https://localhost:8443/consul/v1/kv/edgex/core/2.0/core-data/Service/Port<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;X-Consul-Token:</span><span class="k">$(</span>cat<span class="w"> </span>consul-token.txt<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: Bearer </span><span class="k">$(</span>cat<span class="w"> </span>user-jwt.txt<span class="k">)</span><span class="s2">&quot;</span>
 </code></pre></div></p>
 </div>
 <h4 id="changing-tls-certificates">Changing TLS certificates</h4>
 <p>The API Gateway setup generates a self-signed certificate by default. To replace that with your own certificate, refer to API Gateway guide: <a href="../../security/Ch-APIGateway/#using-a-bring-your-own-external-tls-certificate-for-api-gateway">Using a bring-your-own external TLS certificate for API gateway</a> and use the snapped <code>edgexfoundry.secrets-config</code> utility.</p>
 <p>To get the usage help:
-<div class="highlight"><pre><span></span><code>edgexfoundry.secrets-config proxy tls -h
+<div class="highlight"><pre><span></span><code>edgexfoundry.secrets-config<span class="w"> </span>proxy<span class="w"> </span>tls<span class="w"> </span>-h
 </code></pre></div>
 You may also refer to the <a href="../../security/secrets-config-proxy/">secrets-config proxy</a> documentation.</p>
 <div class="admonition example">
@@ -3921,13 +3921,13 @@ You may also refer to the <a href="../../security/secrets-config-proxy/">secrets
 <li><code>ca.pem</code> certificate authority file (if not available in root certificates)</li>
 </ul>
 <p>Read the API Gateway token:
-<div class="highlight"><pre><span></span><code><span class="nv">KONG_ADMIN_JWT</span><span class="o">=</span><span class="sb">`</span>sudo cat /var/snap/edgexfoundry/current/secrets/security-proxy-setup/kong-admin-jwt<span class="sb">`</span>
+<div class="highlight"><pre><span></span><code><span class="nv">KONG_ADMIN_JWT</span><span class="o">=</span><span class="sb">`</span>sudo<span class="w"> </span>cat<span class="w"> </span>/var/snap/edgexfoundry/current/secrets/security-proxy-setup/kong-admin-jwt<span class="sb">`</span>
 </code></pre></div></p>
 <p>Add the certificate, using Kong Admin JWT to authenticate:
-<div class="highlight"><pre><span></span><code>edgexfoundry.secrets-config proxy tls --incert cert.pem --inkey privkey.pem --admin_api_jwt <span class="nv">$KONG_ADMIN_JWT</span>
+<div class="highlight"><pre><span></span><code>edgexfoundry.secrets-config<span class="w"> </span>proxy<span class="w"> </span>tls<span class="w"> </span>--incert<span class="w"> </span>cert.pem<span class="w"> </span>--inkey<span class="w"> </span>privkey.pem<span class="w"> </span>--admin_api_jwt<span class="w"> </span><span class="nv">$KONG_ADMIN_JWT</span>
 </code></pre></div></p>
 <p>Try it out:
-<div class="highlight"><pre><span></span><code>curl --cacert ca.pem https://localhost:8443/core-data/api/v2/ping
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--cacert<span class="w"> </span>ca.pem<span class="w"> </span>https://localhost:8443/core-data/api/v2/ping
 </code></pre></div>
 Output: <code>{"message":"Unauthorized"}</code><br />
 This means that TLS is setup correctly, but the request is not authorized.<br />
@@ -3955,10 +3955,10 @@ The <code>--cacert</code> can be omitted if the CA is available in root certific
 </ul>
 <p>The <code>edgex-secretstore-token</code> <a href="https://snapcraft.io/docs/content-interface">content interface</a> provides the mechanism to automatically supply tokens to connected snaps.</p>
 <p>Execute the following command to check the status of connections:
-<div class="highlight"><pre><span></span><code>sudo snap connections edgexfoundry
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span>connections<span class="w"> </span>edgexfoundry
 </code></pre></div></p>
 <p>To manually connect the edgexfoundry's plug to a standalone snap's slot:
-<div class="highlight"><pre><span></span><code>snap connect edgexfoundry:edgex-secretstore-token &lt;snap&gt;:edgex-secretstore-token
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span>connect<span class="w"> </span>edgexfoundry:edgex-secretstore-token<span class="w"> </span>&lt;snap&gt;:edgex-secretstore-token
 </code></pre></div></p>
 <p>Note that the token has a limited expiry time of 1h by default. The connection and service startup should happen within the validity period.</p>
 <p>To better understand the snap connections, read the <a href="https://snapcraft.io/docs/interface-management">interface management</a></p>
@@ -3967,15 +3967,15 @@ The <code>--cacert</code> can be omitted if the CA is available in root certific
 <p>The <a href="../../microservices/configuration/CommonEnvironmentVariables/#tokenfileprovider_defaulttokenttl-security-secretstore-setup-service">TOKENFILEPROVIDER_DEFAULTTOKENTTL</a> environment variable can be set to override the default time to live (TTL) of the Secret Store tokens.
 This is useful when the microservice consumers of the tokens are expected to start after a delay that is longer than the default TTL.</p>
 <p>This can be achieved in the snap by setting the equivalent <code>tokenfileprovider-defaulttokenttl</code> config option:
-<div class="highlight"><pre><span></span><code>sudo snap <span class="nb">set</span> edgexfoundry app-options<span class="o">=</span><span class="nb">true</span>
-sudo snap <span class="nb">set</span> edgexfoundry apps.security-secretstore-setup.config.tokenfileprovider-defaulttokenttl<span class="o">=</span>72h
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>app-options<span class="o">=</span><span class="nb">true</span>
+sudo<span class="w"> </span>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>apps.security-secretstore-setup.config.tokenfileprovider-defaulttokenttl<span class="o">=</span>72h
 
 <span class="c1"># Re-start the oneshot setup service to re-generate tokens:</span>
-sudo snap start edgexfoundry.security-secretstore-setup
+sudo<span class="w"> </span>snap<span class="w"> </span>start<span class="w"> </span>edgexfoundry.security-secretstore-setup
 
 <span class="c1"># Optional: If the Kong admin token is read from the file to interact with Kong</span>
 <span class="c1"># Restart Kong to load the new admin token, generated by the setup service</span>
-sudo snap restart edgexfoundry.kong-daemon
+sudo<span class="w"> </span>snap<span class="w"> </span>restart<span class="w"> </span>edgexfoundry.kong-daemon
 </code></pre></div></p>
 </div>
 <h3 id="edgex-ui">EdgeX UI</h3>
@@ -4049,7 +4049,7 @@ snap set edgex-app-service-configurable config.writable-pipeline-functions-filte
 <p>Before you can start the service, you must select one of available profiles, 
 using snap options.</p>
 <p>For example, to set <code>mqtt-export</code> profile using the snap CLI:
-<div class="highlight"><pre><span></span><code>sudo snap <span class="nb">set</span> edgex-app-service-configurable <span class="nv">profile</span><span class="o">=</span>mqtt-export
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgex-app-service-configurable<span class="w"> </span><span class="nv">profile</span><span class="o">=</span>mqtt-export
 </code></pre></div></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -4092,16 +4092,16 @@ The official <a href="https://ubuntu.com/download/raspberry-pi-core">Raspberry P
 It is NOT possible to use this snap on Linux distributions that have the GPIO confinement but not the interface (e.g. Ubuntu Server 20.04), unless for development purposes.</p>
 <p>In development environments, it is possible to install the snap in dev mode (using <code>--devmode</code> flag which disables security confinement and automatic upgrades) to allow direct GPIO access.</p>
 <p>The <code>gpio</code> interface provides slots for each GPIO channel. The slots can be listed using:
-<div class="highlight"><pre><span></span><code>$ sudo snap interface gpio
-name:    gpio
-summary: allows access to specific GPIO pin
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>snap<span class="w"> </span>interface<span class="w"> </span>gpio
+name:<span class="w">    </span>gpio
+summary:<span class="w"> </span>allows<span class="w"> </span>access<span class="w"> </span>to<span class="w"> </span>specific<span class="w"> </span>GPIO<span class="w"> </span>pin
 plugs:
-  - edgex-device-gpio
+<span class="w">  </span>-<span class="w"> </span>edgex-device-gpio
 slots:
-  - pi:bcm-gpio-0
-  - pi:bcm-gpio-1
-  - pi:bcm-gpio-10
-  ...
+<span class="w">  </span>-<span class="w"> </span>pi:bcm-gpio-0
+<span class="w">  </span>-<span class="w"> </span>pi:bcm-gpio-1
+<span class="w">  </span>-<span class="w"> </span>pi:bcm-gpio-10
+<span class="w">  </span>...
 </code></pre></div></p>
 <p>The slots are not connected automatically. For example, to connect GPIO-17:
 <div class="highlight"><pre><span></span><code>$ sudo snap connect edgex-device-gpio:gpio pi:bcm-gpio-17
@@ -4122,7 +4122,7 @@ gpio             edgex-device-gpio:gpio          pi:bcm-gpio-17    manual
 <p>The default configuration files are under <code>/var/snap/edgex-device-grove/current/config/</code>. </p>
 <p>This device service is started by default. 
 Changes to the configuration files require a restart to take effect:
-<div class="highlight"><pre><span></span><code>sudo snap restart edgex-device-grove
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span>restart<span class="w"> </span>edgex-device-grove
 </code></pre></div></p>
 <h3 id="device-modbus">Device Modbus</h3>
 <p>| <a href="https://snapcraft.io/edgex-device-modbus">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/device-modbus-go/tree/main/snap">Source</a> |</p>
@@ -4186,9 +4186,9 @@ Changes to the configuration files require a restart to take effect:
 <ul>
 <li>
 <p>Using <code>snap set</code> to set your local subnet information. Example:</p>
-<div class="highlight"><pre><span></span><code>sudo snap <span class="nb">set</span> edgex-device-rfid-llrp apps.device-rfid-llrp.config.app-custom.discovery-subnets<span class="o">=</span><span class="s2">&quot;192.168.10.0/24&quot;</span>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgex-device-rfid-llrp<span class="w"> </span>apps.device-rfid-llrp.config.app-custom.discovery-subnets<span class="o">=</span><span class="s2">&quot;192.168.10.0/24&quot;</span>
 
-curl -X POST http://localhost:59989/api/v2/discovery
+curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:59989/api/v2/discovery
 </code></pre></div>
 </li>
 <li>
@@ -4199,16 +4199,16 @@ curl -X POST http://localhost:59989/api/v2/discovery
 <p>This command finds all local network interfaces which are online and non-virtual and sets the value of <code>DiscoverySubnets</code> 
 in Consul. When running with security enabled, it requires a Consul token, so it needs to be run as follows:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># get Consul ACL token</span>
-<span class="nv">CONSUL_TOKEN</span><span class="o">=</span><span class="k">$(</span>sudo cat /var/snap/edgexfoundry/current/secrets/consul-acl-token/bootstrap_token.json <span class="p">|</span> jq <span class="s2">&quot;.SecretID&quot;</span> <span class="p">|</span> tr -d <span class="s1">&#39;&quot;&#39;</span><span class="k">)</span> 
-<span class="nb">echo</span> <span class="nv">$CONSUL_TOKEN</span> 
+<span class="nv">CONSUL_TOKEN</span><span class="o">=</span><span class="k">$(</span>sudo<span class="w"> </span>cat<span class="w"> </span>/var/snap/edgexfoundry/current/secrets/consul-acl-token/bootstrap_token.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s2">&quot;.SecretID&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;&quot;&#39;</span><span class="k">)</span><span class="w"> </span>
+<span class="nb">echo</span><span class="w"> </span><span class="nv">$CONSUL_TOKEN</span><span class="w"> </span>
 
 <span class="c1"># start the device service and connect the interfaces required for network interface discovery</span>
-sudo snap start edgex-device-rfid-llrp.device-rfid-llrp 
-sudo snap connect edgex-device-rfid-llrp:network-control 
-sudo snap connect edgex-device-rfid-llrp:network-observe 
+sudo<span class="w"> </span>snap<span class="w"> </span>start<span class="w"> </span>edgex-device-rfid-llrp.device-rfid-llrp<span class="w"> </span>
+sudo<span class="w"> </span>snap<span class="w"> </span>connect<span class="w"> </span>edgex-device-rfid-llrp:network-control<span class="w"> </span>
+sudo<span class="w"> </span>snap<span class="w"> </span>connect<span class="w"> </span>edgex-device-rfid-llrp:network-observe<span class="w"> </span>
 
 <span class="c1"># run the nework interface discovery, providing the Consul token</span>
-edgex-device-rfid-llrp.auto-configure <span class="nv">$CONSUL_TOKEN</span>
+edgex-device-rfid-llrp.auto-configure<span class="w"> </span><span class="nv">$CONSUL_TOKEN</span>
 </code></pre></div>
 </li>
 </ul>

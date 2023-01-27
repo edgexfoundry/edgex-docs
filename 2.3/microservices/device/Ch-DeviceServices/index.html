@@ -12,7 +12,7 @@
         <meta name="author" content="Michael Johanson">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/microservices/device/Ch-DeviceServices/">
+        <link rel="canonical" href="https://docs.edgexfoundry.org/microservices/device/Ch-DeviceServices/">
       
       <link rel="icon" href="../../../assets/logo_edgex.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.8">
@@ -3755,8 +3755,8 @@ and role of a device service.</p>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><code>[Driver]</code> - The Driver section used for simple custom settings and is accessed via the SDK's DriverConfigs() API. The DriverConfigs API returns a <code>map[string] string</code> containing the contents on the <code>Driver</code> section of the <code>configuration.toml</code> file.</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Driver]</span><span class="w"></span>
-<span class="n">MySetting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;My Value&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Driver]</span>
+<span class="n">MySetting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;My Value&quot;</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -3775,17 +3775,17 @@ and role of a device service.</p>
 <p>Each Device Service also has detailed configuration to enable connection to it's exclusive <code>SecretStore</code></p>
 <div class="admonition example">
 <p class="admonition-title">Example - SecretStore configuration for Device MQTT</p>
-<div class="highlight"><pre><span></span><code><span class="k">[SecretStore]</span><span class="w"></span>
-<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;vault&quot;</span><span class="w"></span>
-<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
-<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8200</span><span class="w"></span>
-<span class="n">Path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;device-mqtt/&quot;</span><span class="w"></span>
-<span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http&quot;</span><span class="w"></span>
-<span class="n">RootCaCertPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
-<span class="n">ServerName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
-<span class="n">TokenFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/tmp/edgex/secrets/device-mqtt/secrets-token.json&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="k">[SecretStore.Authentication]</span><span class="w"></span>
-<span class="w">  </span><span class="n">AuthType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;X-Vault-Token&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[SecretStore]</span>
+<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;vault&quot;</span>
+<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span>
+<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8200</span>
+<span class="n">Path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;device-mqtt/&quot;</span>
+<span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http&quot;</span>
+<span class="n">RootCaCertPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="n">ServerName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="n">TokenFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/tmp/edgex/secrets/device-mqtt/secrets-token.json&quot;</span>
+<span class="w">  </span><span class="k">[SecretStore.Authentication]</span>
+<span class="w">  </span><span class="n">AuthType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;X-Vault-Token&quot;</span>
 </code></pre></div>
 </div>
 <h4 id="storing-secrets">Storing Secrets</h4>
@@ -3796,16 +3796,16 @@ and role of a device service.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - InsecureSecrets Configuration</p>
 <div class="highlight"><pre><span></span><code><span class="w">   </span><span class="p">[</span><span class="n">Writable</span><span class="p">.</span><span class="n">InsecureSecrets</span><span class="p">]</span><span class="w">    </span>
-<span class="w">     </span><span class="k">[Writable.InsecureSecrets.DB]</span><span class="w"></span>
-<span class="w">     </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redisdb&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="k">[Writable.InsecureSecrets.DB.Secrets]</span><span class="w"></span>
-<span class="w">       </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
-<span class="w">     </span><span class="k">[Writable.InsecureSecrets.MQTT]</span><span class="w"></span>
-<span class="w">     </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;credentials&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="k">[Writable.InsecureSecrets.MQTT.Secrets]</span><span class="w"></span>
-<span class="w">       </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt-user&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt-password&quot;</span><span class="w"></span>
+<span class="w">     </span><span class="k">[Writable.InsecureSecrets.DB]</span>
+<span class="w">     </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redisdb&quot;</span>
+<span class="w">       </span><span class="k">[Writable.InsecureSecrets.DB.Secrets]</span>
+<span class="w">       </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">       </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">     </span><span class="k">[Writable.InsecureSecrets.MQTT]</span>
+<span class="w">     </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;credentials&quot;</span>
+<span class="w">       </span><span class="k">[Writable.InsecureSecrets.MQTT.Secrets]</span>
+<span class="w">       </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt-user&quot;</span>
+<span class="w">       </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt-password&quot;</span>
 </code></pre></div>
 </div>
 <h4 id="retrieving-secrets">Retrieving Secrets</h4>

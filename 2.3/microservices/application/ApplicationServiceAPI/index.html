@@ -12,7 +12,7 @@
         <meta name="author" content="Michael Johanson">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/microservices/application/ApplicationServiceAPI/">
+        <link rel="canonical" href="https://docs.edgexfoundry.org/microservices/application/ApplicationServiceAPI/">
       
       <link rel="icon" href="../../../assets/logo_edgex.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.8">
@@ -3730,49 +3730,49 @@
 <p>For EdgeX 2.0 the <code>ApplicationService</code> API and factory functions replace direct access to the <code>AppFunctionsSDK</code> struct. </p>
 </div>
 <p>The new <code>ApplicationService</code> API is as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">AppFunction</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">appCxt</span><span class="w"> </span><span class="nx">AppFunctionContext</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">AppFunction</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">appCxt</span><span class="w"> </span><span class="nx">AppFunctionContext</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span>
 
-<span class="kd">type</span><span class="w"> </span><span class="nx">FunctionPipeline</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">Id</span><span class="w">         </span><span class="kt">string</span><span class="w"></span>
-<span class="w">    </span><span class="nx">Transforms</span><span class="w"> </span><span class="p">[]</span><span class="nx">AppFunction</span><span class="w"></span>
-<span class="w">    </span><span class="nx">Topic</span><span class="w">      </span><span class="kt">string</span><span class="w"></span>
-<span class="w">    </span><span class="nx">Hash</span><span class="w">       </span><span class="kt">string</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">FunctionPipeline</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Id</span><span class="w">         </span><span class="kt">string</span>
+<span class="w">    </span><span class="nx">Transforms</span><span class="w"> </span><span class="p">[]</span><span class="nx">AppFunction</span>
+<span class="w">    </span><span class="nx">Topic</span><span class="w">      </span><span class="kt">string</span>
+<span class="w">    </span><span class="nx">Hash</span><span class="w">       </span><span class="kt">string</span>
+<span class="p">}</span>
 
-<span class="kd">type</span><span class="w"> </span><span class="nx">ApplicationService</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">ApplicationSettings</span><span class="p">()</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="w"></span>
-<span class="w">    </span><span class="nx">GetAppSetting</span><span class="p">(</span><span class="nx">setting</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="nx">GetAppSettingStrings</span><span class="p">(</span><span class="nx">setting</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">([]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="nx">LoadCustomConfig</span><span class="p">(</span><span class="nx">config</span><span class="w"> </span><span class="nx">UpdatableConfig</span><span class="p">,</span><span class="w"> </span><span class="nx">sectionName</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
-<span class="w">    </span><span class="nx">ListenForCustomConfigChanges</span><span class="p">(</span><span class="nx">configToWatch</span><span class="w"> </span><span class="kd">interface</span><span class="p">{},</span><span class="w"> </span><span class="nx">sectionName</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">changedCallback</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="kd">interface</span><span class="p">{}))</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
-<span class="w">    </span><span class="nx">SetFunctionsPipeline</span><span class="p">(</span><span class="nx">transforms</span><span class="w"> </span><span class="o">...</span><span class="nx">AppFunction</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="o">***</span><span class="w"> </span><span class="nx">DEPRECATED</span><span class="w"> </span><span class="o">***</span><span class="w"></span>
-<span class="w">    </span><span class="nx">SetDefaultFunctionsPipeline</span><span class="p">(</span><span class="nx">transforms</span><span class="w"> </span><span class="o">...</span><span class="nx">AppFunction</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
-<span class="w">    </span><span class="nx">AddFunctionsPipelineByTopics</span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">topics</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">transforms</span><span class="w"> </span><span class="o">...</span><span class="nx">AppFunction</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
-<span class="w">    </span><span class="nx">LoadConfigurablePipeline</span><span class="p">()</span><span class="w"> </span><span class="p">([]</span><span class="nx">AppFunction</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="o">***</span><span class="w"> </span><span class="nx">DEPRECATED</span><span class="w"> </span><span class="nx">by</span><span class="w"> </span><span class="nx">LoadConfigurableFunctionPipelines</span><span class="w"> </span><span class="o">***</span><span class="w"></span>
-<span class="w">    </span><span class="nx">LoadConfigurableFunctionPipelines</span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">FunctionPipeline</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="nx">MakeItRun</span><span class="p">()</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
-<span class="w">    </span><span class="nx">MakeItStop</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="nx">GetSecret</span><span class="p">(</span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">keys</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">ApplicationService</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">ApplicationSettings</span><span class="p">()</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span>
+<span class="w">    </span><span class="nx">GetAppSetting</span><span class="p">(</span><span class="nx">setting</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">GetAppSettingStrings</span><span class="p">(</span><span class="nx">setting</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">([]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">LoadCustomConfig</span><span class="p">(</span><span class="nx">config</span><span class="w"> </span><span class="nx">UpdatableConfig</span><span class="p">,</span><span class="w"> </span><span class="nx">sectionName</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">ListenForCustomConfigChanges</span><span class="p">(</span><span class="nx">configToWatch</span><span class="w"> </span><span class="kd">interface</span><span class="p">{},</span><span class="w"> </span><span class="nx">sectionName</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">changedCallback</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="kd">interface</span><span class="p">{}))</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">SetFunctionsPipeline</span><span class="p">(</span><span class="nx">transforms</span><span class="w"> </span><span class="o">...</span><span class="nx">AppFunction</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="o">***</span><span class="w"> </span><span class="nx">DEPRECATED</span><span class="w"> </span><span class="o">***</span>
+<span class="w">    </span><span class="nx">SetDefaultFunctionsPipeline</span><span class="p">(</span><span class="nx">transforms</span><span class="w"> </span><span class="o">...</span><span class="nx">AppFunction</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">AddFunctionsPipelineByTopics</span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">topics</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">transforms</span><span class="w"> </span><span class="o">...</span><span class="nx">AppFunction</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">LoadConfigurablePipeline</span><span class="p">()</span><span class="w"> </span><span class="p">([]</span><span class="nx">AppFunction</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="o">***</span><span class="w"> </span><span class="nx">DEPRECATED</span><span class="w"> </span><span class="nx">by</span><span class="w"> </span><span class="nx">LoadConfigurableFunctionPipelines</span><span class="w"> </span><span class="o">***</span>
+<span class="w">    </span><span class="nx">LoadConfigurableFunctionPipelines</span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">FunctionPipeline</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">MakeItRun</span><span class="p">()</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">MakeItStop</span><span class="p">()</span>
+<span class="w">    </span><span class="nx">GetSecret</span><span class="p">(</span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">keys</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
 <span class="w">    </span><span class="nx">StoreSecret</span><span class="p">(</span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">secretData</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span>
-<span class="w">    </span><span class="nx">SecretProvider</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">SecretProvider</span><span class="w"></span>
-<span class="w">    </span><span class="nx">LoggingClient</span><span class="p">()</span><span class="w"> </span><span class="nx">logger</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="w"></span>
-<span class="w">    </span><span class="nx">EventClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">EventClient</span><span class="w"></span>
-<span class="w">    </span><span class="nx">CommandClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">CommandClient</span><span class="w"></span>
-<span class="w">    </span><span class="nx">NotificationClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">NotificationClient</span><span class="w"></span>
-<span class="w">    </span><span class="nx">SubscriptionClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">SubscriptionClient</span><span class="w"></span>
-<span class="w">    </span><span class="nx">DeviceServiceClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">DeviceServiceClient</span><span class="w"></span>
-<span class="w">    </span><span class="nx">DeviceProfileClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">DeviceProfileClient</span><span class="w"></span>
-<span class="w">    </span><span class="nx">DeviceClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">DeviceClient</span><span class="w"></span>
-<span class="w">    </span><span class="nx">RegistryClient</span><span class="p">()</span><span class="w"> </span><span class="nx">registry</span><span class="p">.</span><span class="nx">Client</span><span class="w"></span>
-<span class="w">    </span><span class="nx">MetricsManager</span><span class="p">()</span><span class="w"> </span><span class="nx">bootstrapInterfaces</span><span class="p">.</span><span class="nx">MetricsManager</span><span class="w"></span>
-<span class="w">    </span><span class="nx">AddBackgroundPublisher</span><span class="p">(</span><span class="nx">capacity</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">BackgroundPublisher</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="nx">AddBackgroundPublisherWithTopic</span><span class="p">(</span><span class="nx">capacity</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="nx">topic</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">BackgroundPublisher</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="nx">BuildContext</span><span class="p">(</span><span class="nx">correlationId</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">contentType</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="nx">AppFunctionContext</span><span class="w"></span>
-<span class="w">    </span><span class="nx">AddRoute</span><span class="p">(</span><span class="nx">route</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">),</span><span class="w"> </span><span class="nx">methods</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
-<span class="w">    </span><span class="nx">RequestTimeout</span><span class="p">()</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="w"></span>
-<span class="w">    </span><span class="nx">RegisterCustomTriggerFactory</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">factory</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">TriggerConfig</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">Trigger</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">))</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
-<span class="w">    </span><span class="nx">RegisterCustomStoreFactory</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">factory</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">cfg</span><span class="w"> </span><span class="nx">DatabaseInfo</span><span class="p">,</span><span class="w"> </span><span class="nx">cred</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">Credentials</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">StoreClient</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">))</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="nx">SecretProvider</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">SecretProvider</span>
+<span class="w">    </span><span class="nx">LoggingClient</span><span class="p">()</span><span class="w"> </span><span class="nx">logger</span><span class="p">.</span><span class="nx">LoggingClient</span>
+<span class="w">    </span><span class="nx">EventClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">EventClient</span>
+<span class="w">    </span><span class="nx">CommandClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">CommandClient</span>
+<span class="w">    </span><span class="nx">NotificationClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">NotificationClient</span>
+<span class="w">    </span><span class="nx">SubscriptionClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">SubscriptionClient</span>
+<span class="w">    </span><span class="nx">DeviceServiceClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">DeviceServiceClient</span>
+<span class="w">    </span><span class="nx">DeviceProfileClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">DeviceProfileClient</span>
+<span class="w">    </span><span class="nx">DeviceClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">DeviceClient</span>
+<span class="w">    </span><span class="nx">RegistryClient</span><span class="p">()</span><span class="w"> </span><span class="nx">registry</span><span class="p">.</span><span class="nx">Client</span>
+<span class="w">    </span><span class="nx">MetricsManager</span><span class="p">()</span><span class="w"> </span><span class="nx">bootstrapInterfaces</span><span class="p">.</span><span class="nx">MetricsManager</span>
+<span class="w">    </span><span class="nx">AddBackgroundPublisher</span><span class="p">(</span><span class="nx">capacity</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">BackgroundPublisher</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">AddBackgroundPublisherWithTopic</span><span class="p">(</span><span class="nx">capacity</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="nx">topic</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">BackgroundPublisher</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">BuildContext</span><span class="p">(</span><span class="nx">correlationId</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">contentType</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="nx">AppFunctionContext</span>
+<span class="w">    </span><span class="nx">AddRoute</span><span class="p">(</span><span class="nx">route</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">),</span><span class="w"> </span><span class="nx">methods</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">RequestTimeout</span><span class="p">()</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span>
+<span class="w">    </span><span class="nx">RegisterCustomTriggerFactory</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">factory</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">TriggerConfig</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">Trigger</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">))</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">RegisterCustomStoreFactory</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">factory</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">cfg</span><span class="w"> </span><span class="nx">DatabaseInfo</span><span class="p">,</span><span class="w"> </span><span class="nx">cred</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">Credentials</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">StoreClient</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">))</span><span class="w"> </span><span class="kt">error</span>
+<span class="p">}</span>
 </code></pre></div>
 <h2 id="factory-functions">Factory Functions</h2>
 <p>The App Functions SDK provides two factory functions for creating an <code>ApplicationService</code></p>
@@ -3781,13 +3781,13 @@
 <p>This factory function returns an <code>interfaces.ApplicationService</code> using the default Target Type of <code>dtos.Event</code>  and initializes the service. The second <code>bool</code> return parameter will be <code>true</code> if successfully initialized, otherwise it will be <code>false</code> when error(s) occurred during initialization. All error(s) are logged so the caller just needs to call <code>os.Exit(-1)</code> if <code>false</code> is returned.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - NewAppService</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">serviceKey</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;app-myservice&quot;</span><span class="w"></span>
-<span class="o">...</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">serviceKey</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;app-myservice&quot;</span>
+<span class="o">...</span>
 
-<span class="nx">service</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">pkg</span><span class="p">.</span><span class="nx">NewAppService</span><span class="p">(</span><span class="nx">serviceKey</span><span class="p">)</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="nx">service</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">pkg</span><span class="p">.</span><span class="nx">NewAppService</span><span class="p">(</span><span class="nx">serviceKey</span><span class="p">)</span>
+<span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
 </code></pre></div>
 </div>
 <h3 id="newappservicewithtargettype">NewAppServiceWithTargetType</h3>
@@ -3796,13 +3796,13 @@
 <p>See the <a href="../AdvancedTopics/#target-type">Target Type</a> advanced topic for more details.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - NewAppServiceWithTargetType</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">serviceKey</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;app-myservice&quot;</span><span class="w"></span>
-<span class="o">...</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">serviceKey</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;app-myservice&quot;</span>
+<span class="o">...</span>
 
-<span class="nx">service</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">pkg</span><span class="p">.</span><span class="nx">NewAppServiceWithTargetType</span><span class="p">(</span><span class="nx">serviceKey</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="p">[]</span><span class="kt">byte</span><span class="p">{})</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="nx">service</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">pkg</span><span class="p">.</span><span class="nx">NewAppServiceWithTargetType</span><span class="p">(</span><span class="nx">serviceKey</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="p">[]</span><span class="kt">byte</span><span class="p">{})</span>
+<span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
 </code></pre></div>
 </div>
 <h2 id="custom-configuration-apis">Custom Configuration APIs</h2>
@@ -3812,12 +3812,12 @@
 <p>This API returns the complete key/value map of custom settings</p>
 <div class="admonition example">
 <p class="admonition-title">Example - ApplicationSettings</p>
-<div class="highlight"><pre><span></span><code><span class="k">[ApplicationSettings]</span><span class="w"></span>
-<span class="n">Greeting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Hello World&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[ApplicationSettings]</span>
+<span class="n">Greeting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Hello World&quot;</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="nx">appSettings</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">ApplicationSettings</span><span class="p">()</span><span class="w"></span>
-<span class="nx">greeting</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">appSettings</span><span class="p">[</span><span class="s">&quot;Greeting&quot;</span><span class="p">]</span><span class="w"></span>
-<span class="nx">service</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="nx">greeting</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">appSettings</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">ApplicationSettings</span><span class="p">()</span>
+<span class="nx">greeting</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">appSettings</span><span class="p">[</span><span class="s">&quot;Greeting&quot;</span><span class="p">]</span>
+<span class="nx">service</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="nx">greeting</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <h3 id="getappsetting">GetAppSetting</h3>
@@ -3826,14 +3826,14 @@
  section of the service configuration. An error is returned if the specified setting is not found.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - GetAppSetting</p>
-<div class="highlight"><pre><span></span><code><span class="k">[ApplicationSettings]</span><span class="w"></span>
-<span class="n">Greeting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Hello World&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[ApplicationSettings]</span>
+<span class="n">Greeting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Hello World&quot;</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="nx">greeting</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">GetAppSetting</span><span class="p">[</span><span class="s">&quot;Greeting&quot;</span><span class="p">]</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="o">...</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-<span class="nx">service</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="nx">greeting</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">greeting</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">GetAppSetting</span><span class="p">[</span><span class="s">&quot;Greeting&quot;</span><span class="p">]</span>
+<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="p">}</span>
+<span class="nx">service</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="nx">greeting</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <h3 id="getappsettingstrings">GetAppSettingStrings</h3>
@@ -3841,16 +3841,16 @@
 <p>This API is a convenience API that parses the string value for the specified custom application setting as a comma separated list. It returns the list of strings. An error is returned if the specified setting is not found.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - GetAppSettingStrings</p>
-<div class="highlight"><pre><span></span><code><span class="k">[ApplicationSettings]</span><span class="w"></span>
-<span class="n">Greetings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Hello World, Welcome World, Hi World&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[ApplicationSettings]</span>
+<span class="n">Greetings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Hello World, Welcome World, Hi World&quot;</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="nx">greetings</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">GetAppSettingStrings</span><span class="p">[</span><span class="s">&quot;Greetings&quot;</span><span class="p">]</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="o">...</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-<span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">greeting</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">greetings</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="nx">service</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="nx">greeting</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">greetings</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">GetAppSettingStrings</span><span class="p">[</span><span class="s">&quot;Greetings&quot;</span><span class="p">]</span>
+<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="p">}</span>
+<span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">greeting</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">greetings</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">service</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="nx">greeting</span><span class="p">)</span>
+<span class="p">}</span>
 </code></pre></div>
 </div>
 <h3 id="loadcustomconfig">LoadCustomConfig</h3>
@@ -3858,42 +3858,42 @@
 <p>This API loads the service's Structured Custom Configuration from local file or the Configuration Provider (if enabled). The Configuration Provider will also be seeded with the custom configuration if service is using the Configuration Provider. The <code>UpdateFromRaw</code> API (<code>UpdatableConfig</code> interface) will be called on the custom configuration when the configuration is loaded from the Configuration Provider. The custom config must implement the <code>UpdatableConfig</code> interface.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - LoadCustomConfig</p>
-<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="n">AppCustom</span><span class="p">]</span><span class="w"> </span><span class="c1"># Can be any name you choose</span><span class="w"></span>
-<span class="n">ResourceNames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Boolean, Int32, Uint32, Float32, Binary&quot;</span><span class="w"></span>
-<span class="n">SomeValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">123</span><span class="w"></span>
-<span class="w">  </span><span class="k">[AppCustom.SomeService]</span><span class="w"></span>
-<span class="w">  </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">9080</span><span class="w"></span>
-<span class="w">  </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="n">AppCustom</span><span class="p">]</span><span class="w"> </span><span class="c1"># Can be any name you choose</span>
+<span class="n">ResourceNames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Boolean, Int32, Uint32, Float32, Binary&quot;</span>
+<span class="n">SomeValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">123</span>
+<span class="w">  </span><span class="k">[AppCustom.SomeService]</span>
+<span class="w">  </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span>
+<span class="w">  </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">9080</span>
+<span class="w">  </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http&quot;</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">ServiceConfig</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">AppCustom</span><span class="w"> </span><span class="nx">AppCustomConfig</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">ServiceConfig</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">AppCustom</span><span class="w"> </span><span class="nx">AppCustomConfig</span>
+<span class="p">}</span>
 
-<span class="kd">type</span><span class="w"> </span><span class="nx">AppCustomConfig</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">ResourceNames</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
-<span class="w">    </span><span class="nx">SomeValue</span><span class="w">     </span><span class="kt">int</span><span class="w"></span>
-<span class="w">    </span><span class="nx">SomeService</span><span class="w">   </span><span class="nx">HostInfo</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">AppCustomConfig</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">ResourceNames</span><span class="w"> </span><span class="kt">string</span>
+<span class="w">    </span><span class="nx">SomeValue</span><span class="w">     </span><span class="kt">int</span>
+<span class="w">    </span><span class="nx">SomeService</span><span class="w">   </span><span class="nx">HostInfo</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">c</span><span class="w"> </span><span class="o">*</span><span class="nx">ServiceConfig</span><span class="p">)</span><span class="w"> </span><span class="nx">UpdateFromRaw</span><span class="p">(</span><span class="nx">rawConfig</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">configuration</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">rawConfig</span><span class="p">.(</span><span class="o">*</span><span class="nx">ServiceConfig</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="c1">//errors.New(&quot;unable to cast raw config to type &#39;ServiceConfig&#39;&quot;)</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">c</span><span class="w"> </span><span class="o">*</span><span class="nx">ServiceConfig</span><span class="p">)</span><span class="w"> </span><span class="nx">UpdateFromRaw</span><span class="p">(</span><span class="nx">rawConfig</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">configuration</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">rawConfig</span><span class="p">.(</span><span class="o">*</span><span class="nx">ServiceConfig</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="c1">//errors.New(&quot;unable to cast raw config to type &#39;ServiceConfig&#39;&quot;)</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="o">*</span><span class="nx">c</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="o">*</span><span class="nx">configuration</span><span class="w"></span>
+<span class="w">    </span><span class="o">*</span><span class="nx">c</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="o">*</span><span class="nx">configuration</span>
 
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span>
+<span class="p">}</span>
 
-<span class="o">...</span><span class="w"></span>
+<span class="o">...</span>
 
-<span class="nx">serviceConfig</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">ServiceConfig</span><span class="p">{}</span><span class="w"></span>
-<span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">LoadCustomConfig</span><span class="p">(</span><span class="nx">serviceConfig</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;AppCustom&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="o">...</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="nx">serviceConfig</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">ServiceConfig</span><span class="p">{}</span>
+<span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">LoadCustomConfig</span><span class="p">(</span><span class="nx">serviceConfig</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;AppCustom&quot;</span><span class="p">)</span>
+<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="o">...</span>
+<span class="p">}</span>
 </code></pre></div>
 </div>
 <p>See the <a href="https://github.com/edgexfoundry/app-functions-sdk-go/blob/v2.0.0/app-service-template/main.go#L74-L98">App Service Template</a> for a complete example of using Structured Custom Configuration </p>
@@ -3902,48 +3902,48 @@
 <p>This API starts a listener on the Configuration Provider for changes to the specified section of the custom configuration. When changes are received from the Configuration Provider the provided <code>changedCallback</code> function is called with the updated section of configuration. The service must then implement the code to copy the updates into it's copy of the configuration and respond to the updates if needed.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - ListenForCustomConfigChanges</p>
-<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="n">AppCustom</span><span class="p">]</span><span class="w"> </span><span class="c1"># Can be any name you choose</span><span class="w"></span>
-<span class="n">ResourceNames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Boolean, Int32, Uint32, Float32, Binary&quot;</span><span class="w"></span>
-<span class="n">SomeValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">123</span><span class="w"></span>
-<span class="w">  </span><span class="k">[AppCustom.SomeService]</span><span class="w"></span>
-<span class="w">  </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">9080</span><span class="w"></span>
-<span class="w">  </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="n">AppCustom</span><span class="p">]</span><span class="w"> </span><span class="c1"># Can be any name you choose</span>
+<span class="n">ResourceNames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Boolean, Int32, Uint32, Float32, Binary&quot;</span>
+<span class="n">SomeValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">123</span>
+<span class="w">  </span><span class="k">[AppCustom.SomeService]</span>
+<span class="w">  </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span>
+<span class="w">  </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">9080</span>
+<span class="w">  </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http&quot;</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="o">...</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
 
-<span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">ListenForCustomConfigChanges</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">serviceConfig</span><span class="p">.</span><span class="nx">AppCustom</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;AppCustom&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">ProcessConfigUpdates</span><span class="p">)</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;unable to watch custom writable configuration: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">ListenForCustomConfigChanges</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">serviceConfig</span><span class="p">.</span><span class="nx">AppCustom</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;AppCustom&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">ProcessConfigUpdates</span><span class="p">)</span>
+<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;unable to watch custom writable configuration: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
+<span class="p">}</span>
 
-<span class="o">...</span><span class="w"></span>
+<span class="o">...</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">app</span><span class="w"> </span><span class="o">*</span><span class="nx">myApp</span><span class="p">)</span><span class="w"> </span><span class="nx">ProcessConfigUpdates</span><span class="p">(</span><span class="nx">rawWritableConfig</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">updated</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">rawWritableConfig</span><span class="p">.(</span><span class="o">*</span><span class="nx">config</span><span class="p">.</span><span class="nx">AppCustomConfig</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="o">...</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">app</span><span class="w"> </span><span class="o">*</span><span class="nx">myApp</span><span class="p">)</span><span class="w"> </span><span class="nx">ProcessConfigUpdates</span><span class="p">(</span><span class="nx">rawWritableConfig</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">updated</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">rawWritableConfig</span><span class="p">.(</span><span class="o">*</span><span class="nx">config</span><span class="p">.</span><span class="nx">AppCustomConfig</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="o">...</span>
+<span class="w">        </span><span class="k">return</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="nx">previous</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">serviceConfig</span><span class="p">.</span><span class="nx">AppCustom</span><span class="w"></span>
-<span class="w">    </span><span class="nx">app</span><span class="p">.</span><span class="nx">serviceConfig</span><span class="p">.</span><span class="nx">AppCustom</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="o">*</span><span class="nx">updated</span><span class="w"></span>
+<span class="w">    </span><span class="nx">previous</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">serviceConfig</span><span class="p">.</span><span class="nx">AppCustom</span>
+<span class="w">    </span><span class="nx">app</span><span class="p">.</span><span class="nx">serviceConfig</span><span class="p">.</span><span class="nx">AppCustom</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="o">*</span><span class="nx">updated</span>
 
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">reflect</span><span class="p">.</span><span class="nx">DeepEqual</span><span class="p">(</span><span class="nx">previous</span><span class="p">,</span><span class="w"> </span><span class="nx">updated</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="s">&quot;No changes detected&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">reflect</span><span class="p">.</span><span class="nx">DeepEqual</span><span class="p">(</span><span class="nx">previous</span><span class="p">,</span><span class="w"> </span><span class="nx">updated</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="s">&quot;No changes detected&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">previous</span><span class="p">.</span><span class="nx">SomeValue</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nx">updated</span><span class="p">.</span><span class="nx">SomeValue</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Infof</span><span class="p">(</span><span class="s">&quot;AppCustom.SomeValue changed to: %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">updated</span><span class="p">.</span><span class="nx">SomeValue</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">previous</span><span class="p">.</span><span class="nx">ResourceNames</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nx">updated</span><span class="p">.</span><span class="nx">ResourceNames</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Infof</span><span class="p">(</span><span class="s">&quot;AppCustom.ResourceNames changed to: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">updated</span><span class="p">.</span><span class="nx">ResourceNames</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">DeepEqual</span><span class="p">(</span><span class="nx">previous</span><span class="p">.</span><span class="nx">SomeService</span><span class="p">,</span><span class="w"> </span><span class="nx">updated</span><span class="p">.</span><span class="nx">SomeService</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Infof</span><span class="p">(</span><span class="s">&quot;AppCustom.SomeService changed to: %v&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">updated</span><span class="p">.</span><span class="nx">SomeService</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">previous</span><span class="p">.</span><span class="nx">SomeValue</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nx">updated</span><span class="p">.</span><span class="nx">SomeValue</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Infof</span><span class="p">(</span><span class="s">&quot;AppCustom.SomeValue changed to: %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">updated</span><span class="p">.</span><span class="nx">SomeValue</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">previous</span><span class="p">.</span><span class="nx">ResourceNames</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nx">updated</span><span class="p">.</span><span class="nx">ResourceNames</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Infof</span><span class="p">(</span><span class="s">&quot;AppCustom.ResourceNames changed to: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">updated</span><span class="p">.</span><span class="nx">ResourceNames</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">DeepEqual</span><span class="p">(</span><span class="nx">previous</span><span class="p">.</span><span class="nx">SomeService</span><span class="p">,</span><span class="w"> </span><span class="nx">updated</span><span class="p">.</span><span class="nx">SomeService</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Infof</span><span class="p">(</span><span class="s">&quot;AppCustom.SomeService changed to: %v&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">updated</span><span class="p">.</span><span class="nx">SomeService</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
 </div>
 <p>See the <a href="https://github.com/edgexfoundry/app-functions-sdk-go/blob/v2.0.0/app-service-template/main.go#L74-L98">App Service Template</a> for a complete example of using Structured Custom Configuration </p>
@@ -3954,12 +3954,12 @@
 <p>This type defines the signature that all pipeline functions must implement.</p>
 <h3 id="functionpipeline">FunctionPipeline</h3>
 <p>This type defines the struct that contains the metadata for a functions pipeline instance.</p>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">FunctionPipeline</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">Id</span><span class="w">         </span><span class="kt">string</span><span class="w"></span>
-<span class="w">    </span><span class="nx">Transforms</span><span class="w"> </span><span class="p">[]</span><span class="nx">AppFunction</span><span class="w"></span>
-<span class="w">    </span><span class="nx">Topic</span><span class="w">      </span><span class="kt">string</span><span class="w"></span>
-<span class="w">    </span><span class="nx">Hash</span><span class="w">       </span><span class="kt">string</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">FunctionPipeline</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Id</span><span class="w">         </span><span class="kt">string</span>
+<span class="w">    </span><span class="nx">Transforms</span><span class="w"> </span><span class="p">[]</span><span class="nx">AppFunction</span>
+<span class="w">    </span><span class="nx">Topic</span><span class="w">      </span><span class="kt">string</span>
+<span class="w">    </span><span class="nx">Hash</span><span class="w">       </span><span class="kt">string</span>
+<span class="p">}</span>
 </code></pre></div>
 <h3 id="setfunctionspipeline">SetFunctionsPipeline</h3>
 <p><code>SetFunctionsPipeline(transforms ...AppFunction) error</code></p>
@@ -3969,16 +3969,16 @@
 <p>This API sets the default functions pipeline with the specified list of Application Functions.  This pipeline is executed for all messages received from the configured trigger. Note that the functions are executed in the order provided in the list.  An error is returned if the list is empty.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - SetDefaultFunctionsPipeline</p>
-<div class="highlight"><pre><span></span><code><span class="nx">sample</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">functions</span><span class="p">.</span><span class="nx">NewSample</span><span class="p">()</span><span class="w"></span>
-<span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">SetDefaultFunctionsPipeline</span><span class="p">(</span><span class="w"></span>
-<span class="w">    </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewFilterFor</span><span class="p">(</span><span class="nx">deviceNames</span><span class="p">).</span><span class="nx">FilterByDeviceName</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nx">sample</span><span class="p">.</span><span class="nx">LogEventDetails</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nx">sample</span><span class="p">.</span><span class="nx">ConvertEventToXML</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nx">sample</span><span class="p">.</span><span class="nx">OutputXML</span><span class="p">)</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">app</span><span class="p">.</span><span class="nx">lc</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;SetDefaultFunctionsPipeline returned error: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">sample</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">functions</span><span class="p">.</span><span class="nx">NewSample</span><span class="p">()</span>
+<span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">SetDefaultFunctionsPipeline</span><span class="p">(</span>
+<span class="w">    </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewFilterFor</span><span class="p">(</span><span class="nx">deviceNames</span><span class="p">).</span><span class="nx">FilterByDeviceName</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">sample</span><span class="p">.</span><span class="nx">LogEventDetails</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">sample</span><span class="p">.</span><span class="nx">ConvertEventToXML</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">sample</span><span class="p">.</span><span class="nx">OutputXML</span><span class="p">)</span>
+<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">app</span><span class="p">.</span><span class="nx">lc</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;SetDefaultFunctionsPipeline returned error: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span>
+<span class="p">}</span>
 </code></pre></div>
 </div>
 <h3 id="addfunctionspipelinefortopics">AddFunctionsPipelineForTopics</h3>
@@ -3986,17 +3986,17 @@
 <p>This API adds a functions pipeline with the specified unique ID and list of functions (transforms) to be executed when the received topic matches one of the specified pipeline topics. See the <a href="../AdvancedTopics/#pipeline-per-topic">Pipeline Per Topic</a> section for more details.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - AddFunctionsPipelineForTopics</p>
-<div class="highlight"><pre><span></span><code><span class="nx">sample</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">functions</span><span class="p">.</span><span class="nx">NewSample</span><span class="p">()</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">sample</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">functions</span><span class="p">.</span><span class="nx">NewSample</span><span class="p">()</span>
 <span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">AddFunctionsPipelineForTopic</span><span class="p">(</span><span class="s">&quot;Floats-Pipeline&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">                                           </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;edgex/events/#/#/Random-Float-Device/#&quot;</span><span class="p">},</span><span class="w"></span>
-<span class="w">                                           </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewFilterFor</span><span class="p">(</span><span class="nx">deviceNames</span><span class="p">).</span><span class="nx">FilterByDeviceName</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                           </span><span class="nx">sample</span><span class="p">.</span><span class="nx">LogEventDetails</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                           </span><span class="nx">sample</span><span class="p">.</span><span class="nx">ConvertEventToXML</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                           </span><span class="nx">sample</span><span class="p">.</span><span class="nx">OutputXML</span><span class="p">)</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="o">...</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">                                           </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;edgex/events/#/#/Random-Float-Device/#&quot;</span><span class="p">},</span>
+<span class="w">                                           </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewFilterFor</span><span class="p">(</span><span class="nx">deviceNames</span><span class="p">).</span><span class="nx">FilterByDeviceName</span><span class="p">,</span>
+<span class="w">                                           </span><span class="nx">sample</span><span class="p">.</span><span class="nx">LogEventDetails</span><span class="p">,</span>
+<span class="w">                                           </span><span class="nx">sample</span><span class="p">.</span><span class="nx">ConvertEventToXML</span><span class="p">,</span>
+<span class="w">                                           </span><span class="nx">sample</span><span class="p">.</span><span class="nx">OutputXML</span><span class="p">)</span>
+<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span>
+<span class="p">}</span>
 </code></pre></div>
 </div>
 <h3 id="loadconfigurablepipeline">LoadConfigurablePipeline</h3>
@@ -4015,28 +4015,28 @@
 </div>
 <div class="admonition example">
 <p class="admonition-title">Example - LoadConfigurableFunctionPipelines</p>
-<div class="highlight"><pre><span></span><code><span class="nx">configuredPipelines</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">LoadConfigurableFunctionPipelines</span><span class="p">()</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="o">...</span><span class="w"></span>
-<span class="w">    </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">configuredPipelines</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">LoadConfigurableFunctionPipelines</span><span class="p">()</span>
+<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="w">    </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
 
-<span class="o">...</span><span class="w"></span>
+<span class="o">...</span>
 
-<span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">pipeline</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">configuredPipelines</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="nx">pipeline</span><span class="p">.</span><span class="nx">Id</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">DefaultPipelineId</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">SetFunctionsPipeline</span><span class="p">(</span><span class="nx">pipeline</span><span class="p">.</span><span class="nx">Transforms</span><span class="o">...</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="o">...</span><span class="w"></span>
-<span class="w">            </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="k">default</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">AddFunctionsPipelineForTopic</span><span class="p">(</span><span class="nx">pipeline</span><span class="p">.</span><span class="nx">Id</span><span class="p">,</span><span class="w"> </span><span class="nx">pipeline</span><span class="p">.</span><span class="nx">Topic</span><span class="p">,</span><span class="w"> </span><span class="nx">pipeline</span><span class="p">.</span><span class="nx">Transforms</span><span class="o">...</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="o">...</span><span class="w"></span>
-<span class="w">            </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">pipeline</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">configuredPipelines</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="nx">pipeline</span><span class="p">.</span><span class="nx">Id</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">DefaultPipelineId</span><span class="p">:</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">SetFunctionsPipeline</span><span class="p">(</span><span class="nx">pipeline</span><span class="p">.</span><span class="nx">Transforms</span><span class="o">...</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="o">...</span>
+<span class="w">            </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="k">default</span><span class="p">:</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">AddFunctionsPipelineForTopic</span><span class="p">(</span><span class="nx">pipeline</span><span class="p">.</span><span class="nx">Id</span><span class="p">,</span><span class="w"> </span><span class="nx">pipeline</span><span class="p">.</span><span class="nx">Topic</span><span class="p">,</span><span class="w"> </span><span class="nx">pipeline</span><span class="p">.</span><span class="nx">Transforms</span><span class="o">...</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="o">...</span>
+<span class="w">            </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
 </div>
 <h3 id="makeitrun">MakeItRun</h3>
@@ -4044,14 +4044,14 @@
 <p>This API starts the configured trigger to allow the Functions Pipeline to execute when the trigger receives data. The internal webserver is also started. This is a long running API which does not return until the service is stopped or MakeItStop() is called. An error is returned if the trigger can not be create or initialized or if the internal webserver encounters an error.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - MakeItRun</p>
-<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">MakeItRun</span><span class="p">();</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;MakeItRun returned error: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span><span class="w"></span>
-<span class="w">   </span><span class="nx">os</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">MakeItRun</span><span class="p">();</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;MakeItRun returned error: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
+<span class="w">   </span><span class="nx">os</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
 
-<span class="c1">// Do any required cleanup here, if needed</span><span class="w"></span>
+<span class="c1">// Do any required cleanup here, if needed</span>
 
-<span class="nx">os</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
+<span class="nx">os</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <h3 id="makeitstop">MakeItStop</h3>
@@ -4059,8 +4059,8 @@
 <p>This API  stops the configured trigger so that the functions pipeline no longer executes. The internal webserver continues to accept requests. See <a href="../AdvancedTopics/#stopping-the-service">Stopping the Service</a> advanced topic for more details</p>
 <div class="admonition example">
 <p class="admonition-title">Example - MakeItStop</p>
-<div class="highlight"><pre><span></span><code><span class="nx">service</span><span class="p">.</span><span class="nx">MakeItStop</span><span class="p">()</span><span class="w"></span>
-<span class="o">...</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">service</span><span class="p">.</span><span class="nx">MakeItStop</span><span class="p">()</span>
+<span class="o">...</span>
 </code></pre></div>
 </div>
 <h2 id="secrets-apis">Secrets APIs</h2>
@@ -4070,13 +4070,13 @@
 <p>This API returns the secret data from the secret store (secure or insecure) for the specified path. An error is returned if the path is not found or any of the keys (if specified) are not found. Omit keys if all secret data for the specified path is required.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - GetSecret</p>
-<div class="highlight"><pre><span></span><code><span class="nx">secretData</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">GetSecret</span><span class="p">(</span><span class="s">&quot;mqtt&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="o">...</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-<span class="nx">username</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">secretData</span><span class="p">[</span><span class="s">&quot;user&quot;</span><span class="p">]</span><span class="w"></span>
-<span class="nx">password</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">secretData</span><span class="p">[</span><span class="s">&quot;password&quot;</span><span class="p">]</span><span class="w"></span>
-<span class="o">...</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">secretData</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">GetSecret</span><span class="p">(</span><span class="s">&quot;mqtt&quot;</span><span class="p">)</span>
+<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="o">...</span>
+<span class="p">}</span>
+<span class="nx">username</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">secretData</span><span class="p">[</span><span class="s">&quot;user&quot;</span><span class="p">]</span>
+<span class="nx">password</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">secretData</span><span class="p">[</span><span class="s">&quot;password&quot;</span><span class="p">]</span>
+<span class="o">...</span>
 </code></pre></div>
 </div>
 <div class="admonition warning">
@@ -4099,12 +4099,12 @@ An error is returned if:</p>
 </div>
 <div class="admonition example">
 <p class="admonition-title">Example - StoreSecret</p>
-<div class="highlight"><pre><span></span><code><span class="nx">secretData</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">generateMqttCredentials</span><span class="p">()</span><span class="w"></span>
-<span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">StoreSecret</span><span class="p">(</span><span class="s">&quot;mqtt&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">secretData</span><span class="p">)</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="o">...</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-<span class="o">...</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">secretData</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">generateMqttCredentials</span><span class="p">()</span>
+<span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">StoreSecret</span><span class="p">(</span><span class="s">&quot;mqtt&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">secretData</span><span class="p">)</span>
+<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="o">...</span>
+<span class="p">}</span>
+<span class="o">...</span>
 </code></pre></div>
 </div>
 <div class="admonition warning">
@@ -4125,8 +4125,8 @@ An error is returned if:</p>
 <p>This API returns the LoggingClient instance which the service uses to log messages. See the <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/v2.0.0/clients/logger/logger.go#L35-L61">LoggingClient interface</a> for more details. </p>
 <div class="admonition example">
 <p class="admonition-title">Example - LoggingClient</p>
-<div class="highlight"><pre><span></span><code><span class="nx">service</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">().</span><span class="nx">Info</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="nx">service</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">().</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;Some error occurred: %w&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">service</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">().</span><span class="nx">Info</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
+<span class="nx">service</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">().</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;Some error occurred: %w&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <h3 id="registryclient">RegistryClient</h3>
@@ -4174,12 +4174,12 @@ See the <a href="https://github.com/edgexfoundry/go-mod-registry/blob/v2.0.0/reg
 <p>This API returns the parsed value for the <code>Service.RequestTimeout</code> configuration setting. The setting is parsed on start-up so that any error is caught then.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - RequestTimeout</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Service]</span><span class="w"></span>
-<span class="p">:</span><span class="w"></span>
-<span class="n">RequestTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;60s&quot;</span><span class="w"></span>
-<span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Service]</span>
+<span class="p">:</span>
+<span class="n">RequestTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;60s&quot;</span>
+<span class="p">:</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="nx">timeout</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">RequestTimeout</span><span class="p">()</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">timeout</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">RequestTimeout</span><span class="p">()</span>
 </code></pre></div>
 </div>
 <h3 id="registercustomtriggerfactory">RegisterCustomTriggerFactory</h3>
@@ -4191,9 +4191,9 @@ See the <a href="https://github.com/edgexfoundry/go-mod-registry/blob/v2.0.0/reg
 <h3 id="metricsmanager">MetricsManager</h3>
 <p><code>MetricsManager() bootstrapInterfaces.MetricsManager</code></p>
 <p>This API returns the Metrics Manager used to register counter, gauge, gaugeFloat64 or timer metric types from github.com/rcrowley/go-metrics</p>
-<div class="highlight"><pre><span></span><code><span class="nx">myCounterMetricName</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;MyCounter&quot;</span><span class="w"></span>
-<span class="nx">myCounter</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">gometrics</span><span class="p">.</span><span class="nx">NewCounter</span><span class="p">()</span><span class="w"></span>
-<span class="nx">myTags</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;Tag1&quot;</span><span class="p">:</span><span class="s">&quot;Value1&quot;</span><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">myCounterMetricName</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;MyCounter&quot;</span>
+<span class="nx">myCounter</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">gometrics</span><span class="p">.</span><span class="nx">NewCounter</span><span class="p">()</span>
+<span class="nx">myTags</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;Tag1&quot;</span><span class="p">:</span><span class="s">&quot;Value1&quot;</span><span class="p">}</span>
 <span class="nx">app</span><span class="p">.</span><span class="nx">service</span><span class="p">.</span><span class="nx">MetricsManager</span><span class="p">().</span><span class="nx">Register</span><span class="p">(</span><span class="nx">myCounterMetricName</span><span class="p">,</span><span class="w"> </span><span class="nx">myCounter</span><span class="p">,</span><span class="w"> </span><span class="nx">myTags</span><span class="p">)</span><span class="w">   </span>
 </code></pre></div>
 
