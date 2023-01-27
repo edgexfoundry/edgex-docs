@@ -79,7 +79,7 @@ communications by default.  See the installation for your OS.
 === "Windows"
     For directions installing ZeroMQ on Windows, please see the Windows
     documentation:
-    <https://github.com/edgexfoundry/edgex-go/blob/master/ZMQWindows.md>
+    <https://github.com/edgexfoundry/edgex-go/blob/v2.3.0/ZMQWindows.md>
 
 #### Docker (Optional)
 If you intend to create Docker images for your updated or newly created EdgeX services, you need to install Docker. See https://docs.docker.com/install/ to learn how to install Docker. If you are new to Docker, the same web site provides you educational information.
