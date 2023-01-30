@@ -127,8 +127,8 @@ Command requests in HTTP may also contain ds-pushevent and ds-returnevent query 
     "Correlation-ID": "14a42ea6-c394-41c3-8bcd-a29b9f5e6835",
     "API":"V2",
     "queryParams": {
-        "ds-pushevent":"yes",
-        "ds-returnevent":"yes",
+        "ds-pushevent":"true",
+        "ds-returnevent":"true",
      }
      ...
 }
@@ -149,8 +149,8 @@ In the example GET and PUT messages below, note the `envelope` wraps or encases 
     "apiVersion": "v2",
     "requestId": "e6e8a2f4-eb14-4649-9e2b-175247911369",
     "queryParams": {
-        "ds-pushevent":"yes",
-        "ds-returnevent":"yes",
+        "ds-pushevent":"true",
+        "ds-returnevent":"true",
      }
 }
 

@@ -380,8 +380,8 @@ Example of making get command request via messaging:
   "CorrelationID": "14a42ea6-c394-41c3-8bcd-a29b9f5e6835",
   "RequestId": "e6e8a2f4-eb14-4649-9e2b-175247911369",
   "QueryParams": {
-    "ds-pushevent": "no",
-    "ds-returnevent": "yes"
+    "ds-pushevent": "false",
+    "ds-returnevent": "true"
   }
 }
 ```
