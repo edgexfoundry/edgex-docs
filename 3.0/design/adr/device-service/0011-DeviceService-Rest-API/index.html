@@ -3395,18 +3395,22 @@
 <tbody>
 <tr>
 <td><em>ds-pushevent</em></td>
-<td>"yes" or "no"</td>
-<td>"no"</td>
-<td>If set to yes, a successful <code>GET</code> will result in an event being pushed to the EdgeX system</td>
+<td>"true" or "false"</td>
+<td>"false"</td>
+<td>If set to true, a successful <code>GET</code> will result in an event being pushed to the EdgeX system</td>
 </tr>
 <tr>
 <td><em>ds-returnevent</em></td>
-<td>"yes" or "no"</td>
-<td>"yes"</td>
-<td>If set to no, there will be no Event returned in the http response</td>
+<td>"true" or "false"</td>
+<td>"true"</td>
+<td>If set to false, there will be no Event returned in the http response</td>
 </tr>
 </tbody>
 </table>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 3.0</p>
+<p>The valid values of <strong>ds-pushevent</strong> and <strong>ds-returnevent</strong> is changed to <code>true/false</code> instead of <code>yes/no</code> in EdgeX 3.0.</p>
+</div>
 <h4 id="device-states">Device States</h4>
 <p>A Device in EdgeX has two states associated with it: the Administrative state and the Operational state. The Administrative state may be set to <code>LOCKED</code> (normally <code>UNLOCKED</code>) to block access to the device for administrative reasons. The Operational state may be set to <code>DOWN</code> (normally <code>UP</code>) to indicate that the device is not currently working. In either case access to the device via this endpoint will be denied and HTTP 423 ("Locked") will be returned.</p>
 <h4 id="data-transformations">Data Transformations</h4>
