@@ -11,7 +11,7 @@ Snaps can be installed on any Linux distribution with [snap support](https://sna
 Spinning up EdgeX with snaps is extremely easy.
 For demonstration purposes, let's install the platform, along with the virtual device service and EdgeX UI.
 
-1) Install the [platform snap], [edgex-device-virtual] and [edgex-ui]:
+1) Install the [platform snap], [Device Virtual](#device-virtual) and [EdgeX UI](#edgex-ui):
 ```bash
 snap install edgexfoundry --edge
 snap install edgex-device-virtual --edge
