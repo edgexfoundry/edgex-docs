@@ -48,3 +48,4 @@
 | [0024 System Events](./adr/0024-system-events.md)                                            | System Events (aka Control Plane Events) published to the MessageBus                    |
 | [0025 Record and Replay](./adr/application/0025-Record-and-Replay.md)                        | Record data from various devices and play data back without devices present             |
 | [0026 Common Configuration](./adr/0026-Common Configuration.md)                              | Separate out the common configuration setting into a single source for all the services |
+| [0027 URIs for Files](./adr/0027-URIs for Files.md)                                          | Add capability to load service files from remote locations using URIs                   |
