@@ -6,7 +6,46 @@
 secure, cross‐platform and self-contained.
 Snaps can be installed on any Linux distribution with [snap support](https://snapcraft.io/docs/installing-snapd).
 
-The following sub-sections provide generic instructions for installing, configuring, and managing EdgeX services using snaps. 
+### Quick Start
+
+Spinning up EdgeX with snaps is extremely easy.
+For demonstration purposes, let's install the platform, along with the virtual device service and EdgeX UI.
+
+1) Install the [platform snap], [edgex-device-virtual] and [edgex-ui]:
+```bash
+snap install edgexfoundry --edge
+snap install edgex-device-virtual --edge
+snap install edgex-ui --edge
+```
+!!! danger
+    The above examples use the latest development versions of EdgeX snaps.
+    This should be replaced by the latest stable v3, once available.
+
+EdgeX has security enabled by default. But for simplicity, we'll disable it here.
+If not disabled, you could skip to step 3 and additionally add a user and authenticate as described [here](#adding-api-gateway-users). To access the UI, you need to generate a JWT.
+
+2) Disable security in each of the installed snaps:
+```bash
+snap set edgexfoundry security=false
+snap set edgex-device-virtual config.edgex-security-secret-store=false
+snap set edgex-ui config.edgex-security-secret-store=false
+```
+Refer to [disabling security] for details.
+
+3) Start the device and UI services:
+```bash
+snap start edgex-device-virtual
+snap start edgex-ui
+```
+This is because those services disabled and not started by default.
+
+You should now be able to access the UI using a browser at [http://localhost:4000](http://localhost:4000)
+
+![EdgeX UI](EdgeX-GettingStartedSnapUsersUI.png)
+
+---
+
+The following sub-sections provide generic instructions for [installation], [configuration], and [managing services] using snaps. 
 
 For the list of EdgeX snaps and specific instructions, please refer to the **[EdgeX Snaps](#edgex-snaps)** section.
 
