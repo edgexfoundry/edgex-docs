@@ -127,15 +127,6 @@ There is one Core Data function that enables interactions with the Core Data RES
 !!! edgey "EdgeX 2.1"
     The `NewCoreDataObejctReading`factory method is new for EdgeX 2.1
 
-### Push to Core Data
-
-`PushToCoreData` - This pipeline function provides the capability to push a new Event/Reading to Core Data. The data passed into this function from the pipeline is wrapped in an EdgeX Event with the Event and Reading metadata specified from the factory function options. The function returns the new EdgeX Event with ID populated.
-
-!!! example
-    ```go
-    NewCoreDataSimpleReading("my-profile", "my-device", "my-resource", "string").PushToCoreData
-    ```
-
 ## Event
 
 This enables the ability to wrap data into an Event/Reading

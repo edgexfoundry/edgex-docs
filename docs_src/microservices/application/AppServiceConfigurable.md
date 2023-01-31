@@ -239,22 +239,6 @@ Required:
 
     There are many optional functions and parameters provided in this profile. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/v2.0.0/res/mqtt-export/configuration.toml) for more details
 
-### push-to-core 
-
-Example profile demonstrating how to use the PushToCore function. Provided as an exmaple that can be copied and modified to create new custom profile. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/v2.0.0/res/push-to-core/configuration.toml) for more details
-
-Requires further configuration which can easily be accomplished using environment variable overrides
-
-Required:
-
-- `WRITABLE_PIPELINE_FUNCTIONS_PUSHTOCORE_PROFILENAME: [Your Event's profile name]`
-- `WRITABLE_PIPELINE_FUNCTIONS_PUSHTOCORE_DEVICENAME: [Your Event's device name]`
-- `WRITABLE_PIPELINE_FUNCTIONS_PUSHTOCORE_SOURCENAME: [Your Event's source name]`
-- `WRITABLE_PIPELINE_FUNCTIONS_PUSHTOCORE_RESOURCENAME: [Your Event reading's resource name]`
-- `WRITABLE_PIPELINE_FUNCTIONS_PUSHTOCORE_VALUETYPE: [Your Event reading's value type]`
-- `WRITABLE_PIPELINE_FUNCTIONS_PUSHTOCORE_MEDIATYPE: [Your Event binary reading's media type]` 
-  - Required only when `ValueType` is `Binary`
-
 ### sample
 
 Sample profile with all available functions declared and a sample pipeline. Provided as a sample that can be copied and modified to create new custom profiles. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/v2.0.0/res/sample/configuration.toml) for more details
@@ -630,29 +614,6 @@ Please refer to the function's detailed documentation by clicking the function n
 
 !!! edgey "EdgeX 2.0"
     For EdgeX 2.0 the `MQTTSecretSend` configurable pipeline function has been renamed to `MQTTExport` and the deprecated  `MQTTSend` configurable pipeline function has been removed
-
-### [PushToCore](../BuiltIn/#push-to-core-data)
-
-**Parameters**
-
-- `ProfileName` - Profile name to use for the new Event
-- `DeviceName` - Device name to use for  the new Event
-- `ResourceName` -  Resource name name to use for  the new Event's` SourceName` and Reading's `ResourceName`
-- `ValueType` - Value type to use  the new Event Reading's value type
-- `MediaType` - Media type to use the new Event Reading's value type. Required when the value type is `Binary`
-
-!!! example
-    ```toml
-        [Writable.Pipeline.Functions.PushToCore]
-          [Writable.Pipeline.Functions.PushToCore.Parameters]
-          ProfileName = "MyProfile"
-          DeviceName = "MyDevice"
-          ResourceName = "SomeResource"
-          ValueType = "String"
-    ```
-
-!!! edgey "EdgeX 2.0"
-    For EdgeX 2.0 the `ProfileName`, `ValueType` and `MediaType` parameters are new and the `ReadingName` parameter has been renamed to `ResourceName`. 
 
 ### [SetResponseData](../BuiltIn/#set-response-data)
 
