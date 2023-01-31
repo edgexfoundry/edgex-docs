@@ -2023,13 +2023,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#push-to-core" class="md-nav__link">
-    push-to-core
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#sample" class="md-nav__link">
     sample
   </a>
@@ -2170,13 +2163,6 @@
           <li class="md-nav__item">
   <a href="#mqttexport" class="md-nav__link">
     MQTTExport
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pushtocore" class="md-nav__link">
-    PushToCore
   </a>
   
 </li>
@@ -3275,13 +3261,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#push-to-core" class="md-nav__link">
-    push-to-core
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#sample" class="md-nav__link">
     sample
   </a>
@@ -3422,13 +3401,6 @@
           <li class="md-nav__item">
   <a href="#mqttexport" class="md-nav__link">
     MQTTExport
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pushtocore" class="md-nav__link">
-    PushToCore
   </a>
   
 </li>
@@ -3731,19 +3703,6 @@
 <p><code>WRITABLE_PIPELINE_FUNCTIONS_MQTTEXPORT_PARAMETERS_BROKERADDRESS: [Your Broker Address]</code></p>
 <p>There are many optional functions and parameters provided in this profile. See the <a href="https://github.com/edgexfoundry/app-service-configurable/blob/v2.0.0/res/mqtt-export/configuration.toml">complete profile</a> for more details</p>
 </li>
-</ul>
-<h3 id="push-to-core">push-to-core</h3>
-<p>Example profile demonstrating how to use the PushToCore function. Provided as an exmaple that can be copied and modified to create new custom profile. See the <a href="https://github.com/edgexfoundry/app-service-configurable/blob/v2.0.0/res/push-to-core/configuration.toml">complete profile</a> for more details</p>
-<p>Requires further configuration which can easily be accomplished using environment variable overrides</p>
-<p>Required:</p>
-<ul>
-<li><code>WRITABLE_PIPELINE_FUNCTIONS_PUSHTOCORE_PROFILENAME: [Your Event's profile name]</code></li>
-<li><code>WRITABLE_PIPELINE_FUNCTIONS_PUSHTOCORE_DEVICENAME: [Your Event's device name]</code></li>
-<li><code>WRITABLE_PIPELINE_FUNCTIONS_PUSHTOCORE_SOURCENAME: [Your Event's source name]</code></li>
-<li><code>WRITABLE_PIPELINE_FUNCTIONS_PUSHTOCORE_RESOURCENAME: [Your Event reading's resource name]</code></li>
-<li><code>WRITABLE_PIPELINE_FUNCTIONS_PUSHTOCORE_VALUETYPE: [Your Event reading's value type]</code></li>
-<li><code>WRITABLE_PIPELINE_FUNCTIONS_PUSHTOCORE_MEDIATYPE: [Your Event binary reading's media type]</code> </li>
-<li>Required only when <code>ValueType</code> is <code>Binary</code></li>
 </ul>
 <h3 id="sample">sample</h3>
 <p>Sample profile with all available functions declared and a sample pipeline. Provided as a sample that can be copied and modified to create new custom profiles. See the <a href="https://github.com/edgexfoundry/app-service-configurable/blob/v2.0.0/res/sample/configuration.toml">complete profile</a> for more details</p>
@@ -4108,29 +4067,6 @@
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
 <p>For EdgeX 2.0 the <code>MQTTSecretSend</code> configurable pipeline function has been renamed to <code>MQTTExport</code> and the deprecated  <code>MQTTSend</code> configurable pipeline function has been removed</p>
-</div>
-<h3 id="pushtocore"><a href="../BuiltIn/#push-to-core-data">PushToCore</a></h3>
-<p><strong>Parameters</strong></p>
-<ul>
-<li><code>ProfileName</code> - Profile name to use for the new Event</li>
-<li><code>DeviceName</code> - Device name to use for  the new Event</li>
-<li><code>ResourceName</code> -  Resource name name to use for  the new Event's<code>SourceName</code> and Reading's <code>ResourceName</code></li>
-<li><code>ValueType</code> - Value type to use  the new Event Reading's value type</li>
-<li><code>MediaType</code> - Media type to use the new Event Reading's value type. Required when the value type is <code>Binary</code></li>
-</ul>
-<div class="admonition example">
-<p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.PushToCore]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.PushToCore.Parameters]</span>
-<span class="w">      </span><span class="n">ProfileName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;MyProfile&quot;</span>
-<span class="w">      </span><span class="n">DeviceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;MyDevice&quot;</span>
-<span class="w">      </span><span class="n">ResourceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;SomeResource&quot;</span>
-<span class="w">      </span><span class="n">ValueType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;String&quot;</span>
-</code></pre></div>
-</div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the <code>ProfileName</code>, <code>ValueType</code> and <code>MediaType</code> parameters are new and the <code>ReadingName</code> parameter has been renamed to <code>ResourceName</code>. </p>
 </div>
 <h3 id="setresponsedata"><a href="../BuiltIn/#set-response-data">SetResponseData</a></h3>
 <p><strong>Parameters</strong></p>

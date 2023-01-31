@@ -2133,13 +2133,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#pushtocore" class="md-nav__link">
-    PushToCore()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#setretrydata" class="md-nav__link">
     SetRetryData()
   </a>
@@ -3453,13 +3446,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#pushtocore" class="md-nav__link">
-    PushToCore()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#setretrydata" class="md-nav__link">
     SetRetryData()
   </a>
@@ -3525,7 +3511,6 @@
 <span class="w">    </span><span class="nx">DeviceProfileClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">DeviceProfileClient</span>
 <span class="w">    </span><span class="nx">DeviceClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">DeviceClient</span>
 <span class="w">    </span><span class="nx">MetricsManager</span><span class="p">()</span><span class="w"> </span><span class="nx">bootstrapInterfaces</span><span class="p">.</span><span class="nx">MetricsManager</span>
-<span class="w">    </span><span class="nx">PushToCore</span><span class="p">(</span><span class="nx">event</span><span class="w"> </span><span class="nx">dtos</span><span class="p">.</span><span class="nx">Event</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">common</span><span class="p">.</span><span class="nx">BaseWithIdResponse</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
 <span class="w">    </span><span class="nx">GetDeviceResource</span><span class="p">(</span><span class="nx">profileName</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">resourceName</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">dtos</span><span class="p">.</span><span class="nx">DeviceResource</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
 <span class="w">    </span><span class="nx">AddValue</span><span class="p">(</span><span class="nx">key</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span>
 <span class="w">    </span><span class="nx">RemoveValue</span><span class="p">(</span><span class="nx">key</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span>
@@ -3561,7 +3546,7 @@
 </div>
 <h3 id="eventclient">EventClient</h3>
 <p><code>EventClient() interfaces.EventClient</code></p>
-<p>Returns an <code>EventClient</code> to leverage Core Data's <code>Event</code> API. See <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/interfaces/event.go">interface definition</a> for more details. This client is useful for querying events and is used by the <a href="#pushtocore">PushToCore</a> convenience API described below. Note if Core Data is not specified in the Clients configuration, this will return nil.</p>
+<p>Returns an <code>EventClient</code> to leverage Core Data's <code>Event</code> API. See <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/interfaces/event.go">interface definition</a> for more details. This client is useful for querying events. Note if Core Data is not specified in the Clients configuration, this will return nil.</p>
 <h3 id="commandclient">CommandClient</h3>
 <p><code>CommandClient() interfaces.CommandClient</code></p>
 <p>Returns a <code>CommandClient</code>  to leverage Core Command's <code>Command</code> API. See <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/interfaces/command.go">interface definition</a> for more details. Useful for sending commands to devices. Note if Core Command is not specified in the Clients configuration, this will return nil.</p>
@@ -3659,17 +3644,6 @@
 <h3 id="getdeviceresource">GetDeviceResource()</h3>
 <p><code>GetDeviceResource(profileName string, resourceName string) (dtos.DeviceResource, error)</code></p>
 <p>This API retrieves the DeviceResource for the given profile / resource name. Results are cached to minimize HTTP traffic to core-metadata.</p>
-<h3 id="pushtocore">PushToCore()</h3>
-<p><code>PushToCore(event dtos.Event)</code></p>
-<p>This API is used to push data to EdgeX Core Data so that it can be shared with other applications that are subscribed to the message bus that core-data publishes to. This function will return the new EdgeX Event with the ID populated, along with any error encountered.  Note that CorrelationId will not be available.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If validation is turned on in CoreServices then your deviceName and readingName must exist in the CoreMetadata and be properly registered in EdgeX.</p>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Be aware that without a filter in your pipeline, it is possible to create an infinite loop when the Message Bus trigger is used. Choose your device-name and reading name appropriately.</p>
-</div>
 <h3 id="setretrydata">SetRetryData()</h3>
 <p><code>SetRetryData(data []byte)</code></p>
 <p>This method can be used to store data for later retry. This is useful when creating a custom export function that needs to retry on failure. The payload data will be stored for later retry based on <code>Store and Forward</code> configuration. When the retry is triggered, the function pipeline will be re-executed starting with the function that called this API. That function will be passed the stored data, so it is important that all transformations occur in functions prior to the export function. The <code>Context</code> will also be restored to the state when the function called this API. See <a href="../AdvancedTopics/#store-and-forward">Store and Forward</a> for more details.</p>
