@@ -52,6 +52,15 @@ While not recommended, users will be able to specify **basic-auth** (`<username>
 
 - **Device Service's** loading of **device profiles**, **device definitions** and **provision watches** files will be adjusted to load an index file specified by a URI in place of the configured folder name. The contents of the index file will be used to load the individual files by URI  by appending the filenames to the original URI. Any authentication specified in the original URI will be used in the subsequent URIs. 
 
+    !!! example - "Example DevicesDir configuration in service configuration" 
+        ```toml
+        [Device]
+          ...
+          ProfilesDir = "./res/profiles"
+          DevicesDir = "http://example.com/devices/index.json"
+          ProvisionWatchersDir = "./res/provisionwatchers"
+          ...
+        ```
     !!! example - "Example Device Index file `http://example.com/devices/index.json`"
         ```json
         [
