@@ -53,9 +53,9 @@ There are two types of environment overrides which are `command-line` and `confi
 
 ### Command-line Overrides
 
-#### EDGEX_CONF_DIR
+#### EDGEX_CONFIG_DIR
 
-This environment variable overrides the [`-c/--confdir` command-line option](../CommonCommandLineOptions/#confdir). 
+This environment variable overrides the [`-cd/--configDir` command-line option](../CommonCommandLineOptions/#confdir). 
 
 !!! note
      All EdgeX service Docker images have this option set to `/res`.
@@ -71,7 +71,7 @@ This environment variable overrides the [`-c/--confdir` command-line option](../
 
 #### EDGEX_CONFIG_FILE
 
-This environment variable overrides the [`-f/--file` command-line option](../CommonCommandLineOptions#file).
+This environment variable overrides the [`-cf/--configFile` command-line option](../CommonCommandLineOptions#file).
 
 !!! example "Example - Using docker-compose to override the configuration file name used"
     ```yaml
@@ -79,7 +79,7 @@ This environment variable overrides the [`-f/--file` command-line option](../Com
       EDGEX_CONFIG_FILE: "my-config.toml"
     ```
 
-#### EDGEX_CONFIGURATION_PROVIDER
+#### EDGEX_CONFIG_PROVIDER
 
 This environment variable overrides the [`-cp/--configProvider` command-line option](../CommonCommandLineOptions#config-provider). 
 
@@ -91,12 +91,12 @@ Overriding with a value of `none` disables the use of the Configuration Provider
 !!! example "Example - Using docker-compose to override with different port number"
     ```yaml
     environment: 
-      EDGEX_CONFIGURATION_PROVIDER: "consul.http://edgex-consul:9500"
+      EDGEX_CONFIG_PROVIDER: "consul.http://edgex-consul:9500"
     
     or
     
     environment: 
-      EDGEX_CONFIGURATION_PROVIDER: "none"
+      EDGEX_CONFIG_PROVIDER: "none"
     ```
 
 !!! edgey "EdgeX 3.0"
