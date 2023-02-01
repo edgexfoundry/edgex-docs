@@ -1412,8 +1412,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#edgex_conf_dir" class="md-nav__link">
-    EDGEX_CONF_DIR
+  <a href="#edgex_config_dir" class="md-nav__link">
+    EDGEX_CONFIG_DIR
   </a>
   
 </li>
@@ -1426,8 +1426,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#edgex_configuration_provider" class="md-nav__link">
-    EDGEX_CONFIGURATION_PROVIDER
+  <a href="#edgex_config_provider" class="md-nav__link">
+    EDGEX_CONFIG_PROVIDER
   </a>
   
 </li>
@@ -3155,8 +3155,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#edgex_conf_dir" class="md-nav__link">
-    EDGEX_CONF_DIR
+  <a href="#edgex_config_dir" class="md-nav__link">
+    EDGEX_CONFIG_DIR
   </a>
   
 </li>
@@ -3169,8 +3169,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#edgex_configuration_provider" class="md-nav__link">
-    EDGEX_CONFIGURATION_PROVIDER
+  <a href="#edgex_config_provider" class="md-nav__link">
+    EDGEX_CONFIG_PROVIDER
   </a>
   
 </li>
@@ -3307,8 +3307,8 @@
 <p>Environment variable overrides have precedence over all command-line, local configuration and remote configuration. i.e. configuration setting changed in Consul will be overridden after the service loads the configuration from Consul if that setting has an environment override.</p>
 </div>
 <h3 id="command-line-overrides">Command-line Overrides</h3>
-<h4 id="edgex_conf_dir">EDGEX_CONF_DIR</h4>
-<p>This environment variable overrides the <a href="../CommonCommandLineOptions/#confdir"><code>-c/--confdir</code> command-line option</a>. </p>
+<h4 id="edgex_config_dir">EDGEX_CONFIG_DIR</h4>
+<p>This environment variable overrides the <a href="../CommonCommandLineOptions/#confdir"><code>-cd/--configDir</code> command-line option</a>. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>All EdgeX service Docker images have this option set to <code>/res</code>.</p>
@@ -3324,14 +3324,14 @@
 <p>The <code>EDGEX_CONF_DIR</code> environment variable is replaced by <code>EDGEX_CONFIG_DIR</code> in EdgeX 3.0.</p>
 </div>
 <h4 id="edgex_config_file">EDGEX_CONFIG_FILE</h4>
-<p>This environment variable overrides the <a href="../CommonCommandLineOptions#file"><code>-f/--file</code> command-line option</a>.</p>
+<p>This environment variable overrides the <a href="../CommonCommandLineOptions#file"><code>-cf/--configFile</code> command-line option</a>.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - Using docker-compose to override the configuration file name used</p>
 <div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span><span class="w"> </span>
 <span class="w">  </span><span class="nt">EDGEX_CONFIG_FILE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-config.toml&quot;</span>
 </code></pre></div>
 </div>
-<h4 id="edgex_configuration_provider">EDGEX_CONFIGURATION_PROVIDER</h4>
+<h4 id="edgex_config_provider">EDGEX_CONFIG_PROVIDER</h4>
 <p>This environment variable overrides the <a href="../CommonCommandLineOptions#config-provider"><code>-cp/--configProvider</code> command-line option</a>. </p>
 <p>Overriding with a value of <code>none</code> disables the use of the Configuration Provider.</p>
 <div class="admonition note">
@@ -3341,12 +3341,12 @@
 <div class="admonition example">
 <p class="admonition-title">Example - Using docker-compose to override with different port number</p>
 <div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span><span class="w"> </span>
-<span class="w">  </span><span class="nt">EDGEX_CONFIGURATION_PROVIDER</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;consul.http://edgex-consul:9500&quot;</span>
+<span class="w">  </span><span class="nt">EDGEX_CONFIG_PROVIDER</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;consul.http://edgex-consul:9500&quot;</span>
 
 <span class="l l-Scalar l-Scalar-Plain">or</span>
 
 <span class="nt">environment</span><span class="p">:</span><span class="w"> </span>
-<span class="w">  </span><span class="nt">EDGEX_CONFIGURATION_PROVIDER</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;none&quot;</span>
+<span class="w">  </span><span class="nt">EDGEX_CONFIG_PROVIDER</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;none&quot;</span>
 </code></pre></div>
 </div>
 <div class="admonition edgey">

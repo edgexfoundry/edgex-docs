@@ -2943,8 +2943,12 @@
 <h1 id="name">NAME</h1>
 <p>security-file-token-provider -- Generate Vault tokens for EdgeX services</p>
 <h1 id="synopsis">SYNOPSIS</h1>
-<p>security-file-token-provider [-h--confdir \&lt;confdir>]
+<p>security-file-token-provider [-h--configDir \&lt;configDir>]
 [-p|--profile \&lt;name>]</p>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 3.0</p>
+<p>The <code>--confdir</code> command line option is replaced by <code>--configDir</code> in EdgeX 3.0.</p>
+</div>
 <h1 id="description">DESCRIPTION</h1>
 <p>security-file-token-provider generates per-service Vault tokens for
 EdgeX services so that they can make authenticated connections to Vault
@@ -2960,12 +2964,15 @@ services from reading each other's tokens.</p>
 <blockquote>
 <p>-h, --help</p>
 <p>:   Display help text</p>
-<p>-c, --confdir \&lt;confdir></p>
+<p>-cd, --configDir \&lt;configDir></p>
 <p>:   Look in this directory for configuration.toml instead.</p>
 <p>-p, --profile \&lt;name></p>
-<p>:   Indicate configuration profile other than default
-</p>
+<p>:   Indicate configuration profile other than default</p>
 </blockquote>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 3.0</p>
+<p>The <code>-c, --confdir</code> command line option is replaced by <code>-cd, --configDir</code> in EdgeX 3.0.</p>
+</div>
 <h1 id="files">FILES</h1>
 <h2 id="configurationtoml">configuration.toml</h2>
 <p>This file specifies the TCP/IP location of the Vault service and
