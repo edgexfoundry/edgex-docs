@@ -127,15 +127,6 @@ There is one Core Data function that enables interactions with the Core Data RES
 !!! edgey "EdgeX 2.1"
     The `NewCoreDataObejctReading`factory method is new for EdgeX 2.1
 
-### Push to Core Data
-
-`PushToCoreData` - This pipeline function provides the capability to push a new Event/Reading to Core Data. The data passed into this function from the pipeline is wrapped in an EdgeX Event with the Event and Reading metadata specified from the factory function options. The function returns the new EdgeX Event with ID populated.
-
-!!! example
-    ```go
-    NewCoreDataSimpleReading("my-profile", "my-device", "my-resource", "string").PushToCoreData
-    ```
-
 ## Event
 
 This enables the ability to wrap data into an Event/Reading
@@ -163,32 +154,6 @@ This enables the ability to wrap data into an Event/Reading
 ## <a name="dataprotection"></a>Data Protection
 
 There are two transforms included in the SDK that can be added to your pipeline for data protection. 
-
-### Encryption (Deprecated)
-
-!!! edgey "EdgeX 2.1"
-    This is deprecated in EdgeX 2.1 - it is recommended to use the new `AESProtection` transform.  Please see [this security advisory](https://github.com/edgexfoundry/app-functions-sdk-go/security/advisories/GHSA-6c7m-qwxj-mvhp) for more detail.
-
-
-| Factory Method                                                                              | Description                                                                                                                                                                                                                                                                                                                                                                                                                   |
-|---------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| NewEncryption(key string, initializationVector string)                                      | This function returns a `Encryption` instance initialized with the passed in `key` and `initialization vector`. This `Encryption` instance is used to access the following encryption function that will use the specified `key` and `initialization vector`.                                                                                                                                                                 |
-| NewEncryptionWithSecrets(secretPath string, secretName string, initializationVector string) | This function returns a `Encryption` instance initialized with the passed in `secret path`, `Secret name` and `initialization vector`. This `Encryption` instance is used to access the following encryption function that will use the encryption key from the Secret Store and the passed in `initialization vector`. It uses the passed in`secret path` and `secret name` to pull the encryption key from the Secret Store |
-
-!!! edgey "EdgeX 2.0"
-    New for EdgeX 2.0 is the ability to pull the encryption key from the Secret Store. The encryption key must be seeded into the Secret Store using the `/api/v2/secret` endpoint on the running instance of the Application Service prior to the Encryption function executing. See [App Functions SDK swagger](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/app-functions-sdk/2.0.0#/default/post_secret) for more details on this endpoint.
-
-`EncryptWithAES` - This pipeline function receives either a `string`, `[]byte`, or `json.Marshaller` type and encrypts it using AES encryption and returns a `[]byte` to the pipeline.
-
-!!! example
-    ```go
-    NewEncryption("key", "initializationVector").EncryptWithAES
-    or
-    NewEncryptionWithSecrets("aes", "aes-key", "initializationVector").EncryptWithAES)
-    ```
-
-!!! note
-    The `algorithm` used used with app-service-configurable configuration to access this transform is `AES` 
 
 ### AESProtection
 
@@ -528,11 +493,7 @@ There is one Tags transform included in the SDK that can be added to your pipeli
 
 | Factory Method                                     | Description                                                                                                                                                                                                                                                                                                                     |
 |----------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| NewGenericTags(tags `map[string]interface{}`) Tags | This factory function returns a `Tags` instance initialized with the passed in collection of generic tag key/value pairs. This `Tags` instance is used to access the following Tags function that will use the specified collection of tag key/value pairs. This allows for generic complex types for the Tag values.           |
-| NewTags(tags `map[string]string`) Tags             | This factory function returns a `Tags` instance initialized with the passed in collection of tag key/value pairs. This `Tags` instance is used to access the following Tags function that will use the specified collection of tag key/value pairs. **This factor function has been Deprecated. Use `NewGenericTags` instead**. |
-
-!!! edgey "EdgeX 2.1"
-      The Tags property on Events in Edgex 2.1 has changed from `map[string]string` to `map[string]interface{}`. The new NewGenericTags() factory function takes this new definition and replaces the deprecated NewTags() factory function. 
+| NewTags(tags `map[string]interface{}`) Tags | This factory function returns a `Tags` instance initialized with the passed in collection of generic tag key/value pairs. This `Tags` instance is used to access the following Tags function that will use the specified collection of tag key/value pairs. This allows for generic complex types for the Tag values.           |
      
 
 ### Add Tags

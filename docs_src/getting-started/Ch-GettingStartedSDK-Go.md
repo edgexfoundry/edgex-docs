@@ -269,9 +269,21 @@ See the [Device MQTT Service](https://github.com/edgexfoundry/device-mqtt-go/tre
 !!! edgey "EdgeX 2.3"
     Device Service Metrics are new in EdgeX 2.3, but currently only for the **Go SDK**
 
-The Device Service Metrics capability allows for device service developers to define, collect and report their own service metrics beyond the common service metrics supplied by the Device SDK. Currently the Device SDK does not implement any of the planned common service metrics. When it does a link to that documentation will be added here.
+### Built-In
 
- The following are the steps to collect and report service metrics:
+The following built-in device service metrics are collected by the Device SDK
+
+1. **EventSent** - Number of Events that have been sent from the Device Service
+2. **ReadingsSent** - Number of Reading that have been sent from the Device Service 
+3. **Common Metrics** - Set of service metrics common to all EdgeX Services. See [Common Service Metrics](../../microservices/general/#common-service-metrics) for list of all these metrics.
+
+See [Device Service Configuration Properties](../../microservices/device/Ch-DeviceServices/#configuration-properties) for detail on configuring device service metrics
+
+### Custom
+
+The Custom Device Service Metrics capability allows for device service developers to define, collect and report their own service metrics beyond the common built-in service metrics supplied by the Device SDK. 
+
+The following are the steps to collect and report service metrics:
 
 1. Determine the metric type that needs to be collected
     - `counter` - Track the integer count of something

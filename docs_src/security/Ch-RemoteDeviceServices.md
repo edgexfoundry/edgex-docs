@@ -188,7 +188,7 @@ In this use case, however,
 we are not using `sshd` for remote administration,
 but instead to set up a network tunnel.
 
-For an example of how to run a SSH server in Docker, checkout <https://docs.docker.com/engine/examples/running_ssh_service/> for detailed instructions.
+For an example of how to run a SSH server in Docker, checkout the [SPIFFE and SHH example](https://github.com/edgexfoundry/edgex-examples/tree/main/security/remote_devices/spiffe_and_ssh) for detailed instructions.
 
 The `generate-keys.sh` helper script generates an RSA keypair,
 and copies the `authorized_keys` file into the

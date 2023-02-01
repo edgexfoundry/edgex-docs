@@ -155,12 +155,12 @@ snaps:
 
 - name: edgexfoundry
   type: app
-  default-channel: latest/edge # using features added in 2.3 (unreleased)
+  default-channel: latest/stable
   id: AZGf0KNnh8aqdkbGATNuRuxnt1GNRKkV
 
 - name: edgex-device-virtual
   type: app
-  default-channel: latest/edge # device virtual has not been released
+  default-channel: latest/stable
   id: AmKuVTOfsN0uEKsyJG34M8CaMfnIqxc0
 ```
 
@@ -247,8 +247,8 @@ $ snap list
 Name                  Version          Rev    Tracking       Publisher   Notes
 core20                20220719         1587   latest/stable  canonical✓  base
 core22                20220607         188    latest/stable  canonical✓  base
-edgex-device-virtual  2.3.0-dev.10     150    latest/edge    canonical✓  -
-edgexfoundry          2.3.0-dev.42     3893   latest/edge    canonical✓  -
+edgex-device-virtual  2.3.0            335    latest/edge    canonical✓  -
+edgexfoundry          2.3.0            4101   latest/edge    canonical✓  -
 pc                    20-0.4           x1     -              -           gadget
 pc-kernel             5.4.0-122.138.1  1057   20/stable      canonical✓  kernel
 snapd                 2.56.2           16292  latest/stable  canonical✓  snapd
@@ -776,8 +776,8 @@ Refer to the following to:
     core20                         20220805         1611   latest/stable  canonical✓  base
     core22                         20220607         188    latest/stable  canonical✓  base
     edgex-config-provider-example  2.3              2      latest/edge    farshidtz   -
-    edgex-device-virtual           2.3.0-dev.13     170    latest/edge    canonical✓  -
-    edgexfoundry                   2.3.0-dev.48     3925   latest/edge    canonical✓  -
+    edgex-device-virtual           2.3.0            335    latest/edge    canonical✓  -
+    edgexfoundry                   2.3.0            4101   latest/edge    canonical✓  -
     pc                             20-0.4           x1     -              -           gadget
     pc-kernel                      5.4.0-124.140.1  1077   20/stable      canonical✓  kernel
     snapd                          2.56.2           16292  latest/stable  canonical✓  snapd

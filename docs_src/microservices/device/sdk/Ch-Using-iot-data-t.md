@@ -6,7 +6,7 @@ The `iot_data_t` type is a holder for various types of data, and it is used in t
 
 ## Types
 
-The type of data held in an `iot_data_t` object is represented by the `iot_data_type_t` type. This can take the following values:
+The type of data held in an `iot_data_t` object is represented by the `iot_typecode_t` type. This has a field `type`, which is an `iot_data_type_t`, and can take the following values:
 
 - `IOT_DATA_INT8 IOT_DATA_INT16 IOT_DATA_INT32 IOT_DATA_INT64` for signed integers
 - `IOT_DATA_UINT8 IOT_DATA_UINT16 IOT_DATA_UINT32 IOT_DATA_UINT64` for unsigned integers
@@ -14,7 +14,10 @@ The type of data held in an `iot_data_t` object is represented by the `iot_data_
 - `IOT_DATA_BOOL` for booleans
 - `IOT_DATA_STRING` for strings
 - `IOT_DATA_ARRAY` for arrays
-- `IOT_DATA_MAP` for maps
+- `IOT_DATA_BINARY` for binary data
+- `IOT_DATA_MAP` for maps (used for EdgeX Object type)
+
+For the array case, the `iot_typecode_t` has an `element_type` field, also of type `iot_data_type_t` which indicates the type of the array elements - integers, floats and booleans are supported.
 
 ## Allocations
 
@@ -41,7 +44,7 @@ IOT_DATA_REF | The created object holds a pointer to the string, ownership remai
 IOT_DATA_TAKE | The created object takes ownership of the string. It will be freed when the `iot_data_t` object is freed
 IOT_DATA_COPY | A copy will be made of the string. This copy will be freed when the `iot_data_t` object is freed, but the calling code remains responsible for the original
 
-### Arrays and Binary data
+### Arrays
 
 For array readings use `iot_data_alloc_array`
 
@@ -52,7 +55,15 @@ length | uint32_t | The number of elements in the array
 type | iot_data_type_t | The type of the data elements
 ownership | iot_data_ownership_t | Ownership semantics for the data (see description in Strings section)
 
-For binary data allocate an array of `uint8_t / IOT_DATA_UINT8`
+### Binary
+
+For binary data use `iot_data_alloc_binary`
+
+Parameter | Type | Description
+----------|------|------------
+data | void* | Pointer to the binary data
+length | uint32_t | The length of the binary data, in bytes
+ownership | iot_data_ownership_t | Ownership semantics for the data (see description in Strings section)
 
 ### Objects
 
@@ -85,13 +96,17 @@ Each function takes an `iot_data_t*` as parameter and returns the value in the e
 
 The `iot_data_string` function returns the `char*` held in the data object
 
-### Arrays and Binary data
+### Arrays
 
 - `iot_data_array_length` returns the length of an array
 - `iot_data_address` returns a pointer to the first element
 - `iot_data_array_type` returns the type of the elements (as `iot_data_type_t`)
 
-Binary data is represented as an array of `uint8_t` (ie, `IOT_DATA_UINT8`)
+
+## Binary
+
+- `iot_data_address` returns a pointer to the binary data
+- `iot_data_array_length` returns the length in bytes
 
 ### Objects
 

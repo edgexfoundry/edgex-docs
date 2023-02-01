@@ -23,15 +23,11 @@ type ApplicationService interface {
 	GetAppSettingStrings(setting string) ([]string, error)
 	LoadCustomConfig(config UpdatableConfig, sectionName string) error
 	ListenForCustomConfigChanges(configToWatch interface{}, sectionName string, changedCallback func(interface{})) error
-	SetFunctionsPipeline(transforms ...AppFunction) error *** DEPRECATED ***
     SetDefaultFunctionsPipeline(transforms ...AppFunction) error
 	AddFunctionsPipelineByTopics(id string, topics []string, transforms ...AppFunction) error
-	LoadConfigurablePipeline() ([]AppFunction, error) *** DEPRECATED by LoadConfigurableFunctionPipelines ***
 	LoadConfigurableFunctionPipelines() (map[string]FunctionPipeline, error)
 	MakeItRun() error
 	MakeItStop()
-	GetSecret(path string, keys ...string) (map[string]string, error)
-	StoreSecret(path string, secretData map[string]string) error 
     SecretProvider() interfaces.SecretProvider
 	LoggingClient() logger.LoggingClient
 	EventClient() interfaces.EventClient
@@ -294,12 +290,6 @@ type FunctionPipeline struct {
 }
 ```
 
-### SetFunctionsPipeline
-
-`SetFunctionsPipeline(transforms ...AppFunction) error`
-
-This API has been deprecated (Replaced by SetDefaultFunctionsPipeline) and will be removed in a future release. Functions the same as SetDefaultFunctionsPipeline.
-
 ### SetDefaultFunctionsPipeline
 
 `SetDefaultFunctionsPipeline(transforms ...AppFunction) error`
@@ -341,15 +331,6 @@ This API adds a functions pipeline with the specified unique ID and list of func
     }
     ```
 
-### LoadConfigurablePipeline
-
-`LoadConfigurablePipeline() ([]AppFunction, error)`
-
-This API loads the default function pipeline from configuration.  An error is returned if the configuration is not valid, i.e. missing required function parameters, invalid function name, etc.  
-
-!!! warning
-    This API is `Deprecated`, has been replaced by `LoadConfigurableFunctionPipelines` below and will be removed in a future release.
-
 ### LoadConfigurableFunctionPipelines
 
 `LoadConfigurableFunctionPipelines() (map[string]FunctionPipeline, error)`
@@ -372,7 +353,7 @@ This API loads the function pipelines (default and per topic) from configuration
     for _, pipeline := range configuredPipelines {
         switch pipeline.Id {
         case interfaces.DefaultPipelineId:
-            if err = service.SetFunctionsPipeline(pipeline.Transforms...); err != nil {
+            if err = service.SetDefaultFunctionsPipeline(pipeline.Transforms...); err != nil {
                 ...
                 os.Exit(-1)
             }
@@ -420,57 +401,6 @@ This API  stops the configured trigger so that the functions pipeline no longer 
 ## Secrets APIs
 
 The following `ApplicationService` APIs allow your service retrieve and store secrets from/to the service's SecretStore. See the [Secrets](../AdvancedTopics/#secrets) advanced topic for more details about using secrets.
-
-### GetSecret - DEPRECATED
-
-`GetSecret(path string, keys ...string) (map[string]string, error)`
-
-This API returns the secret data from the secret store (secure or insecure) for the specified path. An error is returned if the path is not found or any of the keys (if specified) are not found. Omit keys if all secret data for the specified path is required.
-
-!!! example "Example - GetSecret"
-
-    ```go
-    secretData, err := service.GetSecret("mqtt")
-    if err != nil {
-       ...
-    }
-    username := secretData["user"]
-    password := secretData["password"]
-    ...
-    ```
-
-!!! warning
-    GetSecret is deprecated and will be removed in EdgeX 3.0. Use `SecretProvider().GetSerect()`
-
-### StoreSecret  - DEPRECATED
-
-`StoreSecret(path string, secretData map[string]string) error`
-
-This API stores the specified secret data into the secret store (secure mode only) for the specified path
-An error is returned if:
-
-- Specified secret data is empty
-- Not using the secure secret store, i.e. not valid with InsecureSecrets configuration
-- Secure secret provider is not properly initialized
-- Connection issues with Secret Store service.
-
-!!! note 
-    Typically Application Services only needs to retrieve secrets via the code. The `/secret` REST API is used to seed secrets into the service's SecretStore.
-
-!!! example "Example - StoreSecret"
-
-    ```go
-    
-    secretData := generateMqttCredentials()
-    err := service.StoreSecret("mqtt", secretData)
-    if err != nil {
-       ...
-    }
-    ...
-    ```
-
-!!! warning
-    StoreSecret is deprecated and will be removed in EdgeX 3.0. Use `SecretProvider().StoreSecret()`
 
 ### SecretProvider
 

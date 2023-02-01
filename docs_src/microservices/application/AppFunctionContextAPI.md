@@ -27,7 +27,6 @@ type AppFunctionContext interface {
     DeviceProfileClient() interfaces.DeviceProfileClient
     DeviceClient() interfaces.DeviceClient
     MetricsManager() bootstrapInterfaces.MetricsManager
-    PushToCore(event dtos.Event) (common.BaseWithIdResponse, error)
     GetDeviceResource(profileName string, resourceName string) (dtos.DeviceResource, error)
     AddValue(key string, value string)
     RemoveValue(key string)
@@ -79,7 +78,7 @@ Returns a `LoggingClient` to leverage logging libraries/service utilized through
 
 `EventClient() interfaces.EventClient`
 
-Returns an `EventClient` to leverage Core Data's `Event` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/interfaces/event.go) for more details. This client is useful for querying events and is used by the [PushToCore](#pushtocore) convenience API described below. Note if Core Data is not specified in the Clients configuration, this will return nil.
+Returns an `EventClient` to leverage Core Data's `Event` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/interfaces/event.go) for more details. This client is useful for querying events. Note if Core Data is not specified in the Clients configuration, this will return nil.
 
 ### CommandClient
 
@@ -187,23 +186,6 @@ This API will replace placeholders of the form `{context-key-name}` with the val
 
 ## Secrets
 
-### GetSecret - DEPRECATED
-
-`GetSecret(path string, keys ...string)`
-
-This API is used to retrieve secrets from the secret store. `path` specifies the type or location of the secrets to retrieve. If specified, it is appended to the base path from the exclusive secret store configuration. `keys` specifies the list of secrets to be retrieved. If no keys are provided then all the keys associated with the specified path will be returned.
-
-!!! warning
-    GetSecret is deprecated and will be removed in EdgeX 3.0. Use `SecretProvider().GetSerect()`
-
-### SecretsLastUpdated - DEPRECATED
-`SecretsLastUpdated()`
-
-This API returns that timestamp for when the secrets in the SecretStore where last updated.  Useful when a connection to external source needs to be redone when the credentials have been updated.
-
-!!! warning
-    SecretsLastUpdated is deprecated and will be removed in EdgeX 3.0. Use `SecretProvider().SecretsLastUpdated()`
-
 ### SecretProvider
 
 `SecretProvider() interfaces.SecretProvider`
@@ -240,17 +222,6 @@ This API returns the content type of the data that initiated the pipeline execut
 `GetDeviceResource(profileName string, resourceName string) (dtos.DeviceResource, error)`
 
 This API retrieves the DeviceResource for the given profile / resource name. Results are cached to minimize HTTP traffic to core-metadata.
-
-### PushToCore()
-`PushToCore(event dtos.Event)`
-
-This API is used to push data to EdgeX Core Data so that it can be shared with other applications that are subscribed to the message bus that core-data publishes to. This function will return the new EdgeX Event with the ID populated, along with any error encountered.  Note that CorrelationId will not be available.
-
-!!! note
-    If validation is turned on in CoreServices then your deviceName and readingName must exist in the CoreMetadata and be properly registered in EdgeX.
-
-!!! warning
-    Be aware that without a filter in your pipeline, it is possible to create an infinite loop when the Message Bus trigger is used. Choose your device-name and reading name appropriately.
 
 ### SetRetryData()
 `SetRetryData(data []byte)`

@@ -53,9 +53,9 @@ There are two types of environment overrides which are `command-line` and `confi
 
 ### Command-line Overrides
 
-#### EDGEX_CONF_DIR
+#### EDGEX_CONFIG_DIR
 
-This environment variable overrides the [`-c/--confdir` command-line option](../CommonCommandLineOptions/#confdir). 
+This environment variable overrides the [`-cd/--configDir` command-line option](../CommonCommandLineOptions/#confdir). 
 
 !!! note
      All EdgeX service Docker images have this option set to `/res`.
@@ -66,9 +66,12 @@ This environment variable overrides the [`-c/--confdir` command-line option](../
       EDGEX_CONF_DIR: "/my-config"
     ```
 
+!!! edgey "EdgeX 3.0"
+    The `EDGEX_CONF_DIR` environment variable is replaced by `EDGEX_CONFIG_DIR` in EdgeX 3.0.
+
 #### EDGEX_CONFIG_FILE
 
-This environment variable overrides the [`-f/--file` command-line option](../CommonCommandLineOptions#file).
+This environment variable overrides the [`-cf/--configFile` command-line option](../CommonCommandLineOptions#file).
 
 !!! example "Example - Using docker-compose to override the configuration file name used"
     ```yaml
@@ -76,7 +79,7 @@ This environment variable overrides the [`-f/--file` command-line option](../Com
       EDGEX_CONFIG_FILE: "my-config.toml"
     ```
 
-#### EDGEX_CONFIGURATION_PROVIDER
+#### EDGEX_CONFIG_PROVIDER
 
 This environment variable overrides the [`-cp/--configProvider` command-line option](../CommonCommandLineOptions#config-provider). 
 
@@ -88,13 +91,16 @@ Overriding with a value of `none` disables the use of the Configuration Provider
 !!! example "Example - Using docker-compose to override with different port number"
     ```yaml
     environment: 
-      EDGEX_CONFIGURATION_PROVIDER: "consul.http://edgex-consul:9500"
+      EDGEX_CONFIG_PROVIDER: "consul.http://edgex-consul:9500"
     
     or
     
     environment: 
-      EDGEX_CONFIGURATION_PROVIDER: "none"
+      EDGEX_CONFIG_PROVIDER: "none"
     ```
+
+!!! edgey "EdgeX 3.0"
+    The `EDGEX_CONFIGURATION_PROVIDER` environment variable is replaced by `EDGEX_CONFIG_PROVIDER` in EdgeX 3.0.
 
 #### EDGEX_PROFILE
 
@@ -156,6 +162,19 @@ TOML   : [Clients]
 ENVVAR : CLIENTS_CORE_DATA_HOST=edgex-core-data    
 ```    
 ~~~
+
+### SecretStore Overrides
+
+!!! edgey "EdgeX 3.0"
+    For EdgeX 3.0 the **SecretStore** configuration has been removed from each service's configuration files. It now has default values which can be overridden with environment variables.
+
+The environment variables overrides for **SecretStore** configuration remain the same as in 2.x releases. The following are SecretStore** fields that commonly need to be overridden.
+
+- SECRETSTORE_HOST
+- SECRETSTORE_RUNTIMETOKENPROVIDER_ENABLED
+- SECRETSTORE_RUNTIMETOKENPROVIDER_HOST
+
+The  complete list of **SecretStore** fields and defaults can be found [here](https://github.com/edgexfoundry/go-mod-bootstrap/blob/main/config/types.go#L164-L187). The defaults for the remaining fields typically do not need to be overridden, but may be overridden if needed using that same naming scheme as above.
 
 ### Notable Configuration Overrides
 

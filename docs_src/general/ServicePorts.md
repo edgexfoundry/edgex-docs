@@ -4,7 +4,7 @@ The following tables (organized by type of service) capture the default service 
 === "Core"
     |Services Name|	Port Definition|
     |---|---|
-    |core-data|	59880<br>5563 (deprecated ZMQ port)|
+    |core-data|	59880|
     |core-metadata	|59881|
     |core-command	|59882|
     |redis|6379|

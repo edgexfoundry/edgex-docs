@@ -4,9 +4,8 @@ The tables in each of the tabs below document configuration properties that are 
 
 ## Configuration Properties
 
-!!! edgey "Edgex 2.0"
-    For EdgeX 2.0 the `Logging` and `Startup` sections have been removed. `Startup` has been replaced with the `EDGEX_STARTUP_DURATION` (default is 60 secs) and `EDGEX_STARTUP_INTERVAL` (default is 1 sec) environment variables.
-
+!!! edgey "Edgex 3.0"
+    For EdgeX 3.0 the **SecretStore** configuration has been removed from each service's configuration files. It has default values which can be overridden with environment variables. See the [SecretStore Overrides](../CommonEnvironmentVariables/#secretstore-overrides) section for more details.
 
 === "Writable"
 
@@ -24,7 +23,12 @@ The tables in each of the tabs below document configuration properties that are 
     |---|---|---|
     |Interval| 30s|The interval in seconds at which to report the metrics currently being collected and enabled. **Value of 0s disables reporting**. |
     |PublishTopicPrefix|"edgex/telemetry"|The base topic in which to publish (report) metrics currently being collected and enabled. `/<service-name>/<metric-name>` will be added to this base topic prefix.|
-    |Metrics|SecuritySecretsRequested = false <br>SecuritySecretsStored = false<br> `<Service dependent>`|Boolean map of service metrics that are being collected. The boolean flag for each indicates if the metric is enabled for reporting. i.e. `EventsPersisted = true`. The metric name must match one defined by the service. |
+    |Metrics||Boolean map of service metrics that are being collected. The boolean flag for each indicates if the metric is enabled for reporting. i.e. `EventsPersisted = true`. The metric name must match one defined by the service. |
+    ||SecuritySecretsRequested = false| Enable/Disable reporting of number of secrets requested  |
+    ||SecuritySecretsStored = false| Enable/Disable reporting of number of secrets stored  |
+    ||SecurityConsulTokensRequested = false| Enable/Disable reporting of number of Consul token requested  |
+    ||SecurityConsulTokenDuration = false| Enable/Disable reporting of duration for obtaining Consul token  |
+    ||`<Service dependent>`= false | Enable/Disable reporting of service defined metric |
     |Tags|`<Service dependent>`|String map of arbitrary tags to be added to every metric that is reported for the service. i.e. `Gateway="my-iot-gateway"`. The tag names are arbitrary. |
 
     !!! edgey "Edgex 2.2/2.3"
@@ -65,7 +69,7 @@ The tables in each of the tabs below document configuration properties that are 
         New for EdgeX 2.1 is the ability to enable CORS access to EdgeX microservices through configuration. 
     To understand more details about these HTTP headers, please refer to [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#the_http_response_headers), and refer to [CORS enabling](../../security/Ch-CORS-Settings.md) to learn more.
 
-=== "Databases.Primary"
+=== "Database"
 
     |Property|Default Value|Description|
     |---|---|---|
@@ -93,32 +97,21 @@ The tables in each of the tabs below document configuration properties that are 
     |Property|Default Value|Description|
     |---|---|---|
     |||Each service has it own collect of Clients that it uses|
-    |Protocol | http  | The protocol to use when building a URI to local the service endpoint|
-    |Host | localhost  | The host name or IP address where the service is hosted |
+    |Protocol | http | The protocol to use when building a URI to local the service endpoint|
+    |Host | localhost | The host name or IP address where the service is hosted|
     |Port | 598xx | The port exposed by the target service|
+    |UseMessageBus | false | indicate whether to use Messaging version of client |
+    |Topics |  | holds the MessageBus Topics used by the client to communicate to the service|
+    || CommandRequestTopicPrefix = edgex/core/command/request | for publishing the internal command request|
+    || CommandResponseTopic = edgex/core/command/response/# | for subscribing the internal command response|
+    || QueryRequestTopic = edgex/core/commandquery/request | for publishing the internal command query request|
+    || QueryResponseTopic = edgex/core/commandquery/response | for subscribing the internal command query response|
     
     !!! edgey "Edgex 2.0"
         For EdgeX 2.0 the map keys have changed to be the service's service-key, i.e. `Metadata` changed to `core-metadata`
-
-=== "SecretStore"
-
-    |Property|Default Value|Description|
-    |---|---|---|
-    |||these config values are used when security is enabled and `SecretStore` service access is required for obtaining secrets, such as database credentials|
-    |Type | vault  | The type of the `SecretStore` service to use. Currenly only `vault` is supported.|
-    |Host | localhost  | The host name or IP address associated with the `SecretStore` service|
-    |Port | 8200  | The configured port on which the `SecretStore` service is listening|
-    |Path | `<service-key>`/ | The service-specific path where the secrets are kept. This path will differ according to the given service. |
-    |Protocol | http  | The protocol to be used when communicating with the `SecretStore` service|
-    |RootCaCertPath | blank | Default is to not use HTTPS |
-    |ServerName | blank | Not needed for HTTP |
-    |TokenFile | /tmp/edgex/secrets/`<service-key>`/secrets-token.json | Fully-qualified path to the location of the service's `SecretStore` access token. This path will differ according to the given service. |
-    |SecretsFile| blank | Fully-qualified path to the location of the service's JSON secrets file  contains secrets to seed at start-up. See [Seeding Service Secrets](../../security/SeedingServiceSecrets.md) section for more details on seed a service's secrets. |
-    |DisableScrubSecretsFile| false | Controls if the secrets file is scrubbed (secret data remove) and rewritten after importing the secrets.|
-    |Authentication AuthType | X-Vault-Token  | A header used to indicate how the given service will authenticate with the `SecretStore` service|
     
-    !!! edgey "Edgex 2.0"
-        For EdgeX 2.0 the `Protocol` default has changed to `HTTP` which no longer requires `RootCaCertPath` and `ServerName` to be set. `Path` has been reduce to the sub-path for the service since the based path is fixed. `TokenFile` default value has changed and requires the `service-key` be used in the path.
+    !!! edgey "Edgex 2.3"
+        The `UseMessageBus` and `Topics` fields are only viable for Command client
 
 ## Writable vs Readable Settings
 
@@ -129,10 +122,9 @@ for edgex-core-data are:
 - **/edgex/core/2.0/edgex-core-data/Writable**
 - /edgex/core/2.0/edgex-core-data/Service
 - /edgex/core/2.0/edgex-core-data/Clients
-- /edgex/core/2.0/edgex-core-data/Databases
+- /edgex/core/2.0/edgex-core-data/Database
 - /edgex/core/2.0/edgex-core-data/MessageQueue
 - /edgex/core/2.0/edgex-core-data/Registry
-- /edgex/core/2.0/edgex-core-data/SecretStore
 
 Any configuration settings found in a service's `Writable` section may be changed and affect a service's behavior without a restart. Any
 modifications to the other settings (read-only configuration) would require a restart.

@@ -281,31 +281,16 @@ and configured using the registered name in the `Database` section:
 
 #### Configuration
 
-All instances of App Services running in secure mode require a SecretStore to be configured. With the use of `Redis Pub/Sub` as the default EdgeX MessageBus all App Services need the `redisdb` known secret added to their SecretStore      so they can connect to the Secure EdgeX MessageBus. See the [Secure MessageBus](../../security/Ch-Secure-MessageBus.md) documentation for more details.
+All instances of App Services running in secure mode require a SecretStore to be configured. With the use of `Redis Pub/Sub` as the default EdgeX MessageBus all App Services need the `redisdb` known secret added to their SecretStore so they can connect to the Secure EdgeX MessageBus. See the [Secure MessageBus](../../security/Ch-Secure-MessageBus.md) documentation for more details.
 
-!!! example "Example - SecretStore configuration"
-    ```toml
-    [SecretStore]
-    Type = "vault"
-    Host = "localhost"
-    Port = 8200
-    Path = "app-sample/"
-    Protocol = "http"
-    RootCaCertPath = ""
-    ServerName = ""
-    TokenFile = "/tmp/edgex/secrets/app-sample/secrets-token.json"
-      [SecretStore.Authentication]
-      AuthType = "X-Vault-Token"
-    ```
-
-!!! edgey "EdgeX 2.0"
-    For Edgex 2.0 all Application Service Secret Stores are `exclusive` so the explicit `[SecretStoreExclusive]` configuration has been removed.
+!!! edgey "Edgex 3.0"
+    For EdgeX 3.0 the **SecretStore** configuration has been removed from each service's configuration files. It now has default values which can be overridden with environment variables. See the [SecretStore Overrides](../../configuration/CommonEnvironmentVariables/#secretstore-overrides) section for more details.
 
 #### Storing Secrets
 
 ##### Secure Mode
 
-When running an application service in secure mode, secrets can be stored in the SecretStore      by making an HTTP `POST` call to the `/api/v2/secret` API route in the application service. The secret data POSTed is stored and retrieved from the SecretStore based on values in the `[SecretStore]` section of the configuration file. Once a secret is stored, only the service that added the secret will be able to retrieve it.  For secret retrieval see [Getting Secrets](#getting-secrets) section below.
+When running an application service in secure mode, secrets can be stored in the service's secure SecretStore by making an HTTP `POST` call to the `/api/v2/secret` API route in the application service. The secret data POSTed is stored and retrieved from the service's secure SecretStore . Once a secret is stored, only the service that added the secret will be able to retrieve it.  For secret retrieval see [Getting Secrets](#getting-secrets) section below.
 
 !!! example "Example - JSON message body"
     ```json
@@ -321,7 +306,7 @@ When running an application service in secure mode, secrets can be stored in the
     ```
 
 !!! note
-    Path specifies the type or location of the secret in the SecretStore. It is appended to the base path from the `[SecretStore]` configuration. 
+    Path specifies the type or location of the secret within the service's SecretStore. 
 
 ##### Insecure Mode
 
@@ -345,9 +330,9 @@ When running in insecure mode, the secrets are stored and retrieved from the *Wr
 
 #### Getting Secrets
 
-Application Services can retrieve their secrets from their SecretStore      using the  [interfaces.ApplicationService.GetSecret()](../ApplicationServiceAPI/#getsecret) API or from the [interfaces.AppFunctionContext.GetSecret()](AppFunctionContextAPI.md#getsecret) API  
+Application Services can retrieve their secrets from their SecretStore using the  [interfaces.ApplicationService.SecretProvider.GetSecret()](../ApplicationServiceAPI/#secretprovider) API or from the [interfaces.AppFunctionContext.SecretProvider.GetSecret()](AppFunctionContextAPI.md#secretprovider) API  
 
-When in secure mode, the secrets are retrieved from the SecretStore      based on the `[SecretStore]`  configuration values. 
+When in secure mode, the secrets are retrieved from the service secure SecretStore. 
 
 When running in insecure mode, the secrets are retrieved from the `[Writable.InsecureSecrets]` configuration.
 
@@ -407,7 +392,7 @@ Application Services using the MessageBus trigger can request a background publi
      	//pass publisher to your background job
      	runJob(service, done)
      
-     	service.SetFunctionsPipeline(
+     	service.SetDefaultFunctionsPipeline(
      		All,
      		My,
      		Functions,

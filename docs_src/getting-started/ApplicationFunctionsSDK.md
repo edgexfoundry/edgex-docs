@@ -44,11 +44,11 @@ func main() {
 
 	// 3) This is our pipeline configuration, the collection of functions to
 	// execute every time an event is triggered.
-	if err := service.SetFunctionsPipeline(
+	if err := service.SetDefaultFunctionsPipeline(
 		transforms.NewFilterFor(deviceNames).FilterByDeviceName,
 		transforms.NewConversion().TransformToXML
 	); err != nil {
-		lc.Errorf("SetFunctionsPipeline returned error: %s", err.Error())
+		lc.Errorf("SetDefaultFunctionsPipeline returned error: %s", err.Error())
 		os.Exit(-1)
 	}
 
@@ -89,7 +89,7 @@ func printXMLToConsole(ctx interfaces.AppFunctionContext, data interface{}) (boo
 After placing the above function in your code, the next step is to modify the pipeline to call this function:
 
 ```go
-if err := service.SetFunctionsPipeline(
+if err := service.SetDefaultFunctionsPipeline(
 		transforms.NewFilterFor(deviceNames).FilterByDeviceName,
 		transforms.NewConversion().TransformToXML,
         printXMLToConsole //notice this is not a function call, but simply a function pointer. 

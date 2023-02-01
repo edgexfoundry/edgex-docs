@@ -56,7 +56,7 @@ Field | Type | Content
 ------|------|--------
 name | char* | The resource name (for logging purposes)
 attrs | devsdk_resource_attr_t | Resource attributes in parsed form
-type | iot_typecode_t* | Expected type of values read from or written to the resource
+type | iot_typecode_t | Expected type of values read from or written to the resource
 
 ### devsdk_commandrequest
 
@@ -86,7 +86,7 @@ Field | Type | Content
 ------|------|--------
 resname | char* | Name of the resource
 attributes | iot_data_t* | String-keyed map of the resource attributes
-type | iot_typecode_t* | Type of the data which may be read or written
+type | iot_typecode_t | Type of the data which may be read or written
 readable | bool | Whether this resource is readable
 writable | bool | Whether this resource is writable
 next | devsdk_device_resources* | The next resource in the list, or NULL if this is the last

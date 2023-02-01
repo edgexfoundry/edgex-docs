@@ -126,10 +126,14 @@ The fields of an Event are as follows:
 
 Calls to the device endpoints may include a Query String in the URL. This may be used to pass parameters relating to the request to the device service. Individual device services may define their own parameters to control specific behaviors. Parameters beginning with the prefix `ds-` are reserved to the Device SDKs and the following parameters are defined for GET requests:
 
-| Parameter | Valid Values | Default | Meaning
-| --- | --- | --- | ---
-| *ds-pushevent* | "yes" or "no" | "no" | If set to yes, a successful `GET` will result in an event being pushed to the EdgeX system
-| *ds-returnevent* | "yes" or "no" | "yes" | If set to no, there will be no Event returned in the http response
+| Parameter | Valid Values      | Default | Meaning
+| --- |-------------------|---------| ---
+| *ds-pushevent* | "true" or "false" | "false" | If set to true, a successful `GET` will result in an event being pushed to the EdgeX system
+| *ds-returnevent* | "true" or "false" | "true"  | If set to false, there will be no Event returned in the http response
+
+!!! edgey "EdgeX 3.0"
+    The valid values of **ds-pushevent** and **ds-returnevent** is changed to `true/false` instead of `yes/no` in EdgeX 3.0.
+
 
 #### Device States
 
