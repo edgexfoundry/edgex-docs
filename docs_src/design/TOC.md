@@ -8,6 +8,7 @@
 | Name/Link                                                                           | Short Description                                                   |
 |-------------------------------------------------------------------------------------|---------------------------------------------------------------------|
 | [Common Configuration](./ucr/Common Configuration.md)                               | Use Case for having Common configuration used by all EdgeX services |
+| [Core Data Retention and Persistent Cap](./ucr/Core-Data-Retention.md)              | Use Case for capping readings in Core Data                          |
 | [Device Parent-Child Relationships](./ucr/Device-Parent-Child-Relationships.md)     | Use Case for Device Parent-Child Relationships                      |
 | [Extending Device Data](./ucr/Extending-Device-Data.md)                             | Use Case for Extending of Device Data by Application Services       |
 | [Provision Watch via Device Metadata](./ucr/Provision-Watch-via-Device-Metadata.md) | Use Case for Provision Watching via Additional Device Metadata      |
