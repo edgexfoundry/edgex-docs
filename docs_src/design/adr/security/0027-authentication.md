@@ -129,8 +129,11 @@ The new TO-BE architecture is diagrammed in the following figure:
 This ADR assumes a minor refactoring to the security bootstrapping
 components use the Vault identity API and one or more authentication engines
 to issue identity-based Vault tokens instead of raw Vault tokens.
-Affected services include, `security-secretstore-setup`,
-`security-file-token-provider`, and `security-spiffe-token-provider`.
+Affected services include,
+`go-mod-secrets` (configure identity, issue and validate JWT's),
+`security-secretstore-setup`,
+`security-file-token-provider`,
+and `security-spiffe-token-provider`.
 
 This refactoring results in several benefits:
 
@@ -153,28 +156,30 @@ This refactoring results in several benefits:
 
 * As an added bonus, Vault supports longer JWT key sizes than the Kong JWT plugin.
 
+Additionally, `security-bootstrapper` will need to modified to not
+block on availability of Postgres before issuing the ready-to-run signal.
+(This change is already completed.)
+
+
 ### High-level list of changes
 
-A proof of concept implementation required the following high-level list of changes:
+The following list of changes is derived from the proof of concept implementation
+to actually effect the change (besides the prerequisite changes above):
 
-- Kong and Postgres to be removed from compose files and snaps.
+- Kong and Postgres is removed from compose files and snaps.
 
-- Add an NGINX reverse proxy.
+- Add an NGINX reverse proxy with using the proxy auth module.
 
-- Replace `security-proxy-setup` with a very small proxy authentication service.
+- The `security-proxy-setup` container remains, with the binary replaced
+  with a small shell script to create a default TLS certificate and key.
 
-- Bootstrapper components to no longer check for Postgres availability,
-  but need to seed NGINX entrypoint scripts.
-
-- Changes to `security-secretstore-setup` to enable the Vault identity engine.
+- The `secrets-config` utility will create new users in Vault instead of Kong,
+  and update TLS configuration for NGINX on disk instead of the Kong API.
 
 - Changes to `security-file-token-provider` and `security-spiffe-token-provider`
-  to issue Vault tokens using a pluggable authentication method (currently `userpass`).
+  to use the new token issuing method.
 
-- Addition of new API methods to `go-mod-secrets`
-  to perform additional Vault configuration and generate and validate JWT's
-
-- Modification to `go-mod-core-contracts` to support an
+- Modifications to `go-mod-core-contracts` to support an
   injectable authentication interface to add JWT's to outgoing HTTP requests.
 
 - Modifications to `go-mod-bootstrap` to realize the `go-mod-secrets` changes,
@@ -184,7 +189,8 @@ A proof of concept implementation required the following high-level list of chan
 - Modifications to individual EdgeX services to authenticate selected routes
   (that is, every route except `/api/v2/ping`, which remains anonymous).
 
-- Changes to `security-secrets-setup` to create new users in Vault instead of Kong.
+- Modifications to `security-bootstrapper` to build an entrypoint script for
+  NGINX and a default NGINX configuration.
 
 - Documentation updates.
 
