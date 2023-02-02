@@ -170,14 +170,17 @@ to actually effect the change (besides the prerequisite changes above):
 
 - Add an NGINX reverse proxy with using the proxy auth module.
 
+- Create a new `security-proxyauth` service to check the incoming JWT for validity.
+  (NGINX will be configured to delegate to this service for authentication checks.
+  NGINX could also delegate to a minimal function like /api/v2/version,
+  but the reason as to why the function was called wouldn't be as clear as
+  having a separate authentication service.)
+
 - The `security-proxy-setup` container remains, with the binary replaced
   with a small shell script to create a default TLS certificate and key.
 
 - The `secrets-config` utility will create new users in Vault instead of Kong,
   and update TLS configuration for NGINX on disk instead of the Kong API.
-
-- Changes to `security-file-token-provider` and `security-spiffe-token-provider`
-  to use the new token issuing method.
 
 - Modifications to `go-mod-core-contracts` to support an
   injectable authentication interface to add JWT's to outgoing HTTP requests.
@@ -243,12 +246,12 @@ to Kong's backend database and is also unnecessarily complex.
 
 ## Other Related ADRs
 
-None.
+- [ADR 0015 Encryption between microservices](./0015-in-cluster-tls.md) 
+- [ADR 0020 Delay start services (SPIFFE/SPIRE)](./0020-spiffe.md)
+- [Microservice authentication based on end-to-end encryption](https://github.com/edgexfoundry/edgex-docs/pull/935)
 
 ## References
 
 - [Microservice Authentication UCR](../../ucr/Microservice-Authentication.md)
-- [ADR 0015 Encryption between microservices](./0015-in-cluster-tls.md) 
-- [ADR 0020 Delay start services (SPIFFE/SPIRE)](./0020-spiffe.md)
 - [OpenZiti zero-trust networking fabric](https://openziti.github.io/)
 - [SPIFFE](https://spiffe.io/)
