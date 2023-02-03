@@ -9,7 +9,8 @@ The most common use case for local development of edgex-docs will be to verify c
 make serve
 ```
 
-Once running, you can view the rendered content locally and makes changes to your documentation and preview them in realtime with a browser at: http://0.0.0.0:8001/edgex-docs
+Once running, you can view the rendered content locally and makes changes to your documentation and preview them in realtime with a browser at:  
+http://0.0.0.0:8008
 
 ---
 

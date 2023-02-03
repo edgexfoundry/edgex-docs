@@ -23,11 +23,11 @@ build-docs: build-docker
 		$(MKDOCS_IMAGE) \
 		build
 
-# Most common use case, serve docs on :8001 (8001 changed due to port conflicts with kong)
+# Most common use case, serve docs on :8008
 serve: build-docker
 	docker run --rm \
 		-it \
-		-p 8001:8000 \
+		-p 8008:8008 \
 		-v $(PWD):/docs \
 		-w /docs \
 		-e ENABLED_HTMLPROOFER \
