@@ -346,7 +346,10 @@ Sequence diagrams for some of the more critical or complex events regarding meta
 Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services. Below are only the additional settings and sections that are not common to all EdgeX Services.
 
 !!! edgey - "EdgeX 2.3"
-    **RequireMessageBus**, **Writable.Telemetry*, **MessageQueue**, **Writable.UoM** and **UoM** configuration are new in EdgeX 2.3 
+    **RequireMessageBus**, **Writable.Telemetry**, **MessageQueue**, **Writable.UoM** and **UoM** configuration are new in EdgeX 2.3
+
+!!! edgey - "EdgeX 3.0"
+    **Notifications** configuration is removed in EdgeX 3.0. Metadata will leverage [Device System Events](#device-system-events) to replace the original device change notifications.
 
 === "General"
     |Property|Default Value|Description|
@@ -396,15 +399,6 @@ Please refer to the general [Common Configuration documentation](../../configura
     |AutoReconnect |true |Whether to reconnect to the message bus on connection loss|
     |ConnectTimeout|5|Message bus connection timeout in seconds|
     |SkipCertVerify|false|TLS configuration - Only used if Cert/Key file or Cert/Key PEMblock are specified|
-=== "Notifications"
-    |Property|Default Value|Description|
-    |---|---|---|
-    |||Configuration to post device changes through the notifiction service|
-    |PostDeviceChanges|false|Whether to send out notification when a device has been added, changed, or removed|
-    |Content|'Meatadata notice: '|Start of the notification message when sending notification messages on device change|
-    |Sender|'core-metadata'|Sender of any notification messages sent on device change|
-    |Description|'Metadata change notice'|Message description of any notification messages sent on device change|
-    |Label|'metadata'|Label to put on messages for any notification messages sent on device change|
 
 ### V2 Configuration Migration Guide
 
