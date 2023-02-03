@@ -169,41 +169,29 @@ This with App Services capability to have multiple subscriptions allows for mult
 - Filter for Events only from a single class of devices (device profile defines a class of device)
 
   ```toml
-  SubscribeTopics="edgex/events/#/trendnet/#"
+  SubscribeTopics="edgex/events/+/trendnet/#"
   ```
 
 - Filter for Events only from a single actual device
 
   ```toml
-  SubscribeTopics="edgex/events/#/#/trendnet01/#"
+  SubscribeTopics="edgex/events/+/+/trendnet01/#"
   ```
 
 - Filter for Events from two specific actual devices
 
   ```toml
-  SubscribeTopics="edgex/events/#/#/trendnet01/#, edgex/events/#/#/trendnet02/#"
+  SubscribeTopics="edgex/events/+/+/trendnet01/#, edgex/events/+/+/trendnet02/#"
   ```
 
 - Filter for Events from two specific sources. 
 
   ```toml
-  SubscribeTopics="edgex/events/#/#/#/Uptime, edgex/events/#/#/#/MacAddress"
+  SubscribeTopics="edgex/events/+/+/+/Uptime, edgex/events/+/+/+/MacAddress"
   ```
 
 !!! note
-    The above examples are for when Redis is used as the EdgeX MessageBus implementation, which is now the default. The Redis implementation uses the `#` wildcard character for multi-level and single level. The implementation actually converts all `#`'s to the `*`'s. The `*`is the actual wildcard character used by Redis Pub/Sub. In the first example (multi-level) the `#` is used at the end in the location for where Core Data's and Device Service's publish topics differ. This location will be `core` when coming from Core Data or `device` when coming from a Device Service. The additional use of `#` within the topic, not at the end, (single-level) allows for any `Profile`, `Device` or `Source` when specifying one of the others.
-
-!!! note
-    For the MQTT implementation of the EdgeX MessageBus, the `#` is also used for the multi-level wildcard, but the single-level wildcard is the `+` character. So the first and last examples above would be as follows for when using the MQTT implementation
-
-    ````toml
-    SubscribeTopics="edgex/events/#"
-    SubscribeTopics="edgex/events/+/trendnet/#"
-    SubscribeTopics="edgex/events/+/+/trendnet01/#"
-    SubscribeTopics="edgex/events/+/+/trendnet01/#, edgex/events/+/+/trendnet02/#"
-    SubscribeTopics="edgex/events/+/+/+/Uptime, edgex/events/+/+/+/MacAddress"
-    ````
-
+    The above examples are for when Redis is used as the EdgeX MessageBus implementation, which is now the default. The Redis implementation uses the `#` wildcard character for multi-level and `+` for single level. The implementation actually converts all `+`'s and `#`'s to the `*`'s. The `*`is the actual wildcard character used by Redis Pub/Sub. In the first example (multi-level) the `#` is used at the end in the location for where Core Data's and Device Service's publish topics differ. This location will be `core` when coming from Core Data or `device` when coming from a Device Service. The use of `+` within the topic(single-level) allows for any `Profile`, `Device` or `Source` when specifying one of the others.
 
 
 ## External MQTT Trigger
