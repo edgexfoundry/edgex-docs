@@ -3820,7 +3820,7 @@ A factory function to create these clients can then be registered with your serv
 <p class="admonition-title">EdgeX 2.1</p>
 <p>Pipeline Per Topics is new for EdgeX 2.1</p>
 </div>
-<p>The <code>Pipeline Per Topics</code> feature allows for multiple function pipelines to be defined. Each will execute only when one of the specified pipeline topics matches the received topic. The pipeline topics can have wildcards (<code>#</code>) allowing the topic to match a variety of received topics. Each pipeline has its own set of functions (transforms) that are executed on the received message. If the <code>#</code> wildcard is used by itself for a pipeline topic, it will match all received topics and the specified functions pipeline will execute on every message received. </p>
+<p>The <code>Pipeline Per Topics</code> feature allows for multiple function pipelines to be defined. Each will execute only when one of the specified pipeline topics matches the received topic. The pipeline topics can have wildcards (<code>+</code> and <code>#</code>) allowing the topic to match a variety of received topics. Each pipeline has its own set of functions (transforms) that are executed on the received message. If the <code>#</code> wildcard is used by itself for a pipeline topic, it will match all received topics and the specified functions pipeline will execute on every message received. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <code>Pipeline Per Topics</code> feature is targeted for EdgeX MessageBus and External MQTT triggers, but can be used with Custom or HTTP triggers. When used with the HTTP trigger the incoming topic will always be <code>blank</code>, so the pipeline's topics must contain a single topic set to the <code>#</code> wildcard so that all messages received are processed by the pipeline.</p>
@@ -3831,9 +3831,9 @@ A factory function to create these clients can then be registered with your serv
 &quot;edegex/events/#&quot;               - Matches all messages received with the based topic `edegex/events/`
 &quot;edegex/events/core/#&quot;          - Matches all messages received just from Core Data
 &quot;edegex/events/device/#&quot;        - Matches all messages received just from Device services
-&quot;edegex/events/#/my-profile/#&quot;  - Matches all messages received from Core Data or Device services for `my-profile`
-&quot;edegex/events/#/#/my-device/#&quot; - Matches all messages received from Core Data or Device services for `my-device`
-&quot;edegex/events/#/#/#/my-source&quot; - Matches all messages received from Core Data or Device services for `my-source`
+&quot;edegex/events/+/my-profile/#&quot;  - Matches all messages received from Core Data or Device services for `my-profile`
+&quot;edegex/events/+/+/my-device/#&quot; - Matches all messages received from Core Data or Device services for `my-device`
+&quot;edegex/events/+/+/+/my-source&quot; - Matches all messages received from Core Data or Device services for `my-source`
 </code></pre></div>
 </div>
 <p>Refer to the <a href="../Triggers/#filter-by-topics">Filter By Topics</a> section for details on the structure of the received topic.</p>
@@ -3844,7 +3844,7 @@ A factory function to create these clients can then be registered with your serv
 <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nx">sample</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">functions</span><span class="p">.</span><span class="nx">NewSample</span><span class="p">()</span>
 <span class="w">    </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">AddFunctionsPipelineForTopics</span><span class="p">(</span>
 <span class="w">            </span><span class="s">&quot;Floats-Pipeline&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">            </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;edgex/events/#/#/Random-Float-Device/#&quot;</span><span class="p">},</span><span class="w"> </span>
+<span class="w">            </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;edgex/events/+/+/Random-Float-Device/#&quot;</span><span class="p">},</span><span class="w"> </span>
 <span class="w">            </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewFilterFor</span><span class="p">(</span><span class="nx">deviceNames</span><span class="p">).</span><span class="nx">FilterByDeviceName</span><span class="p">,</span>
 <span class="w">            </span><span class="nx">sample</span><span class="p">.</span><span class="nx">LogEventDetails</span><span class="p">,</span>
 <span class="w">            </span><span class="nx">sample</span><span class="p">.</span><span class="nx">ConvertEventToXML</span><span class="p">,</span>
@@ -3856,7 +3856,7 @@ A factory function to create these clients can then be registered with your serv
 
 <span class="w">    </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">service</span><span class="p">.</span><span class="nx">AddFunctionsPipelineForTopics</span><span class="p">(</span>
 <span class="w">            </span><span class="s">&quot;Int32-Pipleine&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">            </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;edgex/events/#/#/#/Int32&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;edgex/events/#/#/#/Int64&quot;</span><span class="p">},</span>
+<span class="w">            </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;edgex/events/+/+/+/Int32&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;edgex/events/+/+/+/Int64&quot;</span><span class="p">},</span>
 <span class="w">            </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewFilterFor</span><span class="p">(</span><span class="nx">deviceNames</span><span class="p">).</span><span class="nx">FilterByDeviceName</span><span class="p">,</span>
 <span class="w">            </span><span class="nx">sample</span><span class="p">.</span><span class="nx">LogEventDetails</span><span class="p">,</span>
 <span class="w">            </span><span class="nx">sample</span><span class="p">.</span><span class="nx">ConvertEventToXML</span><span class="p">,</span>

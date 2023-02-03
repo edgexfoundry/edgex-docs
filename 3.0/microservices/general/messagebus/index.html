@@ -3808,11 +3808,7 @@
 <p>A JetStream enabled server can support MQTT connections on the same set of underlying subjects.  This can be especially useful if you are using prebuilt EdgeX services like <a href="https://github.com/edgexfoundry/device-onvif-camera">device-onvif-camera</a> but want to transition your system towards using NATS.  Note that <code>format=json</code> must be used so that the NATS messagebus client can read the double-encoded envelopes sent by MQTT clients.  For more information see <a href="https://docs.nats.io/running-a-nats-service/configuration/mqtt">NATS MQTT Documentation</a>.</p>
 <h2 id="multi-level-topics-and-wildcards">Multi-level topics and wildcards</h2>
 <p>The EdgeX MessageBus uses multi-level topics and wildcards to allow filtering of data via subscriptions and has standardized on a MQTT like scheme. See <a href="https://www.hivemq.com/blog/mqtt-essentials-part-5-mqtt-topics-best-practices">MQTT multi-level topics and wildcards</a> for more information.</p>
-<p>The Redis implementation converts the Redis Pub/Sub multi-level topic scheme to one similar to MQTT. In Redis Pub/Sub the "<strong>.</strong>" is used as a level separator and the "*" is used as a wildcard. These are converted to "/" and "#" respectively, which are used by MQTT. MQTT additionally uses the "+" as a wildcard for single levels and the "#" for multi-level (only at the end). The Redis implementation uses the "#" for both the single and multi-level wildcard.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The  inconsistency with how the Redis implementation handles multi-level topics and wildcards not being 100% compliant with the MQTT scheme will be resolved in the next major release. </p>
-</div>
+<p>The Redis implementation converts the Redis Pub/Sub multi-level topic scheme to match that of MQTT. In Redis Pub/Sub the "<strong>.</strong>" is used as a level separator, "*" followed by a level separator is used as the single level wildcard and "*" at the end is used as the multiple level wildcard. These are converted to "/" and "+" and "#" respectively, which are used by MQTT.</p>
 <p>The NATS implementations convert the NATS multi-level topic scheme to match that of MQTT. In NATS "<strong>.</strong>" is used as a level separator, "*" is used as the single level wildcard and "&gt;" is used for the multi-level wild card. These are converted to "/", "+" and "#" respectively, which are compliant with the MQTT scheme.</p>
 <div class="admonition example -">
 <p class="admonition-title">Example Multi-level topics and wildcards for EdgeX MessageBus - <em>Redis implementation</em></p>
@@ -3826,11 +3822,11 @@
 <p>All events coming from any device service for any device profile, device or source</p>
 </li>
 <li>
-<p><strong>edgex/events/#/#/camera-001/#</strong></p>
+<p><strong>edgex/events/+/+/camera-001/#</strong></p>
 <p>Events coming from any device service or core data for any device profile, but only for the device "camera-001" and for any source</p>
 </li>
 <li>
-<p><strong>edgex/events/device/onvif/#/status</strong></p>
+<p><strong>edgex/events/device/onvif/+/status</strong></p>
 <p>Events coming from any device service for only the device profile "onvif", and any device and only for the source "status"</p>
 </li>
 </ul>
