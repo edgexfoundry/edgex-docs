@@ -320,7 +320,7 @@ This API adds a functions pipeline with the specified unique ID and list of func
     ```go
     sample := functions.NewSample()
     err = service.AddFunctionsPipelineForTopic("Floats-Pipeline", 
-                                               []string{"edgex/events/#/#/Random-Float-Device/#"},
+                                               []string{"edgex/events/+/+/Random-Float-Device/#"},
                                                transforms.NewFilterFor(deviceNames).FilterByDeviceName,
                                                sample.LogEventDetails,
                                                sample.ConvertEventToXML,

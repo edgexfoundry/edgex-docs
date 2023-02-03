@@ -62,11 +62,11 @@ The above pipeline configuration in [Getting Started](#getting-started) section 
         [Writable.Pipeline.PerTopicPipelines]
           [Writable.Pipeline.PerTopicPipelines.float]
           Id = "float-pipeline"
-          Topics = "edgex/events/device/#/Random-Float-Device/#, edgex/events/device/#/Random-Integer-Device/#"
+          Topics = "edgex/events/device/+/Random-Float-Device/#, edgex/events/device/+/Random-Integer-Device/#"
           ExecutionOrder = "TransformJson, HTTPExport"
           [Writable.Pipeline.PerTopicPipelines.int8]
           Id = "int8-pipeline"
-          Topic = "edgex/events/device/#/#/Int8"
+          Topic = "edgex/events/device/+/+/Int8"
           ExecutionOrder = "TransformXml, HTTPExport"  
         [Writable.Pipeline.Functions]
           [Writable.Pipeline.Functions.FilterByDeviceName]
