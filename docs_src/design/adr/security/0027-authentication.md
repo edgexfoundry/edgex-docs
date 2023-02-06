@@ -170,7 +170,7 @@ to actually effect the change (besides the prerequisite changes above):
 
 - Add an NGINX reverse proxy with using the proxy auth module.
 
-- Create a new `security-proxyauth` service to check the incoming JWT for validity.
+- Create a new `security-proxy-auth` service to check the incoming JWT for validity.
   (NGINX will be configured to delegate to this service for authentication checks.
   NGINX could also delegate to a minimal function like /api/v2/version,
   but the reason as to why the function was called wouldn't be as clear as
