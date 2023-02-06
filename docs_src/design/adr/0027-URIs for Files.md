@@ -16,11 +16,11 @@ This ADR proposes a new helper function for loading files be added to `go-mod-bo
 
 ### Authentication 
 
-#### basic-auth in URI
+#### username-password in URI
 
-While not recommended, users will be able to specify **basic-auth** (`<username>:<password>@`) in the URI in plain text. While this is ok network wise when using HTTPS, it isn't good practice to have these credentials specified in configuration or other service files where the URI is specified.
+While not recommended, users will be able to specify **username-password** (`<username>:<password>@`) in the URI in plain text. While this is ok network wise when using HTTPS, it isn't good practice to have these credentials specified in configuration or other service files where the URI is specified.
 
-!!! example - "Example plain text `basic-auth` in URI located in configuration"
+!!! example - "Example plain text `username-password` in URI located in configuration"
     ```toml
     [UoM]
     UoMFile = "https://myuser:mypassword@example.com/uom.yaml"
@@ -36,9 +36,9 @@ In order to provide a secure way for users to specify credentials, the `edgexSec
     UoMFile = "https://example.com/uom.yaml?edgexSecretName=mySecretName"
     ```    
 
-The type of authentication as well as the credentials will be contained in the secret data specified by the Secret Name. Three types of authentication will be supported, which are `usernamepassword`, `apikey` and `bearertoken`. 
+The type of authentication as well as the credentials will be contained in the secret data specified by the Secret Name. Two types of authentication will be supported, which are `usernamepassword`and `httpheader`. The `httpheader`type  will accommodate various forms of an `Authorization` header as well as typical API key usages
 
-- When `usernamepassword` is specified as the type in the secret data, the **basic-auth** `username:password@` will be inserted into the URI using the **username** and **password** found in the secret data.
+- When `usernamepassword` is specified as the type in the secret data, the `username:password@` will be inserted into the URI using the **username** and **password** found in the secret data.
 
     !!! example - "Example secret data - `usernamepassword`"
         ```
@@ -46,26 +46,35 @@ The type of authentication as well as the credentials will be contained in the s
         username=myuser
         password=mypassword
         ```
-    !!! example  - "Example resulting URI with `basic-auth`"
+        Resulting URI with `basic-auth`"
         ```
         https://myuser:mypassword@example.com/uom.yaml
         ```
+        
+- When `httpheader` is specified as the type in the secret data, the header name and contents from the secret data  will be placed in the HTTP header. 
 
-- When `apikey` is specified as the type in the secret data,  the **API Key** will be placed in the HTTP header using `apikeyname` and `apikeyvalue`  from the secret data
-
-    !!! example - "Example secret data - `apikey`"
+    !!! example - "Example secret data - `Authorization` using  `httpheader`"
         ```
-        type=apikey
-        apikeyvalue=mykeyvalue
-        apikeyname=myname
+        type=httpheader
+        headername=Authorization
+        headercontents=Basic bXl1c2VyOm15cGFzc3dvcmQ=
         ```
-    
-- When `bearertoken` is specified as the type in the secret data, the **Bearer Token** will be placed in the HTTP header as `Authorization` with value of `Bearer <token>`  where `token` is from the secret data. 
-
-    !!! example - "Example secret data - `token`"
+        For a request header set as:
         ```
-        type=bearertoken
-        token=mytoken
+        GET https://example.com/uom.yaml HTTP/1.1
+        Authorization: Basic bXl1c2VyOm15cGFzc3dvcmQ=
+        ```
+        
+    !!! example - "Example secret data - `API-Key` using  `httpheader`"
+        ```
+        type=httpheader
+        headername=X-API-KEY
+        headercontents=abcdef12345
+        ```
+        For a request header set as:
+        ```
+        GET https://example.com/uom.yaml HTTP/1.1
+        X-API-KEY: abcdef12345
         ```
 
 ### Services/Files Impacted
@@ -100,7 +109,7 @@ The type of authentication as well as the credentials will be contained in the s
 ## Considerations
 
 - Other files (existing or future) not listed above may also be candidates for using this new URI capability. Those listed above are the most impactful for deployment at scale.
-- Debug logging of URI must obscure the credentials when **basic-auth** is used.
+- Debug logging of URI must obscure the credentials when **username-password** is used.
 
 ## Decision
 
