@@ -12,7 +12,6 @@ It is not uncommon to require your own custom REST endpoints when building an Ap
 
 - /api/v2/version
 - /api/v2/ping
-- /api/v2/metrics
 - /api/v2/config
 - /api/v2/trigger
 - /api/v2/secret

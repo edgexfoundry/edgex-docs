@@ -3,7 +3,6 @@
 Each of the EdgeX services (core, supporting, management, device and application) implement a RESTful API. This section provides details about each service's API. You will see there is a common set of API's that all services implement, which are:
 
 - Version
-- Metrics
 - Config
 - Ping
 
