@@ -586,6 +586,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    Quick Start
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#installation" class="md-nav__link">
     Installation
   </a>
@@ -3258,6 +3265,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    Quick Start
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#installation" class="md-nav__link">
     Installation
   </a>
@@ -3555,7 +3569,36 @@
 <p><a href="https://snapcraft.io/docs">Snaps</a> are application packages that are easy to install and update while being 
 secure, cross‐platform and self-contained.
 Snaps can be installed on any Linux distribution with <a href="https://snapcraft.io/docs/installing-snapd">snap support</a>.</p>
-<p>The following sub-sections provide generic instructions for installing, configuring, and managing EdgeX services using snaps. </p>
+<h3 id="quick-start">Quick Start</h3>
+<p>Spinning up EdgeX with snaps is extremely easy.
+For demonstration purposes, let's install the platform, along with the virtual device service and EdgeX UI.</p>
+<p>1) Install the <a href="#platform-snap">platform snap</a>, <a href="#device-virtual">Device Virtual</a> and <a href="#edgex-ui">EdgeX UI</a>:
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span>install<span class="w"> </span>edgexfoundry<span class="w"> </span>--edge
+snap<span class="w"> </span>install<span class="w"> </span>edgex-device-virtual<span class="w"> </span>--edge
+snap<span class="w"> </span>install<span class="w"> </span>edgex-ui<span class="w"> </span>--edge
+</code></pre></div></p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>The above examples use the latest development versions of EdgeX snaps.
+This should be replaced by the latest stable v3, once available.</p>
+</div>
+<p>EdgeX has security enabled by default. But for simplicity, we'll disable it here.
+If not disabled, you could skip to step 3 and additionally add a user and authenticate as described <a href="#adding-api-gateway-users">here</a>. To access the UI, you need to generate a JWT.</p>
+<p>2) Disable security in each of the installed snaps:
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span><span class="nv">security</span><span class="o">=</span><span class="nb">false</span>
+snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgex-device-virtual<span class="w"> </span>config.edgex-security-secret-store<span class="o">=</span><span class="nb">false</span>
+snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgex-ui<span class="w"> </span>config.edgex-security-secret-store<span class="o">=</span><span class="nb">false</span>
+</code></pre></div>
+Refer to <a href="#disabling-security">disabling security</a> for details.</p>
+<p>3) Start the device and UI services:
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span>start<span class="w"> </span>edgex-device-virtual
+snap<span class="w"> </span>start<span class="w"> </span>edgex-ui
+</code></pre></div>
+This is because those services disabled and not started by default.</p>
+<p>You should now be able to access the UI using a browser at <a href="http://localhost:4000">http://localhost:4000</a></p>
+<p><img alt="EdgeX UI" src="../EdgeX-GettingStartedSnapUsersUI.png" /></p>
+<hr />
+<p>The following sub-sections provide generic instructions for <a href="#installation">installation</a>, <a href="#configuration">configuration</a>, and <a href="#managing-services">managing services</a> using snaps. </p>
 <p>For the list of EdgeX snaps and specific instructions, please refer to the <strong><a href="#edgex-snaps">EdgeX Snaps</a></strong> section.</p>
 <h3 id="installation">Installation</h3>
 <p>When using the snap CLI, the installation is possible by simply executing:
