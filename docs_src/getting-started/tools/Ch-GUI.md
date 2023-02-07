@@ -135,14 +135,6 @@ In this way, the Dashboard provides a quick and easy way to see whether the Edge
 
 You can click on each of the tiles in the Dashboard.  Doing so provides more details about each.  More precisely, clicking on a tile takes you to another part of the GUI where the details of that item can be found.  For example, clicking on the Device Profiles tile takes you to the Metadata page and the Device Profile tab (covered below)
 
-#### Metrics
-
-From the System Service List, you can click on the `Metric` icon for any service to see the memory, CPU and network traffic telemetry for any service.
-
-![image](EdgeX_Service_Metrics.png)
-
-The referesh rate can be adjusted on the display to have the GUI poll the system management service more or less frequently.
-
 #### Config
 
 The configuration of each service is made available for each service by clicking on the `Config` icon for any service from the System Service List.  The configuration is displayed in JSON form and is read only.  If running Consul, use the [Consul Web UI](../../microservices/configuration/ConfigurationAndRegistry.md#web-user-interface) to make changes to the configuration.
