@@ -4192,7 +4192,11 @@
 <p>In order to retain backward compatibility with configuration from previous 2.x releases, the top level <code>RequireMessageBus</code> configuration setting was added. If previous 2.x configuration is used with this new version the newly added <code>MessageQueue</code> configuration will be empty and would cause a failure connecting to the EdgeX MessageBus. The <code>RequireMessageBus</code> was added, which will be false if not specified and will avoid trying to connect to the EdgeX MessageBus with empty configuration. A warning will be logged each time a Device System Event can not be published due to the service is not being connected to the EdgeX MessageBus.  This will be removed in the next major release.</p>
 </div>
 <h3 id="system-event-dto">System Event DTO</h3>
-<p>The System Event DTO that is published for the Device System Event has the following properties:</p>
+<div class="admonition edgey -">
+<p class="admonition-title">Edgex 3.0</p>
+<p>System Event types <code>deviceservice</code>, <code>deviceprofile</code> and <code>provisionwatcher</code> are new in EdgeX 3.0</p>
+</div>
+<p>The System Event DTO has the following properties:</p>
 <table>
 <thead>
 <tr>
@@ -4205,7 +4209,7 @@
 <tr>
 <td>Type</td>
 <td>Type of System Event</td>
-<td><code>device</code> in this case</td>
+<td><code>device</code>, <code>deviceservice</code>,  <code>deviceprofile</code>, or <code>provisionwatcher</code></td>
 </tr>
 <tr>
 <td>Action</td>
@@ -4220,7 +4224,7 @@
 <tr>
 <td>Owner</td>
 <td>Owner of the data in the System Event</td>
-<td>In this case it is the name of the device service that owns the device</td>
+<td>In this case it is the name of the device service that owns the device or <code>core-metadata</code></td>
 </tr>
 <tr>
 <td>Tags</td>
@@ -4230,7 +4234,7 @@
 <tr>
 <td>Details</td>
 <td>The data object that trigger the System Event</td>
-<td>the added, updated, or deleted Device in this case</td>
+<td>the added, updated, or deleted Device/Device Profile/Device Service/Provision Watcher in this case</td>
 </tr>
 <tr>
 <td>Timestamp</td>
