@@ -36,24 +36,14 @@ In order to provide a secure way for users to specify credentials, the `edgexSec
     UoMFile = "https://example.com/uom.yaml?edgexSecretName=mySecretName"
     ```    
 
-The type of authentication as well as the credentials will be contained in the secret data specified by the Secret Name. Two types of authentication will be supported, which are `usernamepassword`and `httpheader`. The `httpheader`type  will accommodate various forms of an `Authorization` header as well as typical API key usages
+The type of authentication as well as the credentials will be contained in the secret data specified by the Secret Name. Only one type of authentication will be supported initially, which is `httpheader`. The `httpheader`type  will accommodate various forms of authorization placed in the header. Others types can be added in the future when need is determined.
 
-- When `usernamepassword` is specified as the type in the secret data, the `username:password@` will be inserted into the URI using the **username** and **password** found in the secret data.
-
-    !!! example - "Example secret data - `usernamepassword`"
-        ```
-        type=usernamepassword
-        username=myuser
-        password=mypassword
-        ```
-        Resulting URI with `basic-auth`"
-        ```
-        https://myuser:mypassword@example.com/uom.yaml
-        ```
-        
+!!! note
+    Digist Auth will not be supported at this time. It can be added in the future based on feedback indicating its need.
+    
 - When `httpheader` is specified as the type in the secret data, the header name and contents from the secret data  will be placed in the HTTP header. 
 
-    !!! example - "Example secret data - `Authorization` using  `httpheader`"
+    !!! example - "Example secret data - `Basic Auth` using  `httpheader`"
         ```
         type=httpheader
         headername=Authorization
@@ -64,7 +54,7 @@ The type of authentication as well as the credentials will be contained in the s
         GET https://example.com/uom.yaml HTTP/1.1
         Authorization: Basic bXl1c2VyOm15cGFzc3dvcmQ=
         ```
-        
+    
     !!! example - "Example secret data - `API-Key` using  `httpheader`"
         ```
         type=httpheader
@@ -75,6 +65,19 @@ The type of authentication as well as the credentials will be contained in the s
         ```
         GET https://example.com/uom.yaml HTTP/1.1
         X-API-KEY: abcdef12345
+        
+        ```
+    
+    !!! example - "Example secret data - `Bearer` using `httpheader`"
+        ```
+        type=httpheader
+        headername=Authorization
+        headercontents=Bearer eyJhbGciO...
+        ```
+        For a request header set as:
+        ```
+        GET https://example.com/uom.yaml HTTP/1.1
+        Authorization: Bearer eyJhbGciO...
         ```
 
 ### Services/Files Impacted
@@ -109,7 +112,7 @@ The type of authentication as well as the credentials will be contained in the s
 ## Considerations
 
 - Other files (existing or future) not listed above may also be candidates for using this new URI capability. Those listed above are the most impactful for deployment at scale.
-- Debug logging of URI must obscure the credentials when **username-password** is used.
+- Debug logging of URI must obscure the credentials when **username-password** is used in the URI.
 
 ## Decision
 
