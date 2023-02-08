@@ -2057,15 +2057,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#usetargettypeofbytearray" class="md-nav__link">
-    UseTargetTypeOfByteArray
+  <a href="#raw-targettype" class="md-nav__link">
+    Raw TargetType
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#usetargettypeofmetric" class="md-nav__link">
-    UseTargetTypeOfMetric
+  <a href="#metric-targettype" class="md-nav__link">
+    Metric TargetType
   </a>
   
 </li>
@@ -3295,15 +3295,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#usetargettypeofbytearray" class="md-nav__link">
-    UseTargetTypeOfByteArray
+  <a href="#raw-targettype" class="md-nav__link">
+    Raw TargetType
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#usetargettypeofmetric" class="md-nav__link">
-    UseTargetTypeOfMetric
+  <a href="#metric-targettype" class="md-nav__link">
+    Metric TargetType
   </a>
   
 </li>
@@ -3712,14 +3712,14 @@
 <p>Profile used for the TAF functional testing  of external MQTT Trigger</p>
 <h2 id="what-if-my-input-data-isnt-an-edgex-event">What if my input data isn't an EdgeX Event ?</h2>
 <p>The default <code>TargetType</code> for data flowing into the functions pipeline is an EdgeX Event DTO. There are cases when this incoming data might not be an EdgeX Event DTO. There are two setting that configure the TargetType to non-Event data.</p>
-<h3 id="usetargettypeofbytearray">UseTargetTypeOfByteArray</h3>
-<p>In these cases the <code>Pipeline</code> can be configured using <code>UseTargetTypeOfByteArray=true</code> to set the <code>TargetType</code> to be a byte array/slice, i.e. <code>[]byte</code>. The first function in the pipeline must then be one that can handle the <code>[]byte</code> data. The <strong>compression</strong>,  <strong>encryption</strong> and <strong>export</strong> functions are examples of pipeline functions that will take input data that is <code>[]byte</code>. </p>
+<h3 id="raw-targettype">Raw TargetType</h3>
+<p>In these cases the <code>Pipeline</code> can be configured using <code>TargetType="raw"</code> to set the <code>TargetType</code> to be a byte array/slice, i.e. <code>[]byte</code>. The first function in the pipeline must then be one that can handle the <code>[]byte</code> data. The <strong>compression</strong>,  <strong>encryption</strong> and <strong>export</strong> functions are examples of pipeline functions that will take input data that is <code>[]byte</code>. </p>
 <div class="admonition example">
 <p class="admonition-title">Example - Configure the functions pipeline to <strong>compress</strong>, <strong>encrypt</strong> and then <strong>export</strong> the <code>[]byte</code> data via HTTP </p>
 <div class="highlight"><pre><span></span><code><span class="k">[Writable]</span>
 <span class="w">  </span><span class="n">LogLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;DEBUG&quot;</span>
 <span class="w">  </span><span class="k">[Writable.Pipeline]</span>
-<span class="w">    </span><span class="n">UseTargetTypeOfByteArray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="n">TargetType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;raw&quot;</span>
 <span class="w">    </span><span class="n">ExecutionOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Compress, Encrypt, HTTPExport&quot;</span>
 <span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Compress]</span>
 <span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Compress.Parameters]</span>
@@ -3743,16 +3743,12 @@
 <span class="n">Type</span><span class="o">=</span><span class="s">&quot;http&quot;</span>
 </code></pre></div>
 </div>
-<h3 id="usetargettypeofmetric">UseTargetTypeOfMetric</h3>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.2</p>
-<p>New for EdgeX 2.2 is the <code>UseTargetTypeOfMetric</code> setting</p>
-</div>
+<h3 id="metric-targettype">Metric TargetType</h3>
 <p>This setting when set to true will cause the <code>TargeType</code> to be <code>&amp;dtos.Metric{}</code> and is meant to be used in conjunction with the new <code>ToLineProtocol</code> function. See <a href="#tolineprotocol">ToLineProtocol</a> section below for more details. In addition the <code>Trigger</code> <code>SubscribeTopics</code>must be set to <code>"edgex/telemetry/#"</code> so that the function receives the metric data from the other services.</p>
 <div class="admonition example -">
-<p class="admonition-title">Example -  UseTargetTypeOfMetric </p>
+<p class="admonition-title">Example -  Metric TargetType </p>
 <div class="highlight"><pre><span></span><code>  [Writable.Pipeline]
-  UseTargetTypeOfMetric  = true
+  TargetType  = &quot;metric&quot;
   ExecutionOrder = &quot;ToLineProtocol, ...&quot;
   ...
       [Writable.Pipeline.Functions.ToLineProtocol]
@@ -4118,7 +4114,7 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The new <code>UseTargetTypeOfMetric</code> setting must be set to true when using this function. See the <a href="#usetargettypeofmetric">UseTargetTypeOfMetric</a> section above for more details.</p>
+<p>The new <code>TargetType</code> setting must be set to "metric" when using this function. See the <a href="#metric-targettype">Metric TargetType</a> section above for more details.</p>
 </div>
 <h3 id="wrapintoevent"><a href="../BuiltIn/#wrap-into-event">WrapIntoEvent</a></h3>
 <div class="admonition edgey">
