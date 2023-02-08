@@ -426,16 +426,19 @@ Device System Events are events triggered by the add, update or delete of device
 
 ### System Event DTO
 
-The System Event DTO that is published for the Device System Event has the following properties:
+!!! edgey - "Edgex 3.0"
+    System Event types `deviceservice`, `deviceprofile` and `provisionwatcher` are new in EdgeX 3.0
+
+The System Event DTO has the following properties:
 
 | Property  | Description                                   | Value                                                        |
 | --------- | --------------------------------------------- | ------------------------------------------------------------ |
-| Type      | Type of System Event                          | `device` in this case                                        |
+| Type      | Type of System Event                          | `device`, `deviceservice`,  `deviceprofile`, or `provisionwatcher`                                       |
 | Action    | System Event action                           | `add`, `update`, or `delete` in this case                    |
 | Source    | Source of the System Event                    | `core-metadata` in this case                                 |
-| Owner     | Owner of the data in the System Event         | In this case it is the name of the device service that owns the device |
+| Owner     | Owner of the data in the System Event         | In this case it is the name of the device service that owns the device or `core-metadata` |
 | Tags      | Key value map of additional data              | empty in this case                                           |
-| Details   | The data object that trigger the System Event | the added, updated, or deleted Device in this case           |
+| Details   | The data object that trigger the System Event | the added, updated, or deleted Device/Device Profile/Device Service/Provision Watcher in this case           |
 | Timestamp | Date and time of the System Event             | timestamp                                                    |
 
 ### Publish Topic
