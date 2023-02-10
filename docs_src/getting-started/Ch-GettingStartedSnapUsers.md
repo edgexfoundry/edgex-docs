@@ -859,6 +859,7 @@ The default configuration files are installed at:
 | [Installation][edgex-device-usb-camera] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-usb-camera/tree/main/snap) |
 
 This snap includes two services:
+
 - Device USB Camera service
 - [Simple RTSP Server](https://github.com/aler9/rtsp-simple-server) - used as the default RTSP server by Device USB Camera service
 
