@@ -39,7 +39,7 @@ In order to provide a secure way for users to specify credentials, the `edgexSec
 The type of authentication as well as the credentials will be contained in the secret data specified by the Secret Name. Only one type of authentication will be supported initially, which is `httpheader`. The `httpheader`type  will accommodate various forms of authorization placed in the header. Others types can be added in the future when need is determined.
 
 !!! note
-    Digist Auth will not be supported at this time. It can be added in the future based on feedback indicating its need.
+    Digest Auth will not be supported at this time. It can be added in the future based on feedback indicating its need.
     
 - When `httpheader` is specified as the type in the secret data, the header name and contents from the secret data  will be placed in the HTTP header. 
 
@@ -97,6 +97,7 @@ The type of authentication as well as the credentials will be contained in the s
           ProvisionWatchersDir = "./res/provisionwatchers"
           ...
         ```
+
     !!! example - "Example Device Index file `http://example.com/devices/index.json`"
         ```json
         [
