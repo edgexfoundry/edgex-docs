@@ -3,7 +3,7 @@
 - Lenny Goodell (Intel)
 
 ## Change Log
-- [pending ](https://github.com/edgexfoundry/edgex-docs/pull/949) (2023-02-01)
+- [approved ](https://github.com/edgexfoundry/edgex-docs/pull/949) (2023-02-14)
 
 ## Referenced Use Case(s)
 - [URIs for Files UCR](https://docs.edgexfoundry.org/3.0/design/ucr/URIs-for-Files/)
