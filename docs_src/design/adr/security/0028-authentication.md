@@ -19,7 +19,7 @@ The AS-IS Architecture figure below depicts the current state of
 microservice communication security prior to EdgeX 3.0,
 when security is enabled:
 
-![AS-IS Architecture](0027-as-is.jpg)
+![AS-IS Architecture](0028-as-is.jpg)
 
 As shown in the diagram,
 many of the foundational services used by EdgeX Foundry
@@ -46,7 +46,7 @@ External access to EdgeX microservices has also been secured.
 EdgeX microservices only bind to local ports,
 and are only exposed externally through a Kong API gateway.
 This gateway is configured to use TLS 1.3,
-using JWT authentication using public key cryptography.
+using RS256 or ES256 JWT authentication (at the user's discretion).
 All external requests are filtered at the API gateway.
 URL rewriting is used to concentrate microservices
 on a single HTTP-accessible port.
@@ -82,9 +82,6 @@ This ADR proposes to relieve the Kong API gateway of its
 [JWT](https://www.rfc-editor.org/rfc/rfc7519) management responsibility,
 and instead use Hashicorp Vault for this purpose,
 which is already used as EdgeX's secret store.
-In turn, EdgeX can use a simpler reverse proxy, NGINX,
-resulting in a total savings of 150MB of memory
-and 300MB of storage (in the docker implementation).
 This change requires minimal modification of existing
 clients written to perform JWT-based authentication at the Kong gateway:
 they simply use a Vault-issued JWT
@@ -121,7 +118,7 @@ Behind the proxy, there are two major changes:
 
 The new TO-BE architecture is diagrammed in the following figure:
 
-![TO-BE Architecture](0027-to-be.jpg)
+![TO-BE Architecture](0028-to-be.jpg)
 
 
 ### Implementation pre-requisites
@@ -217,7 +214,25 @@ an authentication solution based on end-to-end encryption would be more appropri
 
 ## Considerations
 
-### Alterative: Using Kong to Mediate EdgeX Internal Microservice Interactions
+### Size and Space Impact of Kong + Postgres Versus Alternatives
+
+#### Disk space
+
+Kong + Postgres (docker images): 353MB
+
+Alternatives:
+ - HAProxy: 40 MB
+ - NGINX: 12 MB - 41 MB depending on image selection (12 MB works for us)
+
+#### Memory
+
+Kong + Postgres: 160 MB (at startup)
+
+Alternatives:
+  - HAProxy: 80 MB
+  - NGINX: 5 MB
+
+### Alternative: Using Kong to Mediate EdgeX Internal Microservice Interactions
 
 One approach that is seen in some microservice architectures
 is to force all communication between microservices to go
