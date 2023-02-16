@@ -871,13 +871,19 @@ The default configuration files are installed at:
 ```
 /var/snap/edgex-device-usb-camera/current/config
 ├── device-usb-camera
-│   └── res
-│       ├── configuration.toml
-│       ├── devices
-│       │   └── general.usb.camera.toml.example
-│       └── profiles
-│           └── general.usb.camera.yaml
-└── rtsp-simple-server.yml
+│   └── res
+│       ├── configuration.toml
+│       ├── devices
+│       │   ├── general.usb.camera.toml.example
+│       │   └── hp.w200.toml.example
+│       ├── profiles
+│       │   ├── general.usb.camera.yaml
+│       │   ├── hp.w200.yaml.example
+│       │   └── jinpei.general.yaml.example
+│       └── provision_watchers
+│           └── generic.provision.watcher.json
+└── rtsp-simple-server
+    └── config.yml
 ```
 
 ### Device Virtual
