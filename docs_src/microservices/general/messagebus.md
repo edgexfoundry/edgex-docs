@@ -166,7 +166,7 @@ The Redis implementation converts the Redis Pub/Sub multi-level topic scheme to 
 
 The NATS implementations convert the NATS multi-level topic scheme to match that of MQTT. In NATS "**.**" is used as a level separator, "\*" is used as the single level wildcard and ">" is used for the multi-level wild card. These are converted to "/", "+" and "#" respectively, which are compliant with the MQTT scheme.
 
-!!! example - "Example Multi-level topics and wildcards for EdgeX MessageBus - *Redis implementation*"
+!!! example - "Example Multi-level topics and wildcards for EdgeX MessageBus"
     - **edgex/events/#**
 
         All events coming from any device service or core data for any device profile, device or source
@@ -174,34 +174,18 @@ The NATS implementations convert the NATS multi-level topic scheme to match that
     - **edgex/events/device/#**
     
         All events coming from any device service for any device profile, device or source
+
+    - **edgex/events/+/device-onvif-camera/#**
+    
+        Events coming from only device service "device-onvif-camera" for any device profile, device and source
       
-    - **edgex/events/+/+/camera-001/#**
+    - **edgex/events/+/+/+/camera-001/#**
     
         Events coming from any device service or core data for any device profile, but only for the device "camera-001" and for any source
       
-    - **edgex/events/device/onvif/+/status**
+    - **edgex/events/device/+/onvif/+/status**
     
         Events coming from any device service for only the device profile "onvif", and any device and only for the source "status"
-
-
-
-!!! example - "Example Multi-level topics and wildcards for EdgeX MessageBus - *MQTT 3.1 and NATS implementations*"
-    - **edgex/events/#**
-
-        All events coming from any device service or core data for any device profile, device or source
-      
-    - **edgex/events/device/#**
-    
-        All events coming from any device service for any device profile, device or source
-      
-    - **edgex/events/+/+/camera-001/#**
-    
-        Events coming from any device service or core data for any device profile, but only for the device "camera-001" and for any source
-      
-    - **edgex/events/device/onvif/+/status**
-    
-        Events coming from any device service for only the device profile "onvif", and any device and only for the source "status"
-
 
 
 ## Deployment
