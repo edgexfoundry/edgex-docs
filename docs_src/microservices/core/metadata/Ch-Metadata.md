@@ -212,6 +212,9 @@ Not all device services support dynamic discovery.  If it does support dynamic d
 
 ## Data Dictionary
 
+!!! edgey - "EdgeX 3.0"
+    **LastConnected** and **LastReported** are removed in EdgeX 3.0.
+
 === "BaseAddress"
     |Property|Description|
     |---|---|
@@ -255,8 +258,6 @@ Not all device services support dynamic discovery.  If it does support dynamic d
     |AdminState|Admin state (locked/unlocked)|
 	|OperatingState||Operating state (enabled/disabled)|
 	|Protocols|A map of supported protocols for the given device|
-	|LastConnected|Time (milliseconds) that the device last provided any feedback or responded to any request|
-	|LastReported||Time (milliseconds) that the device reported data to the core microservice|
 	|Labels|Other labels applied to the device to help with searching|
 	|Location|Device service specific location (interface{} is an empty interface so it can be anything)|
 	|ServiceName|Associated Device Service - One per device|
@@ -289,8 +290,6 @@ Not all device services support dynamic discovery.  If it does support dynamic d
     ||represents a service that is responsible for proxying connectivity between a set of devices and the EdgeX Foundry core services; the current state and reachability information for a registered device service|
     |Id|uniquely identifies the device service, a UUID for example|
 	|Name||time in milliseconds that the device last provided any feedback or responded to any request|
-	|LastConnected||time in milliseconds that the device last reported data to the core|
-	|LastReported|ime (milliseconds) that the device service reported data to the core microservice|
     |Labels||tags or other labels applied to the device service for search or other identification needs|
 	|BaseAddress|address (MQTT topic, HTTP address, serial bus, etc.) for reaching the service|
 	|AdminState||Device Service Admin State|
