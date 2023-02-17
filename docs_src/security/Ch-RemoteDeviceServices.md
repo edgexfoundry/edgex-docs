@@ -445,7 +445,6 @@ $ curl -s http://127.0.0.1:59900/api/v2/config | jq
       "MaxCmdValueLen": 256,
       "ProfilesDir": "./res/profiles",
       "DevicesDir": "./res/devices",
-      "UpdateLastConnected": false,
       "Discovery": {
         "Enabled": false,
         "Interval": "30s"

@@ -130,6 +130,9 @@ Please refer to the general [Common Configuration documentation](../configuratio
 !!! edgey "Edgex 2.3"
 Service Metrics for device services are new in EdgeX 2.3
 
+!!! edgey - "EdgeX 3.0"
+    **UpdateLastConnected** is removed in EdgeX 3.0.
+
 === "Writable.Telemetry"
     |Property|<div style="width:300px">Default Value</div>|Description|
     |---|---|---|
@@ -149,7 +152,6 @@ Service Metrics for device services are new in EdgeX 2.3
     |MaxCmdResultLen|256|Maximum JSON string length for command results|
     |ProfilesDir|''|If set, directory containing profile definition files to upload to core-metadata|
     |DevicesDir|''|If set, directory containing device definition files to upload to core-metadata|
-    |UpdateLastConnected|false|If true, update the LastConnected attribute of a device whenever it is successfully accessed|
     |UseMessageBus|true|Controls whether events are published via MessageBus or core-data (REST)|
     |Discovery/Enabled|true|Controls whether device discovery is enabled|
     |Discovery/Interval|0|Interval between automatic discovery runs. Zero means do not run discovery automatically|
