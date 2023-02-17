@@ -90,15 +90,33 @@ instead of a Kong-issued JWT or a self-issued JWT.
 This ADR proposes a layered authentication scheme,
 with the reverse proxy performing an initial check for all external requests,
 and EdgeX services themselves authenticating all internal and external requests.
-The layered approach is required,
-as some EdgeX endpoints such as `/api/v2/ping`
-must be anonymous for health-checking purposes.
+There are three reasons for the layered approach:
 
-EdgeX microservices shall consult Vault to confirm JWT validity,
+1. Authentication at the proxy layer provides a choke point
+   and policy enforcement points for incoming requests.
+   By customizing the behavior of the proxy-auth component,
+   it is possible to allow access to some URLs
+   and deny access to other URLs based on arbitrary criteria,
+   such as source IP address, JWT-based claims,
+   or user identity and role mappings.
+
+2. It means that individual microservices do not immediately
+   need to implement fine-grained authorization to get the
+   same effect as having custom policy enforcement at the proxy.
+
+3. It provides defense-in-depth against microservice implementation bugs
+   and other technical debt that might otherwise put EdgeX
+   microservices at risk.  Getting a known response to
+   `/core-data/api/v2/ping` as a result of an anonymous HTTP request
+   would positively identify an EdgeX installation.
+   Similarly, an adopter porting their custom services to EdgeX 3.0
+   without adding authentication hooks could be vulnerable to outside attacks
+   that might be mitigated by the additional check at the proxy layer.
+
+EdgeX microservices shall utilize Vault to assess JWT validity
 and an NGINX reverse proxy shall use the
 [ngx_http_auth_request_module](http://nginx.org/en/docs/http/ngx_http_auth_request_module.html)
-to delegate confirmation of JWT validity to Vault,
-as a mitigation for microservice-level implementation errors.
+to delegate confirmation of JWT validity.
 TLS termination at the reverse proxy shall be enabled by default
 so as to be consistent with
 [ADR 0015 - Encryption between microservices](./0015-in-cluster-tls.md).
@@ -218,19 +236,33 @@ an authentication solution based on end-to-end encryption would be more appropri
 
 #### Disk space
 
-Kong + Postgres (docker images): 353MB
+A savings of up to ~300 MB in docker images can be expected,
+depending on specific selection of container images used.
+(The POC implementation successfully used the smallest NGINX
+available, alpine-slim.)
 
-Alternatives:
- - HAProxy: 40 MB
- - NGINX: 12 MB - 41 MB depending on image selection (12 MB works for us)
+| Image                            | Tag         | Image ID     | Age          | Size   |
+|----------------------------------|-------------|--------------|--------------|--------|
+| nginx                            | alpine      | 2bc7edbc3cf2 | 6 days ago   | 40.7MB |
+| nginx                            | alpine-slim | c59097225492 | 6 days ago   | 11.5MB |
+| nginx                            | latest      | 3f8a00f137a0 | 8 days ago   | 142MB  |
+| kong                             | 2.8         | 0affcb95d383 | 6 days ago   | 139MB  |
+| postgres                         | 13.8-alpine | 551b13d106b4 | 4 months ago | 213MB  |
+| edgexfoundry/security-proxy-auth | 0.0.0-dev   | b2ee5c21efba | 8 days ago   | 16.2MB |
+
 
 #### Memory
 
-Kong + Postgres: 160 MB (at startup)
+A memory savings of up to ~150 MB has been observed in the POC implementation
+upon initial startup of the framework.
 
-Alternatives:
-  - HAProxy: 80 MB
-  - NGINX: 5 MB
+| CONTAINER ID | NAME             | CPU % | MEM USAGE / LIMIT   | MEM % | NET I/O         | BLOCK I/O       | PIDS |
+|--------------|------------------|-------|---------------------|-------|-----------------|-----------------|------|
+| cad71e71ab32 | edgex-kong       | 0.03% | 109.4MiB / 15.61GiB | 0.68% | 255kB / 263kB   | 0B / 69.6kB     | 2    |
+| 9ab4de1e5448 | edgex-kong-db    | 0.11% | 64.51MiB / 15.61GiB | 0.40% | 232kB / 183kB   | 32.2MB / 53.9MB | 18   |
+| ff1e97c16e55 | edgex-nginx      | 0.00% | 4.289MiB / 15.61GiB | 0.03% | 3.24kB / 248B   | 0B / 0B         | 5    |
+| 42629157e65c | edgex-proxy-auth | 0.00% | 6.258MiB / 15.61GiB | 0.04% | 22.9kB / 16.2kB | 7.3MB / 0B      | 11   |
+
 
 ### Alternative: Using Kong to Mediate EdgeX Internal Microservice Interactions
 
