@@ -4034,8 +4034,8 @@ Name               BaseAddress             Description
 TestDeviceService  http://localhost:51234  
 
 $ edgex-cli deviceservice name -n TestDeviceService -v
-Name               BaseAddress             Description  AdminState  Id                                    Labels  LastConnected  LastReported  Modified
-TestDeviceService  http://localhost:51234               UNLOCKED    7f29ad45-65dc-46c0-a928-00147d328032  []      0              0             10 Jan 22 17:26 GMT
+Name               BaseAddress             Description  AdminState  Id                                    Labels      Modified
+TestDeviceService  http://localhost:51234               UNLOCKED    7f29ad45-65dc-46c0-a928-00147d328032  []          10 Jan 22 17:26 GMT
 
 $ edgex-cli deviceservice name -n TestDeviceService  -j | jq &#39;.&#39;
 {
@@ -4065,8 +4065,8 @@ $ edgex-cli deviceservice update -n TestDeviceService -i $ID --labels &quot;labe
 {{v2} 9f4a4758-48a1-43ce-a232-828f442c2e34  200}
 
 $ edgex-cli deviceservice name -n TestDeviceService -v
-Name               BaseAddress             Description  AdminState  Id                                    Labels           LastConnected  LastReported  Modified
-TestDeviceService  http://localhost:51234               UNLOCKED    844473b1-551d-4545-9143-28cfdf68a539  [label1 label2]  0              0             28 Jan 22 12:00 GMT
+Name               BaseAddress             Description  AdminState  Id                                    Labels           Modified
+TestDeviceService  http://localhost:51234               UNLOCKED    844473b1-551d-4545-9143-28cfdf68a539  [label1 label2]  28 Jan 22 12:00 GMT
 </code></pre></div>
 <h3 id="edgex-cli-deviceprofile-list"><code>edgex-cli deviceprofile list</code></h3>
 <p>List device profiles</p>

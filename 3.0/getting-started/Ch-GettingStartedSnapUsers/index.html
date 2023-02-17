@@ -4278,13 +4278,19 @@ edgex-device-rfid-llrp.auto-configure<span class="w"> </span><span class="nv">$C
 <p>The default configuration files are installed at:
 <div class="highlight"><pre><span></span><code>/var/snap/edgex-device-usb-camera/current/config
 ├── device-usb-camera
-│   └── res
-│       ├── configuration.toml
-│       ├── devices
-│       │   └── general.usb.camera.toml.example
-│       └── profiles
-│           └── general.usb.camera.yaml
-└── rtsp-simple-server.yml
+│   └── res
+│       ├── configuration.toml
+│       ├── devices
+│       │   ├── general.usb.camera.toml.example
+│       │   └── hp.w200.toml.example
+│       ├── profiles
+│       │   ├── general.usb.camera.yaml
+│       │   ├── hp.w200.yaml.example
+│       │   └── jinpei.general.yaml.example
+│       └── provision_watchers
+│           └── generic.provision.watcher.json
+└── rtsp-simple-server
+    └── config.yml
 </code></pre></div></p>
 <h3 id="device-virtual">Device Virtual</h3>
 <p>| <a href="https://snapcraft.io/edgex-device-virtual">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/device-virtual-go/tree/main/snap">Source</a> |</p>
