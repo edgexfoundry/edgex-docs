@@ -250,6 +250,7 @@ available, alpine-slim.)
 | postgres                         | 13.8-alpine | 551b13d106b4 | 4 months ago | 213MB  |
 | edgexfoundry/security-proxy-auth | 0.0.0-dev   | b2ee5c21efba | 8 days ago   | 16.2MB |
 
+Image data collected on 2023-02-17.
 
 #### Memory
 
