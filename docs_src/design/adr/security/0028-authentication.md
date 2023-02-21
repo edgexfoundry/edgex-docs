@@ -7,6 +7,7 @@
 ## Change Log
 
 - [proposed](https://github.com/edgexfoundry/edgex-docs/pull/659) (2021-12-28)
+- [approved](https://github.com/edgexfoundry/edgex-docs/pull/966) (2023-02-18)
 
 ## Referenced Use Case(s)
 
