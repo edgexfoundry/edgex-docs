@@ -37,24 +37,23 @@ Use either the Postman or Curl tab below to walkthrough creating the `Device`.
             {
                 "apiVersion": "v2",
                 "device": {
-                "name": "countcamera1",
-                "description": "human and dog counting camera #1",
-                "adminState": "UNLOCKED",
-                "operatingState": "UP",
-                "labels": [
-                    "camera","counter"
-                ],
-                "location": "{lat:45.45,long:47.80}",
-                "serviceName": "camera-control-device-service",
-                "profileName": "camera-monitor-profile",
-                "protocols": {
-                    "camera-protocol": {
-                    "camera-address": "localhost",
-                    "port": "1234",
-                    "unitID": "1"
+                    "name": "countcamera1",
+                    "description": "human and dog counting camera #1",
+                    "adminState": "UNLOCKED",
+                    "operatingState": "UP",
+                    "labels": [
+                        "camera","counter"
+                    ],
+                    "location": "{lat:45.45,long:47.80}",
+                    "serviceName": "camera-control-device-service",
+                    "profileName": "camera-monitor-profile",
+                    "protocols": {
+                        "camera-protocol": {
+                        "camera-address": "localhost",
+                        "port": "1234",
+                        "unitID": "1"
+                        }
                     }
-                },
-                "notify": false
                 }
             }
         ]
@@ -74,7 +73,7 @@ Use either the Postman or Curl tab below to walkthrough creating the `Device`.
     Make a curl POST request as shown below.
 
     ``` shell
-    curl -X 'POST' 'http://localhost:59881/api/v2/device' -d '[{"apiVersion": "v2", "device": {"name": "countcamera1","description": "human and dog counting camera #1","adminState": "UNLOCKED","operatingState": "UP","labels": ["camera","counter"],"location": "{lat:45.45,long:47.80}","serviceName": "camera-control-device-service","profileName": "camera-monitor-profile","protocols": {"camera-protocol": {"camera-address": "localhost","port": "1234","unitID": "1"}},"notify": false}}]'
+    curl -X 'POST' 'http://localhost:59881/api/v2/device' -d '[{"apiVersion": "v2", "device": {"name": "countcamera1","description": "human and dog counting camera #1","adminState": "UNLOCKED","operatingState": "UP","labels": ["camera","counter"],"location": "{lat:45.45,long:47.80}","serviceName": "camera-control-device-service","profileName": "camera-monitor-profile","protocols": {"camera-protocol": {"camera-address": "localhost","port": "1234","unitID": "1"}}}}]'
     ```
 
     If your API call is successful, you will get a generated ID (a UUID) for your new `Device`.
