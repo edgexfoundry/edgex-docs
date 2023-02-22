@@ -213,7 +213,9 @@ Not all device services support dynamic discovery.  If it does support dynamic d
 ## Data Dictionary
 
 !!! edgey - "EdgeX 3.0"
-    **LastConnected** and **LastReported** are removed in EdgeX 3.0.
+    Two fields--**LastConnected** and **LastReported**--of Device Service are removed in EdgeX 3.0.<br><br>
+    A new field **Properties** is added into Device in EdgeX 3.0, so that device-level properties can be defined and then consumed by the implementation of device services to retrieve extra device-level information.  For example, assume a device service may require extra device-level information, such as `DeviceInstance`, `Firmware`, `InstanceID`, and `ObjectName` in the runtime, and these extra device-level information can be defined in the properties.<br><br>
+    A new field **Properties** is added into ProvisionWatcher in EdgeX 3.0, so that the implementation of device services can retrieve extra information when automatically provisioning a device.  For example, assume a device service would like to generate the device name in certain format during auto discovery, a property, e.g. `DeviceNameTemplate` with the template format of device name can be defined in the ProvisionWatcher, so that the implementation of device service can generate the device name based on such property.<br>
 
 === "BaseAddress"
     |Property|Description|
@@ -263,6 +265,8 @@ Not all device services support dynamic discovery.  If it does support dynamic d
 	|ServiceName|Associated Device Service - One per device|
 	|ProfileName||Associated Device Profile - Describes the device|
 	|AutoEvents|A list of auto-generated events coming from the device|
+    |Tags|A map of device-level tags used to [tag the events](../../general/index.md#event-tagging) originated from the device|
+    |Properties|A map of extendable device-level properties required by the implementation of device services to retrieve extra device-level information.  For example, assume a device service may require extra device-level information, such as `DeviceInstance`, `Firmware`, `InstanceID`, and `ObjectName` in the runtime, and these extra device-level information can be defined in the properties|
 === "DeviceProfile"
     |Property|Description|
     |---|---|
@@ -322,6 +326,7 @@ Not all device services support dynamic discovery.  If it does support dynamic d
 	|ServiceName|Name of the device service that new devices will be associated to|
 	|AdminState|administrative state for new devices - either unlocked or locked|
     |AutoEvents|Associated auto events to this watcher|
+    |Properties|A map of extendable properties required by the implementation of device services to retrieve extra information when automatically provisioning a device.  For example, assume a device service would like to generate the device name in certain format during auto discovery, a property, e.g. `DeviceNameTemplate` with the template format of device name can be defined in the ProvisionWatcher, so that the implementation of device service can generate the device name based on such property|
 
 ## High Level Interaction Diagrams
 
