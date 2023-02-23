@@ -3811,7 +3811,7 @@
 <p>The Redis implementation converts the Redis Pub/Sub multi-level topic scheme to match that of MQTT. In Redis Pub/Sub the "<strong>.</strong>" is used as a level separator, "*" followed by a level separator is used as the single level wildcard and "*" at the end is used as the multiple level wildcard. These are converted to "/" and "+" and "#" respectively, which are used by MQTT.</p>
 <p>The NATS implementations convert the NATS multi-level topic scheme to match that of MQTT. In NATS "<strong>.</strong>" is used as a level separator, "*" is used as the single level wildcard and "&gt;" is used for the multi-level wild card. These are converted to "/", "+" and "#" respectively, which are compliant with the MQTT scheme.</p>
 <div class="admonition example -">
-<p class="admonition-title">Example Multi-level topics and wildcards for EdgeX MessageBus - <em>Redis implementation</em></p>
+<p class="admonition-title">Example Multi-level topics and wildcards for EdgeX MessageBus</p>
 <ul>
 <li>
 <p><strong>edgex/events/#</strong></p>
@@ -3822,32 +3822,15 @@
 <p>All events coming from any device service for any device profile, device or source</p>
 </li>
 <li>
-<p><strong>edgex/events/+/+/camera-001/#</strong></p>
+<p><strong>edgex/events/+/device-onvif-camera/#</strong></p>
+<p>Events coming from only device service "device-onvif-camera" for any device profile, device and source</p>
+</li>
+<li>
+<p><strong>edgex/events/+/+/+/camera-001/#</strong></p>
 <p>Events coming from any device service or core data for any device profile, but only for the device "camera-001" and for any source</p>
 </li>
 <li>
-<p><strong>edgex/events/device/onvif/+/status</strong></p>
-<p>Events coming from any device service for only the device profile "onvif", and any device and only for the source "status"</p>
-</li>
-</ul>
-</div>
-<div class="admonition example -">
-<p class="admonition-title">Example Multi-level topics and wildcards for EdgeX MessageBus - <em>MQTT 3.1 and NATS implementations</em></p>
-<ul>
-<li>
-<p><strong>edgex/events/#</strong></p>
-<p>All events coming from any device service or core data for any device profile, device or source</p>
-</li>
-<li>
-<p><strong>edgex/events/device/#</strong></p>
-<p>All events coming from any device service for any device profile, device or source</p>
-</li>
-<li>
-<p><strong>edgex/events/+/+/camera-001/#</strong></p>
-<p>Events coming from any device service or core data for any device profile, but only for the device "camera-001" and for any source</p>
-</li>
-<li>
-<p><strong>edgex/events/device/onvif/+/status</strong></p>
+<p><strong>edgex/events/device/+/onvif/+/status</strong></p>
 <p>Events coming from any device service for only the device profile "onvif", and any device and only for the source "status"</p>
 </li>
 </ul>
