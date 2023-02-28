@@ -18,7 +18,7 @@ The EdgeX services intended as external entry points are:
   
 - **App Service using HTTP Trigger** - An App Service configured to use the [HTTP Trigger](../../application/Triggers/#http-trigger) will accept data from external services on an "external" REST connection. Accessed in the same manner as other EdgeX REST APIs.
 
-- **App Service using Custom Trigger** - An App Service configured to use a [Custom Trigger](../../application/Triggers/#custom-trigger) can accept data from external services or over additional protocols with few limitations. See [Custom Trigger Example](https://github.com/edgexfoundry/edgex-examples/tree/v{{latest_released_version}}/application-services/custom/custom-trigger) for an example.
+- **App Service using Custom Trigger** - An App Service configured to use a [Custom Trigger](../../application/Triggers/#custom-trigger) can accept data from external services or over additional protocols with few limitations. See [Custom Trigger Example](https://github.com/edgexfoundry/edgex-examples/tree/{{latest_released_version}}/application-services/custom/custom-trigger) for an example.
 
 - **Core Command External MQTT Connection** - Core Command now receives command requests and publishes responses via an external MQTT connection that is separate from the EdgeX MessageBus. The requests are forwarded to the EdgeX MessageBus and the corresponding responses are forwarded back to the external MQTT connection. 
 

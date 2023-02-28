@@ -233,7 +233,7 @@ The `Type=` is set to `external-mqtt`. To receive data from the external MQTT Br
 
 
 !!! edgey "Edgex 2.2"
-    Prior to EdgeX 2.2 if `AuthMode` is set to `usernamepassword`, `clientcert`, or `cacert` and App Service will be run in secure mode, the required credentials must be stored to Secret Store via [Vault CLI, REST API, or WEB UI](../../security/Ch-SecretStore/#using-the-secret-store) before starting App Service. Otherwise App Service will fail to initialize the External MQTT Trigger and then shutdown because the required credentials do not exist in the Secret Store at the time service starts. Today, you can start App Service and store the required credentials using the [App Service API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/app-functions-sdk/{{latest_released_version}}#/default/post_secret) afterwards. If the credentials found in Secret Store cannot satisfy App Service, it will retry for a certain duration and interval. See [Application Service Configuration](GeneralAppServiceConfig.md#not-writable) for more information on the configuration of this retry duration and interval. 
+    Prior to EdgeX 2.2 if `AuthMode` is set to `usernamepassword`, `clientcert`, or `cacert` and App Service will be run in secure mode, the required credentials must be stored to Secret Store via [Vault CLI, REST API, or WEB UI](../../security/Ch-SecretStore/#using-the-secret-store) before starting App Service. Otherwise App Service will fail to initialize the External MQTT Trigger and then shutdown because the required credentials do not exist in the Secret Store at the time service starts. Today, you can start App Service and store the required credentials using the [App Service API](../../api/applications/Ch-APIAppFunctionsSDK.md#swagger) afterwards. If the credentials found in Secret Store cannot satisfy App Service, it will retry for a certain duration and interval. See [Application Service Configuration](GeneralAppServiceConfig.md#not-writable) for more information on the configuration of this retry duration and interval. 
 
 ### External MQTT Broker Configuration
 The other piece of configuration required are the MQTT Broker connection settings:
@@ -408,7 +408,7 @@ Type="custom-stdin"
 
 Now the custom trigger is configured to be used rather than one of the built-in triggers.
 
-A complete working example can be found [**here**](https://github.com/edgexfoundry/edgex-examples/tree/v{{latest_released_version}}/application-services/custom/custom-trigger)
+A complete working example can be found [**here**](https://github.com/edgexfoundry/edgex-examples/tree/{{latest_released_version}}/application-services/custom/custom-trigger)
 
 ## Publish Topic Placeholders
 

@@ -11,4 +11,4 @@ The App Functions SDK provides a RESTful API that all Application Services inher
 
 ## Swagger
 
-<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/app-functions-sdk-go/{{dev_version}}/openapi/v2/app-functions-sdk.yaml"/>
+<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/app-functions-sdk-go/{{dev_version}}/openapi/{{api_version}}/app-functions-sdk.yaml"/>
