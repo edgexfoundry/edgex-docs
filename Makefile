@@ -27,7 +27,7 @@ build-docs: build-docker
 serve: build-docker
 	docker run --rm \
 		-it \
-		-p 8008:8008 \
+		-p 8008:8000 \
 		-v $(PWD):/docs \
 		-w /docs \
 		-e ENABLED_HTMLPROOFER \

@@ -10,14 +10,34 @@
 
 ## Configuration
 
-Please refer to the EdgeX Foundry [architectural decision record](https://github.com/edgexfoundry/edgex-docs/blob/master/docs_src/design/adr/0005-Service-Self-Config.md) for details (and design decisions) behind the configuration in EdgeX.
+Please refer to the following EdgeX Foundry ADRs for details (and design decisions) behind the configuration in EdgeX
+
+- [Sevice Self Config Seeding](../../../design/adr/0005-Service-Self-Config)
+- [Common Configuration](../../../design/adr/0026-Common%20Configuration/)
+
+### Common Configuration
+
+!!! edgey - "EdgeX 3.0"
+    Common configuration in single location is new in Edgex 3.0
+
+Many of each EdgeX service's configuration settings are the same as all other services. 
+These common configuration settings have been consolidating into a single common configuration location which is seeded by the **core-common-config-bootstrapper** service.
+This service seeds the configuration provider with the common configuration from its local file located in the `cmd/res/configuration.yaml`.
+See the [Common Configuration](../CommonConfiguration/) for list of all the common configuration settings.
 
 ### Local Configuration
 
-Because EdgeX Foundry may be deployed and run in several different ways, it is important to understand how configuration is loaded and from where it is sourced. Referring to the cmd directory within the [edgex-go repository](https://github.com/edgexfoundry/edgex-go) , each service has its own folder. Inside each service folder there is a `res` directory
-(short for "resource"). There you will find the configuration files in [TOML format](https://github.com/toml-lang/toml) that defines each service's configuration. A service may support several different configuration profiles, such as a App Service Configurable does. In this case, the configuration file located directly in the `res` directory should be considered the default configuration profile. Sub-directories will contain configurations appropriate to the respective profile.
+Because EdgeX Foundry may be deployed and run in several different ways, 
+it is important to understand how configuration is loaded and from where it is sourced. 
+Referring to the cmd directory within the [edgex-go repository](https://github.com/edgexfoundry/edgex-go) , each service has its own folder. 
+Inside each service folder there is a `res` directory (short for "resource").
+There you will find the configuration files in [TOML format](https://github.com/toml-lang/toml) that defines each service's configuration. 
+A service may support several different configuration profiles, such as a App Service Configurable does. 
+In this case, the configuration file located directly in the `res` directory should be considered the default configuration profile. 
+Sub-directories will contain configurations appropriate to the respective profile.
 
-As of the Geneva release, EdgeX recommends using environment variable overrides instead of creating profiles to override some subset of config values. App Service Configurable is an exception to this as this is how it defined unique instances using the same executable.
+As of the Geneva release, EdgeX recommends using environment variable overrides instead of creating profiles to override some subset of config values. 
+App Service Configurable is an exception to this as this is how it defined unique instances using the same executable.
 
 If you choose to use profiles as described above, the config profile can be indicated using one of the following command line flags:
 
@@ -33,7 +53,14 @@ Taking the `Core Data` and `App Service Configurable` services as an examples:
 
 ### Seeding Configuration
 
-When utilizing the centralized configuration management for the EdgeX Foundry micro services, it is necessary to seed the required configuration before starting the services. Each service has the built-in capability to perform this seeding operation. A service will use its local configuration file to initialize the structure and relevant values, and then overlay any environment variable override values as specified. The end result will be seeded into the configuration provider if such is being used.
+!!! edgey - "EdgeX 3.0"
+    Seeding of the new separate common configuration is new in Edgex 3.0
+
+When utilizing the centralized configuration management for the EdgeX Foundry microservices, 
+it is necessary to seed the required configuration before starting the services.
+The new **core-common-config-bootstrapper** is responsible for seeding the common configuration that all services now depend on.
+Each service has the built-in capability to perform the seeding operation for its private configuration. 
+A service will use its local configuration file to seeded into the configuration provider if such is being used.
 
 In order for a service to seed/load the configuration to/from the configuration provider, use one of the following flags:
 
@@ -43,51 +70,35 @@ Again, taking the `core-data` service as an example:
 
 `./core-data -cp=consul.http://localhost:8500` will start the service using configuration values found in the provider or seed them if they do not exist. 
 
-!!! note
-    Environment overrides are also applied after the configuration is loaded from the configuration provider. 
+!!! edgey - "EdgeX 3.0"
+    In EdgeX 3.0, overrides are no longer applied prior to seeding the configuration into the configuration provider.
 
 ### Configuration Structure
 
-Configuration information is organized into a hierarchical structure allowing for a logical grouping of services, as well as versioning, beneath an "edgex" namespace at root level of the configuration tree.
-The root namespace separates EdgeX Foundry-related configuration information from other applications that may be using the same configuration provider. Below the root, sub-nodes facilitate grouping of device services, core/support/security services, app services, etc. As an example, the top-level nodes shown when one views the configuration registry might be as follows:
+!!! edgey - "EdgeX 3.0"
+    In EdgeX 3.0, the configuration is no longer organized into a hierarchical structure grouped by service types.
 
-- edgex *(root namespace)*
-    -   core *(core/support/security services)*
-    -   devices *(device services)*
-    -   appservices (*application services*)
+The root namespace separates EdgeX Foundry related configuration information from other applications that may be using the same configuration provider. 
+Below the root is the configuration version and then all the individual services in a flat list. 
+As an example, the nodes shown when one views the configuration provider might be as follows:
 
+!!! example - "Example configuration structure"
+    ```
+    **edgex/v3** (root namespace)
+        - app-* (app services)
+        - core-* (core services which includes common config)
+        - devices-* (device services)
+        - security-* (security services)
+        - support-* (support services)
+    ```
 ### Versioning
 
-Incorporating versioning into the configuration hierarchy looks like this.
+The version is now part of the root namespace , i.e. `edgex/v3`
 
-- edgex *(root namespace)*
-    -   core *(core/support/security services)*
-        -   2.0
-            -   core-command
-            -   core-data
-            -   core-metadata
-            -   support-notifications
-            -   support-scheduler
-            -   sys-mgmt-agent
-        -   3.0
-    - devices *(device services)*
-        -   2.0
-            -   device-mqtt
-            -   device-virtual
-            -   device-modbus
-        -   3.0
-    - appservices *(application services)*
-        - 2.0
-            - app-rules-engine
-        - 3.0
-
-!!! edgey "EdgeX 2.0"
-    For EdgeX 2.0 the version number in the path is now `2.0` and the service keys are now used for the service names.
-
-The versions shown correspond to major versions of the given services. For all minor/patch versions associated with a major version, the respective service keys live under the major version in configuration
-(such as 2.0). Changes to the configuration structure that may be required during the associated minor version development cycles can only be additive. That is, key names will not be removed or changed once set in a major version.  Furthermore, sections of the configuration tree cannot be moved from one place to another. In this way, backward compatibility for the lifetime of the major version is maintained.
-
-An advantage of grouping all minor/patch versions under a major version involves end-user configuration changes that need to be persisted during an upgrade. A service on startup will not overwrite existing configuration when it runs unless explicitly told to do so via the `--overwrite / -o` command line flag. Therefore if a user leaves their configuration provider running during an EdgeX Foundry upgrade any customization will be left in place. Environment variable overrides such as those supplied in the docker-compose for a given release will always override existing content in the configuration provider.
+An advantage of grouping all minor/patch versions under a major version involves end-user configuration changes that need to be persisted during an upgrade. 
+A service on startup will not overwrite existing configuration when it runs unless explicitly told to do so via the `--overwrite / -o` command line flag. 
+Therefore, if a user leaves their configuration provider running during an EdgeX Foundry upgrade any customization will be left in place. 
+Environment variable overrides such as those supplied in the docker-compose for a given release will always override existing content in the configuration provider.
 
 ## Configuration Provider
 

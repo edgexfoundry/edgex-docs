@@ -124,82 +124,69 @@ Device services now have the capability to publish Events directly to the EdgeX 
 
 Please refer to the general [Common Configuration documentation](../configuration/CommonConfiguration.md) for configuration properties common to all services.
 
-!!! edgey "Edgex 2.2"
-    `Writable.Reading.ReadingUnits` and `MaxEventSize` are new for Edgex 2.2
-
-!!! edgey "Edgex 2.3"
-Service Metrics for device services are new in EdgeX 2.3
-
 !!! edgey - "EdgeX 3.0"
     **UpdateLastConnected** is removed in EdgeX 3.0.
 
-=== "Writable.Telemetry"
+!!! edgey "Edgex 3.0"
+    For EdgeX 3.0 the `MessageQueue` configuration has been move to `MessageBus` in [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties)
+
+!!! note
+    The `*` on the configuration section names below denoted that these sections are pulled from the device service common configuration thus are not in the individual device service's private configuration file.
+
+=== "Writable"
+    |Property|Default Value|Description|
+    |---|---|---|
+    ||Writable properties can be set and will dynamically take effect without service restart|
+    |LogLevel|INFO|log entry [severity level](https://en.wikipedia.org/wiki/Syslog#Severity_level).  Log entries not of the default level or higher are ignored. |
+=== "Writable.Reading*"
+    |Property|Default Value|Description|
+    |---|---|---|
+    |ReadingUnits|true|Indicate the units of measure for the Value in the Reading, set to `false` to not include units in the Reading. |
+=== "Writable.Telemetry*"
     |Property|<div style="width:300px">Default Value</div>|Description|
     |---|---|---|
     |||See `Writable.Telemetry` at [Common Configuration](../../configuration/CommonConfiguration/#configuration-properties) for the Telemetry configuration common to all services |
     |Metrics|     |Service metrics that the device service collects. Boolean value indicates if reporting of the metric is enabled. Common and custom metrics are also included.|
     ||`EventsSent` = false     |Enable/disable reporting of the built-in **EventsSent** metric|
     ||`ReadingsSent` = false     |Enable/disable reporting of the built-in **ReadingsSent** metric|
-    ||`<CommonMetric>` = false    |Enable/disable reporting of common service metric. See [Common Service Metrics](../general/#common-service-metrics) for more details.|   
     ||`<CustomMetric>` = false    |Enable/disable reporting of custom device service's custom metric. See [Custom Device Service Metrics](../../getting-started/Ch-GettingStartedSDK-Go/#built-in) for more details.|
-    |Tags|`<empty>`|List of arbitrary service level tags to included with every metric that is reported. i.e. `Gateway="my-iot-gateway"` |
-=== "Device"
+    |Tags|`<empty>`|List of arbitrary service level tags to included with every metric that is reported.  |
+=== "Clients.core-metadata*"
+    |Property|Default Value|Description|
+    |---|---|---|
+    |Protocol|http| The protocol to use when building a URI to the service endpoint|
+    |Host|localhost| The host name or IP address where the service is hosted |
+    |Port|59881| The port exposed by the target service|
+=== "Device*"
     |Property|Default Value|Description|
     |---|---|---|
     |||Properties that determine how the device service communicates with a device|
     |DataTransform|true|Controls whether transformations are applied to numeric readings|
     |MaxCmdOps|128|Maximum number of resources in a device command (hence, readings in an event)|
     |MaxCmdResultLen|256|Maximum JSON string length for command results|
-    |ProfilesDir|''|If set, directory containing profile definition files to upload to core-metadata|
-    |DevicesDir|''|If set, directory containing device definition files to upload to core-metadata|
-    |UseMessageBus|true|Controls whether events are published via MessageBus or core-data (REST)|
-    |Discovery/Enabled|true|Controls whether device discovery is enabled|
-    |Discovery/Interval|0|Interval between automatic discovery runs. Zero means do not run discovery automatically|
-=== "MessageQueue"
-    |Property|Default Value|Description|
-    |---|---|---|
-    ||Entries in the MessageQueue section of the configuration allow for publication of events to a message bus|
-    |Protocol | redis| Indicates the connectivity protocol to use to use the bus.|
-    |Host | localhost | Indicates the host of the messaging broker, if applicable.|
-    |Port | 6379| Indicates the port to use when publishing a message.|
-    |Type | redis| Indicates the type of messaging library to use. Currently this is Redis by default. Refer to the [go-mod-messaging](https://github.com/edgexfoundry/go-mod-messaging) module for more information. |
-    |AuthMode | usernamepassword| Auth Mode to connect to EdgeX MessageBus.|
-    |SecretName | redisdb | Name of the secret in the Secret Store to find the MessageBus credentials.|
-    |PublishTopicPrefix | edgex/events/device| Indicates the base topic to which messages should be published. /`<device-profile-name>/<device-name>` will be added to this Publish Topic prefix|
-=== "MessageQueue.Optional"
-    |Property|Default Value|Description|
-    |---|---|---|
-    ||Configuration and connection parameters for use with MQTT message bus - in place of Redis|
-    |ClientId|[service-key]|Client ID used to put messages on the bus|
-    |Qos|'0'| Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)|
-    |KeepAlive |'10'| Period of time in seconds to keep the connection alive when there is no messages flowing (must be 2 or greater)|
-    |Retained|false|Whether to retain messages|
-    |AutoReconnect |true |Whether to reconnect to the message bus on connection loss|
-    |ConnectTimeout|5|Message bus connection timeout in seconds|
-    |SkipCertVerify|false|TLS configuration - Only used if Cert/Key file or Cert/Key PEMblock are specified|
-=== "Writable.Reading"
-    |Property|Default Value|Description|
-    |---|---|---|
-    |ReadingUnits|true|Indicate the units of measure for the Value in the Reading, set to `false` to not to include units in the Reading. |
-=== "MaxEventSize"
+    |ProfilesDir|'./res/profiles'|If set, directory containing profile definition files to upload to core-metadata|
+    |DevicesDir|'./res/devices'|If set, directory containing device definition files to upload to core-metadata|
+    |ProvisionWatchersDir|''|If set, directory containing provision watcher definition files to upload to core-metadata (service specific when needed)|
+    |EnableAsyncReadings| true| Enables/Disables the Device Service ability to handle async readings |
+    |AsyncBufferSize| 16| Size of the buffer for async readings|
+    |Discovery/Enabled|false|Controls whether device discovery is enabled|
+    |Discovery/Interval|30s|Interval between automatic discovery runs. Zero means do not run discovery automatically|
+=== "MaxEventSize*"
     |Property|Default Value|Description|    
     |---|---|---|
     |MaxEventSize|0|maximum event size in kilobytes sent to Core Data or MessageBus. 0 represents default to system max.|
-
 
 ### Custom Configuration
 
 Device services can have custom configuration in one of two ways. See the table below for details.
 
 === "Driver"
-
     `[Driver]` - The Driver section used for simple custom settings and is accessed via the SDK's DriverConfigs() API. The DriverConfigs API returns a `map[string] string` containing the contents on the `Driver` section of the `configuration.toml` file.
     
     ```toml
     [Driver]
     MySetting = "My Value"
     ```
-
 === "Custom Structured Configuration"
     For Go Device Services see [Go Custom Structured Configuration](../../../getting-started/Ch-GettingStartedSDK-Go/#custom-structured-configuration) for more details.
     

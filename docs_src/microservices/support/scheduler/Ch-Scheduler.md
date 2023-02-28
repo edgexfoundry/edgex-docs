@@ -1,4 +1,4 @@
-# Scheduler
+# Support Scheduler
 
 ![image](EdgeX_SupportingServicesScheduling.png)
 
@@ -89,21 +89,43 @@ See [Interval](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-schedu
 
 ## Configuration Properties
 
-Please refer to the general [Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services. Below are only the additional settings and sections that are not common to all EdgeX Services.
+Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration settings common to all services.
+Below are only the additional settings and sections that are specific to Support Scheduler.
 
+!!! edgey "Edgex 3.0"
+    For EdgeX 3.0 the `MessageQueue` configuration has been move to `MessageBus` in [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties)
+
+=== "Writable"
+    |Property|Default Value|Description|
+    |---|---|---|
+    ||Writable properties can be set and will dynamically take effect without service restart|
+    |LogLevel|INFO|log entry [severity level](https://en.wikipedia.org/wiki/Syslog#Severity_level).  Log entries not of the default level or higher are ignored. |
 === "Writable.Telemetry"
     |Property|Default Value|Description|
     |---|---|---|
     |||See `Writable.Telemetry` at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties) for the Telemetry configuration common to all services |
-    |Metrics| `<common metrics>` |Service metrics that Support Scheduler collects. Boolean value indicates if reporting of the metric is enabled.|
+    |Metrics| `TBD` |Service metrics that Support Scheduler collects. Boolean value indicates if reporting of the metric is enabled.|
     |Tags|`<empty>`|List of arbitrary service level tags to included with every metric that is reported. i.e. `Gateway="my-iot-gateway"` |
-
-    !!! edgey "Edgex 2.3"
-        For EdgeX 2.3 Collecting of the some common service metrics has been added. See [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties) for more details.
 === "ScheduleIntervalTime"
     |Property|Default Value|Description|
     |---|---|---|
     |ScheduleIntervalTime|500|the time, in milliseconds, to trigger any applicable interval actions|
+=== "Service"
+    |Property|Default Value|Description|
+    |---|---|---|
+    ||| Unique settings for Support Scheduler. The common settings can be found at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties)
+    | Port | 59861|Micro service port number|
+    |StartupMsg |This is the Support Scheduler Microservice|Message logged when service completes bootstrap start-up|
+=== "Database"
+    |Property|Default Value|Description|
+    |---|---|---|
+    ||| Unique settings for Support Scheduler. The common settings can be found at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties)
+    |Name|'scheduler'|Document store or database name|
+=== "MessageBus.Optional"
+    |Property|Default Value|Description|
+    |---|---|---|
+    ||| Unique settings for Support Notifications. The common settings can be found at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties)
+    |ClientId|"support-scheduler| Id used when connecting to MQTT or NATS base MessageBus |
 === "Intervals/Intervals.Midnight"
     |Property|Default Value|Description|
     |---|---|---|

@@ -1,4 +1,4 @@
-# Alerts & Notifications
+# Support Notifications
 
 ![image](EdgeX_SupportingServicesAlertsNotifications.png)
 
@@ -135,16 +135,17 @@ This diagram is drawn by [diagrams.net](https://app.diagrams.net/) with the sour
 
 ## Configuration Properties
 
-Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services. Below are only the additional settings and sections that are not common to all EdgeX Services.
+Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration settings common to all services.
+Below are only the additional settings and sections that are specific to Support Notifications.
 
-!!! edgey "Edgex 2.0" 
-    For EdgeX 2.0, the SMTP username and password can be set in the Writable.InsecureSecrets.SMTP.Secrets as an insecure secret,
-    or be stored in the Smtp.SecretPath for security. 
+!!! edgey "Edgex 3.0"
+    For EdgeX 3.0 the `MessageQueue` configuration has been move to `MessageBus` in [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties)
 
 === "Writable"
     |Property|Default Value|Description|
     |---|---|---|
     |||Writable properties can be set and will dynamically take effect without service restart|
+    |LogLevel|INFO|log entry [severity level](https://en.wikipedia.org/wiki/Syslog#Severity_level).  Log entries not of the default level or higher are ignored. |
     |ResendLimit|2|Sets the retry limit for attempts to send notifications. CRITICAL notifications are sent to the escalation subscriber when resend limit is exceeded.|
     |ResendInterval|'5s'|Sets the retry interval for attempts to send notifications.|
     |Writable.InsecureSecrets.SMTP.Secrets username|username@mail.example.com|The email to send alerts and notifications|
@@ -153,17 +154,24 @@ Please refer to the general [Common Configuration documentation](../../configura
     |Property|Default Value|Description|
     |---|---|---|
     |||See `Writable.Telemetry` at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties) for the Telemetry configuration common to all services |
-    |Metrics| `<common metrics>` |Service metrics that Support Notification collects. Boolean value indicates if reporting of the metric is enabled.|
+    |Metrics| `TBD` |Service metrics that Support Notification collects. Boolean value indicates if reporting of the metric is enabled.|
     |Tags|`<empty>`|List of arbitrary service level tags to included with every metric that is reported. i.e. `Gateway="my-iot-gateway"` |
-
-    !!! edgey "Edgex 2.3"
-        For EdgeX 2.3 Collecting of the some common service metrics has been added. See [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties) for more details.
-
+=== "Service"
+    |Property|Default Value|Description|
+    |---|---|---|
+    ||| Unique settings for Support Notifications. The common settings can be found at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties)
+    | Port | 59860|Micro service port number|
+    |StartupMsg |This is the Support Notifications Microservice|Message logged when service completes bootstrap start-up|
 === "Database"
     |Property|Default Value|Description|
     |---|---|---|
-    |||Properties used by the service to access the database|
+    ||| Unique settings for Support Notifications. The common settings can be found at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties)
     |Name|'notifications'|Document store or database name|
+=== "MessageBus.Optional"
+    |Property|Default Value|Description|
+    |---|---|---|
+    ||| Unique settings for Support Notifications. The common settings can be found at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties)
+    |ClientId|"support-notifications| Id used when connecting to MQTT or NATS base MessageBus |
 === "Smtp"
     |Property|Default Value|Description|
     |---|---|---|
@@ -174,6 +182,11 @@ Please refer to the general [Common Configuration documentation](../../configura
     |Smtp SecretPath| smtp | Specify the secret path to store the credential(username and password) for connecting the SMTP server via the /secret API, or set Writable SMTP username and password for insecure secrets|
     |Smtp Sender|jdoe@gmail.com |SMTP service sender/username|
     |Smtp Subject|EdgeX Notification|SMTP notification message subject|
+
+
+### V3 Configuration Migration Guide
+
+Coming Soon
 
 ### Gmail Configuration Example
 
@@ -216,10 +229,6 @@ Then, use the following settings for the mail server properties:
     Smtp Host=smtp.mail.yahoo.com
     Smtp Sender=${Yahoo account}
     Smtp Password=${Yahoo password or App password}
-
-### V2 Configuration Migration Guide
-
-Refer to the [Common Configuration Migration Guide](../../../configuration/V2MigrationCommonConfig) for details on migrating the common configuration sections such as `Service`.
 
 #### Writable
 
