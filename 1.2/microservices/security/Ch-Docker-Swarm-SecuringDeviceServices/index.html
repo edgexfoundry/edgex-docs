@@ -11,13 +11,13 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/microservices/security/Ch-Docker-Swarm-SecuringDeviceServices/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/1.2/microservices/security/Ch-Docker-Swarm-SecuringDeviceServices/">
       
       
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-5.1.0">
     
     
       
@@ -74,7 +74,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/1.2/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../../assets/logo_edgex_white.png" alt="logo">
 
@@ -273,7 +273,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/1.2/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../../assets/logo_edgex_white.png" alt="logo">
 
@@ -2148,21 +2148,21 @@
 <li>Launch the worker node or VM if it is not yet running:</li>
 </ul>
 <p>This will create the VM select your network interface and let the prompt continue.  Once the prompt finishes, ignore the VMs popup window, we will be login in via SSH in the next step.</p>
-<div class="highlight"><pre><span></span><code>vagrant up
+<div class="highlight"><pre><span></span><code>vagrant<span class="w"> </span>up
 </code></pre></div>
 <ul>
 <li>ssh into the worker node via from your host's terminal:</li>
 </ul>
-<div class="highlight"><pre><span></span><code>vagrant ssh
+<div class="highlight"><pre><span></span><code>vagrant<span class="w"> </span>ssh
 </code></pre></div>
 <p>This will give you a terminal prompt in the worker node where you will run the <code>sudo docker swarm join</code> command in a few steps.</p>
 <h3 id="connecting-the-swarm-nodes">Connecting the swarm nodes</h3>
 <p>With the VM up and running we need to connect the two nodes using docker swarm.</p>
 <p>The following command initializes a docker swarm and is to be ran on the host machine: </p>
-<div class="highlight"><pre><span></span><code>sudo docker swarm init --advertise-addr &lt;your host ip address&gt;
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>docker<span class="w"> </span>swarm<span class="w"> </span>init<span class="w"> </span>--advertise-addr<span class="w"> </span>&lt;your<span class="w"> </span>host<span class="w"> </span>ip<span class="w"> </span>address&gt;
 </code></pre></div>
 <p>The previous command will output a token use this token in the following join command.  This joins the worker node to the cluster, to be ran your vagrant VM (worker-node):</p>
-<div class="highlight"><pre><span></span><code>sudo docker swarm join --token &lt;token&gt; &lt;manager ip address&gt;:2377
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>docker<span class="w"> </span>swarm<span class="w"> </span>join<span class="w"> </span>--token<span class="w"> </span>&lt;token&gt;<span class="w"> </span>&lt;manager<span class="w"> </span>ip<span class="w"> </span>address&gt;:2377
 </code></pre></div>
 <p>Next, I will walk-through the changes we made to the docker-stack.yml file to convert the edgex compose file into a docker swarm stack file.</p>
 <h3 id="setting-up-the-docker-stack-edgexyml-file">Setting up the docker-stack-edgex.yml file</h3>
@@ -2172,98 +2172,98 @@
 <p><div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">deploy</span><span class="p">:</span><span class="w"> </span>
 <span class="w">      </span><span class="nt">placement</span><span class="p">:</span><span class="w"> </span>
 <span class="w">        </span><span class="nt">constraints</span><span class="p">:</span><span class="w"> </span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node.hostname != worker-node</span><span class="w"></span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node.hostname != worker-node</span>
 </code></pre></div>
 Here is the inverse of the previous yml block. This gets added to the device services in the stack file. </p>
 <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">deploy</span><span class="p">:</span><span class="w"> </span>
 <span class="w">      </span><span class="nt">placement</span><span class="p">:</span><span class="w"> </span>
 <span class="w">        </span><span class="nt">constraints</span><span class="p">:</span><span class="w"> </span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node.hostname == worker-node</span><span class="w"></span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node.hostname == worker-node</span>
 </code></pre></div>
 <p>These work because we set the 'hostname = worker-node' in the Vagrantfile.</p>
 <h3 id="adding-host-mounted-volumes">Adding Host Mounted Volumes</h3>
 <p>In docker swarm bind mount volumes need to be explicitly defined in the stack yml file.  Below are the first three bind mount volume definitions these directories must be created on the host before the stack file can be ran.</p>
 <p>Note that this is only an example.  In a production deployment you would want to use a network filesystem or create the shared volumes between containers.</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">secrets-volume</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local</span><span class="w"></span>
-<span class="w">    </span><span class="nt">driver_opts</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">o</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bind</span><span class="w"></span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span><span class="w"></span>
-<span class="w">      </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/tmp/edgex/secrets/</span><span class="w"></span>
-<span class="w">  </span><span class="nt">secrets-ca-volume</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local</span><span class="w"></span>
-<span class="w">    </span><span class="nt">driver_opts</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">o</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bind</span><span class="w"></span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span><span class="w"></span>
-<span class="w">      </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/tmp/edgex/secrets/ca/</span><span class="w"></span>
-<span class="w">  </span><span class="nt">edgex-consul</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local</span><span class="w"></span>
-<span class="w">    </span><span class="nt">driver_opts</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">o</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bind</span><span class="w"></span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span><span class="w"></span>
-<span class="w">      </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/tmp/edgex/secrets/edgex-consul/</span><span class="w"></span>
-<span class="nn">...</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">secrets-volume</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local</span>
+<span class="w">    </span><span class="nt">driver_opts</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">o</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bind</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span>
+<span class="w">      </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/tmp/edgex/secrets/</span>
+<span class="w">  </span><span class="nt">secrets-ca-volume</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local</span>
+<span class="w">    </span><span class="nt">driver_opts</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">o</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bind</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span>
+<span class="w">      </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/tmp/edgex/secrets/ca/</span>
+<span class="w">  </span><span class="nt">edgex-consul</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local</span>
+<span class="w">    </span><span class="nt">driver_opts</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">o</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bind</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span>
+<span class="w">      </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/tmp/edgex/secrets/edgex-consul/</span>
+<span class="nn">...</span>
 </code></pre></div>
 <p>The full docker-stack file is included here:</p>
 <p><a href="https://github.com/edgexfoundry/edgex-examples/security/remote_devices/docker-swarm/docker-stack-edgex.yml">docker-stack-edgex.yml file</a></p>
 <h3 id="other-changes-in-docker-stack-edgexyml-file">Other changes in docker-stack-edgex.yml file</h3>
 <p>Another change we had to make in the docker-stack-edgex.yml file is to disable <code>IPC_LOCK</code> because the <code>cap_add</code> flag in vault's configuration is not supported in docker swarm.  To do this we add <code>SKIP_SETCAP=true</code> and <code>disable_mlock = "true"</code> to vault in the stack file. </p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">vault</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault:1.3.1</span><span class="w"></span>
-<span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-vault</span><span class="w"></span>
-<span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">edgex-network</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">aliases</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-vault</span><span class="w"></span>
-<span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8200</span><span class="w"></span>
-<span class="w">        </span><span class="nt">published</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8200</span><span class="w"></span>
-<span class="w">        </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tcp</span><span class="w"></span>
-<span class="w">        </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">host</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># cap_add not allowed in docker swarm, this is a security issue and I don&#39;t recommend disabling this in production</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># cap_add:</span><span class="w"></span>
-<span class="w">    </span><span class="c1">#   - &quot;IPC_LOCK&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">tmpfs</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/vault/config</span><span class="w"></span>
-<span class="w">    </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;/vault/init/start_vault.sh&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
-<span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VAULT_ADDR=https://edgex-vault:8200</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VAULT_CONFIG_DIR=/vault/config</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VAULT_UI=true</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SKIP_SETCAP=true</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">        </span><span class="no">VAULT_LOCAL_CONFIG=</span><span class="w"></span>
-<span class="w">          </span><span class="no">listener &quot;tcp&quot; { </span><span class="w"></span>
-<span class="w">              </span><span class="no">address = &quot;edgex-vault:8200&quot; </span><span class="w"></span>
-<span class="w">              </span><span class="no">tls_disable = &quot;0&quot; </span><span class="w"></span>
-<span class="w">              </span><span class="no">cluster_address = &quot;edgex-vault:8201&quot; </span><span class="w"></span>
-<span class="w">              </span><span class="no">tls_min_version = &quot;tls12&quot; </span><span class="w"></span>
-<span class="w">              </span><span class="no">tls_client_ca_file =&quot;/tmp/edgex/secrets/edgex-vault/ca.pem&quot; </span><span class="w"></span>
-<span class="w">              </span><span class="no">tls_cert_file =&quot;/tmp/edgex/secrets/edgex-vault/server.crt&quot; </span><span class="w"></span>
-<span class="w">              </span><span class="no">tls_key_file = &quot;/tmp/edgex/secrets/edgex-vault/server.key&quot; </span><span class="w"></span>
-<span class="w">              </span><span class="no">tls_perfer_server_cipher_suites = &quot;true&quot;</span><span class="w"></span>
-<span class="w">          </span><span class="no">} </span><span class="w"></span>
-<span class="w">          </span><span class="no">backend &quot;consul&quot; { </span><span class="w"></span>
-<span class="w">              </span><span class="no">path = &quot;vault/&quot; </span><span class="w"></span>
-<span class="w">              </span><span class="no">address = &quot;edgex-core-consul:8500&quot; </span><span class="w"></span>
-<span class="w">              </span><span class="no">scheme = &quot;http&quot; </span><span class="w"></span>
-<span class="w">              </span><span class="no">redirect_addr = &quot;https://edgex-vault:8200&quot; </span><span class="w"></span>
-<span class="w">              </span><span class="no">cluster_addr = &quot;https://edgex-vault:8201&quot; </span><span class="w"></span>
-<span class="w">          </span><span class="no">} </span><span class="w"></span>
-<span class="w">          </span><span class="no">default_lease_ttl = &quot;168h&quot; </span><span class="w"></span>
-<span class="w">          </span><span class="no">max_lease_ttl = &quot;720h&quot;</span><span class="w"></span>
-<span class="w">          </span><span class="no">disable_mlock = &quot;true&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault-file:/vault/file:z</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault-logs:/vault/logs:z</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault-init:/vault/init:ro,z</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-vault:/tmp/edgex/secrets/edgex-vault:ro,z</span><span class="w"></span>
-<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">consul</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-secrets-setup</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">vault</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault:1.3.1</span>
+<span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-vault</span>
+<span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">edgex-network</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">aliases</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-vault</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8200</span>
+<span class="w">        </span><span class="nt">published</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8200</span>
+<span class="w">        </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tcp</span>
+<span class="w">        </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">host</span>
+<span class="w">    </span><span class="c1"># cap_add not allowed in docker swarm, this is a security issue and I don&#39;t recommend disabling this in production</span>
+<span class="w">    </span><span class="c1"># cap_add:</span>
+<span class="w">    </span><span class="c1">#   - &quot;IPC_LOCK&quot;</span>
+<span class="w">    </span><span class="nt">tmpfs</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/vault/config</span>
+<span class="w">    </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;/vault/init/start_vault.sh&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VAULT_ADDR=https://edgex-vault:8200</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VAULT_CONFIG_DIR=/vault/config</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VAULT_UI=true</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SKIP_SETCAP=true</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">        </span><span class="no">VAULT_LOCAL_CONFIG=</span>
+<span class="w">          </span><span class="no">listener &quot;tcp&quot; { </span>
+<span class="w">              </span><span class="no">address = &quot;edgex-vault:8200&quot; </span>
+<span class="w">              </span><span class="no">tls_disable = &quot;0&quot; </span>
+<span class="w">              </span><span class="no">cluster_address = &quot;edgex-vault:8201&quot; </span>
+<span class="w">              </span><span class="no">tls_min_version = &quot;tls12&quot; </span>
+<span class="w">              </span><span class="no">tls_client_ca_file =&quot;/tmp/edgex/secrets/edgex-vault/ca.pem&quot; </span>
+<span class="w">              </span><span class="no">tls_cert_file =&quot;/tmp/edgex/secrets/edgex-vault/server.crt&quot; </span>
+<span class="w">              </span><span class="no">tls_key_file = &quot;/tmp/edgex/secrets/edgex-vault/server.key&quot; </span>
+<span class="w">              </span><span class="no">tls_perfer_server_cipher_suites = &quot;true&quot;</span>
+<span class="w">          </span><span class="no">} </span>
+<span class="w">          </span><span class="no">backend &quot;consul&quot; { </span>
+<span class="w">              </span><span class="no">path = &quot;vault/&quot; </span>
+<span class="w">              </span><span class="no">address = &quot;edgex-core-consul:8500&quot; </span>
+<span class="w">              </span><span class="no">scheme = &quot;http&quot; </span>
+<span class="w">              </span><span class="no">redirect_addr = &quot;https://edgex-vault:8200&quot; </span>
+<span class="w">              </span><span class="no">cluster_addr = &quot;https://edgex-vault:8201&quot; </span>
+<span class="w">          </span><span class="no">} </span>
+<span class="w">          </span><span class="no">default_lease_ttl = &quot;168h&quot; </span>
+<span class="w">          </span><span class="no">max_lease_ttl = &quot;720h&quot;</span>
+<span class="w">          </span><span class="no">disable_mlock = &quot;true&quot;</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault-file:/vault/file:z</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault-logs:/vault/logs:z</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault-init:/vault/init:ro,z</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-vault:/tmp/edgex/secrets/edgex-vault:ro,z</span>
+<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">consul</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-secrets-setup</span>
 <span class="w">    </span><span class="nt">deploy</span><span class="p">:</span><span class="w"> </span>
-<span class="w">      </span><span class="nt">endpoint_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dnsrr</span><span class="w"></span>
-<span class="w">      </span><span class="nt">placement</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">endpoint_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dnsrr</span>
+<span class="w">      </span><span class="nt">placement</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">constraints</span><span class="p">:</span><span class="w"> </span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node.hostname != worker-node</span><span class="w"> </span>
 </code></pre></div>
@@ -2274,10 +2274,10 @@ Here is the inverse of the previous yml block. This gets added to the device ser
 <p>The next and final change in the stack yml file is to ensure the EdgeX services are binding to the correct host.  In Geneva we do this by adding a common variable <code>Service_ServerBindAddr: "0.0.0.0"</code> to ensure that the service will bind to any host and not be limited to the hostname.  </p>
 <h3 id="running-the-docker-stack-file">Running the docker stack file</h3>
 <p>With all of these changes in place we are ready to run the stack file.  We included a script to run the stack file and create the volumes needed in the stack file.  This script simply creates the volumes directories and runs the <code>docker stack deploy ...</code> command.</p>
-<div class="highlight"><pre><span></span><code>sudo ./run.sh
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>./run.sh
 </code></pre></div>
 <p>Once the stack is up you can run the following command to view the running services: </p>
-<div class="highlight"><pre><span></span><code>sudo docker stack services edgex-overlay
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>docker<span class="w"> </span>stack<span class="w"> </span>services<span class="w"> </span>edgex-overlay
 </code></pre></div>
 <h3 id="confirming-results">Confirming results</h3>
 <p>To ensure the device service is running on the worker node you can run the <code>docker stack ps edgex-overlay</code> command. Now check that you see the device service running on the <code>worker-node</code> while all of the other services are running on your host.</p>
@@ -2286,7 +2286,7 @@ Here is the inverse of the previous yml block. This gets added to the device ser
 <p><code>sudo tcpdump -p esp</code></p>
 <h3 id="tearing-everything-down">Tearing everything down</h3>
 <p>To remove the stack run the command:</p>
-<div class="highlight"><pre><span></span><code>sudo ./down.sh
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>./down.sh
 </code></pre></div>
 <p>This will remove the volumes and the stack.</p>
 <p>To remove the swarm itself run: on the worker node <code>docker swarm leave</code>  and on the host machine <code>docker swarm leave --force</code>.</p>

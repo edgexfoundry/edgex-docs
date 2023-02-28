@@ -11,13 +11,13 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/microservices/application/Triggers/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/1.2/microservices/application/Triggers/">
       
       
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-5.1.0">
     
     
       
@@ -74,7 +74,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/1.2/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../../assets/logo_edgex_white.png" alt="logo">
 
@@ -275,7 +275,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/1.2/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../../assets/logo_edgex_white.png" alt="logo">
 
@@ -2156,23 +2156,23 @@
 <h3 id="type-and-topic-configuration">Type and Topic configuration</h3>
 <p>Here's an example:
 <div class="highlight"><pre><span></span><code><span class="n">Type</span><span class="o">=</span><span class="s">&quot;messagebus&quot;</span><span class="w"> </span>
-<span class="n">SubscribeTopic</span><span class="o">=</span><span class="s">&quot;events&quot;</span><span class="w"></span>
-<span class="n">PublishTopic</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="w"></span>
+<span class="n">SubscribeTopic</span><span class="o">=</span><span class="s">&quot;events&quot;</span>
+<span class="n">PublishTopic</span><span class="o">=</span><span class="s">&quot;&quot;</span>
 </code></pre></div>
 The <code>Type=</code> is set to "messagebus". <a href="">EdgeX Core Data</a> is publishing data to the <code>events</code> topic. So to receive data from core data, you can set your <code>SubscribeTopic=</code> either to <code>""</code> or <code>"events"</code>. You may also designate a <code>PublishTopic=</code> if you wish to publish data back to the message bus.
 <code>edgexcontext.Complete([]byte outputData)</code> - Will send data back to back to the message bus with the topic specified in the <code>PublishTopic=</code> property</p>
 <h3 id="message-bus-connection-configuration">Message bus connection configuration</h3>
 <p>The other piece of configuration required are the connection settings:
-<div class="highlight"><pre><span></span><code><span class="k">[MessageBus]</span><span class="w"></span>
-<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;zero&#39;</span><span class="w"> </span><span class="c1">#specifies of message bus (i.e zero for ZMQ)</span><span class="w"></span>
-<span class="w">    </span><span class="k">[MessageBus.PublishHost]</span><span class="w"></span>
-<span class="w">        </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;*&#39;</span><span class="w"></span>
-<span class="w">        </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5564</span><span class="w"></span>
-<span class="w">        </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;tcp&#39;</span><span class="w"></span>
-<span class="w">    </span><span class="k">[MessageBus.SubscribeHost]</span><span class="w"></span>
-<span class="w">        </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;localhost&#39;</span><span class="w"></span>
-<span class="w">        </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5563</span><span class="w"></span>
-<span class="w">        </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;tcp&#39;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[MessageBus]</span>
+<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;zero&#39;</span><span class="w"> </span><span class="c1">#specifies of message bus (i.e zero for ZMQ)</span>
+<span class="w">    </span><span class="k">[MessageBus.PublishHost]</span>
+<span class="w">        </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;*&#39;</span>
+<span class="w">        </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5564</span>
+<span class="w">        </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;tcp&#39;</span>
+<span class="w">    </span><span class="k">[MessageBus.SubscribeHost]</span>
+<span class="w">        </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;localhost&#39;</span>
+<span class="w">        </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5563</span>
+<span class="w">        </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;tcp&#39;</span>
 </code></pre></div>
 By default, <code>EdgeX Core Data</code> publishes data to the <code>events</code>  topic using ZMQ on port 5563. The publish host is used if publishing data back to the message bus. </p>
 <div class="admonition important">
