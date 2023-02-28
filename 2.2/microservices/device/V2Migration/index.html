@@ -12,10 +12,16 @@
         <meta name="author" content="Michael Johanson">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/microservices/device/V2Migration/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/2.2/microservices/device/V2Migration/">
+      
+      
+        <link rel="prev" href="../virtual/Ch-VirtualDevice/">
+      
+      
+        <link rel="next" href="../../application/ApplicationServices/">
       
       <link rel="icon" href="../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.7">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.15">
     
     
       
@@ -23,11 +29,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.20d9efc8.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.113286f1.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.cbb835fc.min.css">
-        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.a0c5b2b5.min.css">
       
       
 
@@ -78,7 +83,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
   
     
     
@@ -155,7 +160,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -167,7 +172,7 @@
         <a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     edgex/edgex-go
@@ -186,7 +191,7 @@
           
             
 <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-tabs__inner md-grid">
+  <div class="md-grid">
     <ul class="md-tabs__list">
       
         
@@ -352,7 +357,7 @@
       <a href="https://github.com/edgexfoundry/edgex-go" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     edgex/edgex-go
@@ -373,17 +378,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_1">
+        <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
           Introduction
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_1">
           <span class="md-nav__icon md-icon"></span>
           Introduction
@@ -435,17 +441,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_2">
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
           Getting Started
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Getting Started
@@ -489,17 +496,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_2_3">
+        <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
           Users
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Users" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_3">
           <span class="md-nav__icon md-icon"></span>
           Users
@@ -564,17 +572,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_2_4">
+        <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
           Developers
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Developers" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_4">
           <span class="md-nav__icon md-icon"></span>
           Developers
@@ -660,17 +669,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4_6" type="checkbox" id="__nav_2_4_6" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_6" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_2_4_6">
+        <label class="md-nav__link" for="__nav_2_4_6" id="__nav_2_4_6_label" tabindex="0">
           Device Services
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Device Services" data-md-level="3">
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_6_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_4_6">
           <span class="md-nav__icon md-icon"></span>
           Device Services
@@ -756,17 +766,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_2_5">
+        <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
           Tools
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Tools" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_5">
           <span class="md-nav__icon md-icon"></span>
           Tools
@@ -825,17 +836,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_3">
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
           Security
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Security" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
           Security
@@ -1043,17 +1055,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
       
       
       
-      
-        <label class="md-nav__link" for="__nav_4">
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
           Microservices
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Microservices" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           Microservices
@@ -1083,17 +1096,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_4_2">
+        <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
           Configuration & Registry
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Configuration & Registry" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_4_2">
           <span class="md-nav__icon md-icon"></span>
           Configuration & Registry
@@ -1186,17 +1200,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_4_3">
+        <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
           Core Services
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Core Services" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_4_3">
           <span class="md-nav__icon md-icon"></span>
           Core Services
@@ -1289,17 +1304,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_4" type="checkbox" id="__nav_4_4" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_4_4">
+        <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
           Supporting Services
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Supporting Services" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_4_4">
           <span class="md-nav__icon md-icon"></span>
           Supporting Services
@@ -1378,17 +1394,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_5" type="checkbox" id="__nav_4_5" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_4_5">
+        <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
           System Management
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="System Management" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_4_5">
           <span class="md-nav__icon md-icon"></span>
           System Management
@@ -1455,17 +1472,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6" type="checkbox" id="__nav_4_6" checked>
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" checked>
       
       
       
-      
-        <label class="md-nav__link" for="__nav_4_6">
+        <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
           Devices Services
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Devices Services" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_4_6">
           <span class="md-nav__icon md-icon"></span>
           Devices Services
@@ -1551,7 +1569,7 @@
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
         
@@ -1890,17 +1908,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_7" type="checkbox" id="__nav_4_7" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_7" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_4_7">
+        <label class="md-nav__link" for="__nav_4_7" id="__nav_4_7_label" tabindex="0">
           Application Services
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Application Services" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_7_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_4_7">
           <span class="md-nav__icon md-icon"></span>
           Application Services
@@ -1958,17 +1977,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_7_4" type="checkbox" id="__nav_4_7_4" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_7_4" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_4_7_4">
+        <label class="md-nav__link" for="__nav_4_7_4" id="__nav_4_7_4_label" tabindex="0">
           Application Functions SDK
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Application Functions SDK" data-md-level="3">
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_7_4_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_4_7_4">
           <span class="md-nav__icon md-icon"></span>
           Application Functions SDK
@@ -2132,17 +2152,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_5">
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
           Examples and Tutorials
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Examples and Tutorials" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
           Examples and Tutorials
@@ -2242,17 +2263,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_5_7">
+        <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="0">
           Adding a Device
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Adding a Device" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_5_7">
           <span class="md-nav__icon md-icon"></span>
           Adding a Device
@@ -2317,17 +2339,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_8" type="checkbox" id="__nav_5_8" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_5_8">
+        <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
           Walkthrough
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Walkthrough" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_5_8">
           <span class="md-nav__icon md-icon"></span>
           Walkthrough
@@ -2484,17 +2507,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_6">
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
           API Reference
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="API Reference" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_6">
           <span class="md-nav__icon md-icon"></span>
           API Reference
@@ -2524,17 +2548,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2" type="checkbox" id="__nav_6_2" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_6_2">
+        <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
           Core
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Core" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_6_2">
           <span class="md-nav__icon md-icon"></span>
           Core
@@ -2613,17 +2638,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3" type="checkbox" id="__nav_6_3" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_6_3">
+        <label class="md-nav__link" for="__nav_6_3" id="__nav_6_3_label" tabindex="0">
           Support
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Support" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_6_3">
           <span class="md-nav__icon md-icon"></span>
           Support
@@ -2674,17 +2700,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4" type="checkbox" id="__nav_6_4" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_6_4">
+        <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="0">
           Management
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Management" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_6_4">
           <span class="md-nav__icon md-icon"></span>
           Management
@@ -2721,17 +2748,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_5" type="checkbox" id="__nav_6_5" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_5" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_6_5">
+        <label class="md-nav__link" for="__nav_6_5" id="__nav_6_5_label" tabindex="0">
           Device
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Device" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_5_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_6_5">
           <span class="md-nav__icon md-icon"></span>
           Device
@@ -2768,17 +2796,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_6" type="checkbox" id="__nav_6_6" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_6" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_6_6">
+        <label class="md-nav__link" for="__nav_6_6" id="__nav_6_6_label" tabindex="0">
           Application
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Application" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_6_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_6_6">
           <span class="md-nav__icon md-icon"></span>
           Application
@@ -2837,17 +2866,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_7">
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
           Architectural Decision Records
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Architectural Decision Records" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_7">
           <span class="md-nav__icon md-icon"></span>
           Architectural Decision Records
@@ -2891,17 +2921,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_7_3">
+        <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="0">
           Legacy
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Legacy" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_7_3">
           <span class="md-nav__icon md-icon"></span>
           Legacy
@@ -2960,17 +2991,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_8">
+        <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
           Reference
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_8">
           <span class="md-nav__icon md-icon"></span>
           Reference
@@ -3377,10 +3409,8 @@
                 
                   
 
-  <a href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/microservices/device/V2Migration.md" title="Edit this page" class="md-content__button md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
-  </a>
+  
+  
 
 
 <h1 id="v2-migration-guide">V2 Migration Guide</h1>
@@ -3401,8 +3431,8 @@
 <div class="admonition example">
 <p class="admonition-title">Example configuration</p>
 <div class="highlight"><pre><span></span><code><span class="p">[</span><span class="n">Device</span><span class="p">]</span><span class="w"> </span>
-<span class="n">DevicesDir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;./res/devices&quot;</span><span class="w"></span>
-<span class="n">ProfilesDir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;./res/profiles&quot;</span><span class="w"></span>
+<span class="n">DevicesDir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;./res/devices&quot;</span>
+<span class="n">ProfilesDir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;./res/profiles&quot;</span>
 <span class="p">...</span><span class="w"> </span>
 </code></pre></div>
 </div>
@@ -3427,25 +3457,25 @@ A <code>MessageQueue</code> section is added in configuration to specify the det
 <div class="admonition example">
 <p class="admonition-title">MessageQueue Example</p>
 </div>
-<div class="highlight"><pre><span></span><code><span class="k">[MessageQueue]</span><span class="w"></span>
-<span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redis&quot;</span><span class="w"></span>
-<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
-<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6379</span><span class="w"></span>
-<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redis&quot;</span><span class="w"></span>
-<span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;usernamepassword&quot;</span><span class="w">  </span><span class="c1"># required for redis messagebus (secure or insecure).</span><span class="w"></span>
-<span class="n">SecretName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redisdb&quot;</span><span class="w"></span>
-<span class="n">PublishTopicPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;edgex/events/device&quot;</span><span class="w"> </span><span class="c1"># /&lt;device-profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt; will be added to this Publish Topic prefix</span><span class="w"></span>
-<span class="w">  </span><span class="k">[MessageQueue.Optional]</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># Default MQTT Specific options that need to be here to enable environment variable overrides of them</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># Client Identifiers</span><span class="w"></span>
-<span class="w">  </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;device-simple&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># Connection information</span><span class="w"></span>
-<span class="w">  </span><span class="n">Qos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="c1"># Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</span><span class="w"></span>
-<span class="w">  </span><span class="n">KeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span><span class="w"></span>
-<span class="w">  </span><span class="n">Retained</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">AutoReconnect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
-<span class="w">  </span><span class="n">SkipCertVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"> </span><span class="c1"># Only used if Cert/Key file or Cert/Key PEMblock are specified</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[MessageQueue]</span>
+<span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redis&quot;</span>
+<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span>
+<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6379</span>
+<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redis&quot;</span>
+<span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;usernamepassword&quot;</span><span class="w">  </span><span class="c1"># required for redis messagebus (secure or insecure).</span>
+<span class="n">SecretName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redisdb&quot;</span>
+<span class="n">PublishTopicPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;edgex/events/device&quot;</span><span class="w"> </span><span class="c1"># /&lt;device-profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt; will be added to this Publish Topic prefix</span>
+<span class="w">  </span><span class="k">[MessageQueue.Optional]</span>
+<span class="w">  </span><span class="c1"># Default MQTT Specific options that need to be here to enable environment variable overrides of them</span>
+<span class="w">  </span><span class="c1"># Client Identifiers</span>
+<span class="w">  </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;device-simple&quot;</span>
+<span class="w">  </span><span class="c1"># Connection information</span>
+<span class="w">  </span><span class="n">Qos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="c1"># Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</span>
+<span class="w">  </span><span class="n">KeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span>
+<span class="w">  </span><span class="n">Retained</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
+<span class="w">  </span><span class="n">AutoReconnect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">  </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># Seconds</span>
+<span class="w">  </span><span class="n">SkipCertVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"> </span><span class="c1"># Only used if Cert/Key file or Cert/Key PEMblock are specified</span>
 </code></pre></div>
 <p>See the <a href="../../../design/adr/013-Device-Service-Events-Message-Bus/#device-services">Device Service MessageQueue</a> section for details.</p>
 <h3 id="code-golang">Code (Golang)</h3>
@@ -3453,26 +3483,26 @@ A <code>MessageQueue</code> section is added in configuration to specify the det
 <p>You first need to update the <code>go.mod</code> file to specify <code>go 1.16</code> and the V2 versions of the Device SDK and any EdgeX go-mods directly used by your service. Note the extra <code>/v2</code> for the modules.</p>
 <div class="admonition example">
 <p class="admonition-title">Example go.mod for V2</p>
-<div class="highlight"><pre><span></span><code><span class="nx">module</span><span class="w"> </span><span class="p">&lt;</span><span class="nx">your</span><span class="w"> </span><span class="nx">service</span><span class="p">&gt;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">module</span><span class="w"> </span><span class="p">&lt;</span><span class="nx">your</span><span class="w"> </span><span class="nx">service</span><span class="p">&gt;</span>
 
-<span class="k">go</span><span class="w"> </span><span class="mf">1.16</span><span class="w"></span>
+<span class="k">go</span><span class="w"> </span><span class="mf">1.16</span>
 
-<span class="nx">require</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">    </span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">edgexfoundry</span><span class="o">/</span><span class="nx">device</span><span class="o">-</span><span class="nx">sdk</span><span class="o">-</span><span class="k">go</span><span class="o">/</span><span class="nx">v2</span><span class="w"> </span><span class="nx">v2</span><span class="mf">.0.0</span><span class="w"></span>
-<span class="w">    </span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">edgexfoundry</span><span class="o">/</span><span class="k">go</span><span class="o">-</span><span class="nx">mod</span><span class="o">-</span><span class="nx">core</span><span class="o">-</span><span class="nx">contracts</span><span class="o">/</span><span class="nx">v2</span><span class="w"> </span><span class="nx">v2</span><span class="mf">.0.0</span><span class="w"></span>
-<span class="w">    </span><span class="o">...</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="nx">require</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">edgexfoundry</span><span class="o">/</span><span class="nx">device</span><span class="o">-</span><span class="nx">sdk</span><span class="o">-</span><span class="k">go</span><span class="o">/</span><span class="nx">v2</span><span class="w"> </span><span class="nx">v2</span><span class="mf">.0.0</span>
+<span class="w">    </span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">edgexfoundry</span><span class="o">/</span><span class="k">go</span><span class="o">-</span><span class="nx">mod</span><span class="o">-</span><span class="nx">core</span><span class="o">-</span><span class="nx">contracts</span><span class="o">/</span><span class="nx">v2</span><span class="w"> </span><span class="nx">v2</span><span class="mf">.0.0</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="p">)</span>
 </code></pre></div>
 </div>
 <p>Once that is complete then the import statements for these dependencies must be updated to include the <code>/v2</code> in the path.</p>
 <div class="admonition example">
 <p class="admonition-title">Example import statements for V2</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">    </span><span class="o">...</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="o">...</span>
 
-<span class="w">    </span><span class="s">&quot;github.com/edgexfoundry/device-sdk-go/v2/pkg/models&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="s">&quot;github.com/edgexfoundry/go-mod-core-contracts/v2/common&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;github.com/edgexfoundry/device-sdk-go/v2/pkg/models&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/edgexfoundry/go-mod-core-contracts/v2/common&quot;</span>
+<span class="p">)</span>
 </code></pre></div>
 </div>
 <h4 id="commandvalue">CommandValue</h4>
@@ -3481,12 +3511,12 @@ As a result, you might notice the original API to create CommandValue is no long
 In V2 we refactor all those API functions to create CommandValue of different type to a generic function:</p>
 <div class="admonition example">
 <p class="admonition-title">Create CommandValue with string Type</p>
-<div class="highlight"><pre><span></span><code><span class="nx">cv</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">NewCommandValue</span><span class="p">(</span><span class="nx">deviceResourceName</span><span class="p">,</span><span class="w"> </span><span class="nx">v2</span><span class="p">.</span><span class="nx">ValueTypeString</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;foobar&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="o">...</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-<span class="nx">cv</span><span class="p">.</span><span class="nx">Origin</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">Unixnano</span><span class="p">()</span><span class="w"></span>
-<span class="nx">cv</span><span class="p">.</span><span class="nx">Tags</span><span class="p">[</span><span class="s">&quot;foo&quot;</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;bar&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">cv</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">NewCommandValue</span><span class="p">(</span><span class="nx">deviceResourceName</span><span class="p">,</span><span class="w"> </span><span class="nx">v2</span><span class="p">.</span><span class="nx">ValueTypeString</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;foobar&quot;</span><span class="p">)</span>
+<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="p">}</span>
+<span class="nx">cv</span><span class="p">.</span><span class="nx">Origin</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">Unixnano</span><span class="p">()</span>
+<span class="nx">cv</span><span class="p">.</span><span class="nx">Tags</span><span class="p">[</span><span class="s">&quot;foo&quot;</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;bar&quot;</span>
 </code></pre></div>
 </div>
 <p>The 3rd argument in the function must be able to cast into the Type defined in 2nd argument otherwise there will be error.
@@ -3533,50 +3563,50 @@ void xxx_free_resource_attr (void *impl, devsdk_resource_attr_t attr);
 <li><code>Float32</code> and <code>Float64</code> type are both only represented in eNotation. Base64 encoding is removed so there is no <code>floatEncoding</code> field anymore</li>
 </ul>
 <p>V1:
-<div class="highlight"><pre><span></span><code><span class="nt">deviceResources</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xrotation&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;X</span><span class="nv"> </span><span class="s">axis</span><span class="nv"> </span><span class="s">rotation</span><span class="nv"> </span><span class="s">rate&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Int32&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">      </span><span class="nt">units</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;string&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;degrees/sec&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">deviceResources</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xrotation&quot;</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;X</span><span class="nv"> </span><span class="s">axis</span><span class="nv"> </span><span class="s">rotation</span><span class="nv"> </span><span class="s">rate&quot;</span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">value</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Int32&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">      </span><span class="nt">units</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;string&quot;</span><span class="p p-Indicator">,</span><span class="nt"> readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;degrees/sec&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
 </code></pre></div></p>
 <p>V2:
-<div class="highlight"><pre><span></span><code><span class="nt">deviceResources</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xrotation&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;X</span><span class="nv"> </span><span class="s">axis</span><span class="nv"> </span><span class="s">rotation</span><span class="nv"> </span><span class="s">rate&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Int32&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">deviceResources</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xrotation&quot;</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;X</span><span class="nv"> </span><span class="s">axis</span><span class="nv"> </span><span class="s">rotation</span><span class="nv"> </span><span class="s">rate&quot;</span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Int32&quot;</span>
+<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span>
 </code></pre></div></p>
 <h4 id="device-command">Device Command</h4>
 <p><code>get</code> and <code>set</code> ResourceOperation field is replaced with a single <code>readWrite</code> field to eliminate the duplicate definition.</p>
 <p>V1:
-<div class="highlight"><pre><span></span><code><span class="nt">deviceCommands</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Rotation&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">get</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xrotation&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Yrotation&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Zrotation&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">    </span><span class="nt">set</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;set&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> parameter</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;set&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Yrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> parameter</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;set&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Zrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> parameter</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">deviceCommands</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Rotation&quot;</span>
+<span class="w">    </span><span class="nt">get</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xrotation&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Yrotation&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Zrotation&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">set</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;set&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> parameter</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;set&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Yrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> parameter</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;set&quot;</span><span class="p p-Indicator">,</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Zrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> parameter</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
 </code></pre></div>
 V2:
-<div class="highlight"><pre><span></span><code><span class="nt">deviceCommands</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Rotation&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="w">    </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">resourceOperations</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Yrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Zrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">deviceCommands</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Rotation&quot;</span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span>
+<span class="w">    </span><span class="nt">resourceOperations</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Yrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Zrotation&quot;</span><span class="p p-Indicator">,</span><span class="nt"> defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
 </code></pre></div></p>
 <h4 id="core-command">Core Command</h4>
 <p><code>coreCommands</code> section is removed in V2. We use <code>isHidden</code> field in both deviceResource and deviceCommand to indicates
@@ -3589,23 +3619,23 @@ and deviceCommand is able to be called via Command Service REST API. Set <code>i
 <p>In V2 pre-defined devices are in their own file, SDK allows both TOML and JSON format.</p>
 <div class="admonition example">
 <p class="admonition-title">Pre-defined devices</p>
-<div class="highlight"><pre><span></span><code><span class="k">[[DeviceList]]</span><span class="w"></span>
-<span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Simple-Device01&quot;</span><span class="w"></span>
-<span class="n">ProfileName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Simple-Device&quot;</span><span class="w"></span>
-<span class="n">Description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Example of Simple Device&quot;</span><span class="w"></span>
-<span class="n">Labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s">&quot;industrial&quot;</span><span class="w"> </span><span class="p">]</span><span class="w"></span>
-<span class="w">  </span><span class="k">[DeviceList.Protocols]</span><span class="w"></span>
-<span class="w">    </span><span class="k">[DeviceList.Protocols.other]</span><span class="w"></span>
-<span class="w">    </span><span class="n">Address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;simple01&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;300&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="k">[[DeviceList.AutoEvents]]</span><span class="w"></span>
-<span class="w">  </span><span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;10s&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">OnChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
-<span class="w">  </span><span class="n">SourceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Switch&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="k">[[DeviceList.AutoEvents]]</span><span class="w"></span>
-<span class="w">  </span><span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30s&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">OnChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
-<span class="w">  </span><span class="n">SourceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Image&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[[DeviceList]]</span>
+<span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Simple-Device01&quot;</span>
+<span class="n">ProfileName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Simple-Device&quot;</span>
+<span class="n">Description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Example of Simple Device&quot;</span>
+<span class="n">Labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s">&quot;industrial&quot;</span><span class="w"> </span><span class="p">]</span>
+<span class="w">  </span><span class="k">[DeviceList.Protocols]</span>
+<span class="w">    </span><span class="k">[DeviceList.Protocols.other]</span>
+<span class="w">    </span><span class="n">Address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;simple01&quot;</span>
+<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;300&quot;</span>
+<span class="w">  </span><span class="k">[[DeviceList.AutoEvents]]</span>
+<span class="w">  </span><span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;10s&quot;</span>
+<span class="w">  </span><span class="n">OnChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">  </span><span class="n">SourceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Switch&quot;</span>
+<span class="w">  </span><span class="k">[[DeviceList.AutoEvents]]</span>
+<span class="w">  </span><span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30s&quot;</span>
+<span class="w">  </span><span class="n">OnChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">  </span><span class="n">SourceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Image&quot;</span>
 </code></pre></div>
 </div>
 <p>Notice that we renamed some fields:  </p>
@@ -3620,80 +3650,80 @@ and deviceCommand is able to be called via Command Service REST API. Set <code>i
 <p>The <code>[Driver]</code> section has been replaced with the new <code>[MQTTBrokerInfo]</code>structured custom configuration section. The setting under <code>[MQTTBrokerInfo.Writable]</code>can be dynamically updated from Consul without needing to restart the service.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - V1 Driver configuration</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Driver configs</span><span class="w"></span>
-<span class="k">[Driver]</span><span class="w"></span>
-<span class="n">IncomingSchema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;tcp&#39;</span><span class="w"></span>
-<span class="n">IncomingHost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;0.0.0.0&#39;</span><span class="w"></span>
-<span class="n">IncomingPort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;1883&#39;</span><span class="w"></span>
-<span class="n">IncomingUser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;admin&#39;</span><span class="w"></span>
-<span class="n">IncomingPassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;public&#39;</span><span class="w"></span>
-<span class="n">IncomingQos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;0&#39;</span><span class="w"></span>
-<span class="n">IncomingKeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;3600&#39;</span><span class="w"></span>
-<span class="n">IncomingClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;IncomingDataSubscriber&#39;</span><span class="w"></span>
-<span class="n">IncomingTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;DataTopic&#39;</span><span class="w"></span>
-<span class="n">ResponseSchema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;tcp&#39;</span><span class="w"></span>
-<span class="n">ResponseHost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;0.0.0.0&#39;</span><span class="w"></span>
-<span class="n">ResponsePort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;1883&#39;</span><span class="w"></span>
-<span class="n">ResponseUser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;admin&#39;</span><span class="w"></span>
-<span class="n">ResponsePassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;public&#39;</span><span class="w"></span>
-<span class="n">ResponseQos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;0&#39;</span><span class="w"></span>
-<span class="n">ResponseKeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;3600&#39;</span><span class="w"></span>
-<span class="n">ResponseClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;CommandResponseSubscriber&#39;</span><span class="w"></span>
-<span class="n">ResponseTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;ResponseTopic&#39;</span><span class="w"></span>
-<span class="n">ConnEstablishingRetry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;10&#39;</span><span class="w"></span>
-<span class="n">ConnRetryWaitTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;5&#39;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Driver configs</span>
+<span class="k">[Driver]</span>
+<span class="n">IncomingSchema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;tcp&#39;</span>
+<span class="n">IncomingHost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;0.0.0.0&#39;</span>
+<span class="n">IncomingPort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;1883&#39;</span>
+<span class="n">IncomingUser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;admin&#39;</span>
+<span class="n">IncomingPassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;public&#39;</span>
+<span class="n">IncomingQos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;0&#39;</span>
+<span class="n">IncomingKeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;3600&#39;</span>
+<span class="n">IncomingClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;IncomingDataSubscriber&#39;</span>
+<span class="n">IncomingTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;DataTopic&#39;</span>
+<span class="n">ResponseSchema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;tcp&#39;</span>
+<span class="n">ResponseHost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;0.0.0.0&#39;</span>
+<span class="n">ResponsePort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;1883&#39;</span>
+<span class="n">ResponseUser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;admin&#39;</span>
+<span class="n">ResponsePassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;public&#39;</span>
+<span class="n">ResponseQos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;0&#39;</span>
+<span class="n">ResponseKeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;3600&#39;</span>
+<span class="n">ResponseClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;CommandResponseSubscriber&#39;</span>
+<span class="n">ResponseTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;ResponseTopic&#39;</span>
+<span class="n">ConnEstablishingRetry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;10&#39;</span>
+<span class="n">ConnRetryWaitTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;5&#39;</span>
 </code></pre></div>
 </div>
 <div class="admonition example">
 <p class="admonition-title">Example - V2 MQTTBrokerInfo configuration section</p>
-<div class="highlight"><pre><span></span><code><span class="k">[MQTTBrokerInfo]</span><span class="w"></span>
-<span class="n">Schema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span><span class="w"></span>
-<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;0.0.0.0&quot;</span><span class="w"></span>
-<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span><span class="w"></span>
-<span class="n">Qos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
-<span class="n">KeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3600</span><span class="w"></span>
-<span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;device-mqtt&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[MQTTBrokerInfo]</span>
+<span class="n">Schema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcp&quot;</span>
+<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;0.0.0.0&quot;</span>
+<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span>
+<span class="n">Qos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="n">KeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3600</span>
+<span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;device-mqtt&quot;</span>
 
-<span class="n">CredentialsRetryTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">120</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
-<span class="n">CredentialsRetryWait</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
-<span class="n">ConnEstablishingRetry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="w"></span>
-<span class="n">ConnRetryWaitTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="n">CredentialsRetryTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">120</span><span class="w"> </span><span class="c1"># Seconds</span>
+<span class="n">CredentialsRetryWait</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1"># Seconds</span>
+<span class="n">ConnEstablishingRetry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span>
+<span class="n">ConnRetryWaitTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span>
 
-<span class="c1"># AuthMode is the MQTT broker authentication mechanism. </span><span class="w"></span>
-<span class="c1"># Currently, &quot;none&quot; and &quot;usernamepassword&quot; is the only AuthMode</span><span class="w"></span>
-<span class="c1"># supported by this service, and the secret keys are &quot;username&quot; and &quot;password&quot;.</span><span class="w"></span>
-<span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w"></span>
-<span class="n">CredentialsPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;credentials&quot;</span><span class="w"></span>
+<span class="c1"># AuthMode is the MQTT broker authentication mechanism. </span>
+<span class="c1"># Currently, &quot;none&quot; and &quot;usernamepassword&quot; is the only AuthMode</span>
+<span class="c1"># supported by this service, and the secret keys are &quot;username&quot; and &quot;password&quot;.</span>
+<span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span>
+<span class="n">CredentialsPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;credentials&quot;</span>
 
-<span class="n">IncomingTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;DataTopic&quot;</span><span class="w"></span>
-<span class="n">responseTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ResponseTopic&quot;</span><span class="w"></span>
+<span class="n">IncomingTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;DataTopic&quot;</span>
+<span class="n">responseTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ResponseTopic&quot;</span>
 
-<span class="w">    </span><span class="k">[MQTTBrokerInfo.Writable]</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># ResponseFetchInterval specifies the retry </span><span class="w"></span>
-<span class="w">    </span><span class="c1"># interval(milliseconds) to fetch the command response from the MQTT broker</span><span class="w"></span>
-<span class="w">    </span><span class="n">ResponseFetchInterval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">500</span><span class="w"></span>
+<span class="w">    </span><span class="k">[MQTTBrokerInfo.Writable]</span>
+<span class="w">    </span><span class="c1"># ResponseFetchInterval specifies the retry </span>
+<span class="w">    </span><span class="c1"># interval(milliseconds) to fetch the command response from the MQTT broker</span>
+<span class="w">    </span><span class="n">ResponseFetchInterval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">500</span>
 </code></pre></div>
 </div>
 <h3 id="devicelistprotocolsmqtt">DeviceList.Protocols.mqtt</h3>
 <p>Now that there is a single MQTT Broker connection, the configuration in <code>[DeviceList.Protocols.mqtt]</code> for each device has been greatly simplified to just the CommandTopic the device is subscribed. Note that this topic needs to be a unique topic for each device defined.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - V1 DeviceList.Protocols.mqtt device configuration section</p>
-<div class="highlight"><pre><span></span><code><span class="k">[DeviceList.Protocols]</span><span class="w"></span>
-<span class="w">  </span><span class="k">[DeviceList.Protocols.mqtt]</span><span class="w"></span>
-<span class="w">   </span><span class="n">Schema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;tcp&#39;</span><span class="w"></span>
-<span class="w">   </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;0.0.0.0&#39;</span><span class="w"></span>
-<span class="w">   </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;1883&#39;</span><span class="w"></span>
-<span class="w">   </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;CommandPublisher&#39;</span><span class="w"></span>
-<span class="w">   </span><span class="n">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;admin&#39;</span><span class="w"></span>
-<span class="w">   </span><span class="n">Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;public&#39;</span><span class="w"></span>
-<span class="w">   </span><span class="n">Topic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;CommandTopic&#39;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[DeviceList.Protocols]</span>
+<span class="w">  </span><span class="k">[DeviceList.Protocols.mqtt]</span>
+<span class="w">   </span><span class="n">Schema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;tcp&#39;</span>
+<span class="w">   </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;0.0.0.0&#39;</span>
+<span class="w">   </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;1883&#39;</span>
+<span class="w">   </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;CommandPublisher&#39;</span>
+<span class="w">   </span><span class="n">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;admin&#39;</span>
+<span class="w">   </span><span class="n">Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;public&#39;</span>
+<span class="w">   </span><span class="n">Topic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;CommandTopic&#39;</span>
 </code></pre></div>
 </div>
 <div class="admonition example">
 <p class="admonition-title">Example - V2 DeviceList.Protocols.mqtt device configuration section</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">[DeviceList.Protocols]</span><span class="w"></span>
-<span class="w">    </span><span class="k">[DeviceList.Protocols.mqtt]</span><span class="w"></span>
-<span class="w">       </span><span class="n">CommandTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;CommandTopic&#39;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">[DeviceList.Protocols]</span>
+<span class="w">    </span><span class="k">[DeviceList.Protocols.mqtt]</span>
+<span class="w">       </span><span class="n">CommandTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;CommandTopic&#39;</span>
 </code></pre></div>
 </div>
 <h3 id="secretstore">SecretStore</h3>
@@ -3701,26 +3731,26 @@ and deviceCommand is able to be called via Command Service REST API. Set <code>i
 <p>See the <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.0.0#/default/post_secret">Secret API reference</a> for injecting authentication credentials into a Device Service's secure SecretStore. </p>
 <div class="admonition example -">
 <p class="admonition-title">Example - Authentication credentials injected via Device MQTT's <code>Secret</code> endpoint</p>
-<div class="highlight"><pre><span></span><code>curl -X POST http://localhost:59982/api/v2/secret  -H <span class="s1">&#39;Content-Type: application/json&#39;</span> -d <span class="s1">&#39;{ &quot;apiVersion&quot;: &quot;v2&quot;, &quot;requestId&quot;: &quot;e6e8a2f4-eb14-4649-9e2b-175247911369&quot;, &quot;path&quot;: &quot;credentials&quot;, &quot;secretData&quot;: [  {   &quot;key&quot;: &quot;username&quot;, &quot;value&quot;: &quot;mqtt-user&quot;  }, {  &quot;key&quot;: &quot;password&quot;, &quot;value&quot;: &quot;mqtt-password&quot; } ]}&#39;</span>  
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:59982/api/v2/secret<span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{ &quot;apiVersion&quot;: &quot;v2&quot;, &quot;requestId&quot;: &quot;e6e8a2f4-eb14-4649-9e2b-175247911369&quot;, &quot;path&quot;: &quot;credentials&quot;, &quot;secretData&quot;: [  {   &quot;key&quot;: &quot;username&quot;, &quot;value&quot;: &quot;mqtt-user&quot;  }, {  &quot;key&quot;: &quot;password&quot;, &quot;value&quot;: &quot;mqtt-password&quot; } ]}&#39;</span><span class="w">  </span>
 </code></pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The service has to be running for this endpoint to be available.  The following <code>[MQTTBrokerInfo]</code> settings from above allow a window of time to inject the credentials.
-<div class="highlight"><pre><span></span><code><span class="n">CredentialsRetryTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">120</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
-<span class="n">CredentialsRetryWait</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">CredentialsRetryTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">120</span><span class="w"> </span><span class="c1"># Seconds</span>
+<span class="n">CredentialsRetryWait</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1"># Seconds</span>
 </code></pre></div></p>
 </div>
 <h4 id="non-secure">Non Secure</h4>
 <p>For non-secure mode the authentication credentials need to be added to the [InsecureSecrets] configuration section. </p>
 <div class="admonition example -">
 <p class="admonition-title">Example - Authentication credentials in Device MQTT's <code>[InsecureSecrets]</code> configuration section</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Writable.InsecureSecrets]</span><span class="w"></span>
-<span class="w">  </span><span class="k">[Writable.InsecureSecrets.MQTT]</span><span class="w"></span>
-<span class="w">  </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;credentials&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Writable.InsecureSecrets.MQTT.Secrets]</span><span class="w"></span>
-<span class="w">    </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt-user&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt-password&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Writable.InsecureSecrets]</span>
+<span class="w">  </span><span class="k">[Writable.InsecureSecrets.MQTT]</span>
+<span class="w">  </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;credentials&quot;</span>
+<span class="w">    </span><span class="k">[Writable.InsecureSecrets.MQTT.Secrets]</span>
+<span class="w">    </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt-user&quot;</span>
+<span class="w">    </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt-password&quot;</span>
 </code></pre></div>
 </div>
 <h2 id="device-camera">Device Camera</h2>
@@ -3728,44 +3758,44 @@ and deviceCommand is able to be called via Command Service REST API. Set <code>i
 <h3 id="driver">Driver</h3>
 <div class="admonition example">
 <p class="admonition-title">Example V1 Driver configuration section</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Driver]</span><span class="w"></span>
-<span class="n">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;service&#39;</span><span class="w"></span>
-<span class="n">Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;Password!1&#39;</span><span class="w"></span>
-<span class="c1"># Assign AuthMethod to &#39;digest&#39; | &#39;basic&#39; | &#39;none&#39;</span><span class="w"></span>
-<span class="c1"># AuthMethod specifies the authentication method used when</span><span class="w"></span>
-<span class="c1"># requesting still images from the URL returned by the ONVIF</span><span class="w"></span>
-<span class="c1"># &quot;GetSnapshotURI&quot; command.  All ONVIF requests will be</span><span class="w"></span>
-<span class="c1"># carried out using digest auth.</span><span class="w"></span>
-<span class="n">AuthMethod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;basic&#39;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Driver]</span>
+<span class="n">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;service&#39;</span>
+<span class="n">Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;Password!1&#39;</span>
+<span class="c1"># Assign AuthMethod to &#39;digest&#39; | &#39;basic&#39; | &#39;none&#39;</span>
+<span class="c1"># AuthMethod specifies the authentication method used when</span>
+<span class="c1"># requesting still images from the URL returned by the ONVIF</span>
+<span class="c1"># &quot;GetSnapshotURI&quot; command.  All ONVIF requests will be</span>
+<span class="c1"># carried out using digest auth.</span>
+<span class="n">AuthMethod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;basic&#39;</span>
 </code></pre></div>
 </div>
 <div class="admonition example">
 <p class="admonition-title">Example V2 Driver configuration section</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Driver]</span><span class="w"></span>
-<span class="n">CredentialsRetryTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;120&#39;</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
-<span class="n">CredentialsRetryWait</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;1&#39;</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Driver]</span>
+<span class="n">CredentialsRetryTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;120&#39;</span><span class="w"> </span><span class="c1"># Seconds</span>
+<span class="n">CredentialsRetryWait</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;1&#39;</span><span class="w"> </span><span class="c1"># Seconds</span>
 </code></pre></div>
 </div>
 <h3 id="devicelistprotocolshttp">DeviceList.Protocols.HTTP</h3>
 <div class="admonition example">
 <p class="admonition-title">Example V1 DeviceList.Protocols.HTTP device configuration section</p>
-<div class="highlight"><pre><span></span><code><span class="k">[DeviceList.Protocols]</span><span class="w"></span>
-<span class="w">  </span><span class="k">[DeviceList.Protocols.HTTP]</span><span class="w"></span>
-<span class="w">  </span><span class="n">Address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;192.168.2.105&#39;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[DeviceList.Protocols]</span>
+<span class="w">  </span><span class="k">[DeviceList.Protocols.HTTP]</span>
+<span class="w">  </span><span class="n">Address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;192.168.2.105&#39;</span>
 </code></pre></div>
 </div>
 <div class="admonition example">
 <p class="admonition-title">Example V2 DeviceList.Protocols.HTTP device configuration section</p>
-<div class="highlight"><pre><span></span><code><span class="k">[DeviceList.Protocols]</span><span class="w"></span>
-<span class="w">  </span><span class="k">[DeviceList.Protocols.HTTP]</span><span class="w"></span>
-<span class="w">  </span><span class="n">Address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;192.168.2.105&#39;</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># Assign AuthMethod to &#39;digest&#39; | &#39;usernamepassword&#39; | &#39;none&#39;</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># AuthMethod specifies the authentication method used when</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># requesting still images from the URL returned by the ONVIF</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># &quot;GetSnapshotURI&quot; command.  All ONVIF requests will be</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># carried out using digest auth.</span><span class="w"></span>
-<span class="w">  </span><span class="n">AuthMethod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;usernamepassword&#39;</span><span class="w"></span>
-<span class="w">  </span><span class="n">CredentialsPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;credentials001&#39;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[DeviceList.Protocols]</span>
+<span class="w">  </span><span class="k">[DeviceList.Protocols.HTTP]</span>
+<span class="w">  </span><span class="n">Address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;192.168.2.105&#39;</span>
+<span class="w">  </span><span class="c1"># Assign AuthMethod to &#39;digest&#39; | &#39;usernamepassword&#39; | &#39;none&#39;</span>
+<span class="w">  </span><span class="c1"># AuthMethod specifies the authentication method used when</span>
+<span class="w">  </span><span class="c1"># requesting still images from the URL returned by the ONVIF</span>
+<span class="w">  </span><span class="c1"># &quot;GetSnapshotURI&quot; command.  All ONVIF requests will be</span>
+<span class="w">  </span><span class="c1"># carried out using digest auth.</span>
+<span class="w">  </span><span class="n">AuthMethod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;usernamepassword&#39;</span>
+<span class="w">  </span><span class="n">CredentialsPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;credentials001&#39;</span>
 </code></pre></div>
 </div>
 <h3 id="secretstore_1">SecretStore</h3>
@@ -3773,25 +3803,25 @@ and deviceCommand is able to be called via Command Service REST API. Set <code>i
 <p>See the <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.0.0#/default/post_secret">Secret API reference</a> for injecting authentication credentials into a Device Service's secure SecretStore. An entry is required for each camera that is configured with <code>AuthMethod = 'usernamepassword'</code></p>
 <div class="admonition example -">
 <p class="admonition-title">Example - Authentication credentials injected via Device Camera's <code>Secret</code> endpoint</p>
-<div class="highlight"><pre><span></span><code>curl -X POST http://localhost:59985/api/v2/secret  -H <span class="s1">&#39;Content-Type: application/json&#39;</span> -d <span class="s1">&#39;{ &quot;apiVersion&quot;: &quot;v2&quot;, &quot;requestId&quot;: &quot;e6e8a2f4-eb14-4649-9e2b-175247911369&quot;, &quot;path&quot;: &quot;credentials001&quot;, &quot;secretData&quot;: [  {   &quot;key&quot;: &quot;username&quot;, &quot;value&quot;: &quot;camera-user&quot;  }, {  &quot;key&quot;: &quot;password&quot;, &quot;value&quot;: &quot;camera-password&quot; } ]}&#39;</span>  
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:59985/api/v2/secret<span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{ &quot;apiVersion&quot;: &quot;v2&quot;, &quot;requestId&quot;: &quot;e6e8a2f4-eb14-4649-9e2b-175247911369&quot;, &quot;path&quot;: &quot;credentials001&quot;, &quot;secretData&quot;: [  {   &quot;key&quot;: &quot;username&quot;, &quot;value&quot;: &quot;camera-user&quot;  }, {  &quot;key&quot;: &quot;password&quot;, &quot;value&quot;: &quot;camera-password&quot; } ]}&#39;</span><span class="w">  </span>
 </code></pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The service has to be running for this endpoint to be available.  The following <code>[Driver]</code> settings from above allow a window of time to inject the credentials.</p>
-<div class="highlight"><pre><span></span><code><span class="n">CredentialsRetryTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">120</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
-<span class="n">CredentialsRetryWait</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">CredentialsRetryTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">120</span><span class="w"> </span><span class="c1"># Seconds</span>
+<span class="n">CredentialsRetryWait</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1"># Seconds</span>
 </code></pre></div>
 </div>
 <h4 id="non-secure_1">Non Secure</h4>
 <p>For non-secure mode the authentication credentials need to be added to the [InsecureSecrets] configuration section. An entry is required for each camera that is configured with <code>AuthMethod = 'usernamepassword'</code></p>
 <div class="admonition example -">
 <p class="admonition-title">Example - Authentication credentials in Device Camera's <code>[InsecureSecrets]</code> configuration section</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Writable.InsecureSecrets.Camera001]</span><span class="w"></span>
-<span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;credentials001&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="k">[Writable.InsecureSecrets.Camera001.Secrets]</span><span class="w"></span>
-<span class="w">  </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;camera-user&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;camera-password&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Writable.InsecureSecrets.Camera001]</span>
+<span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;credentials001&quot;</span>
+<span class="w">  </span><span class="k">[Writable.InsecureSecrets.Camera001.Secrets]</span>
+<span class="w">  </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;camera-user&quot;</span>
+<span class="w">  </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;camera-password&quot;</span>
 </code></pre></div>
 </div>
 
@@ -3811,42 +3841,6 @@ and deviceCommand is able to be called via Command Service REST API. Set <code>i
       </main>
       
         <footer class="md-footer">
-  
-    
-    <nav class="md-footer__inner md-grid" aria-label="Footer" >
-      
-        
-        <a href="../virtual/Ch-VirtualDevice/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Virtual Device" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              Virtual Device
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="../../application/ApplicationServices/" class="md-footer__link md-footer__link--next" aria-label="Next: Introduction" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              Introduction
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -3868,29 +3862,35 @@ and deviceCommand is able to be called via Command Service REST API. Set <code>i
   
     
     
+    
+    
       
       
     
     <a href="https://github.com/edgexfoundry" target="_blank" rel="noopener" title="github.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
     </a>
   
+    
+    
     
     
       
       
     
     <a href="https://twitter.com/edgexfoundry" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
     </a>
   
+    
+    
     
     
       
       
     
     <a href="https://www.linkedin.com/company/edgexfoundry" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
     </a>
   
 </div>
@@ -3904,10 +3904,10 @@ and deviceCommand is able to be called via Command Service REST API. Set <code>i
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs"], "search": "../../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs"], "search": "../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.8492ddcf.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.2a6f1dda.min.js"></script>
       
         <script src="../../../assets/javascripts/version-select.js"></script>
       
