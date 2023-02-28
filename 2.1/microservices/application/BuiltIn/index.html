@@ -11,7 +11,7 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/microservices/application/BuiltIn/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/2.1/microservices/application/BuiltIn/">
       
       
         <meta name="author" content="Michael Johanson">
@@ -78,7 +78,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/2.1/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../../assets/logo_edgex_white.png" alt="logo">
 
@@ -280,7 +280,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/2.1/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../../assets/logo_edgex_white.png" alt="logo">
 
@@ -3005,7 +3005,7 @@
 <p>All pipeline functions define a type and a factory function which is used to initialize an instance of the type with the  required options. The instances returned by these factory functions give access to their appropriate pipeline function pointers when setting up the function pipeline.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="nx">NewFilterFor</span><span class="p">([]</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;Device1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Device2&quot;</span><span class="p">}).</span><span class="nx">FilterByDeviceName</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">NewFilterFor</span><span class="p">([]</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;Device1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Device2&quot;</span><span class="p">}).</span><span class="nx">FilterByDeviceName</span>
 </code></pre></div>
 </div>
 <h2 id="batching">Batching</h2>
@@ -3023,8 +3023,8 @@
 <td>This function returns a <code>BatchConfig</code> instance with time being the strategy that is used for determining when to release the batched data and continue the pipeline. <code>timeInterval</code> is the duration to wait (i.e. <code>10s</code>). The time begins after the first piece of data is received. If no data has been received no data will be sent forward.</td>
 </tr>
 <tr>
-<td><div class="highlight"><pre><span></span><code><span class="c1">// Example: </span><span class="w"></span>
-<span class="nx">NewBatchByTime</span><span class="p">(</span><span class="s">&quot;10s&quot;</span><span class="p">).</span><span class="nx">Batch</span><span class="w"></span>
+<td><div class="highlight"><pre><span></span><code><span class="c1">// Example: </span>
+<span class="nx">NewBatchByTime</span><span class="p">(</span><span class="s">&quot;10s&quot;</span><span class="p">).</span><span class="nx">Batch</span>
 </code></pre></div></td>
 <td></td>
 </tr>
@@ -3033,8 +3033,8 @@
 <td>This function returns a <code>BatchConfig</code> instance with count being the strategy that is used for determining when to release the batched data and continue the pipeline. <code>batchThreshold</code> is how many events to hold on to (i.e. <code>25</code>). The count begins after the first piece of data is received and once the threshold is met, the batched data will continue forward and the counter will be reset.</td>
 </tr>
 <tr>
-<td><div class="highlight"><pre><span></span><code><span class="c1">// Example:</span><span class="w"></span>
-<span class="nx">NewBatchByCount</span><span class="p">(</span><span class="mi">10</span><span class="p">).</span><span class="nx">Batch</span><span class="w"></span>
+<td><div class="highlight"><pre><span></span><code><span class="c1">// Example:</span>
+<span class="nx">NewBatchByCount</span><span class="p">(</span><span class="mi">10</span><span class="p">).</span><span class="nx">Batch</span>
 </code></pre></div></td>
 <td></td>
 </tr>
@@ -3043,8 +3043,8 @@
 <td>This function returns a <code>BatchConfig</code> instance with a combination of both time and count being the strategy that is used for determining when to release the batched data and continue the pipeline. Whichever occurs first will trigger the data to continue and be reset.</td>
 </tr>
 <tr>
-<td><div class="highlight"><pre><span></span><code><span class="c1">// Example:</span><span class="w"></span>
-<span class="nx">NewBatchByTimeAndCount</span><span class="p">(</span><span class="s">&quot;30s&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">).</span><span class="nx">Batch</span><span class="w"></span>
+<td><div class="highlight"><pre><span></span><code><span class="c1">// Example:</span>
+<span class="nx">NewBatchByTimeAndCount</span><span class="p">(</span><span class="s">&quot;30s&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">).</span><span class="nx">Batch</span>
 </code></pre></div></td>
 <td></td>
 </tr>
@@ -3092,14 +3092,14 @@ batch.Batch
 <p><code>CompressWithGZIP</code>  - This pipeline function receives either a <code>string</code>,<code>[]byte</code>, or <code>json.Marshaler</code> type, GZIP compresses the data, converts result to base64 encoded string, which is returned as a <code>[]byte</code> to the pipeline.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="nx">NewCompression</span><span class="p">().</span><span class="nx">CompressWithGZIP</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">NewCompression</span><span class="p">().</span><span class="nx">CompressWithGZIP</span>
 </code></pre></div>
 </div>
 <h3 id="zlib">ZLIB</h3>
 <p><code>CompressWithZLIB</code> - This pipeline function receives either a <code>string</code>,<code>[]byte</code>, or <code>json.Marshaler</code> type, ZLIB compresses the data, converts result to base64 encoded string, which is returned as a <code>[]byte</code> to the pipeline.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="nx">NewCompression</span><span class="p">().</span><span class="nx">CompressWithZLIB</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">NewCompression</span><span class="p">().</span><span class="nx">CompressWithZLIB</span>
 </code></pre></div>
 </div>
 <h2 id="conversion">Conversion</h2>
@@ -3122,14 +3122,14 @@ batch.Batch
 <p><code>TransformToJSON</code> - This pipeline function receives an <code>dtos.Event</code> type and converts it to JSON format and returns the JSON string to the pipeline.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="nx">NewConversion</span><span class="p">().</span><span class="nx">TransformToJSON</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">NewConversion</span><span class="p">().</span><span class="nx">TransformToJSON</span>
 </code></pre></div>
 </div>
 <h3 id="xml">XML</h3>
 <p><code>TransformToXML</code>  - This pipeline function receives an <code>dtos.Event</code> type, converts it to XML format and returns the XML string to the pipeline. </p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="nx">NewConversion</span><span class="p">().</span><span class="nx">TransformToXML</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">NewConversion</span><span class="p">().</span><span class="nx">TransformToXML</span>
 </code></pre></div>
 </div>
 <h2 id="core-data">Core Data</h2>
@@ -3168,7 +3168,7 @@ batch.Batch
 <p><code>PushToCoreData</code> - This pipeline function provides the capability to push a new Event/Reading to Core Data. The data passed into this function from the pipeline is wrapped in an EdgeX Event with the Event and Reading metadata specified from the factory function options. The function returns the new EdgeX Event with ID populated.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="nx">NewCoreDataSimpleReading</span><span class="p">(</span><span class="s">&quot;my-profile&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;my-device&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;my-resource&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;string&quot;</span><span class="p">).</span><span class="nx">PushToCoreData</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">NewCoreDataSimpleReading</span><span class="p">(</span><span class="s">&quot;my-profile&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;my-device&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;my-resource&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;string&quot;</span><span class="p">).</span><span class="nx">PushToCoreData</span>
 </code></pre></div>
 </div>
 <h2 id="data-protection"><a name="dataprotection"></a>Data Protection</h2>
@@ -3203,9 +3203,9 @@ batch.Batch
 <p><code>EncryptWithAES</code> - This pipeline function receives either a <code>string</code>, <code>[]byte</code>, or <code>json.Marshaller</code> type and encrypts it using AES encryption and returns a <code>[]byte</code> to the pipeline.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="nx">NewEncryption</span><span class="p">(</span><span class="s">&quot;key&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;initializationVector&quot;</span><span class="p">).</span><span class="nx">EncryptWithAES</span><span class="w"></span>
-<span class="nx">or</span><span class="w"></span>
-<span class="nx">NewEncryptionWithSecrets</span><span class="p">(</span><span class="s">&quot;aes&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;aes-key&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;initializationVector&quot;</span><span class="p">).</span><span class="nx">EncryptWithAES</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">NewEncryption</span><span class="p">(</span><span class="s">&quot;key&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;initializationVector&quot;</span><span class="p">).</span><span class="nx">EncryptWithAES</span>
+<span class="nx">or</span>
+<span class="nx">NewEncryptionWithSecrets</span><span class="p">(</span><span class="s">&quot;aes&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;aes-key&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;initializationVector&quot;</span><span class="p">).</span><span class="nx">EncryptWithAES</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <div class="admonition note">
@@ -3252,7 +3252,7 @@ batch.Batch
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 </div>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewAESProtection</span><span class="p">(</span><span class="nx">secretPath</span><span class="p">,</span><span class="w"> </span><span class="nx">secretName</span><span class="p">).</span><span class="nx">Encrypt</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewAESProtection</span><span class="p">(</span><span class="nx">secretPath</span><span class="p">,</span><span class="w"> </span><span class="nx">secretName</span><span class="p">).</span><span class="nx">Encrypt</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="p">)</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3291,29 +3291,29 @@ batch.Batch
 <p class="admonition-title">EdgeX 2.0</p>
 <p>New in EdgeX 2.0 is the ability to chain multiple instances of the HTTP exports to accomplish exporting to multiple destinations. The new <code>NewHTTPSenderWithOptions</code> factory function was added to allow for configuring all the options, including the new <code>ContinueOnSendError</code> and <code>ReturnInputData</code> options that enable this chaining. </p>
 </div>
-<div class="highlight"><pre><span></span><code><span class="c1">// HTTPSenderOptions contains all options available to the sender</span><span class="w"></span>
-<span class="kd">type</span><span class="w"> </span><span class="nx">HTTPSenderOptions</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// URL of destination</span><span class="w"></span>
-<span class="w">    </span><span class="nx">URL</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// MimeType to send to destination</span><span class="w"></span>
-<span class="w">    </span><span class="nx">MimeType</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// PersistOnError enables use of store &amp; forward loop if true</span><span class="w"></span>
-<span class="w">    </span><span class="nx">PersistOnError</span><span class="w"> </span><span class="kt">bool</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// HTTPHeaderName to use for passing configured secret</span><span class="w"></span>
-<span class="w">    </span><span class="nx">HTTPHeaderName</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// SecretPath to search for configured secret</span><span class="w"></span>
-<span class="w">    </span><span class="nx">SecretPath</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// SecretName for configured secret</span><span class="w"></span>
-<span class="w">    </span><span class="nx">SecretName</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// URLFormatter specifies custom formatting behavior to be applied to configured URL.</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// If nothing specified, default behavior is to attempt to replace placeholders in the</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// form &#39;{some-context-key}&#39; with the values found in the context storage.</span><span class="w"></span>
-<span class="w">    </span><span class="nx">URLFormatter</span><span class="w"> </span><span class="nx">StringValuesFormatter</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// ContinueOnSendError allows execution of subsequent chained senders after errors if true</span><span class="w"></span>
-<span class="w">    </span><span class="nx">ContinueOnSendError</span><span class="w"> </span><span class="kt">bool</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// ReturnInputData enables chaining multiple HTTP senders if true</span><span class="w"></span>
-<span class="w">    </span><span class="nx">ReturnInputData</span><span class="w"> </span><span class="kt">bool</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="c1">// HTTPSenderOptions contains all options available to the sender</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">HTTPSenderOptions</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// URL of destination</span>
+<span class="w">    </span><span class="nx">URL</span><span class="w"> </span><span class="kt">string</span>
+<span class="w">    </span><span class="c1">// MimeType to send to destination</span>
+<span class="w">    </span><span class="nx">MimeType</span><span class="w"> </span><span class="kt">string</span>
+<span class="w">    </span><span class="c1">// PersistOnError enables use of store &amp; forward loop if true</span>
+<span class="w">    </span><span class="nx">PersistOnError</span><span class="w"> </span><span class="kt">bool</span>
+<span class="w">    </span><span class="c1">// HTTPHeaderName to use for passing configured secret</span>
+<span class="w">    </span><span class="nx">HTTPHeaderName</span><span class="w"> </span><span class="kt">string</span>
+<span class="w">    </span><span class="c1">// SecretPath to search for configured secret</span>
+<span class="w">    </span><span class="nx">SecretPath</span><span class="w"> </span><span class="kt">string</span>
+<span class="w">    </span><span class="c1">// SecretName for configured secret</span>
+<span class="w">    </span><span class="nx">SecretName</span><span class="w"> </span><span class="kt">string</span>
+<span class="w">    </span><span class="c1">// URLFormatter specifies custom formatting behavior to be applied to configured URL.</span>
+<span class="w">    </span><span class="c1">// If nothing specified, default behavior is to attempt to replace placeholders in the</span>
+<span class="w">    </span><span class="c1">// form &#39;{some-context-key}&#39; with the values found in the context storage.</span>
+<span class="w">    </span><span class="nx">URLFormatter</span><span class="w"> </span><span class="nx">StringValuesFormatter</span>
+<span class="w">    </span><span class="c1">// ContinueOnSendError allows execution of subsequent chained senders after errors if true</span>
+<span class="w">    </span><span class="nx">ContinueOnSendError</span><span class="w"> </span><span class="kt">bool</span>
+<span class="w">    </span><span class="c1">// ReturnInputData enables chaining multiple HTTP senders if true</span>
+<span class="w">    </span><span class="nx">ReturnInputData</span><span class="w"> </span><span class="kt">bool</span>
+<span class="p">}</span>
 </code></pre></div>
 <h4 id="http-post">HTTP POST</h4>
 <p><code>HTTPPost</code> - This pipeline function receives either a <code>string</code>, <code>[]byte</code>, or <code>json.Marshaler</code> type from the previous function in the pipeline and posts it to the configured endpoint and returns the HTTP response. If no previous function exists, then the event that triggered the pipeline, marshaled to json, will be used. If the post fails and <code>persistOnError=true</code> and <code>Store and Forward</code> is enabled, the data will be stored for later retry. See <a href="#store-and-forward">Store and Forward</a> for more details. If <code>ReturnInputData=true</code>  the function will return the data that it received instead of the HTTP response. This allows the following function in the pipeline to be another HTTP Export which receives the same data but is configured to send to a different endpoint. When chaining for multiple HTTP Exports you need to decide how to handle errors. Do you want to stop execution of the pipeline or continue so that the next HTTP Export function can attempt to export to its endpoint. This is where <code>ContinueOnSendError</code> comes in. If set to <code>true</code> the error is logged and the function returns the received data for the next function to use. <code>ContinueOnSendError=true</code> can only be used when <code>ReturnInputData=true</code> and cannot be use when <code>PersistOnError=true</code>.</p>
@@ -3369,33 +3369,33 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 <p class="admonition-title">EdgeX 2.0</p>
 <p>New in EdgeX 2.0 the <code>KeepAlive</code> and <code>ConnectTimeout</code>  <strong>MQTTSecretConfig</strong> settings have been added.</p>
 </div>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="kd">type</span><span class="w"> </span><span class="nx">MQTTSecretConfig</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// BrokerAddress should be set to the complete broker address i.e. mqtts://mosquitto:8883/mybroker</span><span class="w"></span>
-<span class="w">    </span><span class="nx">BrokerAddress</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// ClientId to connect with the broker with.</span><span class="w"></span>
-<span class="w">    </span><span class="nx">ClientId</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// The name of the path in secret provider to retrieve your secrets</span><span class="w"></span>
-<span class="w">    </span><span class="nx">SecretPath</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// AutoReconnect indicated whether or not to retry connection if disconnected</span><span class="w"></span>
-<span class="w">    </span><span class="nx">AutoReconnect</span><span class="w"> </span><span class="kt">bool</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// KeepAlive is the interval duration between client sending keepalive ping to broker</span><span class="w"></span>
-<span class="w">    </span><span class="nx">KeepAlive</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// ConnectTimeout is the duration for timing out on connecting to the broker</span><span class="w"></span>
-<span class="w">    </span><span class="nx">ConnectTimeout</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// Topic that you wish to publish to</span><span class="w"></span>
-<span class="w">    </span><span class="nx">Topic</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// QoS for MQTT Connection</span><span class="w"></span>
-<span class="w">    </span><span class="nx">QoS</span><span class="w"> </span><span class="kt">byte</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// Retain setting for MQTT Connection</span><span class="w"></span>
-<span class="w">    </span><span class="nx">Retain</span><span class="w"> </span><span class="kt">bool</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// SkipCertVerify</span><span class="w"></span>
-<span class="w">    </span><span class="nx">SkipCertVerify</span><span class="w"> </span><span class="kt">bool</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// AuthMode indicates what to use when connecting to the broker. </span><span class="w"></span>
-<span class="w">    </span><span class="c1">// Options are &quot;none&quot;, &quot;cacert&quot; , &quot;usernamepassword&quot;, &quot;clientcert&quot;.</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// If a CA Cert exists in the SecretPath then it will be used for </span><span class="w"></span>
-<span class="w">    </span><span class="c1">// all modes except &quot;none&quot;. </span><span class="w"></span>
-<span class="w">    </span><span class="nx">AuthMode</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="kd">type</span><span class="w"> </span><span class="nx">MQTTSecretConfig</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// BrokerAddress should be set to the complete broker address i.e. mqtts://mosquitto:8883/mybroker</span>
+<span class="w">    </span><span class="nx">BrokerAddress</span><span class="w"> </span><span class="kt">string</span>
+<span class="w">    </span><span class="c1">// ClientId to connect with the broker with.</span>
+<span class="w">    </span><span class="nx">ClientId</span><span class="w"> </span><span class="kt">string</span>
+<span class="w">    </span><span class="c1">// The name of the path in secret provider to retrieve your secrets</span>
+<span class="w">    </span><span class="nx">SecretPath</span><span class="w"> </span><span class="kt">string</span>
+<span class="w">    </span><span class="c1">// AutoReconnect indicated whether or not to retry connection if disconnected</span>
+<span class="w">    </span><span class="nx">AutoReconnect</span><span class="w"> </span><span class="kt">bool</span>
+<span class="w">    </span><span class="c1">// KeepAlive is the interval duration between client sending keepalive ping to broker</span>
+<span class="w">    </span><span class="nx">KeepAlive</span><span class="w"> </span><span class="kt">string</span>
+<span class="w">    </span><span class="c1">// ConnectTimeout is the duration for timing out on connecting to the broker</span>
+<span class="w">    </span><span class="nx">ConnectTimeout</span><span class="w"> </span><span class="kt">string</span>
+<span class="w">    </span><span class="c1">// Topic that you wish to publish to</span>
+<span class="w">    </span><span class="nx">Topic</span><span class="w"> </span><span class="kt">string</span>
+<span class="w">    </span><span class="c1">// QoS for MQTT Connection</span>
+<span class="w">    </span><span class="nx">QoS</span><span class="w"> </span><span class="kt">byte</span>
+<span class="w">    </span><span class="c1">// Retain setting for MQTT Connection</span>
+<span class="w">    </span><span class="nx">Retain</span><span class="w"> </span><span class="kt">bool</span>
+<span class="w">    </span><span class="c1">// SkipCertVerify</span>
+<span class="w">    </span><span class="nx">SkipCertVerify</span><span class="w"> </span><span class="kt">bool</span>
+<span class="w">    </span><span class="c1">// AuthMode indicates what to use when connecting to the broker. </span>
+<span class="w">    </span><span class="c1">// Options are &quot;none&quot;, &quot;cacert&quot; , &quot;usernamepassword&quot;, &quot;clientcert&quot;.</span>
+<span class="w">    </span><span class="c1">// If a CA Cert exists in the SecretPath then it will be used for </span>
+<span class="w">    </span><span class="c1">// all modes except &quot;none&quot;. </span>
+<span class="w">    </span><span class="nx">AuthMode</span><span class="w"> </span><span class="kt">string</span>
+<span class="w">  </span><span class="p">}</span>
 </code></pre></div>
 <p>Secrets in the Secret Store may be located at any path however they must have some or all the follow keys at the specified <code>SecretPath</code>. </p>
 <ul>
@@ -3437,12 +3437,12 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 <p class="admonition-title">EdgeX 2.0</p>
 <p>For EdgeX 2.0 the <code>NewFilter</code> factory function has been renamed to <code>NewFilterFor</code> and the new <code>NewFilterOut</code> factory function has been added.</p>
 </div>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">Filter</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// Holds the values to be filtered</span><span class="w"></span>
-<span class="w">    </span><span class="nx">FilterValues</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// Determines if items in FilterValues should be filtered out. If set to true all items found in the filter will be removed. If set to false all items found in the filter will be returned. If FilterValues is empty then all items will be returned.</span><span class="w"></span>
-<span class="w">    </span><span class="nx">FilterOut</span><span class="w">    </span><span class="kt">bool</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">Filter</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Holds the values to be filtered</span>
+<span class="w">    </span><span class="nx">FilterValues</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span>
+<span class="w">    </span><span class="c1">// Determines if items in FilterValues should be filtered out. If set to true all items found in the filter will be removed. If set to false all items found in the filter will be returned. If FilterValues is empty then all items will be returned.</span>
+<span class="w">    </span><span class="nx">FilterOut</span><span class="w">    </span><span class="kt">bool</span>
+<span class="p">}</span>
 </code></pre></div>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
@@ -3452,28 +3452,28 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 <p><code>FilterByProfileName</code> - This pipeline function will filter the event data down to <strong>Events</strong> that either have (For) or don't have (Out) the specified profiles names.  </p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="nx">NewFilterFor</span><span class="p">([]</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;Profile1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Profile2&quot;</span><span class="p">}).</span><span class="nx">FilterByProfileName</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">NewFilterFor</span><span class="p">([]</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;Profile1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Profile2&quot;</span><span class="p">}).</span><span class="nx">FilterByProfileName</span>
 </code></pre></div>
 </div>
 <h3 id="by-device-name">By Device Name</h3>
 <p><code>FilterByDeviceName</code> - This pipeline function will filter the event data down to <strong>Events</strong> that either have (For) or don't have (Out) the specified device names.  </p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="nx">NewFilterFor</span><span class="p">([]</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;Device1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Device2&quot;</span><span class="p">}).</span><span class="nx">FilterByDeviceName</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">NewFilterFor</span><span class="p">([]</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;Device1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Device2&quot;</span><span class="p">}).</span><span class="nx">FilterByDeviceName</span>
 </code></pre></div>
 </div>
 <h3 id="by-source-name">By Source Name</h3>
 <p><code>FilterBySourceName</code> - This pipeline function will filter the event data down to <strong>Events</strong> that either have (For) or don't have (Out) the specified source names.  Source name is either the <code>resource name</code> or <code>command name</code> responsible for the Event creation.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="nx">NewFilterFor</span><span class="p">([]</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;Source1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Source2&quot;</span><span class="p">}).</span><span class="nx">FilterBySourceName</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">NewFilterFor</span><span class="p">([]</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;Source1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Source2&quot;</span><span class="p">}).</span><span class="nx">FilterBySourceName</span>
 </code></pre></div>
 </div>
 <h3 id="by-resource-name">By Resource Name</h3>
 <p><code>FilterByResourceName</code> - This pipeline function will filter the Event's reading data down to <strong>Readings</strong> that either have (For) or don't have (Out) the specified resource names.  If the result of filtering is zero Readings remaining, the function terminates pipeline execution.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="nx">NewFilterFor</span><span class="p">([]</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;Resource1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Resource2&quot;</span><span class="p">}).</span><span class="nx">FilterByResourceName</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">NewFilterFor</span><span class="p">([]</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;Resource1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Resource2&quot;</span><span class="p">}).</span><span class="nx">FilterByResourceName</span>
 </code></pre></div>
 </div>
 <h2 id="json-logic">JSON Logic</h2>
@@ -3496,7 +3496,7 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <div class="highlight"><pre><span></span><code><span class="nx">NewJSONLogic</span><span class="p">(</span><span class="s">&quot;{ \&quot;in\&quot; : [{ \&quot;var\&quot; : \&quot;device\&quot; }, </span>
-<span class="s">              [\&quot;Random-Integer-Device\&quot;,\&quot;Random-Float-Device\&quot;] ] }&quot;</span><span class="p">).</span><span class="nx">Evaluate</span><span class="w"></span>
+<span class="s">              [\&quot;Random-Integer-Device\&quot;,\&quot;Random-Float-Device\&quot;] ] }&quot;</span><span class="p">).</span><span class="nx">Evaluate</span>
 </code></pre></div>
 </div>
 <div class="admonition note">
@@ -3527,8 +3527,8 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 <p><code>ResponseContentType</code> - This property is used to set the content-type of the response.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="nx">responseData</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">NewResponseData</span><span class="p">()</span><span class="w"></span>
-<span class="nx">responseData</span><span class="p">.</span><span class="nx">ResponseContentType</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;application/json&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">responseData</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">NewResponseData</span><span class="p">()</span>
+<span class="nx">responseData</span><span class="p">.</span><span class="nx">ResponseContentType</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;application/json&quot;</span>
 </code></pre></div>
 </div>
 <h3 id="set-response-data">Set Response Data</h3>
@@ -3565,16 +3565,16 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 <p><code>AddTags</code> - This pipeline function receives an Edgex <code>Event</code> type and adds the collection of specified tags to the Event's <code>Tags</code> collection.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">myTags</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{</span><span class="w"></span>
-<span class="w">    </span><span class="s">&quot;MyValue&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="s">&quot;GatewayId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;HoustonStore000123&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="s">&quot;Coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">float32</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">       </span><span class="s">&quot;Latitude&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">29.630771</span><span class="p">,</span><span class="w"></span>
-<span class="w">       </span><span class="s">&quot;Longitude&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;-95.377603&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="p">},</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">myTags</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{</span>
+<span class="w">    </span><span class="s">&quot;MyValue&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="p">,</span>
+<span class="w">    </span><span class="s">&quot;GatewayId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;HoustonStore000123&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s">&quot;Coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">float32</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="s">&quot;Latitude&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">29.630771</span><span class="p">,</span>
+<span class="w">       </span><span class="s">&quot;Longitude&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;-95.377603&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="p">}</span>
 
-<span class="nx">NewGenericTags</span><span class="p">(</span><span class="nx">myTags</span><span class="p">).</span><span class="nx">AddTags</span><span class="w"></span>
+<span class="nx">NewGenericTags</span><span class="p">(</span><span class="nx">myTags</span><span class="p">).</span><span class="nx">AddTags</span>
 </code></pre></div>
 </div>
                 

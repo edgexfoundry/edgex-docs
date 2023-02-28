@@ -11,7 +11,7 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/microservices/application/AppFunctionContextAPI/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/2.1/microservices/application/AppFunctionContextAPI/">
       
       
         <meta name="author" content="Michael Johanson">
@@ -78,7 +78,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/2.1/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../../assets/logo_edgex_white.png" alt="logo">
 
@@ -280,7 +280,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/2.1/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../../assets/logo_edgex_white.png" alt="logo">
 
@@ -2950,34 +2950,34 @@
 <p>For EdgeX 2.0 the <code>AppFunctionContext</code> API replaces the direct access to the <code>appcontext.Context</code> struct. </p>
 </div>
 <p>Let's take a look at its API:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">AppFunctionContext</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">CorrelationID</span><span class="p">()</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
-<span class="w">    </span><span class="nx">InputContentType</span><span class="p">()</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
-<span class="w">    </span><span class="nx">SetResponseData</span><span class="p">(</span><span class="nx">data</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="nx">ResponseData</span><span class="p">()</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="w"></span>
-<span class="w">    </span><span class="nx">SetResponseContentType</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="nx">ResponseContentType</span><span class="p">()</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
-<span class="w">    </span><span class="nx">SetRetryData</span><span class="p">(</span><span class="nx">data</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="nx">GetSecret</span><span class="p">(</span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">keys</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="nx">SecretsLastUpdated</span><span class="p">()</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="w"></span>
-<span class="w">    </span><span class="nx">LoggingClient</span><span class="p">()</span><span class="w"> </span><span class="nx">logger</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="w"></span>
-<span class="w">    </span><span class="nx">EventClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">EventClient</span><span class="w"></span>
-<span class="w">    </span><span class="nx">CommandClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">CommandClient</span><span class="w"></span>
-<span class="w">    </span><span class="nx">NotificationClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">NotificationClient</span><span class="w"></span>
-<span class="w">    </span><span class="nx">SubscriptionClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">SubscriptionClient</span><span class="w"></span>
-<span class="w">    </span><span class="nx">DeviceServiceClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">DeviceServiceClient</span><span class="w"></span>
-<span class="w">    </span><span class="nx">DeviceProfileClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">DeviceProfileClient</span><span class="w"></span>
-<span class="w">    </span><span class="nx">DeviceClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">DeviceClient</span><span class="w"></span>
-<span class="w">    </span><span class="nx">PushToCore</span><span class="p">(</span><span class="nx">event</span><span class="w"> </span><span class="nx">dtos</span><span class="p">.</span><span class="nx">Event</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">common</span><span class="p">.</span><span class="nx">BaseWithIdResponse</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="nx">GetDeviceResource</span><span class="p">(</span><span class="nx">profileName</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">resourceName</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">dtos</span><span class="p">.</span><span class="nx">DeviceResource</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="nx">AddValue</span><span class="p">(</span><span class="nx">key</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="nx">RemoveValue</span><span class="p">(</span><span class="nx">key</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="nx">GetValue</span><span class="p">(</span><span class="nx">key</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="nx">GetAllValues</span><span class="p">()</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="w"></span>
-<span class="w">    </span><span class="nx">ApplyValues</span><span class="p">(</span><span class="nx">format</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="nx">PipelineId</span><span class="p">()</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
-<span class="w">    </span><span class="nx">Clone</span><span class="p">()</span><span class="w"> </span><span class="nx">AppFunctionContext</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">AppFunctionContext</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">CorrelationID</span><span class="p">()</span><span class="w"> </span><span class="kt">string</span>
+<span class="w">    </span><span class="nx">InputContentType</span><span class="p">()</span><span class="w"> </span><span class="kt">string</span>
+<span class="w">    </span><span class="nx">SetResponseData</span><span class="p">(</span><span class="nx">data</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">ResponseData</span><span class="p">()</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span>
+<span class="w">    </span><span class="nx">SetResponseContentType</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">ResponseContentType</span><span class="p">()</span><span class="w"> </span><span class="kt">string</span>
+<span class="w">    </span><span class="nx">SetRetryData</span><span class="p">(</span><span class="nx">data</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">GetSecret</span><span class="p">(</span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">keys</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">SecretsLastUpdated</span><span class="p">()</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+<span class="w">    </span><span class="nx">LoggingClient</span><span class="p">()</span><span class="w"> </span><span class="nx">logger</span><span class="p">.</span><span class="nx">LoggingClient</span>
+<span class="w">    </span><span class="nx">EventClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">EventClient</span>
+<span class="w">    </span><span class="nx">CommandClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">CommandClient</span>
+<span class="w">    </span><span class="nx">NotificationClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">NotificationClient</span>
+<span class="w">    </span><span class="nx">SubscriptionClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">SubscriptionClient</span>
+<span class="w">    </span><span class="nx">DeviceServiceClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">DeviceServiceClient</span>
+<span class="w">    </span><span class="nx">DeviceProfileClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">DeviceProfileClient</span>
+<span class="w">    </span><span class="nx">DeviceClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">DeviceClient</span>
+<span class="w">    </span><span class="nx">PushToCore</span><span class="p">(</span><span class="nx">event</span><span class="w"> </span><span class="nx">dtos</span><span class="p">.</span><span class="nx">Event</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">common</span><span class="p">.</span><span class="nx">BaseWithIdResponse</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">GetDeviceResource</span><span class="p">(</span><span class="nx">profileName</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">resourceName</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">dtos</span><span class="p">.</span><span class="nx">DeviceResource</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">AddValue</span><span class="p">(</span><span class="nx">key</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">RemoveValue</span><span class="p">(</span><span class="nx">key</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">GetValue</span><span class="p">(</span><span class="nx">key</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">GetAllValues</span><span class="p">()</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span>
+<span class="w">    </span><span class="nx">ApplyValues</span><span class="p">(</span><span class="nx">format</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">PipelineId</span><span class="p">()</span><span class="w"> </span><span class="kt">string</span>
+<span class="w">    </span><span class="nx">Clone</span><span class="p">()</span><span class="w"> </span><span class="nx">AppFunctionContext</span>
+<span class="p">}</span>
 </code></pre></div>
 <h2 id="response-data">Response Data</h2>
 <h3 id="setresponsedata">SetResponseData</h3>
@@ -2998,8 +2998,8 @@
 <p>Returns a <code>LoggingClient</code> to leverage logging libraries/service utilized throughout the EdgeX framework. The SDK has initialized everything so it can be used to log <code>Trace</code>, <code>Debug</code>, <code>Warn</code>, <code>Info</code>, and <code>Error</code> messages as appropriate. </p>
 <div class="admonition example">
 <p class="admonition-title">Example - LoggingClient</p>
-<div class="highlight"><pre><span></span><code><span class="nx">ctx</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">().</span><span class="nx">Info</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="nx">c</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">().</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;Some error occurred: %w&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">ctx</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">().</span><span class="nx">Info</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
+<span class="nx">c</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">().</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;Some error occurred: %w&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <h3 id="eventclient">EventClient</h3>

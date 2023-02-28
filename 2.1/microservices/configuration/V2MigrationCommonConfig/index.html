@@ -11,7 +11,7 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/microservices/configuration/V2MigrationCommonConfig/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/2.1/microservices/configuration/V2MigrationCommonConfig/">
       
       
         <meta name="author" content="Michael Johanson">
@@ -78,7 +78,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/2.1/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../../assets/logo_edgex_white.png" alt="logo">
 
@@ -280,7 +280,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/2.1/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../../assets/logo_edgex_white.png" alt="logo">
 
@@ -2593,12 +2593,12 @@
 <p>This section describes how to migrate the configuration sections that are common to all services. This information only applies if you have existing 1.x configuration that you have modified and need to migrate, rather than use the new V2 version of the configuration and modify it as needed.  </p>
 <h2 id="writable">Writable</h2>
 <p>The <code>Writable</code> section has the new InsecureSecrets sub-section. All services need the following added so they can access the Database and/or MessageBus :</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">[Writable.InsecureSecrets]</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Writable.InsecureSecrets.DB]</span><span class="w"></span>
-<span class="w">    </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redisdb&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="k">[Writable.InsecureSecrets.DB.Secrets]</span><span class="w"></span>
-<span class="w">      </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">[Writable.InsecureSecrets]</span>
+<span class="w">    </span><span class="k">[Writable.InsecureSecrets.DB]</span>
+<span class="w">    </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redisdb&quot;</span>
+<span class="w">      </span><span class="k">[Writable.InsecureSecrets.DB.Secrets]</span>
+<span class="w">      </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">      </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
 </code></pre></div>
 <h2 id="logging">Logging</h2>
 <p>Remove the <code>[Logging]</code> section.</p>

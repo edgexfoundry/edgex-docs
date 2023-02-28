@@ -11,7 +11,7 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/walk-through/Ch-WalkthroughCommands/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/2.1/walk-through/Ch-WalkthroughCommands/">
       
       
         <meta name="author" content="Michael Johanson">
@@ -78,7 +78,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/2.1/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../assets/logo_edgex_white.png" alt="logo">
 
@@ -280,7 +280,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/2.1/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../assets/logo_edgex_white.png" alt="logo">
 
@@ -2581,7 +2581,7 @@ way that enables simplified communications with the devices for</p>
 </div>
 <input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Curl</label><div class="tabbed-content">
 <p>Make a curl GET request as shown below.</p>
-<div class="highlight"><pre><span></span><code>curl -X GET localhost:59882/api/v2/device/name/countcamera1 <span class="p">|</span> json_pp
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>localhost:59882/api/v2/device/name/countcamera1<span class="w"> </span><span class="p">|</span><span class="w"> </span>json_pp
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2604,12 +2604,12 @@ core data.</p>
 </div>
 <input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Curl</label><div class="tabbed-content">
 <p>Make a curl GET request as shown below.</p>
-<div class="highlight"><pre><span></span><code>curl -X GET localhost:59880/api/v2/event/count/device/name/countcamera1
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>localhost:59880/api/v2/event/count/device/name/countcamera1
 </code></pre></div>
 </div>
 </div>
 <p>The response returned should indicate no events for the camera in core data.</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="nt">&quot;statusCode&quot;</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span><span class="nt">&quot;Count&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="nt">&quot;statusCode&quot;</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span><span class="nt">&quot;Count&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">}</span>
 </code></pre></div>
 <h2 id="execute-a-command">Execute a Command</h2>
 <p>While there is no real device or device service in this walkthrough,
@@ -2635,7 +2635,7 @@ highlighted - yours will vary based on IDs.</p>
 <p>Use either the Postman or Curl tab below to walkthrough actuating the device.</p>
 <div class="tabbed-set" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">Postman</label><div class="tabbed-content">
 <p>Make a PUT request to <code>http://localhost:59882/api/v2/device/name/countcamera1/ScanDepth</code> with the following body.</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;depth&quot;</span><span class="p">:</span><span class="s2">&quot;9&quot;</span><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;depth&quot;</span><span class="p">:</span><span class="s2">&quot;9&quot;</span><span class="p">}</span>
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -2644,7 +2644,7 @@ highlighted - yours will vary based on IDs.</p>
 </div>
 <input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><label for="__tabbed_3_2">Curl</label><div class="tabbed-content">
 <p>Make a curl PUT request as shown below.</p>
-<div class="highlight"><pre><span></span><code>curl -X PUT -d <span class="s1">&#39;{&quot;depth&quot;:&quot;9&quot;}&#39;</span> localhost:59882/api/v2/device/name/countcamera1/ScanDepth
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;depth&quot;:&quot;9&quot;}&#39;</span><span class="w"> </span>localhost:59882/api/v2/device/name/countcamera1/ScanDepth
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -2657,7 +2657,7 @@ highlighted - yours will vary based on IDs.</p>
 command will respond with a <code>Failed to send a http request</code> error. However,
 checking the logging output will prove that the core command micro service did receive the request and attempted to call on the
 non-existent device service (at the address provided for the device service - defined earlier in this walkthrough) to issue the actuating command.  To see the core command service log issue the following Docker command :</p>
-<p><div class="highlight"><pre><span></span><code>docker logs edgex-core-command
+<p><div class="highlight"><pre><span></span><code>docker<span class="w"> </span>logs<span class="w"> </span>edgex-core-command
 </code></pre></div>
 The last lines of the log entries should highlight the attempt to contact the non-existent device.</p>
 <div class="highlight"><pre><span></span><code>level=ERROR ts=2021-09-16T20:50:09.965368572Z app=core-command source=http.go:47 X-Correlation-ID=49cc97f5-1e84-4a46-9eb5-543ae8bd5284 msg=&quot;failed to send a http request -&gt; Put \&quot;camera-device-service:59990/api/v2/device/name/countcamera1/ScanDepth?\&quot;: unsupported protocol scheme \&quot;camera-device-service\&quot;&quot;

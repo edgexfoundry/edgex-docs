@@ -11,7 +11,7 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/getting-started/ApplicationFunctionsSDK/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/2.1/getting-started/ApplicationFunctionsSDK/">
       
       
         <meta name="author" content="Michael Johanson">
@@ -78,7 +78,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/2.1/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../assets/logo_edgex_white.png" alt="logo">
 
@@ -280,7 +280,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/2.1/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../assets/logo_edgex_white.png" alt="logo">
 
@@ -2450,123 +2450,123 @@
                 <h1 id="getting-started">Getting Started</h1>
 <h2 id="the-application-functions-sdk">The Application Functions SDK</h2>
 <p>The SDK is built around the idea of a "Functions Pipeline". A functions pipeline is a collection of various functions that process the data in the order that you've specified. The functions pipeline is executed by the specified <a href="../../microservices/application/Triggers/">trigger</a> in the <code>configuration.toml</code> . The first function in the pipeline is called with the event that triggered the pipeline (ex. <code>dtos.Event</code>). Each successive call in the pipeline is called with the return result of the previous function. Let's take a look at a simple example that creates a pipeline to filter particular device ids and subsequently transform the data to XML:
-<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">    </span><span class="s">&quot;errors&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="s">&quot;os&quot;</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;errors&quot;</span>
+<span class="w">    </span><span class="s">&quot;fmt&quot;</span>
+<span class="w">    </span><span class="s">&quot;os&quot;</span>
 
-<span class="w">    </span><span class="s">&quot;github.com/edgexfoundry/app-functions-sdk-go/v2/pkg&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="s">&quot;github.com/edgexfoundry/app-functions-sdk-go/v2/pkg/interfaces&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="s">&quot;github.com/edgexfoundry/app-functions-sdk-go/v2/pkg/transforms&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;github.com/edgexfoundry/app-functions-sdk-go/v2/pkg&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/edgexfoundry/app-functions-sdk-go/v2/pkg/interfaces&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/edgexfoundry/app-functions-sdk-go/v2/pkg/transforms&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">const</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">    </span><span class="nx">serviceKey</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;app-simple-filter-xml&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="nx">serviceKey</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;app-simple-filter-xml&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// turn off secure mode for examples. Not recommended for production</span><span class="w"></span>
-<span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Setenv</span><span class="p">(</span><span class="s">&quot;EDGEX_SECURITY_SECRET_STORE&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// turn off secure mode for examples. Not recommended for production</span>
+<span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Setenv</span><span class="p">(</span><span class="s">&quot;EDGEX_SECURITY_SECRET_STORE&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="p">)</span>
 
-<span class="w">    </span><span class="c1">// 1) First thing to do is to create an new instance of an EdgeX Application Service.</span><span class="w"></span>
-<span class="w">    </span><span class="nx">service</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">pkg</span><span class="p">.</span><span class="nx">NewAppService</span><span class="p">(</span><span class="nx">serviceKey</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// 1) First thing to do is to create an new instance of an EdgeX Application Service.</span>
+<span class="w">    </span><span class="nx">service</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">pkg</span><span class="p">.</span><span class="nx">NewAppService</span><span class="p">(</span><span class="nx">serviceKey</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="c1">// Leverage the built in logging service in EdgeX</span><span class="w"></span>
-<span class="w">    </span><span class="nx">lc</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Leverage the built in logging service in EdgeX</span>
+<span class="w">    </span><span class="nx">lc</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">()</span>
 
-<span class="w">    </span><span class="c1">// 2) shows how to access the application&#39;s specific configuration settings.</span><span class="w"></span>
-<span class="w">    </span><span class="nx">deviceNames</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">GetAppSettingStrings</span><span class="p">(</span><span class="s">&quot;DeviceNames&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nx">lc</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span><span class="w"></span>
-<span class="w">        </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// 2) shows how to access the application&#39;s specific configuration settings.</span>
+<span class="w">    </span><span class="nx">deviceNames</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">GetAppSettingStrings</span><span class="p">(</span><span class="s">&quot;DeviceNames&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">lc</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
+<span class="w">        </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="nx">lc</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;Filtering for devices %v&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">deviceNames</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="nx">lc</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;Filtering for devices %v&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">deviceNames</span><span class="p">))</span>
 
-<span class="w">    </span><span class="c1">// 3) This is our pipeline configuration, the collection of functions to</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// execute every time an event is triggered.</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">SetFunctionsPipeline</span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewFilterFor</span><span class="p">(</span><span class="nx">deviceNames</span><span class="p">).</span><span class="nx">FilterByDeviceName</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewConversion</span><span class="p">().</span><span class="nx">TransformToXML</span><span class="w"></span>
-<span class="w">    </span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nx">lc</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;SetFunctionsPipeline returned error: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span><span class="w"></span>
-<span class="w">        </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// 3) This is our pipeline configuration, the collection of functions to</span>
+<span class="w">    </span><span class="c1">// execute every time an event is triggered.</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">SetFunctionsPipeline</span><span class="p">(</span>
+<span class="w">        </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewFilterFor</span><span class="p">(</span><span class="nx">deviceNames</span><span class="p">).</span><span class="nx">FilterByDeviceName</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewConversion</span><span class="p">().</span><span class="nx">TransformToXML</span>
+<span class="w">    </span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">lc</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;SetFunctionsPipeline returned error: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
+<span class="w">        </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="c1">// 4) Lastly, we&#39;ll go ahead and tell the SDK to &quot;start&quot; and begin listening for events</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// to trigger the pipeline.</span><span class="w"></span>
-<span class="w">    </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">MakeItRun</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nx">lc</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;MakeItRun returned error: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span><span class="w"></span>
-<span class="w">        </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// 4) Lastly, we&#39;ll go ahead and tell the SDK to &quot;start&quot; and begin listening for events</span>
+<span class="w">    </span><span class="c1">// to trigger the pipeline.</span>
+<span class="w">    </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">MakeItRun</span><span class="p">()</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">lc</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;MakeItRun returned error: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
+<span class="w">        </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="c1">// Do any required cleanup here</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Do any required cleanup here</span>
 
-<span class="w">    </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="p">}</span>
 </code></pre></div></p>
 <p>The above example is meant to merely demonstrate the structure of your application. Notice that the output of the last function is not available anywhere inside this application. You must provide a function in order to work with the data from the previous function. Let's go ahead and add the following function that prints the output to the console.</p>
-<p><div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">printXMLToConsole</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">AppFunctionContext</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// Leverage the built in logging service in EdgeX</span><span class="w"></span>
-<span class="w">    </span><span class="nx">lc</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">()</span><span class="w"></span>
+<p><div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">printXMLToConsole</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">AppFunctionContext</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Leverage the built in logging service in EdgeX</span>
+<span class="w">    </span><span class="nx">lc</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">()</span>
 
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;printXMLToConsole: No data received&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;printXMLToConsole: No data received&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="nx">xml</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">data</span><span class="p">.(</span><span class="kt">string</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;printXMLToConsole: Data received is not the expected &#39;string&#39; type&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="nx">xml</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">data</span><span class="p">.(</span><span class="kt">string</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;printXMLToConsole: Data received is not the expected &#39;string&#39; type&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">  </span><span class="nb">println</span><span class="p">(</span><span class="nx">xml</span><span class="p">)</span><span class="w"></span>
-<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="nb">println</span><span class="p">(</span><span class="nx">xml</span><span class="p">)</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span>
+<span class="p">}</span>
 </code></pre></div>
 After placing the above function in your code, the next step is to modify the pipeline to call this function:</p>
-<p><div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">SetFunctionsPipeline</span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewFilterFor</span><span class="p">(</span><span class="nx">deviceNames</span><span class="p">).</span><span class="nx">FilterByDeviceName</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewConversion</span><span class="p">().</span><span class="nx">TransformToXML</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nx">printXMLToConsole</span><span class="w"> </span><span class="c1">//notice this is not a function call, but simply a function pointer. </span><span class="w"></span>
-<span class="w">    </span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="o">...</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<p><div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">SetFunctionsPipeline</span><span class="p">(</span>
+<span class="w">        </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewFilterFor</span><span class="p">(</span><span class="nx">deviceNames</span><span class="p">).</span><span class="nx">FilterByDeviceName</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewConversion</span><span class="p">().</span><span class="nx">TransformToXML</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">printXMLToConsole</span><span class="w"> </span><span class="c1">//notice this is not a function call, but simply a function pointer. </span>
+<span class="w">    </span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="p">}</span>
 </code></pre></div>
 Set the Trigger type to <code>http</code> in <a href="https://github.com/edgexfoundry/edgex-examples/blob/main/application-services/custom/simple-filter-xml/res/configuration.toml">res/configuration.toml</a></p>
-<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span><span class="w"></span>
-<span class="n">Type</span><span class="o">=</span><span class="s">&quot;http&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span>
+<span class="n">Type</span><span class="o">=</span><span class="s">&quot;http&quot;</span>
 </code></pre></div>
 <p>Using PostMan or curl send the following JSON to <code>localhost:&lt;port&gt;/api/v2/trigger</code></p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;requestId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;82eb2e26-0f24-48ba-ae4c-de9dac3fb9bc&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;deviceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Float-Device&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;profileName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Float-Device&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;sourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Float32&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1540855006456</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;94eb2e26-0f24-5555-2222-de9dac3fb228&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;readings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">            </span><span class="p">{</span><span class="w"></span>
-<span class="w">                </span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="nt">&quot;resourceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Float32&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="nt">&quot;profileName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Float-Device&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="nt">&quot;deviceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Float-Device&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;76677&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1540855006469</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="nt">&quot;ValueType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Float32&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;82eb2e36-0f24-48aa-ae4c-de9dac3fb920&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="p">}</span><span class="w"></span>
-<span class="w">        </span><span class="p">]</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;requestId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;82eb2e26-0f24-48ba-ae4c-de9dac3fb9bc&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;deviceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Float-Device&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;profileName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Float-Device&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;sourceName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Float32&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1540855006456</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;94eb2e26-0f24-5555-2222-de9dac3fb228&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;readings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v2&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;resourceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Float32&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;profileName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Float-Device&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;deviceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Float-Device&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;76677&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1540855006469</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;ValueType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Float32&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;82eb2e36-0f24-48aa-ae4c-de9dac3fb920&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>After making the above modifications, you should now see data printing out to the console in XML when an event is triggered.</p>
 <div class="admonition note">

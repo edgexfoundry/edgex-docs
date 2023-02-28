@@ -11,7 +11,7 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/walk-through/Ch-WalkthroughDeviceProfile/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/2.1/walk-through/Ch-WalkthroughDeviceProfile/">
       
       
         <meta name="author" content="Michael Johanson">
@@ -78,7 +78,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/2.1/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../assets/logo_edgex_white.png" alt="logo">
 
@@ -280,7 +280,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/2.1/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../assets/logo_edgex_white.png" alt="logo">
 
@@ -2599,12 +2599,12 @@ monitoring camera device profile. Since device profiles are often
 represented in YAML, you make a multi-part form-data <code>POST</code> with the device
 profile file (find the example profile here) to create the Camera Monitor profile.</p>
 <p>If you explore the <a href="../EdgeX_CameraMonitorProfile.yml">sample profile</a>, you will see that the profile begins with some general information.</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;camera-monitor-profile&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">manufacturer</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;IOTech&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Cam12345&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;camera-monitor-profile&quot;</span>
+<span class="w">  </span><span class="nt">manufacturer</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;IOTech&quot;</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Cam12345&quot;</span>
 <span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w"> </span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;camera&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Human</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">canine</span><span class="nv"> </span><span class="s">camera</span><span class="nv"> </span><span class="s">monitor</span><span class="nv"> </span><span class="s">profile&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;camera&quot;</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Human</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">canine</span><span class="nv"> </span><span class="s">camera</span><span class="nv"> </span><span class="s">monitor</span><span class="nv"> </span><span class="s">profile&quot;</span>
 </code></pre></div>
 <p>Each profile has a unique name along with a description, manufacturer,
 model and collection of labels to assist in queries for particular
@@ -2618,51 +2618,51 @@ profiles. These are relatively straightforward attributes of a profile.</p>
 <h4 id="understanding-device-resources">Understanding Device Resources</h4>
 <p>The device profile describes the elements of data that can be obtained from the device or sensor and how to change a setting on a device or sensor.  The data that can be obtained or the setting that can be changed are called <strong>resources</strong> or more precisely they are referred to as device <a href="../../general/Definitions/#Resource">resources</a> in Edgex.  Learn more about <code>deviceReources</code> in the <a href="../../microservices/device/profile/Ch-DeviceProfile/#DeviceResources">Device Profile documentation</a>.</p>
 <p>In this walkthrough example, there are two pieces of data we want to be able to get or read from the camera:  dog and human counts.  Therefore, both are represented as device resources in the device profile.  Additionally, we want to be able to set two settings on the camera:  the scan depth and snapshot duration.  These are also represented as device resources in the device profile.</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">deviceResources</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;HumanCount&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">  </span><span class="c1">#is hidden is false by default so this is just making it explicit for purpose of the walkthrough demonstration</span><span class="w"></span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Number</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">people</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">camera&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w">  </span><span class="s">&quot;Int16&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span><span class="w">  </span><span class="c1">#designates that this property can only be read and not set</span><span class="w"></span>
-<span class="w">      </span><span class="nt">defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;CanineCount&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Number</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">dogs</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">camera&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w">  </span><span class="s">&quot;Int16&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span><span class="w">  </span><span class="c1">#designates that this property can only be read and not set</span><span class="w"></span>
-<span class="w">      </span><span class="nt">defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ScanDepth&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Get/set</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">scan</span><span class="nv"> </span><span class="s">depth&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w">  </span><span class="s">&quot;Int16&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span><span class="w">  </span><span class="c1">#designates that this property can be read or set</span><span class="w"></span>
-<span class="w">      </span><span class="nt">defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">deviceResources</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;HumanCount&quot;</span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">  </span><span class="c1">#is hidden is false by default so this is just making it explicit for purpose of the walkthrough demonstration</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Number</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">people</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">camera&quot;</span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w">  </span><span class="s">&quot;Int16&quot;</span>
+<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span><span class="w">  </span><span class="c1">#designates that this property can only be read and not set</span>
+<span class="w">      </span><span class="nt">defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;CanineCount&quot;</span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Number</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">dogs</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">camera&quot;</span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w">  </span><span class="s">&quot;Int16&quot;</span>
+<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span><span class="w">  </span><span class="c1">#designates that this property can only be read and not set</span>
+<span class="w">      </span><span class="nt">defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ScanDepth&quot;</span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Get/set</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">scan</span><span class="nv"> </span><span class="s">depth&quot;</span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w">  </span><span class="s">&quot;Int16&quot;</span>
+<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span><span class="w">  </span><span class="c1">#designates that this property can be read or set</span>
+<span class="w">      </span><span class="nt">defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span>
 
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;SnapshotDuration&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Get</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">snaphot</span><span class="nv"> </span><span class="s">duration&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w">  </span><span class="s">&quot;Int16&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span><span class="w">  </span><span class="c1">#designates that this property can be read or set</span><span class="w"></span>
-<span class="w">      </span><span class="nt">defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;SnapshotDuration&quot;</span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Get</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">snaphot</span><span class="nv"> </span><span class="s">duration&quot;</span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w">  </span><span class="s">&quot;Int16&quot;</span>
+<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RW&quot;</span><span class="w">  </span><span class="c1">#designates that this property can be read or set</span>
+<span class="w">      </span><span class="nt">defaultValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span>
 </code></pre></div>
 <h4 id="understanding-device-commands">Understanding Device Commands</h4>
 <p><strong>Command</strong> or more precisely device commands specify access to reads and writes for multiple simultaneous device resources.  In other words, device commands allow you to ask for multiple pieces of data from a sensor at one time (or set multiple settings at one time).  In this example, we can request both human and dog counts in one request by establishing a device command that specifies the request for both.  Get more details on <code>deviceCommands</code> in the <a href="../../microservices/device/profile/Ch-DeviceProfile/#DeviceCommands">Device Profile documentation</a>.</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">deviceCommands</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Counts&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="w">    </span><span class="nt">resourceOperations</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;HumanCount&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;CanineCount&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">deviceCommands</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Counts&quot;</span>
+<span class="w">    </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;R&quot;</span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">resourceOperations</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;HumanCount&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;CanineCount&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
 </code></pre></div>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
@@ -2686,7 +2686,7 @@ profiles. These are relatively straightforward attributes of a profile.</p>
 </div>
 <input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Curl</label><div class="tabbed-content">
 <p>Make a curl POST request as shown below.</p>
-<div class="highlight"><pre><span></span><code>curl -X POST -F <span class="s1">&#39;file=@/path/to/your/profile/here/EdgeX_CameraMonitorProfile.yml&#39;</span> http://localhost:59881/api/v2/deviceprofile/uploadfile
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>-F<span class="w"> </span><span class="s1">&#39;file=@/path/to/your/profile/here/EdgeX_CameraMonitorProfile.yml&#39;</span><span class="w"> </span>http://localhost:59881/api/v2/deviceprofile/uploadfile
 </code></pre></div>
 <p>If your API call is successful, you will get a generated id for your new <code>DeviceProfile</code> in the response area.</p>
 <p><img alt="image" src="../EdgeX_WalkthroughCurlPOST_Response.png" /></p>
