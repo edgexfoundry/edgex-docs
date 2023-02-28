@@ -11,13 +11,13 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/design/adr/013-Device-Service-Events-Message-Bus/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/1.3/design/adr/013-Device-Service-Events-Message-Bus/">
       
       
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-5.1.0">
     
     
       
@@ -74,7 +74,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/1.3/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../../assets/logo_edgex_white.png" alt="logo">
 
@@ -267,7 +267,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/1.3/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../../assets/logo_edgex_white.png" alt="logo">
 
@@ -2389,7 +2389,7 @@
 <p>The MessageBus abstraction allows for multiple subscriptions, so an Application Service could specify to receive data from multiple specific device profiles or devices by creating multiple subscriptions. i.e.  <code>edgex/Events/Random-Integer-Device/#</code> and  <code>edgex/Events/Random-Boolean-Device/#</code>. Currently the App SDK only allows for a single subscription topic to be configured, but that could easily be expanded to handle a list of subscriptions. See <a href="#configuration">Configuration</a> section below for details. </p>
 <p>Core Data's existing publishing of Events would also need to be changed to use this new topic schema. One challenge with this is Core Data doesn't currently know the <code>DeviceProfileName</code> or <code>DeviceName</code> when it receives a CBOR encoded event. This is because it doesn't decode the Event until after it has published it to the MessageBus. The V2 API will be enhanced to change the AddEvent endpoint from <code>/event</code> to <code>/event/{profile}/{device}</code> so that <code>DeviceProfileName</code> and <code>DeviceName</code> are always know no matter how the request is encoded.</p>
 <p>This new topic approach will be enabled via each publisher's <code>PublishTopic</code> having the <code>DeviceProfileName</code> and <code>DeviceName</code>  added to the configured <code>PublishTopicPrefix</code></p>
-<div class="highlight"><pre><span></span><code><span class="n">PublishTopicPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;edgex/events&#39;</span><span class="w"> </span><span class="c1"># /&lt;device-profile-name&gt;/&lt;device-name&gt; will be added to this Publish Topic prefix</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">PublishTopicPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;edgex/events&#39;</span><span class="w"> </span><span class="c1"># /&lt;device-profile-name&gt;/&lt;device-name&gt; will be added to this Publish Topic prefix</span>
 </code></pre></div>
 <p>See <a href="#configuration">Configuration</a> section below for details. </p>
 <h3 id="configuration">Configuration</h3>
@@ -2397,86 +2397,86 @@
 <p>All Device services will have the following additional configuration to allow connecting and publishing to the MessageBus. As describe above in the  <a href="#messagebus-topics">MessageBus Topics</a> section, the <code>PublishTopic</code> will include the <code>DeviceProfileName</code> and <code>DeviceName</code>.</p>
 <h5 id="messagequeue">[MessageQueue]</h5>
 <p>A  MessageQueue section will be added, which is similar to that used in Core Data today, but with <code>PublishTopicPrefix</code> instead of <code>Topic</code>.To enable secure connections, the <code>Username</code> &amp; <code>Password</code> have been replaced with ClientAuth &amp; <code>SecretPath</code>, See <strong><a href="#secure-connections">Secure Connections</a></strong> section below for details. The added <code>Enabled</code> property controls whether the Device Service publishes to the MessageBus or POSTs to Core Data. </p>
-<div class="highlight"><pre><span></span><code><span class="k">[MessageQueue]</span><span class="w"></span>
-<span class="n">Enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
-<span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;tcp&#39;</span><span class="w"></span>
-<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;localhost&#39;</span><span class="w"></span>
-<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span><span class="w"></span>
-<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;mqtt&#39;</span><span class="w"></span>
-<span class="n">PublishTopicPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;edgex/events&#39;</span><span class="w"> </span><span class="c1"># /&lt;device-profile-name&gt;/&lt;device-name&gt; will be added to this Publish Topic prefix</span><span class="w"></span>
-<span class="k">[MessageQueue.Optional]</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># Default MQTT Specific options that need to be here to enable environment variable overrides of them</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># Client Identifiers</span><span class="w"></span>
-<span class="w">    </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;&lt;device service key&gt;&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># Connection information</span><span class="w"></span>
-<span class="w">    </span><span class="n">Qos</span><span class="w">          </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="c1"># Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</span><span class="w"></span>
-<span class="w">    </span><span class="n">KeepAlive</span><span class="w">    </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span><span class="w"></span>
-<span class="w">    </span><span class="n">Retained</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">AutoReconnect</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
-<span class="w">    </span><span class="n">SkipCertVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"> </span><span class="c1"># Only used if Cert/Key file or Cert/Key PEMblock are specified</span><span class="w"></span>
-<span class="w">    </span><span class="n">ClientAuth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w"> </span><span class="c1"># Valid values are: `none`, `usernamepassword` or `clientcert`</span><span class="w"></span>
-<span class="w">    </span><span class="n">Secretpath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;messagebus&quot;</span><span class="w">  </span><span class="c1"># Path in secret store used if ClientAuth not `none`</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[MessageQueue]</span>
+<span class="n">Enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;tcp&#39;</span>
+<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;localhost&#39;</span>
+<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span>
+<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;mqtt&#39;</span>
+<span class="n">PublishTopicPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;edgex/events&#39;</span><span class="w"> </span><span class="c1"># /&lt;device-profile-name&gt;/&lt;device-name&gt; will be added to this Publish Topic prefix</span>
+<span class="k">[MessageQueue.Optional]</span>
+<span class="w">    </span><span class="c1"># Default MQTT Specific options that need to be here to enable environment variable overrides of them</span>
+<span class="w">    </span><span class="c1"># Client Identifiers</span>
+<span class="w">    </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;&lt;device service key&gt;&quot;</span>
+<span class="w">    </span><span class="c1"># Connection information</span>
+<span class="w">    </span><span class="n">Qos</span><span class="w">          </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="c1"># Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</span>
+<span class="w">    </span><span class="n">KeepAlive</span><span class="w">    </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span>
+<span class="w">    </span><span class="n">Retained</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
+<span class="w">    </span><span class="n">AutoReconnect</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">    </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># Seconds</span>
+<span class="w">    </span><span class="n">SkipCertVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"> </span><span class="c1"># Only used if Cert/Key file or Cert/Key PEMblock are specified</span>
+<span class="w">    </span><span class="n">ClientAuth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w"> </span><span class="c1"># Valid values are: `none`, `usernamepassword` or `clientcert`</span>
+<span class="w">    </span><span class="n">Secretpath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;messagebus&quot;</span><span class="w">  </span><span class="c1"># Path in secret store used if ClientAuth not `none`</span>
 </code></pre></div>
 <h4 id="core-data">Core Data</h4>
 <p>Core data will also require additional configuration to be able to subscribe to receive Events from the MessageBus. As describe above in the  <a href="#messagebus-topics">MessageBus Topics</a> section, the <code>PublishTopicPrefix</code> will have <code>DeviceProfileName</code> and <code>DeviceName</code> added to create the actual Public Topic.</p>
 <h5 id="messagequeue_1">[MessageQueue]</h5>
 <p>The <code>MessageQueue</code> section will be  changed so that the <code>Topic</code> property changes to <code>PublishTopicPrefix</code> and <code>SubscribeEnabled</code> and <code>SubscribeTopic</code> will be added. As with device services configuration, the <code>Username</code> &amp; <code>Password</code> have been replaced with <code>ClientAuth</code> &amp; <code>SecretPath</code> for secure connections. See <strong><a href="#secure-connections">Secure Connections</a></strong> section below for details. In addition, the Boolean <code>SubscribeEnabled</code> property will be used to control if the service subscribes to Events from the MessageBus or not.</p>
-<div class="highlight"><pre><span></span><code><span class="k">[MessageQueue]</span><span class="w"></span>
-<span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;tcp&#39;</span><span class="w"></span>
-<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;localhost&#39;</span><span class="w"></span>
-<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span><span class="w"></span>
-<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;mqtt&#39;</span><span class="w"></span>
-<span class="n">PublishTopicPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;edgex/events&#39;</span><span class="w"> </span><span class="c1"># /&lt;device-profile-name&gt;/&lt;device-name&gt; will be added to this Publish Topic prefix</span><span class="w"></span>
-<span class="n">SubscribeEnabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
-<span class="n">SubscribeTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;edgex/events/#&#39;</span><span class="w"></span>
-<span class="k">[MessageQueue.Optional]</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># Default MQTT Specific options that need to be here to enable evnironment variable overrides of them</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># Client Identifiers</span><span class="w"></span>
-<span class="w">    </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;edgex-core-data&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># Connection information</span><span class="w"></span>
-<span class="w">    </span><span class="n">Qos</span><span class="w">          </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="c1"># Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</span><span class="w"></span>
-<span class="w">    </span><span class="n">KeepAlive</span><span class="w">    </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span><span class="w"></span>
-<span class="w">    </span><span class="n">Retained</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">AutoReconnect</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
-<span class="w">    </span><span class="n">SkipCertVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"> </span><span class="c1"># Only used if Cert/Key file or Cert/Key PEMblock are specified</span><span class="w"></span>
-<span class="w">    </span><span class="n">ClientAuth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w"> </span><span class="c1"># Valid values are: `none`, `usernamepassword` or `clientcert`</span><span class="w"></span>
-<span class="w">    </span><span class="n">Secretpath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;messagebus&quot;</span><span class="w">  </span><span class="c1"># Path in secret store used if ClientAuth not `none`</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[MessageQueue]</span>
+<span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;tcp&#39;</span>
+<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;localhost&#39;</span>
+<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span>
+<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;mqtt&#39;</span>
+<span class="n">PublishTopicPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;edgex/events&#39;</span><span class="w"> </span><span class="c1"># /&lt;device-profile-name&gt;/&lt;device-name&gt; will be added to this Publish Topic prefix</span>
+<span class="n">SubscribeEnabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">SubscribeTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;edgex/events/#&#39;</span>
+<span class="k">[MessageQueue.Optional]</span>
+<span class="w">    </span><span class="c1"># Default MQTT Specific options that need to be here to enable evnironment variable overrides of them</span>
+<span class="w">    </span><span class="c1"># Client Identifiers</span>
+<span class="w">    </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;edgex-core-data&quot;</span>
+<span class="w">    </span><span class="c1"># Connection information</span>
+<span class="w">    </span><span class="n">Qos</span><span class="w">          </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="c1"># Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</span>
+<span class="w">    </span><span class="n">KeepAlive</span><span class="w">    </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span>
+<span class="w">    </span><span class="n">Retained</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
+<span class="w">    </span><span class="n">AutoReconnect</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">    </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># Seconds</span>
+<span class="w">    </span><span class="n">SkipCertVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"> </span><span class="c1"># Only used if Cert/Key file or Cert/Key PEMblock are specified</span>
+<span class="w">    </span><span class="n">ClientAuth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w"> </span><span class="c1"># Valid values are: `none`, `usernamepassword` or `clientcert`</span>
+<span class="w">    </span><span class="n">Secretpath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;messagebus&quot;</span><span class="w">  </span><span class="c1"># Path in secret store used if ClientAuth not `none`</span>
 </code></pre></div>
 <h4 id="application-services_1">Application Services</h4>
 <h5 id="messagebus">[MessageBus]</h5>
 <p>Similar to above, the Application Services <code>MessageBus</code> configuration will change to allow for secure connection to the MessageBus. The <code>Username</code> &amp; <code>Password</code> have been replaced with <code>ClientAuth</code> &amp; <code>SecretPath</code> for secure connections. See <strong><a href="#secure-connections">Secure Connections</a></strong> section below for details.</p>
-<div class="highlight"><pre><span></span><code><span class="k">[MessageBus.Optional]</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># MQTT Specific options</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># Client Identifiers</span><span class="w"></span>
-<span class="w">    </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;&lt;app sevice key&gt;&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># Connection information</span><span class="w"></span>
-<span class="w">    </span><span class="n">Qos</span><span class="w">          </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="c1"># Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</span><span class="w"></span>
-<span class="w">    </span><span class="n">KeepAlive</span><span class="w">    </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span><span class="w"></span>
-<span class="w">    </span><span class="n">Retained</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">AutoReconnect</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># Seconds</span><span class="w"></span>
-<span class="w">    </span><span class="n">SkipCertVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"> </span><span class="c1"># Only used if Cert/Key file or Cert/Key PEMblock are specified</span><span class="w"></span>
-<span class="w">    </span><span class="n">ClientAuth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w"> </span><span class="c1"># Valid values are: `none`, `usernamepassword` or `clientcert`</span><span class="w"></span>
-<span class="w">    </span><span class="n">Secretpath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;messagebus&quot;</span><span class="w">  </span><span class="c1"># Path in secret store used if ClientAuth not `none`</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[MessageBus.Optional]</span>
+<span class="w">    </span><span class="c1"># MQTT Specific options</span>
+<span class="w">    </span><span class="c1"># Client Identifiers</span>
+<span class="w">    </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;&lt;app sevice key&gt;&quot;</span>
+<span class="w">    </span><span class="c1"># Connection information</span>
+<span class="w">    </span><span class="n">Qos</span><span class="w">          </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="c1"># Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</span>
+<span class="w">    </span><span class="n">KeepAlive</span><span class="w">    </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span>
+<span class="w">    </span><span class="n">Retained</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
+<span class="w">    </span><span class="n">AutoReconnect</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">    </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="c1"># Seconds</span>
+<span class="w">    </span><span class="n">SkipCertVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"> </span><span class="c1"># Only used if Cert/Key file or Cert/Key PEMblock are specified</span>
+<span class="w">    </span><span class="n">ClientAuth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="w"> </span><span class="c1"># Valid values are: `none`, `usernamepassword` or `clientcert`</span>
+<span class="w">    </span><span class="n">Secretpath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;messagebus&quot;</span><span class="w">  </span><span class="c1"># Path in secret store used if ClientAuth not `none`</span>
 </code></pre></div>
 <h5 id="binding">[Binding]</h5>
 <p>The <code>Binding</code> configuration section will require changes for the subscribe topics scheme described in the <a href="#messagebus-topics">MessageBus Topics</a> section above to filter for Events from specific device profiles or devices. <code>SubscribeTopic</code> will change from a string property containing a single topic to the <code>SubscribeTopics</code> string property containing a comma separated list of topics. This allows for the flexibility for the property to be a single topic with the <code>#</code> wild card so the Application Service receives all Events as it does today.</p>
 <p>Receive only Events from the <code>Random-Integer-Device</code> and <code>Random-Boolean-Device</code> profiles</p>
-<p><div class="highlight"><pre><span></span><code><span class="k">[Binding]</span><span class="w"></span>
-<span class="n">Type</span><span class="o">=</span><span class="s">&quot;messagebus&quot;</span><span class="w"></span>
-<span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/Random-Integer-Device, edgex/events/Random-Boolean-Device&quot;</span><span class="w"></span>
+<p><div class="highlight"><pre><span></span><code><span class="k">[Binding]</span>
+<span class="n">Type</span><span class="o">=</span><span class="s">&quot;messagebus&quot;</span>
+<span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/Random-Integer-Device, edgex/events/Random-Boolean-Device&quot;</span>
 </code></pre></div>
 Receive only Events from the  <code>Random-Integer-Device1</code> from the <code>Random-Integer-Device</code> profile</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Binding]</span><span class="w"></span>
-<span class="n">Type</span><span class="o">=</span><span class="s">&quot;messagebus&quot;</span><span class="w"></span>
-<span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/Random-Integer-Device/Random-Integer-Device1&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Binding]</span>
+<span class="n">Type</span><span class="o">=</span><span class="s">&quot;messagebus&quot;</span>
+<span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/Random-Integer-Device/Random-Integer-Device1&quot;</span>
 </code></pre></div>
 <p>or receives all Events:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Binding]</span><span class="w"></span>
-<span class="n">Type</span><span class="o">=</span><span class="s">&quot;messagebus&quot;</span><span class="w"></span>
-<span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Binding]</span>
+<span class="n">Type</span><span class="o">=</span><span class="s">&quot;messagebus&quot;</span>
+<span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">&quot;edgex/events/#&quot;</span>
 </code></pre></div>
 <h3 id="secure-connections">Secure Connections</h3>
 <p>As stated earlier,  this ADR is dependent on the  <a href="TBD"><strong>Secret Provider for All</strong></a> ADR to provide a common Secret Provider for all Edgex Services to access their secrets. Once this is available, the MessageBus connection can be secured via the following configurable client authentications modes which follows similar implementation for secure MQTT Export and secure MQTT Trigger used in Application Services.</p>

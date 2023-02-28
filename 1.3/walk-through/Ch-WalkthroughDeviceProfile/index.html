@@ -11,13 +11,13 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/walk-through/Ch-WalkthroughDeviceProfile/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/1.3/walk-through/Ch-WalkthroughDeviceProfile/">
       
       
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-5.1.0">
     
     
       
@@ -74,7 +74,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/1.3/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../assets/logo_edgex_white.png" alt="logo">
 
@@ -269,7 +269,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/1.3/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../assets/logo_edgex_white.png" alt="logo">
 
@@ -2362,10 +2362,10 @@ return a value for each of the expected values in a map where the <code>deviceRe
 as an example, if the expected values were [HumanCount, CanineCount]
 then the body of a good response from the service would contain a map
 that looks something like this:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;HumanCount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;CanineCount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;HumanCount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;CanineCount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>Here is an example set of responses that might be used for a <code>get</code> command
 in the camera example. Note that one response is coded as the "good"
@@ -2373,12 +2373,12 @@ response (code 200) while the other is for "error" response (code
 404). The expected values for the good response are the Value Descriptor
 names for the camera's count data. The expected values for the
 "error" response is the Value Descriptor name for an error message.
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="nt">&quot;responses&quot;</span><span class="p">:[</span><span class="w"></span>
-<span class="w">    </span><span class="p">{</span><span class="nt">&quot;description&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Get the people and dog counts&quot;</span><span class="p">,</span><span class="nt">&quot;expectedValues&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;HumanCount&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CanineCount&quot;</span><span class="p">],</span><span class="nt">&quot;code&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;200&quot;</span><span class="p">},</span><span class="w"></span>
-<span class="w">    </span><span class="p">{</span><span class="nt">&quot;description&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bad request&quot;</span><span class="p">,</span><span class="nt">&quot;expectedValues&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;CameraError&quot;</span><span class="p">],</span><span class="nt">&quot;code&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;404&quot;</span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="p">]</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;responses&quot;</span><span class="p">:[</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;description&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Get the people and dog counts&quot;</span><span class="p">,</span><span class="nt">&quot;expectedValues&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;HumanCount&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CanineCount&quot;</span><span class="p">],</span><span class="nt">&quot;code&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;200&quot;</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;description&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bad request&quot;</span><span class="p">,</span><span class="nt">&quot;expectedValues&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;CameraError&quot;</span><span class="p">],</span><span class="nt">&quot;code&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;404&quot;</span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
 </code></pre></div></p>
 <h4 id="understanding-set-command-parameters">Understanding Set Command Parameters</h4>
 <p><code>coreCommand</code>s are also used to send data to devices (via device services) as much
@@ -2396,10 +2396,10 @@ response body, the parameter names are used as keys in a map to pass
 parameter values in a command call that has parameters. Here might be
 what is populated in the body of the command call when the
 <code>parameterNames</code> are <code>[ScanDepth, SnapshotDuration]</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="nt">&quot;ScanDepth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="nt">&quot;SnapshotDuration&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;ScanDepth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;SnapshotDuration&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>If you open the <a href="../EdgeX_CameraMonitorProfile.yml">Camera Monitor Profile YAML file</a>, see that there are commands to get people and dog
 counts (and a command called Counts, which provides both values). There
@@ -2421,7 +2421,7 @@ are also commands to <code>get</code> and <code>put</code> the snapshot duration
 </div>
 <input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Curl</label><div class="tabbed-content">
 <p>Make a curl POST request as shown below.</p>
-<div class="highlight"><pre><span></span><code>curl -F <span class="s1">&#39;file=@/path/to/your/profile/here/EdgeX_CameraMonitorProfile.yml&#39;</span> localhost:48081/api/v1/deviceprofile/uploadfile
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-F<span class="w"> </span><span class="s1">&#39;file=@/path/to/your/profile/here/EdgeX_CameraMonitorProfile.yml&#39;</span><span class="w"> </span>localhost:48081/api/v1/deviceprofile/uploadfile
 </code></pre></div>
 <p>If your API call is successful, you will get a generated ID (a UUID) for your new <code>DeviceProfile</code>.</p>
 <div class="admonition warning">

@@ -11,13 +11,13 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/walk-through/Ch-WalkthroughCommands/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/1.3/walk-through/Ch-WalkthroughCommands/">
       
       
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-5.1.0">
     
     
       
@@ -74,7 +74,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/1.3/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../assets/logo_edgex_white.png" alt="logo">
 
@@ -269,7 +269,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/1.3/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../assets/logo_edgex_white.png" alt="logo">
 
@@ -2345,7 +2345,7 @@ way that enables simplified communications with the devices for</p>
 </div>
 <input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Curl</label><div class="tabbed-content">
 <p>Make a curl GET request as shown below.</p>
-<div class="highlight"><pre><span></span><code>curl -X GET localhost:48082/api/v1/device/name/countcamera1 <span class="p">|</span> json_pp
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>localhost:48082/api/v1/device/name/countcamera1<span class="w"> </span><span class="p">|</span><span class="w"> </span>json_pp
 </code></pre></div>
 </div>
 </div>
@@ -2373,7 +2373,7 @@ key function of EdgeX and must be accomplished as quickly as possible
 </div>
 <input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Curl</label><div class="tabbed-content">
 <p>Make a curl GET request as shown below.</p>
-<div class="highlight"><pre><span></span><code>curl -X GET localhost:48080/api/v1/valuedescriptor <span class="p">|</span> json_pp
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>localhost:48080/api/v1/valuedescriptor<span class="w"> </span><span class="p">|</span><span class="w"> </span>json_pp
 </code></pre></div>
 </div>
 </div>
@@ -2390,7 +2390,7 @@ core data.</p>
 </div>
 <input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><label for="__tabbed_3_2">Curl</label><div class="tabbed-content">
 <p>Make a curl GET request as shown below.</p>
-<div class="highlight"><pre><span></span><code>curl -X GET localhost:48080/api/v1/event/count
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>localhost:48080/api/v1/event/count
 </code></pre></div>
 </div>
 </div>
@@ -2420,7 +2420,7 @@ highlighted - yours will vary based on IDs.</p>
 <p>Use either the Postman or Curl tab below to walkthrough actuating the device.</p>
 <div class="tabbed-set" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><label for="__tabbed_4_1">Postman</label><div class="tabbed-content">
 <p>Make a PUT request to <code>http://localhost:48082/api/v1/device/&lt;system specific device id&gt;/command/&lt;system specific command id&gt;</code> with the following body.</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;depth&quot;</span><span class="p">:</span><span class="s2">&quot;9&quot;</span><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;depth&quot;</span><span class="p">:</span><span class="s2">&quot;9&quot;</span><span class="p">}</span>
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -2429,7 +2429,7 @@ highlighted - yours will vary based on IDs.</p>
 </div>
 <input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><label for="__tabbed_4_2">Curl</label><div class="tabbed-content">
 <p>Make a curl PUT request as shown below - <strong>replacing the device id and command id</strong> obtained from your command list.</p>
-<div class="highlight"><pre><span></span><code>curl -X PUT -d <span class="s1">&#39;{&quot;depth&quot;:&quot;9&quot;}&#39;</span> localhost:48082/api/v1/device/&lt;system specific device id&gt;/command/&lt;system specific <span class="nb">command</span> id&gt;
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;depth&quot;:&quot;9&quot;}&#39;</span><span class="w"> </span>localhost:48082/api/v1/device/&lt;system<span class="w"> </span>specific<span class="w"> </span>device<span class="w"> </span>id&gt;/command/&lt;system<span class="w"> </span>specific<span class="w"> </span><span class="nb">command</span><span class="w"> </span>id&gt;
 </code></pre></div>
 </div>
 </div>
@@ -2439,7 +2439,7 @@ command will respond with a connection refused error. However,
 checking the logging output will prove that the core command micro
 service did receive the request and attempted to call on the
 non-existent device service (at the <code>Addressable</code> address provided earlier in this walkthrough) to issue the actuating command.  To see the core command service log issue the following Docker command :</p>
-<p><div class="highlight"><pre><span></span><code>docker logs edgex-core-command
+<p><div class="highlight"><pre><span></span><code>docker<span class="w"> </span>logs<span class="w"> </span>edgex-core-command
 </code></pre></div>
 The last lines of the log entries should highlight the attempt to contact the non-existent device.</p>
 <div class="highlight"><pre><span></span><code>level=ERROR ts=2020-08-07T17:58:41.427153136Z app=edgex-core-command source=types.go:41 msg=&quot;Put http://localhost:49977/api/v1/devices/516baf46-c7a0-4fee-ad0c-b56df813bcb5/Depth: dial tcp 127.0.0.1:49977: connect: connection refused&quot;

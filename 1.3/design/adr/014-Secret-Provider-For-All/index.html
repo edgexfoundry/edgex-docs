@@ -11,13 +11,13 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/design/adr/014-Secret-Provider-For-All/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/1.3/design/adr/014-Secret-Provider-For-All/">
       
       
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-5.1.0">
     
     
       
@@ -74,7 +74,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/1.3/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../../assets/logo_edgex_white.png" alt="logo">
 
@@ -267,7 +267,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/1.3/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../../assets/logo_edgex_white.png" alt="logo">
 
@@ -2478,14 +2478,14 @@
 </code></pre></div>
 <p>This creates an exclusive secret store token for each service listed. The name provided for each service must be used in the service's <code>SecretStore</code> configuration and Docker volume mount  (if applicable). Typically the configuration is set via environment overrides or is already in an existing configuration profile (<strong><em>http-export</em></strong> profile for app-service-configurable). </p>
 <p>Example docker-compose file entries:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">SecretStoreExclusive_Path</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;/v1/secret/edgex/appservice-http-export/&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">TokenFile</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/tmp/edgex/secrets/appservice-http-export/secrets-token.json&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">SecretStoreExclusive_Path</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;/v1/secret/edgex/appservice-http-export/&quot;</span>
+<span class="w">    </span><span class="nt">TokenFile</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/tmp/edgex/secrets/appservice-http-export/secrets-token.json&quot;</span>
 
-<span class="nt">volumes</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- /tmp/edgex/secrets/appservice-http-export:/tmp/edgex/secrets/appservice-http-export:ro,z</span><span class="w"></span>
+<span class="nt">volumes</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- /tmp/edgex/secrets/appservice-http-export:/tmp/edgex/secrets/appservice-http-export:ro,z</span>
 </code></pre></div>
 </li>
 </ul>
@@ -2503,87 +2503,87 @@
 <h4 id="interfaces-and-factory-methods">Interfaces and factory methods</h4>
 <h5 id="bootstraps-current-implementation">Bootstrap's current implementation</h5>
 <h6 id="interfaces">Interfaces</h6>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">CredentialsProvider</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">GetDatabaseCredentials</span><span class="p">(</span><span class="nx">database</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">Database</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">Credentials</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">CredentialsProvider</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">GetDatabaseCredentials</span><span class="p">(</span><span class="nx">database</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">Database</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">Credentials</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>and</p>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">CertificateProvider</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">GetCertificateKeyPair</span><span class="p">(</span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">CertKeyPair</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">CertificateProvider</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">GetCertificateKeyPair</span><span class="p">(</span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">CertKeyPair</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
+<span class="p">}</span>
 </code></pre></div>
 <h6 id="factory-and-bootstrap-handler-methods">Factory and bootstrap handler methods</h6>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">SecretProvider</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">secretClient</span><span class="w"> </span><span class="nx">pkg</span><span class="p">.</span><span class="nx">SecretClient</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">SecretProvider</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">secretClient</span><span class="w"> </span><span class="nx">pkg</span><span class="p">.</span><span class="nx">SecretClient</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">NewSecret</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="nx">SecretProvider</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">SecretProvider</span><span class="p">{}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">NewSecret</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="nx">SecretProvider</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">SecretProvider</span><span class="p">{}</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">*</span><span class="nx">SecretProvider</span><span class="p">)</span><span class="w"> </span><span class="nx">BootstrapHandler</span><span class="p">(</span><span class="w"></span>
-<span class="w">    </span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nx">startupTimer</span><span class="w"> </span><span class="nx">startup</span><span class="p">.</span><span class="nx">Timer</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nx">dic</span><span class="w"> </span><span class="o">*</span><span class="nx">di</span><span class="p">.</span><span class="nx">Container</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="o">...</span><span class="w"></span>
-<span class="w">    </span><span class="nx">Intializes</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">SecretClient</span><span class="w"> </span><span class="nx">and</span><span class="w"> </span><span class="nx">adds</span><span class="w"> </span><span class="nx">it</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">DIC</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">both</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="w"></span>
-<span class="w">    </span><span class="o">...</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">*</span><span class="nx">SecretProvider</span><span class="p">)</span><span class="w"> </span><span class="nx">BootstrapHandler</span><span class="p">(</span>
+<span class="w">    </span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">startupTimer</span><span class="w"> </span><span class="nx">startup</span><span class="p">.</span><span class="nx">Timer</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">dic</span><span class="w"> </span><span class="o">*</span><span class="nx">di</span><span class="p">.</span><span class="nx">Container</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="w">    </span><span class="nx">Intializes</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">SecretClient</span><span class="w"> </span><span class="nx">and</span><span class="w"> </span><span class="nx">adds</span><span class="w"> </span><span class="nx">it</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">DIC</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">both</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="p">}</span>
 </code></pre></div>
 <h5 id="app-sdks-current-implementation">App SDK's current implementation</h5>
 <h6 id="interface">Interface</h6>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">SecretProvider</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">Initialize</span><span class="p">(</span><span class="nx">_</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"></span>
-<span class="w">    </span><span class="nx">StoreSecrets</span><span class="p">(</span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">secrets</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
-<span class="w">    </span><span class="nx">GetSecrets</span><span class="p">(</span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="nx">GetDatabaseCredentials</span><span class="p">(</span><span class="nx">database</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">DatabaseInfo</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">common</span><span class="p">.</span><span class="nx">Credentials</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="nx">InsecureSecretsUpdated</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="nx">SecretsLastUpdated</span><span class="p">()</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">SecretProvider</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Initialize</span><span class="p">(</span><span class="nx">_</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span>
+<span class="w">    </span><span class="nx">StoreSecrets</span><span class="p">(</span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">secrets</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">GetSecrets</span><span class="p">(</span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">GetDatabaseCredentials</span><span class="p">(</span><span class="nx">database</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">DatabaseInfo</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">common</span><span class="p">.</span><span class="nx">Credentials</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">InsecureSecretsUpdated</span><span class="p">()</span>
+<span class="w">    </span><span class="nx">SecretsLastUpdated</span><span class="p">()</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+<span class="p">}</span>
 </code></pre></div>
 <h6 id="factory-and-bootstrap-handler-methods_1">Factory and bootstrap handler methods</h6>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">SecretProviderImpl</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">SharedSecretClient</span><span class="w">    </span><span class="nx">pkg</span><span class="p">.</span><span class="nx">SecretClient</span><span class="w"></span>
-<span class="w">    </span><span class="nx">ExclusiveSecretClient</span><span class="w"> </span><span class="nx">pkg</span><span class="p">.</span><span class="nx">SecretClient</span><span class="w"></span>
-<span class="w">    </span><span class="nx">secretsCache</span><span class="w">          </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="w"> </span><span class="c1">// secret&#39;s path, key, value</span><span class="w"></span>
-<span class="w">    </span><span class="nx">configuration</span><span class="w">         </span><span class="o">*</span><span class="nx">common</span><span class="p">.</span><span class="nx">ConfigurationStruct</span><span class="w"></span>
-<span class="w">    </span><span class="nx">cacheMuxtex</span><span class="w">           </span><span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span><span class="w"></span>
-<span class="w">    </span><span class="nx">loggingClient</span><span class="w">         </span><span class="nx">logger</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="w"></span>
-<span class="w">    </span><span class="c1">//used to track when secrets have last been retrieved</span><span class="w"></span>
-<span class="w">    </span><span class="nx">LastUpdated</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">SecretProviderImpl</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">SharedSecretClient</span><span class="w">    </span><span class="nx">pkg</span><span class="p">.</span><span class="nx">SecretClient</span>
+<span class="w">    </span><span class="nx">ExclusiveSecretClient</span><span class="w"> </span><span class="nx">pkg</span><span class="p">.</span><span class="nx">SecretClient</span>
+<span class="w">    </span><span class="nx">secretsCache</span><span class="w">          </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="w"> </span><span class="c1">// secret&#39;s path, key, value</span>
+<span class="w">    </span><span class="nx">configuration</span><span class="w">         </span><span class="o">*</span><span class="nx">common</span><span class="p">.</span><span class="nx">ConfigurationStruct</span>
+<span class="w">    </span><span class="nx">cacheMuxtex</span><span class="w">           </span><span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
+<span class="w">    </span><span class="nx">loggingClient</span><span class="w">         </span><span class="nx">logger</span><span class="p">.</span><span class="nx">LoggingClient</span>
+<span class="w">    </span><span class="c1">//used to track when secrets have last been retrieved</span>
+<span class="w">    </span><span class="nx">LastUpdated</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">NewSecretProvider</span><span class="p">(</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">NewSecretProvider</span><span class="p">(</span>
 <span class="w">    </span><span class="nx">loggingClient</span><span class="w"> </span><span class="nx">logger</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="nx">configuration</span><span class="w"> </span><span class="o">*</span><span class="nx">common</span><span class="p">.</span><span class="nx">ConfigurationStruct</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="nx">SecretProviderImpl</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">sp</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">SecretProviderImpl</span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nx">secretsCache</span><span class="p">:</span><span class="w">  </span><span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">),</span><span class="w"></span>
-<span class="w">        </span><span class="nx">cacheMuxtex</span><span class="p">:</span><span class="w">   </span><span class="o">&amp;</span><span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span><span class="p">{},</span><span class="w"></span>
-<span class="w">        </span><span class="nx">configuration</span><span class="p">:</span><span class="w"> </span><span class="nx">configuration</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nx">loggingClient</span><span class="p">:</span><span class="w"> </span><span class="nx">loggingClient</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nx">LastUpdated</span><span class="p">:</span><span class="w">   </span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">(),</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="nx">configuration</span><span class="w"> </span><span class="o">*</span><span class="nx">common</span><span class="p">.</span><span class="nx">ConfigurationStruct</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="nx">SecretProviderImpl</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">sp</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">SecretProviderImpl</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">secretsCache</span><span class="p">:</span><span class="w">  </span><span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">),</span>
+<span class="w">        </span><span class="nx">cacheMuxtex</span><span class="p">:</span><span class="w">   </span><span class="o">&amp;</span><span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span><span class="p">{},</span>
+<span class="w">        </span><span class="nx">configuration</span><span class="p">:</span><span class="w"> </span><span class="nx">configuration</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">loggingClient</span><span class="p">:</span><span class="w"> </span><span class="nx">loggingClient</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">LastUpdated</span><span class="p">:</span><span class="w">   </span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">(),</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">sp</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">sp</span>
+<span class="p">}</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">Secrets</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">Secrets</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">NewSecrets</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="nx">Secrets</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">Secrets</span><span class="p">{}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">NewSecrets</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="nx">Secrets</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">Secrets</span><span class="p">{}</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">_</span><span class="w"> </span><span class="o">*</span><span class="nx">Secrets</span><span class="p">)</span><span class="w"> </span><span class="nx">BootstrapHandler</span><span class="p">(</span><span class="w"></span>
-<span class="w">    </span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nx">startupTimer</span><span class="w"> </span><span class="nx">startup</span><span class="p">.</span><span class="nx">Timer</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nx">dic</span><span class="w"> </span><span class="o">*</span><span class="nx">di</span><span class="p">.</span><span class="nx">Container</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="o">...</span><span class="w"></span>
-<span class="w">    </span><span class="nx">Creates</span><span class="w"> </span><span class="nx">NewNewSecretProvider</span><span class="p">,</span><span class="w"> </span><span class="nx">calls</span><span class="w"> </span><span class="nx">Initailizes</span><span class="p">()</span><span class="w"> </span><span class="nx">and</span><span class="w"> </span><span class="nx">adds</span><span class="w"> </span><span class="nx">it</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">DIC</span><span class="w"></span>
-<span class="w">    </span><span class="o">...</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">_</span><span class="w"> </span><span class="o">*</span><span class="nx">Secrets</span><span class="p">)</span><span class="w"> </span><span class="nx">BootstrapHandler</span><span class="p">(</span>
+<span class="w">    </span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">startupTimer</span><span class="w"> </span><span class="nx">startup</span><span class="p">.</span><span class="nx">Timer</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">dic</span><span class="w"> </span><span class="o">*</span><span class="nx">di</span><span class="p">.</span><span class="nx">Container</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="w">    </span><span class="nx">Creates</span><span class="w"> </span><span class="nx">NewNewSecretProvider</span><span class="p">,</span><span class="w"> </span><span class="nx">calls</span><span class="w"> </span><span class="nx">Initailizes</span><span class="p">()</span><span class="w"> </span><span class="nx">and</span><span class="w"> </span><span class="nx">adds</span><span class="w"> </span><span class="nx">it</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">DIC</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="p">}</span>
 </code></pre></div>
 <h4 id="secret-store-for-non-secure-mode">Secret Store for non-secure mode</h4>
 <p>Both Bootstrap's and App SDK's implementation use the <code>DatabaseInfo</code> configuration for <code>GetDatabaseCredentials</code> API in non-secure mode. The App SDK only uses it, for backward compatibility,  if the database credentials are not found in the new <code>InsecureSecrets</code> configuration section. For Ireland it was planned to only use the new <code>InsecureSecrets</code> configuration section in non-secure mode.</p>
@@ -2591,64 +2591,64 @@
 <p><em>Note: Redis credentials are <code>blank</code> in non-secure mode</em></p>
 </blockquote>
 <p>Core Data</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Databases]</span><span class="w"></span>
-<span class="w">  </span><span class="k">[Databases.Primary]</span><span class="w"></span>
-<span class="w">  </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;localhost&#39;</span><span class="w"></span>
-<span class="w">  </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;coredata&#39;</span><span class="w"></span>
-<span class="w">  </span><span class="n">Username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="w"></span>
-<span class="w">  </span><span class="n">Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="w"></span>
-<span class="w">  </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6379</span><span class="w"></span>
-<span class="w">  </span><span class="n">Timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5000</span><span class="w"></span>
-<span class="w">  </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;redisdb&#39;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Databases]</span>
+<span class="w">  </span><span class="k">[Databases.Primary]</span>
+<span class="w">  </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;localhost&#39;</span>
+<span class="w">  </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;coredata&#39;</span>
+<span class="w">  </span><span class="n">Username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;&#39;</span>
+<span class="w">  </span><span class="n">Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;&#39;</span>
+<span class="w">  </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6379</span>
+<span class="w">  </span><span class="n">Timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5000</span>
+<span class="w">  </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;redisdb&#39;</span>
 </code></pre></div>
 <p>Application Services</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Database]</span><span class="w"></span>
-<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redisdb&quot;</span><span class="w"></span>
-<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
-<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6379</span><span class="w"></span>
-<span class="n">Username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="w"></span>
-<span class="n">Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="w"></span>
-<span class="n">Timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30s&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Database]</span>
+<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redisdb&quot;</span>
+<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span>
+<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6379</span>
+<span class="n">Username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;&#39;</span>
+<span class="n">Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;&#39;</span>
+<span class="n">Timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30s&quot;</span>
 </code></pre></div>
 <h5 id="insecuresecrets-configuration">InsecureSecrets Configuration</h5>
 <p>The App SDK defines a new <code>Writable</code> configuration section called <code>InsecureSecrets</code>. This structure mimics that of the secure <code>SecretStore</code> when <code>EDGEX_SECURITY_SECRET_STORE</code>environment variable is set to <code>false</code>. Having the <code>InsecureSecrets</code> in the <code>Writable</code>  section allows for the secrets to be updated without restarting the service. Some minor processing must occur when the <code>InsecureSecrets</code> section is updated. This is to call the <code>InsecureSecretsUpdated</code> API. This API simply sets the time the secrets were last updated. The <code>SecretsLastUpdated</code> API returns this timestamp so pipeline functions that use credentials for exporting know if their client needs to be recreated with new credentials, i.e MQTT export.</p>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">WritableInfo</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">LogLevel</span><span class="w">        </span><span class="kt">string</span><span class="w"></span>
-<span class="w">    </span><span class="o">...</span><span class="w"></span>
-<span class="w">    </span><span class="nx">InsecureSecrets</span><span class="w"> </span><span class="nx">InsecureSecrets</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">WritableInfo</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">LogLevel</span><span class="w">        </span><span class="kt">string</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="w">    </span><span class="nx">InsecureSecrets</span><span class="w"> </span><span class="nx">InsecureSecrets</span>
+<span class="p">}</span>
 
-<span class="kd">type</span><span class="w"> </span><span class="nx">InsecureSecrets</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">InsecureSecretsInfo</span><span class="w"></span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">InsecureSecrets</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">InsecureSecretsInfo</span>
 
-<span class="kd">type</span><span class="w"> </span><span class="nx">InsecureSecretsInfo</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">Path</span><span class="w">    </span><span class="kt">string</span><span class="w"></span>
-<span class="w">    </span><span class="nx">Secrets</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">InsecureSecretsInfo</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Path</span><span class="w">    </span><span class="kt">string</span>
+<span class="w">    </span><span class="nx">Secrets</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span>
+<span class="p">}</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="k">[Writable.InsecureSecrets]</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Writable.InsecureSecrets.DB]</span><span class="w"></span>
-<span class="w">        </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redisdb&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="k">[Writable.InsecureSecrets.DB.Secrets]</span><span class="w"></span>
-<span class="w">            </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Writable.InsecureSecrets.mqtt]</span><span class="w"></span>
-<span class="w">        </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="k">[Writable.InsecureSecrets.mqtt.Secrets]</span><span class="w"></span>
-<span class="w">            </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="n">cacert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="n">clientcert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="n">clientkey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Writable.InsecureSecrets]</span>
+<span class="w">    </span><span class="k">[Writable.InsecureSecrets.DB]</span>
+<span class="w">        </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redisdb&quot;</span>
+<span class="w">        </span><span class="k">[Writable.InsecureSecrets.DB.Secrets]</span>
+<span class="w">            </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">            </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">    </span><span class="k">[Writable.InsecureSecrets.mqtt]</span>
+<span class="w">        </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt&quot;</span>
+<span class="w">        </span><span class="k">[Writable.InsecureSecrets.mqtt.Secrets]</span>
+<span class="w">            </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">            </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">            </span><span class="n">cacert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">            </span><span class="n">clientcert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">            </span><span class="n">clientkey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
 </code></pre></div>
 <h2 id="decision">Decision</h2>
 <p>The new <code>SecretProvider</code> abstraction defined by this ADR is a combination of the two implementations described above in the <a href="#existing-implementations">Existing Implementations</a> section.</p>
 <h3 id="only-exclusive-secret-stores">Only Exclusive Secret Stores</h3>
 <p>To simplify the <code>SecretProvider</code> abstraction, we need to reduce to using only exclusive <code>SecretStores</code>. This allows all the APIs to deal with a single <code>SecretClient</code>, rather than the split up way we currently have in Application Services. This requires that the current Application Service shared secrets (database credentials) must be copied into each Application Service's exclusive <code>SecretStore</code> when it is created.</p>
 <p>The challenge is how do we seed static secrets for unknown services when they become known.  As described above in the <a href="#known-and-unknown-services">Known and Unknown Services</a> section above,  services currently identify themselves for exclusive <code>SecretStore</code> creation via the <code>ADD_SECRETSTORE_TOKENS</code> environment variable on security-secretstore-setup. This environment variable simply takes a comma separated list of service names.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">ADD_SECRETSTORE_TOKENS</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;service-name1&gt;,&lt;service-name2&gt;&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">ADD_SECRETSTORE_TOKENS</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;service-name1&gt;,&lt;service-name2&gt;&quot;</span>
 </code></pre></div>
 <p>If we expanded this to add an optional list of static secret identifiers for each service, i.e.  <code>appservice/redisdb</code>, the exclusive store could also be seeded with a copy of static shared secrets. In this case the Redis database credentials for the Application Services' shared database. The environment variable name will change to <code>ADD_SECRETSTORE</code> now that it is more than just tokens.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">ADD_SECRETSTORE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;app-service-xyz[appservice/redisdb]&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">ADD_SECRETSTORE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;app-service-xyz[appservice/redisdb]&quot;</span>
 </code></pre></div>
 <blockquote>
 <p><em>Note: The secret identifier here is the short path to the secret in the existing </em><em>appservice</em><em>  <code>SecretStore</code>. In the above example this expands to the full path of <code>/secret/edgex/appservice/redisdb</code></em></p>
@@ -2659,21 +2659,21 @@
 <div class="highlight"><pre><span></span><code>&lt;service-name1&gt;[optional list of static secret IDs sperated by ;],&lt;service-name2&gt;[optional list of static secret IDs sperated by ;],...
 </code></pre></div>
 <p>Example with one service specifying IDs for static secrets and one without static secrets </p>
-<div class="highlight"><pre><span></span><code><span class="nt">ADD_SECRETSTORE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;appservice-xyz[appservice/redisdb;</span><span class="nv"> </span><span class="s">common/messagebus],</span><span class="nv"> </span><span class="s">appservice-http-export&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">ADD_SECRETSTORE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;appservice-xyz[appservice/redisdb;</span><span class="nv"> </span><span class="s">common/messagebus],</span><span class="nv"> </span><span class="s">appservice-http-export&quot;</span>
 </code></pre></div>
 <p>When the <code>ADD_SECRETSTORE</code> environment variable is processed to create these <code>SecretStores</code>, it will copy the specified saved secrets from the initial <code>SecretStore</code> into the service's <code>SecretStore</code>. This all depends on the completion of database or other credential bootstrapping and the secrets having been stored prior to the environment variable being processed. security-secretstore-setup will need to be refactored to ensure this sequencing.</p>
 <h3 id="abstraction-interface">Abstraction Interface</h3>
 <p>The following will be the new <code>SecretProvider</code> abstraction interface used by all Edgex services</p>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">SecretProvider</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// Stores new secrets into the service&#39;s exclusive SecretStore at the specified path.</span><span class="w"></span>
-<span class="w">    </span><span class="nx">StoreSecrets</span><span class="p">(</span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">secrets</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// Retrieves secrets from the service&#39;s exclusive SecretStore at the specified path.</span><span class="w"></span>
-<span class="w">    </span><span class="nx">GetSecrets</span><span class="p">(</span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// Sets the secrets lastupdated time to current time. </span><span class="w"></span>
-<span class="w">    </span><span class="nx">SecretsUpdated</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// Returns the secrets last updated time</span><span class="w"></span>
-<span class="w">    </span><span class="nx">SecretsLastUpdated</span><span class="p">()</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">SecretProvider</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Stores new secrets into the service&#39;s exclusive SecretStore at the specified path.</span>
+<span class="w">    </span><span class="nx">StoreSecrets</span><span class="p">(</span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">secrets</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="c1">// Retrieves secrets from the service&#39;s exclusive SecretStore at the specified path.</span>
+<span class="w">    </span><span class="nx">GetSecrets</span><span class="p">(</span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">// Sets the secrets lastupdated time to current time. </span>
+<span class="w">    </span><span class="nx">SecretsUpdated</span><span class="p">()</span>
+<span class="w">    </span><span class="c1">// Returns the secrets last updated time</span>
+<span class="w">    </span><span class="nx">SecretsLastUpdated</span><span class="p">()</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+<span class="p">}</span>
 </code></pre></div>
 <blockquote>
 <p><em>Note: The <code>GetDatabaseCredentials</code> and <code>GetCertificateKeyPair</code> APIs have been removed. These are no longer needed since insecure database credentials will no longer be stored in the <code>DatabaseInfo</code> configuration and certificate key pairs are secrets like any others. This allows these secrets to be retrieved via the <code>GetSecrets</code> API.</em></p>
@@ -2685,12 +2685,12 @@
 <p>Secrets will be cached as they are currently in the Application Service implementation</p>
 <h4 id="insecure-secrets">Insecure Secrets</h4>
 <p>Insecure Secrets will be handled as they are currently in the Application Service implementation. <code>DatabaseInfo</code> configuration will no longer be an option for storing the insecure database credentials. They will be stored in the <code>InsecureSecrets</code> configuration only.</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Writable.InsecureSecrets]</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Writable.InsecureSecrets.DB]</span><span class="w"></span>
-<span class="w">        </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redisdb&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="k">[Writable.InsecureSecrets.DB.Secrets]</span><span class="w"></span>
-<span class="w">            </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Writable.InsecureSecrets]</span>
+<span class="w">    </span><span class="k">[Writable.InsecureSecrets.DB]</span>
+<span class="w">        </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;redisdb&quot;</span>
+<span class="w">        </span><span class="k">[Writable.InsecureSecrets.DB.Secrets]</span>
+<span class="w">            </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">            </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
 </code></pre></div>
 <h5 id="handling-on-the-fly-changes-to-insecuresecrets">Handling on-the-fly changes to <code>InsecureSecrets</code></h5>
 <p>All services will need to handle the special processing when <code>InsecureSecrets</code> are changed on-the-fly via Consul. Since this will now be a common configuration item in <code>Writable</code> it can be handled in <code>go-mod-bootstrap</code> along with existing log level processing. This special processing will be taken from App SDK.</p>

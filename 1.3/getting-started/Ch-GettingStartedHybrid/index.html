@@ -11,13 +11,13 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/getting-started/Ch-GettingStartedHybrid/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/1.3/getting-started/Ch-GettingStartedHybrid/">
       
       
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-5.1.0">
     
     
       
@@ -74,7 +74,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/1.3/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../assets/logo_edgex_white.png" alt="logo">
 
@@ -269,7 +269,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/1.3/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../assets/logo_edgex_white.png" alt="logo">
 
@@ -2282,12 +2282,12 @@ EdgeX environment up and running via Docker containers. How would you set up thi
     required to run a minimal EdgeX environment. So you will need to run
     Consul, Redis, Core Data, Core Metadata, Support Notifications, and Core Command. </p>
 <p>Based on the instructions found in the <a href="../Ch-GettingStartedUsers/#Get-Run-EdgeX-Foundry">Getting Started with Docker</a>, locate and download the appropriate Docker Compose file for your development environment.  Next, issue the following commands to start this set of EdgeX containers - providing a minimal functioning EdgeX environment. 
-<div class="highlight"><pre><span></span><code>docker-compose up -d consul
-docker-compose up -d redis
-docker-compose up -d notifications
-docker-compose up -d metadata
-docker-compose up -d data
-docker-compose up -d <span class="nb">command</span>
+<div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>consul
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>redis
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>notifications
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>metadata
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>data
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span><span class="nb">command</span>
 </code></pre></div></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2296,7 +2296,7 @@ docker-compose up -d <span class="nb">command</span>
 </li>
 <li>
 <p>Run the command below to confirm that all the containers have started.
-    <div class="highlight"><pre><span></span><code>docker-compose ps
+    <div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>ps
 </code></pre></div></p>
 </li>
 </ol>
@@ -2305,7 +2305,7 @@ docker-compose up -d <span class="nb">command</span>
 <h3 id="get-the-service-code">Get the service code</h3>
 <p>Per <a href="../Ch-GettingStartedGoDevelopers/#Get-the-code">Getting Started Go Developers</a>, pull the micro service code you want to work on from GitHub. In
 this example, we assume you want to get the device-virtual-go.
-<div class="highlight"><pre><span></span><code>git clone https://github.com/edgexfoundry/device-virtual-go.git
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/edgexfoundry/device-virtual-go.git
 </code></pre></div></p>
 <h3 id="build-the-service-code">Build the service code</h3>
 <p>At this time, you can add or modify the code to make the service changes you need.  Once ready, you must compile and build the service into an executable.  Change folders to the cloned micro service directory and build the service.
@@ -2318,7 +2318,7 @@ make build
 <p>Examine the <strong>configuration.toml</strong> file in the cmd/res folder of the device-virtual-go. Note that the Registry (located in the [Registry] section of the configuration) and all the "clients" (located in the [clients] section of the configuration file) suggest that the "Host" of these services is "localhost".  These and other host configuration elements need to change when the services are not running on the same host.  If you do have to change the configuration, save the configuration.toml file after making changes.</p>
 <h3 id="run-the-service-code-natively">Run the service code natively.</h3>
 <p>The executable created by the make command is usually found in the cmd folder of the service.
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span> cmd
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>cmd
 ./device-virtual
 </code></pre></div></p>
 <p><img alt="image" src="../EdgeX_GettingStartedHybridRun.png" /></p>

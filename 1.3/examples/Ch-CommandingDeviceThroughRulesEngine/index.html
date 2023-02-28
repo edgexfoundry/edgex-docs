@@ -11,13 +11,13 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/examples/Ch-CommandingDeviceThroughRulesEngine/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/1.3/examples/Ch-CommandingDeviceThroughRulesEngine/">
       
       
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-5.1.0">
     
     
       
@@ -74,7 +74,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/1.3/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../assets/logo_edgex_white.png" alt="logo">
 
@@ -269,7 +269,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/1.3/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../assets/logo_edgex_white.png" alt="logo">
 
@@ -2353,66 +2353,66 @@
 <h2 id="start-kuiper-and-create-an-edgex-stream">Start Kuiper and Create an EdgeX Stream</h2>
 <p>Make sure you read the <a href="https://github.com/emqx/kuiper/blob/master/docs/en_US/edgex/edgex_rule_engine_tutorial.md">EdgeX Kuiper Rule Engine Tutorial</a> and successfully run Kuiper with EdgeX. </p>
 <p>First create a stream that can consume streaming data from the EdgeX application service (rules engine profile). This step is not required if you already finished the <a href="https://github.com/emqx/kuiper/blob/master/docs/en_US/edgex/edgex_rule_engine_tutorial.md">EdgeX Kuiper Rule Engine Tutorial</a>. </p>
-<div class="highlight"><pre><span></span><code>curl -X POST <span class="se">\</span>
-  http://<span class="nv">$kuiper_docker</span>:48075/streams <span class="se">\</span>
-  -H <span class="s1">&#39;Content-Type: application/json&#39;</span> <span class="se">\</span>
-  -d <span class="s1">&#39;{&quot;sql&quot;: &quot;create stream demo() WITH (FORMAT=\&quot;JSON\&quot;, TYPE=\&quot;edgex\&quot;)&quot;}&#39;</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>http://<span class="nv">$kuiper_docker</span>:48075/streams<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;sql&quot;: &quot;create stream demo() WITH (FORMAT=\&quot;JSON\&quot;, TYPE=\&quot;edgex\&quot;)&quot;}&#39;</span>
 </code></pre></div>
 <h2 id="get-and-test-the-command-url">Get and Test the Command URL</h2>
 <p>Since both use case scenario rules will send commands to the <code>Random-Boolean-Device</code> virtual device, use the curl request below to get a list of available commands for this device.</p>
-<div class="highlight"><pre><span></span><code>curl http://localhost:48082/api/v1/device/name/Random-Boolean-Device <span class="p">|</span> jq
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:48082/api/v1/device/name/Random-Boolean-Device<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq
 </code></pre></div>
 <p>It should print results like those below.</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;9b051411-ca20-4556-bd3e-7f52475764ff&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Boolean-Device&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="nt">&quot;adminState&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;UNLOCKED&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="nt">&quot;operatingState&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ENABLED&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="nt">&quot;labels&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">    </span><span class="s2">&quot;device-virtual-example&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="p">],</span><span class="w"></span>
-<span class="w">  </span><span class="nt">&quot;commands&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">    </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;created&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1589052044139</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;modified&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1589052044139</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;28d88bb3-e280-46f7-949f-37cc411757f5&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bool&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;get&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/api/v1/device/{deviceId}/Bool&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;responses&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">          </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;200&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;expectedValues&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">              </span><span class="s2">&quot;Bool&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="p">]</span><span class="w"></span>
-<span class="w">          </span><span class="p">},</span><span class="w"></span>
-<span class="w">          </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;503&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;service unavailable&quot;</span><span class="w"></span>
-<span class="w">          </span><span class="p">}</span><span class="w"></span>
-<span class="w">        </span><span class="p">],</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://edgex-core-command:48082/api/v1/device/bcd18c02-b187-4f29-8265-8312dc5d794d/command/d6d3007d-c4ce-472f-a117-820b5410e498&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="p">},</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;put&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/api/v1/device/{deviceId}/Bool&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;responses&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">          </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;200&quot;</span><span class="w"></span>
-<span class="w">          </span><span class="p">},</span><span class="w"></span>
-<span class="w">          </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;503&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;service unavailable&quot;</span><span class="w"></span>
-<span class="w">          </span><span class="p">}</span><span class="w"></span>
-<span class="w">        </span><span class="p">],</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://edgex-core-command:48082/api/v1/device/bcd18c02-b187-4f29-8265-8312dc5d794d/command/d6d3007d-c4ce-472f-a117-820b5410e498&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;parameterNames&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">          </span><span class="s2">&quot;Bool&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">          </span><span class="s2">&quot;EnableRandomization_Bool&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="p">]</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="p">]</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;9b051411-ca20-4556-bd3e-7f52475764ff&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Random-Boolean-Device&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;adminState&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;UNLOCKED&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;operatingState&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ENABLED&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;labels&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;device-virtual-example&quot;</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;commands&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;created&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1589052044139</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;modified&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1589052044139</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;28d88bb3-e280-46f7-949f-37cc411757f5&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bool&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;get&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/api/v1/device/{deviceId}/Bool&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;responses&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;200&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;expectedValues&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">              </span><span class="s2">&quot;Bool&quot;</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">          </span><span class="p">},</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;503&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;service unavailable&quot;</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://edgex-core-command:48082/api/v1/device/bcd18c02-b187-4f29-8265-8312dc5d794d/command/d6d3007d-c4ce-472f-a117-820b5410e498&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;put&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/api/v1/device/{deviceId}/Bool&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;responses&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;200&quot;</span>
+<span class="w">          </span><span class="p">},</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;503&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;service unavailable&quot;</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://edgex-core-command:48082/api/v1/device/bcd18c02-b187-4f29-8265-8312dc5d794d/command/d6d3007d-c4ce-472f-a117-820b5410e498&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;parameterNames&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="s2">&quot;Bool&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="s2">&quot;EnableRandomization_Bool&quot;</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>From this output, look for the URL associated to the <code>PUT</code> command (the second URL listed).  This is the command Kuiper will used to call on the device. There are two parameters for this command:</p>
 <ul>
@@ -2420,10 +2420,10 @@
 <li><code>EnableRandomization_Bool</code>: Enable/disable the randomization generation of bool values. If this value is set to true, then the 1st parameter will be ignored.</li>
 </ul>
 <p>You can test calling this command with its parameters using curl as shown below.</p>
-<div class="highlight"><pre><span></span><code>curl -X PUT <span class="se">\</span>
-  http://edgex-core-command:48082/api/v1/device/bcd18c02-b187-4f29-8265-8312dc5d794d/command/d6d3007d-c4ce-472f-a117-820b5410e498 <span class="se">\</span>
-  -H <span class="s1">&#39;Content-Type: application/json&#39;</span> <span class="se">\</span>
-  -d <span class="s1">&#39;{&quot;Bool&quot;:&quot;true&quot;, &quot;EnableRandomization_Bool&quot;: &quot;true&quot;}&#39;</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>http://edgex-core-command:48082/api/v1/device/bcd18c02-b187-4f29-8265-8312dc5d794d/command/d6d3007d-c4ce-472f-a117-820b5410e498<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;Bool&quot;:&quot;true&quot;, &quot;EnableRandomization_Bool&quot;: &quot;true&quot;}&#39;</span>
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -2433,10 +2433,10 @@
 <p>Now that you have EdgeX and Kuiper running, the EdgeX stream defined, and you know the command to actuate <code>Random-Boolean-Device</code>, it is time to build the Kuiper rules.</p>
 <h3 id="the-first-rule">The first rule</h3>
 <p>Again, the 1st rule is to monitor for events coming from the <code>Random-UnsignedInteger-Device</code> device (one of the default virtual device managed devices), and if a <code>uint8</code> reading value is found larger than <code>20</code> in the event, then send the command to <code>Random-Boolean-Device</code> device to start generating random numbers (specifically - set random generation bool to true).  Given the URL and parameters to the command, below is the curl command to declare the first rule in Kuiper.</p>
-<div class="highlight"><pre><span></span><code>curl -X POST <span class="se">\</span>
-  http://<span class="nv">$kuiper_server</span>:48075/rules <span class="se">\</span>
-  -H <span class="s1">&#39;Content-Type: application/json&#39;</span> <span class="se">\</span>
-  -d <span class="s1">&#39;{</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>http://<span class="nv">$kuiper_server</span>:48075/rules<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
 <span class="s1">  &quot;id&quot;: &quot;rule1&quot;,</span>
 <span class="s1">  &quot;sql&quot;: &quot;SELECT uint8 FROM demo WHERE uint8 &gt; 20&quot;,</span>
 <span class="s1">  &quot;actions&quot;: [</span>
@@ -2456,10 +2456,10 @@
 </code></pre></div>
 <h3 id="the-second-rule">The second rule</h3>
 <p>The 2nd rule is to monitor for events coming from the <code>Random-Integer-Device</code> device (another of the default virtual device managed devices), and if the average for <code>int8</code> reading values (within 20 seconds) is larger than 0, then send a command to <code>Random-Boolean-Device</code> device to stop generating random numbers (specifically - set random generation bool to false).  Here is the curl request to setup the second rule in Kuiper.  The same command URL is used as the same device action (<code>Random-Boolean-Device's PUT bool command</code>) is being actuated, but with different parameters.</p>
-<div class="highlight"><pre><span></span><code>curl -X POST <span class="se">\</span>
-  http://<span class="nv">$kuiper_server</span>:48075/rules <span class="se">\</span>
-  -H <span class="s1">&#39;Content-Type: application/json&#39;</span> <span class="se">\</span>
-  -d <span class="s1">&#39;{</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>http://<span class="nv">$kuiper_server</span>:48075/rules<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
 <span class="s1">  &quot;id&quot;: &quot;rule2&quot;,</span>
 <span class="s1">  &quot;sql&quot;: &quot;SELECT avg(int8) AS avg_int8 FROM demo WHERE int8 != nil GROUP BY  TUMBLINGWINDOW(ss, 20) HAVING avg(int8) &gt; 0&quot;,</span>
 <span class="s1">  &quot;actions&quot;: [</span>
@@ -2479,14 +2479,14 @@
 </code></pre></div>
 <h2 id="watch-the-kuiper-logs">Watch the Kuiper Logs</h2>
 <p>Both rules are now created in Kuiper.  Kuiper is busy analyzing the event data coming for the virtual devices looking for readings that match the rules you created.  You can watch the edgex-kuiper container logs for the rule triggering and command execution.</p>
-<div class="highlight"><pre><span></span><code>docker logs edgex-kuiper
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>logs<span class="w"> </span>edgex-kuiper
 </code></pre></div>
 <h2 id="explore-the-results">Explore the Results</h2>
 <p>You can also explore the Kuiper analysis that caused the commands to be sent to the service.  To see the the data from the analysis, use the SQL below to query Kuiper filtering data.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="nb">int8</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;true&quot;</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">randomization</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">demo</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">uint8</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">20</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="nb">int8</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;true&quot;</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">randomization</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">demo</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">uint8</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">20</span>
 </code></pre></div>
 <p>The output of the SQL should look similar to the results below.</p>
-<div class="highlight"><pre><span></span><code><span class="p">[{</span><span class="nt">&quot;int8&quot;</span><span class="p">:</span><span class="mi">-75</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;randomization&quot;</span><span class="p">:</span><span class="s2">&quot;true&quot;</span><span class="p">}]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p">[{</span><span class="nt">&quot;int8&quot;</span><span class="p">:</span><span class="mi">-75</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;randomization&quot;</span><span class="p">:</span><span class="s2">&quot;true&quot;</span><span class="p">}]</span>
 </code></pre></div>
 <h2 id="extended-reading">Extended Reading</h2>
 <p>Use these resouces to learn more about the features of EMQ X Kuiper.</p>

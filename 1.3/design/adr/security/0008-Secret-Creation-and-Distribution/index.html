@@ -11,13 +11,13 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/design/adr/security/0008-Secret-Creation-and-Distribution/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/1.3/design/adr/security/0008-Secret-Creation-and-Distribution/">
       
       
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-5.1.0">
     
     
       
@@ -74,7 +74,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/1.3/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../../../assets/logo_edgex_white.png" alt="logo">
 
@@ -267,7 +267,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/1.3/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../../../assets/logo_edgex_white.png" alt="logo">
 
@@ -2447,7 +2447,7 @@ Specific cases where this is likely to come up are:</p>
    This includes any EdgeX service that links to go-mod-secrets.</p>
 <p>For example, if secretClient is an instance of the go-mod-secrets
    secret store client:</p>
-<div class="highlight"><pre><span></span><code><span class="nx">secrets</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">secretClient</span><span class="p">.</span><span class="nx">GetSecrets</span><span class="p">(</span><span class="s">&quot;myservice&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;username&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;password&quot;</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">secrets</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">secretClient</span><span class="p">.</span><span class="nx">GetSecrets</span><span class="p">(</span><span class="s">&quot;myservice&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;username&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;password&quot;</span><span class="p">)</span>
 </code></pre></div>
 <p>The above code will retrieve the <code>username</code> and <code>password</code> properties
    of the <code>myservice</code> secret.</p>

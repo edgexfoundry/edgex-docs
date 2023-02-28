@@ -11,13 +11,13 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/microservices/application/ContextAPI/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/1.3/microservices/application/ContextAPI/">
       
       
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-5.1.0">
     
     
       
@@ -74,7 +74,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/1.3/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../../assets/logo_edgex_white.png" alt="logo">
 
@@ -269,7 +269,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/1.3/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../../assets/logo_edgex_white.png" alt="logo">
 
@@ -2337,46 +2337,46 @@
                   <h1>Context API</h1>
                 
                 <p>The context parameter passed to each function/transform provides operations and data associated with each execution of the pipeline. Let's take a look at a few of the properties that are available:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">Context</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// ID of the EdgeX Event (will be filled for a received JSON Event)</span><span class="w"></span>
-<span class="w">    </span><span class="nx">EventID</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">Context</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ID of the EdgeX Event (will be filled for a received JSON Event)</span>
+<span class="w">    </span><span class="nx">EventID</span><span class="w"> </span><span class="kt">string</span>
 
-<span class="w">    </span><span class="c1">// Checksum of the EdgeX Event (will be filled for a received CBOR Event)</span><span class="w"></span>
-<span class="w">    </span><span class="nx">EventChecksum</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Checksum of the EdgeX Event (will be filled for a received CBOR Event)</span>
+<span class="w">    </span><span class="nx">EventChecksum</span><span class="w"> </span><span class="kt">string</span>
 
-<span class="w">    </span><span class="c1">// This is the ID used to track the EdgeX event through entire EdgeX framework.</span><span class="w"></span>
-<span class="w">    </span><span class="nx">CorrelationID</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// This is the ID used to track the EdgeX event through entire EdgeX framework.</span>
+<span class="w">    </span><span class="nx">CorrelationID</span><span class="w"> </span><span class="kt">string</span>
 
-<span class="w">    </span><span class="c1">// OutputData is used for specifying the data that is to be outputted. Leverage the .Complete() function to set.</span><span class="w"></span>
-<span class="w">    </span><span class="nx">OutputData</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// OutputData is used for specifying the data that is to be outputted. Leverage the .Complete() function to set.</span>
+<span class="w">    </span><span class="nx">OutputData</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span>
 
-<span class="w">    </span><span class="c1">// This holds the configuration for your service. This is the preferred way to access your custom application settings that have been set in the configuration. </span><span class="w"></span>
-<span class="w">    </span><span class="nx">Configuration</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">ConfigurationStruct</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// This holds the configuration for your service. This is the preferred way to access your custom application settings that have been set in the configuration. </span>
+<span class="w">    </span><span class="nx">Configuration</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">ConfigurationStruct</span>
 
-<span class="w">    </span><span class="c1">// LoggingClient is exposed to allow logging following the preferred logging strategy within EdgeX.</span><span class="w"></span>
-<span class="w">    </span><span class="nx">LoggingClient</span><span class="w"> </span><span class="nx">logger</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// LoggingClient is exposed to allow logging following the preferred logging strategy within EdgeX.</span>
+<span class="w">    </span><span class="nx">LoggingClient</span><span class="w"> </span><span class="nx">logger</span><span class="p">.</span><span class="nx">LoggingClient</span>
 
-<span class="w">    </span><span class="c1">// EventClient exposes Core Data&#39;s EventClient API</span><span class="w"></span>
-<span class="w">    </span><span class="nx">EventClient</span><span class="w"> </span><span class="nx">coredata</span><span class="p">.</span><span class="nx">EventClient</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// EventClient exposes Core Data&#39;s EventClient API</span>
+<span class="w">    </span><span class="nx">EventClient</span><span class="w"> </span><span class="nx">coredata</span><span class="p">.</span><span class="nx">EventClient</span>
 
-<span class="w">    </span><span class="c1">// ValueDescriptorClient exposes Core Data&#39;s ValueDescriptor API</span><span class="w"></span>
-<span class="w">    </span><span class="nx">ValueDescriptorClient</span><span class="w"> </span><span class="nx">coredata</span><span class="p">.</span><span class="nx">ValueDescriptorClient</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// ValueDescriptorClient exposes Core Data&#39;s ValueDescriptor API</span>
+<span class="w">    </span><span class="nx">ValueDescriptorClient</span><span class="w"> </span><span class="nx">coredata</span><span class="p">.</span><span class="nx">ValueDescriptorClient</span>
 
-<span class="w">    </span><span class="c1">// CommandClient exposes Core Commands&#39;s Command API</span><span class="w"></span>
-<span class="w">    </span><span class="nx">CommandClient</span><span class="w"> </span><span class="nx">command</span><span class="p">.</span><span class="nx">CommandClient</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// CommandClient exposes Core Commands&#39;s Command API</span>
+<span class="w">    </span><span class="nx">CommandClient</span><span class="w"> </span><span class="nx">command</span><span class="p">.</span><span class="nx">CommandClient</span>
 
-<span class="w">    </span><span class="c1">// NotificationsClient exposes Support Notification&#39;s Notifications API</span><span class="w"></span>
-<span class="w">    </span><span class="nx">NotificationsClient</span><span class="w"> </span><span class="nx">notifications</span><span class="p">.</span><span class="nx">NotificationsClient</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// NotificationsClient exposes Support Notification&#39;s Notifications API</span>
+<span class="w">    </span><span class="nx">NotificationsClient</span><span class="w"> </span><span class="nx">notifications</span><span class="p">.</span><span class="nx">NotificationsClient</span>
 
-<span class="w">    </span><span class="c1">// RetryData holds the data to be stored for later retry when the pipeline function returns an error</span><span class="w"></span>
-<span class="w">    </span><span class="nx">RetryData</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// RetryData holds the data to be stored for later retry when the pipeline function returns an error</span>
+<span class="w">    </span><span class="nx">RetryData</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span>
 
-<span class="w">    </span><span class="c1">// SecretProvider exposes the support for getting and storing secrets</span><span class="w"></span>
-<span class="w">    </span><span class="nx">SecretProvider</span><span class="w"> </span><span class="o">*</span><span class="nx">security</span><span class="p">.</span><span class="nx">SecretProvider</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// SecretProvider exposes the support for getting and storing secrets</span>
+<span class="w">    </span><span class="nx">SecretProvider</span><span class="w"> </span><span class="o">*</span><span class="nx">security</span><span class="p">.</span><span class="nx">SecretProvider</span>
 
-<span class="w">    </span><span class="c1">// ResponseContentType sets a custom response type</span><span class="w"></span>
-<span class="w">    </span><span class="nx">ResponseContentType</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// ResponseContentType sets a custom response type</span>
+<span class="w">    </span><span class="nx">ResponseContentType</span><span class="w"> </span><span class="kt">string</span>
+<span class="p">}</span>
 </code></pre></div>
 <h2 id="clients">Clients</h2>
 <h3 id="loggingclient">LoggingClient</h3>
