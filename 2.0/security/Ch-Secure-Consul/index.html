@@ -11,13 +11,13 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/security/Ch-Secure-Consul/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/2.0/security/Ch-Secure-Consul/">
       
       
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-5.1.0">
     
     
       
@@ -78,7 +78,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/2.0/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../assets/logo_edgex_white.png" alt="logo">
 
@@ -280,7 +280,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/2.0/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../assets/logo_edgex_white.png" alt="logo">
 
@@ -2472,7 +2472,7 @@ it expires or is revoked. Currently in EdgeX we utilize the auto-renewal feature
 implemented in <code>go-mod-secrets</code> to keep Consul token alive and not expire.</p>
 <h2 id="how-to-get-consul-acl-token">How to get Consul ACL token</h2>
 <p>Consul's access token can be obtained from the <code>compose-builder</code> of <code>edgex-compose</code> repository via command <code>make get-consul-acl-token</code>.  One example of this will be like:</p>
-<div class="highlight"><pre><span></span><code><span class="gp">$ </span>make get-consul-acl-token 
+<div class="highlight"><pre><span></span><code><span class="gp">$ </span>make<span class="w"> </span>get-consul-acl-token<span class="w"> </span>
 <span class="go">ef4a0580-d200-32bf-17ba-ba78e3a546e7</span>
 </code></pre></div>
 <p>This output token is Consul's ACL bootstrap token and thus one can use it to login and access

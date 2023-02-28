@@ -11,13 +11,13 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/security/Ch-SecretStore/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/2.0/security/Ch-SecretStore/">
       
       
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-5.1.0">
     
     
       
@@ -78,7 +78,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/2.0/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../assets/logo_edgex_white.png" alt="logo">
 
@@ -280,7 +280,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/2.0/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../assets/logo_edgex_white.png" alt="logo">
 
@@ -2580,9 +2580,9 @@ must be started for the first time with root token revokation disabled.</p>
 <p>Edit <code>docker-compose.yml</code> and add an environment variable override for <code>SECRETSTORE_REVOKEROOTTOKENS</code></p>
 </li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">secretstore-setup</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">SECRETSTORE_REVOKEROOTTOKENS</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">secretstore-setup</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">SECRETSTORE_REVOKEROOTTOKENS</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
 </code></pre></div>
 <ol>
 <li>
@@ -2607,7 +2607,7 @@ if <code>SECRETSTORE_REVOKEROOTTOKENS</code> remains set to its default value: a
 are revoked every time the framework is started if <code>SECRETSTORE_REVOKEROOTTOKENS</code> is <code>true</code>.</p>
 <h3 id="using-the-vault-cli">Using the Vault CLI</h3>
 <p>Execute a shell session in the running Vault container:</p>
-<div class="highlight"><pre><span></span><code>  docker <span class="nb">exec</span> -it edgex-vault sh -l
+<div class="highlight"><pre><span></span><code><span class="w">  </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>edgex-vault<span class="w"> </span>sh<span class="w"> </span>-l
 </code></pre></div>
 <p>Login to Vault using Vault CLI and the gathered Root Token:</p>
 <div class="highlight"><pre><span></span><code>edgex-vault:/# vault login s.ULr5bcjwy8S0I5g3h4xZ5uWa

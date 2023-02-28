@@ -11,13 +11,13 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/security/Ch-APIGateway/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/2.0/security/Ch-APIGateway/">
       
       
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-5.1.0">
     
     
       
@@ -78,7 +78,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/2.0/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../assets/logo_edgex_white.png" alt="logo">
 
@@ -280,7 +280,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/2.0/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../assets/logo_edgex_white.png" alt="logo">
 
@@ -2632,21 +2632,21 @@ if clients connect via IP address or do not provide
 SNI at all.</p>
 <p>Run the following command to install a custom certficate
 using the assumptions above:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="n">edgex</span><span class="w"> </span><span class="o">-</span><span class="n">f</span><span class="w"> </span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="p">.</span><span class="n">yml</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="o">--</span><span class="n">rm</span><span class="w"> </span><span class="o">-</span><span class="n">v</span><span class="w"> </span><span class="n n-Quoted">`pwd`</span><span class="o">:/</span><span class="k">host</span><span class="o">:</span><span class="n">ro</span><span class="w"> </span><span class="o">--</span><span class="n">entrypoint</span><span class="w"> </span><span class="o">/</span><span class="n">edgex</span><span class="o">/</span><span class="n">secrets</span><span class="o">-</span><span class="n">config</span><span class="w"> </span><span class="n">edgex</span><span class="o">-</span><span class="k">proxy</span><span class="w"> </span><span class="k">proxy</span><span class="w"> </span><span class="k">tls</span><span class="w"> </span><span class="o">--</span><span class="n">incert</span><span class="w"> </span><span class="o">/</span><span class="k">host</span><span class="o">/</span><span class="n">cert</span><span class="p">.</span><span class="n">pem</span><span class="w"> </span><span class="o">--</span><span class="n">inkey</span><span class="w"> </span><span class="o">/</span><span class="k">host</span><span class="o">/</span><span class="k">key</span><span class="p">.</span><span class="n">pem</span><span class="w"> </span><span class="o">--</span><span class="n">snis</span><span class="w"> </span><span class="n">edge001</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="w"> </span><span class="o">--</span><span class="n">admin_api_jwt</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">edgex</span><span class="o">/</span><span class="n">secrets</span><span class="o">/</span><span class="k">security</span><span class="o">-</span><span class="k">proxy</span><span class="o">-</span><span class="k">set</span><span class="n">up</span><span class="o">/</span><span class="n">kong</span><span class="o">-</span><span class="k">admin</span><span class="o">-</span><span class="n">jwt</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="n">edgex</span><span class="w"> </span><span class="o">-</span><span class="n">f</span><span class="w"> </span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="p">.</span><span class="n">yml</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="o">--</span><span class="n">rm</span><span class="w"> </span><span class="o">-</span><span class="n">v</span><span class="w"> </span><span class="n n-Quoted">`pwd`</span><span class="o">:/</span><span class="k">host</span><span class="o">:</span><span class="n">ro</span><span class="w"> </span><span class="o">--</span><span class="n">entrypoint</span><span class="w"> </span><span class="o">/</span><span class="n">edgex</span><span class="o">/</span><span class="n">secrets</span><span class="o">-</span><span class="n">config</span><span class="w"> </span><span class="n">edgex</span><span class="o">-</span><span class="k">proxy</span><span class="w"> </span><span class="k">proxy</span><span class="w"> </span><span class="k">tls</span><span class="w"> </span><span class="o">--</span><span class="n">incert</span><span class="w"> </span><span class="o">/</span><span class="k">host</span><span class="o">/</span><span class="n">cert</span><span class="p">.</span><span class="n">pem</span><span class="w"> </span><span class="o">--</span><span class="n">inkey</span><span class="w"> </span><span class="o">/</span><span class="k">host</span><span class="o">/</span><span class="k">key</span><span class="p">.</span><span class="n">pem</span><span class="w"> </span><span class="o">--</span><span class="n">snis</span><span class="w"> </span><span class="n">edge001</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="w"> </span><span class="o">--</span><span class="n">admin_api_jwt</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">edgex</span><span class="o">/</span><span class="n">secrets</span><span class="o">/</span><span class="k">security</span><span class="o">-</span><span class="k">proxy</span><span class="o">-</span><span class="k">set</span><span class="n">up</span><span class="o">/</span><span class="n">kong</span><span class="o">-</span><span class="k">admin</span><span class="o">-</span><span class="n">jwt</span>
 </code></pre></div>
 
 <p>The utility will always add the internal host names,
 "localhost" and "kong" to the specified SNI list.</p>
 <p>The following command can verify the certificate installation
 was successful.</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">echo</span> <span class="s2">&quot;</span><span class="s">GET /</span><span class="s2">&quot;</span> <span class="o">|</span> <span class="nv">openssl</span> <span class="nv">s_client</span> <span class="o">-</span><span class="nv">showcerts</span> <span class="o">-</span><span class="nv">servername</span> <span class="nv">edge001</span>.<span class="nv">example</span>.<span class="nv">com</span> <span class="o">-</span><span class="k">connect</span> <span class="mi">127</span>.<span class="mi">0</span>.<span class="mi">0</span>.<span class="mi">1</span>:<span class="mi">8443</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">echo</span><span class="w"> </span><span class="s2">&quot;GET /&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nv">openssl</span><span class="w"> </span><span class="nv">s_client</span><span class="w"> </span><span class="o">-</span><span class="nv">showcerts</span><span class="w"> </span><span class="o">-</span><span class="nv">servername</span><span class="w"> </span><span class="nv">edge001</span>.<span class="nv">example</span>.<span class="nv">com</span><span class="w"> </span><span class="o">-</span><span class="k">connect</span><span class="w"> </span><span class="mi">127</span>.<span class="mi">0</span>.<span class="mi">0</span>.<span class="mi">1</span>:<span class="mi">8443</span>
 </code></pre></div>
 
 <h3 id="configuration-of-jwt-authentication-for-api-gateway">Configuration of JWT Authentication for API Gateway</h3>
 <p>When using JWT Authentication, the [KongAuth] section needs to be
 specified in the configuration file as shown below.  This is the default.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">[KongAuth]</span><span class="w"></span>
-<span class="na">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;jwt&quot;</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="k">[KongAuth]</span>
+<span class="na">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;jwt&quot;</span>
 </code></pre></div>
 
 <div class="admonition edgey">
@@ -2655,20 +2655,20 @@ specified in the configuration file as shown below.  This is the default.</p>
 </div>
 <h3 id="configuration-of-adding-microservices-routes-for-api-gateway">Configuration of Adding Microservices Routes for API Gateway</h3>
 <p>For the current pre-existing Kong routes, they are configured and initialized statically through configuration TOML file specified in <code>security-proxy-setup</code> application. This is not sufficient for some other new additional microservices like application services, for example.  Thus, adding new proxy Kong routes are now possibly achieved via the environment variable, <code>ADD_PROXY_ROUTE</code>, of service <code>edgex-proxy</code> in the docker-compose file.  Here is an example:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">edgex-proxy</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">environment</span><span class="p p-Indicator">:</span><span class="w"></span>
-<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">      </span><span class="nt">ADD_PROXY_ROUTE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;myApp.http://my-app:56789&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">edgex-proxy</span><span class="p">:</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">environment</span><span class="p p-Indicator">:</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">      </span><span class="nt">ADD_PROXY_ROUTE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;myApp.http://my-app:56789&quot;</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
 
-<span class="nn">...</span><span class="w"></span>
+<span class="nn">...</span>
 
-<span class="nt">my-app</span><span class="p">:</span><span class="w"></span>
-<span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">container_name</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">myApp</span><span class="w"></span>
-<span class="w">   </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">myApp</span><span class="w"></span>
-<span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
+<span class="nt">my-app</span><span class="p">:</span>
+<span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">container_name</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">myApp</span>
+<span class="w">   </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">myApp</span>
+<span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">...</span>
 </code></pre></div>
 <p>The value of <code>ADD_PROXY_ROUTE</code> takes a comma-separated list of one or more (at least one) paired additional service name and URL for which to create proxy Kong routes.   The paired specification is given as the following:</p>
 <div class="codehilite"><pre><span></span><code>&lt;RoutePrefix&gt;.&lt;TargetRouteURL&gt;
@@ -2803,17 +2803,17 @@ any issued JWTs to look up the public key to be used for validation.
 Also we need the JWT used to authenticate to Kong--this JWT
 was written to host-based secrets area when the framework was started.
 (Note the backtick to capture the uuidegen output.)</p>
-<div class="codehilite"><pre><span></span><code><span class="n">ID</span><span class="o">=</span><span class="n n-Quoted">`uuidgen`</span><span class="w"></span>
-<span class="n">KONGJWT</span><span class="o">=</span><span class="n n-Quoted">`sudo cat /tmp/edgex/secrets/security-proxy-setup/kong-admin-jwt`</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="n">ID</span><span class="o">=</span><span class="n n-Quoted">`uuidgen`</span>
+<span class="n">KONGJWT</span><span class="o">=</span><span class="n n-Quoted">`sudo cat /tmp/edgex/secrets/security-proxy-setup/kong-admin-jwt`</span>
 </code></pre></div>
 
 <p>Register a user for that key:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="n">edgex</span><span class="w"> </span><span class="o">-</span><span class="n">f</span><span class="w"> </span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="p">.</span><span class="n">yml</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="o">--</span><span class="n">rm</span><span class="w"> </span><span class="o">-</span><span class="n">v</span><span class="w"> </span><span class="n n-Quoted">`pwd`</span><span class="o">:/</span><span class="k">host</span><span class="o">:</span><span class="n">ro</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="s2">&quot;$UID&quot;</span><span class="w"> </span><span class="o">--</span><span class="n">entrypoint</span><span class="w"> </span><span class="s2">&quot;/edgex/secrets-config&quot;</span><span class="w"> </span><span class="k">proxy</span><span class="o">-</span><span class="k">set</span><span class="n">up</span><span class="w"> </span><span class="c1">-- proxy adduser --token-type jwt --id &quot;$ID&quot; --algorithm ES256 --public_key /host/ec256.pub --user _SOME_USERNAME_ --jwt &quot;$KONGJWT&quot;</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="n">edgex</span><span class="w"> </span><span class="o">-</span><span class="n">f</span><span class="w"> </span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="p">.</span><span class="n">yml</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="o">--</span><span class="n">rm</span><span class="w"> </span><span class="o">-</span><span class="n">v</span><span class="w"> </span><span class="n n-Quoted">`pwd`</span><span class="o">:/</span><span class="k">host</span><span class="o">:</span><span class="n">ro</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="s2">&quot;$UID&quot;</span><span class="w"> </span><span class="o">--</span><span class="n">entrypoint</span><span class="w"> </span><span class="s2">&quot;/edgex/secrets-config&quot;</span><span class="w"> </span><span class="k">proxy</span><span class="o">-</span><span class="k">set</span><span class="n">up</span><span class="w"> </span><span class="c1">-- proxy adduser --token-type jwt --id &quot;$ID&quot; --algorithm ES256 --public_key /host/ec256.pub --user _SOME_USERNAME_ --jwt &quot;$KONGJWT&quot;</span>
 </code></pre></div>
 
 <p>Lastly, generate a valid JWT.  Any JWT library should work,
 but secrets-config provides a convenient utility:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="n">edgex</span><span class="w"> </span><span class="o">-</span><span class="n">f</span><span class="w"> </span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="p">.</span><span class="n">yml</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="o">--</span><span class="n">rm</span><span class="w"> </span><span class="o">-</span><span class="n">v</span><span class="w"> </span><span class="n n-Quoted">`pwd`</span><span class="o">:/</span><span class="k">host</span><span class="o">:</span><span class="n">ro</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="s2">&quot;$UID&quot;</span><span class="w"> </span><span class="o">--</span><span class="n">entrypoint</span><span class="w"> </span><span class="s2">&quot;/edgex/secrets-config&quot;</span><span class="w"> </span><span class="k">proxy</span><span class="o">-</span><span class="k">set</span><span class="n">up</span><span class="w"> </span><span class="c1">-- proxy jwt --id &quot;$ID&quot; --algorithm ES256 --private_key /host/ec256.key</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="n">edgex</span><span class="w"> </span><span class="o">-</span><span class="n">f</span><span class="w"> </span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="p">.</span><span class="n">yml</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="o">--</span><span class="n">rm</span><span class="w"> </span><span class="o">-</span><span class="n">v</span><span class="w"> </span><span class="n n-Quoted">`pwd`</span><span class="o">:/</span><span class="k">host</span><span class="o">:</span><span class="n">ro</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="s2">&quot;$UID&quot;</span><span class="w"> </span><span class="o">--</span><span class="n">entrypoint</span><span class="w"> </span><span class="s2">&quot;/edgex/secrets-config&quot;</span><span class="w"> </span><span class="k">proxy</span><span class="o">-</span><span class="k">set</span><span class="n">up</span><span class="w"> </span><span class="c1">-- proxy jwt --id &quot;$ID&quot; --algorithm ES256 --private_key /host/ec256.key</span>
 </code></pre></div>
 
 <p>The command will output a long alphanumeric sequence of the format</p>

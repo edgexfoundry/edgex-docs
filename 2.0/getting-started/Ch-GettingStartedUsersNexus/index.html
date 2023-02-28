@@ -11,13 +11,13 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/getting-started/Ch-GettingStartedUsersNexus/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/2.0/getting-started/Ch-GettingStartedUsersNexus/">
       
       
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-5.1.0">
     
     
       
@@ -78,7 +78,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/2.0/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../assets/logo_edgex_white.png" alt="logo">
 
@@ -280,7 +280,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/2.0/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../assets/logo_edgex_white.png" alt="logo">
 
@@ -2441,7 +2441,7 @@
 <h2 id="using-nexus-images">Using Nexus Images</h2>
 <p>The operations to pull the images and run the Nexus Repository containers are the same as when using EdgeX images from Docker Hub (see <a href="../Ch-GettingStartedUsers/#run-edgex-foundry">Getting Started with Docker</a>).</p>
 <p>To get container images from the Nexus Repository, in a command terminal, change directories to the location of your downloaded Nexus Docker Compose yaml.  Rename the file to docker-compose.yml.  Then run the following command in the terminal to pull (fetch) and then start the EdgeX Nexus-image containers.</p>
-<div class="highlight"><pre><span></span><code>docker-compose up -d
+<div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
 </code></pre></div>
 <h2 id="using-a-single-nexus-image">Using a Single Nexus Image</h2>
 <p>In some cases, you may only need to use a single image from Nexus while other EdgeX services are created from the Docker Hub images.  In this case, you can simply replace the image location for the selected image in your original Docker Compose file.  The address of Nexus is <strong>nexus3.edgexfoundry.org</strong> at port <strong>10004</strong>.  So, if you wished to use the EdgeX core data image from Nexus, you would replace the name and location of the core data image <code>edgexfoundry/core-data:2.0.0</code> with <code>nexus3.edgexfoundry.org:10004/core-data:latest</code> in the Compose file.</p>

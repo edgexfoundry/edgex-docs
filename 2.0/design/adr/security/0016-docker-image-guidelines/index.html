@@ -11,13 +11,13 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/design/adr/security/0016-docker-image-guidelines/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/2.0/design/adr/security/0016-docker-image-guidelines/">
       
       
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-5.1.0">
     
     
       
@@ -78,7 +78,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/2.0/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../../../assets/logo_edgex_white.png" alt="logo">
 
@@ -278,7 +278,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/2.0/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../../../assets/logo_edgex_white.png" alt="logo">
 
@@ -2378,34 +2378,34 @@
 <li>To avoid escalation of privileges each docker container should use the <code>no-new-privileges</code> option in their Docker compose file (example below). More details about this flag can be found <a href="https://docs.docker.com/engine/reference/run/#security-configuration">here</a>. This follows Rule #4 for Docker security found <a href="https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html#rule-4-add-no-new-privileges-flag">here</a>.</li>
 </ul>
 <div class="highlight"><pre><span></span><code>security_opt:
-      - <span class="s2">&quot;no-new-privileges:true&quot;</span>
+<span class="w">      </span>-<span class="w"> </span><span class="s2">&quot;no-new-privileges:true&quot;</span>
 </code></pre></div>
 <blockquote>
 <p>NOTE: Alternatively an AppArmor security profile can be used to isolate the docker container. More details about apparmor profiles can be found <a href="https://docs.docker.com/engine/security/apparmor/">here</a>
-<div class="highlight"><pre><span></span><code>security_opt:  <span class="o">[</span> <span class="s2">&quot;apparmor:unconfined&quot;</span> <span class="o">]</span>
+<div class="highlight"><pre><span></span><code>security_opt:<span class="w">  </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;apparmor:unconfined&quot;</span><span class="w"> </span><span class="o">]</span>
 </code></pre></div></p>
 </blockquote>
 <ul>
 <li>To further prevent privilege escalation attacks the user should be set for the docker container using the <code>--user=&lt;userid&gt;</code> or <code>-u=&lt;userid&gt;</code> option in their Docker compose file (example below). More details about this flag can be found <a href="https://docs.docker.com/engine/reference/run/#user">here</a>. This follows Rule #2 for Docker security found <a href="https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html#rule-2-set-a-user">here</a>.</li>
 </ul>
 <div class="highlight"><pre><span></span><code>services:
-  device-virtual:
-    image: <span class="si">${</span><span class="nv">REPOSITORY</span><span class="si">}</span>/docker-device-virtual-go<span class="si">${</span><span class="nv">ARCH</span><span class="si">}</span>:<span class="si">${</span><span class="nv">DEVICE_VIRTUAL_VERSION</span><span class="si">}</span>
-    user: <span class="nv">$CONTAINER</span>-PORT:<span class="nv">$CONTAINER</span>-PORT # user option using an unprivileged user
-    ports:
-    - <span class="s2">&quot;127.0.0.1:49990:49990&quot;</span>
-    container_name: edgex-device-virtual
-    hostname: edgex-device-virtual
-    networks:
-      - edgex-network
-    env_file:
-      - common.env
-    environment:
-      SERVICE_HOST: edgex-device-virtual
-    depends_on:
-      - consul
-      - data
-      - metadata
+<span class="w">  </span>device-virtual:
+<span class="w">    </span>image:<span class="w"> </span><span class="si">${</span><span class="nv">REPOSITORY</span><span class="si">}</span>/docker-device-virtual-go<span class="si">${</span><span class="nv">ARCH</span><span class="si">}</span>:<span class="si">${</span><span class="nv">DEVICE_VIRTUAL_VERSION</span><span class="si">}</span>
+<span class="w">    </span>user:<span class="w"> </span><span class="nv">$CONTAINER</span>-PORT:<span class="nv">$CONTAINER</span>-PORT<span class="w"> </span>#<span class="w"> </span>user<span class="w"> </span>option<span class="w"> </span>using<span class="w"> </span>an<span class="w"> </span>unprivileged<span class="w"> </span>user
+<span class="w">    </span>ports:
+<span class="w">    </span>-<span class="w"> </span><span class="s2">&quot;127.0.0.1:49990:49990&quot;</span>
+<span class="w">    </span>container_name:<span class="w"> </span>edgex-device-virtual
+<span class="w">    </span>hostname:<span class="w"> </span>edgex-device-virtual
+<span class="w">    </span>networks:
+<span class="w">      </span>-<span class="w"> </span>edgex-network
+<span class="w">    </span>env_file:
+<span class="w">      </span>-<span class="w"> </span>common.env
+<span class="w">    </span>environment:
+<span class="w">      </span>SERVICE_HOST:<span class="w"> </span>edgex-device-virtual
+<span class="w">    </span>depends_on:
+<span class="w">      </span>-<span class="w"> </span>consul
+<span class="w">      </span>-<span class="w"> </span>data
+<span class="w">      </span>-<span class="w"> </span>metadata
 </code></pre></div>
 <blockquote>
 <p>NOTE: exception
@@ -2415,51 +2415,51 @@
 <li>To avoid a faulty or compromised containers from consuming excess amounts of the host of its resources <code>resource limits</code> should be set for each container. More details about <code>resource limits</code> can be found <a href="https://docs.docker.com/config/containers/resource_constraints/">here</a>. This follows Rule #7 for Docker security found <a href="https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html#rule-7-limit-resources-memory-cpu-file-descriptors-processes-restarts">here</a>.</li>
 </ul>
 <div class="highlight"><pre><span></span><code>services:
-  device-virtual:
-    image: <span class="si">${</span><span class="nv">REPOSITORY</span><span class="si">}</span>/docker-device-virtual-go<span class="si">${</span><span class="nv">ARCH</span><span class="si">}</span>:<span class="si">${</span><span class="nv">DEVICE_VIRTUAL_VERSION</span><span class="si">}</span>
-    user: <span class="m">4000</span>:4000 # user option using an unprivileged user
-    ports:
-    - <span class="s2">&quot;127.0.0.1:49990:49990&quot;</span>
-    container_name: edgex-device-virtual
-    hostname: edgex-device-virtual
-    networks:
-      - edgex-network
-    env_file:
-      - common.env
-    environment:
-      SERVICE_HOST: edgex-device-virtual
-    depends_on:
-      - consul
-      - data
-      - metadata
-    deploy:  # Deployment resource limits
-      resources:
-        limits:
-          cpus: <span class="s1">&#39;0.001&#39;</span>
-          memory: 50M
-        reservations:
-          cpus: <span class="s1">&#39;0.0001&#39;</span>
-          memory: 20M
+<span class="w">  </span>device-virtual:
+<span class="w">    </span>image:<span class="w"> </span><span class="si">${</span><span class="nv">REPOSITORY</span><span class="si">}</span>/docker-device-virtual-go<span class="si">${</span><span class="nv">ARCH</span><span class="si">}</span>:<span class="si">${</span><span class="nv">DEVICE_VIRTUAL_VERSION</span><span class="si">}</span>
+<span class="w">    </span>user:<span class="w"> </span><span class="m">4000</span>:4000<span class="w"> </span>#<span class="w"> </span>user<span class="w"> </span>option<span class="w"> </span>using<span class="w"> </span>an<span class="w"> </span>unprivileged<span class="w"> </span>user
+<span class="w">    </span>ports:
+<span class="w">    </span>-<span class="w"> </span><span class="s2">&quot;127.0.0.1:49990:49990&quot;</span>
+<span class="w">    </span>container_name:<span class="w"> </span>edgex-device-virtual
+<span class="w">    </span>hostname:<span class="w"> </span>edgex-device-virtual
+<span class="w">    </span>networks:
+<span class="w">      </span>-<span class="w"> </span>edgex-network
+<span class="w">    </span>env_file:
+<span class="w">      </span>-<span class="w"> </span>common.env
+<span class="w">    </span>environment:
+<span class="w">      </span>SERVICE_HOST:<span class="w"> </span>edgex-device-virtual
+<span class="w">    </span>depends_on:
+<span class="w">      </span>-<span class="w"> </span>consul
+<span class="w">      </span>-<span class="w"> </span>data
+<span class="w">      </span>-<span class="w"> </span>metadata
+<span class="w">    </span>deploy:<span class="w">  </span>#<span class="w"> </span>Deployment<span class="w"> </span>resource<span class="w"> </span>limits
+<span class="w">      </span>resources:
+<span class="w">        </span>limits:
+<span class="w">          </span>cpus:<span class="w"> </span><span class="s1">&#39;0.001&#39;</span>
+<span class="w">          </span>memory:<span class="w"> </span>50M
+<span class="w">        </span>reservations:
+<span class="w">          </span>cpus:<span class="w"> </span><span class="s1">&#39;0.0001&#39;</span>
+<span class="w">          </span>memory:<span class="w"> </span>20M
 </code></pre></div>
 <ul>
 <li>To avoid attackers from writing data to the containers and modifying their files the <code>--read_only</code> flag should be set. More details about this flag can be found <a href="https://docs.docker.com/compose/compose-file/#domainname-hostname-ipc-mac_address-privileged-read_only-shm_size-stdin_open-tty-user-working_dir">here</a>. This follows Rule #8 for Docker security found <a href="https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html#rule-8-set-filesystem-and-volumes-to-read-only">here</a>.</li>
 </ul>
-<div class="highlight"><pre><span></span><code>  device-rest:
-    image: <span class="si">${</span><span class="nv">REPOSITORY</span><span class="si">}</span>/docker-device-rest-go<span class="si">${</span><span class="nv">ARCH</span><span class="si">}</span>:<span class="si">${</span><span class="nv">DEVICE_REST_VERSION</span><span class="si">}</span>
-    ports:
-      - <span class="s2">&quot;127.0.0.1:49986:49986&quot;</span>
-    container_name: edgex-device-rest
-    hostname: edgex-device-rest
-    read_only: <span class="nb">true</span> # read_only option
-    networks:
-      - edgex-network
-    env_file:
-      - common.env
-    environment:
-      SERVICE_HOST: edgex-device-rest
-    depends_on:
-      - data
-      - command
+<div class="highlight"><pre><span></span><code><span class="w">  </span>device-rest:
+<span class="w">    </span>image:<span class="w"> </span><span class="si">${</span><span class="nv">REPOSITORY</span><span class="si">}</span>/docker-device-rest-go<span class="si">${</span><span class="nv">ARCH</span><span class="si">}</span>:<span class="si">${</span><span class="nv">DEVICE_REST_VERSION</span><span class="si">}</span>
+<span class="w">    </span>ports:
+<span class="w">      </span>-<span class="w"> </span><span class="s2">&quot;127.0.0.1:49986:49986&quot;</span>
+<span class="w">    </span>container_name:<span class="w"> </span>edgex-device-rest
+<span class="w">    </span>hostname:<span class="w"> </span>edgex-device-rest
+<span class="w">    </span>read_only:<span class="w"> </span><span class="nb">true</span><span class="w"> </span>#<span class="w"> </span>read_only<span class="w"> </span>option
+<span class="w">    </span>networks:
+<span class="w">      </span>-<span class="w"> </span>edgex-network
+<span class="w">    </span>env_file:
+<span class="w">      </span>-<span class="w"> </span>common.env
+<span class="w">    </span>environment:
+<span class="w">      </span>SERVICE_HOST:<span class="w"> </span>edgex-device-rest
+<span class="w">    </span>depends_on:
+<span class="w">      </span>-<span class="w"> </span>data
+<span class="w">      </span>-<span class="w"> </span>command
 </code></pre></div>
 <blockquote>
 <p>NOTE: exception
@@ -2467,24 +2467,24 @@
 </blockquote>
 <p>NOTE: Volumes
     If writing persistent data is required then a volume can be used. A volume can be attached to the container in the following way</p>
-<div class="highlight"><pre><span></span><code>  device-rest:
-    image: <span class="si">${</span><span class="nv">REPOSITORY</span><span class="si">}</span>/docker-device-rest-go<span class="si">${</span><span class="nv">ARCH</span><span class="si">}</span>:<span class="si">${</span><span class="nv">DEVICE_REST_VERSION</span><span class="si">}</span>
-    ports:
-      - <span class="s2">&quot;127.0.0.1:49986:49986&quot;</span>
-    container_name: edgex-device-rest
-    hostname: edgex-device-rest
-    read_only: <span class="nb">true</span> # read_only option
-    networks:
-      - edgex-network
-    env_file:
-      - common.env
-    environment:
-      SERVICE_HOST: edgex-device-rest
-    depends_on:
-      - data
-      - command
-    volumes:
-      - consul-config:/consul/config:z
+<div class="highlight"><pre><span></span><code><span class="w">  </span>device-rest:
+<span class="w">    </span>image:<span class="w"> </span><span class="si">${</span><span class="nv">REPOSITORY</span><span class="si">}</span>/docker-device-rest-go<span class="si">${</span><span class="nv">ARCH</span><span class="si">}</span>:<span class="si">${</span><span class="nv">DEVICE_REST_VERSION</span><span class="si">}</span>
+<span class="w">    </span>ports:
+<span class="w">      </span>-<span class="w"> </span><span class="s2">&quot;127.0.0.1:49986:49986&quot;</span>
+<span class="w">    </span>container_name:<span class="w"> </span>edgex-device-rest
+<span class="w">    </span>hostname:<span class="w"> </span>edgex-device-rest
+<span class="w">    </span>read_only:<span class="w"> </span><span class="nb">true</span><span class="w"> </span>#<span class="w"> </span>read_only<span class="w"> </span>option
+<span class="w">    </span>networks:
+<span class="w">      </span>-<span class="w"> </span>edgex-network
+<span class="w">    </span>env_file:
+<span class="w">      </span>-<span class="w"> </span>common.env
+<span class="w">    </span>environment:
+<span class="w">      </span>SERVICE_HOST:<span class="w"> </span>edgex-device-rest
+<span class="w">    </span>depends_on:
+<span class="w">      </span>-<span class="w"> </span>data
+<span class="w">      </span>-<span class="w"> </span>command
+<span class="w">    </span>volumes:
+<span class="w">      </span>-<span class="w"> </span>consul-config:/consul/config:z
 </code></pre></div>
 <blockquote>
 <p>NOTE: alternatives

@@ -11,13 +11,13 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/getting-started/Ch-GettingStartedCDevelopers/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/2.0/getting-started/Ch-GettingStartedCDevelopers/">
       
       
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-5.1.0">
     
     
       
@@ -78,7 +78,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/2.0/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../assets/logo_edgex_white.png" alt="logo">
 
@@ -280,7 +280,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/2.0/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../assets/logo_edgex_white.png" alt="logo">
 
@@ -2434,21 +2434,21 @@ guide</a>, to build EdgeX C services, you will need the following:</p>
 <li>hiredis</li>
 </ul>
 <p>You can install these on Debian 11 (Bullseye) by running:
-<div class="highlight"><pre><span></span><code>sudo apt-get install libcurl4-openssl-dev libmicrohttpd-dev libyaml-dev libcbor-dev libpaho-mqtt-dev uuid-dev libhiredis-dev
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>libcurl4-openssl-dev<span class="w"> </span>libmicrohttpd-dev<span class="w"> </span>libyaml-dev<span class="w"> </span>libcbor-dev<span class="w"> </span>libpaho-mqtt-dev<span class="w"> </span>uuid-dev<span class="w"> </span>libhiredis-dev
 </code></pre></div>
 Some of these supporting packages have dependencies of their own, which will be automatically installed when using package managers such as <em>APT</em>, <em>DNF</em> etc.</p>
 <p><code>libpaho-mqtt-dev</code> is not included in Ubuntu prior to Groovy (20.10). IOTech provides a package for Focal (20.04 LTS) which may be installed as follows:</p>
-<div class="highlight"><pre><span></span><code>sudo curl -fsSL https://iotech.jfrog.io/artifactory/api/gpg/key/public -o /etc/apt/trusted.gpg.d/iotech-public.asc
-sudo <span class="nb">echo</span> <span class="s2">&quot;deb https://iotech.jfrog.io/iotech/debian-release </span><span class="k">$(</span>lsb_release -cs<span class="k">)</span><span class="s2"> main&quot;</span> <span class="p">|</span> tee -a /etc/apt/sources.list.d/iotech.list
-sudo apt-get update
-sudo apt-get install libpaho-mqtt
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://iotech.jfrog.io/artifactory/api/gpg/key/public<span class="w"> </span>-o<span class="w"> </span>/etc/apt/trusted.gpg.d/iotech-public.asc
+sudo<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;deb https://iotech.jfrog.io/iotech/debian-release </span><span class="k">$(</span>lsb_release<span class="w"> </span>-cs<span class="k">)</span><span class="s2"> main&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/etc/apt/sources.list.d/iotech.list
+sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>libpaho-mqtt
 </code></pre></div>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
 <p>For EdgeX 2.0 the C SDK now supports MQTT and Redis implementations of the EdgeX MessageBus</p>
 </div>
 <p>CMake is required to build the SDKs.  Version 3 or better is required.  You can install CMake on Debian by running:
-<div class="highlight"><pre><span></span><code>sudo apt-get install cmake
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>cmake
 </code></pre></div></p>
 <p>Check that your C development environment includes the following:</p>
 <ul>

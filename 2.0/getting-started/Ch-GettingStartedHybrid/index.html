@@ -11,13 +11,13 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/getting-started/Ch-GettingStartedHybrid/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/2.0/getting-started/Ch-GettingStartedHybrid/">
       
       
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-5.1.0">
     
     
       
@@ -78,7 +78,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/2.0/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../assets/logo_edgex_white.png" alt="logo">
 
@@ -280,7 +280,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/2.0/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../assets/logo_edgex_white.png" alt="logo">
 
@@ -2493,8 +2493,8 @@ EdgeX environment up and running via Docker containers. How would you set up thi
 <li>
 <p>Since we plan to work with the virtual device service in this example, you don't need or want to run the virtual device service. You will run all the other services via Docker Compose. </p>
 <p>Based on the instructions found in the <a href="../Ch-GettingStartedUsers/#Get-Run-EdgeX-Foundry">Getting Started with Docker</a>, locate and download the appropriate Docker Compose file for your development environment.  Next, issue the following commands to start the EdgeX containers and then stop the virtual device service (which is the service you are working on in this example). </p>
-<div class="highlight"><pre><span></span><code>docker-compose up -d 
-docker-compose stop device-virtual
+<div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>
+docker-compose<span class="w"> </span>stop<span class="w"> </span>device-virtual
 </code></pre></div>
 <p><img alt="image" src="../EdgeX_GettingStartedHybridRunContainers.png" />
 <em>Run the EdgeX containers and then stop the service container that you are going to work on - in this case the virtual device service container.</em></p>
@@ -2509,7 +2509,7 @@ docker-compose stop device-virtual
 </li>
 <li>
 <p>Run the command below to confirm that all the containers have started and that the virtual device container is no longer running.
-    <div class="highlight"><pre><span></span><code>docker-compose ps
+    <div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>ps
 </code></pre></div></p>
 </li>
 </ol>
@@ -2518,12 +2518,12 @@ docker-compose stop device-virtual
 <h3 id="get-the-service-code">Get the service code</h3>
 <p>Per <a href="../Ch-GettingStartedGoDevelopers/#Get-the-code">Getting Started Go Developers</a>, pull the micro service code you want to work on from GitHub. In
 this example, we use the device-virtual-go as the micro service that is going to be worked on.</p>
-<div class="highlight"><pre><span></span><code>git clone https://github.com/edgexfoundry/device-virtual-go.git
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/edgexfoundry/device-virtual-go.git
 </code></pre></div>
 <h3 id="build-the-service-code">Build the service code</h3>
 <p>At this time, you can add or modify the code to make the service changes you need.  Once ready, you must compile and build the service into an executable.  Change folders to the cloned micro service directory and build the service.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span> device-virtual-go/
-make build
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>device-virtual-go/
+make<span class="w"> </span>build
 </code></pre></div>
 <p><img alt="image" src="../EdgeX_GettingStartedHybridBuild.png" />
 <em>Clone the service from Github, make your code changes and then build the service locally.</em></p>
@@ -2532,8 +2532,8 @@ make build
 <p>Examine the <strong>configuration.toml</strong> file in the cmd/res folder of the device-virtual-go. Note that the Service (located in the [Service] section of the configuration), Registry (located in the [Registry] section) and all the "Clients" (located in the [Clients] section) suggest that the <code>Host</code> of these services is "localhost".  These and other host configuration elements need to change when the services are not running on the same host - specifically the localhost.  When your service is running on a different host than the rest of EdgeX, change the [Service] <code>Host</code> to be the address of the machine hosting your service.  Change the [Registry] and [Clients] <code>Host</code> configuration to specify the location of the machine hosting these services.  If you do have to change the configuration, save the configuration.toml file after making changes.</p>
 <h3 id="run-the-service-code-natively">Run the service code natively.</h3>
 <p>The executable created by the <code>make build</code> command is found in the cmd folder of the service.  Change folders to the location of the executable.  Set any environment variables needed depending on your EdgeX setup.  In this example, we did not start the security elements so we need to set <code>EDGEX_SECURITY_SECRET_STORE</code> to <code>false</code> in order to turn off security.   Finally, run the service right from a terminal.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span> cmd
-<span class="nb">export</span> <span class="nv">EDGEX_SECURITY_SECRET_STORE</span><span class="o">=</span><span class="nb">false</span>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>cmd
+<span class="nb">export</span><span class="w"> </span><span class="nv">EDGEX_SECURITY_SECRET_STORE</span><span class="o">=</span><span class="nb">false</span>
 ./device-virtual
 </code></pre></div>
 <p><img alt="image" src="../EdgeX_GettingStartedHybridRun.png" />

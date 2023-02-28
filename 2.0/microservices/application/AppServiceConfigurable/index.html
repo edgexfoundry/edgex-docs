@@ -11,13 +11,13 @@
         <meta name="description" content="Documentation for use of EdgeX Foundry">
       
       
-        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/microservices/application/AppServiceConfigurable/">
+        <link rel="canonical" href="https://edgexfoundry.github.io/edgex-docs/2.0/microservices/application/AppServiceConfigurable/">
       
       
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-5.1.0">
     
     
       
@@ -78,7 +78,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/2.0/" title="EdgeX Foundry Documentation" class="md-header-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../../assets/logo_edgex_white.png" alt="logo">
 
@@ -280,7 +280,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://edgexfoundry.github.io/edgex-docs/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
+    <a href="https://edgexfoundry.github.io/edgex-docs/2.0/" title="EdgeX Foundry Documentation" class="md-nav__button md-logo" aria-label="EdgeX Foundry Documentation">
       
   <img src="../../../assets/logo_edgex_white.png" alt="logo">
 
@@ -2677,21 +2677,21 @@
 <p>Once the functions have been identified, we'll go ahead and build out the configuration in the <code>configuration.toml</code> file under the <code>[Writable.Pipeline]</code> section.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - Writable.Pipeline</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Writable]</span><span class="w"></span>
-<span class="w">  </span><span class="n">LogLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;DEBUG&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="k">[Writable.Pipeline]</span><span class="w"></span>
-<span class="w">    </span><span class="n">ExecutionOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;FilterByDeviceName, Transform, HTTPExport&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.FilterByDeviceName]</span><span class="w"></span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.FilterByDeviceName.Parameters]</span><span class="w"></span>
-<span class="w">        </span><span class="n">FilterValues</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Random-Float-Device, Random-Integer-Device&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Transform]</span><span class="w"></span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Transform.Parameters]</span><span class="w"></span>
-<span class="w">      </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;xml&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.HTTPExport]</span><span class="w"></span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.HTTPExport.Parameters]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Writable]</span>
+<span class="w">  </span><span class="n">LogLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;DEBUG&quot;</span>
+<span class="w">  </span><span class="k">[Writable.Pipeline]</span>
+<span class="w">    </span><span class="n">ExecutionOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;FilterByDeviceName, Transform, HTTPExport&quot;</span>
+<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.FilterByDeviceName]</span>
+<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.FilterByDeviceName.Parameters]</span>
+<span class="w">        </span><span class="n">FilterValues</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Random-Float-Device, Random-Integer-Device&quot;</span>
+<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Transform]</span>
+<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Transform.Parameters]</span>
+<span class="w">      </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;xml&quot;</span>
+<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.HTTPExport]</span>
+<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.HTTPExport.Parameters]</span>
 <span class="w">      </span><span class="n">Method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;post&quot;</span><span class="w"> </span>
 <span class="w">      </span><span class="n">MimeType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;application/xml&quot;</span><span class="w"> </span>
-<span class="w">      </span><span class="n">Url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http://my.api.net/edgexdata&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="n">Url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http://my.api.net/edgexdata&quot;</span>
 </code></pre></div>
 </div>
 <p>The first line of note is <code>ExecutionOrder = "FilterByDeviceName, Transform, HTTPExport"</code>. This specifies the order in which to execute your functions. Each function specified here must also be placed in the <code>[Writeable.Pipeline.Functions]</code> section. </p>
@@ -2705,52 +2705,52 @@
 <p>EdgeX services no longer have docker specific profiles. They now rely on environment variable overrides in the docker compose files for the docker specific differences.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - Environment settings required in the compose files for App Service Configurable </p>
-<div class="highlight"><pre><span></span><code><span class="w">      </span><span class="nt">EDGEX_PROFILE </span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">target profile</span><span class="p p-Indicator">]</span><span class="w"></span>
-<span class="w">      </span><span class="nt">SERVICE_HOST </span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">services network host name</span><span class="p p-Indicator">]</span><span class="w"></span>
-<span class="w">      </span><span class="nt">EDGEX_SECURITY_SECRET_STORE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"> </span><span class="c1"># only need to disable as default is true</span><span class="w"></span>
-<span class="w">      </span><span class="nt">CLIENTS_CORE_COMMAND_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-core-command</span><span class="w"></span>
-<span class="w">      </span><span class="nt">CLIENTS_CORE_DATA_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-core-data</span><span class="w"></span>
-<span class="w">      </span><span class="nt">CLIENTS_CORE_METADATA_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-core-metadata</span><span class="w"></span>
-<span class="w">      </span><span class="nt">CLIENTS_SUPPORT_NOTIFICATIONS_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-support-notifications</span><span class="w"></span>
-<span class="w">      </span><span class="nt">CLIENTS_SUPPORT_SCHEDULER_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-support-scheduler</span><span class="w"></span>
-<span class="w">      </span><span class="nt">DATABASES_PRIMARY_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-redis</span><span class="w"></span>
-<span class="w">      </span><span class="nt">MESSAGEQUEUE_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-redis</span><span class="w"></span>
-<span class="w">      </span><span class="nt">REGISTRY_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-core-consul</span><span class="w"></span>
-<span class="w">      </span><span class="nt">TRIGGER_EDGEXMESSAGEBUS_PUBLISHHOST_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-redis</span><span class="w"></span>
-<span class="w">      </span><span class="nt">TRIGGER_EDGEXMESSAGEBUS_SUBSCRIBEHOST_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-redis</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">      </span><span class="nt">EDGEX_PROFILE </span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">target profile</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">SERVICE_HOST </span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">services network host name</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">EDGEX_SECURITY_SECRET_STORE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"> </span><span class="c1"># only need to disable as default is true</span>
+<span class="w">      </span><span class="nt">CLIENTS_CORE_COMMAND_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-core-command</span>
+<span class="w">      </span><span class="nt">CLIENTS_CORE_DATA_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-core-data</span>
+<span class="w">      </span><span class="nt">CLIENTS_CORE_METADATA_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-core-metadata</span>
+<span class="w">      </span><span class="nt">CLIENTS_SUPPORT_NOTIFICATIONS_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-support-notifications</span>
+<span class="w">      </span><span class="nt">CLIENTS_SUPPORT_SCHEDULER_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-support-scheduler</span>
+<span class="w">      </span><span class="nt">DATABASES_PRIMARY_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-redis</span>
+<span class="w">      </span><span class="nt">MESSAGEQUEUE_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-redis</span>
+<span class="w">      </span><span class="nt">REGISTRY_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-core-consul</span>
+<span class="w">      </span><span class="nt">TRIGGER_EDGEXMESSAGEBUS_PUBLISHHOST_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-redis</span>
+<span class="w">      </span><span class="nt">TRIGGER_EDGEXMESSAGEBUS_SUBSCRIBEHOST_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-redis</span>
 </code></pre></div>
 </div>
 <div class="admonition example -">
 <p class="admonition-title">Example - Docker compose entry for <strong>App Service Configurable</strong> in no-secure compose file</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">app-service-rules</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-app-rules-engine</span><span class="w"></span>
-<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">consul</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data</span><span class="w"></span>
-<span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">CLIENTS_CORE_COMMAND_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-core-command</span><span class="w"></span>
-<span class="w">      </span><span class="nt">CLIENTS_CORE_DATA_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-core-data</span><span class="w"></span>
-<span class="w">      </span><span class="nt">CLIENTS_CORE_METADATA_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-core-metadata</span><span class="w"></span>
-<span class="w">      </span><span class="nt">CLIENTS_SUPPORT_NOTIFICATIONS_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-support-notifications</span><span class="w"></span>
-<span class="w">      </span><span class="nt">CLIENTS_SUPPORT_SCHEDULER_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-support-scheduler</span><span class="w"></span>
-<span class="w">      </span><span class="nt">DATABASES_PRIMARY_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-redis</span><span class="w"></span>
-<span class="w">      </span><span class="nt">EDGEX_PROFILE</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rules-engine</span><span class="w"></span>
-<span class="w">      </span><span class="nt">EDGEX_SECURITY_SECRET_STORE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">MESSAGEQUEUE_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-redis</span><span class="w"></span>
-<span class="w">      </span><span class="nt">REGISTRY_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-core-consul</span><span class="w"></span>
-<span class="w">      </span><span class="nt">SERVICE_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-app-rules-engine</span><span class="w"></span>
-<span class="w">      </span><span class="nt">TRIGGER_EDGEXMESSAGEBUS_PUBLISHHOST_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-redis</span><span class="w"></span>
-<span class="w">      </span><span class="nt">TRIGGER_EDGEXMESSAGEBUS_SUBSCRIBEHOST_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-redis</span><span class="w"></span>
-<span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-app-rules-engine</span><span class="w"></span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgexfoundry/app-service-configurable:2.0.0</span><span class="w"></span>
-<span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">edgex-network</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w"></span>
-<span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">127.0.0.1:59701:59701/tcp</span><span class="w"></span>
-<span class="w">    </span><span class="nt">read_only</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="w">    </span><span class="nt">security_opt</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">no-new-privileges:true</span><span class="w"></span>
-<span class="w">    </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2002:2001</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">app-service-rules</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-app-rules-engine</span>
+<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">consul</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">CLIENTS_CORE_COMMAND_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-core-command</span>
+<span class="w">      </span><span class="nt">CLIENTS_CORE_DATA_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-core-data</span>
+<span class="w">      </span><span class="nt">CLIENTS_CORE_METADATA_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-core-metadata</span>
+<span class="w">      </span><span class="nt">CLIENTS_SUPPORT_NOTIFICATIONS_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-support-notifications</span>
+<span class="w">      </span><span class="nt">CLIENTS_SUPPORT_SCHEDULER_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-support-scheduler</span>
+<span class="w">      </span><span class="nt">DATABASES_PRIMARY_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-redis</span>
+<span class="w">      </span><span class="nt">EDGEX_PROFILE</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rules-engine</span>
+<span class="w">      </span><span class="nt">EDGEX_SECURITY_SECRET_STORE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
+<span class="w">      </span><span class="nt">MESSAGEQUEUE_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-redis</span>
+<span class="w">      </span><span class="nt">REGISTRY_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-core-consul</span>
+<span class="w">      </span><span class="nt">SERVICE_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-app-rules-engine</span>
+<span class="w">      </span><span class="nt">TRIGGER_EDGEXMESSAGEBUS_PUBLISHHOST_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-redis</span>
+<span class="w">      </span><span class="nt">TRIGGER_EDGEXMESSAGEBUS_SUBSCRIBEHOST_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-redis</span>
+<span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-app-rules-engine</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgexfoundry/app-service-configurable:2.0.0</span>
+<span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">edgex-network</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">127.0.0.1:59701:59701/tcp</span>
+<span class="w">    </span><span class="nt">read_only</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">security_opt</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">no-new-privileges:true</span>
+<span class="w">    </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2002:2001</span>
 </code></pre></div>
 </div>
 <div class="admonition note">
@@ -2829,31 +2829,31 @@
 <p>The default <code>TargetType</code> for data flowing into the functions pipeline is an EdgeX Event DTO. There are cases when this incoming data might not be an EdgeX Event DTO. In these cases the <code>Pipeline</code> can be configured using <code>UseTargetTypeOfByteArray=true</code> to set the <code>TargetType</code> to be a byte array/slice, i.e. <code>[]byte</code>. The first function in the pipeline must then be one that can handle the <code>[]byte</code> data. The <strong>compression</strong>,  <strong>encryption</strong> and <strong>export</strong> functions are examples of pipeline functions that will take input data that is <code>[]byte</code>. </p>
 <div class="admonition example">
 <p class="admonition-title">Example - Configure the functions pipeline to <strong>compress</strong>, <strong>encrypt</strong> and then <strong>export</strong> the <code>[]byte</code> data via HTTP </p>
-<div class="highlight"><pre><span></span><code><span class="k">[Writable]</span><span class="w"></span>
-<span class="w">  </span><span class="n">LogLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;DEBUG&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="k">[Writable.Pipeline]</span><span class="w"></span>
-<span class="w">    </span><span class="n">UseTargetTypeOfByteArray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
-<span class="w">    </span><span class="n">ExecutionOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Compress, Encrypt, HTTPExport&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Compress]</span><span class="w"></span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Compress.Parameters]</span><span class="w"></span>
-<span class="w">      </span><span class="n">Alogrithm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;gzip&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Encrypt]</span><span class="w"></span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Encrypt.Parameters]</span><span class="w"></span>
-<span class="w">        </span><span class="n">Algorithm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;aes&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="n">Key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;aquqweoruqwpeoruqwpoeruqwpoierupqoweiurpoqwiuerpqowieurqpowieurpoqiweuroipwqure&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="n">InitVector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;123456789012345678901234567890&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.HTTPExport]</span><span class="w"></span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.HTTPExport.Parameters]</span><span class="w"></span>
-<span class="w">      </span><span class="n">Method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;post&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="n">Url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http://my.api.net/edgexdata&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="n">MimeType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;application/text&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Writable]</span>
+<span class="w">  </span><span class="n">LogLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;DEBUG&quot;</span>
+<span class="w">  </span><span class="k">[Writable.Pipeline]</span>
+<span class="w">    </span><span class="n">UseTargetTypeOfByteArray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="n">ExecutionOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Compress, Encrypt, HTTPExport&quot;</span>
+<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Compress]</span>
+<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Compress.Parameters]</span>
+<span class="w">      </span><span class="n">Alogrithm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;gzip&quot;</span>
+<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Encrypt]</span>
+<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Encrypt.Parameters]</span>
+<span class="w">        </span><span class="n">Algorithm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;aes&quot;</span>
+<span class="w">        </span><span class="n">Key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;aquqweoruqwpeoruqwpoeruqwpoierupqoweiurpoqwiuerpqowieurqpowieurpoqiweuroipwqure&quot;</span>
+<span class="w">        </span><span class="n">InitVector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;123456789012345678901234567890&quot;</span>
+<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.HTTPExport]</span>
+<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.HTTPExport.Parameters]</span>
+<span class="w">      </span><span class="n">Method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;post&quot;</span>
+<span class="w">      </span><span class="n">Url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http://my.api.net/edgexdata&quot;</span>
+<span class="w">      </span><span class="n">MimeType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;application/text&quot;</span>
 </code></pre></div>
 </div>
 <p>If along with this pipeline configuration, you also configured the <code>Trigger</code> to be <code>http</code> trigger,  you could then send any data to the app-service-configurable' s <code>/api/v2/trigger</code> endpoint and have it compressed, encrypted and sent to your configured URL above.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - HTTP Trigger configuration</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span><span class="w"></span>
-<span class="n">Type</span><span class="o">=</span><span class="s">&quot;http&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span>
+<span class="n">Type</span><span class="o">=</span><span class="s">&quot;http&quot;</span>
 </code></pre></div>
 </div>
 <h2 id="multiple-instances-of-function">Multiple Instances of Function</h2>
@@ -2876,9 +2876,9 @@
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.AddTags]</span><span class="w"></span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.AddTags.Parameters]</span><span class="w"></span>
-<span class="w">      </span><span class="n">tags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;GatewayId:HoustonStore000123,Latitude:29.630771,Longitude:-95.377603&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.AddTags]</span>
+<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.AddTags.Parameters]</span>
+<span class="w">      </span><span class="n">tags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;GatewayId:HoustonStore000123,Latitude:29.630771,Longitude:-95.377603&quot;</span>
 </code></pre></div>
 </div>
 <h3 id="batch"><a href="../BuiltIn/#batching">Batch</a></h3>
@@ -2890,11 +2890,11 @@
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Batch]</span><span class="w"></span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Batch.Parameters]</span><span class="w"></span>
-<span class="w">      </span><span class="n">Mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;bytimecount&quot;</span><span class="w"> </span><span class="c1"># can be &quot;bycount&quot;, &quot;bytime&quot; or &quot;bytimecount&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="n">BatchThreshold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="n">TimeInterval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;60s&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Batch]</span>
+<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Batch.Parameters]</span>
+<span class="w">      </span><span class="n">Mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;bytimecount&quot;</span><span class="w"> </span><span class="c1"># can be &quot;bycount&quot;, &quot;bytime&quot; or &quot;bytimecount&quot;</span>
+<span class="w">      </span><span class="n">BatchThreshold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;30&quot;</span>
+<span class="w">      </span><span class="n">TimeInterval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;60s&quot;</span>
 </code></pre></div>
 </div>
 <div class="admonition edgey">
@@ -2908,9 +2908,9 @@
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Compress]</span><span class="w"></span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Compress.Parameters]</span><span class="w"></span>
-<span class="w">      </span><span class="n">Algorithm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;gzip&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Compress]</span>
+<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Compress.Parameters]</span>
+<span class="w">      </span><span class="n">Algorithm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;gzip&quot;</span>
 </code></pre></div>
 </div>
 <div class="admonition edgey">
@@ -2927,20 +2927,20 @@
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<p><div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1"># Encrypt with key specified in configuration</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Encrypt]</span><span class="w"></span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Encrypt.Parameters]</span><span class="w"></span>
+<p><div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1"># Encrypt with key specified in configuration</span>
+<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Encrypt]</span>
+<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Encrypt.Parameters]</span>
 <span class="w">      </span><span class="n">Algorithm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;aes&quot;</span><span class="w"> </span>
-<span class="w">      </span><span class="n">Key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;aquqweoruqwpeoruqwpoeruqwpoierupqoweiurpoqwiuerpqowieurqpowieurpoqiweuroipwqure&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="n">InitVector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;123456789012345678901234567890&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="n">Key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;aquqweoruqwpeoruqwpoeruqwpoierupqoweiurpoqwiuerpqowieurqpowieurpoqiweuroipwqure&quot;</span>
+<span class="w">      </span><span class="n">InitVector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;123456789012345678901234567890&quot;</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1"># Encrypt with key pulled from Secret Store</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Encrypt]</span><span class="w"></span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Encrypt.Parameters]</span><span class="w"></span>
-<span class="w">      </span><span class="n">Algorithm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;aes&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="n">InitVector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;123456789012345678901234567890&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="n">SecretPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;aes&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="n">SecretName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;key&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1"># Encrypt with key pulled from Secret Store</span>
+<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Encrypt]</span>
+<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Encrypt.Parameters]</span>
+<span class="w">      </span><span class="n">Algorithm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;aes&quot;</span>
+<span class="w">      </span><span class="n">InitVector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;123456789012345678901234567890&quot;</span>
+<span class="w">      </span><span class="n">SecretPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;aes&quot;</span>
+<span class="w">      </span><span class="n">SecretName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;key&quot;</span>
 </code></pre></div></p>
 </div>
 <div class="admonition edgey">
@@ -2955,10 +2955,10 @@
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.FilterByDeviceName]</span><span class="w"></span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.FilterByDeviceName.Parameters]</span><span class="w"></span>
-<span class="w">        </span><span class="n">DeviceNames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Random-Float-Device,Random-Integer-Device&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="n">FilterOut</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.FilterByDeviceName]</span>
+<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.FilterByDeviceName.Parameters]</span>
+<span class="w">        </span><span class="n">DeviceNames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Random-Float-Device,Random-Integer-Device&quot;</span>
+<span class="w">        </span><span class="n">FilterOut</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
 </code></pre></div>
 </div>
 <h3 id="filterbyprofilename"><a href="../BuiltIn/#by-profile-name">FilterByProfileName</a></h3>
@@ -2969,10 +2969,10 @@
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.FilterByProfileName]</span><span class="w"></span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.FilterByProfileName.Parameters]</span><span class="w"></span>
-<span class="w">      </span><span class="n">ProfileNames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Random-Float-Device, Random-Integer-Device&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="n">FilterOut</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.FilterByProfileName]</span>
+<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.FilterByProfileName.Parameters]</span>
+<span class="w">      </span><span class="n">ProfileNames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Random-Float-Device, Random-Integer-Device&quot;</span>
+<span class="w">      </span><span class="n">FilterOut</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
 </code></pre></div>
 </div>
 <div class="admonition edgey">
@@ -2987,10 +2987,10 @@
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.FilterByResourceName]</span><span class="w"></span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.FilterByResourceName.Parameters]</span><span class="w"></span>
-<span class="w">       </span><span class="n">ResourceNames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Int8, Int64&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="n">FilterOut</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.FilterByResourceName]</span>
+<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.FilterByResourceName.Parameters]</span>
+<span class="w">       </span><span class="n">ResourceNames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Int8, Int64&quot;</span>
+<span class="w">        </span><span class="n">FilterOut</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
 </code></pre></div>
 </div>
 <div class="admonition edgey">
@@ -3005,10 +3005,10 @@
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.FilterBySourceName]</span><span class="w"></span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.FilterBySource.Parameters]</span><span class="w"></span>
-<span class="w">      </span><span class="n">SourceNames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Bool, BoolArray&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="n">FilterOut</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.FilterBySourceName]</span>
+<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.FilterBySource.Parameters]</span>
+<span class="w">      </span><span class="n">SourceNames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Bool, BoolArray&quot;</span>
+<span class="w">      </span><span class="n">FilterOut</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
 </code></pre></div>
 </div>
 <div class="admonition edgey">
@@ -3030,39 +3030,39 @@
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<p><div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1"># Simple HTTP Export</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.HTTPExport]</span><span class="w"></span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.HTTPExport.Parameters]</span><span class="w"></span>
+<p><div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1"># Simple HTTP Export</span>
+<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.HTTPExport]</span>
+<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.HTTPExport.Parameters]</span>
 <span class="w">      </span><span class="n">Method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;post&quot;</span><span class="w"> </span>
 <span class="w">      </span><span class="n">MimeType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;application/xml&quot;</span><span class="w"> </span>
 <span class="w">      </span><span class="n">Url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http://my.api.net/edgexdata&quot;</span><span class="w"> </span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1"># HTTP Export with secret header data pull from Secret Store</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.HTTPExport]</span><span class="w"></span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.HTTPExport.Parameters]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1"># HTTP Export with secret header data pull from Secret Store</span>
+<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.HTTPExport]</span>
+<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.HTTPExport.Parameters]</span>
 <span class="w">      </span><span class="n">Method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;post&quot;</span><span class="w"> </span>
 <span class="w">      </span><span class="n">MimeType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;application/xml&quot;</span><span class="w"> </span>
-<span class="w">      </span><span class="n">Url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http://my.api.net/edgexdata&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="n">Url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http://my.api.net/edgexdata&quot;</span>
 <span class="w">      </span><span class="n">HeaderName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;MyApiKey&quot;</span><span class="w"> </span>
 <span class="w">      </span><span class="n">SecretPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http&quot;</span><span class="w"> </span>
-<span class="w">      </span><span class="n">SecretName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;apikey&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="n">SecretName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;apikey&quot;</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1"># Http Export to multiple destinations</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Writable.Pipeline]</span><span class="w"></span>
-<span class="w">    </span><span class="n">ExecutionOrder</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;HTTPExport1, HTTPExport2&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1"># Http Export to multiple destinations</span>
+<span class="w">    </span><span class="k">[Writable.Pipeline]</span>
+<span class="w">    </span><span class="n">ExecutionOrder</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;HTTPExport1, HTTPExport2&quot;</span>
 
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.HTTPExport1]</span><span class="w"></span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.HTTPExport1.Parameters]</span><span class="w"></span>
+<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.HTTPExport1]</span>
+<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.HTTPExport1.Parameters]</span>
 <span class="w">      </span><span class="n">Method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;post&quot;</span><span class="w"> </span>
 <span class="w">      </span><span class="n">MimeType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;application/xml&quot;</span><span class="w"> </span>
 <span class="w">      </span><span class="n">Url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http://my.api1.net/edgexdata2&quot;</span><span class="w"> </span>
-<span class="w">      </span><span class="n">ContinueOnSendError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="n">ReturnInputData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.HTTPExport2]</span><span class="w"></span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.HTTPExport2.Parameters]</span><span class="w"></span>
+<span class="w">      </span><span class="n">ContinueOnSendError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">      </span><span class="n">ReturnInputData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.HTTPExport2]</span>
+<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.HTTPExport2.Parameters]</span>
 <span class="w">      </span><span class="n">Method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;put&quot;</span><span class="w"> </span>
 <span class="w">      </span><span class="n">MimeType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;application/xml&quot;</span><span class="w"> </span>
-<span class="w">      </span><span class="n">Url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http://my.api2.net/edgexdata2&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="n">Url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http://my.api2.net/edgexdata2&quot;</span>
 </code></pre></div></p>
 </div>
 <div class="admonition edgey">
@@ -3084,9 +3084,9 @@
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.JSONLogic]</span><span class="w"></span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.JSONLogic.Parameters]</span><span class="w"></span>
-<span class="w">      </span><span class="n">Rule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;{ \&quot;and\&quot; : [{\&quot;&lt;\&quot; : [{ \&quot;var\&quot; : \&quot;temp\&quot; }, 110 ]}, {\&quot;==\&quot; : [{ \&quot;var\&quot; : \&quot;sensor.type\&quot; }, \&quot;temperature\&quot; ]} ] }&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.JSONLogic]</span>
+<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.JSONLogic.Parameters]</span>
+<span class="w">      </span><span class="n">Rule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;{ \&quot;and\&quot; : [{\&quot;&lt;\&quot; : [{ \&quot;var\&quot; : \&quot;temp\&quot; }, 110 ]}, {\&quot;==\&quot; : [{ \&quot;var\&quot; : \&quot;sensor.type\&quot; }, \&quot;temperature\&quot; ]} ] }&quot;</span>
 </code></pre></div>
 </div>
 <h3 id="mqttexport"><a href="../BuiltIn/#mqtt-export">MQTTExport</a></h3>
@@ -3115,26 +3115,26 @@
 </div>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<p><div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1"># Simple MQTT Export</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.MQTTExport]</span><span class="w"></span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.MQTTExport.Parameters]</span><span class="w"></span>
-<span class="w">      </span><span class="n">BrokerAddress</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcps://localhost:8883&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="n">Topic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mytopic&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;myclientid&quot;</span><span class="w"></span>
+<p><div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1"># Simple MQTT Export</span>
+<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.MQTTExport]</span>
+<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.MQTTExport.Parameters]</span>
+<span class="w">      </span><span class="n">BrokerAddress</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcps://localhost:8883&quot;</span>
+<span class="w">      </span><span class="n">Topic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mytopic&quot;</span>
+<span class="w">      </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;myclientid&quot;</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1"># MQTT Export with auth credentials pull from the Secret Store</span><span class="w"></span>
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.MQTTExport]</span><span class="w"></span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.MQTTExport.Parameters]</span><span class="w"></span>
-<span class="w">      </span><span class="n">BrokerAddress</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcps://my-broker-host.com:8883&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="n">Topic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mytopic&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;myclientid&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="n">Qos</span><span class="o">=</span><span class="s">&quot;2&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="n">AutoReconnect</span><span class="o">=</span><span class="s">&quot;true&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="n">Retain</span><span class="o">=</span><span class="s">&quot;true&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="n">SkipVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="n">PersistOnError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;usernamepassword&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="n">SecretPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1"># MQTT Export with auth credentials pull from the Secret Store</span>
+<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.MQTTExport]</span>
+<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.MQTTExport.Parameters]</span>
+<span class="w">      </span><span class="n">BrokerAddress</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tcps://my-broker-host.com:8883&quot;</span>
+<span class="w">      </span><span class="n">Topic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mytopic&quot;</span>
+<span class="w">      </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;myclientid&quot;</span>
+<span class="w">      </span><span class="n">Qos</span><span class="o">=</span><span class="s">&quot;2&quot;</span>
+<span class="w">      </span><span class="n">AutoReconnect</span><span class="o">=</span><span class="s">&quot;true&quot;</span>
+<span class="w">      </span><span class="n">Retain</span><span class="o">=</span><span class="s">&quot;true&quot;</span>
+<span class="w">      </span><span class="n">SkipVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
+<span class="w">      </span><span class="n">PersistOnError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">      </span><span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;usernamepassword&quot;</span>
+<span class="w">      </span><span class="n">SecretPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mqtt&quot;</span>
 </code></pre></div></p>
 </div>
 <div class="admonition edgey">
@@ -3152,12 +3152,12 @@
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.PushToCore]</span><span class="w"></span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.PushToCore.Parameters]</span><span class="w"></span>
-<span class="w">      </span><span class="n">ProfileName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;MyProfile&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="n">DeviceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;MyDevice&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="n">ResourceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;SomeResource&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="n">ValueType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;String&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.PushToCore]</span>
+<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.PushToCore.Parameters]</span>
+<span class="w">      </span><span class="n">ProfileName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;MyProfile&quot;</span>
+<span class="w">      </span><span class="n">DeviceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;MyDevice&quot;</span>
+<span class="w">      </span><span class="n">ResourceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;SomeResource&quot;</span>
+<span class="w">      </span><span class="n">ValueType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;String&quot;</span>
 </code></pre></div>
 </div>
 <div class="admonition edgey">
@@ -3171,9 +3171,9 @@
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.SetResponseData]</span><span class="w"></span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.SetResponseData.Parameters]</span><span class="w"></span>
-<span class="w">      </span><span class="n">ResponseContentType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;application/json&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.SetResponseData]</span>
+<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.SetResponseData.Parameters]</span>
+<span class="w">      </span><span class="n">ResponseContentType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;application/json&quot;</span>
 </code></pre></div>
 </div>
 <div class="admonition edgey">
@@ -3187,9 +3187,9 @@
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Transform]</span><span class="w"></span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Transform.Parameters]</span><span class="w"></span>
-<span class="w">      </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;xml&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Transform]</span>
+<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Transform.Parameters]</span>
+<span class="w">      </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;xml&quot;</span>
 </code></pre></div>
 </div>
 <div class="admonition edgey">
