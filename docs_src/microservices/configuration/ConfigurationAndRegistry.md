@@ -12,7 +12,7 @@
 
 Please refer to the following EdgeX Foundry ADRs for details (and design decisions) behind the configuration in EdgeX
 
-- [Sevice Self Config Seeding](../../../design/adr/0005-Service-Self-Config)
+- [Service Self Config Seeding](../../../design/adr/0005-Service-Self-Config)
 - [Common Configuration](../../../design/adr/0026-Common%20Configuration/)
 
 ### Common Configuration
@@ -29,9 +29,9 @@ See the [Common Configuration](../CommonConfiguration/) for list of all the comm
 
 Because EdgeX Foundry may be deployed and run in several different ways, 
 it is important to understand how configuration is loaded and from where it is sourced. 
-Referring to the cmd directory within the [edgex-go repository](https://github.com/edgexfoundry/edgex-go) , each service has its own folder. 
-Inside each service folder there is a `res` directory (short for "resource").
-There you will find the configuration files in [TOML format](https://github.com/toml-lang/toml) that defines each service's configuration. 
+Referring to the cmd directory within the [edgex-go repository](https://github.com/edgexfoundry/edgex-go), each service has its own folder. 
+Inside each service's folder there is a `res` directory (short for "resource").
+There the configuration files in [TOML format](https://github.com/toml-lang/toml) define each service's configuration. 
 A service may support several different configuration profiles, such as a App Service Configurable does. 
 In this case, the configuration file located directly in the `res` directory should be considered the default configuration profile. 
 Sub-directories will contain configurations appropriate to the respective profile.

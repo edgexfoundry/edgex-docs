@@ -40,18 +40,18 @@ The tabs below provide additional entries in the **Writable** section which are 
     | `key` | `value` | Secret data key value pairs |
 
 === "Writable.Telemetry"
-    |Property|<div style="width:300px">Default Value</div>|Description|
+    |Property|<Default Value|Description|
     |---|---|---|
     |||See `Writable.Telemetry` at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties) for the Telemetry configuration common to all services |
     |Metrics|     |Service metrics that the application service collects. Boolean value indicates if reporting of the metric is enabled. Custom metrics are also included here for custom application services that define custom metrics|
-    ||`MessagesReceived` = false     |Enable/disable reporting of the built-in **MessagesReceived** metric|
-    ||`InvalidMessagesReceived` = false     |**(NEW)** Enable/disable reporting of the built-in **InvalidMessagesReceived** metric|
-    ||`HttpExportSize  ` = false     | **(NEW)** Enable/disable reporting of the built-in **HttpExportSize** metric|
-    ||`MqttExportSize  ` = false     |**(NEW)** Enable/disable reporting of the built-in **MqttExportSize** metric|
-    ||`PipelineMessagesProcessed` = false     |Enable/disable reporting of the built-in **PipelineMessagesProcessed** metric|
-    ||`PipelineProcessingErrors` = false     | **(NEW)** Enable/disable reporting of the built-in **PipelineProcessingErrors** metric|
-    ||`PipelineMessageProcessingTime` = false |Enable/disable reporting of the built-in **PipelineMessageProcessingTime** metric|
-    ||`<CustomMetric>` = false    | (Service Specific) Enable/disable reporting of custom application service's custom metric. See [Custom Application Service Metics](../AdvancedTopics/#custom-application-service-metrics) for more detail|
+    |Metrics.MessagesReceived |  false |Enable/disable reporting of the built-in **MessagesReceived** metric|
+    |Metrics.InvalidMessagesReceived | false |Enable/disable reporting of the built-in **InvalidMessagesReceived** metric|
+    |Metrics.HttpExportSize   |  false| Enable/disable reporting of the built-in **HttpExportSize** metric|
+    |Metrics.MqttExportSize   | false |Enable/disable reporting of the built-in **MqttExportSize** metric|
+    |Metrics.PipelineMessagesProcessed | false |Enable/disable reporting of the built-in **PipelineMessagesProcessed** metric|
+    |Metrics.PipelineProcessingErrors | false | Enable/disable reporting of the built-in **PipelineProcessingErrors** metric|
+    |Metrics.PipelineMessageProcessingTime | false |Enable/disable reporting of the built-in **PipelineMessageProcessingTime** metric|
+    |Metrics.`<CustomMetric>`| false | (Service Specific) Enable/disable reporting of custom application service's custom metric. See [Custom Application Service Metrics](../AdvancedTopics/#custom-application-service-metrics) for more detail|
     |Tags|`<empty>`|List of arbitrary service level tags to included with every metric that is reported. i.e. `Gateway="my-iot-gateway"` |
 
 

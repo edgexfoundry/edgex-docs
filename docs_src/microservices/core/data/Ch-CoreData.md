@@ -120,7 +120,7 @@ Please refer to the general [Common Configuration documentation](../../configura
 Below are only the additional settings and sections that are specific to Core Data.
 
 !!! edgey "Edgex 3.0"
-    For EdgeX 3.0 the `MessageQueue` configuration has been move to `MessageBus` in [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties)
+    For EdgeX 3.0 the `MessageQueue` configuration has been moved to `MessageBus` in [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties)
 
 === "Writable"
     |Property|Default Value|Description|
@@ -132,7 +132,9 @@ Below are only the additional settings and sections that are specific to Core Da
     |Property|Default Value|Description|
     |---|---|---|
     |||See `Writable.Telemetry` at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties) for the Telemetry configuration common to all services |
-    |Metrics| EventsPersisted = false<br> ReadingsPersisted = false <br>|Service metrics that Core Data collects. Boolean value indicates if reporting of the metric is enabled.|
+    | Metrics| |Service metrics that Core Data collects. Boolean value indicates if reporting of the metric is enabled.|
+    |Metrics.EventsPersisted |  false| Enable/Disable reporting of number of events persisted.|
+    |Metrics.ReadingsPersisted | false|Enable/Disable reporting of number of readings persisted.|
     |Tags|`<empty>`|List of arbitrary Core Data service level tags to included with every metric that is reported.  |
 === "Service"
     |Property|Default Value|Description|

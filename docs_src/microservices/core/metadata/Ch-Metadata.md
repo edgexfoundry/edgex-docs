@@ -215,9 +215,6 @@ Not all device services support dynamic discovery.  If it does support dynamic d
 !!! edgey - "EdgeX 3.0"
     **LastConnected** and **LastReported** are removed in EdgeX 3.0.
 
-!!! edgey "Edgex 3.0"
-    For EdgeX 3.0 the `MessageQueue` configuration has been move to `MessageBus` in [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties)
-
 === "BaseAddress"
     |Property|Description|
     |---|---|
@@ -352,7 +349,7 @@ Below are only the additional settings and sections that are specific to Core Me
     **Notifications** configuration is removed in EdgeX 3.0. Metadata will leverage [Device System Events](#device-system-events) to replace the original device change notifications.
 
 !!! edgey "Edgex 3.0"
-    For EdgeX 3.0 the `MessageQueue` configuration has been move to `MessageBus` in [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties)
+    For EdgeX 3.0 the `MessageQueue` configuration has been moved to `MessageBus` in [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties)
 
 === "Writable"
     |Property|Default Value|Description|

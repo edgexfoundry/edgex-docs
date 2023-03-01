@@ -94,7 +94,7 @@ Please refer to the general [Common Configuration documentation](../../configura
 Below are only the additional settings and sections that are specific to Core Command.
 
 !!! edgey "Edgex 3.0"
-    For EdgeX 3.0 the `MessageQueue.Internal` configuration has been move to `MessageBus` in [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties) and `MessageQueue.External` has been moved to `ExternalMQTT` below
+    For EdgeX 3.0 the `MessageQueue.Internal` configuration has been moved to `MessageBus` in [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties) and `MessageQueue.External` has been moved to `ExternalMQTT` below
 
 === "Writable"
     |Property|Default Value|Description|

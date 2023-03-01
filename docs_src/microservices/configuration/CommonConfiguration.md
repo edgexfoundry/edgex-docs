@@ -4,7 +4,7 @@ The tables in each of the tabs below document configuration properties that are 
 Service specific properties can be found on the respective documentation page for each service.
 
 !!! edgey - "EdgeX 3.0"
-    New in Edgex 3.0 the common configuration is now in a single location, both source file and in the common section in the Configuration Provider. In prior releases the common configuration was duplicated in each service's configuration and section in the Configuration Provider.
+    New in Edgex 3.0 the common configuration is now in a single location. The source file is loaded into the common section in the Configuration Provider. In prior releases the common configuration was duplicated in each service's configuration and in each service's section in the Configuration Provider.
 
 The common configuration is managed by the **core-common-config-bootstrapper** service, which is divided into 3 sections:
 
@@ -37,10 +37,10 @@ The common configuration is managed by the **core-common-config-bootstrapper** s
     |---|---|---|
     |Interval| 30s|The interval in seconds at which to report the metrics currently being collected and enabled. **Value of 0s disables reporting**. |
     |Metrics||Boolean map of service metrics that are being collected. The boolean flag for each indicates if the metric is enabled for reporting. i.e. `EventsPersisted = true`. The metric name must match one defined by the service. |
-    ||SecuritySecretsRequested = false| Enable/Disable reporting of number of secrets requested  |
-    ||SecuritySecretsStored = false| Enable/Disable reporting of number of secrets stored  |
-    ||SecurityConsulTokensRequested = false| Enable/Disable reporting of number of Consul token requested  |
-    ||SecurityConsulTokenDuration = false| Enable/Disable reporting of duration for obtaining Consul token  |
+    |Metrics.SecuritySecretsRequested | false| Enable/Disable reporting of number of secrets requested  |
+    |Metrics.SecuritySecretsStored | false| Enable/Disable reporting of number of secrets stored  |
+    |Metrics.SecurityConsulTokensRequested | false| Enable/Disable reporting of number of Consul token requested  |
+    |Metrics.SecurityConsulTokenDuration | false| Enable/Disable reporting of duration for obtaining Consul token  |
     |Tags|`<Common Tags>`|String map of arbitrary tags to be added to every metric that is reported for all services . i.e. `Gateway="my-iot-gateway"`. The tag names are arbitrary. |
 === "Service"
     |Property|Default Value|Description|
@@ -99,8 +99,8 @@ The common configuration is managed by the **core-common-config-bootstrapper** s
     |---|---|---|
     ||Configuration and connection parameters for use with MQTT or NATS message bus - in place of Redis|
     |ClientId| ---|Client ID used to put messages on the bus (specific for each service)|
-    |Qos|'0'| Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)|
-    |KeepAlive |'10'| Period of time in seconds to keep the connection alive when there is no messages flowing (must be 2 or greater)|
+    |Qos|'0'| Quality of Service values are 0 (At most once), 1 (At least once) or 2 (Exactly once)|
+    |KeepAlive |'10'| Period of time in seconds to keep the connection alive when there are no messages flowing (must be 2 or greater)|
     |Retained|false|Whether to retain messages|
     |AutoReconnect |true |Whether to reconnect to the message bus on connection loss|
     |ConnectTimeout|5|Message bus connection timeout in seconds|

@@ -139,7 +139,7 @@ Please refer to the general [Common Configuration documentation](../../configura
 Below are only the additional settings and sections that are specific to Support Notifications.
 
 !!! edgey "Edgex 3.0"
-    For EdgeX 3.0 the `MessageQueue` configuration has been move to `MessageBus` in [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties)
+    For EdgeX 3.0 the `MessageQueue` configuration has been moved to `MessageBus` in [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties)
 
 === "Writable"
     |Property|Default Value|Description|
