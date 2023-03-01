@@ -20,8 +20,8 @@ Please refer to the following EdgeX Foundry ADRs for details (and design decisio
 !!! edgey - "EdgeX 3.0"
     Common configuration in single location is new in Edgex 3.0
 
-Many of each EdgeX service's configuration settings are the same as all other services. 
-These common configuration settings have been consolidating into a single common configuration location which is seeded by the **core-common-config-bootstrapper** service.
+Many of EdgeX service's configuration settings are the same as all other services. 
+These common configuration settings have been consolidated into a single common configuration location which is seeded by the **core-common-config-bootstrapper** service.
 This service seeds the configuration provider with the common configuration from its local file located in the `cmd/res/configuration.yaml`.
 See the [Common Configuration](../CommonConfiguration/) for list of all the common configuration settings.
 

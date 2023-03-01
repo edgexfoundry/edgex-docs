@@ -78,7 +78,7 @@ The tabs below provide additional configuration which are applicable to Applicat
 
 === "Clients"
 
-    This service specific section defines the connect information for the EdgeX Clients and is the same as that used by all EdgeX services, just which clients are needed differs. Please refer to the [Note about Clients](../ApplicationFunctionsSDK/#note-about-clients) section for more details.
+    This service specific section defines the connection information for the EdgeX Clients and is the same as that used by all EdgeX services, just which clients are needed differs. Please refer to the [Note about Clients](../ApplicationFunctionsSDK/#note-about-clients) section for more details.
 
 === "Trigger"
 
