@@ -1391,6 +1391,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#common-configuration" class="md-nav__link">
+    Common Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#local-configuration" class="md-nav__link">
     Local Configuration
   </a>
@@ -1486,8 +1493,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../V2MigrationCommonConfig/" class="md-nav__link">
-        V2 Migration of Common Configuration
+      <a href="../V3MigrationCommonConfig/" class="md-nav__link">
+        V3 Migration of Common Configuration
       </a>
     </li>
   
@@ -1576,7 +1583,7 @@
   
     <li class="md-nav__item">
       <a href="../../core/metadata/Ch-Metadata/" class="md-nav__link">
-        Metadata
+        Core Metadata
       </a>
     </li>
   
@@ -1590,7 +1597,7 @@
   
     <li class="md-nav__item">
       <a href="../../core/command/Ch-Command/" class="md-nav__link">
-        Command
+        Core Command
       </a>
     </li>
   
@@ -1665,7 +1672,21 @@
   
     <li class="md-nav__item">
       <a href="../../support/notifications/Ch-AlertsNotifications/" class="md-nav__link">
-        Alerts & Notifications
+        Support Notifications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../support/scheduler/Ch-Scheduler/" class="md-nav__link">
+        Support Scheduler
       </a>
     </li>
   
@@ -1680,20 +1701,6 @@
     <li class="md-nav__item">
       <a href="../../support/eKuiper/Ch-eKuiper/" class="md-nav__link">
         eKuiper Rules Engine
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../support/scheduler/Ch-Scheduler/" class="md-nav__link">
-        Scheduler
       </a>
     </li>
   
@@ -3080,6 +3087,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#common-configuration" class="md-nav__link">
+    Common Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#local-configuration" class="md-nav__link">
     Local Configuration
   </a>
@@ -3185,11 +3199,31 @@
 <h2 id="introduction">Introduction</h2>
 <p>The EdgeX registry and configuration service provides other EdgeX Foundry micro services with information about associated services within EdgeX Foundry (such as location and status) and  configuration properties (i.e. - a repository of initialization and operating values).  Today, EdgeX Foundry uses <a href="https://www.consul.io/">Consul by Hashicorp</a> as its reference implementation configuration and registry providers.  However, abstractions are in place so that these functions could be provided by an alternate implementation.  In fact, registration and configuration could be provided by different services under the covers.  For more, see the <a href="./#configuration-provider">Configuration Provider</a> and <a href="./#registry-provider">Registry Provider</a> sections in this page.</p>
 <h2 id="configuration">Configuration</h2>
-<p>Please refer to the EdgeX Foundry <a href="https://github.com/edgexfoundry/edgex-docs/blob/master/docs_src/design/adr/0005-Service-Self-Config.md">architectural decision record</a> for details (and design decisions) behind the configuration in EdgeX.</p>
+<p>Please refer to the following EdgeX Foundry ADRs for details (and design decisions) behind the configuration in EdgeX</p>
+<ul>
+<li><a href="../../../design/adr/0005-Service-Self-Config">Service Self Config Seeding</a></li>
+<li><a href="../../../design/adr/0026-Common%20Configuration/">Common Configuration</a></li>
+</ul>
+<h3 id="common-configuration">Common Configuration</h3>
+<div class="admonition edgey -">
+<p class="admonition-title">EdgeX 3.0</p>
+<p>Common configuration in single location is new in Edgex 3.0</p>
+</div>
+<p>Many of EdgeX service's configuration settings are the same as all other services. 
+These common configuration settings have been consolidated into a single common configuration location which is seeded by the <strong>core-common-config-bootstrapper</strong> service.
+This service seeds the configuration provider with the common configuration from its local file located in the <code>cmd/res/configuration.yaml</code>.
+See the <a href="../CommonConfiguration/">Common Configuration</a> for list of all the common configuration settings.</p>
 <h3 id="local-configuration">Local Configuration</h3>
-<p>Because EdgeX Foundry may be deployed and run in several different ways, it is important to understand how configuration is loaded and from where it is sourced. Referring to the cmd directory within the <a href="https://github.com/edgexfoundry/edgex-go">edgex-go repository</a> , each service has its own folder. Inside each service folder there is a <code>res</code> directory
-(short for "resource"). There you will find the configuration files in <a href="https://github.com/toml-lang/toml">TOML format</a> that defines each service's configuration. A service may support several different configuration profiles, such as a App Service Configurable does. In this case, the configuration file located directly in the <code>res</code> directory should be considered the default configuration profile. Sub-directories will contain configurations appropriate to the respective profile.</p>
-<p>As of the Geneva release, EdgeX recommends using environment variable overrides instead of creating profiles to override some subset of config values. App Service Configurable is an exception to this as this is how it defined unique instances using the same executable.</p>
+<p>Because EdgeX Foundry may be deployed and run in several different ways, 
+it is important to understand how configuration is loaded and from where it is sourced. 
+Referring to the cmd directory within the <a href="https://github.com/edgexfoundry/edgex-go">edgex-go repository</a>, each service has its own folder. 
+Inside each service's folder there is a <code>res</code> directory (short for "resource").
+There the configuration files in <a href="https://github.com/toml-lang/toml">TOML format</a> define each service's configuration. 
+A service may support several different configuration profiles, such as a App Service Configurable does. 
+In this case, the configuration file located directly in the <code>res</code> directory should be considered the default configuration profile. 
+Sub-directories will contain configurations appropriate to the respective profile.</p>
+<p>As of the Geneva release, EdgeX recommends using environment variable overrides instead of creating profiles to override some subset of config values. 
+App Service Configurable is an exception to this as this is how it defined unique instances using the same executable.</p>
 <p>If you choose to use profiles as described above, the config profile can be indicated using one of the following command line flags:</p>
 <p><code>--profile / -p</code></p>
 <p>Taking the <code>Core Data</code> and <code>App Service Configurable</code> services as an examples:</p>
@@ -3202,71 +3236,47 @@
 <p>Again, utilizing environment variables for configuration overrides is the recommended path. Config profiles, for the most part, are not used.</p>
 </div>
 <h3 id="seeding-configuration">Seeding Configuration</h3>
-<p>When utilizing the centralized configuration management for the EdgeX Foundry micro services, it is necessary to seed the required configuration before starting the services. Each service has the built-in capability to perform this seeding operation. A service will use its local configuration file to initialize the structure and relevant values, and then overlay any environment variable override values as specified. The end result will be seeded into the configuration provider if such is being used.</p>
+<div class="admonition edgey -">
+<p class="admonition-title">EdgeX 3.0</p>
+<p>Seeding of the new separate common configuration is new in Edgex 3.0</p>
+</div>
+<p>When utilizing the centralized configuration management for the EdgeX Foundry microservices, 
+it is necessary to seed the required configuration before starting the services.
+The new <strong>core-common-config-bootstrapper</strong> is responsible for seeding the common configuration that all services now depend on.
+Each service has the built-in capability to perform the seeding operation for its private configuration. 
+A service will use its local configuration file to seeded into the configuration provider if such is being used.</p>
 <p>In order for a service to seed/load the configuration to/from the configuration provider, use one of the following flags:</p>
 <p><code>--configProvider / -cp</code></p>
 <p>Again, taking the <code>core-data</code> service as an example:</p>
 <p><code>./core-data -cp=consul.http://localhost:8500</code> will start the service using configuration values found in the provider or seed them if they do not exist. </p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Environment overrides are also applied after the configuration is loaded from the configuration provider. </p>
+<div class="admonition edgey -">
+<p class="admonition-title">EdgeX 3.0</p>
+<p>In EdgeX 3.0, overrides are no longer applied prior to seeding the configuration into the configuration provider.</p>
 </div>
 <h3 id="configuration-structure">Configuration Structure</h3>
-<p>Configuration information is organized into a hierarchical structure allowing for a logical grouping of services, as well as versioning, beneath an "edgex" namespace at root level of the configuration tree.
-The root namespace separates EdgeX Foundry-related configuration information from other applications that may be using the same configuration provider. Below the root, sub-nodes facilitate grouping of device services, core/support/security services, app services, etc. As an example, the top-level nodes shown when one views the configuration registry might be as follows:</p>
-<ul>
-<li>edgex <em>(root namespace)</em><ul>
-<li>core <em>(core/support/security services)</em></li>
-<li>devices <em>(device services)</em></li>
-<li>appservices (<em>application services</em>)</li>
-</ul>
-</li>
-</ul>
-<h3 id="versioning">Versioning</h3>
-<p>Incorporating versioning into the configuration hierarchy looks like this.</p>
-<ul>
-<li>edgex <em>(root namespace)</em><ul>
-<li>core <em>(core/support/security services)</em><ul>
-<li>2.0<ul>
-<li>core-command</li>
-<li>core-data</li>
-<li>core-metadata</li>
-<li>support-notifications</li>
-<li>support-scheduler</li>
-<li>sys-mgmt-agent</li>
-</ul>
-</li>
-<li>3.0</li>
-</ul>
-</li>
-<li>devices <em>(device services)</em><ul>
-<li>2.0<ul>
-<li>device-mqtt</li>
-<li>device-virtual</li>
-<li>device-modbus</li>
-</ul>
-</li>
-<li>3.0</li>
-</ul>
-</li>
-<li>appservices <em>(application services)</em><ul>
-<li>2.0<ul>
-<li>app-rules-engine</li>
-</ul>
-</li>
-<li>3.0</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the version number in the path is now <code>2.0</code> and the service keys are now used for the service names.</p>
+<div class="admonition edgey -">
+<p class="admonition-title">EdgeX 3.0</p>
+<p>In EdgeX 3.0, the configuration is no longer organized into a hierarchical structure grouped by service types.</p>
 </div>
-<p>The versions shown correspond to major versions of the given services. For all minor/patch versions associated with a major version, the respective service keys live under the major version in configuration
-(such as 2.0). Changes to the configuration structure that may be required during the associated minor version development cycles can only be additive. That is, key names will not be removed or changed once set in a major version.  Furthermore, sections of the configuration tree cannot be moved from one place to another. In this way, backward compatibility for the lifetime of the major version is maintained.</p>
-<p>An advantage of grouping all minor/patch versions under a major version involves end-user configuration changes that need to be persisted during an upgrade. A service on startup will not overwrite existing configuration when it runs unless explicitly told to do so via the <code>--overwrite / -o</code> command line flag. Therefore if a user leaves their configuration provider running during an EdgeX Foundry upgrade any customization will be left in place. Environment variable overrides such as those supplied in the docker-compose for a given release will always override existing content in the configuration provider.</p>
+<p>The root namespace separates EdgeX Foundry related configuration information from other applications that may be using the same configuration provider. 
+Below the root is the configuration version and then all the individual services in a flat list. 
+As an example, the nodes shown when one views the configuration provider might be as follows:</p>
+<div class="admonition example -">
+<p class="admonition-title">Example configuration structure</p>
+<div class="highlight"><pre><span></span><code>**edgex/v3** (root namespace)
+    - app-* (app services)
+    - core-* (core services which includes common config)
+    - devices-* (device services)
+    - security-* (security services)
+    - support-* (support services)
+</code></pre></div>
+</div>
+<h3 id="versioning">Versioning</h3>
+<p>The version is now part of the root namespace , i.e. <code>edgex/v3</code></p>
+<p>An advantage of grouping all minor/patch versions under a major version involves end-user configuration changes that need to be persisted during an upgrade. 
+A service on startup will not overwrite existing configuration when it runs unless explicitly told to do so via the <code>--overwrite / -o</code> command line flag. 
+Therefore, if a user leaves their configuration provider running during an EdgeX Foundry upgrade any customization will be left in place. 
+Environment variable overrides such as those supplied in the docker-compose for a given release will always override existing content in the configuration provider.</p>
 <h2 id="configuration-provider">Configuration Provider</h2>
 <p>You can supply and manage configuration in a centralized manner by utilizing the <code>-cp/--configProvider</code> flag when starting a service. If the flag is provided and points to an application such as <a href="https://www.consul.io/">HashiCorp's Consul</a>, the service will bootstrap its configuration into the provider, if it doesn't exist. If configuration does already exist, it will load the content from the given location applying any environment variables overrides of which the service is aware. Integration with the configuration provider is handled through the <a href="https://github.com/edgexfoundry/go-mod-configuration">go-mod-configuration</a> module referenced by all services.</p>
 <h2 id="registry-provider">Registry Provider</h2>
@@ -3346,13 +3356,13 @@ target micro service and then invokes the target micro service. The following fi
       
       
         
-        <a href="../V2MigrationCommonConfig/" class="md-footer__link md-footer__link--next" aria-label="Next: V2 Migration of Common Configuration" rel="next">
+        <a href="../V3MigrationCommonConfig/" class="md-footer__link md-footer__link--next" aria-label="Next: V3 Migration of Common Configuration" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              V2 Migration of Common Configuration
+              V3 Migration of Common Configuration
             </div>
           </div>
           <div class="md-footer__button md-icon">

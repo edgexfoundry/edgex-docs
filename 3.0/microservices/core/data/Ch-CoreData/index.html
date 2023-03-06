@@ -1354,8 +1354,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/V2MigrationCommonConfig/" class="md-nav__link">
-        V2 Migration of Common Configuration
+      <a href="../../../configuration/V3MigrationCommonConfig/" class="md-nav__link">
+        V3 Migration of Common Configuration
       </a>
     </li>
   
@@ -1515,11 +1515,11 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#v2-configuration-migration-guide" class="md-nav__link">
-    V2 Configuration Migration Guide
+  <a href="#v3-configuration-migration-guide" class="md-nav__link">
+    V3 Configuration Migration Guide
   </a>
   
-    <nav class="md-nav" aria-label="V2 Configuration Migration Guide">
+    <nav class="md-nav" aria-label="V3 Configuration Migration Guide">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1583,7 +1583,7 @@
   
     <li class="md-nav__item">
       <a href="../../metadata/Ch-Metadata/" class="md-nav__link">
-        Metadata
+        Core Metadata
       </a>
     </li>
   
@@ -1597,7 +1597,7 @@
   
     <li class="md-nav__item">
       <a href="../../command/Ch-Command/" class="md-nav__link">
-        Command
+        Core Command
       </a>
     </li>
   
@@ -1672,7 +1672,21 @@
   
     <li class="md-nav__item">
       <a href="../../../support/notifications/Ch-AlertsNotifications/" class="md-nav__link">
-        Alerts & Notifications
+        Support Notifications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../support/scheduler/Ch-Scheduler/" class="md-nav__link">
+        Support Scheduler
       </a>
     </li>
   
@@ -1687,20 +1701,6 @@
     <li class="md-nav__item">
       <a href="../../../support/eKuiper/Ch-eKuiper/" class="md-nav__link">
         eKuiper Rules Engine
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../support/scheduler/Ch-Scheduler/" class="md-nav__link">
-        Scheduler
       </a>
     </li>
   
@@ -3122,11 +3122,11 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#v2-configuration-migration-guide" class="md-nav__link">
-    V2 Configuration Migration Guide
+  <a href="#v3-configuration-migration-guide" class="md-nav__link">
+    V3 Configuration Migration Guide
   </a>
   
-    <nav class="md-nav" aria-label="V2 Configuration Migration Guide">
+    <nav class="md-nav" aria-label="V3 Configuration Migration Guide">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -3368,8 +3368,13 @@ latency through this layer and storage needs at the network edge.  But the cost 
 <p><strong>Core Data Request Event / Reading for a Device</strong></p>
 <p><img alt="image" src="../EdgeX_CoreDataEventReading.png" /></p>
 <h2 id="configuration-properties">Configuration Properties</h2>
-<p>Please refer to the general <a href="../../../configuration/CommonConfiguration/">Common Configuration documentation</a> for configuration properties common to all services. Below are only the additional settings and sections that are not common to all EdgeX Services.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:6"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><input id="__tabbed_2_5" name="__tabbed_2" type="radio" /><input id="__tabbed_2_6" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Writable</label><label for="__tabbed_2_2">Writable.Telemetry</label><label for="__tabbed_2_3">Database</label><label for="__tabbed_2_4">MessageQueue</label><label for="__tabbed_2_5">MessageQueue.Optional</label><label for="__tabbed_2_6">MaxEventSize</label></div>
+<p>Please refer to the general <a href="../../../configuration/CommonConfiguration/">Common Configuration documentation</a> for configuration settings common to all services. 
+Below are only the additional settings and sections that are specific to Core Data.</p>
+<div class="admonition edgey">
+<p class="admonition-title">Edgex 3.0</p>
+<p>For EdgeX 3.0 the <code>MessageQueue</code> configuration has been moved to <code>MessageBus</code> in <a href="../../../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a></p>
+</div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:6"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><input id="__tabbed_2_5" name="__tabbed_2" type="radio" /><input id="__tabbed_2_6" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Writable</label><label for="__tabbed_2_2">Writable.Telemetry</label><label for="__tabbed_2_3">Service</label><label for="__tabbed_2_4">Database</label><label for="__tabbed_2_5">MessageBus.Optional</label><label for="__tabbed_2_6">MaxEventSize</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table>
@@ -3385,6 +3390,11 @@ latency through this layer and storage needs at the network edge.  But the cost 
 <td></td>
 <td>Writable properties can be set and will dynamically take effect without service restart</td>
 <td></td>
+</tr>
+<tr>
+<td>LogLevel</td>
+<td>INFO</td>
+<td>log entry <a href="https://en.wikipedia.org/wiki/Syslog#Severity_level">severity level</a>.  Log entries not of the default level or higher are ignored.</td>
 </tr>
 <tr>
 <td>PersistData</td>
@@ -3411,35 +3421,23 @@ latency through this layer and storage needs at the network edge.  But the cost 
 </tr>
 <tr>
 <td>Metrics</td>
-<td>EventsPersisted = false<br> ReadingsPersisted = false <br><code>&lt;common metrics&gt;</code></td>
+<td></td>
 <td>Service metrics that Core Data collects. Boolean value indicates if reporting of the metric is enabled.</td>
+</tr>
+<tr>
+<td>Metrics.EventsPersisted</td>
+<td>false</td>
+<td>Enable/Disable reporting of number of events persisted.</td>
+</tr>
+<tr>
+<td>Metrics.ReadingsPersisted</td>
+<td>false</td>
+<td>Enable/Disable reporting of number of readings persisted.</td>
 </tr>
 <tr>
 <td>Tags</td>
 <td><code>&lt;empty&gt;</code></td>
-<td>List of arbitrary service level tags to included with every metric that is reported. i.e. <code>Gateway="my-iot-gateway"</code></td>
-</tr>
-</tbody>
-</table>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.2/2.3</p>
-<p>For EdgeX 2.2 Collecting of the <code>EventsPersisted</code> and <code>ReadingsPersisted</code> Core Data Service Metrics have been added.Some common service metrics have been added in 2.3</p>
-</div>
-</div>
-<div class="tabbed-block">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Default Value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Name</td>
-<td>'coredata'</td>
-<td>Document store or database name</td>
+<td>List of arbitrary Core Data service level tags to included with every metric that is reported.</td>
 </tr>
 </tbody>
 </table>
@@ -3456,53 +3454,18 @@ latency through this layer and storage needs at the network edge.  But the cost 
 <tbody>
 <tr>
 <td></td>
-<td>Entries in the MessageQueue section of the configuration allow for publication of events to a message bus</td>
 <td></td>
-</tr>
-<tr>
-<td>Protocol</td>
-<td>redis</td>
-<td>Indicates the connectivity protocol to use when connecting to the bus.</td>
-</tr>
-<tr>
-<td>Host</td>
-<td>localhost</td>
-<td>Indicates the host of the messaging broker, if applicable.</td>
+<td>Unique settings for Core Data. The common settings can be found at <a href="../../../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a></td>
 </tr>
 <tr>
 <td>Port</td>
-<td>6379</td>
-<td>Indicates the port to use when publishing a message.</td>
+<td>59880</td>
+<td>Micro service port number</td>
 </tr>
 <tr>
-<td>Type</td>
-<td>redis</td>
-<td>Indicates the type of messaging library to use. Currently this is Redis by default. Refer to the <a href="https://github.com/edgexfoundry/go-mod-messaging">go-mod-messaging</a> module for more information.</td>
-</tr>
-<tr>
-<td>AuthMode</td>
-<td>usernamepassword</td>
-<td>Auth Mode to connect to EdgeX MessageBUs.</td>
-</tr>
-<tr>
-<td>SecretName</td>
-<td>redisdb</td>
-<td>Name of the secret in the Secret Store to find the MessageBus credentials.</td>
-</tr>
-<tr>
-<td>PublishTopicPrefix</td>
-<td>edgex/events/core</td>
-<td>Indicates the base topic to which messages should be published. /<code>&lt;device-profile-name&gt;/&lt;device-name&gt;</code> will be added to this Publish Topic prefix</td>
-</tr>
-<tr>
-<td>SubscribeEnabled</td>
-<td>true</td>
-<td>Indicates wether to subcribe to the EdgeX MessageBus or not.</td>
-</tr>
-<tr>
-<td>SubscribeTopic</td>
-<td>edgex/events/device/#</td>
-<td>Topis to use when subscribing to the EdgeX MessageBus</td>
+<td>StartupMsg</td>
+<td>This is the EdgeX Core Data Microservice</td>
+<td>Message logged when service completes bootstrap start-up</td>
 </tr>
 </tbody>
 </table>
@@ -3519,43 +3482,36 @@ latency through this layer and storage needs at the network edge.  But the cost 
 <tbody>
 <tr>
 <td></td>
-<td>Configuration and connection parameters for use with MQTT message bus - in place of Redis</td>
 <td></td>
+<td>Unique settings for Core Data. The common settings can be found at <a href="../../../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a></td>
+</tr>
+<tr>
+<td>Name</td>
+<td>coredata</td>
+<td>Database or document store name</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td>Unique settings for Core Data. The common settings can be found at <a href="../../../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a></td>
 </tr>
 <tr>
 <td>ClientId</td>
-<td>'core-data'</td>
-<td>Client ID used to put messages on the bus</td>
-</tr>
-<tr>
-<td>Qos</td>
-<td>'0'</td>
-<td>Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</td>
-</tr>
-<tr>
-<td>KeepAlive</td>
-<td>'10'</td>
-<td>Period of time in seconds to keep the connection alive when there is no messages flowing (must be 2 or greater)</td>
-</tr>
-<tr>
-<td>Retained</td>
-<td>false</td>
-<td>Whether to retain messages</td>
-</tr>
-<tr>
-<td>AutoReconnect</td>
-<td>true</td>
-<td>Whether to reconnect to the message bus on connection loss</td>
-</tr>
-<tr>
-<td>ConnectTimeout</td>
-<td>5</td>
-<td>Message bus connection timeout in seconds</td>
-</tr>
-<tr>
-<td>SkipCertVerify</td>
-<td>false</td>
-<td>TLS configuration - Only used if Cert/Key file or Cert/Key PEMblock are specified</td>
+<td>"core-data</td>
+<td>Id used when connecting to MQTT or NATS base MessageBus</td>
 </tr>
 </tbody>
 </table>
@@ -3580,8 +3536,8 @@ latency through this layer and storage needs at the network edge.  But the cost 
 </div>
 </div>
 </div>
-<h3 id="v2-configuration-migration-guide">V2 Configuration Migration Guide</h3>
-<p>Refer to the <a href="../../../configuration/V2MigrationCommonConfig">Common Configuration Migration Guide</a> for details on migrating the common configuration sections such as <code>Service</code>.</p>
+<h3 id="v3-configuration-migration-guide">V3 Configuration Migration Guide</h3>
+<p>Coming soon</p>
 <h4 id="writable">Writable</h4>
 <p>The following settings have been removed from the <code>Writable</code> section</p>
 <ul>
@@ -3667,13 +3623,13 @@ latency through this layer and storage needs at the network edge.  But the cost 
       
       
         
-        <a href="../../metadata/Ch-Metadata/" class="md-footer__link md-footer__link--next" aria-label="Next: Metadata" rel="next">
+        <a href="../../metadata/Ch-Metadata/" class="md-footer__link md-footer__link--next" aria-label="Next: Core Metadata" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Metadata
+              Core Metadata
             </div>
           </div>
           <div class="md-footer__button md-icon">

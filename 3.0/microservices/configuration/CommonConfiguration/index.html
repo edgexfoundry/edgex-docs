@@ -1404,8 +1404,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../V2MigrationCommonConfig/" class="md-nav__link">
-        V2 Migration of Common Configuration
+      <a href="../V3MigrationCommonConfig/" class="md-nav__link">
+        V3 Migration of Common Configuration
       </a>
     </li>
   
@@ -1494,7 +1494,7 @@
   
     <li class="md-nav__item">
       <a href="../../core/metadata/Ch-Metadata/" class="md-nav__link">
-        Metadata
+        Core Metadata
       </a>
     </li>
   
@@ -1508,7 +1508,7 @@
   
     <li class="md-nav__item">
       <a href="../../core/command/Ch-Command/" class="md-nav__link">
-        Command
+        Core Command
       </a>
     </li>
   
@@ -1583,7 +1583,21 @@
   
     <li class="md-nav__item">
       <a href="../../support/notifications/Ch-AlertsNotifications/" class="md-nav__link">
-        Alerts & Notifications
+        Support Notifications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../support/scheduler/Ch-Scheduler/" class="md-nav__link">
+        Support Scheduler
       </a>
     </li>
   
@@ -1598,20 +1612,6 @@
     <li class="md-nav__item">
       <a href="../../support/eKuiper/Ch-eKuiper/" class="md-nav__link">
         eKuiper Rules Engine
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../support/scheduler/Ch-Scheduler/" class="md-nav__link">
-        Scheduler
       </a>
     </li>
   
@@ -3017,13 +3017,32 @@
 
 
 <h1 id="common-configuration">Common Configuration</h1>
-<p>The tables in each of the tabs below document configuration properties that are common to all services in the EdgeX Foundry platform. Service-specific properties can be found on the respective documentation page for each service.</p>
+<p>The tables in each of the tabs below document configuration properties that are common to all services in the EdgeX Foundry platform. 
+Service specific properties can be found on the respective documentation page for each service.</p>
+<div class="admonition edgey -">
+<p class="admonition-title">EdgeX 3.0</p>
+<p>New in Edgex 3.0 the common configuration is now in a single location. The source file is loaded into the common section in the Configuration Provider. In prior releases the common configuration was duplicated in each service's configuration and in each service's section in the Configuration Provider.</p>
+</div>
+<p>The common configuration is managed by the <strong>core-common-config-bootstrapper</strong> service, which is divided into 3 sections:</p>
+<ul>
+<li>
+<p><strong>All Services</strong>- Configuration that is common to all EdgeX Services See below for details.</p>
+</li>
+<li>
+<p><strong>App Services</strong> - Configuration that is common to just application services. See <a href="../../application/GeneralAppServiceConfig">App Service Configuration</a> section for more details.</p>
+</li>
+<li><strong>Device Services</strong>- Configuration that is common to just devices services. See <a href="../../device/Ch-DeviceServices/#configuration-properties">Device Service Configuration</a> section for more details.</li>
+</ul>
 <h2 id="configuration-properties">Configuration Properties</h2>
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 3.0</p>
 <p>For EdgeX 3.0 the <strong>SecretStore</strong> configuration has been removed from each service's configuration files. It has default values which can be overridden with environment variables. See the <a href="../CommonEnvironmentVariables/#secretstore-overrides">SecretStore Overrides</a> section for more details.</p>
 </div>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:7"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><input id="__tabbed_1_7" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Writable</label><label for="__tabbed_1_2">Writable.Telemetry</label><label for="__tabbed_1_3">Service</label><label for="__tabbed_1_4">Service.CORSConfiguration</label><label for="__tabbed_1_5">Database</label><label for="__tabbed_1_6">Registry</label><label for="__tabbed_1_7">Clients.[service-key]</label></div>
+<div class="admonition edgey">
+<p class="admonition-title">Edgex 3.0</p>
+<p>In EdgeX 3.0, the <strong>MessageBus</strong> configuration is now common to all services. In addition, the internal MessageBus topic configuration has been replaced by internal constants. The new <strong>BaseTopicPrefix</strong> setting has been added to allow customization of all topics under a common base prefix.  See the new common <strong>MessageBus</strong> section below.</p>
+</div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:8"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><input id="__tabbed_1_7" name="__tabbed_1" type="radio" /><input id="__tabbed_1_8" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Writable</label><label for="__tabbed_1_2">Writable.Telemetry</label><label for="__tabbed_1_3">Service</label><label for="__tabbed_1_4">Service.CORSConfiguration</label><label for="__tabbed_1_5">Registry</label><label for="__tabbed_1_6">Database</label><label for="__tabbed_1_7">MessageBus</label><label for="__tabbed_1_8">MessageQueue.Optional</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table>
@@ -3042,8 +3061,8 @@
 </tr>
 <tr>
 <td>LogLevel</td>
-<td>INFO</td>
-<td>log entry <a href="https://en.wikipedia.org/wiki/Syslog#Severity_level">severity level</a>.  Log entries not of the default level or higher are ignored.</td>
+<td>---</td>
+<td>log entry <a href="https://en.wikipedia.org/wiki/Syslog#Severity_level">severity level</a>.  (specific for each service)</td>
 </tr>
 <tr>
 <td><strong>InsecureSecrets</strong></td>
@@ -3052,9 +3071,9 @@
 </tr>
 </tbody>
 </table>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>For EdgeX 2.0 the <code>Writable.InsecureSecrets</code> configuration section is new. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>LogLevel is included here for documentation purposes since all services have this setting. Since it should always be set at an individual service level it is not included in the new common configuration file and is present in all the individual service configuration files.</p>
 </div>
 </div>
 <div class="tabbed-block">
@@ -3073,51 +3092,37 @@
 <td>The interval in seconds at which to report the metrics currently being collected and enabled. <strong>Value of 0s disables reporting</strong>.</td>
 </tr>
 <tr>
-<td>PublishTopicPrefix</td>
-<td>"edgex/telemetry"</td>
-<td>The base topic in which to publish (report) metrics currently being collected and enabled. <code>/&lt;service-name&gt;/&lt;metric-name&gt;</code> will be added to this base topic prefix.</td>
-</tr>
-<tr>
 <td>Metrics</td>
 <td></td>
 <td>Boolean map of service metrics that are being collected. The boolean flag for each indicates if the metric is enabled for reporting. i.e. <code>EventsPersisted = true</code>. The metric name must match one defined by the service.</td>
 </tr>
 <tr>
-<td></td>
-<td>SecuritySecretsRequested = false</td>
+<td>Metrics.SecuritySecretsRequested</td>
+<td>false</td>
 <td>Enable/Disable reporting of number of secrets requested</td>
 </tr>
 <tr>
-<td></td>
-<td>SecuritySecretsStored = false</td>
+<td>Metrics.SecuritySecretsStored</td>
+<td>false</td>
 <td>Enable/Disable reporting of number of secrets stored</td>
 </tr>
 <tr>
-<td></td>
-<td>SecurityConsulTokensRequested = false</td>
+<td>Metrics.SecurityConsulTokensRequested</td>
+<td>false</td>
 <td>Enable/Disable reporting of number of Consul token requested</td>
 </tr>
 <tr>
-<td></td>
-<td>SecurityConsulTokenDuration = false</td>
+<td>Metrics.SecurityConsulTokenDuration</td>
+<td>false</td>
 <td>Enable/Disable reporting of duration for obtaining Consul token</td>
 </tr>
 <tr>
-<td></td>
-<td><code>&lt;Service dependent&gt;</code>= false</td>
-<td>Enable/Disable reporting of service defined metric</td>
-</tr>
-<tr>
 <td>Tags</td>
-<td><code>&lt;Service dependent&gt;</code></td>
-<td>String map of arbitrary tags to be added to every metric that is reported for the service. i.e. <code>Gateway="my-iot-gateway"</code>. The tag names are arbitrary.</td>
+<td><code>&lt;Common Tags&gt;</code></td>
+<td>String map of arbitrary tags to be added to every metric that is reported for all services . i.e. <code>Gateway="my-iot-gateway"</code>. The tag names are arbitrary.</td>
 </tr>
 </tbody>
 </table>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.2/2.3</p>
-<p>Service Metrics have been added in EdgeX 2.2 and expanded in EdgeX 2.3.</p>
-</div>
 </div>
 <div class="tabbed-block">
 <table>
@@ -3147,7 +3152,7 @@
 <tr>
 <td>ServerBindAddr</td>
 <td>'' (empty string)</td>
-<td>The interface on which the service's REST server should listen. By default the server is to listen on the interface to which the <code>Host</code> option resolves (leaving it blank). A value of <code>0.0.0.0</code> means listen on all available interfaces. App &amp; Device service do not implement this setting</td>
+<td>The interface on which the service's REST server should listen. By default the server is to listen on the interface to which the <code>Host</code> option resolves (leaving it blank). A value of <code>0.0.0.0</code> means listen on all available interfaces. App &amp; Device service do not implement this setting. (specific for each service)</td>
 </tr>
 <tr>
 <td>StartupMsg</td>
@@ -3171,14 +3176,6 @@
 </tr>
 </tbody>
 </table>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>For EdgeX 2.0 <code>Protocol</code> and <code>BootTimeout</code>  have been removed. <code>CheckInterval</code> and  <code>Timeout</code> have been renamed to <code>HealthCheckInterval</code> and <code>RequestTimeout</code> respectively. <code>MaxRequestSize</code> was added for all services.</p>
-</div>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.2</p>
-<p>For EdgeX 2.2 Service MaxRequestSize has been implemented to all services, and the unit is kilobyte.</p>
-</div>
 </div>
 <div class="tabbed-block">
 <table>
@@ -3251,54 +3248,7 @@
 <tr>
 <td></td>
 <td></td>
-<td>configuration that govern database connectivity and the type of database to use. While not all services require DB connectivity, most do and so this has been included in the common configuration docs.</td>
-</tr>
-<tr>
-<td>Host</td>
-<td>localhost</td>
-<td>DB host name</td>
-</tr>
-<tr>
-<td>Port</td>
-<td>6379</td>
-<td>DB port number</td>
-</tr>
-<tr>
-<td>Name</td>
-<td>----</td>
-<td>Database or document store name (Specific to the service)</td>
-</tr>
-<tr>
-<td>Timeout</td>
-<td>5000</td>
-<td>DB connection timeout</td>
-</tr>
-<tr>
-<td>Type</td>
-<td>redisdb</td>
-<td>DB type.  Redis is the only supported DB</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>For EdgeX 2.0 <code>mongodb</code> has been remove as a supported DB. The credentials <code>username</code> and <code>password</code> have been removed and are now in the <code>Writable.InsecureSecrets.DB</code> section.</p>
-</div>
-</div>
-<div class="tabbed-block">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Default Value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td></td>
-<td>this configuration only takes effect when connecting to the registry for configuration info</td>
+<td>configuration that govern how to connect to the registry to register for service registration</td>
 </tr>
 <tr>
 <td>Host</td>
@@ -3331,80 +3281,198 @@
 <tr>
 <td></td>
 <td></td>
-<td>Each service has it own collect of Clients that it uses</td>
-</tr>
-<tr>
-<td>Protocol</td>
-<td>http</td>
-<td>The protocol to use when building a URI to local the service endpoint</td>
+<td>configuration that govern database connectivity and the type of database to use. While not all services require DB connectivity, most do and so this has been included in the common configuration docs.</td>
 </tr>
 <tr>
 <td>Host</td>
 <td>localhost</td>
-<td>The host name or IP address where the service is hosted</td>
+<td>DB host name</td>
 </tr>
 <tr>
 <td>Port</td>
-<td>598xx</td>
-<td>The port exposed by the target service</td>
+<td>6379</td>
+<td>DB port number</td>
 </tr>
 <tr>
-<td>UseMessageBus</td>
-<td>false</td>
-<td>indicate whether to use Messaging version of client</td>
+<td>Name</td>
+<td>----</td>
+<td>Database or document store name (Specific to the service)</td>
 </tr>
 <tr>
-<td>Topics</td>
-<td></td>
-<td>holds the MessageBus Topics used by the client to communicate to the service</td>
+<td>Timeout</td>
+<td>5000</td>
+<td>DB connection timeout</td>
 </tr>
 <tr>
-<td></td>
-<td>CommandRequestTopicPrefix = edgex/core/command/request</td>
-<td>for publishing the internal command request</td>
-</tr>
-<tr>
-<td></td>
-<td>CommandResponseTopic = edgex/core/command/response/#</td>
-<td>for subscribing the internal command response</td>
-</tr>
-<tr>
-<td></td>
-<td>QueryRequestTopic = edgex/core/commandquery/request</td>
-<td>for publishing the internal command query request</td>
-</tr>
-<tr>
-<td></td>
-<td>QueryResponseTopic = edgex/core/commandquery/response</td>
-<td>for subscribing the internal command query response</td>
+<td>Type</td>
+<td>redisdb</td>
+<td>DB type.  Redis is the only supported DB</td>
 </tr>
 </tbody>
 </table>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>For EdgeX 2.0 the map keys have changed to be the service's service-key, i.e. <code>Metadata</code> changed to <code>core-metadata</code></p>
 </div>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.3</p>
-<p>The <code>UseMessageBus</code> and <code>Topics</code> fields are only viable for Command client</p>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>Entries in the MessageBus section of the configuration allow for connecting to the internal MessageBus and define a common base topic prefix</td>
+<td></td>
+</tr>
+<tr>
+<td>Protocol</td>
+<td>redis</td>
+<td>Indicates the connectivity protocol to use when connecting to the bus.</td>
+</tr>
+<tr>
+<td>Host</td>
+<td>localhost</td>
+<td>Indicates the host of the messaging broker, if applicable.</td>
+</tr>
+<tr>
+<td>Port</td>
+<td>6379</td>
+<td>Indicates the port to use when publishing a message.</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>redis</td>
+<td>Indicates the type of messaging library to use. Currently this is Redis by default. Refer to the <a href="https://github.com/edgexfoundry/go-mod-messaging">go-mod-messaging</a> module for more information.</td>
+</tr>
+<tr>
+<td>AuthMode</td>
+<td>usernamepassword</td>
+<td>Auth Mode to connect to EdgeX MessageBus.</td>
+</tr>
+<tr>
+<td>SecretName</td>
+<td>redisdb</td>
+<td>Name of the secret in the Secret Store to find the MessageBus credentials.</td>
+</tr>
+<tr>
+<td>BaseTopicPrefix</td>
+<td>edgex</td>
+<td>Indicates the base topic prefix which is prepended to all internal MessageBus topics.</td>
+</tr>
+</tbody>
+</table>
 </div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>Configuration and connection parameters for use with MQTT or NATS message bus - in place of Redis</td>
+<td></td>
+</tr>
+<tr>
+<td>ClientId</td>
+<td>---</td>
+<td>Client ID used to put messages on the bus (specific for each service)</td>
+</tr>
+<tr>
+<td>Qos</td>
+<td>'0'</td>
+<td>Quality of Service values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</td>
+</tr>
+<tr>
+<td>KeepAlive</td>
+<td>'10'</td>
+<td>Period of time in seconds to keep the connection alive when there are no messages flowing (must be 2 or greater)</td>
+</tr>
+<tr>
+<td>Retained</td>
+<td>false</td>
+<td>Whether to retain messages</td>
+</tr>
+<tr>
+<td>AutoReconnect</td>
+<td>true</td>
+<td>Whether to reconnect to the message bus on connection loss</td>
+</tr>
+<tr>
+<td>ConnectTimeout</td>
+<td>5</td>
+<td>Message bus connection timeout in seconds</td>
+</tr>
+<tr>
+<td>SkipCertVerify</td>
+<td>false</td>
+<td>TLS configuration - Only used if Cert/Key file or Cert/Key PEMblock are specified</td>
+</tr>
+<tr>
+<td></td>
+<td>Additional Default NATS Specific options</td>
+<td></td>
+</tr>
+<tr>
+<td>Format</td>
+<td>nats</td>
+<td>Format of the actual message published. See <a href="../../general/messagebus/#configuration_2">NATs</a> section of the MessageBus documentation.</td>
+</tr>
+<tr>
+<td>RetryOnFailedConnect</td>
+<td>true</td>
+<td>Retry on connection failure - expects a string representation of a boolean</td>
+</tr>
+<tr>
+<td>QueueGroup</td>
+<td>blank</td>
+<td>Specifies a queue group to distribute messages from a stream to a pool of worker services</td>
+</tr>
+<tr>
+<td>Durable</td>
+<td>blank</td>
+<td>Specifies a durable consumer should be used with the given name. Note that if a durable consumer with the specified name does not exist it will be considered ephemeral and deleted by the client on drain / unsubscribe (JetStream only)</td>
+</tr>
+<tr>
+<td>AutoProvision</td>
+<td>true</td>
+<td>Automatically provision NATS streams. (JetStream only)</td>
+</tr>
+<tr>
+<td>Deliver</td>
+<td>new</td>
+<td>Specifies delivery mode for subscriptions - options are "new", "all", "last" or "lastpersubject". See the <a href="https://docs.nats.io/nats-concepts/jetstream/consumers#deliverpolicy-optstartseq-optstarttime">NATS documentation</a> for more detail (JetStream only)</td>
+</tr>
+<tr>
+<td>DefaultPubRetryAttempts</td>
+<td>2</td>
+<td>Number of times to attempt to retry on failed publish (JetStream only)</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
 <h2 id="writable-vs-readable-settings">Writable vs Readable Settings</h2>
-<p>Within a given service's configuration, there are keys whose values can be edited and change the behavior of the service while it is running
-versus those that are effectively read-only. These writable settings are grouped under a given service key. For example, the top-level groupings
-for edgex-core-data are:</p>
+<p>Within the three sections of common configuration and a each service's private configuration, there are settings whose values can be edited via the Configuration Provider and change the behavior of the service while it is running.  These writable settings are grouped under <code>Writable</code> in each section. For example, the Writable for common configuration and Core Data are:</p>
 <ul>
-<li><strong>/edgex/core/2.0/edgex-core-data/Writable</strong></li>
-<li>/edgex/core/2.0/edgex-core-data/Service</li>
-<li>/edgex/core/2.0/edgex-core-data/Clients</li>
-<li>/edgex/core/2.0/edgex-core-data/Database</li>
-<li>/edgex/core/2.0/edgex-core-data/MessageQueue</li>
-<li>/edgex/core/2.0/edgex-core-data/Registry</li>
+<li>/edgex/v3/core-common-config-bootstrapper/all-services/Writable</li>
+<li>/edgex/v3/core-common-config-bootstrapper/app-services/Writable</li>
+<li>/edgex/v3/core-common-config-bootstrapper/device-services/Writable</li>
+<li>/edgex/v3/core-data/Writable</li>
 </ul>
-<p>Any configuration settings found in a service's <code>Writable</code> section may be changed and affect a service's behavior without a restart. Any
-modifications to the other settings (read-only configuration) would require a restart.</p>
+<p>Any configuration settings found in a common or service's <code>Writable</code> section may be changed and affect a service's behavior without a restart. Any
+modifications to the other settings (read-only configuration) require a restart.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Run time changes to a common Writable setting will be ignored for services which have that setting overridden in the service's private configuration. This is to avoid changing values that have been explicitly overridden in a service's private configuration. If the service's Writable setting needs to be changed,  it can be done directly in the service's private Writable section from the Configuration Provider.</p>
+</div>
 
 
   

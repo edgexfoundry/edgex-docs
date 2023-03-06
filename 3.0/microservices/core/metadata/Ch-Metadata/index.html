@@ -19,7 +19,7 @@
     
     
       
-        <title>Metadata - EdgeX Foundry Documentation</title>
+        <title>Core Metadata - EdgeX Foundry Documentation</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#metadata" class="md-skip">
+        <a href="#core-metadata" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Metadata
+              Core Metadata
             
           </span>
         </div>
@@ -1354,8 +1354,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/V2MigrationCommonConfig/" class="md-nav__link">
-        V2 Migration of Common Configuration
+      <a href="../../../configuration/V3MigrationCommonConfig/" class="md-nav__link">
+        V3 Migration of Common Configuration
       </a>
     </li>
   
@@ -1455,12 +1455,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Metadata
+          Core Metadata
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Metadata
+        Core Metadata
       </a>
       
         
@@ -1562,11 +1562,11 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#v2-configuration-migration-guide" class="md-nav__link">
-    V2 Configuration Migration Guide
+  <a href="#v3-configuration-migration-guide" class="md-nav__link">
+    V3 Configuration Migration Guide
   </a>
   
-    <nav class="md-nav" aria-label="V2 Configuration Migration Guide">
+    <nav class="md-nav" aria-label="V3 Configuration Migration Guide">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1656,7 +1656,7 @@
   
     <li class="md-nav__item">
       <a href="../../command/Ch-Command/" class="md-nav__link">
-        Command
+        Core Command
       </a>
     </li>
   
@@ -1731,7 +1731,21 @@
   
     <li class="md-nav__item">
       <a href="../../../support/notifications/Ch-AlertsNotifications/" class="md-nav__link">
-        Alerts & Notifications
+        Support Notifications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../support/scheduler/Ch-Scheduler/" class="md-nav__link">
+        Support Scheduler
       </a>
     </li>
   
@@ -1746,20 +1760,6 @@
     <li class="md-nav__item">
       <a href="../../../support/eKuiper/Ch-eKuiper/" class="md-nav__link">
         eKuiper Rules Engine
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../support/scheduler/Ch-Scheduler/" class="md-nav__link">
-        Scheduler
       </a>
     </li>
   
@@ -3214,11 +3214,11 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#v2-configuration-migration-guide" class="md-nav__link">
-    V2 Configuration Migration Guide
+  <a href="#v3-configuration-migration-guide" class="md-nav__link">
+    V3 Configuration Migration Guide
   </a>
   
-    <nav class="md-nav" aria-label="V2 Configuration Migration Guide">
+    <nav class="md-nav" aria-label="V3 Configuration Migration Guide">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -3312,7 +3312,7 @@
   </a>
 
 
-<h1 id="metadata">Metadata</h1>
+<h1 id="core-metadata">Core Metadata</h1>
 <p><img alt="image" src="../EdgeX_Metadata.png" /></p>
 <h2 id="introduction">Introduction</h2>
 <p>The core metadata micro service has the knowledge about the <a href="../../../../general/Definitions/#device">devices</a> and sensors and how to communicate with them used by the other services, such as core data, core command, and so forth.</p>
@@ -3929,16 +3929,17 @@
 <p><img alt="image" src="../EdgeX_MetadataDeviceStartup.png" />
 <em>What happens on a device service startup?</em></p>
 <h2 id="configuration-properties">Configuration Properties</h2>
-<p>Please refer to the general <a href="../../../configuration/CommonConfiguration/">Common Configuration documentation</a> for configuration properties common to all services. Below are only the additional settings and sections that are not common to all EdgeX Services.</p>
-<div class="admonition edgey -">
-<p class="admonition-title">EdgeX 2.3</p>
-<p><strong>RequireMessageBus</strong>, <strong>Writable.Telemetry</strong>, <strong>MessageQueue</strong>, <strong>Writable.UoM</strong> and <strong>UoM</strong> configuration are new in EdgeX 2.3</p>
-</div>
+<p>Please refer to the general <a href="../../../configuration/CommonConfiguration/">Common Configuration documentation</a> for configuration settings common to all services.
+Below are only the additional settings and sections that are specific to Core Metadata.</p>
 <div class="admonition edgey -">
 <p class="admonition-title">EdgeX 3.0</p>
 <p><strong>Notifications</strong> configuration is removed in EdgeX 3.0. Metadata will leverage <a href="#device-system-events">Device System Events</a> to replace the original device change notifications.</p>
 </div>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:7"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><input id="__tabbed_3_4" name="__tabbed_3" type="radio" /><input id="__tabbed_3_5" name="__tabbed_3" type="radio" /><input id="__tabbed_3_6" name="__tabbed_3" type="radio" /><input id="__tabbed_3_7" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">General</label><label for="__tabbed_3_2">Writable.Telemetry</label><label for="__tabbed_3_3">Writable.ProfileChange</label><label for="__tabbed_3_4">Writable.UoM</label><label for="__tabbed_3_5">UoM</label><label for="__tabbed_3_6">MessageQueue</label><label for="__tabbed_3_7">MessageQueue.Optional</label></div>
+<div class="admonition edgey">
+<p class="admonition-title">Edgex 3.0</p>
+<p>For EdgeX 3.0 the <code>MessageQueue</code> configuration has been moved to <code>MessageBus</code> in <a href="../../../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a></p>
+</div>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:8"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><input id="__tabbed_3_4" name="__tabbed_3" type="radio" /><input id="__tabbed_3_5" name="__tabbed_3" type="radio" /><input id="__tabbed_3_6" name="__tabbed_3" type="radio" /><input id="__tabbed_3_7" name="__tabbed_3" type="radio" /><input id="__tabbed_3_8" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Writable</label><label for="__tabbed_3_2">Writable.Telemetry</label><label for="__tabbed_3_3">Writable.ProfileChange</label><label for="__tabbed_3_4">Writable.UoM</label><label for="__tabbed_3_5">Service</label><label for="__tabbed_3_6">UoM</label><label for="__tabbed_3_7">Database</label><label for="__tabbed_3_8">MessageBus.Optional</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table>
@@ -3951,9 +3952,14 @@
 </thead>
 <tbody>
 <tr>
-<td>RequireMessageBus</td>
-<td>true</td>
-<td>Required for backwards compatibility. Will be removed in next major release</td>
+<td></td>
+<td></td>
+<td>entries in the Writable section of the configuration can be changed on the fly while the service is running if the service is running with the <code>-cp/--configProvider</code> flag</td>
+</tr>
+<tr>
+<td>LogLevel</td>
+<td>INFO</td>
+<td>log entry <a href="https://en.wikipedia.org/wiki/Syslog#Severity_level">severity level</a>.  Log entries not of the default level or higher are ignored.</td>
 </tr>
 </tbody>
 </table>
@@ -3975,20 +3981,16 @@
 </tr>
 <tr>
 <td>Metrics</td>
-<td><code>&lt;common metrics&gt;</code></td>
+<td><code>&lt;TBD&gt;</code></td>
 <td>Service metrics that Core Metadata collects. Boolean value indicates if reporting of the metric is enabled.</td>
 </tr>
 <tr>
 <td>Tags</td>
 <td><code>&lt;empty&gt;</code></td>
-<td>List of arbitrary service level tags to included with every metric that is reported. i.e. <code>Gateway="my-iot-gateway"</code></td>
+<td>List of arbitrary Core Metadata service level tags to included with every metric that is reported.</td>
 </tr>
 </tbody>
 </table>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.3</p>
-<p>For EdgeX 2.3 Collecting of the some common service metrics has been added. See <a href="../../../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a> for more details.</p>
-</div>
 </div>
 <div class="tabbed-block">
 <table>
@@ -4042,6 +4044,34 @@
 </thead>
 <tbody>
 <tr>
+<td></td>
+<td></td>
+<td>Unique settings for Core Metadata. The common settings can be found at <a href="../../../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a></td>
+</tr>
+<tr>
+<td>Port</td>
+<td>59881</td>
+<td>Micro service port number</td>
+</tr>
+<tr>
+<td>StartupMsg</td>
+<td>This is the EdgeX Core Metadata Microservice</td>
+<td>Message logged when service completes bootstrap start-up</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
 <td>UoMFile</td>
 <td>'./res/uom.toml'</td>
 <td>path to the location of units of measure configuration</td>
@@ -4061,43 +4091,13 @@
 <tbody>
 <tr>
 <td></td>
-<td>Entries in the MessageQueue section of the configuration allow for publication of  Device System Events to the EdgeX MessageBus</td>
 <td></td>
+<td>Unique settings for Core Metadata. The common settings can be found at <a href="../../../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a></td>
 </tr>
 <tr>
-<td>Protocol</td>
-<td>redis</td>
-<td>Indicates the connectivity protocol to use when connecting to the bus.</td>
-</tr>
-<tr>
-<td>Host</td>
-<td>localhost</td>
-<td>Indicates the host of the messaging broker, if applicable.</td>
-</tr>
-<tr>
-<td>Port</td>
-<td>6379</td>
-<td>Indicates the port to use when publishing a message.</td>
-</tr>
-<tr>
-<td>Type</td>
-<td>redis</td>
-<td>Indicates the type of messaging library to use. Currently this is Redis by default. Refer to the <a href="https://github.com/edgexfoundry/go-mod-messaging">go-mod-messaging</a> module for more information.</td>
-</tr>
-<tr>
-<td>AuthMode</td>
-<td>usernamepassword</td>
-<td>Auth Mode to connect to EdgeX MessageBus.</td>
-</tr>
-<tr>
-<td>SecretName</td>
-<td>redisdb</td>
-<td>Name of the secret in the Secret Store to find the MessageBus credentials.</td>
-</tr>
-<tr>
-<td>PublishTopicPrefix</td>
-<td>edgex/system-events</td>
-<td>Indicates the base topic to which system event messages will be published. /[source]/[type]/[action]/[owner]/[profile] will be added to this Publish Topic prefix</td>
+<td>Name</td>
+<td>metadata</td>
+<td>Database or document store name</td>
 </tr>
 </tbody>
 </table>
@@ -4114,51 +4114,21 @@
 <tbody>
 <tr>
 <td></td>
-<td>Configuration and connection parameters for use with MQTT message bus - in place of Redis</td>
 <td></td>
+<td>Unique settings for Core Metadata. The common settings can be found at <a href="../../../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a></td>
 </tr>
 <tr>
 <td>ClientId</td>
-<td>'core-data'</td>
-<td>Client ID used to put messages on the bus</td>
-</tr>
-<tr>
-<td>Qos</td>
-<td>'0'</td>
-<td>Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</td>
-</tr>
-<tr>
-<td>KeepAlive</td>
-<td>'10'</td>
-<td>Period of time in seconds to keep the connection alive when there is no messages flowing (must be 2 or greater)</td>
-</tr>
-<tr>
-<td>Retained</td>
-<td>false</td>
-<td>Whether to retain messages</td>
-</tr>
-<tr>
-<td>AutoReconnect</td>
-<td>true</td>
-<td>Whether to reconnect to the message bus on connection loss</td>
-</tr>
-<tr>
-<td>ConnectTimeout</td>
-<td>5</td>
-<td>Message bus connection timeout in seconds</td>
-</tr>
-<tr>
-<td>SkipCertVerify</td>
-<td>false</td>
-<td>TLS configuration - Only used if Cert/Key file or Cert/Key PEMblock are specified</td>
+<td>"core-metadata</td>
+<td>Id used when connecting to MQTT or NATS base MessageBus</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 </div>
-<h3 id="v2-configuration-migration-guide">V2 Configuration Migration Guide</h3>
-<p>Refer to the <a href="../../../configuration/V2MigrationCommonConfig">Common Configuration Migration Guide</a> for details on migrating the common configuration sections such as <code>Service</code>.</p>
+<h3 id="v3-configuration-migration-guide">V3 Configuration Migration Guide</h3>
+<p>Coming soon</p>
 <h4 id="writable">Writable</h4>
 <p>The <code>EnableValueDescriptorManagement</code> setting has been removed</p>
 <div class="admonition edgey">
@@ -4313,13 +4283,13 @@ If the <code>units</code> value does not match any one of the configuration unit
       
       
         
-        <a href="../../command/Ch-Command/" class="md-footer__link md-footer__link--next" aria-label="Next: Command" rel="next">
+        <a href="../../command/Ch-Command/" class="md-footer__link md-footer__link--next" aria-label="Next: Core Command" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Command
+              Core Command
             </div>
           </div>
           <div class="md-footer__button md-icon">

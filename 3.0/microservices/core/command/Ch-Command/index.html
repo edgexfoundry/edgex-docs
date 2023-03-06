@@ -19,7 +19,7 @@
     
     
       
-        <title>Command - EdgeX Foundry Documentation</title>
+        <title>Core Command - EdgeX Foundry Documentation</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#command" class="md-skip">
+        <a href="#core-command" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Command
+              Core Command
             
           </span>
         </div>
@@ -1354,8 +1354,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/V2MigrationCommonConfig/" class="md-nav__link">
-        V2 Migration of Common Configuration
+      <a href="../../../configuration/V3MigrationCommonConfig/" class="md-nav__link">
+        V3 Migration of Common Configuration
       </a>
     </li>
   
@@ -1446,7 +1446,7 @@
   
     <li class="md-nav__item">
       <a href="../../metadata/Ch-Metadata/" class="md-nav__link">
-        Metadata
+        Core Metadata
       </a>
     </li>
   
@@ -1469,12 +1469,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Command
+          Core Command
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Command
+        Core Command
       </a>
       
         
@@ -1529,8 +1529,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#v2-configuration-migration-guide" class="md-nav__link">
-    V2 Configuration Migration Guide
+  <a href="#v3-configuration-migration-guide" class="md-nav__link">
+    V3 Configuration Migration Guide
   </a>
   
 </li>
@@ -1731,7 +1731,21 @@
   
     <li class="md-nav__item">
       <a href="../../../support/notifications/Ch-AlertsNotifications/" class="md-nav__link">
-        Alerts & Notifications
+        Support Notifications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../support/scheduler/Ch-Scheduler/" class="md-nav__link">
+        Support Scheduler
       </a>
     </li>
   
@@ -1746,20 +1760,6 @@
     <li class="md-nav__item">
       <a href="../../../support/eKuiper/Ch-eKuiper/" class="md-nav__link">
         eKuiper Rules Engine
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../support/scheduler/Ch-Scheduler/" class="md-nav__link">
-        Scheduler
       </a>
     </li>
   
@@ -3167,8 +3167,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#v2-configuration-migration-guide" class="md-nav__link">
-    V2 Configuration Migration Guide
+  <a href="#v3-configuration-migration-guide" class="md-nav__link">
+    V3 Configuration Migration Guide
   </a>
   
 </li>
@@ -3312,7 +3312,7 @@
   </a>
 
 
-<h1 id="command">Command</h1>
+<h1 id="core-command">Core Command</h1>
 <p><img alt="image" src="../EdgeX_Command.png" /></p>
 <h2 id="introduction">Introduction</h2>
 <p>The command micro service (often called the command
@@ -3487,13 +3487,13 @@ way to simplify communications with the devices. There are two types of commands
 <p><strong>Request for Devices and Available Commands</strong></p>
 <p><img alt="image" src="../EdgeX_CommandRequestForDevices.png" /></p>
 <h2 id="configuration-properties">Configuration Properties</h2>
-<p>Please refer to the general <a href="../../../configuration/CommonConfiguration/">Common Configuration documentation</a> for configuration properties common to all services.
-Below are only the additional settings and sections that are not common to all EdgeX Services.</p>
+<p>Please refer to the general <a href="../../../configuration/CommonConfiguration/">Common Configuration documentation</a> for configuration settings common to all services.
+Below are only the additional settings and sections that are specific to Core Command.</p>
 <div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.3</p>
-<p><code>RequireMessageBus</code> and <code>MessageQueue</code> configurations were added in EdgeX 2.3 for Commands via Messaging</p>
+<p class="admonition-title">Edgex 3.0</p>
+<p>For EdgeX 3.0 the <code>MessageQueue.Internal</code> configuration has been moved to <code>MessageBus</code> in <a href="../../../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a> and <code>MessageQueue.External</code> has been moved to <code>ExternalMQTT</code> below</p>
 </div>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:7"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><input id="__tabbed_2_5" name="__tabbed_2" type="radio" /><input id="__tabbed_2_6" name="__tabbed_2" type="radio" /><input id="__tabbed_2_7" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">RequireMessageBus</label><label for="__tabbed_2_2">MessageQueue</label><label for="__tabbed_2_3">MessageQueue.Internal</label><label for="__tabbed_2_4">MessageQueue.Internal.Topics</label><label for="__tabbed_2_5">MessageQueue.Internal.Optional</label><label for="__tabbed_2_6">MessageQueue.External</label><label for="__tabbed_2_7">MessageQueue.External.Topics</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:8"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><input id="__tabbed_2_5" name="__tabbed_2" type="radio" /><input id="__tabbed_2_6" name="__tabbed_2" type="radio" /><input id="__tabbed_2_7" name="__tabbed_2" type="radio" /><input id="__tabbed_2_8" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Writable</label><label for="__tabbed_2_2">Writable.InsecureSecrets</label><label for="__tabbed_2_3">Writable.Telemetry</label><label for="__tabbed_2_4">Service</label><label for="__tabbed_2_5">Clients.core-metadata</label><label for="__tabbed_2_6">MessageBus.Optional</label><label for="__tabbed_2_7">ExternalMqtt</label><label for="__tabbed_2_8">ExternalMqtt.Topics</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table>
@@ -3506,9 +3506,32 @@ Below are only the additional settings and sections that are not common to all E
 </thead>
 <tbody>
 <tr>
-<td>RequireMessageBus</td>
-<td>true</td>
-<td>Indicates whether to connect to internal message bus for Commands via messaging</td>
+<td></td>
+<td></td>
+<td>entries in the Writable section of the configuration can be changed on the fly while the service is running if the service is running with the <code>-cp/--configProvider</code> flag</td>
+</tr>
+<tr>
+<td>LogLevel</td>
+<td>INFO</td>
+<td>log entry <a href="https://en.wikipedia.org/wiki/Syslog#Severity_level">severity level</a>.  Log entries not of the default level or higher are ignored.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.mqtt</td>
+<td>---</td>
+<td>Secrets for when connecting to secure External MQTT when running in non-secure mode</td>
 </tr>
 </tbody>
 </table>
@@ -3526,7 +3549,17 @@ Below are only the additional settings and sections that are not common to all E
 <tr>
 <td></td>
 <td></td>
-<td>Entries in the MessageQueue section of the configuration allow for connecting to a message bus</td>
+<td>See <code>Writable.Telemetry</code> at <a href="../../../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a> for the Telemetry configuration common to all services</td>
+</tr>
+<tr>
+<td>Metrics</td>
+<td><code>&lt;TBD&gt;</code></td>
+<td>Service metrics that Core Command collects. Boolean value indicates if reporting of the metric is enabled.</td>
+</tr>
+<tr>
+<td>Tags</td>
+<td><code>&lt;empty&gt;</code></td>
+<td>List of arbitrary Core Metadata service level tags to included with every metric that is reported.</td>
 </tr>
 </tbody>
 </table>
@@ -3542,34 +3575,47 @@ Below are only the additional settings and sections that are not common to all E
 </thead>
 <tbody>
 <tr>
-<td>Type</td>
-<td><code>redis</code></td>
-<td>Indicates the type of messaging library to use. Currently this is Redis by default. Refer to the <a href="https://github.com/edgexfoundry/go-mod-messaging">go-mod-messaging</a> module for more information.</td>
-</tr>
-<tr>
-<td>Protocol</td>
-<td><code>redis</code></td>
-<td>Indicates the connectivity protocol to use when connecting to the bus.</td>
-</tr>
-<tr>
-<td>Host</td>
-<td><code>localhost</code></td>
-<td>Indicates the host of the messaging broker, if applicable.</td>
+<td></td>
+<td></td>
+<td>Unique settings for Core Command. The common settings can be found at <a href="../../../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a></td>
 </tr>
 <tr>
 <td>Port</td>
-<td>6379</td>
-<td>Indicates the port to use when publishing a message.</td>
+<td>59882</td>
+<td>Micro service port number</td>
 </tr>
 <tr>
-<td>AuthMode</td>
-<td><code>usernamepassword</code></td>
-<td>Auth Mode to connect to EdgeX MessageBUs.</td>
+<td>StartupMsg</td>
+<td>This is the EdgeX Core Command Microservice</td>
+<td>Message logged when service completes bootstrap start-up</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Protocol</td>
+<td>http</td>
+<td>The protocol to use when building a URI to the service endpoint</td>
 </tr>
 <tr>
-<td>SecretName</td>
-<td><code>redisdb</code></td>
-<td>Name of the secret in the Secret Store to find the MessageBus credentials.</td>
+<td>Host</td>
+<td>localhost</td>
+<td>The host name or IP address where the service is hosted</td>
+</tr>
+<tr>
+<td>Port</td>
+<td>59881</td>
+<td>The port exposed by the target service</td>
 </tr>
 </tbody>
 </table>
@@ -3587,90 +3633,12 @@ Below are only the additional settings and sections that are not common to all E
 <tr>
 <td></td>
 <td></td>
-<td>Key-value mappings allow for publication and subscription to the internal message bus</td>
-</tr>
-<tr>
-<td>DeviceRequestTopicPrefix</td>
-<td><code>edgex/device/command/request</code></td>
-<td>For publishing requests to the device service. <code>&lt;device-service&gt;/&lt;device-name&gt;/&lt;command-name&gt;/&lt;method&gt;</code> will be added to this publish topic prefix</td>
-</tr>
-<tr>
-<td>DeviceResponseTopic</td>
-<td><code>edgex/device/command/response/#</code></td>
-<td>For subscribing to device service responses</td>
-</tr>
-<tr>
-<td>CommandRequestTopic</td>
-<td><code>edgex/core/command/request/#</code></td>
-<td>For subscribing to internal command requests</td>
-</tr>
-<tr>
-<td>CommandResponseTopicPrefix</td>
-<td><code>edgex/core/command/response</code></td>
-<td>For publishing responses back to internal service. <code>/&lt;device-name&gt;/&lt;command-name&gt;/&lt;method&gt;</code> will be added to this publish topic prefix</td>
-</tr>
-<tr>
-<td>QueryRequestTopic</td>
-<td><code>edgex/core/commandquery/request/#</code></td>
-<td>For subscribing to internal command query requests</td>
-</tr>
-<tr>
-<td>QueryResponseTopic</td>
-<td><code>edgex/core/commandquery/response</code></td>
-<td>For publishing command query responses back to internal service</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="tabbed-block">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Default Value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td></td>
-<td>Configuration and connection parameters used when Type is <code>mqtt</code> instead of <code>redis</code></td>
+<td>Unique settings for Core Command. The common settings can be found at <a href="../../../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a></td>
 </tr>
 <tr>
 <td>ClientId</td>
-<td><code>core-data</code></td>
-<td>Client ID used to put messages on the bus</td>
-</tr>
-<tr>
-<td>Qos</td>
-<td>0</td>
-<td>Quality of Service values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</td>
-</tr>
-<tr>
-<td>KeepAlive</td>
-<td>10</td>
-<td>Period of time in seconds to keep the connection alive when there is no messages flowing (must be 2 or greater)</td>
-</tr>
-<tr>
-<td>Retained</td>
-<td>false</td>
-<td>Whether to retain messages</td>
-</tr>
-<tr>
-<td>AutoReconnect</td>
-<td>true</td>
-<td>Whether to reconnect to the message bus on connection loss</td>
-</tr>
-<tr>
-<td>ConnectTimeout</td>
-<td>5</td>
-<td>Message bus connection timeout in seconds</td>
-</tr>
-<tr>
-<td>SkipCertVerify</td>
-<td>false</td>
-<td>TLS configuration - Only used if Cert/Key file or Cert/Key PEMblock are specified</td>
+<td>"core-command</td>
+<td>Id used when connecting to MQTT or NATS base MessageBus</td>
 </tr>
 </tbody>
 </table>
@@ -3697,7 +3665,7 @@ Below are only the additional settings and sections that are not common to all E
 </tr>
 <tr>
 <td>ClientId</td>
-<td><code>core-data</code></td>
+<td><code>core-command</code></td>
 <td>ClientId to connect to the broker with</td>
 </tr>
 <tr>
@@ -3783,12 +3751,8 @@ Below are only the additional settings and sections that are not common to all E
 </div>
 </div>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><code>MessageQueue.External.Enabled</code> is working only if <code>RequireMessageBus=true</code> because Commands via Messaging relies on internal message bus to relay the request to device services.</p>
-</div>
-<h3 id="v2-configuration-migration-guide">V2 Configuration Migration Guide</h3>
-<p>Refer to the <a href="../../../configuration/V2MigrationCommonConfig">Common Configuration Migration Guide</a> for details on migrating the common configuration sections such as <code>Service</code>.</p>
+<h3 id="v3-configuration-migration-guide">V3 Configuration Migration Guide</h3>
+<p>Coming soon</p>
 <h2 id="commands-via-messaging">Commands via Messaging</h2>
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 2.3</p>
@@ -4086,7 +4050,7 @@ Below is the default topic naming used by Core Command:</p>
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="../../metadata/Ch-Metadata/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Metadata" rel="prev">
+        <a href="../../metadata/Ch-Metadata/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Core Metadata" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -4095,7 +4059,7 @@ Below is the default topic naming used by Core Command:</p>
               <span class="md-footer__direction">
                 Previous
               </span>
-              Metadata
+              Core Metadata
             </div>
           </div>
         </a>

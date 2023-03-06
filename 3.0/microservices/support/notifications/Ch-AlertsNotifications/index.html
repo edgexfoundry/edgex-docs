@@ -19,7 +19,7 @@
     
     
       
-        <title>Alerts & Notifications - EdgeX Foundry Documentation</title>
+        <title>Support Notifications - EdgeX Foundry Documentation</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#alerts-notifications" class="md-skip">
+        <a href="#support-notifications" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Alerts & Notifications
+              Support Notifications
             
           </span>
         </div>
@@ -1354,8 +1354,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/V2MigrationCommonConfig/" class="md-nav__link">
-        V2 Migration of Common Configuration
+      <a href="../../../configuration/V3MigrationCommonConfig/" class="md-nav__link">
+        V3 Migration of Common Configuration
       </a>
     </li>
   
@@ -1444,7 +1444,7 @@
   
     <li class="md-nav__item">
       <a href="../../../core/metadata/Ch-Metadata/" class="md-nav__link">
-        Metadata
+        Core Metadata
       </a>
     </li>
   
@@ -1458,7 +1458,7 @@
   
     <li class="md-nav__item">
       <a href="../../../core/command/Ch-Command/" class="md-nav__link">
-        Command
+        Core Command
       </a>
     </li>
   
@@ -1544,12 +1544,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Alerts & Notifications
+          Support Notifications
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Alerts & Notifications
+        Support Notifications
       </a>
       
         
@@ -1637,6 +1637,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#v3-configuration-migration-guide" class="md-nav__link">
+    V3 Configuration Migration Guide
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#gmail-configuration-example" class="md-nav__link">
     Gmail Configuration Example
   </a>
@@ -1648,14 +1655,7 @@
     Yahoo Mail Configuration Example
   </a>
   
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#v2-configuration-migration-guide" class="md-nav__link">
-    V2 Configuration Migration Guide
-  </a>
-  
-    <nav class="md-nav" aria-label="V2 Configuration Migration Guide">
+    <nav class="md-nav" aria-label="Yahoo Mail Configuration Example">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1697,8 +1697,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../eKuiper/Ch-eKuiper/" class="md-nav__link">
-        eKuiper Rules Engine
+      <a href="../../scheduler/Ch-Scheduler/" class="md-nav__link">
+        Support Scheduler
       </a>
     </li>
   
@@ -1711,8 +1711,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../scheduler/Ch-Scheduler/" class="md-nav__link">
-        Scheduler
+      <a href="../../eKuiper/Ch-eKuiper/" class="md-nav__link">
+        eKuiper Rules Engine
       </a>
     </li>
   
@@ -3153,6 +3153,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#v3-configuration-migration-guide" class="md-nav__link">
+    V3 Configuration Migration Guide
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#gmail-configuration-example" class="md-nav__link">
     Gmail Configuration Example
   </a>
@@ -3164,14 +3171,7 @@
     Yahoo Mail Configuration Example
   </a>
   
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#v2-configuration-migration-guide" class="md-nav__link">
-    V2 Configuration Migration Guide
-  </a>
-  
-    <nav class="md-nav" aria-label="V2 Configuration Migration Guide">
+    <nav class="md-nav" aria-label="Yahoo Mail Configuration Example">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -3218,7 +3218,7 @@
   </a>
 
 
-<h1 id="alerts-notifications">Alerts &amp; Notifications</h1>
+<h1 id="support-notifications">Support Notifications</h1>
 <p><img alt="image" src="../EdgeX_SupportingServicesAlertsNotifications.png" /></p>
 <h2 id="introduction">Introduction</h2>
 <p>When another system or a person needs to know that something occurred in EdgeX, the
@@ -3500,13 +3500,13 @@ If the properties are not provided, use the default values in the configuration 
 </div>
 </div>
 <h2 id="configuration-properties">Configuration Properties</h2>
-<p>Please refer to the general <a href="../../../configuration/CommonConfiguration/">Common Configuration documentation</a> for configuration properties common to all services. Below are only the additional settings and sections that are not common to all EdgeX Services.</p>
+<p>Please refer to the general <a href="../../../configuration/CommonConfiguration/">Common Configuration documentation</a> for configuration settings common to all services.
+Below are only the additional settings and sections that are specific to Support Notifications.</p>
 <div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>For EdgeX 2.0, the SMTP username and password can be set in the Writable.InsecureSecrets.SMTP.Secrets as an insecure secret,
-or be stored in the Smtp.SecretPath for security. </p>
+<p class="admonition-title">Edgex 3.0</p>
+<p>For EdgeX 3.0 the <code>MessageQueue</code> configuration has been moved to <code>MessageBus</code> in <a href="../../../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a></p>
 </div>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:4"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Writable</label><label for="__tabbed_2_2">Writable.Telemetry</label><label for="__tabbed_2_3">Database</label><label for="__tabbed_2_4">Smtp</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:6"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><input id="__tabbed_2_5" name="__tabbed_2" type="radio" /><input id="__tabbed_2_6" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Writable</label><label for="__tabbed_2_2">Writable.Telemetry</label><label for="__tabbed_2_3">Service</label><label for="__tabbed_2_4">Database</label><label for="__tabbed_2_5">MessageBus.Optional</label><label for="__tabbed_2_6">Smtp</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table>
@@ -3522,6 +3522,11 @@ or be stored in the Smtp.SecretPath for security. </p>
 <td></td>
 <td></td>
 <td>Writable properties can be set and will dynamically take effect without service restart</td>
+</tr>
+<tr>
+<td>LogLevel</td>
+<td>INFO</td>
+<td>log entry <a href="https://en.wikipedia.org/wiki/Syslog#Severity_level">severity level</a>.  Log entries not of the default level or higher are ignored.</td>
 </tr>
 <tr>
 <td>ResendLimit</td>
@@ -3563,7 +3568,7 @@ or be stored in the Smtp.SecretPath for security. </p>
 </tr>
 <tr>
 <td>Metrics</td>
-<td><code>&lt;common metrics&gt;</code></td>
+<td><code>TBD</code></td>
 <td>Service metrics that Support Notification collects. Boolean value indicates if reporting of the metric is enabled.</td>
 </tr>
 <tr>
@@ -3573,10 +3578,6 @@ or be stored in the Smtp.SecretPath for security. </p>
 </tr>
 </tbody>
 </table>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.3</p>
-<p>For EdgeX 2.3 Collecting of the some common service metrics has been added. See <a href="../../../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a> for more details.</p>
-</div>
 </div>
 <div class="tabbed-block">
 <table>
@@ -3591,12 +3592,63 @@ or be stored in the Smtp.SecretPath for security. </p>
 <tr>
 <td></td>
 <td></td>
-<td>Properties used by the service to access the database</td>
+<td>Unique settings for Support Notifications. The common settings can be found at <a href="../../../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a></td>
+</tr>
+<tr>
+<td>Port</td>
+<td>59860</td>
+<td>Micro service port number</td>
+</tr>
+<tr>
+<td>StartupMsg</td>
+<td>This is the Support Notifications Microservice</td>
+<td>Message logged when service completes bootstrap start-up</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td>Unique settings for Support Notifications. The common settings can be found at <a href="../../../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a></td>
 </tr>
 <tr>
 <td>Name</td>
 <td>'notifications'</td>
 <td>Document store or database name</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td>Unique settings for Support Notifications. The common settings can be found at <a href="../../../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a></td>
+</tr>
+<tr>
+<td>ClientId</td>
+<td>"support-notifications</td>
+<td>Id used when connecting to MQTT or NATS base MessageBus</td>
 </tr>
 </tbody>
 </table>
@@ -3651,6 +3703,8 @@ or be stored in the Smtp.SecretPath for security. </p>
 </div>
 </div>
 </div>
+<h3 id="v3-configuration-migration-guide">V3 Configuration Migration Guide</h3>
+<p>Coming Soon</p>
 <h3 id="gmail-configuration-example">Gmail Configuration Example</h3>
 <p>Before using Gmail to send alerts and notifications, configure the
 sign-in security settings through one of the following two methods:</p>
@@ -3690,8 +3744,6 @@ Smtp<span class="w"> </span>Sender=<span class="cp">${</span><span class="n">Yah
 Smtp<span class="w"> </span>Password=<span class="cp">${</span><span class="n">Yahoo</span> <span class="n">password</span> <span class="ow">or</span> <span class="n">App</span> <span class="n">password</span><span class="cp">}</span>
 </code></pre></div>
 
-<h3 id="v2-configuration-migration-guide">V2 Configuration Migration Guide</h3>
-<p>Refer to the <a href="../../../configuration/V2MigrationCommonConfig">Common Configuration Migration Guide</a> for details on migrating the common configuration sections such as <code>Service</code>.</p>
 <h4 id="writable">Writable</h4>
 <p>The <code>Writable.InsecureSecrets.SMTP</code> section has been added.</p>
 <div class="admonition example">
@@ -3743,13 +3795,13 @@ Smtp<span class="w"> </span>Password=<span class="cp">${</span><span class="n">Y
       
       
         
-        <a href="../../eKuiper/Ch-eKuiper/" class="md-footer__link md-footer__link--next" aria-label="Next: eKuiper Rules Engine" rel="next">
+        <a href="../../scheduler/Ch-Scheduler/" class="md-footer__link md-footer__link--next" aria-label="Next: Support Scheduler" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              eKuiper Rules Engine
+              Support Scheduler
             </div>
           </div>
           <div class="md-footer__button md-icon">

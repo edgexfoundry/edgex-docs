@@ -1354,8 +1354,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../configuration/V2MigrationCommonConfig/" class="md-nav__link">
-        V2 Migration of Common Configuration
+      <a href="../../configuration/V3MigrationCommonConfig/" class="md-nav__link">
+        V3 Migration of Common Configuration
       </a>
     </li>
   
@@ -1444,7 +1444,7 @@
   
     <li class="md-nav__item">
       <a href="../../core/metadata/Ch-Metadata/" class="md-nav__link">
-        Metadata
+        Core Metadata
       </a>
     </li>
   
@@ -1458,7 +1458,7 @@
   
     <li class="md-nav__item">
       <a href="../../core/command/Ch-Command/" class="md-nav__link">
-        Command
+        Core Command
       </a>
     </li>
   
@@ -1533,7 +1533,21 @@
   
     <li class="md-nav__item">
       <a href="../../support/notifications/Ch-AlertsNotifications/" class="md-nav__link">
-        Alerts & Notifications
+        Support Notifications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../support/scheduler/Ch-Scheduler/" class="md-nav__link">
+        Support Scheduler
       </a>
     </li>
   
@@ -1548,20 +1562,6 @@
     <li class="md-nav__item">
       <a href="../../support/eKuiper/Ch-eKuiper/" class="md-nav__link">
         eKuiper Rules Engine
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../support/scheduler/Ch-Scheduler/" class="md-nav__link">
-        Scheduler
       </a>
     </li>
   
@@ -3073,89 +3073,24 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>DB</strong></td>
+<td>`<name>'</td>
 <td>---</td>
-<td>This section defines a block of insecure secrets for database credentials when <strong>Redis</strong> is used for the MessageBus and/or when <strong>Store and Forward</strong> is enabled and running is non-secure mode. This section is not required if <strong>Store and Forward</strong> is not enabled and not using <strong>Redis</strong> for the MessageBus .</td>
+<td>This section defines a block of insecure secrets for some service specific need</td>
 </tr>
 <tr>
-<td>path</td>
-<td>redisdb*</td>
-<td>Indicates the location in the simulated Secret Store where the DB secret resides.</td>
+<td>SecretName</td>
+<td><code>&lt;name&gt;</code></td>
+<td>Indicates the location in the simulated Secret Store where the secret resides.</td>
 </tr>
 <tr>
-<td><strong>DB Secrets</strong></td>
+<td>SecretData</td>
 <td>---</td>
-<td>This section is the collection of <strong>DB</strong> secret data</td>
+<td>This section is the collection of secret data.</td>
 </tr>
 <tr>
-<td>username</td>
-<td>blank*</td>
-<td>Indicates the value for the <code>username</code> when connecting to the database. When running in non-secure mode it is <code>blank</code>.</td>
-</tr>
-<tr>
-<td>password</td>
-<td>blank*</td>
-<td>Indicates the value for the <code>password</code> when connecting to the database. When running in non-secure mode it is <code>blank</code>.</td>
-</tr>
-<tr>
-<td><strong>http</strong></td>
-<td>---</td>
-<td>This section defines a block of insecure secrets for HTTP Export, i.e <code>HTTPPost</code> function</td>
-</tr>
-<tr>
-<td>path</td>
-<td>http*</td>
-<td>Indicates the location in the simulated Secret Store where the HTTP secret resides.</td>
-</tr>
-<tr>
-<td><strong>http Secrets</strong></td>
-<td>---</td>
-<td>This section is the collection of <strong>HTTP</strong> secret data.  See <a href="../BuiltIn/#http">Http Export</a> documentation for more details on use of secret data.</td>
-</tr>
-<tr>
-<td>headervalue</td>
-<td>undefined*</td>
-<td>This indicates the name of the secret value to use as the value in the HTTP header.</td>
-</tr>
-<tr>
-<td><strong>mqtt</strong></td>
-<td>---</td>
-<td>This section defines a block of insecure secrets for MQTT export, i.e. <code>MQTTSecretSend</code> function.</td>
-</tr>
-<tr>
-<td>path</td>
-<td>mqtt*</td>
-<td>Indicates the location in the simulated Secret Store where the MQTT secret reside.</td>
-</tr>
-<tr>
-<td><strong>mqtt Secrets</strong></td>
-<td>---</td>
-<td>This section is the collection of MQTT secret data. See <a href="../BuiltIn/#mqtt">Mqtt Export</a> documentation for more details on use of secret data.</td>
-</tr>
-<tr>
-<td>username</td>
-<td>blank*</td>
-<td>Indicates the value for the <code>username</code> when connecting to the MQTT broker using <code>usernamepassword</code> authentication mode. Must be configured to the value the MQTT broker is expecting.</td>
-</tr>
-<tr>
-<td>password</td>
-<td>blank*</td>
-<td>Indicates the value for the <code>password</code> when connecting to the MQTT broker using <code>usernamepassword</code> authentication mode. Must be configured to the value the MQTT broker is expecting.</td>
-</tr>
-<tr>
-<td>cacert</td>
-<td>blank*</td>
-<td>Indicates the value (contents) for the <code>CA Certificate</code> when connecting to the MQTT broker using <code>cacert</code> authentication mode. Must be configured to the value the MQTT broker is expecting.</td>
-</tr>
-<tr>
-<td>clientcert</td>
-<td>blank*</td>
-<td>Indicates the value (contents) for the <code>Client Certificate</code> when connecting to the MQTT broker using <code>clientcert</code> authentication mode. Must be configured to the value the MQTT broker is expecting.</td>
-</tr>
-<tr>
-<td>clientkey</td>
-<td>blank*</td>
-<td>Indicates the value (contents) for the <code>Client Key</code> when connecting to the MQTT broker using <code>clientcert</code> authentication mode. Must be configured to the value the MQTT broker is expecting.</td>
+<td><code>key</code></td>
+<td><code>value</code></td>
+<td>Secret data key value pairs</td>
 </tr>
 </tbody>
 </table>
@@ -3165,7 +3100,7 @@
 <thead>
 <tr>
 <th>Property</th>
-<th><div style="width:300px">Default Value</div></th>
+<th>&lt;Default Value</th>
 <th>Description</th>
 </tr>
 </thead>
@@ -3181,49 +3116,44 @@
 <td>Service metrics that the application service collects. Boolean value indicates if reporting of the metric is enabled. Custom metrics are also included here for custom application services that define custom metrics</td>
 </tr>
 <tr>
-<td></td>
-<td><code>MessagesReceived</code> = false</td>
+<td>Metrics.MessagesReceived</td>
+<td>false</td>
 <td>Enable/disable reporting of the built-in <strong>MessagesReceived</strong> metric</td>
 </tr>
 <tr>
-<td></td>
-<td><code>InvalidMessagesReceived</code> = false</td>
-<td><strong>(NEW)</strong> Enable/disable reporting of the built-in <strong>InvalidMessagesReceived</strong> metric</td>
+<td>Metrics.InvalidMessagesReceived</td>
+<td>false</td>
+<td>Enable/disable reporting of the built-in <strong>InvalidMessagesReceived</strong> metric</td>
 </tr>
 <tr>
-<td></td>
-<td><code>HttpExportSize</code> = false</td>
-<td><strong>(NEW)</strong> Enable/disable reporting of the built-in <strong>HttpExportSize</strong> metric</td>
+<td>Metrics.HttpExportSize</td>
+<td>false</td>
+<td>Enable/disable reporting of the built-in <strong>HttpExportSize</strong> metric</td>
 </tr>
 <tr>
-<td></td>
-<td><code>MqttExportSize</code> = false</td>
-<td><strong>(NEW)</strong> Enable/disable reporting of the built-in <strong>MqttExportSize</strong> metric</td>
+<td>Metrics.MqttExportSize</td>
+<td>false</td>
+<td>Enable/disable reporting of the built-in <strong>MqttExportSize</strong> metric</td>
 </tr>
 <tr>
-<td></td>
-<td><code>PipelineMessagesProcessed</code> = false</td>
+<td>Metrics.PipelineMessagesProcessed</td>
+<td>false</td>
 <td>Enable/disable reporting of the built-in <strong>PipelineMessagesProcessed</strong> metric</td>
 </tr>
 <tr>
-<td></td>
-<td><code>PipelineProcessingErrors</code> = false</td>
-<td><strong>(NEW)</strong> Enable/disable reporting of the built-in <strong>PipelineProcessingErrors</strong> metric</td>
+<td>Metrics.PipelineProcessingErrors</td>
+<td>false</td>
+<td>Enable/disable reporting of the built-in <strong>PipelineProcessingErrors</strong> metric</td>
 </tr>
 <tr>
-<td></td>
-<td><code>PipelineMessageProcessingTime</code> = false</td>
+<td>Metrics.PipelineMessageProcessingTime</td>
+<td>false</td>
 <td>Enable/disable reporting of the built-in <strong>PipelineMessageProcessingTime</strong> metric</td>
 </tr>
 <tr>
-<td></td>
-<td><code>&lt;CommonMetric&gt;</code> = false</td>
-<td>Enable/disable reporting of common  service metric. See <a href="../../general/#common-service-metrics">Common Service Metrics</a> for more details</td>
-</tr>
-<tr>
-<td></td>
-<td><code>&lt;CustomMetric&gt;</code> = false</td>
-<td>Enable/disable reporting of custom application service's custom metric. See <a href="../AdvancedTopics/#custom-application-service-metrics">Custom Application Service Metics</a> for more detail</td>
+<td>Metrics.<code>&lt;CustomMetric&gt;</code></td>
+<td>false</td>
+<td>(Service Specific) Enable/disable reporting of custom application service's custom metric. See <a href="../AdvancedTopics/#custom-application-service-metrics">Custom Application Service Metrics</a> for more detail</td>
 </tr>
 <tr>
 <td>Tags</td>
@@ -3241,7 +3171,7 @@
 </div>
 <h2 id="not-writable">Not Writable</h2>
 <p>The tabs below provide additional configuration which are applicable to Application Services that require the service to be restarted after value(s) are changed.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:6"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><input id="__tabbed_2_5" name="__tabbed_2" type="radio" /><input id="__tabbed_2_6" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">HttpServer</label><label for="__tabbed_2_2">Database</label><label for="__tabbed_2_3">Clients</label><label for="__tabbed_2_4">Trigger</label><label for="__tabbed_2_5">Trigger EdgeXMessageBus</label><label for="__tabbed_2_6">Trigger ExternalMqtt</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:4"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">HttpServer</label><label for="__tabbed_2_2">Clients</label><label for="__tabbed_2_3">Trigger</label><label for="__tabbed_2_4">Trigger ExternalMqtt</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="admonition edgey">
@@ -3282,48 +3212,10 @@
 </table>
 </div>
 <div class="tabbed-block">
-<p>This section contains the connection information. It is required when using <code>redis</code> for the <strong>MessageBus</strong> (which is the default) and/or when the <strong>Store and Forward</strong> capability is enabled. Note that it has a slightly different format than the database section used in the core services configuration.</p>
-<table>
-<thead>
-<tr>
-<th>Configuration</th>
-<th>Default Value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Type</td>
-<td>redisdb**</td>
-<td>Indicates the type of database used. <code>redisdb</code> is the only valid type.</td>
-</tr>
-<tr>
-<td>Host</td>
-<td>localhost**</td>
-<td>Indicates the hostname for the database</td>
-</tr>
-<tr>
-<td>Port</td>
-<td>6379**</td>
-<td>Indicates the port number for the database</td>
-</tr>
-<tr>
-<td>Timeout</td>
-<td>"30s"**</td>
-<td>Indicates the connection timeout for the database</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="tabbed-block">
-<p>This section defines the connect information for the EdgeX Clients and is the same as that used by all EdgeX services, just which clients are needed differs. Please refer to the <a href="../ApplicationFunctionsSDK/#note-about-clients">Note about Clients</a> section for more details.</p>
+<p>This service specific section defines the connection information for the EdgeX Clients and is the same as that used by all EdgeX services, just which clients are needed differs. Please refer to the <a href="../ApplicationFunctionsSDK/#note-about-clients">Note about Clients</a> section for more details.</p>
 </div>
 <div class="tabbed-block">
 <p>This section defines the <code>Trigger</code> for incoming data. See the <a href="../Triggers/">Triggers</a> documentation for more details on the inner working of triggers. </p>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the <code>Binding</code> section has been renamed to <code>Trigger</code> .  </p>
-</div>
 <table>
 <thead>
 <tr>
@@ -3338,84 +3230,15 @@
 <td>edgex-messagebus**</td>
 <td>Indicates the <code>Trigger</code> binding type. valid values are <code>edgex-messagebus</code>, <code>external-mqtt</code>, <code>http</code>, or <code>&lt;custom&gt;</code></td>
 </tr>
-</tbody>
-</table>
-</div>
-<div class="tabbed-block">
-<p>This section defines the message bus connect information.
-Only used for <code>edgex-messagebus</code> binding type</p>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the <code>MessageBus</code> section has been renamed to <code>EdgexMessageBus</code> and moved under the <code>Trigger</code> section. The <code>SubscribeTopic</code> setting has changed to <code>SubscribeTopics</code> and moved under the <code>SubscribeHost</code> section of <code>EdgexMessageBus</code> . The <code>PublishTopic</code> has been moved under the <code>PublishHost</code> section of <code>EdgexMessageBus</code>.</p>
-</div>
-<table>
-<thead>
-<tr>
-<th>Configuration</th>
-<th>Default Value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Type</td>
-<td>redis**</td>
-<td>Indicates the type of MessageBus being used. Valid type are <code>redis</code>, <code>mqtt</code>,  or<code>zero</code></td>
-</tr>
-<tr>
-<td><strong>SubscribeHost</strong></td>
-<td>...</td>
-<td>This section defines the connection information for subscribing/publishing to the MessageBus</td>
-</tr>
-<tr>
-<td>Host</td>
-<td>localhost**</td>
-<td>Indicates the hostname for subscribing to the MessageBus</td>
-</tr>
-<tr>
-<td>Port</td>
-<td>6379**</td>
-<td>Indicates the port number for subscribing to the MessageBus</td>
-</tr>
-<tr>
-<td>Protocol</td>
-<td>redis**</td>
-<td>Indicates the protocol number for subscribing to the MessageBus</td>
-</tr>
 <tr>
 <td>SubscribeTopics</td>
-<td>edgex/events/#**</td>
-<td>MessageBus topic(s) to subscribe to. This is a comma separated list of topics. Supports filtering by subscribe topics. See <a href="../Triggers/#edgex-message-bus">EdgeXMessageBus</a> Trigger for more details.</td>
-</tr>
-<tr>
-<td><strong>PublishHost</strong></td>
-<td>...</td>
-<td>This section defines the connection information for publishing to the MessageBus</td>
-</tr>
-<tr>
-<td>Host</td>
-<td>localhost**</td>
-<td>Indicates the hostname for publishing to the Message Bus</td>
-</tr>
-<tr>
-<td>Port</td>
-<td>6379**</td>
-<td>Indicates the port number for publishing to the Message Bus</td>
-</tr>
-<tr>
-<td>Protocol</td>
-<td>redis**</td>
-<td>Indicates the protocol number for publishing to the Message Bus</td>
+<td>events/#**</td>
+<td>Topic(s) to subscribe to. This is a comma separated list of topics. Supports filtering by subscribe topics. Only set when using <code>edgex-messagebus</code> or <code>external-mqtt</code>. See <a href="../Triggers/#edgex-message-bus">EdgeXMessageBus</a> Trigger for more details.</td>
 </tr>
 <tr>
 <td>PublishTopic</td>
 <td>blank**</td>
-<td>Indicates the topic in which to publish the function pipeline response data, if any. Supports dynamic topic places holders. See <a href="../Triggers/#edgex-message-bus">EdgeXMessageBus</a> Trigger for more details.</td>
-</tr>
-<tr>
-<td><strong>Optional</strong></td>
-<td>...</td>
-<td>This section is used for optional configuration specific to the MessageBus type used. Please refer to <a href="https://github.com/edgexfoundry/go-mod-messaging/blob/master/README.md">go-mod-messaging</a> for more details</td>
+<td>Indicates the topic in which to publish the function pipeline response data, if any. Supports dynamic topic places holders. Only set when using <code>edgex-messagebus</code> or <code>external-mqtt</code>. See <a href="../Triggers/#edgex-message-bus">EdgeXMessageBus</a> Trigger for more details.</td>
 </tr>
 </tbody>
 </table>
@@ -3423,10 +3246,6 @@ Only used for <code>edgex-messagebus</code> binding type</p>
 <div class="tabbed-block">
 <p>This section defines the external MQTT Broker connect information.
 Only used for <code>external-mqtt</code> trigger binding type</p>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the <code>MqttBroker</code> section has been renamed to <code>ExternalMqtt</code> and moved under the <code>Trigger</code> section. The <code>ExternalMqtt</code> section now has it's own <code>SubscribeTopics</code> and  <code>PublishTopic</code> settings. </p>
-</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><code>external-mqtt</code> is not the default Trigger type, so there are no default values for <code>ExternalMqtt</code> settings beyond those that the Go compiler gives to the empty struct. Some of those default values are not valid and must be specified, i.e. <code>Authmode</code></p>
@@ -3444,16 +3263,6 @@ Only used for <code>external-mqtt</code> trigger binding type</p>
 <td>Url</td>
 <td>blank**</td>
 <td>Fully qualified URL to connect to the MQTT broker, i.e. <code>tcp://localhost:1883</code></td>
-</tr>
-<tr>
-<td>SubscribeTopics</td>
-<td>blank**</td>
-<td>MQTT topic(s) to subscribe to. This is a comma separated list of topics</td>
-</tr>
-<tr>
-<td>PublishTopic</td>
-<td>blank**</td>
-<td>MQTT topic to publish the function pipeline response data, if any. Supports dynamic topic places holders. See <a href="../Triggers/#external-mqtt">ExternalMqtt</a> Trigger for more details.</td>
 </tr>
 <tr>
 <td>ClientId</td>

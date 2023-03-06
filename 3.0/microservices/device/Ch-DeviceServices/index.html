@@ -1354,8 +1354,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../configuration/V2MigrationCommonConfig/" class="md-nav__link">
-        V2 Migration of Common Configuration
+      <a href="../../configuration/V3MigrationCommonConfig/" class="md-nav__link">
+        V3 Migration of Common Configuration
       </a>
     </li>
   
@@ -1444,7 +1444,7 @@
   
     <li class="md-nav__item">
       <a href="../../core/metadata/Ch-Metadata/" class="md-nav__link">
-        Metadata
+        Core Metadata
       </a>
     </li>
   
@@ -1458,7 +1458,7 @@
   
     <li class="md-nav__item">
       <a href="../../core/command/Ch-Command/" class="md-nav__link">
-        Command
+        Core Command
       </a>
     </li>
   
@@ -1533,7 +1533,21 @@
   
     <li class="md-nav__item">
       <a href="../../support/notifications/Ch-AlertsNotifications/" class="md-nav__link">
-        Alerts & Notifications
+        Support Notifications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../support/scheduler/Ch-Scheduler/" class="md-nav__link">
+        Support Scheduler
       </a>
     </li>
   
@@ -1548,20 +1562,6 @@
     <li class="md-nav__item">
       <a href="../../support/eKuiper/Ch-eKuiper/" class="md-nav__link">
         eKuiper Rules Engine
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../support/scheduler/Ch-Scheduler/" class="md-nav__link">
-        Scheduler
       </a>
     </li>
   
@@ -3437,20 +3437,61 @@ and role of a device service.</p>
 <p>Device services now have the capability to publish Events directly to the EdgeX MessageBus, rather than POST the Events to Core Data via REST. This capability is controlled by the <code>Device.UseMessageBus</code> configuration property (see below), which is set to <code>true</code> by default. Core Data is configured by default to subscribe to the EdgeX MessageBus to receive and persist the Events. Application services, as in EdgeX 1.x, subscribe to the EdgeX MessageBus to receive and process the Events.</p>
 <h2 id="configuration-properties">Configuration Properties</h2>
 <p>Please refer to the general <a href="../../configuration/CommonConfiguration/">Common Configuration documentation</a> for configuration properties common to all services.</p>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.2</p>
-<p><code>Writable.Reading.ReadingUnits</code> and <code>MaxEventSize</code> are new for Edgex 2.2</p>
-</div>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.3</p>
-</div>
-<p>Service Metrics for device services are new in EdgeX 2.3</p>
 <div class="admonition edgey -">
 <p class="admonition-title">EdgeX 3.0</p>
 <p><strong>UpdateLastConnected</strong> is removed in EdgeX 3.0.</p>
 </div>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:6"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Writable.Telemetry</label><label for="__tabbed_1_2">Device</label><label for="__tabbed_1_3">MessageQueue</label><label for="__tabbed_1_4">MessageQueue.Optional</label><label for="__tabbed_1_5">Writable.Reading</label><label for="__tabbed_1_6">MaxEventSize</label></div>
+<div class="admonition edgey">
+<p class="admonition-title">Edgex 3.0</p>
+<p>For EdgeX 3.0 the <code>MessageQueue</code> configuration has been move to <code>MessageBus</code> in <a href="../../../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>*</code> on the configuration section names below denoted that these sections are pulled from the device service common configuration thus are not in the individual device service's private configuration file.</p>
+</div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:6"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Writable</label><label for="__tabbed_1_2">Writable.Reading*</label><label for="__tabbed_1_3">Writable.Telemetry*</label><label for="__tabbed_1_4">Clients.core-metadata*</label><label for="__tabbed_1_5">Device*</label><label for="__tabbed_1_6">MaxEventSize*</label></div>
 <div class="tabbed-content">
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>Writable properties can be set and will dynamically take effect without service restart</td>
+<td></td>
+</tr>
+<tr>
+<td>LogLevel</td>
+<td>INFO</td>
+<td>log entry <a href="https://en.wikipedia.org/wiki/Syslog#Severity_level">severity level</a>.  Log entries not of the default level or higher are ignored.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ReadingUnits</td>
+<td>true</td>
+<td>Indicate the units of measure for the Value in the Reading, set to <code>false</code> to not include units in the Reading.</td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="tabbed-block">
 <table>
 <thead>
@@ -3483,18 +3524,41 @@ and role of a device service.</p>
 </tr>
 <tr>
 <td></td>
-<td><code>&lt;CommonMetric&gt;</code> = false</td>
-<td>Enable/disable reporting of common service metric. See <a href="../general/#common-service-metrics">Common Service Metrics</a> for more details.</td>
-</tr>
-<tr>
-<td></td>
 <td><code>&lt;CustomMetric&gt;</code> = false</td>
 <td>Enable/disable reporting of custom device service's custom metric. See <a href="../../getting-started/Ch-GettingStartedSDK-Go/#built-in">Custom Device Service Metrics</a> for more details.</td>
 </tr>
 <tr>
 <td>Tags</td>
 <td><code>&lt;empty&gt;</code></td>
-<td>List of arbitrary service level tags to included with every metric that is reported. i.e. <code>Gateway="my-iot-gateway"</code></td>
+<td>List of arbitrary service level tags to included with every metric that is reported.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Protocol</td>
+<td>http</td>
+<td>The protocol to use when building a URI to the service endpoint</td>
+</tr>
+<tr>
+<td>Host</td>
+<td>localhost</td>
+<td>The host name or IP address where the service is hosted</td>
+</tr>
+<tr>
+<td>Port</td>
+<td>59881</td>
+<td>The port exposed by the target service</td>
 </tr>
 </tbody>
 </table>
@@ -3531,152 +3595,38 @@ and role of a device service.</p>
 </tr>
 <tr>
 <td>ProfilesDir</td>
-<td>''</td>
+<td>'./res/profiles'</td>
 <td>If set, directory containing profile definition files to upload to core-metadata</td>
 </tr>
 <tr>
 <td>DevicesDir</td>
-<td>''</td>
+<td>'./res/devices'</td>
 <td>If set, directory containing device definition files to upload to core-metadata</td>
 </tr>
 <tr>
-<td>UseMessageBus</td>
+<td>ProvisionWatchersDir</td>
+<td>''</td>
+<td>If set, directory containing provision watcher definition files to upload to core-metadata (service specific when needed)</td>
+</tr>
+<tr>
+<td>EnableAsyncReadings</td>
 <td>true</td>
-<td>Controls whether events are published via MessageBus or core-data (REST)</td>
+<td>Enables/Disables the Device Service ability to handle async readings</td>
+</tr>
+<tr>
+<td>AsyncBufferSize</td>
+<td>16</td>
+<td>Size of the buffer for async readings</td>
 </tr>
 <tr>
 <td>Discovery/Enabled</td>
-<td>true</td>
+<td>false</td>
 <td>Controls whether device discovery is enabled</td>
 </tr>
 <tr>
 <td>Discovery/Interval</td>
-<td>0</td>
+<td>30s</td>
 <td>Interval between automatic discovery runs. Zero means do not run discovery automatically</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="tabbed-block">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Default Value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>Entries in the MessageQueue section of the configuration allow for publication of events to a message bus</td>
-<td></td>
-</tr>
-<tr>
-<td>Protocol</td>
-<td>redis</td>
-<td>Indicates the connectivity protocol to use to use the bus.</td>
-</tr>
-<tr>
-<td>Host</td>
-<td>localhost</td>
-<td>Indicates the host of the messaging broker, if applicable.</td>
-</tr>
-<tr>
-<td>Port</td>
-<td>6379</td>
-<td>Indicates the port to use when publishing a message.</td>
-</tr>
-<tr>
-<td>Type</td>
-<td>redis</td>
-<td>Indicates the type of messaging library to use. Currently this is Redis by default. Refer to the <a href="https://github.com/edgexfoundry/go-mod-messaging">go-mod-messaging</a> module for more information.</td>
-</tr>
-<tr>
-<td>AuthMode</td>
-<td>usernamepassword</td>
-<td>Auth Mode to connect to EdgeX MessageBus.</td>
-</tr>
-<tr>
-<td>SecretName</td>
-<td>redisdb</td>
-<td>Name of the secret in the Secret Store to find the MessageBus credentials.</td>
-</tr>
-<tr>
-<td>PublishTopicPrefix</td>
-<td>edgex/events/device</td>
-<td>Indicates the base topic to which messages should be published. /<code>&lt;device-profile-name&gt;/&lt;device-name&gt;</code> will be added to this Publish Topic prefix</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="tabbed-block">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Default Value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>Configuration and connection parameters for use with MQTT message bus - in place of Redis</td>
-<td></td>
-</tr>
-<tr>
-<td>ClientId</td>
-<td>[service-key]</td>
-<td>Client ID used to put messages on the bus</td>
-</tr>
-<tr>
-<td>Qos</td>
-<td>'0'</td>
-<td>Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</td>
-</tr>
-<tr>
-<td>KeepAlive</td>
-<td>'10'</td>
-<td>Period of time in seconds to keep the connection alive when there is no messages flowing (must be 2 or greater)</td>
-</tr>
-<tr>
-<td>Retained</td>
-<td>false</td>
-<td>Whether to retain messages</td>
-</tr>
-<tr>
-<td>AutoReconnect</td>
-<td>true</td>
-<td>Whether to reconnect to the message bus on connection loss</td>
-</tr>
-<tr>
-<td>ConnectTimeout</td>
-<td>5</td>
-<td>Message bus connection timeout in seconds</td>
-</tr>
-<tr>
-<td>SkipCertVerify</td>
-<td>false</td>
-<td>TLS configuration - Only used if Cert/Key file or Cert/Key PEMblock are specified</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="tabbed-block">
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Default Value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ReadingUnits</td>
-<td>true</td>
-<td>Indicate the units of measure for the Value in the Reading, set to <code>false</code> to not to include units in the Reading.</td>
 </tr>
 </tbody>
 </table>
@@ -3771,7 +3721,7 @@ and role of a device service.</p>
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="../../support/scheduler/Ch-Scheduler/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Scheduler" rel="prev">
+        <a href="../../support/eKuiper/Ch-eKuiper/" class="md-footer__link md-footer__link--prev" aria-label="Previous: eKuiper Rules Engine" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -3780,7 +3730,7 @@ and role of a device service.</p>
               <span class="md-footer__direction">
                 Previous
               </span>
-              Scheduler
+              eKuiper Rules Engine
             </div>
           </div>
         </a>
