@@ -1,4 +1,4 @@
-# Command
+# Core Command
 
 ![image](EdgeX_Command.png)
 
@@ -90,56 +90,50 @@ The two following High Level Diagrams show:
 
 ## Configuration Properties
 
-Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services.
-Below are only the additional settings and sections that are not common to all EdgeX Services.
+Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration settings common to all services.
+Below are only the additional settings and sections that are specific to Core Command.
 
-!!! edgey "EdgeX 2.3"
-    `RequireMessageBus` and `MessageQueue` configurations were added in EdgeX 2.3 for Commands via Messaging
+!!! edgey "Edgex 3.0"
+    For EdgeX 3.0 the `MessageQueue.Internal` configuration has been moved to `MessageBus` in [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties) and `MessageQueue.External` has been moved to `ExternalMQTT` below
 
-=== "RequireMessageBus"
+=== "Writable"
     |Property|Default Value|Description|
     |---|---|---|
-    | RequireMessageBus | true | Indicates whether to connect to internal message bus for Commands via messaging |
-=== "MessageQueue"
+    |||entries in the Writable section of the configuration can be changed on the fly while the service is running if the service is running with the `-cp/--configProvider` flag|
+    |LogLevel|INFO|log entry [severity level](https://en.wikipedia.org/wiki/Syslog#Severity_level).  Log entries not of the default level or higher are ignored. |
+=== "Writable.InsecureSecrets"
     |Property|Default Value|Description|
     |---|---|---|
-    |||Entries in the MessageQueue section of the configuration allow for connecting to a message bus|
-=== "MessageQueue.Internal"
+    |.mqtt|---|Secrets for when connecting to secure External MQTT when running in non-secure mode |
+=== "Writable.Telemetry"
     |Property|Default Value|Description|
     |---|---|---|
-    | Type | `redis` | Indicates the type of messaging library to use. Currently this is Redis by default. Refer to the [go-mod-messaging](https://github.com/edgexfoundry/go-mod-messaging) module for more information. |
-    | Protocol | `redis` | Indicates the connectivity protocol to use when connecting to the bus.|
-    | Host | `localhost` | Indicates the host of the messaging broker, if applicable.|
-    | Port | 6379 | Indicates the port to use when publishing a message.|
-    | AuthMode | `usernamepassword` | Auth Mode to connect to EdgeX MessageBUs.|
-    | SecretName | `redisdb` | Name of the secret in the Secret Store to find the MessageBus credentials.|
-=== "MessageQueue.Internal.Topics"
+    |||See `Writable.Telemetry` at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties) for the Telemetry configuration common to all services |
+    |Metrics| `<TBD>` |Service metrics that Core Command collects. Boolean value indicates if reporting of the metric is enabled.|
+    |Tags|`<empty>`|List of arbitrary Core Metadata service level tags to included with every metric that is reported. |
+=== "Service"
     |Property|Default Value|Description|
     |---|---|---|
-    |||Key-value mappings allow for publication and subscription to the internal message bus |
-    | DeviceRequestTopicPrefix | `edgex/device/command/request` | For publishing requests to the device service. `<device-service>/<device-name>/<command-name>/<method>` will be added to this publish topic prefix |
-    | DeviceResponseTopic | `edgex/device/command/response/#` | For subscribing to device service responses |
-    | CommandRequestTopic | `edgex/core/command/request/#` | For subscribing to internal command requests |
-    | CommandResponseTopicPrefix | `edgex/core/command/response` | For publishing responses back to internal service. `/<device-name>/<command-name>/<method>` will be added to this publish topic prefix |
-    | QueryRequestTopic | `edgex/core/commandquery/request/#` | For subscribing to internal command query requests |
-    | QueryResponseTopic | `edgex/core/commandquery/response` | For publishing command query responses back to internal service |
-=== "MessageQueue.Internal.Optional"
+    ||| Unique settings for Core Command. The common settings can be found at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties)
+    | Port | 59882|Micro service port number|
+    |StartupMsg |This is the EdgeX Core Command Microservice|Message logged when service completes bootstrap start-up|
+=== "Clients.core-metadata"
     |Property|Default Value|Description|
     |---|---|---|
-    |||Configuration and connection parameters used when Type is `mqtt` instead of `redis` |
-    | ClientId | `core-data` |Client ID used to put messages on the bus|
-    | Qos | 0 | Quality of Service values are 0 (At most once), 1 (At least once) or 2 (Exactly once)|
-    | KeepAlive | 10 | Period of time in seconds to keep the connection alive when there is no messages flowing (must be 2 or greater)|
-    | Retained | false |Whether to retain messages|
-    | AutoReconnect | true |Whether to reconnect to the message bus on connection loss|
-    | ConnectTimeout | 5 |Message bus connection timeout in seconds|
-    | SkipCertVerify | false |TLS configuration - Only used if Cert/Key file or Cert/Key PEMblock are specified|
-=== "MessageQueue.External"
+    |Protocol|http| The protocol to use when building a URI to the service endpoint|
+    |Host|localhost| The host name or IP address where the service is hosted |
+    |Port|59881| The port exposed by the target service|
+=== "MessageBus.Optional"
+    |Property|Default Value|Description|
+    |---|---|---|
+    ||| Unique settings for Core Command. The common settings can be found at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties)
+    |ClientId|"core-command|Id used when connecting to MQTT or NATS base MessageBus |
+=== "ExternalMqtt"
     |Property|Default Value|Description|
     |---|---|---|
     | Enabled | false | Indicates whether to connect to external MQTT broker for the Commands via messaging |
     | Url | `tcp://localhost:1883` | Fully qualified URL to connect to the MQTT broker |
-    | ClientId | `core-data` | ClientId to connect to the broker with |
+    | ClientId | `core-command` | ClientId to connect to the broker with |
     | ConnectTimeout | 5s | Time duration indicating how long to wait before timing out                                                        broker connection, i.e "30s" |
     | AutoReconnect | true | Indicates whether or not to retry connection if disconnected |
     | KeepAlive | 10 | Seconds between client ping when no active data flowing to avoid client being disconnected. Must be greater then 2 |
@@ -148,7 +142,7 @@ Below are only the additional settings and sections that are not common to all E
     | SkipCertVerify | false | Indicates if the certificate verification should be skipped  |
     | SecretPath | `mqtt` | Name of the path in secret provider to retrieve your secrets. Must be non-blank. |
     | AuthMode | `none` | Indicates what to use when connecting to the broker. Must be one of "none", "cacert" , "usernamepassword", "clientcert". <br />If a CA Cert exists in the SecretPath then it will be used for all modes except "none". |
-=== "MessageQueue.External.Topics"
+=== "ExternalMqtt.Topics"
     |Property|Default Value|Description|
     |---|---|---|
     |||Key-value mappings allow for publication and subscription to the external message bus |
@@ -157,12 +151,9 @@ Below are only the additional settings and sections that are not common to all E
     | QueryRequestTopic | `edgex/commandquery/request/#` | For subscribing to 3rd party command query requests |
     | QueryResponseTopic | `edgex/commandquery/response` | For publishing command query responses back to 3rd party systems |
 
-!!! note
-    `MessageQueue.External.Enabled` is working only if `RequireMessageBus=true` because Commands via Messaging relies on internal message bus to relay the request to device services.
+### V3 Configuration Migration Guide
 
-### V2 Configuration Migration Guide
-
-Refer to the [Common Configuration Migration Guide](../../../configuration/V2MigrationCommonConfig) for details on migrating the common configuration sections such as `Service`.
+Coming soon
 
 ## Commands via Messaging
 

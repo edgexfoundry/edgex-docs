@@ -1,4 +1,4 @@
-# Metadata
+# Core Metadata
 
 ![image](EdgeX_Metadata.png)
 
@@ -342,27 +342,26 @@ Sequence diagrams for some of the more critical or complex events regarding meta
 
 ## Configuration Properties
 
-Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services. Below are only the additional settings and sections that are not common to all EdgeX Services.
-
-!!! edgey - "EdgeX 2.3"
-    **RequireMessageBus**, **Writable.Telemetry**, **MessageQueue**, **Writable.UoM** and **UoM** configuration are new in EdgeX 2.3
+Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration settings common to all services.
+Below are only the additional settings and sections that are specific to Core Metadata.
 
 !!! edgey - "EdgeX 3.0"
     **Notifications** configuration is removed in EdgeX 3.0. Metadata will leverage [Device System Events](#device-system-events) to replace the original device change notifications.
 
-=== "General"
+!!! edgey "Edgex 3.0"
+    For EdgeX 3.0 the `MessageQueue` configuration has been moved to `MessageBus` in [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties)
+
+=== "Writable"
     |Property|Default Value|Description|
     |---|---|---|
-    |RequireMessageBus|true|Required for backwards compatibility. Will be removed in next major release|
+    |||entries in the Writable section of the configuration can be changed on the fly while the service is running if the service is running with the `-cp/--configProvider` flag|
+    |LogLevel|INFO|log entry [severity level](https://en.wikipedia.org/wiki/Syslog#Severity_level).  Log entries not of the default level or higher are ignored. |
 === "Writable.Telemetry"
     |Property|Default Value|Description|
     |---|---|---|
     |||See `Writable.Telemetry` at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties) for the Telemetry configuration common to all services |
-    |Metrics| `<common metrics>` |Service metrics that Core Metadata collects. Boolean value indicates if reporting of the metric is enabled.|
-    |Tags|`<empty>`|List of arbitrary service level tags to included with every metric that is reported. i.e. `Gateway="my-iot-gateway"` |
-
-    !!! edgey "Edgex 2.3"
-        For EdgeX 2.3 Collecting of the some common service metrics has been added. See [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties) for more details.
+    |Metrics| `<TBD>` |Service metrics that Core Metadata collects. Boolean value indicates if reporting of the metric is enabled.|
+    |Tags|`<empty>`|List of arbitrary Core Metadata service level tags to included with every metric that is reported. |
 === "Writable.ProfileChange"
     |Property|Default Value|Description|
     |---|---|---|
@@ -372,36 +371,30 @@ Please refer to the general [Common Configuration documentation](../../configura
     |Property|Default Value|Description|
     |---|---|---|
     |Validation|false|Whether to enable units of measure validation, set to `true` to validate all device profile `units` against the list of units of measure by core metadata.|
+=== "Service"
+    |Property|Default Value|Description|
+    |---|---|---|
+    ||| Unique settings for Core Metadata. The common settings can be found at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties)
+    | Port | 59881|Micro service port number|
+    |StartupMsg |This is the EdgeX Core Metadata Microservice|Message logged when service completes bootstrap start-up|
 === "UoM"
     |Property|Default Value|Description|
     |---|---|---|
     |UoMFile|'./res/uom.toml'|path to the location of units of measure configuration|
-=== "MessageQueue"
+=== "Database"
     |Property|Default Value|Description|
     |---|---|---|
-    ||Entries in the MessageQueue section of the configuration allow for publication of  Device System Events to the EdgeX MessageBus |
-    |Protocol | redis| Indicates the connectivity protocol to use when connecting to the bus.|
-    |Host | localhost | Indicates the host of the messaging broker, if applicable.|
-    |Port | 6379| Indicates the port to use when publishing a message.|
-    |Type | redis| Indicates the type of messaging library to use. Currently this is Redis by default. Refer to the [go-mod-messaging](https://github.com/edgexfoundry/go-mod-messaging) module for more information. |
-    |AuthMode | usernamepassword| Auth Mode to connect to EdgeX MessageBus.|
-    |SecretName | redisdb | Name of the secret in the Secret Store to find the MessageBus credentials.|
-    |PublishTopicPrefix | edgex/system-events| Indicates the base topic to which system event messages will be published. /[source]/[type]/[action]/[owner]/[profile] will be added to this Publish Topic prefix|
-=== "MessageQueue.Optional"
+    ||| Unique settings for Core Metadata. The common settings can be found at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties)
+    |Name|metadata|Database or document store name |
+=== "MessageBus.Optional"
     |Property|Default Value|Description|
     |---|---|---|
-    ||Configuration and connection parameters for use with MQTT message bus - in place of Redis|
-    |ClientId|'core-data'|Client ID used to put messages on the bus|
-    |Qos|'0'| Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)|
-    |KeepAlive |'10'| Period of time in seconds to keep the connection alive when there is no messages flowing (must be 2 or greater)|
-    |Retained|false|Whether to retain messages|
-    |AutoReconnect |true |Whether to reconnect to the message bus on connection loss|
-    |ConnectTimeout|5|Message bus connection timeout in seconds|
-    |SkipCertVerify|false|TLS configuration - Only used if Cert/Key file or Cert/Key PEMblock are specified|
+    ||| Unique settings for Core Metadata. The common settings can be found at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties)
+    |ClientId|"core-metadata|Id used when connecting to MQTT or NATS base MessageBus |
 
-### V2 Configuration Migration Guide
+### V3 Configuration Migration Guide
 
-Refer to the [Common Configuration Migration Guide](../../../configuration/V2MigrationCommonConfig) for details on migrating the common configuration sections such as `Service`.
+Coming soon
 
 #### Writable
 

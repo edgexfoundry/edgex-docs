@@ -116,59 +116,50 @@ The two following High Level Interaction Diagrams show:
 
 ## Configuration Properties
 
-Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services. Below are only the additional settings and sections that are not common to all EdgeX Services.
+Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration settings common to all services. 
+Below are only the additional settings and sections that are specific to Core Data.
+
+!!! edgey "Edgex 3.0"
+    For EdgeX 3.0 the `MessageQueue` configuration has been moved to `MessageBus` in [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties)
 
 === "Writable"
     |Property|Default Value|Description|
     |---|---|---|
     ||Writable properties can be set and will dynamically take effect without service restart|
+    |LogLevel|INFO|log entry [severity level](https://en.wikipedia.org/wiki/Syslog#Severity_level).  Log entries not of the default level or higher are ignored. |
     |PersistData|true|When true, core data persists all sensor data sent to it in its associated database|
 === "Writable.Telemetry"
     |Property|Default Value|Description|
     |---|---|---|
     |||See `Writable.Telemetry` at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties) for the Telemetry configuration common to all services |
-    |Metrics| EventsPersisted = false<br> ReadingsPersisted = false <br>`<common metrics>` |Service metrics that Core Data collects. Boolean value indicates if reporting of the metric is enabled.|
-    |Tags|`<empty>`|List of arbitrary service level tags to included with every metric that is reported. i.e. `Gateway="my-iot-gateway"` |
-
-    !!! edgey "Edgex 2.2/2.3"
-        For EdgeX 2.2 Collecting of the `EventsPersisted` and `ReadingsPersisted` Core Data Service Metrics have been added.Some common service metrics have been added in 2.3
-
+    | Metrics| |Service metrics that Core Data collects. Boolean value indicates if reporting of the metric is enabled.|
+    |Metrics.EventsPersisted |  false| Enable/Disable reporting of number of events persisted.|
+    |Metrics.ReadingsPersisted | false|Enable/Disable reporting of number of readings persisted.|
+    |Tags|`<empty>`|List of arbitrary Core Data service level tags to included with every metric that is reported.  |
+=== "Service"
+    |Property|Default Value|Description|
+    |---|---|---|
+    ||| Unique settings for Core Data. The common settings can be found at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties)
+    | Port | 59880|Micro service port number|
+    |StartupMsg |This is the EdgeX Core Data Microservice|Message logged when service completes bootstrap start-up|
 === "Database"
     |Property|Default Value|Description|
     |---|---|---|
-    |Name|'coredata'|Document store or database name|
-=== "MessageQueue"
+    ||| Unique settings for Core Data. The common settings can be found at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties)
+    |Name|coredata|Database or document store name |
+=== "MessageBus.Optional"
     |Property|Default Value|Description|
     |---|---|---|
-    ||Entries in the MessageQueue section of the configuration allow for publication of events to a message bus|
-    |Protocol | redis| Indicates the connectivity protocol to use when connecting to the bus.|
-    |Host | localhost | Indicates the host of the messaging broker, if applicable.|
-    |Port | 6379| Indicates the port to use when publishing a message.|
-    |Type | redis| Indicates the type of messaging library to use. Currently this is Redis by default. Refer to the [go-mod-messaging](https://github.com/edgexfoundry/go-mod-messaging) module for more information. |
-    |AuthMode | usernamepassword| Auth Mode to connect to EdgeX MessageBUs.|
-    |SecretName | redisdb | Name of the secret in the Secret Store to find the MessageBus credentials.|
-    |PublishTopicPrefix | edgex/events/core| Indicates the base topic to which messages should be published. /`<device-profile-name>/<device-name>` will be added to this Publish Topic prefix|
-    |SubscribeEnabled | true | Indicates wether to subcribe to the EdgeX MessageBus or not.|
-    |SubscribeTopic | edgex/events/device/# | Topis to use when subscribing to the EdgeX MessageBus|
-=== "MessageQueue.Optional"
-    |Property|Default Value|Description|
-    |---|---|---|
-    ||Configuration and connection parameters for use with MQTT message bus - in place of Redis|
-    |ClientId|'core-data'|Client ID used to put messages on the bus|
-    |Qos|'0'| Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)|
-    |KeepAlive |'10'| Period of time in seconds to keep the connection alive when there is no messages flowing (must be 2 or greater)|
-    |Retained|false|Whether to retain messages|
-    |AutoReconnect |true |Whether to reconnect to the message bus on connection loss|
-    |ConnectTimeout|5|Message bus connection timeout in seconds|
-    |SkipCertVerify|false|TLS configuration - Only used if Cert/Key file or Cert/Key PEMblock are specified|
+    ||| Unique settings for Core Data. The common settings can be found at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties)
+    |ClientId|"core-data|Id used when connecting to MQTT or NATS base MessageBus |
 === "MaxEventSize"
     |Property|Default Value|Description|    
     |---|---|---|
     | MaxEventSize|25000|maximum event size in kilobytes accepted via REST or MessageBus. 0 represents default to system max.|
 
-### V2 Configuration Migration Guide
+### V3 Configuration Migration Guide
 
-Refer to the [Common Configuration Migration Guide](../../../configuration/V2MigrationCommonConfig) for details on migrating the common configuration sections such as `Service`.
+Coming soon
 
 #### Writable
 
