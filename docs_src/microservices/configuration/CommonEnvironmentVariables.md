@@ -181,17 +181,6 @@ The  complete list of **SecretStore** fields and defaults can be found [here](ht
 This section describes environment variable overrides that have special utility,
 such as enabling a debug capability or facilitating code development.
 
-#### KONG_SSL_CIPHER_SUITE (edgex-kong service)
-
-This variable controls the TLS cipher suite and protocols supported by the EdgeX API Gateway as implemented by Kong.
-This variable, if unspecified, selects the `"intermediate"` cipher suite which supports
-TLSv1.2, TLSv1.3, and relatively modern TLS ciphers.
-The EdgeX framework by default overrides this value to `"modern"`,
-which currently enables only TLSv1.3 and a fixed cipher suite.
-The `"modern"` cipher suite is known to be incompatible with older web browsers,
-but since the target use of the API gateway is to support API clients, not browsers,
-this behavior was deemed acceptable by the EdgeX Security Working Group on September 8, 2021.
-
 #### TOKENFILEPROVIDER_DEFAULTTOKENTTL (security-secretstore-setup service)
 
 This variable controls the TTL of the default secretstore tokens that are created for EdgeX microservices.

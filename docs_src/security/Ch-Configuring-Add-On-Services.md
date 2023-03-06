@@ -200,8 +200,7 @@ service registry.
 If it is desirable to let user or other application services outside EdgeX's Docker network access
 the endpoint of the add-on service, then we can configure and add it via `proxy-setup` service's
 `ADD_PROXY_ROUTE` environment variable.  `proxy-setup` adds those services listed in that environment
-variable into the API gateway (also known as Kong) route so that the endpoint can be accessible
-using Kong's proxy endpoint.
+variable into the API gateway routes so that the endpoint can be accessible via the gateway.
 
 One example of adding API gateway access routes for both `device-camera` and `device-modbus`
 is given as follows:
@@ -221,7 +220,7 @@ where in the comma separated list, the first part of configured value `device-on
 and the URL format is the service's hostname with its docker network port number `59984`
 for `device-camera`.  The same idea applies to `device-modbus` with its values.
 
-With that setup, we can then access the endpoints of `device-camera` from Kong's host like
+With that setup, we can then access the endpoints of `device-camera` from the host like
 `https://<HostName>:8443/device-onvif-camera/{device-name}/name` assuming the caller can resolve
 `<HostName>` from DNS server.
 
