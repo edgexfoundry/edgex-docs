@@ -15,9 +15,13 @@
 
 # Useful for local testing
 
-FROM python:3-slim
+FROM python:3.10-slim
 
-RUN pip install mkdocs "mkdocs-material==8.5.8" "mkdocs-htmlproofer-plugin>=0.8" "mkdocs-macros-plugin>=0.5"
+RUN pip install mkdocs \
+    "mkdocs-material==8.5.8" \
+    "mkdocs-htmlproofer-plugin>=0.8" \
+    "mkdocs-macros-plugin>=0.5" \
+    "mkdocs-swagger-ui-tag"
 
 EXPOSE 8000
 

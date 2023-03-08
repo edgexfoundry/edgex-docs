@@ -28,7 +28,7 @@ This example will resolve the above complications by
 
 ## Running the Example
 
-First, clone the `edgex-examples repository`, checkout `v{{latest_released_version}}` and change to the
+First, clone the `edgex-examples repository`, checkout `{{latest_released_version}}` and change to the
 `security/remote_devices/spiffe_and_ssh` directory.
 
 Next, run the `generate_keys.sh` script to generate an SSH
