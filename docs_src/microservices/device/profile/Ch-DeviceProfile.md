@@ -55,6 +55,8 @@ state will be set to disable. This can be useful for health checks.
 * offset - a value to be added to a reading before it is returned.
 * mask - a binary mask which will be applied to an integer reading.
 * shift - a number of bits by which an integer reading will be shifted right.
+* mediaType - a string indicating the format of the `Binary` value.
+* optional - a optional properties mapping for the given device resource.
 
 The processing defined by base, scale, offset, mask and shift is applied in
 that order. This is done within the SDK. A reverse transformation is applied
