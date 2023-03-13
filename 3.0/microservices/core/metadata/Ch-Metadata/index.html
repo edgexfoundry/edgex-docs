@@ -1540,7 +1540,9 @@
 <h2 id="data-dictionary">Data Dictionary</h2>
 <div class="admonition edgey -">
 <p class="admonition-title">EdgeX 3.0</p>
-<p><strong>LastConnected</strong> and <strong>LastReported</strong> are removed in EdgeX 3.0.</p>
+<p>Two fields--<strong>LastConnected</strong> and <strong>LastReported</strong>--of Device Service are removed in EdgeX 3.0.<br/><br/>
+A new field <strong>Properties</strong> is added into Device in EdgeX 3.0, so that device-level properties can be defined and then consumed by the implementation of device services to retrieve extra device-level information.  For example, assume a device service may require extra device-level information, such as <code>DeviceInstance</code>, <code>Firmware</code>, <code>InstanceID</code>, and <code>ObjectName</code> in the runtime, and these extra device-level information can be defined in the properties.<br/><br/>
+A new field <strong>Properties</strong> is added into ProvisionWatcher in EdgeX 3.0, so that the implementation of device services can retrieve extra information when automatically provisioning a device.  For example, assume a device service would like to generate the device name in certain format during auto discovery, a property, e.g. <code>DeviceNameTemplate</code> with the template format of device name can be defined in the ProvisionWatcher, so that the implementation of device service can generate the device name based on such property.<br/></p>
 </div>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:10"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><input id="__tabbed_2_3" name="__tabbed_2" type="radio"><input id="__tabbed_2_4" name="__tabbed_2" type="radio"><input id="__tabbed_2_5" name="__tabbed_2" type="radio"><input id="__tabbed_2_6" name="__tabbed_2" type="radio"><input id="__tabbed_2_7" name="__tabbed_2" type="radio"><input id="__tabbed_2_8" name="__tabbed_2" type="radio"><input id="__tabbed_2_9" name="__tabbed_2" type="radio"><input id="__tabbed_2_10" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">BaseAddress</label><label for="__tabbed_2_2">RESTAddress</label><label for="__tabbed_2_3">MQTTPubAddress</label><label for="__tabbed_2_4">AutoEvent</label><label for="__tabbed_2_5">Device</label><label for="__tabbed_2_6">DeviceProfile</label><label for="__tabbed_2_7">DeviceResource</label><label for="__tabbed_2_8">DeviceService</label><label for="__tabbed_2_9">ResourceProperties</label><label for="__tabbed_2_10">ProvisionWatcher</label></div>
 <div class="tabbed-content">
@@ -1732,6 +1734,14 @@
 <tr>
 <td>AutoEvents</td>
 <td>A list of auto-generated events coming from the device</td>
+</tr>
+<tr>
+<td>Tags</td>
+<td>A map of device-level tags used to <a href="../../../general/#event-tagging">tag the events</a> originated from the device</td>
+</tr>
+<tr>
+<td>Properties</td>
+<td>A map of extendable device-level properties required by the implementation of device services to retrieve extra device-level information.  For example, assume a device service may require extra device-level information, such as <code>DeviceInstance</code>, <code>Firmware</code>, <code>InstanceID</code>, and <code>ObjectName</code> in the runtime, and these extra device-level information can be defined in the properties</td>
 </tr>
 </tbody>
 </table>
@@ -1968,6 +1978,10 @@
 <tr>
 <td>AutoEvents</td>
 <td>Associated auto events to this watcher</td>
+</tr>
+<tr>
+<td>Properties</td>
+<td>A map of extendable properties required by the implementation of device services to retrieve extra information when automatically provisioning a device.  For example, assume a device service would like to generate the device name in certain format during auto discovery, a property, e.g. <code>DeviceNameTemplate</code> with the template format of device name can be defined in the ProvisionWatcher, so that the implementation of device service can generate the device name based on such property</td>
 </tr>
 </tbody>
 </table>
