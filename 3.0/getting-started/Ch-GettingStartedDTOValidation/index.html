@@ -218,8 +218,8 @@
         Quick Start
       </a>
 </li>
-<li class="md-nav__item md-nav__item--active md-nav__item--nested">
-<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" id="__nav_2_3" type="checkbox"/>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" id="__nav_2_3" type="checkbox"/>
 <label class="md-nav__link" for="__nav_2_3">
           Users
           <span class="md-nav__icon md-icon"></span>
@@ -245,39 +245,11 @@
         Getting Started using Snaps
       </a>
 </li>
-<li class="md-nav__item md-nav__item--active">
-<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
-<label class="md-nav__link md-nav__link--active" for="__toc">
-          DTO Validation
-          <span class="md-nav__icon md-icon"></span>
-</label>
-<a class="md-nav__link md-nav__link--active" href="./">
-        DTO Validation
-      </a>
-<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="__toc">
-<span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#tag-usage">
-    Tag usage
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#character-restriction">
-    Character restriction
-  </a>
-</li>
 </ul>
 </nav>
 </li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" id="__nav_2_4" type="checkbox"/>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" id="__nav_2_4" type="checkbox"/>
 <label class="md-nav__link" for="__nav_2_4">
           Developers
           <span class="md-nav__icon md-icon"></span>
@@ -382,6 +354,34 @@
 <a class="md-nav__link" href="../Ch-GettingStartedUsersNexus/">
         Getting Docker Images from EdgeX Nexus Repository
       </a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          DTO Validation
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+        DTO Validation
+      </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tag-usage">
+    Tag usage
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#character-restriction">
+    Character restriction
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -1200,13 +1200,17 @@ The device name field contains the following validation:</p>
 <li>In OPC_UA protocol, the user might use NodeId as the resourceName, for example, ns=10;s=Hello:World</li>
 </ul>
 </div>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 3.0</p>
+<p>In EdgeX 3.0, the character restriction was reduced for the command name and resource name because some protocols may use <code>/</code> or <code>.</code> in the name. By using URL escaping for the API, device command name and resource name allow various characters. For example, the user can define the command name <code>line-a/test:value</code> and use it with URL escaping as <code>/api/v2/device/name/Modbus-TCP-Device/line-a%2Ftest%3Avalue</code>.</p>
+</div>
 </article>
 </div>
 </div>
 </main>
 <footer class="md-footer">
 <nav aria-label="Footer" class="md-footer__inner md-grid">
-<a aria-label="Previous: Getting Started using Snaps" class="md-footer__link md-footer__link--prev" href="../Ch-GettingStartedSnapUsers/" rel="prev">
+<a aria-label="Previous: Getting Docker Images from EdgeX Nexus Repository" class="md-footer__link md-footer__link--prev" href="../Ch-GettingStartedUsersNexus/" rel="prev">
 <div class="md-footer__button md-icon">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
 </div>
@@ -1215,17 +1219,17 @@ The device name field contains the following validation:</p>
 <span class="md-footer__direction">
                 Previous
               </span>
-              Getting Started using Snaps
+              Getting Docker Images from EdgeX Nexus Repository
             </div>
 </div>
 </a>
-<a aria-label="Next: Getting Started as a Developer" class="md-footer__link md-footer__link--next" href="../Ch-GettingStartedDevelopers/" rel="next">
+<a aria-label="Next: Command Line Interface (CLI)" class="md-footer__link md-footer__link--next" href="../tools/Ch-CommandLineInterface/" rel="next">
 <div class="md-footer__title">
 <div class="md-ellipsis">
 <span class="md-footer__direction">
                 Next
               </span>
-              Getting Started as a Developer
+              Command Line Interface (CLI)
             </div>
 </div>
 <div class="md-footer__button md-icon">
