@@ -47,7 +47,6 @@ The following tables (organized by type of service) capture the default service 
 === "Security"
     |Services Name|	Port Definition|
     |---|---|
-    |kong-db (deprecated)           |5432|
     |vault	                        |8200|
     |nginx	                        |8000, 8443|
     |security-spire-server          |59840|

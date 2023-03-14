@@ -412,6 +412,7 @@ You may also refer to the [secrets-config proxy](../../security/secrets-config-p
     Some additional work is required to generate a JWT that is usable for API gateway authentication.
 
     ```bash
+    username=example
     password=password-from-above
 
     vault_token=$(curl -ks "http://localhost:8200/v1/auth/userpass/login/${username}" -d "{\"password\":\"${password}\"}" | jq -r '.auth.client_token')
@@ -421,7 +422,8 @@ You may also refer to the [secrets-config proxy](../../security/secrets-config-p
     echo "${id_token}" > user-jwt.txt
     ```
 
-Once you have the token, you can access the services via the API Gateway.
+Once you have the token, you can access the services via the API Gateway (the vault token can be discarded).
+To obtain a new JWT token once the current one is expired, repeat the above snippet of code.
 
 !!! example "Calling an API on behalf of example user"
 
@@ -453,25 +455,24 @@ Consul API and UI can be accessed using the consul token (Secret ID). For the sn
 
 #### Changing TLS certificates
 The API Gateway setup generates a self-signed certificate with a short expiration by default.
-To replace that with your own certificate, refer to API Gateway guide: [Using a bring-your-own external TLS certificate for API gateway](../../security/Ch-APIGateway/#using-a-bring-your-own-external-tls-certificate-for-api-gateway) and use the snapped `edgexfoundry.secrets-config` utility.
 
-To get the usage help:
-```bash
-edgexfoundry.secrets-config proxy tls -h
-```
-You may also refer to the [secrets-config proxy](../../security/secrets-config-proxy/) documentation.
+The default certificate is stored at `/var/snap/edgexfoundry/current/nginx/nginx.crt`.
+
+The default private key is stored at `/var/snap/edgexfoundry/current/nginx/nginx.key`.
+
+The JWT authentication token that is consumed by the proxy is sensitive and it is important that
+measures are taken to ensure that clients do not disclose the JWT to unauthorized parties.
+For this reason, the default certificate and key should be replaced
+with a certificate and key that is trusted by connecting clients.
+(This can be done a `sudo cp` command or equivalent.)
+
 
 !!! example
     Given the following files created outside the scope of this document:
     
-    * `cert.pem` certificate
-    * `privkey.pem` private key
-    * `ca.pem` certificate authority file (if not available in root certificates)
-
-    Replace the default certificate:
-    ```bash
-    edgexfoundry.secrets-config proxy tls --incert cert.pem --inkey privkey.pem
-    ```
+    * `nginx.crt` user-provided certificate (replacing the default)
+    * `nginx.key` user-provided private key (replacing the default)
+    * `ca.pem` certificate authority file (that signed `nginx.crt`, directly or indirectly)
 
     Try it out:
     ```bash

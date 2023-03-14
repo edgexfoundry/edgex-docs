@@ -33,16 +33,24 @@ Proxy configuration commands (listed below) require access to the secret store m
     This command will replace the default TLS certificate created with EdgeX is started for the first time.
     Requires additional arguments:
 
-    * **--incert** _/path/to/certchain_ (required)
+    * **--inCert** _/path/to/certchain_ (required)
 
       Path to TLS leaf certificate (PEM-encoded x.509) (the file extension is arbitrary).
       If intermediate certificates are required to chain to a certificate authority,
       these should also be included.
       The root certificate authority should not be included.
 
-    * **--inkey** _/path/to/private\_key_ (required)
+    * **--inKey** _/path/to/private\_key_ (required)
 
       Path to TLS private key (PEM-encoded).
+
+    * **--keyFilename** _filename_ (optional)
+
+    	Filename of private key file (on target (default "nginx.key")
+
+    * **--targetFolder** _directory-path_ (optional)
+
+    	Path to TLS key file (default "/etc/ssl/nginx")
 
   * **adduser**
 
@@ -52,6 +60,24 @@ Proxy configuration commands (listed below) require access to the secret store m
     * **--user** _username_ (required)
 
       Username of the user to add.
+
+    * **--jwtTTL** _duration_ (optional)
+
+    	JWT created by vault identity provider lasts this long (_s, _m, _h, or _d, seconds if no unit) (default "1h")
+
+      Clients have up to `tokenTTL` time available to exchange the secret store token for a signed JWT.
+      The validity period of that JWT is governed by `jwtTTL`.
+
+    * **--tokenTTL** _duration_ (optional)
+
+    	Vault token created as a result of vault login lasts this long  (_s, _m, _h, or _d, seconds if no unit) (default "1h")
+
+      The `adduser` command creates a credential that enables a use to request a token for the secret store.
+      The intended purpose of this token is to exchange it for a signed JWT.
+      The duration specified here governs the time period within which a signed JWT can be requested.
+
+      Note that although these tokens are renewable, there is nothing to be done with the token
+      except for requesting a JWT. Thus, the token renew endpoint is not currently exposed externally.
 
     * **--useRootToken** (optional)
 
@@ -68,6 +94,7 @@ Proxy configuration commands (listed below) require access to the secret store m
     A sample shell script to turn this into an token that can be used for API gateway authentication is as follows:
 
     ```shell
+    username=example
     password=password-from-above
 
     vault_token=$(curl -ks "http://localhost:8200/v1/auth/userpass/login/${username}" -d "{\"password\":\"${password}\"}" | jq -r '.auth.client_token')
@@ -77,6 +104,8 @@ Proxy configuration commands (listed below) require access to the secret store m
     echo "${id_token}"
     ```
 
+    It is expected the the username/password returned from adduser will be saved for later use.
+    However, if the password is lost, adduser can be run a second time to reset the password.
 
   * **deluser**
 

@@ -35,19 +35,16 @@ The following table provides the list of the default EdgeX Docker image names to
     |edgexfoundry/device-grove|edgex-device-grove|edgex-device-grove|device-grove|
     |edgexfoundry/device-coap|edgex-device-coap|edgex-device-coap|device-coap|
 === "Security"
-    |Docker image name|Docker container name |Docker network hostname|Docker Compose service name|Note|
+    |Docker image name|Docker container name |Docker network hostname|Docker Compose service name|
     |---|---|---|---|
     |vault|edgex-vault|edgex-vault|vault|
     |nginx|edgex-nginx|edgex-nginx|nginx|
-    |postgress|edgex-kong-db|edgex-kong-db|kong-db|DEPRECATED|
-    |kong|edgex-kong|edgex-kong|kong|DEPRECATED|
     |edgexfoundry/security-proxy-auth|edgex-proxy-auth|edgex-proxy-auth|authproxy|
     |edgexfoundry/security-proxy-setup|edgex-security-proxy-setup|edgex-security-proxy-setup|proxy-setup|
     |edgexfoundry/security-secretstore-setup|edgex-security-secretstore-setup|edgex-security-secretstore-setup|secretstore-setup|
     |edgexfoundry/security-bootstrapper|edgex-security-bootstrapper|edgex-security-bootstrapper|security-bootstrapper|
 === "Miscellaneous"
-    |Docker image name|Docker container name |Docker network hostname|Docker Compose service name|Note|
+    |Docker image name|Docker container name |Docker network hostname|Docker Compose service name|
     |---|---|---|---|
     |consul|edgex-core-consul|edgex-core-consul|consul|
     |redis|edgex-redis|edgex-redis|database|
-    |edgexfoundry/sys-mgmt-agent|edgex-sys-mgmt-agent|edgex-sys-mgmt-agent|system|DEPRECATED|

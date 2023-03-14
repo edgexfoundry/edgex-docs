@@ -59,15 +59,16 @@ or the Docker-based EdgeX deployment
 using the Docker Compose files found at
 <https://github.com/edgexfoundry/edgex-compose/>.
 
-In Docker, the command to start EdgeX inclusive of API gateway related services is:
+In Docker, the command to start EdgeX inclusive of API gateway related services is
+(where "somerelease" denotes the EdgeX release, such as "jakarta" or "minnesota"):
 
-    git clone -b jakarta https://github.com/edgexfoundry/edgex-compose
+    git clone -b somerelease https://github.com/edgexfoundry/edgex-compose
     cd edgex-compose
     make run
 
 or
 
-    git clone -b jakarta https://github.com/edgexfoundry/edgex-compose
+    git clone -b somerelease https://github.com/edgexfoundry/edgex-compose
     cd edgex-compose
     make run arm64
 
