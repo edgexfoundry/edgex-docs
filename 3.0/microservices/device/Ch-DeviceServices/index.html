@@ -1482,6 +1482,10 @@ and role of a device service.</p>
 <p>New in Edgex 2.0</p>
 </div>
 <p>Device services now have the capability to publish Events directly to the EdgeX MessageBus, rather than POST the Events to Core Data via REST. This capability is controlled by the <code>Device.UseMessageBus</code> configuration property (see below), which is set to <code>true</code> by default. Core Data is configured by default to subscribe to the EdgeX MessageBus to receive and persist the Events. Application services, as in EdgeX 1.x, subscribe to the EdgeX MessageBus to receive and process the Events.</p>
+<div class="admonition edgey">
+<p class="admonition-title">Edgex 3.0</p>
+<p>Upon successful PUT command, Device services will also publish an Event with the updated Resource value(s) to the EdgeX MessageBus as long as the Resource(s) are not write-only.</p>
+</div>
 <h2 id="configuration-properties">Configuration Properties</h2>
 <p>Please refer to the general <a href="../../configuration/CommonConfiguration/">Common Configuration documentation</a> for configuration properties common to all services.</p>
 <div class="admonition edgey -">
