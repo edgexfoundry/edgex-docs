@@ -39,13 +39,14 @@ units | String | N | Developer is open to define units of value
 minimum | String | N | Error if SET command value out of minimum range
 maximum | String | N | Error if SET command value out of maximum range
 defaultValue | String | N | If present, should be compatible with the Type field
-mask | String | N | Only valid where Type is one of the unsigned integer types
-shift | String | N | Only valid where Type is one of the unsigned integer types
-scale | String | N | Only valid where Type is one of the integer or float types
-offset | String | N | Only valid where Type is one of the integer or float types
-base | String | N | Only valid where Type is one of the integer or float types
+mask | Uint64 | N | Only valid where Type is one of the unsigned integer types
+shift | Int64 | N | Only valid where Type is one of the unsigned integer types
+scale | Float64 | N | Only valid where Type is one of the integer or float types
+offset | Float64 | N | Only valid where Type is one of the integer or float types
+base | Float64 | N | Only valid where Type is one of the integer or float types
 assertion | String | N | String value to which the reading is compared
 mediaType | String | N | Only required when valueType is `Binary`
+optional | String-Any Map | N | Optional mapping for the given resource
 
 DeviceCommand
 -------------
