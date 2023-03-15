@@ -35,7 +35,7 @@ for the purpose of obtaining a secret store token.
 From this point forward, it is assumed that the calling code
 has a valid secret store token obtained using the above process.
 
-### Remotely
+### Remotely - API Gateway
 
 The [API gateway](./Ch-APIGateway.md) chapter explains how
 to make authenticated requests through the API gateway.
@@ -49,7 +49,7 @@ and be configured to trust the API gateway TLS certificate.
 In non-secure mode of EdgeX, the API gateway is not started.
 
 
-### Using EdgeX Service Clients
+### Local Service-to-Service - Using EdgeX Service Clients
 
 The preferred method of making an authenticated
 call to an EdgeX microservice is to use
@@ -78,7 +78,7 @@ the built-in service clients that are configured in go-mod-bootstrap
 gracefully degrade to non-authenticating clients.
 
 
-### Using the SecretProvider interface
+### Local Service-to-Service - Using the SecretProvider interface
 
 In the example where two user-provided services directly invoke one-another,
 there will be no service client available.
@@ -110,6 +110,17 @@ import (
   // to obtain a JWT and adds an Authorization header to the HTTP request
   err := jwtSecretProvider.AddAuthenticationData(req);
 ```
+
+### Remote Service-to-Service - Using API Gateway
+
+This scenario is not currently supported,
+as most services that a remote EdgeX service would need are blocked at the API gateway.
+Additionally, the built-in service clients are not reverse-proxy-aware,
+and would be dropped at the API gateway due to a lack of a service prefix in the URL.
+
+Instead, adopters should investigate advanced network topologies such as
+zero-trust networks, network overlays, network tunnels, or similar solutions
+that can create a virtual local network.
 
 
 ## Implementation Notes
