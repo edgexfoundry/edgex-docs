@@ -125,6 +125,15 @@ introspect_result=$(curl -ks -H "Authorization: Bearer ${vault_token}" "http://l
 echo "${introspect_result}"
 ```
 
+IMPORTANT NOTE:
+
+If running EdgeX in Docker using the `edgex-compose` repository,
+steps 1 and 2 above have been automated by the following command:
+
+```shell
+make get-token
+```
+
 #### 3. Using the JWT to call an EdgeX API
 
 To call an EdgeX service directly from host context,
