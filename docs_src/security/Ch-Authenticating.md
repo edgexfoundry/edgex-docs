@@ -49,6 +49,104 @@ and be configured to trust the API gateway TLS certificate.
 In non-secure mode of EdgeX, the API gateway is not started.
 
 
+### Authenticating to EdgeX Microservice - Full Flow using Curl CLI
+
+Various use cases require hand-crafting
+authenticated calls to EdgeX microservices
+using command-line utilities such as `curl` or `postman`.
+
+This example will walk through the following steps,
+using `curl` as the example HTTP client:
+
+1. Creating a user identity
+2. Obtaining a JWT authentication token
+3. Using the JWT to call an EdgeX API
+
+The example will be done in the Docker environment.
+The docker network architecture is illustrated below:
+
+![Network diagram](authentication-network.jpg)
+
+It is assumed for these examples that the caller is on the host network.
+The API gateway is exposed to both internal an external callers.
+The EdgeX secret store and some EdgeX service
+are exposed on the docker network and on localhost,
+and this directly callable from a host command prompt.
+
+#### 1. Creating a User Identity
+
+Let use first set a shell variable to hold a username:
+
+```shell
+username=exampleuser
+```
+
+Optional: Delete existing user
+
+```shell
+docker exec -ti edgex-security-proxy-setup ./secrets-config proxy deluser --user "${username}" --useRootToken
+```
+
+Create new user identity, capture the password.
+In this example, the Vault token has a 60 second time-to-live (TTL),
+and any JWTs that we create will have a 119 minute TTL.
+This is set at the time of account creation.
+
+```shell
+password=$(docker exec -ti edgex-security-proxy-setup ./secrets-config proxy adduser --user "${username}" --tokenTTL 60 --jwtTTL 119m --useRootToken | jq -r '.password')
+```
+
+#### 2. Obtaining a JWT authentication token
+
+Obtaining a JWT is a multi-step process.
+First, obtain a secret store token using the username and password from the previous step.
+Second, exchange the secret store token for a JWT.
+The secret store token can be discarded or revoked after the JWT is obtained.
+(Internally, EdgeX microservices renew their tokens when half of their TTL is remaining, and use the token repeatedly to obtain fresh JWTs.
+This behavior is coded into go-mod-bootstrap.)
+
+
+```shell
+vault_token=$(curl -ks "http://localhost:8200/v1/auth/userpass/login/${username}" -d "{\"password\":\"${password}\"}" | jq -r '.auth.client_token')
+
+id_token=$(curl -ks -H "Authorization: Bearer ${vault_token}" "http://localhost:8200/v1/identity/oidc/token/${username}" | jq -r '.data.token')
+
+echo "${id_token}"
+```
+
+Optionally, if the secret store token (vault_token) isn't expired yet,
+it can be used to check the validity of an arbitrary JWT.
+This example checks the validity of the JWT that was issued above.
+Any JWT that passes this check should be accepted by the API gateway
+as well as any authenticated EdgeX microservice call.
+
+```shell
+introspect_result=$(curl -ks -H "Authorization: Bearer ${vault_token}" "http://localhost:8200/v1/identity/oidc/introspect" -d "{\"token\":\"${id_token}\"}" | jq -r '.active')
+echo "${introspect_result}"
+```
+
+#### 3. Using the JWT to call an EdgeX API
+
+To call an EdgeX service directly from host context,
+go directly to the service's localhost-mapped port:
+
+```shell
+curl -H"Authorization: Bearer ${id_token}" "http://localhost:59xxx/api/v2/version"
+```
+
+It is also possible to call through the API gateway's external interface.
+This is done via TLS, and `ca.crt` is the CA certificate that is
+used to verify the TLS certificate presented by the API gateway.
+Notably, the fault TLS certificate on the API gateway is not trusted
+by default, and is assumed to have been replaced with a known certificate.
+The text `SERVICENAME` below is the name of the EdgeX service
+that is being proxied by the API gateway, such as `core-data`.
+
+```shell
+curl --cacert ca.crt -H"Authorization: Bearer ${id_token}" "https://`hostname --fqdn`:8443/SERVICENAME/api/v2/version"
+```
+
+
 ### Local Service-to-Service - Using EdgeX Service Clients
 
 The preferred method of making an authenticated
@@ -105,7 +203,7 @@ import (
   var jwtSecretProvider clientInterfaces.AuthenticationInjector
   jwtSecretProvider = secret.NewJWTSecretProvider(m.secretProvider)
 
-  // Call the AddAuthenticatinData helper method
+  // Call the AddAuthenticationData helper method
   // internally, this calls GetSelfJWT() on the SecretProvider
   // to obtain a JWT and adds an Authorization header to the HTTP request
   err := jwtSecretProvider.AddAuthenticationData(req);
