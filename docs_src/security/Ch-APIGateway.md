@@ -2,55 +2,80 @@
 
 ## Introduction
 
-The security API gateway is the single point of entry for all EdgeX REST
-traffic. It is the barrier between external clients and the EdgeX
-microservices preventing unauthorized access to EdgeX REST APIs. The API
-gateway accepts client requests, verifies the identity of the clients,
-redirects the requests to correspondent microservice and relays the
-results back to the client.  Internally, no authentication is required
-for one EdgeX microservice to call another.
+!!! edgey "EdgeX 3.0"
+    This content is completely new for EdgeX 3.0.
+    EdgeX 3.0 uses a brand new API gateway solution
+    based on NGINX and Hashicorp Vault instead of Kong and Postgres.
+    The new solution means that EdgeX 3.0 will be
+    able to run in security enabled mode on more resource-constrained devices.
 
-The API Gateway provides two HTTP REST management interfaces.
-The first (insecure) interface is exposed only to `localhost`:
-in snaps, this means it is exposed to any local process.
-In Docker, this insecure interface is bound to the Docker container,
-and is not reachable from outside of the container.
-The second (secure) interface is exposed outside of cluster
-on an administative URL sub-path, `/admin` and requires a
-specifically-crafted JWT to access.
-The management interface offers the means to configure
-API routing, as well as client authentication and access control. This
-configuration is stored in an embedded database.
+API gateways are used in microservice architectures
+that expose HTTP-accessible APIs to create a
+security layer that separates internal and external callers.
+An API gateway accepts client requests,
+authenticates the client,
+forwards the request to a backend microservice,
+and relays the results back to the client.
 
-KONG (<https://konghq.com/>) is the product underlying the API gateway.
-The EdgeX community has added code to initialize the KONG environment,
-set up service routes for EdgeX microservices, and add various
-authentication/authorization mechanisms including JWT authentication and ACL.
+Although authentication is done at the microservice layer in EdgeX 3.0,
+EdgeX Foundry as elected to continue to use an API gateway for the
+following reasons:
+
+1. It provides a convenient choke point and policy enforcement point
+   for external HTTP requests and enables EdgeX adopters to
+   easily replace the default authentication logic.
+
+2. It defers the urgency of implementing fine-grained authorization at
+   the microservice layer.
+
+3. It provides defense-in-depth against microservice authentication bugs
+   and other technical debt that might otherwise put EdgeX
+   microservices at risk.
+
+The API gateway listens on two ports:
+
+* 8000: This is an unencrypted HTTP port exposed to localhost-only
+  (also exposed to the edgex-network Docker network).
+  When EdgeX is running in security-enabled mode,
+  the EdgeX UI uses port 8000 for authenticated
+  local microservice calls.
+
+* 8443: This is a TLS 1.3 encrypted HTTP port exposed via
+  the host's network interface to external clients.
+  The default TLS certificate on this port is untrusted
+  by default and should be replaced with a trusted
+  certificate for production usage.
+
+EdgeX 3.0 uses NGINX as the API gateway implementation
+and delegates to EdgeX's secret store (powered by Hashicorp Vault)
+for user and JWT authentication.
+
 
 ## Start the API Gateway
 
-The API gateway is started by default when using 
-the secure version of the Docker Compose files found at
-<https://github.com/edgexfoundry/edgex-compose/tree/ireland>.
+The API gateway is started by default in either
+the snap-based EdgeX deployment
+or the Docker-based EdgeX deployment
+using the Docker Compose files found at
+<https://github.com/edgexfoundry/edgex-compose/>.
 
-The command to start EdgeX inclusive of API gateway related services is:
+In Docker, the command to start EdgeX inclusive of API gateway related services is
+(where "somerelease" denotes the EdgeX release, such as "jakarta" or "minnesota"):
 
-    git clone -b ireland https://github.com/edgexfoundry/edgex-compose
+    git clone -b somerelease https://github.com/edgexfoundry/edgex-compose
+    cd edgex-compose
     make run
 
 or
 
-    git clone -b ireland https://github.com/edgexfoundry/edgex-compose
+    git clone -b somerelease https://github.com/edgexfoundry/edgex-compose
+    cd edgex-compose
     make run arm64
 
 The API gateway is not started if EdgeX is started with security
-features disabled by appending `no-secty` to the previous commands.
+features disabled by appending `no-secty` to the previous `make` commands.
 This disables **all** EdgeX security features, not just the API gateway.
 
-The API Gateway is provided by the `kong` service.
-The `proxy-setup` service is a one-shot service that configures the proxy and then terminates.
-`proxy-setup` docker image also contains the `secrets-config` utility to assist
-in common configuration tasks.
 
 ## Configuring API Gateway
 
@@ -70,41 +95,19 @@ and the unencrypted PEM-encoded private key is called `key.pem`.
 Do not use an encrypted private key as the API gateway
 will hang on startup in order to prompt for a password.
 
-Also, for purposes of the example, the external DNS name of
-the API gateway is assumed to be `edge001.example.com`.
-The API gateway requires client to support Server Name
-Identification (SNI) and that the client connects to the
-API gateway using a DNS host name.  The API gateway uses
-the host name supplied by the client to determine which
-certificate to present to the client.  The API gateway
-will continue to serve the default (untrusted) certificate
-if clients connect via IP address or do not provide
-SNI at all.
-
-Run the following command to install a custom certficate
+Run the following command to install a custom certificate
 using the assumptions above:
 
-    docker-compose -p edgex -f docker-compose.yml run --rm -v `pwd`:/host:ro --entrypoint /edgex/secrets-config edgex-proxy proxy tls --incert /host/cert.pem --inkey /host/key.pem --snis edge001.example.com --admin_api_jwt /tmp/edgex/secrets/security-proxy-setup/kong-admin-jwt
+    docker compose -p edgex -f docker-compose.yml run --rm -v `pwd`:/host:ro --entrypoint /edgex/secrets-config proxy-setup proxy tls --incert /host/cert.pem --inkey /host/key.pem
 
-The utility will always add the internal host names,
-"localhost" and "kong" to the specified SNI list.
-
-The following command can verify the certificate installation
-was successful.
+The following command can verify the certificate installation was successful.
 
     echo "GET /" | openssl s_client -showcerts -servername edge001.example.com -connect 127.0.0.1:8443
 
+(where `edgex001.example.com` is the hostname by which the client is externally reachable)
 
-### Configuration of JWT Authentication for API Gateway
+The TLS certificate installed in the previous step should be among the output of the `openssl` command.
 
-When using JWT Authentication, the \[KongAuth\] section needs to be
-specified in the configuration file as shown below.  This is the default.
-
-    [KongAuth]
-    Name = "jwt"
-
-!!! edgey "EdgeX 2.0"
-    The "oauth2" authentication method has been removed in EdgeX 2.0 as JWT-based authentication is resistant to brute-force attacks and does not require storage of a secret in the Kong database.
 
 ### Configuration of Adding Microservices Routes for API Gateway
 
@@ -192,6 +195,13 @@ Comparing these two curl commands you may notice several differences.
     there is a mapping table kept by the API gateway that maps paths to
     micro service ports. A partial listing of the map between ports and
     URL paths is shown in the table below.
+
+
+The EdgeX documentation maintains an up-to-date list
+of [default service ports](../general/ServicePorts.md).
+
+
+
 
 ---
 
@@ -303,19 +313,4 @@ In summary the difference between the two commands are listed below:
 -   Use header of -H "Authorization: Bearer \<access-token\>" to
     specify the access token associated with the client that was
     generated when the client was added.
-
-
-### Adjust Kong worker processes to optimize the performance
-
-The number of the Kong worker processes would impact the memory consumption and the API Gateway performance.  
-In order to reduce the memory consumption, the default value of it in EdgeX Foundry is one instead of auto (the original default value). 
-This setting is defined in the environment variable section of the docker-compose file.
-```
-KONG_NGINX_WORKER_PROCESSES: '1'
-```
-Users can adjust this value to meet their requirement, or remove this environment variable to adjust it automatically.
-Read the references for more details about this setting: 
-
--   <https://docs.konghq.com/gateway-oss/2.5.x/configuration/#nginx_worker_processes>
--   <http://nginx.org/en/docs/ngx_core_module.html#worker_processes>
 

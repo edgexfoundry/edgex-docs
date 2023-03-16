@@ -247,28 +247,21 @@ It must therefore be accessed via `localhost` or a network tunnel of some kind.
 Open a browser session on `http://localhost:8200`
 and sign-in with the Root Token.
 
-![image](EdgeX-UI-Vault-01.png){.align-center width="606px"
-height="504px"}
+![image](EdgeX-UI-Vault-01.png)
 
 Upper left corner of the current Vault UI session, the sign-out menu
 displaying the current token name:
 
-![image](EdgeX-UI-Vault-02.png){.align-center width="275px"
-height="156px"}
+![image](EdgeX-UI-Vault-02.png)
 
-Select the Vault secret backend:
+Select the Vault secret backend, and navigate to any secret that is of interest:
 
-![image](EdgeX-UI-Vault-03.png){.align-center}
-
-Navigate the API Gateway (Kong) service X.509 TLS materials path
-(edgex/pki/tls/edgex-kong):
-
-![image](EdgeX-UI-Vault-04.png){.align-center}
+![image](EdgeX-UI-Vault-03.png)
 
 The Vault UI also allows entering Vault CLI commands (see above **1st
 alternative**) using an embedded console:
 
-![image](EdgeX-UI-Vault-05.png){.align-center}
+![image](EdgeX-UI-Vault-05.png)
 
 ## See also
 

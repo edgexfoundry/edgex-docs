@@ -362,12 +362,12 @@ Upon installation, the following EdgeX services are automatically started:
 - core-command
 - core-data
 - core-metadata
-- kong-daemon (API Gateway / Reverse Proxy)
-- postgres (kong's database)
+- nginx (API Gateway / Reverse Proxy)
 - redis (default Message Bus and database backend for core-data and core-metadata)
 - security-bootstrapper-redis (oneshot service to setup secure Redis)
 - security-consul-bootstrapper (oneshot service to setup secure Consul)
-- security-proxy-setup (oneshot service to setup Kong)
+- security-proxy-auth (performs authentication on behalf of the API gateway)
+- security-proxy-setup (oneshot service to setup API gateway)
 - security-secretstore-setup (oneshot service to setup Vault)
 - vault (Secret Store)
 
@@ -384,7 +384,12 @@ For the configuration of services, refer to [configuration].
 Most services are exposed and accessible on localhost without access control. However, the access from outside is restricted to authorized users.
 
 #### Adding API Gateway users
-The service endpoints can be accessed securely through the API Gateway. The API Gateway requires a JSON Web Token (JWT) to authorize requests. Please refer to [Adding EdgeX API Gateway Users Remotely](../../security/Ch-AddGatewayUserRemotely/) and use the snapped `edgexfoundry.secrets-config` utility.
+The API gateway will pass any request that authenticates using a
+[signed identity token from the EdgeX secret store](https://developer.hashicorp.com/vault/api-docs/secret/identity/tokens#introspect-a-signed-id-token).
+
+The baseline implementation in EdgeX 3.0 uses Vault identity and the 'userpass' authentication engine to create users,
+though EdgeX adopters are free to add their own Vault identities using authentication methods of their choice.
+To add a new user locally, use the snapped `edgexfoundry.secrets-config` utility.
 
 To get the usage help:
 ```bash
@@ -394,40 +399,31 @@ You may also refer to the [secrets-config proxy](../../security/secrets-config-p
 
 
 !!! example "Creating an example user"
-    Create private and public keys:
+    Use secrets-config to add a user `example` (note: always specify `--useRootToken` for the snap deployment of EdgeX):
     ```bash
-    openssl ecparam -genkey -name prime256v1 -noout -out private.pem
-    openssl ec -in private.pem -pubout -out public.pem
-
+    edgexfoundry.secrets-config proxy adduser --user example --useRootToken
     ```
-
-    Read the API Gateway token:
-    ```bash
-    KONG_ADMIN_JWT=`sudo cat /var/snap/edgexfoundry/current/secrets/security-proxy-setup/kong-admin-jwt`
-    ```
-
-    Use secrets-config to add a user `example` with id `1000`:
-    ```bash
-    edgexfoundry.secrets-config proxy adduser --token-type jwt --user example --algorithm ES256 --public_key public.pem --id 1000 --jwt $KONG_ADMIN_JWT
-    ```
-    On success, the above command prints the user id.
-
-??? tip "Seeding an admin user using snap options"
-    To spin up a pre-configured and securely accessible EdgeX instance, the snap provides a way to pass the public key of a single user with snap options. When requested, the user is created with user `admin`, id `1` and JWT signing algorithm `ES256`. The snap option for passing the public key is:
-    `apps.secrets-config.proxy.admin.public-key`.
-
-    This is particularly useful when seeding the snap from a [Gadget](https://snapcraft.io/docs/gadget-snap) on an [Ubuntu Core](https://ubuntu.com/core) system.
+    On success, the above command prints a JSON object containing `username` and `password` fields.
+    If the "adduser" command is run multiple times,
+    each run will overwrite the password from the previous run
+    with a new random password.
 
 !!! example "Generating a JWT token for the example user"
-    On success, a JWT token is printed out and written to `user-jwt.txt` file.
-    We use the user id `1000` as set in the previous example.
+    Some additional work is required to generate a JWT that is usable for API gateway authentication.
+
     ```bash
-    edgexfoundry.secrets-config proxy jwt --algorithm ES256 --private_key private.pem --id 1000 --expiration=1h | tee user-jwt.txt
+    username=example
+    password=password-from-above
+
+    vault_token=$(curl -ks "http://localhost:8200/v1/auth/userpass/login/${username}" -d "{\"password\":\"${password}\"}" | jq -r '.auth.client_token')
+
+    id_token=$(curl -ks -H "Authorization: Bearer ${vault_token}" "http://localhost:8200/v1/identity/oidc/token/${username}" | jq -r '.data.token')
+
+    echo "${id_token}" > user-jwt.txt
     ```
 
-It is also possible to create the JWT token using bash and openssl. But that is beyond the scope of this guide.
-
-Once you have the token, you can access the services via the API Gateway.
+Once you have the token, you can access the services via the API Gateway (the vault token can be discarded).
+To obtain a new JWT token once the current one is expired, repeat the above snippet of code.
 
 !!! example "Calling an API on behalf of example user"
 
@@ -458,30 +454,25 @@ Consul API and UI can be accessed using the consul token (Secret ID). For the sn
     ```
 
 #### Changing TLS certificates
-The API Gateway setup generates a self-signed certificate by default. To replace that with your own certificate, refer to API Gateway guide: [Using a bring-your-own external TLS certificate for API gateway](../../security/Ch-APIGateway/#using-a-bring-your-own-external-tls-certificate-for-api-gateway) and use the snapped `edgexfoundry.secrets-config` utility.
+The API Gateway setup generates a self-signed certificate with a short expiration by default.
 
-To get the usage help:
-```bash
-edgexfoundry.secrets-config proxy tls -h
-```
-You may also refer to the [secrets-config proxy](../../security/secrets-config-proxy/) documentation.
+The default certificate is stored at `/var/snap/edgexfoundry/current/nginx/nginx.crt`.
+
+The default private key is stored at `/var/snap/edgexfoundry/current/nginx/nginx.key`.
+
+The JWT authentication token that is consumed by the proxy is sensitive and it is important that
+measures are taken to ensure that clients do not disclose the JWT to unauthorized parties.
+For this reason, the default certificate and key should be replaced
+with a certificate and key that is trusted by connecting clients.
+(This can be done a `sudo cp` command or equivalent.)
+
 
 !!! example
     Given the following files created outside the scope of this document:
     
-    * `cert.pem` certificate
-    * `privkey.pem` private key
-    * `ca.pem` certificate authority file (if not available in root certificates)
-
-    Read the API Gateway token:
-    ```bash
-    KONG_ADMIN_JWT=`sudo cat /var/snap/edgexfoundry/current/secrets/security-proxy-setup/kong-admin-jwt`
-    ```
-
-    Add the certificate, using Kong Admin JWT to authenticate:
-    ```bash
-    edgexfoundry.secrets-config proxy tls --incert cert.pem --inkey privkey.pem --admin_api_jwt $KONG_ADMIN_JWT
-    ```
+    * `nginx.crt` user-provided certificate (replacing the default)
+    * `nginx.key` user-provided private key (replacing the default)
+    * `ca.pem` certificate authority file (that signed `nginx.crt`, directly or indirectly)
 
     Try it out:
     ```bash
@@ -498,7 +489,6 @@ You may also refer to the [secrets-config proxy](../../security/secrets-config-p
     
     * `apps.secrets-config.proxy.tls.cert`
     * `apps.secrets-config.proxy.tls.key`
-    * `apps.secrets-config.proxy.tls.snis` (comma-separated values)
 
     This is particularly useful when seeding the snap from a [Gadget](https://snapcraft.io/docs/gadget-snap) on an [Ubuntu Core](https://ubuntu.com/core) system.
 
@@ -538,10 +528,7 @@ To better understand the snap connections, read the [interface management](https
     
     # Re-start the oneshot setup service to re-generate tokens:
     sudo snap start edgexfoundry.security-secretstore-setup
-    
-    # Optional: If the Kong admin token is read from the file to interact with Kong
-    # Restart Kong to load the new admin token, generated by the setup service
-    sudo snap restart edgexfoundry.kong-daemon
+   
     ```
 
 ### EdgeX UI

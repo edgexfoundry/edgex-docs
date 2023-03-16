@@ -36,5 +36,5 @@ Please refer to the general [Common Configuration documentation](../microservice
 === "Security"
     |Services Name|	Configuration Reference|
     |---|---|
-    |API Gateway|[Kong Configuration](../security/Ch-APIGateway.md#configuring-api-gateway)|
+    |API Gateway|[API Gateway Configuration](../security/Ch-APIGateway.md#configuring-api-gateway)|
     |Add-on Services |[Configuring Add-on Service](../security/Ch-Configuring-Add-On-Services.md)|
