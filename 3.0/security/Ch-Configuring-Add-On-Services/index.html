@@ -414,6 +414,11 @@
       </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="../Ch-Authenticating/">
+        Authenticating to EdgeX Microservices
+      </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../Ch-SecretProviderApi/">
         Secret Provider API
       </a>
@@ -479,11 +484,6 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../Ch-SecurityIssues/">
         Reporting Security Issues
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../Ch-AddGatewayUserRemotely/">
-        Adding EdgeX API Gateway Users Remotely
       </a>
 </li>
 <li class="md-nav__item">
@@ -1345,8 +1345,7 @@ service registry.</p>
 <p>If it is desirable to let user or other application services outside EdgeX's Docker network access
 the endpoint of the add-on service, then we can configure and add it via <code>proxy-setup</code> service's
 <code>ADD_PROXY_ROUTE</code> environment variable.  <code>proxy-setup</code> adds those services listed in that environment
-variable into the API gateway (also known as Kong) route so that the endpoint can be accessible
-using Kong's proxy endpoint.</p>
+variable into the API gateway routes so that the endpoint can be accessible via the gateway.</p>
 <p>One example of adding API gateway access routes for both <code>device-camera</code> and <code>device-modbus</code>
 is given as follows:</p>
 <div class="highlight"><pre><span></span><code><span class="nn">...</span>
@@ -1361,7 +1360,7 @@ is given as follows:</p>
 <p>where in the comma separated list, the first part of configured value <code>device-onvif-camera</code> is the service key
 and the URL format is the service's hostname with its docker network port number <code>59984</code>
 for <code>device-camera</code>.  The same idea applies to <code>device-modbus</code> with its values.</p>
-<p>With that setup, we can then access the endpoints of <code>device-camera</code> from Kong's host like
+<p>With that setup, we can then access the endpoints of <code>device-camera</code> from the host like
 <code>https://&lt;HostName&gt;:8443/device-onvif-camera/{device-name}/name</code> assuming the caller can resolve
 <code>&lt;HostName&gt;</code> from DNS server.</p>
 <p>For more details on the introduction to the API gateway and how it works,

@@ -414,6 +414,11 @@
       </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="../Ch-Authenticating/">
+        Authenticating to EdgeX Microservices
+      </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../Ch-SecretProviderApi/">
         Secret Provider API
       </a>
@@ -455,11 +460,6 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#configuration-of-jwt-authentication-for-api-gateway">
-    Configuration of JWT Authentication for API Gateway
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#configuration-of-adding-microservices-routes-for-api-gateway">
     Configuration of Adding Microservices Routes for API Gateway
   </a>
@@ -497,11 +497,6 @@
     Using API Gateway to Proxy Existing EdgeX Microservices
   </a>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#adjust-kong-worker-processes-to-optimize-the-performance">
-    Adjust Kong worker processes to optimize the performance
-  </a>
-</li>
 </ul>
 </nav>
 </li>
@@ -526,11 +521,6 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../Ch-SecurityIssues/">
         Reporting Security Issues
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../Ch-AddGatewayUserRemotely/">
-        Adding EdgeX API Gateway Users Remotely
       </a>
 </li>
 <li class="md-nav__item">
@@ -1227,11 +1217,6 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#configuration-of-jwt-authentication-for-api-gateway">
-    Configuration of JWT Authentication for API Gateway
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#configuration-of-adding-microservices-routes-for-api-gateway">
     Configuration of Adding Microservices Routes for API Gateway
   </a>
@@ -1269,11 +1254,6 @@
     Using API Gateway to Proxy Existing EdgeX Microservices
   </a>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#adjust-kong-worker-processes-to-optimize-the-performance">
-    Adjust Kong worker processes to optimize the performance
-  </a>
-</li>
 </ul>
 </nav>
 </li>
@@ -1289,47 +1269,80 @@
 </a>
 <h1 id="api-gateway">API Gateway</h1>
 <h2 id="introduction">Introduction</h2>
-<p>The security API gateway is the single point of entry for all EdgeX REST
-traffic. It is the barrier between external clients and the EdgeX
-microservices preventing unauthorized access to EdgeX REST APIs. The API
-gateway accepts client requests, verifies the identity of the clients,
-redirects the requests to correspondent microservice and relays the
-results back to the client.  Internally, no authentication is required
-for one EdgeX microservice to call another.</p>
-<p>The API Gateway provides two HTTP REST management interfaces.
-The first (insecure) interface is exposed only to <code>localhost</code>:
-in snaps, this means it is exposed to any local process.
-In Docker, this insecure interface is bound to the Docker container,
-and is not reachable from outside of the container.
-The second (secure) interface is exposed outside of cluster
-on an administative URL sub-path, <code>/admin</code> and requires a
-specifically-crafted JWT to access.
-The management interface offers the means to configure
-API routing, as well as client authentication and access control. This
-configuration is stored in an embedded database.</p>
-<p>KONG (<a href="https://konghq.com/">https://konghq.com/</a>) is the product underlying the API gateway.
-The EdgeX community has added code to initialize the KONG environment,
-set up service routes for EdgeX microservices, and add various
-authentication/authorization mechanisms including JWT authentication and ACL.</p>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 3.0</p>
+<p>This content is completely new for EdgeX 3.0.
+EdgeX 3.0 uses a brand new API gateway solution
+based on NGINX and Hashicorp Vault instead of Kong and Postgres.
+The new solution means that EdgeX 3.0 will be
+able to run in security enabled mode on more resource-constrained devices.</p>
+</div>
+<p>API gateways are used in microservice architectures
+that expose HTTP-accessible APIs to create a
+security layer that separates internal and external callers.
+An API gateway accepts client requests,
+authenticates the client,
+forwards the request to a backend microservice,
+and relays the results back to the client.</p>
+<p>Although authentication is done at the microservice layer in EdgeX 3.0,
+EdgeX Foundry as elected to continue to use an API gateway for the
+following reasons:</p>
+<ol>
+<li>
+<p>It provides a convenient choke point and policy enforcement point
+   for external HTTP requests and enables EdgeX adopters to
+   easily replace the default authentication logic.</p>
+</li>
+<li>
+<p>It defers the urgency of implementing fine-grained authorization at
+   the microservice layer.</p>
+</li>
+<li>
+<p>It provides defense-in-depth against microservice authentication bugs
+   and other technical debt that might otherwise put EdgeX
+   microservices at risk.</p>
+</li>
+</ol>
+<p>The API gateway listens on two ports:</p>
+<ul>
+<li>
+<p>8000: This is an unencrypted HTTP port exposed to localhost-only
+  (also exposed to the edgex-network Docker network).
+  When EdgeX is running in security-enabled mode,
+  the EdgeX UI uses port 8000 for authenticated
+  local microservice calls.</p>
+</li>
+<li>
+<p>8443: This is a TLS 1.3 encrypted HTTP port exposed via
+  the host's network interface to external clients.
+  The default TLS certificate on this port is untrusted
+  by default and should be replaced with a trusted
+  certificate for production usage.</p>
+</li>
+</ul>
+<p>EdgeX 3.0 uses NGINX as the API gateway implementation
+and delegates to EdgeX's secret store (powered by Hashicorp Vault)
+for user and JWT authentication.</p>
 <h2 id="start-the-api-gateway">Start the API Gateway</h2>
-<p>The API gateway is started by default when using 
-the secure version of the Docker Compose files found at
-<a href="https://github.com/edgexfoundry/edgex-compose/tree/ireland">https://github.com/edgexfoundry/edgex-compose/tree/ireland</a>.</p>
-<p>The command to start EdgeX inclusive of API gateway related services is:</p>
-<div class="codehilite"><pre><span></span><code>git clone -b ireland https://github.com/edgexfoundry/edgex-compose
+<p>The API gateway is started by default in either
+the snap-based EdgeX deployment
+or the Docker-based EdgeX deployment
+using the Docker Compose files found at
+<a href="https://github.com/edgexfoundry/edgex-compose/">https://github.com/edgexfoundry/edgex-compose/</a>.</p>
+<p>In Docker, the command to start EdgeX inclusive of API gateway related services is
+(where "somerelease" denotes the EdgeX release, such as "jakarta" or "minnesota"):</p>
+<div class="codehilite"><pre><span></span><code>git clone -b somerelease https://github.com/edgexfoundry/edgex-compose
+cd edgex-compose
 make run
 </code></pre></div>
 <p>or</p>
-<div class="codehilite"><pre><span></span><code>git clone -b ireland https://github.com/edgexfoundry/edgex-compose
+<div class="codehilite"><pre><span></span><code>git clone -b somerelease https://github.com/edgexfoundry/edgex-compose
+cd edgex-compose
 make run arm64
 </code></pre></div>
 <p>The API gateway is not started if EdgeX is started with security
-features disabled by appending <code>no-secty</code> to the previous commands.
+features disabled by appending <code>no-secty</code> to the previous <code>make</code> commands.
 This disables <strong>all</strong> EdgeX security features, not just the API gateway.</p>
-<p>The API Gateway is provided by the <code>kong</code> service.
-The <code>proxy-setup</code> service is a one-shot service that configures the proxy and then terminates.
-<code>proxy-setup</code> docker image also contains the <code>secrets-config</code> utility to assist
-in common configuration tasks.</p>
 <h2 id="configuring-api-gateway">Configuring API Gateway</h2>
 <h3 id="using-a-bring-your-own-external-tls-certificate-for-api-gateway">Using a bring-your-own external TLS certificate for API gateway</h3>
 <p>The API gateway will generate a default self-signed TLS certificate
@@ -1344,36 +1357,15 @@ the X.509 PEM-encoded certificate is assumed to be called <code>cert.pem</code>
 and the unencrypted PEM-encoded private key is called <code>key.pem</code>.
 Do not use an encrypted private key as the API gateway
 will hang on startup in order to prompt for a password.</p>
-<p>Also, for purposes of the example, the external DNS name of
-the API gateway is assumed to be <code>edge001.example.com</code>.
-The API gateway requires client to support Server Name
-Identification (SNI) and that the client connects to the
-API gateway using a DNS host name.  The API gateway uses
-the host name supplied by the client to determine which
-certificate to present to the client.  The API gateway
-will continue to serve the default (untrusted) certificate
-if clients connect via IP address or do not provide
-SNI at all.</p>
-<p>Run the following command to install a custom certficate
+<p>Run the following command to install a custom certificate
 using the assumptions above:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="n">edgex</span><span class="w"> </span><span class="o">-</span><span class="n">f</span><span class="w"> </span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="p">.</span><span class="n">yml</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="o">--</span><span class="n">rm</span><span class="w"> </span><span class="o">-</span><span class="n">v</span><span class="w"> </span><span class="n n-Quoted">`pwd`</span><span class="o">:/</span><span class="k">host</span><span class="o">:</span><span class="n">ro</span><span class="w"> </span><span class="o">--</span><span class="n">entrypoint</span><span class="w"> </span><span class="o">/</span><span class="n">edgex</span><span class="o">/</span><span class="n">secrets</span><span class="o">-</span><span class="n">config</span><span class="w"> </span><span class="n">edgex</span><span class="o">-</span><span class="k">proxy</span><span class="w"> </span><span class="k">proxy</span><span class="w"> </span><span class="k">tls</span><span class="w"> </span><span class="o">--</span><span class="n">incert</span><span class="w"> </span><span class="o">/</span><span class="k">host</span><span class="o">/</span><span class="n">cert</span><span class="p">.</span><span class="n">pem</span><span class="w"> </span><span class="o">--</span><span class="n">inkey</span><span class="w"> </span><span class="o">/</span><span class="k">host</span><span class="o">/</span><span class="k">key</span><span class="p">.</span><span class="n">pem</span><span class="w"> </span><span class="o">--</span><span class="n">snis</span><span class="w"> </span><span class="n">edge001</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="w"> </span><span class="o">--</span><span class="n">admin_api_jwt</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">edgex</span><span class="o">/</span><span class="n">secrets</span><span class="o">/</span><span class="k">security</span><span class="o">-</span><span class="k">proxy</span><span class="o">-</span><span class="k">set</span><span class="n">up</span><span class="o">/</span><span class="n">kong</span><span class="o">-</span><span class="k">admin</span><span class="o">-</span><span class="n">jwt</span>
+<div class="codehilite"><pre><span></span><code><span class="n">docker</span><span class="w"> </span><span class="n">compose</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="n">edgex</span><span class="w"> </span><span class="o">-</span><span class="n">f</span><span class="w"> </span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="p">.</span><span class="n">yml</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="o">--</span><span class="n">rm</span><span class="w"> </span><span class="o">-</span><span class="n">v</span><span class="w"> </span><span class="n n-Quoted">`pwd`</span><span class="o">:/</span><span class="k">host</span><span class="o">:</span><span class="n">ro</span><span class="w"> </span><span class="o">--</span><span class="n">entrypoint</span><span class="w"> </span><span class="o">/</span><span class="n">edgex</span><span class="o">/</span><span class="n">secrets</span><span class="o">-</span><span class="n">config</span><span class="w"> </span><span class="k">proxy</span><span class="o">-</span><span class="k">set</span><span class="n">up</span><span class="w"> </span><span class="k">proxy</span><span class="w"> </span><span class="k">tls</span><span class="w"> </span><span class="o">--</span><span class="n">incert</span><span class="w"> </span><span class="o">/</span><span class="k">host</span><span class="o">/</span><span class="n">cert</span><span class="p">.</span><span class="n">pem</span><span class="w"> </span><span class="o">--</span><span class="n">inkey</span><span class="w"> </span><span class="o">/</span><span class="k">host</span><span class="o">/</span><span class="k">key</span><span class="p">.</span><span class="n">pem</span>
 </code></pre></div>
-<p>The utility will always add the internal host names,
-"localhost" and "kong" to the specified SNI list.</p>
-<p>The following command can verify the certificate installation
-was successful.</p>
+<p>The following command can verify the certificate installation was successful.</p>
 <div class="codehilite"><pre><span></span><code><span class="nv">echo</span><span class="w"> </span><span class="s2">"GET /"</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nv">openssl</span><span class="w"> </span><span class="nv">s_client</span><span class="w"> </span><span class="o">-</span><span class="nv">showcerts</span><span class="w"> </span><span class="o">-</span><span class="nv">servername</span><span class="w"> </span><span class="nv">edge001</span>.<span class="nv">example</span>.<span class="nv">com</span><span class="w"> </span><span class="o">-</span><span class="k">connect</span><span class="w"> </span><span class="mi">127</span>.<span class="mi">0</span>.<span class="mi">0</span>.<span class="mi">1</span>:<span class="mi">8443</span>
 </code></pre></div>
-<h3 id="configuration-of-jwt-authentication-for-api-gateway">Configuration of JWT Authentication for API Gateway</h3>
-<p>When using JWT Authentication, the [KongAuth] section needs to be
-specified in the configuration file as shown below.  This is the default.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">[KongAuth]</span>
-<span class="na">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"jwt"</span>
-</code></pre></div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>The "oauth2" authentication method has been removed in EdgeX 2.0 as JWT-based authentication is resistant to brute-force attacks and does not require storage of a secret in the Kong database.</p>
-</div>
+<p>(where <code>edgex001.example.com</code> is the hostname by which the client is externally reachable)</p>
+<p>The TLS certificate installed in the previous step should be among the output of the <code>openssl</code> command.</p>
 <h3 id="configuration-of-adding-microservices-routes-for-api-gateway">Configuration of Adding Microservices Routes for API Gateway</h3>
 <p>For the current pre-existing Kong routes, they are configured and initialized statically through configuration TOML file specified in <code>security-proxy-setup</code> application. This is not sufficient for some other new additional microservices like application services, for example.  Thus, adding new proxy Kong routes are now possibly achieved via the environment variable, <code>ADD_PROXY_ROUTE</code>, of service <code>edgex-proxy</code> in the docker-compose file.  Here is an example:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">edgex-proxy</span><span class="p">:</span>
@@ -1447,6 +1439,8 @@ Core Data service, as shown above, needs to change to:</p>
     micro service ports. A partial listing of the map between ports and
     URL paths is shown in the table below.</li>
 </ul>
+<p>The EdgeX documentation maintains an up-to-date list
+of <a href="../../general/ServicePorts/">default service ports</a>.</p>
 <hr/>
 <table>
 <thead>
@@ -1573,18 +1567,6 @@ the TLS certificate would be registered under the external host name.)</p>
 <li>Use header of -H "Authorization: Bearer \&lt;access-token&gt;" to
     specify the access token associated with the client that was
     generated when the client was added.</li>
-</ul>
-<h3 id="adjust-kong-worker-processes-to-optimize-the-performance">Adjust Kong worker processes to optimize the performance</h3>
-<p>The number of the Kong worker processes would impact the memory consumption and the API Gateway performance.<br/>
-In order to reduce the memory consumption, the default value of it in EdgeX Foundry is one instead of auto (the original default value). 
-This setting is defined in the environment variable section of the docker-compose file.
-<div class="highlight"><pre><span></span><code>KONG_NGINX_WORKER_PROCESSES: '1'
-</code></pre></div>
-Users can adjust this value to meet their requirement, or remove this environment variable to adjust it automatically.
-Read the references for more details about this setting: </p>
-<ul>
-<li><a href="https://docs.konghq.com/gateway-oss/2.5.x/configuration/#nginx_worker_processes">https://docs.konghq.com/gateway-oss/2.5.x/configuration/#nginx_worker_processes</a></li>
-<li><a href="http://nginx.org/en/docs/ngx_core_module.html#worker_processes">http://nginx.org/en/docs/ngx_core_module.html#worker_processes</a></li>
 </ul>
 </article>
 </div>

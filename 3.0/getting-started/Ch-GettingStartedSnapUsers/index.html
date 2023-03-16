@@ -631,6 +631,11 @@
       </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="../../security/Ch-Authenticating/">
+        Authenticating to EdgeX Microservices
+      </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../../security/Ch-SecretProviderApi/">
         Secret Provider API
       </a>
@@ -658,11 +663,6 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../security/Ch-SecurityIssues/">
         Reporting Security Issues
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../security/Ch-AddGatewayUserRemotely/">
-        Adding EdgeX API Gateway Users Remotely
       </a>
 </li>
 <li class="md-nav__item">
@@ -1865,12 +1865,12 @@ all reference core and security services along with a few supporting and applica
 <li>core-command</li>
 <li>core-data</li>
 <li>core-metadata</li>
-<li>kong-daemon (API Gateway / Reverse Proxy)</li>
-<li>postgres (kong's database)</li>
+<li>nginx (API Gateway / Reverse Proxy)</li>
 <li>redis (default Message Bus and database backend for core-data and core-metadata)</li>
 <li>security-bootstrapper-redis (oneshot service to setup secure Redis)</li>
 <li>security-consul-bootstrapper (oneshot service to setup secure Consul)</li>
-<li>security-proxy-setup (oneshot service to setup Kong)</li>
+<li>security-proxy-auth (performs authentication on behalf of the API gateway)</li>
+<li>security-proxy-setup (oneshot service to setup API gateway)</li>
 <li>security-secretstore-setup (oneshot service to setup Vault)</li>
 <li>vault (Secret Store)</li>
 </ul>
@@ -1884,40 +1884,40 @@ all reference core and security services along with a few supporting and applica
 <p>For the configuration of services, refer to <a href="#configuration">configuration</a>.</p>
 <p>Most services are exposed and accessible on localhost without access control. However, the access from outside is restricted to authorized users.</p>
 <h4 id="adding-api-gateway-users">Adding API Gateway users</h4>
-<p>The service endpoints can be accessed securely through the API Gateway. The API Gateway requires a JSON Web Token (JWT) to authorize requests. Please refer to <a href="../../security/Ch-AddGatewayUserRemotely/">Adding EdgeX API Gateway Users Remotely</a> and use the snapped <code>edgexfoundry.secrets-config</code> utility.</p>
+<p>The API gateway will pass any request that authenticates using a
+<a href="https://developer.hashicorp.com/vault/api-docs/secret/identity/tokens#introspect-a-signed-id-token">signed identity token from the EdgeX secret store</a>.</p>
+<p>The baseline implementation in EdgeX 3.0 uses Vault identity and the 'userpass' authentication engine to create users,
+though EdgeX adopters are free to add their own Vault identities using authentication methods of their choice.
+To add a new user locally, use the snapped <code>edgexfoundry.secrets-config</code> utility.</p>
 <p>To get the usage help:
 <div class="highlight"><pre><span></span><code>edgexfoundry.secrets-config<span class="w"> </span>proxy<span class="w"> </span>adduser<span class="w"> </span>-h
 </code></pre></div>
 You may also refer to the <a href="../../security/secrets-config-proxy/">secrets-config proxy</a> documentation.</p>
 <div class="admonition example">
 <p class="admonition-title">Creating an example user</p>
-<p>Create private and public keys:
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>ecparam<span class="w"> </span>-genkey<span class="w"> </span>-name<span class="w"> </span>prime256v1<span class="w"> </span>-noout<span class="w"> </span>-out<span class="w"> </span>private.pem
-openssl<span class="w"> </span>ec<span class="w"> </span>-in<span class="w"> </span>private.pem<span class="w"> </span>-pubout<span class="w"> </span>-out<span class="w"> </span>public.pem
-</code></pre></div></p>
-<p>Read the API Gateway token:
-<div class="highlight"><pre><span></span><code><span class="nv">KONG_ADMIN_JWT</span><span class="o">=</span><span class="sb">`</span>sudo<span class="w"> </span>cat<span class="w"> </span>/var/snap/edgexfoundry/current/secrets/security-proxy-setup/kong-admin-jwt<span class="sb">`</span>
-</code></pre></div></p>
-<p>Use secrets-config to add a user <code>example</code> with id <code>1000</code>:
-<div class="highlight"><pre><span></span><code>edgexfoundry.secrets-config<span class="w"> </span>proxy<span class="w"> </span>adduser<span class="w"> </span>--token-type<span class="w"> </span>jwt<span class="w"> </span>--user<span class="w"> </span>example<span class="w"> </span>--algorithm<span class="w"> </span>ES256<span class="w"> </span>--public_key<span class="w"> </span>public.pem<span class="w"> </span>--id<span class="w"> </span><span class="m">1000</span><span class="w"> </span>--jwt<span class="w"> </span><span class="nv">$KONG_ADMIN_JWT</span>
+<p>Use secrets-config to add a user <code>example</code> (note: always specify <code>--useRootToken</code> for the snap deployment of EdgeX):
+<div class="highlight"><pre><span></span><code>edgexfoundry.secrets-config<span class="w"> </span>proxy<span class="w"> </span>adduser<span class="w"> </span>--user<span class="w"> </span>example<span class="w"> </span>--useRootToken
 </code></pre></div>
-On success, the above command prints the user id.</p>
+On success, the above command prints a JSON object containing <code>username</code> and <code>password</code> fields.
+If the "adduser" command is run multiple times,
+each run will overwrite the password from the previous run
+with a new random password.</p>
 </div>
-<details class="tip">
-<summary>Seeding an admin user using snap options</summary>
-<p>To spin up a pre-configured and securely accessible EdgeX instance, the snap provides a way to pass the public key of a single user with snap options. When requested, the user is created with user <code>admin</code>, id <code>1</code> and JWT signing algorithm <code>ES256</code>. The snap option for passing the public key is:
-<code>apps.secrets-config.proxy.admin.public-key</code>.</p>
-<p>This is particularly useful when seeding the snap from a <a href="https://snapcraft.io/docs/gadget-snap">Gadget</a> on an <a href="https://ubuntu.com/core">Ubuntu Core</a> system.</p>
-</details>
 <div class="admonition example">
 <p class="admonition-title">Generating a JWT token for the example user</p>
-<p>On success, a JWT token is printed out and written to <code>user-jwt.txt</code> file.
-We use the user id <code>1000</code> as set in the previous example.
-<div class="highlight"><pre><span></span><code>edgexfoundry.secrets-config<span class="w"> </span>proxy<span class="w"> </span>jwt<span class="w"> </span>--algorithm<span class="w"> </span>ES256<span class="w"> </span>--private_key<span class="w"> </span>private.pem<span class="w"> </span>--id<span class="w"> </span><span class="m">1000</span><span class="w"> </span>--expiration<span class="o">=</span>1h<span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>user-jwt.txt
-</code></pre></div></p>
+<p>Some additional work is required to generate a JWT that is usable for API gateway authentication.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">username</span><span class="o">=</span>example
+<span class="nv">password</span><span class="o">=</span>password-from-above
+
+<span class="nv">vault_token</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-ks<span class="w"> </span><span class="s2">"http://localhost:8200/v1/auth/userpass/login/</span><span class="si">${</span><span class="nv">username</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">"{\"password\":\"</span><span class="si">${</span><span class="nv">password</span><span class="si">}</span><span class="s2">\"}"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.auth.client_token'</span><span class="k">)</span>
+
+<span class="nv">id_token</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-ks<span class="w"> </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="si">${</span><span class="nv">vault_token</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="s2">"http://localhost:8200/v1/identity/oidc/token/</span><span class="si">${</span><span class="nv">username</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.data.token'</span><span class="k">)</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">id_token</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>&gt;<span class="w"> </span>user-jwt.txt
+</code></pre></div>
 </div>
-<p>It is also possible to create the JWT token using bash and openssl. But that is beyond the scope of this guide.</p>
-<p>Once you have the token, you can access the services via the API Gateway.</p>
+<p>Once you have the token, you can access the services via the API Gateway (the vault token can be discarded).
+To obtain a new JWT token once the current one is expired, repeat the above snippet of code.</p>
 <div class="admonition example">
 <p class="admonition-title">Calling an API on behalf of example user</p>
 <p><div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--insecure<span class="w"> </span>https://localhost:8443/core-data/api/v2/ping<span class="w"> </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="k">$(</span>cat<span class="w"> </span>user-jwt.txt<span class="k">)</span><span class="s2">"</span>
@@ -1941,25 +1941,22 @@ We need to pass both the Consul token and Secret Store token obtained in <a href
 </code></pre></div></br></p>
 </div>
 <h4 id="changing-tls-certificates">Changing TLS certificates</h4>
-<p>The API Gateway setup generates a self-signed certificate by default. To replace that with your own certificate, refer to API Gateway guide: <a href="../../security/Ch-APIGateway/#using-a-bring-your-own-external-tls-certificate-for-api-gateway">Using a bring-your-own external TLS certificate for API gateway</a> and use the snapped <code>edgexfoundry.secrets-config</code> utility.</p>
-<p>To get the usage help:
-<div class="highlight"><pre><span></span><code>edgexfoundry.secrets-config<span class="w"> </span>proxy<span class="w"> </span>tls<span class="w"> </span>-h
-</code></pre></div>
-You may also refer to the <a href="../../security/secrets-config-proxy/">secrets-config proxy</a> documentation.</p>
+<p>The API Gateway setup generates a self-signed certificate with a short expiration by default.</p>
+<p>The default certificate is stored at <code>/var/snap/edgexfoundry/current/nginx/nginx.crt</code>.</p>
+<p>The default private key is stored at <code>/var/snap/edgexfoundry/current/nginx/nginx.key</code>.</p>
+<p>The JWT authentication token that is consumed by the proxy is sensitive and it is important that
+measures are taken to ensure that clients do not disclose the JWT to unauthorized parties.
+For this reason, the default certificate and key should be replaced
+with a certificate and key that is trusted by connecting clients.
+(This can be done a <code>sudo cp</code> command or equivalent.)</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <p>Given the following files created outside the scope of this document:</p>
 <ul>
-<li><code>cert.pem</code> certificate</li>
-<li><code>privkey.pem</code> private key</li>
-<li><code>ca.pem</code> certificate authority file (if not available in root certificates)</li>
+<li><code>nginx.crt</code> user-provided certificate (replacing the default)</li>
+<li><code>nginx.key</code> user-provided private key (replacing the default)</li>
+<li><code>ca.pem</code> certificate authority file (that signed <code>nginx.crt</code>, directly or indirectly)</li>
 </ul>
-<p>Read the API Gateway token:
-<div class="highlight"><pre><span></span><code><span class="nv">KONG_ADMIN_JWT</span><span class="o">=</span><span class="sb">`</span>sudo<span class="w"> </span>cat<span class="w"> </span>/var/snap/edgexfoundry/current/secrets/security-proxy-setup/kong-admin-jwt<span class="sb">`</span>
-</code></pre></div></p>
-<p>Add the certificate, using Kong Admin JWT to authenticate:
-<div class="highlight"><pre><span></span><code>edgexfoundry.secrets-config<span class="w"> </span>proxy<span class="w"> </span>tls<span class="w"> </span>--incert<span class="w"> </span>cert.pem<span class="w"> </span>--inkey<span class="w"> </span>privkey.pem<span class="w"> </span>--admin_api_jwt<span class="w"> </span><span class="nv">$KONG_ADMIN_JWT</span>
-</code></pre></div></p>
 <p>Try it out:
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--cacert<span class="w"> </span>ca.pem<span class="w"> </span>https://localhost:8443/core-data/api/v2/ping
 </code></pre></div>
@@ -1974,7 +1971,6 @@ The <code>--cacert</code> can be omitted if the CA is available in root certific
 <ul>
 <li><code>apps.secrets-config.proxy.tls.cert</code></li>
 <li><code>apps.secrets-config.proxy.tls.key</code></li>
-<li><code>apps.secrets-config.proxy.tls.snis</code> (comma-separated values)</li>
 </ul>
 <p>This is particularly useful when seeding the snap from a <a href="https://snapcraft.io/docs/gadget-snap">Gadget</a> on an <a href="https://ubuntu.com/core">Ubuntu Core</a> system.</p>
 </details>
@@ -2006,10 +2002,6 @@ sudo<span class="w"> </span>snap<span class="w"> </span><span class="nb">set</sp
 
 <span class="c1"># Re-start the oneshot setup service to re-generate tokens:</span>
 sudo<span class="w"> </span>snap<span class="w"> </span>start<span class="w"> </span>edgexfoundry.security-secretstore-setup
-
-<span class="c1"># Optional: If the Kong admin token is read from the file to interact with Kong</span>
-<span class="c1"># Restart Kong to load the new admin token, generated by the setup service</span>
-sudo<span class="w"> </span>snap<span class="w"> </span>restart<span class="w"> </span>edgexfoundry.kong-daemon
 </code></pre></div></p>
 </div>
 <h3 id="edgex-ui">EdgeX UI</h3>
