@@ -16,6 +16,7 @@
 | [System Events for Devices](./ucr/System-Events-for-Devices.md)                     | Use Case for System Events for Device add/update/delete             |
 | [Microservice Authentication](./ucr/Microservice-Authentication.md)                 | Use Case for Microservice Authentication                            |
 | [URIs for files](.//ucr/URIs-for-Files.md)                                          | Use Case for loading service files from URIs                        |
+| [Bring Your Own Vault](.//ucr/Bring-Your-Own-Vault.md)                              | Use Case for Bring your own vault|
 
 ## Architectural Design Records (ADRs)
 
