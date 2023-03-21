@@ -385,7 +385,7 @@ Below are only the additional settings and sections that are specific to Core Me
 === "UoM"
     |Property|Default Value|Description|
     |---|---|---|
-    |UoMFile|'./res/uom.toml'|path to the location of units of measure configuration|
+    |UoMFile|'./res/uom.yaml'|path to the location of units of measure configuration|
 === "Database"
     |Property|Default Value|Description|
     |---|---|---|
