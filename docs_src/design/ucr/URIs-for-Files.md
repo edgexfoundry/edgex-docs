@@ -27,7 +27,7 @@ Deployment at scale, i.e. identical or almost identical deployments across many 
 
     - These files can reside in a device services local file system and are pushed to Core Metadata the first time the service starts. Example [here](https://github.com/edgexfoundry/device-onvif-camera/tree/v2.3.0/cmd/res)
 
-    - These files are found by scanning the folders specified in configuration [here](https://github.com/edgexfoundry/device-sdk-go/blob/main/example/cmd/device-simple/res/configuration.toml#L94-L96)
+    - These files are found by scanning the folders specified in configuration [here](https://github.com/edgexfoundry/device-sdk-go/blob/v2.3.0/example/cmd/device-simple/res/configuration.toml)
 
     !!! note 
         These files are only pushed to Core Metadata the first time the device service is loaded. They are not currently re-pushed once they exist in Core Metadata even when the files have changed locally. Thus updating the files locally or in a shared location will not result in changing the contents of these files in Core Metadata. They still benefit from this capability during initial deployment and when new files are added.  
