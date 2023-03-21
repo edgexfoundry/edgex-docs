@@ -110,14 +110,8 @@ This environment variable overrides the [`-cc/--commonConfig` command-line optio
     The Common Config can only be specified when not using the Configuration Provider.
 
 !!! example "Example - Using docker-compose to override with a different common configuration file"
-    ```yaml
-    environment:
-    EDGEX_COMMON_CONFIG: "./my-common-configuration.yaml"
-    
-        or
-        
-        environment: 
-          EDGEX_COMMON_CONFIG: "./my-common-configuration.yaml"
+    ```bash
+    $ export EDGEX_COMMON_CONFIG=./my-common-configuration.yaml
     ```
     
 !!! edgey "EdgeX 3.0"
