@@ -109,9 +109,10 @@ This environment variable overrides the [`-cc/--commonConfig` command-line optio
 !!! note
     The Common Config can only be specified when not using the Configuration Provider.
 
-!!! example "Example - Using docker-compose to override with a different common configuration file"
+!!! example "Example - Override with a common configuration file at the command line"
     ```bash
     $ export EDGEX_COMMON_CONFIG=./my-common-configuration.yaml
+    $ ./core-data
     ```
     
 !!! edgey "EdgeX 3.0"
