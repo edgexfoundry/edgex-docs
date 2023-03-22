@@ -40,6 +40,17 @@ Can be overridden with [EDGEX_CONFIG_PROVIDER](./CommonEnvironmentVariables.md#e
 !!! edgey "EdgeX 3.0"
     The `EDGEX_CONFIGURATION_PROVIDER` environment variable is replaced by `EDGEX_CONFIG_PROVIDER` in EdgeX 3.0.
 
+## Common Config
+
+`-cc/ --commonConfig`
+
+Takes the location where the common configuration is loaded from when not using the Configuration Provider. Default is blank.
+
+Can be overridden with [EDGEX_COMMON_CONFIG](./CommonEnvironmentVariables.md#edgex_common_config) environment variable.
+
+!!! edgey "EdgeX 3.0"
+    The Common Config flag is new to EdgeX 3.0
+
 ## Profile
 
 `-p/--profile <name>`

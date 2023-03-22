@@ -102,6 +102,22 @@ Overriding with a value of `none` disables the use of the Configuration Provider
 !!! edgey "EdgeX 3.0"
     The `EDGEX_CONFIGURATION_PROVIDER` environment variable is replaced by `EDGEX_CONFIG_PROVIDER` in EdgeX 3.0.
 
+#### EDGEX_COMMON_CONFIG
+
+This environment variable overrides the [`-cc/--commonConfig` command-line option](../CommonCommandLineOptions#common-config).
+
+!!! note
+    The Common Config can only be specified when not using the Configuration Provider.
+
+!!! example "Example - Override with a common configuration file at the command line"
+    ```bash
+    $ export EDGEX_COMMON_CONFIG=./my-common-configuration.yaml
+    $ ./core-data
+    ```
+    
+!!! edgey "EdgeX 3.0"
+    The `EDGEX_COMMON_CONFIG` variable is new to EdgeX 3.0.
+    
 #### EDGEX_PROFILE
 
 This environment variable overrides the [`-p/--profile` command-line option](../CommonCommandLineOptions#profile). When non-empty,  the value is used in the path to the configuration file. i.e. /res/my-profile/configuation.toml.  This is useful when running multiple instances of a service such as App Service Configurable.
