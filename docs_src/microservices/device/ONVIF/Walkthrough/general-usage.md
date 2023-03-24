@@ -3,16 +3,6 @@
 
 This document will describe how to execute some of the most important types of commands used with the device service.
 
-## Table of Contents
-
-[Get the Available Commands](#get-the-available-commands)  
-[Read a Single Resource](#execute-a-get-command---read-single-resource)  
-[Read Multiple Resources](#execute-a-get-command---read-multiple-resources)  
-[Set a Single Resource](#execute-a-set-command---write-single-resource)  
-[Set Multiple Resources](#execute-a-set-command---write-multiple-resource)  
-[Execute Commands Requiring Paramters](#execute-command-requiring-parameters)  
-[Next Steps](#next-steps)  
-
 ## Get the Available Commands
 1. Check the available commands from core-command service:
 ```shell

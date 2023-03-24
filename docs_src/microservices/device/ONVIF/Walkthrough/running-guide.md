@@ -1,14 +1,5 @@
 # ONVIF Device Service Running Guide
-
-## Table of Contents
-
-[Deploy EdgeX and ONVIF Device Service](#deploy-edgex-and-onvif-device-service)  
-[Verify Service and Device Profiles](#verify-service-and-device-profiles)  
-[Add Device](#add-device)  
-[Using EdgeX UI](#using-edgex-ui)  
-[Manage Devices](#manage-devices)  
-[Next Steps](#next-steps)  
-
+Follow this guide to deploy and run the service.
 
 ## Deploy EdgeX and ONVIF Device Camera Microservice
 
