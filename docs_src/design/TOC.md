@@ -7,6 +7,7 @@
 
 | Name/Link                                                                           | Short Description                                                   |
 |-------------------------------------------------------------------------------------|---------------------------------------------------------------------|
+| [Bring Your Own Vault](.//ucr/Bring-Your-Own-Vault.md)                              | Use Case for Bring your own vault|
 | [Common Configuration](./ucr/Common Configuration.md)                               | Use Case for having Common configuration used by all EdgeX services |
 | [Core Data Retention and Persistent Cap](./ucr/Core-Data-Retention.md)              | Use Case for capping readings in Core Data                          |
 | [Device Parent-Child Relationships](./ucr/Device-Parent-Child-Relationships.md)     | Use Case for Device Parent-Child Relationships                      |
@@ -16,7 +17,6 @@
 | [System Events for Devices](./ucr/System-Events-for-Devices.md)                     | Use Case for System Events for Device add/update/delete             |
 | [Microservice Authentication](./ucr/Microservice-Authentication.md)                 | Use Case for Microservice Authentication                            |
 | [URIs for files](.//ucr/URIs-for-Files.md)                                          | Use Case for loading service files from URIs                        |
-| [Bring Your Own Vault](.//ucr/Bring-Your-Own-Vault.md)                              | Use Case for Bring your own vault|
 
 ## Architectural Design Records (ADRs)
 
