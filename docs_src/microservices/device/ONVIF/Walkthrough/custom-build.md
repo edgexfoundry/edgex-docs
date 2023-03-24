@@ -2,17 +2,6 @@
 
 Follow this guide to make custom configurations and build the device service image from the source.
 
-
-## Table of Contents
-   [Get the Source Code](#get-the-source-code)  
-   [Configure the Pre-Defined Devices](#configure-the-pre-defined-devices)  
-   [Configure the Device Profiles](#configure-the-device-profiles)  
-   [Configure the Provision Watchers](#configure-the-provision-watchers)  
-   [Build the Docker Image](#build-the-docker-image)  
-   [Additional Configuration](#additional-configuration)  
-   [Next Steps](#next-steps)
-
-
 ## Get the Source Code
 
 1. Clone the device-onvif-camera repository.
@@ -206,7 +195,7 @@ The provision watcher sets up parameters for EdgeX to automatically add devices 
 </p>
 
 ## Next Steps
-[Running and Verifying the device service](./running-guide.md)
+[Deploy and Run the Service>](./running-guide.md){: .md-button}
 
 ## License
 

@@ -2,16 +2,6 @@
 
 Follow this guide to set up your system to run the ONVIF Device Service.
 
-## Table of Contents
-
-[System Requirements](#system-requirements)  
-[Dependencies](#dependencies)  
-&nbsp;&nbsp;&nbsp;&nbsp;[Git](#install-git)  
-&nbsp;&nbsp;&nbsp;&nbsp;[Docker](#install-docker)  
-&nbsp;&nbsp;&nbsp;&nbsp;[Docker Compose](#install-docker-compose)  
-&nbsp;&nbsp;&nbsp;&nbsp;[Tools](#install-tools)   
-[Download EdgeX Compose](#download-edgex-compose)
-
 ## System Requirements
 
 - Intel&#8482; Core&#174; processor
