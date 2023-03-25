@@ -1,4 +1,4 @@
-# ONVIF Device Service Custom Build Guide
+# Custom Build
 
 Follow this guide to make custom configurations and build the device service image from the source.
 
@@ -195,7 +195,7 @@ The provision watcher sets up parameters for EdgeX to automatically add devices 
 </p>
 
 ## Next Steps
-[Deploy and Run the Service>](./running-guide.md){: .md-button}
+[Deploy and Run the Service>](./deployment.md){: .md-button}
 
 ## License
 

@@ -1,4 +1,4 @@
-# ONVIF Device Service Set Up Guide
+# Setup
 
 Follow this guide to set up your system to run the ONVIF Device Service.
 
@@ -122,7 +122,7 @@ The table below lists command line tools this guide uses to help with EdgeX conf
 
 ## Next Steps
 
-   [Default Images>](./running-guide.md){: .md-button }
+   [Default Images>](./deployment.md){: .md-button }
    [Build Images>](./custom-build.md){: .md-button } 
 
 ## License

@@ -22,19 +22,26 @@ The figure below illustrates the software flow through the architecture componen
 
 ## Getting Started
 
-For a full walkthrough of using the default images, use this [guide.](./doc/guides/SimpleStartupGuide.md)  
+A brief video demonstration of building and using the device service:
 
-For a full walkthrough of building custom images, use this [guide.](./doc/guides/CustomStartupGuide.md)  
-
-A brief video demonstration of building and using the device service can be found [here.](https://www.youtube.com/watch?v=vZqd3j2Zn2Y)
+<iframe
+    width="640"
+    height="480"
+    src="https://www.youtube.com/embed/vZqd3j2Zn2Y"
+    frameborder="0"
+    allow="autoplay; encrypted-media"
+    allowfullscreen
+>
+</iframe>
+[Get Started>](./Walkthrough/setup.md){: .md-button}
 
 ## Learn More 
 
 ### General
-[Supported ONVIF features](./doc/ONVIF-protocol.md)  
-[Auto discovery](./doc/auto-discovery.md)  
-[Control-plane events](./doc/control-plane-events.md)  
-[Utility Scripts](./doc/utility-scripts.md)
+[Supported ONVIF features](./supplementary-info/ONVIF-protocol.md)  
+[Auto discovery](./supplementary-info/auto-discovery.md)  
+[Control-plane events](./supplementary-info/control-plane-events.md)  
+[Utility Scripts](./supplementary-info/utility-scripts.md)
 
 
 ### Custom Features
@@ -58,13 +65,12 @@ A brief video demonstration of building and using the device service can be foun
 
 ## References
 
-- ONVIF Website: http://www.onvif.org
-- EdgeX Foundry Project Wiki: https://wiki.edgexfoundry.org/
-- EdgeX Source Code: https://github.com/edgexfoundry
-- Edgex Developer Guide: https://docs.edgexfoundry.org/2.1/
-- Docker Repos
-   - Docker https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
-   - Docker Compose https://docs.docker.com/compose/install/#install-compose
+- [ONVIF Website](http://www.onvif.org)  
+- [EdgeX Foundry Project Wiki](https://wiki.edgexfoundry.org/)  
+- [EdgeX Source Code](https://github.com/edgexfoundry)  
+- [Edgex Developer Guide](https://docs.edgexfoundry.org/2.1/)
+- [Docker](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
+- [Docker Compose](https://docs.docker.com/compose/install/#install-compose)
 
 
 ## License
