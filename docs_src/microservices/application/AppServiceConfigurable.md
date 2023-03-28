@@ -169,7 +169,7 @@ One can optionally add Filter function via environment overrides
 - `WRITABLE_PIPELINE_EXECUTIONORDER: "FilterByDeviceName, HTTPExport"`
 - `WRITABLE_PIPELINE_FUNCTIONS_FILTERBYDEVICENAME_PARAMETERS_DEVICENAMES: "[comma separated list]"`
 
-There are many optional functions and parameters provided in this profile. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/master/res/rules-engine/configuration.toml) for more details
+There are many optional functions and parameters provided in this profile. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/main/res/rules-engine/configuration.yaml) for more details
 
 ### http-export
 

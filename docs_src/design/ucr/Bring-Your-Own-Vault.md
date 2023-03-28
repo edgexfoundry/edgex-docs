@@ -57,7 +57,7 @@ The basic requirements are straightforward:
 
 ## References
 
-- https://github.com/edgexfoundry/edgex-go/issues/1944
-- https://www.vaultproject.io/
-- https://docs.edgexfoundry.org/3.0/security/Ch-SecretStore/
-- https://github.com/edgexfoundry/edgex-go/tree/main/cmd/security-secretstore-setup
+- [Issue 1944](https://github.com/edgexfoundry/edgex-go/issues/1944)
+- [Vault Project](https://www.vaultproject.io/)
+- [EdgeX Secret Store docs](https://docs.edgexfoundry.org/3.0/security/Ch-SecretStore/)
+- [EdgeX Secret Store Setup](https://github.com/edgexfoundry/edgex-go/tree/main/cmd/security-secretstore-setup)
