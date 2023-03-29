@@ -71,7 +71,7 @@ Again, taking the `core-data` service as an example:
 `./core-data -cp=consul.http://localhost:8500` will start the service using configuration values found in the provider or seed them if they do not exist. 
 
 !!! edgey - "EdgeX 3.0"
-    In EdgeX 3.0, overrides are no longer applied prior to seeding the configuration into the configuration provider.
+    In EdgeX 3.0, the common environment variable overrides are applied to this common configuration prior to pushing the configuration into the configuration provider. This dramatically reduces the number of duplicate environment variable overrides in the Docker compose files.
 
 ### Configuration Structure
 
