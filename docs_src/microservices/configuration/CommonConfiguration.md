@@ -81,7 +81,7 @@ The common configuration is managed by the **core-common-config-bootstrapper** s
     |Host |localhost                      |DB host name|
     |Port |6379                         |DB port number|
     |Name      |----                       |Database or document store name (Specific to the service)            |
-    |Timeout      |5000                           |DB connection timeout                                              |
+    |Timeout      |5s           |DB connection timeout                                              |
     |Type |redisdb                        |DB type.  Redis is the only supported DB|
 === "MessageBus"
     |Property|Default Value|Description|
