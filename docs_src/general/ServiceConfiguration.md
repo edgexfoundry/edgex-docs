@@ -1,6 +1,6 @@
 # Service Configuration
 
-Each EdgeX micro service requires configuration (i.e. - a repository of initialization and operating values).  The configuration is initially provided by a [TOML file](https://github.com/toml-lang/toml) but a service can utilize the centralized configuration management provided by EdgeX for its configuration. 
+Each EdgeX micro service requires configuration (i.e. - a repository of initialization and operating values).  The configuration is initially provided by a [YAML](https://en.wikipedia.org/wiki/YAML) file but a service can utilize the centralized configuration management provided by EdgeX for its configuration. 
 
 See the [Configuration and Registry documentation](../microservices/configuration/ConfigurationAndRegistry.md) for more details about initialization of services and the use of the configuration service.  
 

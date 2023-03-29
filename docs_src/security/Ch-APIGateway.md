@@ -111,7 +111,7 @@ The TLS certificate installed in the previous step should be among the output of
 
 ### Configuration of Adding Microservices Routes for API Gateway
 
-For the current pre-existing Kong routes, they are configured and initialized statically through configuration TOML file specified in `security-proxy-setup` application. This is not sufficient for some other new additional microservices like application services, for example.  Thus, adding new proxy Kong routes are now possibly achieved via the environment variable, `ADD_PROXY_ROUTE`, of service `edgex-proxy` in the docker-compose file.  Here is an example:
+For the current pre-existing Kong routes, they are configured and initialized statically through configuration file specified in `security-proxy-setup` application. This is not sufficient for some other new additional microservices like application services, for example.  Thus, adding new proxy Kong routes are now possibly achieved via the environment variable, `ADD_PROXY_ROUTE`, of service `edgex-proxy` in the docker-compose file.  Here is an example:
 
 ```yaml
 edgex-proxy:
@@ -214,7 +214,7 @@ of [default service ports](../general/ServicePorts.md).
   | edgex-support-scheduler | 59861       | support-scheduler     |
   | edgex-kuiper            | 59720       | rules-engine          |
   | device-virtual          | 59900       | device-virtual        |
-  
+
 ---
 
 
