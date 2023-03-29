@@ -161,23 +161,43 @@ Any configuration setting from a service's `configuration.toml` file can be over
 <TOML-SECTION-NAME>_<TOML-SUB-SECTION-NAME>_<TOML-KEY-NAME>
 ```
 
-!!! edgey "EdgeX 2.0"
-    With EdgeX 2.0 the use of CamelCase environment variable names is no longer supported. Instead the variable names must be all uppercase as in the example below. Also the using of dash `-` in the TOML-NAME is converted to an underscore `_` in the environment variable name.
+!!! example "Example - Environment Overrides of Configuration core/support/device/app/security services"
 
-!!! example "Example - Environment Overrides of Configuration"
-
-~~~toml
-``` toml   
-TOML   : [Writable]    
-		 LogLevel = "INFO"    
+``` yaml   
+YAML   : Writable:    
+		   LogLevel: INFO  
 ENVVAR : WRITABLE_LOGLEVEL=DEBUG    
 
-TOML   : [Clients]
-  			[Clients.core-data]
-  			Host = "localhost"
+YAML   : Clients
+  	       core-data
+  			Host = localhost
 ENVVAR : CLIENTS_CORE_DATA_HOST=edgex-core-data    
 ```    
-~~~
+
+!!! example "Example - Environment Overrides of Configuration for a Common Configuration Service"
+
+``` yaml   
+YAML   : all-services:
+           MessageBus:    
+		     Host: localhost
+
+ENVVAR : ALL_SERVICES_MESSAGEBUS_HOST=edgex-redis    
+
+YAML   : device-services:
+           Clients:
+  	         core-metadata:
+  			   Host = localhost
+ENVVAR : DEVICE_SERVICES_CLIENTS_CORE_METADATA_HOST=edgex-core-metadata 
+
+YAML   : app-services:
+           Clients:
+  	         core-metadata:
+  			   Host = localhost
+ENVVAR : APP_SERVICES_CLIENTS_CORE_METADATA_HOST=edgex-core-metadata    
+```
+
+!!! edgey "EdgeX 3.0"
+    In EdgeX 3.0 configuration overrides are only applied when the configuration is read from file. The overrides are no longer applied when the configuration is pull from the Configuration Provider.
 
 ### SecretStore Overrides
 
@@ -190,7 +210,7 @@ The environment variables overrides for **SecretStore** configuration remain the
 - SECRETSTORE_RUNTIMETOKENPROVIDER_ENABLED
 - SECRETSTORE_RUNTIMETOKENPROVIDER_HOST
 
-The  complete list of **SecretStore** fields and defaults can be found [here](https://github.com/edgexfoundry/go-mod-bootstrap/blob/main/config/types.go#L164-L187). The defaults for the remaining fields typically do not need to be overridden, but may be overridden if needed using that same naming scheme as above.
+The  complete list of **SecretStore** fields and defaults can be found in the file [here](https://github.com/edgexfoundry/go-mod-bootstrap/blob/main/config/types.go) (search for SecretStoreInfo). The defaults for the remaining fields typically do not need to be overridden, but may be overridden if needed using that same naming scheme as above.
 
 ### Notable Configuration Overrides
 
