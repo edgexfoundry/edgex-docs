@@ -5,10 +5,11 @@ Follow this guide to set up your system to run the ONVIF Device Service.
 ## System Requirements
 
 - Intel&#8482; Core&#174; processor
-- Ubuntu 20.04.4 LTS
+- Ubuntu 20.04.4 LTS or later
 - ONVIF-compliant Camera
 
->NOTE: The instructions in this guide were developed and tested using Ubuntu 20.04 LTS and the Tapo C200 Pan/Tilt Wi-Fi Camera, referred to throughout this document as the **Tapo C200 Camera**. However, the software may work with other Linux distributions and ONVIF-compliant cameras. Refer to our [list of tested cameras for more information](./ONVIF-protocol.md#tested-onvif-cameras)
+!!!NOTE 
+      The instructions in this guide were developed and tested using Ubuntu 20.04 LTS and the Tapo C200 Pan/Tilt Wi-Fi Camera, referred to throughout this document as the **Tapo C200 Camera**. However, the software may work with other Linux distributions and ONVIF-compliant cameras. Refer to our [list of tested cameras for more information](./supplementary/ONVIF-protocol.md#tested-onvif-cameras)
 
 **Other Requirements**
 
@@ -45,33 +46,42 @@ To enable running Docker commands without the preface of sudo, add the user to t
    ```bash
    sudo groupadd docker
    ```
-   >NOTE: If the group already exists, `groupadd` outputs a message: **groupadd: group `docker` already exists**. This is OK.
+!!! Note
+      If the group already exists, `groupadd` outputs a message: **groupadd: group `docker` already exists**. This is OK.
 
-2. Add User to group:
+<!--This section is like this becase the above note interrupts the ordered list.
+    Normal solutions like indentation don't work because the note formatting will not render if indented.-->
+    
+<ol start="2">
+<li>
+   Add User to group:
    ```bash
    sudo usermod -aG docker $USER
    ```
+</li>
+<li>
+   Restart your computer for the changes to take effect.
+</li>
+<li>
+   To verify the Docker installation, run <code>hello-world</code>:
+      ```bash
+      docker run hello-world
+      ```
+      A <strong>Hello from Docker!</strong> greeting indicates successful installation.
 
-3. Restart your computer for the changes to take effect.
+      ```bash
+      Unable to find image 'hello-world:latest' locally
+      latest: Pulling from library/hello-world
+      2db29710123e: Pull complete 
+      Digest: sha256:10d7d58d5ebd2a652f4d93fdd86da8f265f5318c6a73cc5b6a9798ff6d2b2e67
+      Status: Downloaded newer image for hello-world:latest
 
-4. To verify the Docker installation, run `hello-world`:
-
-   ```bash
-   docker run hello-world
-   ```
-   A **Hello from Docker!** greeting indicates successful installation.
-
-   ```bash
-   Unable to find image 'hello-world:latest' locally
-   latest: Pulling from library/hello-world
-   2db29710123e: Pull complete 
-   Digest: sha256:10d7d58d5ebd2a652f4d93fdd86da8f265f5318c6a73cc5b6a9798ff6d2b2e67
-   Status: Downloaded newer image for hello-world:latest
-
-   Hello from Docker!
-   This message shows that your installation appears to be working correctly.
-   ...
-   ```
+      Hello from Docker!
+      This message shows that your installation appears to be working correctly.
+      ...
+      ```
+</li>
+</ol>
 
 ### Install Docker Compose
 Install Docker Compose from the official repository as documented on the [Docker Compose](https://docs.docker.com/compose/install/linux/#install-using-the-repository) site.
@@ -100,6 +110,7 @@ The table below lists command line tools this guide uses to help with EdgeX conf
       ```bash
       git clone https://github.com/edgexfoundry/edgex-compose.git
       ```
+
    1. Navigate to the `edgex-compose` directory:
 
       ```bash
@@ -111,14 +122,16 @@ The table below lists command line tools this guide uses to help with EdgeX conf
       ```bash
       git checkout levski
       ```
-
-      Note: The `levski` branch is the latest stable branch at the time of this update. 
-
-   1. Navigate back to your home directory:
+!!! Note
+      The `levski` branch is the latest stable branch at the time of this update. s
+<ol start=4>
+<li>
+   Navigate back to your home directory:
 
       ```bash
       cd ~
       ```
+</li></ol>
 
 ## Next Steps
 

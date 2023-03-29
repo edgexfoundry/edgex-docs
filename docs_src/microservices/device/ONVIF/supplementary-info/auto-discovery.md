@@ -24,52 +24,50 @@ Device discovery is triggered by the device SDK. Once the device service starts,
 > ```
 > Example Output: `192.168.1.0/24`
 
-<details>
-<summary><strong>via configuration.toml</strong></summary>
+=== "configuration.yaml"
 
-Define the following configurations in [cmd/res/configuration.toml](../cmd/res/configuration.toml) for auto-discovery mechanism:
+    Define the following configurations in [cmd/res/configuration.toml](../cmd/res/configuration.toml) for auto-discovery mechanism:
 
-```toml
-[Device]
-    [Device.Discovery]
-    Enabled = true    # enable device discovery
-    Interval = "1h"   # set to desired interval
+    ```toml
+    [Device]
+        [Device.Discovery]
+        Enabled = true    # enable device discovery
+        Interval = "1h"   # set to desired interval
 
-# Custom configs
-[AppCustom]
-# The target ethernet interface for multicast discovering
-DiscoveryEthernetInterface = "eth0"
-# The Secret Name of the default credentials to use for devices
-DefaultSecretName = "credentials001"
-# Select which discovery mechanism(s) to use
-DiscoveryMode = "both" # netscan, multicast, or both
-# List of IPv4 subnets to perform netscan discovery on, in CIDR format (X.X.X.X/Y)
-# separated by commas ex: "192.168.1.0/24,10.0.0.0/24"
-DiscoverySubnets = "192.168.1.0/24" # Fill in with your actual subnet(s)
-```
-</details>
-
-<details>
-<summary><strong>via Docker / Env Vars</strong></summary>
-
-Define the following environment variables in `docker-compose.yaml`:
-```yaml
-device-onvif-camera:
-  environment:
-    DEVICE_DISCOVERY_ENABLED: "true"  # enable device discovery
-    DEVICE_DISCOVERY_INTERVAL: "1h"   # set to desired interval
-
+    # Custom configs
+    [AppCustom]
     # The target ethernet interface for multicast discovering
-    APPCUSTOM_DISCOVERYETHERNETINTERFACE: "eth0"
+    DiscoveryEthernetInterface = "eth0"
     # The Secret Name of the default credentials to use for devices
-    APPCUSTOM_DEFAULTSECRETNAME: "credentials001"
+    DefaultSecretName = "credentials001"
     # Select which discovery mechanism(s) to use
-    APPCUSTOM_DISCOVERYMODE: "both" # netscan, multicast, or both
+    DiscoveryMode = "both" # netscan, multicast, or both
     # List of IPv4 subnets to perform netscan discovery on, in CIDR format (X.X.X.X/Y)
     # separated by commas ex: "192.168.1.0/24,10.0.0.0/24"
-    APPCUSTOM_DISCOVERYSUBNETS: "192.168.1.0/24" # Fill in with your actual subnet(s)
-```
-</details>
+    DiscoverySubnets = "192.168.1.0/24" # Fill in with your actual subnet(s)
+    ```
+
+
+=== "Docker / Env Vars"
+
+    Define the following environment variables in `docker-compose.yaml`:
+    ```yaml
+    device-onvif-camera:
+    environment:
+        DEVICE_DISCOVERY_ENABLED: "true"  # enable device discovery
+        DEVICE_DISCOVERY_INTERVAL: "1h"   # set to desired interval
+
+        # The target ethernet interface for multicast discovering
+        APPCUSTOM_DISCOVERYETHERNETINTERFACE: "eth0"
+        # The Secret Name of the default credentials to use for devices
+        APPCUSTOM_DEFAULTSECRETNAME: "credentials001"
+        # Select which discovery mechanism(s) to use
+        APPCUSTOM_DISCOVERYMODE: "both" # netscan, multicast, or both
+        # List of IPv4 subnets to perform netscan discovery on, in CIDR format (X.X.X.X/Y)
+        # separated by commas ex: "192.168.1.0/24,10.0.0.0/24"
+        APPCUSTOM_DISCOVERYSUBNETS: "192.168.1.0/24" # Fill in with your actual subnet(s)
+    ``` 
+
 
 ### Step 2. Set CredentialsMap
 See [Credentials Guide](credentials.md) for more information.
