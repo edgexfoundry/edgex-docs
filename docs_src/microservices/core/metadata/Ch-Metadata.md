@@ -460,7 +460,7 @@ The System Event DTO for Device System Events is published to the topic specifie
 !!! edgey - "EdgeX 2.3"
     Units of Measure is new in EdgeX 2.3
 
-Core metadata will read unit of measure configuration (see TOML example below) located in `UoM.UoMFile` during startup.
+Core metadata will read unit of measure configuration (see configuration example below) located in `UoM.UoMFile` during startup.
 
 When validation is turned on (`Writable.UoM.Validation` is set to `true`),
 all device profile `units` (in device resource, device properties) will be validated against the list of units of measure by core metadata.
@@ -474,18 +474,24 @@ If the `units` value does not match any one of the configuration units of measur
 !!! Note
     The `units` field on a profile is and shall remain optional.  If the `units` field is not specified in the device profile, then it is assumed that the device resource does not have well-defined units of measure.  In other words, core metadata will not fail a profile with no `units` field specified on a device resource.
 
-### Sample TOML unit of measure configuration
-
-```toml
-Source="reference to source for all UoM if not specified below"
-[Units]
-  [Units.temperature]
-  Source="www.weather.com"
-  Values=["C","F","K"]
-  [Units.weights]
-  Source="www.usa.gov/federal-agencies/weights-and-measures-division"
-  Values=["lbs","ounces","kilos","grams"]
-```
+!!! example - "Sample unit of measure configuration"
+    ```yaml
+    Source: reference to source for all UoM if not specified below
+    Units:
+      temperature:
+        Source: www.weather.com
+        Values:
+          - C
+          - F
+          - K
+      weights:
+        Source: www.usa.gov/federal-agencies/weights-and-measures-division
+        Values:
+          - lbs
+          - ounces
+          - kilos
+          - grams
+    ```
 
 ## API Reference
 

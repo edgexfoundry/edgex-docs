@@ -1,7 +1,7 @@
 
 # Application Service Configuration
 
-Similar to other EdgeX services, configuration is first determined by the `configuration.toml` file in the `/res` folder. Once loaded any environment overrides are applied. If `-cp` is passed to the application on startup, the SDK will leverage the specific configuration provider (i.e Consul) to push the configuration into the provider and monitor `Writeable` configuration from there. You will find the configuration under the `edgex/appservices/2.0/` key in the provider (i.e Consul). On re-restart the service will pull the configuration from the provider and apply any environment overrides.
+Similar to other EdgeX services, configuration is first determined by the `configuration.yaml` file in the `/res` folder. Once loaded any environment overrides are applied. If `-cp` is passed to the application on startup, the SDK will leverage the specific configuration provider (i.e Consul) to push the configuration into the provider and monitor `Writeable` configuration from there. You will find the configuration under the `edgex/appservices/2.0/` key in the provider (i.e Consul). On re-restart the service will pull the configuration from the provider and apply any environment overrides.
 
 This section describes the configuration elements that are unique to Application Services
 
@@ -118,17 +118,14 @@ The tabs below provide additional configuration which are applicable to Applicat
 
 === "Application Settings"
 
-    `[ApplicationSettings]` - Is used for custom application settings and is accessed via the ApplicationSettings() API. The ApplicationSettings API returns a `map[string] string` containing the contents on the ApplicationSetting section of the `configuration.toml` file.
+    `[ApplicationSettings]` - Is used for custom application settings and is accessed via the ApplicationSettings() API. The ApplicationSettings API returns a `map[string] string` containing the contents on the ApplicationSetting section of the `configuration.yaml` file.
     
-    ```toml
-    [ApplicationSettings]
-    ApplicationName = "My Application Service"
+    ```yaml
+    ApplicationSettings:
+      ApplicationName: "My Application Service"
     ```
 
 === "Custom Structured Configuration"
 
-    !!! edgey "EdgeX 2.0"
-        New for EdgeX 2.0
-    
-    Custom Application Services can now define their own custom structured configuration section in the `configuration.toml` file. Any additional sections in the TOML are ignore by the SDK when it parses the file for the SDK defined sections. See the [Custom Configuration](ApplicationFunctionsSDK.md#custom-configuration) section of the SDK documentation for more details.
+    Custom Application Services can now define their own custom structured configuration section in the `configuration.yaml` file. Any additional sections in the configuration file are ignore by the SDK when it parses the file for the SDK defined sections. See the [Custom Configuration](ApplicationFunctionsSDK.md#custom-configuration) section of the SDK documentation for more details.
 

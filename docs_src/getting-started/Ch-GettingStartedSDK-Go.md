@@ -202,11 +202,11 @@ Device Service accepts pre-defined devices to be added to EdgeX during device se
 
 Follow these steps to create a pre-defined device for the simple random number generating device service.
 
-1.  Explore the files in the cmd/device-simple/res/devices folder.   Note the example simple-device.toml that is already in this folder.  Open the file with your favorite editor and explore its contents.  Note how `DeviceList` in the file represent an actual device with its properties (properties like Name, ProfileName, AutoEvents).
+1.  Explore the files in the cmd/device-simple/res/devices folder.   Note the example simple-device.yaml that is already in this folder.  Open the file with your favorite editor and explore its contents.  Note how `DeviceList` in the file represent an actual device with its properties (properties like Name, ProfileName, AutoEvents).
     
-2.  A pre-created device for the random number device is provided in this documentation.  Download **[random-generator-device.toml](random-generator-device.toml)** and save the file to the `~/edgexfoundry/device-simple/cmd/device-simple/res/devices` folder.
+2.  A pre-created device for the random number device is provided in this documentation.  Download **[random-generator-device.yaml](random-generator-device.yaml)** and save the file to the `~/edgexfoundry/device-simple/cmd/device-simple/res/devices` folder.
     
-3.  Open the random-generator-device.toml file in a text editor. In this example, the device described has a ProfileName:  `RandNum-Device`.  In this case, the device informs EdgeX that it will be using the device profile we created in [Creating your Device Profile](./Ch-GettingStartedSDK-Go.md#creating-your-device-profile)
+3.  Open the random-generator-device.yaml file in a text editor. In this example, the device described has a ProfileName:  `RandNum-Device`.  In this case, the device informs EdgeX that it will be using the device profile we created in [Creating your Device Profile](./Ch-GettingStartedSDK-Go.md#creating-your-device-profile)
 
 ### Validating your Device
 
@@ -230,23 +230,23 @@ the request if validation failed.
 
 ## Configuring your Device Service
 
-Now update the configuration for the new device service.    This documentation provides a new configuration.toml file.  This configuration file:
+Now update the configuration for the new device service.    This documentation provides a new configuration.yaml file.  This configuration file:
 
 - changes the port the service operates on so as not to conflict with other device services
 
-Download  **[configuration.toml](configuration.toml)** and save the file to the `~/edgexfoundry/device-simple/cmd/device-simple/res` folder (overwrite the existing configuration file).  Change the host address of the device service to your system's IP address.
+Download  **[configuration.yaml](configuration.yaml)** and save the file to the `~/edgexfoundry/device-simple/cmd/device-simple/res` folder (overwrite the existing configuration file).  Change the host address of the device service to your system's IP address.
 
 !!! Warning
-    In the configuration.toml, change the host address (around line 14) to the IP address of the system host.  This allows core metadata to callback to your new device service when a new device is created.  Because the rest of EdgeX, to include core metadata, will be running in Docker, the IP address of the host system on the Docker network must be provided to allow metadata in Docker to call out from Docker to the new device service running on your host system.
+    In the configuration.yaml, change the host address (around line 14) to the IP address of the system host.  This allows core metadata to callback to your new device service when a new device is created.  Because the rest of EdgeX, to include core metadata, will be running in Docker, the IP address of the host system on the Docker network must be provided to allow metadata in Docker to call out from Docker to the new device service running on your host system.
 
 ### Custom Structured Configuration
 
 !!! edgey "EdgeX 2.0"
     New for EdgeX 2.0
 
-Go Device Services can now define their own custom structured configuration section in the `configuration.toml` file. Any additional sections in the TOML are ignored by the SDK when it parses the file for the SDK defined sections. 
+Go Device Services can now define their own custom structured configuration section in the `configuration.yaml` file. Any additional sections in the configuration file are ignored by the SDK when it parses the file for the SDK defined sections. 
 
-This feature allows a Device Service to define and watch it's own structured section in the service's TOML configuration file.
+This feature allows a Device Service to define and watch it's own structured section in the service's configuration file.
 
 The `SDK` API provides the follow APIs to enable structured custom configuration:
 
@@ -261,7 +261,7 @@ The `SDK` API provides the follow APIs to enable structured custom configuration
 See the [Device MQTT Service](https://github.com/edgexfoundry/device-mqtt-go/tree/v2.0.0) for an example of using the new Structured Custom Configuration capability.
 
 - [See here for defining the structured custom configuration](https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/internal/driver/config.go#L21-L72)
-- [See here for custom section on the configuration.toml file](https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/cmd/res/configuration.toml#L86-L108)
+- [See here for custom section on the configuration.yaml file](https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/cmd/res/configuration.yaml#L86-L108) (**TODO**: Update link once YAML file is available)
 - [See here for loading, validating and watching the configuration](https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/internal/driver/driver.go#L54-L69)
 
 ## Device Service Metrics
@@ -317,25 +317,23 @@ The following are the steps to collect and report service metrics:
 
 6. Configure reporting of the service's metrics. See `Writable.Telemetry` configuration details in the [Common Configuration](../../microservices/configuration/CommonConfiguration/) section for more detail.
 
-   !!! example "Example - Service Telemetry Configuration"
-       ```toml
-         [Writable.Telemetry]
-         Interval = "30s"
-         PublishTopicPrefix  = "edgex/telemetry" # /<service-name>/<metric-name> will be added to this Publish Topic prefix
-           [Writable.Telemetry.Metrics] # All service's metric names must be present in this list.
-           MyCounterName = true
-           MyGaugeName = true
-           MyGaugeFloat64Name = true
-           MyTimerName = true
-           MyHistogram = true
-       ```
+!!! example "Example - Service Telemetry Configuration"
+    ```yaml
+    Writable:
+      Telemetry
+        Interval: "30s"
+        Metrics: # All service's metric names must be present in this list.
+          MyCounterName: true
+          MyGaugeName: true
+          MyGaugeFloat64Name: true
+          MyTimerName: true
+          MyHistogram: true
+       Tags: # Contains the service level tags to be attached to all the service's metrics
+         Gateway: "my-iot-gateway" # Tag must be added here or via Consul Env Override can only change existing value, not added new ones.
+    ```
 
-           [Writable.Telemetry.Tags] # Contains the service level tags to be attached to all the service's metrics
-       #    Gateway="my-iot-gateway" # Tag must be added here or via Consul Env Override can only change existing value, not added new ones.
-       ```
-
-   !!! note
-       The metric names used in the above configuration (to enable or disable reporting of a metric) must match the metric name used when the metric is registered. A partial match of starts with is acceptable, i.e. the metric name registered starts with the above configured name.
+!!! note
+    The metric names used in the above configuration (to enable or disable reporting of a metric) must match the metric name used when the metric is registered. A partial match of starts with is acceptable, i.e. the metric name registered starts with the above configured name.
 
 ## Retrieving Secrets
 
