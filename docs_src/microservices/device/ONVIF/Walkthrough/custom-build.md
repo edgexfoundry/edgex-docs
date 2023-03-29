@@ -5,13 +5,11 @@ Follow this guide to make custom configurations and build the device service ima
 ## Get the Source Code
 
 1. Clone the device-onvif-camera repository.
-
    ```bash
    git clone https://github.com/edgexfoundry/device-onvif-camera.git
    ```
 
-2. Navigate into the directory
-
+1. Navigate into the directory
    ```bash
    cd device-onvif-camera
    ```
@@ -30,22 +28,22 @@ Configuring pre-defined devices will allow the service to automatically provisio
 
 1. Open the `cmd/res/devices/camera.toml` file using your preferred text editor and update the `Address` and `Port` fields to match the IP address of the Camera and port used for ONVIF services:
 
-   ```toml
-   [[DeviceList]]
-   Name = "Camera001"                         # Modify as desired
-   ProfileName = "onvif-camera"               # Default profile
-   Description = "onvif conformant camera"    # Modify as desired
-      [DeviceList.Protocols]
-         [DeviceList.Protocols.Onvif]
-         Address = "191.168.86.34"              # Set to your camera IP address
-         Port = "2020"                          # Set to the port your camera uses
-         SecretName = "credentials001"
-         [DeviceList.Protocols.CustomMetadata]
-         CommonName = "Outdoor camera"
-   ```
-   <p align="left">
-      <i>Sample: Snippet from camera.toml</i>
-   </p>
+      ```toml
+      [[DeviceList]]
+      Name = "Camera001"                         # Modify as desired
+      ProfileName = "onvif-camera"               # Default profile
+      Description = "onvif conformant camera"    # Modify as desired
+         [DeviceList.Protocols]
+            [DeviceList.Protocols.Onvif]
+            Address = "191.168.86.34"              # Set to your camera IP address
+            Port = "2020"                          # Set to the port your camera uses
+            SecretName = "credentials001"
+            [DeviceList.Protocols.CustomMetadata]
+            CommonName = "Outdoor camera"
+      ```
+      <p align="left">
+         <i>Sample: Snippet from camera.toml</i>
+      </p>
 
 1. Optionally, modify the `Name` and `Description` fields to more easily identify the camera. The `Name` is the camera name used when using ONVIF Device Service Rest APIs. The `Description` is simply a more detailed explanation of the camera.
 
@@ -61,27 +59,27 @@ Configuring pre-defined devices will allow the service to automatically provisio
 
 1. Under `secretName`, set `username` and `password` to your camera credentials. If you have multiple cameras copy the `Writable.InsecureSecrets` section and edit to include the new information.
 
-```toml
-[Writable]
-    [Writable.InsecureSecrets.credentials001]
-    secretName = "credentials001"
-      [Writable.InsecureSecrets.credentials001.SecretData]
-      username = "<Credentials 1 username>"
-      password = "<Credentials 1 password>"
-      mode = "usernametoken" # assign "digest" | "usernametoken" | "both" | "none"
+   ```toml
+   [Writable]
+      [Writable.InsecureSecrets.credentials001]
+      secretName = "credentials001"
+         [Writable.InsecureSecrets.credentials001.SecretData]
+         username = "<Credentials 1 username>"
+         password = "<Credentials 1 password>"
+         mode = "usernametoken" # assign "digest" | "usernametoken" | "both" | "none"
 
-    [Writable.InsecureSecrets.credentials002]
-    secretName = "credentials002"
-      [Writable.InsecureSecrets.credentials002.SecretData]
-      username = "<Credentials 1 password>"
-      password = "<Credentials 2 password>"
-      mode = "usernametoken" # assign "digest" | "usernametoken" | "both" | "none"
+      [Writable.InsecureSecrets.credentials002]
+      secretName = "credentials002"
+         [Writable.InsecureSecrets.credentials002.SecretData]
+         username = "<Credentials 1 password>"
+         password = "<Credentials 2 password>"
+         mode = "usernametoken" # assign "digest" | "usernametoken" | "both" | "none"
 
-```
+   ```
 
-<p align="left">
-   <i>Sample: Snippet from configuration.toml</i>
-</p>
+   <p align="left">
+      <i>Sample: Snippet from configuration.toml</i>
+   </p>
 
 ### Additional Configuration Options
 For optional configurations, see [here.](#additional-configuration)

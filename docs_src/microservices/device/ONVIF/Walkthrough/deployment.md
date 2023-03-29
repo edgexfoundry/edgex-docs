@@ -4,69 +4,60 @@ Follow this guide to deploy and run the service.
 ## Deploy EdgeX and ONVIF Device Camera Microservice
 
 === "Docker"
-   1. Navigate to the EdgeX `compose-builder` directory:
 
-      ```bash
-      cd edgex-compose/compose-builder/
-      ```
-
-   1. Run EdgeX with the microservice in non-secure mode:
-
-      ```bash
-      make run no-secty ds-onvif-camera
-      ```
-   
-   1. Run EdgeX with the microservice in secure mode:
-
-      ```bash
-      make run ds-onvif-camera
-      ```
-=== "Native"
-
-<details>
-<summary><strong>Run the Service using Docker</strong></summary>
-
-
-</details>
-
-<details>
-<summary><strong>Run the Service natively</summary><strong>  
-
-   >**NOTE:** Go version 1.20+ is required to run natively. See [here](https://go.dev/doc/install) for more information.
-
-   1. Navigate to the EdgeX `compose-builder` directory:
-
-      ```bash
-      cd edgex-compose/compose-builder/
-      ```
-
-   1. Run EdgeX:
-
-      ```bash
-      make run no-secty
-      ```
-
-   1. Navigate out of the `edgex-compose` directory to the `device-onvif-camera` directory:
-
-      ```bash
-      cd device-onvif-camera
-      ```
-
-   1. Run the service
-      ```bash
-      make run
-      ```
-      
-      <details>
-      <summary>[Optional] Run with NATS</summary>
+      1. Navigate to the EdgeX `compose-builder` directory:
 
          ```bash
-         make run-nats
+         cd edgex-compose/compose-builder/
          ```
 
-      </details>
+      1. Run EdgeX with the microservice in non-secure mode:
 
-</details>
+         ```bash
+         make run no-secty ds-onvif-camera
+         ```
+      
+      1. Run EdgeX with the microservice in secure mode:
+
+         ```bash
+         make run ds-onvif-camera
+         ```
+
+=== "Native"
+
+      >**NOTE:** Go version 1.20+ is required to run natively. See [here](https://go.dev/doc/install) for more information.
+
+      1. Navigate to the EdgeX `compose-builder` directory:
+
+         ```bash
+         cd edgex-compose/compose-builder/
+         ```
+
+      1. Run EdgeX:
+
+         ```bash
+         make run no-secty
+         ```
+
+      1. Navigate out of the `edgex-compose` directory to the `device-onvif-camera` directory:
+
+         ```bash
+         cd device-onvif-camera
+         ```
+
+      1. Run the service
+         ```bash
+         make run
+         ```
+         
+         <details>
+         <summary>[Optional] Run with NATS</summary>
+
+            ```bash
+            make run-nats
+            ```
+
+         </details>
 
 ## Verify Service and Device Profiles
 
@@ -137,24 +128,24 @@ Follow this guide to deploy and run the service.
 ### Using EdgeX UI
 1. Visit http://localhost:4000 to go to the dashboard for EdgeX Console GUI:
 
-   ![EdgeXConsoleDashboard](./images/EdgeXDashboard.png)
+   ![EdgeXConsoleDashboard](../images/EdgeXDashboard.png)
    <p align="left">
       <i>Figure 1: EdgeX Console Dashboard</i>
    </p>
 
 2. To see **Device Services**, **Devices**, or **Device Profiles**, click on their respective tab:
 
-   ![EdgeXConsoleDeviceServices](./images/EdgeXDeviceServices.png)
+   ![EdgeXConsoleDeviceServices](../images/EdgeXDeviceServices.png)
    <p align="left">
       <i>Figure 2: EdgeX Console Device Service List</i>
    </p>
 
-   ![EdgeXConsoleDeviceList](./images/EdgeXDeviceList.png)
+   ![EdgeXConsoleDeviceList](../images/EdgeXDeviceList.png)
    <p align="left">
       <i>Figure 3: EdgeX Console Device List</i>
    </p>
 
-   ![EdgeXConsoleDeviceProfileList](./images/EdgeXDeviceProfiles.png)
+   ![EdgeXConsoleDeviceProfileList](../images/EdgeXDeviceProfiles.png)
    <p align="left">
       <i>Figure 4: EdgeX Console Device Profile List</i>
    </p>

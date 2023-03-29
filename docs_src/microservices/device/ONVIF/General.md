@@ -7,7 +7,7 @@ Use the ONVIF Device Service to streamline and scale your edge camera device dep
 ## How It Works
 The figure below illustrates the software flow through the architecture components.
 
-![high-level-arch](ONVIFDeviceServiceArch.png)
+![high-level-arch](./imagesONVIFDeviceServiceArch.png)
 <p align="left">
       <i>Figure 1: Software Flow</i>
 </p>
@@ -35,28 +35,6 @@ A brief video demonstration of building and using the device service:
 </iframe>
 [Get Started>](./Walkthrough/setup.md){: .md-button}
 
-## Learn More 
-
-### General
-[Supported ONVIF features](./supplementary-info/ONVIF-protocol.md)  
-[Auto discovery](./supplementary-info/auto-discovery.md)  
-[Control-plane events](./supplementary-info/control-plane-events.md)  
-[Utility Scripts](./supplementary-info/utility-scripts.md)
-
-
-### Custom Features
-[Custom Metadata](./doc/custom-metadata-feature.md)  
-[Reboot Needed](./doc/custom-feature-rebootneeded.md)  
-[Friendly Name and Mac Address](./doc/get-set-friendlyname-mac.md)  
-
-### API Support
-[API Analytic Handling](./doc/api-analytic-support.md)  
-[API Event Handling](./doc/api-event-handling.md)  
-[API User Handling](./doc/api-usage-user-handling.md)  
-
-### Miscellaneous
-[Postman](./doc/test-with-postman.md)  
-[User Authentication](./doc/onvif-user-authentication.md)  
 
 ## Resources
 [Learn more about EdgeX Core Metadata](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/2.1.0)  

@@ -47,82 +47,76 @@ or by configuring the `AppCustom.CredentialsMap` which maps one or more MAC Addr
 > **Note:** Credentials can be added and modified via [utility scripts](./utility-scripts.md) after the service is running
 
 ### Non-Secure Mode
-<details>
-<summary><strong>Helper Scripts</strong></summary>
 
-See [here](./utility-scripts.md) for the full guide.
-</details>
+=== "Helper Scripts"
 
-<details>
-<summary><strong>Manual</strong></summary>
+    See [here](./utility-scripts.md) for the full guide.
 
-> **Note:** Replace `<secret-name>` with the name of the secret, `<username>` with the username,
-> `<password>` with the password, and `<mode>` with the auth mode.
+=== "Manual"
 
-Set SecretName to `<device-name>`
-```shell
-curl -X PUT --data "<secret-name>" \
-    "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/<secret-name>/SecretName"
-```
+    > **Note:** Replace `<secret-name>` with the name of the secret, `<username>` with the username,
+    > `<password>` with the password, and `<mode>` with the auth mode.
 
-Set username to `<username>`
-```shell
-curl -X PUT --data "<username>" \
-    "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/<secret-name>/SecretData/username"
-```
+    Set SecretName to `<device-name>`
+    ```shell
+    curl -X PUT --data "<secret-name>" \
+        "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/<secret-name>/SecretName"
+    ```
 
-Set password to `<password>`
-```shell
-curl -X PUT --data "<password>" \
-    "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/<secret-name>/SecretData/password"
-```
+    Set username to `<username>`
+    ```shell
+    curl -X PUT --data "<username>" \
+        "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/<secret-name>/SecretData/username"
+    ```
 
-Set auth mode to `<auth-mode>`
-```shell
-curl -X PUT --data "<auth-mode>" \
-    "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/<secret-name>/SecretData/mode"
-```
-</details>
+    Set password to `<password>`
+    ```shell
+    curl -X PUT --data "<password>" \
+        "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/<secret-name>/SecretData/password"
+    ```
+
+    Set auth mode to `<auth-mode>`
+    ```shell
+    curl -X PUT --data "<auth-mode>" \
+        "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/<secret-name>/SecretData/mode"
+    ```
 
 ### Secure Mode
-<details>
-<summary><strong>Helper Scripts</strong></summary>
 
-See [here](./utility-scripts.md) for the full guide.
-</details>
+=== "Helper Scripts"
 
-<details>
-<summary><strong>Manual</strong></summary>
+    See [here](./utility-scripts.md) for the full guide.
 
-Credentials can be added via EdgeX Secrets:
+=== "Manual"
 
-> **Note:** Replace `<secret-name>` with the name for the new secret, `<username>` with the username,
-> `<password>` with the password, and `<mode>` with the authentication mode.
+    Credentials can be added via EdgeX Secrets:
 
-```shell
-curl --location --request POST 'http://localhost:59984/api/v2/secret' \
-    --header 'Content-Type: application/json' \
-    --data-raw '
-{
-    "apiVersion":"v2",
-    "name": "<secret-name>",
-    "secretData":[
-        {
-            "key":"username",
-            "value":"<username>"
-        },
-        {
-            "key":"password",
-            "value":"<password>"
-        },
-        {
-            "key":"mode",
-            "value":"<mode>"
-        }
-    ]
-}'
-```
-</details>
+    > **Note:** Replace `<secret-name>` with the name for the new secret, `<username>` with the username,
+    > `<password>` with the password, and `<mode>` with the authentication mode.
+
+    ```shell
+    curl --location --request POST 'http://localhost:59984/api/v2/secret' \
+        --header 'Content-Type: application/json' \
+        --data-raw '
+    {
+        "apiVersion":"v2",
+        "name": "<secret-name>",
+        "secretData":[
+            {
+                "key":"username",
+                "value":"<username>"
+            },
+            {
+                "key":"password",
+                "value":"<password>"
+            },
+            {
+                "key":"mode",
+                "value":"<mode>"
+            }
+        ]
+    }'
+    ```
 
 ## Mapping Credentials to Devices
 > **Note:** Credential mappings can be set via [utility scripts](./utility-scripts.md) after the service is running
