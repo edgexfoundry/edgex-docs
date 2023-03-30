@@ -1,203 +1,202 @@
-
 # General Usage
 
 This document will describe how to execute some of the most important types of commands used with the device service.
 
 ## Get the Available Commands
-1. Check the available commands from core-command service:
-```shell
-curl http://localhost:59882/api/v2/device/name/Camera001 | jq
-```
 
-!!! Response
+Check the available commands from core-command service:
+   ```shell
+   curl http://localhost:59882/api/v2/device/name/Camera001 | jq
+   ```
 
-      ```json
-      {
-      "apiVersion": "v2",
-      "statusCode": 200,
-      "deviceCoreCommand": {
-         "deviceName": "Camera001",
-         "profileName": "onvif-camera",
-         "coreCommands": [
+   Example Output:
+
+   ```json
+   {
+   "apiVersion": "v2",
+   "statusCode": 200,
+   "deviceCoreCommand": {
+      "deviceName": "Camera001",
+      "profileName": "onvif-camera",
+      "coreCommands": [
+         {
+         "name": "NetworkDefaultGateway",
+         "get": true,
+         "set": true,
+         "path": "/api/v2/device/name/Camera001/NetworkDefaultGateway",
+         "url": "http://edgex-core-command:59882",
+         "parameters": [
             {
-            "name": "NetworkDefaultGateway",
-            "get": true,
-            "set": true,
-            "path": "/api/v2/device/name/Camera001/NetworkDefaultGateway",
-            "url": "http://edgex-core-command:59882",
-            "parameters": [
-               {
-                  "resourceName": "NetworkDefaultGateway",
-                  "valueType": "Object"
-               }
-            ]
-            },
-            {
-            "name": "AddMetadataConfiguration",
-            "set": true,
-            "path": "/api/v2/device/name/Camera001/AddMetadataConfiguration",
-            "url": "http://edgex-core-command:59882",
-            "parameters": [
-               {
-                  "resourceName": "AddMetadataConfiguration",
-                  "valueType": "Object"
-               }
-            ]
-            },
+               "resourceName": "NetworkDefaultGateway",
+               "valueType": "Object"
+            }
          ]
-         }
+         },
+         {
+         "name": "AddMetadataConfiguration",
+         "set": true,
+         "path": "/api/v2/device/name/Camera001/AddMetadataConfiguration",
+         "url": "http://edgex-core-command:59882",
+         "parameters": [
+            {
+               "resourceName": "AddMetadataConfiguration",
+               "valueType": "Object"
+            }
+         ]
+         },
+      ]
       }
-      ```
+   }
+   ```
 
-!!! NOTE 
+!!! Note
       This response has been shortened, most device profiles will have many resources.
 
 ## Execute a Get Command - Read Single Resource
 
-!!! Example 
-      ```shell
-      curl http://0.0.0.0:59882/api/v2/device/name/Camera001/Hostname | jq
-      ```
-!!! Response
+Example Command:
+```shell
+curl http://0.0.0.0:59882/api/v2/device/name/Camera001/Hostname | jq
+```
+Example Output:
 
-      ```json
-      {
-         "apiVersion" : "v2",
-         "event" : {
-            "apiVersion" : "v2",
+```json
+{
+   "apiVersion" : "v2",
+   "event" : {
+      "apiVersion" : "v2",
+      "deviceName" : "Camera001",
+      "id" : "6b46d058-d8e0-4095-ba80-4a6de1787510",
+      "origin" : 1635749209227019000,
+      "profileName" : "onvif-camera",
+      "readings" : [
+         {
             "deviceName" : "Camera001",
-            "id" : "6b46d058-d8e0-4095-ba80-4a6de1787510",
+            "id" : "a1b0d809-c88a-4889-920e-8ac64e6aa658",
+            "objectValue" : {
+               "HostnameInformation" : {
+                  "FromDHCP" : false,
+                  "Name" : "localhost"
+               }
+            },
             "origin" : 1635749209227019000,
             "profileName" : "onvif-camera",
-            "readings" : [
-               {
-                  "deviceName" : "Camera001",
-                  "id" : "a1b0d809-c88a-4889-920e-8ac64e6aa658",
-                  "objectValue" : {
-                     "HostnameInformation" : {
-                        "FromDHCP" : false,
-                        "Name" : "localhost"
-                     }
-                  },
-                  "origin" : 1635749209227019000,
-                  "profileName" : "onvif-camera",
-                  "resourceName" : "Hostname",
-                  "valueType" : "Object"
-               }
-            ],
-            "sourceName" : "Hostname"
-         },
-         "statusCode" : 200
-      }
-      ```
+            "resourceName" : "Hostname",
+            "valueType" : "Object"
+         }
+      ],
+      "sourceName" : "Hostname"
+   },
+   "statusCode" : 200
+}
+```
 
 ## Execute a Get Command - Read Multiple Resources
 
-!!! Example
-      ```shell
-      curl http://0.0.0.0:59882/api/v2/device/name/Camera001/NetworkConfiguration | jq
-      ```
+Example Command:
+```shell
+curl http://0.0.0.0:59882/api/v2/device/name/Camera001/NetworkConfiguration | jq
+```
 
-!!! Response
-      ```json
-      {
-         "apiVersion" : "v2",
-         "event" : {
-            "apiVersion" : "v2",
-            "sourceName" : "NetworkConfiguration",
+Example Output:
+```json
+{
+   "apiVersion" : "v2",
+   "event" : {
+      "apiVersion" : "v2",
+      "sourceName" : "NetworkConfiguration",
+      "deviceName" : "Camera001",
+      "id" : "24d5e391-0dcd-48f5-8706-6abb11797d29",
+      "origin" : 1635868623002677000,
+      "profileName" : "onvif-camera",
+      "readings" : [
+         {
             "deviceName" : "Camera001",
-            "id" : "24d5e391-0dcd-48f5-8706-6abb11797d29",
+            "id" : "87d0bcfd-aecf-4ab7-a871-2b85a3c90f00",
+            "objectValue" : {
+               "HostnameInformation" : {
+                  "FromDHCP" : false,
+                  "Name" : "localhost"
+               }
+            },
             "origin" : 1635868623002677000,
             "profileName" : "onvif-camera",
-            "readings" : [
-               {
-                  "deviceName" : "Camera001",
-                  "id" : "87d0bcfd-aecf-4ab7-a871-2b85a3c90f00",
-                  "objectValue" : {
-                     "HostnameInformation" : {
-                        "FromDHCP" : false,
-                        "Name" : "localhost"
-                     }
-                  },
-                  "origin" : 1635868623002677000,
-                  "profileName" : "onvif-camera",
-                  "resourceName" : "Hostname",
-                  "valueType" : "Object"
-               },
-               {
-                  "deviceName" : "Camera001",
-                  "id" : "edfa8d6f-a96e-49a8-96c9-595905cbe170",
-                  "objectValue" : {
-                     "DNSInformation" : {
-                        "DNSManual" : {
-                           "IPv4Address" : "192.168.12.1",
-                           "Type" : "IPv4"
-                        },
-                        "FromDHCP" : false
-                     }
-                  },
-                  "origin" : 1635868623002677000,
-                  "profileName" : "onvif-camera",
-                  "resourceName" : "DNS",
-                  "valueType" : "Object"
-               },
-               ...
-            ]
+            "resourceName" : "Hostname",
+            "valueType" : "Object"
          },
-         "statusCode" : 200
-      }
-      ```
+         {
+            "deviceName" : "Camera001",
+            "id" : "edfa8d6f-a96e-49a8-96c9-595905cbe170",
+            "objectValue" : {
+               "DNSInformation" : {
+                  "DNSManual" : {
+                     "IPv4Address" : "192.168.12.1",
+                     "Type" : "IPv4"
+                  },
+                  "FromDHCP" : false
+               }
+            },
+            "origin" : 1635868623002677000,
+            "profileName" : "onvif-camera",
+            "resourceName" : "DNS",
+            "valueType" : "Object"
+         },
+         ...
+      ]
+   },
+   "statusCode" : 200
+}
+```
 
 ## Execute a Set Command - Write Single Resource
-!!! Example
-      ```shell
-      curl -X PUT -H 'Content-Type: application/json' 'http://0.0.0.0:59882/api/v2/device/name/Camera001/Hostname' \
-         -d '{
-            "Hostname": {
-                  "Name": "localhost555"
-            }
-         }'
-      ```
+Example Command:
+```shell
+curl -X PUT -H 'Content-Type: application/json' 'http://0.0.0.0:59882/api/v2/device/name/Camera001/Hostname' \
+    -d '{
+        "Hostname": {
+            "Name": "localhost555"
+        }
+    }'
+```
 
 ## Execute a Set Command - Write Multiple Resource
-!!! Example 
-      ```shell 
-      curl -X PUT -H 'Content-Type: application/json' 'http://0.0.0.0:59882/api/v2/device/name/Camera001/NetworkConfiguration' \
-         -d '{
-            "Hostname": {
-                  "Name": "localhost"
-            },
-            "DNS": {
-                  "FromDHCP": false,
-                  "DNSManual": {
-                     "Type": "IPv4",
-                     "IPv4Address": "192.168.12.1"
-                  }
-            },
-            "NetworkInterfaces": {
-                  "InterfaceToken": "eth0",
-                  "NetworkInterface": {
-                     "Enabled": true,
-                     "IPv4": {
-                        "DHCP": false
-                     }
-                  }
-                  
-            },
-            "NetworkProtocols": {
-                  "NetworkProtocols": [ 
-                     {
-                        "Name": "HTTP",
-                        "Enabled": true,
-                        "Port": 80
-                     }
-                  ]
-            },
-            "NetworkDefaultGateway": {
-                  "IPv4Address": "192.168.12.1"
+```shell
+curl -X PUT -H 'Content-Type: application/json' 'http://0.0.0.0:59882/api/v2/device/name/Camera001/NetworkConfiguration' \
+    -d '{
+        "Hostname": {
+            "Name": "localhost"
+        },
+        "DNS": {
+            "FromDHCP": false,
+            "DNSManual": {
+                "Type": "IPv4",
+                "IPv4Address": "192.168.12.1"
             }
-         }'
-      ```
+        },
+        "NetworkInterfaces": {
+            "InterfaceToken": "eth0",
+            "NetworkInterface": {
+                "Enabled": true,
+                "IPv4": {
+                    "DHCP": false
+                }
+            }
+            
+        },
+        "NetworkProtocols": {
+            "NetworkProtocols": [ 
+                {
+                    "Name": "HTTP",
+                    "Enabled": true,
+                    "Port": 80
+                }
+            ]
+        },
+        "NetworkDefaultGateway": {
+            "IPv4Address": "192.168.12.1"
+        }
+    }'
+```
 
 ## Execute Command Requiring Parameters
 
@@ -206,12 +205,11 @@ In this example, the GetStreamURI will be used as the example command. Some comm
 
 1. Get the profile token by executing the `GetProfiles` command:
 
-!!! Example 
       ```bash
       curl http://0.0.0.0:59882/api/v2/device/name/Camera001/Profiles | jq 
       ```
 
-!!! Response
+      Example Output: 
       ```json
       {    
       "apiVersion": "v2",
@@ -246,22 +244,27 @@ In this example, the GetStreamURI will be used as the example command. Some comm
          }]
       }}
       ```
-!!! NOTE
-      This output has been trimmed to only show a necessary section.
 
-<ol start=2>
-   <li>
-   Convert the JSON input to Base64:
-   </li>
-</ol>
-!!! NOTE 
-      Make sure to change the profile token to the one found in step 1. In this example, it is the string `profile_1`.
+      <div class="admonition note">
+         <p class="admonition-title">Note</p>
+         <p>This output has been trimmed to only show a necessary section.</p>
+      </div>
+
+2. Convert the JSON input to Base64:
+
+      <div class="admonition note">
+         <p class="admonition-title">Note</p>
+         <p>Make sure to change the profile token to the one found in step 1. In this example, it is the string `profile_1`.</p>
+      </div>
+      
+
       ```json
       {
          "ProfileToken": "profile_1"
       }
       ```
-!!! Example
+      Example Output:
+
       ```bash
       echo -n '{
          "ProfileToken": "profile_1"
@@ -269,17 +272,13 @@ In this example, the GetStreamURI will be used as the example command. Some comm
       ewogICAgICAiUHJvZmlsZVRva2VuIjogInByb2ZpbGVfMSIKfQ==
       ```
 
-<ol start=2>
-   <li>
-      Execute `GetStreamURI` command to get RTSP URI from the ONVIF device. Make sure to put the Base64 JSON data after *?jsonObject=* in the command.
-   </li>
-</ol>
-!!! Example
+3. Execute `GetStreamURI` command to get RTSP URI from the ONVIF device. Make sure to put the Base64 JSON data after *?jsonObject=* in the command.
+
       ```bash
       curl http://0.0.0.0:59882/api/v2/device/name/Camera001/StreamUri?jsonObject=ewogICAgICAiUHJvZmlsZVRva2VuIjogInByb2ZpbGVfMSIKfQ== | jq -r '"streamURI: " + '.event.readings[].objectValue.MediaUri.Uri''
       ```
-   
-!!!Output
+      
+      Example Output:
 
       ```bash
       streamURI: rtsp://192.168.86.34:554/stream1
@@ -287,17 +286,27 @@ In this example, the GetStreamURI will be used as the example command. Some comm
 
 4. Stream the RTSP stream: 
 
-   Alternatively, ffplay can be used to stream. The command follows this format: 
-   
-   `ffplay -rtsp_transport tcp rtsp://'<user>':'<password>'@<IP address>:<port>/<streamname>`.
+      Alternatively, ffplay can be used to stream. The command follows this format: 
+      
+      ```bash
+      ffplay -rtsp_transport tcp rtsp://'<user>':'<password>'@<IP address>:<port>/<streamname>
+      ```
 
-   Using the `streamURI` returned from the previous step, run ffplay:
-   
-   ```bash
-   ffplay -rtsp_transport tcp rtsp://'admin':'Password123'@192.168.86.34:554/stream1
-   ```
-   >NOTE: While the `streamURI` returned did not contain the username and password, those credentials are required in order to correctly authenticate the request and play the stream. Therefore, it is included in both the VLC and ffplay streaming examples.  
-   >NOTE: If the password uses special characters, you must use percent-encoding. 
+      Using the `streamURI` returned from the previous step, run ffplay:
+      
+      ```bash
+      ffplay -rtsp_transport tcp rtsp://'admin':'Password123'@192.168.86.34:554/stream1
+      ```
+
+      <div class="admonition note">
+         <p class="admonition-title">Note</p>
+         <p>While the `streamURI` returned did not contain the username and password, those credentials are required in order to correctly authenticate the request and play the stream. Therefore, it is included in both the VLC and ffplay streaming examples.</p>
+      </div>
+      <div class="admonition note">
+         <p class="admonition-title">Note</p>
+         <p>If the password uses special characters, you must use percent-encoding.</p>
+      </div>
+
 
 5. To shut down ffplay, use the ctrl-c command.
 
@@ -305,7 +314,6 @@ In this example, the GetStreamURI will be used as the example command. Some comm
 [Explore the Swagger documentation (not implemented)]()  
 [Explore auto discovery](./auto-discovery.md)
 
-Refer to the main [README](../README.md) to find links to the rest of the documents.
 
 # License
 

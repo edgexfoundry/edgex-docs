@@ -7,7 +7,7 @@ Use the ONVIF Device Service to streamline and scale your edge camera device dep
 ## How It Works
 The figure below illustrates the software flow through the architecture components.
 
-![high-level-arch](./imagesONVIFDeviceServiceArch.png)
+![high-level-arch](./images/ONVIFDeviceServiceArch.png)
 <p align="left">
       <i>Figure 1: Software Flow</i>
 </p>
