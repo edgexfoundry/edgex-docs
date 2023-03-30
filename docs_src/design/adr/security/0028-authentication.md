@@ -80,7 +80,7 @@ This ADR proposes an implementation of the
 that uses a token-based authentication mechanism.
 
 This ADR proposes to relieve the Kong API gateway of its
-JWT(see www.rfc-editor.org/rfc/rfc7519) management responsibility,
+[JWT](https://www.rfc-editor.org/rfc/rfc7519) management responsibility,
 and instead use Hashicorp Vault for this purpose,
 which is already used as EdgeX's secret store.
 This change requires minimal modification of existing
