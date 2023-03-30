@@ -261,7 +261,7 @@ The `SDK` API provides the follow APIs to enable structured custom configuration
 See the [Device MQTT Service](https://github.com/edgexfoundry/device-mqtt-go/tree/v2.0.0) for an example of using the new Structured Custom Configuration capability.
 
 - [See here for defining the structured custom configuration](https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/internal/driver/config.go#L21-L72)
-- [See here for custom section on the configuration.yaml file](https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/cmd/res/configuration.yaml#L86-L108) (**TODO**: Update link once YAML file is available)
+- [See here for custom section on the configuration.toml file](https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/cmd/res/configuration.toml#L86-L108) (**TODO**: Update link once YAML file is available)
 - [See here for loading, validating and watching the configuration](https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/internal/driver/driver.go#L54-L69)
 
 ## Device Service Metrics

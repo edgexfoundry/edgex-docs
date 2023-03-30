@@ -184,11 +184,11 @@ Please refer to the general [Common Configuration documentation](../configuratio
 Device services can have custom configuration in one of two ways. See the table below for details.
 
 === "Driver"
-    `[Driver]` - The Driver section used for simple custom settings and is accessed via the SDK's DriverConfigs() API. The DriverConfigs API returns a `map[string] string` containing the contents on the `Driver` section of the `configuration.toml` file.
+    `Driver` - The Driver section used for simple custom settings and is accessed via the SDK's DriverConfigs() API. The DriverConfigs API returns a `map[string] string` containing the contents on the `Driver` section of the `configuration.yaml` file.
     
-    ```toml
-    [Driver]
-    MySetting = "My Value"
+    ```yaml
+    Driver:
+      MySetting: "My Value"
     ```
 === "Custom Structured Configuration"
     For Go Device Services see [Go Custom Structured Configuration](../../../getting-started/Ch-GettingStartedSDK-Go/#custom-structured-configuration) for more details.
@@ -215,21 +215,22 @@ When running an Device Service in secure mode, secrets can be stored in the Secr
 
 ##### Insecure Mode
 
-When running in insecure mode, the secrets are stored and retrieved from the *Writable.InsecureSecrets* section of the service's configuration.toml file. Insecure secrets and their paths can be configured as below.
+When running in insecure mode, the secrets are stored and retrieved from the *Writable.InsecureSecrets* section of the service's configuration.yaml file. Insecure secrets and their paths can be configured as below.
 
 !!! example "Example - InsecureSecrets Configuration"
-    ```toml
-       [Writable.InsecureSecrets]    
-         [Writable.InsecureSecrets.DB]
-         path = "redisdb"
-           [Writable.InsecureSecrets.DB.Secrets]
-           username = ""
-           password = ""
-         [Writable.InsecureSecrets.MQTT]
-         path = "credentials"
-           [Writable.InsecureSecrets.MQTT.Secrets]
-           username = "mqtt-user"
-           password = "mqtt-password"
+    ```yaml
+    Writable:
+      InsecureSecrets:    
+        DB:
+         SecretName: "redisdb"
+         SecretData:
+           username: ""
+           password: ""
+        MQTT:
+          SecretName: "credentials"
+        SecretData:
+           username: "mqtt-user"
+           password: "mqtt-password"
     ```
 
 #### Retrieving Secrets
