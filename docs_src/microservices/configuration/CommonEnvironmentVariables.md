@@ -76,7 +76,7 @@ This environment variable overrides the [`-cf/--configFile` command-line option]
 !!! example "Example - Using docker-compose to override the configuration file name used"
     ```yaml
     environment: 
-      EDGEX_CONFIG_FILE: "my-config.toml"
+      EDGEX_CONFIG_FILE: "my-config.yaml"
     ```
 
 #### EDGEX_CONFIG_PROVIDER
@@ -114,13 +114,14 @@ This environment variable overrides the [`-cc/--commonConfig` command-line optio
     $ export EDGEX_COMMON_CONFIG=./my-common-configuration.yaml
     $ ./core-data
     ```
-    
+
 !!! edgey "EdgeX 3.0"
     The `EDGEX_COMMON_CONFIG` variable is new to EdgeX 3.0.
     
+
 #### EDGEX_PROFILE
 
-This environment variable overrides the [`-p/--profile` command-line option](../CommonCommandLineOptions#profile). When non-empty,  the value is used in the path to the configuration file. i.e. /res/my-profile/configuation.toml.  This is useful when running multiple instances of a service such as App Service Configurable.
+This environment variable overrides the [`-p/--profile` command-line option](../CommonCommandLineOptions#profile). When non-empty,  the value is used in the path to the configuration file. i.e. /res/my-profile/configuation.yaml.  This is useful when running multiple instances of a service such as App Service Configurable.
 
 !!! example "Example - Using docker-compose to override the profile to use"
     ```yaml
@@ -131,10 +132,7 @@ This environment variable overrides the [`-p/--profile` command-line option](../
         ...
     ```
 
-This sets the `profile` so that the App Service Configurable uses the `rules-engine` configuration profile which resides at `/res/rules-engine/configuration.toml`
-
-!!! edgey "EdgeX 2.0"
-    For EdgeX 2.0 the deprecated lower case version `edgex_profile` has been removed
+This sets the `profile` so that the App Service Configurable uses the `rules-engine` configuration profile which resides at `/res/rules-engine/configuration.yaml`
 
 #### EDGEX_USE_REGISTRY
 
@@ -149,35 +147,26 @@ This environment variable overrides the [`-r/--registry` command-line option](..
       EDGEX_USE_REGISTRY: "false"
     ```
 
-!!! edgey "EdgeX 2.0"
-    For EdgeX 2.0 the deprecated lower case version `edgex_registry` has been removed
-
 ### Configuration Overrides
 
-Any configuration setting from a service's `configuration.toml` file can be overridden by environment variables. The environment variable names have the following format:
+Any configuration setting from a service's `configuration.yaml` file can be overridden by environment variables. The environment variable names have the following format:
 
-```toml
-<TOM-SECTION-NAME>_<TOML-KEY-NAME>
-<TOML-SECTION-NAME>_<TOML-SUB-SECTION-NAME>_<TOML-KEY-NAME>
+```
+<SECTION-NAME>_<KEY-NAME>
+<SECTION-NAME>_<SUB-SECTION-NAME>_<KEY-NAME>
 ```
 
-!!! edgey "EdgeX 2.0"
-    With EdgeX 2.0 the use of CamelCase environment variable names is no longer supported. Instead the variable names must be all uppercase as in the example below. Also the using of dash `-` in the TOML-NAME is converted to an underscore `_` in the environment variable name.
-
 !!! example "Example - Environment Overrides of Configuration"
+    ``` yaml   
+    CONFIG  : Writable:    
+               LogLevel: "INFO"    
+    ENVVAR : WRITABLE_LOGLEVEL=DEBUG    
 
-~~~toml
-``` toml   
-TOML   : [Writable]    
-		 LogLevel = "INFO"    
-ENVVAR : WRITABLE_LOGLEVEL=DEBUG    
-
-TOML   : [Clients]
-  			[Clients.core-data]
-  			Host = "localhost"
-ENVVAR : CLIENTS_CORE_DATA_HOST=edgex-core-data    
-```    
-~~~
+    CONFIG : Clients:
+               core-data:
+                 Host: "localhost"
+    ENVVAR : CLIENTS_CORE_DATA_HOST=edgex-core-data    
+    ```    
 
 ### SecretStore Overrides
 
@@ -190,7 +179,7 @@ The environment variables overrides for **SecretStore** configuration remain the
 - SECRETSTORE_RUNTIMETOKENPROVIDER_ENABLED
 - SECRETSTORE_RUNTIMETOKENPROVIDER_HOST
 
-The  complete list of **SecretStore** fields and defaults can be found [here](https://github.com/edgexfoundry/go-mod-bootstrap/blob/main/config/types.go#L164-L187). The defaults for the remaining fields typically do not need to be overridden, but may be overridden if needed using that same naming scheme as above.
+The  complete list of **SecretStore** fields and defaults can be found in the file [here](https://github.com/edgexfoundry/go-mod-bootstrap/blob/main/config/types.go) (search for SecretStoreInfo). The defaults for the remaining fields typically do not need to be overridden, but may be overridden if needed using that same naming scheme as above.
 
 ### Notable Configuration Overrides
 

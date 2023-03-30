@@ -31,7 +31,7 @@ Because EdgeX Foundry may be deployed and run in several different ways,
 it is important to understand how configuration is loaded and from where it is sourced. 
 Referring to the cmd directory within the [edgex-go repository](https://github.com/edgexfoundry/edgex-go), each service has its own folder. 
 Inside each service's folder there is a `res` directory (short for "resource").
-There the configuration files in [TOML format](https://github.com/toml-lang/toml) define each service's configuration. 
+There the configuration files in [YAML format](https://en.wikipedia.org/wiki/YAML) define each service's configuration. 
 A service may support several different configuration profiles, such as a App Service Configurable does. 
 In this case, the configuration file located directly in the `res` directory should be considered the default configuration profile. 
 Sub-directories will contain configurations appropriate to the respective profile.
@@ -71,7 +71,7 @@ Again, taking the `core-data` service as an example:
 `./core-data -cp=consul.http://localhost:8500` will start the service using configuration values found in the provider or seed them if they do not exist. 
 
 !!! edgey - "EdgeX 3.0"
-    In EdgeX 3.0, overrides are no longer applied prior to seeding the configuration into the configuration provider.
+    In EdgeX 3.0, the common environment variable overrides are applied to this common configuration prior to pushing the configuration into the configuration provider. This dramatically reduces the number of duplicate environment variable overrides in the Docker compose files.
 
 ### Configuration Structure
 

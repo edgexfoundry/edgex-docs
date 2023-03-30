@@ -92,7 +92,7 @@ See the [Target Type](../AdvancedTopics/#target-type) advanced topic for more de
 
 ## Custom Configuration APIs
 
-The following `ApplicationService` APIs allow your service to access their custom configuration from the TOML file and/or Configuration Provider. See the [Custom Configuration](../AdvancedTopics/#custom-configuration) advanced topic for more details.
+The following `ApplicationService` APIs allow your service to access their custom configuration from the configuration file and/or Configuration Provider. See the [Custom Configuration](../AdvancedTopics/#custom-configuration) advanced topic for more details.
 
 ### ApplicationSettings
 
@@ -102,9 +102,9 @@ This API returns the complete key/value map of custom settings
 
 !!! example "Example - ApplicationSettings"
 
-    ```toml
-    [ApplicationSettings]
-    Greeting = "Hello World"
+    ```yaml
+    ApplicationSettings:
+      Greeting: "Hello World"
     ```
     
     ```go
@@ -122,9 +122,9 @@ This API is a convenience API that returns a single setting from the `[Applicati
 
 !!! example "Example - GetAppSetting"
 
-    ```toml
-    [ApplicationSettings]
-    Greeting = "Hello World"
+    ```yaml
+    ApplicationSettings:
+     Greeting: "Hello World"
     ```
     
     ```go
@@ -143,9 +143,9 @@ This API is a convenience API that parses the string value for the specified cus
 
 !!! example "Example - GetAppSettingStrings"
 
-    ```toml
-    [ApplicationSettings]
-    Greetings = "Hello World, Welcome World, Hi World"
+    ```yaml
+    ApplicationSettings:
+     Greetings: "Hello World, Welcome World, Hi World"
     ```
     
     ```go
@@ -166,14 +166,14 @@ This API loads the service's Structured Custom Configuration from local file or 
 
 !!! example "Example - LoadCustomConfig"
 
-    ```toml
-    [AppCustom] # Can be any name you choose
-    ResourceNames = "Boolean, Int32, Uint32, Float32, Binary"
-    SomeValue = 123
-      [AppCustom.SomeService]
-      Host = "localhost"
-      Port = 9080
-      Protocol = "http"
+    ```yaml
+    AppCustom: # Can be any name you choose
+      ResourceNames: "Boolean, Int32, Uint32, Float32, Binary"
+      SomeValue: 123
+      SomeService:
+        Host: "localhost"
+        Port: 9080
+        Protocol: "http"
     ```
     
     ```go
@@ -217,14 +217,14 @@ This API starts a listener on the Configuration Provider for changes to the spec
 
 !!! example "Example - ListenForCustomConfigChanges"
 
-    ```toml
-    [AppCustom] # Can be any name you choose
-    ResourceNames = "Boolean, Int32, Uint32, Float32, Binary"
-    SomeValue = 123
-      [AppCustom.SomeService]
-      Host = "localhost"
-      Port = 9080
-      Protocol = "http"
+    ```yaml
+    AppCustom: # Can be any name you choose
+      ResourceNames: "Boolean, Int32, Uint32, Float32, Binary"
+      SomeValue: 123
+      SomeService:
+        Host: "localhost"
+        Port: 9080
+        Protocol: "http"
     ```
     
     ```go
@@ -514,11 +514,11 @@ This API adds a custom REST route to the application service's internal webserve
 This API returns the parsed value for the `Service.RequestTimeout` configuration setting. The setting is parsed on start-up so that any error is caught then.
 
 !!! example "Example - RequestTimeout"
-    ```toml
-    [Service]
-    :
-    RequestTimeout = "60s"
-    :
+    ```yaml
+    Service:
+    ...
+      RequestTimeout: "60s"
+    ...
     ```
     
     ```go

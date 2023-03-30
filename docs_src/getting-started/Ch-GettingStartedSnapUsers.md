@@ -70,7 +70,7 @@ EdgeX snaps are packaged with default service configuration files. In certain ca
 There are a few ways to configure snapped services. In simple cases, it should be sufficient to modify the default config files before starting the services for the first time and use config overrides to change supported settings afterwards. Please refer below to learn about the different configuration methods.
 
 #### Config files
-The default configuration files are typically placed at `/var/snap/<snap>/current/config`. Upon a successful startup of an EdgeX service, the server configuration file (typically named `configuration.toml`) is uploaded to the [Registry](../../microservices/configuration/ConfigurationAndRegistry/#registry-provider) by default. After that, the local server configuration file will no longer be read and any modifications will not be applied. At this point, the configurations can be only changed via the Registry or by setting environment variables. Refer to [config registry](#config-registry) or [config overrides](#config-overrides) for details.
+The default configuration files are typically placed at `/var/snap/<snap>/current/config`. Upon a successful startup of an EdgeX service, the server configuration file (typically named `configuration.yaml`) is uploaded to the [Registry](../../microservices/configuration/ConfigurationAndRegistry/#registry-provider) by default. After that, the local server configuration file will no longer be read and any modifications will not be applied. At this point, the configurations can be only changed via the Registry or by setting environment variables. Refer to [config registry](#config-registry) or [config overrides](#config-overrides) for details.
 
 For device services, the Device and Device Profile files are submitted to [Core Metadata](../../microservices/core/metadata/Ch-Metadata) upon initial startup. Refer to the documentation of [Device Services](../../microservices/device/Ch-DeviceServices/) for details.
 
@@ -105,11 +105,11 @@ Please refer to [edgex-config-provider](https://github.com/canonical/edgex-confi
     - `<app>` is the name of the app (service, executable)
     - `<type>` is the type of option with respect to the app
     - `<key>` is key for the option. It could contain a path to set a value inside an object, e.g. `x.y=z` sets `{"x": {"y": "z"}}`.
-
+    
     We call these *app options* because of the `apps.<app>` prefix which is used to apply configurations to specific services. This prefix can be dropped to apply the configuration globally to all apps within a snap!
-
+    
     This scheme is used for config overrides (described in this section) as well as autostart described in [managing services], among others.
-
+    
     To know more about snap configuration, refer [here](https://snapcraft.io/docs/configuration-in-snaps).
 
 The EdgeX services allow overriding server configurations using environment variables. Moreover, the services read [EdgeX Common Environment Variables](../../microservices/configuration/CommonEnvironmentVariables/) that override configurations that are hardcoded in source code or set as command-line options.
@@ -128,10 +128,10 @@ where:
 
 Mapping examples:
 
-| Snap config key        | Environment Variable     | Service configuration TOML                          |
+| Snap config key        | Environment Variable     | Service configuration YAML                       |
 |------------------------|--------------------------|-----------------------------------------------------|
-| service-port           | SERVICE_PORT             | [Service]<br>Port                                   |
-| clients-core-data-host  | CLIENTS_CORE_DATA_HOST  | [Clients]<br>--[Clients.core-data]<br>--Host        |
+| service-port           | SERVICE_PORT             | Service:<br>--Port:                             |
+| clients-core-data-host  | CLIENTS_CORE_DATA_HOST  | Clients:<br>--core-data:<br>----Host:   |
 | edgex-startup-duration | [EDGEX_STARTUP_DURATION] | -                                                   |
 | add-secretstore-tokens | [ADD_SECRETSTORE_TOKENS] | -                                                   |
 
@@ -143,7 +143,7 @@ Mapping examples:
     ```bash
     snap set edgexfoundry apps.core-data.config.service-port=8080
     ```
-    This would internally export `SERVICE_PORT=8080` to `core-data` service.
+​    This would internally export `SERVICE_PORT=8080` to `core-data` service.
 
 !!! Note
     The services load the set configuration on startup. If a service has already started, a restart will be necessary to load the configurations.
@@ -151,7 +151,7 @@ Mapping examples:
 #### Examples
 ##### Disabling security
 [disabling security]: #disabling-security
-    
+
 !!! Warning
     Disabling security is NOT recommended, unless for demonstration purposes, or when there are other means to secure the services.
 
@@ -192,19 +192,19 @@ After disabling the security on the platform, the external services should be si
         COMMAND     PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
         core-data 30944 root   12u  IPv4 198726      0t0  TCP 127.0.0.1:59880 (LISTEN)
         ```
-
+    
         To set the bind address of `core-data` in the platform snap to `0.0.0.0`:
         ```bash
         snap set edgexfoundry apps.core-data.config.service-serverbindaddr="0.0.0.0"
         ```
-
+    
         Now, core data is listening an all interfaces (`*:59880`):
         ```
         $ sudo lsof -nPi :59880
         COMMAND     PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
         core-data 30548 root   12u  IPv6 185059      0t0  TCP *:59880 (LISTEN)
         ```
-
+    
         To set it for all services inside the platform snap:
         ```bash
         snap set edgexfoundry config.service-serverbindaddr="0.0.0.0"
@@ -283,7 +283,8 @@ The EdgeX snaps allows the change using snap options following the below scheme:
 
 * `apps.<app>.autostart=true|false`: changing the default startup of one app
 * `autostart=true|false`: changing the default startup of all apps
-    
+  
+
 where `<app>` is the name of the app which can run as a service.
 
 
@@ -413,11 +414,11 @@ You may also refer to the [secrets-config proxy](../../security/secrets-config-p
     ```bash
     username=example
     password=password-from-above
-
+    
     vault_token=$(curl -ks "http://localhost:8200/v1/auth/userpass/login/${username}" -d "{\"password\":\"${password}\"}" | jq -r '.auth.client_token')
-
+    
     id_token=$(curl -ks -H "Authorization: Bearer ${vault_token}" "http://localhost:8200/v1/identity/oidc/token/${username}" | jq -r '.data.token')
-
+    
     echo "${id_token}" > user-jwt.txt
     ```
 
@@ -445,7 +446,7 @@ Consul API and UI can be accessed using the consul token (Secret ID). For the sn
     ```bash
     curl --insecure --silent http://localhost:8500/v1/kv/edgex/core/2.0/core-data/Service/Port -H "X-Consul-Token:$(cat consul-token.txt)"
     ```
-
+    
     Through the API Gateway:  
     We need to pass both the Consul token and Secret Store token obtained in [Adding API Gateway users](#adding-api-gateway-users) examples.
     ```bash
@@ -472,7 +473,7 @@ with a certificate and key that is trusted by connecting clients.
     * `nginx.crt` user-provided certificate (replacing the default)
     * `nginx.key` user-provided private key (replacing the default)
     * `ca.pem` certificate authority file (that signed `nginx.crt`, directly or indirectly)
-
+    
     Try it out:
     ```bash
     curl --cacert ca.pem https://localhost:8443/core-data/api/v2/ping
@@ -488,7 +489,7 @@ with a certificate and key that is trusted by connecting clients.
     
     * `apps.secrets-config.proxy.tls.cert`
     * `apps.secrets-config.proxy.tls.key`
-
+    
     This is particularly useful when seeding the snap from a [Gadget](https://snapcraft.io/docs/gadget-snap) on an [Ubuntu Core](https://ubuntu.com/core) system.
 
 <!-- DO NOT CHANGE THE TITLE. READMEs reference the anchor -->
@@ -527,7 +528,7 @@ To better understand the snap connections, read the [interface management](https
     
     # Re-start the oneshot setup service to re-generate tokens:
     sudo snap start edgexfoundry.security-secretstore-setup
-   
+       
     ```
 
 ### EdgeX UI
@@ -582,19 +583,19 @@ The default configuration files are installed at:
 /var/snap/edgex-app-service-configurable/current/config/
 └── res
     ├── external-mqtt-trigger
-    │   └── configuration.toml
+    │   └── configuration.yaml
     ├── functional-tests
-    │   └── configuration.toml
+    │   └── configuration.yaml
     ├── http-export
-    │   └── configuration.toml
+    │   └── configuration.yaml
     ├── metrics-influxdb
-    │   └── configuration.toml
+    │   └── configuration.yaml
     ├── mqtt-export
-    │   └── configuration.toml
+    │   └── configuration.yaml
     ├── push-to-core
-    │   └── configuration.toml
+    │   └── configuration.yaml
     └── rules-engine
-        └── configuration.toml
+        └── configuration.yaml
 ```
 
 ??? example "Filtering devices using snap options"
@@ -628,7 +629,7 @@ The default configuration files are installed at:
 /var/snap/edgex-app-rfid-llrp-inventory/current/config/
 └── app-rfid-llrp-inventory
     └── res
-        └── configuration.toml
+        └── configuration.yaml
 ```
 
 **Aliases**
@@ -637,7 +638,7 @@ The aliases need to be provided for the service to work.  See [Setting the Alias
 
 For the snap, this can either be by:
 
-- using a [config-provider-snap] to provide a `configuration.toml` file with the correct aliases, before startup
+- using a [config-provider-snap] to provide a `configuration.yaml` file with the correct aliases, before startup
 - setting the values manually in Consul during or after deployment
 
 ### Device GPIO
@@ -650,9 +651,9 @@ The default configuration files are installed at:
 /var/snap/edgex-device-gpio/current/config
 └── device-gpio
     └── res
-        ├── configuration.toml
+        ├── configuration.yaml
         ├── devices
-        │   └── device.custom.gpio.toml
+        │   └── device.custom.gpio.yaml
         └── profiles
             └── device.custom.gpio.yaml
 ```
@@ -706,9 +707,9 @@ The default configuration files are installed at:
 /var/snap/edgex-device-modbus/current/config/
 └── device-modbus
     └── res
-        ├── configuration.toml
+        ├── configuration.yaml
         ├── devices
-        │   └── modbus.test.devices.toml
+        │   └── modbus.test.devices.yaml
         └── profiles
             └── modbus.test.device.profile.yml
 ```
@@ -724,11 +725,11 @@ The default configuration files are installed at:
 /var/snap/edgex-device-mqtt/current/config/
 └── device-mqtt
     └── res
-        ├── configuration.toml
+        ├── configuration.yaml
         ├── devices
-        │   └── mqtt.test.device.toml
+        │   └── mqtt.test.device.yaml
         └── profiles
-            └── mqtt.test.device.profile.yml
+            └── mqtt.test.device.profile.yaml
 ```
 
 ### Device REST
@@ -741,9 +742,9 @@ The default configuration files are installed at:
 /var/snap/edgex-device-rest/current/config/
 └── device-rest
     └── res
-        ├── configuration.toml
+        ├── configuration.yaml
         ├── devices
-        │   └── sample-devices.toml
+        │   └── sample-devices.yaml
         └── profiles
             ├── sample-image-device.yaml
             ├── sample-json-device.yaml
@@ -761,14 +762,14 @@ The default configuration files are installed at:
 /var/snap/edgex-device-rfid-llrp/current/config/
 └── device-rfid-llrp
     └── res
-        ├── configuration.toml
+        ├── configuration.yaml
         ├── devices
         ├── profiles
         │   ├── llrp.device.profile.yaml
         │   └── llrp.impinj.profile.yaml
         └── provision_watchers
-            ├── impinj.provision.watcher.json
-            └── llrp.provision.watcher.json
+            ├── impinj.provision.watcher.yaml
+            └── llrp.provision.watcher.yaml
 ```
 
 **Subnet setup**
@@ -787,20 +788,20 @@ The `DiscoverySubnets` setting needs to be provided before a device discovery ca
 
 
 - Using the `auto-configure` command. 
-    
+  
     This command finds all local network interfaces which are online and non-virtual and sets the value of `DiscoverySubnets` 
-in Consul. When running with security enabled, it requires a Consul token, so it needs to be run as follows:
+    in Consul. When running with security enabled, it requires a Consul token, so it needs to be run as follows:
 
     ```bash
     # get Consul ACL token
     CONSUL_TOKEN=$(sudo cat /var/snap/edgexfoundry/current/secrets/consul-acl-token/bootstrap_token.json | jq ".SecretID" | tr -d '"') 
     echo $CONSUL_TOKEN 
-
+    
     # start the device service and connect the interfaces required for network interface discovery
     sudo snap start edgex-device-rfid-llrp.device-rfid-llrp 
     sudo snap connect edgex-device-rfid-llrp:network-control 
     sudo snap connect edgex-device-rfid-llrp:network-observe 
-
+    
     # run the nework interface discovery, providing the Consul token
     edgex-device-rfid-llrp.auto-configure $CONSUL_TOKEN
     ```
@@ -815,9 +816,9 @@ The default configuration files are installed at:
 /var/snap/edgex-device-snmp/current/config/
 └── device-snmp
     └── res
-        ├── configuration.toml
+        ├── configuration.yaml
         ├── devices
-        │   └── device.snmp.trendnet.TPE082WS.toml
+        │   └── device.snmp.trendnet.TPE082WS.yaml
         └── profiles
             ├── device.snmp.patlite.yaml
             ├── device.snmp.switch.dell.N1108P-ON.yaml
@@ -841,16 +842,16 @@ The default configuration files are installed at:
 /var/snap/edgex-device-usb-camera/current/config
 ├── device-usb-camera
 │   └── res
-│       ├── configuration.toml
+│       ├── configuration.yaml
 │       ├── devices
-│       │   ├── general.usb.camera.toml.example
-│       │   └── hp.w200.toml.example
+│       │   ├── general.usb.camera.yaml.example
+│       │   └── hp.w200.yaml.example
 │       ├── profiles
 │       │   ├── general.usb.camera.yaml
 │       │   ├── hp.w200.yaml.example
 │       │   └── jinpei.general.yaml.example
 │       └── provision_watchers
-│           └── generic.provision.watcher.json
+│           └── generic.provision.watcher.yaml
 └── rtsp-simple-server
     └── config.yml
 ```
@@ -865,9 +866,9 @@ The default configuration files are installed at:
 /var/snap/edgex-device-virtual/current/config
 └── device-virtual
     └── res
-        ├── configuration.toml
+        ├── configuration.yaml
         ├── devices
-        │   └── devices.toml
+        │   └── devices.yaml
         └── profiles
             ├── device.virtual.binary.yaml
             ├── device.virtual.bool.yaml
@@ -886,15 +887,15 @@ The default configuration files are installed at:
 /var/snap/edgex-device-onvif-camera/current/config
 └── device-onvif-camera
     └── res
-        ├── configuration.toml
+        ├── configuration.yaml
         ├── devices
-        │   ├── camera.toml.example
-        │   └── control-plane-device.toml
+        │   ├── camera.yaml.example
+        │   └── control-plane-device.yaml
         ├── profiles
         │   ├── camera.yaml
         │   └── control-plane.profile.yaml
         └── provision_watchers
-            └── generic.provision.watcher.json
+            └── generic.provision.watcher.yaml
 ```
 
 <!-- Store Links -->

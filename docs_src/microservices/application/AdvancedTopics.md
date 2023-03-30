@@ -117,7 +117,7 @@ This environment variable overrides the [`-sk/--serviceKey` command-line option]
 
 ### Custom Configuration
 
-Applications can specify custom configuration in the TOML file in two ways. 
+Applications can specify custom configuration in the service's configuration file in two ways. 
 
 #### Application Settings
 
@@ -135,7 +135,7 @@ The first simple way is to add items to the `ApplicationSetting` section. This i
 !!! edgey "EdgeX 2.0"
     Structure Custom Configuration is new for Edgex 2.0
 
-The second is the more complex `Structured Custom Configuration` which allows the Application Service to define and watch it's own structured section in the service's TOML configuration file.
+The second is the more complex `Structured Custom Configuration` which allows the Application Service to define and watch it's own structured section in the service's configuration file.
 
 The `ApplicationService` API provides the follow APIs to enable structured custom configuration:
 
@@ -162,11 +162,12 @@ The Store and Forward capability allows for export functions to persist data on 
 `Writable.StoreAndForward` allows enabling, setting the interval between retries and the max number of retries. If running with Configuration Provider, these setting can be changed on the fly via Consul without having to restart the service.
 
 !!! example "Example - Store and Forward configuration"
-    ```toml
-    [Writable.StoreAndForward]
-    Enabled = false
-    RetryInterval = "5m"
-    MaxRetryCount = 10
+    ```yaml
+    Writable:
+      StoreAndForward:
+        Enabled: false
+        RetryInterval: "5m"
+        MaxRetryCount: 10
     ```
 
 !!! note
@@ -175,12 +176,12 @@ The Store and Forward capability allows for export functions to persist data on 
 Database configuration section describes which database type to use and the information required to connect to the database. This section is required if Store and Forward is enabled. It is optional if **not** using `Redis` for the EdgeX MessageBus which is now the default. 
 
 !!! example "Example - Database configuration"
-    ```toml
-    [Database]
-    Type = "redisdb"
-    Host = "localhost"
-    Port = 6379
-    Timeout = "30s"
+    ```yaml
+    Database:
+      Type: "redisdb"
+      Host: "localhost"
+      Port: 6379
+      Timeout: "5s"
     ```
 
 !!! edgey "EdgeX 2.0"
@@ -269,13 +270,14 @@ service.RegisterCustomStoreFactory("jetstream", func(cfg interfaces.DatabaseInfo
 
 and configured using the registered name in the `Database` section:
 
-```toml
-[Database]
-    Type = "jetstream"
-    Host = "broker"
-    Port = 4222
-    Timeout = "5s"
-```
+!!! example "Example - Database configuration"
+    ```yaml
+    Database:
+      Type: "jetstream"
+      Host: "broker"
+      Port: 4222
+      Timeout: "5s"
+    ```
 ### Secrets
 
 #### Configuration
@@ -294,7 +296,7 @@ When running an application service in secure mode, secrets can be stored in the
 !!! example "Example - JSON message body"
     ```json
     {
-      "path" : "MyPath",
+      "secretName" : "MySecret",
       "secretData" : [
         {
           "key" : "MySecretKey",
@@ -305,26 +307,26 @@ When running an application service in secure mode, secrets can be stored in the
     ```
 
 !!! note
-    Path specifies the type or location of the secret within the service's SecretStore. 
+    SecretName specifies the location of the secret within the service's SecretStore. 
 
 ##### Insecure Mode
 
-When running in insecure mode, the secrets are stored and retrieved from the *Writable.InsecureSecrets* section of the service's configuration toml file. Insecure secrets and their paths can be configured as below.
+When running in insecure mode, the secrets are stored and retrieved from the *Writable.InsecureSecrets* section of the service's configuration file. Insecure secrets and their paths can be configured as below.
 
 !!! example "Example - InsecureSecrets Configuration"
-    ```toml
-       [Writable.InsecureSecrets]    
-          [Writable.InsecureSecrets.AWS]
-            Path = "aws"
-              [Writable.InsecureSecrets.AWS.Secrets]
-              username = "aws-user"
-              password = "aws-pw"
-          
-          [Writable.InsecureSecrets.DB]
-            Path = "redisdb"
-              [Writable.InsecureSecrets.DB.Secrets]
-              username = ""
-              password = ""
+    ```yaml
+    Writable:
+      InsecureSecrets:    
+        AWS:
+          SecretName: "aws"
+          SecretsData:
+            username: "aws-user"
+            password: "aws-pw"
+        DB:
+          SecretName: "redisdb"
+          SecretsData:
+           username: ""
+            password: ""
     ```
 
 #### Getting Secrets
@@ -333,7 +335,7 @@ Application Services can retrieve their secrets from their SecretStore using the
 
 When in secure mode, the secrets are retrieved from the service secure SecretStore. 
 
-When running in insecure mode, the secrets are retrieved from the `[Writable.InsecureSecrets]` configuration.
+When running in insecure mode, the secrets are retrieved from the `Writable.InsecureSecrets` configuration.
 
 ### Background Publishing
 
@@ -498,22 +500,21 @@ All application services have the following built-in metrics:
 Reporting of these built-in metrics is disabled by default in the `Writable.Telemetry` configuration section. See `Writable.Telemetry` configuration details in the [Application Service Configuration](../GeneralAppServiceConfig/#writable) section for complete detail on this section. If the configuration for these built-in metrics are missing, then the reporting of the metrics will be disabled.
 
 !!! example "Example - Service Telemetry Configuration with all built-in metrics enabled for reporting"
-    ```toml
-      [Writable.Telemetry]
-      Interval = "30s"
-      PublishTopicPrefix  = "edgex/telemetry" # /<service-name>/<metric-name> will be added to this Publish Topic prefix
-        [Writable.Telemetry.Metrics] # All service's metric names must be present in this list.
-        MessagesReceived = true
-        InvalidMessagesReceived = true
-        HttpExportSize = true
-        MqttExportSize = true
-        PipelineMessagesProcessed = true
-        PipelineProcessingErrors = true
-        PipelineMessageProcessingTime = true
-        [Writable.Telemetry.Tags] # Contains the service level tags to be attached to all the service's metrics
-    #    Gateway="my-iot-gateway" # Tag must be added here or via Consul Env Override can only change existing value, not added new ones.
+    ```yaml
+    Writable:
+      Telemetry:
+        Interval: "30s"
+        Metrics:
+          MessagesReceived: true
+          InvalidMessagesReceived: true
+          PipelineMessagesProcessed: true 
+          PipelineMessageProcessingTime: true
+          PipelineProcessingErrors: true 
+          HttpExportSize: true 
+          MqttExportSize: true 
+        Tags: # Contains the service level tags to be attached to all the service's metrics
+          Gateway: "my-iot-gateway" # Tag must be added here or via Consul Env Override can only change existing value, not added new ones.
     ```
-
 ### Custom Application Service Metrics
 
 !!! edgey "EdgeX 2.2"
@@ -556,18 +557,18 @@ The Custom Application Service Metrics capability allows for custom application 
 6. Configure reporting of the service's metrics. See `Writable.Telemetry` configuration details in the [Application Service Configuration](../GeneralAppServiceConfig/#writable) section for more detail.
 
     !!! example "Example - Service Telemetry Configuration"
-        ```toml
-          [Writable.Telemetry]
-          Interval = "30s"
-          PublishTopicPrefix  = "edgex/telemetry" # /<service-name>/<metric-name> will be added to this Publish Topic prefix
-            [Writable.Telemetry.Metrics] # All service's metric names must be present in this list.
-            MyCounterName = true
-            MyGaugeName = true
-            MyGaugeFloat64Name = true
-            MyTimerName = true
-            MyHistogram = true
-            [Writable.Telemetry.Tags] # Contains the service level tags to be attached to all the service's metrics
-        #    Gateway="my-iot-gateway" # Tag must be added here or via Consul Env Override can only change existing value, not added new ones.
+        ```yaml
+        Writable:
+          Telemetry:
+            Interval: "30s"
+            Metrics:
+              MyCounterName: true
+              MyGaugeName: true
+              MyGaugeFloat64Name: true
+              MyTimerName: true
+              MyHistogram: true
+            Tags: # Contains the service level tags to be attached to all the service's metrics
+              Gateway: "my-iot-gateway" # Tag must be added here or via Consul Env Override can only change existing value, not added new ones.
         ```
     
     !!! note
