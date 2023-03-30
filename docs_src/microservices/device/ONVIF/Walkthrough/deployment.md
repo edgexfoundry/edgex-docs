@@ -6,18 +6,18 @@ Follow this guide to deploy and run the service.
 === "Docker"
 
       1. Navigate to the EdgeX `compose-builder` directory:
-
+   
          ```bash
          cd edgex-compose/compose-builder/
          ```
 
-      1. Run EdgeX with the microservice in non-secure mode:
+      2. Run EdgeX with the microservice in non-secure mode:
 
          ```bash
          make run no-secty ds-onvif-camera
          ```
       
-      1. Run EdgeX with the microservice in secure mode:
+      3. Run EdgeX with the microservice in secure mode:
 
          ```bash
          make run ds-onvif-camera
@@ -25,7 +25,12 @@ Follow this guide to deploy and run the service.
 
 === "Native"
 
-      >**NOTE:** Go version 1.20+ is required to run natively. See [here](https://go.dev/doc/install) for more information.
+
+      <div class="admonition note">
+         <p class="admonition-title">Note</p>
+         <p>Go version 1.20+ is required to run natively. See <a href="https://go.dev/doc/install">here</a> for more information.</p>
+      </div>
+
 
       1. Navigate to the EdgeX `compose-builder` directory:
 
@@ -33,30 +38,28 @@ Follow this guide to deploy and run the service.
          cd edgex-compose/compose-builder/
          ```
 
-      1. Run EdgeX:
+      2. Run EdgeX:
 
          ```bash
          make run no-secty
          ```
 
-      1. Navigate out of the `edgex-compose` directory to the `device-onvif-camera` directory:
+      3. Navigate out of the `edgex-compose` directory to the `device-onvif-camera` directory:
 
          ```bash
          cd device-onvif-camera
          ```
 
-      1. Run the service
+      4. Run the service
          ```bash
          make run
          ```
          
          <details>
          <summary>[Optional] Run with NATS</summary>
-
             ```bash
             make run-nats
             ```
-
          </details>
 
 ## Verify Service and Device Profiles
@@ -72,7 +75,7 @@ Follow this guide to deploy and run the service.
 
    Example Output:
 
-    ```docker
+   ```docker
    CONTAINER ID   IMAGE                                                       COMMAND                  CREATED       STATUS          PORTS                                                                                         NAMES
    33f9c5ecb70e   nexus3.edgexfoundry.org:10004/device-onvif-camera:latest    "/device-onvif-camer…"   7 weeks ago   Up 48 minutes   127.0.0.1:59985->59985/tcp                                                                    edgex-device-onvif-camera
    ```
@@ -123,7 +126,8 @@ Follow this guide to deploy and run the service.
    profileName: 
    statusCode: 404
    ```
-   > note: `jq -r` is used to reduce the size of the displayed response. The entire device profile with all resources can be seen by removing `-r '"profileName: " + '.profile.name' + "\nstatusCode: " + (.statusCode|tostring)', and replacing it with '.'`
+!!! Note
+      `jq -r` is used to reduce the size of the displayed response. The entire device profile with all resources can be seen by removing `-r '"profileName: " + '.profile.name' + "\nstatusCode: " + (.statusCode|tostring)', and replacing it with '.'`
 
 ### Using EdgeX UI
 1. Visit http://localhost:4000 to go to the dashboard for EdgeX Console GUI:
@@ -267,8 +271,8 @@ Follow these instructions to update devices.
    deviceName: Camera001
    deviceName: device-onvif-camera
    ```
-   >note: device with name `device-onvif-camera` is a stand-in device and can be ignored.  
-   >note: `jq -r` is used to reduce the size of the displayed response. The entire device with all information can be seen by removing `-r '"deviceName: " + '.devices[].name'', and replacing it with '.'`
+!!! Note
+      `jq -r` is used to reduce the size of the displayed response. The entire device with all information can be seen by removing `-r '"deviceName: " + '.devices[].name'', and replacing it with '.'`
 
 #### Update Device
 

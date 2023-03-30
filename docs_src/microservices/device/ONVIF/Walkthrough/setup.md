@@ -46,24 +46,20 @@ To enable running Docker commands without the preface of sudo, add the user to t
    ```bash
    sudo groupadd docker
    ```
-!!! Note
-      If the group already exists, `groupadd` outputs a message: **groupadd: group `docker` already exists**. This is OK.
 
-<!--This section is like this becase the above note interrupts the ordered list.
-    Normal solutions like indentation don't work because the note formatting will not render if indented.-->
-    
-<ol start="2">
-<li>
-   Add User to group:
+      <div class="admonition note">
+         <p class="admonition-title">Note</p>
+         <p>If the group already exists, `groupadd` outputs a message: **groupadd: group `docker` already exists**. This is OK.</p>
+      </div>
+      
+1. Add User to group:
    ```bash
    sudo usermod -aG docker $USER
    ```
-</li>
-<li>
-   Restart your computer for the changes to take effect.
-</li>
-<li>
-   To verify the Docker installation, run <code>hello-world</code>:
+
+1. Restart your computer for the changes to take effect.
+
+1. To verify the Docker installation, run <code>hello-world</code>:
       ```bash
       docker run hello-world
       ```
@@ -80,8 +76,7 @@ To enable running Docker commands without the preface of sudo, add the user to t
       This message shows that your installation appears to be working correctly.
       ...
       ```
-</li>
-</ol>
+
 
 ### Install Docker Compose
 Install Docker Compose from the official repository as documented on the [Docker Compose](https://docs.docker.com/compose/install/linux/#install-using-the-repository) site.
@@ -122,16 +117,18 @@ The table below lists command line tools this guide uses to help with EdgeX conf
       ```bash
       git checkout levski
       ```
-!!! Note
-      The `levski` branch is the latest stable branch at the time of this update. s
-<ol start=4>
-<li>
-   Navigate back to your home directory:
+
+      <div class="admonition-note">
+         <p class="admonition-title">Note</p>
+         <p>The `levski` branch is the latest stable branch at the time of this update.</p>
+      </div>
+
+1. Navigate back to your home directory:
 
       ```bash
       cd ~
       ```
-</li></ol>
+
 
 ## Next Steps
 
