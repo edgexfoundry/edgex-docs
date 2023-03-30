@@ -1,8 +1,5 @@
 # CORS settings
 
-!!! edgey "EdgeX 2.1"
-    New for EdgeX 2.1 is the ability to enable CORS access to EdgeX microservices through configuration. 
-
 The EdgeX microservices provide REST APIs and those services might be called from a GUI through a browser. Browsers prevent service calls from a different origin, making it impossible to host a management GUI on one domain that manages an EdgeX device on a different domain. Thus, EdgeX supports Cross-Origin Resource Sharing (CORS) since Jakarta release (v2.1), and this feature can be controlled by the configurations. The default behavior of CORS is disabled. Here is a good reference to understand [CORS](https://web.dev/cross-origin-resource-sharing/).
 
 !!! Note

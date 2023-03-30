@@ -31,9 +31,6 @@ Included in the SDK is an in-memory batch function that will hold on to your dat
 | IsEventData | The `IsEventData` flag, when true, lets this function know that the data being batched is `Events` and to un-marshal the data a `[]Event` prior to returning the batched data. |
 | MergeOnSend | The `MergeOnSend` flag, when true, will merge the `[][]byte` data to a single`[]byte` prior to sending the data to the next function in the pipeline.                          |
 
-!!! edgey "Edgex 2.1"
-    New for EdgeX 2.1 is the `IsEventData` flag on the `BatchConfig` instance. 
-
 !!! example "Batch with `IsEventData` flag set to true."
     ```
     batch := NewBatchByTimeAndCount("30s", 10)
@@ -41,9 +38,6 @@ Included in the SDK is an in-memory batch function that will hold on to your dat
     ...
     batch.Batch
     ```
-
-!!! edgey "Edgex 2.2"
-    New for EdgeX 2.2 is the `MergeOnSend` flag on the `BatchConfig` instance. 
 
 !!! example "Batch with `MergeOnSend` flag set to true."
     ```
@@ -121,18 +115,9 @@ There is one Core Data function that enables interactions with the Core Data RES
 | NewCoreDataBinaryReading(profileName string, deviceName string, resourceName string, mediaType string) | This factory function returns a `CoreData` instance configured to push a `Binary` reading. The `CoreData` instance returned  is used to access core data functions. |
 | NewCoreDataObjectReading(profileName string, deviceName string, resourceName string)                   | This factory function returns a `CoreData` instance configured to push an `Object` reading. The `CoreData` instance returned is used to access core data functions. |
 
-!!! edgey "EdgeX 2.0"
-    For EdgeX 2.0 the `NewCoreData` factory function has been replaced with the `NewCoreDataSimpleReading` and `NewCoreDataBinaryReading` functions 
-
-!!! edgey "EdgeX 2.1"
-    The `NewCoreDataObejctReading`factory method is new for EdgeX 2.1
-
 ## Event
 
 This enables the ability to wrap data into an Event/Reading
-
-!!! edgey "EdgeX 2.3" 
-    The `EventWrapper` and its pipeline function `WrapIntoEvent` are new for EdgeX 2.3
 
 | Factory Method                                                                                             | Description                                                                                                                                                                  |
 |------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -157,9 +142,6 @@ There are two transforms included in the SDK that can be added to your pipeline 
 
 ### AESProtection
 
-!!! edgey "Edgex 2.1"
-    This transform provides AES 256 encryption with a random initialization vector and authentication using a SHA 512 hash in an "encrypt then MAC" scheme (see [here](https://datatracker.ietf.org/doc/html/draft-mcgrew-aead-aes-cbc-hmac-sha2-02) for more details).  It can only be configured using secrets.
-
 | Factory Method                                         | Description                                                                                                |
 |--------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
 | NewAESProtection(secretPath string, secretName string) | This function returns a `Encryption` instance initialized with the passed in `secretPath` and `secretName` |
@@ -173,12 +155,12 @@ It requires a 64-byte key from secrets which is split in half, the first half us
 | 16 bytes              | variable bytes | 32 bytes     |
 
 !!! example    
-```go
-    transforms.NewAESProtection(secretPath, secretName).Encrypt(ctx, data)
-```
+    ```go
+        transforms.NewAESProtection(secretPath, secretName).Encrypt(ctx, data)
+    ```
 
 !!! note
-The `Algorithm` used with app-service-configurable configuration to access this transform is `AES256`
+    The `Algorithm` used with app-service-configurable configuration to access this transform is `AES256`
 
 Reading data protected with this function is a multi step process:
 
@@ -188,50 +170,50 @@ Reading data protected with this function is a multi step process:
 - decrypt ciphertext + remove padding
 
 !!! example "Signing Hash Validation"
-```python
-def hash(cipher_hex, key):
-    # Extract the 32 bytes of the Hash signature from the end of the cipher_hex
-    extract_hash = cipher_hex[-64:]
-
-    # last 32 bytes of the 64 byte key used by the encrypt function (2 hex digits per byte)
-    private_key = key[-64:]
-    # IV & ciphertext
-    content = cipher_hex[:-64]
-
-    hash_text = hmac.new(key=bytes.fromhex(private_key), msg=(bytes.fromhex(content) + bytearray(8)), digestmod='SHA512')
-
-    # Calculated tag is only the the first 32 bytes of the resulting SHA512
-    calculated_hash = hash_text.hexdigest()[:64]
-
-    if extract_hash == calculated_hash:
-        return "true"
-    else:
-        return "false", extract_hash, calculated_hash
-```
+    ```python
+    def hash(cipher_hex, key):
+        # Extract the 32 bytes of the Hash signature from the end of the cipher_hex
+        extract_hash = cipher_hex[-64:]
+    
+        # last 32 bytes of the 64 byte key used by the encrypt function (2 hex digits per byte)
+        private_key = key[-64:]
+        # IV & ciphertext
+        content = cipher_hex[:-64]
+    
+        hash_text = hmac.new(key=bytes.fromhex(private_key), msg=(bytes.fromhex(content) + bytearray(8)), digestmod='SHA512')
+    
+        # Calculated tag is only the the first 32 bytes of the resulting SHA512
+        calculated_hash = hash_text.hexdigest()[:64]
+    
+        if extract_hash == calculated_hash:
+            return "true"
+        else:
+            return "false", extract_hash, calculated_hash
+    ```         
 
 If the signing hash can be validated, the message is OK to decrypt
 
 !!! example "Payload Decryption"
-```python
-def decrypt(cipher_hex, key):
-    # first 32 bytes of the 64 byte key used by the encrypt function (2 hex digits per byte)
-    private_key = bytes.fromhex(key[:64])
-
-    # Extract the cipher text (remaining bytes in the middle)
-    cipher_text = cipher_hex[32:]
-    cipher_text = bytes.fromhex(cipher_text[:-64])
-
-    # Extract the 16 bytes of initial vector from the beginning of the data
-    iv = bytes.fromhex(cipher_hex[:32])
-
-    # Decrypt
-    cipher = AES.new(private_key, AES.MODE_CBC, iv)
-
-    plain_pad = cipher.decrypt(cipher_text)
-    unpadded = Padding.unpad(plain_pad, AES.block_size)
-
-    return unpadded.decode('utf-8')
-```
+    ```python
+    def decrypt(cipher_hex, key):
+        # first 32 bytes of the 64 byte key used by the encrypt function (2 hex digits per byte)
+        private_key = bytes.fromhex(key[:64])
+    
+        # Extract the cipher text (remaining bytes in the middle)
+        cipher_text = cipher_hex[32:]
+        cipher_text = bytes.fromhex(cipher_text[:-64])
+    
+        # Extract the 16 bytes of initial vector from the beginning of the data
+        iv = bytes.fromhex(cipher_hex[:32])
+    
+        # Decrypt
+        cipher = AES.new(private_key, AES.MODE_CBC, iv)
+    
+        plain_pad = cipher.decrypt(cipher_text)
+        unpadded = Padding.unpad(plain_pad, AES.block_size)
+    
+        return unpadded.decode('utf-8')
+    ```
 
 ## Export
 
@@ -239,17 +221,11 @@ There are two export functions included in the SDK that can be added to your pip
 
 ### HTTP Export
 
-!!! edgey "EdgeX 2.0"
-    For EdgeX 2.0 the signature of the `NewHTTPSenderWithSecretHeader` factory function has changed. See below for details.
-
 | Factory Method                                                                                                                           | Description                                                                                                                                                                                                                                                                                          |
 |------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | NewHTTPSender(url string, mimeType string, persistOnError bool)                                                                          | This factory function returns a `HTTPSender` instance initialized with the passed in url, mime type and persistOnError values.                                                                                                                                                                       |
 | NewHTTPSenderWithSecretHeader(url string, mimeType string, persistOnError bool, headerName string, secretPath string, secretName string) | This factory function returns a `HTTPSender` instance similar to the above function however will set up the `HTTPSender` to add a header  to the HTTP request using the `headerName ` for the field name and the `secretPath` and `secretName` to pull the header field value from the Secret Store. |
 | NewHTTPSenderWithOptions(options HTTPSenderOptions)                                                                                      | This factory function returns a `HTTPSender`using the passed in `options` to configure it.                                                                                                                                                                                                           |
-
-!!! edgey "EdgeX 2.0"
-    New in EdgeX 2.0 is the ability to chain multiple instances of the HTTP exports to accomplish exporting to multiple destinations. The new `NewHTTPSenderWithOptions` factory function was added to allow for configuring all the options, including the new `ContinueOnSendError` and `ReturnInputData` options that enable this chaining. 
 
 ```go
 // HTTPSenderOptions contains all options available to the sender
@@ -300,9 +276,6 @@ type HTTPSenderOptions struct {
 
 #### URL Formatting
 
-!!! edgey "EdgeX 2.0"
-    URL Formatting is new in EdgeX 2.0
-
 The configured URL is dynamically formatted prior to the POST/PUT request. The default formatter (used if `URLFormatter` is nil) simply replaces any placeholder text, `{key-name}`, in the configured URL with matching values from the new `Context Storage`. An error will occur if a specified placeholder does not exist in the `Context Storage`. See the [Context Storage](../AppFunctionContextAPI/#context-storage) documentation for more details on seeded values and storing your own values.
 
 The `URLFormatter` option allows you to override the default formatter with your own custom URL formatting scheme.
@@ -313,16 +286,10 @@ The `URLFormatter` option allows you to override the default formatter with your
 
 ### MQTT Export
 
-!!! edgey "EdgeX 2.0"
-    New for EdgeX 2.0 is the the new `NewMQTTSecretSenderWithTopicFormatter` factory function. The deprecated `NewMQTTSender` factory function has been removed.
-
 | Factory Method                                                                                                                | Description                                                                                                                                                                                                                              |
 |-------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | NewMQTTSecretSender(mqttConfig MQTTSecretConfig, persistOnError bool)                                                         | This factory function returns a `MQTTSecretSender` instance initialized with the options specified in the `MQTTSecretConfig` and `persistOnError `.                                                                                      |
 | NewMQTTSecretSenderWithTopicFormatter(mqttConfig MQTTSecretConfig, persistOnError bool, topicFormatter StringValuesFormatter) | This factory function returns a `MQTTSecretSender` instance initialized with the options specified in the `MQTTSecretConfig`, `persistOnError ` and `topicFormatter `. See [Topic Formatting](#topic-formatting) below for more details. |
-
-!!! edgey "EdgeX 2.0"
-    New in EdgeX 2.0 the `KeepAlive` and `ConnectTimeout`  **MQTTSecretConfig** settings have been added.
 
 ```go
   type MQTTSecretConfig struct {
@@ -366,9 +333,6 @@ The `AuthMode` setting you choose depends on what secret values above are used. 
 
 #### Topic Formatting
 
-!!! edgey "EdgeX 2.0"
-    Topic Formatting is new in EdgeX 2.0
-
 The configured Topic is dynamically formatted prior to publishing . The default formatter (used if `topicFormatter ` is nil) simply replaces any placeholder text, `{key-name}`, in the configured `Topic` with matching values from the new `Context Storage`. An error will occur if a specified placeholder does not exist in the `Context Storage`. See the [Context Storage](../AppFunctionContextAPI/#context-storage) documentation for more details on seeded values and storing your own values.
 
 The `topicFormatter` option allows you to override the default formatter with your own custom topic formatting scheme.
@@ -382,11 +346,6 @@ There are four basic types of filtering included in the SDK to add to your pipel
 | NewFilterFor([]string filterValues) | This factory function returns a `Filter` instance initialized with the passed in filter values with `FilterOut` set to `false`. This `Filter` instance is used to access the following filter functions that will operate using the specified filter values. |
 | NewFilterOut([]string filterValues) | This factory function returns a `Filter` instance initialized with the passed in filter values with `FilterOut` set to `true`. This `Filter` instance is used to access the following filter functions that will operate using the specified filter values.  |
 
-
-!!! edgey "EdgeX 2.0" 
-    For EdgeX 2.0 the `NewFilter` factory function has been renamed to `NewFilterFor` and the new `NewFilterOut` factory function has been added.
-
-
 ``` go
 type Filter struct {
     // Holds the values to be filtered
@@ -395,13 +354,6 @@ type Filter struct {
 	FilterOut    bool
 }
 ```
-
-
-
-!!! edgey "EdgeX 2.0"
-    New for EdgeX 2.0 are the `FilterByProfileName` and `FilterBySourceName` pipeline functions. The `FilterByValueDescriptor` pipeline function has been renamed to `FilterByResourceName`
-
-
 
 ### By Profile Name
 
@@ -515,9 +467,6 @@ There is one Tags transform included in the SDK that can be added to your pipeli
     ```
 
 ## MetricsProcessor
-
-!!! edgey "EdgeX 2.2"
-    The `MetricsProcessor` is new in EdgeX 2.2
 
 `MetricsProcessor` contains configuration and functions for processing the new `dtos.Metrics` type. 
 

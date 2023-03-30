@@ -1,9 +1,5 @@
 # Introduction
 
-!!! edgey "EdgeX 2.x"
-    Want to know what's new in EdgeX 2.x releases (Ireland/Jakarta/etc)?  If you are already familiar with EdgeX, look for the EdgeX 2.x emoji (`Edgey` - the EdgeX mascot) throughout the documentation - [like the one on this page](#the-ireland-release) outlining what's new in the latest 2.x releases.  These sections will give you a summary of what's new in each area of the documentation.
-
-
 EdgeX Foundry is an open source, vendor neutral, flexible, interoperable, software platform at the
 edge of the network, that interacts with the physical world of [devices](./general/Definitions.md#Device), sensors, actuators, and other IoT objects. In simple terms, EdgeX is edge middleware - serving  between physical sensing and actuating "things" and our information technology (IT) systems.
 ![image](./general/EdgeX_middleware.png)
@@ -254,28 +250,6 @@ The code name of each release is named after some geographical location in the w
 EdgeX community members convene in a meeting right at the time of a release to plan the next release and roadmap future releases.
 
 See the Project Wiki for more detailed information on [releases](https://wiki.edgexfoundry.org/display/FA/Releases) and [roadmap](https://wiki.edgexfoundry.org/display/FA/Roadmap).
-
-!!! edgey "EdgeX 2.0"
-    ### The Ireland Release
-    The Ireland release, available June 2021, is the second major version of EdgeX.  Highlights of the 2.0 release include:
-
-    - A new and improved set of service APIs, which eliminate a lot of technical debt and setting EdgeX up for new features in the future (such as allowing for more message based communications)
-    - Direct device service to application service communications via message bus (bypassing core data if desired or allowing it to be a secondary subscriber)
-    ![image](./general/EdgeX_data-flow.png)
-    - Simplified device profiles
-    - Improved security
-    - New, improved and more comprehensive graphical user interface (for development and demonstration purposes)
-    - New device services for CoAP, GPIO, and LLRP (RFID protocol)
-    - An LLRP inventory application service
-    - Improved application service capability and functions (to include new filter functions)
-    - Cleaner/simpler Docker image naming and facilities to create custom Docker Compose files
-
-    EdgeX 2.0 provides adopters with a platform that
-
-    - Has an improved API that addresses edge application needs of today and tomorrow
-    - Is more efficient and lighter (depending on use case)
-    - Is more reliable and offers better quality of service (less REST, more messaging and incorporating a number of bug fixes)
-    - Has eliminated a lot of technical debt accumulated over 4 years
 
 ## EdgeX History and Naming
 EdgeX Foundry began as a project chartered by Dell IoT Marketing and developed by the Dell Client Office of the CTO as an incubation project called Project Fuse in July 2015.  It was initially created to run as the IoT software application on Dell’s introductory line of IoT gateways.

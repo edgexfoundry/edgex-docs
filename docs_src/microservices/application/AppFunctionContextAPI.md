@@ -1,9 +1,6 @@
 # App Function Context API
 The context parameter passed to each function/transform provides operations and data associated with each execution of the pipeline. 
 
-!!! edgey "EdgeX 2.0"
-    For EdgeX 2.0 the `AppFunctionContext` API replaces the direct access to the `appcontext.Context` struct. 
-
 Let's take a look at its API:
 
 ```go
@@ -189,9 +186,6 @@ This API will replace placeholders of the form `{context-key-name}` with the val
 `SecretProvider() interfaces.SecretProvider`
 
 This API returns reference to the SecretProvider instance. See [Secret Provider API](../../../security/Ch-SecretProviderApi/) section for more details.
-
-!!! edgey - "Edgex 2.3"
-    SecretProvider() is new in EdgeX 2.3
 
 ## Miscellaneous
 

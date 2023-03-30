@@ -243,9 +243,6 @@ TODO: Update above link to latest_released_version variable
 
 ### Custom Structured Configuration
 
-!!! edgey "EdgeX 2.0"
-    New for EdgeX 2.0
-
 Go Device Services can now define their own custom structured configuration section in the `configuration.yaml` file. Any additional sections in the configuration file are ignored by the SDK when it parses the file for the SDK defined sections. 
 
 This feature allows a Device Service to define and watch it's own structured section in the service's configuration file.
@@ -267,9 +264,6 @@ See the [Device MQTT Service](https://github.com/edgexfoundry/device-mqtt-go/tre
 - [See here for loading, validating and watching the configuration](https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/internal/driver/driver.go#L54-L69)
 
 ## Device Service Metrics
-
-!!! edgey "EdgeX 2.3"
-    Device Service Metrics are new in EdgeX 2.3, but currently only for the **Go SDK**
 
 ### Built-In
 

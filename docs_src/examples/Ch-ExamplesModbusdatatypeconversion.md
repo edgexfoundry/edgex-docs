@@ -20,9 +20,6 @@ to the `valueType` defined in the `properties` of the device resources.
 The following extract from a device profile defines the `rawType` as
 Int16 and the `valueType` as Float32:
 
-!!! edgey "EdgeX 2.0"
-    For EdgeX 2.0 the device profile has many changes. Please see [Device Profile](../microservices/device/profile/Ch-DeviceProfile.md) section for more details.
-
 !!! example "Example - Device Profile"
 
     ``` yaml

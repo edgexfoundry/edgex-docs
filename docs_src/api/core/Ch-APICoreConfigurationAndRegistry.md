@@ -2,9 +2,6 @@
 
 EdgeX uses the 3rd party Consul microservice as the implementations for Configuration and Registry. The RESTful APIs are provided by Consul directly, and several communities supply Consul client libraries for different programming languages, including Go (official), Python, Java, PHP, Scala, Erlang/OTP, Ruby, Node.js, and C\#.
 
-!!! edgey "EdgeX 2.0"
-    New for Edgex 2.0 is Secure Consul when running EdgeX in secure mode. See the [Secure Consul](../../../security/Ch-Secure-Consul) section for more details.
-
 For the client libraries of different languages, please refer to the
 list on this page:
 
@@ -82,7 +79,4 @@ Please see the paragraph on this page of Service Registration section.
 Consul has UI which allows you to view the health of registered services and view/edit services' individual configuration. Learn more about the UI on the following Consul page:
 
 > [https://learn.hashicorp.com/tutorials/consul/get-started-explore-the-ui](https://learn.hashicorp.com/tutorials/consul/get-started-explore-the-ui)
-
-!!! edgey "EdgeX 2.0"
-    Please note that as of EdgeX 2.0, Consul can be secured.  When EdgeX is running in secure mode with [secure Consul](https://docs.edgexfoundry.org/2.0/security/Ch-Secure-Consul/), you must provide  Consul's access token to get to the UI referenced above.  See [How to get Consul ACL token](https://docs.edgexfoundry.org/2.0/security/Ch-Secure-Consul/#how-to-get-consul-acl-token) for details.
 

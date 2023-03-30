@@ -102,9 +102,6 @@ Do the following to use this tool to generate a custom Compose file:
    ```
    
 
-!!! edgey "Edgex 2.2"
-    New in Edgex 2.2 (Kamakura) is the TUI generator tool that walks user through the generation and running of a custom compose file. In a Linux terminal from the `compose-builder` folder run `./tui-generator.sh` and make your selections from the menus.  
-
 See the README document in the compose-builder directory for details on all the available options.  The Compose Builder is different per release, so make sure to consult the README in the appropriate release branch.  See [Ireland's Compose Builder README](https://github.com/edgexfoundry/edgex-compose/blob/ireland/compose-builder/README.md) for details on the lastest release Compose Builder options for `make gen`.
 
 !!! Note
@@ -186,6 +183,3 @@ service. All EdgeX micro services are expected to register with Consul as they s
 <http://localhost:8500/ui>.
 
 ![image](EdgeX_GettingStartedUsrConsul.png)
-
-!!! edgey "EdgeX 2.0"
-    Please note that as of EdgeX 2.0, Consul can be secured.  When EdgeX is running in secure mode with [secure Consul](https://docs.edgexfoundry.org/2.0/security/Ch-Secure-Consul/), you must provide  Consul's access token to get to the dashboard UI referenced above.  See [How to get Consul ACL token](https://docs.edgexfoundry.org/2.0/security/Ch-Secure-Consul/#how-to-get-consul-acl-token) for details.

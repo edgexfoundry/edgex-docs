@@ -102,9 +102,6 @@ See [Common Configuration](#common-configuration) section above for the common c
 
 ### NATS
 
-!!! edgey - "EdgeX 2.3"
-    The NATS implementation is new for EdgeX 2.3
-
 NATS is a high performance messaging system that offers some interesting options for local deployments.  It uses a lightweight text-based protocol notably similar to http.  This protocol includes full header support that can allow conveyance of the EdgeX `MessageEnvelope` across service boundaries without the need for double-encoding if all services in the deployment are using NATS.  Currently services must be specially built with the `include_nats_messaging` tag to enable this option.
 
 #### NATS Core

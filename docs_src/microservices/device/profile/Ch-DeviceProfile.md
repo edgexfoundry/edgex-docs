@@ -81,7 +81,3 @@ specify one.
 
 The device service allows access to deviceCommands via the same `device` REST
 endpoint as is used to access deviceResources.
-
-
-!!! edgey "EdgeX 2.0"
-    For the EdgeX 2.0 (Ireland) release coreCommands section is removed and both deviceResources and deviceCommands are available via the Core Command Service by default. Set `isHidden` field to true under deviceResource or deviceCommand to disable the outward-facing API.

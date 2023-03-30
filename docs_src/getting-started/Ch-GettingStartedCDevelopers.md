@@ -35,9 +35,6 @@ sudo apt-get update
 sudo apt-get install libpaho-mqtt
 ```
 
-!!! edgey "EdgeX 2.0"
-    For EdgeX 2.0 the C SDK now supports MQTT and Redis implementations of the EdgeX MessageBus
-
 CMake is required to build the SDKs.  Version 3 or better is required.  You can install CMake on Debian by running:
 ``` bash
 sudo apt-get install cmake

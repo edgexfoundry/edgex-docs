@@ -26,9 +26,6 @@ One of the most common use cases for working with data that comes from the Messa
 - The fourth is the `FilterByResourceName` which exhibits the same behavior as `DeviceNameFilter` except filtering the event's `Readings` on `ResourceName` instead of `DeviceName`. Execution of the pipeline will cease if no readings remain after filtering. 
 - The fifth and sixth provided functions in the SDK transform the data received to either XML or JSON by calling `XMLTransform` or `JSONTransform`.
 
-!!! edgey "EdgeX 2.0" 
-    The `FilterByProfileName` and `FilterBySourceName` pipeline functions are new in EdgeX 2.0 with the addition of the `ProfileName` and `SourceName` on the V2 `Event` DTO.   `FilterByResourceName` replaces the `FileterByValueDescriptor` pipeline function in EdgeX 2.0 with the change of `Name` to `ResourceName` on the V2 `Reading` DTO. This function serves the same purpose of filtering Event Readings.
-
 Typically, after filtering and transforming the data as needed, exporting is the last step in a pipeline to ship the data where it needs to go. There are three primary functions included in the SDK to help facilitate this. The first are the`HTTPPost/HTTPPut` functions that will POST/PUT the provided data to a specified endpoint, and the third is an `MQTTSecretSend()` function that will publish the provided data to an MQTT Broker as specified in the configuration.
 
 See [Built-in Functions](./BuiltIn.md) section for full list of SDK supplied functions 

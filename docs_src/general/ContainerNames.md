@@ -1,9 +1,6 @@
 # EdgeX Container Names
 The following table provides the list of the default EdgeX Docker image names to the Docker container name and Docker Compose names.
 
-!!! edgey "EdgeX 2.0"
-	For EdgeX 2.0 the EdgeX docker image names have been simplified and made consistent across all EdgeX services.
-
 === "Core"
     |Docker image name|Docker container name|Docker network hostname | Docker Compose service name|
     |---|---|---|---|

@@ -1,8 +1,5 @@
 # V2 Migration Guide
 
-!!! edgey "EdgeX 2.0"
-    For the EdgeX 2.0 (Ireland) release there are many backward breaking changes. These changes require custom Application Services and custom profiles (app-service-configurable) to be migrated. This section outlines the necessary steps for this migration.
-
 ## Custom Application Services
 
 ### Configuration

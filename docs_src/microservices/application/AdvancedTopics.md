@@ -112,9 +112,6 @@ This environment variable overrides the [`-sk/--serviceKey` command-line option]
     `profile: http-export`    
      then service key will be `app-http-export-mycloud`    
 
-!!! edgey "EdgeX 2.0"
-    The deprecated lowercase ``edgex_service` environment variable specific have been removed for EdgeX 2.0
-
 ### Custom Configuration
 
 Applications can specify custom configuration in the service's configuration file in two ways. 
@@ -131,9 +128,6 @@ The first simple way is to add items to the `ApplicationSetting` section. This i
     - Returns list of strings for the entry who's key matches the passed in `setting` value. The Entry is assumed to be a comma separated list of strings.
 
 #### Structure Custom Configuration
-
-!!! edgey "EdgeX 2.0"
-    Structure Custom Configuration is new for Edgex 2.0
 
 The second is the more complex `Structured Custom Configuration` which allows the Application Service to define and watch it's own structured section in the service's configuration file.
 
@@ -183,10 +177,6 @@ Database configuration section describes which database type to use and the info
       Port: 6379
       Timeout: "5s"
     ```
-
-!!! edgey "EdgeX 2.0"
-    Support for Mongo DB has been removed in EdgeX 2.0
-
 
 #### How it works
 
@@ -341,9 +331,6 @@ When running in insecure mode, the secrets are retrieved from the `Writable.Inse
 
 Application Services using the MessageBus trigger can request a background publisher using the AddBackgroundPublisher API in the SDK.  This method takes an int representing the background channel's capacity as the only parameter and returns a reference to a BackgroundPublisher.  This reference can then be used by background processes to publish to the configured MessageBus output.  A custom topic can be provided to use instead of the configured message bus output as well.
 
-!!!edgey "Edgex 2.0"
-    For EdgeX 2.0 the background publish operation takes a full AppContext instead of just the parameters used to create a message envelope.  This allows the background publisher to leverage context-based topic formatting functionality as the trigger output.
-
 !!! example "Example - Background Publisher"
     ```go    
     func runJob (service interfaces.ApplicationService, done chan struct{}){
@@ -411,15 +398,9 @@ Application Services will listen for SIGTERM / SIGINT signals from the OS and st
 
 ### Received Topic
 
-!!! edgey "EdgeX 2.0"
-    Received Topic is new for Edgex 2.0
-
 When messages are received via the EdgeX MessageBus or External MQTT triggers, the topic that the data was received on is seeded into the new Context Storage on the `AppFunctionContext` with the key `receivedtopic`. This make the `Received Topic` available to all functions in the pipeline. The SDK provides the `interfaces.RECEIVEDTOPIC` constant for this key. See the [Context Storage](AppFunctionContextAPI.md#context-storage) section for more details on extracting values.
 
 ### Pipeline Per Topics
-
-!!! edgey "EdgeX 2.1"
-    Pipeline Per Topics is new for EdgeX 2.1
 
 The `Pipeline Per Topics` feature allows for multiple function pipelines to be defined. Each will execute only when one of the specified pipeline topics matches the received topic. The pipeline topics can have wildcards (`+` and `#`) allowing the topic to match a variety of received topics. Each pipeline has its own set of functions (transforms) that are executed on the received message. If the `#` wildcard is used by itself for a pipeline topic, it will match all received topics and the specified functions pipeline will execute on every message received. 
 
@@ -475,9 +456,6 @@ All pipeline function capabilities such as Store and Forward, Batching, etc. can
 
 ### Built-in Application Service Metrics
 
-!!! edgey "EdgeX 2.3"
-    Additional built-in Application Service Metrics have been added for EdgeX  2.3
-
 All application services have the following built-in metrics:
 
 - `MessagesReceived` - This is a **counter** metric that counts the number of messages received by the application service. Includes invalid messages.
@@ -516,9 +494,6 @@ Reporting of these built-in metrics is disabled by default in the `Writable.Tele
           Gateway: "my-iot-gateway" # Tag must be added here or via Consul Env Override can only change existing value, not added new ones.
     ```
 ### Custom Application Service Metrics
-
-!!! edgey "EdgeX 2.2"
-    Custom Application Service Metrics are new for EdgeX 2.2 and expanded in EdgeX 2.3 with the addition of `histogram`
 
 The Custom Application Service Metrics capability allows for custom application services to define, collect and report their own custom service metrics.
 

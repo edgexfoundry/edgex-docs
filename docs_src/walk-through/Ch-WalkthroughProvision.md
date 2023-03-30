@@ -64,10 +64,6 @@ Use either the Postman or Curl tab below to walkthrough creating the `Device`.
     !!! Note
         The `camera-monitor-profile` was created by the device profile uploaded in a previous walkthrough step. The `camera-control-device-service` was created in the last walkthough step.  These names must match the previously created EdgeX objects in order to successfully provision your device.
 
-    !!! edgey "EdgeX 2.0"
-        As of Ireland/V2, device names may only contain unreserved characters which are ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_~
-
-
 === "Curl"
 
     Make a curl POST request as shown below.
@@ -80,9 +76,6 @@ Use either the Postman or Curl tab below to walkthrough creating the `Device`.
 
     !!! Note
         The `camera-monitor-profile` was created by the device profile uploaded in a previous walkthrough step. The `camera-control-device-service` was created in the last walkthough step.  These names must match the previously created EdgeX objects in order to successfully provision your device.
-
-    !!! edgey "EdgeX 2.0"
-        As of Ireland/V2, device names may only contain unreserved characters which are ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_~
 
 #### Test the GET API
 

@@ -54,19 +54,12 @@ The tabs below provide additional entries in the **Writable** section which are 
     |Metrics.`<CustomMetric>`| false | (Service Specific) Enable/disable reporting of custom application service's custom metric. See [Custom Application Service Metrics](../AdvancedTopics/#custom-application-service-metrics) for more detail|
     |Tags|`<empty>`|List of arbitrary service level tags to included with every metric that is reported. i.e. `Gateway="my-iot-gateway"` |
 
-
-!!! edgey "Edgex 2.2"
-    New for EdgeX 2.2 All application services have built-in service metrics and custom application services can define, collect, and report their own custome service metrics. See [Built-in Application Service Metrics](../AdvancedTopics/#built-in-application-service-metrics) and [Custom Application Service](../AdvancedTopics/#custom-application-service-metrics) section for more detials
-
 ## Not Writable
 
 The tabs below provide additional configuration which are applicable to Application Services that require the service to be restarted after value(s) are changed.
 
 === "HttpServer"
-
-    !!! edgey "EdgeX 2.0"
-        New for EdgeX 2.0. These setting previously were in the `Service` configuration section specific to Application Services. Now the `Service` configuration is the same for all EdgeX services. See the general [Configuration documentation](../../configuration/CommonConfiguration) for more details on the common `Service` configuration.
-    
+ 
     This section contains the configuration for the internal Webserver. Only need if configuring the Webserver for `HTTPS`
     
     | Configuration | Default Value | Description                                                  |

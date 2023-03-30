@@ -31,10 +31,7 @@ If the Event already has `Tags` when it arrives at the application service, then
 
 ## Service Metrics
 
-!!! edgey "Edgex 2.2/2.3"
-    New for Edgex 2.2 and expanded in Edgex 2.3
-
-Service metrics have been added for the EdgeX 2.2 and 2.3 releases. All services now collect [Common Service Metrics](#common-service-metrics), only **Core Data**, **Application Services** and **Device Services** are collecting additional service specific metrics. Additional service metrics will be added to all services in future releases.  See `Writable.Telemetry` at [Common Configuration](../configuration/CommonConfiguration/#configuration-properties) for details on configuring the reporting of service metrics. 
+All services have the ability to collect [Common Service Metrics](#common-service-metrics), only **Core Data**, **Application Services** and **Device Services** are collecting additional service specific metrics. Additional service metrics will be added to all services in future releases.  See `Writable.Telemetry` at [Common Configuration](../configuration/CommonConfiguration/#configuration-properties) for details on configuring the reporting of service metrics. 
 
 See [Custom Application Service Metrics](../application/AdvancedTopics/#custom-application-service-metrics) for more detail on Application Services capability to collect their own custom service metrics via use of the App SDK API. 
 
@@ -81,10 +78,7 @@ This can be accomplished with a custom application service that sets the functio
 
 ### Common Service Metrics
 
-!!! edgey "Edgex 2.3"
-    Collection of common service metrics for all core/support/application/device services is new in Edgex 2.3. Additional common service metrics will be added in future releases.
-
-All services now have the ability to collect the following common service metrics
+All services have the ability to collect the following common service metrics
 
 - **SecuritySecretsRequested** - Count of secrets requested from the service's Secret Store.
 - **SecuritySecretsStored** - Count of secret stored to the service's Secret Store.

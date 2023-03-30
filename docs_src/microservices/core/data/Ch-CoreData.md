@@ -12,10 +12,10 @@ Enterprise and cloud systems.  Core data persists the data in a local database. 
 
 Other services and systems, both within EdgeX Foundry and outside of EdgeX Foundry, access the sensor data through the core data service. Core data could also provide a degree of security and protection of the data collected while the data is at the edge.
 
-!!! edgey "EdgeX 2.0"
-    As of EdgeX 2.0 (Ireland), core data is completely optional.  Device services can send data via message bus directly to application services.  If local persistence is not needed, the service can be removed.
+!!! note
+    Core data is completely optional. Device services can send data via message bus directly to application services.  If local persistence is not needed, the service can be removed.
     
-    If persistence is needed, sensor data can be sent via message bus to core data (the new default means to communicate with core data) or can be sent via REST to core data (the legacy way to send data to core data).  See below for more details.
+    If persistence is needed, sensor data can be sent via message bus to core data which then persita the data.  See below for more details.
 
 Sensor data can be sent to core data via two different means:
 
@@ -42,8 +42,8 @@ latency through this layer and storage needs at the network edge.  But the cost 
 !!! Note
     When persistence is turned off via the PersistData flag, it is off for all devices.  At this time, you cannot specify which device data is persisted and which device data is not.  [Application services](../../application/ApplicationServices.md) do allow filtering of device data before it is exported or sent to another service like the rules engine, but this is not based on whether the data is persisted or not.
 
-!!! edgey "EdgeX 2.0"
-    As mentioned, as of EdgeX 2.0 (Ireland), core data is completely optional.  Therefore, if persistence is not needed, and if sensor data is sent from device services directly to application services via message bus, core data can be removed.  In addition to reducing resource utilization (memory and CPU for core data), it also removes latency of throughput as the core data layer can be completely bypassed.  However, if device services are still using REST to send data into the system, core data is the central receiving endpoint and must remain in place; even if persistence is turned off.
+!!! Note
+    As mentioned, core data is completely optional.  Therefore, if persistence is not needed, and if sensor data is sent from device services directly to application services via message bus, core data can be removed.  In addition to reducing resource utilization (memory and CPU for core data), it also removes latency of throughput as the core data layer can be completely bypassed.  However, if device services are still using REST to send data into the system, core data is the central receiving endpoint and must remain in place; even if persistence is turned off.
 
 ## Events and Readings
 
@@ -52,9 +52,6 @@ Data collected from sensors is marshalled into EdgeX event and reading objects (
 An event must have at least one reading.  Events are associated to a sensor or device – the “thing” that sensed the environment and produced the readings.  Readings represent a sensing on the part of a device or sensor.  Readings only exist as part of (are owned by) an event.  Readings are essentially a simple key/value pair of what was sensed (the key - called a [ResourceName](../../../general/Definitions.md#resource)) and the value sensed (the value).  A reading may include other bits of information to provide more context (for example, the data type of the value) for the users of that data.  Consumers of the reading data could include things like user interfaces, data visualization systems and analytics tools.
 
 In the diagram below, an example event/reading collection is depicted.  The event coming from the “motor123” device has two readings (or sensed values).  The first reading indicates that the motor123 device reported the pressure of the motor was 1300 (the unit of measure might be something like PSI).
-
-!!! edgey "EdgeX 2.0"
-    In EdgeX 2.0, Value Descriptors have been removed.  The ResourceName in a reading provides an indication of the data read.  The other properties of that were in Value Descriptor (min, max, default value, unit of measure, etc.) can all be obtained from the Resource (in core metadata's resource properties associated to each Resource which are associated to a device profile) by ResourceName.  ValueType property is also provided in the Reading so that the data type of the value is immediately available without having to do a lookup in core metadata.
 
 ![image](EdgeX_Event-Reading.png)
 
@@ -65,12 +62,6 @@ The value type property (shown as type above) on the reading lets the consumer o
 The following diagram shows the Data Model for core data.  Device services send Event objects containing a collection or Readings to core data when a device captures a sensor reading.
 
 ![image](EdgeX_CoreDataModel.png)
-
-!!! edgey "EdgeX 2.1"
-    v2.1 supports a new value type, `Object`, to present the structral reading value instead of encoding it as string. Similar to the `BinaryValue`, there is a new field `ObjectValue` in the Reading. If the ValueType is `Object`, the read value will be put into the `ObjectValue` field in JSON object data type.
-
-!!! edgey "EdgeX 2.0"
-    Note that ValueDescriptor has been removed from this model as Value Descriptors have been removed in EdgeX 2 (see note above for more details). 
 
 ## Data Dictionary
 
@@ -203,8 +194,8 @@ The following settings have been removed from `MessageQueue.Optional` section fo
   
 #### MaxEventSize
 
-!!! edgey "EdgeX 2.2"
-    Prior to EdgeX 2.2 event size is limited to 25MB, and it is configurable in EdgeX 2.2, the default value is 25000KB (25MB).
+!!! Note
+    The default value for MaxEventSize is 25000KB (25MB).
 
 ## API Reference
 

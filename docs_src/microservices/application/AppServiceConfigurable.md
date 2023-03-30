@@ -42,9 +42,6 @@ That's it! Now we can run/deploy this service and the functions pipeline will pr
 
 ## Pipeline Per Topics
 
-!!! edgey "EdgeX 2.1"
-    Pipeline Per Topics is new for EdgeX 2.1
-
 The above pipeline configuration in [Getting Started](#getting-started) section is the preferred way if your use case only requires a single functions pipeline. For use cases that require multiple functions pipelines in order to process the data differently based on the `profile`, `device` or `source` for the Event, there is the Pipeline Per Topics feature. This feature allows multiple pipelines to be configured in the `[Writable.Pipeline.PerTopicPipelines]`section. This section is a map of pipelines. The map key must be unique , but isn't used so can be any value. Each pipleline is defined by the following configuration settings:
 
 - Id - This is the unique ID given to each pipeline
@@ -147,9 +144,6 @@ EdgeX services no longer have docker specific profiles. They now rely on environ
 
 App Service Configurable was designed to be deployed as multiple instances for different purposes. Since the function pipeline is specified in the `configuration.yaml` file, we can use this as a way to run each instance with a different function pipeline. App Service Configurable does not have the standard default configuration at `/res/configuration.yaml`. This default configuration has been moved to the `sample` profile. This forces you to specify the profile for the configuration you would like to run. The profile is specified using the `-p/--profile=[profilename]` command line option or the `EDGEX_PROFILE=[profilename]` environment variable override. The profile name selected is used in the service key (`app-[profile name]`) to make each instance unique, e.g. `AppService-sample` when specifying `sample` as the profile.
 
-!!! edgey "Edgex 2.0"
-    Default service key for App Service Configurable instances has changed in Edgex 2.0 from `AppService-[profile name]` to `app-[profile name]`
-
 !!! note
     If you need to run multiple instances with the same profile, e.g. `http-export`, but configured differently, you will need to override the service key with a custom name for one or more of the services. This is done with the `-sk/-serviceKey` command-line option or the `EDGEX_SERVICE_KEY` environment variable. See the [Command-line Options](./ApplicationFunctionsSDK.md#command-line-options) and [Environment Overrides](./ApplicationFunctionsSDK.md#environment-variable-overrides) sections for more detail.
 
@@ -180,9 +174,6 @@ Required:
     There are many more optional functions and parameters provided in this profile. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/master/res/http-export/configuration.yaml) for more details.
 
 ### metrics-influxdb
-
-!!! edgey "Edgex 2.2"
-    The `metrics-influxdb` profile is new for Edgex 2.2
 
 Starter profile used for exporting telemetry data from other EdgeX services to InfluxDB via HTTP export. This profile configures the service to receive telemetry data from other services, transform it to Line Protocol syntax, batch the data and then export it to an InfluxDB service via HTTP. Requires further configuration which can easily be accomplished using environment variable overrides.
 
@@ -309,9 +300,6 @@ This setting when set to true will cause the `TargeType` to be `&dtos.Metric{}` 
 
 ## Multiple Instances of a Function
 
-!!! edgey "Edgex 2.0"
-    New for EdgeX 2.0
-
 Now multiple instances of the same configurable pipeline function can be specified,  configured differently and used together in the functions pipeline. Previously the function names specified in the `[Writable.Pipeline.Functions]` section had to match a built-in configurable pipeline function name exactly. Now the names specified only need to start with a built-in configurable pipeline function name. See the [HttpExport](#httpexport) section below for an example.
 
 ## Available Configurable Pipeline Functions
@@ -373,15 +361,6 @@ Please refer to the function's detailed documentation by clicking the function n
             MergeOnSend: "true"
     ```
 
-!!! edgey "EdgeX 2.0"
-    For EdgeX 2.0 the `BatchByCount`, `BatchByTime`, and `BatchByTimeCount` configurable pipeline functions have been replaced by single `Batch` configurable pipeline function with additional `Mode` parameter.
-
-!!! edgey "EdgeX 2.1"
-    The `IsEventData` setting is new for EdgeX 2.1
-
-!!! edgey "EdgeX 2.1"
-    The `MergeOnSend` setting is new for EdgeX 2.2
-
 ### [Compress](../BuiltIn/#compression)
 
 **Parameters**
@@ -394,9 +373,6 @@ Please refer to the function's detailed documentation by clicking the function n
           Parameters:
             Algorithm: "gzip"
     ```
-
-!!! edgey "EdgeX 2.0"
-    For EdgeX 2.0 the `CompressWithGZIP` and `CompressWithZLIB` configurable pipeline functions have been replaced by the single `Compress` configurable pipeline function with additional `Algorithm ` parameter.
 
 ### [Encrypt](../BuiltIn/#dataprotection)
 **Parameters**
@@ -444,9 +420,6 @@ Please refer to the function's detailed documentation by clicking the function n
             FilterOut: "false"
     ```
 
-!!! edgey "EdgeX 2.0"
-    The `FilterByProfileName` configurable pipeline function is new for EdgeX 2.0 
-
 ### [FilterByResourceName](../BuiltIn/#by-resource-name)
 
 **Parameters**
@@ -463,9 +436,6 @@ Please refer to the function's detailed documentation by clicking the function n
     ```
 
 
-!!! edgey "EdgeX 2.0"
-    For EdgeX 2.0 the `FilterByValueDescriptor` configurable pipeline function has been renamed to `FilterByResourceName` and parameter names adjusted. 
-
 ### [FilterBySourceName](../BuiltIn/#by-source-name)
 
 **Parameters**
@@ -480,9 +450,6 @@ Please refer to the function's detailed documentation by clicking the function n
             SourceNames: "Bool, BoolArray"
             FilterOut: "false"
     ```
-
-!!! edgey "EdgeX 2.0"
-    The `FilterBySourceName` configurable pipeline function is new for EdgeX 2.0 
 
 ### [HTTPExport](../BuiltIn/#http-export)
 
@@ -537,15 +504,6 @@ Please refer to the function's detailed documentation by clicking the function n
                   MimeType: "application/xml" 
                   Url: "http://my.api2.net/edgexdata2"
     ```
-
-!!! edgey "EdgeX 2.0"
-    For EdgeX 2.0 the `HTTPPost`, `HTTPPostJSON`, `HTTPPostXML`, `HTTPPut`, `HTTPPutJSON`,  and `HTTPPutXML`  configurable pipeline functions have been replaced by the single `HTTPExport` function with additional `Method ` parameter. `ContinueOnSendError` and `ReturnInputData` parameter have been added to support multi destination exports. In addition the `HeaderName` and `SecretName` parameters have replaced the `SecretHeaderName` parameter.
-
-!!! edgey "EdgeX 2.0"
-    The capability to chain Http Export functions to export to multiple destinations is new for Edgex 2.0. 
-
-!!! edgey "EdgeX 2.0"
-    Multiple instances (configured differently) of the same configurable pipeline function is new for EdgeX 2.0. The function names in the `Writable.Pipeline.Functions` section now only need to start with a built-in configurable pipeline function name, rather than be an exact match.
 
 ### [JSONLogic](../BuiltIn/#json-logic)
 **Parameters**
@@ -605,9 +563,6 @@ Please refer to the function's detailed documentation by clicking the function n
             SecretPath: "mqtt"
     ```
 
-!!! edgey "EdgeX 2.0"
-    For EdgeX 2.0 the `MQTTSecretSend` configurable pipeline function has been renamed to `MQTTExport` and the deprecated  `MQTTSend` configurable pipeline function has been removed
-
 ### [SetResponseData](../BuiltIn/#set-response-data)
 
 **Parameters**
@@ -620,9 +575,6 @@ Please refer to the function's detailed documentation by clicking the function n
           Parameters:
             ResponseContentType: "application/json"
     ```
-
-!!! edgey "EdgeX 2.0"
-    For EdgeX 2.0 the `SetOutputData` configurable pipeline function has been renamed to `SetResponseData` . 
 
 ### [Transform](../BuiltIn/#conversion)
 
@@ -637,13 +589,7 @@ Please refer to the function's detailed documentation by clicking the function n
             Type: "xml"
     ```
 
-!!! edgey "EdgeX 2.0"
-    For EdgeX 2.0 the `TransformToJSON` and `TransformToXML` configurable pipeline functions have been replaced by the single `Transform` configurable pipeline function with additional `Type  ` parameter.
-
 ### [ToLineProtocol](../BuiltIn/#tolineprotocol)
-
-!!! edgey "EdgeX 2.2"
-    `ToLineProtocol` is new for Edgex 2.2
 
 **Parameters**
 
@@ -660,9 +606,6 @@ Please refer to the function's detailed documentation by clicking the function n
     The new `TargetType` setting must be set to "metric" when using this function. See the [Metric TargetType](#metric-targettype) section above for more details.
 
 ### [WrapIntoEvent](../BuiltIn/#wrap-into-event)
-
-!!! edgey "EdgeX 2.3" 
-    The `WrapIntoEvent` configurable pipeline function is new for EdgeX 2.3
 
 **Parameters**
 

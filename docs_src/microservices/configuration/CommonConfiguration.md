@@ -64,8 +64,6 @@ The common configuration is managed by the **core-common-config-bootstrapper** s
     |CORSAllowedHeaders|"Authorization, Accept, Accept-Language, Content-Language, Content-Type, X-Correlation-ID"|The value of `Access-Control-Allow-Headers` http header.|
     |CORSExposeHeaders|"Cache-Control, Content-Language, Content-Length, Content-Type, Expires, Last-Modified, Pragma, X-Correlation-ID"|The value of `Access-Control-Expose-Headers` http header.|
     |CORSMaxAge|3600|The value of `Access-Control-Max-Age` http header.|
-    !!! edgey "Edgex 2.1"
-        New for EdgeX 2.1 is the ability to enable CORS access to EdgeX microservices through configuration. 
     To understand more details about these HTTP headers, please refer to [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#the_http_response_headers), and refer to [CORS enabling](../../security/Ch-CORS-Settings.md) to learn more.
 === "Registry"
     |Property|Default Value|Description|

@@ -16,9 +16,6 @@ This environment variables indicates whether the service is expected to initiali
       EDGEX_SECURITY_SECRET_STORE: "false"
     ```
 
-!!! edgey "EdgeX 2.0"
-    For EdgeX 2.0 when running in secure mode Consul is secured,  which requires all services to have this environment variable be `true` so they can request their Consul access token from Vault. See the [Secure Consul](https://docs.edgexfoundry.org/2.0/security/Ch-Secure-Consul/) section for more details.
-
 #### EDGEX_STARTUP_DURATION
 
 This environment variable sets the total duration in seconds allowed for the services to complete the bootstrap start-up. Default is 60 seconds.
@@ -28,8 +25,6 @@ This environment variable sets the total duration in seconds allowed for the ser
     environment: 
       EDGEX_STARTUP_DURATION: "120"
     ```
-!!! edgey "EdgeX 2.0"
-    For EdgeX 2.0 the deprecated lower case version `startup_duration` has been removed
 
 #### EDGEX_STARTUP_INTERVAL
 
@@ -40,9 +35,6 @@ This environment variable sets the retry interval in seconds for the services re
     environment: 
       EDGEX_STARTUP_INTERVAL: "3"
     ```
-
-!!! edgey "EdgeX 2.0"
-    For EdgeX 2.0 the deprecated lower case version `startup_interval` has been removed
 
 ## Environment Overrides
 
