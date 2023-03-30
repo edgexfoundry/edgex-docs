@@ -479,7 +479,7 @@ $ curl http://localhost:59882/api/v2/device/name/Modbus-TCP-Temperature-Sensor/A
 ```
 
 ## AutoEvent
-The AutoEvent is defined in the [[DeviceList.AutoEvents]] section of the device configuration file:
+The AutoEvent is defined in the `autoEvents` section of the device definition file:
 ```yaml
 deviceList:
   autoEvents:

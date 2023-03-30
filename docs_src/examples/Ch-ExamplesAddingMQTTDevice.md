@@ -31,7 +31,7 @@ of a customized device configuration to work with the existing device service:
 Use this configuration file to define devices and schedule jobs.
 device-mqtt generates a relative instance on start-up.
 
-Create the device configuration file, named `my.custom.device.config.taml`, as shown below:
+Create the device configuration file, named `my.custom.device.config.yaml`, as shown below:
 
 ```yaml
 # Pre-define Devices
@@ -551,7 +551,7 @@ $ curl http://localhost:59882/api/v2/device/name/my-custom-device/message | json
 
 ## Schedule Job
 
-The schedule job is defined in the `[[DeviceList.AutoEvents]]` section of the device configuration file:
+The schedule job is defined in the `autoEvents` section of the device definition file:
 
 ```yaml
     autoEvents:
