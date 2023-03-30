@@ -21,7 +21,7 @@ of a customized device configuration to work with the existing device service:
 ```
 - custom-config
   |- devices
-     |- my.custom.device.config.toml
+     |- my.custom.device.config.yaml
   |- profiles
      |- my.custom.device.profile.yml
 ```
@@ -31,25 +31,27 @@ of a customized device configuration to work with the existing device service:
 Use this configuration file to define devices and schedule jobs.
 device-mqtt generates a relative instance on start-up.
 
-Create the device configuration file, named `my.custom.device.config.toml`, as shown below:
+Create the device configuration file, named `my.custom.device.config.taml`, as shown below:
 
-```toml
+```yaml
 # Pre-define Devices
-[[DeviceList]]
-  Name = "my-custom-device"
-  ProfileName = "my-custom-device-profile"
-  Description = "MQTT device is created for test purpose"
-  Labels = [ "MQTT", "test" ]
-  [DeviceList.Protocols]
-    [DeviceList.Protocols.mqtt]
+deviceList:
+  name: "my-custom-device"
+  profileName: "my-custom-device-profile"
+  description: "MQTT device is created for test purpose"
+  labels: 
+    - "MQTT"
+    - "test"
+  protocols:
+    mqtt:
        # Comment out/remove below to use multi-level topics
-       CommandTopic = "CommandTopic"
+       CommandTopic: "CommandTopic"
        # Uncomment below to use multi-level topics
-       # CommandTopic = "command/my-custom-device"
-    [[DeviceList.AutoEvents]]
-       Interval = "30s"
-       OnChange = false
-       SourceName = "message"
+       # CommandTopic: "command/my-custom-device"
+  autoEvents:
+   interval: "30s"
+   onChange: false
+   sourceName: "message"
 ```
 
 !!! note
@@ -177,33 +179,33 @@ topics, make the following changes in the device service configuration files:
             ...
         ```
 
-    2. Otherwise if the device service is built locally, modify these lines in `configuration.toml`:
+    2. Otherwise if the device service is built locally, modify these lines in `configuration.yaml`:
 
-        ``` toml
+        ``` yaml
         # Comment out/remove when using multi-level topics
-        #IncomingTopic = "DataTopic"
-        #ResponseTopic = "ResponseTopic"
-        #UseTopicLevels = false
+        #IncomingTopic: "DataTopic"
+        #ResponseTopic: "ResponseTopic"
+        #UseTopicLevels: false
         
         # Uncomment to use multi-level topics
-        IncomingTopic = "incoming/data/#"
-        ResponseTopic = "command/response/#"
-        UseTopicLevels = true
+        IncomingTopic: "incoming/data/#"
+        ResponseTopic: "command/response/#"
+        UseTopicLevels: true
         ```
       
         !!! note
             If you have previously run Device MQTT locally, you will need to remove the services configuration from Consul. This can be done with: `curl --request DELETE http://localhost:8500/v1/kv/edgex/devices/2.0/device-mqtt?recurse=true`
               
 
-2. In  `my.custom.device.config.toml`:
+2. In  `my.custom.device.config.yaml`:
 
-    ``` toml
-    [DeviceList.Protocols]
-     [DeviceList.Protocols.mqtt]
+    ``` yaml
+    protocols:
+      mqtt:
         # Comment out/remove below to use multi-level topics
-        # CommandTopic = "CommandTopic"
+        # CommandTopic: "CommandTopic"
         # Uncomment below to use multi-level topics
-        CommandTopic = "command/my-custom-device"
+        CommandTopic: "command/my-custom-device"
     ```
     
     !!! note 
@@ -551,11 +553,11 @@ $ curl http://localhost:59882/api/v2/device/name/my-custom-device/message | json
 
 The schedule job is defined in the `[[DeviceList.AutoEvents]]` section of the device configuration file:
 
-```toml
-    [[DeviceList.AutoEvents]]
-       Interval = "30s"
-       OnChange = false
-       SourceName = "message"
+```yaml
+    autoEvents:
+       Interval: "30s"
+       OnChange: false
+       SourceName: "message"
 ```
 
 After the service starts, query core-data's reading API. The results

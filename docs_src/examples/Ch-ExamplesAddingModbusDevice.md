@@ -196,26 +196,29 @@ write value using the modbus protocol.
 Run the following command to create your device configuration:
 ```
 cd custom-config
-nano device.config.toml
+nano device.config.yaml
 ```
-Fill in the device.config.toml file, as shown below:
-```toml
-[[DeviceList]]
-    Name = "Modbus-TCP-Temperature-Sensor"
-    ProfileName = "Ethernet-Temperature-Sensor"
-    Description = "This device is a product for monitoring the temperature via the ethernet"
-    labels = [ "temperature","modbus TCP" ]
-    [DeviceList.Protocols]
-        [DeviceList.Protocols.modbus-tcp]
-            Address = "172.17.0.1"
-            Port = "502"
-            UnitID = "1"
-            Timeout = "5"
-            IdleTimeout = "5"
-        [[DeviceList.AutoEvents]]
-        Interval = "30s"
-        OnChange = false
-        SourceName = "Temperature"
+Fill in the device.config.yaml file, as shown below:
+```yaml
+deviceList:
+  name: "Modbus-TCP-Temperature-Sensor"
+  profileName: "Ethernet-Temperature-Sensor"
+  description: "This device is a product for monitoring the temperature via the ethernet"
+  labels: 
+    - "temperature"
+    - "modbus"
+    - "TCP"
+  protocols:
+    modbus-tcp:
+      Address: "172.17.0.1"
+      Port: "502"
+      UnitID: "1"
+      Timeout: "5"
+      IdleTimeout: "5"
+  autoEvents:
+    interval: "30s"
+    onChange: false
+    sourceName: "Temperature"
 ```
 > The address `172.17.0.1` is point to the docker bridge network which means it can forward the request from docker network to the host.
 
@@ -477,11 +480,12 @@ $ curl http://localhost:59882/api/v2/device/name/Modbus-TCP-Temperature-Sensor/A
 
 ## AutoEvent
 The AutoEvent is defined in the [[DeviceList.AutoEvents]] section of the device configuration file:
-```toml
-[[DeviceList.AutoEvents]]
-Interval = "30s"
-OnChange = false
-SourceName = "Temperature"
+```yaml
+deviceList:
+  autoEvents:
+    interval: "30s"
+    onChange: false
+    sourceName: "Temperature"
 ```
 After service startup, query core-data's API. The results show
 that the service auto-executes the command every 30 seconds.
