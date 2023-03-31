@@ -87,53 +87,48 @@ For optional configurations, see [here.](#additional-configuration)
 ## Build the Docker Image
 
 1. In the `device-onvif-camera` directory, run make docker:
-
-   ```bash
-   make docker
-   ```
-   <details>
-   <summary>[Optional] Build with NATS Messaging</summary>
-   
-      Currently, the NATS Messaging capability (NATS MessageBus) is opt-in at build time. This means that the published Docker image and Snaps do not include the NATS messaging capability. To build the docker image using NATS, run make docker-nats:
-
       ```bash
-      make docker-nats
+      make docker
       ```
+      <details>
+      <summary>[Optional] Build with NATS Messaging</summary>
+      
+         Currently, the NATS Messaging capability (NATS MessageBus) is opt-in at build time. This means that the published Docker image and Snaps do not include the NATS messaging capability. To build the docker image using NATS, run make docker-nats:
 
-      See [Compose Builder](https://github.com/edgexfoundry/edgex-compose/tree/main/compose-builder#gen) `nat-bus` option to generate compose file for NATS and local dev images.
-   
-   </details>
+         ```bash
+         make docker-nats
+         ```
+
+         See [Compose Builder](https://github.com/edgexfoundry/edgex-compose/tree/main/compose-builder#gen) `nat-bus` option to generate compose file for NATS and local dev images.
+      
+      </details>
 
 1. Verify the ONVIF Device Service Docker image was successfully created:
+      ```bash
+      docker images
+      ```
+      ```docker
+      REPOSITORY                                 TAG          IMAGE ID       CREATED        SIZE
+      edgexfoundry-holding/device-onvif-camera   0.0.0-dev    75684e673feb   6 weeks ago    21.3MB
+      ```   
 
-   ```bash
-   docker images
-   ```
-   ```docker
-   REPOSITORY                                 TAG          IMAGE ID       CREATED        SIZE
-   edgexfoundry-holding/device-onvif-camera   0.0.0-dev    75684e673feb   6 weeks ago    21.3MB
-   ```
-
-1. Navigate to `edgex-compose` and enter the `compose-builder` directory.
-
-   ```bash
-   cd edgex-compose/compose-builder
+1. Navigate to `edgex-compose` and enter the `compose-builder` directory.     
+      ```bash
+      cd edgex-compose/compose-builder
    ```
 
 1. Update `.env` file to add the registry and image version variable for device-onvif-camera:
+      Add the following registry and version information:
+      ```env
+      DEVICE_ONVIFCAM_VERSION=0.0.0-dev
+      ```
 
-   Add the following registry and version information:
-   ```env
-   DEVICE_ONVIFCAM_VERSION=0.0.0-dev
-   ```
-
-4. Update the `add-device-onvif-camera.yml` to point to the local image.
-
-   ```yml
-   services:
-      device-onvif-camera:
-         image: edgexfoundry/device-onvif-camera:${DEVICE_ONVIFCAM_VERSION}
-   ```
+1. Update the `add-device-onvif-camera.yml` to point to the local image.
+      ```yml
+      services:
+         device-onvif-camera:
+            image: edgexfoundry/device-onvif-camera:${DEVICE_ONVIFCAM_VERSION}
+      ```
 
 ## Additional Configuration
 

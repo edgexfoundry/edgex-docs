@@ -25,7 +25,7 @@ The figure below illustrates the software flow through the architecture componen
 A brief video demonstration of building and using the device service:
 
 <iframe
-    width="640"
+    width="100%"
     height="480"
     src="https://www.youtube.com/embed/vZqd3j2Zn2Y"
     frameborder="0"

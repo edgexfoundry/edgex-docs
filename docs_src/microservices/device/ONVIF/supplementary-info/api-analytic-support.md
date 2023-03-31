@@ -439,4 +439,4 @@ curl --location --request PUT 'http://0.0.0.0:59882/api/v2/device/name/Camera003
 }'
 ```
 
-![add-rule](images/api-analytic-support-add-rule.png)
+![add-rule](../images/api-analytic-support-add-rule.png)

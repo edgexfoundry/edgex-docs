@@ -1,4 +1,4 @@
-# The custom feature - RebootNeeded
+# RebootNeeded
 
 ## Why need the custom feature RebootNeeded?
 Currently, only the SetNetworkInterfaces function returns the **RebootNeeded** value, if RebootNeeded is true, the user need to reboot the camera to apply the config changes.
@@ -7,7 +7,12 @@ Since the Set command can't return the **RebootNeeded** value in command respons
 
 ## How does the RebootNeeded work with EdgeX?
 
+[]()
+
 ### 1. Execute Set command to change the networkInterfaces setting:
+<swagger-ui src="./test.yaml">
+
+
 ```shell
 curl --request PUT 'http://0.0.0.0:59882/api/v2/device/name/Camera001/NetworkInterfaces' \
 --header 'Content-Type: application/json' \
