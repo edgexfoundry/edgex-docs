@@ -5,4 +5,4 @@ EdgeX Foundry's Support Scheduler microservice to schedule actions to occur on s
 
 ## Swagger
 
-<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/edgex-go/{{dev_version}}/openapi/{{api_version}}/support-scheduler.yaml"/>
+<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/edgex-go/{{version}}/openapi/{{api_version}}/support-scheduler.yaml"/>

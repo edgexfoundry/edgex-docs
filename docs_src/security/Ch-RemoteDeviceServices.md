@@ -28,7 +28,7 @@ This example will resolve the above complications by
 
 ## Running the Example
 
-First, clone the `edgex-examples repository`, checkout `{{latest_released_version}}` and change to the
+First, clone the `edgex-examples repository`, checkout `{{version}}` and change to the
 `security/remote_devices/spiffe_and_ssh` directory.
 
 Next, run the `generate_keys.sh` script to generate an SSH
@@ -160,7 +160,7 @@ level=INFO ts=2022-05-05T14:29:25.252304305Z app=device-virtual source=devices.g
 level=INFO ts=2022-05-05T14:29:25.252698155Z app=device-virtual source=autodiscovery.go:33 msg="AutoDiscovery stopped: disabled by configuration"
 level=INFO ts=2022-05-05T14:29:25.252726349Z app=device-virtual source=autodiscovery.go:42 msg="AutoDiscovery stopped: ProtocolDiscovery not implemented"
 level=INFO ts=2022-05-05T14:29:25.252736451Z app=device-virtual source=message.go:50 msg="Service dependencies resolved..."
-level=INFO ts=2022-05-05T14:29:25.252804946Z app=device-virtual source=message.go:51 msg="Starting device-virtual {{latest_released_version}} "
+level=INFO ts=2022-05-05T14:29:25.252804946Z app=device-virtual source=message.go:51 msg="Starting device-virtual {{version}} "
 level=INFO ts=2022-05-05T14:29:25.252817404Z app=device-virtual source=message.go:55 msg="device virtual started"
 level=INFO ts=2022-05-05T14:29:25.252880346Z app=device-virtual source=message.go:58 msg="Service started in: 55.248960914s"
 ```

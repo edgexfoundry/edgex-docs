@@ -4,5 +4,5 @@ EdgeX Foundry Core Data microservice includes the Events/Readings database colle
 
 ## Swagger
 
-<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/edgex-go/{{dev_version}}/openapi/{{api_version}}/core-data.yaml"/>
+<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/edgex-go/{{version}}/openapi/{{api_version}}/core-data.yaml"/>
 
