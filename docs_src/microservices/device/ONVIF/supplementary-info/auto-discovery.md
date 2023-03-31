@@ -2,27 +2,31 @@
 There are two methods that the device service can use to discover and add ONVIF
 compliant cameras using WS-Discovery: multicast and netscan.
 
-For more info on how WS-Discovery works, see [here](ws-discovery.md).
+For more info on how WS-Discovery works, see [here](./ws-discovery.md).
 
 
 ## How To
-> **NOTE:** Ensure that the cameras are all installed and configured before attempting discovery.
+
+!!! Note
+    Ensure that the cameras are all installed and configured before attempting discovery.
 
 Device discovery is triggered by the device SDK. Once the device service starts, it will discover the Onvif camera(s) at the specified interval.
-> **Note:** You can also manually trigger discovery using this command: `curl -X POST http://<service-host>:59984/api/v2/discovery`
+
+!!! Note
+    You can also manually trigger discovery using this command: `curl -X POST http://<service-host>:59984/api/v2/discovery`
 
 ### Step 1. Discovery Configuration
 
-> _See [Configuration Section](#Configuration-Guide) for full details_
+> _See [Configuration Section](./#Configuration-Guide) for full details_
 
-> **Note:** Alternatively, for `netscan` you can set the `DiscoverySubnets` automatically
-> _after_ the service has been deployed by running the [bin/configure-subnets.sh](./utility-scripts.md#configure-subnetssh) script
+!!! Note
+        Alternatively, for `netscan` you can set the `DiscoverySubnets` automatically _after_ the service has been deployed by running the [bin/configure-subnets.sh](./utility-scripts.md#configure-subnetssh) script
 
-> For `Netscan`, there is a one line command to determine the `DiscoverySubnets` of your current machine:
-> ```shell
-> ip -4 -o route list scope link | sed -En "s/ dev ($(find /sys/class/net -mindepth 1 -maxdepth 2 -not -lname '*devices/virtual*' -execdir grep -q 'up' "{}/operstate" \; -printf '%f\n' | paste -sd\| -)).+//p" | grep -v "169.254.0.0/16" | sort -u | paste -sd, -
-> ```
-> Example Output: `192.168.1.0/24`
+For `Netscan`, there is a one line command to determine the `DiscoverySubnets` of your current machine:
+```shell
+    ip -4 -o route list scope link | sed -En "s/ dev ($(find /sys/class/net -mindepth 1 -maxdepth 2 -not -lname '*devices/virtual*' -execdir grep -q 'up' "{}/operstate" \; -printf '%f\n' | paste -sd\| -)).+//p" | grep -v "169.254.0.0/16" | sort -u | paste -sd, -
+```
+Example Output: `192.168.1.0/24`
 
 === "configuration.yaml"
 
@@ -74,7 +78,8 @@ See [Credentials Guide](credentials.md) for more information.
 
 ## Configuration Guide
 ### DiscoveryMode
-> For docker, set the env var `APPCUSTOM_DISCOVERYMODE`
+!!! Note
+    For docker, set the env var `APPCUSTOM_DISCOVERYMODE`
 
 `DiscoveryMode` allows you to select which discovery mechanism(s) to use. The three options are: `netscan`, `multicast`, and `both`.
 
@@ -94,44 +99,45 @@ better behind NATs (such as docker networks).
 In certain networks this traffic is blocked, and it is also not forwarded across subnets, so it is not compatible with NATs
 such as docker networks (except in the case of running an Onvif simulator inside the same docker network).
 
-multicast requires some additional configuration. edit the `add-device-onvif-camera.yml` in the `edgex-compose/compose-builder` as follows:
+`multicast` requires some additional configuration. Edit the `add-device-onvif-camera.yml` in the `edgex-compose/compose-builder` as follows:
 
-> NOTE: use the instructions below to configure certain environment variables
-```yml
-services:
-    device-onvif-camera:
-        image: edgexfoundry/device-onvif-camera${ARCH}:0.0.0-dev
-        container_name: edgex-device-onvif-camera
-        hostname: edgex-device-onvif-camera
-        read_only: true
-        restart: always
-        network_mode: "host"
-        environment:
-            SERVICE_HOST: 192.168.93.151 # set to internal ip of your machine
-            MESSAGEQUEUE_HOST: localhost
-            EDGEX_SECURITY_SECRET_STORE: "false"
-            REGISTRY_HOST: localhost
-            CLIENTS_CORE_DATA_HOST: localhost
-            CLIENTS_CORE_METADATA_HOST: localhost
-            # Host Network Interface, IP, Subnet
-            APPCUSTOM_DISCOVERYETHERNETINTERFACE: wlp1s0 # determine this setting for your machine
-            APPCUSTOM_DISCOVERYSUBNETS: 192.168.93.0/24 # determine this setting for your machine
-            APPCUSTOM_DISCOVERYMODE: multicast
-        depends_on:
-        - consul
-        - data
-        - metadata
-        security_opt:
-        - no-new-privileges:true
-        user: "${EDGEX_USER}:${EDGEX_GROUP}"
-        command: --cp=consul.http://localhost:8500
-```
+!!! Example Config
+    ```yml
+    services:
+        device-onvif-camera:
+            image: edgexfoundry/device-onvif-camera${ARCH}:0.0.0-dev
+            container_name: edgex-device-onvif-camera
+            hostname: edgex-device-onvif-camera
+            read_only: true
+            restart: always
+            network_mode: "host"
+            environment:
+                SERVICE_HOST: 192.168.93.151 # set to internal ip of your machine
+                MESSAGEQUEUE_HOST: localhost
+                EDGEX_SECURITY_SECRET_STORE: "false"
+                REGISTRY_HOST: localhost
+                CLIENTS_CORE_DATA_HOST: localhost
+                CLIENTS_CORE_METADATA_HOST: localhost
+                # Host Network Interface, IP, Subnet
+                APPCUSTOM_DISCOVERYETHERNETINTERFACE: wlp1s0 # determine this setting for your machine
+                APPCUSTOM_DISCOVERYSUBNETS: 192.168.93.0/24 # determine this setting for your machine
+                APPCUSTOM_DISCOVERYMODE: multicast
+            depends_on:
+            - consul
+            - data
+            - metadata
+            security_opt:
+            - no-new-privileges:true
+            user: "${EDGEX_USER}:${EDGEX_GROUP}"
+            command: --cp=consul.http://localhost:8500
+    ```
 
 #### both
 This option combines both [netscan](#netscan) and [multicast](#multicast).
 
 ### DiscoverySubnets
-> For docker, set the env var `APPCUSTOM_DISCOVERYSUBNETS`
+!!! Note
+    For docker, set the env var `APPCUSTOM_DISCOVERYSUBNETS`
 
 This is the list of IPv4 subnets to perform netscan discovery on, in CIDR format (X.X.X.X/Y)
 separated by commas ex: "192.168.1.0/24,10.0.0.0/24". This value can be configured automatically via
@@ -144,25 +150,29 @@ ip -4 -o route list scope link | sed -En "s/ dev ($(find /sys/class/net -mindept
 Example Output: `192.168.1.0/24`
 
 ### DiscoveryEthernetInterface
-> For docker, set the env var `APPCUSTOM_DISCOVERYETHERNETINTERFACE`
+!!! Note
+    For docker, set the env var `APPCUSTOM_DISCOVERYETHERNETINTERFACE`
 
 This is the target Ethernet Interface to use for [multicast](#multicast) discovering. Keep in mind this interface
 is relative to the environment it is being run under. For example, when running in docker, those interfaces
 are different from your host machine's interfaces.
 
 ### ProbeAsyncLimit
-> For docker, set the env var `APPCUSTOM_PROBEASYNCLIMIT`
+!!! Note
+    For docker, set the env var `APPCUSTOM_PROBEASYNCLIMIT`
 
 This is the maximum simultaneous network probes when running netscan discovery.
 
 ### ProbeTimeoutMillis
-> For docker, set the env var `APPCUSTOM_PROBETIMEOUTMILLIS`
+!!! Note
+    For docker, set the env var `APPCUSTOM_PROBETIMEOUTMILLIS`
 
 This is the maximum amount of milliseconds to wait for each IP probe before timing out.
 This will also be the minimum time the discovery process can take.
 
 ### MaxDiscoverDurationSeconds
-> For docker, set the env var `APPCUSTOM_MAXDISCOVERDURATIONSECONDS`
+!!! Note
+    For docker, set the env var `APPCUSTOM_MAXDISCOVERDURATIONSECONDS`
 
 This is the maximum amount of seconds the discovery process is allowed to run before it will be cancelled.
 It is especially important to have this configured in the case of larger subnets such as /16 and /8.
@@ -186,7 +196,7 @@ The device service is able to rediscover and update devices that have been disco
 Nothing additional is needed to enable this. It will run whenever the discover call is sent, regardless
 of whether it is a manual or automated call to discover.
 
-The following logic to determine if the device is already registered or not.
+The following logic is to determine if the device is already registered or not.
 
 ```mermaid
 %% Note: The node and edge definitions are split up to make it easier to adjust the

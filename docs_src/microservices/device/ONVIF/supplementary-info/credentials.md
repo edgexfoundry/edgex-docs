@@ -162,42 +162,43 @@ credentials002 = "11:22:33:44:55:66,ff:ee:dd:cc:bb:aa,ab:12:12:34:34:56:56"
 Here is an in-depth look at the logic behind mapping `Credentials` to Devices.
 
 ### During Discovery
-```mermaid
-%% Note: The node and edge definitions are split up to make it easier to adjust the
-%% links between the various nodes.
-flowchart TD;   
-    %% -------- Node Definitions -------- %%
-    DiscoveredDevice[/Discovered Device/]
-    UseDefault[Use Default Credentials]
-    EndpointRefHasMAC{Does EndpointRef<br/>contain<br/>MAC Address?}
-    InNoAuthGroup{MAC Belongs<br/>to NoAuth group?}
-    AuthModeNone[Set AuthMode to 'none']
-    ApplyCreds[Apply Credentials]
-    InSecretStore{Credentials exist<br/>in SecretStore?}
-    CreateClient[Create Onvif Client]
-    GetDeviceInfo[Get Device Information]
-    GetNetIfaces[Get Network Interfaces]
-    CreateDevice(Create Device:<br/>&ltMfg&gt-&ltModel&gt-&ltEndpointRef&gt)
-    CreateUnknownDevice(Create Device:<br/>unknown_unknown_&ltEndpointRef&gt)
 
-    %% -------- Graph Definitions -------- %%
-    DiscoveredDevice --> ForAllMAC
-    subgraph ForAllMAC[For all MAC Addresses in CredentialsMap]
-      EndpointRefHasMAC
-    end
-    EndpointRefHasMAC -->|Yes| InNoAuthGroup
-    EndpointRefHasMAC -- No Matches --> UseDefault
-    InNoAuthGroup -->|Yes| AuthModeNone
-    InNoAuthGroup -->|No| InSecretStore
-    UseDefault --> InSecretStore
-    AuthModeNone --> CreateClient
-    InSecretStore -->|Yes| ApplyCreds
-    InSecretStore -->|No| AuthModeNone
-    ApplyCreds --> CreateClient
-    CreateClient --> GetDeviceInfo
-    GetDeviceInfo -->|Failed| CreateUnknownDevice
-    GetDeviceInfo -->|Success| GetNetIfaces
-    GetNetIfaces ----> CreateDevice
+```mermaid
+    %% Note: The node and edge definitions are split up to make it easier to adjust the
+    %% links between the various nodes.
+    flowchart TD;   
+        %% -------- Node Definitions -------- %%
+        DiscoveredDevice[/Discovered Device/]
+        UseDefault[Use Default Credentials]
+        EndpointRefHasMAC{Does EndpointRef<br/>contain<br/>MAC Address?}
+        InNoAuthGroup{MAC Belongs<br/>to NoAuth group?}
+        AuthModeNone[Set AuthMode to 'none']
+        ApplyCreds[Apply Credentials]
+        InSecretStore{Credentials exist<br/>in SecretStore?}
+        CreateClient[Create Onvif Client]
+        GetDeviceInfo[Get Device Information]
+        GetNetIfaces[Get Network Interfaces]
+        CreateDevice(Create Device:<br/>&ltMfg&gt-&ltModel&gt-&ltEndpointRef&gt)
+        CreateUnknownDevice(Create Device:<br/>unknown_unknown_&ltEndpointRef&gt)
+
+        %% -------- Graph Definitions -------- %%
+        DiscoveredDevice --> ForAllMAC
+        subgraph ForAllMAC[For all MAC Addresses in CredentialsMap]
+        EndpointRefHasMAC
+        end
+        EndpointRefHasMAC -->|Yes| InNoAuthGroup
+        EndpointRefHasMAC -- No Matches --> UseDefault
+        InNoAuthGroup -->|Yes| AuthModeNone
+        InNoAuthGroup -->|No| InSecretStore
+        UseDefault --> InSecretStore
+        AuthModeNone --> CreateClient
+        InSecretStore -->|Yes| ApplyCreds
+        InSecretStore -->|No| AuthModeNone
+        ApplyCreds --> CreateClient
+        CreateClient --> GetDeviceInfo
+        GetDeviceInfo -->|Failed| CreateUnknownDevice
+        GetDeviceInfo -->|Success| GetNetIfaces
+        GetNetIfaces ----> CreateDevice
 ```
 
 ### Connecting to Existing Devices
