@@ -1,0 +1,4970 @@
+openapi: 3.0.0
+info:
+  title: EdgeX Onvif Device Service
+  description: EdgeX Onvif Device Service REST APIs
+  version: 2.3.0
+servers:
+- url: http://localhost:59882
+  description: Local running instance of EdgeX
+- url: http://127.0.0.1:59882
+  description: Local running instance of EdgeX
+- url: http://0.0.0.0:59882
+  description: Local running instance of EdgeX
+tags:
+- name: Capabilities
+- name: Auto Discovery
+- name: Network Configuration
+- name: System Function
+- name: User Handling
+- name: Metadata Configuration
+- name: Video Streaming
+- name: Video Encoder Configuration
+- name: PTZ
+- name: PTZ - Capabilities
+- name: PTZ - Configuration
+- name: PTZ - Actuation
+- name: PTZ - Preset
+- name: PTZ - Home Position
+- name: PTZ - Auxiliary
+- name: Event Handling
+- name: Analytics
+- name: Analytics - Profile Configuration
+- name: Analytics - Modules
+- name: Analytics - Rules
+- name: Custom
+  description: >-
+    Custom commands outside of the ONVIF spec handled by the device service
+    directly.
+paths:
+  /api/v2/device/name/{EDGEX_DEVICE_NAME}/NetworkInterfaces:
+    get:
+      tags:
+      - Network Configuration
+      summary: 'Device: GetNetworkInterfaces'
+      description: |-
+        This operation gets the network interface configuration from a device. The device shall support return of network interface configuration settings as defined by the NetworkInterface type through the GetNetworkInterfaces command.
+
+        <details>
+        <summary><strong>Tested Camera Models</strong></summary>
+
+        Below is a list of camera models that this command has been tested against, and whether or not the command is supported.
+
+        | Camera | Supported? &nbsp;&nbsp; | Notes |
+        |--------|:------------|-------|
+        | **Hikvision DFI6256TE** | ✔️ |  |
+        | **Tapo C200** | ✔️ |  |
+        | **BOSCH DINION IP starlight 6000 HD** | ✔️ |  |
+        | **GeoVision GV-BX8700** | ✔️ |  |
+        </details>
+      parameters:
+      - $ref: '#/components/parameters/EDGEX_DEVICE_NAME'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            X-Correlation-Id:
+              $ref: '#/components/headers/correlatedResponseHeader'
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/ObjectEventResponse'
+                - properties:
+                    event:
+                      properties:
+                        readings:
+                          items:
+                            properties:
+                              objectValue:
+                                $ref: '#/components/schemas/device_GetNetworkInterfacesResponse'
+              example:
+                apiVersion: v2
+                statusCode: 200
+                event:
+                  apiVersion: v2
+                  id: acc3a74d-852a-4c0c-bf31-dbc06d8a0782
+                  deviceName: TP-Link-C200-3fa1fe68-b915-4053-a3e1-1027f5ea88f4
+                  profileName: onvif-camera
+                  sourceName: NetworkInterfaces
+                  origin: 1659655709817960400
+                  readings:
+                  - id: 74571fe4-731a-4925-99eb-7d4c317834f6
+                    origin: 1659655709817960400
+                    deviceName: TP-Link-C200-3fa1fe68-b915-4053-a3e1-1027f5ea88f4
+                    resourceName: NetworkInterfaces
+                    profileName: onvif-camera
+                    valueType: Object
+                    value: ''
+                    objectValue:
+                      NetworkInterfaces:
+                        Enabled: true
+                        IPv4:
+                          Config:
+                            DHCP: false
+                            Manual:
+                              Address: 10.0.0.195
+                              PrefixLength: 24
+                          Enabled: true
+                        Info:
+                          HwAddress: 10:27:F5:EA:88:F4
+                          MTU: 1500
+                          Name: eth0
+                        Token: eth0
+        '400': *id001
+        '404': *id002
+        '423': *id003
+        '500': *id004
+        '503': *id005
+      externalDocs:
+        description: Onvif Specification
+        url: https://www.onvif.org/ver10/device/wsdl/devicemgmt.wsdl#op.GetNetworkInterfaces
+    put:
+      tags:
+      - Network Configuration
+      summary: 'Device: SetNetworkInterfaces'
+      description: |-
+        This operation sets the network interface configuration on a device. The device shall support network configuration of supported network interfaces through the SetNetworkInterfaces command.
+
+        For interoperability with a client unaware of the IEEE 802.11 extension a device shall retain its IEEE 802.11 configuration if the IEEE 802.11 configuration element isn’t present in the request.
+
+        <details>
+        <summary><strong>Tested Camera Models</strong></summary>
+
+        Below is a list of camera models that this command has been tested against, and whether or not the command is supported.
+
+        | Camera | Supported? &nbsp;&nbsp; | Notes |
+        |--------|:------------|-------|
+        | **Hikvision DFI6256TE** | ✔️ |  |
+        | **Tapo C200** | ❌ |  |
+        | **BOSCH DINION IP starlight 6000 HD** | ✔️ |  |
+        | **GeoVision GV-BX8700** | ✔️ |  |
+        </details>
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                NetworkInterfaces:
+                  $ref: '#/components/schemas/device_SetNetworkInterfaces'
+              required:
+              - NetworkInterfaces
+              type: object
+            example:
+              NetworkInterfaces:
+                InterfaceToken: eth0
+                NetworkInterface:
+                  Enabled: true
+                  IPv4:
+                    DHCP: true
+      parameters:
+      - $ref: '#/components/parameters/EDGEX_DEVICE_NAME'
+      responses:
+        '200': *id006
+        '400': *id001
+        '404': *id002
+        '423': *id003
+        '500': *id004
+        '503': *id005
+      externalDocs:
+        description: Onvif Specification
+        url: https://www.onvif.org/ver10/device/wsdl/devicemgmt.wsdl#op.SetNetworkInterfaces
+components:
+  schemas:
+    analytics_ConfigOptions:
+      properties:
+        AnalyticsModule:
+          description: Optional name of the analytics module this constraint applies
+            to. This option is only necessary in cases where different constraints
+            for elements with the same Name exist.
+          type: string
+        Name:
+          description: "The Name of the SimpleItemDescription/ElementItemDescription\n\
+            \t\t\t\t\t\t\tthe ConfigOptions applies to."
+          type: string
+        RuleType:
+          description: The RuleType the ConfigOptions applies to if the Name attribute
+            is ambiguous.
+          type: string
+        Type:
+          description: "Type of the Rule Options represented by a unique QName. \n\
+            \t\t\t\t\t\t\tThe Type defines the element contained in this structure.\n\
+            \t\t\t\t\t\t\tThis attribute is deprecated since its value must be identical\
+            \ to the embedded element."
+          type: string
+        maxOccurs:
+          description: Maximum number of occurrences. Defaults to one.
+          format: int32
+          type: integer
+        minOccurs:
+          description: Minimal number of occurrences. Defaults to one.
+          format: int32
+          type: integer
+      required:
+      - Name
+      type: object
+    analytics_CreateAnalyticsModules:
+      properties:
+        AnalyticsModule:
+          items:
+            $ref: '#/components/schemas/onvif_Config'
+          type: array
+        ConfigurationToken:
+          description: Reference to an existing VideoAnalyticsConfiguration.
+          maxLength: 64
+          type: string
+      required:
+      - ConfigurationToken
+      - AnalyticsModule
+      type: object
+    analytics_CreateRules:
+      properties:
+        ConfigurationToken:
+          description: Reference to an existing VideoAnalyticsConfiguration.
+          maxLength: 64
+          type: string
+        Rule:
+          items:
+            $ref: '#/components/schemas/onvif_Config'
+          type: array
+      required:
+      - ConfigurationToken
+      - Rule
+      type: object
+    analytics_DeleteAnalyticsModules:
+      properties:
+        AnalyticsModuleName:
+          description: Name of the AnalyticsModule to be deleted.
+          items:
+            type: string
+          type: array
+        ConfigurationToken:
+          description: Reference to an existing Video Analytics configuration.
+          maxLength: 64
+          type: string
+      required:
+      - ConfigurationToken
+      - AnalyticsModuleName
+      type: object
+    analytics_DeleteRules:
+      properties:
+        ConfigurationToken:
+          description: Reference to an existing VideoAnalyticsConfiguration.
+          maxLength: 64
+          type: string
+        RuleName:
+          description: References the specific rule to be deleted (e.g. "MyLineDetector").
+          items:
+            type: string
+          type: array
+      required:
+      - ConfigurationToken
+      - RuleName
+      type: object
+    analytics_GetAnalyticsModuleOptionsResponse:
+      properties:
+        Options:
+          description: List of options for the specified analytics module. The response
+            Options shall not contain any RuleType attribute.
+          items:
+            $ref: '#/components/schemas/analytics_ConfigOptions'
+          type: array
+      type: object
+    analytics_GetAnalyticsModulesResponse:
+      properties:
+        AnalyticsModule:
+          items:
+            $ref: '#/components/schemas/onvif_Config'
+          type: array
+      type: object
+    analytics_GetRuleOptionsResponse:
+      properties:
+        RuleOptions:
+          description: A device shall provide respective ConfigOptions.RuleType for
+            each RuleOption if the request does not specify RuleType. The response
+            Options shall not contain any AnalyticsModule attribute.
+          items:
+            $ref: '#/components/schemas/analytics_ConfigOptions'
+          type: array
+      type: object
+    analytics_GetRulesResponse:
+      properties:
+        Rule:
+          items:
+            $ref: '#/components/schemas/onvif_Config'
+          type: array
+      type: object
+    analytics_GetSupportedAnalyticsModulesResponse:
+      properties:
+        SupportedAnalyticsModules:
+          $ref: '#/components/schemas/onvif_SupportedAnalyticsModules'
+      required:
+      - SupportedAnalyticsModules
+      type: object
+    analytics_GetSupportedRulesResponse:
+      properties:
+        SupportedRules:
+          $ref: '#/components/schemas/onvif_SupportedRules'
+      required:
+      - SupportedRules
+      type: object
+    analytics_ModifyAnalyticsModules:
+      properties:
+        AnalyticsModule:
+          items:
+            $ref: '#/components/schemas/onvif_Config'
+          type: array
+        ConfigurationToken:
+          description: Reference to an existing VideoAnalyticsConfiguration.
+          maxLength: 64
+          type: string
+      required:
+      - ConfigurationToken
+      - AnalyticsModule
+      type: object
+    analytics_ModifyRules:
+      properties:
+        ConfigurationToken:
+          description: Reference to an existing VideoAnalyticsConfiguration.
+          maxLength: 64
+          type: string
+        Rule:
+          items:
+            $ref: '#/components/schemas/onvif_Config'
+          type: array
+      required:
+      - ConfigurationToken
+      - Rule
+      type: object
+    onvif_AnalyticsCapabilities:
+      properties:
+        AnalyticsModuleSupport:
+          description: Indicates whether or not modules are supported.
+          type: boolean
+        RuleSupport:
+          description: Indicates whether or not rules are supported.
+          type: boolean
+        XAddr:
+          description: Analytics service URI.
+          type: string
+      required:
+      - XAddr
+      - RuleSupport
+      - AnalyticsModuleSupport
+      type: object
+    onvif_AnalyticsDeviceCapabilities:
+      properties:
+        Extension:
+          $ref: '#/components/schemas/onvif_AnalyticsDeviceExtension'
+        RuleSupport:
+          description: Obsolete property.
+          type: boolean
+        XAddr:
+          type: string
+      required:
+      - XAddr
+      type: object
+    onvif_AnalyticsDeviceExtension:
+      type: object
+    onvif_AnalyticsEngineConfiguration:
+      properties:
+        AnalyticsModule:
+          items:
+            $ref: '#/components/schemas/onvif_Config'
+          type: array
+        Extension:
+          $ref: '#/components/schemas/onvif_AnalyticsEngineConfigurationExtension'
+      type: object
+    onvif_AnalyticsEngineConfigurationExtension:
+      type: object
+    onvif_AudioDecoderConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/onvif_ConfigurationEntity'
+      - type: object
+      description: "The Audio Decoder Configuration does not contain any that parameter\
+        \ to configure the\ndecoding .A decoder shall decode every data it receives\
+        \ (according to its capabilities)."
+    onvif_AudioEncoder2Configuration:
+      allOf:
+      - $ref: '#/components/schemas/onvif_ConfigurationEntity'
+      - properties:
+          Bitrate:
+            description: The output bitrate in kbps.
+            format: int32
+            type: integer
+          Encoding:
+            description: Audio Media Subtype for the audio format. For definitions
+              see tt:AudioEncodingMimeNames and
+            type: string
+          Multicast:
+            allOf:
+            - $ref: '#/components/schemas/onvif_MulticastConfiguration'
+            - description: Optional multicast configuration of the audio stream.
+          SampleRate:
+            description: The output sample rate in kHz.
+            format: int32
+            type: integer
+        required:
+        - Encoding
+        - Bitrate
+        - SampleRate
+        type: object
+    onvif_AudioEncoderConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/onvif_ConfigurationEntity'
+      - properties:
+          Bitrate:
+            description: The output bitrate in kbps.
+            format: int32
+            type: integer
+          Encoding:
+            allOf:
+            - $ref: '#/components/schemas/onvif_AudioEncoding'
+            - description: Audio codec used for encoding the audio input (either G.711,
+                G.726 or AAC)
+          Multicast:
+            allOf:
+            - $ref: '#/components/schemas/onvif_MulticastConfiguration'
+            - description: Defines the multicast settings that could be used for video
+                streaming.
+          SampleRate:
+            description: The output sample rate in kHz.
+            format: int32
+            type: integer
+          SessionTimeout:
+            description: The rtsp session timeout for the related audio stream
+            format: date-time
+            type: string
+        required:
+        - Encoding
+        - Bitrate
+        - SampleRate
+        - Multicast
+        - SessionTimeout
+        type: object
+    onvif_AudioEncoding:
+      enum:
+      - G711
+      - G726
+      - AAC
+      type: string
+    onvif_AudioOutputConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/onvif_ConfigurationEntity'
+      - properties:
+          OutputLevel:
+            description: Volume setting of the output. The applicable range is defined
+              via the option AudioOutputOptions.OutputLevelRange.
+            format: int32
+            type: integer
+          OutputToken:
+            description: Token of the phsycial Audio output.
+            maxLength: 64
+            type: string
+          SendPrimacy:
+            description: "An audio channel MAY support different types of audio transmission.\
+              \ While for full duplex\n\t\t\t\t\t\toperation no special handling is\
+              \ required, in half duplex operation the transmission direction\n\t\t\
+              \t\t\t\tneeds to be switched.\n\t\t\t\t\t\tThe optional SendPrimacy\
+              \ parameter inside the AudioOutputConfiguration indicates which\n\t\t\
+              \t\t\t\tdirection is currently active. An NVC can switch between different\
+              \ modes by setting the\n\t\t\t\t\t\tAudioOutputConfiguration."
+            type: string
+        required:
+        - OutputToken
+        - OutputLevel
+        type: object
+    onvif_AudioSourceConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/onvif_ConfigurationEntity'
+      - properties:
+          SourceToken:
+            description: Token of the Audio Source the configuration applies to
+            maxLength: 64
+            type: string
+        required:
+        - SourceToken
+        type: object
+    onvif_Capabilities:
+      properties:
+        Analytics:
+          allOf:
+          - $ref: '#/components/schemas/onvif_AnalyticsCapabilities'
+          - description: Analytics capabilities
+        Device:
+          allOf:
+          - $ref: '#/components/schemas/onvif_DeviceCapabilities'
+          - description: Device capabilities
+        Events:
+          allOf:
+          - $ref: '#/components/schemas/onvif_EventCapabilities'
+          - description: Event capabilities
+        Extension:
+          $ref: '#/components/schemas/onvif_CapabilitiesExtension'
+        Imaging:
+          allOf:
+          - $ref: '#/components/schemas/onvif_ImagingCapabilities'
+          - description: Imaging capabilities
+        Media:
+          allOf:
+          - $ref: '#/components/schemas/onvif_MediaCapabilities'
+          - description: Media capabilities
+        PTZ:
+          allOf:
+          - $ref: '#/components/schemas/onvif_PTZCapabilities'
+          - description: PTZ capabilities
+      type: object
+    onvif_CapabilitiesExtension:
+      properties:
+        AnalyticsDevice:
+          $ref: '#/components/schemas/onvif_AnalyticsDeviceCapabilities'
+        DeviceIO:
+          $ref: '#/components/schemas/onvif_DeviceIOCapabilities'
+        Display:
+          $ref: '#/components/schemas/onvif_DisplayCapabilities'
+        Extensions:
+          $ref: '#/components/schemas/onvif_CapabilitiesExtension2'
+        Receiver:
+          $ref: '#/components/schemas/onvif_ReceiverCapabilities'
+        Recording:
+          $ref: '#/components/schemas/onvif_RecordingCapabilities'
+        Replay:
+          $ref: '#/components/schemas/onvif_ReplayCapabilities'
+        Search:
+          $ref: '#/components/schemas/onvif_SearchCapabilities'
+      type: object
+    onvif_CapabilitiesExtension2:
+      type: object
+    onvif_Config:
+      properties:
+        Name:
+          description: Name of the configuration.
+          type: string
+        Parameters:
+          allOf:
+          - $ref: '#/components/schemas/onvif_ItemList'
+          - description: List of configuration parameters as defined in the corresponding
+              description.
+        Type:
+          description: The Type attribute specifies the type of rule and shall be
+            equal to value of one of Name attributes of ConfigDescription elements
+            returned by GetSupportedRules and GetSupportedAnalyticsModules command.
+          type: string
+      required:
+      - Name
+      - Type
+      - Parameters
+      type: object
+    onvif_ConfigDescription:
+      properties:
+        Extension:
+          $ref: '#/components/schemas/onvif_ConfigDescriptionExtension'
+        Messages:
+          description: "The analytics modules and rule engine produce Events, which\
+            \ must be listed within the Analytics Module Description. In order to\
+            \ do so\n\t\t\t\t\t\tthe structure of the Message is defined and consists\
+            \ of three groups: Source, Key, and Data. It is recommended to use SimpleItemDescriptions\
+            \ wherever applicable.\n\t\t\t\t\t\tThe name of all Items must be unique\
+            \ within all Items contained in any group of this Message.\n\t\t\t\t\t\
+            \tDepending on the component multiple parameters or none may be needed\
+            \ to identify the component uniquely."
+          items:
+            $ref: '#/components/schemas/onvif_Messages'
+          type: array
+        Name:
+          description: The Name attribute (e.g. "tt::LineDetector") uniquely identifies
+            the type of rule, not a type definition in a schema.
+          type: string
+        Parameters:
+          allOf:
+          - $ref: '#/components/schemas/onvif_ItemListDescription'
+          - description: "List describing the configuration parameters. The names\
+              \ of the parameters must be unique. If possible SimpleItems\n\t\t\t\t\
+              \t\tshould be used to transport the information to ease parsing of dynamically\
+              \ defined messages by a client\n\t\t\t\t\t\tapplication."
+        fixed:
+          description: The fixed attribute signals that it is not allowed to add or
+            remove this type of configuration.
+          type: boolean
+        maxInstances:
+          description: The maxInstances attribute signals the maximum number of instances
+            per configuration.
+          format: int32
+          type: integer
+      required:
+      - Name
+      - Parameters
+      type: object
+    onvif_ConfigDescriptionExtension:
+      type: object
+    onvif_ConfigurationEntity:
+      description: Base type defining the common properties of a configuration.
+      properties:
+        Name:
+          description: User readable name. Length up to 64 characters.
+          maxLength: 64
+          type: string
+        UseCount:
+          description: Number of internal references currently using this configuration.
+          format: int32
+          type: integer
+        token:
+          description: Token that uniquely references this configuration. Length up
+            to 64 characters.
+          maxLength: 64
+          type: string
+      required:
+      - token
+      - Name
+      - UseCount
+      type: object
+    onvif_DNSInformation:
+      properties:
+        DNSFromDHCP:
+          description: List of DNS addresses received from DHCP.
+          items:
+            $ref: '#/components/schemas/onvif_IPAddress'
+          type: array
+        DNSManual:
+          description: List of manually entered DNS addresses.
+          items:
+            $ref: '#/components/schemas/onvif_IPAddress'
+          type: array
+        Extension:
+          $ref: '#/components/schemas/onvif_DNSInformationExtension'
+        FromDHCP:
+          description: Indicates whether or not DNS information is retrieved from
+            DHCP.
+          type: boolean
+        SearchDomain:
+          description: Search domain.
+          items:
+            type: string
+          type: array
+      required:
+      - FromDHCP
+      type: object
+    onvif_DNSInformationExtension:
+      type: object
+    onvif_Date:
+      properties:
+        Day:
+          description: Range is 1 to 31.
+          format: int32
+          type: integer
+        Month:
+          description: Range is 1 to 12.
+          format: int32
+          type: integer
+        Year:
+          format: int32
+          type: integer
+      required:
+      - Year
+      - Month
+      - Day
+      type: object
+    onvif_DateTime:
+      properties:
+        Date:
+          $ref: '#/components/schemas/onvif_Date'
+        Time:
+          $ref: '#/components/schemas/onvif_Time'
+      required:
+      - Time
+      - Date
+      type: object
+    onvif_DeviceCapabilities:
+      properties:
+        Extension:
+          $ref: '#/components/schemas/onvif_DeviceCapabilitiesExtension'
+        IO:
+          allOf:
+          - $ref: '#/components/schemas/onvif_IOCapabilities'
+          - description: I/O capabilities.
+        Network:
+          allOf:
+          - $ref: '#/components/schemas/onvif_NetworkCapabilities'
+          - description: Network capabilities.
+        Security:
+          allOf:
+          - $ref: '#/components/schemas/onvif_SecurityCapabilities'
+          - description: Security capabilities.
+        System:
+          allOf:
+          - $ref: '#/components/schemas/onvif_SystemCapabilities'
+          - description: System capabilities.
+        XAddr:
+          description: Device service URI.
+          type: string
+      required:
+      - XAddr
+      type: object
+    onvif_DeviceCapabilitiesExtension:
+      type: object
+    onvif_DeviceEntity:
+      description: Base class for physical entities like inputs and outputs.
+      properties:
+        token:
+          description: Unique identifier referencing the physical entity.
+          maxLength: 64
+          type: string
+      required:
+      - token
+      type: object
+    onvif_DeviceIOCapabilities:
+      properties:
+        AudioOutputs:
+          format: int32
+          type: integer
+        AudioSources:
+          format: int32
+          type: integer
+        RelayOutputs:
+          format: int32
+          type: integer
+        VideoOutputs:
+          format: int32
+          type: integer
+        VideoSources:
+          format: int32
+          type: integer
+        XAddr:
+          type: string
+      required:
+      - XAddr
+      - VideoSources
+      - VideoOutputs
+      - AudioSources
+      - AudioOutputs
+      - RelayOutputs
+      type: object
+    onvif_DiscoveryMode:
+      enum:
+      - Discoverable
+      - NonDiscoverable
+      type: string
+    onvif_DisplayCapabilities:
+      properties:
+        FixedLayout:
+          description: Indication that the SetLayout command supports only predefined
+            layouts.
+          type: boolean
+        XAddr:
+          type: string
+      required:
+      - XAddr
+      - FixedLayout
+      type: object
+    onvif_Dot11Cipher:
+      enum:
+      - CCMP
+      - TKIP
+      - Any
+      - Extended
+      type: string
+    onvif_Dot11Configuration:
+      properties:
+        Alias:
+          maxLength: 64
+          type: string
+        Mode:
+          $ref: '#/components/schemas/onvif_Dot11StationMode'
+        Priority:
+          format: int32
+          maximum: 31
+          minimum: 0
+          type: integer
+        SSID:
+          format: binary
+          type: string
+        Security:
+          $ref: '#/components/schemas/onvif_Dot11SecurityConfiguration'
+      required:
+      - SSID
+      - Mode
+      - Alias
+      - Priority
+      - Security
+      type: object
+    onvif_Dot11PSKSet:
+      properties:
+        Extension:
+          $ref: '#/components/schemas/onvif_Dot11PSKSetExtension'
+        Key:
+          description: According to IEEE802.11-2007 H.4.1 the RSNA PSK consists of
+            256 bits, or 64 octets when represented in hex
+          format: binary
+          type: string
+        Passphrase:
+          description: "According to IEEE802.11-2007 H.4.1 a pass-phrase is a sequence\
+            \ of between 8 and 63 ASCII-encoded characters and\n\t\t\t\t\teach character\
+            \ in the pass-phrase must have an encoding in the range of 32 to 126 (decimal),inclusive."
+          pattern: '[ -~]{8,63}'
+          type: string
+      type: object
+    onvif_Dot11PSKSetExtension:
+      type: object
+    onvif_Dot11SecurityConfiguration:
+      properties:
+        Algorithm:
+          $ref: '#/components/schemas/onvif_Dot11Cipher'
+        Dot1X:
+          maxLength: 64
+          type: string
+        Extension:
+          $ref: '#/components/schemas/onvif_Dot11SecurityConfigurationExtension'
+        Mode:
+          $ref: '#/components/schemas/onvif_Dot11SecurityMode'
+        PSK:
+          $ref: '#/components/schemas/onvif_Dot11PSKSet'
+      required:
+      - Mode
+      type: object
+    onvif_Dot11SecurityConfigurationExtension:
+      type: object
+    onvif_Dot11SecurityMode:
+      enum:
+      - None
+      - WEP
+      - PSK
+      - Dot1X
+      - Extended
+      type: string
+    onvif_Dot11StationMode:
+      enum:
+      - Ad-hoc
+      - Infrastructure
+      - Extended
+      type: string
+    onvif_Dot3Configuration:
+      type: object
+    onvif_Duplex:
+      enum:
+      - Full
+      - Half
+      type: string
+    onvif_DurationRange:
+      description: Range of duration greater equal Min duration and less equal Max
+        duration.
+      properties:
+        Max:
+          format: date-time
+          type: string
+        Min:
+          format: date-time
+          type: string
+      required:
+      - Min
+      - Max
+      type: object
+    onvif_EFlip:
+      properties:
+        Mode:
+          allOf:
+          - $ref: '#/components/schemas/onvif_EFlipMode'
+          - description: Parameter to enable/disable E-Flip feature.
+      required:
+      - Mode
+      type: object
+    onvif_EFlipMode:
+      enum:
+      - false
+      - true
+      - Extended
+      type: string
+    onvif_EFlipOptions:
+      properties:
+        Extension:
+          $ref: '#/components/schemas/onvif_EFlipOptionsExtension'
+        Mode:
+          description: Options of EFlip mode parameter.
+          items:
+            $ref: '#/components/schemas/onvif_EFlipMode'
+          type: array
+      type: object
+    onvif_EFlipOptionsExtension:
+      type: object
+    onvif_ElementItem:
+      description: Complex value structure.
+      properties:
+        Name:
+          description: Item name.
+          type: string
+      required:
+      - Name
+      type: object
+    onvif_ElementItemDescription:
+      description: Description of a complex type. The Type must reference a defined
+        type.
+      properties:
+        Name:
+          description: Item name. Must be unique within a list.
+          type: string
+        Type:
+          description: The type of the item. The Type must reference a defined type.
+          type: string
+      required:
+      - Name
+      - Type
+      type: object
+    onvif_EventCapabilities:
+      properties:
+        WSPausableSubscriptionManagerInterfaceSupport:
+          description: Indicates whether or not WS Pausable Subscription Manager Interface
+            is supported.
+          type: boolean
+        WSPullPointSupport:
+          description: Indicates whether or not WS Pull Point is supported.
+          type: boolean
+        WSSubscriptionPolicySupport:
+          description: Indicates whether or not WS Subscription policy is supported.
+          type: boolean
+        XAddr:
+          description: Event service URI.
+          type: string
+      required:
+      - XAddr
+      - WSSubscriptionPolicySupport
+      - WSPullPointSupport
+      - WSPausableSubscriptionManagerInterfaceSupport
+      type: object
+    onvif_EventSubscription:
+      description: Subcription handling in the same way as base notification subscription.
+      properties:
+        Filter:
+          $ref: '#/components/schemas/wsnt_FilterType'
+        SubscriptionPolicy:
+          $ref: '#/components/schemas/onvif_SubscriptionPolicy'
+      type: object
+    onvif_FactoryDefaultType:
+      description: Enumeration describing the available factory default modes.
+      enum:
+      - Hard
+      - Soft
+      type: string
+    onvif_FloatRange:
+      description: Range of values greater equal Min value and less equal Max value.
+      properties:
+        Max:
+          type: number
+        Min:
+          type: number
+      required:
+      - Min
+      - Max
+      type: object
+    onvif_H264Configuration:
+      properties:
+        GovLength:
+          description: Group of Video frames length. Determines typically the interval
+            in which the I-Frames will be coded. An entry of 1 indicates I-Frames
+            are continuously generated. An entry of 2 indicates that every 2nd image
+            is an I-Frame, and 3 only every 3rd frame, etc. The frames in between
+            are coded as P or B Frames.
+          format: int32
+          type: integer
+        H264Profile:
+          allOf:
+          - $ref: '#/components/schemas/onvif_H264Profile'
+          - description: the H.264 profile, either baseline, main, extended or high
+      required:
+      - GovLength
+      - H264Profile
+      type: object
+    onvif_H264Options:
+      properties:
+        EncodingIntervalRange:
+          allOf:
+          - $ref: '#/components/schemas/onvif_IntRange'
+          - description: Supported encoding interval range. The encoding interval
+              corresponds to the number of frames devided by the encoded frames. An
+              encoding interval value of "1" means that all frames are encoded.
+        FrameRateRange:
+          allOf:
+          - $ref: '#/components/schemas/onvif_IntRange'
+          - description: Supported frame rate in fps (frames per second).
+        GovLengthRange:
+          allOf:
+          - $ref: '#/components/schemas/onvif_IntRange'
+          - description: Supported group of Video frames length. This value typically
+              corresponds to the I-Frame distance.
+        H264ProfilesSupported:
+          description: List of supported H.264 profiles.
+          items:
+            $ref: '#/components/schemas/onvif_H264Profile'
+          type: array
+        ResolutionsAvailable:
+          description: List of supported image sizes.
+          items:
+            $ref: '#/components/schemas/onvif_VideoResolution'
+          type: array
+      required:
+      - ResolutionsAvailable
+      - GovLengthRange
+      - FrameRateRange
+      - EncodingIntervalRange
+      - H264ProfilesSupported
+      type: object
+    onvif_H264Options2:
+      allOf:
+      - $ref: '#/components/schemas/onvif_H264Options'
+      - properties:
+          BitrateRange:
+            allOf:
+            - $ref: '#/components/schemas/onvif_IntRange'
+            - description: Supported range of encoded bitrate in kbps.
+        required:
+        - BitrateRange
+        type: object
+    onvif_H264Profile:
+      enum:
+      - Baseline
+      - Main
+      - Extended
+      - High
+      type: string
+    onvif_HostnameInformation:
+      properties:
+        Extension:
+          $ref: '#/components/schemas/onvif_HostnameInformationExtension'
+        FromDHCP:
+          description: Indicates whether the hostname is obtained from DHCP or not.
+          type: boolean
+        Name:
+          description: Indicates the hostname.
+          type: string
+      required:
+      - FromDHCP
+      type: object
+    onvif_HostnameInformationExtension:
+      type: object
+    onvif_IOCapabilities:
+      properties:
+        Extension:
+          $ref: '#/components/schemas/onvif_IOCapabilitiesExtension'
+        InputConnectors:
+          description: Number of input connectors.
+          format: int32
+          type: integer
+        RelayOutputs:
+          description: Number of relay outputs.
+          format: int32
+          type: integer
+      type: object
+    onvif_IOCapabilitiesExtension:
+      properties:
+        Auxiliary:
+          type: boolean
+        AuxiliaryCommands:
+          items:
+            maxLength: 128
+            type: string
+          type: array
+        Extension:
+          $ref: '#/components/schemas/onvif_IOCapabilitiesExtension2'
+      required:
+      - Extension
+      type: object
+    onvif_IOCapabilitiesExtension2:
+      type: object
+    onvif_IPAddress:
+      properties:
+        IPv4Address:
+          description: IPv4 address.
+          type: string
+        IPv6Address:
+          description: IPv6 address
+          type: string
+        Type:
+          allOf:
+          - $ref: '#/components/schemas/onvif_IPType'
+          - description: Indicates if the address is an IPv4 or IPv6 address.
+      required:
+      - Type
+      type: object
+    onvif_IPType:
+      enum:
+      - IPv4
+      - IPv6
+      type: string
+    onvif_IPv4Configuration:
+      properties:
+        DHCP:
+          description: Indicates whether or not DHCP is used.
+          type: boolean
+        FromDHCP:
+          allOf:
+          - $ref: '#/components/schemas/onvif_PrefixedIPv4Address'
+          - description: IPv4 address configured by using DHCP.
+        LinkLocal:
+          allOf:
+          - $ref: '#/components/schemas/onvif_PrefixedIPv4Address'
+          - description: Link local address.
+        Manual:
+          description: List of manually added IPv4 addresses.
+          items:
+            $ref: '#/components/schemas/onvif_PrefixedIPv4Address'
+          type: array
+      required:
+      - DHCP
+      type: object
+    onvif_IPv4NetworkInterface:
+      properties:
+        Config:
+          allOf:
+          - $ref: '#/components/schemas/onvif_IPv4Configuration'
+          - description: IPv4 configuration.
+        Enabled:
+          description: Indicates whether or not IPv4 is enabled.
+          type: boolean
+      required:
+      - Enabled
+      - Config
+      type: object
+    onvif_IPv4NetworkInterfaceSetConfiguration:
+      properties:
+        DHCP:
+          description: Indicates whether or not DHCP is used.
+          type: boolean
+        Enabled:
+          description: Indicates whether or not IPv4 is enabled.
+          type: boolean
+        Manual:
+          description: List of manually added IPv4 addresses.
+          items:
+            $ref: '#/components/schemas/onvif_PrefixedIPv4Address'
+          type: array
+      type: object
+    onvif_IPv6Configuration:
+      properties:
+        AcceptRouterAdvert:
+          description: Indicates whether router advertisment is used.
+          type: boolean
+        DHCP:
+          allOf:
+          - $ref: '#/components/schemas/onvif_IPv6DHCPConfiguration'
+          - description: DHCP configuration.
+        Extension:
+          $ref: '#/components/schemas/onvif_IPv6ConfigurationExtension'
+        FromDHCP:
+          description: List of IPv6 addresses configured by using DHCP.
+          items:
+            $ref: '#/components/schemas/onvif_PrefixedIPv6Address'
+          type: array
+        FromRA:
+          description: List of IPv6 addresses configured by using router advertisment.
+          items:
+            $ref: '#/components/schemas/onvif_PrefixedIPv6Address'
+          type: array
+        LinkLocal:
+          description: List of link local IPv6 addresses.
+          items:
+            $ref: '#/components/schemas/onvif_PrefixedIPv6Address'
+          type: array
+        Manual:
+          description: List of manually entered IPv6 addresses.
+          items:
+            $ref: '#/components/schemas/onvif_PrefixedIPv6Address'
+          type: array
+      required:
+      - DHCP
+      type: object
+    onvif_IPv6ConfigurationExtension:
+      type: object
+    onvif_IPv6DHCPConfiguration:
+      enum:
+      - Auto
+      - Stateful
+      - Stateless
+      - false
+      type: string
+    onvif_IPv6NetworkInterface:
+      properties:
+        Config:
+          allOf:
+          - $ref: '#/components/schemas/onvif_IPv6Configuration'
+          - description: IPv6 configuration.
+        Enabled:
+          description: Indicates whether or not IPv6 is enabled.
+          type: boolean
+      required:
+      - Enabled
+      type: object
+    onvif_IPv6NetworkInterfaceSetConfiguration:
+      properties:
+        AcceptRouterAdvert:
+          description: Indicates whether router advertisment is used.
+          type: boolean
+        DHCP:
+          allOf:
+          - $ref: '#/components/schemas/onvif_IPv6DHCPConfiguration'
+          - description: DHCP configuration.
+        Enabled:
+          description: Indicates whether or not IPv6 is enabled.
+          type: boolean
+        Manual:
+          description: List of manually added IPv6 addresses.
+          items:
+            $ref: '#/components/schemas/onvif_PrefixedIPv6Address'
+          type: array
+      type: object
+    onvif_ImagingCapabilities:
+      properties:
+        XAddr:
+          description: Imaging service URI.
+          type: string
+      required:
+      - XAddr
+      type: object
+    onvif_IntRange:
+      description: Range of values greater equal Min value and less equal Max value.
+      properties:
+        Max:
+          format: int32
+          type: integer
+        Min:
+          format: int32
+          type: integer
+      required:
+      - Min
+      - Max
+      type: object
+    onvif_IntRectangle:
+      description: Rectangle defined by lower left corner position and size. Units
+        are pixel.
+      properties:
+        height:
+          format: int32
+          type: integer
+        width:
+          format: int32
+          type: integer
+        x:
+          format: int32
+          type: integer
+        y:
+          format: int32
+          type: integer
+      required:
+      - x
+      - y
+      - width
+      - height
+      type: object
+    onvif_ItemList:
+      properties:
+        ElementItem:
+          description: Complex value structure.
+          items:
+            $ref: '#/components/schemas/onvif_ElementItem'
+          type: array
+        Extension:
+          $ref: '#/components/schemas/onvif_ItemListExtension'
+        SimpleItem:
+          description: Value name pair as defined by the corresponding description.
+          items:
+            $ref: '#/components/schemas/onvif_SimpleItem'
+          type: array
+      type: object
+    onvif_ItemListDescription:
+      description: "Describes a list of items. Each item in the list shall have a\
+        \ unique name.\n\t\t\tThe list is designed as linear structure without optional\
+        \ or unbounded elements.\n\t\t\tUse ElementItems only when complex structures\
+        \ are inevitable."
+      properties:
+        ElementItemDescription:
+          description: Description of a complex type. The Type must reference a defined
+            type.
+          items:
+            $ref: '#/components/schemas/onvif_ElementItemDescription'
+          type: array
+        Extension:
+          $ref: '#/components/schemas/onvif_ItemListDescriptionExtension'
+        SimpleItemDescription:
+          description: Description of a simple item. The type must be of cathegory
+            simpleType (xs:string, xs:integer, xs:float, ...).
+          items:
+            $ref: '#/components/schemas/onvif_SimpleItemDescription'
+          type: array
+      type: object
+    onvif_ItemListDescriptionExtension:
+      type: object
+    onvif_ItemListExtension:
+      type: object
+    onvif_JpegOptions:
+      properties:
+        EncodingIntervalRange:
+          allOf:
+          - $ref: '#/components/schemas/onvif_IntRange'
+          - description: Supported encoding interval range. The encoding interval
+              corresponds to the number of frames devided by the encoded frames. An
+              encoding interval value of "1" means that all frames are encoded.
+        FrameRateRange:
+          allOf:
+          - $ref: '#/components/schemas/onvif_IntRange'
+          - description: Supported frame rate in fps (frames per second).
+        ResolutionsAvailable:
+          description: List of supported image sizes.
+          items:
+            $ref: '#/components/schemas/onvif_VideoResolution'
+          type: array
+      required:
+      - ResolutionsAvailable
+      - FrameRateRange
+      - EncodingIntervalRange
+      type: object
+    onvif_JpegOptions2:
+      allOf:
+      - $ref: '#/components/schemas/onvif_JpegOptions'
+      - properties:
+          BitrateRange:
+            allOf:
+            - $ref: '#/components/schemas/onvif_IntRange'
+            - description: Supported range of encoded bitrate in kbps.
+        required:
+        - BitrateRange
+        type: object
+    onvif_LensDescription:
+      properties:
+        FocalLength:
+          description: Optional focal length of the optical system.
+          type: number
+        Offset:
+          allOf:
+          - $ref: '#/components/schemas/onvif_LensOffset'
+          - description: Offset of the lens center to the imager center in normalized
+              coordinates.
+        Projection:
+          description: "Radial description of the projection characteristics. The\
+            \ resulting curve is defined by the B-Spline interpolation \n\t\t\t\t\t\
+            over the given elements. The element for Radius zero shall not be provided.\
+            \ The projection points shall be ordered with ascending Radius. \n\t\t\
+            \t\t\tItems outside the last projection Radius shall be assumed to be\
+            \ invisible (black)."
+          items:
+            $ref: '#/components/schemas/onvif_LensProjection'
+          type: array
+        XFactor:
+          description: Compensation of the x coordinate needed for the ONVIF normalized
+            coordinate system.
+          type: number
+      required:
+      - Offset
+      - Projection
+      - XFactor
+      type: object
+    onvif_LensOffset:
+      properties:
+        x:
+          description: Optional horizontal offset of the lens center in normalized
+            coordinates.
+          type: number
+        y:
+          description: Optional vertical offset of the lens center in normalized coordinates.
+          type: number
+      type: object
+    onvif_LensProjection:
+      properties:
+        Angle:
+          description: Angle of incidence.
+          type: number
+        Radius:
+          description: Mapping radius as a consequence of the emergent angle.
+          type: number
+        Transmittance:
+          description: Optional ray absorption at the given angle due to vignetting.
+            A value of one means no absorption.
+          type: number
+      required:
+      - Angle
+      - Radius
+      type: object
+    onvif_MediaCapabilities:
+      properties:
+        Extension:
+          $ref: '#/components/schemas/onvif_MediaCapabilitiesExtension'
+        StreamingCapabilities:
+          allOf:
+          - $ref: '#/components/schemas/onvif_RealTimeStreamingCapabilities'
+          - description: Streaming capabilities.
+        XAddr:
+          description: Media service URI.
+          type: string
+      required:
+      - XAddr
+      - StreamingCapabilities
+      type: object
+    onvif_MediaCapabilitiesExtension:
+      properties:
+        ProfileCapabilities:
+          $ref: '#/components/schemas/onvif_ProfileCapabilities'
+      required:
+      - ProfileCapabilities
+      type: object
+    onvif_MediaUri:
+      properties:
+        InvalidAfterConnect:
+          description: Indicates if the Uri is only valid until the connection is
+            established. The value shall be set to "false".
+          type: boolean
+        InvalidAfterReboot:
+          description: Indicates if the Uri is invalid after a reboot of the device.
+            The value shall be set to "false".
+          type: boolean
+        Timeout:
+          description: Duration how long the Uri is valid. This parameter shall be
+            set to PT0S to indicate that this stream URI is indefinitely valid even
+            if the profile changes
+          format: date-time
+          type: string
+        Uri:
+          description: Stable Uri to be used for requesting the media stream
+          type: string
+      required:
+      - Uri
+      - InvalidAfterConnect
+      - InvalidAfterReboot
+      - Timeout
+      type: object
+    onvif_MessageDescription:
+      properties:
+        Data:
+          allOf:
+          - $ref: '#/components/schemas/onvif_ItemListDescription'
+          - description: Describes the payload of the message.
+        Extension:
+          $ref: '#/components/schemas/onvif_MessageDescriptionExtension'
+        IsProperty:
+          description: Must be set to true when the described Message relates to a
+            property. An alternative term of "property" is a "state" in contrast to
+            a pure event, which contains relevant information for only a single point
+            in time.
+          type: boolean
+        Key:
+          allOf:
+          - $ref: '#/components/schemas/onvif_ItemListDescription'
+          - description: Describes optional message payload parameters that may be
+              used as key. E.g. object IDs of tracked objects are conveyed as key.
+        Source:
+          allOf:
+          - $ref: '#/components/schemas/onvif_ItemListDescription'
+          - description: "Set of tokens producing this message. The list may only\
+              \ contain SimpleItemDescription items.\n\t\t\t\t\tThe set of tokens\
+              \ identify the component within the WS-Endpoint, which is responsible\
+              \ for the producing the message."
+      type: object
+    onvif_MessageDescriptionExtension:
+      type: object
+    onvif_Messages:
+      allOf:
+      - $ref: '#/components/schemas/onvif_MessageDescription'
+      - properties:
+          ParentTopic:
+            description: The topic of the message. For historical reason the element
+              is named ParentTopic, but the full topic is expected.
+            type: string
+        required:
+        - ParentTopic
+        type: object
+      description: "The analytics modules and rule engine produce Events, which must\
+        \ be listed within the Analytics Module Description. In order to do so\n\t\
+        \t\t\t\t\tthe structure of the Message is defined and consists of three groups:\
+        \ Source, Key, and Data. It is recommended to use SimpleItemDescriptions wherever\
+        \ applicable.\n\t\t\t\t\t\tThe name of all Items must be unique within all\
+        \ Items contained in any group of this Message.\n\t\t\t\t\t\tDepending on\
+        \ the component multiple parameters or none may be needed to identify the\
+        \ component uniquely."
+    onvif_MetadataConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/onvif_ConfigurationEntity'
+      - properties:
+          Analytics:
+            description: Defines whether the streamed metadata will include metadata
+              from the analytics engines (video, cell motion, audio etc.)
+            type: boolean
+          AnalyticsEngineConfiguration:
+            allOf:
+            - $ref: '#/components/schemas/onvif_AnalyticsEngineConfiguration'
+            - description: "Indication which AnalyticsModules shall output metadata.\n\
+                \t\t\t\t\t\t\tNote that the streaming behavior is undefined if the\
+                \ list includes items that are not part of the associated AnalyticsConfiguration."
+          CompressionType:
+            description: Optional parameter to configure compression type of Metadata
+              payload. Use values from enumeration MetadataCompressionType.
+            type: string
+          Events:
+            allOf:
+            - $ref: '#/components/schemas/onvif_EventSubscription'
+            - description: "Optional element to configure the streaming of events.\
+                \ A client might be interested in receiving all, \n\t\t\t\t\t\t\t\t\
+                none or some of the events produced by the device:"
+          Extension:
+            $ref: '#/components/schemas/onvif_MetadataConfigurationExtension'
+          GeoLocation:
+            description: Optional parameter to configure if the metadata stream shall
+              contain the Geo Location coordinates of each target.
+            type: boolean
+          Multicast:
+            allOf:
+            - $ref: '#/components/schemas/onvif_MulticastConfiguration'
+            - description: Defines the multicast settings that could be used for video
+                streaming.
+          PTZStatus:
+            allOf:
+            - $ref: '#/components/schemas/onvif_PTZFilter'
+            - description: optional element to configure which PTZ related data is
+                to include in the metadata stream
+          SessionTimeout:
+            description: The rtsp session timeout for the related audio stream (when
+              using Media2 Service, this value is deprecated and ignored)
+            format: date-time
+            type: string
+          ShapePolygon:
+            description: Optional parameter to configure if the generated metadata
+              stream should contain shape information as polygon.
+            type: boolean
+        required:
+        - Multicast
+        - SessionTimeout
+        type: object
+    onvif_MetadataConfigurationExtension:
+      type: object
+    onvif_MetadataConfigurationOptions:
+      properties:
+        Extension:
+          $ref: '#/components/schemas/onvif_MetadataConfigurationOptionsExtension'
+        GeoLocation:
+          description: True if the device is able to stream the Geo Located positions
+            of each target.
+          type: boolean
+        MaxContentFilterSize:
+          description: A device signalling support for content filtering shall support
+            expressions with the provided expression size.
+          format: int32
+          type: integer
+        PTZStatusFilterOptions:
+          $ref: '#/components/schemas/onvif_PTZStatusFilterOptions'
+      required:
+      - PTZStatusFilterOptions
+      type: object
+    onvif_MetadataConfigurationOptionsExtension:
+      properties:
+        CompressionType:
+          description: List of supported metadata compression type. Its options shall
+            be chosen from tt:MetadataCompressionType.
+          items:
+            type: string
+          type: array
+        Extension:
+          $ref: '#/components/schemas/onvif_MetadataConfigurationOptionsExtension2'
+      type: object
+    onvif_MetadataConfigurationOptionsExtension2:
+      type: object
+    onvif_MoveStatus:
+      enum:
+      - IDLE
+      - MOVING
+      - UNKNOWN
+      type: string
+    onvif_Mpeg4Configuration:
+      properties:
+        GovLength:
+          description: Determines the interval in which the I-Frames will be coded.
+            An entry of 1 indicates I-Frames are continuously generated. An entry
+            of 2 indicates that every 2nd image is an I-Frame, and 3 only every 3rd
+            frame, etc. The frames in between are coded as P or B Frames.
+          format: int32
+          type: integer
+        Mpeg4Profile:
+          allOf:
+          - $ref: '#/components/schemas/onvif_Mpeg4Profile'
+          - description: the Mpeg4 profile, either simple profile (SP) or advanced
+              simple profile (ASP)
+      required:
+      - GovLength
+      - Mpeg4Profile
+      type: object
+    onvif_Mpeg4Options:
+      properties:
+        EncodingIntervalRange:
+          allOf:
+          - $ref: '#/components/schemas/onvif_IntRange'
+          - description: Supported encoding interval range. The encoding interval
+              corresponds to the number of frames devided by the encoded frames. An
+              encoding interval value of "1" means that all frames are encoded.
+        FrameRateRange:
+          allOf:
+          - $ref: '#/components/schemas/onvif_IntRange'
+          - description: Supported frame rate in fps (frames per second).
+        GovLengthRange:
+          allOf:
+          - $ref: '#/components/schemas/onvif_IntRange'
+          - description: Supported group of Video frames length. This value typically
+              corresponds to the I-Frame distance.
+        Mpeg4ProfilesSupported:
+          description: List of supported MPEG-4 profiles.
+          items:
+            $ref: '#/components/schemas/onvif_Mpeg4Profile'
+          type: array
+        ResolutionsAvailable:
+          description: List of supported image sizes.
+          items:
+            $ref: '#/components/schemas/onvif_VideoResolution'
+          type: array
+      required:
+      - ResolutionsAvailable
+      - GovLengthRange
+      - FrameRateRange
+      - EncodingIntervalRange
+      - Mpeg4ProfilesSupported
+      type: object
+    onvif_Mpeg4Options2:
+      allOf:
+      - $ref: '#/components/schemas/onvif_Mpeg4Options'
+      - properties:
+          BitrateRange:
+            allOf:
+            - $ref: '#/components/schemas/onvif_IntRange'
+            - description: Supported range of encoded bitrate in kbps.
+        required:
+        - BitrateRange
+        type: object
+    onvif_Mpeg4Profile:
+      enum:
+      - SP
+      - ASP
+      type: string
+    onvif_MulticastConfiguration:
+      properties:
+        Address:
+          allOf:
+          - $ref: '#/components/schemas/onvif_IPAddress'
+          - description: The multicast address (if this address is set to 0 no multicast
+              streaming is enaled)
+        AutoStart:
+          description: Read only property signalling that streaming is persistant.
+            Use the methods StartMulticastStreaming and StopMulticastStreaming to
+            switch its state.
+          type: boolean
+        Port:
+          description: The RTP mutlicast destination port. A device may support RTCP.
+            In this case the port value shall be even to allow the corresponding RTCP
+            stream to be mapped to the next higher (odd) destination port number as
+            defined in the RTSP specification.
+          format: int32
+          type: integer
+        TTL:
+          description: In case of IPv6 the TTL value is assumed as the hop limit.
+            Note that for IPV6 and administratively scoped IPv4 multicast the primary
+            use for hop limit / TTL is to prevent packets from (endlessly) circulating
+            and not limiting scope. In these cases the address contains the scope.
+          format: int32
+          type: integer
+      required:
+      - Address
+      - Port
+      - TTL
+      - AutoStart
+      type: object
+    onvif_NetworkCapabilities:
+      properties:
+        DynDNS:
+          description: Indicates whether or not  is supported.
+          type: boolean
+        Extension:
+          $ref: '#/components/schemas/onvif_NetworkCapabilitiesExtension'
+        IPFilter:
+          description: Indicates whether or not IP filtering is supported.
+          type: boolean
+        IPVersion6:
+          description: Indicates whether or not IPv6 is supported.
+          type: boolean
+        ZeroConfiguration:
+          description: Indicates whether or not zeroconf is supported.
+          type: boolean
+      type: object
+    onvif_NetworkCapabilitiesExtension:
+      properties:
+        Dot11Configuration:
+          type: boolean
+        Extension:
+          $ref: '#/components/schemas/onvif_NetworkCapabilitiesExtension2'
+      type: object
+    onvif_NetworkCapabilitiesExtension2:
+      type: object
+    onvif_NetworkGateway:
+      properties:
+        IPv4Address:
+          description: IPv4 address string.
+          items:
+            type: string
+          type: array
+        IPv6Address:
+          description: IPv6 address string.
+          items:
+            type: string
+          type: array
+      type: object
+    onvif_NetworkInterface:
+      allOf:
+      - $ref: '#/components/schemas/onvif_DeviceEntity'
+      - properties:
+          Enabled:
+            description: Indicates whether or not an interface is enabled.
+            type: boolean
+          Extension:
+            $ref: '#/components/schemas/onvif_NetworkInterfaceExtension'
+          IPv4:
+            allOf:
+            - $ref: '#/components/schemas/onvif_IPv4NetworkInterface'
+            - description: IPv4 network interface configuration.
+          IPv6:
+            allOf:
+            - $ref: '#/components/schemas/onvif_IPv6NetworkInterface'
+            - description: IPv6 network interface configuration.
+          Info:
+            allOf:
+            - $ref: '#/components/schemas/onvif_NetworkInterfaceInfo'
+            - description: Network interface information
+          Link:
+            allOf:
+            - $ref: '#/components/schemas/onvif_NetworkInterfaceLink'
+            - description: Link configuration.
+        required:
+        - Enabled
+        type: object
+    onvif_NetworkInterfaceConnectionSetting:
+      properties:
+        AutoNegotiation:
+          description: Auto negotiation on/off.
+          type: boolean
+        Duplex:
+          allOf:
+          - $ref: '#/components/schemas/onvif_Duplex'
+          - description: Duplex type, Half or Full.
+        Speed:
+          description: Speed.
+          format: int32
+          type: integer
+      required:
+      - AutoNegotiation
+      - Speed
+      - Duplex
+      type: object
+    onvif_NetworkInterfaceExtension:
+      properties:
+        Dot11:
+          items:
+            $ref: '#/components/schemas/onvif_Dot11Configuration'
+          type: array
+        Dot3:
+          description: Extension point prepared for future 802.3 configuration.
+          items:
+            $ref: '#/components/schemas/onvif_Dot3Configuration'
+          type: array
+        Extension:
+          $ref: '#/components/schemas/onvif_NetworkInterfaceExtension2'
+        InterfaceType:
+          format: int32
+          type: integer
+      required:
+      - InterfaceType
+      type: object
+    onvif_NetworkInterfaceExtension2:
+      type: object
+    onvif_NetworkInterfaceInfo:
+      properties:
+        HwAddress:
+          description: Network interface MAC address.
+          type: string
+        MTU:
+          description: Maximum transmission unit.
+          format: int32
+          type: integer
+        Name:
+          description: Network interface name, for example eth0.
+          type: string
+      required:
+      - HwAddress
+      type: object
+    onvif_NetworkInterfaceLink:
+      properties:
+        AdminSettings:
+          allOf:
+          - $ref: '#/components/schemas/onvif_NetworkInterfaceConnectionSetting'
+          - description: Configured link settings.
+        InterfaceType:
+          description: 'Integer indicating interface type, for example: 6 is ethernet.'
+          format: int32
+          type: integer
+        OperSettings:
+          allOf:
+          - $ref: '#/components/schemas/onvif_NetworkInterfaceConnectionSetting'
+          - description: Current active link settings.
+      required:
+      - AdminSettings
+      - OperSettings
+      - InterfaceType
+      type: object
+    onvif_NetworkInterfaceSetConfiguration:
+      properties:
+        Enabled:
+          description: Indicates whether or not an interface is enabled.
+          type: boolean
+        Extension:
+          $ref: '#/components/schemas/onvif_NetworkInterfaceSetConfigurationExtension'
+        IPv4:
+          allOf:
+          - $ref: '#/components/schemas/onvif_IPv4NetworkInterfaceSetConfiguration'
+          - description: IPv4 network interface configuration.
+        IPv6:
+          allOf:
+          - $ref: '#/components/schemas/onvif_IPv6NetworkInterfaceSetConfiguration'
+          - description: IPv6 network interface configuration.
+        Link:
+          allOf:
+          - $ref: '#/components/schemas/onvif_NetworkInterfaceConnectionSetting'
+          - description: Link configuration.
+        MTU:
+          description: Maximum transmission unit.
+          format: int32
+          type: integer
+      type: object
+    onvif_NetworkInterfaceSetConfigurationExtension:
+      properties:
+        Dot11:
+          items:
+            $ref: '#/components/schemas/onvif_Dot11Configuration'
+          type: array
+        Dot3:
+          items:
+            $ref: '#/components/schemas/onvif_Dot3Configuration'
+          type: array
+        Extension:
+          $ref: '#/components/schemas/onvif_NetworkInterfaceSetConfigurationExtension2'
+      type: object
+    onvif_NetworkInterfaceSetConfigurationExtension2:
+      type: object
+    onvif_NetworkProtocol:
+      properties:
+        Enabled:
+          description: Indicates if the protocol is enabled or not.
+          type: boolean
+        Extension:
+          $ref: '#/components/schemas/onvif_NetworkProtocolExtension'
+        Name:
+          allOf:
+          - $ref: '#/components/schemas/onvif_NetworkProtocolType'
+          - description: Network protocol type string.
+        Port:
+          description: The port that is used by the protocol.
+          items:
+            format: int32
+            type: integer
+          type: array
+      required:
+      - Name
+      - Enabled
+      - Port
+      type: object
+    onvif_NetworkProtocolExtension:
+      type: object
+    onvif_NetworkProtocolType:
+      enum:
+      - HTTP
+      - HTTPS
+      - RTSP
+      type: string
+    onvif_NetworkZeroConfiguration:
+      properties:
+        Addresses:
+          description: The zero-configuration IPv4 address(es)
+          items:
+            type: string
+          type: array
+        Enabled:
+          description: Indicates whether the zero-configuration is enabled or not.
+          type: boolean
+        Extension:
+          $ref: '#/components/schemas/onvif_NetworkZeroConfigurationExtension'
+        InterfaceToken:
+          description: Unique identifier of network interface.
+          maxLength: 64
+          type: string
+      required:
+      - InterfaceToken
+      - Enabled
+      type: object
+    onvif_NetworkZeroConfigurationExtension:
+      properties:
+        Additional:
+          description: Optional array holding the configuration for the second and
+            possibly further interfaces.
+          items:
+            $ref: '#/components/schemas/onvif_NetworkZeroConfiguration'
+          type: array
+        Extension:
+          $ref: '#/components/schemas/onvif_NetworkZeroConfigurationExtension2'
+      type: object
+    onvif_NetworkZeroConfigurationExtension2:
+      type: object
+    onvif_OnvifVersion:
+      properties:
+        Major:
+          description: Major version number.
+          format: int32
+          type: integer
+        Minor:
+          description: "Two digit minor version number.\n\t\t\t\t\t\tIf major version\
+            \ number is less than \"16\", X.0.1 maps to \"01\" and X.2.1 maps to \"\
+            21\" where X stands for Major version number.\n\t\t\t\t\t\tOtherwise,\
+            \ minor number is month of release, such as \"06\" for June."
+          format: int32
+          type: integer
+      required:
+      - Major
+      - Minor
+      type: object
+    onvif_PTControlDirection:
+      properties:
+        EFlip:
+          allOf:
+          - $ref: '#/components/schemas/onvif_EFlip'
+          - description: Optional element to configure related parameters for E-Flip.
+        Extension:
+          $ref: '#/components/schemas/onvif_PTControlDirectionExtension'
+        Reverse:
+          allOf:
+          - $ref: '#/components/schemas/onvif_Reverse'
+          - description: Optional element to configure related parameters for reversing
+              of PT Control Direction.
+      type: object
+    onvif_PTControlDirectionExtension:
+      type: object
+    onvif_PTControlDirectionOptions:
+      properties:
+        EFlip:
+          allOf:
+          - $ref: '#/components/schemas/onvif_EFlipOptions'
+          - description: Supported options for EFlip feature.
+        Extension:
+          $ref: '#/components/schemas/onvif_PTControlDirectionOptionsExtension'
+        Reverse:
+          allOf:
+          - $ref: '#/components/schemas/onvif_ReverseOptions'
+          - description: Supported options for Reverse feature.
+      type: object
+    onvif_PTControlDirectionOptionsExtension:
+      type: object
+    onvif_PTZCapabilities:
+      properties:
+        XAddr:
+          description: PTZ service URI.
+          type: string
+      required:
+      - XAddr
+      type: object
+    onvif_PTZConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/onvif_ConfigurationEntity'
+      - properties:
+          DefaultAbsolutePantTiltPositionSpace:
+            description: If the PTZ Node supports absolute Pan/Tilt movements, it
+              shall specify one Absolute Pan/Tilt Position Space as default.
+            type: string
+          DefaultAbsoluteZoomPositionSpace:
+            description: If the PTZ Node supports absolute zoom movements, it shall
+              specify one Absolute Zoom Position Space as default.
+            type: string
+          DefaultContinuousPanTiltVelocitySpace:
+            description: If the PTZ Node supports continuous Pan/Tilt movements, it
+              shall specify one Continuous Pan/Tilt Velocity Space as default.
+            type: string
+          DefaultContinuousZoomVelocitySpace:
+            description: If the PTZ Node supports continuous zoom movements, it shall
+              specify one Continuous Zoom Velocity Space as default.
+            type: string
+          DefaultPTZSpeed:
+            allOf:
+            - $ref: '#/components/schemas/onvif_PTZSpeed'
+            - description: If the PTZ Node supports absolute or relative PTZ movements,
+                it shall specify corresponding default Pan/Tilt and Zoom speeds.
+          DefaultPTZTimeout:
+            description: If the PTZ Node supports continuous movements, it shall specify
+              a default timeout, after which the movement stops.
+            format: date-time
+            type: string
+          DefaultRelativePanTiltTranslationSpace:
+            description: If the PTZ Node supports relative Pan/Tilt movements, it
+              shall specify one RelativePan/Tilt Translation Space as default.
+            type: string
+          DefaultRelativeZoomTranslationSpace:
+            description: If the PTZ Node supports relative zoom movements, it shall
+              specify one Relative Zoom Translation Space as default.
+            type: string
+          Extension:
+            $ref: '#/components/schemas/onvif_PTZConfigurationExtension'
+          MoveRamp:
+            description: The optional acceleration ramp used by the device when moving.
+            format: int32
+            type: integer
+          NodeToken:
+            description: A mandatory reference to the PTZ Node that the PTZ Configuration
+              belongs to.
+            maxLength: 64
+            type: string
+          PanTiltLimits:
+            allOf:
+            - $ref: '#/components/schemas/onvif_PanTiltLimits'
+            - description: The Pan/Tilt limits element should be present for a PTZ
+                Node that supports an absolute Pan/Tilt. If the element is present
+                it signals the support for configurable Pan/Tilt limits. If limits
+                are enabled, the Pan/Tilt movements shall always stay within the specified
+                range. The Pan/Tilt limits are disabled by setting the limits to –INF
+                or +INF.
+          PresetRamp:
+            description: The optional acceleration ramp used by the device when recalling
+              presets.
+            format: int32
+            type: integer
+          PresetTourRamp:
+            description: The optional acceleration ramp used by the device when executing
+              PresetTours.
+            format: int32
+            type: integer
+          ZoomLimits:
+            allOf:
+            - $ref: '#/components/schemas/onvif_ZoomLimits'
+            - description: The Zoom limits element should be present for a PTZ Node
+                that supports absolute zoom. If the element is present it signals
+                the supports for configurable Zoom limits. If limits are enabled the
+                zoom movements shall always stay within the specified range. The Zoom
+                limits are disabled by settings the limits to -INF and +INF.
+        required:
+        - NodeToken
+        type: object
+    onvif_PTZConfigurationExtension:
+      properties:
+        Extension:
+          $ref: '#/components/schemas/onvif_PTZConfigurationExtension2'
+        PTControlDirection:
+          allOf:
+          - $ref: '#/components/schemas/onvif_PTControlDirection'
+          - description: Optional element to configure PT Control Direction related
+              features.
+      type: object
+    onvif_PTZConfigurationExtension2:
+      type: object
+    onvif_PTZConfigurationOptions:
+      properties:
+        Extension:
+          $ref: '#/components/schemas/onvif_PTZConfigurationOptions2'
+        PTControlDirection:
+          allOf:
+          - $ref: '#/components/schemas/onvif_PTControlDirectionOptions'
+          - description: Supported options for PT Direction Control.
+        PTZRamps:
+          description: "The list of acceleration ramps supported by the device. The\n\
+            \t\t\t\t\tsmallest acceleration value corresponds to the minimal index,\
+            \ the\n\t\t\t\t\thighest acceleration corresponds to the maximum index."
+          format: int32
+          type: integer
+        PTZTimeout:
+          allOf:
+          - $ref: '#/components/schemas/onvif_DurationRange'
+          - description: A timeout Range within which Timeouts are accepted by the
+              PTZ Node.
+        Spaces:
+          allOf:
+          - $ref: '#/components/schemas/onvif_PTZSpaces'
+          - description: A list of supported coordinate systems including their range
+              limitations.
+      required:
+      - Spaces
+      - PTZTimeout
+      type: object
+    onvif_PTZConfigurationOptions2:
+      type: object
+    onvif_PTZFilter:
+      properties:
+        Position:
+          description: True if the metadata stream shall contain the PTZ position
+          type: boolean
+        Status:
+          description: True if the metadata stream shall contain the PTZ status (IDLE,
+            MOVING or UNKNOWN)
+          type: boolean
+      required:
+      - Status
+      - Position
+      type: object
+    onvif_PTZMoveStatus:
+      properties:
+        PanTilt:
+          $ref: '#/components/schemas/onvif_MoveStatus'
+        Zoom:
+          $ref: '#/components/schemas/onvif_MoveStatus'
+      type: object
+    onvif_PTZNode:
+      allOf:
+      - $ref: '#/components/schemas/onvif_DeviceEntity'
+      - properties:
+          AuxiliaryCommands:
+            description: A list of supported Auxiliary commands. If the list is not
+              empty, the Auxiliary Operations MUST be available for this PTZ Node.
+            items:
+              maxLength: 128
+              type: string
+            type: array
+          Extension:
+            $ref: '#/components/schemas/onvif_PTZNodeExtension'
+          FixedHomePosition:
+            description: Indication whether the HomePosition of a Node is fixed or
+              it can be changed via the SetHomePosition command.
+            type: boolean
+          GeoMove:
+            description: Indication whether the Node supports the geo-referenced move
+              command.
+            type: boolean
+          HomeSupported:
+            description: A boolean operator specifying the availability of a home
+              position. If set to true, the Home Position Operations MUST be available
+              for this PTZ Node.
+            type: boolean
+          MaximumNumberOfPresets:
+            description: All preset operations MUST be available for this PTZ Node
+              if one preset is supported.
+            format: int32
+            type: integer
+          Name:
+            description: A unique identifier that is used to reference PTZ Nodes.
+            maxLength: 64
+            type: string
+          SupportedPTZSpaces:
+            allOf:
+            - $ref: '#/components/schemas/onvif_PTZSpaces'
+            - description: A list of Coordinate Systems available for the PTZ Node.
+                For each Coordinate System, the PTZ Node MUST specify its allowed
+                range.
+        required:
+        - SupportedPTZSpaces
+        - MaximumNumberOfPresets
+        - HomeSupported
+        type: object
+    onvif_PTZNodeExtension:
+      properties:
+        Extension:
+          $ref: '#/components/schemas/onvif_PTZNodeExtension2'
+        SupportedPresetTour:
+          allOf:
+          - $ref: '#/components/schemas/onvif_PTZPresetTourSupported'
+          - description: Detail of supported Preset Tour feature.
+      type: object
+    onvif_PTZNodeExtension2:
+      type: object
+    onvif_PTZPreset:
+      properties:
+        Name:
+          description: A list of preset position name.
+          maxLength: 64
+          type: string
+        PTZPosition:
+          allOf:
+          - $ref: '#/components/schemas/onvif_PTZVector'
+          - description: A list of preset position.
+        token:
+          maxLength: 64
+          type: string
+      type: object
+    onvif_PTZPresetTourOperation:
+      enum:
+      - Start
+      - Stop
+      - Pause
+      - Extended
+      type: string
+    onvif_PTZPresetTourSupported:
+      properties:
+        Extension:
+          $ref: '#/components/schemas/onvif_PTZPresetTourSupportedExtension'
+        MaximumNumberOfPresetTours:
+          description: Indicates number of preset tours that can be created. Required
+            preset tour operations shall be available for this PTZ Node if one or
+            more preset tour is supported.
+          format: int32
+          type: integer
+        PTZPresetTourOperation:
+          description: Indicates which preset tour operations are available for this
+            PTZ Node.
+          items:
+            $ref: '#/components/schemas/onvif_PTZPresetTourOperation'
+          type: array
+      required:
+      - MaximumNumberOfPresetTours
+      type: object
+    onvif_PTZPresetTourSupportedExtension:
+      type: object
+    onvif_PTZSpaces:
+      properties:
+        AbsolutePanTiltPositionSpace:
+          description: "The Generic Pan/Tilt Position space is provided by every PTZ\
+            \ node that supports absolute Pan/Tilt, since it does not relate to a\
+            \ specific physical range. \n\t\t\tInstead, the range should be defined\
+            \ as the full range of the PTZ unit normalized to the range -1 to 1 resulting\
+            \ in the following space description."
+          items:
+            $ref: '#/components/schemas/onvif_Space2DDescription'
+          type: array
+        AbsoluteZoomPositionSpace:
+          description: "The Generic Zoom Position Space is provided by every PTZ node\
+            \ that supports absolute Zoom, since it does not relate to a specific\
+            \ physical range. \n\t\t\tInstead, the range should be defined as the\
+            \ full range of the Zoom normalized to the range 0 (wide) to 1 (tele).\
+            \ \n\t\t\tThere is no assumption about how the generic zoom range is mapped\
+            \ to magnification, FOV or other physical zoom dimension."
+          items:
+            $ref: '#/components/schemas/onvif_Space1DDescription'
+          type: array
+        ContinuousPanTiltVelocitySpace:
+          description: "The generic Pan/Tilt velocity space shall be provided by every\
+            \ PTZ node, since it does not relate to a specific physical range. \n\t\
+            \t\tInstead, the range should be defined as a range of the PTZ unit’s\
+            \ speed normalized to the range -1 to 1, where a positive velocity would\
+            \ map to clockwise \n\t\t\trotation or movement in the right/up direction.\
+            \ A signed speed can be independently specified for the pan and tilt component\
+            \ resulting in the following space description."
+          items:
+            $ref: '#/components/schemas/onvif_Space2DDescription'
+          type: array
+        ContinuousZoomVelocitySpace:
+          description: "The generic zoom velocity space specifies a zoom factor velocity\
+            \ without knowing the underlying physical model. The range should be normalized\
+            \ from -1 to 1, \n\t\t\twhere a positive velocity would map to TELE direction.\
+            \ A generic zoom velocity space description resembles the following."
+          items:
+            $ref: '#/components/schemas/onvif_Space1DDescription'
+          type: array
+        Extension:
+          $ref: '#/components/schemas/onvif_PTZSpacesExtension'
+        PanTiltSpeedSpace:
+          description: "The speed space specifies the speed for a Pan/Tilt movement\
+            \ when moving to an absolute position or to a relative translation. \n\
+            \t\t\tIn contrast to the velocity spaces, speed spaces do not contain\
+            \ any directional information. The speed of a combined Pan/Tilt \n\t\t\
+            \tmovement is represented by a single non-negative scalar value."
+          items:
+            $ref: '#/components/schemas/onvif_Space1DDescription'
+          type: array
+        RelativePanTiltTranslationSpace:
+          description: "The Generic Pan/Tilt translation space is provided by every\
+            \ PTZ node that supports relative Pan/Tilt, since it does not relate to\
+            \ a specific physical range. \n\t\t\tInstead, the range should be defined\
+            \ as the full positive and negative translation range of the PTZ unit\
+            \ normalized to the range -1 to 1, \n\t\t\twhere positive translation\
+            \ would mean clockwise rotation or movement in right/up direction resulting\
+            \ in the following space description."
+          items:
+            $ref: '#/components/schemas/onvif_Space2DDescription'
+          type: array
+        RelativeZoomTranslationSpace:
+          description: "The Generic Zoom Translation Space is provided by every PTZ\
+            \ node that supports relative Zoom, since it does not relate to a specific\
+            \ physical range. \n\t\t\tInstead, the corresponding absolute range should\
+            \ be defined as the full positive and negative translation range of the\
+            \ Zoom normalized to the range -1 to1, \n\t\t\twhere a positive translation\
+            \ maps to a movement in TELE direction. The translation is signed to indicate\
+            \ direction (negative is to wide, positive is to tele). \n\t\t\tThere\
+            \ is no assumption about how the generic zoom range is mapped to magnification,\
+            \ FOV or other physical zoom dimension. This results in the following\
+            \ space description."
+          items:
+            $ref: '#/components/schemas/onvif_Space1DDescription'
+          type: array
+        ZoomSpeedSpace:
+          description: "The speed space specifies the speed for a Zoom movement when\
+            \ moving to an absolute position or to a relative translation. \n\t\t\t\
+            In contrast to the velocity spaces, speed spaces do not contain any directional\
+            \ information."
+          items:
+            $ref: '#/components/schemas/onvif_Space1DDescription'
+          type: array
+      type: object
+    onvif_PTZSpacesExtension:
+      type: object
+    onvif_PTZSpeed:
+      properties:
+        PanTilt:
+          allOf:
+          - $ref: '#/components/schemas/onvif_Vector2D'
+          - description: Pan and tilt speed. The x component corresponds to pan and
+              the y component to tilt. If omitted in a request, the current (if any)
+              PanTilt movement should not be affected.
+        Zoom:
+          allOf:
+          - $ref: '#/components/schemas/onvif_Vector1D'
+          - description: A zoom speed. If omitted in a request, the current (if any)
+              Zoom movement should not be affected.
+      type: object
+    onvif_PTZStatus:
+      properties:
+        Error:
+          description: States a current PTZ error.
+          type: string
+        MoveStatus:
+          allOf:
+          - $ref: '#/components/schemas/onvif_PTZMoveStatus'
+          - description: Indicates if the Pan/Tilt/Zoom device unit is currently moving,
+              idle or in an unknown state.
+        Position:
+          allOf:
+          - $ref: '#/components/schemas/onvif_PTZVector'
+          - description: Specifies the absolute position of the PTZ unit together
+              with the Space references. The default absolute spaces of the corresponding
+              PTZ configuration MUST be referenced within the Position element.
+        UtcTime:
+          description: Specifies the UTC time when this status was generated.
+          format: date-time
+          type: string
+      required:
+      - UtcTime
+      type: object
+    onvif_PTZStatusFilterOptions:
+      properties:
+        Extension:
+          $ref: '#/components/schemas/onvif_PTZStatusFilterOptionsExtension'
+        PanTiltPositionSupported:
+          description: True if the device is able to stream the pan or tilt position.
+          type: boolean
+        PanTiltStatusSupported:
+          description: True if the device is able to stream pan or tilt status information.
+          type: boolean
+        ZoomPositionSupported:
+          description: True if the device is able to stream zoom position information.
+          type: boolean
+        ZoomStatusSupported:
+          description: True if the device is able to stream zoom status inforamtion.
+          type: boolean
+      required:
+      - PanTiltStatusSupported
+      - ZoomStatusSupported
+      type: object
+    onvif_PTZStatusFilterOptionsExtension:
+      type: object
+    onvif_PTZVector:
+      properties:
+        PanTilt:
+          allOf:
+          - $ref: '#/components/schemas/onvif_Vector2D'
+          - description: Pan and tilt position. The x component corresponds to pan
+              and the y component to tilt.
+        Zoom:
+          allOf:
+          - $ref: '#/components/schemas/onvif_Vector1D'
+          - description: A zoom position.
+      type: object
+    onvif_PanTiltLimits:
+      properties:
+        Range:
+          allOf:
+          - $ref: '#/components/schemas/onvif_Space2DDescription'
+          - description: A range of pan tilt limits.
+      required:
+      - Range
+      type: object
+    onvif_PrefixedIPv4Address:
+      properties:
+        Address:
+          description: IPv4 address
+          type: string
+        PrefixLength:
+          description: Prefix/submask length
+          format: int32
+          type: integer
+      required:
+      - Address
+      - PrefixLength
+      type: object
+    onvif_PrefixedIPv6Address:
+      properties:
+        Address:
+          description: IPv6 address
+          type: string
+        PrefixLength:
+          description: Prefix/submask length
+          format: int32
+          type: integer
+      required:
+      - Address
+      - PrefixLength
+      type: object
+    onvif_Profile:
+      description: "A media profile consists of a set of media configurations. Media\
+        \ profiles are used by a client\n\t\t\tto configure properties of a media\
+        \ stream from an NVT."
+      properties:
+        AudioEncoderConfiguration:
+          allOf:
+          - $ref: '#/components/schemas/onvif_AudioEncoderConfiguration'
+          - description: Optional configuration of the Audio encoder.
+        AudioSourceConfiguration:
+          allOf:
+          - $ref: '#/components/schemas/onvif_AudioSourceConfiguration'
+          - description: Optional configuration of the Audio input.
+        Extension:
+          allOf:
+          - $ref: '#/components/schemas/onvif_ProfileExtension'
+          - description: Extensions defined in ONVIF 2.0
+        MetadataConfiguration:
+          allOf:
+          - $ref: '#/components/schemas/onvif_MetadataConfiguration'
+          - description: Optional configuration of the metadata stream.
+        Name:
+          description: User readable name of the profile.
+          maxLength: 64
+          type: string
+        PTZConfiguration:
+          allOf:
+          - $ref: '#/components/schemas/onvif_PTZConfiguration'
+          - description: Optional configuration of the pan tilt zoom unit.
+        VideoAnalyticsConfiguration:
+          allOf:
+          - $ref: '#/components/schemas/onvif_VideoAnalyticsConfiguration'
+          - description: Optional configuration of the video analytics module and
+              rule engine.
+        VideoEncoderConfiguration:
+          allOf:
+          - $ref: '#/components/schemas/onvif_VideoEncoderConfiguration'
+          - description: Optional configuration of the Video encoder.
+        VideoSourceConfiguration:
+          allOf:
+          - $ref: '#/components/schemas/onvif_VideoSourceConfiguration'
+          - description: Optional configuration of the Video input.
+        fixed:
+          description: A value of true signals that the profile cannot be deleted.
+            Default is false.
+          type: boolean
+        token:
+          description: Unique identifier of the profile.
+          maxLength: 64
+          type: string
+      required:
+      - token
+      - Name
+      type: object
+    onvif_ProfileCapabilities:
+      properties:
+        MaximumNumberOfProfiles:
+          description: Maximum number of profiles.
+          format: int32
+          type: integer
+      required:
+      - MaximumNumberOfProfiles
+      type: object
+    onvif_ProfileExtension:
+      properties:
+        AudioDecoderConfiguration:
+          allOf:
+          - $ref: '#/components/schemas/onvif_AudioDecoderConfiguration'
+          - description: Optional configuration of the Audio decoder.
+        AudioOutputConfiguration:
+          allOf:
+          - $ref: '#/components/schemas/onvif_AudioOutputConfiguration'
+          - description: Optional configuration of the Audio output.
+        Extension:
+          $ref: '#/components/schemas/onvif_ProfileExtension2'
+      type: object
+    onvif_ProfileExtension2:
+      type: object
+    onvif_RealTimeStreamingCapabilities:
+      properties:
+        Extension:
+          $ref: '#/components/schemas/onvif_RealTimeStreamingCapabilitiesExtension'
+        RTPMulticast:
+          description: Indicates whether or not RTP multicast is supported.
+          type: boolean
+        RTP_RTSP_TCP:
+          description: Indicates whether or not RTP/RTSP/TCP is supported.
+          type: boolean
+        RTP_TCP:
+          description: Indicates whether or not RTP over TCP is supported.
+          type: boolean
+      type: object
+    onvif_RealTimeStreamingCapabilitiesExtension:
+      type: object
+    onvif_ReceiverCapabilities:
+      properties:
+        MaximumRTSPURILength:
+          description: The maximum allowed length for RTSP URIs.
+          format: int32
+          type: integer
+        RTP_Multicast:
+          description: Indicates whether the device can receive RTP multicast streams.
+          type: boolean
+        RTP_RTSP_TCP:
+          description: Indicates whether the device can receive RTP/RTSP/TCP streams.
+          type: boolean
+        RTP_TCP:
+          description: Indicates whether the device can receive RTP/TCP streams
+          type: boolean
+        SupportedReceivers:
+          description: The maximum number of receivers supported by the device.
+          format: int32
+          type: integer
+        XAddr:
+          description: The address of the receiver service.
+          type: string
+      required:
+      - XAddr
+      - RTP_Multicast
+      - RTP_TCP
+      - RTP_RTSP_TCP
+      - SupportedReceivers
+      - MaximumRTSPURILength
+      type: object
+    onvif_ReceiverConfiguration:
+      description: Describes the configuration of a receiver.
+      properties:
+        MediaUri:
+          description: Details of the URI to which the receiver should connect.
+          type: string
+        Mode:
+          allOf:
+          - $ref: '#/components/schemas/onvif_ReceiverMode'
+          - description: 'The following connection modes are defined:'
+        StreamSetup:
+          allOf:
+          - $ref: '#/components/schemas/onvif_StreamSetup'
+          - description: Stream connection parameters.
+      required:
+      - Mode
+      - MediaUri
+      - StreamSetup
+      type: object
+    onvif_ReceiverMode:
+      description: Specifies a receiver connection mode.
+      enum:
+      - AutoConnect
+      - AlwaysConnect
+      - NeverConnect
+      - Unknown
+      type: string
+    onvif_RecordingCapabilities:
+      properties:
+        DynamicRecordings:
+          type: boolean
+        DynamicTracks:
+          type: boolean
+        MaxStringLength:
+          format: int32
+          type: integer
+        MediaProfileSource:
+          type: boolean
+        ReceiverSource:
+          type: boolean
+        XAddr:
+          type: string
+      required:
+      - XAddr
+      - ReceiverSource
+      - MediaProfileSource
+      - DynamicRecordings
+      - DynamicTracks
+      - MaxStringLength
+      type: object
+    onvif_ReplayCapabilities:
+      properties:
+        XAddr:
+          description: The address of the replay service.
+          type: string
+      required:
+      - XAddr
+      type: object
+    onvif_Reverse:
+      properties:
+        Mode:
+          allOf:
+          - $ref: '#/components/schemas/onvif_ReverseMode'
+          - description: Parameter to enable/disable Reverse feature.
+      required:
+      - Mode
+      type: object
+    onvif_ReverseMode:
+      enum:
+      - false
+      - true
+      - AUTO
+      - Extended
+      type: string
+    onvif_ReverseOptions:
+      properties:
+        Extension:
+          $ref: '#/components/schemas/onvif_ReverseOptionsExtension'
+        Mode:
+          description: Options of Reverse mode parameter.
+          items:
+            $ref: '#/components/schemas/onvif_ReverseMode'
+          type: array
+      type: object
+    onvif_ReverseOptionsExtension:
+      type: object
+    onvif_Rotate:
+      properties:
+        Degree:
+          description: Optional parameter to configure how much degree of clockwise
+            rotation of image  for On mode. Omitting this parameter for On mode means
+            180 degree rotation.
+          format: int32
+          type: integer
+        Extension:
+          $ref: '#/components/schemas/onvif_RotateExtension'
+        Mode:
+          allOf:
+          - $ref: '#/components/schemas/onvif_RotateMode'
+          - description: Parameter to enable/disable Rotation feature.
+      required:
+      - Mode
+      type: object
+    onvif_RotateExtension:
+      type: object
+    onvif_RotateMode:
+      enum:
+      - false
+      - true
+      - AUTO
+      type: string
+    onvif_RuleEngineConfiguration:
+      properties:
+        Extension:
+          $ref: '#/components/schemas/onvif_RuleEngineConfigurationExtension'
+        Rule:
+          items:
+            $ref: '#/components/schemas/onvif_Config'
+          type: array
+      type: object
+    onvif_RuleEngineConfigurationExtension:
+      type: object
+    onvif_SceneOrientation:
+      properties:
+        Mode:
+          allOf:
+          - $ref: '#/components/schemas/onvif_SceneOrientationMode'
+          - description: Parameter to assign the way the camera determines the scene
+              orientation.
+        Orientation:
+          description: "Assigned or determined scene orientation based on the Mode.\
+            \ When assigning the Mode to AUTO, this field \n\t\t\t\t\t\tis optional\
+            \ and will be ignored by the device. When assigning the Mode to MANUAL,\
+            \ this field is required \n\t\t\t\t\t\tand the device will return an InvalidArgs\
+            \ fault if missing."
+          type: string
+      required:
+      - Mode
+      type: object
+    onvif_SceneOrientationMode:
+      enum:
+      - MANUAL
+      - AUTO
+      type: string
+    onvif_Scope:
+      properties:
+        ScopeDef:
+          allOf:
+          - $ref: '#/components/schemas/onvif_ScopeDefinition'
+          - description: Indicates if the scope is fixed or configurable.
+        ScopeItem:
+          description: Scope item URI.
+          type: string
+      required:
+      - ScopeDef
+      - ScopeItem
+      type: object
+    onvif_ScopeDefinition:
+      enum:
+      - Fixed
+      - Configurable
+      type: string
+    onvif_SearchCapabilities:
+      properties:
+        MetadataSearch:
+          type: boolean
+        XAddr:
+          type: string
+      required:
+      - XAddr
+      - MetadataSearch
+      type: object
+    onvif_SecurityCapabilities:
+      properties:
+        AccessPolicyConfig:
+          description: Indicates whether or not access policy configuration is supported.
+          type: boolean
+        Extension:
+          $ref: '#/components/schemas/onvif_SecurityCapabilitiesExtension'
+        KerberosToken:
+          description: Indicates whether or not WS-Security Kerberos token is supported.
+          type: boolean
+        OnboardKeyGeneration:
+          description: Indicates whether or not onboard key generation is supported.
+          type: boolean
+        RELToken:
+          description: Indicates whether or not WS-Security REL token is supported.
+          type: boolean
+        SAMLToken:
+          description: Indicates whether or not WS-Security SAML token is supported.
+          type: boolean
+        TLS1.1:
+          description: Indicates whether or not TLS 1.1 is supported.
+          type: boolean
+        TLS1.2:
+          description: Indicates whether or not TLS 1.2 is supported.
+          type: boolean
+        X.509Token:
+          description: Indicates whether or not WS-Security X.509 token is supported.
+          type: boolean
+      required:
+      - TLS1.1
+      - TLS1.2
+      - OnboardKeyGeneration
+      - AccessPolicyConfig
+      - X.509Token
+      - SAMLToken
+      - KerberosToken
+      - RELToken
+      type: object
+    onvif_SecurityCapabilitiesExtension:
+      properties:
+        Extension:
+          $ref: '#/components/schemas/onvif_SecurityCapabilitiesExtension2'
+        TLS1.0:
+          type: boolean
+      required:
+      - TLS1.0
+      type: object
+    onvif_SecurityCapabilitiesExtension2:
+      properties:
+        Dot1X:
+          type: boolean
+        RemoteUserHandling:
+          type: boolean
+        SupportedEAPMethod:
+          description: EAP Methods supported by the device. The int values refer to
+            the
+          items:
+            format: int32
+            type: integer
+          type: array
+      required:
+      - Dot1X
+      - RemoteUserHandling
+      type: object
+    onvif_SetDateTimeType:
+      enum:
+      - Manual
+      - NTP
+      type: string
+    onvif_SimpleItem:
+      description: Value name pair as defined by the corresponding description.
+      properties:
+        Name:
+          description: Item name.
+          type: string
+        Value:
+          description: Item value. The type is defined in the corresponding description.
+          type: string
+      required:
+      - Name
+      - Value
+      type: object
+    onvif_SimpleItemDescription:
+      description: Description of a simple item. The type must be of cathegory simpleType
+        (xs:string, xs:integer, xs:float, ...).
+      properties:
+        Name:
+          description: Item name. Must be unique within a list.
+          type: string
+        Type:
+          type: string
+      required:
+      - Name
+      - Type
+      type: object
+    onvif_Space1DDescription:
+      properties:
+        URI:
+          description: A URI of coordinate systems.
+          type: string
+        XRange:
+          allOf:
+          - $ref: '#/components/schemas/onvif_FloatRange'
+          - description: A range of x-axis.
+      required:
+      - URI
+      - XRange
+      type: object
+    onvif_Space2DDescription:
+      properties:
+        URI:
+          description: A URI of coordinate systems.
+          type: string
+        XRange:
+          allOf:
+          - $ref: '#/components/schemas/onvif_FloatRange'
+          - description: A range of x-axis.
+        YRange:
+          allOf:
+          - $ref: '#/components/schemas/onvif_FloatRange'
+          - description: A range of y-axis.
+      required:
+      - URI
+      - XRange
+      - YRange
+      type: object
+    onvif_StreamSetup:
+      properties:
+        Stream:
+          allOf:
+          - $ref: '#/components/schemas/onvif_StreamType'
+          - description: Defines if a multicast or unicast stream is requested
+        Transport:
+          $ref: '#/components/schemas/onvif_Transport'
+      required:
+      - Stream
+      - Transport
+      type: object
+    onvif_StreamType:
+      enum:
+      - RTP-Unicast
+      - RTP-Multicast
+      type: string
+    onvif_SubscriptionPolicy:
+      type: object
+    onvif_SupportedAnalyticsModules:
+      properties:
+        AnalyticsModuleContentSchemaLocation:
+          description: "It optionally contains a list of URLs that provide the location\
+            \ of schema files.\n\t\t\t\t\tThese schema files describe the types and\
+            \ elements used in the analytics module descriptions.\n\t\t\t\t\tAnalytics\
+            \ module descriptions that reference types or elements imported from any\
+            \ ONVIF defined schema files\n\t\t\t\t\tneed not explicitly list those\
+            \ schema files."
+          items:
+            type: string
+          type: array
+        AnalyticsModuleDescription:
+          items:
+            $ref: '#/components/schemas/onvif_ConfigDescription'
+          type: array
+        Extension:
+          $ref: '#/components/schemas/onvif_SupportedAnalyticsModulesExtension'
+        Limit:
+          description: Maximum number of concurrent instances.
+          format: int32
+          type: integer
+      type: object
+    onvif_SupportedAnalyticsModulesExtension:
+      type: object
+    onvif_SupportedRules:
+      properties:
+        Extension:
+          $ref: '#/components/schemas/onvif_SupportedRulesExtension'
+        Limit:
+          description: Maximum number of concurrent instances.
+          format: int32
+          type: integer
+        RuleContentSchemaLocation:
+          description: Lists the location of all schemas that are referenced in the
+            rules.
+          items:
+            type: string
+          type: array
+        RuleDescription:
+          description: List of rules supported by the Video Analytics configuration..
+          items:
+            $ref: '#/components/schemas/onvif_ConfigDescription'
+          type: array
+      type: object
+    onvif_SupportedRulesExtension:
+      type: object
+    onvif_SystemCapabilities:
+      properties:
+        DiscoveryBye:
+          description: Indicates whether or not WS-Discovery Bye is supported.
+          type: boolean
+        DiscoveryResolve:
+          description: Indicates whether or not WS Discovery resolve requests are
+            supported.
+          type: boolean
+        Extension:
+          $ref: '#/components/schemas/onvif_SystemCapabilitiesExtension'
+        FirmwareUpgrade:
+          description: Indicates whether or not firmware upgrade is supported.
+          type: boolean
+        RemoteDiscovery:
+          description: Indicates whether or not remote discovery is supported.
+          type: boolean
+        SupportedVersions:
+          description: Indicates supported ONVIF version(s).
+          items:
+            $ref: '#/components/schemas/onvif_OnvifVersion'
+          type: array
+        SystemBackup:
+          description: Indicates whether or not system backup is supported.
+          type: boolean
+        SystemLogging:
+          description: Indicates whether or not system logging is supported.
+          type: boolean
+      required:
+      - DiscoveryResolve
+      - DiscoveryBye
+      - RemoteDiscovery
+      - SystemBackup
+      - SystemLogging
+      - FirmwareUpgrade
+      - SupportedVersions
+      type: object
+    onvif_SystemCapabilitiesExtension:
+      properties:
+        Extension:
+          $ref: '#/components/schemas/onvif_SystemCapabilitiesExtension2'
+        HttpFirmwareUpgrade:
+          type: boolean
+        HttpSupportInformation:
+          type: boolean
+        HttpSystemBackup:
+          type: boolean
+        HttpSystemLogging:
+          type: boolean
+      type: object
+    onvif_SystemCapabilitiesExtension2:
+      type: object
+    onvif_SystemDateTime:
+      description: General date time inforamtion returned by the GetSystemDateTime
+        method.
+      properties:
+        DateTimeType:
+          allOf:
+          - $ref: '#/components/schemas/onvif_SetDateTimeType'
+          - description: Indicates if the time is set manully or through NTP.
+        DaylightSavings:
+          description: Informative indicator whether daylight savings is currently
+            on/off.
+          type: boolean
+        Extension:
+          $ref: '#/components/schemas/onvif_SystemDateTimeExtension'
+        LocalDateTime:
+          allOf:
+          - $ref: '#/components/schemas/onvif_DateTime'
+          - description: Date and time in local format.
+        TimeZone:
+          allOf:
+          - $ref: '#/components/schemas/onvif_TimeZone'
+          - description: Timezone information in Posix format.
+        UTCDateTime:
+          allOf:
+          - $ref: '#/components/schemas/onvif_DateTime'
+          - description: Current system date and time in UTC format. This field is
+              mandatory since version 2.0.
+      required:
+      - DateTimeType
+      - DaylightSavings
+      type: object
+    onvif_SystemDateTimeExtension:
+      type: object
+    onvif_Time:
+      properties:
+        Hour:
+          description: Range is 0 to 23.
+          format: int32
+          type: integer
+        Minute:
+          description: Range is 0 to 59.
+          format: int32
+          type: integer
+        Second:
+          description: Range is 0 to 61 (typically 59).
+          format: int32
+          type: integer
+      required:
+      - Hour
+      - Minute
+      - Second
+      type: object
+    onvif_TimeZone:
+      description: The TZ format is specified by POSIX, please refer to POSIX 1003.1
+        section 8.3
+      properties:
+        TZ:
+          description: Posix timezone string.
+          type: string
+      required:
+      - TZ
+      type: object
+    onvif_Transport:
+      properties:
+        Protocol:
+          allOf:
+          - $ref: '#/components/schemas/onvif_TransportProtocol'
+          - description: Defines the network protocol for streaming, either UDP=RTP/UDP,
+              RTSP=RTP/RTSP/TCP or HTTP=RTP/RTSP/HTTP/TCP
+        Tunnel:
+          allOf:
+          - $ref: '#/components/schemas/onvif_Transport'
+          - description: Optional element to describe further tunnel options. This
+              element is normally not needed
+      required:
+      - Protocol
+      type: object
+    onvif_TransportProtocol:
+      enum:
+      - UDP
+      - TCP
+      - RTSP
+      - HTTP
+      type: string
+    onvif_User:
+      properties:
+        Extension:
+          $ref: '#/components/schemas/onvif_UserExtension'
+        Password:
+          description: Password string.
+          type: string
+        UserLevel:
+          allOf:
+          - $ref: '#/components/schemas/onvif_UserLevel'
+          - description: User level string.
+        Username:
+          description: Username string.
+          type: string
+      required:
+      - Username
+      - UserLevel
+      type: object
+    onvif_UserExtension:
+      type: object
+    onvif_UserLevel:
+      enum:
+      - Administrator
+      - Operator
+      - User
+      - Anonymous
+      - Extended
+      type: string
+    onvif_Vector1D:
+      properties:
+        space:
+          description: 'Zoom coordinate space selector. The following options are
+            defined:'
+          type: string
+        x:
+          type: number
+      required:
+      - x
+      type: object
+    onvif_Vector2D:
+      properties:
+        space:
+          description: 'Pan/tilt coordinate space selector. The following options
+            are defined:'
+          type: string
+        x:
+          type: number
+        y:
+          type: number
+      required:
+      - x
+      - y
+      type: object
+    onvif_VideoAnalyticsConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/onvif_ConfigurationEntity'
+      - properties:
+          AnalyticsEngineConfiguration:
+            $ref: '#/components/schemas/onvif_AnalyticsEngineConfiguration'
+          RuleEngineConfiguration:
+            $ref: '#/components/schemas/onvif_RuleEngineConfiguration'
+        required:
+        - AnalyticsEngineConfiguration
+        - RuleEngineConfiguration
+        type: object
+    onvif_VideoEncoder2Configuration:
+      allOf:
+      - $ref: '#/components/schemas/onvif_ConfigurationEntity'
+      - properties:
+          Encoding:
+            description: Video Media Subtype for the video format. For definitions
+              see tt:VideoEncodingMimeNames and
+            type: string
+          GovLength:
+            description: Group of Video frames length. Determines typically the interval
+              in which the I-Frames will be coded. An entry of 1 indicates I-Frames
+              are continuously generated. An entry of 2 indicates that every 2nd image
+              is an I-Frame, and 3 only every 3rd frame, etc. The frames in between
+              are coded as P or B Frames.
+            format: int32
+            type: integer
+          GuaranteedFrameRate:
+            description: "A value of true indicates that frame rate is a fixed value\
+              \ rather than an upper limit,\n\t\t\t\t\t\t\tand that the video encoder\
+              \ shall prioritize frame rate over all other adaptable\n\t\t\t\t\t\t\
+              \tconfiguration values such as bitrate.  Default is false."
+            type: boolean
+          Multicast:
+            allOf:
+            - $ref: '#/components/schemas/onvif_MulticastConfiguration'
+            - description: Defines the multicast settings that could be used for video
+                streaming.
+          Profile:
+            description: The encoder profile as defined in tt:VideoEncodingProfiles.
+            type: string
+          Quality:
+            description: Relative value for the video quantizers and the quality of
+              the video. A high value within supported quality range means higher
+              quality
+            type: number
+          RateControl:
+            allOf:
+            - $ref: '#/components/schemas/onvif_VideoRateControl2'
+            - description: Optional element to configure rate control related parameters.
+          Resolution:
+            allOf:
+            - $ref: '#/components/schemas/onvif_VideoResolution2'
+            - description: Configured video resolution
+        required:
+        - Encoding
+        - Resolution
+        - Quality
+        type: object
+    onvif_VideoEncoderConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/onvif_ConfigurationEntity'
+      - properties:
+          Encoding:
+            allOf:
+            - $ref: '#/components/schemas/onvif_VideoEncoding'
+            - description: Used video codec, either Jpeg, H.264 or Mpeg4
+          GuaranteedFrameRate:
+            description: "A value of true indicates that frame rate is a fixed value\
+              \ rather than an upper limit,\n\t\t\t\t\t\t\tand that the video encoder\
+              \ shall prioritize frame rate over all other adaptable\n\t\t\t\t\t\t\
+              \tconfiguration values such as bitrate.  Default is false."
+            type: boolean
+          H264:
+            allOf:
+            - $ref: '#/components/schemas/onvif_H264Configuration'
+            - description: Optional element to configure H.264 related parameters.
+          MPEG4:
+            allOf:
+            - $ref: '#/components/schemas/onvif_Mpeg4Configuration'
+            - description: Optional element to configure Mpeg4 related parameters.
+          Multicast:
+            allOf:
+            - $ref: '#/components/schemas/onvif_MulticastConfiguration'
+            - description: Defines the multicast settings that could be used for video
+                streaming.
+          Quality:
+            description: Relative value for the video quantizers and the quality of
+              the video. A high value within supported quality range means higher
+              quality
+            type: number
+          RateControl:
+            allOf:
+            - $ref: '#/components/schemas/onvif_VideoRateControl'
+            - description: Optional element to configure rate control related parameters.
+          Resolution:
+            allOf:
+            - $ref: '#/components/schemas/onvif_VideoResolution'
+            - description: Configured video resolution
+          SessionTimeout:
+            description: The rtsp session timeout for the related video stream
+            format: date-time
+            type: string
+        required:
+        - Encoding
+        - Resolution
+        - Quality
+        - Multicast
+        - SessionTimeout
+        type: object
+    onvif_VideoEncoderConfigurationOptions:
+      properties:
+        Extension:
+          $ref: '#/components/schemas/onvif_VideoEncoderOptionsExtension'
+        GuaranteedFrameRateSupported:
+          description: Indicates the support for the GuaranteedFrameRate attribute
+            on the VideoEncoderConfiguration element.
+          type: boolean
+        H264:
+          allOf:
+          - $ref: '#/components/schemas/onvif_H264Options'
+          - description: Optional H.264 encoder settings ranges (See also Extension
+              element).
+        JPEG:
+          allOf:
+          - $ref: '#/components/schemas/onvif_JpegOptions'
+          - description: Optional JPEG encoder settings ranges (See also Extension
+              element).
+        MPEG4:
+          allOf:
+          - $ref: '#/components/schemas/onvif_Mpeg4Options'
+          - description: Optional MPEG-4 encoder settings ranges (See also Extension
+              element).
+        QualityRange:
+          allOf:
+          - $ref: '#/components/schemas/onvif_IntRange'
+          - description: Range of the quality values. A high value means higher quality.
+      required:
+      - QualityRange
+      type: object
+    onvif_VideoEncoderOptionsExtension:
+      properties:
+        Extension:
+          $ref: '#/components/schemas/onvif_VideoEncoderOptionsExtension2'
+        H264:
+          allOf:
+          - $ref: '#/components/schemas/onvif_H264Options2'
+          - description: Optional H.264 encoder settings ranges.
+        JPEG:
+          allOf:
+          - $ref: '#/components/schemas/onvif_JpegOptions2'
+          - description: Optional JPEG encoder settings ranges.
+        MPEG4:
+          allOf:
+          - $ref: '#/components/schemas/onvif_Mpeg4Options2'
+          - description: Optional MPEG-4 encoder settings ranges.
+      type: object
+    onvif_VideoEncoderOptionsExtension2:
+      type: object
+    onvif_VideoEncoding:
+      enum:
+      - JPEG
+      - MPEG4
+      - H264
+      type: string
+    onvif_VideoRateControl:
+      properties:
+        BitrateLimit:
+          description: the maximum output bitrate in kbps
+          format: int32
+          type: integer
+        EncodingInterval:
+          description: Interval at which images are encoded and transmitted. (A value
+            of 1 means that every frame is encoded, a value of 2 means that every
+            2nd frame is encoded ...)
+          format: int32
+          type: integer
+        FrameRateLimit:
+          description: Maximum output framerate in fps. If an EncodingInterval is
+            provided the resulting encoded framerate will be reduced by the given
+            factor.
+          format: int32
+          type: integer
+      required:
+      - FrameRateLimit
+      - EncodingInterval
+      - BitrateLimit
+      type: object
+    onvif_VideoRateControl2:
+      properties:
+        BitrateLimit:
+          description: the maximum output bitrate in kbps
+          format: int32
+          type: integer
+        ConstantBitRate:
+          description: Enforce constant bitrate.
+          type: boolean
+        FrameRateLimit:
+          description: Desired frame rate in fps. The actual rate may be lower due
+            to e.g. performance limitations.
+          type: number
+      required:
+      - FrameRateLimit
+      - BitrateLimit
+      type: object
+    onvif_VideoResolution:
+      properties:
+        Height:
+          description: Number of the lines of the Video image.
+          format: int32
+          type: integer
+        Width:
+          description: Number of the columns of the Video image.
+          format: int32
+          type: integer
+      required:
+      - Width
+      - Height
+      type: object
+    onvif_VideoResolution2:
+      properties:
+        Height:
+          description: Number of the lines of the Video image.
+          format: int32
+          type: integer
+        Width:
+          description: Number of the columns of the Video image.
+          format: int32
+          type: integer
+      required:
+      - Width
+      - Height
+      type: object
+    onvif_VideoSourceConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/onvif_ConfigurationEntity'
+      - properties:
+          Bounds:
+            allOf:
+            - $ref: '#/components/schemas/onvif_IntRectangle'
+            - description: Rectangle specifying the Video capturing area. The capturing
+                area shall not be larger than the whole Video source area.
+          Extension:
+            $ref: '#/components/schemas/onvif_VideoSourceConfigurationExtension'
+          SourceToken:
+            description: Reference to the physical input.
+            maxLength: 64
+            type: string
+          ViewMode:
+            description: Readonly parameter signalling Source configuration's view
+              mode, for devices supporting different view modes as defined in tt:viewModes.
+            type: string
+        required:
+        - SourceToken
+        - Bounds
+        type: object
+    onvif_VideoSourceConfigurationExtension:
+      properties:
+        Extension:
+          $ref: '#/components/schemas/onvif_VideoSourceConfigurationExtension2'
+        Rotate:
+          allOf:
+          - $ref: '#/components/schemas/onvif_Rotate'
+          - description: "Optional element to configure rotation of captured image.\n\
+              \t\t\t\t\t\tWhat resolutions a device supports shall be unaffected by\
+              \ the Rotate parameters."
+      type: object
+    onvif_VideoSourceConfigurationExtension2:
+      properties:
+        LensDescription:
+          description: Optional element describing the geometric lens distortion.
+            Multiple instances for future variable lens support.
+          items:
+            $ref: '#/components/schemas/onvif_LensDescription'
+          type: array
+        SceneOrientation:
+          allOf:
+          - $ref: '#/components/schemas/onvif_SceneOrientation'
+          - description: Optional element describing the scene orientation in the
+              camera’s field of view.
+      type: object
+    onvif_ZoomLimits:
+      properties:
+        Range:
+          allOf:
+          - $ref: '#/components/schemas/onvif_Space1DDescription'
+          - description: A range of zoom limit
+      required:
+      - Range
+      type: object
+    soapenv_subcode:
+      properties:
+        Subcode:
+          $ref: '#/components/schemas/soapenv_subcode'
+        Value:
+          type: string
+      required:
+      - Value
+      type: object
+    wsnt_AbsoluteOrRelativeTimeType:
+      oneOf:
+      - type: string
+      - type: string
+    wsnt_FilterType:
+      type: object
+    wstop_Documentation:
+      type: object
+    wstop_ExtensibleDocumented:
+      properties:
+        documentation:
+          $ref: '#/components/schemas/wstop_Documentation'
+      type: object
+    wstop_TopicSetType:
+      allOf:
+      - $ref: '#/components/schemas/wstop_ExtensibleDocumented'
+      - type: object
+    device_AddScopes:
+      properties:
+        ScopeItem:
+          description: Contains a list of new configurable scope parameters that will
+            be added to the existing configurable scope.
+          items:
+            type: string
+          type: array
+      required:
+      - ScopeItem
+      type: object
+    device_CreateUsers:
+      properties:
+        User:
+          description: 'Creates new device users and corresponding credentials. Each
+            user entry includes: username, password and user level. Either all users
+            are created successfully or a fault message MUST be returned without creating
+            any user. If trying to create several users with exactly the same username
+            the request is rejected and no users are created. If password is missing,
+            then fault message Too weak password is returned.'
+          items:
+            $ref: '#/components/schemas/onvif_User'
+          type: array
+      required:
+      - User
+      type: object
+    device_DeleteUsers:
+      properties:
+        Username:
+          description: Deletes users on an device and there may exist users that cannot
+            be deleted to ensure access to the unit. Either all users are deleted
+            successfully or a fault message MUST be returned and no users be deleted.
+            If a username exists multiple times in the request, then a fault message
+            is returned.
+          items:
+            type: string
+          type: array
+      required:
+      - Username
+      type: object
+    device_DeviceServiceCapabilities:
+      properties:
+        Misc:
+          allOf:
+          - $ref: '#/components/schemas/device_MiscCapabilities'
+          - description: Capabilities that do not fit in any of the other categories.
+        Network:
+          allOf:
+          - $ref: '#/components/schemas/device_NetworkCapabilities'
+          - description: Network capabilities.
+        Security:
+          allOf:
+          - $ref: '#/components/schemas/device_SecurityCapabilities'
+          - description: Security capabilities.
+        System:
+          allOf:
+          - $ref: '#/components/schemas/device_SystemCapabilities'
+          - description: System capabilities.
+      required:
+      - Network
+      - Security
+      - System
+      type: object
+    device_GetCapabilitiesResponse:
+      properties:
+        Capabilities:
+          allOf:
+          - $ref: '#/components/schemas/onvif_Capabilities'
+          - description: Capability information.
+      required:
+      - Capabilities
+      type: object
+    device_GetDNSResponse:
+      properties:
+        DNSInformation:
+          allOf:
+          - $ref: '#/components/schemas/onvif_DNSInformation'
+          - description: DNS information.
+      required:
+      - DNSInformation
+      type: object
+    device_GetDeviceInformationResponse:
+      properties:
+        FirmwareVersion:
+          description: The firmware version in the device.
+          type: string
+        HardwareId:
+          description: The hardware ID of the device.
+          type: string
+        Manufacturer:
+          description: The manufactor of the device.
+          type: string
+        Model:
+          description: The device model.
+          type: string
+        SerialNumber:
+          description: The serial number of the device.
+          type: string
+      required:
+      - Manufacturer
+      - Model
+      - FirmwareVersion
+      - SerialNumber
+      - HardwareId
+      type: object
+    device_GetDiscoveryModeResponse:
+      properties:
+        DiscoveryMode:
+          allOf:
+          - $ref: '#/components/schemas/onvif_DiscoveryMode'
+          - description: 'Indicator of discovery mode: Discoverable, NonDiscoverable.'
+      required:
+      - DiscoveryMode
+      type: object
+    device_GetEndpointReferenceResponse:
+      properties:
+        GUID:
+          type: string
+      required:
+      - GUID
+      type: object
+    device_GetHostnameResponse:
+      properties:
+        HostnameInformation:
+          allOf:
+          - $ref: '#/components/schemas/onvif_HostnameInformation'
+          - description: Contains the hostname information.
+      required:
+      - HostnameInformation
+      type: object
+    device_GetNetworkDefaultGatewayResponse:
+      properties:
+        NetworkGateway:
+          allOf:
+          - $ref: '#/components/schemas/onvif_NetworkGateway'
+          - description: Gets the default IPv4 and IPv6 gateway settings from the
+              device.
+      required:
+      - NetworkGateway
+      type: object
+    device_GetNetworkInterfacesResponse:
+      properties:
+        NetworkInterfaces:
+          description: List of network interfaces.
+          items:
+            $ref: '#/components/schemas/onvif_NetworkInterface'
+          type: array
+      required:
+      - NetworkInterfaces
+      type: object
+    device_GetNetworkProtocolsResponse:
+      properties:
+        NetworkProtocols:
+          description: 'Contains an array of defined protocols supported by the device.
+            There are three protocols defined; HTTP, HTTPS and RTSP. The following
+            parameters can be retrieved for each protocol: port and enable/disable.'
+          items:
+            $ref: '#/components/schemas/onvif_NetworkProtocol'
+          type: array
+      type: object
+    device_GetScopesResponse:
+      properties:
+        Scopes:
+          description: 'Contains a list of URI definining the device scopes. Scope
+            parameters can be of two types: fixed and configurable. Fixed parameters
+            can not be altered.'
+          items:
+            $ref: '#/components/schemas/onvif_Scope'
+          type: array
+      required:
+      - Scopes
+      type: object
+    device_GetServiceCapabilitiesResponse:
+      properties:
+        Capabilities:
+          allOf:
+          - $ref: '#/components/schemas/device_DeviceServiceCapabilities'
+          - description: The capabilities for the device service is returned in the
+              Capabilities element.
+      required:
+      - Capabilities
+      type: object
+    device_GetSystemDateAndTimeResponse:
+      properties:
+        SystemDateAndTime:
+          allOf:
+          - $ref: '#/components/schemas/onvif_SystemDateTime'
+          - description: Contains information whether system date and time are set
+              manually or by NTP, daylight savings is on or off, time zone in POSIX
+              1003.1 format and system date and time in UTC and also local system
+              date and time.
+      required:
+      - SystemDateAndTime
+      type: object
+    device_GetUsersResponse:
+      properties:
+        User:
+          description: 'Contains a list of the onvif users and following information
+            is included in each entry: username and user level.'
+          items:
+            $ref: '#/components/schemas/onvif_User'
+          type: array
+      type: object
+    device_MiscCapabilities:
+      properties:
+        AuxiliaryCommands:
+          description: Lists of commands supported by SendAuxiliaryCommand.
+          type: string
+      type: object
+    device_NetworkCapabilities:
+      properties:
+        DHCPv6:
+          description: Indicates support for Stateful IPv6 DHCP.
+          type: boolean
+        Dot11Configuration:
+          description: Indicates support for IEEE 802.11 configuration.
+          type: boolean
+        Dot1XConfigurations:
+          description: Indicates the maximum number of Dot1X configurations supported
+            by the device
+          format: int32
+          type: integer
+        DynDNS:
+          description: Indicates support for dynamic DNS configuration.
+          type: boolean
+        HostnameFromDHCP:
+          description: Indicates support for retrieval of hostname from DHCP.
+          type: boolean
+        IPFilter:
+          description: Indicates support for IP filtering.
+          type: boolean
+        IPVersion6:
+          description: Indicates support for IPv6.
+          type: boolean
+        NTP:
+          description: Maximum number of NTP servers supported by the devices SetNTP
+            command.
+          format: int32
+          type: integer
+        ZeroConfiguration:
+          description: Indicates support for zeroconf.
+          type: boolean
+      type: object
+    device_RemoveScopes:
+      properties:
+        ScopeItem:
+          description: Contains a list of URIs that should be removed from the device
+            scope.
+          items:
+            type: string
+          type: array
+      required:
+      - ScopeItem
+      type: object
+    device_SecurityCapabilities:
+      properties:
+        AccessPolicyConfig:
+          description: Indicates support for access policy configuration.
+          type: boolean
+        DefaultAccessPolicy:
+          description: Indicates support for the ONVIF default access policy.
+          type: boolean
+        Dot1X:
+          description: Indicates support for IEEE 802.1X configuration.
+          type: boolean
+        HttpDigest:
+          description: Indicates support for WS over HTTP digest authenticated communication
+            layer.
+          type: boolean
+        KerberosToken:
+          description: Indicates support for WS-Security Kerberos token.
+          type: boolean
+        MaxPasswordHistory:
+          description: Maximum number of passwords that the device can remember for
+            each user
+          format: int32
+          type: integer
+        MaxPasswordLength:
+          description: Maximum number of characters supported for the password by
+            CreateUsers and SetUser.
+          format: int32
+          type: integer
+        MaxUserNameLength:
+          description: Maximum number of characters supported for the username by
+            CreateUsers.
+          format: int32
+          type: integer
+        MaxUsers:
+          description: The maximum number of users that the device supports.
+          format: int32
+          type: integer
+        OnboardKeyGeneration:
+          description: Indicates support for onboard key generation.
+          type: boolean
+        RELToken:
+          description: Indicates support for WS-Security REL token.
+          type: boolean
+        RemoteUserHandling:
+          description: Indicates support for remote user configuration. Used when
+            accessing another device.
+          type: boolean
+        SAMLToken:
+          description: Indicates support for WS-Security SAML token.
+          type: boolean
+        SecurityPolicies:
+          description: 'Indicates which security policies are supported. Options are:
+            ModifyPassword, PasswordComplexity, AuthFailureWarnings'
+          type: string
+        SupportedEAPMethods:
+          description: EAP Methods supported by the device. The int values refer to
+            the
+          format: int32
+          type: integer
+        TLS1.0:
+          description: Indicates support for TLS 1.0.
+          type: boolean
+        TLS1.1:
+          description: Indicates support for TLS 1.1.
+          type: boolean
+        TLS1.2:
+          description: Indicates support for TLS 1.2.
+          type: boolean
+        UsernameToken:
+          description: Indicates support for WS-Security Username token.
+          type: boolean
+        X.509Token:
+          description: Indicates support for WS-Security X.509 token.
+          type: boolean
+      type: object
+    device_SetDNS:
+      properties:
+        DNSManual:
+          description: DNS address(es) set manually.
+          items:
+            $ref: '#/components/schemas/onvif_IPAddress'
+          type: array
+        FromDHCP:
+          description: Indicate if the DNS address is to be retrieved using DHCP.
+          type: boolean
+        SearchDomain:
+          description: DNS search domain.
+          items:
+            type: string
+          type: array
+      required:
+      - FromDHCP
+      type: object
+    device_SetDiscoveryMode:
+      properties:
+        DiscoveryMode:
+          allOf:
+          - $ref: '#/components/schemas/onvif_DiscoveryMode'
+          - description: 'Indicator of discovery mode: Discoverable, NonDiscoverable.'
+      required:
+      - DiscoveryMode
+      type: object
+    device_SetHostname:
+      properties:
+        Name:
+          description: The hostname to set.
+          type: string
+      required:
+      - Name
+      type: object
+    device_SetNetworkDefaultGateway:
+      properties:
+        IPv4Address:
+          description: Sets IPv4 gateway address used as default setting.
+          items:
+            type: string
+          type: array
+        IPv6Address:
+          description: Sets IPv6 gateway address used as default setting.
+          items:
+            type: string
+          type: array
+      type: object
+    device_SetNetworkInterfaces:
+      properties:
+        InterfaceToken:
+          description: Symbolic network interface name.
+          maxLength: 64
+          type: string
+        NetworkInterface:
+          allOf:
+          - $ref: '#/components/schemas/onvif_NetworkInterfaceSetConfiguration'
+          - description: Network interface name.
+      required:
+      - InterfaceToken
+      - NetworkInterface
+      type: object
+    device_SetNetworkProtocols:
+      properties:
+        NetworkProtocols:
+          description: 'Configures one or more defined network protocols supported
+            by the device. There are currently three protocols defined; HTTP, HTTPS
+            and RTSP. The following parameters can be set for each protocol: port
+            and enable/disable.'
+          items:
+            $ref: '#/components/schemas/onvif_NetworkProtocol'
+          type: array
+      required:
+      - NetworkProtocols
+      type: object
+    device_SetScopes:
+      properties:
+        Scopes:
+          description: Contains a list of scope parameters that will replace all existing
+            configurable scope parameters.
+          items:
+            type: string
+          type: array
+      required:
+      - Scopes
+      type: object
+    device_SetSystemDateAndTime:
+      properties:
+        DateTimeType:
+          allOf:
+          - $ref: '#/components/schemas/onvif_SetDateTimeType'
+          - description: Defines if the date and time is set via NTP or manually.
+        DaylightSavings:
+          description: Automatically adjust Daylight savings if defined in TimeZone.
+          type: boolean
+        TimeZone:
+          allOf:
+          - $ref: '#/components/schemas/onvif_TimeZone'
+          - description: The time zone in POSIX 1003.1 format
+        UTCDateTime:
+          allOf:
+          - $ref: '#/components/schemas/onvif_DateTime'
+          - description: Date and time in UTC. If time is obtained via NTP, UTCDateTime
+              has no meaning
+      required:
+      - DateTimeType
+      - DaylightSavings
+      type: object
+    device_SetSystemFactoryDefault:
+      properties:
+        FactoryDefault:
+          allOf:
+          - $ref: '#/components/schemas/onvif_FactoryDefaultType'
+          - description: Specifies the factory default action type.
+      required:
+      - FactoryDefault
+      type: object
+    device_SetUser:
+      properties:
+        User:
+          description: Updates the credentials for one or several users on an device.
+            Either all change requests are processed successfully or a fault message
+            MUST be returned. If the request contains the same username multiple times,
+            a fault message is returned.
+          items:
+            $ref: '#/components/schemas/onvif_User'
+          type: array
+      required:
+      - User
+      type: object
+    device_SystemCapabilities:
+      properties:
+        Addons:
+          description: List of supported Addons by the device.
+          type: string
+        AutoGeo:
+          description: List of supported automatic GeoLocation adjustment supported
+            by the device. Valid items are defined by tds:AutoGeoMode.
+          type: string
+        DiscoveryBye:
+          description: Indicates support for WS-Discovery Bye.
+          type: boolean
+        DiscoveryNotSupported:
+          description: Indicates no support for network discovery.
+          type: boolean
+        DiscoveryResolve:
+          description: Indicates support for WS Discovery resolve requests.
+          type: boolean
+        FirmwareUpgrade:
+          description: Indicates support for firmware upgrade through MTOM.
+          type: boolean
+        GeoLocationEntries:
+          description: If present signals support for geo location. The value signals
+            the supported number of entries.
+          format: int32
+          type: integer
+        HttpFirmwareUpgrade:
+          description: Indicates support for firmware upgrade through HTTP.
+          type: boolean
+        HttpSupportInformation:
+          description: Indicates support for retrieving support information through
+            HTTP.
+          type: boolean
+        HttpSystemBackup:
+          description: Indicates support for system backup through HTTP.
+          type: boolean
+        HttpSystemLogging:
+          description: Indicates support for retrieval of system logging through HTTP.
+          type: boolean
+        MaxStorageConfigurations:
+          description: Indicates maximum number of storage configurations supported.
+          format: int32
+          type: integer
+        NetworkConfigNotSupported:
+          description: Indicates no support for network configuration.
+          type: boolean
+        RemoteDiscovery:
+          description: Indicates support for remote discovery.
+          type: boolean
+        StorageConfiguration:
+          description: Indicates support for storage configuration interfaces.
+          type: boolean
+        StorageTypesSupported:
+          description: Enumerates the supported StorageTypes, see tds:StorageType.
+          type: string
+        SystemBackup:
+          description: Indicates support for system backup through MTOM.
+          type: boolean
+        SystemLogging:
+          description: Indicates support for retrieval of system logging through MTOM.
+          type: boolean
+        UserConfigNotSupported:
+          description: Indicates no support for user configuration.
+          type: boolean
+      type: object
+    device_SystemReboot:
+      type: object
+    event_Capabilities:
+      properties:
+        EventBrokerProtocols:
+          description: A space separated list of supported event broker protocols
+            as defined by the tev:EventBrokerProtocol datatype.
+          type: string
+        MaxEventBrokers:
+          description: Maxiumum number of event broker configurations that can be
+            added to the device.
+          format: int32
+          type: integer
+        MaxNotificationProducers:
+          description: Maximum number of supported notification producers as defined
+            by WS-BaseNotification.
+          format: int32
+          type: integer
+        MaxPullPoints:
+          description: Maximum supported number of notification pull points.
+          format: int32
+          type: integer
+        MetadataOverMQTT:
+          description: Indicates that metadata streaming over MQTT is supported
+          type: boolean
+        PersistentNotificationStorage:
+          description: Indication if the device supports persistent notification storage.
+          type: boolean
+        WSPausableSubscriptionManagerInterfaceSupport:
+          description: Indicates that the WS Pausable Subscription Manager Interface
+            is supported.
+          type: boolean
+        WSPullPointSupport:
+          description: Indicates that the WS Pull Point is supported.
+          type: boolean
+        WSSubscriptionPolicySupport:
+          description: Indicates that the WS Subscription policy is supported.
+          type: boolean
+      type: object
+    event_GetEventPropertiesResponse:
+      properties:
+        FixedTopicSet:
+          description: True when topicset is fixed for all times.
+          type: boolean
+        MessageContentFilterDialect:
+          description: Defines the XPath function set supported for message content
+            filtering.
+          items:
+            type: string
+          type: array
+        MessageContentSchemaLocation:
+          description: "The Message Content Description Language allows referencing\n\
+            \t\t\t\t\t\t\tof vendor-specific types. In order to ease the integration\
+            \ of such types into a client application,\n\t\t\t\t\t\t\tthe GetEventPropertiesResponse\
+            \ shall list all URI locations to schema files whose types are\n\t\t\t\
+            \t\t\t\tused in the description of notifications, with MessageContentSchemaLocation\
+            \ elements."
+          items:
+            type: string
+          type: array
+        ProducerPropertiesFilterDialect:
+          description: Optional ProducerPropertiesDialects. Refer to
+          items:
+            type: string
+          type: array
+        TopicExpressionDialect:
+          description: Defines the XPath expression syntax supported for matching
+            topic expressions.
+          items:
+            type: string
+          type: array
+        TopicNamespaceLocation:
+          description: List of topic namespaces supported.
+          items:
+            type: string
+          type: array
+        TopicSet:
+          allOf:
+          - $ref: '#/components/schemas/wstop_TopicSetType'
+          - description: Set of topics supported.
+      required:
+      - TopicNamespaceLocation
+      - FixedTopicSet
+      - TopicSet
+      - TopicExpressionDialect
+      - MessageContentFilterDialect
+      - MessageContentSchemaLocation
+      type: object
+    event_GetServiceCapabilitiesResponse:
+      properties:
+        Capabilities:
+          allOf:
+          - $ref: '#/components/schemas/event_Capabilities'
+          - description: The capabilities for the event service is returned in the
+              Capabilities element.
+      required:
+      - Capabilities
+      type: object
+    imaging_Capabilities:
+      properties:
+        AdaptablePreset:
+          description: Indicates whether or not imaging preset settings can be updated.
+          type: boolean
+        ImageStabilization:
+          description: "Indicates whether or not Image Stabilization feature is supported.\n\
+            \t\t\t\t\t\tThe use of this capability is deprecated, a client should\
+            \ use GetOption to find out if image stabilization is supported."
+          type: boolean
+        Presets:
+          description: Indicates whether or not Imaging Presets feature is supported.
+          type: boolean
+      type: object
+    imaging_GetServiceCapabilitiesResponse:
+      properties:
+        Capabilities:
+          allOf:
+          - $ref: '#/components/schemas/imaging_Capabilities'
+          - description: The capabilities for the imaging service is returned in the
+              Capabilities element.
+      required:
+      - Capabilities
+      type: object
+    media_AddMetadataConfiguration:
+      properties:
+        ConfigurationToken:
+          description: Contains a reference to the MetadataConfiguration to add
+          maxLength: 64
+          type: string
+        ProfileToken:
+          description: Reference to the profile where the configuration should be
+            added
+          maxLength: 64
+          type: string
+      required:
+      - ProfileToken
+      - ConfigurationToken
+      type: object
+    media_AddPTZConfiguration:
+      properties:
+        ConfigurationToken:
+          description: Contains a reference to the PTZConfiguration to add
+          maxLength: 64
+          type: string
+        ProfileToken:
+          description: Reference to the profile where the configuration should be
+            added
+          maxLength: 64
+          type: string
+      required:
+      - ProfileToken
+      - ConfigurationToken
+      type: object
+    media_Capabilities:
+      properties:
+        EXICompression:
+          description: Indicates the support for the Efficient XML Interchange (EXI)
+            binary XML format.
+          type: boolean
+        OSD:
+          description: Indicates if OSD is supported.
+          type: boolean
+        ProfileCapabilities:
+          allOf:
+          - $ref: '#/components/schemas/media_ProfileCapabilities'
+          - description: Media profile capabilities.
+        Rotation:
+          description: Indicates whether or not Rotation feature is supported.
+          type: boolean
+        SnapshotUri:
+          description: Indicates if GetSnapshotUri is supported.
+          type: boolean
+        StreamingCapabilities:
+          allOf:
+          - $ref: '#/components/schemas/media_StreamingCapabilities'
+          - description: Streaming capabilities.
+        TemporaryOSDText:
+          description: Indicates the support for temporary osd text configuration.
+          type: boolean
+        VideoSourceMode:
+          description: Indicates the support for changing video source mode.
+          type: boolean
+      required:
+      - ProfileCapabilities
+      - StreamingCapabilities
+      type: object
+    media_GetCompatibleMetadataConfigurationsResponse:
+      properties:
+        Configurations:
+          description: Contains a list of metadata configurations that are compatible
+            with the specified media profile.
+          items:
+            $ref: '#/components/schemas/onvif_MetadataConfiguration'
+          type: array
+      type: object
+    media_GetMetadataConfigurationOptionsResponse:
+      properties:
+        Options:
+          allOf:
+          - $ref: '#/components/schemas/onvif_MetadataConfigurationOptions'
+          - description: This message contains the metadata configuration options.
+              If a metadata configuration is specified, the options shall concern
+              that particular configuration. If a media profile is specified, the
+              options shall be compatible with that media profile. If no tokens are
+              specified, the options shall be considered generic for the device.
+      required:
+      - Options
+      type: object
+    media_GetMetadataConfigurationResponse:
+      properties:
+        Configuration:
+          allOf:
+          - $ref: '#/components/schemas/onvif_MetadataConfiguration'
+          - description: The requested metadata configuration.
+      required:
+      - Configuration
+      type: object
+    media_GetMetadataConfigurationsResponse:
+      properties:
+        Configurations:
+          description: This element contains a list of metadata configurations
+          items:
+            $ref: '#/components/schemas/onvif_MetadataConfiguration'
+          type: array
+      type: object
+    media_GetProfilesResponse:
+      properties:
+        Profiles:
+          description: lists all profiles that exist in the media service
+          items:
+            $ref: '#/components/schemas/onvif_Profile'
+          type: array
+      type: object
+    media_GetServiceCapabilitiesResponse:
+      properties:
+        Capabilities:
+          allOf:
+          - $ref: '#/components/schemas/media_Capabilities'
+          - description: The capabilities for the media service is returned in the
+              Capabilities element.
+      required:
+      - Capabilities
+      type: object
+    media_GetStreamUriResponse:
+      properties:
+        MediaUri:
+          $ref: '#/components/schemas/onvif_MediaUri'
+      required:
+      - MediaUri
+      type: object
+    media_GetVideoEncoderConfigurationOptionsResponse:
+      properties:
+        Options:
+          $ref: '#/components/schemas/onvif_VideoEncoderConfigurationOptions'
+      required:
+      - Options
+      type: object
+    media_GetVideoEncoderConfigurationResponse:
+      properties:
+        Configuration:
+          allOf:
+          - $ref: '#/components/schemas/onvif_VideoEncoderConfiguration'
+          - description: The requested video encoder configuration.
+      required:
+      - Configuration
+      type: object
+    media_GetVideoEncoderConfigurationsResponse:
+      properties:
+        Configurations:
+          description: This element contains a list of video encoder configurations.
+          items:
+            $ref: '#/components/schemas/onvif_VideoEncoderConfiguration'
+          type: array
+      type: object
+    media_ProfileCapabilities:
+      properties:
+        MaximumNumberOfProfiles:
+          description: Maximum number of profiles supported.
+          format: int32
+          type: integer
+      type: object
+    media_RemoveMetadataConfiguration:
+      properties:
+        ProfileToken:
+          description: "Contains a reference to the media profile from which the\n\
+            MetadataConfiguration shall be removed."
+          maxLength: 64
+          type: string
+      required:
+      - ProfileToken
+      type: object
+    media_RemovePTZConfiguration:
+      properties:
+        ProfileToken:
+          description: "Contains a reference to the media profile from which the\n\
+            PTZConfiguration shall be removed."
+          maxLength: 64
+          type: string
+      required:
+      - ProfileToken
+      type: object
+    media_SetMetadataConfiguration:
+      properties:
+        Configuration:
+          allOf:
+          - $ref: '#/components/schemas/onvif_MetadataConfiguration'
+          - description: Contains the modified metadata configuration. The configuration
+              shall exist in the device.
+        ForcePersistence:
+          description: The ForcePersistence element is obsolete and should always
+            be assumed to be true.
+          type: boolean
+      required:
+      - Configuration
+      - ForcePersistence
+      type: object
+    media_SetVideoEncoderConfiguration:
+      properties:
+        Configuration:
+          allOf:
+          - $ref: '#/components/schemas/onvif_VideoEncoderConfiguration'
+          - description: Contains the modified video encoder configuration. The configuration
+              shall exist in the device.
+        ForcePersistence:
+          description: The ForcePersistence element is obsolete and should always
+            be assumed to be true.
+          type: boolean
+      required:
+      - Configuration
+      - ForcePersistence
+      type: object
+    media_StreamingCapabilities:
+      properties:
+        NoRTSPStreaming:
+          description: Indicates the device does not support live media streaming
+            via RTSP.
+          type: boolean
+        NonAggregateControl:
+          description: Indicates support for non aggregate RTSP control.
+          type: boolean
+        RTPMulticast:
+          description: Indicates support for RTP multicast.
+          type: boolean
+        RTP_RTSP_TCP:
+          description: Indicates support for RTP/RTSP/TCP.
+          type: boolean
+        RTP_TCP:
+          description: Indicates support for RTP over TCP.
+          type: boolean
+      type: object
+    media2_AddConfiguration:
+      properties:
+        Configuration:
+          description: List of configurations to be added. The types shall be provided
+            in the order defined by tr2:ConfigurationEnumeration. List entries with
+            tr2:ConfigurationEnumeration value "All" shall be ignored.
+          items:
+            $ref: '#/components/schemas/media2_ConfigurationRef'
+          type: array
+        Name:
+          description: Optional item. If present updates the Name property of the
+            profile.
+          maxLength: 64
+          type: string
+        ProfileToken:
+          description: Reference to the profile where the configuration should be
+            added
+          maxLength: 64
+          type: string
+      required:
+      - ProfileToken
+      type: object
+    media2_ConfigurationRef:
+      properties:
+        Token:
+          description: "Reference token of an existing configuration.\n\t\t\t\t\t\t\
+            \tToken shall be included in the AddConfiguration request along with the\
+            \ type.\n\t\t\t\t\t\t\tToken shall be included in the CreateProfile request\
+            \ when Configuration elements are included and type is selected.\n\t\t\
+            \t\t\t\t\tToken is optional for RemoveConfiguration request. If no token\
+            \ is provided in RemoveConfiguration request, device shall\n\t\t\t\t\t\
+            \t\tremove the configuration of the type included in the profile."
+          maxLength: 64
+          type: string
+        Type:
+          description: Type of the configuration as defined by tr2:ConfigurationEnumeration.
+          type: string
+      required:
+      - Type
+      type: object
+    media2_ConfigurationSet:
+      description: A set of media configurations.
+      properties:
+        Analytics:
+          allOf:
+          - $ref: '#/components/schemas/onvif_VideoAnalyticsConfiguration'
+          - description: Optional configuration of the analytics module and rule engine.
+        AudioDecoder:
+          allOf:
+          - $ref: '#/components/schemas/onvif_AudioDecoderConfiguration'
+          - description: Optional configuration of the Audio decoder.
+        AudioEncoder:
+          allOf:
+          - $ref: '#/components/schemas/onvif_AudioEncoder2Configuration'
+          - description: Optional configuration of the Audio encoder.
+        AudioOutput:
+          allOf:
+          - $ref: '#/components/schemas/onvif_AudioOutputConfiguration'
+          - description: Optional configuration of the Audio output.
+        AudioSource:
+          allOf:
+          - $ref: '#/components/schemas/onvif_AudioSourceConfiguration'
+          - description: Optional configuration of the Audio input.
+        Metadata:
+          allOf:
+          - $ref: '#/components/schemas/onvif_MetadataConfiguration'
+          - description: Optional configuration of the metadata stream.
+        PTZ:
+          allOf:
+          - $ref: '#/components/schemas/onvif_PTZConfiguration'
+          - description: Optional configuration of the pan tilt zoom unit.
+        Receiver:
+          allOf:
+          - $ref: '#/components/schemas/media2_ReceiverConfiguration'
+          - description: Optional configuration of the Receiver.
+        VideoEncoder:
+          allOf:
+          - $ref: '#/components/schemas/onvif_VideoEncoder2Configuration'
+          - description: Optional configuration of the Video encoder.
+        VideoSource:
+          allOf:
+          - $ref: '#/components/schemas/onvif_VideoSourceConfiguration'
+          - description: Optional configuration of the Video input.
+      type: object
+    media2_GetAnalyticsConfigurationsResponse:
+      properties:
+        Configurations:
+          description: This element contains a list of Analytics configurations.
+          items:
+            $ref: '#/components/schemas/onvif_VideoAnalyticsConfiguration'
+          type: array
+      type: object
+    media2_GetProfilesResponse:
+      properties:
+        Profiles:
+          description: "Lists all profiles that exist in the media service. The response\
+            \ provides the requested types of Configurations as far as available.\
+            \ \n\t\t\t\t\t\t\t\t\tIf a profile doesn't contain a type no error shall\
+            \ be provided."
+          items:
+            $ref: '#/components/schemas/media2_MediaProfile'
+          type: array
+      type: object
+    media2_MediaProfile:
+      description: A media profile consists of a set of media configurations.
+      properties:
+        Configurations:
+          allOf:
+          - $ref: '#/components/schemas/media2_ConfigurationSet'
+          - description: The configurations assigned to the profile.
+        Name:
+          description: User readable name of the profile.
+          maxLength: 64
+          type: string
+        fixed:
+          description: A value of true signals that the profile cannot be deleted.
+            Default is false.
+          type: boolean
+        token:
+          description: Unique identifier of the profile.
+          maxLength: 64
+          type: string
+      required:
+      - token
+      - Name
+      type: object
+    media2_ReceiverConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/onvif_ReceiverConfiguration'
+      - properties:
+          token:
+            maxLength: 64
+            type: string
+        type: object
+    media2_RemoveConfiguration:
+      properties:
+        Configuration:
+          description: List of configurations to be removed. The types shall be provided
+            in the order defined by tr2:ConfigurationEnumeration. Tokens appearing
+            in the configuration list shall be ignored. Presence of the "All" type
+            shall result in an empty profile.
+          items:
+            $ref: '#/components/schemas/media2_ConfigurationRef'
+          type: array
+        ProfileToken:
+          description: This element contains a  reference to the media profile from
+            which the AudioDecoderConfiguration shall be removed.
+          maxLength: 64
+          type: string
+      required:
+      - ProfileToken
+      - Configuration
+      type: object
+    ptz_AbsoluteMove:
+      properties:
+        Position:
+          allOf:
+          - $ref: '#/components/schemas/onvif_PTZVector'
+          - description: A Position vector specifying the absolute target position.
+        ProfileToken:
+          description: A reference to the MediaProfile.
+          maxLength: 64
+          type: string
+        Speed:
+          allOf:
+          - $ref: '#/components/schemas/onvif_PTZSpeed'
+          - description: An optional Speed.
+      required:
+      - ProfileToken
+      - Position
+      type: object
+    ptz_Capabilities:
+      properties:
+        EFlip:
+          description: Indicates whether or not EFlip is supported.
+          type: boolean
+        GetCompatibleConfigurations:
+          description: Indicates support for the GetCompatibleConfigurations command.
+          type: boolean
+        MoveAndTrack:
+          description: Indication of the methods of MoveAndTrack that are supported,
+            acceptable values are defined in tt:MoveAndTrackMethod.
+          type: string
+        MoveStatus:
+          description: Indicates that the PTZStatus includes MoveStatus information.
+          type: boolean
+        Reverse:
+          description: Indicates whether or not reversing of PT control direction
+            is supported.
+          type: boolean
+        StatusPosition:
+          description: Indicates that the PTZStatus includes Position information.
+          type: boolean
+      type: object
+    ptz_ContinuousMove:
+      properties:
+        ProfileToken:
+          description: A reference to the MediaProfile.
+          maxLength: 64
+          type: string
+        Timeout:
+          description: An optional Timeout parameter.
+          format: date-time
+          type: string
+        Velocity:
+          allOf:
+          - $ref: '#/components/schemas/onvif_PTZSpeed'
+          - description: A Velocity vector specifying the velocity of pan, tilt and
+              zoom.
+      required:
+      - ProfileToken
+      - Velocity
+      type: object
+    ptz_GetConfigurationOptionsResponse:
+      properties:
+        PTZConfigurationOptions:
+          allOf:
+          - $ref: '#/components/schemas/onvif_PTZConfigurationOptions'
+          - description: The requested PTZ configuration options.
+      required:
+      - PTZConfigurationOptions
+      type: object
+    ptz_GetConfigurationResponse:
+      properties:
+        PTZConfiguration:
+          allOf:
+          - $ref: '#/components/schemas/onvif_PTZConfiguration'
+          - description: A requested PTZConfiguration.
+      required:
+      - PTZConfiguration
+      type: object
+    ptz_GetConfigurationsResponse:
+      properties:
+        PTZConfiguration:
+          description: A list of all existing PTZConfigurations on the device.
+          items:
+            $ref: '#/components/schemas/onvif_PTZConfiguration'
+          type: array
+      type: object
+    ptz_GetNodeResponse:
+      properties:
+        PTZNode:
+          allOf:
+          - $ref: '#/components/schemas/onvif_PTZNode'
+          - description: A requested PTZNode.
+      required:
+      - PTZNode
+      type: object
+    ptz_GetNodesResponse:
+      properties:
+        PTZNode:
+          description: A list of the existing PTZ Nodes on the device.
+          items:
+            $ref: '#/components/schemas/onvif_PTZNode'
+          type: array
+      type: object
+    ptz_GetPresetsResponse:
+      properties:
+        Preset:
+          description: A list of presets which are available for the requested MediaProfile.
+          items:
+            $ref: '#/components/schemas/onvif_PTZPreset'
+          type: array
+      type: object
+    ptz_GetServiceCapabilitiesResponse:
+      properties:
+        Capabilities:
+          allOf:
+          - $ref: '#/components/schemas/ptz_Capabilities'
+          - description: The capabilities for the PTZ service is returned in the Capabilities
+              element.
+      required:
+      - Capabilities
+      type: object
+    ptz_GetStatusResponse:
+      properties:
+        PTZStatus:
+          allOf:
+          - $ref: '#/components/schemas/onvif_PTZStatus'
+          - description: The PTZStatus for the requested MediaProfile.
+      required:
+      - PTZStatus
+      type: object
+    ptz_GotoHomePosition:
+      properties:
+        ProfileToken:
+          description: A reference to the MediaProfile where the operation should
+            take place.
+          maxLength: 64
+          type: string
+        Speed:
+          allOf:
+          - $ref: '#/components/schemas/onvif_PTZSpeed'
+          - description: A requested speed.The speed parameter can only be specified
+              when Speed Spaces are available for the PTZ Node.
+      required:
+      - ProfileToken
+      type: object
+    ptz_GotoPreset:
+      properties:
+        PresetToken:
+          description: A requested preset token.
+          maxLength: 64
+          type: string
+        ProfileToken:
+          description: A reference to the MediaProfile where the operation should
+            take place.
+          maxLength: 64
+          type: string
+        Speed:
+          allOf:
+          - $ref: '#/components/schemas/onvif_PTZSpeed'
+          - description: A requested speed.The speed parameter can only be specified
+              when Speed Spaces are available for the PTZ Node.
+      required:
+      - ProfileToken
+      - PresetToken
+      type: object
+    ptz_RelativeMove:
+      properties:
+        ProfileToken:
+          description: A reference to the MediaProfile.
+          maxLength: 64
+          type: string
+        Speed:
+          allOf:
+          - $ref: '#/components/schemas/onvif_PTZSpeed'
+          - description: An optional Speed parameter.
+        Translation:
+          allOf:
+          - $ref: '#/components/schemas/onvif_PTZVector'
+          - description: A positional Translation relative to the current position
+      required:
+      - ProfileToken
+      - Translation
+      type: object
+    ptz_RemovePreset:
+      properties:
+        PresetToken:
+          description: A requested preset token.
+          maxLength: 64
+          type: string
+        ProfileToken:
+          description: A reference to the MediaProfile where the operation should
+            take place.
+          maxLength: 64
+          type: string
+      required:
+      - ProfileToken
+      - PresetToken
+      type: object
+    ptz_SendAuxiliaryCommand:
+      properties:
+        AuxiliaryData:
+          description: The Auxiliary request data.
+          maxLength: 128
+          type: string
+        ProfileToken:
+          description: A reference to the MediaProfile where the operation should
+            take place.
+          maxLength: 64
+          type: string
+      required:
+      - ProfileToken
+      - AuxiliaryData
+      type: object
+    ptz_SetConfiguration:
+      properties:
+        ForcePersistence:
+          description: 'Flag that makes configuration persistent. Example: User wants
+            the configuration to exist after reboot.'
+          type: boolean
+        PTZConfiguration:
+          $ref: '#/components/schemas/onvif_PTZConfiguration'
+      required:
+      - PTZConfiguration
+      - ForcePersistence
+      type: object
+    ptz_SetHomePosition:
+      properties:
+        ProfileToken:
+          description: A reference to the MediaProfile where the home position should
+            be set.
+          maxLength: 64
+          type: string
+      required:
+      - ProfileToken
+      type: object
+    ptz_SetPreset:
+      properties:
+        PresetName:
+          description: A requested preset name.
+          type: string
+        PresetToken:
+          description: A requested preset token.
+          maxLength: 64
+          type: string
+        ProfileToken:
+          description: A reference to the MediaProfile where the operation should
+            take place.
+          maxLength: 64
+          type: string
+      required:
+      - ProfileToken
+      type: object
+    ptz_Stop:
+      properties:
+        PanTilt:
+          description: Set true when we want to stop ongoing pan and tilt movements.If
+            PanTilt arguments are not present, this command stops these movements.
+          type: boolean
+        ProfileToken:
+          description: A reference to the MediaProfile that indicate what should be
+            stopped.
+          maxLength: 64
+          type: string
+        Zoom:
+          description: Set true when we want to stop ongoing zoom movement.If Zoom
+            arguments are not present, this command stops ongoing zoom movement.
+          type: boolean
+      required:
+      - ProfileToken
+      type: object
+    Event:
+      description: A discrete event containing one or more readings
+      properties:
+        apiVersion:
+          description: A version number shows the API version in DTOs.
+          type: string
+        id:
+          description: The unique identifier for the event
+          type: string
+          format: uuid
+        deviceName:
+          description: The name of the device from which the event originated
+          type: string
+        profileName:
+          description: The name of the device profile from which the event originated
+          type: string
+        sourceName:
+          description: The name of the source device resource or command from which
+            the event originated
+          type: string
+        origin:
+          description: A Unix timestamp indicating when the event was originated at
+            the source device (can support nanoseconds)
+          type: integer
+        readings:
+          description: One or more readings captured at the time of the event
+          type: array
+          items:
+            $ref: '#/components/schemas/BaseReading'
+      required:
+      - apiVersion
+      - id
+      - deviceName
+      - profileName
+      - sourceName
+      - origin
+      - readings
+    BaseEventResponse:
+      allOf:
+      - $ref: '#/components/schemas/BaseResponse'
+      - properties:
+          event:
+            $ref: '#/components/schemas/Event'
+      description: A response type for returning an Event to the caller.
+    ObjectEventResponse:
+      allOf:
+      - $ref: '#/components/schemas/BaseEventResponse'
+      - properties:
+          event:
+            properties:
+              readings:
+                items:
+                  $ref: '#/components/schemas/ObjectReading'
+    BinaryEventResponse:
+      allOf:
+      - $ref: '#/components/schemas/BaseEventResponse'
+      - properties:
+          event:
+            properties:
+              readings:
+                items:
+                  $ref: '#/components/schemas/BinaryReading'
+    StringEventResponse:
+      allOf:
+      - $ref: '#/components/schemas/BaseEventResponse'
+      - properties:
+          event:
+            properties:
+              readings:
+                items:
+                  $ref: '#/components/schemas/StringReading'
+    BoolEventResponse:
+      allOf:
+      - $ref: '#/components/schemas/BaseEventResponse'
+      - properties:
+          event:
+            properties:
+              readings:
+                items:
+                  $ref: '#/components/schemas/BoolReading'
+    BaseResponse:
+      description: Defines basic properties which all use-case specific response DTO
+        instances should support
+      type: object
+      properties:
+        apiVersion:
+          description: A version number shows the API version in DTOs.
+          type: string
+          example: v2
+        statusCode:
+          description: A numeric code signifying the operational status of the response.
+          type: integer
+    BaseReading:
+      description: A base reading type containing common properties from which more
+        specific reading types inherit. This definition should not be implemented
+        but is used elsewhere to indicate support for a mixed list of simple/binary
+        readings in a single event.
+      type: object
+      properties:
+        id:
+          description: The unique identifier for the reading
+          type: string
+          format: uuid
+        origin:
+          description: A Unix timestamp indicating when the reading was originated
+            at the source device (can support nanoseconds)
+          type: integer
+        deviceName:
+          description: The name of the device from which the reading originated
+          type: string
+        resourceName:
+          description: The device resource name for the reading
+          type: string
+        profileName:
+          description: The device profile name for the reading
+          type: string
+        valueType:
+          description: Indicates the datatype of the value property
+          type: string
+          enum:
+          - Bool
+          - String
+          - Object
+          - Binary
+      required:
+      - apiVersion
+      - deviceName
+      - resourceName
+      - profileName
+      - origin
+      - valueType
+    BoolReading:
+      description: An event reading for a bool data type
+      allOf:
+      - $ref: '#/components/schemas/BaseReading'
+      - type: object
+        properties:
+          valueType:
+            example: Bool
+          value:
+            description: A string representation of the reading's value
+            type: string
+            enum:
+            - 'true'
+            - 'false'
+        required:
+        - value
+    StringReading:
+      description: An event reading for a string data type
+      allOf:
+      - $ref: '#/components/schemas/BaseReading'
+      - type: object
+        properties:
+          valueType:
+            example: String
+          value:
+            description: A string representation of the reading's value
+            type: string
+        required:
+        - value
+    ObjectReading:
+      description: An event reading for an object data type
+      allOf:
+      - $ref: '#/components/schemas/BaseReading'
+      - type: object
+        properties:
+          valueType:
+            example: Object
+          value:
+            description: Use objectValue instead.
+            type: string
+            example: ''
+          objectValue:
+            description: Object representation of the reading's value
+            type: object
+        required:
+        - objectValue
+    BinaryReading:
+      description: An event reading for a binary data type
+      allOf:
+      - $ref: '#/components/schemas/BaseReading'
+      - type: object
+        properties:
+          valueType:
+            description: Indicates the datatype of the value property
+            type: string
+            example: Binary
+            enum:
+            - Binary
+          binaryValue:
+            description: If the value of the reading is binary, it will be found in
+              this property as a base64 string
+            type: string
+            format: base64
+          mediaType:
+            description: E.g. MIME Type, indicates what the content type of the binaryValue
+              property is if it's populated.
+            type: string
+            example: image/jpeg
+          value:
+            description: Use binaryValue instead.
+            type: string
+            example: ''
+        required:
+        - binaryValue
+        - mediaType
+    ErrorResponse:
+      allOf:
+      - $ref: '#/components/schemas/BaseResponse'
+      - properties:
+          message:
+            description: A field that can contain a free-form message, such as an
+              error message.
+            type: string
+      description: A response type for returning a generic error to the caller.
+      type: object
+    SuccessResponse:
+      allOf:
+      - $ref: '#/components/schemas/BaseResponse'
+      - properties:
+          statusCode:
+            example: 200
+  headers:
+    correlatedResponseHeader:
+      description: A response header that returns the unique correlation ID used to
+        initiate the request.
+      schema:
+        type: string
+        format: uuid
+      example: 14a42ea6-c394-41c3-8bcd-a29b9f5e6835
+  examples:
+    200Example:
+      value:
+        apiVersion: v2
+        statusCode: 200
+    400Example:
+      value:
+        apiVersion: v2
+        statusCode: 400
+        message: Bad Request
+    404Example:
+      value:
+        apiVersion: v2
+        statusCode: 404
+        message: The requested resource does not exist
+    416Example:
+      value:
+        apiVersion: v2
+        statusCode: 416
+        message: Range Not Satisfiable
+    423Example:
+      value:
+        apiVersion: v2
+        statusCode: 423
+        message: The device is locked (AdminState)
+    500Example:
+      value:
+        apiVersion: v2
+        statusCode: 500
+        message: Internal Server Error
+    503Example:
+      value:
+        apiVersion: v2
+        statusCode: 503
+        message: HTTP request timeout
+  parameters:
+    EDGEX_DEVICE_NAME:
+      name: EDGEX_DEVICE_NAME
+      in: path
+      schema:
+        type: string
+      required: true
+      example: Camera001
+      description: |
+        This is the device name associated with the camera. It was 
+        either assigned via the auto-discovery function, or manually 
+        defined when you created the device.
