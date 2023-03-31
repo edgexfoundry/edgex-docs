@@ -10,7 +10,7 @@ Since the Set command can't return the **RebootNeeded** value in command respons
 []()
 
 ### 1. Execute Set command to change the networkInterfaces setting:
-<swagger-ui src="./test.yaml">
+<swagger-ui src="https://raw.githubusercontent.com/EdgeX-Camera-Management/edgex-docs/device-onvif/docs_src/microservices/device/ONVIF/supplementary-info/test.yaml">
 
 
 ```shell
