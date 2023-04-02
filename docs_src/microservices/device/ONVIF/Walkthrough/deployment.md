@@ -206,17 +206,17 @@ Follow these instructions to update devices.
 2. Map credentials using the `map-credentials.sh` script.  
       a. Run `bin/map-credentials.sh`    
       b. Select `(Create New)`
-         ![](../images/create_new.png)
+         ![](../images/creds-pick.png)  
       c. Enter the Secret Name to associate with these credentials  
-         ![](../images/secret_name.png)  
+         ![](../images/creds-name.png)   
       d. Enter the username  
-         ![](../images/set_username.png)
+         ![](../images/creds-username.png)  
       e. Enter the password  
-         ![](../images/set_password.png)
+         ![](../images/creds-password.png)  
       f. Choose the Authentication Mode  
-         ![](../images/auth_mode.png)
+         ![](../images/creds-method.png)  
       g. Assign one or more MAC Addresses to the credential group  
-         ![](../images/assign_mac.png)
+         ![](../images/creds-mac.png)  
       h. Learn more about updating credentials [here](../utility-scripts.md)  
 
       Successful:
