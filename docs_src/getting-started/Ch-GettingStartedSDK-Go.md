@@ -234,7 +234,9 @@ Now update the configuration for the new device service.    This documentation p
 
 - changes the port the service operates on so as not to conflict with other device services
 
-Download  **[configuration.yaml](configuration.yaml)** and save the file to the `~/edgexfoundry/device-simple/cmd/device-simple/res` folder (overwrite the existing configuration file).  Change the host address of the device service to your system's IP address.
+Download  **[configuration.yaml](https://github.com/edgexfoundry/device-sdk-go/blob/main/example/cmd/device-simple/res/configuration.yaml)** and save the file to the `~/edgexfoundry/device-simple/cmd/device-simple/res` folder (overwrite the existing configuration file).  Change the host address of the device service to your system's IP address.
+
+TODO: Update above link to latest_released_version variable
 
 !!! Warning
     In the configuration.yaml, change the host address (around line 14) to the IP address of the system host.  This allows core metadata to callback to your new device service when a new device is created.  Because the rest of EdgeX, to include core metadata, will be running in Docker, the IP address of the host system on the Docker network must be provided to allow metadata in Docker to call out from Docker to the new device service running on your host system.

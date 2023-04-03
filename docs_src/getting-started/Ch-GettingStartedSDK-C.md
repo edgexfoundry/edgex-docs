@@ -152,7 +152,9 @@ Follow these steps to create a pre-defined device for the simple random number g
 Now update the configuration for the new device service.    This documentation provides a new configuration.toml file.  This configuration file:
 - changes the port the service operates on so as not to conflict with other device services
 
-Download  **[configuration.toml](configuration.toml)** and save the file to the ./res folder.
+Download  **[configuration.toml](https://github.com/edgexfoundry/device-sdk-go/blob/main/example/cmd/device-simple/res/configuration.yaml)** and save the file to the ./res folder.
+
+TODO: Update above link to latest_released_version variable
 
 ### Custom Structured Configuration
 
