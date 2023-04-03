@@ -206,17 +206,17 @@ Follow these instructions to update devices.
 2. Map credentials using the `map-credentials.sh` script.  
       a. Run `bin/map-credentials.sh`    
       b. Select `(Create New)`
-         ![](../images/creds-pick.png)  
+            ![](../images/creds-pick.png)  
       c. Enter the Secret Name to associate with these credentials  
-         ![](../images/creds-name.png)   
+            ![](../images/creds-name.png)   
       d. Enter the username  
-         ![](../images/creds-username.png)  
-      e. Enter the password  
-         ![](../images/creds-password.png)  
+            ![](../images/creds-username.png)  
+      e.  Enter the password  
+            ![](../images/creds-password.png)  
       f. Choose the Authentication Mode  
-         ![](../images/creds-method.png)  
+            ![](../images/creds-method.png)  
       g. Assign one or more MAC Addresses to the credential group  
-         ![](../images/creds-mac.png)  
+            ![](../images/creds-mac.png)  
       h. Learn more about updating credentials [here](../utility-scripts.md)  
 
       Successful:
@@ -285,7 +285,7 @@ Follow these instructions to update devices.
 
 #### Update Device
 
-   There are multiple commands that can update aspects of the camera entry in meta-data. Refer to the [Swagger documentation]() for more information (not implemented).
+   There are multiple commands that can update aspects of the camera entry in meta-data. Refer to the [Swagger documentation](./general-usage.md) for Core Metadata for more information. For editing specific fields, see the [General Usage](./general-usage.md) tab.
 
 #### Delete Device
 
