@@ -1643,25 +1643,28 @@ write value using the modbus protocol.</p>
 <h3 id="set-up-device-service-configuration">Set Up Device Service Configuration</h3>
 <p>Run the following command to create your device configuration:
 <div class="highlight"><pre><span></span><code>cd custom-config
-nano device.config.toml
+nano device.config.yaml
 </code></pre></div>
-Fill in the device.config.toml file, as shown below:
-<div class="highlight"><pre><span></span><code><span class="k">[[DeviceList]]</span>
-<span class="w">    </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Modbus-TCP-Temperature-Sensor"</span>
-<span class="w">    </span><span class="n">ProfileName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Ethernet-Temperature-Sensor"</span>
-<span class="w">    </span><span class="n">Description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"This device is a product for monitoring the temperature via the ethernet"</span>
-<span class="w">    </span><span class="n">labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s">"temperature"</span><span class="p">,</span><span class="s">"modbus TCP"</span><span class="w"> </span><span class="p">]</span>
-<span class="w">    </span><span class="k">[DeviceList.Protocols]</span>
-<span class="w">        </span><span class="k">[DeviceList.Protocols.modbus-tcp]</span>
-<span class="w">            </span><span class="n">Address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"172.17.0.1"</span>
-<span class="w">            </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"502"</span>
-<span class="w">            </span><span class="n">UnitID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"1"</span>
-<span class="w">            </span><span class="n">Timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"5"</span>
-<span class="w">            </span><span class="n">IdleTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"5"</span>
-<span class="w">        </span><span class="k">[[DeviceList.AutoEvents]]</span>
-<span class="w">        </span><span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"30s"</span>
-<span class="w">        </span><span class="n">OnChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
-<span class="w">        </span><span class="n">SourceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Temperature"</span>
+Fill in the device.config.yaml file, as shown below:
+<div class="highlight"><pre><span></span><code><span class="nt">deviceList</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"Modbus-TCP-Temperature-Sensor"</span>
+<span class="w">  </span><span class="nt">profileName</span><span class="p">:</span><span class="w"> </span><span class="s">"Ethernet-Temperature-Sensor"</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">"This</span><span class="nv"> </span><span class="s">device</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">product</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">monitoring</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">temperature</span><span class="nv"> </span><span class="s">via</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">ethernet"</span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"temperature"</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"modbus"</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"TCP"</span>
+<span class="w">  </span><span class="nt">protocols</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">modbus-tcp</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">Address</span><span class="p">:</span><span class="w"> </span><span class="s">"172.17.0.1"</span>
+<span class="w">      </span><span class="nt">Port</span><span class="p">:</span><span class="w"> </span><span class="s">"502"</span>
+<span class="w">      </span><span class="nt">UnitID</span><span class="p">:</span><span class="w"> </span><span class="s">"1"</span>
+<span class="w">      </span><span class="nt">Timeout</span><span class="p">:</span><span class="w"> </span><span class="s">"5"</span>
+<span class="w">      </span><span class="nt">IdleTimeout</span><span class="p">:</span><span class="w"> </span><span class="s">"5"</span>
+<span class="w">  </span><span class="nt">autoEvents</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="s">"30s"</span>
+<span class="w">    </span><span class="nt">onChange</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">sourceName</span><span class="p">:</span><span class="w"> </span><span class="s">"Temperature"</span>
 </code></pre></div></p>
 <blockquote>
 <p>The address <code>172.17.0.1</code> is point to the docker bridge network which means it can forward the request from docker network to the host.</p>
@@ -1934,11 +1937,12 @@ from the previous steps.</p>
 <span class="p">}</span>
 </code></pre></div>
 <h2 id="autoevent">AutoEvent</h2>
-<p>The AutoEvent is defined in the [[DeviceList.AutoEvents]] section of the device configuration file:
-<div class="highlight"><pre><span></span><code><span class="k">[[DeviceList.AutoEvents]]</span>
-<span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"30s"</span>
-<span class="n">OnChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
-<span class="n">SourceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Temperature"</span>
+<p>The AutoEvent is defined in the <code>autoEvents</code> section of the device definition file:
+<div class="highlight"><pre><span></span><code><span class="nt">deviceList</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">autoEvents</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="s">"30s"</span>
+<span class="w">    </span><span class="nt">onChange</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">sourceName</span><span class="p">:</span><span class="w"> </span><span class="s">"Temperature"</span>
 </code></pre></div>
 After service startup, query core-data's API. The results show
 that the service auto-executes the command every 30 seconds.</p>
@@ -2268,6 +2272,8 @@ sudo<span class="w"> </span>chown<span class="w"> </span>:2001<span class="w"> <
                 }
             });
         
+            const dark_scheme_name = "slate"
+            
             window.scheme = document.body.getAttribute("data-md-color-scheme")
             const options = {
                 attributeFilter: ['data-md-color-scheme'],
@@ -2280,7 +2286,7 @@ sudo<span class="w"> </span>chown<span class="w"> </span>:2001<span class="w"> <
                         for(var i = 0; i < iframe_list.length; i++) {
                             var ele = iframe_list.item(i);
                             if (ele) {
-                                if (scheme === "slate") {
+                                if (scheme === dark_scheme_name) {
                                     ele.contentWindow.enable_dark_mode();
                                 } else {
                                     ele.contentWindow.disable_dark_mode();

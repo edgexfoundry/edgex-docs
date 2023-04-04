@@ -1551,7 +1551,7 @@ You can access the <code>interfaces.ApplicationService</code> API for resources 
 <p>The deprecated lowercase <code>`edgex_service</code> environment variable specific have been removed for EdgeX 2.0</p>
 </div>
 <h3 id="custom-configuration">Custom Configuration</h3>
-<p>Applications can specify custom configuration in the TOML file in two ways. </p>
+<p>Applications can specify custom configuration in the service's configuration file in two ways. </p>
 <h4 id="application-settings">Application Settings</h4>
 <p>The first simple way is to add items to the <code>ApplicationSetting</code> section. This is a map of string key/value pairs, i.e. <code>map[string]string</code>. Use for simple string values or comma separated list of string values. The <code>ApplicationService</code> API provides the follow access APIs for this configuration section:</p>
 <ul>
@@ -1573,7 +1573,7 @@ You can access the <code>interfaces.ApplicationService</code> API for resources 
 <p class="admonition-title">EdgeX 2.0</p>
 <p>Structure Custom Configuration is new for Edgex 2.0</p>
 </div>
-<p>The second is the more complex <code>Structured Custom Configuration</code> which allows the Application Service to define and watch it's own structured section in the service's TOML configuration file.</p>
+<p>The second is the more complex <code>Structured Custom Configuration</code> which allows the Application Service to define and watch it's own structured section in the service's configuration file.</p>
 <p>The <code>ApplicationService</code> API provides the follow APIs to enable structured custom configuration:</p>
 <ul>
 <li>
@@ -1604,10 +1604,11 @@ You can access the <code>interfaces.ApplicationService</code> API for resources 
 <p><code>Writable.StoreAndForward</code> allows enabling, setting the interval between retries and the max number of retries. If running with Configuration Provider, these setting can be changed on the fly via Consul without having to restart the service.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - Store and Forward configuration</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Writable.StoreAndForward]</span>
-<span class="n">Enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
-<span class="n">RetryInterval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"5m"</span>
-<span class="n">MaxRetryCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span>
+<div class="highlight"><pre><span></span><code><span class="nt">Writable</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">StoreAndForward</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">RetryInterval</span><span class="p">:</span><span class="w"> </span><span class="s">"5m"</span>
+<span class="w">    </span><span class="nt">MaxRetryCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
 </code></pre></div>
 </div>
 <div class="admonition note">
@@ -1617,11 +1618,11 @@ You can access the <code>interfaces.ApplicationService</code> API for resources 
 <p>Database configuration section describes which database type to use and the information required to connect to the database. This section is required if Store and Forward is enabled. It is optional if <strong>not</strong> using <code>Redis</code> for the EdgeX MessageBus which is now the default. </p>
 <div class="admonition example">
 <p class="admonition-title">Example - Database configuration</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Database]</span>
-<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"redisdb"</span>
-<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"localhost"</span>
-<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6379</span>
-<span class="n">Timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"30s"</span>
+<div class="highlight"><pre><span></span><code><span class="nt">Database</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="s">"redisdb"</span>
+<span class="w">  </span><span class="nt">Host</span><span class="p">:</span><span class="w"> </span><span class="s">"localhost"</span>
+<span class="w">  </span><span class="nt">Port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6379</span>
+<span class="w">  </span><span class="nt">Timeout</span><span class="p">:</span><span class="w"> </span><span class="s">"5s"</span>
 </code></pre></div>
 </div>
 <div class="admonition edgey">
@@ -1705,12 +1706,15 @@ A factory function to create these clients can then be registered with your serv
 <span class="p">})</span>
 </code></pre></div>
 <p>and configured using the registered name in the <code>Database</code> section:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Database]</span>
-<span class="w">    </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"jetstream"</span>
-<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"broker"</span>
-<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4222</span>
-<span class="w">    </span><span class="n">Timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"5s"</span>
+<div class="admonition example">
+<p class="admonition-title">Example - Database configuration</p>
+<div class="highlight"><pre><span></span><code><span class="nt">Database</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="s">"jetstream"</span>
+<span class="w">  </span><span class="nt">Host</span><span class="p">:</span><span class="w"> </span><span class="s">"broker"</span>
+<span class="w">  </span><span class="nt">Port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4222</span>
+<span class="w">  </span><span class="nt">Timeout</span><span class="p">:</span><span class="w"> </span><span class="s">"5s"</span>
 </code></pre></div>
+</div>
 <h3 id="secrets">Secrets</h3>
 <h4 id="configuration_1">Configuration</h4>
 <p>All instances of App Services running in secure mode require a SecretStore to be configured. With the use of <code>Redis Pub/Sub</code> as the default EdgeX MessageBus all App Services need the <code>redisdb</code> known secret added to their SecretStore so they can connect to the Secure EdgeX MessageBus. See the <a href="../../../security/Ch-Secure-MessageBus/">Secure MessageBus</a> documentation for more details.</p>
@@ -1724,7 +1728,7 @@ A factory function to create these clients can then be registered with your serv
 <div class="admonition example">
 <p class="admonition-title">Example - JSON message body</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">"path"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"MyPath"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"secretName"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"MySecret"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"secretData"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">      </span><span class="nt">"key"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"MySecretKey"</span><span class="p">,</span>
@@ -1736,30 +1740,30 @@ A factory function to create these clients can then be registered with your serv
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Path specifies the type or location of the secret within the service's SecretStore. </p>
+<p>SecretName specifies the location of the secret within the service's SecretStore. </p>
 </div>
 <h5 id="insecure-mode">Insecure Mode</h5>
-<p>When running in insecure mode, the secrets are stored and retrieved from the <em>Writable.InsecureSecrets</em> section of the service's configuration toml file. Insecure secrets and their paths can be configured as below.</p>
+<p>When running in insecure mode, the secrets are stored and retrieved from the <em>Writable.InsecureSecrets</em> section of the service's configuration file. Insecure secrets and their paths can be configured as below.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - InsecureSecrets Configuration</p>
-<div class="highlight"><pre><span></span><code><span class="w">   </span><span class="p">[</span><span class="n">Writable</span><span class="p">.</span><span class="n">InsecureSecrets</span><span class="p">]</span><span class="w">    </span>
-<span class="w">      </span><span class="k">[Writable.InsecureSecrets.AWS]</span>
-<span class="w">        </span><span class="n">Path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"aws"</span>
-<span class="w">          </span><span class="k">[Writable.InsecureSecrets.AWS.Secrets]</span>
-<span class="w">          </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"aws-user"</span>
-<span class="w">          </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"aws-pw"</span>
-
-<span class="w">      </span><span class="k">[Writable.InsecureSecrets.DB]</span>
-<span class="w">        </span><span class="n">Path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"redisdb"</span>
-<span class="w">          </span><span class="k">[Writable.InsecureSecrets.DB.Secrets]</span>
-<span class="w">          </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span>
-<span class="w">          </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span>
+<div class="highlight"><pre><span></span><code><span class="nt">Writable</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">InsecureSecrets</span><span class="p">:</span><span class="w">    </span>
+<span class="w">    </span><span class="nt">AWS</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">SecretName</span><span class="p">:</span><span class="w"> </span><span class="s">"aws"</span>
+<span class="w">      </span><span class="nt">SecretsData</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="s">"aws-user"</span>
+<span class="w">        </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">"aws-pw"</span>
+<span class="w">    </span><span class="nt">DB</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">SecretName</span><span class="p">:</span><span class="w"> </span><span class="s">"redisdb"</span>
+<span class="w">      </span><span class="nt">SecretsData</span><span class="p">:</span>
+<span class="w">       </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="s">""</span>
+<span class="w">        </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">""</span>
 </code></pre></div>
 </div>
 <h4 id="getting-secrets">Getting Secrets</h4>
 <p>Application Services can retrieve their secrets from their SecretStore using the  <a href="../ApplicationServiceAPI/#secretprovider">interfaces.ApplicationService.SecretProvider.GetSecret()</a> API or from the <a href="../AppFunctionContextAPI/#secretprovider">interfaces.AppFunctionContext.SecretProvider.GetSecret()</a> API  </p>
 <p>When in secure mode, the secrets are retrieved from the service secure SecretStore. </p>
-<p>When running in insecure mode, the secrets are retrieved from the <code>[Writable.InsecureSecrets]</code> configuration.</p>
+<p>When running in insecure mode, the secrets are retrieved from the <code>Writable.InsecureSecrets</code> configuration.</p>
 <h3 id="background-publishing">Background Publishing</h3>
 <p>Application Services using the MessageBus trigger can request a background publisher using the AddBackgroundPublisher API in the SDK.  This method takes an int representing the background channel's capacity as the only parameter and returns a reference to a BackgroundPublisher.  This reference can then be used by background processes to publish to the configured MessageBus output.  A custom topic can be provided to use instead of the configured message bus output as well.</p>
 <div class="admonition edgey">
@@ -1923,19 +1927,19 @@ A factory function to create these clients can then be registered with your serv
 <p>Reporting of these built-in metrics is disabled by default in the <code>Writable.Telemetry</code> configuration section. See <code>Writable.Telemetry</code> configuration details in the <a href="../GeneralAppServiceConfig/#writable">Application Service Configuration</a> section for complete detail on this section. If the configuration for these built-in metrics are missing, then the reporting of the metrics will be disabled.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - Service Telemetry Configuration with all built-in metrics enabled for reporting</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">[Writable.Telemetry]</span>
-<span class="w">  </span><span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"30s"</span>
-<span class="w">  </span><span class="n">PublishTopicPrefix</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">"edgex/telemetry"</span><span class="w"> </span><span class="c1"># /&lt;service-name&gt;/&lt;metric-name&gt; will be added to this Publish Topic prefix</span>
-<span class="w">    </span><span class="p">[</span><span class="n">Writable</span><span class="p">.</span><span class="n">Telemetry</span><span class="p">.</span><span class="n">Metrics</span><span class="p">]</span><span class="w"> </span><span class="c1"># All service's metric names must be present in this list.</span>
-<span class="w">    </span><span class="n">MessagesReceived</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">    </span><span class="n">InvalidMessagesReceived</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">    </span><span class="n">HttpExportSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">    </span><span class="n">MqttExportSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">    </span><span class="n">PipelineMessagesProcessed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">    </span><span class="n">PipelineProcessingErrors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">    </span><span class="n">PipelineMessageProcessingTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">    </span><span class="p">[</span><span class="n">Writable</span><span class="p">.</span><span class="n">Telemetry</span><span class="p">.</span><span class="n">Tags</span><span class="p">]</span><span class="w"> </span><span class="c1"># Contains the service level tags to be attached to all the service's metrics</span>
-<span class="c1">#    Gateway="my-iot-gateway" # Tag must be added here or via Consul Env Override can only change existing value, not added new ones.</span>
+<div class="highlight"><pre><span></span><code><span class="nt">Writable</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">Telemetry</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Interval</span><span class="p">:</span><span class="w"> </span><span class="s">"30s"</span>
+<span class="w">    </span><span class="nt">Metrics</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">MessagesReceived</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">InvalidMessagesReceived</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">PipelineMessagesProcessed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span>
+<span class="w">      </span><span class="nt">PipelineMessageProcessingTime</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">PipelineProcessingErrors</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span>
+<span class="w">      </span><span class="nt">HttpExportSize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span>
+<span class="w">      </span><span class="nt">MqttExportSize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">Tags</span><span class="p">:</span><span class="w"> </span><span class="c1"># Contains the service level tags to be attached to all the service's metrics</span>
+<span class="w">      </span><span class="nt">Gateway</span><span class="p">:</span><span class="w"> </span><span class="s">"my-iot-gateway"</span><span class="w"> </span><span class="c1"># Tag must be added here or via Consul Env Override can only change existing value, not added new ones.</span>
 </code></pre></div>
 </div>
 <h3 id="custom-application-service-metrics">Custom Application Service Metrics</h3>
@@ -1993,17 +1997,17 @@ A factory function to create these clients can then be registered with your serv
 <p>Configure reporting of the service's metrics. See <code>Writable.Telemetry</code> configuration details in the <a href="../GeneralAppServiceConfig/#writable">Application Service Configuration</a> section for more detail.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - Service Telemetry Configuration</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">[Writable.Telemetry]</span>
-<span class="w">  </span><span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"30s"</span>
-<span class="w">  </span><span class="n">PublishTopicPrefix</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">"edgex/telemetry"</span><span class="w"> </span><span class="c1"># /&lt;service-name&gt;/&lt;metric-name&gt; will be added to this Publish Topic prefix</span>
-<span class="w">    </span><span class="p">[</span><span class="n">Writable</span><span class="p">.</span><span class="n">Telemetry</span><span class="p">.</span><span class="n">Metrics</span><span class="p">]</span><span class="w"> </span><span class="c1"># All service's metric names must be present in this list.</span>
-<span class="w">    </span><span class="n">MyCounterName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">    </span><span class="n">MyGaugeName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">    </span><span class="n">MyGaugeFloat64Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">    </span><span class="n">MyTimerName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">    </span><span class="n">MyHistogram</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">    </span><span class="p">[</span><span class="n">Writable</span><span class="p">.</span><span class="n">Telemetry</span><span class="p">.</span><span class="n">Tags</span><span class="p">]</span><span class="w"> </span><span class="c1"># Contains the service level tags to be attached to all the service's metrics</span>
-<span class="c1">#    Gateway="my-iot-gateway" # Tag must be added here or via Consul Env Override can only change existing value, not added new ones.</span>
+<div class="highlight"><pre><span></span><code><span class="nt">Writable</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">Telemetry</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Interval</span><span class="p">:</span><span class="w"> </span><span class="s">"30s"</span>
+<span class="w">    </span><span class="nt">Metrics</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">MyCounterName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">MyGaugeName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">MyGaugeFloat64Name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">MyTimerName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">MyHistogram</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">Tags</span><span class="p">:</span><span class="w"> </span><span class="c1"># Contains the service level tags to be attached to all the service's metrics</span>
+<span class="w">      </span><span class="nt">Gateway</span><span class="p">:</span><span class="w"> </span><span class="s">"my-iot-gateway"</span><span class="w"> </span><span class="c1"># Tag must be added here or via Consul Env Override can only change existing value, not added new ones.</span>
 </code></pre></div>
 </div>
 <div class="admonition note">
@@ -2117,6 +2121,8 @@ A factory function to create these clients can then be registered with your serv
                 }
             });
         
+            const dark_scheme_name = "slate"
+            
             window.scheme = document.body.getAttribute("data-md-color-scheme")
             const options = {
                 attributeFilter: ['data-md-color-scheme'],
@@ -2129,7 +2135,7 @@ A factory function to create these clients can then be registered with your serv
                         for(var i = 0; i < iframe_list.length; i++) {
                             var ele = iframe_list.item(i);
                             if (ele) {
-                                if (scheme === "slate") {
+                                if (scheme === dark_scheme_name) {
                                     ele.contentWindow.enable_dark_mode();
                                 } else {
                                     ele.contentWindow.disable_dark_mode();

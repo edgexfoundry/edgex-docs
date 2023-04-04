@@ -1399,30 +1399,32 @@ device-mqtt features using an MQTT-broker.</p>
 of a customized device configuration to work with the existing device service:</p>
 <div class="highlight"><pre><span></span><code>- custom-config
   |- devices
-     |- my.custom.device.config.toml
+     |- my.custom.device.config.yaml
   |- profiles
      |- my.custom.device.profile.yml
 </code></pre></div>
 <h3 id="device-configuration">Device Configuration</h3>
 <p>Use this configuration file to define devices and schedule jobs.
 device-mqtt generates a relative instance on start-up.</p>
-<p>Create the device configuration file, named <code>my.custom.device.config.toml</code>, as shown below:</p>
+<p>Create the device configuration file, named <code>my.custom.device.config.yaml</code>, as shown below:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Pre-define Devices</span>
-<span class="k">[[DeviceList]]</span>
-<span class="w">  </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"my-custom-device"</span>
-<span class="w">  </span><span class="n">ProfileName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"my-custom-device-profile"</span>
-<span class="w">  </span><span class="n">Description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"MQTT device is created for test purpose"</span>
-<span class="w">  </span><span class="n">Labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s">"MQTT"</span><span class="p">,</span><span class="w"> </span><span class="s">"test"</span><span class="w"> </span><span class="p">]</span>
-<span class="w">  </span><span class="k">[DeviceList.Protocols]</span>
-<span class="w">    </span><span class="k">[DeviceList.Protocols.mqtt]</span>
+<span class="nt">deviceList</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"my-custom-device"</span>
+<span class="w">  </span><span class="nt">profileName</span><span class="p">:</span><span class="w"> </span><span class="s">"my-custom-device-profile"</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">"MQTT</span><span class="nv"> </span><span class="s">device</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">created</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">test</span><span class="nv"> </span><span class="s">purpose"</span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"MQTT"</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"test"</span>
+<span class="w">  </span><span class="nt">protocols</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">mqtt</span><span class="p">:</span>
 <span class="w">       </span><span class="c1"># Comment out/remove below to use multi-level topics</span>
-<span class="w">       </span><span class="n">CommandTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"CommandTopic"</span>
+<span class="w">       </span><span class="nt">CommandTopic</span><span class="p">:</span><span class="w"> </span><span class="s">"CommandTopic"</span>
 <span class="w">       </span><span class="c1"># Uncomment below to use multi-level topics</span>
-<span class="w">       </span><span class="c1"># CommandTopic = "command/my-custom-device"</span>
-<span class="w">    </span><span class="k">[[DeviceList.AutoEvents]]</span>
-<span class="w">       </span><span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"30s"</span>
-<span class="w">       </span><span class="n">OnChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
-<span class="w">       </span><span class="n">SourceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"message"</span>
+<span class="w">       </span><span class="c1"># CommandTopic: "command/my-custom-device"</span>
+<span class="w">  </span><span class="nt">autoEvents</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="s">"30s"</span>
+<span class="w">   </span><span class="nt">onChange</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">   </span><span class="nt">sourceName</span><span class="p">:</span><span class="w"> </span><span class="s">"message"</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1538,16 +1540,16 @@ topics, make the following changes in the device service configuration files:</p
 </code></pre></div>
 </li>
 <li>
-<p>Otherwise if the device service is built locally, modify these lines in <code>configuration.toml</code>:</p>
+<p>Otherwise if the device service is built locally, modify these lines in <code>configuration.yaml</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Comment out/remove when using multi-level topics</span>
-<span class="c1">#IncomingTopic = "DataTopic"</span>
-<span class="c1">#ResponseTopic = "ResponseTopic"</span>
-<span class="c1">#UseTopicLevels = false</span>
+<span class="c1">#IncomingTopic: "DataTopic"</span>
+<span class="c1">#ResponseTopic: "ResponseTopic"</span>
+<span class="c1">#UseTopicLevels: false</span>
 
 <span class="c1"># Uncomment to use multi-level topics</span>
-<span class="n">IncomingTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"incoming/data/#"</span>
-<span class="n">ResponseTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"command/response/#"</span>
-<span class="n">UseTopicLevels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="nt">IncomingTopic</span><span class="p">:</span><span class="w"> </span><span class="s">"incoming/data/#"</span>
+<span class="nt">ResponseTopic</span><span class="p">:</span><span class="w"> </span><span class="s">"command/response/#"</span>
+<span class="nt">UseTopicLevels</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1557,13 +1559,13 @@ topics, make the following changes in the device service configuration files:</p
 </ol>
 </li>
 <li>
-<p>In  <code>my.custom.device.config.toml</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[DeviceList.Protocols]</span>
-<span class="w"> </span><span class="k">[DeviceList.Protocols.mqtt]</span>
+<p>In  <code>my.custom.device.config.yaml</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">protocols</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">mqtt</span><span class="p">:</span>
 <span class="w">    </span><span class="c1"># Comment out/remove below to use multi-level topics</span>
-<span class="w">    </span><span class="c1"># CommandTopic = "CommandTopic"</span>
+<span class="w">    </span><span class="c1"># CommandTopic: "CommandTopic"</span>
 <span class="w">    </span><span class="c1"># Uncomment below to use multi-level topics</span>
-<span class="w">    </span><span class="n">CommandTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"command/my-custom-device"</span>
+<span class="w">    </span><span class="nt">CommandTopic</span><span class="p">:</span><span class="w"> </span><span class="s">"command/my-custom-device"</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1875,11 +1877,11 @@ $ docker run --rm --name=mqtt-scripts \
 <span class="p">}</span>
 </code></pre></div>
 <h2 id="schedule-job">Schedule Job</h2>
-<p>The schedule job is defined in the <code>[[DeviceList.AutoEvents]]</code> section of the device configuration file:</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[[DeviceList.AutoEvents]]</span>
-<span class="w">       </span><span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"30s"</span>
-<span class="w">       </span><span class="n">OnChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
-<span class="w">       </span><span class="n">SourceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"message"</span>
+<p>The schedule job is defined in the <code>autoEvents</code> section of the device definition file:</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">autoEvents</span><span class="p">:</span>
+<span class="w">       </span><span class="nt">Interval</span><span class="p">:</span><span class="w"> </span><span class="s">"30s"</span>
+<span class="w">       </span><span class="nt">OnChange</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">       </span><span class="nt">SourceName</span><span class="p">:</span><span class="w"> </span><span class="s">"message"</span>
 </code></pre></div>
 <p>After the service starts, query core-data's reading API. The results
 show that the service auto-executes the command every 30 secs, as shown
@@ -2166,6 +2168,8 @@ below:</p>
                 }
             });
         
+            const dark_scheme_name = "slate"
+            
             window.scheme = document.body.getAttribute("data-md-color-scheme")
             const options = {
                 attributeFilter: ['data-md-color-scheme'],
@@ -2178,7 +2182,7 @@ below:</p>
                         for(var i = 0; i < iframe_list.length; i++) {
                             var ele = iframe_list.item(i);
                             if (ele) {
-                                if (scheme === "slate") {
+                                if (scheme === dark_scheme_name) {
                                     ele.contentWindow.enable_dark_mode();
                                 } else {
                                     ele.contentWindow.disable_dark_mode();

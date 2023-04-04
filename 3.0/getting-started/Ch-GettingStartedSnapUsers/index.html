@@ -1598,7 +1598,7 @@ The store page also provides instructions for installation on different Linux di
 <p>EdgeX snaps are packaged with default service configuration files. In certain cases, few configuration fields are overridden within the snap for snap-specific deployment requirements.</p>
 <p>There are a few ways to configure snapped services. In simple cases, it should be sufficient to modify the default config files before starting the services for the first time and use config overrides to change supported settings afterwards. Please refer below to learn about the different configuration methods.</p>
 <h4 id="config-files">Config files</h4>
-<p>The default configuration files are typically placed at <code>/var/snap/&lt;snap&gt;/current/config</code>. Upon a successful startup of an EdgeX service, the server configuration file (typically named <code>configuration.toml</code>) is uploaded to the <a href="../../microservices/configuration/ConfigurationAndRegistry/#registry-provider">Registry</a> by default. After that, the local server configuration file will no longer be read and any modifications will not be applied. At this point, the configurations can be only changed via the Registry or by setting environment variables. Refer to <a href="#config-registry">config registry</a> or <a href="#config-overrides">config overrides</a> for details.</p>
+<p>The default configuration files are typically placed at <code>/var/snap/&lt;snap&gt;/current/config</code>. Upon a successful startup of an EdgeX service, the server configuration file (typically named <code>configuration.yaml</code>) is uploaded to the <a href="../../microservices/configuration/ConfigurationAndRegistry/#registry-provider">Registry</a> by default. After that, the local server configuration file will no longer be read and any modifications will not be applied. At this point, the configurations can be only changed via the Registry or by setting environment variables. Refer to <a href="#config-registry">config registry</a> or <a href="#config-overrides">config overrides</a> for details.</p>
 <p>For device services, the Device and Device Profile files are submitted to <a href="../../microservices/core/metadata/Ch-Metadata">Core Metadata</a> upon initial startup. Refer to the documentation of <a href="../../microservices/device/Ch-DeviceServices/">Device Services</a> for details.</p>
 <h4 id="config-registry">Config registry</h4>
 <p>The configurations that are uploaded to the Registry (i.e. Consul by default) can be modified using Consul's UI or <a href="https://www.consul.io/api/kv">kv REST API</a>. The Registry is a Core services, part of the <a href="#platform-snap">Platform Snap</a>.</p>
@@ -1646,19 +1646,19 @@ where:</p>
 <tr>
 <th>Snap config key</th>
 <th>Environment Variable</th>
-<th>Service configuration TOML</th>
+<th>Service configuration YAML</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>service-port</td>
 <td>SERVICE_PORT</td>
-<td>[Service]<br/>Port</td>
+<td>Service:<br/>--Port:</td>
 </tr>
 <tr>
 <td>clients-core-data-host</td>
 <td>CLIENTS_CORE_DATA_HOST</td>
-<td>[Clients]<br/>--[Clients.core-data]<br/>--Host</td>
+<td>Clients:<br/>--core-data:<br/>----Host:</td>
 </tr>
 <tr>
 <td>edgex-startup-duration</td>
@@ -1676,9 +1676,9 @@ where:</p>
 <p class="admonition-title">Example</p>
 <p>To change the service port of the <code>core-data</code> service on <code>edgexfoundry</code> snap to 8080:
 <div class="highlight"><pre><span></span><code>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>apps.core-data.config.service-port<span class="o">=</span><span class="m">8080</span>
-</code></pre></div>
-This would internally export <code>SERVICE_PORT=8080</code> to <code>core-data</code> service.</p>
+</code></pre></div></p>
 </div>
+<p>​    This would internally export <code>SERVICE_PORT=8080</code> to <code>core-data</code> service.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The services load the set configuration on startup. If a service has already started, a restart will be necessary to load the configurations.</p>
@@ -2043,19 +2043,19 @@ The new snap is the supported way of using eKuiper with other EdgeX snaps.</p>
 <div class="highlight"><pre><span></span><code>/var/snap/edgex-app-service-configurable/current/config/
 └── res
     ├── external-mqtt-trigger
-    │   └── configuration.toml
+    │   └── configuration.yaml
     ├── functional-tests
-    │   └── configuration.toml
+    │   └── configuration.yaml
     ├── http-export
-    │   └── configuration.toml
+    │   └── configuration.yaml
     ├── metrics-influxdb
-    │   └── configuration.toml
+    │   └── configuration.yaml
     ├── mqtt-export
-    │   └── configuration.toml
+    │   └── configuration.yaml
     ├── push-to-core
-    │   └── configuration.toml
+    │   └── configuration.yaml
     └── rules-engine
-        └── configuration.toml
+        └── configuration.yaml
 </code></pre></div></p>
 <details class="example">
 <summary>Filtering devices using snap options</summary>
@@ -2080,13 +2080,13 @@ using snap options.</p>
 <div class="highlight"><pre><span></span><code>/var/snap/edgex-app-rfid-llrp-inventory/current/config/
 └── app-rfid-llrp-inventory
     └── res
-        └── configuration.toml
+        └── configuration.yaml
 </code></pre></div></p>
 <p><strong>Aliases</strong></p>
 <p>The aliases need to be provided for the service to work.  See <a href="https://github.com/edgexfoundry/app-rfid-llrp-inventory/blob/main/README.md#setting-the-aliases">Setting the Aliases</a>.</p>
 <p>For the snap, this can either be by:</p>
 <ul>
-<li>using a <a href="#config-provider-snap">config-provider-snap</a> to provide a <code>configuration.toml</code> file with the correct aliases, before startup</li>
+<li>using a <a href="#config-provider-snap">config-provider-snap</a> to provide a <code>configuration.yaml</code> file with the correct aliases, before startup</li>
 <li>setting the values manually in Consul during or after deployment</li>
 </ul>
 <h3 id="device-gpio">Device GPIO</h3>
@@ -2096,9 +2096,9 @@ using snap options.</p>
 <div class="highlight"><pre><span></span><code>/var/snap/edgex-device-gpio/current/config
 └── device-gpio
     └── res
-        ├── configuration.toml
+        ├── configuration.yaml
         ├── devices
-        │   └── device.custom.gpio.toml
+        │   └── device.custom.gpio.yaml
         └── profiles
             └── device.custom.gpio.yaml
 </code></pre></div></p>
@@ -2149,9 +2149,9 @@ Changes to the configuration files require a restart to take effect:
 <div class="highlight"><pre><span></span><code>/var/snap/edgex-device-modbus/current/config/
 └── device-modbus
     └── res
-        ├── configuration.toml
+        ├── configuration.yaml
         ├── devices
-        │   └── modbus.test.devices.toml
+        │   └── modbus.test.devices.yaml
         └── profiles
             └── modbus.test.device.profile.yml
 </code></pre></div></p>
@@ -2162,11 +2162,11 @@ Changes to the configuration files require a restart to take effect:
 <div class="highlight"><pre><span></span><code>/var/snap/edgex-device-mqtt/current/config/
 └── device-mqtt
     └── res
-        ├── configuration.toml
+        ├── configuration.yaml
         ├── devices
-        │   └── mqtt.test.device.toml
+        │   └── mqtt.test.device.yaml
         └── profiles
-            └── mqtt.test.device.profile.yml
+            └── mqtt.test.device.profile.yaml
 </code></pre></div></p>
 <h3 id="device-rest">Device REST</h3>
 <p>| <a href="https://snapcraft.io/edgex-device-rest">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/device-rest-go/tree/main/snap">Source</a> |</p>
@@ -2175,9 +2175,9 @@ Changes to the configuration files require a restart to take effect:
 <div class="highlight"><pre><span></span><code>/var/snap/edgex-device-rest/current/config/
 └── device-rest
     └── res
-        ├── configuration.toml
+        ├── configuration.yaml
         ├── devices
-        │   └── sample-devices.toml
+        │   └── sample-devices.yaml
         └── profiles
             ├── sample-image-device.yaml
             ├── sample-json-device.yaml
@@ -2190,14 +2190,14 @@ Changes to the configuration files require a restart to take effect:
 <div class="highlight"><pre><span></span><code>/var/snap/edgex-device-rfid-llrp/current/config/
 └── device-rfid-llrp
     └── res
-        ├── configuration.toml
+        ├── configuration.yaml
         ├── devices
         ├── profiles
         │   ├── llrp.device.profile.yaml
         │   └── llrp.impinj.profile.yaml
         └── provision_watchers
-            ├── impinj.provision.watcher.json
-            └── llrp.provision.watcher.json
+            ├── impinj.provision.watcher.yaml
+            └── llrp.provision.watcher.yaml
 </code></pre></div></p>
 <p><strong>Subnet setup</strong></p>
 <p>The <code>DiscoverySubnets</code> setting needs to be provided before a device discovery can occur. This can be done in a number of ways:</p>
@@ -2237,9 +2237,9 @@ edgex-device-rfid-llrp.auto-configure<span class="w"> </span><span class="nv">$C
 <div class="highlight"><pre><span></span><code>/var/snap/edgex-device-snmp/current/config/
 └── device-snmp
     └── res
-        ├── configuration.toml
+        ├── configuration.yaml
         ├── devices
-        │   └── device.snmp.trendnet.TPE082WS.toml
+        │   └── device.snmp.trendnet.TPE082WS.yaml
         └── profiles
             ├── device.snmp.patlite.yaml
             ├── device.snmp.switch.dell.N1108P-ON.yaml
@@ -2258,16 +2258,16 @@ edgex-device-rfid-llrp.auto-configure<span class="w"> </span><span class="nv">$C
 <div class="highlight"><pre><span></span><code>/var/snap/edgex-device-usb-camera/current/config
 ├── device-usb-camera
 │   └── res
-│       ├── configuration.toml
+│       ├── configuration.yaml
 │       ├── devices
-│       │   ├── general.usb.camera.toml.example
-│       │   └── hp.w200.toml.example
+│       │   ├── general.usb.camera.yaml.example
+│       │   └── hp.w200.yaml.example
 │       ├── profiles
 │       │   ├── general.usb.camera.yaml
 │       │   ├── hp.w200.yaml.example
 │       │   └── jinpei.general.yaml.example
 │       └── provision_watchers
-│           └── generic.provision.watcher.json
+│           └── generic.provision.watcher.yaml
 └── rtsp-simple-server
     └── config.yml
 </code></pre></div></p>
@@ -2278,9 +2278,9 @@ edgex-device-rfid-llrp.auto-configure<span class="w"> </span><span class="nv">$C
 <div class="highlight"><pre><span></span><code>/var/snap/edgex-device-virtual/current/config
 └── device-virtual
     └── res
-        ├── configuration.toml
+        ├── configuration.yaml
         ├── devices
-        │   └── devices.toml
+        │   └── devices.yaml
         └── profiles
             ├── device.virtual.binary.yaml
             ├── device.virtual.bool.yaml
@@ -2295,15 +2295,15 @@ edgex-device-rfid-llrp.auto-configure<span class="w"> </span><span class="nv">$C
 <div class="highlight"><pre><span></span><code>/var/snap/edgex-device-onvif-camera/current/config
 └── device-onvif-camera
     └── res
-        ├── configuration.toml
+        ├── configuration.yaml
         ├── devices
-        │   ├── camera.toml.example
-        │   └── control-plane-device.toml
+        │   ├── camera.yaml.example
+        │   └── control-plane-device.yaml
         ├── profiles
         │   ├── camera.yaml
         │   └── control-plane.profile.yaml
         └── provision_watchers
-            └── generic.provision.watcher.json
+            └── generic.provision.watcher.yaml
 </code></pre></div></p>
 <!-- Store Links -->
 </article>
@@ -2411,6 +2411,8 @@ edgex-device-rfid-llrp.auto-configure<span class="w"> </span><span class="nv">$C
                 }
             });
         
+            const dark_scheme_name = "slate"
+            
             window.scheme = document.body.getAttribute("data-md-color-scheme")
             const options = {
                 attributeFilter: ['data-md-color-scheme'],
@@ -2423,7 +2425,7 @@ edgex-device-rfid-llrp.auto-configure<span class="w"> </span><span class="nv">$C
                         for(var i = 0; i < iframe_list.length; i++) {
                             var ele = iframe_list.item(i);
                             if (ele) {
-                                if (scheme === "slate") {
+                                if (scheme === dark_scheme_name) {
                                     ele.contentWindow.enable_dark_mode();
                                 } else {
                                     ele.contentWindow.disable_dark_mode();

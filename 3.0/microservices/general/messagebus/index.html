@@ -1838,48 +1838,27 @@
 <p>As mentioned above, the MQTT 3.1 implementation requires the addition of a MQTT Broker service to be running.</p>
 </div>
 <h4 id="configuration-changes">Configuration Changes</h4>
+<div class="admonition edgey">
+<p class="admonition-title">Edgex 3.0</p>
+<p>For EdgeX 3.0 <code>MessageQueue</code> configuration has been renamed to MessageBus and is now in common configuration.</p>
+</div>
+<p>The MessageBus configuration is in common configuration where the following changes only need to be made once and apply to all services. See the <strong>MessageBus</strong> tab in <a href="../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a> for more details.</p>
 <div class="admonition example -">
-<p class="admonition-title">Example MQTT Configurations changes for Core/Support/Device Services</p>
-<p>The following <code>MessageQueue</code> configuration settings must be changed for all EdgeX Core/Support/Device Services to use MQTT 3.1
-<div class="highlight"><pre><span></span><code><span class="k">[MessageQueue]</span>
-<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"mqtt"</span>
-<span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"tcp"</span><span class="w"> </span>
-<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"localhost"</span><span class="w"> </span><span class="c1"># in docker this must be overriden to be the docker host name of the MQTT Broker</span>
-<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span>
-<span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"none"</span><span class="w">  </span><span class="c1"># Currently in secure mode the MQTT Broker is not secured</span>
-<span class="w">  </span><span class="k">[MessageQueue.Optional]</span>
-<span class="w">  </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">"&lt;service-key&gt;"</span><span class="w"> </span><span class="c1"># must be unique name of the service, thus the service key (core-data, etc) is used</span>
-<span class="w">  </span><span class="n">Qos</span><span class="w">          </span><span class="o">=</span><span class="w">  </span><span class="s">"0"</span><span class="w"> </span><span class="c1"># Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</span>
-<span class="w">  </span><span class="n">KeepAlive</span><span class="w">    </span><span class="o">=</span><span class="w">  </span><span class="s">"10"</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span>
-<span class="w">  </span><span class="n">Retained</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s">"false"</span>
-<span class="w">  </span><span class="n">AutoReconnect</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">"true"</span>
-<span class="w">  </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"5"</span><span class="w"> </span><span class="c1"># Seconds</span>
+<p class="admonition-title">Example MQTT Configurations changes for all services</p>
+<p>The following <code>MessageBus</code> configuration settings must be changed in common configuration for all EdgeX Services to use MQTT 3.1
+<div class="highlight"><pre><span></span><code><span class="nt">MessageBus</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="s">"mqtt"</span>
+<span class="w">  </span><span class="nt">Protocol</span><span class="p">:</span><span class="w"> </span><span class="s">"tcp"</span><span class="w"> </span>
+<span class="w">  </span><span class="nt">Host</span><span class="p">:</span><span class="w"> </span><span class="s">"localhost"</span><span class="w"> </span><span class="c1"># in docker this must be overriden to be the docker host name of the MQTT Broker</span>
+<span class="w">  </span><span class="nt">Port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1883</span>
+<span class="w">  </span><span class="nt">AuthMode</span><span class="p">:</span><span class="w"> </span><span class="s">"none"</span><span class="w">  </span><span class="c1"># set to "usernamepassword" when running in secure mode</span>
+<span class="w">  </span><span class="nt">SecreName</span><span class="p">:</span><span class="w"> </span><span class="s">"message-bus"</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
 </code></pre></div></p>
 </div>
-<div class="admonition example -">
-<p class="admonition-title">Example MQTT Configurations changes for Application Services</p>
-<p>The following <code>Trigger.EdgexMessageBus</code> configuration settings must be changed for all EdgeX Application Services to use MQTT 3.1</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span>
-<span class="n">Type</span><span class="o">=</span><span class="s">"edgex-messagebus"</span>
-<span class="w">  </span><span class="k">[Trigger.EdgexMessageBus]</span>
-<span class="w">  </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"mqtt"</span>
-<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.SubscribeHost]</span>
-<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"tcp"</span>
-<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"localhost"</span><span class="w"> </span><span class="c1"># in docker this must be overriden to be the docker host name of the MQTT Broker</span>
-<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span>
-<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.PublishHost]</span>
-<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"tcp"</span>
-<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"localhost"</span><span class="w"> </span><span class="c1"># in docker this must be overriden to be the docker host name of the MQTT Broker</span>
-<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span>
-<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.Optional]</span>
-<span class="w">    </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">"&lt;service-key&gt;"</span><span class="w"> </span><span class="c1"># must be unique name of the service, thus the service key (app-rule-engine, etc) is used</span>
-<span class="w">    </span><span class="n">Qos</span><span class="w">          </span><span class="o">=</span><span class="w">  </span><span class="s">"0"</span><span class="w"> </span><span class="c1"># Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</span>
-<span class="w">    </span><span class="n">KeepAlive</span><span class="w">    </span><span class="o">=</span><span class="w">  </span><span class="s">"10"</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span>
-<span class="w">    </span><span class="n">Retained</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s">"false"</span>
-<span class="w">    </span><span class="n">AutoReconnect</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">"true"</span>
-<span class="w">    </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"5"</span><span class="w"> </span><span class="c1"># Seconds</span>
-<span class="w">    </span><span class="n">authmode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"none"</span><span class="w">  </span><span class="c1"># Currently in secure mode the MQTT Broker is not secured</span>
-</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The optional settings that apply to MQTT are already in the common configuration, so are not included above.</p>
 </div>
 <h4 id="docker">Docker</h4>
 <p>The EdgeX Compose Builder utility provides an option to easily generate a compose file with all the selected services re-configured for MQTT 3.1 using environment overrides. This is accomplished by using the <code>mqtt-bus</code> option. See <a href="https://github.com/edgexfoundry/edgex-compose/tree/levski/compose-builder">Compose Builder README</a> for details on all available options.</p>
@@ -1912,53 +1891,25 @@
 <p>The C Device SDK does not currently have a NATS implementation, so C Devices can not be used with the NATS based EdgeX MessageBus.</p>
 </div>
 <h4 id="configuration-changes_1">Configuration Changes</h4>
-<div class="admonition example -">
-<p class="admonition-title">Example NATS Configurations changes for Core/Support/Device Services</p>
-<p>The following <code>MessageQueue</code> configuration settings must be changed for all EdgeX Core/Support/Device Services to use NATS Jetstream</p>
-<div class="highlight"><pre><span></span><code><span class="k">[MessageQueue]</span>
-<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"nats-jetstream"</span>
-<span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"tcp"</span><span class="w"> </span>
-<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"localhost"</span><span class="w"> </span><span class="c1"># in docker this must be overriden to be the docker host name of the MQTT Broker</span>
-<span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4222</span>
-<span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"none"</span><span class="w">  </span><span class="c1"># Currently in secure mode the NATS server is not secured</span>
-<span class="w">  </span><span class="k">[MessageQueue.Optional]</span>
-<span class="w">  </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">"&lt;service-key&gt;"</span><span class="w"> </span><span class="c1"># must be unique name of the service, thus the service key (core-data, etc) is used</span>
-<span class="w">  </span><span class="c1"># Connection information</span>
-<span class="w">  </span><span class="n">Format</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="s">"nats"</span><span class="w"> </span><span class="c1"># Use 'json' for backward compatability with services using MQTT</span>
-<span class="w">  </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"5"</span><span class="w"> </span><span class="c1"># Seconds</span>
-<span class="w">  </span><span class="n">RetryOnFailedConnect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"true"</span>
-<span class="w">  </span><span class="n">QueueGroup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span><span class="w"> </span>
-<span class="w">  </span><span class="n">Durable</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="s">""</span><span class="w"> </span><span class="c1"># Jetstream only</span>
-<span class="w">  </span><span class="n">AutoProvision</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"true"</span><span class="w"> </span><span class="c1"># Jetstream only</span>
-<span class="w">  </span><span class="n">Deliver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"new"</span><span class="w"> </span><span class="c1"># Jetstream only</span>
-</code></pre></div>
+<div class="admonition edgey -">
+<p class="admonition-title">Edgex 3.0</p>
+<p>For EdgeX 3.0 <code>MessageQueue</code> configuration has been renamed to MessageBus and is now in common configuration.</p>
 </div>
+<p>The MessageBus configuration is in common configuration where the following changes only need to be made once and apply to all services. See the <strong>MessageBus</strong> tab in <a href="../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a> for more details.</p>
 <div class="admonition example -">
-<p class="admonition-title">Example NATS Configurations changes for Application Services</p>
-<p>The following <code>Trigger.EdgexMessageBus</code> configuration settings must be changed for all EdgeX Application Services to use NATsJetstream</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span>
-<span class="n">Type</span><span class="o">=</span><span class="s">"edgex-messagebus"</span>
-<span class="w">  </span><span class="k">[Trigger.EdgexMessageBus]</span>
-<span class="w">  </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"nats-jetstream"</span>
-<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.SubscribeHost]</span>
-<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"tcp"</span>
-<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"localhost"</span><span class="w"> </span><span class="c1"># in docker this must be overriden to be the docker host name of the MQTT Broker</span>
-<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4222</span>
-<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.PublishHost]</span>
-<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"tcp"</span>
-<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"localhost"</span><span class="w"> </span><span class="c1"># in docker this must be overriden to be the docker host name of the MQTT Broker</span>
-<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4222</span>
-<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.Optional]</span>
-<span class="w">    </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">"&lt;service-key&gt;"</span><span class="w"> </span><span class="c1"># must be unique name of the service, thus the service key (app-rule-engine, etc) is used</span>
-<span class="w">    </span><span class="n">Format</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="s">"nats"</span><span class="w"> </span><span class="c1"># Use 'json' for backward compatability with services using MQTT</span>
-<span class="w">    </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"5"</span><span class="w"> </span><span class="c1"># Seconds</span>
-<span class="w">    </span><span class="n">RetryOnFailedConnect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"true"</span>
-<span class="w">    </span><span class="n">QueueGroup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span><span class="w"> </span>
-<span class="w">    </span><span class="n">Durable</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="s">""</span><span class="w"> </span><span class="c1"># Jetstream only</span>
-<span class="w">    </span><span class="n">AutoProvision</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"true"</span><span class="w"> </span><span class="c1"># Jetstream only</span>
-<span class="w">    </span><span class="n">Deliver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"new"</span><span class="w"> </span><span class="c1"># Jetstream only</span>
-<span class="w">    </span><span class="n">authmode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"none"</span><span class="w">  </span><span class="c1"># Currently in secure mode the NATS Server is not secured</span>
-</code></pre></div>
+<p class="admonition-title">Example NATS Configurations changes for all services</p>
+<p>The following <code>MessageBus</code> configuration settings must be changed in common configuration for all EdgeX Services to use NATS Jetstream
+<div class="highlight"><pre><span></span><code><span class="nt">MessageBus</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">Type</span><span class="p">:</span><span class="w">  </span><span class="s">"nats-jetstream"</span>
+<span class="w">  </span><span class="nt">Protocol</span><span class="p">:</span><span class="w">  </span><span class="s">"tcp"</span><span class="w"> </span>
+<span class="w">  </span><span class="nt">Host</span><span class="p">:</span><span class="w">  </span><span class="s">"localhost"</span><span class="w"> </span><span class="c1"># in docker this must be overriden to be the docker host name of the NATS server</span>
+<span class="w">  </span><span class="nt">Port</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">4222</span>
+<span class="w">  </span><span class="nt">AuthMode</span><span class="p">:</span><span class="w">  </span><span class="s">"none"</span><span class="w">  </span><span class="c1"># Currently in secure mode the NATS server is not secured</span>
+</code></pre></div></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The optional setting that apply to NATS are already in the common configuration, so are not included above.</p>
 </div>
 <h4 id="docker_1">Docker</h4>
 <p>The EdgeX Compose Builder utility provides an option to easily generate a compose file with all the selected services re-configured for NATS using environment overrides. This is accomplished by using the <code>nats-bus</code> option. This option configures the services to use the NATS Jetstream implementation. See <a href="https://github.com/edgexfoundry/edgex-compose/tree/levski/compose-builder">Compose Builder README</a> for details on all available options. If NATS Core is preferred, simply do a search and replace of <code>nats-jeststream</code> with <code>nats-core</code> in the generated compose file.</p>
@@ -2079,6 +2030,8 @@
                 }
             });
         
+            const dark_scheme_name = "slate"
+            
             window.scheme = document.body.getAttribute("data-md-color-scheme")
             const options = {
                 attributeFilter: ['data-md-color-scheme'],
@@ -2091,7 +2044,7 @@
                         for(var i = 0; i < iframe_list.length; i++) {
                             var ele = iframe_list.item(i);
                             if (ele) {
-                                if (scheme === "slate") {
+                                if (scheme === dark_scheme_name) {
                                     ele.contentWindow.enable_dark_mode();
                                 } else {
                                     ele.contentWindow.disable_dark_mode();

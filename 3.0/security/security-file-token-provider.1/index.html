@@ -1149,7 +1149,7 @@ services from reading each other's tokens.</p>
 <p>-h, --help</p>
 <p>:   Display help text</p>
 <p>-cd, --configDir \&lt;configDir&gt;</p>
-<p>:   Look in this directory for configuration.toml instead.</p>
+<p>:   Look in this directory for configuration.yaml instead.</p>
 <p>-p, --profile \&lt;name&gt;</p>
 <p>:   Indicate configuration profile other than default</p>
 </blockquote>
@@ -1158,19 +1158,19 @@ services from reading each other's tokens.</p>
 <p>The <code>-c, --confdir</code> command line option is replaced by <code>-cd, --configDir</code> in EdgeX 3.0.</p>
 </div>
 <h1 id="files">FILES</h1>
-<h2 id="configurationtoml">configuration.toml</h2>
+<h2 id="configurationyaml">configuration.yaml</h2>
 <p>This file specifies the TCP/IP location of the Vault service and
 parameters used for Vault token generation.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">[SecretService]</span>
-<span class="na">Scheme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"https"</span>
-<span class="na">Server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"localhost"</span>
-<span class="na">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">8200</span>
+<div class="codehilite"><pre><span></span><code><span class="n">SecretService</span><span class="o">:</span>
+<span class="w">  </span><span class="n">Scheme</span><span class="o">:</span><span class="w"> </span><span class="s2">"https"</span>
+<span class="w">  </span><span class="n">Server</span><span class="o">:</span><span class="w"> </span><span class="s2">"localhost"</span>
+<span class="w">  </span><span class="n">Port</span><span class="o">:</span><span class="w"> </span><span class="mi">8200</span>
 
-<span class="k">[TokenFileProvider]</span>
-<span class="na">PrivilegedTokenPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"/run/edgex/secrets/security-file-token-provider/secrets-token.json"</span>
-<span class="na">ConfigFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"token-config.json"</span>
-<span class="na">OutputDir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"/run/edgex/secrets/"</span>
-<span class="na">OutputFilename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"secrets-token.json"</span>
+<span class="n">TokenFileProvider</span><span class="o">:</span>
+<span class="w">  </span><span class="n">PrivilegedTokenPath</span><span class="o">:</span><span class="w"> </span><span class="s2">"/run/edgex/secrets/security-file-token-provider/secrets-token.json"</span>
+<span class="w">  </span><span class="n">ConfigFile</span><span class="o">:</span><span class="w"> </span><span class="s2">"token-config.json"</span>
+<span class="w">  </span><span class="n">OutputDir</span><span class="o">:</span><span class="w"> </span><span class="s2">"/run/edgex/secrets/"</span>
+<span class="w">  </span><span class="n">OutputFilename</span><span class="o">:</span><span class="w"> </span><span class="s2">"secrets-token.json"</span>
 </code></pre></div>
 <h2 id="secrets-tokenjson">secrets-token.json</h2>
 <p>This file contains a token used to authenticate to Vault. The filename
@@ -1352,6 +1352,8 @@ path "sys/policies/acl"
                 }
             });
         
+            const dark_scheme_name = "slate"
+            
             window.scheme = document.body.getAttribute("data-md-color-scheme")
             const options = {
                 attributeFilter: ['data-md-color-scheme'],
@@ -1364,7 +1366,7 @@ path "sys/policies/acl"
                         for(var i = 0; i < iframe_list.length; i++) {
                             var ele = iframe_list.item(i);
                             if (ele) {
-                                if (scheme === "slate") {
+                                if (scheme === dark_scheme_name) {
                                     ele.contentWindow.enable_dark_mode();
                                 } else {
                                     ele.contentWindow.disable_dark_mode();

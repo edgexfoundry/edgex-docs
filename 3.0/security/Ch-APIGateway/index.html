@@ -1367,7 +1367,7 @@ using the assumptions above:</p>
 <p>(where <code>edgex001.example.com</code> is the hostname by which the client is externally reachable)</p>
 <p>The TLS certificate installed in the previous step should be among the output of the <code>openssl</code> command.</p>
 <h3 id="configuration-of-adding-microservices-routes-for-api-gateway">Configuration of Adding Microservices Routes for API Gateway</h3>
-<p>For the current pre-existing Kong routes, they are configured and initialized statically through configuration TOML file specified in <code>security-proxy-setup</code> application. This is not sufficient for some other new additional microservices like application services, for example.  Thus, adding new proxy Kong routes are now possibly achieved via the environment variable, <code>ADD_PROXY_ROUTE</code>, of service <code>edgex-proxy</code> in the docker-compose file.  Here is an example:</p>
+<p>For the current pre-existing Kong routes, they are configured and initialized statically through configuration file specified in <code>security-proxy-setup</code> application. This is not sufficient for some other new additional microservices like application services, for example.  Thus, adding new proxy Kong routes are now possibly achieved via the environment variable, <code>ADD_PROXY_ROUTE</code>, of service <code>edgex-proxy</code> in the docker-compose file.  Here is an example:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">edgex-proxy</span><span class="p">:</span>
 <span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
 <span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">environment</span><span class="p p-Indicator">:</span>
@@ -1673,6 +1673,8 @@ the TLS certificate would be registered under the external host name.)</p>
                 }
             });
         
+            const dark_scheme_name = "slate"
+            
             window.scheme = document.body.getAttribute("data-md-color-scheme")
             const options = {
                 attributeFilter: ['data-md-color-scheme'],
@@ -1685,7 +1687,7 @@ the TLS certificate would be registered under the external host name.)</p>
                         for(var i = 0; i < iframe_list.length; i++) {
                             var ele = iframe_list.item(i);
                             if (ele) {
-                                if (scheme === "slate") {
+                                if (scheme === dark_scheme_name) {
                                     ele.contentWindow.enable_dark_mode();
                                 } else {
                                     ele.contentWindow.disable_dark_mode();

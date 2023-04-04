@@ -1575,30 +1575,29 @@
 <p><code>DeviceClient() interfaces.DeviceClient</code></p>
 <p>Returns a <code>DeviceClient</code> to leverage Core Metadata's <code>Device</code> API. See <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/interfaces/device.go">interface definition</a> for more details. Useful for querying information about Devices. Note if Core Metadata is not specified in the Clients configuration, this will return nil. </p>
 <h3 id="note-about-clients">Note about Clients</h3>
-<p>Each of the clients above is only initialized if the Clients section of the configuration contains an entry for the service associated with the Client API. If it isn't in the configuration the client will be <code>nil</code>. Your code must check for <code>nil</code> to avoid panic in case it is missing from the configuration. Only add the clients to your configuration that your Application Service will actually be using. All application services need <code>Core-Data</code> for version compatibility check done on start-up. The following is an example <code>Clients</code> section of a configuration.toml with all supported clients specified:</p>
+<p>Each of the clients above is only initialized if the Clients section of the configuration contains an entry for the service associated with the Client API. If it isn't in the configuration the client will be <code>nil</code>. Your code must check for <code>nil</code> to avoid panic in case it is missing from the configuration. Only add the clients to your configuration that your Application Service will actually be using. All application services need <code>Core-Data</code> for version compatibility check done on start-up. The following is an example <code>Clients</code> section of a configuration.yaml with all supported clients specified:</p>
 <div class="admonition example">
 <p class="admonition-title">Example - Client Configuration Section</p>
-<div class="highlight"><pre><span></span><code>[Clients]
-  [Clients.core-data]
-  Protocol = 'http'
-  Host = 'localhost'
-  Port = 59880
+<div class="highlight"><pre><span></span><code><span class="nt">Clients</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">core-data</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http</span>
+<span class="w">    </span><span class="nt">Host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span>
+<span class="w">    </span><span class="nt">Port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">59880</span>
 
-  [Clients.core-metadata]
-  Protocol = 'http'
-  Host = 'localhost'
-  Port = 59881
+<span class="w">  </span><span class="nt">core-command</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http</span>
+<span class="w">    </span><span class="nt">Host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span>
+<span class="w">    </span><span class="nt">Port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">59882</span>
 
-  [Clients.core-command]
-  Protocol = 'http'
-  Host = 'localhost'
-  Port = 59882
-
-  [Clients.support-notifications]
-  Protocol = 'http'
-  Host = 'localhost'
-  Port = 59860
+<span class="w">  </span><span class="nt">support-notifications</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http</span>
+<span class="w">    </span><span class="nt">Host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span>
+<span class="w">    </span><span class="nt">Port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">59860</span>
 </code></pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Core Metadata client is required and provided by the App Services Common Configuration, so it is not included in the above example.</p>
 </div>
 <h2 id="context-storage">Context Storage</h2>
 <p>The context API exposes a map-like interface that can be used to store custom data specific to a given pipeline execution.  This data is persisted for retry if needed.  Currently only strings are supported, and keys are treated as case-insensitive.  </p>
@@ -1773,6 +1772,8 @@
                 }
             });
         
+            const dark_scheme_name = "slate"
+            
             window.scheme = document.body.getAttribute("data-md-color-scheme")
             const options = {
                 attributeFilter: ['data-md-color-scheme'],
@@ -1785,7 +1786,7 @@
                         for(var i = 0; i < iframe_list.length; i++) {
                             var ele = iframe_list.item(i);
                             if (ele) {
-                                if (scheme === "slate") {
+                                if (scheme === dark_scheme_name) {
                                     ele.contentWindow.enable_dark_mode();
                                 } else {
                                     ele.contentWindow.disable_dark_mode();

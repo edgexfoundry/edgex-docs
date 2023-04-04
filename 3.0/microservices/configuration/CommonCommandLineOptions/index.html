@@ -571,6 +571,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#common-config">
+    Common Config
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#profile">
     Profile
   </a>
@@ -1184,6 +1189,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#common-config">
+    Common Config
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#profile">
     Profile
   </a>
@@ -1233,7 +1243,7 @@
 <p class="admonition-title">EdgeX 3.0</p>
 <p>The <code>-f/--file</code> command line option is replaced by <code>-cf/--configFile</code> in EdgeX 3.0.</p>
 </div>
-<p>Indicates the name of the local configuration file. Default is <code>configuration.toml</code></p>
+<p>Indicates the name of the local configuration file. Default is <code>configuration.yaml</code></p>
 <p>Can be overridden with <a href="../CommonEnvironmentVariables/#edgex_config_file">EDGEX_CONFIG_FILE</a> environment variable.</p>
 <h2 id="config-provider">Config Provider</h2>
 <p><code>-cp/ --configProvider</code></p>
@@ -1243,9 +1253,17 @@
 <p class="admonition-title">EdgeX 3.0</p>
 <p>The <code>EDGEX_CONFIGURATION_PROVIDER</code> environment variable is replaced by <code>EDGEX_CONFIG_PROVIDER</code> in EdgeX 3.0.</p>
 </div>
+<h2 id="common-config">Common Config</h2>
+<p><code>-cc/ --commonConfig</code></p>
+<p>Takes the location where the common configuration is loaded from when not using the Configuration Provider. Default is blank.</p>
+<p>Can be overridden with <a href="../CommonEnvironmentVariables/#edgex_common_config">EDGEX_COMMON_CONFIG</a> environment variable.</p>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 3.0</p>
+<p>The Common Config flag is new to EdgeX 3.0</p>
+</div>
 <h2 id="profile">Profile</h2>
 <p><code>-p/--profile &lt;name&gt;</code></p>
-<p>Indicates configuration profile other than default. Default is no profile name resulting in using <code>./res/configuration.toml</code> if <code>-f</code> and <code>-c</code> are not used.</p>
+<p>Indicates configuration profile other than default. Default is no profile name resulting in using <code>./res/configuration.yaml</code> if <code>-f</code> and <code>-c</code> are not used.</p>
 <p>Can be overridden with <a href="../CommonEnvironmentVariables/#edgex_profile">EDGEX_PROFILE </a> environment variable.</p>
 <h2 id="registry">Registry</h2>
 <p><code>-r/ --registry</code></p>
@@ -1366,6 +1384,8 @@
                 }
             });
         
+            const dark_scheme_name = "slate"
+            
             window.scheme = document.body.getAttribute("data-md-color-scheme")
             const options = {
                 attributeFilter: ['data-md-color-scheme'],
@@ -1378,7 +1398,7 @@
                         for(var i = 0; i < iframe_list.length; i++) {
                             var ele = iframe_list.item(i);
                             if (ele) {
-                                if (scheme === "slate") {
+                                if (scheme === dark_scheme_name) {
                                     ele.contentWindow.enable_dark_mode();
                                 } else {
                                     ele.contentWindow.disable_dark_mode();

@@ -1609,14 +1609,14 @@ curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span
 <h2 id="optional">Optional</h2>
 <h3 id="configuration-options">Configuration Options</h3>
 <h3 id="configurable-rtsp-server-hostname-and-port">Configurable RTSP server hostname and port</h3>
-<p>The hostname and port of the RTSP server can be configured in the <code>[Driver]</code> section of the <code>/cmd/res/configuration.toml</code> file. The default vaules can be used for this guide.</p>
+<p>The hostname and port of the RTSP server can be configured in the <code>Driver</code> section of the <code>/cmd/res/configuration.yaml</code> file. The default vaules can be used for this guide.</p>
 <p>For example:
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">[</span><span class="nv">Driver</span><span class="p p-Indicator">]</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">RtspServerHostName = "localhost"</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">RtspTcpPort = "8554"</span>
+<div class="highlight"><pre><span></span><code><span class="nt">Driver</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">RtspServerHostName</span><span class="p">:</span><span class="w"> </span><span class="s">"localhost"</span>
+<span class="w">  </span><span class="nt">RtspTcpPort</span><span class="p">:</span><span class="w"> </span><span class="s">"8554"</span>
 </code></pre></div></p>
 <p align="left">
-<i>Sample: Snippet from configuration.toml</i>
+<i>Sample: Snippet from configuration.yaml</i>
 </p>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <h3 id="streamingstatus">StreamingStatus</h3>
@@ -1731,6 +1731,8 @@ curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span
                 }
             });
         
+            const dark_scheme_name = "slate"
+            
             window.scheme = document.body.getAttribute("data-md-color-scheme")
             const options = {
                 attributeFilter: ['data-md-color-scheme'],
@@ -1743,7 +1745,7 @@ curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span
                         for(var i = 0; i < iframe_list.length; i++) {
                             var ele = iframe_list.item(i);
                             if (ele) {
-                                if (scheme === "slate") {
+                                if (scheme === dark_scheme_name) {
                                     ele.contentWindow.enable_dark_mode();
                                 } else {
                                     ele.contentWindow.disable_dark_mode();

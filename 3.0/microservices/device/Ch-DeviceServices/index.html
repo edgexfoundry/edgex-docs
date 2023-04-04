@@ -1707,9 +1707,9 @@ and role of a device service.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">Driver</label><label for="__tabbed_2_2">Custom Structured Configuration</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p><code>[Driver]</code> - The Driver section used for simple custom settings and is accessed via the SDK's DriverConfigs() API. The DriverConfigs API returns a <code>map[string] string</code> containing the contents on the <code>Driver</code> section of the <code>configuration.toml</code> file.</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Driver]</span>
-<span class="n">MySetting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"My Value"</span>
+<p><code>Driver</code> - The Driver section used for simple custom settings and is accessed via the SDK's DriverConfigs() API. The DriverConfigs API returns a <code>map[string] string</code> containing the contents on the <code>Driver</code> section of the <code>configuration.yaml</code> file.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">Driver</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">MySetting</span><span class="p">:</span><span class="w"> </span><span class="s">"My</span><span class="nv"> </span><span class="s">Value"</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -1730,20 +1730,21 @@ and role of a device service.</p>
 <h5 id="secure-mode">Secure Mode</h5>
 <p>When running an Device Service in secure mode, secrets can be stored in the SecretStore by making an HTTP <code>POST</code> call to the <code>/api/v2/secret</code> API route on the Device Service. The secret data POSTed is stored to the service's secure<code>SecretStore</code> . Once a secret is stored, only the service that added the secret will be able to retrieve it.  See the <a href="../../../api/devices/Ch-APIDeviceSDK/#swagger">Secret API Reference</a> for more details and example.</p>
 <h5 id="insecure-mode">Insecure Mode</h5>
-<p>When running in insecure mode, the secrets are stored and retrieved from the <em>Writable.InsecureSecrets</em> section of the service's configuration.toml file. Insecure secrets and their paths can be configured as below.</p>
+<p>When running in insecure mode, the secrets are stored and retrieved from the <em>Writable.InsecureSecrets</em> section of the service's configuration.yaml file. Insecure secrets and their paths can be configured as below.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - InsecureSecrets Configuration</p>
-<div class="highlight"><pre><span></span><code><span class="w">   </span><span class="p">[</span><span class="n">Writable</span><span class="p">.</span><span class="n">InsecureSecrets</span><span class="p">]</span><span class="w">    </span>
-<span class="w">     </span><span class="k">[Writable.InsecureSecrets.DB]</span>
-<span class="w">     </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"redisdb"</span>
-<span class="w">       </span><span class="k">[Writable.InsecureSecrets.DB.Secrets]</span>
-<span class="w">       </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span>
-<span class="w">       </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span>
-<span class="w">     </span><span class="k">[Writable.InsecureSecrets.MQTT]</span>
-<span class="w">     </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"credentials"</span>
-<span class="w">       </span><span class="k">[Writable.InsecureSecrets.MQTT.Secrets]</span>
-<span class="w">       </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"mqtt-user"</span>
-<span class="w">       </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"mqtt-password"</span>
+<div class="highlight"><pre><span></span><code><span class="nt">Writable</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">InsecureSecrets</span><span class="p">:</span><span class="w">    </span>
+<span class="w">    </span><span class="nt">DB</span><span class="p">:</span>
+<span class="w">     </span><span class="nt">SecretName</span><span class="p">:</span><span class="w"> </span><span class="s">"redisdb"</span>
+<span class="w">     </span><span class="nt">SecretData</span><span class="p">:</span>
+<span class="w">       </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="s">""</span>
+<span class="w">       </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">""</span>
+<span class="w">    </span><span class="nt">MQTT</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">SecretName</span><span class="p">:</span><span class="w"> </span><span class="s">"credentials"</span>
+<span class="w">    </span><span class="nt">SecretData</span><span class="p">:</span>
+<span class="w">       </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="s">"mqtt-user"</span>
+<span class="w">       </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">"mqtt-password"</span>
 </code></pre></div>
 </div>
 <h4 id="retrieving-secrets">Retrieving Secrets</h4>
@@ -1855,6 +1856,8 @@ and role of a device service.</p>
                 }
             });
         
+            const dark_scheme_name = "slate"
+            
             window.scheme = document.body.getAttribute("data-md-color-scheme")
             const options = {
                 attributeFilter: ['data-md-color-scheme'],
@@ -1867,7 +1870,7 @@ and role of a device service.</p>
                         for(var i = 0; i < iframe_list.length; i++) {
                             var ele = iframe_list.item(i);
                             if (ele) {
-                                if (scheme === "slate") {
+                                if (scheme === dark_scheme_name) {
                                     ele.contentWindow.enable_dark_mode();
                                 } else {
                                     ele.contentWindow.disable_dark_mode();

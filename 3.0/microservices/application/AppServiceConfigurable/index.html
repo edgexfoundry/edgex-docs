@@ -1486,29 +1486,28 @@
 <li><a href="../BuiltIn/#xml">Transform</a> - to transform the data to XML</li>
 <li><a href="../BuiltIn/#http-export">HTTPExport</a> - to send the data to an HTTP endpoint that takes our XML data   </li>
 </ol>
-<p>Once the functions have been identified, we'll go ahead and build out the configuration in the <code>configuration.toml</code> file under the <code>[Writable.Pipeline]</code> section.</p>
+<p>Once the functions have been identified, we'll go ahead and build out the configuration in the <code>configuration.yaml</code> file under the <code>[Writable.Pipeline]</code> section.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - Writable.Pipeline</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Writable]</span>
-<span class="n">LogLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"DEBUG"</span>
-<span class="w">  </span><span class="k">[Writable.Pipeline]</span>
-<span class="w">    </span><span class="n">ExecutionOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"FilterByDeviceName, Transform, HTTPExport"</span>
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.FilterByDeviceName]</span>
-<span class="w">        </span><span class="k">[Writable.Pipeline.Functions.FilterByDeviceName.Parameters]</span>
-<span class="w">        </span><span class="n">FilterValues</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Random-Float-Device, Random-Integer-Device"</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Transform]</span>
-<span class="w">        </span><span class="k">[Writable.Pipeline.Functions.Transform.Parameters]</span>
-<span class="w">        </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"xml"</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.HTTPExport]</span>
-<span class="w">        </span><span class="k">[Writable.Pipeline.Functions.HTTPExport.Parameters]</span>
-<span class="w">        </span><span class="n">Method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"post"</span><span class="w"> </span>
-<span class="w">        </span><span class="n">MimeType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"application/xml"</span><span class="w"> </span>
-<span class="w">        </span><span class="n">Url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"http://my.api.net/edgexdata"</span>
+<div class="highlight"><pre><span></span><code><span class="nt">Writable</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">Pipeline</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">ExecutionOrder</span><span class="p">:</span><span class="w"> </span><span class="s">"FilterByDeviceName,</span><span class="nv"> </span><span class="s">Transform,</span><span class="nv"> </span><span class="s">HTTPExport"</span>
+<span class="w">    </span><span class="nt">Functions</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">FilterByDeviceName</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">FilterValues</span><span class="p">:</span><span class="w"> </span><span class="s">"Random-Float-Device,</span><span class="nv"> </span><span class="s">Random-Integer-Device"</span>
+<span class="w">      </span><span class="nt">Transform</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="s">"xml"</span>
+<span class="w">      </span><span class="nt">HTTPExport</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">Method</span><span class="p">:</span><span class="w"> </span><span class="s">"post"</span><span class="w"> </span>
+<span class="w">          </span><span class="nt">MimeType</span><span class="p">:</span><span class="w"> </span><span class="s">"application/xml"</span><span class="w"> </span>
+<span class="w">          </span><span class="nt">Url</span><span class="p">:</span><span class="w"> </span><span class="s">"http://my.api.net/edgexdata"</span>
 </code></pre></div>
 </div>
-<p>The first line of note is <code>ExecutionOrder = "FilterByDeviceName, Transform, HTTPExport"</code>. This specifies the order in which to execute your functions. Each function specified here must also be placed in the <code>[Writeable.Pipeline.Functions]</code> section. </p>
-<p>Next, each function and its required information is listed. Each function typically has associated Parameters that must be configured to properly execute the function as designated by <code>[Writable.Pipeline.Functions.{FunctionName}.Parameters]</code>. Knowing which parameters are required for each function, can be referenced by taking a look at  the <a href="#available-configurable-pipeline-functions">Available Configurable Pipeline Functions</a> section below.</p>
+<p>The first line of note is <code>ExecutionOrder: "FilterByDeviceName, Transform, HTTPExport"</code>. This specifies the order in which to execute your functions. Each function specified here must also be placed in the <code>Functions:</code> section. </p>
+<p>Next, each function and its required information is listed. Each function typically has associated Parameters that must be configured to properly execute the function as designated by <code>Parameters:</code> under <code>{FunctionName}</code>. Knowing which parameters are required for each function, can be referenced by taking a look at  the <a href="#available-configurable-pipeline-functions">Available Configurable Pipeline Functions</a> section below.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>By default, the configuration provided is set to use <code>EdgexMessageBus</code> as a trigger. This means you must have EdgeX Running with devices sending data in order to trigger the pipeline. You can also change the trigger to be HTTP. For more details on triggers, view the <code>Triggers</code>documentation located in the <a href="../Triggers/">Triggers</a> section.</p>
@@ -1528,33 +1527,32 @@
 <div class="admonition example">
 <p class="admonition-title">Example - Writable.Pipeline.PerTopicPipelines</p>
 <p>In this example Events from the device  <code>Random-Float-Device</code> are transformed to JSON and then HTTP exported. At the same time, Events for the source <code>Int8</code>  are transformed to XML and then HTTP exported to same endpoint. Note the custom naming for <code>TransformJson</code> and <code>TransformXml</code>. This is taking advantage of the <a href="#multiple-instances-of-a-function">Multiple Instances of a Function</a> described below.</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Writable]</span>
-<span class="n">LogLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"DEBUG"</span>
-<span class="w">  </span><span class="k">[Writable.Pipeline]</span>
-<span class="w">    </span><span class="k">[Writable.Pipeline.PerTopicPipelines]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.PerTopicPipelines.float]</span>
-<span class="w">      </span><span class="n">Id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"float-pipeline"</span>
-<span class="w">      </span><span class="n">Topics</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"edgex/events/device/+/Random-Float-Device/#, edgex/events/device/+/Random-Integer-Device/#"</span>
-<span class="w">      </span><span class="n">ExecutionOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"TransformJson, HTTPExport"</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.PerTopicPipelines.int8]</span>
-<span class="w">      </span><span class="n">Id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"int8-pipeline"</span>
-<span class="w">      </span><span class="n">Topic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"edgex/events/device/+/+/Int8"</span>
-<span class="w">      </span><span class="n">ExecutionOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"TransformXml, HTTPExport"</span><span class="w">  </span>
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.FilterByDeviceName]</span>
-<span class="w">        </span><span class="k">[Writable.Pipeline.Functions.FilterByDeviceName.Parameters]</span>
-<span class="w">        </span><span class="n">FilterValues</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Random-Float-Device, Random-Integer-Device"</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.TransformJson]</span>
-<span class="w">        </span><span class="k">[Writable.Pipeline.Functions.TransformJson.Parameters]</span>
-<span class="w">        </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"json"</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.TransformXml]</span>
-<span class="w">        </span><span class="k">[Writable.Pipeline.Functions.TransformXml.Parameters]</span>
-<span class="w">        </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"xml"</span><span class="w">        </span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.HTTPExport]</span>
-<span class="w">        </span><span class="k">[Writable.Pipeline.Functions.HTTPExport.Parameters]</span>
-<span class="w">        </span><span class="n">Method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"post"</span><span class="w"> </span>
-<span class="w">        </span><span class="n">MimeType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"application/xml"</span><span class="w"> </span>
-<span class="w">        </span><span class="n">Url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"http://my.api.net/edgexdata"</span>
+<div class="highlight"><pre><span></span><code><span class="nt">Writable</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">Pipeline</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">PerTopicPipelines</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">float</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">float-pipeline</span>
+<span class="w">        </span><span class="nt">Topics</span><span class="p">:</span><span class="w"> </span><span class="s">"edgex/events/device/+/Random-Float-Device/#,</span><span class="nv"> </span><span class="s">edgex/events/device/+/Random-Integer-Device/#"</span>
+<span class="w">        </span><span class="nt">ExecutionOrder</span><span class="p">:</span><span class="w"> </span><span class="s">"TransformJson,</span><span class="nv"> </span><span class="s">HTTPExport"</span>
+<span class="w">      </span><span class="nt">int8</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">int8-pipeline</span>
+<span class="w">        </span><span class="nt">Topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex/events/device/+/+/+/Int8</span>
+<span class="w">        </span><span class="nt">ExecutionOrder</span><span class="p">:</span><span class="w"> </span><span class="s">"TransformXml,</span><span class="nv"> </span><span class="s">HTTPExport"</span>
+<span class="w">    </span><span class="nt">Functions</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">FilterByDeviceName</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">FilterValues</span><span class="p">:</span><span class="w"> </span><span class="s">"Random-Float-Device,</span><span class="nv"> </span><span class="s">Random-Integer-Device"</span>
+<span class="w">      </span><span class="nt">TransformJson</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">json</span>
+<span class="w">      </span><span class="nt">TransformXml</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xml</span>
+<span class="w">      </span><span class="nt">HTTPExport</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">Method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">post</span>
+<span class="w">          </span><span class="nt">MimeType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">application/xml</span>
+<span class="w">          </span><span class="nt">Url</span><span class="p">:</span><span class="w"> </span><span class="s">"http://my.api.net/edgexdata"</span>
 </code></pre></div>
 </div>
 <div class="admonition note">
@@ -1582,7 +1580,7 @@
 </div>
 <div class="admonition example -">
 <p class="admonition-title">Example - Docker compose entry for <strong>App Service Configurable</strong> in no-secure compose file</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">app-service-rules</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">app-rules-engine</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-app-rules-engine</span>
 <span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">consul</span>
@@ -1618,7 +1616,7 @@
 <p><strong>App Service Configurable</strong> is designed to be run multiple times each with different profiles. This is why in the above example the name <code>edgex-app-rules-engine</code> is used for the instance running the <code>rules-engine</code> profile.</p>
 </div>
 <h2 id="deploying-multiple-instances-using-profiles">Deploying Multiple Instances using profiles</h2>
-<p>App Service Configurable was designed to be deployed as multiple instances for different purposes. Since the function pipeline is specified in the <code>configuration.toml</code> file, we can use this as a way to run each instance with a different function pipeline. App Service Configurable does not have the standard default configuration at <code>/res/configuration.toml</code>. This default configuration has been moved to the <code>sample</code> profile. This forces you to specify the profile for the configuration you would like to run. The profile is specified using the <code>-p/--profile=[profilename]</code> command line option or the <code>EDGEX_PROFILE=[profilename]</code> environment variable override. The profile name selected is used in the service key (<code>app-[profile name]</code>) to make each instance unique, e.g. <code>AppService-sample</code> when specifying <code>sample</code> as the profile.</p>
+<p>App Service Configurable was designed to be deployed as multiple instances for different purposes. Since the function pipeline is specified in the <code>configuration.yaml</code> file, we can use this as a way to run each instance with a different function pipeline. App Service Configurable does not have the standard default configuration at <code>/res/configuration.yaml</code>. This default configuration has been moved to the <code>sample</code> profile. This forces you to specify the profile for the configuration you would like to run. The profile is specified using the <code>-p/--profile=[profilename]</code> command line option or the <code>EDGEX_PROFILE=[profilename]</code> environment variable override. The profile name selected is used in the service key (<code>app-[profile name]</code>) to make each instance unique, e.g. <code>AppService-sample</code> when specifying <code>sample</code> as the profile.</p>
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 2.0</p>
 <p>Default service key for App Service Configurable instances has changed in Edgex 2.0 from <code>AppService-[profile name]</code> to <code>app-[profile name]</code></p>
@@ -1639,14 +1637,14 @@
 <li><code>WRITABLE_PIPELINE_EXECUTIONORDER: "FilterByDeviceName, HTTPExport"</code></li>
 <li><code>WRITABLE_PIPELINE_FUNCTIONS_FILTERBYDEVICENAME_PARAMETERS_DEVICENAMES: "[comma separated list]"</code></li>
 </ul>
-<p>There are many optional functions and parameters provided in this profile. See the <a href="https://github.com/edgexfoundry/app-service-configurable/blob/master/res/rules-engine/configuration.toml">complete profile</a> for more details</p>
+<p>There are many optional functions and parameters provided in this profile. See the <a href="https://github.com/edgexfoundry/app-service-configurable/blob/master/res/rules-engine/configuration.yaml">complete profile</a> for more details</p>
 <h3 id="http-export">http-export</h3>
 <p>Starter profile used for exporting data via HTTP.  Requires further configuration which can easily be accomplished using environment variable overrides</p>
 <p>Required:</p>
 <ul>
 <li>
 <p><code>WRITABLE_PIPELINE_FUNCTIONS_HTTPEXPORT_PARAMETERS_URL: [Your URL]</code></p>
-<p>There are many more optional functions and parameters provided in this profile. See the <a href="https://github.com/edgexfoundry/app-service-configurable/blob/v2.0.0/res/http-export/configuration.toml">complete profile</a> for more details.</p>
+<p>There are many more optional functions and parameters provided in this profile. See the <a href="https://github.com/edgexfoundry/app-service-configurable/blob/master/res/http-export/configuration.yaml">complete profile</a> for more details.</p>
 </li>
 </ul>
 <h3 id="metrics-influxdb">metrics-influxdb</h3>
@@ -1677,7 +1675,7 @@
 <p class="admonition-title">Example JSON to post to /secret endpoint</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">    </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="s2">"v2"</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">"path"</span><span class="p">:</span><span class="s2">"influxdb"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"secretName"</span><span class="p">:</span><span class="s2">"influxdb"</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">"secretData"</span><span class="p">:[</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">        </span><span class="nt">"key"</span><span class="p">:</span><span class="s2">"Token"</span><span class="p">,</span>
@@ -1720,11 +1718,11 @@
 <ul>
 <li>
 <p><code>WRITABLE_PIPELINE_FUNCTIONS_MQTTEXPORT_PARAMETERS_BROKERADDRESS: [Your Broker Address]</code></p>
-<p>There are many optional functions and parameters provided in this profile. See the <a href="https://github.com/edgexfoundry/app-service-configurable/blob/v2.0.0/res/mqtt-export/configuration.toml">complete profile</a> for more details</p>
+<p>There are many optional functions and parameters provided in this profile. See the <a href="https://github.com/edgexfoundry/app-service-configurable/blob/master/res/mqtt-export/configuration.yaml">complete profile</a> for more details</p>
 </li>
 </ul>
 <h3 id="sample">sample</h3>
-<p>Sample profile with all available functions declared and a sample pipeline. Provided as a sample that can be copied and modified to create new custom profiles. See the <a href="https://github.com/edgexfoundry/app-service-configurable/blob/v2.0.0/res/sample/configuration.toml">complete profile</a> for more details</p>
+<p>Sample profile with all available functions declared and a sample pipeline. Provided as a sample that can be copied and modified to create new custom profiles. See the <a href="https://github.com/edgexfoundry/app-service-configurable/blob/master/res/sample/configuration.yaml">complete profile</a> for more details</p>
 <h3 id="functional-tests">functional-tests</h3>
 <p>Profile used for the TAF functional testing  </p>
 <h3 id="external-mqtt-trigger">external-mqtt-trigger</h3>
@@ -1735,52 +1733,49 @@
 <p>In these cases the <code>Pipeline</code> can be configured using <code>TargetType="raw"</code> to set the <code>TargetType</code> to be a byte array/slice, i.e. <code>[]byte</code>. The first function in the pipeline must then be one that can handle the <code>[]byte</code> data. The <strong>compression</strong>,  <strong>encryption</strong> and <strong>export</strong> functions are examples of pipeline functions that will take input data that is <code>[]byte</code>. </p>
 <div class="admonition example">
 <p class="admonition-title">Example - Configure the functions pipeline to <strong>compress</strong>, <strong>encrypt</strong> and then <strong>export</strong> the <code>[]byte</code> data via HTTP </p>
-<div class="highlight"><pre><span></span><code><span class="k">[Writable]</span>
-<span class="w">  </span><span class="n">LogLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"DEBUG"</span>
-<span class="w">  </span><span class="k">[Writable.Pipeline]</span>
-<span class="w">    </span><span class="n">TargetType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"raw"</span>
-<span class="w">    </span><span class="n">ExecutionOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Compress, Encrypt, HTTPExport"</span>
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Compress]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Compress.Parameters]</span>
-<span class="w">      </span><span class="n">Alogrithm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"gzip"</span>
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Encrypt]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Encrypt.Parameters]</span>
-<span class="w">        </span><span class="n">Algorithm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"aes"</span>
-<span class="w">        </span><span class="n">Key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"aquqweoruqwpeoruqwpoeruqwpoierupqoweiurpoqwiuerpqowieurqpowieurpoqiweuroipwqure"</span>
-<span class="w">        </span><span class="n">InitVector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"123456789012345678901234567890"</span>
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.HTTPExport]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.HTTPExport.Parameters]</span>
-<span class="w">      </span><span class="n">Method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"post"</span>
-<span class="w">      </span><span class="n">Url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"http://my.api.net/edgexdata"</span>
-<span class="w">      </span><span class="n">MimeType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"application/text"</span>
+<div class="highlight"><pre><span></span><code><span class="nt">Writable</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">Pipeline</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">TargetType</span><span class="p">:</span><span class="w"> </span><span class="s">"raw"</span>
+<span class="w">    </span><span class="nt">ExecutionOrder</span><span class="p">:</span><span class="w"> </span><span class="s">"Compress,</span><span class="nv"> </span><span class="s">Encrypt,</span><span class="nv"> </span><span class="s">HTTPExport"</span>
+<span class="w">    </span><span class="nt">Functions</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">Compress</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">Alogrithm</span><span class="p">:</span><span class="w"> </span><span class="s">"gzip"</span>
+<span class="w">      </span><span class="nt">Encrypt</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">Algorithm</span><span class="p">:</span><span class="w"> </span><span class="s">"aes256"</span><span class="w"> </span>
+<span class="w">          </span><span class="nt">SecretName</span><span class="p">:</span><span class="w"> </span><span class="s">"aes"</span>
+<span class="w">          </span><span class="nt">SecretValueKey</span><span class="p">:</span><span class="w"> </span><span class="s">"key"</span>
+<span class="w">      </span><span class="nt">HTTPExport</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">Method</span><span class="p">:</span><span class="w"> </span><span class="s">"post"</span>
+<span class="w">          </span><span class="nt">Url</span><span class="p">:</span><span class="w"> </span><span class="s">"http://my.api.net/edgexdata"</span>
+<span class="w">          </span><span class="nt">MimeType</span><span class="p">:</span><span class="w"> </span><span class="s">"application/text"</span>
 </code></pre></div>
 </div>
 <p>If along with this pipeline configuration, you also configured the <code>Trigger</code> to be <code>http</code> trigger,  you could then send any data to the app-service-configurable' s <code>/api/v2/trigger</code> endpoint and have it compressed, encrypted and sent to your configured URL above.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - HTTP Trigger configuration</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span>
-<span class="n">Type</span><span class="o">=</span><span class="s">"http"</span>
+<div class="highlight"><pre><span></span><code><span class="nt">Trigger</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="s">"http"</span>
 </code></pre></div>
 </div>
 <h3 id="metric-targettype">Metric TargetType</h3>
 <p>This setting when set to true will cause the <code>TargeType</code> to be <code>&amp;dtos.Metric{}</code> and is meant to be used in conjunction with the new <code>ToLineProtocol</code> function. See <a href="#tolineprotocol">ToLineProtocol</a> section below for more details. In addition the <code>Trigger</code> <code>SubscribeTopics</code>must be set to <code>"edgex/telemetry/#"</code> so that the function receives the metric data from the other services.</p>
 <div class="admonition example -">
 <p class="admonition-title">Example -  Metric TargetType </p>
-<div class="highlight"><pre><span></span><code>  [Writable.Pipeline]
-  TargetType  = "metric"
-  ExecutionOrder = "ToLineProtocol, ..."
-  ...
-      [Writable.Pipeline.Functions.ToLineProtocol]
-      [Writable.Pipeline.Functions.ToLineProtocol.Parameters]
-      Tags = "" # optional comma separated list of additional tags to add to the metric in to form "tag:value,..."
-  ...
-  [Trigger]
-  Type="edgex-messagebus"
-  [Trigger.EdgexMessageBus]
-  ...
-    [Trigger.EdgexMessageBus.SubscribeHost]
-    ...
-    SubscribeTopics="edgex/telemetry/#"
+<div class="highlight"><pre><span></span><code><span class="nt">Writable</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">Pipeline</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">TargetType</span><span class="p">:</span><span class="w"> </span><span class="s">"metric"</span>
+<span class="w">    </span><span class="nt">ExecutionOrder</span><span class="p">:</span><span class="w"> </span><span class="s">"ToLineProtocol,</span><span class="nv"> </span><span class="s">..."</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">Functions</span><span class="p p-Indicator">:</span>
+<span class="w">      </span><span class="nt">ToLineProtocol</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">Tags</span><span class="p">:</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="c1"># optional comma separated list of additional tags to add to the metric in to form "tag:value,..."</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w w-Error"> </span><span class="nt">Trigger</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">SubscribeTopics</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">telemetry/#"</span>
 </code></pre></div>
 </div>
 <h2 id="multiple-instances-of-a-function">Multiple Instances of a Function</h2>
@@ -1790,7 +1785,7 @@
 </div>
 <p>Now multiple instances of the same configurable pipeline function can be specified,  configured differently and used together in the functions pipeline. Previously the function names specified in the <code>[Writable.Pipeline.Functions]</code> section had to match a built-in configurable pipeline function name exactly. Now the names specified only need to start with a built-in configurable pipeline function name. See the <a href="#httpexport">HttpExport</a> section below for an example.</p>
 <h2 id="available-configurable-pipeline-functions">Available Configurable Pipeline Functions</h2>
-<p>Below are the functions that are available to use in the configurable pipeline function pipeline (<code>[Writable.Pipeline]</code>) section of the configuration. The function names below can be added to the <code>Writable.Pipeline.ExecutionOrder</code> setting (comma separated list) and must also be present or added to the <code>[Writable.Pipeline.Functions]</code> section as <code>[Writable.Pipeline.Functions.{FunctionName}]</code>. The functions will also have the <code>[Writable.Pipeline.Functions.{FunctionName}.Parameters]</code> section where the function's parameters are configured. Please refer to the <a href="#getting-started">Getting Started</a> section above for an example.</p>
+<p>Below are the functions that are available to use in the configurable pipeline function pipeline (<code>[Writable.Pipeline]</code>) section of the configuration. The function names below can be added to the <code>Writable.Pipeline.ExecutionOrder</code> setting (comma separated list) and must also be present or added to the <code>[Writable.Pipeline.Functions]</code> section as <code>{FunctionName}]</code>. The functions will also have the <code>{FunctionName}.Parameters:</code> section where the function's parameters are configured. Please refer to the <a href="#getting-started">Getting Started</a> section above for an example.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <code>Parameters</code> section for each function is a key/value map of <code>string</code> values. So even tough the parameter is referred to as an Integer or Boolean, it has to be specified as a valid string representation, e.g. "20" or "true".</p>
@@ -1803,9 +1798,9 @@
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.AddTags]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.AddTags.Parameters]</span>
-<span class="w">      </span><span class="n">tags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"GatewayId:HoustonStore000123,Latitude:29.630771,Longitude:-95.377603"</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">AddTags</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="s">"GatewayId:HoustonStore000123,Latitude:29.630771,Longitude:-95.377603"</span>
 </code></pre></div>
 </div>
 <h3 id="batch"><a href="../BuiltIn/#batching">Batch</a></h3>
@@ -1819,29 +1814,29 @@
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Batch]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Batch.Parameters]</span>
-<span class="w">      </span><span class="n">Mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"bytimecount"</span><span class="w"> </span><span class="c1"># can be "bycount", "bytime" or "bytimecount"</span>
-<span class="w">      </span><span class="n">BatchThreshold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"30"</span>
-<span class="w">      </span><span class="n">TimeInterval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"60s"</span>
-<span class="w">      </span><span class="n">IsEventData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"false"</span>
-<span class="w">      </span><span class="n">MergeOnSend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"false"</span><span class="w">     </span>
-<span class="n">or</span>
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Batch]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Batch.Parameters]</span>
-<span class="w">      </span><span class="n">Mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"bytimecount"</span><span class="w"> </span><span class="c1"># can be "bycount", "bytime" or "bytimecount"</span>
-<span class="w">      </span><span class="n">BatchThreshold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"30"</span>
-<span class="w">      </span><span class="n">TimeInterval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"60s"</span>
-<span class="w">      </span><span class="n">IsEventData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"true"</span>
-<span class="w">      </span><span class="n">MergeOnSend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"false"</span><span class="w">    </span>
-<span class="n">or</span>
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Batch]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Batch.Parameters]</span>
-<span class="w">      </span><span class="n">Mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"bytimecount"</span><span class="w"> </span><span class="c1"># can be "bycount", "bytime" or "bytimecount"</span>
-<span class="w">      </span><span class="n">BatchThreshold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"30"</span>
-<span class="w">      </span><span class="n">TimeInterval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"60s"</span>
-<span class="w">      </span><span class="n">IsEventData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"false"</span>
-<span class="w">      </span><span class="n">MergeOnSend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"true"</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">Batch</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Mode</span><span class="p">:</span><span class="w"> </span><span class="s">"bytimecount"</span><span class="w"> </span><span class="c1"># can be "bycount", "bytime" or "bytimecount"</span>
+<span class="w">        </span><span class="nt">BatchThreshold</span><span class="p">:</span><span class="w"> </span><span class="s">"30"</span>
+<span class="w">        </span><span class="nt">TimeInterval</span><span class="p">:</span><span class="w"> </span><span class="s">"60s"</span>
+<span class="w">        </span><span class="nt">IsEventData</span><span class="p">:</span><span class="w"> </span><span class="s">"false"</span>
+<span class="w">        </span><span class="nt">MergeOnSend</span><span class="p">:</span><span class="w"> </span><span class="s">"false"</span><span class="w">     </span>
+<span class="l l-Scalar l-Scalar-Plain">or</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">Batch</span><span class="p p-Indicator">:</span>
+<span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Mode</span><span class="p">:</span><span class="w"> </span><span class="s">"bytimecount"</span><span class="w"> </span><span class="c1"># can be "bycount", "bytime" or "bytimecount"</span>
+<span class="w">        </span><span class="nt">BatchThreshold</span><span class="p">:</span><span class="w"> </span><span class="s">"30"</span>
+<span class="w">        </span><span class="nt">TimeInterval</span><span class="p">:</span><span class="w"> </span><span class="s">"60s"</span>
+<span class="w">        </span><span class="nt">IsEventData</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
+<span class="w">        </span><span class="nt">MergeOnSend</span><span class="p">:</span><span class="w"> </span><span class="s">"false"</span><span class="w">    </span>
+<span class="l l-Scalar l-Scalar-Plain">or</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">Batch</span><span class="p p-Indicator">:</span>
+<span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Mode</span><span class="p">:</span><span class="w"> </span><span class="s">"bytimecount"</span><span class="w"> </span><span class="c1"># can be "bycount", "bytime" or "bytimecount"</span>
+<span class="w">        </span><span class="nt">BatchThreshold</span><span class="p">:</span><span class="w"> </span><span class="s">"30"</span>
+<span class="w">        </span><span class="nt">TimeInterval</span><span class="p">:</span><span class="w"> </span><span class="s">"60s"</span>
+<span class="w">        </span><span class="nt">IsEventData</span><span class="p">:</span><span class="w"> </span><span class="s">"false"</span>
+<span class="w">        </span><span class="nt">MergeOnSend</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
 </code></pre></div>
 </div>
 <div class="admonition edgey">
@@ -1863,9 +1858,9 @@
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Compress]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Compress.Parameters]</span>
-<span class="w">      </span><span class="n">Algorithm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"gzip"</span>
+<div class="highlight"><pre><span></span><code><span class="w">     </span><span class="nt">Compress</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Algorithm</span><span class="p">:</span><span class="w"> </span><span class="s">"gzip"</span>
 </code></pre></div>
 </div>
 <div class="admonition edgey">
@@ -1882,11 +1877,11 @@
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1"># Encrypt with key pulled from Secret Store</span>
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Encrypt]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Encrypt.Parameters]</span>
-<span class="w">      </span><span class="n">Algorithm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"aes256"</span>
-<span class="w">      </span><span class="n">SecretPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"aes"</span>
-<span class="w">      </span><span class="n">SecretName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"key"</span>
+<span class="w">    </span><span class="nt">Encrypt</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Algorithm</span><span class="p">:</span><span class="w"> </span><span class="s">"aes256"</span>
+<span class="w">        </span><span class="nt">SecretPath</span><span class="p">:</span><span class="w"> </span><span class="s">"aes"</span>
+<span class="w">        </span><span class="nt">SecretName</span><span class="p">:</span><span class="w"> </span><span class="s">"key"</span>
 </code></pre></div>
 </div>
 <h3 id="filterbydevicename"><a href="../BuiltIn/#by-device-name">FilterByDeviceName</a></h3>
@@ -1897,10 +1892,10 @@
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.FilterByDeviceName]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.FilterByDeviceName.Parameters]</span>
-<span class="w">        </span><span class="n">DeviceNames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Random-Float-Device,Random-Integer-Device"</span>
-<span class="w">        </span><span class="n">FilterOut</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"false"</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">FilterByDeviceName</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">DeviceNames</span><span class="p">:</span><span class="w"> </span><span class="s">"Random-Float-Device,Random-Integer-Device"</span>
+<span class="w">        </span><span class="nt">FilterOut</span><span class="p">:</span><span class="w"> </span><span class="s">"false"</span>
 </code></pre></div>
 </div>
 <h3 id="filterbyprofilename"><a href="../BuiltIn/#by-profile-name">FilterByProfileName</a></h3>
@@ -1911,10 +1906,10 @@
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.FilterByProfileName]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.FilterByProfileName.Parameters]</span>
-<span class="w">      </span><span class="n">ProfileNames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Random-Float-Device, Random-Integer-Device"</span>
-<span class="w">      </span><span class="n">FilterOut</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"false"</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">FilterByProfileName</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">ProfileNames</span><span class="p">:</span><span class="w"> </span><span class="s">"Random-Float-Device,</span><span class="nv"> </span><span class="s">Random-Integer-Device"</span>
+<span class="w">        </span><span class="nt">FilterOut</span><span class="p">:</span><span class="w"> </span><span class="s">"false"</span>
 </code></pre></div>
 </div>
 <div class="admonition edgey">
@@ -1929,10 +1924,10 @@
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.FilterByResourceName]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.FilterByResourceName.Parameters]</span>
-<span class="w">       </span><span class="n">ResourceNames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Int8, Int64"</span>
-<span class="w">        </span><span class="n">FilterOut</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"true"</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">FilterByResourceName</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">ResourceNames</span><span class="p">:</span><span class="w"> </span><span class="s">"Int8,</span><span class="nv"> </span><span class="s">Int64"</span>
+<span class="w">        </span><span class="nt">FilterOut</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
 </code></pre></div>
 </div>
 <div class="admonition edgey">
@@ -1947,10 +1942,10 @@
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.FilterBySourceName]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.FilterBySource.Parameters]</span>
-<span class="w">      </span><span class="n">SourceNames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Bool, BoolArray"</span>
-<span class="w">      </span><span class="n">FilterOut</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"false"</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">FilterBySourceName</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">SourceNames</span><span class="p">:</span><span class="w"> </span><span class="s">"Bool,</span><span class="nv"> </span><span class="s">BoolArray"</span>
+<span class="w">        </span><span class="nt">FilterOut</span><span class="p">:</span><span class="w"> </span><span class="s">"false"</span>
 </code></pre></div>
 </div>
 <div class="admonition edgey">
@@ -1973,38 +1968,39 @@
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <p><div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1"># Simple HTTP Export</span>
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.HTTPExport]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.HTTPExport.Parameters]</span>
-<span class="w">      </span><span class="n">Method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"post"</span><span class="w"> </span>
-<span class="w">      </span><span class="n">MimeType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"application/xml"</span><span class="w"> </span>
-<span class="w">      </span><span class="n">Url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"http://my.api.net/edgexdata"</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">HTTPExport</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Method</span><span class="p">:</span><span class="w"> </span><span class="s">"post"</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">MimeType</span><span class="p">:</span><span class="w"> </span><span class="s">"application/xml"</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">Url</span><span class="p">:</span><span class="w"> </span><span class="s">"http://my.api.net/edgexdata"</span><span class="w"> </span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1"># HTTP Export with secret header data pull from Secret Store</span>
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.HTTPExport]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.HTTPExport.Parameters]</span>
-<span class="w">      </span><span class="n">Method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"post"</span><span class="w"> </span>
-<span class="w">      </span><span class="n">MimeType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"application/xml"</span><span class="w"> </span>
-<span class="w">      </span><span class="n">Url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"http://my.api.net/edgexdata"</span>
-<span class="w">      </span><span class="n">HeaderName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"MyApiKey"</span><span class="w"> </span>
-<span class="w">      </span><span class="n">SecretPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"http"</span><span class="w"> </span>
-<span class="w">      </span><span class="n">SecretName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"apikey"</span>
+<span class="w">    </span><span class="nt">HTTPExport</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Method</span><span class="p">:</span><span class="w"> </span><span class="s">"post"</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">MimeType</span><span class="p">:</span><span class="w"> </span><span class="s">"application/xml"</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">Url</span><span class="p">:</span><span class="w"> </span><span class="s">"http://my.api.net/edgexdata"</span>
+<span class="w">        </span><span class="nt">HeaderName</span><span class="p">:</span><span class="w"> </span><span class="s">"MyApiKey"</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">SecretPath</span><span class="p">:</span><span class="w"> </span><span class="s">"http"</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">SecretName</span><span class="p">:</span><span class="w"> </span><span class="s">"apikey"</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1"># Http Export to multiple destinations</span>
-<span class="w">    </span><span class="k">[Writable.Pipeline]</span>
-<span class="w">    </span><span class="n">ExecutionOrder</span><span class="w"> </span><span class="o">=</span><span class="s">"HTTPExport1, HTTPExport2"</span>
-
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.HTTPExport1]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.HTTPExport1.Parameters]</span>
-<span class="w">      </span><span class="n">Method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"post"</span><span class="w"> </span>
-<span class="w">      </span><span class="n">MimeType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"application/xml"</span><span class="w"> </span>
-<span class="w">      </span><span class="n">Url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"http://my.api1.net/edgexdata2"</span><span class="w"> </span>
-<span class="w">      </span><span class="n">ContinueOnSendError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"true"</span>
-<span class="w">      </span><span class="n">ReturnInputData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"true"</span>
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.HTTPExport2]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.HTTPExport2.Parameters]</span>
-<span class="w">      </span><span class="n">Method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"put"</span><span class="w"> </span>
-<span class="w">      </span><span class="n">MimeType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"application/xml"</span><span class="w"> </span>
-<span class="w">      </span><span class="n">Url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"http://my.api2.net/edgexdata2"</span>
+<span class="w">    </span><span class="nt">Writable</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">Pipeline</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">ExecutionOrder</span><span class="p">:</span><span class="w"> </span><span class="s">"HTTPExport1,</span><span class="nv"> </span><span class="s">HTTPExport2"</span>
+<span class="w">        </span><span class="nt">Functions</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">HTTPExport1</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">Method</span><span class="p">:</span><span class="w"> </span><span class="s">"post"</span><span class="w"> </span>
+<span class="w">              </span><span class="nt">MimeType</span><span class="p">:</span><span class="w"> </span><span class="s">"application/xml"</span><span class="w"> </span>
+<span class="w">              </span><span class="nt">Url</span><span class="p">:</span><span class="w"> </span><span class="s">"http://my.api1.net/edgexdata2"</span><span class="w"> </span>
+<span class="w">              </span><span class="nt">ContinueOnSendError</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
+<span class="w">              </span><span class="nt">ReturnInputData</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
+<span class="w">          </span><span class="nt">HTTPExport2</span><span class="p">:</span>
+<span class="w">           </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">Method</span><span class="p">:</span><span class="w"> </span><span class="s">"put"</span><span class="w"> </span>
+<span class="w">              </span><span class="nt">MimeType</span><span class="p">:</span><span class="w"> </span><span class="s">"application/xml"</span><span class="w"> </span>
+<span class="w">              </span><span class="nt">Url</span><span class="p">:</span><span class="w"> </span><span class="s">"http://my.api2.net/edgexdata2"</span>
 </code></pre></div></p>
 </div>
 <div class="admonition edgey">
@@ -2026,9 +2022,9 @@
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.JSONLogic]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.JSONLogic.Parameters]</span>
-<span class="w">      </span><span class="n">Rule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"{ \"and\" : [{\"&lt;\" : [{ \"var\" : \"temp\" }, 110 ]}, {\"==\" : [{ \"var\" : \"sensor.type\" }, \"temperature\" ]} ] }"</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">JSONLogic</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Rule</span><span class="p">:</span><span class="w"> </span><span class="s">"{</span><span class="nv"> </span><span class="s">\"and\"</span><span class="nv"> </span><span class="s">:</span><span class="nv"> </span><span class="s">[{\"&lt;\"</span><span class="nv"> </span><span class="s">:</span><span class="nv"> </span><span class="s">[{</span><span class="nv"> </span><span class="s">\"var\"</span><span class="nv"> </span><span class="s">:</span><span class="nv"> </span><span class="s">\"temp\"</span><span class="nv"> </span><span class="s">},</span><span class="nv"> </span><span class="s">110</span><span class="nv"> </span><span class="s">]},</span><span class="nv"> </span><span class="s">{\"==\"</span><span class="nv"> </span><span class="s">:</span><span class="nv"> </span><span class="s">[{</span><span class="nv"> </span><span class="s">\"var\"</span><span class="nv"> </span><span class="s">:</span><span class="nv"> </span><span class="s">\"sensor.type\"</span><span class="nv"> </span><span class="s">},</span><span class="nv"> </span><span class="s">\"temperature\"</span><span class="nv"> </span><span class="s">]}</span><span class="nv"> </span><span class="s">]</span><span class="nv"> </span><span class="s">}"</span>
 </code></pre></div>
 </div>
 <h3 id="mqttexport"><a href="../BuiltIn/#mqtt-export">MQTTExport</a></h3>
@@ -2058,25 +2054,25 @@
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <p><div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1"># Simple MQTT Export</span>
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.MQTTExport]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.MQTTExport.Parameters]</span>
-<span class="w">      </span><span class="n">BrokerAddress</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"tcps://localhost:8883"</span>
-<span class="w">      </span><span class="n">Topic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"mytopic"</span>
-<span class="w">      </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"myclientid"</span>
+<span class="w">    </span><span class="nt">MQTTExport</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">BrokerAddress</span><span class="p">:</span><span class="w"> </span><span class="s">"tcps://localhost:8883"</span>
+<span class="w">        </span><span class="nt">Topic</span><span class="p">:</span><span class="w"> </span><span class="s">"mytopic"</span>
+<span class="w">        </span><span class="nt">ClientId</span><span class="p">:</span><span class="w"> </span><span class="s">"myclientid"</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1"># MQTT Export with auth credentials pull from the Secret Store</span>
-<span class="w">    </span><span class="k">[Writable.Pipeline.Functions.MQTTExport]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.MQTTExport.Parameters]</span>
-<span class="w">      </span><span class="n">BrokerAddress</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"tcps://my-broker-host.com:8883"</span>
-<span class="w">      </span><span class="n">Topic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"mytopic"</span>
-<span class="w">      </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"myclientid"</span>
-<span class="w">      </span><span class="n">Qos</span><span class="o">=</span><span class="s">"2"</span>
-<span class="w">      </span><span class="n">AutoReconnect</span><span class="o">=</span><span class="s">"true"</span>
-<span class="w">      </span><span class="n">Retain</span><span class="o">=</span><span class="s">"true"</span>
-<span class="w">      </span><span class="n">SkipVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"false"</span>
-<span class="w">      </span><span class="n">PersistOnError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"true"</span>
-<span class="w">      </span><span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"usernamepassword"</span>
-<span class="w">      </span><span class="n">SecretPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"mqtt"</span>
+<span class="w">    </span><span class="nt">MQTTExport</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">BrokerAddress</span><span class="p">:</span><span class="w"> </span><span class="s">"tcps://my-broker-host.com:8883"</span>
+<span class="w">        </span><span class="nt">Topic</span><span class="p">:</span><span class="w"> </span><span class="s">"mytopic"</span>
+<span class="w">        </span><span class="nt">ClientId</span><span class="p">:</span><span class="w"> </span><span class="s">"myclientid"</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">Qos="2"</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">AutoReconnect="true"</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">Retain="true"</span>
+<span class="w">        </span><span class="nt">SkipVerify</span><span class="p">:</span><span class="w"> </span><span class="s">"false"</span>
+<span class="w">        </span><span class="nt">PersistOnError</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
+<span class="w">        </span><span class="nt">AuthMode</span><span class="p">:</span><span class="w"> </span><span class="s">"usernamepassword"</span>
+<span class="w">        </span><span class="nt">SecretPath</span><span class="p">:</span><span class="w"> </span><span class="s">"mqtt"</span>
 </code></pre></div></p>
 </div>
 <div class="admonition edgey">
@@ -2090,9 +2086,9 @@
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.SetResponseData]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.SetResponseData.Parameters]</span>
-<span class="w">      </span><span class="n">ResponseContentType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"application/json"</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">SetResponseData</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">ResponseContentType</span><span class="p">:</span><span class="w"> </span><span class="s">"application/json"</span>
 </code></pre></div>
 </div>
 <div class="admonition edgey">
@@ -2106,9 +2102,9 @@
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.Transform]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.Transform.Parameters]</span>
-<span class="w">      </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"xml"</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">Transform</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="s">"xml"</span>
 </code></pre></div>
 </div>
 <div class="admonition edgey">
@@ -2126,9 +2122,9 @@
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.ToLineProtocol]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.ToLineProtocol.Parameters]</span>
-<span class="w">      </span><span class="n">Tags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="c1"># optional comma separated list of additional tags to add to the metric in to form "tag:value,..."</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">ToLineProtocol</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Tags</span><span class="p">:</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="c1"># optional comma separated list of additional tags to add to the metric in to form "tag:value,..."</span>
 </code></pre></div>
 </div>
 <div class="admonition note">
@@ -2150,13 +2146,13 @@
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.Pipeline.Functions.WrapIntoEvent]</span>
-<span class="w">      </span><span class="k">[Writable.Pipeline.Functions.WrapIntoEvent.Parameters]</span>
-<span class="w">      </span><span class="n">ProfileName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"MyProfile"</span>
-<span class="w">      </span><span class="n">DeviceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"MyDevice"</span>
-<span class="w">      </span><span class="n">ResourceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"SomeResource"</span>
-<span class="w">      </span><span class="n">ValueType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"String"</span>
-<span class="w">      </span><span class="n">MediaType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span><span class="w">  </span><span class="c1"># Required only when ValueType=Binary</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">WrapIntoEvent</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">ProfileName</span><span class="p">:</span><span class="w"> </span><span class="s">"MyProfile"</span>
+<span class="w">        </span><span class="nt">DeviceName</span><span class="p">:</span><span class="w"> </span><span class="s">"MyDevice"</span>
+<span class="w">        </span><span class="nt">ResourceName</span><span class="p">:</span><span class="w"> </span><span class="s">"SomeResource"</span>
+<span class="w">        </span><span class="nt">ValueType</span><span class="p">:</span><span class="w"> </span><span class="s">"String"</span>
+<span class="w">        </span><span class="nt">MediaType</span><span class="p">:</span><span class="w"> </span><span class="s">""</span><span class="w">  </span><span class="c1"># Required only when ValueType=Binary</span>
 </code></pre></div>
 </div>
 </article>
@@ -2264,6 +2260,8 @@
                 }
             });
         
+            const dark_scheme_name = "slate"
+            
             window.scheme = document.body.getAttribute("data-md-color-scheme")
             const options = {
                 attributeFilter: ['data-md-color-scheme'],
@@ -2276,7 +2274,7 @@
                         for(var i = 0; i < iframe_list.length; i++) {
                             var ele = iframe_list.item(i);
                             if (ele) {
-                                if (scheme === "slate") {
+                                if (scheme === dark_scheme_name) {
                                     ele.contentWindow.enable_dark_mode();
                                 } else {
                                     ele.contentWindow.disable_dark_mode();

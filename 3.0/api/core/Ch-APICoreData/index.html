@@ -1160,7 +1160,7 @@
 <p>For EdgeX 2.0 the REST API provided by the Core Data has changed to use DTOs (Data Transfer Objects) for all responses and for all POST requests. All query APIs (GET) which return multiple objects, such as /all, provide <code>offset</code> and <code>limit</code> query parameters.</p>
 </div>
 <h2 id="swagger">Swagger</h2>
-<p><iframe class="swagger-ui-iframe" frameborder="0" id="cb5a3a98" src="swagger-cb5a3a98.html" style="overflow:hidden;width:100%;" width="100%"></iframe></p>
+<p><iframe class="swagger-ui-iframe" frameborder="0" id="92c34735" src="swagger-92c34735.html" style="overflow:hidden;width:100%;" width="100%"></iframe></p>
 </article>
 </div>
 </div>
@@ -1266,6 +1266,8 @@
                 }
             });
         
+            const dark_scheme_name = "slate"
+            
             window.scheme = document.body.getAttribute("data-md-color-scheme")
             const options = {
                 attributeFilter: ['data-md-color-scheme'],
@@ -1278,7 +1280,7 @@
                         for(var i = 0; i < iframe_list.length; i++) {
                             var ele = iframe_list.item(i);
                             if (ele) {
-                                if (scheme === "slate") {
+                                if (scheme === dark_scheme_name) {
                                     ele.contentWindow.enable_dark_mode();
                                 } else {
                                     ele.contentWindow.disable_dark_mode();

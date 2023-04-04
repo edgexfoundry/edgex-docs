@@ -762,18 +762,27 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#subscribepublish-topics">
+    Subscribe/Publish Topics
+  </a>
+<nav aria-label="Subscribe/Publish Topics" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#subscribetopics">
+    SubscribeTopics
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#publishtopic">
+    PublishTopic
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#messagebus-connection-configuration">
     MessageBus Connection Configuration
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#example-using-mqtt">
-    Example Using MQTT
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#example-using-nats">
-    Example Using NATS
   </a>
 </li>
 <li class="md-nav__item">
@@ -1255,18 +1264,27 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#subscribepublish-topics">
+    Subscribe/Publish Topics
+  </a>
+<nav aria-label="Subscribe/Publish Topics" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#subscribetopics">
+    SubscribeTopics
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#publishtopic">
+    PublishTopic
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#messagebus-connection-configuration">
     MessageBus Connection Configuration
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#example-using-mqtt">
-    Example Using MQTT
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#example-using-nats">
-    Example Using NATS
   </a>
 </li>
 <li class="md-nav__item">
@@ -1355,7 +1373,7 @@
 </a>
 <h1 id="application-service-triggers">Application Service Triggers</h1>
 <h2 id="introduction">Introduction</h2>
-<p>Triggers determine how the App Functions Pipeline begins execution. The trigger is determined by the <code>[Trigger]</code> configuration section in the  <code>configuration.toml</code> file.   </p>
+<p>Triggers determine how the App Functions Pipeline begins execution. The trigger is determined by the <code>[Trigger]</code> configuration section in the  <code>configuration.yaml</code> file.   </p>
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 2.0</p>
 <p>For Edgex 2.0 the <code>[Binding]</code> configuration section has been renamed to <code>[Trigger]</code>. The  <code>[MessageBus]</code> section has been renamed to <code>EdgexMessageBus</code> and moved under the <code>[Trigger]</code> section. The <code>[MqttBroker]</code> section has been renamed to <code>ExternalMqtt</code> and moved under the <code>[Trigger]</code> section.</p>
@@ -1375,151 +1393,78 @@
 </div>
 <p>There currently are four implementations of the EdgeX MessageBus available to be used. Two of these are available out of the box: <code>Redis Pub/Sub</code>(default) and <code>MQTT</code>. Additionally NATS (both core and JetStream) options can be made available with the build flag mentioned above.  The implementation type is selected via the <code>[Trigger.EdgexMessageBus]</code> configuration described below.</p>
 <h3 id="type-configuration">Type Configuration</h3>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>For EdgeX 2.0 the <code>SubscribeTopic</code> has been renamed to <code>SubscribeTopics</code> and moved under the <strong>EdgexMessageBus</strong> <code>SubscribeHost</code> section. The <code>PublishTopic</code> has also been moved under the <strong>EdgexMessageBus</strong> <code>PublishHost</code> section. Also the legacy <code>type</code> of <code>messagebus</code> has been removed.</p>
-</div>
-<p>Here's an example:</p>
-<p><div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span>
-<span class="n">Type</span><span class="o">=</span><span class="s">"edgex-messagebus"</span>
+<div class="admonition example -">
+<p class="admonition-title">Example Trigger Configuration</p>
+<div class="highlight"><pre><span></span><code><span class="nt">Trigger</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="s">"edgex-messagebus"</span>
 </code></pre></div>
-The <code>Type=</code> is set to <code>edgex-messagebus</code> trigger type. The Context function <code>ctx.SetResponseData([]byte outputData)</code> stores the data to send back to the EdgeX MessageBus on the topic specified by the PublishHost <code>PublishTopic=</code> setting.</p>
-<h3 id="messagebus-connection-configuration">MessageBus Connection Configuration</h3>
-<p>The other piece of configuration required are the connection settings:
-<div class="highlight"><pre><span></span><code><span class="k">[Trigger.EdgexMessageBus]</span>
-<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"redis"</span><span class="w"> </span><span class="c1"># message bus type (i.e "redis`, `mqtt`, `nats-core` or `nats-jetstream`)</span>
-<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.SubscribeHost]</span>
-<span class="w">        </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"localhost"</span>
-<span class="w">        </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6379</span>
-<span class="w">        </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"redis"</span>
-<span class="w">        </span><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">"edgex/events/#"</span>
-<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.PublishHost]</span>
-<span class="w">        </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"localhost"</span>
-<span class="w">        </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6379</span>
-<span class="w">        </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"redis"</span>
-<span class="w">        </span><span class="n">PublishTopic</span><span class="o">=</span><span class="s">""</span><span class="w"> </span><span class="c1"># optional if publishing response back to the MessageBus</span>
-</code></pre></div></p>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>For Edgex 2.0 the <code>PublishTopic</code> can now have placeholders. See <a href="#publish-topic-placeholders">Publish Topic Placeholders</a> section below for more details</p>
 </div>
-<p>As stated above there are five EdgeX MessageBus implementations you can choose from. These type values are as follows:</p>
-<div class="highlight"><pre><span></span><code>redis - for Redis Pub/Sub (Requires Redis running and Core Data and/or Device Services configure to use Redis Pub/Sub)
-mqtt  - for MQTT (Requires a MQTT Broker running and Core Data and/or Device Services configure to use MQTT)
-nats-core - for standard NATS messaging
-nats-jetstream - for NATS messaging with JetStream persistence layer
-</code></pre></div>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>For Edgex 2.0 Redis is now the default EdgeX MessageBus implementation used. Also, the Redis implementation changed from <code>Redis streams</code> to <code>Redis Pub/Sub</code>, thus the type value changed from <code>redisstreams</code> to <code>redis</code></p>
-</div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.3</p>
-<p>New for EdgeX 2.3 is the Secure MessageBus when use the <code>Redis Pub/Sub</code> implementation. See the <a href="../../../security/Ch-Secure-MessageBus/">Secure MessageBus</a> documentation for more details.</p>
-</div>
+<p>In the above example <code>Type</code> is set to <code>edgex-messagebus</code> trigger type so data will be received from the EdgeX MessageBus
+and may be Published to the EdgeX MessageBus, if configured.</p>
+<h3 id="subscribepublish-topics">Subscribe/Publish Topics</h3>
+<h4 id="subscribetopics">SubscribeTopics</h4>
+<p>The SubscribeTopics configuration specifies the comma separated list of topics the service will subscribe to.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>When using MQTT or NATS for the message bus, there is additional configuration required for specifying the broker-specific options. </p>
+<p>The default <code>SubscribeTopics</code> configuration is set in the <a href="..GeneralAppServiceConfig/#not-writable">App Services Common Trigger Configuration</a>.</p>
 </div>
-<h3 id="example-using-mqtt">Example Using MQTT</h3>
-<p>Here is example <code>EdgexMessageBus</code> configuration when using MQTT as the message bus:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Trigger.EdgexMessageBus]</span>
-<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"mqtt"</span>
-<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.SubscribeHost]</span>
-<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"localhost"</span>
-<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span>
-<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"tcp"</span>
-<span class="w">    </span><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">"edgex/events/#"</span>
-<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.PublishHost]</span>
-<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"localhost"</span>
-<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1883</span>
-<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"tcp"</span>
-<span class="w">    </span><span class="n">PublishTopic</span><span class="o">=</span><span class="s">""</span><span class="w"> </span><span class="c1"># optional if publishing response back to the MessageBus</span>
-<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.Optional]</span>
-<span class="w">    </span><span class="c1"># MQTT Specific options</span>
-<span class="w">    </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">"new-app-service"</span>
-<span class="w">    </span><span class="n">Qos</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="s">"0"</span><span class="w"> </span><span class="c1"># Quality of Service values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</span>
-<span class="w">    </span><span class="n">KeepAlive</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="s">"10"</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span>
-<span class="w">    </span><span class="n">Retained</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="s">"false"</span>
-<span class="w">    </span><span class="n">AutoReconnect</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">"true"</span>
-<span class="w">    </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"30"</span><span class="w"> </span><span class="c1"># Seconds</span>
-<span class="w">    </span><span class="n">SkipCertVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"false"</span>
-<span class="w">    </span><span class="n">authmode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"none"</span><span class="w">  </span><span class="c1"># change to "usernamepassword", "clientcert", or "cacert" for secure MQTT messagebus.</span>
-<span class="w">    </span><span class="n">secretname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"mqtt-bus"</span>
-</code></pre></div>
+<h4 id="publishtopic">PublishTopic</h4>
+<p>The PublishTopic configuration specifies the topic published to when the <code>ResponseData</code> is set via the <code>ctx.SetResponseData([]byte outputData)</code> API.
+Nothing will be published if the PublishTopic is not set or the <code>ResponseData</code> is never set</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The default <code>PublishTopic</code> configuration is set in the <a href="../GeneralAppServiceConfig/#not-writable">App Services Common Trigger Configuration</a>.</p>
+</div>
+<h3 id="messagebus-connection-configuration">MessageBus Connection Configuration</h3>
+<p>See the <a href="../../general/messagebus">EdgeX MessageBus section</a> for complete details.</p>
 <div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
+<p class="admonition-title">Edgex 3.0</p>
+<p>For Edgex 3.0 the MessageBus configuration settings are set in the <a href="../../configuration/CommonConfiguration/#configuration-properties">Common MessageBus Configuration</a>.</p>
 </div>
-<p>Also new for EdgeX 2.0 is the MQTT MessageBus implementation now supports retrieving secrets from the <code>Secret Store</code> for secure MQTT connection, but there is not any facility yet to generate the credentials on first startup and distribute them to all services, as is done with <code>Redis Pub/sub</code>. This MQTT credentials generation and distribution is a future enhancement for EdgeX security services.</p>
-<h3 id="example-using-nats">Example Using NATS</h3>
-<p>Here is an example <code>EdgexMessageBus</code> configuration using NATS:</p>
-<p><div class="highlight"><pre><span></span><code><span class="k">[Trigger.EdgexMessageBus]</span>
-<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"nats-jetstream"</span>
-<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.SubscribeHost]</span>
-<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"localhost"</span>
-<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4222</span>
-<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"tcp"</span>
-<span class="w">    </span><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">"edgex/events/#"</span>
-<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.PublishHost]</span>
-<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"localhost"</span>
-<span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4222</span>
-<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"tcp"</span><span class="w">        </span>
-<span class="w">    </span><span class="n">PublishTopic</span><span class="o">=</span><span class="s">"edgex/events/processed"</span><span class="w"> </span><span class="c1"># optional if publishing response back to the MessageBus</span>
-<span class="w">    </span><span class="k">[Trigger.EdgexMessageBus.Optional]</span>
-<span class="w">    </span><span class="c1"># NATS Specific options</span>
-<span class="w">    </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"5"</span><span class="w"> </span><span class="c1"># seconds</span>
-<span class="w">    </span><span class="n">Format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"json"</span><span class="w"> </span><span class="c1"># json message envelopes can be used for backward compatibility</span>
-<span class="w">    </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">"new-app-service"</span>
-<span class="w">    </span><span class="c1"># note durable consumers are typically created out of band eg at gateway onboarding.</span>
-<span class="w">    </span><span class="c1"># durable consumers provisioned by the NATS client will be auto deleted</span>
-<span class="w">    </span><span class="n">Durable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"my-durable-name"</span><span class="w"> </span>
-<span class="w">    </span><span class="n">Username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"edgex"</span>
-<span class="w">    </span><span class="n">Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"edgex"</span>
-</code></pre></div>
-For a complete list of supported NATS / JetStream options see <a href="https://github.com/edgexfoundry/go-mod-messaging/blob/main/internal/pkg/nats/README.md">go-mod-messaging NATS readme</a></p>
 <h3 id="filter-by-topics">Filter By Topics</h3>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
 <p>New for EdgeX 2.0</p>
 </div>
-<p>App services now have the capability to filter by EdgeX MessageBus topics rather then using Filter functions in the functions pipeline. Filtering by topic is more efficient since the App Service never receives the data off the MessageBus. Core Data and/or Device Services now publish to multi-level topics that include the <code>profilename</code>, <code>devicename</code> and <code>sourcename</code> . Sources are the <code>commandname</code> or <code>resourcename</code> that generated the Event. The publish topics now look like this:</p>
+<p>App services now have the capability to filter by EdgeX MessageBus topics rather than using Filter functions in the functions pipeline. Filtering by topic is more efficient since the App Service never receives the data off the MessageBus. Core Data and/or Device Services now publish to multi-level topics that include the <code>profilename</code>, <code>devicename</code> and <code>sourcename</code> . Sources are the <code>commandname</code> or <code>resourcename</code> that generated the Event. The publish topics now look like this:</p>
 <div class="highlight"><pre><span></span><code># From Core Data
-edgex/events/core/&lt;profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;
+edgex/events/core/&lt;device-service&gt;/&lt;profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;
 
 # From Device Services
-edgex/events/device/&lt;profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;
+edgex/events/device/&lt;device-service&gt;/&lt;profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;
 </code></pre></div>
 <p>This with App Services capability to have multiple subscriptions allows for multiple filters by subscriptions. The <code>SubscribeTopics</code> setting takes a comma separated list of subscribe topics.</p>
 <p>Here are a few examples of how to configure the <code>SubscribeTopics</code> setting under the <code>Trigger.EdgexMessageBus.SubscribeHost</code> section to filter by subscriptions using the <code>profile</code>, <code>device</code> and <code>source</code> names from the SNMP Device Service file <a href="https://github.com/edgexfoundry/device-snmp-go/tree/master/cmd/res">here</a>:</p>
 <ul>
-<li>Filter for all Events </li>
+<li>Filter for all Events (default in common Trigger configuration)</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">"edgex/events/#"</span>
+<div class="highlight"><pre><span></span><code><span class="nt">Trigger</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">SubscribeTopics</span><span class="p">:</span><span class="w"> </span><span class="s">"events/#"</span>
 </code></pre></div>
 <ul>
 <li>Filter for Events only from a single class of devices (device profile defines a class of device)</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">"edgex/events/+/trendnet/#"</span>
+<div class="highlight"><pre><span></span><code><span class="nt">Trigger</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">SubscribeTopics</span><span class="p">:</span><span class="w"> </span><span class="s">"events/+/+/trendnet/#"</span>
 </code></pre></div>
 <ul>
 <li>Filter for Events only from a single actual device</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">"edgex/events/+/+/trendnet01/#"</span>
+<div class="highlight"><pre><span></span><code><span class="nt">Trigger</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">SubscribeTopics</span><span class="p">:</span><span class="w"> </span><span class="s">"edgex/events/+/+/+/trendnet01/#"</span>
 </code></pre></div>
 <ul>
 <li>Filter for Events from two specific actual devices</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">"edgex/events/+/+/trendnet01/#, edgex/events/+/+/trendnet02/#"</span>
+<div class="highlight"><pre><span></span><code><span class="nt">Trigger</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">SubscribeTopics</span><span class="p">:</span><span class="w"> </span><span class="s">"edgex/events/+/+/+/trendnet01/#,</span><span class="nv"> </span><span class="s">edgex/events/+/+/+/trendnet02/#"</span>
 </code></pre></div>
 <ul>
 <li>Filter for Events from two specific sources. </li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">"edgex/events/+/+/+/Uptime, edgex/events/+/+/+/MacAddress"</span>
+<div class="highlight"><pre><span></span><code><span class="nt">Trigger</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">SubscribeTopics</span><span class="p">:</span><span class="w"> </span><span class="s">"edgex/events/+/+/+/+/Uptime,</span><span class="nv"> </span><span class="s">edgex/events/+/+/+/+/MacAddress"</span>
 </code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The above examples are for when Redis is used as the EdgeX MessageBus implementation, which is now the default. The Redis implementation uses the <code>#</code> wildcard character for multi-level and <code>+</code> for single level. The implementation actually converts all <code>+</code>'s and <code>#</code>'s to the <code>*</code>'s. The <code>*</code>is the actual wildcard character used by Redis Pub/Sub. In the first example (multi-level) the <code>#</code> is used at the end in the location for where Core Data's and Device Service's publish topics differ. This location will be <code>core</code> when coming from Core Data or <code>device</code> when coming from a Device Service. The use of <code>+</code> within the topic(single-level) allows for any <code>Profile</code>, <code>Device</code> or <code>Source</code> when specifying one of the others.</p>
-</div>
 <h2 id="external-mqtt-trigger">External MQTT Trigger</h2>
 <p>An External MQTT trigger will execute the pipeline every time data is received from an external MQTT broker on the configured <code>SubscribeTopics</code>.  </p>
 <div class="admonition note">
@@ -1531,61 +1476,52 @@ edgex/events/device/&lt;profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;
 <p>The data received, encoded as JSON or CBOR, must match the <code>TargetType</code> defined by your application service. The default  <code>TargetType</code> is an <code>Edgex Event</code>. See <a href="../AdvancedTopics/#target-type">TargetType</a> for more details.</p>
 </div>
 <h3 id="type-configuration_1">Type Configuration</h3>
-<p>Here's an example:
-<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span>
-<span class="n">Type</span><span class="o">=</span><span class="s">"external-mqtt"</span>
-<span class="w">  </span><span class="k">[Trigger.externalmqtt]</span>
-<span class="w">  </span><span class="n">Url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"tls://test.mosquitto.org:8884"</span>
-<span class="w">  </span><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">"edgex/#"</span>
-<span class="w">  </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="s">"app-external-mqtt-trigger"</span>
-<span class="w">  </span><span class="n">Qos</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
-<span class="w">  </span><span class="n">KeepAlive</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span>
-<span class="w">  </span><span class="n">Retained</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
-<span class="w">  </span><span class="n">AutoReconnect</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">  </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"30s"</span>
-<span class="w">  </span><span class="n">SkipCertVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">  </span><span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"clientcert"</span>
-<span class="w">  </span><span class="n">SecretPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"external-mqtt"</span>
-<span class="w">  </span><span class="n">RetryDuration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">600</span>
-<span class="w">  </span><span class="n">RetryInterval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span>
-</code></pre></div></p>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>For EdgeX 2.0 the <code>SubscribeTopic</code> has been renamed to <code>SubscribeTopics</code> and moved under the <code>ExternalMqtt</code> section. The <code>PublishTopic</code> has also been moved under the <code>ExternalMqtt</code> section.</p>
+<div class="admonition example -">
+<p class="admonition-title">Example Trigger Configuration</p>
+<div class="highlight"><pre><span></span><code><span class="nt">Trigger</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="s">"external-mqtt"</span>
+<span class="w">  </span><span class="nt">SubscribeTopics</span><span class="p">:</span><span class="w"> </span><span class="s">"external/#"</span>
+<span class="w">  </span><span class="nt">PublishTopic</span><span class="p">:</span><span class="w"> </span><span class="s">""</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</code></pre></div>
 </div>
-<p>The <code>Type=</code> is set to <code>external-mqtt</code>. To receive data from the external MQTT Broker you must set your <code>SubscribeTopics=</code> to the appropriate topic(s) that the external publisher is using. You may also designate a <code>PublishTopic=</code> if you wish to publish data back to the external MQTT Broker. The Context function <code>ctx.SetResponseData([]byte outputData)</code> stores the data to send back to the external MQTT Broker on the topic specified by the <code>PublishTopic=</code> setting.</p>
+<p>The <code>Type</code> is set to <code>external-mqtt</code>. To receive data from the external MQTT Broker you must set your <code>SubscribeTopics</code> to the
+appropriate topic(s) that the external publisher is using. You may also designate a <code>PublishTopic</code> if you wish to publish data 
+back to the external MQTT Broker. The Context function <code>ctx.SetResponseData([]byte outputData)</code> stores the data to send back to 
+the external MQTT Broker on the topic specified by the <code>PublishTopic</code> setting.</p>
+<p>the <code>PublishTopic</code> can have placeholders. See <a href="#publish-topic-placeholders">Publish Topic Placeholders</a> section below for more details</p>
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 2.2</p>
 <p>Prior to EdgeX 2.2 if <code>AuthMode</code> is set to <code>usernamepassword</code>, <code>clientcert</code>, or <code>cacert</code> and App Service will be run in secure mode, the required credentials must be stored to Secret Store via <a href="../../security/Ch-SecretStore/#using-the-secret-store">Vault CLI, REST API, or WEB UI</a> before starting App Service. Otherwise App Service will fail to initialize the External MQTT Trigger and then shutdown because the required credentials do not exist in the Secret Store at the time service starts. Today, you can start App Service and store the required credentials using the <a href="../../../api/applications/Ch-APIAppFunctionsSDK/#swagger">App Service API</a> afterwards. If the credentials found in Secret Store cannot satisfy App Service, it will retry for a certain duration and interval. See <a href="../GeneralAppServiceConfig/#not-writable">Application Service Configuration</a> for more information on the configuration of this retry duration and interval. </p>
 </div>
 <h3 id="external-mqtt-broker-configuration">External MQTT Broker Configuration</h3>
 <p>The other piece of configuration required are the MQTT Broker connection settings:
-<div class="highlight"><pre><span></span><code><span class="k">[Trigger.ExternalMqtt]</span>
-<span class="w">    </span><span class="n">Url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"tcp://localhost:1883"</span><span class="w"> </span><span class="c1">#  fully qualified URL to connect to the MQTT broker</span>
-<span class="w">    </span><span class="n">SubscribeTopics</span><span class="o">=</span><span class="s">"SomeTopics"</span>
-<span class="w">    </span><span class="n">PublishTopic</span><span class="o">=</span><span class="s">""</span><span class="w"> </span><span class="c1"># optional if publishing response back to the the External MQTT Broker</span>
-<span class="w">    </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"AppService"</span><span class="w"> </span>
-<span class="w">    </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"5s"</span><span class="w"> </span><span class="c1"># 5 seconds</span>
-<span class="w">    </span><span class="n">AutoReconnect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">    </span><span class="n">KeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span>
-<span class="w">    </span><span class="n">QoS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="c1"># Quality of Service 0 (At most once), 1 (At least once) or 2 (Exactly once)</span>
-<span class="w">    </span><span class="n">Retain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">    </span><span class="n">SkipCertVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
-<span class="w">    </span><span class="n">SecretPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"mqtt-trigger"</span><span class="w"> </span>
-<span class="w">    </span><span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"none"</span><span class="w"> </span><span class="c1"># Options are "none", "cacert" , "usernamepassword", "clientcert".</span>
+<div class="highlight"><pre><span></span><code><span class="nt">Trigger</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">ExternalMqtt</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="nt">Url</span><span class="p">:</span><span class="w"> </span><span class="s">"tls://test.mosquitto.org:8884"</span>
+<span class="w">    </span><span class="nt">ClientId</span><span class="p">:</span><span class="w"> </span><span class="s">"app-external-mqtt-trigger"</span>
+<span class="w">    </span><span class="nt">Qos</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">KeepAlive</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">    </span><span class="nt">Retained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">AutoReconnect</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">ConnectTimeout</span><span class="p">:</span><span class="w"> </span><span class="s">"30s"</span>
+<span class="w">    </span><span class="nt">SkipCertVerify</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">AuthMode</span><span class="p">:</span><span class="w"> </span><span class="s">"clientcert"</span>
+<span class="w">    </span><span class="nt">SecretPath</span><span class="p">:</span><span class="w"> </span><span class="s">"external-mqtt"</span>
+<span class="w">    </span><span class="nt">RetryDuration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">600</span>
+<span class="w">    </span><span class="nt">RetryInterval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
 </code></pre></div></p>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>For Edgex 2.0 the <code>PublishTopic</code> can have placeholders. See <a href="#publish-topic-placeholders">Publish Topic Placeholders</a> section below for more details</p>
-</div>
 <h2 id="http-trigger">HTTP Trigger</h2>
 <p>Designating an HTTP trigger will allow the pipeline to be triggered by a RESTful <code>POST</code> call to <code>http://[host]:[port]/api/v2/trigger/</code>. </p>
 <h3 id="type-configuration_2">Type Configuration</h3>
-<p>Here's an example:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span>
-<span class="n">Type</span><span class="o">=</span><span class="s">"http"</span><span class="w"> </span>
+<div class="admonition example -">
+<p class="admonition-title">Example Trigger Configuration</p>
+<div class="highlight"><pre><span></span><code><span class="nt">Trigger</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="s">"http"</span><span class="w"> </span>
 </code></pre></div>
-<p>The <code>Type=</code> is set to <code>http</code>. This will will enable listening to the <code>api/v2/trigger/</code> endpoint. No other configuration is required. The Context function <code>ctx.SetResponseData([]byte outputData)</code> stores the data to send back as the response to the requestor that originally triggered the HTTP Request. </p>
+</div>
+<p>The <code>Type=</code> is set to <code>http</code>. This will enable listening to the <code>api/v2/trigger/</code> endpoint. No other configuration is required. The Context function <code>ctx.SetResponseData([]byte outputData)</code> stores the data to send back as the response to the requestor that originally triggered the HTTP Request. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The HTTP trigger uses the <code>content-type</code> from the HTTP Header to determine if the data is JSON or CBOR encoded and the optional <code>X-Correlation-ID</code> to set the correlation ID for the request.</p>
@@ -1702,10 +1638,12 @@ edgex/events/device/&lt;profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;
 <span class="p">})</span>
 </code></pre></div>
 <h3 id="type-configuration_3">Type Configuration</h3>
-<p>Here's an example:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span>
-<span class="n">Type</span><span class="o">=</span><span class="s">"custom-stdin"</span><span class="w"> </span>
+<div class="admonition example -">
+<p class="admonition-title">Example Trigger Configuration</p>
+<div class="highlight"><pre><span></span><code><span class="nt">Trigger</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="s">"custom-stdin"</span><span class="w"> </span>
 </code></pre></div>
+</div>
 <p>Now the custom trigger is configured to be used rather than one of the built-in triggers.</p>
 <p>A complete working example can be found <a href="https://github.com/edgexfoundry/edgex-examples/tree/v2.3.0/application-services/custom/custom-trigger"><strong>here</strong></a></p>
 <h2 id="publish-topic-placeholders">Publish Topic Placeholders</h2>
@@ -1716,7 +1654,7 @@ edgex/events/device/&lt;profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;
 <p>Both the <code>EdgeX MessageBus</code>and the <code>External MQTT</code> triggers support the new <strong>Publish Topic Placeholders</strong> capability. The configured <code>PublishTopic</code> for either of these triggers can contain placeholders for runtime replacements. The placeholders are replaced with values from the new <code>Context Storage</code> whose key match the placeholder name. Function pipelines can add values to the <code>Context Storage</code> which can then be used as replacement values in the publish topic. If an EdgeX Event is received by the configured trigger the Event's <code>profilename</code>, <code>devicename</code> and <code>sourcename</code> as well as the will be seeded into the <code>Context Storage</code>. See the <a href="../AppFunctionContextAPI/#context-storage">Context Storage</a> documentation for more details.</p>
 <p>The <strong>Publish Topic Placeholders</strong> format is a simple <code>{&lt;key-name&gt;}</code> that can appear anywhere in the topic multiple times. An error will occur if a specified placeholder does not exist in the  <code>Context Storage</code>. </p>
 <h3 id="example">Example</h3>
-<div class="highlight"><pre><span></span><code><span class="n">PublishTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"data/{profilename}/{devicename}/{custom}"</span>
+<div class="highlight"><pre><span></span><code><span class="nt">PublishTopic</span><span class="p">:</span><span class="w"> </span><span class="s">"data/{profilename}/{devicename}/{custom}"</span>
 </code></pre></div>
 <h2 id="received-topic">Received Topic</h2>
 <div class="admonition edgey">
@@ -1829,6 +1767,8 @@ edgex/events/device/&lt;profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;
                 }
             });
         
+            const dark_scheme_name = "slate"
+            
             window.scheme = document.body.getAttribute("data-md-color-scheme")
             const options = {
                 attributeFilter: ['data-md-color-scheme'],
@@ -1841,7 +1781,7 @@ edgex/events/device/&lt;profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;
                         for(var i = 0; i < iframe_list.length; i++) {
                             var ele = iframe_list.item(i);
                             if (ele) {
-                                if (scheme === "slate") {
+                                if (scheme === dark_scheme_name) {
                                     ele.contentWindow.enable_dark_mode();
                                 } else {
                                     ele.contentWindow.disable_dark_mode();

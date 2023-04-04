@@ -612,6 +612,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#edgex_common_config">
+    EDGEX_COMMON_CONFIG
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#edgex_profile">
     EDGEX_PROFILE
   </a>
@@ -1276,6 +1281,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#edgex_common_config">
+    EDGEX_COMMON_CONFIG
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#edgex_profile">
     EDGEX_PROFILE
   </a>
@@ -1393,7 +1403,7 @@
 <div class="admonition example">
 <p class="admonition-title">Example - Using docker-compose to override the configuration file name used</p>
 <div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span><span class="w"> </span>
-<span class="w">  </span><span class="nt">EDGEX_CONFIG_FILE</span><span class="p">:</span><span class="w"> </span><span class="s">"my-config.toml"</span>
+<span class="w">  </span><span class="nt">EDGEX_CONFIG_FILE</span><span class="p">:</span><span class="w"> </span><span class="s">"my-config.yaml"</span>
 </code></pre></div>
 </div>
 <h4 id="edgex_config_provider">EDGEX_CONFIG_PROVIDER</h4>
@@ -1418,8 +1428,24 @@
 <p class="admonition-title">EdgeX 3.0</p>
 <p>The <code>EDGEX_CONFIGURATION_PROVIDER</code> environment variable is replaced by <code>EDGEX_CONFIG_PROVIDER</code> in EdgeX 3.0.</p>
 </div>
+<h4 id="edgex_common_config">EDGEX_COMMON_CONFIG</h4>
+<p>This environment variable overrides the <a href="../CommonCommandLineOptions#common-config"><code>-cc/--commonConfig</code> command-line option</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Common Config can only be specified when not using the Configuration Provider.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Example - Override with a common configuration file at the command line</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">EDGEX_COMMON_CONFIG</span><span class="o">=</span>./my-common-configuration.yaml
+$<span class="w"> </span>./core-data
+</code></pre></div>
+</div>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 3.0</p>
+<p>The <code>EDGEX_COMMON_CONFIG</code> variable is new to EdgeX 3.0.</p>
+</div>
 <h4 id="edgex_profile">EDGEX_PROFILE</h4>
-<p>This environment variable overrides the <a href="../CommonCommandLineOptions#profile"><code>-p/--profile</code> command-line option</a>. When non-empty,  the value is used in the path to the configuration file. i.e. /res/my-profile/configuation.toml.  This is useful when running multiple instances of a service such as App Service Configurable.</p>
+<p>This environment variable overrides the <a href="../CommonCommandLineOptions#profile"><code>-p/--profile</code> command-line option</a>. When non-empty,  the value is used in the path to the configuration file. i.e. /res/my-profile/configuation.yaml.  This is useful when running multiple instances of a service such as App Service Configurable.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - Using docker-compose to override the profile to use</p>
 <div class="highlight"><pre><span></span><code><span class="nt">app-service-rules</span><span class="p">:</span>
@@ -1429,11 +1455,7 @@
 <span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
 </code></pre></div>
 </div>
-<p>This sets the <code>profile</code> so that the App Service Configurable uses the <code>rules-engine</code> configuration profile which resides at <code>/res/rules-engine/configuration.toml</code></p>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the deprecated lower case version <code>edgex_profile</code> has been removed</p>
-</div>
+<p>This sets the <code>profile</code> so that the App Service Configurable uses the <code>rules-engine</code> configuration profile which resides at <code>/res/rules-engine/configuration.yaml</code></p>
 <h4 id="edgex_use_registry">EDGEX_USE_REGISTRY</h4>
 <p>This environment variable overrides the <a href="../CommonCommandLineOptions#registry"><code>-r/--registry</code> command-line option</a>. </p>
 <div class="admonition note">
@@ -1446,33 +1468,23 @@
 <span class="w">  </span><span class="nt">EDGEX_USE_REGISTRY</span><span class="p">:</span><span class="w"> </span><span class="s">"false"</span>
 </code></pre></div>
 </div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the deprecated lower case version <code>edgex_registry</code> has been removed</p>
-</div>
 <h3 id="configuration-overrides">Configuration Overrides</h3>
-<p>Any configuration setting from a service's <code>configuration.toml</code> file can be overridden by environment variables. The environment variable names have the following format:</p>
-<div class="highlight"><pre><span></span><code><span class="err">&lt;</span><span class="n">TOM-SECTION-NAME</span><span class="err">&gt;</span><span class="n">_</span><span class="err">&lt;</span><span class="n">TOML-KEY-NAME</span><span class="err">&gt;</span>
-<span class="err">&lt;</span><span class="n">TOML-SECTION-NAME</span><span class="err">&gt;</span><span class="n">_</span><span class="err">&lt;</span><span class="n">TOML-SUB-SECTION-NAME</span><span class="err">&gt;</span><span class="n">_</span><span class="err">&lt;</span><span class="n">TOML-KEY-NAME</span><span class="err">&gt;</span>
+<p>Any configuration setting from a service's <code>configuration.yaml</code> file can be overridden by environment variables. The environment variable names have the following format:</p>
+<div class="highlight"><pre><span></span><code>&lt;SECTION-NAME&gt;_&lt;KEY-NAME&gt;
+&lt;SECTION-NAME&gt;_&lt;SUB-SECTION-NAME&gt;_&lt;KEY-NAME&gt;
 </code></pre></div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>With EdgeX 2.0 the use of CamelCase environment variable names is no longer supported. Instead the variable names must be all uppercase as in the example below. Also the using of dash <code>-</code> in the TOML-NAME is converted to an underscore <code>_</code> in the environment variable name.</p>
-</div>
 <div class="admonition example">
 <p class="admonition-title">Example - Environment Overrides of Configuration</p>
-</div>
-<div class="highlight"><pre><span></span><code><span class="err">```</span><span class="w"> </span><span class="n">toml</span><span class="w">   </span>
-<span class="n">TOML</span><span class="w">   </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">Writable</span><span class="p">]</span><span class="w">    </span>
-<span class="w">         </span><span class="n">LogLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"INFO"</span><span class="w">    </span>
-<span class="n">ENVVAR</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">WRITABLE_LOGLEVEL</span><span class="o">=</span><span class="n">DEBUG</span><span class="w">    </span>
+<div class="highlight"><pre><span></span><code><span class="nt">CONFIG  : Writable</span><span class="p">:</span><span class="w">    </span>
+<span class="w">           </span><span class="nt">LogLevel</span><span class="p">:</span><span class="w"> </span><span class="s">"INFO"</span><span class="w">    </span>
+<span class="nt">ENVVAR </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WRITABLE_LOGLEVEL=DEBUG</span><span class="w">    </span>
 
-<span class="n">TOML</span><span class="w">   </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">Clients</span><span class="p">]</span>
-<span class="w">            </span><span class="k">[Clients.core-data]</span>
-<span class="w">            </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"localhost"</span>
-<span class="n">ENVVAR</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">CLIENTS_CORE_DATA_HOST</span><span class="o">=</span><span class="n">edgex-core-data</span><span class="w">    </span>
-<span class="err">```</span><span class="w">    </span>
+<span class="nt">CONFIG : Clients</span><span class="p">:</span>
+<span class="w">           </span><span class="nt">core-data</span><span class="p">:</span>
+<span class="w">             </span><span class="nt">Host</span><span class="p">:</span><span class="w"> </span><span class="s">"localhost"</span>
+<span class="nt">ENVVAR </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLIENTS_CORE_DATA_HOST=edgex-core-data</span><span class="w">    </span>
 </code></pre></div>
+</div>
 <h3 id="secretstore-overrides">SecretStore Overrides</h3>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 3.0</p>
@@ -1484,7 +1496,7 @@
 <li>SECRETSTORE_RUNTIMETOKENPROVIDER_ENABLED</li>
 <li>SECRETSTORE_RUNTIMETOKENPROVIDER_HOST</li>
 </ul>
-<p>The  complete list of <strong>SecretStore</strong> fields and defaults can be found <a href="https://github.com/edgexfoundry/go-mod-bootstrap/blob/main/config/types.go#L164-L187">here</a>. The defaults for the remaining fields typically do not need to be overridden, but may be overridden if needed using that same naming scheme as above.</p>
+<p>The  complete list of <strong>SecretStore</strong> fields and defaults can be found in the file <a href="https://github.com/edgexfoundry/go-mod-bootstrap/blob/main/config/types.go">here</a> (search for SecretStoreInfo). The defaults for the remaining fields typically do not need to be overridden, but may be overridden if needed using that same naming scheme as above.</p>
 <h3 id="notable-configuration-overrides">Notable Configuration Overrides</h3>
 <p>This section describes environment variable overrides that have special utility,
 such as enabling a debug capability or facilitating code development.</p>
@@ -1600,6 +1612,8 @@ for a developer to get a new microservice working and into a state where it can 
                 }
             });
         
+            const dark_scheme_name = "slate"
+            
             window.scheme = document.body.getAttribute("data-md-color-scheme")
             const options = {
                 attributeFilter: ['data-md-color-scheme'],
@@ -1612,7 +1626,7 @@ for a developer to get a new microservice working and into a state where it can 
                         for(var i = 0; i < iframe_list.length; i++) {
                             var ele = iframe_list.item(i);
                             if (ele) {
-                                if (scheme === "slate") {
+                                if (scheme === dark_scheme_name) {
                                     ele.contentWindow.enable_dark_mode();
                                 } else {
                                     ele.contentWindow.disable_dark_mode();

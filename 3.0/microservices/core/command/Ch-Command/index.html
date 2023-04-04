@@ -720,6 +720,11 @@
 </nav>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#regex-get-command">
+    Regex Get Command
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#api-reference">
     API Reference
   </a>
@@ -1355,6 +1360,11 @@
 </li>
 </ul>
 </nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#regex-get-command">
+    Regex Get Command
+  </a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#api-reference">
@@ -2085,6 +2095,92 @@ Below is the default topic naming used by Core Command:</p>
 - Failed to JSON-decoding the request <code>MessageEnvelope</code> <br/>
 - Failed to parse either <code>&lt;device-name&gt;</code>, <code>&lt;command-name&gt;</code> or <code>&lt;method&gt;</code></p>
 </div>
+<h2 id="regex-get-command">Regex Get Command</h2>
+<div class="admonition edgey">
+<p class="admonition-title">Edgex 3.0</p>
+<p>Regex Get Command is new in EdgeX 3.0</p>
+</div>
+<p>Command service supports regex syntax for command name.
+Regex syntax will match against all DeviceResources in the DeviceProfile.  </p>
+<p>Consider the following example device profile:
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="s">"v2"</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"Simple-Device"</span>
+<span class="nt">deviceResources</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"Xrotation"</span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">"X</span><span class="nv"> </span><span class="s">axis</span><span class="nv"> </span><span class="s">rotation</span><span class="nv"> </span><span class="s">rate"</span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">"Int32"</span>
+<span class="w">        </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">"RW"</span>
+<span class="w">        </span><span class="nt">units</span><span class="p">:</span><span class="w"> </span><span class="s">"rpm"</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"Yrotation"</span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">"Y</span><span class="nv"> </span><span class="s">axis</span><span class="nv"> </span><span class="s">rotation</span><span class="nv"> </span><span class="s">rate"</span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">"Int32"</span>
+<span class="w">        </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">"RW"</span>
+<span class="w">        </span><span class="s">"units"</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">"rpm"</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"Zrotation"</span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">"Z</span><span class="nv"> </span><span class="s">axis</span><span class="nv"> </span><span class="s">rotation</span><span class="nv"> </span><span class="s">rate"</span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">"Int32"</span>
+<span class="w">        </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">"RW"</span>
+<span class="w">        </span><span class="s">"units"</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">"rpm"</span>
+</code></pre></div>
+regex command name <code>.rotation</code> will return event including <code>Xrotation</code>, <code>Yrotation</code> and <code>Zrotation</code> readings.</p>
+<p>Note that the <a href="https://github.com/google/re2/wiki/Syntax">RE2 syntax</a> accepted by Go's <code>regexp</code> package contains character like <code>.</code>, <code>*</code>, <code>+</code> ...etc.
+These characters need to be URL-encoded before executing:
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span>http://localhost:59882/api/v2/device/name/Simple-Device01/%2Erotation
+
+<span class="o">{</span>
+<span class="w">  </span><span class="s2">"apiVersion"</span>:<span class="w"> </span><span class="s2">"v2"</span>,
+<span class="w">  </span><span class="s2">"statusCode"</span>:<span class="w"> </span><span class="m">200</span>,
+<span class="w">  </span><span class="s2">"event"</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="s2">"apiVersion"</span>:<span class="w"> </span><span class="s2">"v2"</span>,
+<span class="w">    </span><span class="s2">"id"</span>:<span class="w"> </span><span class="s2">"821f9a5d-e521-4ea7-83f9-f6bce6881dce"</span>,
+<span class="w">    </span><span class="s2">"deviceName"</span>:<span class="w"> </span><span class="s2">"Simple-Device01"</span>,
+<span class="w">    </span><span class="s2">"profileName"</span>:<span class="w"> </span><span class="s2">"Simple-Device"</span>,
+<span class="w">    </span><span class="s2">"sourceName"</span>:<span class="w"> </span><span class="s2">".rotation"</span>,
+<span class="w">    </span><span class="s2">"origin"</span>:<span class="w"> </span><span class="m">1679464105224933600</span>,
+<span class="w">    </span><span class="s2">"readings"</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">      </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">"id"</span>:<span class="w"> </span><span class="s2">"c008960a-c3cc-4cfc-b9f7-a1f1516168ea"</span>,
+<span class="w">        </span><span class="s2">"origin"</span>:<span class="w"> </span><span class="m">1679464105224933600</span>,
+<span class="w">        </span><span class="s2">"deviceName"</span>:<span class="w"> </span><span class="s2">"Simple-Device01"</span>,
+<span class="w">        </span><span class="s2">"resourceName"</span>:<span class="w"> </span><span class="s2">"Xrotation"</span>,
+<span class="w">        </span><span class="s2">"profileName"</span>:<span class="w"> </span><span class="s2">"Simple-Device"</span>,
+<span class="w">        </span><span class="s2">"valueType"</span>:<span class="w"> </span><span class="s2">"Int32"</span>,
+<span class="w">        </span><span class="s2">"units"</span>:<span class="w"> </span><span class="s2">"rpm"</span>,
+<span class="w">        </span><span class="s2">"value"</span>:<span class="w"> </span><span class="s2">"0"</span>
+<span class="w">      </span><span class="o">}</span>,
+<span class="w">      </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">"id"</span>:<span class="w"> </span><span class="s2">"7f38677a-aa1f-446b-9e28-4555814ea79d"</span>,
+<span class="w">        </span><span class="s2">"origin"</span>:<span class="w"> </span><span class="m">1679464105224933600</span>,
+<span class="w">        </span><span class="s2">"deviceName"</span>:<span class="w"> </span><span class="s2">"Simple-Device01"</span>,
+<span class="w">        </span><span class="s2">"resourceName"</span>:<span class="w"> </span><span class="s2">"Yrotation"</span>,
+<span class="w">        </span><span class="s2">"profileName"</span>:<span class="w"> </span><span class="s2">"Simple-Device"</span>,
+<span class="w">        </span><span class="s2">"valueType"</span>:<span class="w"> </span><span class="s2">"Int32"</span>,
+<span class="w">        </span><span class="s2">"units"</span>:<span class="w"> </span><span class="s2">"rpm"</span>,
+<span class="w">        </span><span class="s2">"value"</span>:<span class="w"> </span><span class="s2">"0"</span>
+<span class="w">      </span><span class="o">}</span>,
+<span class="w">      </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">"id"</span>:<span class="w"> </span><span class="s2">"ad72be23-1d0e-40a3-b4ec-2fa0fa5aba58"</span>,
+<span class="w">        </span><span class="s2">"origin"</span>:<span class="w"> </span><span class="m">1679464105224933600</span>,
+<span class="w">        </span><span class="s2">"deviceName"</span>:<span class="w"> </span><span class="s2">"Simple-Device01"</span>,
+<span class="w">        </span><span class="s2">"resourceName"</span>:<span class="w"> </span><span class="s2">"Zrotation"</span>,
+<span class="w">        </span><span class="s2">"profileName"</span>:<span class="w"> </span><span class="s2">"Simple-Device"</span>,
+<span class="w">        </span><span class="s2">"valueType"</span>:<span class="w"> </span><span class="s2">"Int32"</span>,
+<span class="w">        </span><span class="s2">"units"</span>:<span class="w"> </span><span class="s2">"rpm"</span>,
+<span class="w">        </span><span class="s2">"value"</span>:<span class="w"> </span><span class="s2">"0"</span>
+<span class="w">      </span><span class="o">}</span>
+<span class="w">    </span><span class="o">]</span>
+<span class="w">  </span><span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></p>
 <h2 id="api-reference">API Reference</h2>
 <p><a href="../../../../api/core/Ch-APICoreCommand/">Core Command API Reference</a></p>
 </article>
@@ -2192,6 +2288,8 @@ Below is the default topic naming used by Core Command:</p>
                 }
             });
         
+            const dark_scheme_name = "slate"
+            
             window.scheme = document.body.getAttribute("data-md-color-scheme")
             const options = {
                 attributeFilter: ['data-md-color-scheme'],
@@ -2204,7 +2302,7 @@ Below is the default topic naming used by Core Command:</p>
                         for(var i = 0; i < iframe_list.length; i++) {
                             var ele = iframe_list.item(i);
                             if (ele) {
-                                if (scheme === "slate") {
+                                if (scheme === dark_scheme_name) {
                                     ele.contentWindow.enable_dark_mode();
                                 } else {
                                     ele.contentWindow.disable_dark_mode();

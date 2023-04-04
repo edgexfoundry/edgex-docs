@@ -1293,13 +1293,13 @@ its fields.</p>
 </tr>
 <tr>
 <td align="left">minimum</td>
-<td align="left">String</td>
+<td align="left">Float64</td>
 <td align="left">N</td>
 <td align="left">Error if SET command value out of minimum range</td>
 </tr>
 <tr>
 <td align="left">maximum</td>
-<td align="left">String</td>
+<td align="left">Float64</td>
 <td align="left">N</td>
 <td align="left">Error if SET command value out of maximum range</td>
 </tr>
@@ -1504,6 +1504,8 @@ its fields.</p>
                 }
             });
         
+            const dark_scheme_name = "slate"
+            
             window.scheme = document.body.getAttribute("data-md-color-scheme")
             const options = {
                 attributeFilter: ['data-md-color-scheme'],
@@ -1516,7 +1518,7 @@ its fields.</p>
                         for(var i = 0; i < iframe_list.length; i++) {
                             var ele = iframe_list.item(i);
                             if (ele) {
-                                if (scheme === "slate") {
+                                if (scheme === dark_scheme_name) {
                                     ele.contentWindow.enable_dark_mode();
                                 } else {
                                     ele.contentWindow.disable_dark_mode();

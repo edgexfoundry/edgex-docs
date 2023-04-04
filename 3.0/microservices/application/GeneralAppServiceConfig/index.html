@@ -1164,7 +1164,7 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"></path></svg>
 </a>
 <h1 id="application-service-configuration">Application Service Configuration</h1>
-<p>Similar to other EdgeX services, configuration is first determined by the <code>configuration.toml</code> file in the <code>/res</code> folder. Once loaded any environment overrides are applied. If <code>-cp</code> is passed to the application on startup, the SDK will leverage the specific configuration provider (i.e Consul) to push the configuration into the provider and monitor <code>Writeable</code> configuration from there. You will find the configuration under the <code>edgex/appservices/2.0/</code> key in the provider (i.e Consul). On re-restart the service will pull the configuration from the provider and apply any environment overrides.</p>
+<p>Similar to other EdgeX services, configuration is first determined by the <code>configuration.yaml</code> file in the <code>/res</code> folder. Once loaded any environment overrides are applied. If <code>-cp</code> is passed to the application on startup, the SDK will leverage the specific configuration provider (i.e Consul) to push the configuration into the provider and monitor <code>Writeable</code> configuration from there. You will find the configuration under the <code>edgex/appservices/2.0/</code> key in the provider (i.e Consul). On re-restart the service will pull the configuration from the provider and apply any environment overrides.</p>
 <p>This section describes the configuration elements that are unique to Application Services</p>
 <p>Please first refer to the general <a href="../../configuration/CommonConfiguration">Configuration documentation</a> for configuration properties common across all EdgeX services.</p>
 <div class="admonition note">
@@ -1478,17 +1478,13 @@ Only used for <code>external-mqtt</code> trigger binding type</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio"><input id="__tabbed_3_2" name="__tabbed_3" type="radio"><div class="tabbed-labels"><label for="__tabbed_3_1">Application Settings</label><label for="__tabbed_3_2">Custom Structured Configuration</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p><code>[ApplicationSettings]</code> - Is used for custom application settings and is accessed via the ApplicationSettings() API. The ApplicationSettings API returns a <code>map[string] string</code> containing the contents on the ApplicationSetting section of the <code>configuration.toml</code> file.</p>
-<div class="highlight"><pre><span></span><code><span class="k">[ApplicationSettings]</span>
-<span class="n">ApplicationName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"My Application Service"</span>
+<p><code>[ApplicationSettings]</code> - Is used for custom application settings and is accessed via the ApplicationSettings() API. The ApplicationSettings API returns a <code>map[string] string</code> containing the contents on the ApplicationSetting section of the <code>configuration.yaml</code> file.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">ApplicationSettings</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ApplicationName</span><span class="p">:</span><span class="w"> </span><span class="s">"My</span><span class="nv"> </span><span class="s">Application</span><span class="nv"> </span><span class="s">Service"</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>New for EdgeX 2.0</p>
-</div>
-<p>Custom Application Services can now define their own custom structured configuration section in the <code>configuration.toml</code> file. Any additional sections in the TOML are ignore by the SDK when it parses the file for the SDK defined sections. See the <a href="../ApplicationFunctionsSDK/#custom-configuration">Custom Configuration</a> section of the SDK documentation for more details.</p>
+<p>Custom Application Services can now define their own custom structured configuration section in the <code>configuration.yaml</code> file. Any additional sections in the configuration file are ignore by the SDK when it parses the file for the SDK defined sections. See the <a href="../ApplicationFunctionsSDK/#custom-configuration">Custom Configuration</a> section of the SDK documentation for more details.</p>
 </div>
 </div>
 </input></input></div>
@@ -1597,6 +1593,8 @@ Only used for <code>external-mqtt</code> trigger binding type</p>
                 }
             });
         
+            const dark_scheme_name = "slate"
+            
             window.scheme = document.body.getAttribute("data-md-color-scheme")
             const options = {
                 attributeFilter: ['data-md-color-scheme'],
@@ -1609,7 +1607,7 @@ Only used for <code>external-mqtt</code> trigger binding type</p>
                         for(var i = 0; i < iframe_list.length; i++) {
                             var ele = iframe_list.item(i);
                             if (ele) {
-                                if (scheme === "slate") {
+                                if (scheme === dark_scheme_name) {
                                     ele.contentWindow.enable_dark_mode();
                                 } else {
                                     ele.contentWindow.disable_dark_mode();

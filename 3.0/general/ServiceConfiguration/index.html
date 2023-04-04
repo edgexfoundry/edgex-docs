@@ -1126,7 +1126,7 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"></path></svg>
 </a>
 <h1 id="service-configuration">Service Configuration</h1>
-<p>Each EdgeX micro service requires configuration (i.e. - a repository of initialization and operating values).  The configuration is initially provided by a <a href="https://github.com/toml-lang/toml">TOML file</a> but a service can utilize the centralized configuration management provided by EdgeX for its configuration. </p>
+<p>Each EdgeX micro service requires configuration (i.e. - a repository of initialization and operating values).  The configuration is initially provided by a <a href="https://en.wikipedia.org/wiki/YAML">YAML</a> file but a service can utilize the centralized configuration management provided by EdgeX for its configuration. </p>
 <p>See the <a href="../../microservices/configuration/ConfigurationAndRegistry/">Configuration and Registry documentation</a> for more details about initialization of services and the use of the configuration service.  </p>
 <p>Please refer to the EdgeX Foundry <a href="https://github.com/edgexfoundry/edgex-docs/blob/master/docs_src/design/adr/0005-Service-Self-Config.md">architectural decision record</a> for details (and design decisions) behind the configuration in EdgeX.</p>
 <p>Please refer to the general <a href="../../microservices/configuration/CommonConfiguration/">Common Configuration documentation</a> for configuration properties common to all services.  Find service specific configuration references in the tabs below.</p>
@@ -1351,6 +1351,8 @@
                 }
             });
         
+            const dark_scheme_name = "slate"
+            
             window.scheme = document.body.getAttribute("data-md-color-scheme")
             const options = {
                 attributeFilter: ['data-md-color-scheme'],
@@ -1363,7 +1365,7 @@
                         for(var i = 0; i < iframe_list.length; i++) {
                             var ele = iframe_list.item(i);
                             if (ele) {
-                                if (scheme === "slate") {
+                                if (scheme === dark_scheme_name) {
                                     ele.contentWindow.enable_dark_mode();
                                 } else {
                                     ele.contentWindow.disable_dark_mode();

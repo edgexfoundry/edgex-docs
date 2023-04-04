@@ -1364,7 +1364,7 @@ $<span class="w"> </span>docker-compose<span class="w"> </span>up<span class="w"
 <p>After the framework has been built and is running for about a minute,
 check the <code>device-virtual</code> service</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>edgex-device-virtual
-<span class="nv">level</span><span class="o">=</span>INFO<span class="w"> </span><span class="nv">ts</span><span class="o">=</span><span class="m">2022</span>-05-05T14:28:30.005673094Z<span class="w"> </span><span class="nv">app</span><span class="o">=</span>device-virtual<span class="w"> </span><span class="nv">source</span><span class="o">=</span>config.go:391<span class="w"> </span><span class="nv">msg</span><span class="o">=</span><span class="s2">"Loaded service configuration from ./res/configuration.toml"</span>
+<span class="nv">level</span><span class="o">=</span>INFO<span class="w"> </span><span class="nv">ts</span><span class="o">=</span><span class="m">2022</span>-05-05T14:28:30.005673094Z<span class="w"> </span><span class="nv">app</span><span class="o">=</span>device-virtual<span class="w"> </span><span class="nv">source</span><span class="o">=</span>config.go:391<span class="w"> </span><span class="nv">msg</span><span class="o">=</span><span class="s2">"Loaded service configuration from ./res/configuration.yaml"</span>
 <span class="nv">level</span><span class="o">=</span>INFO<span class="w"> </span><span class="nv">ts</span><span class="o">=</span><span class="m">2022</span>-05-05T14:28:30.006211643Z<span class="w"> </span><span class="nv">app</span><span class="o">=</span>device-virtual<span class="w"> </span><span class="nv">source</span><span class="o">=</span>variables.go:352<span class="w"> </span><span class="nv">msg</span><span class="o">=</span><span class="s2">"Variables override of 'SecretStore.RuntimeTokenProvider.Port' by environment variable: SECRETSTORE_RUNTIMETOKENPROVIDER_PORT=59841"</span>
 <span class="nv">level</span><span class="o">=</span>INFO<span class="w"> </span><span class="nv">ts</span><span class="o">=</span><span class="m">2022</span>-05-05T14:28:30.006286584Z<span class="w"> </span><span class="nv">app</span><span class="o">=</span>device-virtual<span class="w"> </span><span class="nv">source</span><span class="o">=</span>variables.go:352<span class="w"> </span><span class="nv">msg</span><span class="o">=</span><span class="s2">"Variables override of 'SecretStore.RuntimeTokenProvider.Protocol' by environment variable: SECRETSTORE_RUNTIMETOKENPROVIDER_PROTOCOL=https"</span>
 <span class="nv">level</span><span class="o">=</span>INFO<span class="w"> </span><span class="nv">ts</span><span class="o">=</span><span class="m">2022</span>-05-05T14:28:30.006341968Z<span class="w"> </span><span class="nv">app</span><span class="o">=</span>device-virtual<span class="w"> </span><span class="nv">source</span><span class="o">=</span>variables.go:352<span class="w"> </span><span class="nv">msg</span><span class="o">=</span><span class="s2">"Variables override of 'Clients.core-metadata.Host' by environment variable: CLIENTS_CORE_METADATA_HOST=edgex-core-metadata"</span>
@@ -1840,6 +1840,8 @@ from the local machine to the remote <code>device-virtual</code> service:</p>
                 }
             });
         
+            const dark_scheme_name = "slate"
+            
             window.scheme = document.body.getAttribute("data-md-color-scheme")
             const options = {
                 attributeFilter: ['data-md-color-scheme'],
@@ -1852,7 +1854,7 @@ from the local machine to the remote <code>device-virtual</code> service:</p>
                         for(var i = 0; i < iframe_list.length; i++) {
                             var ele = iframe_list.item(i);
                             if (ele) {
-                                if (scheme === "slate") {
+                                if (scheme === dark_scheme_name) {
                                     ele.contentWindow.enable_dark_mode();
                                 } else {
                                     ele.contentWindow.disable_dark_mode();

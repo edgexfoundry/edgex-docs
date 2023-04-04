@@ -1517,13 +1517,13 @@ EdgeX. General characteristics about the type of device, the data these devices 
 <p>Follow these steps to create a pre-defined device for the simple random number generating device service.</p>
 <ol>
 <li>
-<p>Explore the files in the cmd/device-simple/res/devices folder.   Note the example simple-device.toml that is already in this folder.  Open the file with your favorite editor and explore its contents.  Note how <code>DeviceList</code> in the file represent an actual device with its properties (properties like Name, ProfileName, AutoEvents).</p>
+<p>Explore the files in the cmd/device-simple/res/devices folder.   Note the example simple-device.yaml that is already in this folder.  Open the file with your favorite editor and explore its contents.  Note how <code>DeviceList</code> in the file represent an actual device with its properties (properties like Name, ProfileName, AutoEvents).</p>
 </li>
 <li>
-<p>A pre-created device for the random number device is provided in this documentation.  Download <strong><a href="../random-generator-device.toml">random-generator-device.toml</a></strong> and save the file to the <code>~/edgexfoundry/device-simple/cmd/device-simple/res/devices</code> folder.</p>
+<p>A pre-created device for the random number device is provided in this documentation.  Download <strong><a href="../random-generator-device.yaml">random-generator-device.yaml</a></strong> and save the file to the <code>~/edgexfoundry/device-simple/cmd/device-simple/res/devices</code> folder.</p>
 </li>
 <li>
-<p>Open the random-generator-device.toml file in a text editor. In this example, the device described has a ProfileName:  <code>RandNum-Device</code>.  In this case, the device informs EdgeX that it will be using the device profile we created in <a href="./#creating-your-device-profile">Creating your Device Profile</a></p>
+<p>Open the random-generator-device.yaml file in a text editor. In this example, the device described has a ProfileName:  <code>RandNum-Device</code>.  In this case, the device informs EdgeX that it will be using the device profile we created in <a href="./#creating-your-device-profile">Creating your Device Profile</a></p>
 </li>
 </ol>
 <h3 id="validating-your-device">Validating your Device</h3>
@@ -1542,22 +1542,23 @@ This feature allows Device Services whose protocol has strict rule to validate t
 <code>ValidateDevice</code> function will be called to validate incoming device's ProtocolProperties and reject
 the request if validation failed.</p>
 <h2 id="configuring-your-device-service">Configuring your Device Service</h2>
-<p>Now update the configuration for the new device service.    This documentation provides a new configuration.toml file.  This configuration file:</p>
+<p>Now update the configuration for the new device service.    This documentation provides a new configuration.yaml file.  This configuration file:</p>
 <ul>
 <li>changes the port the service operates on so as not to conflict with other device services</li>
 </ul>
-<p>Download  <strong><a href="../configuration.toml">configuration.toml</a></strong> and save the file to the <code>~/edgexfoundry/device-simple/cmd/device-simple/res</code> folder (overwrite the existing configuration file).  Change the host address of the device service to your system's IP address.</p>
+<p>Download  <strong><a href="https://github.com/edgexfoundry/device-sdk-go/blob/main/example/cmd/device-simple/res/configuration.yaml">configuration.yaml</a></strong> and save the file to the <code>~/edgexfoundry/device-simple/cmd/device-simple/res</code> folder (overwrite the existing configuration file).  Change the host address of the device service to your system's IP address.</p>
+<p>TODO: Update above link to latest_released_version variable</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>In the configuration.toml, change the host address (around line 14) to the IP address of the system host.  This allows core metadata to callback to your new device service when a new device is created.  Because the rest of EdgeX, to include core metadata, will be running in Docker, the IP address of the host system on the Docker network must be provided to allow metadata in Docker to call out from Docker to the new device service running on your host system.</p>
+<p>In the configuration.yaml, change the host address (around line 14) to the IP address of the system host.  This allows core metadata to callback to your new device service when a new device is created.  Because the rest of EdgeX, to include core metadata, will be running in Docker, the IP address of the host system on the Docker network must be provided to allow metadata in Docker to call out from Docker to the new device service running on your host system.</p>
 </div>
 <h3 id="custom-structured-configuration">Custom Structured Configuration</h3>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 2.0</p>
 <p>New for EdgeX 2.0</p>
 </div>
-<p>Go Device Services can now define their own custom structured configuration section in the <code>configuration.toml</code> file. Any additional sections in the TOML are ignored by the SDK when it parses the file for the SDK defined sections. </p>
-<p>This feature allows a Device Service to define and watch it's own structured section in the service's TOML configuration file.</p>
+<p>Go Device Services can now define their own custom structured configuration section in the <code>configuration.yaml</code> file. Any additional sections in the configuration file are ignored by the SDK when it parses the file for the SDK defined sections. </p>
+<p>This feature allows a Device Service to define and watch it's own structured section in the service's configuration file.</p>
 <p>The <code>SDK</code> API provides the follow APIs to enable structured custom configuration:</p>
 <ul>
 <li>
@@ -1572,7 +1573,7 @@ the request if validation failed.</p>
 <p>See the <a href="https://github.com/edgexfoundry/device-mqtt-go/tree/v2.0.0">Device MQTT Service</a> for an example of using the new Structured Custom Configuration capability.</p>
 <ul>
 <li><a href="https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/internal/driver/config.go#L21-L72">See here for defining the structured custom configuration</a></li>
-<li><a href="https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/cmd/res/configuration.toml#L86-L108">See here for custom section on the configuration.toml file</a></li>
+<li><a href="https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/cmd/res/configuration.toml#L86-L108">See here for custom section on the configuration.toml file</a> (<strong>TODO</strong>: Update link once YAML file is available)</li>
 <li><a href="https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/internal/driver/driver.go#L54-L69">See here for loading, validating and watching the configuration</a></li>
 </ul>
 <h2 id="device-service-metrics">Device Service Metrics</h2>
@@ -1638,23 +1639,25 @@ the request if validation failed.</p>
 <p>Configure reporting of the service's metrics. See <code>Writable.Telemetry</code> configuration details in the <a href="../../microservices/configuration/CommonConfiguration/">Common Configuration</a> section for more detail.</p>
 </li>
 </ol>
-<p>!!! example "Example - Service Telemetry Configuration"
-       <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">[Writable.Telemetry]</span>
-<span class="w">  </span><span class="n">Interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"30s"</span>
-<span class="w">  </span><span class="n">PublishTopicPrefix</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">"edgex/telemetry"</span><span class="w"> </span><span class="c1"># /&lt;service-name&gt;/&lt;metric-name&gt; will be added to this Publish Topic prefix</span>
-<span class="w">    </span><span class="p">[</span><span class="n">Writable</span><span class="p">.</span><span class="n">Telemetry</span><span class="p">.</span><span class="n">Metrics</span><span class="p">]</span><span class="w"> </span><span class="c1"># All service's metric names must be present in this list.</span>
-<span class="w">    </span><span class="n">MyCounterName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">    </span><span class="n">MyGaugeName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">    </span><span class="n">MyGaugeFloat64Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">    </span><span class="n">MyTimerName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">    </span><span class="n">MyHistogram</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-</code></pre></div></p>
-<div class="codehilite"><pre><span></span><code>       [Writable.Telemetry.Tags] # Contains the service level tags to be attached to all the service's metrics
-   #    Gateway="my-iot-gateway" # Tag must be added here or via Consul Env Override can only change existing value, not added new ones.
-   ```
+<div class="admonition example">
+<p class="admonition-title">Example - Service Telemetry Configuration</p>
+<div class="highlight"><pre><span></span><code><span class="nt">Writable</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">Telemetry</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">Interval</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">"30s"</span>
+<span class="w">    </span><span class="nt">Metrics</span><span class="p">:</span><span class="w"> </span><span class="c1"># All service's metric names must be present in this list.</span>
+<span class="w">      </span><span class="nt">MyCounterName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">MyGaugeName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">MyGaugeFloat64Name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">MyTimerName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">MyHistogram</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="w w-Error"> </span><span class="nt">Tags</span><span class="p">:</span><span class="w"> </span><span class="c1"># Contains the service level tags to be attached to all the service's metrics</span>
+<span class="w">     </span><span class="nt">Gateway</span><span class="p">:</span><span class="w"> </span><span class="s">"my-iot-gateway"</span><span class="w"> </span><span class="c1"># Tag must be added here or via Consul Env Override can only change existing value, not added new ones.</span>
 </code></pre></div>
-<p>!!! note
-       The metric names used in the above configuration (to enable or disable reporting of a metric) must match the metric name used when the metric is registered. A partial match of starts with is acceptable, i.e. the metric name registered starts with the above configured name.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The metric names used in the above configuration (to enable or disable reporting of a metric) must match the metric name used when the metric is registered. A partial match of starts with is acceptable, i.e. the metric name registered starts with the above configured name.</p>
+</div>
 <h2 id="retrieving-secrets">Retrieving Secrets</h2>
 <p>The Go Device SDK provides the <code>SecretProvider.GetSecret()</code> API to retrieve the Device Services secrets.  See the <a href="https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/internal/driver/config.go#L114">Device MQTT Service</a> for an example of using the <code>SecretProvider.GetSecret()</code> API. Note that this code implements a retry loop allowing time for the secret(s) to be push into the service's <code>SecretStore</code> via the /secret endpoint. See <a href="../../microservices/device/Ch-DeviceServices/#storing-secrets">Storing Secrets</a> section for more details.  </p>
 <h2 id="rebuild-your-device-service">Rebuild your Device Service</h2>
@@ -1798,6 +1801,8 @@ terminal.</p>
                 }
             });
         
+            const dark_scheme_name = "slate"
+            
             window.scheme = document.body.getAttribute("data-md-color-scheme")
             const options = {
                 attributeFilter: ['data-md-color-scheme'],
@@ -1810,7 +1815,7 @@ terminal.</p>
                         for(var i = 0; i < iframe_list.length; i++) {
                             var ele = iframe_list.item(i);
                             if (ele) {
-                                if (scheme === "slate") {
+                                if (scheme === dark_scheme_name) {
                                     ele.contentWindow.enable_dark_mode();
                                 } else {
                                     ele.contentWindow.disable_dark_mode();

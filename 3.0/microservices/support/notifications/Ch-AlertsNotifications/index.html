@@ -1833,11 +1833,13 @@ Smtp<span class="w"> </span>Password=<span class="cp">${</span><span class="n">Y
 <p>The <code>Writable.InsecureSecrets.SMTP</code> section has been added.</p>
 <div class="admonition example">
 <p class="admonition-title">Example Writable.InsecureSecrets.SMTP section</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Writable.InsecureSecrets.SMTP]</span>
-<span class="w">    </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"smtp"</span>
-<span class="w">      </span><span class="k">[Writable.InsecureSecrets.SMTP.Secrets]</span>
-<span class="w">      </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"username@mail.example.com"</span>
-<span class="w">      </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">Writable</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">InsecureSecrets</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">SMTP</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">SecretName</span><span class="p">:</span><span class="w"> </span><span class="s">"smtp"</span>
+<span class="w">          </span><span class="nt">SecretData</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="s">"username@mail.example.com"</span>
+<span class="w">            </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">""</span>
 </code></pre></div>
 </div>
 <h2 id="api-reference">API Reference</h2>
@@ -1947,6 +1949,8 @@ Smtp<span class="w"> </span>Password=<span class="cp">${</span><span class="n">Y
                 }
             });
         
+            const dark_scheme_name = "slate"
+            
             window.scheme = document.body.getAttribute("data-md-color-scheme")
             const options = {
                 attributeFilter: ['data-md-color-scheme'],
@@ -1959,7 +1963,7 @@ Smtp<span class="w"> </span>Password=<span class="cp">${</span><span class="n">Y
                         for(var i = 0; i < iframe_list.length; i++) {
                             var ele = iframe_list.item(i);
                             if (ele) {
-                                if (scheme === "slate") {
+                                if (scheme === dark_scheme_name) {
                                     ele.contentWindow.enable_dark_mode();
                                 } else {
                                     ele.contentWindow.disable_dark_mode();

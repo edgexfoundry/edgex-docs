@@ -1241,29 +1241,40 @@
 <p>It would be speculative and inappropriate for EdgeX to select a unit of measure standard which is not widely adopted in the industry or choose a static unit of measure list that is incomplete with regard to possible IoT / edge use case needs.  At this time, there does not appear to be a single and unequivocal standard for units of measure that encompasses all EdgeX related use cases (now and in the future). </p>
 <p>Therefore, EdgeX chooses not to select or adopt a unit of measure specification, standard, or code list to apply across the platform.  Instead, EdgeX adopters will be allowed to optionally specify which unit of measure specification, standard, or unit of measure code list they would like used in their instance(s) of EdgeX.</p>
 <h3 id="specifying-the-units-of-measure">Specifying the Units of Measure</h3>
-<p>Units of measure allowed by the instance of EdgeX will be specified in a configuration file (in TOML format called <code>uom.toml</code> by default).  Note:  the UoM configuration is a separate configuration TOML file (separate from the metadata service configuration file - <code>configuration.toml</code>).  </p>
+<p>Units of measure allowed by the instance of EdgeX will be specified in a configuration file (in YAML format called <code>uom.yaml</code> by default).  Note:  the UoM configuration is a separate configuration YAML file (separate from the metadata service configuration file - <code>configuration.yaml</code>).  </p>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 3.0</p>
+<p>For EdgeX 3.0 the UoM definition file is changed to YAML instead of TOML format.</p>
+</div>
 <p>The units of measure in the configuration file can be attributed, optionally, to a specification, document, or other UoM definition source.  The <code>source</code> only helps provide the location of documentation about the origins and details of the units specified for the reader, but it will not be used or checked by EdgeX.  An optional default source can be provided at the top level configuration (as shown in the examples below) so that other sources are only needed when there are specific units used that are not found in the default source.</p>
-<p>The units of measure can be categorized for better organization and to allow for different sources to be specified for different units.  The categories are defined by the TOML section names (the UoM dot labels).</p>
-<p><strong>Sample TOML unit of measure configuration</strong></p>
-<div class="highlight"><pre><span></span><code><span class="k">[Uom]</span>
-<span class="w">    </span><span class="n">Source</span><span class="o">=</span><span class="s">"reference to source for all UoM if not specified below"</span>
-<span class="w">    </span><span class="k">[Uom.temperature]</span>
-<span class="w">    </span><span class="n">Source</span><span class="o">=</span><span class="s">"www.weather.com"</span>
-<span class="w">    </span><span class="n">Values</span><span class="o">=</span><span class="s">"C,F,K"</span>
-<span class="w">    </span><span class="k">[Uom.weights]</span>
-<span class="w">    </span><span class="n">Source</span><span class="o">=</span><span class="s">"www.usa.gov/federal-agencies/weights-and-measures-division"</span>
-<span class="w">    </span><span class="n">Values</span><span class="o">=</span><span class="s">"lbs,ounces,kilos,grams"</span>
+<p>The units of measure can be categorized for better organization and to allow for different sources to be specified for different units.  The categories are defined by the YAML section names (the UoM dot labels).</p>
+<p><strong>Sample YAML unit of measure configuration</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nt">Source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reference to source for all UoM if not specified below</span>
+<span class="nt">Units</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">www.weather.com</span>
+<span class="w">    </span><span class="nt">Values</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">C</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">F</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">K</span>
+<span class="w">  </span><span class="nt">weights</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">www.usa.gov/federal-agencies/weights-and-measures-division</span>
+<span class="w">    </span><span class="nt">Values</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lbs</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ounces</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kilos</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grams</span>
 </code></pre></div>
 <h4 id="specifying-the-uom-file-location">Specifying the UoM File Location</h4>
-<p>The location of the UoM file will be specified in core metadata's configuration (currently in <code>res/configuration.toml</code>) - see example A below.  </p>
+<p>The location of the UoM file will be specified in core metadata's configuration (currently in <code>res/configuration.yaml</code>) - see example A below.  </p>
 <p><strong>Example Metadata Configuration - location of of the UoM configuration file</strong>
-<div class="highlight"><pre><span></span><code><span class="k">[Writable]</span>
-<span class="w">    </span><span class="k">[Writable.UoM]</span>
-<span class="w">    </span><span class="n">Validation</span><span class="o">=</span><span class="n">false</span><span class="w">  </span><span class="c1">## false (meaning off) by default</span>
+<div class="highlight"><pre><span></span><code><span class="nt">Writable</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">UoM</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Validation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">  </span><span class="c1">## false (meaning off) by default</span>
 
 <span class="c1">## in the non-writable area - example file specified to units of measure</span>
-<span class="k">[UoM]</span>
-<span class="w">    </span><span class="n">UoMFile</span><span class="o">=</span><span class="s">"./res/uom.toml"</span><span class="w">  </span><span class="c1"># the UoMFile location can be either absolute or relative path location</span>
+<span class="nt">UoM</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">UoMFile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./res/uom.yaml</span><span class="w">  </span><span class="c1"># the UoMFile location can be either absolute or relative path location</span>
 </code></pre></div></p>
 <p>The location of the UoM file should point to an accessible file (relative to application executable or absolute path).  The file must be something that the service can reach (ex: in shared volume, volume mount, etc.) in order to allow for the adopter to provide the units of measure independently during configuration/setup of the EdgeX instance without requiring a build of the metadata service or a reconstruction of the Docker image/container.</p>
 <div class="admonition info">
@@ -1304,7 +1315,7 @@
 <span class="w">  </span><span class="nt">properties</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">"Float32"</span>
 <span class="w">    </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">"R"</span>
-<span class="w">    </span><span class="nt">scale</span><span class="p">:</span><span class="w"> </span><span class="s">"0.1"</span>
+<span class="w">    </span><span class="nt">scale</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
 <span class="w">    </span><span class="nt">units</span><span class="p">:</span><span class="w"> </span><span class="s">"C"</span><span class="w">    </span><span class="c1">## core metadata checks this value against its list of valid units of measure</span>
 </code></pre></div>
 <p>By checking the <code>units</code> property of the device resources (on creation or updates of the device profile or create/update of the device resources), and rejecting any additions or changes that include non-valid units of measure, then we can be assured that all readings created by the device service will contain valid units by default (assuming that validation of the units of measure is always on) or that the units are inconsequential (when the <code>units</code> field is not specified for a device resource).  This means, the units in a reading do not need to be validated separately.</p>
@@ -1333,7 +1344,7 @@ measurement for a sensor named "urn:dev:ow:10e2073a01080063" with a current valu
 <p>In the future, validation may be turned <code>on</code> or <code>off</code> per device service; allowing the decision to validate units of measure to be accomplished on a service or even allow the device service to validate/not validate based on particular devices.</p>
 <p>In the future, additional criteria may be added to the unit of measure information to all for more specific (or allowing more granularity) validation.  For example, the category of units of measure could be specified in a device resource so that a profile's units are validated against specific sources or collections of unit of measure.</p>
 <p>Use of URI to specify the unit of measures file was discussed.  This would be novel with regard to providing EdgeX information.  Per core working group of 2/17/22 and then again at the monthly architect's meeting of 2/28/22, we may look to use a URI to specify a configuration file to specify UoM in the future.  Indeed, URIs may be used (an EdgeX 3.0 consideration) to point to device profiles, configuration files, and other information in the future.  This would even allow multiple EdgeX instances to use the same configuration or profile (multiple EdgeX instances using the same URI to use a shared profile for example).  However, it was deemed scope creep and too much to do for this first iteration.</p>
-<p>Initially, this ADR allowed for the UoM to also or alternately to be defined in the standard metadata service configuration file (`configuration.toml').  During the Core WG meeting of 3/3/22, it was decided to simplify the design and strictly limit UoM to a separate configuration file.  If future use cases or adopters request inline definition, this can be implemented in a future release.</p>
+<p>Initially, this ADR allowed for the UoM to also or alternately to be defined in the standard metadata service configuration file (`configuration.yaml').  During the Core WG meeting of 3/3/22, it was decided to simplify the design and strictly limit UoM to a separate configuration file.  If future use cases or adopters request inline definition, this can be implemented in a future release.</p>
 <h2 id="consequences">Consequences</h2>
 <ul>
 <li>Validation could impact performance.  Therefore allowing it to be turned on or off is critical to some use cases.  However, it will only impact performance of profile creation/updates (and associated device resources) in core metadata.</li>
@@ -1432,6 +1443,8 @@ measurement for a sensor named "urn:dev:ow:10e2073a01080063" with a current valu
                 }
             });
         
+            const dark_scheme_name = "slate"
+            
             window.scheme = document.body.getAttribute("data-md-color-scheme")
             const options = {
                 attributeFilter: ['data-md-color-scheme'],
@@ -1444,7 +1457,7 @@ measurement for a sensor named "urn:dev:ow:10e2073a01080063" with a current valu
                         for(var i = 0; i < iframe_list.length; i++) {
                             var ele = iframe_list.item(i);
                             if (ele) {
-                                if (scheme === "slate") {
+                                if (scheme === dark_scheme_name) {
                                     ele.contentWindow.enable_dark_mode();
                                 } else {
                                     ele.contentWindow.disable_dark_mode();

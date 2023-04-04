@@ -1447,7 +1447,7 @@ Service specific properties can be found on the respective documentation page fo
 </tr>
 <tr>
 <td>Timeout</td>
-<td>5000</td>
+<td>5s</td>
 <td>DB connection timeout</td>
 </tr>
 <tr>
@@ -1725,6 +1725,8 @@ modifications to the other settings (read-only configuration) require a restart.
                 }
             });
         
+            const dark_scheme_name = "slate"
+            
             window.scheme = document.body.getAttribute("data-md-color-scheme")
             const options = {
                 attributeFilter: ['data-md-color-scheme'],
@@ -1737,7 +1739,7 @@ modifications to the other settings (read-only configuration) require a restart.
                         for(var i = 0; i < iframe_list.length; i++) {
                             var ele = iframe_list.item(i);
                             if (ele) {
-                                if (scheme === "slate") {
+                                if (scheme === dark_scheme_name) {
                                     ele.contentWindow.enable_dark_mode();
                                 } else {
                                     ele.contentWindow.disable_dark_mode();
