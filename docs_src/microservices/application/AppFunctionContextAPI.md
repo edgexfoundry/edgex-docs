@@ -118,31 +118,29 @@ Returns a `DeviceClient` to leverage Core Metadata's `Device` API. See [interfac
 
 ### Note about Clients
 
-Each of the clients above is only initialized if the Clients section of the configuration contains an entry for the service associated with the Client API. If it isn't in the configuration the client will be `nil`. Your code must check for `nil` to avoid panic in case it is missing from the configuration. Only add the clients to your configuration that your Application Service will actually be using. All application services need `Core-Data` for version compatibility check done on start-up. The following is an example `Clients` section of a configuration.toml with all supported clients specified:
+Each of the clients above is only initialized if the Clients section of the configuration contains an entry for the service associated with the Client API. If it isn't in the configuration the client will be `nil`. Your code must check for `nil` to avoid panic in case it is missing from the configuration. Only add the clients to your configuration that your Application Service will actually be using. All application services need `Core-Data` for version compatibility check done on start-up. The following is an example `Clients` section of a configuration.yaml with all supported clients specified:
 
 !!! example "Example - Client Configuration Section"
+    ```yaml
+    Clients:
+      core-data:
+        Protocol: http
+        Host: localhost
+        Port: 59880
+    
+      core-command:
+        Protocol: http
+        Host: localhost
+        Port: 59882
+    
+      support-notifications:
+        Protocol: http
+        Host: localhost
+        Port: 59860
     ```
-    [Clients]
-      [Clients.core-data]
-      Protocol = 'http'
-      Host = 'localhost'
-      Port = 59880
 
-      [Clients.core-metadata]
-      Protocol = 'http'
-      Host = 'localhost'
-      Port = 59881
-    
-      [Clients.core-command]
-      Protocol = 'http'
-      Host = 'localhost'
-      Port = 59882
-    
-      [Clients.support-notifications]
-      Protocol = 'http'
-      Host = 'localhost'
-      Port = 59860
-    ```
+!!! note
+    Core Metadata client is required and provided by the App Services Common Configuration, so it is not included in the above example.
 
 ## Context Storage
 The context API exposes a map-like interface that can be used to store custom data specific to a given pipeline execution.  This data is persisted for retry if needed.  Currently only strings are supported, and keys are treated as case-insensitive.  

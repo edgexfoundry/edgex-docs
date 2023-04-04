@@ -16,10 +16,10 @@ For example, a device service could populate the `Tags` property with latitude a
 
 When the Event gets to the [Application Service Configurable](../application/AppServiceConfigurable.md#available-configurable-pipeline-functions), for example, the service has an optional function (defined by `Writable.Pipeline.Functions.AddTags` in configuration) that will add additional key/value pair to the Event `Tags`.  The key and value for the additional tag are provided in configuration (as shown by the example below).  Multiple tags can be provide separated by commas.
 
-```toml
-    [Writable.Pipeline.Functions.AddTags]
-      [Writable.Pipeline.Functions.AddTags.Parameters]
-      tags = "GatewayId:HoustonStore000123,Latitude:29.630771,Longitude:-95.377603"
+```yaml
+    AddTags:
+      Parameters:
+        tags: "GatewayId:HoustonStore000123,Latitude:29.630771,Longitude:-95.377603"
 ```
 
 ### Custom Application Service 

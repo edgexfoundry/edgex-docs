@@ -203,49 +203,26 @@ All EdgeX services are capable of using MQTT 3.1 by simply making changes to eac
 
 #### Configuration Changes
 
-!!! example - "Example MQTT Configurations changes for Core/Support/Device Services"
-    The following `MessageQueue` configuration settings must be changed for all EdgeX Core/Support/Device Services to use MQTT 3.1
-    ```toml
-    [MessageQueue]
-    Type = "mqtt"
-    Protocol = "tcp" 
-    Host = "localhost" # in docker this must be overriden to be the docker host name of the MQTT Broker
-    Port = 1883
-    AuthMode = "none"  # Currently in secure mode the MQTT Broker is not secured
-      [MessageQueue.Optional]
-      ClientId ="<service-key>" # must be unique name of the service, thus the service key (core-data, etc) is used
-      Qos          =  "0" # Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)
-      KeepAlive    =  "10" # Seconds (must be 2 or greater)
-      Retained     = "false"
-      AutoReconnect  = "true"
-      ConnectTimeout = "5" # Seconds
+!!! edgey "Edgex 3.0"
+    For EdgeX 3.0 `MessageQueue` configuration has been renamed to MessageBus and is now in common configuration.
+
+The MessageBus configuration is in common configuration where the following changes only need to be made once and apply to all services. See the **MessageBus** tab in [Common Configuration](../configuration/CommonConfiguration/#configuration-properties) for more details.
+
+!!! example - "Example MQTT Configurations changes for all services"
+    The following `MessageBus` configuration settings must be changed in common configuration for all EdgeX Services to use MQTT 3.1
+    ```yaml
+    MessageBus:
+      Type: "mqtt"
+      Protocol: "tcp" 
+      Host: "localhost" # in docker this must be overriden to be the docker host name of the MQTT Broker
+      Port: 1883
+      AuthMode: "none"  # set to "usernamepassword" when running in secure mode
+      SecreName: "message-bus"
+      ...
     ```
 
-!!! example - "Example MQTT Configurations changes for Application Services"
-    The following `Trigger.EdgexMessageBus` configuration settings must be changed for all EdgeX Application Services to use MQTT 3.1
-
-    ```toml
-    [Trigger]
-    Type="edgex-messagebus"
-      [Trigger.EdgexMessageBus]
-      Type = "mqtt"
-        [Trigger.EdgexMessageBus.SubscribeHost]
-        Protocol = "tcp"
-        Host = "localhost" # in docker this must be overriden to be the docker host name of the MQTT Broker
-        Port = 1883
-        [Trigger.EdgexMessageBus.PublishHost]
-        Protocol = "tcp"
-        Host = "localhost" # in docker this must be overriden to be the docker host name of the MQTT Broker
-        Port = 1883
-        [Trigger.EdgexMessageBus.Optional]
-        ClientId ="<service-key>" # must be unique name of the service, thus the service key (app-rule-engine, etc) is used
-        Qos          =  "0" # Quality of Sevice values are 0 (At most once), 1 (At least once) or 2 (Exactly once)
-        KeepAlive    =  "10" # Seconds (must be 2 or greater)
-        Retained     = "false"
-        AutoReconnect  = "true"
-        ConnectTimeout = "5" # Seconds
-        authmode = "none"  # Currently in secure mode the MQTT Broker is not secured
-    ```
+!!! note
+    The optional settings that apply to MQTT are already in the common configuration, so are not included above.
 
 #### Docker
 
@@ -283,55 +260,23 @@ The EdgeX Go based services are not capable of using the NATS implementation wit
 
 #### Configuration Changes
 
-!!! example - "Example NATS Configurations changes for Core/Support/Device Services"
-    The following `MessageQueue` configuration settings must be changed for all EdgeX Core/Support/Device Services to use NATS Jetstream
+!!! edgey - "Edgex 3.0"
+    For EdgeX 3.0 `MessageQueue` configuration has been renamed to MessageBus and is now in common configuration.
 
-    ```toml
-    [MessageQueue]
-    Type = "nats-jetstream"
-    Protocol = "tcp" 
-    Host = "localhost" # in docker this must be overriden to be the docker host name of the MQTT Broker
-    Port = 4222
-    AuthMode = "none"  # Currently in secure mode the NATS server is not secured
-      [MessageQueue.Optional]
-      ClientId ="<service-key>" # must be unique name of the service, thus the service key (core-data, etc) is used
-      # Connection information
-      Format =  "nats" # Use 'json' for backward compatability with services using MQTT
-      ConnectTimeout = "5" # Seconds
-      RetryOnFailedConnect = "true"
-      QueueGroup = "" 
-      Durable =  "" # Jetstream only
-      AutoProvision = "true" # Jetstream only
-      Deliver = "new" # Jetstream only
+The MessageBus configuration is in common configuration where the following changes only need to be made once and apply to all services. See the **MessageBus** tab in [Common Configuration](../configuration/CommonConfiguration/#configuration-properties) for more details.
+
+!!! example - "Example NATS Configurations changes for all services"
+    The following `MessageBus` configuration settings must be changed in common configuration for all EdgeX Services to use NATS Jetstream
+    ```yaml
+    MessageBus:
+      Type:  "nats-jetstream"
+      Protocol:  "tcp" 
+      Host:  "localhost" # in docker this must be overriden to be the docker host name of the NATS server
+      Port:  4222
+      AuthMode:  "none"  # Currently in secure mode the NATS server is not secured
     ```
-
-!!! example - "Example NATS Configurations changes for Application Services"
-    The following `Trigger.EdgexMessageBus` configuration settings must be changed for all EdgeX Application Services to use NATsJetstream
-
-    ```toml
-    [Trigger]
-    Type="edgex-messagebus"
-      [Trigger.EdgexMessageBus]
-      Type = "nats-jetstream"
-        [Trigger.EdgexMessageBus.SubscribeHost]
-        Protocol = "tcp"
-        Host = "localhost" # in docker this must be overriden to be the docker host name of the MQTT Broker
-        Port = 4222
-        [Trigger.EdgexMessageBus.PublishHost]
-        Protocol = "tcp"
-        Host = "localhost" # in docker this must be overriden to be the docker host name of the MQTT Broker
-        Port = 4222
-        [Trigger.EdgexMessageBus.Optional]
-        ClientId ="<service-key>" # must be unique name of the service, thus the service key (app-rule-engine, etc) is used
-        Format =  "nats" # Use 'json' for backward compatability with services using MQTT
-        ConnectTimeout = "5" # Seconds
-        RetryOnFailedConnect = "true"
-        QueueGroup = "" 
-        Durable =  "" # Jetstream only
-        AutoProvision = "true" # Jetstream only
-        Deliver = "new" # Jetstream only
-        authmode = "none"  # Currently in secure mode the NATS Server is not secured
-    ```
+!!! note
+    The optional setting that apply to NATS are already in the common configuration, so are not included above.
 
 #### Docker
 

@@ -236,15 +236,15 @@ The `Writable.InsecureSecrets.SMTP` section has been added.
 
 !!! example "Example Writable.InsecureSecrets.SMTP section"
 
-    ```toml
-        [Writable.InsecureSecrets.SMTP]
-        path = "smtp"
-          [Writable.InsecureSecrets.SMTP.Secrets]
-          username = "username@mail.example.com"
-          password = ""
+    ```yaml
+        Writable:
+          InsecureSecrets:
+            SMTP:
+              SecretName: "smtp"
+              SecretData:
+                username: "username@mail.example.com"
+                password: ""
     ```
-
-
 
 ## API Reference
 

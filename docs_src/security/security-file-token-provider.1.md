@@ -31,7 +31,7 @@ services from reading each other's tokens.
 >
 > -cd, \--configDir \<configDir\>
 >
-> :   Look in this directory for configuration.toml instead.
+> :   Look in this directory for configuration.yaml instead.
 >
 > -p, \--profile \<name\>
 >
@@ -42,21 +42,21 @@ services from reading each other's tokens.
 
 # FILES
 
-## configuration.toml
+## configuration.yaml
 
 This file specifies the TCP/IP location of the Vault service and
 parameters used for Vault token generation.
 
-    [SecretService]
-    Scheme = "https"
-    Server = "localhost"
-    Port = 8200 
+    SecretService:
+      Scheme: "https"
+      Server: "localhost"
+      Port: 8200 
 
-    [TokenFileProvider]
-    PrivilegedTokenPath = "/run/edgex/secrets/security-file-token-provider/secrets-token.json"
-    ConfigFile = "token-config.json"
-    OutputDir = "/run/edgex/secrets/"
-    OutputFilename = "secrets-token.json"
+    TokenFileProvider:
+      PrivilegedTokenPath: "/run/edgex/secrets/security-file-token-provider/secrets-token.json"
+      ConfigFile: "token-config.json"
+      OutputDir: "/run/edgex/secrets/"
+      OutputFilename: "secrets-token.json"
 
 ## secrets-token.json
 

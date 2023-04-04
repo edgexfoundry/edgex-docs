@@ -10,31 +10,30 @@ To get started with App Service Configurable, you'll want to start by determinin
 2. [Transform](../BuiltIn/#xml) - to transform the data to XML
 3. [HTTPExport](../BuiltIn/#http-export) - to send the data to an HTTP endpoint that takes our XML data   
 
-Once the functions have been identified, we'll go ahead and build out the configuration in the `configuration.toml` file under the `[Writable.Pipeline]` section.
+Once the functions have been identified, we'll go ahead and build out the configuration in the `configuration.yaml` file under the `[Writable.Pipeline]` section.
 
 !!! example "Example - Writable.Pipeline"
-    ```toml
-    [Writable]
-    LogLevel = "DEBUG"
-      [Writable.Pipeline]
-        ExecutionOrder = "FilterByDeviceName, Transform, HTTPExport"
-        [Writable.Pipeline.Functions]
-          [Writable.Pipeline.Functions.FilterByDeviceName]
-            [Writable.Pipeline.Functions.FilterByDeviceName.Parameters]
-            FilterValues = "Random-Float-Device, Random-Integer-Device"
-          [Writable.Pipeline.Functions.Transform]
-            [Writable.Pipeline.Functions.Transform.Parameters]
-            Type = "xml"
-          [Writable.Pipeline.Functions.HTTPExport]
-            [Writable.Pipeline.Functions.HTTPExport.Parameters]
-            Method = "post" 
-            MimeType = "application/xml" 
-            Url = "http://my.api.net/edgexdata"
+    ```yaml
+    Writable:
+      Pipeline:
+        ExecutionOrder: "FilterByDeviceName, Transform, HTTPExport"
+        Functions:
+          FilterByDeviceName:
+            Parameters:
+              FilterValues: "Random-Float-Device, Random-Integer-Device"
+          Transform:
+            Parameters:
+              Type: "xml"
+          HTTPExport:
+            Parameters:
+              Method: "post" 
+              MimeType: "application/xml" 
+              Url: "http://my.api.net/edgexdata"
     ```
 
-The first line of note is `ExecutionOrder = "FilterByDeviceName, Transform, HTTPExport"`. This specifies the order in which to execute your functions. Each function specified here must also be placed in the `[Writeable.Pipeline.Functions]` section. 
+The first line of note is `ExecutionOrder: "FilterByDeviceName, Transform, HTTPExport"`. This specifies the order in which to execute your functions. Each function specified here must also be placed in the `Functions:` section. 
 
-Next, each function and its required information is listed. Each function typically has associated Parameters that must be configured to properly execute the function as designated by `[Writable.Pipeline.Functions.{FunctionName}.Parameters]`. Knowing which parameters are required for each function, can be referenced by taking a look at  the [Available Configurable Pipeline Functions](#available-configurable-pipeline-functions) section below.
+Next, each function and its required information is listed. Each function typically has associated Parameters that must be configured to properly execute the function as designated by `Parameters:` under `{FunctionName}`. Knowing which parameters are required for each function, can be referenced by taking a look at  the [Available Configurable Pipeline Functions](#available-configurable-pipeline-functions) section below.
 
 !!! note
     By default, the configuration provided is set to use `EdgexMessageBus` as a trigger. This means you must have EdgeX Running with devices sending data in order to trigger the pipeline. You can also change the trigger to be HTTP. For more details on triggers, view the `Triggers`documentation located in the [Triggers](./Triggers.md) section.
@@ -55,34 +54,33 @@ The above pipeline configuration in [Getting Started](#getting-started) section 
 !!! example "Example - Writable.Pipeline.PerTopicPipelines"
     In this example Events from the device  `Random-Float-Device` are transformed to JSON and then HTTP exported. At the same time, Events for the source `Int8`  are transformed to XML and then HTTP exported to same endpoint. Note the custom naming for `TransformJson` and `TransformXml`. This is taking advantage of the [Multiple Instances of a Function](#multiple-instances-of-a-function) described below.
 
-    ```toml
-    [Writable]
-    LogLevel = "DEBUG"
-      [Writable.Pipeline]
-        [Writable.Pipeline.PerTopicPipelines]
-          [Writable.Pipeline.PerTopicPipelines.float]
-          Id = "float-pipeline"
-          Topics = "edgex/events/device/+/Random-Float-Device/#, edgex/events/device/+/Random-Integer-Device/#"
-          ExecutionOrder = "TransformJson, HTTPExport"
-          [Writable.Pipeline.PerTopicPipelines.int8]
-          Id = "int8-pipeline"
-          Topic = "edgex/events/device/+/+/Int8"
-          ExecutionOrder = "TransformXml, HTTPExport"  
-        [Writable.Pipeline.Functions]
-          [Writable.Pipeline.Functions.FilterByDeviceName]
-            [Writable.Pipeline.Functions.FilterByDeviceName.Parameters]
-            FilterValues = "Random-Float-Device, Random-Integer-Device"
-          [Writable.Pipeline.Functions.TransformJson]
-            [Writable.Pipeline.Functions.TransformJson.Parameters]
-            Type = "json"
-          [Writable.Pipeline.Functions.TransformXml]
-            [Writable.Pipeline.Functions.TransformXml.Parameters]
-            Type = "xml"        
-          [Writable.Pipeline.Functions.HTTPExport]
-            [Writable.Pipeline.Functions.HTTPExport.Parameters]
-            Method = "post" 
-            MimeType = "application/xml" 
-            Url = "http://my.api.net/edgexdata"
+    ```yaml
+    Writable:
+      Pipeline:
+        PerTopicPipelines:
+          float:
+            Id: float-pipeline
+            Topics: "edgex/events/device/+/Random-Float-Device/#, edgex/events/device/+/Random-Integer-Device/#"
+            ExecutionOrder: "TransformJson, HTTPExport"
+          int8:
+            Id: int8-pipeline
+            Topic: edgex/events/device/+/+/+/Int8
+            ExecutionOrder: "TransformXml, HTTPExport"
+        Functions:
+          FilterByDeviceName:
+            Parameters:
+              FilterValues: "Random-Float-Device, Random-Integer-Device"
+          TransformJson:
+            Parameters:
+              Type: json
+          TransformXml:
+            Parameters:
+              Type: xml
+          HTTPExport:
+            Parameters:
+              Method: post
+              MimeType: application/xml
+              Url: "http://my.api.net/edgexdata"
     ```
 
 !!! note
@@ -111,7 +109,7 @@ EdgeX services no longer have docker specific profiles. They now rely on environ
 
 !!! example - "Example - Docker compose entry for **App Service Configurable** in no-secure compose file"
     ```yaml
-      app-service-rules:
+      app-rules-engine:
         container_name: edgex-app-rules-engine
         depends_on:
         - consul
@@ -147,7 +145,7 @@ EdgeX services no longer have docker specific profiles. They now rely on environ
 
 ## Deploying Multiple Instances using profiles
 
-App Service Configurable was designed to be deployed as multiple instances for different purposes. Since the function pipeline is specified in the `configuration.toml` file, we can use this as a way to run each instance with a different function pipeline. App Service Configurable does not have the standard default configuration at `/res/configuration.toml`. This default configuration has been moved to the `sample` profile. This forces you to specify the profile for the configuration you would like to run. The profile is specified using the `-p/--profile=[profilename]` command line option or the `EDGEX_PROFILE=[profilename]` environment variable override. The profile name selected is used in the service key (`app-[profile name]`) to make each instance unique, e.g. `AppService-sample` when specifying `sample` as the profile.
+App Service Configurable was designed to be deployed as multiple instances for different purposes. Since the function pipeline is specified in the `configuration.yaml` file, we can use this as a way to run each instance with a different function pipeline. App Service Configurable does not have the standard default configuration at `/res/configuration.yaml`. This default configuration has been moved to the `sample` profile. This forces you to specify the profile for the configuration you would like to run. The profile is specified using the `-p/--profile=[profilename]` command line option or the `EDGEX_PROFILE=[profilename]` environment variable override. The profile name selected is used in the service key (`app-[profile name]`) to make each instance unique, e.g. `AppService-sample` when specifying `sample` as the profile.
 
 !!! edgey "Edgex 2.0"
     Default service key for App Service Configurable instances has changed in Edgex 2.0 from `AppService-[profile name]` to `app-[profile name]`
@@ -169,7 +167,7 @@ One can optionally add Filter function via environment overrides
 - `WRITABLE_PIPELINE_EXECUTIONORDER: "FilterByDeviceName, HTTPExport"`
 - `WRITABLE_PIPELINE_FUNCTIONS_FILTERBYDEVICENAME_PARAMETERS_DEVICENAMES: "[comma separated list]"`
 
-There are many optional functions and parameters provided in this profile. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/master/res/rules-engine/configuration.toml) for more details
+There are many optional functions and parameters provided in this profile. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/master/res/rules-engine/configuration.yaml) for more details
 
 ### http-export
 
@@ -179,7 +177,7 @@ Required:
 
 - `WRITABLE_PIPELINE_FUNCTIONS_HTTPEXPORT_PARAMETERS_URL: [Your URL]`
 
-    There are many more optional functions and parameters provided in this profile. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/v2.0.0/res/http-export/configuration.toml) for more details.
+    There are many more optional functions and parameters provided in this profile. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/master/res/http-export/configuration.yaml) for more details.
 
 ### metrics-influxdb
 
@@ -203,7 +201,7 @@ Required:
         ```json
         {
             "apiVersion":"v2",
-            "path":"influxdb",
+            "secretName":"influxdb",
             "secretData":[
             {
                 "key":"Token",
@@ -237,11 +235,11 @@ Required:
 - `WRITABLE_PIPELINE_FUNCTIONS_MQTTEXPORT_PARAMETERS_BROKERADDRESS: [Your Broker Address]`
 
 
-    There are many optional functions and parameters provided in this profile. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/v2.0.0/res/mqtt-export/configuration.toml) for more details
+    There are many optional functions and parameters provided in this profile. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/master/res/mqtt-export/configuration.yaml) for more details
 
 ### sample
 
-Sample profile with all available functions declared and a sample pipeline. Provided as a sample that can be copied and modified to create new custom profiles. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/v2.0.0/res/sample/configuration.toml) for more details
+Sample profile with all available functions declared and a sample pipeline. Provided as a sample that can be copied and modified to create new custom profiles. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/master/res/sample/configuration.yaml) for more details
 
 ### functional-tests
 
@@ -260,33 +258,33 @@ The default `TargetType` for data flowing into the functions pipeline is an Edge
  In these cases the `Pipeline` can be configured using `TargetType="raw"` to set the `TargetType` to be a byte array/slice, i.e. `[]byte`. The first function in the pipeline must then be one that can handle the `[]byte` data. The **compression**,  **encryption** and **export** functions are examples of pipeline functions that will take input data that is `[]byte`. 
 
 !!! example "Example - Configure the functions pipeline to **compress**, **encrypt** and then **export** the `[]byte` data via HTTP "
-    ```toml
-    [Writable]
-      LogLevel = "DEBUG"
-      [Writable.Pipeline]
-        TargetType = "raw"
-        ExecutionOrder = "Compress, Encrypt, HTTPExport"
-        [Writable.Pipeline.Functions.Compress]
-          [Writable.Pipeline.Functions.Compress.Parameters]
-          Alogrithm = "gzip"
-        [Writable.Pipeline.Functions.Encrypt]
-          [Writable.Pipeline.Functions.Encrypt.Parameters]
-            Algorithm = "aes"
-            Key = "aquqweoruqwpeoruqwpoeruqwpoierupqoweiurpoqwiuerpqowieurqpowieurpoqiweuroipwqure"
-            InitVector = "123456789012345678901234567890"
-        [Writable.Pipeline.Functions.HTTPExport]
-          [Writable.Pipeline.Functions.HTTPExport.Parameters]
-          Method = "post"
-          Url = "http://my.api.net/edgexdata"
-          MimeType = "application/text"
+    ```yaml
+    Writable:
+      Pipeline:
+        TargetType: "raw"
+        ExecutionOrder: "Compress, Encrypt, HTTPExport"
+        Functions:
+          Compress:
+            Parameters:
+              Alogrithm: "gzip"
+          Encrypt:
+            Parameters:
+              Algorithm: "aes256" 
+              SecretName: "aes"
+              SecretValueKey: "key"
+          HTTPExport:
+            Parameters:
+              Method: "post"
+              Url: "http://my.api.net/edgexdata"
+              MimeType: "application/text"
     ```
 
 If along with this pipeline configuration, you also configured the `Trigger` to be `http` trigger,  you could then send any data to the app-service-configurable' s `/api/v2/trigger` endpoint and have it compressed, encrypted and sent to your configured URL above.
 
 !!! example "Example - HTTP Trigger configuration"
-    ``` toml
-    [Trigger]
-    Type="http"
+    ```yaml
+    Trigger:
+      Type: "http"
     ```
 
 ### Metric TargetType
@@ -294,22 +292,19 @@ If along with this pipeline configuration, you also configured the `Trigger` to 
 This setting when set to true will cause the `TargeType` to be `&dtos.Metric{}` and is meant to be used in conjunction with the new `ToLineProtocol` function. See [ToLineProtocol](#tolineprotocol) section below for more details. In addition the `Trigger` `SubscribeTopics`must be set to `"edgex/telemetry/#"` so that the function receives the metric data from the other services.
 
 !!! example - "Example -  Metric TargetType "
-    ```
-      [Writable.Pipeline]
-      TargetType  = "metric"
-      ExecutionOrder = "ToLineProtocol, ..."
+    ```yaml
+    Writable:
+      Pipeline:
+        TargetType: "metric"
+        ExecutionOrder: "ToLineProtocol, ..."
       ...
-          [Writable.Pipeline.Functions.ToLineProtocol]
-          [Writable.Pipeline.Functions.ToLineProtocol.Parameters]
-          Tags = "" # optional comma separated list of additional tags to add to the metric in to form "tag:value,..."
+        Functions:
+          ToLineProtocol:
+            Parameters:
+              Tags: "" # optional comma separated list of additional tags to add to the metric in to form "tag:value,..."
       ...
-      [Trigger]
-      Type="edgex-messagebus"
-      [Trigger.EdgexMessageBus]
-      ...
-        [Trigger.EdgexMessageBus.SubscribeHost]
-        ...
-        SubscribeTopics="edgex/telemetry/#"
+     Trigger:
+       SubscribeTopics: telemetry/#"
     ```
 
 ## Multiple Instances of a Function
@@ -321,7 +316,7 @@ Now multiple instances of the same configurable pipeline function can be specifi
 
 ## Available Configurable Pipeline Functions
 
-Below are the functions that are available to use in the configurable pipeline function pipeline (`[Writable.Pipeline]`) section of the configuration. The function names below can be added to the `Writable.Pipeline.ExecutionOrder` setting (comma separated list) and must also be present or added to the `[Writable.Pipeline.Functions]` section as `[Writable.Pipeline.Functions.{FunctionName}]`. The functions will also have the `[Writable.Pipeline.Functions.{FunctionName}.Parameters]` section where the function's parameters are configured. Please refer to the [Getting Started](#getting-started) section above for an example.
+Below are the functions that are available to use in the configurable pipeline function pipeline (`[Writable.Pipeline]`) section of the configuration. The function names below can be added to the `Writable.Pipeline.ExecutionOrder` setting (comma separated list) and must also be present or added to the `[Writable.Pipeline.Functions]` section as `{FunctionName}]`. The functions will also have the `{FunctionName}.Parameters:` section where the function's parameters are configured. Please refer to the [Getting Started](#getting-started) section above for an example.
 
 !!! note
     The `Parameters` section for each function is a key/value map of `string` values. So even tough the parameter is referred to as an Integer or Boolean, it has to be specified as a valid string representation, e.g. "20" or "true".
@@ -335,10 +330,10 @@ Please refer to the function's detailed documentation by clicking the function n
 - `tags` - String containing comma separated list of tag key/value pairs. The tag key/value pairs are colon seperated
 
 !!! example
-    ```toml
-        [Writable.Pipeline.Functions.AddTags]
-          [Writable.Pipeline.Functions.AddTags.Parameters]
-          tags = "GatewayId:HoustonStore000123,Latitude:29.630771,Longitude:-95.377603"
+    ```yaml
+        AddTags:
+          Parameters:
+            tags: "GatewayId:HoustonStore000123,Latitude:29.630771,Longitude:-95.377603"
     ```
 
 ### [Batch](../BuiltIn/#batching)
@@ -352,30 +347,30 @@ Please refer to the function's detailed documentation by clicking the function n
 - `MergeOnSend` - If true, specifies that the data being batched is to be merged to a single `[]byte` prior to returning the batched data. By default the batched data returned is `[][]byte`
 
 !!! example
-    ```toml
-        [Writable.Pipeline.Functions.Batch]
-          [Writable.Pipeline.Functions.Batch.Parameters]
-          Mode = "bytimecount" # can be "bycount", "bytime" or "bytimecount"
-          BatchThreshold = "30"
-          TimeInterval = "60s"
-          IsEventData = "false"
-          MergeOnSend = "false"     
+    ```yaml
+        Batch:
+          Parameters:
+            Mode: "bytimecount" # can be "bycount", "bytime" or "bytimecount"
+            BatchThreshold: "30"
+            TimeInterval: "60s"
+            IsEventData: "false"
+            MergeOnSend: "false"     
     or
-    	[Writable.Pipeline.Functions.Batch]
-          [Writable.Pipeline.Functions.Batch.Parameters]
-          Mode = "bytimecount" # can be "bycount", "bytime" or "bytimecount"
-          BatchThreshold = "30"
-          TimeInterval = "60s"
-          IsEventData = "true"
-          MergeOnSend = "false"    
+    	Batch:
+          Parameters:
+            Mode: "bytimecount" # can be "bycount", "bytime" or "bytimecount"
+            BatchThreshold: "30"
+            TimeInterval: "60s"
+            IsEventData: "true"
+            MergeOnSend: "false"    
     or
-        [Writable.Pipeline.Functions.Batch]
-          [Writable.Pipeline.Functions.Batch.Parameters]
-          Mode = "bytimecount" # can be "bycount", "bytime" or "bytimecount"
-          BatchThreshold = "30"
-          TimeInterval = "60s"
-          IsEventData = "false"
-          MergeOnSend = "true"
+        Batch:
+          Parameters:
+            Mode: "bytimecount" # can be "bycount", "bytime" or "bytimecount"
+            BatchThreshold: "30"
+            TimeInterval: "60s"
+            IsEventData: "false"
+            MergeOnSend: "true"
     ```
 
 !!! edgey "EdgeX 2.0"
@@ -394,10 +389,10 @@ Please refer to the function's detailed documentation by clicking the function n
 - `Algorithm ` - Compression algorithm to use.  Can be 'gzip' or 'zlib'
 
 !!! example
-    ```toml
-        [Writable.Pipeline.Functions.Compress]
-          [Writable.Pipeline.Functions.Compress.Parameters]
-          Algorithm = "gzip"
+    ```yaml
+         Compress:
+          Parameters:
+            Algorithm: "gzip"
     ```
 
 !!! edgey "EdgeX 2.0"
@@ -411,13 +406,13 @@ Please refer to the function's detailed documentation by clicking the function n
 - `SecretName` - (required for AES256) Name of the secret for the encryption key in the `Secret Store`.
 
 !!! example
-    ```toml
+    ```yaml
         # Encrypt with key pulled from Secret Store
-        [Writable.Pipeline.Functions.Encrypt]
-          [Writable.Pipeline.Functions.Encrypt.Parameters]
-          Algorithm = "aes256"
-          SecretPath = "aes"
-          SecretName = "key"
+        Encrypt:
+          Parameters:
+            Algorithm: "aes256"
+            SecretPath: "aes"
+            SecretName: "key"
     ```
 
 ### [FilterByDeviceName](../BuiltIn/#by-device-name)
@@ -428,11 +423,11 @@ Please refer to the function's detailed documentation by clicking the function n
 - `FilterOut`- Boolean indicating if the data matching the device names should be filtered out or filtered for.
 
 !!! example
-    ```toml
-        [Writable.Pipeline.Functions.FilterByDeviceName]
-          [Writable.Pipeline.Functions.FilterByDeviceName.Parameters]
-            DeviceNames = "Random-Float-Device,Random-Integer-Device"
-            FilterOut = "false"
+    ```yaml
+        FilterByDeviceName:
+          Parameters:
+            DeviceNames: "Random-Float-Device,Random-Integer-Device"
+            FilterOut: "false"
     ```
 ### [FilterByProfileName](../BuiltIn/#by-profile-name)
 
@@ -442,11 +437,11 @@ Please refer to the function's detailed documentation by clicking the function n
 - `FilterOut`- Boolean indicating if the data matching the profile names should be filtered out or filtered for.
 
 !!! example
-    ```toml
-        [Writable.Pipeline.Functions.FilterByProfileName]
-          [Writable.Pipeline.Functions.FilterByProfileName.Parameters]
-          ProfileNames = "Random-Float-Device, Random-Integer-Device"
-          FilterOut = "false"
+    ```yaml
+        FilterByProfileName:
+          Parameters:
+            ProfileNames: "Random-Float-Device, Random-Integer-Device"
+            FilterOut: "false"
     ```
 
 !!! edgey "EdgeX 2.0"
@@ -460,11 +455,11 @@ Please refer to the function's detailed documentation by clicking the function n
 - `FilterOut`- Boolean indicating if the readings matching the resource names should be filtered out or filtered for.
 
 !!! example
-    ```toml
-        [Writable.Pipeline.Functions.FilterByResourceName]
-          [Writable.Pipeline.Functions.FilterByResourceName.Parameters]
-           ResourceNames = "Int8, Int64"
-            FilterOut = "true"
+    ```yaml
+        FilterByResourceName:
+          Parameters:
+            ResourceNames: "Int8, Int64"
+            FilterOut: "true"
     ```
 
 
@@ -479,11 +474,11 @@ Please refer to the function's detailed documentation by clicking the function n
 - `FilterOut`- Boolean indicating if the data matching the device names should be filtered out or filtered for.
 
 !!! example
-    ```toml
-        [Writable.Pipeline.Functions.FilterBySourceName]
-          [Writable.Pipeline.Functions.FilterBySource.Parameters]
-          SourceNames = "Bool, BoolArray"
-          FilterOut = "false"
+    ```yaml
+        FilterBySourceName:
+          Parameters:
+            SourceNames: "Bool, BoolArray"
+            FilterOut: "false"
     ```
 
 !!! edgey "EdgeX 2.0"
@@ -504,42 +499,43 @@ Please refer to the function's detailed documentation by clicking the function n
 - `SecretName` - (Optional) Name of the secret for the header value in the `Secret Store`.
 
 !!! example
-    ```toml
+    ```yaml
         # Simple HTTP Export
-        [Writable.Pipeline.Functions.HTTPExport]
-          [Writable.Pipeline.Functions.HTTPExport.Parameters]
-          Method = "post" 
-          MimeType = "application/xml" 
-          Url = "http://my.api.net/edgexdata" 
+        HTTPExport:
+          Parameters:
+            Method: "post" 
+            MimeType: "application/xml" 
+            Url: "http://my.api.net/edgexdata" 
     ```
-    ```toml
+    ```yaml
         # HTTP Export with secret header data pull from Secret Store
-        [Writable.Pipeline.Functions.HTTPExport]
-          [Writable.Pipeline.Functions.HTTPExport.Parameters]
-          Method = "post" 
-          MimeType = "application/xml" 
-          Url = "http://my.api.net/edgexdata"
-          HeaderName = "MyApiKey" 
-          SecretPath = "http" 
-          SecretName = "apikey"
+        HTTPExport:
+          Parameters:
+            Method: "post" 
+            MimeType: "application/xml" 
+            Url: "http://my.api.net/edgexdata"
+            HeaderName: "MyApiKey" 
+            SecretPath: "http" 
+            SecretName: "apikey"
     ```
-    ```toml
+    ```yaml
         # Http Export to multiple destinations
-        [Writable.Pipeline]
-        ExecutionOrder ="HTTPExport1, HTTPExport2"
-
-        [Writable.Pipeline.Functions.HTTPExport1]
-          [Writable.Pipeline.Functions.HTTPExport1.Parameters]
-          Method = "post" 
-          MimeType = "application/xml" 
-          Url = "http://my.api1.net/edgexdata2" 
-          ContinueOnSendError = "true"
-          ReturnInputData = "true"
-        [Writable.Pipeline.Functions.HTTPExport2]
-          [Writable.Pipeline.Functions.HTTPExport2.Parameters]
-          Method = "put" 
-          MimeType = "application/xml" 
-          Url = "http://my.api2.net/edgexdata2"
+        Writable:
+          Pipeline:
+            ExecutionOrder: "HTTPExport1, HTTPExport2"
+            Functions:
+              HTTPExport1:
+                Parameters:
+                  Method: "post" 
+                  MimeType: "application/xml" 
+                  Url: "http://my.api1.net/edgexdata2" 
+                  ContinueOnSendError: "true"
+                  ReturnInputData: "true"
+              HTTPExport2:
+               Parameters:
+                  Method: "put" 
+                  MimeType: "application/xml" 
+                  Url: "http://my.api2.net/edgexdata2"
     ```
 
 !!! edgey "EdgeX 2.0"
@@ -557,10 +553,10 @@ Please refer to the function's detailed documentation by clicking the function n
 - `Rule` - The JSON formatted rule that with be executed on the data by JSONLogic 
 
 !!! example
-    ```toml
-        [Writable.Pipeline.Functions.JSONLogic]
-          [Writable.Pipeline.Functions.JSONLogic.Parameters]
-          Rule = "{ \"and\" : [{\"<\" : [{ \"var\" : \"temp\" }, 110 ]}, {\"==\" : [{ \"var\" : \"sensor.type\" }, \"temperature\" ]} ] }"
+    ```yaml
+        JSONLogic:
+          Parameters:
+            Rule: "{ \"and\" : [{\"<\" : [{ \"var\" : \"temp\" }, 110 ]}, {\"==\" : [{ \"var\" : \"sensor.type\" }, \"temperature\" ]} ] }"
     ```
 ### [MQTTExport](../BuiltIn/#mqtt-export)
 
@@ -585,28 +581,28 @@ Please refer to the function's detailed documentation by clicking the function n
         `Authmode=cacert` is only needed when client authentication (e.g. `usernamepassword`) is not required, but a CA Cert is needed to validate the broker's SSL/TLS cert.
 
 !!! example
-    ```toml
+    ```yaml
         # Simple MQTT Export
-        [Writable.Pipeline.Functions.MQTTExport]
-          [Writable.Pipeline.Functions.MQTTExport.Parameters]
-          BrokerAddress = "tcps://localhost:8883"
-          Topic = "mytopic"
-          ClientId = "myclientid"
+        MQTTExport:
+          Parameters:
+            BrokerAddress: "tcps://localhost:8883"
+            Topic: "mytopic"
+            ClientId: "myclientid"
     ```
-    ```toml
+    ```yaml
         # MQTT Export with auth credentials pull from the Secret Store
-        [Writable.Pipeline.Functions.MQTTExport]
-          [Writable.Pipeline.Functions.MQTTExport.Parameters]
-          BrokerAddress = "tcps://my-broker-host.com:8883"
-          Topic = "mytopic"
-          ClientId = "myclientid"
-          Qos="2"
-          AutoReconnect="true"
-          Retain="true"
-          SkipVerify = "false"
-          PersistOnError = "true"
-          AuthMode = "usernamepassword"
-          SecretPath = "mqtt"
+        MQTTExport:
+          Parameters:
+            BrokerAddress: "tcps://my-broker-host.com:8883"
+            Topic: "mytopic"
+            ClientId: "myclientid"
+            Qos="2"
+            AutoReconnect="true"
+            Retain="true"
+            SkipVerify: "false"
+            PersistOnError: "true"
+            AuthMode: "usernamepassword"
+            SecretPath: "mqtt"
     ```
 
 !!! edgey "EdgeX 2.0"
@@ -619,10 +615,10 @@ Please refer to the function's detailed documentation by clicking the function n
 - `ResponseContentType` - Used to specify content-type header for response - optional
 
 !!! example
-    ```toml
-        [Writable.Pipeline.Functions.SetResponseData]
-          [Writable.Pipeline.Functions.SetResponseData.Parameters]
-          ResponseContentType = "application/json"
+    ```yaml
+        SetResponseData:
+          Parameters:
+            ResponseContentType: "application/json"
     ```
 
 !!! edgey "EdgeX 2.0"
@@ -635,10 +631,10 @@ Please refer to the function's detailed documentation by clicking the function n
 - `Type` - Type of transformation to perform. Can be 'xml' or 'json'
 
 !!! example
-    ```toml
-        [Writable.Pipeline.Functions.Transform]
-          [Writable.Pipeline.Functions.Transform.Parameters]
-          Type = "xml"
+    ```yaml
+        Transform:
+          Parameters:
+            Type: "xml"
     ```
 
 !!! edgey "EdgeX 2.0"
@@ -654,10 +650,10 @@ Please refer to the function's detailed documentation by clicking the function n
 - `Tags` - optional comma separated list of additional tags to add to the metric in to form "tag:value,..."
 
 !!! example
-    ```toml
-        [Writable.Pipeline.Functions.ToLineProtocol]
-          [Writable.Pipeline.Functions.ToLineProtocol.Parameters]
-          Tags = "" # optional comma separated list of additional tags to add to the metric in to form "tag:value,..."
+    ```yaml
+        ToLineProtocol:
+          Parameters:
+            Tags: "" # optional comma separated list of additional tags to add to the metric in to form "tag:value,..."
     ```
 
 !!! note
@@ -677,12 +673,12 @@ Please refer to the function's detailed documentation by clicking the function n
 - `MediaType` - Media type to use the new Event Reading's value type. Required when the value type is `Binary`
 
 !!! example
-    ```toml
-        [Writable.Pipeline.Functions.WrapIntoEvent]
-          [Writable.Pipeline.Functions.WrapIntoEvent.Parameters]
-          ProfileName = "MyProfile"
-          DeviceName = "MyDevice"
-          ResourceName = "SomeResource"
-          ValueType = "String"
-          MediaType = ""  # Required only when ValueType=Binary
+    ```yaml
+        WrapIntoEvent:
+          Parameters:
+            ProfileName: "MyProfile"
+            DeviceName: "MyDevice"
+            ResourceName: "SomeResource"
+            ValueType: "String"
+            MediaType: ""  # Required only when ValueType=Binary
     ```

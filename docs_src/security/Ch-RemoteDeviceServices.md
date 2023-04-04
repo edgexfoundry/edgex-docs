@@ -97,7 +97,7 @@ check the `device-virtual` service
 
 ```shell
 $ docker logs -f edgex-device-virtual
-level=INFO ts=2022-05-05T14:28:30.005673094Z app=device-virtual source=config.go:391 msg="Loaded service configuration from ./res/configuration.toml"
+level=INFO ts=2022-05-05T14:28:30.005673094Z app=device-virtual source=config.go:391 msg="Loaded service configuration from ./res/configuration.yaml"
 level=INFO ts=2022-05-05T14:28:30.006211643Z app=device-virtual source=variables.go:352 msg="Variables override of 'SecretStore.RuntimeTokenProvider.Port' by environment variable: SECRETSTORE_RUNTIMETOKENPROVIDER_PORT=59841"
 level=INFO ts=2022-05-05T14:28:30.006286584Z app=device-virtual source=variables.go:352 msg="Variables override of 'SecretStore.RuntimeTokenProvider.Protocol' by environment variable: SECRETSTORE_RUNTIMETOKENPROVIDER_PROTOCOL=https"
 level=INFO ts=2022-05-05T14:28:30.006341968Z app=device-virtual source=variables.go:352 msg="Variables override of 'Clients.core-metadata.Host' by environment variable: CLIENTS_CORE_METADATA_HOST=edgex-core-metadata"
