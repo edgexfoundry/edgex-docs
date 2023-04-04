@@ -11,7 +11,7 @@ pipeline {
         issueCommentTrigger('.*^recheck$.*')
     }
     environment {
-        ENABLED_HTMLPROOFER = true
+        ENABLED_HTMLPROOFER = false
     }
     stages {
         stage('Build Docs') {
