@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Triggers determine how the App Functions Pipeline begins execution. The trigger is determined by the `[Trigger]` configuration section in the  `configuration.toml` file.   
+Triggers determine how the App Functions Pipeline begins execution. The trigger is determined by the `[Trigger]` configuration section in the  `configuration.yaml` file.   
 
 !!! edgey "Edgex 2.0"
     For Edgex 2.0 the `[Binding]` configuration section has been renamed to `[Trigger]`. The  `[MessageBus]` section has been renamed to `EdgexMessageBus` and moved under the `[Trigger]` section. The `[MqttBroker]` section has been renamed to `ExternalMqtt` and moved under the `[Trigger]` section.
@@ -25,174 +25,89 @@ There currently are four implementations of the EdgeX MessageBus available to be
 
 ### Type Configuration 
 
+!!! example - "Example Trigger Configuration"
+    ```yaml
+    Trigger:
+      Type: "edgex-messagebus"
+    ```
+In the above example `Type` is set to `edgex-messagebus` trigger type so data will be received from the EdgeX MessageBus
+and may be Published to the EdgeX MessageBus, if configured.
 
-!!! edgey "Edgex 2.0"
-    For EdgeX 2.0 the `SubscribeTopic` has been renamed to `SubscribeTopics` and moved under the **EdgexMessageBus** `SubscribeHost` section. The `PublishTopic` has also been moved under the **EdgexMessageBus** `PublishHost` section. Also the legacy `type` of `messagebus` has been removed.
+### Subscribe/Publish Topics
 
-Here's an example:
-
-```toml
-[Trigger]
-Type="edgex-messagebus"
-```
-The `Type=` is set to `edgex-messagebus` trigger type. The Context function `ctx.SetResponseData([]byte outputData)` stores the data to send back to the EdgeX MessageBus on the topic specified by the PublishHost `PublishTopic=` setting.
-
-### MessageBus Connection Configuration
-The other piece of configuration required are the connection settings:
-```toml
-[Trigger.EdgexMessageBus]
-Type = "redis" # message bus type (i.e "redis`, `mqtt`, `nats-core` or `nats-jetstream`)
-    [Trigger.EdgexMessageBus.SubscribeHost]
-        Host = "localhost"
-        Port = 6379
-        Protocol = "redis"
-        SubscribeTopics="edgex/events/#"
-    [Trigger.EdgexMessageBus.PublishHost]
-        Host = "localhost"
-        Port = 6379
-        Protocol = "redis"
-        PublishTopic="" # optional if publishing response back to the MessageBus
-```
-
-
-!!! edgey "Edgex 2.0"
-    For Edgex 2.0 the `PublishTopic` can now have placeholders. See [Publish Topic Placeholders](#publish-topic-placeholders) section below for more details
-
- As stated above there are five EdgeX MessageBus implementations you can choose from. These type values are as follows:
-
-```
-redis - for Redis Pub/Sub (Requires Redis running and Core Data and/or Device Services configure to use Redis Pub/Sub)
-mqtt  - for MQTT (Requires a MQTT Broker running and Core Data and/or Device Services configure to use MQTT)
-nats-core - for standard NATS messaging
-nats-jetstream - for NATS messaging with JetStream persistence layer
-```
-
-!!! edgey "Edgex 2.0"
-    For Edgex 2.0 Redis is now the default EdgeX MessageBus implementation used. Also, the Redis implementation changed from `Redis streams` to `Redis Pub/Sub`, thus the type value changed from `redisstreams` to `redis`
-
-!!! edgey "EdgeX 2.3"
-    New for EdgeX 2.3 is the Secure MessageBus when use the `Redis Pub/Sub` implementation. See the [Secure MessageBus](../../security/Ch-Secure-MessageBus.md) documentation for more details.
+#### SubscribeTopics
+The SubscribeTopics configuration specifies the comma separated list of topics the service will subscribe to.
 
 !!! note
-    When using MQTT or NATS for the message bus, there is additional configuration required for specifying the broker-specific options. 
+    The default `SubscribeTopics` configuration is set in the [App Services Common Trigger Configuration](..GeneralAppServiceConfig/#not-writable).
 
-### Example Using MQTT
+#### PublishTopic
+The PublishTopic configuration specifies the topic published to when the `ResponseData` is set via the `ctx.SetResponseData([]byte outputData)` API.
+Nothing will be published if the PublishTopic is not set or the `ResponseData` is never set
 
-Here is example `EdgexMessageBus` configuration when using MQTT as the message bus:
+!!! note
+    The default `PublishTopic` configuration is set in the [App Services Common Trigger Configuration](../GeneralAppServiceConfig/#not-writable).
 
-```toml
-[Trigger.EdgexMessageBus]
-Type = "mqtt"
-    [Trigger.EdgexMessageBus.SubscribeHost]
-    Host = "localhost"
-    Port = 1883
-    Protocol = "tcp"
-    SubscribeTopics="edgex/events/#"
-    [Trigger.EdgexMessageBus.PublishHost]
-    Host = "localhost"
-    Port = 1883
-    Protocol = "tcp"
-    PublishTopic="" # optional if publishing response back to the MessageBus
-    [Trigger.EdgexMessageBus.Optional]
-    # MQTT Specific options
-    ClientId ="new-app-service"
-    Qos            = "0" # Quality of Service values are 0 (At most once), 1 (At least once) or 2 (Exactly once)
-    KeepAlive      = "10" # Seconds (must be 2 or greater)
-    Retained       = "false"
-    AutoReconnect  = "true"
-    ConnectTimeout = "30" # Seconds
-    SkipCertVerify = "false"
-    authmode = "none"  # change to "usernamepassword", "clientcert", or "cacert" for secure MQTT messagebus.
-    secretname = "mqtt-bus"
+### MessageBus Connection Configuration
 
-```
+See the [EdgeX MessageBus section](../../general/messagebus) for complete details.
 
-!!! edgey "EdgeX 2.0"
-Also new for EdgeX 2.0 is the MQTT MessageBus implementation now supports retrieving secrets from the `Secret Store` for secure MQTT connection, but there is not any facility yet to generate the credentials on first startup and distribute them to all services, as is done with `Redis Pub/sub`. This MQTT credentials generation and distribution is a future enhancement for EdgeX security services.
-
-### Example Using NATS
-
-Here is an example `EdgexMessageBus` configuration using NATS:
-
-```toml
-[Trigger.EdgexMessageBus]
-Type = "nats-jetstream"
-    [Trigger.EdgexMessageBus.SubscribeHost]
-    Host = "localhost"
-    Port = 4222
-    Protocol = "tcp"
-    SubscribeTopics="edgex/events/#"
-    [Trigger.EdgexMessageBus.PublishHost]
-    Host = "localhost"
-    Port = 4222
-    Protocol = "tcp"        
-    PublishTopic="edgex/events/processed" # optional if publishing response back to the MessageBus
-    [Trigger.EdgexMessageBus.Optional]
-    # NATS Specific options
-    ConnectTimeout = "5" # seconds
-    Format = "json" # json message envelopes can be used for backward compatibility
-    ClientId ="new-app-service"
-    # note durable consumers are typically created out of band eg at gateway onboarding.
-    # durable consumers provisioned by the NATS client will be auto deleted
-    Durable = "my-durable-name" 
-    Username = "edgex"
-    Password = "edgex"
-
-```
-For a complete list of supported NATS / JetStream options see [go-mod-messaging NATS readme](https://github.com/edgexfoundry/go-mod-messaging/blob/main/internal/pkg/nats/README.md)
+!!! edgey "Edgex 3.0"
+    For Edgex 3.0 the MessageBus configuration settings are set in the [Common MessageBus Configuration](../../configuration/CommonConfiguration/#configuration-properties).
 
 ### Filter By Topics
 
 !!! edgey "EdgeX 2.0"
     New for EdgeX 2.0
 
-App services now have the capability to filter by EdgeX MessageBus topics rather then using Filter functions in the functions pipeline. Filtering by topic is more efficient since the App Service never receives the data off the MessageBus. Core Data and/or Device Services now publish to multi-level topics that include the `profilename`, `devicename` and `sourcename` . Sources are the `commandname` or `resourcename` that generated the Event. The publish topics now look like this:
+App services now have the capability to filter by EdgeX MessageBus topics rather than using Filter functions in the functions pipeline. Filtering by topic is more efficient since the App Service never receives the data off the MessageBus. Core Data and/or Device Services now publish to multi-level topics that include the `profilename`, `devicename` and `sourcename` . Sources are the `commandname` or `resourcename` that generated the Event. The publish topics now look like this:
 
 ```
 # From Core Data
-edgex/events/core/<profile-name>/<device-name>/<source-name>
+edgex/events/core/<device-service>/<profile-name>/<device-name>/<source-name>
 
 # From Device Services
-edgex/events/device/<profile-name>/<device-name>/<source-name>
+edgex/events/device/<device-service>/<profile-name>/<device-name>/<source-name>
 ```
 
 This with App Services capability to have multiple subscriptions allows for multiple filters by subscriptions. The `SubscribeTopics` setting takes a comma separated list of subscribe topics.
 
  Here are a few examples of how to configure the `SubscribeTopics` setting under the `Trigger.EdgexMessageBus.SubscribeHost` section to filter by subscriptions using the `profile`, `device` and `source` names from the SNMP Device Service file [here](https://github.com/edgexfoundry/device-snmp-go/tree/master/cmd/res):
 
-- Filter for all Events 
+- Filter for all Events (default in common Trigger configuration)
 
-  ```toml
-  SubscribeTopics="edgex/events/#"
+  ```yaml
+  Trigger:
+    SubscribeTopics: "events/#"
   ```
 
 - Filter for Events only from a single class of devices (device profile defines a class of device)
 
-  ```toml
-  SubscribeTopics="edgex/events/+/trendnet/#"
+  ```yaml
+  Trigger:
+    SubscribeTopics: "events/+/+/trendnet/#"
   ```
 
 - Filter for Events only from a single actual device
 
-  ```toml
-  SubscribeTopics="edgex/events/+/+/trendnet01/#"
+  ```yaml
+  Trigger:
+    SubscribeTopics: "edgex/events/+/+/+/trendnet01/#"
   ```
 
 - Filter for Events from two specific actual devices
 
-  ```toml
-  SubscribeTopics="edgex/events/+/+/trendnet01/#, edgex/events/+/+/trendnet02/#"
+  ```yaml
+  Trigger:
+    SubscribeTopics: "edgex/events/+/+/+/trendnet01/#, edgex/events/+/+/+/trendnet02/#"
   ```
 
 - Filter for Events from two specific sources. 
 
-  ```toml
-  SubscribeTopics="edgex/events/+/+/+/Uptime, edgex/events/+/+/+/MacAddress"
+  ```yaml
+  Trigger:
+    SubscribeTopics: "edgex/events/+/+/+/+/Uptime, edgex/events/+/+/+/+/MacAddress"
   ```
-
-!!! note
-    The above examples are for when Redis is used as the EdgeX MessageBus implementation, which is now the default. The Redis implementation uses the `#` wildcard character for multi-level and `+` for single level. The implementation actually converts all `+`'s and `#`'s to the `*`'s. The `*`is the actual wildcard character used by Redis Pub/Sub. In the first example (multi-level) the `#` is used at the end in the location for where Core Data's and Device Service's publish topics differ. This location will be `core` when coming from Core Data or `device` when coming from a Device Service. The use of `+` within the topic(single-level) allows for any `Profile`, `Device` or `Source` when specifying one of the others.
-
 
 ## External MQTT Trigger
 
@@ -205,57 +120,44 @@ An External MQTT trigger will execute the pipeline every time data is received f
     The data received, encoded as JSON or CBOR, must match the `TargetType` defined by your application service. The default  `TargetType` is an `Edgex Event`. See [TargetType](../AdvancedTopics/#target-type) for more details.
 
 ### Type Configuration
-Here's an example:
-```toml
-[Trigger]
-Type="external-mqtt"
-  [Trigger.externalmqtt]
-  Url = "tls://test.mosquitto.org:8884"
-  SubscribeTopics="edgex/#"
-  ClientId ="app-external-mqtt-trigger"
-  Qos            = 0
-  KeepAlive      = 10
-  Retained       = false
-  AutoReconnect  = true
-  ConnectTimeout = "30s"
-  SkipCertVerify = true
-  AuthMode = "clientcert"
-  SecretPath = "external-mqtt"
-  RetryDuration = 600
-  RetryInterval = 5
-```
+!!! example - "Example Trigger Configuration"
+    ```yaml
+    Trigger:
+      Type: "external-mqtt"
+      SubscribeTopics: "external/#"
+      PublishTopic: ""
+      ...
+    ```
 
+The `Type` is set to `external-mqtt`. To receive data from the external MQTT Broker you must set your `SubscribeTopics` to the
+appropriate topic(s) that the external publisher is using. You may also designate a `PublishTopic` if you wish to publish data 
+back to the external MQTT Broker. The Context function `ctx.SetResponseData([]byte outputData)` stores the data to send back to 
+the external MQTT Broker on the topic specified by the `PublishTopic` setting.
 
-!!! edgey "Edgex 2.0"
-    For EdgeX 2.0 the `SubscribeTopic` has been renamed to `SubscribeTopics` and moved under the `ExternalMqtt` section. The `PublishTopic` has also been moved under the `ExternalMqtt` section.
-
-The `Type=` is set to `external-mqtt`. To receive data from the external MQTT Broker you must set your `SubscribeTopics=` to the appropriate topic(s) that the external publisher is using. You may also designate a `PublishTopic=` if you wish to publish data back to the external MQTT Broker. The Context function `ctx.SetResponseData([]byte outputData)` stores the data to send back to the external MQTT Broker on the topic specified by the `PublishTopic=` setting.
-
+the `PublishTopic` can have placeholders. See [Publish Topic Placeholders](#publish-topic-placeholders) section below for more details
 
 !!! edgey "Edgex 2.2"
     Prior to EdgeX 2.2 if `AuthMode` is set to `usernamepassword`, `clientcert`, or `cacert` and App Service will be run in secure mode, the required credentials must be stored to Secret Store via [Vault CLI, REST API, or WEB UI](../../security/Ch-SecretStore/#using-the-secret-store) before starting App Service. Otherwise App Service will fail to initialize the External MQTT Trigger and then shutdown because the required credentials do not exist in the Secret Store at the time service starts. Today, you can start App Service and store the required credentials using the [App Service API](../../api/applications/Ch-APIAppFunctionsSDK.md#swagger) afterwards. If the credentials found in Secret Store cannot satisfy App Service, it will retry for a certain duration and interval. See [Application Service Configuration](GeneralAppServiceConfig.md#not-writable) for more information on the configuration of this retry duration and interval. 
 
 ### External MQTT Broker Configuration
 The other piece of configuration required are the MQTT Broker connection settings:
-```toml
-[Trigger.ExternalMqtt]
-	Url = "tcp://localhost:1883" #  fully qualified URL to connect to the MQTT broker
-	SubscribeTopics="SomeTopics"
-	PublishTopic="" # optional if publishing response back to the the External MQTT Broker
-	ClientId = "AppService" 
-	ConnectTimeout = "5s" # 5 seconds
-	AutoReconnect = true
-	KeepAlive = 10 # Seconds (must be 2 or greater)
-	QoS = 0 # Quality of Service 0 (At most once), 1 (At least once) or 2 (Exactly once)
-	Retain = true
-	SkipCertVerify = false
-	SecretPath = "mqtt-trigger" 
-	AuthMode = "none" # Options are "none", "cacert" , "usernamepassword", "clientcert".
+```yaml
+Trigger:
+  ...
+  ExternalMqtt:
+    Url: "tls://test.mosquitto.org:8884"
+    ClientId: "app-external-mqtt-trigger"
+    Qos: 0
+    KeepAlive: 10
+    Retained: false
+    AutoReconnect: true
+    ConnectTimeout: "30s"
+    SkipCertVerify: true
+    AuthMode: "clientcert"
+    SecretPath: "external-mqtt"
+    RetryDuration: 600
+    RetryInterval: 5
 ```
-
-
-!!! edgey "Edgex 2.0"
-    For Edgex 2.0 the `PublishTopic` can have placeholders. See [Publish Topic Placeholders](#publish-topic-placeholders) section below for more details
 
 ## HTTP Trigger
 
@@ -263,14 +165,13 @@ Designating an HTTP trigger will allow the pipeline to be triggered by a RESTful
 
 ### Type Configuration
 
-Here's an example:
+!!! example - "Example Trigger Configuration"
+    ```yaml
+    Trigger:
+      Type: "http" 
+    ```
 
-```toml
-[Trigger]
-Type="http" 
-```
-
-The `Type=` is set to `http`. This will will enable listening to the `api/v2/trigger/` endpoint. No other configuration is required. The Context function `ctx.SetResponseData([]byte outputData)` stores the data to send back as the response to the requestor that originally triggered the HTTP Request. 
+The `Type=` is set to `http`. This will enable listening to the `api/v2/trigger/` endpoint. No other configuration is required. The Context function `ctx.SetResponseData([]byte outputData)` stores the data to send back as the response to the requestor that originally triggered the HTTP Request. 
 
 !!! note
     The HTTP trigger uses the `content-type` from the HTTP Header to determine if the data is JSON or CBOR encoded and the optional `X-Correlation-ID` to set the correlation ID for the request.
@@ -399,12 +300,11 @@ appService.RegisterCustomTriggerFactory("custom-stdin", func(config appsdk.Trigg
 ```
 ### Type Configuration
 
-Here's an example:
-
-```toml
-[Trigger]
-Type="custom-stdin" 
-```
+!!! example - "Example Trigger Configuration"
+    ```yaml
+    Trigger:
+      Type: "custom-stdin" 
+    ```
 
 Now the custom trigger is configured to be used rather than one of the built-in triggers.
 
@@ -421,8 +321,8 @@ The **Publish Topic Placeholders** format is a simple `{<key-name>}` that can ap
 
 ### Example
 
-```toml
-PublishTopic = "data/{profilename}/{devicename}/{custom}"
+```yaml
+PublishTopic: "data/{profilename}/{devicename}/{custom}"
 ```
 
 ## Received Topic

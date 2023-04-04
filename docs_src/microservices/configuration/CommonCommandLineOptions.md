@@ -25,7 +25,7 @@ Can be overridden with [EDGEX_CONFIG_DIR](./CommonEnvironmentVariables.md#edgex_
     The `-f/--file` command line option is replaced by `-cf/--configFile` in EdgeX 3.0.
 
 
-Indicates the name of the local configuration file. Default is `configuration.toml`
+Indicates the name of the local configuration file. Default is `configuration.yaml`
 
 Can be overridden with [EDGEX_CONFIG_FILE](./CommonEnvironmentVariables.md#edgex_config_file) environment variable.
 
@@ -55,7 +55,7 @@ Can be overridden with [EDGEX_COMMON_CONFIG](./CommonEnvironmentVariables.md#edg
 
 `-p/--profile <name>`
 
-Indicates configuration profile other than default. Default is no profile name resulting in using `./res/configuration.toml` if `-f` and `-c` are not used.
+Indicates configuration profile other than default. Default is no profile name resulting in using `./res/configuration.yaml` if `-f` and `-c` are not used.
 
 Can be overridden with [EDGEX_PROFILE ](./CommonEnvironmentVariables.md#edgex_profile) environment variable.
 
