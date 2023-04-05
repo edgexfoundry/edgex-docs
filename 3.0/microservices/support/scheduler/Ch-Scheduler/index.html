@@ -1376,6 +1376,10 @@ Only RESTAddress is supported. The MQTTAddress may be implemented in a future re
 <td>interval action state - either LOCKED or UNLOCKED</td>
 </tr>
 <tr>
+<td>AuthMethod</td>
+<td>interval action authentication method - either NONE or JWT (EdgeX microservice authentication JWT)</td>
+</tr>
+<tr>
 <td>Content</td>
 <td>The actual content to be sent as the body</td>
 </tr>
@@ -1425,6 +1429,10 @@ Only RESTAddress is supported. The MQTTAddress may be implemented in a future re
 </div>
 </input></input></input></div>
 <p>See <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-scheduler/2.1.0#/Interval">Interval</a> and <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-scheduler/2.1.0#/IntervalAction">IntervalAction</a> for more information.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><code>AuthMethod: JWT</code> exposes a sensitive credential and should only be used for, and is required to be used for, authenticating to peer EdgeX microservices.</p>
+</div>
 <h2 id="high-level-interaction-diagrams">High Level Interaction Diagrams</h2>
 <p><strong>Scheduler interval actions to expunge old and exported (pushed) records from Core Data</strong></p>
 <p><img alt="image" src="../EdgeX_CoreDataCleanUp.png"/></p>
