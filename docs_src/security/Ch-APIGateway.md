@@ -98,7 +98,7 @@ will hang on startup in order to prompt for a password.
 Run the following command to install a custom certificate
 using the assumptions above:
 
-    docker compose -p edgex -f docker-compose.yml run --rm -v `pwd`:/host:ro --entrypoint /edgex/secrets-config proxy-setup proxy tls --incert /host/cert.pem --inkey /host/key.pem
+    docker compose -p edgex -f docker-compose.yml run --rm -v `pwd`:/host:ro --entrypoint /edgex/secrets-config proxy-setup proxy tls --inCert /host/cert.pem --inKey /host/key.pem
 
 The following command can verify the certificate installation was successful.
 
