@@ -7,17 +7,17 @@
 ### Create new credentials and assign MAC Addresses
 1. Run `bin/map-credentials.sh`
 2. Select `(Create New)`
-   ![](images/create_new.png)
+   ![](../images/creds-pick.png)
 3. Enter the Secret Name to associate with these credentials
-   ![](images/secret_name.png)
+   ![](../images/creds-name.png)
 4. Enter the username
-   ![](images/set_username.png)
+   ![](../images/creds-username.png)
 5. Enter the password
-   ![](images/set_password.png)
+   ![](../images/creds-password.png)
 6. Choose the Authentication Mode
-   ![](images/auth_mode.png)
+   ![](../images/creds-method.png)
 7. Assign one or more MAC Addresses to the credential group
-   ![](images/assign_mac.png)
+   ![](../images/creds-mac.png)
 
 ### Assign MAC Addresses to existing credentials
 > **Note:** Currently EdgeX is unable to provide a way to query the names of existing secrets from the secret store, so this method
@@ -26,23 +26,23 @@
 
 1. Run `bin/map-credentials.sh`
 2. Select the name of the existing credentials you want to assign devices to
-   ![](images/select_creds.png)
+   ![](../images/creds-pick.png)
 3. Assign one or more MAC Addresses to the credential group
-   ![](images/assign_mac_2.png)
+   ![](../images/creds-mac-multiple.png)
 
 ### Modify existing credentials
 1. Run `bin/edit-credentials.sh`
 2. Select the name of the existing credentials you want to modify
     > **NOTE:** This will modify the username/password for ALL devices using these credentials. Proceed with caution!
 
-    ![](images/pick_creds_2.png)
+    ![](../images/creds-pick-existing.png)
 
 3. Enter the new username
-   ![](images/username_change.png)
+   ![](../images/creds-edit-user.png)
 4. Enter the new password
-   ![](images/password_change.png)
+   ![](../images/creds-edit-password.png)
 5. Choose the new Authentication Mode
-   ![](images/auth_mode_2.png)
+   ![](../images/creds-edit-method.png)
 
 
 ### List all existing credential mappings
@@ -60,7 +60,7 @@ Output will look something like this:
 ### Configure DiscoverySubnets
 1. Run `bin/configure-subnets.sh`
 2. (Optional) If running secure mode, enter Consul Token
-   ![](images/consul_acl_sm.png)
+   ![](../images/creds-acl.png)
 
 
 ## configure-subnets.sh

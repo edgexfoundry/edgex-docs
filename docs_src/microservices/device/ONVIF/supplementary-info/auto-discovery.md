@@ -198,49 +198,50 @@ of whether it is a manual or automated call to discover.
 
 The following logic is to determine if the device is already registered or not.
 
-```mermaid
-%% Note: The node and edge definitions are split up to make it easier to adjust the
-%% links between the various nodes.
-flowchart TD;
-    %% -------- Node Definitions -------- %%
-    Multicast[/Devices Discovered<br/>via Multicast/]
-    Netscan[/Devices Discovered<br/>via Netscan/]
-    DupeFilter[Filter Duplicate Devices<br/>based on EndpointRef]    
-    MACMatches{MAC Address<br/>matches existing<br/>device?}
-    RefMatches{EndpointRef<br/>matches existing<br/>device?}
-    IPChanged{IP Address<br/>Changed?}
-    MACChanged{MAC Address<br/>Changed?}
-    UpdateIP[Update IP Address]
-    UpdateMAC(Update MAC Address)
-    RegisterDevice(Register New Device<br/>With EdgeX)
-    DeviceNotRegistered(Device Not Registered)
-    PWMatches{Device matches<br/>Provision Watcher?}
-    
-    %% -------- Graph Definitions -------- %%
-    Multicast --> DupeFilter
-    Netscan --> DupeFilter
-    DupeFilter --> ForEachDevice
-    subgraph ForEachDevice[For Each Unique Device]
-        MACMatches -->|Yes| UpdateDevice
-        MACMatches -->|No| RefMatches
-        RefMatches -->|Yes| UpdateDevice
-        RefMatches -->|No| ForEachPW
 
-        subgraph UpdateDevice[Update Existing Device]
-            direction TB
-            IPChanged -->|No| MACChanged
-            IPChanged -->|Yes| UpdateIP
-            UpdateIP --> MACChanged
-            MACChanged -->|Yes| UpdateMAC
-        end
-        
-        subgraph ForEachPW[For Each Provision Watcher]
-            direction TB
-            PWMatches -->|Yes| RegisterDevice
-        end
-        ForEachPW -->|No Matches| DeviceNotRegistered
-    end
-```
+<div class="mermaid">
+        %% Note: The node and edge definitions are split up to make it easier to adjust the
+        %% links between the various nodes.
+        flowchart TD;
+            %% -------- Node Definitions -------- %%
+            Multicast[/Devices Discovered<br/>via Multicast/]
+            Netscan[/Devices Discovered<br/>via Netscan/]
+            DupeFilter[Filter Duplicate Devices<br/>based on EndpointRef]    
+            MACMatches{MAC Address<br/>matches existing<br/>device?}
+            RefMatches{EndpointRef<br/>matches existing<br/>device?}
+            IPChanged{IP Address<br/>Changed?}
+            MACChanged{MAC Address<br/>Changed?}
+            UpdateIP[Update IP Address]
+            UpdateMAC(Update MAC Address)
+            RegisterDevice(Register New Device<br/>With EdgeX)
+            DeviceNotRegistered(Device Not Registered)
+            PWMatches{Device matches<br/>Provision Watcher?}
+            
+            %% -------- Graph Definitions -------- %%
+            Multicast --> DupeFilter
+            Netscan --> DupeFilter
+            DupeFilter --> ForEachDevice
+            subgraph ForEachDevice[For Each Unique Device]
+                MACMatches -->|Yes| UpdateDevice
+                MACMatches -->|No| RefMatches
+                RefMatches -->|Yes| UpdateDevice
+                RefMatches -->|No| ForEachPW
+
+                subgraph UpdateDevice[Update Existing Device]
+                    direction TB
+                    IPChanged -->|No| MACChanged
+                    IPChanged -->|Yes| UpdateIP
+                    UpdateIP --> MACChanged
+                    MACChanged -->|Yes| UpdateMAC
+                end
+                
+                subgraph ForEachPW[For Each Provision Watcher]
+                    direction TB
+                    PWMatches -->|Yes| RegisterDevice
+                end
+                ForEachPW -->|No Matches| DeviceNotRegistered
+            end
+</div>
 
 ## Troubleshooting
 
