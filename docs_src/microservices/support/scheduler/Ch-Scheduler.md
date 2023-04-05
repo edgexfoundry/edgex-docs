@@ -67,6 +67,7 @@ This diagram is drawn by [diagram.net](https://app.diagrams.net/), and the sourc
     |Name |the name of the interval action|
     |Interval|associated interval that defines when the action occurs|
     |AdminState|interval action state - either LOCKED or UNLOCKED|
+    |AuthMethod|interval action authentication method - either NONE or JWT (EdgeX microservice authentication JWT)|
     |Content|The actual content to be sent as the body|
     |ContentType|Indicates which request contentType should be used (i.e. `text/html`, `application/json`), the default is `application/json`|   
 === "IntervalActions.Address"     
@@ -80,6 +81,8 @@ This diagram is drawn by [diagram.net](https://app.diagrams.net/), and the sourc
     |Path|The HTTP path at the targeted host for fulfillment of the action.(Only using when type is REST)|
 
 See [Interval](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-scheduler/2.1.0#/Interval) and [IntervalAction](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-scheduler/2.1.0#/IntervalAction) for more information.
+!!! warning
+    `AuthMethod: JWT` exposes a sensitive credential and should only be used for, and is required to be used for, authenticating to peer EdgeX microservices.
 
 ## High Level Interaction Diagrams
 
