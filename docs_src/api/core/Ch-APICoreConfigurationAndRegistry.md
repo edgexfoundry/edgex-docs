@@ -8,26 +8,24 @@ EdgeX uses the 3rd party Consul microservice as the implementations for Configur
 For the client libraries of different languages, please refer to the
 list on this page:
 
-> <https://www.consul.io/downloads_tools.html>
+> <https://developer.hashicorp.com/consul/api-docs/libraries-and-sdks>
 
 ## Configuration Management
 
 For the current API documentation, please refer to the official Consul
 web site:
 
-> <https://www.consul.io/intro/getting-started/kv.html>
-> <https://www.consul.io/docs/agent/http/kv.html>
+> <https://developer.hashicorp.com/consul/api-docs/kv>
 
 ## Service Registry
 
 For the current API documentation, please refer to the official Consul
 web site:
 
-> <https://www.consul.io/intro/getting-started/services.html>
-> <https://www.consul.io/docs/agent/http/catalog.html>
-> <https://www.consul.io/docs/agent/http/agent.html>
-> <https://www.consul.io/docs/agent/checks.html>
-> <https://www.consul.io/docs/agent/http/health.html>
+> <https://developer.hashicorp.com/consul/api-docs/catalog>
+> <https://developer.hashicorp.com/consul/api-docs/agent>
+> <https://developer.hashicorp.com/consul/api-docs/agent/check>
+> <https://developer.hashicorp.com/consul/api-docs/health>
 
 **Service Registration**
 
@@ -38,7 +36,7 @@ can locate its URL from Consul, and Consul has the ability to monitor
 its health status. The RESTful API of registration is described on the
 following Consul page:
 
-> <https://www.consul.io/docs/agent/http/agent.html#agent_service_register>
+> <https://developer.hashicorp.com/consul/api-docs/agent/service#register-service>
 
 **Service Deregistration**
 
@@ -46,7 +44,7 @@ Before microservices shut down, they have to deregister themselves from
 Consul. The RESTful API of deregistration is described on the following
 Consul page:
 
-> <https://www.consul.io/docs/agent/http/agent.html#agent_service_deregister>
+> <https://developer.hashicorp.com/consul/api-docs/agent/service#deregister-service>
 
 **Service Discovery**
 
@@ -56,12 +54,12 @@ IDor list all available services registered in Consul. The RESTful API
 of querying service by microservice IDis described on the following
 Consul page:
 
-> <https://www.consul.io/docs/agent/http/catalog.html#catalog_service>
+> <https://developer.hashicorp.com/consul/api-docs/agent/service#get-local-service-health-by-id>
 
 The RESTful API of listing all available services is described on the
 following Consul page:
 
-> <https://www.consul.io/docs/agent/http/agent.html#agent_services>
+> <https://developer.hashicorp.com/consul/api-docs/agent/service#list-services>
 
 **Health Checking**
 
@@ -72,7 +70,7 @@ Interval, Time to Live (TTL), and Docker + Interval. The detailed
 introduction and examples of each checking methods are described on the
 following Consul page:
 
-> <https://www.consul.io/docs/agent/checks.html>
+> <https://developer.hashicorp.com/consul/api-docs/agent/check#list-checks>
 
 The health checks should be established during service registration.
 Please see the paragraph on this page of Service Registration section.
