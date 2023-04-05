@@ -2634,7 +2634,7 @@ the <code>known secret</code> and <code>device-virtual</code> is the service key
 <code>redisdb</code> to add/copy the Redis database credentials to the <code>Secret Store</code> for the <code>app-rules-engine</code>,
 <code>device-rest</code>, and <code>device-virtual</code> services.</p>
 <p>We can also use the alternative or simpler form of <code>ADD_KNOWN_SECRETS</code> environment variable's value like</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">ADD_KNOWN_SECRETS</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redisdb[app-rules-engine, device-rest, device-virtual]</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">ADD_KNOWN_SECRETS</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redisdb[app-rules-engine; device-rest; device-virtual]</span>
 </code></pre></div>
 <p>in which all add-on services are put together in a comma separated list associated with the
 known secret <code>redisdb</code>.</p>
