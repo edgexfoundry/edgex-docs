@@ -8,7 +8,7 @@ EdgeX uses the 3rd party Consul microservice as the implementations for Configur
 For the client libraries of different languages, please refer to the
 list on this page:
 
-> <https://www.consul.io/downloads_tools.html>
+> <https://developer.hashicorp.com/consul/api-docs/libraries-and-sdks>
 
 ## Configuration Management
 
