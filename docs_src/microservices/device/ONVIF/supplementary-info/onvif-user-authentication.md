@@ -6,7 +6,7 @@ According to the Onvif user authentication flow, the device service shall:
 
 The spec can refer to https://www.onvif.org/specs/core/ONVIF-Core-Specification.pdf
 
-![onvif-user-authentication](images/onvif-user-authentication.jpg)
+![onvif-user-authentication](../images/onvif-user-authentication.jpg)
 
 ## Usage
 The user need to define the **AuthMode** and **SecretName**, and device service will send SOAP action with **WS-Usernametoken** or **Digest header**.
@@ -97,7 +97,7 @@ curl --request POST 'http://192.168.56.101:10000/onvif/device_service' \
 The spec can refer to https://www.onvif.org/wp-content/uploads/2016/12/ONVIF_WG-APG-Application_Programmers_Guide-1.pdf
 
 You can inspect the request by network tool like the Wireshark:
-![onvif-user-authentication-usernametoken](images/onvif-user-authentication-usernametoken.jpg)
+![onvif-user-authentication-usernametoken](../images/onvif-user-authentication-usernametoken.jpg)
 
 ## HTTP Digest
 The Digest scheme is based on a simple challenge-response paradigm and the spec can refer to https://datatracker.ietf.org/doc/html/rfc2617#page-6
@@ -127,4 +127,4 @@ The authentication follow can be illustrated as below:
 
 
 Inspect the request by the Wireshark:
-![onvif-user-authentication-flow](images/onvif-user-authentication-flow.jpg)
+![onvif-user-authentication-flow](../images/onvif-user-authentication-flow.jpg)
