@@ -175,7 +175,7 @@ In the above `docker-compose` section of `secretstore-setup`, we specify the kno
 We can also use the alternative or simpler form of `ADD_KNOWN_SECRETS` environment variable's value like
 
 ```yaml
-    ADD_KNOWN_SECRETS: redisdb[app-rules-engine, device-rest, device-virtual]
+    ADD_KNOWN_SECRETS: redisdb[app-rules-engine; device-rest; device-virtual]
 ```
 
 in which all add-on services are put together in a comma separated list associated with the
