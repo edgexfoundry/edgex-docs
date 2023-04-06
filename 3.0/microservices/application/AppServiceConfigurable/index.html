@@ -1519,10 +1519,6 @@
 </div>
 <p>That's it! Now we can run/deploy this service and the functions pipeline will process the data with functions we've defined.</p>
 <h2 id="pipeline-per-topics">Pipeline Per Topics</h2>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.1</p>
-<p>Pipeline Per Topics is new for EdgeX 2.1</p>
-</div>
 <p>The above pipeline configuration in <a href="#getting-started">Getting Started</a> section is the preferred way if your use case only requires a single functions pipeline. For use cases that require multiple functions pipelines in order to process the data differently based on the <code>profile</code>, <code>device</code> or <code>source</code> for the Event, there is the Pipeline Per Topics feature. This feature allows multiple pipelines to be configured in the <code>[Writable.Pipeline.PerTopicPipelines]</code>section. This section is a map of pipelines. The map key must be unique , but isn't used so can be any value. Each pipleline is defined by the following configuration settings:</p>
 <ul>
 <li>Id - This is the unique ID given to each pipeline</li>
@@ -1622,10 +1618,6 @@
 </div>
 <h2 id="deploying-multiple-instances-using-profiles">Deploying Multiple Instances using profiles</h2>
 <p>App Service Configurable was designed to be deployed as multiple instances for different purposes. Since the function pipeline is specified in the <code>configuration.yaml</code> file, we can use this as a way to run each instance with a different function pipeline. App Service Configurable does not have the standard default configuration at <code>/res/configuration.yaml</code>. This default configuration has been moved to the <code>sample</code> profile. This forces you to specify the profile for the configuration you would like to run. The profile is specified using the <code>-p/--profile=[profilename]</code> command line option or the <code>EDGEX_PROFILE=[profilename]</code> environment variable override. The profile name selected is used in the service key (<code>app-[profile name]</code>) to make each instance unique, e.g. <code>AppService-sample</code> when specifying <code>sample</code> as the profile.</p>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>Default service key for App Service Configurable instances has changed in Edgex 2.0 from <code>AppService-[profile name]</code> to <code>app-[profile name]</code></p>
-</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you need to run multiple instances with the same profile, e.g. <code>http-export</code>, but configured differently, you will need to override the service key with a custom name for one or more of the services. This is done with the <code>-sk/-serviceKey</code> command-line option or the <code>EDGEX_SERVICE_KEY</code> environment variable. See the <a href="../ApplicationFunctionsSDK/#command-line-options">Command-line Options</a> and <a href="../ApplicationFunctionsSDK/#environment-variable-overrides">Environment Overrides</a> sections for more detail.</p>
@@ -1653,10 +1645,6 @@
 </li>
 </ul>
 <h3 id="metrics-influxdb">metrics-influxdb</h3>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.2</p>
-<p>The <code>metrics-influxdb</code> profile is new for Edgex 2.2</p>
-</div>
 <p>Starter profile used for exporting telemetry data from other EdgeX services to InfluxDB via HTTP export. This profile configures the service to receive telemetry data from other services, transform it to Line Protocol syntax, batch the data and then export it to an InfluxDB service via HTTP. Requires further configuration which can easily be accomplished using environment variable overrides.</p>
 <p>Required:</p>
 <ul>
@@ -1784,10 +1772,6 @@
 </code></pre></div>
 </div>
 <h2 id="multiple-instances-of-a-function">Multiple Instances of a Function</h2>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>New for EdgeX 2.0</p>
-</div>
 <p>Now multiple instances of the same configurable pipeline function can be specified,  configured differently and used together in the functions pipeline. Previously the function names specified in the <code>[Writable.Pipeline.Functions]</code> section had to match a built-in configurable pipeline function name exactly. Now the names specified only need to start with a built-in configurable pipeline function name. See the <a href="#httpexport">HttpExport</a> section below for an example.</p>
 <h2 id="available-configurable-pipeline-functions">Available Configurable Pipeline Functions</h2>
 <p>Below are the functions that are available to use in the configurable pipeline function pipeline (<code>[Writable.Pipeline]</code>) section of the configuration. The function names below can be added to the <code>Writable.Pipeline.ExecutionOrder</code> setting (comma separated list) and must also be present or added to the <code>[Writable.Pipeline.Functions]</code> section as <code>{FunctionName}]</code>. The functions will also have the <code>{FunctionName}.Parameters:</code> section where the function's parameters are configured. Please refer to the <a href="#getting-started">Getting Started</a> section above for an example.</p>
@@ -1844,18 +1828,6 @@
 <span class="w">        </span><span class="nt">MergeOnSend</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
 </code></pre></div>
 </div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the <code>BatchByCount</code>, <code>BatchByTime</code>, and <code>BatchByTimeCount</code> configurable pipeline functions have been replaced by single <code>Batch</code> configurable pipeline function with additional <code>Mode</code> parameter.</p>
-</div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.1</p>
-<p>The <code>IsEventData</code> setting is new for EdgeX 2.1</p>
-</div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.1</p>
-<p>The <code>MergeOnSend</code> setting is new for EdgeX 2.2</p>
-</div>
 <h3 id="compress"><a href="../BuiltIn/#compression">Compress</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
@@ -1867,10 +1839,6 @@
 <span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">Algorithm</span><span class="p">:</span><span class="w"> </span><span class="s">"gzip"</span>
 </code></pre></div>
-</div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the <code>CompressWithGZIP</code> and <code>CompressWithZLIB</code> configurable pipeline functions have been replaced by the single <code>Compress</code> configurable pipeline function with additional <code>Algorithm</code> parameter.</p>
 </div>
 <h3 id="encrypt"><a href="../BuiltIn/#dataprotection">Encrypt</a></h3>
 <p><strong>Parameters</strong></p>
@@ -1917,10 +1885,6 @@
 <span class="w">        </span><span class="nt">FilterOut</span><span class="p">:</span><span class="w"> </span><span class="s">"false"</span>
 </code></pre></div>
 </div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>The <code>FilterByProfileName</code> configurable pipeline function is new for EdgeX 2.0 </p>
-</div>
 <h3 id="filterbyresourcename"><a href="../BuiltIn/#by-resource-name">FilterByResourceName</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
@@ -1935,10 +1899,6 @@
 <span class="w">        </span><span class="nt">FilterOut</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
 </code></pre></div>
 </div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the <code>FilterByValueDescriptor</code> configurable pipeline function has been renamed to <code>FilterByResourceName</code> and parameter names adjusted. </p>
-</div>
 <h3 id="filterbysourcename"><a href="../BuiltIn/#by-source-name">FilterBySourceName</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
@@ -1952,10 +1912,6 @@
 <span class="w">        </span><span class="nt">SourceNames</span><span class="p">:</span><span class="w"> </span><span class="s">"Bool,</span><span class="nv"> </span><span class="s">BoolArray"</span>
 <span class="w">        </span><span class="nt">FilterOut</span><span class="p">:</span><span class="w"> </span><span class="s">"false"</span>
 </code></pre></div>
-</div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>The <code>FilterBySourceName</code> configurable pipeline function is new for EdgeX 2.0 </p>
 </div>
 <h3 id="httpexport"><a href="../BuiltIn/#http-export">HTTPExport</a></h3>
 <p><strong>Parameters</strong></p>
@@ -2007,18 +1963,6 @@
 <span class="w">              </span><span class="nt">MimeType</span><span class="p">:</span><span class="w"> </span><span class="s">"application/xml"</span><span class="w"> </span>
 <span class="w">              </span><span class="nt">Url</span><span class="p">:</span><span class="w"> </span><span class="s">"http://my.api2.net/edgexdata2"</span>
 </code></pre></div></p>
-</div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the <code>HTTPPost</code>, <code>HTTPPostJSON</code>, <code>HTTPPostXML</code>, <code>HTTPPut</code>, <code>HTTPPutJSON</code>,  and <code>HTTPPutXML</code>  configurable pipeline functions have been replaced by the single <code>HTTPExport</code> function with additional <code>Method</code> parameter. <code>ContinueOnSendError</code> and <code>ReturnInputData</code> parameter have been added to support multi destination exports. In addition the <code>HeaderName</code> and <code>SecretName</code> parameters have replaced the <code>SecretHeaderName</code> parameter.</p>
-</div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>The capability to chain Http Export functions to export to multiple destinations is new for Edgex 2.0. </p>
-</div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>Multiple instances (configured differently) of the same configurable pipeline function is new for EdgeX 2.0. The function names in the <code>Writable.Pipeline.Functions</code> section now only need to start with a built-in configurable pipeline function name, rather than be an exact match.</p>
 </div>
 <h3 id="jsonlogic"><a href="../BuiltIn/#json-logic">JSONLogic</a></h3>
 <p><strong>Parameters</strong></p>
@@ -2080,10 +2024,6 @@
 <span class="w">        </span><span class="nt">SecretPath</span><span class="p">:</span><span class="w"> </span><span class="s">"mqtt"</span>
 </code></pre></div></p>
 </div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the <code>MQTTSecretSend</code> configurable pipeline function has been renamed to <code>MQTTExport</code> and the deprecated  <code>MQTTSend</code> configurable pipeline function has been removed</p>
-</div>
 <h3 id="setresponsedata"><a href="../BuiltIn/#set-response-data">SetResponseData</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
@@ -2095,10 +2035,6 @@
 <span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">ResponseContentType</span><span class="p">:</span><span class="w"> </span><span class="s">"application/json"</span>
 </code></pre></div>
-</div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the <code>SetOutputData</code> configurable pipeline function has been renamed to <code>SetResponseData</code> . </p>
 </div>
 <h3 id="transform"><a href="../BuiltIn/#conversion">Transform</a></h3>
 <p><strong>Parameters</strong></p>
@@ -2112,15 +2048,7 @@
 <span class="w">        </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="s">"xml"</span>
 </code></pre></div>
 </div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the <code>TransformToJSON</code> and <code>TransformToXML</code> configurable pipeline functions have been replaced by the single <code>Transform</code> configurable pipeline function with additional <code>Type</code> parameter.</p>
-</div>
 <h3 id="tolineprotocol"><a href="../BuiltIn/#tolineprotocol">ToLineProtocol</a></h3>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.2</p>
-<p><code>ToLineProtocol</code> is new for Edgex 2.2</p>
-</div>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>Tags</code> - optional comma separated list of additional tags to add to the metric in to form "tag:value,..."</li>
@@ -2137,10 +2065,6 @@
 <p>The new <code>TargetType</code> setting must be set to "metric" when using this function. See the <a href="#metric-targettype">Metric TargetType</a> section above for more details.</p>
 </div>
 <h3 id="wrapintoevent"><a href="../BuiltIn/#wrap-into-event">WrapIntoEvent</a></h3>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.3</p>
-<p>The <code>WrapIntoEvent</code> configurable pipeline function is new for EdgeX 2.3</p>
-</div>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>ProfileName</code> - Profile name to use for the new Event</li>

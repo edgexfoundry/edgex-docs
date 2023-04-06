@@ -1352,10 +1352,6 @@
 <span class="w">  </span><span class="nt">EDGEX_SECURITY_SECRET_STORE</span><span class="p">:</span><span class="w"> </span><span class="s">"false"</span>
 </code></pre></div>
 </div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 when running in secure mode Consul is secured,  which requires all services to have this environment variable be <code>true</code> so they can request their Consul access token from Vault. See the <a href="https://docs.edgexfoundry.org/2.0/security/Ch-Secure-Consul/">Secure Consul</a> section for more details.</p>
-</div>
 <h4 id="edgex_startup_duration">EDGEX_STARTUP_DURATION</h4>
 <p>This environment variable sets the total duration in seconds allowed for the services to complete the bootstrap start-up. Default is 60 seconds.</p>
 <div class="admonition example">
@@ -1364,10 +1360,6 @@
 <span class="w">  </span><span class="nt">EDGEX_STARTUP_DURATION</span><span class="p">:</span><span class="w"> </span><span class="s">"120"</span>
 </code></pre></div>
 </div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the deprecated lower case version <code>startup_duration</code> has been removed</p>
-</div>
 <h4 id="edgex_startup_interval">EDGEX_STARTUP_INTERVAL</h4>
 <p>This environment variable sets the retry interval in seconds for the services retrying a failed action during the bootstrap start-up. Default is 1 second.</p>
 <div class="admonition example">
@@ -1375,10 +1367,6 @@
 <div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span><span class="w"> </span>
 <span class="w">  </span><span class="nt">EDGEX_STARTUP_INTERVAL</span><span class="p">:</span><span class="w"> </span><span class="s">"3"</span>
 </code></pre></div>
-</div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the deprecated lower case version <code>startup_interval</code> has been removed</p>
 </div>
 <h2 id="environment-overrides">Environment Overrides</h2>
 <p>There are two types of environment overrides which are <code>command-line</code> and <code>configuration</code>. </p>

@@ -1551,10 +1551,6 @@ You can access the <code>interfaces.ApplicationService</code> API for resources 
 <code>profile: http-export</code> <br/>
  then service key will be <code>app-http-export-mycloud</code> </p>
 </div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>The deprecated lowercase <code>`edgex_service</code> environment variable specific have been removed for EdgeX 2.0</p>
-</div>
 <h3 id="custom-configuration">Custom Configuration</h3>
 <p>Applications can specify custom configuration in the service's configuration file in two ways. </p>
 <h4 id="application-settings">Application Settings</h4>
@@ -1574,10 +1570,6 @@ You can access the <code>interfaces.ApplicationService</code> API for resources 
 </li>
 </ul>
 <h4 id="structure-custom-configuration">Structure Custom Configuration</h4>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>Structure Custom Configuration is new for Edgex 2.0</p>
-</div>
 <p>The second is the more complex <code>Structured Custom Configuration</code> which allows the Application Service to define and watch it's own structured section in the service's configuration file.</p>
 <p>The <code>ApplicationService</code> API provides the follow APIs to enable structured custom configuration:</p>
 <ul>
@@ -1629,10 +1621,6 @@ You can access the <code>interfaces.ApplicationService</code> API for resources 
 <span class="w">  </span><span class="nt">Port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6379</span>
 <span class="w">  </span><span class="nt">Timeout</span><span class="p">:</span><span class="w"> </span><span class="s">"5s"</span>
 </code></pre></div>
-</div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>Support for Mongo DB has been removed in EdgeX 2.0</p>
 </div>
 <h4 id="how-it-works">How it works</h4>
 <p>When an export function encounters an error sending data it can call <code>SetRetryData(payload []byte)</code> on the <code>AppFunctionContext</code>. This will store the data for later retry. If the Application Service is stopped and then restarted while stored data hasn't been successfully exported, the export retry will resume once the service is up and running again.</p>
@@ -1771,10 +1759,6 @@ A factory function to create these clients can then be registered with your serv
 <p>When running in insecure mode, the secrets are retrieved from the <code>Writable.InsecureSecrets</code> configuration.</p>
 <h3 id="background-publishing">Background Publishing</h3>
 <p>Application Services using the MessageBus trigger can request a background publisher using the AddBackgroundPublisher API in the SDK.  This method takes an int representing the background channel's capacity as the only parameter and returns a reference to a BackgroundPublisher.  This reference can then be used by background processes to publish to the configured MessageBus output.  A custom topic can be provided to use instead of the configured message bus output as well.</p>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>For EdgeX 2.0 the background publish operation takes a full AppContext instead of just the parameters used to create a message envelope.  This allows the background publisher to leverage context-based topic formatting functionality as the trigger output.</p>
-</div>
 <div class="admonition example">
 <p class="admonition-title">Example - Background Publisher</p>
 <div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">runJob</span><span class="w"> </span><span class="p">(</span><span class="nx">service</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">ApplicationService</span><span class="p">,</span><span class="w"> </span><span class="nx">done</span><span class="w"> </span><span class="kd">chan</span><span class="w"> </span><span class="kd">struct</span><span class="p">{}){</span>
@@ -1839,16 +1823,8 @@ A factory function to create these clients can then be registered with your serv
 <h3 id="stopping-the-service">Stopping the Service</h3>
 <p>Application Services will listen for SIGTERM / SIGINT signals from the OS and stop the function pipeline in response.  The pipeline can also be exited programmatically by calling <code>sdk.MakeItStop()</code> on the running <code>ApplicationService</code> instance.  This can be useful for cases where you want to stop a service in response to a runtime condition, e.g. receiving a "poison pill" message through its trigger.</p>
 <h3 id="received-topic">Received Topic</h3>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>Received Topic is new for Edgex 2.0</p>
-</div>
 <p>When messages are received via the EdgeX MessageBus or External MQTT triggers, the topic that the data was received on is seeded into the new Context Storage on the <code>AppFunctionContext</code> with the key <code>receivedtopic</code>. This make the <code>Received Topic</code> available to all functions in the pipeline. The SDK provides the <code>interfaces.RECEIVEDTOPIC</code> constant for this key. See the <a href="../AppFunctionContextAPI/#context-storage">Context Storage</a> section for more details on extracting values.</p>
 <h3 id="pipeline-per-topics">Pipeline Per Topics</h3>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.1</p>
-<p>Pipeline Per Topics is new for EdgeX 2.1</p>
-</div>
 <p>The <code>Pipeline Per Topics</code> feature allows for multiple function pipelines to be defined. Each will execute only when one of the specified pipeline topics matches the received topic. The pipeline topics can have wildcards (<code>+</code> and <code>#</code>) allowing the topic to match a variety of received topics. Each pipeline has its own set of functions (transforms) that are executed on the received message. If the <code>#</code> wildcard is used by itself for a pipeline topic, it will match all received topics and the specified functions pipeline will execute on every message received. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1897,10 +1873,6 @@ A factory function to create these clients can then be registered with your serv
 </code></pre></div>
 </div>
 <h3 id="built-in-application-service-metrics">Built-in Application Service Metrics</h3>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.3</p>
-<p>Additional built-in Application Service Metrics have been added for EdgeX  2.3</p>
-</div>
 <p>All application services have the following built-in metrics:</p>
 <ul>
 <li>
@@ -1948,10 +1920,6 @@ A factory function to create these clients can then be registered with your serv
 </code></pre></div>
 </div>
 <h3 id="custom-application-service-metrics">Custom Application Service Metrics</h3>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.2</p>
-<p>Custom Application Service Metrics are new for EdgeX 2.2 and expanded in EdgeX 2.3 with the addition of <code>histogram</code></p>
-</div>
 <p>The Custom Application Service Metrics capability allows for custom application services to define, collect and report their own custom service metrics.</p>
 <p>The following are the steps to collect and report custom service metrics:</p>
 <ol>

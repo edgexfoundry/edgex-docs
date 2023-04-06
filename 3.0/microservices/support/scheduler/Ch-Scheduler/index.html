@@ -1268,10 +1268,6 @@
 <p><img alt="image" src="../EdgeX_SupportingServicesScheduling.png"/></p>
 <h2 id="introduction">Introduction</h2>
 <p>The support scheduler microservice provide an internal EdgeX “clock” that can kick off operations in any EdgeX service.  At a configuration specified time (called an <strong>interval</strong>), the service calls on any EdgeX service API URL via REST to trigger an operation (called an <strong>interval action</strong>).  For example, the scheduler service periodically calls on core data APIs to clean up old sensed events that have been successfully exported out of EdgeX.</p>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>For EdgeX 2.0 the REST API provided by the Support Scheduler has changed to use DTOs (Data Transfer Objects) for all responses and for all POST/PUT/PATCH requests. All query APIs (GET) which return multiple objects, such as /all, provide <code>offset</code> and <code>limit</code> query parameters. </p>
-</div>
 <h3 id="default-interval-actions">Default Interval Actions</h3>
 <p>Scheduled interval actions configured by default with the reference implementation of the service include:</p>
 <ul>

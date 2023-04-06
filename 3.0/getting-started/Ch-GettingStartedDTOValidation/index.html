@@ -1198,14 +1198,6 @@ The device name field contains the following validation:</p>
 <li>special character: - _ ~ : ; =</li>
 </ul>
 <div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.3</p>
-<p>In EdgeX 2.3 the character restriction was reduced to support the following use cases:</p>
-<ul>
-<li>In BACNet protocol, the user might combine object type and property as the resourceName, for example, analog_input_0:present-value</li>
-<li>In OPC_UA protocol, the user might use NodeId as the resourceName, for example, ns=10;s=Hello:World</li>
-</ul>
-</div>
-<div class="admonition edgey">
 <p class="admonition-title">EdgeX 3.0</p>
 <p>In EdgeX 3.0, the character restriction was reduced for the command name and resource name because some protocols may use <code>/</code> or <code>.</code> in the name. By using URL escaping for the API, device command name and resource name allow various characters. For example, the user can define the command name <code>line-a/test:value</code> and use it with URL escaping as <code>/api/v2/device/name/Modbus-TCP-Device/line-a%2Ftest%3Avalue</code>.</p>
 </div>

@@ -1398,10 +1398,6 @@ make gen no-secty ds-modbus
 make gen no-secty arm64 ds-grove 
   - Generates non-secure compose file for ARM64 with just the Device Grove device service.
 </code></pre></div>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.2</p>
-<p>New in Edgex 2.2 (Kamakura) is the TUI generator tool that walks user through the generation and running of a custom compose file. In a Linux terminal from the <code>compose-builder</code> folder run <code>./tui-generator.sh</code> and make your selections from the menus.  </p>
-</div>
 <p>See the README document in the compose-builder directory for details on all the available options.  The Compose Builder is different per release, so make sure to consult the README in the appropriate release branch.  See <a href="https://github.com/edgexfoundry/edgex-compose/blob/ireland/compose-builder/README.md">Ireland's Compose Builder README</a> for details on the lastest release Compose Builder options for <code>make gen</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1459,10 +1455,6 @@ docker-compose<span class="w"> </span>logs<span class="w"> </span>-f<span class=
 service. All EdgeX micro services are expected to register with Consul as they start. Going to Consul's dashboard UI enables you to see which services are up. Find the Consul UI at
 <a href="http://localhost:8500/ui">http://localhost:8500/ui</a>.</p>
 <p><img alt="image" src="../EdgeX_GettingStartedUsrConsul.png"/></p>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>Please note that as of EdgeX 2.0, Consul can be secured.  When EdgeX is running in secure mode with <a href="https://docs.edgexfoundry.org/2.0/security/Ch-Secure-Consul/">secure Consul</a>, you must provide  Consul's access token to get to the dashboard UI referenced above.  See <a href="https://docs.edgexfoundry.org/2.0/security/Ch-Secure-Consul/#how-to-get-consul-acl-token">How to get Consul ACL token</a> for details.</p>
-</div>
 </article>
 </div>
 </div>

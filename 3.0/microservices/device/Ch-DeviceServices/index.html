@@ -1482,10 +1482,6 @@ and role of a device service.</p>
 <p>Device services support one additional command-line argument, <code>--instance</code> or <code>-i</code>. This allows for running multiple instances of a device service in an EdgeX deployment, by giving them different names.</p>
 <p>For example, running <code>device-modbus -i 1</code> results in a service named <code>device-modbus_1</code>, ie the parameter given to the <code>instance</code> argument is added as a suffix to the device service name. The same effect may be obtained by setting the <code>EDGEX_INSTANCE_NAME</code> environment variable.</p>
 <h2 id="publish-to-messagebus">Publish to MessageBus</h2>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>New in Edgex 2.0</p>
-</div>
 <p>Device services now have the capability to publish Events directly to the EdgeX MessageBus, rather than POST the Events to Core Data via REST. This capability is controlled by the <code>Device.UseMessageBus</code> configuration property (see below), which is set to <code>true</code> by default. Core Data is configured by default to subscribe to the EdgeX MessageBus to receive and persist the Events. Application services, as in EdgeX 1.x, subscribe to the EdgeX MessageBus to receive and process the Events.</p>
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 3.0</p>

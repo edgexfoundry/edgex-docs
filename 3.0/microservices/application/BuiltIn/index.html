@@ -1648,10 +1648,6 @@
 </tr>
 </tbody>
 </table>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.1</p>
-<p>New for EdgeX 2.1 is the <code>IsEventData</code> flag on the <code>BatchConfig</code> instance. </p>
-</div>
 <div class="admonition example">
 <p class="admonition-title">Batch with <code>IsEventData</code> flag set to true.</p>
 <div class="highlight"><pre><span></span><code>batch := NewBatchByTimeAndCount("30s", 10)
@@ -1659,10 +1655,6 @@ batch.IsEventData = true
 ...
 batch.Batch
 </code></pre></div>
-</div>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.2</p>
-<p>New for EdgeX 2.2 is the <code>MergeOnSend</code> flag on the <code>BatchConfig</code> instance. </p>
 </div>
 <div class="admonition example">
 <p class="admonition-title">Batch with <code>MergeOnSend</code> flag set to true.</p>
@@ -1762,20 +1754,8 @@ batch.Batch
 </tr>
 </tbody>
 </table>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the <code>NewCoreData</code> factory function has been replaced with the <code>NewCoreDataSimpleReading</code> and <code>NewCoreDataBinaryReading</code> functions </p>
-</div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.1</p>
-<p>The <code>NewCoreDataObejctReading</code>factory method is new for EdgeX 2.1</p>
-</div>
 <h2 id="event">Event</h2>
 <p>This enables the ability to wrap data into an Event/Reading</p>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.3</p>
-<p>The <code>EventWrapper</code> and its pipeline function <code>WrapIntoEvent</code> are new for EdgeX 2.3</p>
-</div>
 <table>
 <thead>
 <tr>
@@ -1808,10 +1788,6 @@ batch.Batch
 <h2 id="data-protection"><a name="dataprotection"></a>Data Protection</h2>
 <p>There are two transforms included in the SDK that can be added to your pipeline for data protection. </p>
 <h3 id="aesprotection">AESProtection</h3>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.1</p>
-<p>This transform provides AES 256 encryption with a random initialization vector and authentication using a SHA 512 hash in an "encrypt then MAC" scheme (see <a href="https://datatracker.ietf.org/doc/html/draft-mcgrew-aead-aes-cbc-hmac-sha2-02">here</a> for more details).  It can only be configured using secrets.</p>
-</div>
 <table>
 <thead>
 <tr>
@@ -1846,13 +1822,13 @@ batch.Batch
 </table>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-</div>
 <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewAESProtection</span><span class="p">(</span><span class="nx">secretPath</span><span class="p">,</span><span class="w"> </span><span class="nx">secretName</span><span class="p">).</span><span class="nx">Encrypt</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="p">)</span>
 </code></pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-</div>
 <p>The <code>Algorithm</code> used with app-service-configurable configuration to access this transform is <code>AES256</code></p>
+</div>
 <p>Reading data protected with this function is a multi step process:</p>
 <ul>
 <li>base64 decode (for languages other than go - example code assumes hex encoding)</li>
@@ -1862,7 +1838,6 @@ batch.Batch
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Signing Hash Validation</p>
-</div>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">hash</span><span class="p">(</span><span class="n">cipher_hex</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
     <span class="c1"># Extract the 32 bytes of the Hash signature from the end of the cipher_hex</span>
     <span class="n">extract_hash</span> <span class="o">=</span> <span class="n">cipher_hex</span><span class="p">[</span><span class="o">-</span><span class="mi">64</span><span class="p">:]</span>
@@ -1882,10 +1857,10 @@ batch.Batch
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">"false"</span><span class="p">,</span> <span class="n">extract_hash</span><span class="p">,</span> <span class="n">calculated_hash</span>
 </code></pre></div>
+</div>
 <p>If the signing hash can be validated, the message is OK to decrypt</p>
 <div class="admonition example">
 <p class="admonition-title">Payload Decryption</p>
-</div>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">decrypt</span><span class="p">(</span><span class="n">cipher_hex</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
     <span class="c1"># first 32 bytes of the 64 byte key used by the encrypt function (2 hex digits per byte)</span>
     <span class="n">private_key</span> <span class="o">=</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">key</span><span class="p">[:</span><span class="mi">64</span><span class="p">])</span>
@@ -1905,13 +1880,10 @@ batch.Batch
 
     <span class="k">return</span> <span class="n">unpadded</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">'utf-8'</span><span class="p">)</span>
 </code></pre></div>
+</div>
 <h2 id="export">Export</h2>
 <p>There are two export functions included in the SDK that can be added to your pipeline. </p>
 <h3 id="http-export">HTTP Export</h3>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the signature of the <code>NewHTTPSenderWithSecretHeader</code> factory function has changed. See below for details.</p>
-</div>
 <table>
 <thead>
 <tr>
@@ -1934,10 +1906,6 @@ batch.Batch
 </tr>
 </tbody>
 </table>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>New in EdgeX 2.0 is the ability to chain multiple instances of the HTTP exports to accomplish exporting to multiple destinations. The new <code>NewHTTPSenderWithOptions</code> factory function was added to allow for configuring all the options, including the new <code>ContinueOnSendError</code> and <code>ReturnInputData</code> options that enable this chaining. </p>
-</div>
 <div class="highlight"><pre><span></span><code><span class="c1">// HTTPSenderOptions contains all options available to the sender</span>
 <span class="kd">type</span><span class="w"> </span><span class="nx">HTTPSenderOptions</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// URL of destination</span>
@@ -1978,10 +1946,6 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 <h4 id="http-put">HTTP PUT</h4>
 <p><code>HTTPPut</code> - This pipeline function operates the same as <code>HTTPPost</code> but uses the <code>PUT</code> method rather than <code>POST</code>. </p>
 <h4 id="url-formatting">URL Formatting</h4>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>URL Formatting is new in EdgeX 2.0</p>
-</div>
 <p>The configured URL is dynamically formatted prior to the POST/PUT request. The default formatter (used if <code>URLFormatter</code> is nil) simply replaces any placeholder text, <code>{key-name}</code>, in the configured URL with matching values from the new <code>Context Storage</code>. An error will occur if a specified placeholder does not exist in the <code>Context Storage</code>. See the <a href="../AppFunctionContextAPI/#context-storage">Context Storage</a> documentation for more details on seeded values and storing your own values.</p>
 <p>The <code>URLFormatter</code> option allows you to override the default formatter with your own custom URL formatting scheme.</p>
 <div class="admonition example">
@@ -1990,10 +1954,6 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 <code>Url="http://myhost.com/edgex-events/{devicename}"</code> </p>
 </div>
 <h3 id="mqtt-export">MQTT Export</h3>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>New for EdgeX 2.0 is the the new <code>NewMQTTSecretSenderWithTopicFormatter</code> factory function. The deprecated <code>NewMQTTSender</code> factory function has been removed.</p>
-</div>
 <table>
 <thead>
 <tr>
@@ -2012,10 +1972,6 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 </tr>
 </tbody>
 </table>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>New in EdgeX 2.0 the <code>KeepAlive</code> and <code>ConnectTimeout</code> <strong>MQTTSecretConfig</strong> settings have been added.</p>
-</div>
 <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="kd">type</span><span class="w"> </span><span class="nx">MQTTSecretConfig</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// BrokerAddress should be set to the complete broker address i.e. mqtts://mosquitto:8883/mybroker</span>
 <span class="w">    </span><span class="nx">BrokerAddress</span><span class="w"> </span><span class="kt">string</span>
@@ -2054,10 +2010,6 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 </ul>
 <p>The <code>AuthMode</code> setting you choose depends on what secret values above are used. For example, if "none" is specified as auth mode all keys will be ignored. Similarly, if <code>AuthMode</code> is set to "clientcert" username and password will be ignored.</p>
 <h4 id="topic-formatting">Topic Formatting</h4>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>Topic Formatting is new in EdgeX 2.0</p>
-</div>
 <p>The configured Topic is dynamically formatted prior to publishing . The default formatter (used if <code>topicFormatter</code> is nil) simply replaces any placeholder text, <code>{key-name}</code>, in the configured <code>Topic</code> with matching values from the new <code>Context Storage</code>. An error will occur if a specified placeholder does not exist in the <code>Context Storage</code>. See the <a href="../AppFunctionContextAPI/#context-storage">Context Storage</a> documentation for more details on seeded values and storing your own values.</p>
 <p>The <code>topicFormatter</code> option allows you to override the default formatter with your own custom topic formatting scheme.</p>
 <h2 id="filtering">Filtering</h2>
@@ -2080,10 +2032,6 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 </tr>
 </tbody>
 </table>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the <code>NewFilter</code> factory function has been renamed to <code>NewFilterFor</code> and the new <code>NewFilterOut</code> factory function has been added.</p>
-</div>
 <div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">Filter</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// Holds the values to be filtered</span>
 <span class="w">    </span><span class="nx">FilterValues</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span>
@@ -2091,10 +2039,6 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 <span class="w">    </span><span class="nx">FilterOut</span><span class="w">    </span><span class="kt">bool</span>
 <span class="p">}</span>
 </code></pre></div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>New for EdgeX 2.0 are the <code>FilterByProfileName</code> and <code>FilterBySourceName</code> pipeline functions. The <code>FilterByValueDescriptor</code> pipeline function has been renamed to <code>FilterByResourceName</code></p>
-</div>
 <h3 id="by-profile-name">By Profile Name</h3>
 <p><code>FilterByProfileName</code> - This pipeline function will filter the event data down to <strong>Events</strong> that either have (For) or don't have (Out) the specified profiles names.  </p>
 <div class="admonition example">
@@ -2217,10 +2161,6 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 </code></pre></div>
 </div>
 <h2 id="metricsprocessor">MetricsProcessor</h2>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.2</p>
-<p>The <code>MetricsProcessor</code> is new in EdgeX 2.2</p>
-</div>
 <p><code>MetricsProcessor</code> contains configuration and functions for processing the new <code>dtos.Metrics</code> type. </p>
 <table>
 <thead>

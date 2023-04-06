@@ -1596,10 +1596,6 @@
 </a>
 <h1 id="application-service-api">Application Service API</h1>
 <p>The <code>ApplicationService</code> API is the central API for creating an EdgeX Application Service.</p>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the <code>ApplicationService</code> API and factory functions replace direct access to the <code>AppFunctionsSDK</code> struct. </p>
-</div>
 <p>The new <code>ApplicationService</code> API is as follows:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">AppFunction</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">appCxt</span><span class="w"> </span><span class="nx">AppFunctionContext</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span>
 
@@ -1925,10 +1921,6 @@
 <h3 id="secretprovider">SecretProvider</h3>
 <p><code>SecretProvider() interfaces.SecretProvider</code></p>
 <p>This API returns reference to the SecretProvider instance. See <a href="../../../security/Ch-SecretProviderApi/">Secret Provider API</a> section for more details.</p>
-<div class="admonition edgey -">
-<p class="admonition-title">Edgex 2.3</p>
-<p>SecretProvider() is new in EdgeX 2.3</p>
-</div>
 <h2 id="client-apis">Client APIs</h2>
 <p>The following <code>ApplicationService</code> APIs allow your service access the various EdgeX clients and their APIs.</p>
 <h3 id="loggingclient">LoggingClient</h3>

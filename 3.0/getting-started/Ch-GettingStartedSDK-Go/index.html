@@ -1558,10 +1558,6 @@ the request if validation failed.</p>
 <p>In the configuration.yaml, change the host address (around line 14) to the IP address of the system host.  This allows core metadata to callback to your new device service when a new device is created.  Because the rest of EdgeX, to include core metadata, will be running in Docker, the IP address of the host system on the Docker network must be provided to allow metadata in Docker to call out from Docker to the new device service running on your host system.</p>
 </div>
 <h3 id="custom-structured-configuration">Custom Structured Configuration</h3>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>New for EdgeX 2.0</p>
-</div>
 <p>Go Device Services can now define their own custom structured configuration section in the <code>configuration.yaml</code> file. Any additional sections in the configuration file are ignored by the SDK when it parses the file for the SDK defined sections. </p>
 <p>This feature allows a Device Service to define and watch it's own structured section in the service's configuration file.</p>
 <p>The <code>SDK</code> API provides the follow APIs to enable structured custom configuration:</p>
@@ -1582,10 +1578,6 @@ the request if validation failed.</p>
 <li><a href="https://github.com/edgexfoundry/device-mqtt-go/blob/v2.0.0/internal/driver/driver.go#L54-L69">See here for loading, validating and watching the configuration</a></li>
 </ul>
 <h2 id="device-service-metrics">Device Service Metrics</h2>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.3</p>
-<p>Device Service Metrics are new in EdgeX 2.3, but currently only for the <strong>Go SDK</strong></p>
-</div>
 <h3 id="built-in">Built-In</h3>
 <p>The following built-in device service metrics are collected by the Device SDK</p>
 <ol>

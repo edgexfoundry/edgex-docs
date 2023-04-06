@@ -1280,10 +1280,6 @@ profile file (find the example profile here) to create the Camera Monitor profil
 <p>Each profile has a unique name along with a description, manufacturer,
 model and collection of labels to assist in queries for particular
 profiles. These are relatively straightforward attributes of a profile.</p>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0<p>As of Ireland/V2, device profile names may only contain unreserved characters which are ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_~</p>
-</p>
-</div>
 <h3 id="resources-and-commands">Resources and Commands</h3>
 <p>The device profile defines how to communicate with any device that abides by the profile. In particular, it defines the <code>deviceResources</code> and <code>deviceCommands</code> used to send requests to the device (via the device service).  See the <a href="../../microservices/device/profile/Ch-DeviceProfile/">Device Profile documentation</a> for more background on each of these.</p>
 <h4 id="understanding-device-resources">Understanding Device Resources</h4>
@@ -1335,10 +1331,6 @@ profiles. These are relatively straightforward attributes of a profile.</p>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">"HumanCount"</span><span class="w"> </span><span class="p p-Indicator">}</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">"CanineCount"</span><span class="w"> </span><span class="p p-Indicator">}</span>
 </code></pre></div>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>As of the Ireland release, device commands are automatically created by EdgeX for any device resource that are not specified as hidden (that is where isHidden is set to false or is simply left off the device resource) in the profile.  Therefore, you would not define a device command to provide access to a single device resource unless you need to restrict the read/write access to that device resource.</p>
-</div>
 <h3 id="walkthrough-device-profile">Walkthrough - Device Profile</h3>
 <p>Use either the Postman or Curl tab below to walkthrough uploading the device profile.</p>
 <h4 id="download-the-device-profile">Download the Device Profile</h4>

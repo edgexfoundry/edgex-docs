@@ -1232,11 +1232,7 @@
 add a collection of specified tags to the Event's Tags collection (see <a href="../application/BuiltIn/#addtags">Built in Transforms/Functions</a>)</p>
 <p>If the Event already has <code>Tags</code> when it arrives at the application service, then configured tags will be added to the <code>Tags</code> map.  If the configured tags have the same key as an existing key in the <code>Tags</code> map, then the configured key/value will override what is already in the Event <code>Tags</code> map.</p>
 <h2 id="service-metrics">Service Metrics</h2>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.2/2.3</p>
-<p>New for Edgex 2.2 and expanded in Edgex 2.3</p>
-</div>
-<p>Service metrics have been added for the EdgeX 2.2 and 2.3 releases. All services now collect <a href="#common-service-metrics">Common Service Metrics</a>, only <strong>Core Data</strong>, <strong>Application Services</strong> and <strong>Device Services</strong> are collecting additional service specific metrics. Additional service metrics will be added to all services in future releases.  See <code>Writable.Telemetry</code> at <a href="../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a> for details on configuring the reporting of service metrics. </p>
+<p>All services have the ability to collect <a href="#common-service-metrics">Common Service Metrics</a>, only <strong>Core Data</strong>, <strong>Application Services</strong> and <strong>Device Services</strong> are collecting additional service specific metrics. Additional service metrics will be added to all services in future releases.  See <code>Writable.Telemetry</code> at <a href="../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a> for details on configuring the reporting of service metrics. </p>
 <p>See <a href="../application/AdvancedTopics/#custom-application-service-metrics">Custom Application Service Metrics</a> for more detail on Application Services capability to collect their own custom service metrics via use of the App SDK API. </p>
 <p>See <a href="../device/sdk/Ch-DeviceSDK/#custom-device-service-metrics">Custom Device Service Metrics</a> for more detail on Go Device Services capability to collect their own custom service metrics via use of the Go Device SDK API. </p>
 <p>Each service defines (in code) a set of service metrics that it collects and optionally reports if configured. 
@@ -1278,11 +1274,7 @@ This can be accomplished with a custom application service that sets the functio
 <p>The service name is added to the tags for every metric reported from each service. Additional tags may be added via the service's Telemetry configuration. See the <code>Writable.Telemetry</code> at <a href="../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a> for more details. A service may also add metric specific tags via code when it collects the individual metrics.</p>
 </div>
 <h3 id="common-service-metrics">Common Service Metrics</h3>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.3</p>
-<p>Collection of common service metrics for all core/support/application/device services is new in Edgex 2.3. Additional common service metrics will be added in future releases.</p>
-</div>
-<p>All services now have the ability to collect the following common service metrics</p>
+<p>All services have the ability to collect the following common service metrics</p>
 <ul>
 <li><strong>SecuritySecretsRequested</strong> - Count of secrets requested from the service's Secret Store.</li>
 <li><strong>SecuritySecretsStored</strong> - Count of secret stored to the service's Secret Store.</li>

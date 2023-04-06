@@ -1500,10 +1500,6 @@
 </a>
 <h1 id="app-function-context-api">App Function Context API</h1>
 <p>The context parameter passed to each function/transform provides operations and data associated with each execution of the pipeline. </p>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 2.0</p>
-<p>For EdgeX 2.0 the <code>AppFunctionContext</code> API replaces the direct access to the <code>appcontext.Context</code> struct. </p>
-</div>
 <p>Let's take a look at its API:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">AppFunctionContext</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">CorrelationID</span><span class="p">()</span><span class="w"> </span><span class="kt">string</span>
@@ -1637,10 +1633,6 @@
 <h3 id="secretprovider">SecretProvider</h3>
 <p><code>SecretProvider() interfaces.SecretProvider</code></p>
 <p>This API returns reference to the SecretProvider instance. See <a href="../../../security/Ch-SecretProviderApi/">Secret Provider API</a> section for more details.</p>
-<div class="admonition edgey -">
-<p class="admonition-title">Edgex 2.3</p>
-<p>SecretProvider() is new in EdgeX 2.3</p>
-</div>
 <h2 id="miscellaneous">Miscellaneous</h2>
 <h3 id="clone">Clone()</h3>
 <p><code>Clone() AppFunctionContext</code></p>

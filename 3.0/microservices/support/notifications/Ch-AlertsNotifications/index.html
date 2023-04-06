@@ -1364,9 +1364,9 @@ When encountering any error during sending critical notification,
 an individual resend task is scheduled, and each transmission record persists.
 After exceeding the configurable limit (resend limit), the service escalates the notification 
 and create a new notification to notify particular receivers of the escalation subscription (name = "ESCALATION") of the failure.</p>
-<div class="admonition edgey">
-<p class="admonition-title">Edgex 2.0</p>
-<p>For EdgeX 2.0, all notifications are processed immediately. The resend feature is only provided for critical notifications.
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All notifications are processed immediately. The resend feature is only provided for critical notifications.
 The <strong>resendLimit</strong> and <strong>resendInterval</strong> properties can be defined in each subscription. 
 If the properties are not provided, use the default values in the configuration properties.</p>
 </div>
