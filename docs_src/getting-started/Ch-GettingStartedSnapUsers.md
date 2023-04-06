@@ -75,7 +75,7 @@ The default configuration files are typically placed at `/var/snap/<snap>/curren
 For device services, the Device and Device Profile files are submitted to [Core Metadata](../../microservices/core/metadata/Ch-Metadata) upon initial startup. Refer to the documentation of [Device Services](../../microservices/device/Ch-DeviceServices/) for details.
 
 #### Config registry
-The configurations that are uploaded to the Registry (i.e. Consul by default) can be modified using Consul's UI or [kv REST API](https://www.consul.io/api/kv). The Registry is a Core services, part of the [Platform Snap](#platform-snap).
+The configurations that are uploaded to the Registry (i.e. Consul by default) can be modified using Consul's UI or [kv REST API](https://developer.hashicorp.com/consul/api-docs/kv). The Registry is a Core services, part of the [Platform Snap](#platform-snap).
 
 Changes to configurations in Registry are loaded by the service at startup. If the service has already started, a restart is required to load new configurations. Configurations that are in the writable section get loaded not only at startup, but also during the runtime. In other words, changes to the writable configurations are loaded automatically without a restart.
 
@@ -338,7 +338,6 @@ The following snaps are maintained by the EdgeX working groups:
     - [App RFID LLRP Inventory](#app-rfid-llrp-inventory)
 - Device Services
     - [Device GPIO](#device-gpio)
-    - [Device Grove](#device-grove)
     - [Device Modbus](#device-modbus)
     - [Device MQTT](#device-mqtt)
     - [Device REST](#device-rest)
@@ -694,23 +693,6 @@ gpio             edgex-device-gpio:gpio          pi:bcm-gpio-17    manual
 …
 ```
 
-
-### Device Grove
-| [Installation][edgex-device-grove] | [Source](https://github.com/edgexfoundry/device-grove-c/tree/main/snap) |
-
-!!! warning "beta"
-    Device Grove snap is released as beta for `arm64`. It is compatible with EdgeX 1.3 only.
-
-    It does not support the snap configurations described above.
-
-The default configuration files are under `/var/snap/edgex-device-grove/current/config/`. 
-
-This device service is started by default. 
-Changes to the configuration files require a restart to take effect:
-```bash
-sudo snap restart edgex-device-grove
-```
-
 ### Device Modbus
 | [Installation][edgex-device-modbus] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-modbus-go/tree/main/snap) |
 
@@ -923,7 +905,6 @@ The default configuration files are installed at:
 [edgex-app-rfid-llrp-inventory]: https://snapcraft.io/edgex-app-rfid-llrp-inventory
 [edgex-device-camera]: https://snapcraft.io/edgex-device-camera
 [edgex-device-gpio]: https://snapcraft.io/edgex-device-gpio
-[edgex-device-grove]: https://snapcraft.io/edgex-device-grove
 [edgex-device-modbus]: https://snapcraft.io/edgex-device-modbus
 [edgex-device-mqtt]: https://snapcraft.io/edgex-device-mqtt
 [edgex-device-rest]: https://snapcraft.io/edgex-device-rest
