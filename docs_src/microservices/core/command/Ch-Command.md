@@ -25,9 +25,6 @@ way to simplify communications with the devices. There are two types of commands
 
 In most cases, GET commands are simple requests for the latest sensor reading from the device.  Therefore, the request is often parameter-less (requiring no parameters or body in the request).  SET commands require a request body where the body provides a key/value pair array of values used as parameters in the request (i.e. `{"additionalProp1": "string", "additionalProp2": "string"}`).
 
-!!! edgey "EdgeX 2.1"
-    v2.1 supports a new value type, `Object`, to present the structral value instead of encoding it as string for both SET and GET commands, for example, the SET command parameter might be `{"Location": {"latitude": 39.67872546666667, "longitude": -104.97710646666667}}`.
-
 The command micro service gets its knowledge about the devices from the metadata service. The command service always relays commands (GET or SET) to the devices through the device service.  The command service never communicates directly to a device. Therefore, the command micro service is a proxy service for command or action requests from the north side of EdgeX (such as analytic or application services) to the protocol-specific device service and associated device.
 
 While not currently part of its duties, the command service could provide a layer of protection around device.  Additional security could be added that would not allow unwarranted interaction with the devices (via device service).  The command service could also regulate the number of requests on a device do not overwhelm the device - perhaps even caching responses so as to avoid waking a device unless necessary.
@@ -35,9 +32,6 @@ While not currently part of its duties, the command service could provide a laye
 ## Data Model
 
 ![image](EdgeX_CoreCommandModel.png)
-
-!!! edgey "EdgeX 2.0"
-    While the general concepts of core command's GET/PUT requests are the same, the core command request/response models has changed significantly in EdgeX 2.0.  Consult the API documentation for details.
 
 ## Data Dictionary
 
@@ -156,9 +150,6 @@ Below are only the additional settings and sections that are specific to Core Co
 Coming soon
 
 ## Commands via Messaging
-
-!!! edgey "Edgex 2.3"
-    Commands via Messaging is new in EdgeX 2.3
 
 ### Introduction
 Previously, communications from a 3rd party system (enterprise application, cloud application, etc.) to EdgeX in order to acuate a device or get the latest information from a sensor was only accomplished via REST.

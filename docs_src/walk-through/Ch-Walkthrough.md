@@ -1,12 +1,5 @@
 # EdgeX Demonstration API Walk Through
 
-!!! edgey "EdgeX 2.0"
-    This walkthough has been updated to use the Ireland Release / EdgeX 2.0.  Changes to this tutorial include:
-    - Remove the creation and reference to Addressables and Value Descriptors
-    - Use of the new V2 Device Profile structure
-    - Cleanup of the command service and use of the device name as part of the command
-    - and more
-
 In order to better appreciate the EdgeX Foundry micro services (what
 they do and how they work), how they inter-operate with each other, and
 some of the more important API calls that each micro service has to

@@ -18,9 +18,6 @@ There are 4 types of `Triggers` supported in the App Functions SDK which are dis
 
 An EdgeX MessageBus trigger will execute the pipeline every time data is received from the configured Edgex MessageBus `SubscribeTopics`.  The EdgeX MessageBus is the central message bus internal to EdgeX and has a specific message envelope that wraps all data published to this message bus.
 
-!!! edgey "Edgex 2.3"
-    For Edgex 2.3 two new MessageBus implementations have been added to support NATS messaging, with and without the JetStream persistence layer.  These options can be made available by building with the `include_nats_messaging` flag.
-
 There currently are four implementations of the EdgeX MessageBus available to be used. Two of these are available out of the box: `Redis Pub/Sub`(default) and `MQTT`. Additionally NATS (both core and JetStream) options can be made available with the build flag mentioned above.  The implementation type is selected via the `[Trigger.EdgexMessageBus]` configuration described below.
 
 ### Type Configuration 
@@ -56,9 +53,6 @@ See the [EdgeX MessageBus section](../../general/messagebus) for complete detail
     For Edgex 3.0 the MessageBus configuration settings are set in the [Common MessageBus Configuration](../../configuration/CommonConfiguration/#configuration-properties).
 
 ### Filter By Topics
-
-!!! edgey "EdgeX 2.0"
-    New for EdgeX 2.0
 
 App services now have the capability to filter by EdgeX MessageBus topics rather than using Filter functions in the functions pipeline. Filtering by topic is more efficient since the App Service never receives the data off the MessageBus. Core Data and/or Device Services now publish to multi-level topics that include the `profilename`, `devicename` and `sourcename` . Sources are the `commandname` or `resourcename` that generated the Event. The publish topics now look like this:
 
@@ -136,9 +130,6 @@ the external MQTT Broker on the topic specified by the `PublishTopic` setting.
 
 the `PublishTopic` can have placeholders. See [Publish Topic Placeholders](#publish-topic-placeholders) section below for more details
 
-!!! edgey "Edgex 2.2"
-    Prior to EdgeX 2.2 if `AuthMode` is set to `usernamepassword`, `clientcert`, or `cacert` and App Service will be run in secure mode, the required credentials must be stored to Secret Store via [Vault CLI, REST API, or WEB UI](../../security/Ch-SecretStore/#using-the-secret-store) before starting App Service. Otherwise App Service will fail to initialize the External MQTT Trigger and then shutdown because the required credentials do not exist in the Secret Store at the time service starts. Today, you can start App Service and store the required credentials using the [App Service API](../../api/applications/Ch-APIAppFunctionsSDK.md#swagger) afterwards. If the credentials found in Secret Store cannot satisfy App Service, it will retry for a certain duration and interval. See [Application Service Configuration](GeneralAppServiceConfig.md#not-writable) for more information on the configuration of this retry duration and interval. 
-
 ### External MQTT Broker Configuration
 The other piece of configuration required are the MQTT Broker connection settings:
 ```yaml
@@ -180,9 +171,6 @@ The `Type=` is set to `http`. This will enable listening to the `api/v2/trigger/
     The data received, encoded as JSON or CBOR, must match the `TargetType` defined by your application service. The default  `TargetType` is an `Edgex Event`. See [TargetType](../AdvancedTopics/#target-type) for more details.
 
 ## Custom Triggers
-
-!!! edgey "Edgex 2.0"
-	New for EdgeX 2.0 
 
 It is also possible to define your own trigger and register a factory function for it with the SDK.  You can then configure the trigger by registering a factory function to build it along with a name to use in the config file.  These triggers can be registered with:
 
@@ -312,9 +300,6 @@ A complete working example can be found [**here**](https://github.com/edgexfound
 
 ## Publish Topic Placeholders
 
-!!! edgey "Edgex 2.0"
-	New for EdgeX 2.0 
-
 Both the `EdgeX MessageBus`and the `External MQTT` triggers support the new **Publish Topic Placeholders** capability. The configured `PublishTopic` for either of these triggers can contain placeholders for runtime replacements. The placeholders are replaced with values from the new `Context Storage` whose key match the placeholder name. Function pipelines can add values to the `Context Storage` which can then be used as replacement values in the publish topic. If an EdgeX Event is received by the configured trigger the Event's `profilename`, `devicename` and `sourcename` as well as the will be seeded into the `Context Storage`. See the [Context Storage](AppFunctionContextAPI.md#context-storage) documentation for more details.
 
 The **Publish Topic Placeholders** format is a simple `{<key-name>}` that can appear anywhere in the topic multiple times. An error will occur if a specified placeholder does not exist in the  `Context Storage`. 
@@ -326,8 +311,5 @@ PublishTopic: "data/{profilename}/{devicename}/{custom}"
 ```
 
 ## Received Topic
-
-!!! edgey "Edgex 2.0"
-	New for EdgeX 2.0 
 
 The topic the data was received on for `EdgeX MessageBus` and the `External MQTT` triggers is now stored in the new `Context Storage` with the key `receivedtopic`. This makes it available to pipeline functions via the `Context Storage` .

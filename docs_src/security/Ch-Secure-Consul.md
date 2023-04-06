@@ -1,8 +1,5 @@
 # Secure Consul
 
-!!! edgey "EdgeX 2.0"
-    Secure Consul is new in EdgeX 2.0
-
 ## Introduction
 
 In the current EdgeX architecture, `Consul` is pre-wired as the default agent service for

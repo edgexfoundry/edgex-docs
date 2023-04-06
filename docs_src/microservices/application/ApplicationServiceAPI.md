@@ -2,9 +2,6 @@
 
 The `ApplicationService` API is the central API for creating an EdgeX Application Service.
 
-!!! edgey "EdgeX 2.0"
-    For EdgeX 2.0 the `ApplicationService` API and factory functions replace direct access to the `AppFunctionsSDK ` struct. 
-
 The new `ApplicationService` API is as follows:
 
 ```go
@@ -407,9 +404,6 @@ The following `ApplicationService` APIs allow your service retrieve and store se
 `SecretProvider() interfaces.SecretProvider`
 
 This API returns reference to the SecretProvider instance. See [Secret Provider API](../../../security/Ch-SecretProviderApi/) section for more details.
-
-!!! edgey - "Edgex 2.3"
-    SecretProvider() is new in EdgeX 2.3
 
 ## Client APIs
 

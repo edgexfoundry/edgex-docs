@@ -34,9 +34,6 @@ An extension mechanism allows eKuiper to be customized to analyze and process da
 
 ## Learn more
 
-!!! edgey "EdgeX 2.0"
-Note: "Configure the data flow" tutorial in the list below is a **new tutorial** specific to EdgeX 2 and eKuiper 1.2 or later release.
-
 - [EdgeX eKuiper Rules Engine Tutorial](https://github.com/lf-edge/ekuiper/blob/master/docs/en_US/edgex/edgex_rule_engine_tutorial.md): A 10-minute quick start tutorial, readers can refer to this article to start trying out the rules engine.
 - [Configure the data flow from EdgeX to eKuiper](https://github.com/lf-edge/ekuiper/blob/master/docs/en_US/edgex/edgex_source_tutorial.md):  a demonstrate on how to set up the various data flows from EdgeX to eKuiper.  Learn how to configure the source to adopt any kind of data flow.
 - [Control the device with the EdgeX eKuiper rules engine](https://github.com/lf-edge/ekuiper/blob/master/docs/en_US/edgex/edgex_rule_engine_command.md): This article describes how to use the eKuiper rule engine in EdgeX to control the device based on the analysis results.

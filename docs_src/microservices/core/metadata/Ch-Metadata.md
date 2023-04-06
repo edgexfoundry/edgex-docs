@@ -26,12 +26,6 @@ To understand metadata, its important to understand the EdgeX data objects it ma
 
 Device profiles define general characteristics about devices, the data they provide, and how to command them. Think of a device profile as a template of a type or classification of device. For example, a device profile for BACnet thermostats provides general characteristics for the types of data a BACnet thermostat sends, such as current temperature and humidity level. It also defines which types of commands or actions EdgeX can send to the BACnet thermostat.  Examples might include actions that set the cooling or heating point.  Device profiles are typically specified in YAML file and uploaded to EdgeX.  More details are provided below.
 
-!!! edgey "EdgeX 2.0"
-    The device profile was greatly simplified in EdgeX 2.0 (Ireland).  There are now just two sections of the document (deviceResources and deviceCommands) versus the three (deviceResources, deviceCommands and coreCommands) of EdgeX 1.x profiles.  Device resources and device commands are made available through the core command service with the `isHidden` property on either is set to fault.  This makes a core command section no longer necessary in EdgeX 2.
-    
-
-    However, this does mean that EdgeX 2 profiles are not backward compatible and EdgeX 1.x profiles must be migrated. See [Device Service V2 Migration Guide](../../../device/V2Migration#device-profiles) for complete details.
-
 #### Device Profile Details
 
 ![image](EdgeX_MetadataModel_Profile.png)
@@ -77,8 +71,8 @@ Device profiles define general characteristics about devices, the data they prov
     isHidden: false
     ```
     
-    !!! edgey "EdgeX 2.0"
-        `isHidden` is new in EdgeX 2.0.  While made explicit in this example, it is false by default when not specified.  `isHidden` indicates whether to expose the device resource to the core command service.
+    !!! Note
+        While made explicit in this example, `isHidden` is false by default when not specified.  `isHidden` indicates whether to expose the device resource to the core command service.
     
     The device service allows access to the device resources via REST endpoint.  Values specified in the device resources section of the device profile can be accessed through the following URL patterns:
     
@@ -166,10 +160,7 @@ Device profiles define general characteristics about devices, the data they prov
     If a device command and device resource have the same name, it will be the device command which is available.
 
 === "Core Commands"
-
-    !!! edgey "EdgeX 2.0"
-        Core commands have been removed in EdgeX 2.  Use `isHidden` with a value of false to service device resources and device commands to the command service.
-    
+ 
     Device resources or device commands that are not hidden are seen and available via the EdgeX core command service.  
     
     Other services (such as the rules engine) or external clients of EdgeX, should make requests of device services through the core command service, and when they do, they are calling on the device service’s unhidden device commands or device resources.  Direct access to the device commands or device resources of a device service is frowned upon.  Commands, made available through the EdgeX command service, allow the EdgeX adopter to add additional security or controls on who/what/when things are triggered and called on an actual device.
@@ -403,23 +394,14 @@ Coming soon
 
 #### Writable
 
-The `EnableValueDescriptorManagement` setting has been removed
+The following settings are available in the `Writable.ProfileChage` section.
 
-!!! edgey "Edgex 2.2"
-    The following setting has been added to the `Writable.ProfileChage` section.
-
-    - StrictDeviceProfileChanges
-    - StrictDeviceProfileDeletes
+- StrictDeviceProfileChanges
+- StrictDeviceProfileDeletes
 
 ## Device System Events
 
-!!! edgey - "Edgex 2.3"
-    Device System Events are new in EdgeX 2.3
-
 Device System Events are events triggered by the add, update or delete of devices. A System Event DTO is published to the EdgeX MessageBus each time a new Device is added, an existing Device is updated or when an existing Device is deleted.
-
-!!! note - "RequireMessageBus configuration setting"
-    In order to retain backward compatibility with configuration from previous 2.x releases, the top level `RequireMessageBus` configuration setting was added. If previous 2.x configuration is used with this new version the newly added `MessageQueue` configuration will be empty and would cause a failure connecting to the EdgeX MessageBus. The `RequireMessageBus` was added, which will be false if not specified and will avoid trying to connect to the EdgeX MessageBus with empty configuration. A warning will be logged each time a Device System Event can not be published due to the service is not being connected to the EdgeX MessageBus.  This will be removed in the next major release.
 
 ### System Event DTO
 
@@ -456,9 +438,6 @@ The System Event DTO for Device System Events is published to the topic specifie
     ```
 
 ## Units of Measure
-
-!!! edgey - "EdgeX 2.3"
-    Units of Measure is new in EdgeX 2.3
 
 Core metadata will read unit of measure configuration (see configuration example below) located in `UoM.UoMFile` during startup.
 

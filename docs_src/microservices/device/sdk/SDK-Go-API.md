@@ -45,9 +45,6 @@ type DeviceServiceSDK interface {
 
 ### Service()
 
-!!! edgex - "Edgex 2.3"
-    This function is new in Edgex 2.3 allowing for better unit test coverage via the use of the mockable interface.
-
 `interfaces.Service() DeviceServiceSDK`
 
 Returns reference to the `DeviceServiceSDK` instance as a mockable interface. Mock of interfaces is available at `mocks.DeviceServiceSDK`
@@ -63,9 +60,6 @@ Returns reference to the `DeviceServiceSDK` instance as a mockable interface. Mo
 `service.RunningService() *DeviceService`
 
 Returns concrete instance of `DeviceService` which is not a mockable interface
-
-!!! note
-    **DEPRECATED** as of Edgex 2.3. Please use `interfaces.Service()`
 
 ## APIs
 

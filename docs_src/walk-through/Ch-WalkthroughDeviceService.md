@@ -27,9 +27,6 @@ It can be set to `LOCKED` or `UNLOCKED`. When a device service is set to
 `LOCKED`, it is not suppose to respond to any command requests nor send
 data from the devices. See [Admin State documentation](../microservices/device/Ch-DeviceServices.md#admin-state) for more details.
 
-!!! edgey "EdgeX 2.0"
-        As of Ireland/V2, device service names may only contain unreserved characters which are ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_~
-
 ### Walkthrough - Device Service
 
 Use either the Postman or Curl tab below to walkthrough creating the `DeviceService`.

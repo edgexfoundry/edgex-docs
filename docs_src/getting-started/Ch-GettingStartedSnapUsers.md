@@ -567,10 +567,6 @@ For usage instructions, refer to [Command Line Interface (CLI)](../tools/Ch-Comm
 ### EdgeX eKuiper
 | [Installation][edgex-ekuiper] | [Managing Services] | [Debugging] | [Source](https://github.com/canonical/edgex-ekuiper-snap) |
 
-!!! edgey "EdgeX 2.2"
-    This version of EdgeX introduces a standalone EdgeX eKuiper snap.
-    The new snap is the supported way of using eKuiper with other EdgeX snaps.
-
 For the documentation of the standalone EdgeX eKuiper snap, visit the [README](https://github.com/canonical/edgex-ekuiper-snap).
 
 <!-- sorted alphabetically -->

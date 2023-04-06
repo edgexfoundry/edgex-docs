@@ -8,9 +8,6 @@ Please refer to the EdgeX Foundry [architectural decision record](https://github
 
 Please refer to the general [Common Configuration documentation](../microservices/configuration/CommonConfiguration.md) for configuration properties common to all services.  Find service specific configuration references in the tabs below.
 
-!!! edgey "EdgeX 2.0"
-    For EdgeX 2.0 the [Service configuration](../microservices/configuration/CommonConfiguration.md#service) section has been standardized across all EdgeX services.
-
 === "Core"
     |Service Name|Configuration Reference|
     |---|---|
