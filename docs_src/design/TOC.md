@@ -7,6 +7,7 @@
 
 | Name/Link                                                                           | Short Description                                                   |
 |-------------------------------------------------------------------------------------|---------------------------------------------------------------------|
+| [Bring Your Own Vault](./ucr/Bring-Your-Own-Vault.md)                               | Use Case for bringing your own Vault |
 | [Common Configuration](./ucr/Common Configuration.md)                               | Use Case for having Common configuration used by all EdgeX services |
 | [Core Data Retention and Persistent Cap](./ucr/Core-Data-Retention.md)              | Use Case for capping readings in Core Data                          |
 | [Device Parent-Child Relationships](./ucr/Device-Parent-Child-Relationships.md)     | Use Case for Device Parent-Child Relationships                      |
