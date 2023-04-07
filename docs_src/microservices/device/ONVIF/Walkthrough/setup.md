@@ -9,7 +9,7 @@ Follow this guide to set up your system to run the ONVIF Device Service.
 - ONVIF-compliant Camera
 
 !!!NOTE 
-      The instructions in this guide were developed and tested using Ubuntu 20.04 LTS and the Tapo C200 Pan/Tilt Wi-Fi Camera, referred to throughout this document as the **Tapo C200 Camera**. However, the software may work with other Linux distributions and ONVIF-compliant cameras. Refer to our [list of tested cameras for more information](./supplementary/ONVIF-protocol.md#tested-onvif-cameras)
+      The instructions in this guide were developed and tested using Ubuntu 20.04 LTS and the Tapo C200 Pan/Tilt Wi-Fi Camera, referred to throughout this document as the **Tapo C200 Camera**. However, the software may work with other Linux distributions and ONVIF-compliant cameras. Refer to our [list of tested cameras for more information](../supplementary-info/ONVIF-protocol.md#tested-onvif-cameras)
 
 **Other Requirements**
 

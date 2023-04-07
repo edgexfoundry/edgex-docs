@@ -38,7 +38,9 @@ This document will describe how to execute some of the most important types of c
 
 3. Stream the RTSP stream. 
         ffplay can be used to stream. The command follows this format: 
-        `ffplay -rtsp_transport tcp "rtsp://<user>:<password>@<IP address>:<port>/<streamname>"`.
+        ```bash
+        ffplay -rtsp_transport tcp "rtsp://<user>:<password>@<IP address>:<port>/<streamname>"
+        ```
         Using the `streamURI` returned from the previous step, run ffplay:
         ```bash
         ffplay -rtsp_transport tcp "rtsp://admin:Password123@192.168.86.34:554/stream1"

@@ -25,7 +25,7 @@ $ make get-consul-acl-token
 ```
 2. Navigate to `http://localhost:8500/`
 
-![Consul](images/getting-started-with-docker-consul.jpg)
+![Consul](../images/getting-started-with-docker-consul.jpg)
 
 ## 4. Add the Username and Password for the Onvif Camera
 ```shell

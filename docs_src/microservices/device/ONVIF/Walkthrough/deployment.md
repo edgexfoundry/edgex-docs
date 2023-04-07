@@ -217,7 +217,7 @@ Follow these instructions to update devices.
             ![](../images/creds-method.png)  
       g. Assign one or more MAC Addresses to the credential group  
             ![](../images/creds-mac.png)  
-      h. Learn more about updating credentials [here](../utility-scripts.md)  
+      h. Learn more about updating credentials [here](../supplementary-info/utility-scripts.md)  
 
       Successful:
 
