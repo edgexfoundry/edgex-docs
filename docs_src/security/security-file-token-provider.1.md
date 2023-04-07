@@ -112,7 +112,7 @@ default policy) plus the `custom_policy` defined above.
 When edgex-use-default is true (the default), the following is inserted
 (if not overridden) to the token parameters for the generated token.
 (See
-<https://www.vaultproject.io/api/auth/token/index.html#create-token>.)
+<https://developer.hashicorp.com/vault/api-docs/auth/token#create-token>.)
 
     "display_name": token-service-name
     "no_parent":    true

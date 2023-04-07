@@ -126,7 +126,7 @@ Physically, the "registry" and "configuration" management services are combined 
 
 A web user interface is also provided by Consul. Users can view the available service list and their health status through the web user interface. The web user interface is available at the /ui path on the same port as the HTTP API. By default this is <http://localhost:8500/ui>. For more detail, please see:
 
-> <https://www.consul.io/intro/getting-started/ui.html>
+> <https://developer.hashicorp.com/consul/tutorials/certification-associate-tutorials/get-started-explore-the-ui>
 
 ### Running on Docker
 
@@ -139,10 +139,10 @@ Once the EdgeX stack is running in docker verify Consul is running by going to  
 To run Consul on the local machine, following these steps:
 
 1.  Download the binary from Consul official website:
-    <https://www.consul.io/downloads.html>. Please choose the correct
+    <https://developer.hashicorp.com/consul/downloads>. Please choose the correct
     binary file according to the operation system.
 2.  Set up the environment variable. Please refer to
-    <https://www.consul.io/intro/getting-started/install.html>.
+    <https://developer.hashicorp.com/consul/tutorials/get-started-vms/virtual-machine-gs-deploy>.
 3.  Execute the following command:
 
     ``` bash
