@@ -1,4 +1,4 @@
-# Supported Device Services
+# Supported Device Services List
 
 The following table lists the EdgeX device services and protocols they support.
 

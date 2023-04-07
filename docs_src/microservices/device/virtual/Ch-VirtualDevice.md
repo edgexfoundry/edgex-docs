@@ -1,4 +1,4 @@
-# Virtual Device
+# Device Virtual
 
 ![image](EdgeX_VirtualDevice.png)
 

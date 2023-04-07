@@ -47,7 +47,7 @@ Before receiving the event data from the camera, we must define a device resourc
        readWrite: "W"
     ```
 
-* Define a UnsubscribeCameraEvent resource for unsubscribing
+* Define an UnsubscribeCameraEvent resource for unsubscribing
     ```yaml
     - name: "UnsubscribeCameraEvent"
      isHidden: false
@@ -94,7 +94,8 @@ Device service will generate the following path for pushing event from Camera to
 - {BaseNotificationURL}/api/v2/resource/{DeviceName}/{ResourceName}
 - {BaseNotificationURL}/api/v2/resource/Camera1/CameraEvent
 
-**Note**: The user can also override the config from the docker-compose environment variable:
+!!! Note 
+    The user can also override the config from the docker-compose environment variable:
 ```shell
 export HOST_IP=$(ifconfig eth0 | grep "inet " | awk '{ print $2 }')
 ```
@@ -138,10 +139,10 @@ curl --request PUT 'http://localhost:59882/api/v2/device/name/Camera003/PullPoin
 }'
 ```
 
-**Note**:
-* Device service uses a loop to pull message, and the subscription auto-renew by camera
-* Device service create a new pull point when the pull point expired
-* User can unsubscribe the subscription, then the device service will stop the loop to pull the message and execute unsubscribe Onvif function.
+!!! Note
+    * Device service uses a loop to pull message, and the subscription auto-renew by camera
+    * Device service create a new pull point when the pull point expired
+    * User can unsubscribe the subscription, then the device service will stop the loop to pull the message and execute unsubscribe Onvif function.
 
 ## Create a BaseNotification
 User can create subscription, the InitialTerminationTime is required and should greater than ten seconds:
@@ -156,9 +157,9 @@ curl --request PUT 'http://localhost:59882/api/v2/device/name/Camera003/BaseNoti
 }'
 ```
 
-**Note**:
-- Device service send Renew request every ten second before termination time
-- User can unsubscribe the subscription, then the device service stop to renew the subscription 
+!!! Note
+    - Device service send Renew request every ten second before termination time
+    - User can unsubscribe the subscription, then the device service stop to renew the subscription 
 
 ## Unsubscribe all subscriptions
 The user can unsubscribe all subscriptions(PullPoint and BaseNotification) from the camera with the following command:
