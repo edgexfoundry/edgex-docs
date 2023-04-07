@@ -54,6 +54,8 @@ The basic requirements are straightforward:
 1. Allow EdgeX to seed secrets in a pre-existing or non-EdgeX provided Vault (i.e. the BYO Vault) instance
 2. Allow EdgeX services to get/read secrets from the pre-existing or non-EdgeX provided Vault (i.e. the BYO Vault) instance
 3. Allow EdgeX services to acquire Consul access tokens from the pre-existing or non-EdgeX provided Vault (i.e. the BYO Vault) instance
+4. Allow EdgeX services to acquire identity tokens from the non-EdgeX provided Vault (i.e. the BYO Vault) instance.
+5. Support other Vault usages that may be added over time.
 
 ## Other Related Issues
 
