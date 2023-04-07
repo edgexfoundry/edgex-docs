@@ -1394,7 +1394,7 @@ target micro service and then invokes the target micro service. The following fi
 <h3 id="web-user-interface">Web User Interface</h3>
 <p>A web user interface is also provided by Consul. Users can view the available service list and their health status through the web user interface. The web user interface is available at the /ui path on the same port as the HTTP API. By default this is <a href="http://localhost:8500/ui">http://localhost:8500/ui</a>. For more detail, please see:</p>
 <blockquote>
-<p><a href="https://www.consul.io/intro/getting-started/ui.html">https://www.consul.io/intro/getting-started/ui.html</a></p>
+<p><a href="https://developer.hashicorp.com/consul/tutorials/certification-associate-tutorials/get-started-explore-the-ui">https://developer.hashicorp.com/consul/tutorials/certification-associate-tutorials/get-started-explore-the-ui</a></p>
 </blockquote>
 <h3 id="running-on-docker">Running on Docker</h3>
 <p>For ease of use to install and update, the microservices of EdgeX Foundry are published as Docker images onto Docker Hub and compose files that allow you to run EdgeX and dependent service such as Consul. These compose files can be found here in the <a href="https://github.com/edgexfoundry/edgex-compose/tree/ireland">edgex-compose repository</a>. See the <a href="../../../getting-started/Ch-GettingStartedDockerUsers">Getting Started using Docker</a> for more details.</p>
@@ -1403,10 +1403,10 @@ target micro service and then invokes the target micro service. The following fi
 <p>To run Consul on the local machine, following these steps:</p>
 <ol>
 <li>Download the binary from Consul official website:
-    <a href="https://www.consul.io/downloads.html">https://www.consul.io/downloads.html</a>. Please choose the correct
+    <a href="https://developer.hashicorp.com/consul/downloads">https://developer.hashicorp.com/consul/downloads</a>. Please choose the correct
     binary file according to the operation system.</li>
 <li>Set up the environment variable. Please refer to
-    <a href="https://www.consul.io/intro/getting-started/install.html">https://www.consul.io/intro/getting-started/install.html</a>.</li>
+    <a href="https://developer.hashicorp.com/consul/tutorials/get-started-vms/virtual-machine-gs-deploy">https://developer.hashicorp.com/consul/tutorials/get-started-vms/virtual-machine-gs-deploy</a>.</li>
 <li>
 <p>Execute the following command:</p>
 <div class="highlight"><pre><span></span><code>consul<span class="w"> </span>agent<span class="w"> </span>-data-dir<span class="w"> </span><span class="se">\$</span><span class="o">{</span>DATA_FOLDER<span class="o">}</span><span class="w"> </span>-ui<span class="w"> </span>-advertise<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-server<span class="w"> </span>-bootstrap-expect<span class="w"> </span><span class="m">1</span>

@@ -412,11 +412,6 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#device-grove">
-    Device Grove
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#device-modbus">
     Device Modbus
   </a>
@@ -1499,11 +1494,6 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#device-grove">
-    Device Grove
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#device-modbus">
     Device Modbus
   </a>
@@ -1606,7 +1596,7 @@ The store page also provides instructions for installation on different Linux di
 <p>The default configuration files are typically placed at <code>/var/snap/&lt;snap&gt;/current/config</code>. Upon a successful startup of an EdgeX service, the server configuration file (typically named <code>configuration.yaml</code>) is uploaded to the <a href="../../microservices/configuration/ConfigurationAndRegistry/#registry-provider">Registry</a> by default. After that, the local server configuration file will no longer be read and any modifications will not be applied. At this point, the configurations can be only changed via the Registry or by setting environment variables. Refer to <a href="#config-registry">config registry</a> or <a href="#config-overrides">config overrides</a> for details.</p>
 <p>For device services, the Device and Device Profile files are submitted to <a href="../../microservices/core/metadata/Ch-Metadata">Core Metadata</a> upon initial startup. Refer to the documentation of <a href="../../microservices/device/Ch-DeviceServices/">Device Services</a> for details.</p>
 <h4 id="config-registry">Config registry</h4>
-<p>The configurations that are uploaded to the Registry (i.e. Consul by default) can be modified using Consul's UI or <a href="https://www.consul.io/api/kv">kv REST API</a>. The Registry is a Core services, part of the <a href="#platform-snap">Platform Snap</a>.</p>
+<p>The configurations that are uploaded to the Registry (i.e. Consul by default) can be modified using Consul's UI or <a href="https://developer.hashicorp.com/consul/api-docs/kv">kv REST API</a>. The Registry is a Core services, part of the <a href="#platform-snap">Platform Snap</a>.</p>
 <p>Changes to configurations in Registry are loaded by the service at startup. If the service has already started, a restart is required to load new configurations. Configurations that are in the writable section get loaded not only at startup, but also during the runtime. In other words, changes to the writable configurations are loaded automatically without a restart.</p>
 <p>Please refer to 
 <a href="../../microservices/configuration/CommonConfiguration/">Common Configuration</a> and 
@@ -1847,7 +1837,6 @@ Check <code>snap logs --help</code> for details.</p>
 </li>
 <li>Device Services<ul>
 <li><a href="#device-gpio">Device GPIO</a></li>
-<li><a href="#device-grove">Device Grove</a></li>
 <li><a href="#device-modbus">Device Modbus</a></li>
 <li><a href="#device-mqtt">Device MQTT</a></li>
 <li><a href="#device-rest">Device REST</a></li>
@@ -2129,18 +2118,6 @@ slots:
 Interface        Plug                            Slot              Notes
 gpio             edgex-device-gpio:gpio          pi:bcm-gpio-17    manual
 …
-</code></pre></div></p>
-<h3 id="device-grove">Device Grove</h3>
-<p>| <a href="https://snapcraft.io/edgex-device-grove">Installation</a> | <a href="https://github.com/edgexfoundry/device-grove-c/tree/main/snap">Source</a> |</p>
-<div class="admonition warning">
-<p class="admonition-title">beta</p>
-<p>Device Grove snap is released as beta for <code>arm64</code>. It is compatible with EdgeX 1.3 only.</p>
-<p>It does not support the snap configurations described above.</p>
-</div>
-<p>The default configuration files are under <code>/var/snap/edgex-device-grove/current/config/</code>. </p>
-<p>This device service is started by default. 
-Changes to the configuration files require a restart to take effect:
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span>restart<span class="w"> </span>edgex-device-grove
 </code></pre></div></p>
 <h3 id="device-modbus">Device Modbus</h3>
 <p>| <a href="https://snapcraft.io/edgex-device-modbus">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/device-modbus-go/tree/main/snap">Source</a> |</p>
