@@ -44,7 +44,8 @@ or by configuring the `AppCustom.CredentialsMap` which maps one or more MAC Addr
   - `none`: do not send any authentication headers
 
 ## Add Credentials to Secret Store
-> **Note:** Credentials can be added and modified via [utility scripts](./utility-scripts.md) after the service is running
+!!! Note
+        Credentials can be added and modified via [utility scripts](./utility-scripts.md) after the service is running
 
 ### Non-Secure Mode
 
@@ -54,8 +55,10 @@ or by configuring the `AppCustom.CredentialsMap` which maps one or more MAC Addr
 
 === "Manual"
 
-    > **Note:** Replace `<secret-name>` with the name of the secret, `<username>` with the username,
-    > `<password>` with the password, and `<mode>` with the auth mode.
+    <div class="admonition note">
+    <p class="admonition-title">
+    Replace `<secret-name>` with the name of the secret, `<username>` with the username, `<password>` with the password, and `<mode>` with the auth mode.</p>
+    </div>
 
     Set SecretName to `<device-name>`
     ```shell
@@ -91,8 +94,10 @@ or by configuring the `AppCustom.CredentialsMap` which maps one or more MAC Addr
 
     Credentials can be added via EdgeX Secrets:
 
-    > **Note:** Replace `<secret-name>` with the name for the new secret, `<username>` with the username,
-    > `<password>` with the password, and `<mode>` with the authentication mode.
+    <div class="admonition note">
+    <p class="admonition-title">
+    Replace `<secret-name>` with the name of the secret, `<username>` with the username, `<password>` with the password, and `<mode>` with the auth mode.</p>
+    </div>
 
     ```shell
     curl --location --request POST 'http://localhost:59984/api/v2/secret' \
@@ -119,7 +124,8 @@ or by configuring the `AppCustom.CredentialsMap` which maps one or more MAC Addr
     ```
 
 ## Mapping Credentials to Devices
-> **Note:** Credential mappings can be set via [utility scripts](./utility-scripts.md) after the service is running
+!!! Note
+        Credential mappings can be set via [utility scripts](./utility-scripts.md) after the service is running
 
 The device service supports three types of credential mapping. All three types can be used
 in conjunction with each other.
@@ -129,7 +135,8 @@ in conjunction with each other.
 - `1 to 1` - In the `CredentialsMap`, assign each secret name 1 MAC Address
 
 ### Manual Configuration
-> **Note:** Any key present in `AppCustom.CredentialsMap` must also exist in the secret store!
+!!! Note
+        Any key present in `AppCustom.CredentialsMap` must also exist in the secret store!
 ```toml
   # AppCustom.CredentialsMap is a map of SecretName -> Comma separated list of mac addresses.
 # Every SecretName used here must also exist as a valid secret in the Secret Store.

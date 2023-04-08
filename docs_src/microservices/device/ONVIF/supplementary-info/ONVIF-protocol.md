@@ -105,7 +105,8 @@ The device service supports the onvif features listed in the following table:
 |                                                                         |                   | [GetRuleOptions](https://www.onvif.org/ver20/analytics/wsdl/analytics.wsdl#op.GetRuleOptions)                                   | Object           |
 |                                                                         |                   | [ModifyRule](https://www.onvif.org/ver20/analytics/wsdl/analytics.wsdl#op.ModifyRules)                                          | Object           |
 
-**Note**: The functions in the bold text are **mandatory** for Onvif protocol.
+!!! Note
+		The functions in the bold text are **mandatory** for Onvif protocol.
 
 ## Custom Features
 The device service also include custom function to enhance the usage for the EdgeX user.
