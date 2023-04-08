@@ -46,7 +46,8 @@ curl --request PUT 'http://0.0.0.0:59882/api/v2/device/name/<device name>/Friend
     "statusCode": 200
 }
 ```
->Note: ensure all data is properly formatted json, and that all special characters are escaped if necessary
+!!! Note
+    ensure all data is properly formatted json, and that all special characters are escaped if necessary
 
 
 ## Get Friendly Name
@@ -101,7 +102,8 @@ MACAddress can also be set via Edgex device command.This is useful for setting t
 the MAC Address in the Endpoint Reference Address, or have been added manually without a MAC Address. 
 Since the MAC is used to map credentials for cameras, it is important to have this field filled out.
 
-> Note: When a camera successfully becomes `UpWithAuth`, the MAC Address is automatically queried and overridden by the system if available.
+!!! Note
+    When a camera successfully becomes `UpWithAuth`, the MAC Address is automatically queried and overridden by the system if available.
 Device resource MACAddress is used to set `MACAddress` of a camera.
 
 1. Use this command to set MACAddress field.
@@ -119,7 +121,8 @@ curl --request PUT 'http://0.0.0.0:59882/api/v2/device/name/<device name>/MACAdd
     "statusCode": 200
 }
 ```
->Note: ensure all data is properly formatted json, and that all special characters are escaped if necessary.
+!!! Note 
+    ensure all data is properly formatted json, and that all special characters are escaped if necessary.
 
 
 ## Get MAC Address
