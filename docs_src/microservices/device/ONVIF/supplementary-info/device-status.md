@@ -12,7 +12,7 @@ Currently, there are 4 different statuses that a camera can have
 - **Unreachable**: Cannot be seen by service at all. Typically, this means that there is a connection issue either physically or with the network.
 
 ### Status Check flow for each device
-```mermaid
+<div class="mermaid">
 %% Note: The node and edge definitions are split up to make it easier to adjust the
 %% links between the various nodes.
 flowchart TD;
@@ -67,7 +67,7 @@ flowchart TD;
         DeviceUnknown -->|Yes| RemoveDevice
         RemoveDevice --> CreateDevice
     end
-```
+</div>
 
 ## Configuration Options
 - Use `EnableStatusCheck` to enable the device status background service.

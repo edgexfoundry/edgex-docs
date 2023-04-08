@@ -163,7 +163,7 @@ Here is an in-depth look at the logic behind mapping `Credentials` to Devices.
 
 ### During Discovery
 
-```mermaid
+<div class="mermaid">
     %% Note: The node and edge definitions are split up to make it easier to adjust the
     %% links between the various nodes.
     flowchart TD;   
@@ -199,10 +199,10 @@ Here is an in-depth look at the logic behind mapping `Credentials` to Devices.
         GetDeviceInfo -->|Failed| CreateUnknownDevice
         GetDeviceInfo -->|Success| GetNetIfaces
         GetNetIfaces ----> CreateDevice
-```
+</div>
 
 ### Connecting to Existing Devices
-```mermaid
+<div class="mermaid">
 %% Note: The node and edge definitions are split up to make it easier to adjust the
 %% links between the various nodes.
 flowchart TD;
@@ -233,4 +233,4 @@ flowchart TD;
     InSecretStore -->|No| AuthModeNone
     AuthModeNone ----> CreateClient
     ApplyCreds ----> CreateClient
-```
+</div>
