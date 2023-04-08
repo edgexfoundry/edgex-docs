@@ -2,9 +2,10 @@
 
 The device-onvif-camera implement the Analytic function according to `Onvif Profile M` to manage the Analytics Module and Rule configuration.
 
-The spec can refer to 
-- https://www.onvif.org/specs/srv/analytics/ONVIF-Analytics-Service-Spec.pdf 
-- https://www.onvif.org/ver20/analytics/wsdl/analytics.wsdl
+The spec can refer to
+
+- <https://www.onvif.org/specs/srv/analytics/ONVIF-Analytics-Service-Spec.pdf>
+- <https://www.onvif.org/ver20/analytics/wsdl/analytics.wsdl>
 
 ## Overview
 This page uses the `BOSCH DINION IP starlight 6000 HD` as the test camera and used the `BOSCH Configuration Manager` as the camera viewer.
