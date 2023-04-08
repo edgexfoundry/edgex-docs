@@ -48,7 +48,7 @@ curl --request PUT 'http://0.0.0.0:59882/api/v2/device/name/<device name>/Custom
 }
 ```
 !!! Note
-        ensure all data is properly formatted json, and that all special characters are escaped if necessary
+        Ensure all data is properly formatted json, and that all special characters are escaped if necessary
 
 
 ### Get Custom Metadata
