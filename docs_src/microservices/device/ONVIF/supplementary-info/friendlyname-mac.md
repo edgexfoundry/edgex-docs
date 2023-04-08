@@ -1,4 +1,4 @@
-# Get and Set Friendly Name and MAC Address
+# Friendly Name and MAC Address
 
 Friendly name and MAC address can be set and retrieved for each camera added to the service.
 
@@ -47,7 +47,7 @@ curl --request PUT 'http://0.0.0.0:59882/api/v2/device/name/<device name>/Friend
 }
 ```
 !!! Note
-    ensure all data is properly formatted json, and that all special characters are escaped if necessary
+    Ensure all data is properly formatted json, and that all special characters are escaped if necessary
 
 
 ## Get Friendly Name
@@ -122,7 +122,7 @@ curl --request PUT 'http://0.0.0.0:59882/api/v2/device/name/<device name>/MACAdd
 }
 ```
 !!! Note 
-    ensure all data is properly formatted json, and that all special characters are escaped if necessary.
+    Ensure all data is properly formatted json, and that all special characters are escaped if necessary.
 
 
 ## Get MAC Address

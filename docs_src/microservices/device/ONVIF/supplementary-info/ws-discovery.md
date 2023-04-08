@@ -4,7 +4,7 @@ ONVIF devices support WS-Discovery, which is a mechanism that supports probing a
 
 Probe messages are sent over UDP to a standardized multicast address and UDP port number.
 
-<img src="images/auto-discovery.jpg" width="75%"/>
+![](../images/auto-discovery.jpg)
 
 WS-Discovery is generally faster than netscan becuase it only sends out one broadcast signal. However, it is normally limited by the network segmentation since the multicast packages typically do not traverse routers.
 
