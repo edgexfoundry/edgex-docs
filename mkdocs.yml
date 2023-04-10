@@ -85,13 +85,44 @@ nav:
         - './microservices/system-management/agent/Ch_SysMgmtAgent.md'
         - './microservices/system-management/executor/Ch_SysMgmtExecutor.md'
       - Devices Services:
+        - Supported Device Services:
+          - './microservices/device/Ch-DeviceServiceList.md'
+          - Device Onvif:
+            - './microservices/device/ONVIF/General.md'
+            - Walkthrough:
+              - './microservices/device/ONVIF/Walkthrough/setup.md'
+              - './microservices/device/ONVIF/Walkthrough/custom-build.md'
+              - './microservices/device/ONVIF/Walkthrough/deployment.md'
+              - './microservices/device/ONVIF/Walkthrough/general-usage.md'
+            - Supplementary Information:
+              - ONVIF Protocol:
+                - './microservices/device/ONVIF/supplementary-info/ONVIF-protocol.md'
+                - './microservices/device/ONVIF/supplementary-info/onvif-user-authentication.md'
+              - Features: 
+                - './microservices/device/ONVIF/supplementary-info/custom-metadata-feature.md'
+                - './microservices/device/ONVIF/supplementary-info/friendlyname-mac.md'
+                - './microservices/device/ONVIF/supplementary-info/device-status.md'
+                - './microservices/device/ONVIF/supplementary-info/auto-discovery.md'
+                - './microservices/device/ONVIF/supplementary-info/credentials.md' 
+                - './microservices/device/ONVIF/supplementary-info/reboot-needed.md'
+              - API Reference:
+                - './microservices/device/ONVIF/supplementary-info/api-analytic-support.md'
+                - './microservices/device/ONVIF/supplementary-info/api-event-handling.md'
+                - './microservices/device/ONVIF/supplementary-info/api-usage-user-handling.md'
+              - Utility:
+                - './microservices/device/ONVIF/supplementary-info/test-with-postman.md'
+                - './microservices/device/ONVIF/supplementary-info/utility-scripts.md'
+              - Miscellaneous:
+                - './microservices/device/ONVIF/supplementary-info/control-plane-events.md'
+                - './microservices/device/ONVIF/supplementary-info/getting-started-with-docker-security.md'
+                - './microservices/device/ONVIF/supplementary-info/ws-discovery.md'
+                - './microservices/device/ONVIF/supplementary-info/onvif-footnotes.md'
+          - './microservices/device/virtual/Ch-VirtualDevice.md'
         - './microservices/device/Ch-DeviceServices.md'
-        - './microservices/device/Ch-DeviceServiceList.md'
         - './microservices/device/profile/Ch-DeviceProfile.md'
         - './microservices/device/sdk/Ch-DeviceSDK.md'
         - Device SDK API:
           -  './microservices/device/sdk/SDK-Go-API.md'
-        - './microservices/device/virtual/Ch-VirtualDevice.md'
         - './microservices/device/V2Migration.md'
       - Application Services:
         - Introduction: './microservices/application/ApplicationServices.md'
@@ -195,6 +226,7 @@ extra_javascript:
 - assets\javascripts\version-select.js
 plugins:
   - search
+  - mermaid2
   - macros:
       include_yaml:
         - template_macros.yaml
