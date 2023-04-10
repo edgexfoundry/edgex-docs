@@ -73,13 +73,13 @@ flowchart TD;
 - Use `EnableStatusCheck` to enable the device status background service.
 - `CheckStatusInterval` is the interval at which the service will determine the status of each camera.
 
-```toml
-EnableStatusCheck = true
-
+```yaml
+# Enable or disable the built in status checking of devices, which runs every CheckStatusInterval.
+EnableStatusCheck: true
 # The interval in seconds at which the service will check the connection of all known cameras and update the device status 
 # A longer interval will mean the service will detect changes in status less quickly
-# Maximum 300s (1 hour)
-CheckStatusInterval = 30
+# Maximum 300s (5 minutes)
+CheckStatusInterval: 30
 ```
 
 ## Automatic Triggers

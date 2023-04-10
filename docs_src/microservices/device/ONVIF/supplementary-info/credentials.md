@@ -18,7 +18,7 @@ Three things must be done in order to add an authenticated camera to EdgeX:
 - **Secret Store**: The place EdgeX stores all `Secrets`
   - In secure mode this is `Vault`
   - In non-secure mode this is the configuration provider (typically `Consul`). 
-    They can be pre-configured via `configuration.toml`'s  `Writable.InsecureSecrets` section.
+    They can be pre-configured via `configuration.yaml`'s  `Writable.InsecureSecrets` section.
 - **Secret Name**: The name/key of the `Secret` as they are stored in the `Secret Store`.
 - **CredentialsMap**: (aka `AppCustom.CredentialsMap`) this contains the mappings between `Secret Name` and
     `MAC Address`. Each key in the map is a `Secret Name` which points to `Credentials` in the `Secret Store`. The value
@@ -137,32 +137,32 @@ in conjunction with each other.
 ### Manual Configuration
 !!! Note
         Any key present in `AppCustom.CredentialsMap` must also exist in the secret store!
-```toml
-  # AppCustom.CredentialsMap is a map of SecretName -> Comma separated list of mac addresses.
-# Every SecretName used here must also exist as a valid secret in the Secret Store.
-#
-# Note: Anything not defined here will be assigned the default credentials configured via `DefaultSecretName`.
-#
-# Example: (Single mapping for 1 mac address to 1 credential)
-#   credentials001 = "aa:bb:cc:dd:ee:ff"
-#
-# Example: (Multi mapping for 3 mac address to 1 shared credentials)
-#   credentials002 = "11:22:33:44:55:66,ff:ee:dd:cc:bb:aa,ab:12:12:34:34:56:56"
-#
-# These mappings can also be referred to as "groups". In the above case, the `credentials001` group has 1 MAC
-# Address, and the `credentials002` group has 3 MAC Addresses.
-#
-# The special group 'NoAuth' defines mac addresses of cameras where no authentication is needed.
-# The 'NoAuth' key does not exist in the SecretStore. It is not required to add MAC Addresses in here,
-# however it avoids sending the default credentials to cameras which do not need it.
-#
-# IMPORTANT: A MAC Address may only exist in one credential group. If a MAC address is defined in more
-# than one group, it is unpredictable which group the MAC will end up in! If you wish to change the group a MAC
-# address belongs to, first remove it from its existing group, and then add it to the new one.
-[AppCustom.CredentialsMap]
-NoAuth = "44:33:22:11:33:fd"
-credentials001 = "aa:bb:cc:dd:ee:ff"
-credentials002 = "11:22:33:44:55:66,ff:ee:dd:cc:bb:aa,ab:12:12:34:34:56:56"
+```yaml
+# AppCustom.CredentialsMap is a map of SecretName -> Comma separated list of mac addresses.
+  # Every SecretName used here must also exist as a valid secret in the Secret Store.
+  #
+  # Note: Anything not defined here will be assigned the default credentials configured via `DefaultSecretName`.
+  #
+  # Example: (Single mapping for 1 mac address to 1 credential)
+  #   credentials001 = "aa:bb:cc:dd:ee:ff"
+  #
+  # Example: (Multi mapping for 3 mac address to 1 shared credentials)
+  #   credentials002 = "11:22:33:44:55:66,ff:ee:dd:cc:bb:aa,ab:12:12:34:34:56:56"
+  #
+  # These mappings can also be referred to as "groups". In the above case, the `credentials001` group has 1 MAC
+  # Address, and the `credentials002` group has 3 MAC Addresses.
+  #
+  # The special group 'NoAuth' defines mac addresses of cameras where no authentication is needed.
+  # The 'NoAuth' key does not exist in the SecretStore. It is not required to add MAC Addresses in here,
+  # however it avoids sending the default credentials to cameras which do not need it.
+  #
+  # IMPORTANT: A MAC Address may only exist in one credential group. If a MAC address is defined in more
+  # than one group, it is unpredictable which group the MAC will end up in! If you wish to change the group a MAC
+  # address belongs to, first remove it from its existing group, and then add it to the new one.
+  CredentialsMap:
+    NoAuth: ""
+    credentials001: "aa:bb:cc:dd:ee:ff"
+    credentials002: "11:22:33:44:55:66,ff:ee:dd:cc:bb:aa,ab:12:12:34:34:56:56"
 ```
 
 ## Credential Lookup

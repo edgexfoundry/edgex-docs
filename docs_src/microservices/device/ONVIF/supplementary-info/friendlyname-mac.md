@@ -5,24 +5,23 @@ Friendly name and MAC address can be set and retrieved for each camera added to 
 
 ## Preset FriendlyName
 `FriendlyName` is an element in the `Onvif ProtocolProperties` device field. It is initialized to be empty or `<Manufacturer+Model>`
-if credentials are provided on discovery. The user can also pre-define this field in a camera.toml file.
+if credentials are provided on discovery. The user can also pre-define this field in a camera.yaml file.
 
-If you add pre-defined devices, set up the `FriendlyName` field as shown in the
-[camera.toml.example file](../cmd/res/devices/camera.toml.example).
+If you add pre-defined devices, set up the `FriendlyName` field as shown in the `cmd/res/devices/camera.yaml.example`.
 
-```toml
+```yaml
 # Pre-defined Devices
-[[DeviceList]]
-Name = "Camera001"
-ProfileName = "onvif-camera"
-Description = "onvif conformant camera"
-  [DeviceList.Protocols]
-    [DeviceList.Protocols.Onvif]
-    Address = "192.168.12.123"
-    Port = "80"
-    FriendlyName = "Home camera"
-    [DeviceList.Protocols.CustomMetadata]
-    Location = "Front door"
+deviceList:
+  - name: Camera001
+    profileName: onvif-camera
+    description: onvif conformant camera
+    protocols:
+      Onvif:
+        Address: 192.168.12.123
+        Port: '80'
+        FriendlyName: Home camera
+      CustomMetadata:
+        Location: Front door
 ```
 
 ## Set Friendly Name
@@ -89,12 +88,12 @@ curl http://localhost:59882/api/v2/device/name/<device name>/FriendlyName | jq .
 ## Preset MACAddress
 `MACAddress` is an element in the `Onvif ProtocolProperties` device field. It will be set to empty string if no value is provided, or
 it will be set with the MAC address value of the camera if valid credentials are provided.
-The user can pre-define this field in a camera.toml file.
+The user can pre-define this field in a camera.yaml file.
 
 
 
 If you add pre-defined devices, set up the `MACAddress` field as shown in the
-[camera.toml.example file](../cmd/res/devices/camera.toml.example).
+`cmd/res/devices/camera.yaml.example`).
 
 ## Set MAC Address
 

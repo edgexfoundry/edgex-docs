@@ -35,22 +35,21 @@ SecretName should contain:
 * username
 * password
 
-For development purpose, we can define the secrets in the configuration.toml
-```
-[Writable]
+For development purpose, we can define the secrets in the configuration.yaml
+```yaml
+Writable:
 ...
-  [Writable.InsecureSecrets]
-    [Writable.InsecureSecrets.Camera001]
-    secretName = "credentials001"
-      [Writable.InsecureSecrets.Camera001.SecretData]
-      username = "administrator"
-      password = "Password1"
-    # If having more than one camera, uncomment the following config settings
-    [Writable.InsecureSecrets.Camera002]
-    secretName = "credentials002"
-      [Writable.InsecureSecrets.Camera002.SecretData]
-      username = "administrator"
-      password = "Password1"
+  InsecureSecrets:
+    Camera001:
+      SecretName: credentials001
+      SecretData:
+        username: administrator
+        password: Password1
+    Camera002:
+      SecretName: credentials002
+      SecretData:
+        username: administrator
+        password: Password1
 ```
 
 ## WS-Usernametoken
