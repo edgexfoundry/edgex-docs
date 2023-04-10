@@ -71,7 +71,7 @@ bin/configure-subnets.sh [-s/--secure-mode] [-t <consul token>]
 ### About
 The purpose of this script is to make it easier for an end user to configure Onvif device discovery
 without the need to have knowledge about subnets and/or CIDR format. The `DiscoverySubnets` config
-option defaults to blank in the `configuration.toml` file, and needs to be provided before a discovery can occur.
+option defaults to blank in the `configuration.yaml` file, and needs to be provided before a discovery can occur.
 This allows the device-onvif-camera device service to be run in a NAT-ed environment without host-mode networking,
 because the subnet information is user-provided and does not rely on `device-onvif-camera` to detect it.
 

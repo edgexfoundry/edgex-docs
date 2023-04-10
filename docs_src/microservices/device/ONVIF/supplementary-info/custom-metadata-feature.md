@@ -4,23 +4,22 @@ Custom metadata can be applied and retrieved for each camera added to the servic
 
 ## Usage
 
-- The `CustomMetadata` map is an element in the `ProtocolProperties` device field. It is initialized to be empty on discovery, so the user can add their desired fields. Otherwise, the user can pre-define this field in a camera.toml file.
+- The `CustomMetadata` map is an element in the `ProtocolProperties` device field. It is initialized to be empty on discovery, so the user can add their desired fields. Otherwise, the user can pre-define this field in a camera.yaml file.
 
 ### Preset Custom Metadata
 
-If you add pre-defined devices, set up the `CustomMetadata` object as shown in the [camera.toml.example file](../cmd/res/devices/camera.toml.example).
+If you add pre-defined devices, set up the `CustomMetadata` object as shown in the `cmd/res/devices/camera.yaml.example`.
 
-```toml
-# Pre-defined Devices
-[[DeviceList]]
-Name = "Camera001"
-ProfileName = "onvif-camera"
-Description = "onvif conformant camera"
-  [DeviceList.Protocols]
-    ... 
-    [DeviceList.Protocols.CustomMetadata]
-    Location = "Front door"
-    Color = "Black and white"
+```yaml
+deviceList:
+  - name: Camera001
+    profileName: onvif-camera
+    description: onvif conformant camera
+    protocols:
+      ...
+      CustomMetadata:
+        Location: Front door
+        Color: Black and white
 ```
 
 

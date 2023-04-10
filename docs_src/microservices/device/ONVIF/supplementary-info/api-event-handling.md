@@ -83,11 +83,12 @@ Before receiving the event data from the camera, we must define a device resourc
     ```
 
 * Define a driver config BaseNotificationURL to indicate the device service network location
-    ```
-    # configuration.toml
-    [Driver]
-    # BaseNotificationURL indicates the device service network location, the user must replace the host to match their machine
-    BaseNotificationURL = "http://192.168.12.112:59984"
+    ```yaml
+    # configuration.yaml
+    AppCustom:
+      # BaseNotificationURL indicates the device service network location (which should be accessible from onvif devices on the network), when
+      # configuring an Onvif Event subscription.
+      BaseNotificationURL: 'http://192.168.12.112:59984'
     ```
 
 Device service will generate the following path for pushing event from Camera to device service:

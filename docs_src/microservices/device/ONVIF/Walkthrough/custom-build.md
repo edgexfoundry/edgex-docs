@@ -21,28 +21,28 @@ Follow this guide to make custom configurations and build the device service ima
 
 Configuring pre-defined devices will allow the service to automatically provision them into core-metadata. Create a list of devices with the appropriate information as outlined below.
 
-1. Make a copy of the `camera.toml.example`:  
+1. Make a copy of the `camera.yaml.example`:  
    ```bash
-   cp ./cmd/res/devices/camera.toml.example ./cmd/res/devices/camera.toml
+   cp ./cmd/res/devices/camera.yaml.example ./cmd/res/devices/camera.yaml
    ```
 
-1. Open the `cmd/res/devices/camera.toml` file using your preferred text editor and update the `Address` and `Port` fields to match the IP address of the Camera and port used for ONVIF services:
+1. Open the `cmd/res/devices/camera.yaml` file using your preferred text editor and update the `Address` and `Port` fields to match the IP address of the Camera and port used for ONVIF services:
 
-      ```toml
-      [[DeviceList]]
-      Name = "Camera001"                         # Modify as desired
-      ProfileName = "onvif-camera"               # Default profile
-      Description = "onvif conformant camera"    # Modify as desired
-         [DeviceList.Protocols]
-            [DeviceList.Protocols.Onvif]
-            Address = "191.168.86.34"              # Set to your camera IP address
-            Port = "2020"                          # Set to the port your camera uses
-            SecretName = "credentials001"
-            [DeviceList.Protocols.CustomMetadata]
-            CommonName = "Outdoor camera"
+      ```yaml
+      deviceList:
+      - name: Camera001                         # Modify as desired
+         profileName: onvif-camera              # Default profile
+         description: onvif conformant camera   # Modify as desired
+         protocols:
+            Onvif:
+               Address: 191.168.86.34              # Set to your camera IP address
+               Port: '2020'                           # Set to the port your camera uses
+               SecretName: credentials001
+            CustomMetadata:
+               CommonName: Outdoor camera
       ```
       <p align="left">
-         <i>Sample: Snippet from camera.toml</i>
+         <i>Sample: Snippet from camera.yaml</i>
       </p>
 
 1. Optionally, modify the `Name` and `Description` fields to more easily identify the camera. The `Name` is the camera name used when using ONVIF Device Service Rest APIs. The `Description` is simply a more detailed explanation of the camera.
@@ -52,32 +52,32 @@ Configuring pre-defined devices will allow the service to automatically provisio
 
 
 ### Configure the Device Service
-1. Open the [configuration.toml](./cmd/res/configuration.toml) file using your preferred text editor
+1. Open the `cmd/res/configuration.yaml` file using your preferred text editor
 
-1. Make sure `secret name` is set to match `SecretName` in `camera.toml`. In the sample below, it is `"credentials001"`. If you have multiple cameras, make sure the secret names match.
+1. Make sure `secret name` is set to match `SecretName` in `camera.yaml`. In the sample below, it is `"credentials001"`. If you have multiple cameras, make sure the secret names match.
 
 1. Under `secretName`, set `username` and `password` to your camera credentials. If you have multiple cameras copy the `Writable.InsecureSecrets` section and edit to include the new information.
 
-   ```toml
-   [Writable]
-      [Writable.InsecureSecrets.credentials001]
-      secretName = "credentials001"
-         [Writable.InsecureSecrets.credentials001.SecretData]
-         username = "<Credentials 1 username>"
-         password = "<Credentials 1 password>"
-         mode = "usernametoken" # assign "digest" | "usernametoken" | "both" | "none"
-
-      [Writable.InsecureSecrets.credentials002]
-      secretName = "credentials002"s
-         [Writable.InsecureSecrets.credentials002.SecretData]
-         username = "<Credentials 1 password>"
-         password = "<Credentials 2 password>"
-         mode = "usernametoken" # assign "digest" | "usernametoken" | "both" | "none"
-
+   ```yaml
+   Writable:
+   LogLevel: INFO
+   InsecureSecrets:
+      credentials001:
+         SecretName: credentials001
+         SecretData:
+         username: <Credentials 1 username>
+         password: <Credentials 1 password>
+         mode: usernametoken   # assign "digest" | "usernametoken" | "both" | "none"
+      credentials002:
+         SecretName: credentials002
+         SecretData:
+         username: <Credentials 2 username>
+         password: <Credentials 2 password>
+         mode: usernametoken    # assign "digest" | "usernametoken" | "both" | "none"
    ```
 
    <p align="left">
-      <i>Sample: Snippet from configuration.toml</i>
+      <i>Sample: Snippet from configuration.yaml</i>
    </p>
 
 ### Additional Configuration Options
