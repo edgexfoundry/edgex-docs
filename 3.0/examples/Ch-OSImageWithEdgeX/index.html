@@ -1762,7 +1762,7 @@ In the next section, we will add this as the public key of the admin user.</p>
 <span class="s1">    "typ": "JWT"</span>
 <span class="s1">}'</span>
 
-<span class="nv">TTL</span><span class="o">=</span><span class="k">$((</span>EPOCHSECONDS+86400<span class="k">))</span><span class="w"> </span><span class="c1"># valid for 1 day</span>
+<span class="nv">TTL</span><span class="o">=</span><span class="k">$((</span><span class="nv">EPOCHSECONDS</span><span class="o">+</span><span class="m">86400</span><span class="k">))</span><span class="w"> </span><span class="c1"># valid for 1 day</span>
 
 <span class="nv">payload</span><span class="o">=</span><span class="s1">'{</span>
 <span class="s1">    "iss":"'</span><span class="nv">$USER_ID</span><span class="s1">'",</span>
