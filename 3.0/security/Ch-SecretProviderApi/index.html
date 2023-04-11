@@ -465,8 +465,8 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#listsecretpaths">
-    ListSecretPaths
+<a class="md-nav__link" href="#listsecretnames">
+    ListSecretNames
   </a>
 </li>
 <li class="md-nav__item">
@@ -475,18 +475,14 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#secretsupdated-do-not-use">
-    SecretsUpdated - Do not use
+<a class="md-nav__link" href="#registeredsecretupdatedcallback">
+    RegisteredSecretUpdatedCallback
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#getaccesstoken-do-not-use">
-    GetAccessToken  - Do not use
+<a class="md-nav__link" href="#deregistersecretupdatedcallback">
+    DeregisterSecretUpdatedCallback
   </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#_1">
-</a>
 </li>
 </ul>
 </nav>
@@ -1228,8 +1224,8 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#listsecretpaths">
-    ListSecretPaths
+<a class="md-nav__link" href="#listsecretnames">
+    ListSecretNames
   </a>
 </li>
 <li class="md-nav__item">
@@ -1238,18 +1234,14 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#secretsupdated-do-not-use">
-    SecretsUpdated - Do not use
+<a class="md-nav__link" href="#registeredsecretupdatedcallback">
+    RegisteredSecretUpdatedCallback
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#getaccesstoken-do-not-use">
-    GetAccessToken  - Do not use
+<a class="md-nav__link" href="#deregistersecretupdatedcallback">
+    DeregisterSecretUpdatedCallback
   </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#_1">
-</a>
 </li>
 </ul>
 </nav>
@@ -1270,49 +1262,42 @@
 <h2 id="api">API</h2>
 <h3 id="interface-definition">Interface definition</h3>
 <div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">SecretProvider</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">StoreSecret</span><span class="p">(</span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">secrets</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
-<span class="w">    </span><span class="nx">GetSecret</span><span class="p">(</span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">keys</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
-<span class="w">    </span><span class="nx">HasSecret</span><span class="p">(</span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
-<span class="w">    </span><span class="nx">ListSecretPaths</span><span class="p">()</span><span class="w"> </span><span class="p">([]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
-<span class="w">    </span><span class="nx">SecretsLastUpdated</span><span class="p">()</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
-<span class="w">    </span><span class="nx">SecretsUpdated</span><span class="p">()</span>
-<span class="w">    </span><span class="nx">GetAccessToken</span><span class="p">(</span><span class="nx">tokenType</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">serviceKey</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">StoreSecret</span><span class="p">(</span><span class="nx">secretName</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">secrets</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">GetSecret</span><span class="p">(</span><span class="nx">secretName</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">keys</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">HasSecret</span><span class="p">(</span><span class="nx">secretName</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">ListSecretNames</span><span class="p">()</span><span class="w"> </span><span class="p">([]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">SecretsLastUpdated</span><span class="p">()</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="w">  </span>
+<span class="w">    </span><span class="nx">RegisteredSecretUpdatedCallback</span><span class="p">(</span><span class="nx">secretName</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">callback</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">))</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">DeregisterSecretUpdatedCallback</span><span class="p">(</span><span class="nx">secretName</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="storesecret">StoreSecret</h3>
-<p><code>StoreSecret(path string, secrets map[string]string) error</code></p>
+<p><code>StoreSecret(secretName string, secrets map[string]string) error</code></p>
 <p>Stores new secrets into the service's SecretStore at the specified path (aka secret name). An error is returned if the secrets can not be stored.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This API is only valid to call when in secure mode. It will return an error when in non-secure mode. Insecure Secrets should be added/updated directly in the configuration file or via the Configuration Provider (aka Consul).</p>
 </div>
 <h3 id="getsecret">GetSecret</h3>
-<p><code>GetSecret(path string, keys ...string) (map[string]string, error)</code></p>
+<p><code>GetSecret(secretName string, keys ...string) (map[string]string, error)</code></p>
 <p>Retrieves the secrets from the service's SecretStore for the specified path (aka secret name). The list of keys is optional and limits the secret data returned to just those keys specified, otherwise all keys are returned. An error is returned if the path doesn't exist in the service's Secret Store or if one or more of the optional keys specified are not present.</p>
 <h3 id="hassecret">HasSecret</h3>
-<p><code>HasSecret(path string) (bool, error)</code></p>
+<p><code>HasSecret(secretName string) (bool, error)</code></p>
 <p>Returns true if the service's Secret Store contains a secret at the specified path  (aka secret name) . An error is retuned if the Secret Store can not be accessed.</p>
-<h3 id="listsecretpaths">ListSecretPaths</h3>
-<p><code>ListSecretPaths() ([]string, error)</code></p>
+<h3 id="listsecretnames">ListSecretNames</h3>
+<p><code>ListSecretNames() ([]string, error)</code></p>
 <p>Returns a list of paths (aka secret names) from the current service's Secret Store. An error is retuned if the Secret Store can not be accessed.</p>
 <h3 id="secretslastupdated">SecretsLastUpdated</h3>
 <p><code>SecretsLastUpdated() time.Time</code></p>
 <p>Returns the timestamp for last time when the service's secrets were updated in its Secret Store. This is useful when using external client that is initialized with the secret and needs to be recreated if the secret has changed. </p>
-<h3 id="secretsupdated-do-not-use">SecretsUpdated - Do not use</h3>
-<p><code>SecretsUpdated()</code></p>
-<p>Sets the service's secrets last updated time to current time. </p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function is used internally when secrets are update either via <code>StoreSecret</code> function or when the writable <code>InscureSecrets</code> have been update in the Configuration Provider (aka Consul). <strong>Not useful for an Application or Device service to use and will be hidden in future EdgeX 3.0 release.</strong></p>
-</div>
-<h3 id="getaccesstoken-do-not-use">GetAccessToken  - Do not use</h3>
-<p><code>GetAccessToken(tokenType string, serviceKey string) (string, error)</code></p>
-<p>Returns an access token for the Configuration Provider or Registry Provider for the specified token type and service key. </p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This is used by the internal bootstrapping code and is not useful for an Application or Device service to use. <strong>This API will be hidden in future EdgeX 3.0 release.</strong>**</p>
-</div>
-<h3 id="_1"></h3>
+<h3 id="registeredsecretupdatedcallback">RegisteredSecretUpdatedCallback</h3>
+<div class="codehilite"><pre><span></span><code>RegisteredSecretUpdatedCallback(secretName string, callback func(path string)) error
+</code></pre></div>
+<p>Registers a callback for when the  specified <code>secretName</code> is added or updated.</p>
+<h3 id="deregistersecretupdatedcallback">DeregisterSecretUpdatedCallback</h3>
+<div class="codehilite"><pre><span></span><code><span class="n">DeregisterSecretUpdatedCallback</span><span class="p">(</span><span class="n">secretName</span><span class="w"> </span><span class="k">string</span><span class="p">)</span>
+</code></pre></div>
+<p>Removes the registered callback for the specified <code>secretName</code></p>
 </article>
 </div>
 </div>
