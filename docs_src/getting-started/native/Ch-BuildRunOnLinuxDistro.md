@@ -104,7 +104,7 @@ Enter the `edgex-go` folder and issue the `make build` command as shown below.
 
 ### Build the Virtual Device Service
 
-The [virtual device service](../../microservices/device/virtual/Ch-VirtualDevice.md) simulates devices/sensors sending data to EdgeX as if it was a "thing".  This guide uses the virtual device service to exemplify how other devices services can be built and run.
+The [virtual device service](../../microservices/device/supported/device-virtual/Ch-VirtualDevice.md) simulates devices/sensors sending data to EdgeX as if it was a "thing".  This guide uses the virtual device service to exemplify how other devices services can be built and run.
 
 Enter the `device-virtual-go` folder and issue the `make build` command as shown below.
 

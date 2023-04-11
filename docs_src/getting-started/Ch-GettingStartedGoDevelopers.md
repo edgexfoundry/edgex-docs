@@ -142,7 +142,7 @@ This will start the EdgeX go service and leave it running in the background unti
     ``` bash
     pkill core-metadata
     ```
-Start as many services as you need in order to carry out your development, testing, etc.  As an absolute minimal set, you will typically need to run core-metadata, core-data, core-command and a device service.  Selection of the device service will depend on which physical sensor or device you want to use (or use the [virtual device](../microservices/device/virtual/Ch-VirtualDevice.md) to simulate a sensor).  Here are the set of commands to launch core-data and core-command (in addition to core-metadata above)
+Start as many services as you need in order to carry out your development, testing, etc.  As an absolute minimal set, you will typically need to run core-metadata, core-data, core-command and a device service.  Selection of the device service will depend on which physical sensor or device you want to use (or use the [virtual device](../microservices/device/supported/device-virtual/Ch-VirtualDevice.md) to simulate a sensor).  Here are the set of commands to launch core-data and core-command (in addition to core-metadata above)
 
 ``` bash
 cd ../core-data/
