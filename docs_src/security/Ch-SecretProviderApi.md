@@ -10,19 +10,19 @@ The SecretProvider API is available to custom Application and Device Services to
 
 ```go
 type SecretProvider interface {
-	StoreSecret(path string, secrets map[string]string) error
-	GetSecret(path string, keys ...string) (map[string]string, error)
-	HasSecret(path string) (bool, error)
-	ListSecretPaths() ([]string, error)
-	SecretsLastUpdated() time.Time
-    SecretsUpdated()
-	GetAccessToken(tokenType string, serviceKey string) (string, error)
+	StoreSecret(secretName string, secrets map[string]string) error
+	GetSecret(secretName string, keys ...string) (map[string]string, error)
+    HasSecret(secretName string) (bool, error)
+	ListSecretNames() ([]string, error)
+	SecretsLastUpdated() time.Time	
+    RegisteredSecretUpdatedCallback(secretName string, callback func(path string)) error
+	DeregisterSecretUpdatedCallback(secretName string)
 }
 ```
 
 ### StoreSecret
 
-`StoreSecret(path string, secrets map[string]string) error`
+`StoreSecret(secretName string, secrets map[string]string) error`
 
 Stores new secrets into the service's SecretStore at the specified path (aka secret name). An error is returned if the secrets can not be stored.
 
@@ -31,19 +31,19 @@ Stores new secrets into the service's SecretStore at the specified path (aka sec
 
 ### GetSecret
 
-`GetSecret(path string, keys ...string) (map[string]string, error)`
+`GetSecret(secretName string, keys ...string) (map[string]string, error)`
 
 Retrieves the secrets from the service's SecretStore for the specified path (aka secret name). The list of keys is optional and limits the secret data returned to just those keys specified, otherwise all keys are returned. An error is returned if the path doesn't exist in the service's Secret Store or if one or more of the optional keys specified are not present.
 
 ### HasSecret 
 
-`HasSecret(path string) (bool, error)`
+`HasSecret(secretName string) (bool, error)`
 
 Returns true if the service's Secret Store contains a secret at the specified path  (aka secret name) . An error is retuned if the Secret Store can not be accessed.
 
-### ListSecretPaths 
+### ListSecretNames 
 
-`ListSecretPaths() ([]string, error)`
+`ListSecretNames() ([]string, error)`
 
 Returns a list of paths (aka secret names) from the current service's Secret Store. An error is retuned if the Secret Store can not be accessed.
 
@@ -53,22 +53,14 @@ Returns a list of paths (aka secret names) from the current service's Secret Sto
 
 Returns the timestamp for last time when the service's secrets were updated in its Secret Store. This is useful when using external client that is initialized with the secret and needs to be recreated if the secret has changed. 
 
-### SecretsUpdated - Do not use
+### RegisteredSecretUpdatedCallback
 
-`SecretsUpdated()`
+    RegisteredSecretUpdatedCallback(secretName string, callback func(path string)) error
 
-Sets the service's secrets last updated time to current time. 
+Registers a callback for when the  specified `secretName` is added or updated.
 
-!!! note
-    This function is used internally when secrets are update either via `StoreSecret` function or when the writable `InscureSecrets` have been update in the Configuration Provider (aka Consul). **Not useful for an Application or Device service to use and will be hidden in future EdgeX 3.0 release.**
+### DeregisterSecretUpdatedCallback
 
-### GetAccessToken  - Do not use
+    DeregisterSecretUpdatedCallback(secretName string)
 
-`GetAccessToken(tokenType string, serviceKey string) (string, error)`
-
-Returns an access token for the Configuration Provider or Registry Provider for the specified token type and service key. 
-
-!!! note
-    This is used by the internal bootstrapping code and is not useful for an Application or Device service to use. **This API will be hidden in future EdgeX 3.0 release.****
-
-### 
+Removes the registered callback for the specified `secretName`
