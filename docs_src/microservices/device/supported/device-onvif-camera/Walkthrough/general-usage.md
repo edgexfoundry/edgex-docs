@@ -18,7 +18,7 @@ This document will describe how to execute some of the most important types of c
         profileToken: profile_2
         ```
 
-2. To get the RTSP URI from the ONVIF device, execute the `GetStreamURI` command, using a profileToken found in step 1:  
+2. To get the RTSP URI from the ONVIF device, execute the `GetStreamURI` command, using a profileToken found in [step 1](#step1):  
         In this example, `profile_1` is the profileToken:  
         ```bash
         curl -s "http://0.0.0.0:59882/api/v2/device/name/Camera001/StreamUri?jsonObject=$(base64 -w 0 <<< '{
@@ -53,7 +53,7 @@ This document will describe how to execute some of the most important types of c
 
 4. To shut down ffplay, use the ctrl-c command.
 
-<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/device-onvif-camera/{{dev_version}}/doc/openapi/{{api_version}}/device-onvif-camera.yaml"/>
+<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/device-onvif-camera/{{dev_version}}/doc/openapi/v2/device-onvif-camera.yaml"/>
 
 # License
 

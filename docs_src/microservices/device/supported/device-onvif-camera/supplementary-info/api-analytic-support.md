@@ -1,8 +1,5 @@
 # Analytic Support
 
-!!! Warning
-      Information in this page may be outdated.
-
 The device-onvif-camera implement the Analytic function according to `Onvif Profile M` to manage the Analytics Module and Rule configuration.
 
 The spec can refer to

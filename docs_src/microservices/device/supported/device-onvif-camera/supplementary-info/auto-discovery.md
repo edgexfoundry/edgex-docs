@@ -16,7 +16,7 @@ Device discovery is triggered by the device SDK. Once the device service starts,
 
 ### Step 1. Discovery Configuration
 
-> _See [Configuration Section](./#configuration-guide) for full details_
+> _See [Configuration Section](./#Configuration-Guide) for full details_
 
 !!! Note
         Alternatively, for `netscan` you can set the `DiscoverySubnets` automatically _after_ the service has been deployed by running the [bin/configure-subnets.sh](./utility-scripts.md#configure-subnetssh) script
@@ -85,7 +85,7 @@ See [Credentials Guide](credentials.md) for more information.
 
 #### netscan
 `netscan` works by sending unicast UDP [WS-Discovery](./ws-discovery.md) probes to a set of 
-IP addresses on the CIDR subnet(s) configured via [`DiscoverySubnets`](#discoverysubnets).
+IP addresses on the CIDR subnet(s) configured via [`DiscoverySubnets`](#DiscoverySubnets).
 
 For example, if the provided CIDR is `10.0.0.0/24`, it will probe the all IP addresses 
 from `10.0.0.1` to `10.0.0.254`. This will result in a total of 254 probes on the network.
@@ -242,9 +242,9 @@ flowchart TD
 #### netscan discovery was called, but DiscoverySubnets are empty!
 This message occurs when you have not configured the `AppCustom.DiscoverySubnets` configuration.
 It is required in order to know which subnets to scan for Onvif Cameras.
-See [here](#discoverysubnets)
+See [here](#DiscoverySubnets)
 
 #### route ip+net: no such network interface
 This message occurs when you have multicast discovery enabled, but `AppCustom.DiscoveryEthernetInterface`
 is configured to a network interface that does not exist.
-See [here](#discoveryethernetinterface)
+See [here](#DiscoveryEthernetInterface)
