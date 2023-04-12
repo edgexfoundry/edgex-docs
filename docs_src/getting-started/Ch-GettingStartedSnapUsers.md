@@ -370,14 +370,10 @@ Upon installation, the following EdgeX services are automatically started:
 - security-proxy-setup (oneshot service to setup API gateway)
 - security-secretstore-setup (oneshot service to setup Vault)
 - vault (Secret Store)
-
-The following services are disabled by default:
-
 - support-notifications
 - support-scheduler
-- sys-mgmt-agent - *deprecated EdgeX component*
 
-The disabled services can be manually enabled and started; see [managing services].
+The services can be disabled and stopped; see [managing services].
 
 For the configuration of services, refer to [configuration].
 
