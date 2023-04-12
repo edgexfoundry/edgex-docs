@@ -1,5 +1,8 @@
 # Custom Build
 
+!!! Warning
+      This is not the recommended method of deploying the service. To use the default images, see [here](./deployment.md).
+
 Follow this guide to make custom configurations and build the device service image from the source.
 
 ## Get the Source Code
@@ -52,7 +55,7 @@ Configuring pre-defined devices will allow the service to automatically provisio
 
 
 ### Configure the Device Service
-1. Open the [configuration.toml](./cmd/res/configuration.toml) file using your preferred text editor
+1. Open the `./cmd/res/configuration.toml` file using your preferred text editor
 
 1. Make sure `secret path` is set to match `SecretPath` in `camera.toml`. In the sample below, it is `"credentials001"`. If you have multiple cameras, make sure the secret paths match.
 
@@ -131,7 +134,7 @@ Here is some information on how to specially configure parts of the service beyo
 
 ### Configure the Device Profiles
 
-The device profile contains general information about the camera and includes all of the device resources and commands that the device resources can use to manage the cameras. The default [profile](../cmd/res/camera.yaml) contains all possible resources a camera could implement. Enable and disable supported resources in this file, or create an entirely new profile. It is important to set up the device profile to match the capabilities of the camera. Information on the resources supported by specific cameras can be found [here](../supplementary-info/ONVIF-protocol.md#tested-onvif-cameras). Learn more about device profiles in EdgeX [here.](https://docs.edgexfoundry.org/1.2/microservices/device/profile/Ch-DeviceProfile/)
+The device profile contains general information about the camera and includes all of the device resources and commands that the device resources can use to manage the cameras. The default `../cmd/res/camera.yaml` contains all possible resources a camera could implement. Enable and disable supported resources in this file, or create an entirely new profile. It is important to set up the device profile to match the capabilities of the camera. Information on the resources supported by specific cameras can be found [here](../supplementary-info/ONVIF-protocol.md#tested-onvif-cameras). Learn more about device profiles in EdgeX [here.](https://docs.edgexfoundry.org/1.2/microservices/device/profile/Ch-DeviceProfile/)
 
 ```yaml
 name: "onvif-camera" # general information about the profile

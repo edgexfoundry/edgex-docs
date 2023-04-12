@@ -16,7 +16,7 @@ Device discovery is triggered by the device SDK. Once the device service starts,
 
 ### Step 1. Discovery Configuration
 
-> _See [Configuration Section](./#Configuration-Guide) for full details_
+> _See [Configuration Section](./#configuration-guide) for full details_
 
 !!! Note
         Alternatively, for `netscan` you can set the `DiscoverySubnets` automatically _after_ the service has been deployed by running the [bin/configure-subnets.sh](./utility-scripts.md#configure-subnetssh) script

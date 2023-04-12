@@ -129,6 +129,9 @@ The table below lists command line tools this guide uses to help with EdgeX conf
 ## Next Steps
 
    [Default Images>](./deployment.md){: .md-button }
+!!! Warning
+      While not recommended, you can follow the process for manually building the images.
+
    [Build Images>](./custom-build.md){: .md-button } 
 
 ## License
