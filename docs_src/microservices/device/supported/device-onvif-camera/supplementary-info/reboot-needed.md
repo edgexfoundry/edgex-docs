@@ -1,5 +1,8 @@
 # RebootNeeded
 
+!!! Warning
+      Information in this page may be outdated.
+
 Currently, only the SetNetworkInterfaces function returns the **RebootNeeded** value. If **RebootNeeded** is true, the user needs to reboot the camera to apply the config changes.
 
 Since the Set command can't return the **RebootNeeded** value in the command response, the device service will store the value, then the user can use the custom web service **EdgeX** and function **RebootNeeded** to check the value.

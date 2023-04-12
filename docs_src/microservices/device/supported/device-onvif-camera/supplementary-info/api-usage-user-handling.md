@@ -1,5 +1,8 @@
 # User Handling
 
+!!! Warning
+      Information in this page may be outdated.
+
 The device service shall be able to create, list, modify and delete users from the device using the CreateUsers, GetUsers, SetUser and DeleteUsers operations.
 
 The spec can refer to https://www.onvif.org/ver10/device/wsdl/devicemgmt.wsdl

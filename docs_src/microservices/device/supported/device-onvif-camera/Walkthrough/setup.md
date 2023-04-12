@@ -110,16 +110,6 @@ The table below lists command line tools this guide uses to help with EdgeX conf
    cd edgex-compose
    ```
 
-1. Checkout the Levski release:
-   ```bash
-   git checkout levski
-   ```
-
-      <div class="admonition note">
-         <p class="admonition-title">Note</p>
-         <p>The `levski` branch is the latest stable branch at the time of this update.</p>
-      </div>
-
 1. Navigate back to your home directory:
       ```bash
       cd ~
@@ -129,6 +119,10 @@ The table below lists command line tools this guide uses to help with EdgeX conf
 ## Next Steps
 
    [Default Images>](./deployment.md){: .md-button }
+
+!!! Warning
+      While not recommended, you can follow the process for manually building the images.
+
    [Build Images>](./custom-build.md){: .md-button } 
 
 ## License
