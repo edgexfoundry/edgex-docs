@@ -2,6 +2,9 @@
 
 Follow this guide to make custom configurations and build the device service image from the source.
 
+!!! Warning
+      This is not the recommended method of deploying the service. To use the default images, see [here](./deployment.md).
+
 ## Get the Source Code
 
 1. Clone the device-onvif-camera repository.
@@ -37,7 +40,6 @@ Configuring pre-defined devices will allow the service to automatically provisio
             Onvif:
                Address: 191.168.86.34              # Set to your camera IP address
                Port: '2020'                           # Set to the port your camera uses
-               SecretName: credentials001
             CustomMetadata:
                CommonName: Outdoor camera
       ```
@@ -163,23 +165,19 @@ deviceResources:
 
 The provision watcher sets up parameters for EdgeX to automatically add devices to core-metadata. They can be configured to look for certain features, as well as block features. The default provision watcher is sufficient unless you plan on having multiple different cameras with different profiles and resources. Learn more about provision watchers [here](https://docs.edgexfoundry.org/2.2/microservices/core/metadata/Ch-Metadata/#provision-watcher).
 
-```json
-{
-    "name":"Generic-Onvif-Provision-Watcher",
-    "identifiers":{  // Use the identifiers to filter through specific features of the protocol
-         "Address": ".",
-         "Manufacturer": "Intel", // example of a feature to allow through 
-         "Model": "DFI6256TE" 
-    },
-    "blockingIdentifiers":{
-    },
-    "serviceName": "device-onvif-camera",
-    "profileName": "onvif-camera",
-    "adminState":"UNLOCKED"
-}
+```yaml
+name: Generic-Onvif-Provision-Watcher
+identifiers:
+  Address: .
+blockingIdentifiers: {}
+adminState: UNLOCKED
+discoveredDevice:
+    serviceName: device-onvif-camera
+    profileName: onvif-camera
+    adminState: UNLOCKED
 ```
 <p align="left">
-   <i>Sample: Snippet from generic.provision.watcher.json</i>
+   <i>Sample: Snippet from generic.provision.watcher.yaml</i>
 </p>
 
 ## Next Steps

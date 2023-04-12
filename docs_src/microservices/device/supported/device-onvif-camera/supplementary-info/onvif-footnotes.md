@@ -1,5 +1,10 @@
+# ONVIF Footnotes
 
+!!! Warning
+      Information in this page may be outdated.
+      
 ## Command Support
+
 ### Tapo C200 - User Management
 Tapo returns `200 OK` for all User Management commands, but none of them actually
 do anything. The only way to modify the users is through the Tapo app.

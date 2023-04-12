@@ -1,5 +1,8 @@
 # Event Handling
 
+!!! Warning
+      Information in this page may be outdated.
+
 The device service shall be able to use at least one way to retrieve events out of the following:
 * **PullPoint** - "Pull" using the CreatePullPointSubscription and PullMessage operations
 * **BaseNotification** - "Push" using Notify, Subscribe and Renew operations from WSBaseNotification
