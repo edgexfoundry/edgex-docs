@@ -8,7 +8,7 @@ Custom metadata can be applied and retrieved for each camera added to the servic
 
 ### Preset Custom Metadata
 
-If you add pre-defined devices, set up the `CustomMetadata` object as shown in the [camera.toml.example file](../cmd/res/devices/camera.toml.example).
+If you add pre-defined devices, set up the `CustomMetadata` object as shown in the `cmd/res/devices/camera.toml.example`.
 
 ```toml
 # Pre-defined Devices

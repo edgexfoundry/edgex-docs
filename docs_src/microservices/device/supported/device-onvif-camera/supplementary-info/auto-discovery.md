@@ -29,7 +29,7 @@ Example Output: `192.168.1.0/24`
 
 === "configuration.yaml"
 
-    Define the following configurations in [cmd/res/configuration.toml](../cmd/res/configuration.toml) for auto-discovery mechanism:
+    Define the following configurations in `cmd/res/configuration.toml` for auto-discovery mechanism:
 
     ```toml
     [Device]

@@ -8,7 +8,7 @@ Friendly name and MAC address can be set and retrieved for each camera added to 
 if credentials are provided on discovery. The user can also pre-define this field in a camera.toml file.
 
 If you add pre-defined devices, set up the `FriendlyName` field as shown in the
-[camera.toml.example file](../cmd/res/devices/camera.toml.example).
+`cmd/res/devices/camera.toml.example`.
 
 ```toml
 # Pre-defined Devices
@@ -94,7 +94,7 @@ The user can pre-define this field in a camera.toml file.
 
 
 If you add pre-defined devices, set up the `MACAddress` field as shown in the
-[camera.toml.example file](../cmd/res/devices/camera.toml.example).
+`cmd/res/devices/camera.toml.example`.
 
 ## Set MAC Address
 

@@ -11,51 +11,6 @@ The spec can refer to https://www.onvif.org/specs/core/ONVIF-Core-Specification.
 
 ![onvif-user-authentication](../images/onvif-user-authentication.jpg)
 
-## Usage
-The user need to define the **AuthMode** and **SecretPath**, and device service will send SOAP action with **WS-Usernametoken** or **Digest header**.
-
-For example:
-```yaml
-[[DeviceList]]
-Name = "test-camera"
-ProfileName = "camera"
-Description = "HIKVISION camera"
-  [DeviceList.Protocols]
-    [DeviceList.Protocols.Onvif]
-    Address = "192.168.12.123"
-    Port = 80
-    AuthMode = "usernametoken"
-    SecretPath = "credentials001"
-```
-
-The AuthMode can be:
-* digest
-* usernametoken
-* both
-* none
-
-SecretPath should contain:
-* username
-* password
-
-For development purpose, we can define the secrets in the configuration.toml
-```
-[Writable]
-...
-  [Writable.InsecureSecrets]
-    [Writable.InsecureSecrets.Camera001]
-    secretName = "credentials001"
-      [Writable.InsecureSecrets.Camera001.SecretData]
-      username = "administrator"
-      password = "Password1"
-    # If having more than one camera, uncomment the following config settings
-    [Writable.InsecureSecrets.Camera002]
-    secretName = "credentials002"
-      [Writable.InsecureSecrets.Camera002.SecretData]
-      username = "administrator"
-      password = "Password1"
-```
-
 ## WS-Usernametoken
 When the Onvif camera requires authentication through WS-UsernameToken, the device service must set user information with the appropriate privileges in WS-UsernameToken. 
 
