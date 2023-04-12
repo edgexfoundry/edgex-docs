@@ -473,20 +473,20 @@ Refer to the [secrets-config proxy](../../security/secrets-config-proxy/) docume
 !!! example
     Given the following files created outside the scope of this document:
     
-    * `nginx.crt` user-provided certificate (replacing the default)
-    * `nginx.key` user-provided private key (replacing the default)
+    * `server.crt` user-provided certificate (replacing the default)
+    * `server.key` user-provided private key (replacing the default)
     * `ca.pem` certificate authority file (that signed `nginx.crt`, directly or indirectly)
   
-    available at a directory accessible to the snapped application (e.g. `/var/snap/edgexfoundry/current/tmp/`), the certificate and key can be replaced as follows:
+    available at a directory accessible to the snapped application (e.g. `/var/snap/edgexfoundry/common`), the certificate and key can be replaced as follows:
 
     1. Add new certificate files:
     ```bash
     sudo edgexfoundry.secrets-config proxy tls \
       --targetFolder /var/snap/edgexfoundry/current/nginx \
-      --inCert /var/snap/edgexfoundry/current/tmp/nginx.crt \
-      --inKey  /var/snap/edgexfoundry/current/tmp/nginx.key 
+      --inCert /var/snap/edgexfoundry/common/server.crt \
+      --inKey  /var/snap/edgexfoundry/common/server.key 
     ```
-    2. Remove the temporary directory
+    2. Remove the temporary files
     
     3. Reload Nginx:
     ```bash
