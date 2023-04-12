@@ -16,6 +16,32 @@ This environment variables indicates whether the service is expected to initiali
       EDGEX_SECURITY_SECRET_STORE: "false"
     ```
 
+#### EDGEX_DISABLE_JWT_VALIDATION
+
+This environment variable disables, at the microservice-level, validation of the `Authorization` HTTP header of inbound REST API requests.
+(Microservice-level authentication was added in EdgeX 3.0.)
+
+Normally, when `EDGEX_SECURITY_SECRET_STORE` is unset or `true`,
+EdgeX microservices authenticate inbound HTTP requests by parsing the `Authorization` header,
+extracting a JWT bearer token,
+and validating it with the EdgeX secret store,
+returning an HTTP 401 error if token validation fails.
+
+If for some reason it is not possible to pass a valid JWT to an EdgeX microservice --
+for example, the eKuiper rule engine making an unauthenticated HTTP API call, or other legacy code --
+it may be necessary to disable JWT validation in the receiving microservice.
+
+!!! example "Example - Using docker-compose environment variable to disable secure JWT validation"
+    ```yaml
+    environment: 
+      EDGEX_DISABLE_JWT_VALIDATION: "true"
+    ```
+
+Regardless of the setting of this variable, the API gateway
+(and related security-proxy-auth microservice)
+will always validate the incoming JWT.
+
+
 #### EDGEX_STARTUP_DURATION
 
 This environment variable sets the total duration in seconds allowed for the services to complete the bootstrap start-up. Default is 60 seconds.
