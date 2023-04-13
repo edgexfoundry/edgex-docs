@@ -1867,14 +1867,10 @@ all reference core and security services along with a few supporting and applica
 <li>security-proxy-setup (oneshot service to setup API gateway)</li>
 <li>security-secretstore-setup (oneshot service to setup Vault)</li>
 <li>vault (Secret Store)</li>
-</ul>
-<p>The following services are disabled by default:</p>
-<ul>
 <li>support-notifications</li>
 <li>support-scheduler</li>
-<li>sys-mgmt-agent - <em>deprecated EdgeX component</em></li>
 </ul>
-<p>The disabled services can be manually enabled and started; see <a href="#managing-services">managing services</a>.</p>
+<p>The services can be disabled and stopped; see <a href="#managing-services">managing services</a>.</p>
 <p>For the configuration of services, refer to <a href="#configuration">configuration</a>.</p>
 <p>Most services are exposed and accessible on localhost without access control. However, the access from outside is restricted to authorized users.</p>
 <h4 id="adding-api-gateway-users">Adding API Gateway users</h4>
@@ -1882,15 +1878,15 @@ all reference core and security services along with a few supporting and applica
 <a href="https://developer.hashicorp.com/vault/api-docs/secret/identity/tokens#introspect-a-signed-id-token">signed identity token from the EdgeX secret store</a>.</p>
 <p>The baseline implementation in EdgeX 3.0 uses Vault identity and the 'userpass' authentication engine to create users,
 though EdgeX adopters are free to add their own Vault identities using authentication methods of their choice.
-To add a new user locally, use the snapped <code>edgexfoundry.secrets-config</code> utility.</p>
+To add a new user locally, use the snapped <code>secrets-config</code> utility.</p>
 <p>To get the usage help:
 <div class="highlight"><pre><span></span><code>edgexfoundry.secrets-config<span class="w"> </span>proxy<span class="w"> </span>adduser<span class="w"> </span>-h
 </code></pre></div>
 You may also refer to the <a href="../../security/secrets-config-proxy/">secrets-config proxy</a> documentation.</p>
 <div class="admonition example">
 <p class="admonition-title">Creating an example user</p>
-<p>Use secrets-config to add a user <code>example</code> (note: always specify <code>--useRootToken</code> for the snap deployment of EdgeX):
-<div class="highlight"><pre><span></span><code>edgexfoundry.secrets-config<span class="w"> </span>proxy<span class="w"> </span>adduser<span class="w"> </span>--user<span class="w"> </span>example<span class="w"> </span>--useRootToken
+<p>Use <code>secrets-config</code> to add an <code>example</code> user (note: always specify <code>--useRootToken</code> for the snap deployment of EdgeX):
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>edgexfoundry.secrets-config<span class="w"> </span>proxy<span class="w"> </span>adduser<span class="w"> </span>--user<span class="w"> </span>example<span class="w"> </span>--useRootToken
 </code></pre></div>
 On success, the above command prints a JSON object containing <code>username</code> and <code>password</code> fields.
 If the "adduser" command is run multiple times,
@@ -1901,20 +1897,20 @@ with a new random password.</p>
 <p class="admonition-title">Generating a JWT token for the example user</p>
 <p>Some additional work is required to generate a JWT that is usable for API gateway authentication.</p>
 <div class="highlight"><pre><span></span><code><span class="nv">username</span><span class="o">=</span>example
-<span class="nv">password</span><span class="o">=</span>password-from-above
+<span class="nv">password</span><span class="o">=</span>&lt;password-from-above&gt;
 
-<span class="nv">vault_token</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-ks<span class="w"> </span><span class="s2">"http://localhost:8200/v1/auth/userpass/login/</span><span class="si">${</span><span class="nv">username</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">"{\"password\":\"</span><span class="si">${</span><span class="nv">password</span><span class="si">}</span><span class="s2">\"}"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.auth.client_token'</span><span class="k">)</span>
+<span class="nv">vault_token</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>--silent<span class="w"> </span>--show-err<span class="w"> </span><span class="s2">"http://localhost:8200/v1/auth/userpass/login/</span><span class="si">${</span><span class="nv">username</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">"{\"password\":\"</span><span class="si">${</span><span class="nv">password</span><span class="si">}</span><span class="s2">\"}"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>--raw-output<span class="w"> </span><span class="s1">'.auth.client_token'</span><span class="k">)</span>
 
-<span class="nv">id_token</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-ks<span class="w"> </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="si">${</span><span class="nv">vault_token</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="s2">"http://localhost:8200/v1/identity/oidc/token/</span><span class="si">${</span><span class="nv">username</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.data.token'</span><span class="k">)</span>
+<span class="nv">id_token</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>--silent<span class="w"> </span>--show-err<span class="w"> </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="si">${</span><span class="nv">vault_token</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="s2">"http://localhost:8200/v1/identity/oidc/token/</span><span class="si">${</span><span class="nv">username</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>--raw-output<span class="w"> </span><span class="s1">'.data.token'</span><span class="k">)</span>
 
-<span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">id_token</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>&gt;<span class="w"> </span>user-jwt.txt
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">id_token</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>&gt;<span class="w"> </span>id-token.txt
 </code></pre></div>
 </div>
 <p>Once you have the token, you can access the services via the API Gateway (the vault token can be discarded).
 To obtain a new JWT token once the current one is expired, repeat the above snippet of code.</p>
 <div class="admonition example">
 <p class="admonition-title">Calling an API on behalf of example user</p>
-<p><div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--insecure<span class="w"> </span>https://localhost:8443/core-data/api/v2/ping<span class="w"> </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="k">$(</span>cat<span class="w"> </span>user-jwt.txt<span class="k">)</span><span class="s2">"</span>
+<p><div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--insecure<span class="w"> </span>https://localhost:8443/core-data/api/v2/ping<span class="w"> </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="k">$(</span>cat<span class="w"> </span>id-token.txt<span class="k">)</span><span class="s2">"</span>
 </code></pre></div>
 Output: <code>{"apiVersion":"v2","timestamp":"Mon May  2 12:14:17 CEST 2022","serviceName":"core-data"}</code></p>
 </div>
@@ -1931,43 +1927,71 @@ The output is printed out and written to <code>consul-token.txt</code>. Example 
 </code></pre></div></p>
 <p>Through the API Gateway:<br>
 We need to pass both the Consul token and Secret Store token obtained in <a href="#adding-api-gateway-users">Adding API Gateway users</a> examples.
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--insecure<span class="w"> </span>--silent<span class="w"> </span>https://localhost:8443/consul/v1/kv/edgex/core/2.0/core-data/Service/Port<span class="w"> </span>-H<span class="w"> </span><span class="s2">"X-Consul-Token:</span><span class="k">$(</span>cat<span class="w"> </span>consul-token.txt<span class="k">)</span><span class="s2">"</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="k">$(</span>cat<span class="w"> </span>user-jwt.txt<span class="k">)</span><span class="s2">"</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--insecure<span class="w"> </span>--silent<span class="w"> </span>https://localhost:8443/consul/v1/kv/edgex/core/2.0/core-data/Service/Port<span class="w"> </span>-H<span class="w"> </span><span class="s2">"X-Consul-Token:</span><span class="k">$(</span>cat<span class="w"> </span>consul-token.txt<span class="k">)</span><span class="s2">"</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="k">$(</span>cat<span class="w"> </span>id-token.txt<span class="k">)</span><span class="s2">"</span>
 </code></pre></div></br></p>
 </div>
 <h4 id="changing-tls-certificates">Changing TLS certificates</h4>
 <p>The API Gateway setup generates a self-signed certificate with a short expiration by default.</p>
-<p>The default certificate is stored at <code>/var/snap/edgexfoundry/current/nginx/nginx.crt</code>.</p>
-<p>The default private key is stored at <code>/var/snap/edgexfoundry/current/nginx/nginx.key</code>.</p>
 <p>The JWT authentication token that is consumed by the proxy is sensitive and it is important that
 measures are taken to ensure that clients do not disclose the JWT to unauthorized parties.
 For this reason, the default certificate and key should be replaced
-with a certificate and key that is trusted by connecting clients.
-(This can be done a <code>sudo cp</code> command or equivalent.)</p>
+with a certificate and key that is trusted by connecting clients.</p>
+<p>The certificate and key can be replaced locally. They are located at:</p>
+<ul>
+<li><code>/var/snap/edgexfoundry/current/nginx/nginx.crt</code></li>
+<li><code>/var/snap/edgexfoundry/current/nginx/nginx.key</code></li>
+</ul>
+<p>Changes to the files should be followed by reloading Nginx: <code>sudo snap restart --reload edgexfoundry.nginx</code></p>
+<p>Alternatively, the certificate and key can be replaced using the snapped <code>secrets-config</code> application. To get the usage help:
+<div class="highlight"><pre><span></span><code>edgexfoundry.secrets-config<span class="w"> </span>proxy<span class="w"> </span>tls<span class="w"> </span>-h
+</code></pre></div>
+Refer to the <a href="../../security/secrets-config-proxy/">secrets-config proxy</a> documentation.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <p>Given the following files created outside the scope of this document:</p>
 <ul>
-<li><code>nginx.crt</code> user-provided certificate (replacing the default)</li>
-<li><code>nginx.key</code> user-provided private key (replacing the default)</li>
-<li><code>ca.pem</code> certificate authority file (that signed <code>nginx.crt</code>, directly or indirectly)</li>
+<li><code>server.crt</code> user-provided certificate (replacing the default)</li>
+<li><code>server.key</code> user-provided private key (replacing the default)</li>
+<li><code>ca.crt</code> Certificate Authority certificate (that signed <code>server.crt</code>, directly or indirectly)</li>
 </ul>
-<p>Try it out:
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--cacert<span class="w"> </span>ca.pem<span class="w"> </span>https://localhost:8443/core-data/api/v2/ping
+<p>Perform the following steps:</p>
+<ol>
+<li>
+<p>Copy <code>server.crt</code> and <code>server.key</code> to the snap
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>cp<span class="w"> </span>server.crt<span class="w"> </span>server.key<span class="w"> </span>/var/snap/edgexfoundry/common/
 </code></pre></div>
-Output: <code>{"message":"Unauthorized"}</code><br>
-This means that TLS is setup correctly, but the request is not authorized.<br>
-Set the <code>-v</code> command for diagnosing TLS issues.<br/>
-The <code>--cacert</code> can be omitted if the CA is available in root certificates (e.g. CA-signed or pre-installed CA certificate).</br></br></p>
+We do this to allow temporary access to the files by the confined application.<br>
+Instead of temporarily adding the files to the snap, the files can be read directly from the root user's home (<code>/root</code>) or a removable media, after granting the <a href="https://snapcraft.io/docs/home-interface">home</a> or <a href="https://snapcraft.io/docs/removable-media-interface">removable-media</a> permissions.</br></p>
+</li>
+<li>
+<p>Add new certificate files:
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>edgexfoundry.secrets-config<span class="w"> </span>proxy<span class="w"> </span>tls<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--targetFolder<span class="w"> </span>/var/snap/edgexfoundry/current/nginx<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--inCert<span class="w"> </span>/var/snap/edgexfoundry/common/server.crt<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--inKey<span class="w">  </span>/var/snap/edgexfoundry/common/server.key<span class="w"> </span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Remove the temporary files
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>rm<span class="w"> </span>/var/snap/edgexfoundry/common/server.crt<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>/var/snap/edgexfoundry/common/server.key
+</code></pre></div></p>
+</li>
+<li>
+<p>Reload Nginx:
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span>restart<span class="w"> </span>--reload<span class="w"> </span>edgexfoundry.nginx
+</code></pre></div></p>
+</li>
+</ol>
+<p>Try it out:
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--cacert<span class="w"> </span>ca.crt<span class="w"> </span>https://localhost:8443/core-data/api/v2/ping
+</code></pre></div>
+The output should include a message indicating that the request is unauthorized.<br>
+This means that TLS is setup correctly, but the request misses the required authentication. 
+See <a href="#adding-api-gateway-users">Adding API Gateway users</a>.</br></p>
+<p>Set the <code>-v</code> command for diagnosing TLS issues.</p>
+<p>The <code>--cacert</code> can be omitted if the CA is available in root certificates (e.g. CA-signed or pre-installed CA certificate).</p>
 </div>
-<details class="tip">
-<summary>Seeding a custom TLS certificate using snap options</summary>
-<p>To spin up an EdgeX instance with a custom certificate, the snap provides the following configuration options:</p>
-<ul>
-<li><code>apps.secrets-config.proxy.tls.cert</code></li>
-<li><code>apps.secrets-config.proxy.tls.key</code></li>
-</ul>
-<p>This is particularly useful when seeding the snap from a <a href="https://snapcraft.io/docs/gadget-snap">Gadget</a> on an <a href="https://ubuntu.com/core">Ubuntu Core</a> system.</p>
-</details>
 <!-- DO NOT CHANGE THE TITLE. READMEs reference the anchor -->
 <h4 id="secret-store-token">Secret Store token</h4>
 <p>The services inside standalone snaps (e.g. device, app snaps) automatically receive a <a href="../../security/Ch-SecretStore/">Secret Store</a> token when:</p>
