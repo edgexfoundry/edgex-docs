@@ -511,9 +511,9 @@ Refer to the [secrets-config proxy](../../security/secrets-config-proxy/) docume
     ```bash
     curl --cacert ca.crt https://localhost:8443/core-data/api/v2/ping
     ```
-    The output would include a message such as: `401 Authorization Required`
-
-    This means that TLS is setup correctly, but the request is not authorized since it is missing the required authentication.
+    The output should include a message indicating that the request is unauthorized.  
+    This means that TLS is setup correctly, but the request misses the required authentication. 
+    See [Adding API Gateway users](#adding-api-gateway-users).
 
     Set the `-v` command for diagnosing TLS issues.
 
