@@ -415,7 +415,7 @@ You may also refer to the [secrets-config proxy](../../security/secrets-config-p
     
     id_token=$(curl --silent --show-err -H "Authorization: Bearer ${vault_token}" "http://localhost:8200/v1/identity/oidc/token/${username}" | jq --raw-output '.data.token')
     
-    echo "${id_token}" > id_token.txt
+    echo "${id_token}" > id-token.txt
     ```
 
 Once you have the token, you can access the services via the API Gateway (the vault token can be discarded).
@@ -424,7 +424,7 @@ To obtain a new JWT token once the current one is expired, repeat the above snip
 !!! example "Calling an API on behalf of example user"
 
     ```bash
-    curl --insecure https://localhost:8443/core-data/api/v2/ping -H "Authorization: Bearer $(cat id_token.txt)"
+    curl --insecure https://localhost:8443/core-data/api/v2/ping -H "Authorization: Bearer $(cat id-token.txt)"
     ```
     Output: `{"apiVersion":"v2","timestamp":"Mon May  2 12:14:17 CEST 2022","serviceName":"core-data"}`
 
@@ -446,7 +446,7 @@ Consul API and UI can be accessed using the consul token (Secret ID). For the sn
     Through the API Gateway:  
     We need to pass both the Consul token and Secret Store token obtained in [Adding API Gateway users](#adding-api-gateway-users) examples.
     ```bash
-    curl --insecure --silent https://localhost:8443/consul/v1/kv/edgex/core/2.0/core-data/Service/Port -H "X-Consul-Token:$(cat consul-token.txt)" -H "Authorization: Bearer $(cat user-jwt.txt)"
+    curl --insecure --silent https://localhost:8443/consul/v1/kv/edgex/core/2.0/core-data/Service/Port -H "X-Consul-Token:$(cat consul-token.txt)" -H "Authorization: Bearer $(cat id-token.txt)"
     ```
 
 #### Changing TLS certificates
