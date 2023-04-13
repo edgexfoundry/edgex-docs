@@ -472,12 +472,10 @@ Refer to the [secrets-config proxy](../../security/secrets-config-proxy/) docume
 
 !!! example
     Given the following files created outside the scope of this document:
-    
-    * `server.crt` user-provided certificate (replacing the default)
-    * `server.key` user-provided private key (replacing the default)
-    * `ca.pem` certificate authority file (that signed `nginx.crt`, directly or indirectly)
-  
-    available at a directory accessible to the snapped application (e.g. `/var/snap/edgexfoundry/common`), the certificate and key can be replaced as follows:
+
+      * `server.crt` user-provided certificate (replacing the default)
+      * `server.key` user-provided private key (replacing the default)
+      * `ca.crt` Certificate Authority certificate (that signed `server.crt`, directly or indirectly)
 
     1. Add new certificate files:
     ```bash
@@ -497,7 +495,7 @@ Refer to the [secrets-config proxy](../../security/secrets-config-proxy/) docume
     
     Try it out:
     ```bash
-    curl --cacert ca.pem https://localhost:8443/core-data/api/v2/ping
+    curl --cacert ca.crt https://localhost:8443/core-data/api/v2/ping
     ```
     The output would include a message such as: `401 Authorization Required`
 
