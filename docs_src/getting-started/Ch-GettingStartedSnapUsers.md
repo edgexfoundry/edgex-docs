@@ -476,22 +476,36 @@ Refer to the [secrets-config proxy](../../security/secrets-config-proxy/) docume
       * `server.crt` user-provided certificate (replacing the default)
       * `server.key` user-provided private key (replacing the default)
       * `ca.crt` Certificate Authority certificate (that signed `server.crt`, directly or indirectly)
+    
+    Perform the following steps:
+    
+    1. Copy `server.crt` and `server.key` to the snap
+    ```bash
+    sudo cp server.crt server.key /var/snap/edgexfoundry/common/
+    ```
+    We do this to allow temporary access to the files by the confined application.  
+    Instead of temporarily adding the files to the snap, the files can be read directly from the root user's home (`/root`) or a removable media, after granting the [home](https://snapcraft.io/docs/home-interface) or [removable-media](https://snapcraft.io/docs/removable-media-interface) permissions.
 
-    1. Add new certificate files:
+    2. Add new certificate files:
     ```bash
     sudo edgexfoundry.secrets-config proxy tls \
       --targetFolder /var/snap/edgexfoundry/current/nginx \
       --inCert /var/snap/edgexfoundry/common/server.crt \
       --inKey  /var/snap/edgexfoundry/common/server.key 
     ```
-    2. Remove the temporary files
+
+    3. Remove the temporary files
+    ```bash
+    sudo rm /var/snap/edgexfoundry/common/server.crt \
+            /var/snap/edgexfoundry/common/server.key
+    ```
     
-    3. Reload Nginx:
+    4. Reload Nginx:
     ```bash
     sudo snap restart --reload edgexfoundry.nginx
     ```
 
-    Instead of temporarily adding the files to the snap, the files can be loaded directly from the root user's home (`/root`) or as a removable media, after granting the [home](https://snapcraft.io/docs/home-interface) or [removable-media](https://snapcraft.io/docs/removable-media-interface) permissions.
+    
     
     Try it out:
     ```bash
