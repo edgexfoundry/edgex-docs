@@ -370,14 +370,10 @@ Upon installation, the following EdgeX services are automatically started:
 - security-proxy-setup (oneshot service to setup API gateway)
 - security-secretstore-setup (oneshot service to setup Vault)
 - vault (Secret Store)
-
-The following services are disabled by default:
-
 - support-notifications
 - support-scheduler
-- sys-mgmt-agent - *deprecated EdgeX component*
 
-The disabled services can be manually enabled and started; see [managing services].
+The services can be disabled and stopped; see [managing services].
 
 For the configuration of services, refer to [configuration].
 
@@ -389,7 +385,7 @@ The API gateway will pass any request that authenticates using a
 
 The baseline implementation in EdgeX 3.0 uses Vault identity and the 'userpass' authentication engine to create users,
 though EdgeX adopters are free to add their own Vault identities using authentication methods of their choice.
-To add a new user locally, use the snapped `edgexfoundry.secrets-config` utility.
+To add a new user locally, use the snapped `secrets-config` utility.
 
 To get the usage help:
 ```bash
@@ -399,9 +395,9 @@ You may also refer to the [secrets-config proxy](../../security/secrets-config-p
 
 
 !!! example "Creating an example user"
-    Use secrets-config to add a user `example` (note: always specify `--useRootToken` for the snap deployment of EdgeX):
+    Use `secrets-config` to add an `example` user (note: always specify `--useRootToken` for the snap deployment of EdgeX):
     ```bash
-    edgexfoundry.secrets-config proxy adduser --user example --useRootToken
+    sudo edgexfoundry.secrets-config proxy adduser --user example --useRootToken
     ```
     On success, the above command prints a JSON object containing `username` and `password` fields.
     If the "adduser" command is run multiple times,
@@ -413,13 +409,13 @@ You may also refer to the [secrets-config proxy](../../security/secrets-config-p
 
     ```bash
     username=example
-    password=password-from-above
+    password=<password-from-above>
     
-    vault_token=$(curl -ks "http://localhost:8200/v1/auth/userpass/login/${username}" -d "{\"password\":\"${password}\"}" | jq -r '.auth.client_token')
+    vault_token=$(curl --silent --show-err "http://localhost:8200/v1/auth/userpass/login/${username}" -d "{\"password\":\"${password}\"}" | jq --raw-output '.auth.client_token')
     
-    id_token=$(curl -ks -H "Authorization: Bearer ${vault_token}" "http://localhost:8200/v1/identity/oidc/token/${username}" | jq -r '.data.token')
+    id_token=$(curl --silent --show-err -H "Authorization: Bearer ${vault_token}" "http://localhost:8200/v1/identity/oidc/token/${username}" | jq --raw-output '.data.token')
     
-    echo "${id_token}" > user-jwt.txt
+    echo "${id_token}" > id-token.txt
     ```
 
 Once you have the token, you can access the services via the API Gateway (the vault token can be discarded).
@@ -428,7 +424,7 @@ To obtain a new JWT token once the current one is expired, repeat the above snip
 !!! example "Calling an API on behalf of example user"
 
     ```bash
-    curl --insecure https://localhost:8443/core-data/api/v2/ping -H "Authorization: Bearer $(cat user-jwt.txt)"
+    curl --insecure https://localhost:8443/core-data/api/v2/ping -H "Authorization: Bearer $(cat id-token.txt)"
     ```
     Output: `{"apiVersion":"v2","timestamp":"Mon May  2 12:14:17 CEST 2022","serviceName":"core-data"}`
 
@@ -450,47 +446,79 @@ Consul API and UI can be accessed using the consul token (Secret ID). For the sn
     Through the API Gateway:  
     We need to pass both the Consul token and Secret Store token obtained in [Adding API Gateway users](#adding-api-gateway-users) examples.
     ```bash
-    curl --insecure --silent https://localhost:8443/consul/v1/kv/edgex/core/2.0/core-data/Service/Port -H "X-Consul-Token:$(cat consul-token.txt)" -H "Authorization: Bearer $(cat user-jwt.txt)"
+    curl --insecure --silent https://localhost:8443/consul/v1/kv/edgex/core/2.0/core-data/Service/Port -H "X-Consul-Token:$(cat consul-token.txt)" -H "Authorization: Bearer $(cat id-token.txt)"
     ```
 
 #### Changing TLS certificates
 The API Gateway setup generates a self-signed certificate with a short expiration by default.
 
-The default certificate is stored at `/var/snap/edgexfoundry/current/nginx/nginx.crt`.
-
-The default private key is stored at `/var/snap/edgexfoundry/current/nginx/nginx.key`.
-
 The JWT authentication token that is consumed by the proxy is sensitive and it is important that
 measures are taken to ensure that clients do not disclose the JWT to unauthorized parties.
 For this reason, the default certificate and key should be replaced
 with a certificate and key that is trusted by connecting clients.
-(This can be done a `sudo cp` command or equivalent.)
 
+The certificate and key can be replaced locally. They are located at:
+
+- `/var/snap/edgexfoundry/current/nginx/nginx.crt`
+- `/var/snap/edgexfoundry/current/nginx/nginx.key`
+
+Changes to the files should be followed by reloading Nginx: `sudo snap restart --reload edgexfoundry.nginx`
+
+Alternatively, the certificate and key can be replaced using the snapped `secrets-config` application. To get the usage help:
+```bash
+edgexfoundry.secrets-config proxy tls -h
+```
+Refer to the [secrets-config proxy](../../security/secrets-config-proxy/) documentation.
 
 !!! example
     Given the following files created outside the scope of this document:
+
+      * `server.crt` user-provided certificate (replacing the default)
+      * `server.key` user-provided private key (replacing the default)
+      * `ca.crt` Certificate Authority certificate (that signed `server.crt`, directly or indirectly)
     
-    * `nginx.crt` user-provided certificate (replacing the default)
-    * `nginx.key` user-provided private key (replacing the default)
-    * `ca.pem` certificate authority file (that signed `nginx.crt`, directly or indirectly)
+    Perform the following steps:
+    
+    1. Copy `server.crt` and `server.key` to the snap
+    ```bash
+    sudo cp server.crt server.key /var/snap/edgexfoundry/common/
+    ```
+    We do this to allow temporary access to the files by the confined application.  
+    Instead of temporarily adding the files to the snap, the files can be read directly from the root user's home (`/root`) or a removable media, after granting the [home](https://snapcraft.io/docs/home-interface) or [removable-media](https://snapcraft.io/docs/removable-media-interface) permissions.
+
+    2. Add new certificate files:
+    ```bash
+    sudo edgexfoundry.secrets-config proxy tls \
+      --targetFolder /var/snap/edgexfoundry/current/nginx \
+      --inCert /var/snap/edgexfoundry/common/server.crt \
+      --inKey  /var/snap/edgexfoundry/common/server.key 
+    ```
+
+    3. Remove the temporary files
+    ```bash
+    sudo rm /var/snap/edgexfoundry/common/server.crt \
+            /var/snap/edgexfoundry/common/server.key
+    ```
+    
+    4. Reload Nginx:
+    ```bash
+    sudo snap restart --reload edgexfoundry.nginx
+    ```
+
+    
     
     Try it out:
     ```bash
-    curl --cacert ca.pem https://localhost:8443/core-data/api/v2/ping
+    curl --cacert ca.crt https://localhost:8443/core-data/api/v2/ping
     ```
-    Output: `{"message":"Unauthorized"}`  
-    This means that TLS is setup correctly, but the request is not authorized.  
-    Set the `-v` command for diagnosing TLS issues.  
+    The output should include a message indicating that the request is unauthorized.  
+    This means that TLS is setup correctly, but the request misses the required authentication. 
+    See [Adding API Gateway users](#adding-api-gateway-users).
+
+    Set the `-v` command for diagnosing TLS issues.
+
     The `--cacert` can be omitted if the CA is available in root certificates (e.g. CA-signed or pre-installed CA certificate).
 
-
-??? tip "Seeding a custom TLS certificate using snap options"
-    To spin up an EdgeX instance with a custom certificate, the snap provides the following configuration options:
-    
-    * `apps.secrets-config.proxy.tls.cert`
-    * `apps.secrets-config.proxy.tls.key`
-    
-    This is particularly useful when seeding the snap from a [Gadget](https://snapcraft.io/docs/gadget-snap) on an [Ubuntu Core](https://ubuntu.com/core) system.
 
 <!-- DO NOT CHANGE THE TITLE. READMEs reference the anchor -->
 #### Secret Store token
