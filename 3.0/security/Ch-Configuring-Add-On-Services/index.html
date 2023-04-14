@@ -1266,7 +1266,7 @@ when the entrypoint script is overridden.  In this case, we also override the <c
 <p class="admonition-title">Edgex 3.0</p>
 <p>For EdgeX 3.0 the <strong>SecretStore</strong> configuration has been removed from each service's configuration files. It has default values which can be overridden with environment variables. See the <a href="../../microservices/configuration/CommonEnvironmentVariables/#secretstore-overrides">SecretStore Overrides</a> section for more details.</p>
 </div>
-<p>Note that the service key , i.e.<code>device-onvif-camera</code>, must be used for the <code>Path</code> and in the <code>TokenFile</code> path to keep it consistent and easier to maintain. These are now part of the built in default values for the <strong>SecretStore</strong> configuration. Then the add-on service's service key must be added to the EdgeX service <code>secretstore-setup</code>'s<code>ADD_SECRETSTORE_TOKENS</code> environment variable in the <code>environment</code> section of <code>docker-compose</code>
+<p>Note that the service key , i.e.<code>device-onvif-camera</code>, must be used for the <code>Path</code> and in the <code>TokenFile</code> path to keep it consistent and easier to maintain. These are now part of the built in default values for the <strong>SecretStore</strong> configuration. Then the add-on service's service key must be added to the EdgeX service <code>secretstore-setup</code>'s<code>EDGEX_ADD_SECRETSTORE_TOKENS</code> environment variable in the <code>environment</code> section of <code>docker-compose</code>
 as the example shown below:</p>
 <div class="highlight"><pre><span></span><code><span class="nn">...</span>
 <span class="w">  </span><span class="nt">secretstore-setup</span><span class="p">:</span>
@@ -1275,15 +1275,15 @@ as the example shown below:</p>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-bootstrapper</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault</span>
 <span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">ADD_SECRETSTORE_TOKENS</span><span class="p">:</span><span class="w"> </span><span class="s">'device-onvif-camera'</span>
+<span class="w">      </span><span class="nt">EDGEX_ADD_SECRETSTORE_TOKENS</span><span class="p">:</span><span class="w"> </span><span class="s">'device-onvif-camera'</span>
 <span class="nn">...</span>
 </code></pre></div>
 <p>With that, <code>secretstore-setup</code> then will generate <code>Secret Store</code> token from <code>Vault</code> and store it in
 the <code>TokenFile</code> path specified in the <strong>SecretStore</strong> configuration.</p>
-<p>Also note that the value of <code>ADD_SECRETSTORE_TOKENS</code> can take more than one service in a form of
+<p>Also note that the value of <code>EDGEX_ADD_SECRETSTORE_TOKENS</code> can take more than one service in a form of
 comma separated list like "<code>device-camera</code>, <code>device-modbus</code>" if needed.</p>
 <h2 id="optional-configure-known-secrets-for-add-on-services">(Optional) Configure known secrets for add-on services</h2>
-<p>The <code>ADD_KNOWN_SECRETS</code> environment variable on <code>secretstore-setup</code> allows for known secrets
+<p>The <code>EDGEX_ADD_KNOWN_SECRETS</code> environment variable on <code>secretstore-setup</code> allows for known secrets
 to be added to an add-on service's <code>Secret Store</code>.</p>
 <p>For the Ireland release, the only <code>known</code> secret is the <code>Redis DB credentials</code> identified by
 the name <code>redisdb</code>. Any add-on service needing access to the <code>Redis DB</code> such as
@@ -1300,7 +1300,7 @@ all services that connect to the MessageBus also need the <code>Redis DB credent
 <p>So given an example for service <code>device-virtual</code> to use the <code>Redis</code> message bus in secure mode,
 we need to tell <code>secretstore-setup</code> to add the <code>redisdb</code> known secret to <code>Secret Store</code> for <code>device-virtual</code>.
 This can be done through the configuration of adding <code>redisdb[device-virtual]</code> into the environment variable
-<code>ADD_KNOWN_SECRETS</code> in <code>secretstore-setup</code> service's environment section, in which <code>redisdb</code> is the name of
+<code>EDGEX_ADD_KNOWN_SECRETS</code> in <code>secretstore-setup</code> service's environment section, in which <code>redisdb</code> is the name of
 the <code>known secret</code> and <code>device-virtual</code> is the service key of the add-on service.</p>
 <div class="highlight"><pre><span></span><code><span class="nn">...</span>
 <span class="w">  </span><span class="nt">secretstore-setup</span><span class="p">:</span>
@@ -1309,22 +1309,22 @@ the <code>known secret</code> and <code>device-virtual</code> is the service key
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-bootstrapper</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault</span>
 <span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">ADD_SECRETSTORE_TOKENS</span><span class="p">:</span><span class="w"> </span><span class="s">'device-onvif-camera,</span><span class="nv"> </span><span class="s">my-service'</span>
-<span class="w">      </span><span class="nt">ADD_KNOWN_SECRETS</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redisdb[app-rules-engine],redisdb[device-rest],redisdb[device-virtual]</span>
+<span class="w">      </span><span class="nt">EDGEX_ADD_SECRETSTORE_TOKENS</span><span class="p">:</span><span class="w"> </span><span class="s">'device-onvif-camera,</span><span class="nv"> </span><span class="s">my-service'</span>
+<span class="w">      </span><span class="nt">EDGEX_ADD_KNOWN_SECRETS</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redisdb[app-rules-engine],redisdb[device-rest],redisdb[device-virtual]</span>
 <span class="nn">...</span>
 </code></pre></div>
 <p>In the above <code>docker-compose</code> section of <code>secretstore-setup</code>, we specify the known secret of
 <code>redisdb</code> to add/copy the Redis database credentials to the <code>Secret Store</code> for the <code>app-rules-engine</code>,
 <code>device-rest</code>, and <code>device-virtual</code> services.</p>
-<p>We can also use the alternative or simpler form of <code>ADD_KNOWN_SECRETS</code> environment variable's value like</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">ADD_KNOWN_SECRETS</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redisdb[app-rules-engine; device-rest; device-virtual]</span>
+<p>We can also use the alternative or simpler form of <code>EDGEX_ADD_KNOWN_SECRETS</code> environment variable's value like</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">EDGEX_ADD_KNOWN_SECRETS</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redisdb[app-rules-engine; device-rest; device-virtual]</span>
 </code></pre></div>
 <p>in which all add-on services are put together in a comma separated list associated with the
 known secret <code>redisdb</code>.</p>
 <h2 id="optional-configure-the-acl-role-of-configurationregistry-to-use-if-the-service-depends-on-it">(Optional) Configure the ACL role of configuration/registry to use if the service depends on it</h2>
 <p>This is a new step coming from <code>securing Consul</code> security features as part of EdgeX Ireland release.</p>
 <p>If the add-on service uses <code>Consul</code> as the configuration and/or registry service, then we also need to
-configure the environment variable <code>ADD_REGISTRY_ACL_ROLES</code> to tell <code>security-bootstrapper</code> to generate
+configure the environment variable <code>EDGEX_ADD_REGISTRY_ACL_ROLES</code> to tell <code>security-bootstrapper</code> to generate
 an ACL role for <code>Consul</code> to associate with its token.</p>
 <p>An example of configuring ACL roles of the registry <code>Consul</code> for the add-on services
 <code>device-modbus</code> and <code>app-http-export</code> is shown as follows:</p>
@@ -1337,10 +1337,10 @@ an ACL role for <code>Consul</code> to associate with its token.</p>
 <span class="w">    </span><span class="nt">entrypoint</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/edgex-init/consul_wait_install.sh</span>
 <span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">ADD_REGISTRY_ACL_ROLES</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app-http-export,device-modbus</span>
+<span class="w">      </span><span class="nt">EDGEX_ADD_REGISTRY_ACL_ROLES</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app-http-export,device-modbus</span>
 <span class="nn">...</span>
 </code></pre></div>
-<p>The configuration of Edgex service <code>consul</code>'s environment variable <code>ADD_REGISTRY_ACL_ROLES</code> tells
+<p>The configuration of Edgex service <code>consul</code>'s environment variable <code>EDGEX_ADD_REGISTRY_ACL_ROLES</code> tells
 the <code>security-bootstrapper</code> to set up <code>Consul</code> ACL role so that the ACL token is generated,
 hence the permission is granted for that service with the access to <code>Consul</code> in secure mode.</p>
 <p>Without this step the add-on service will get status <code>Forbidden</code> (HTTP status code = 403) error
@@ -1349,7 +1349,7 @@ service registry.</p>
 <h2 id="optional-configure-the-api-gateway-access-route-for-add-on-service">(Optional) Configure the API gateway access route for add-on service</h2>
 <p>If it is desirable to let user or other application services outside EdgeX's Docker network access
 the endpoint of the add-on service, then we can configure and add it via <code>proxy-setup</code> service's
-<code>ADD_PROXY_ROUTE</code> environment variable.  <code>proxy-setup</code> adds those services listed in that environment
+<code>EDGEX_ADD_PROXY_ROUTE</code> environment variable.  <code>proxy-setup</code> adds those services listed in that environment
 variable into the API gateway routes so that the endpoint can be accessible via the gateway.</p>
 <p>One example of adding API gateway access routes for both <code>device-camera</code> and <code>device-modbus</code>
 is given as follows:</p>
@@ -1358,7 +1358,7 @@ is given as follows:</p>
 <span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
 <span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">environment</span><span class="p p-Indicator">:</span>
 <span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
-<span class="w">      </span><span class="nt">ADD_PROXY_ROUTE</span><span class="p">:</span><span class="w"> </span><span class="s">"device-camera.http://edgex-device-onvif-camera:59984,</span><span class="nv"> </span><span class="s">device-modbus.http://edgex-device-modbus:59901"</span>
+<span class="w">      </span><span class="nt">EDGEX_ADD_PROXY_ROUTE</span><span class="p">:</span><span class="w"> </span><span class="s">"device-camera.http://edgex-device-onvif-camera:59984,</span><span class="nv"> </span><span class="s">device-modbus.http://edgex-device-modbus:59901"</span>
 <span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
 <span class="nn">...</span>
 </code></pre></div>

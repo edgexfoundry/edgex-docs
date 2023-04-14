@@ -1223,7 +1223,7 @@ from client and thus provides better security. It's created and stored onto the 
 <code>/tmp/edgex/secrets/consul-acl-token</code>.</p>
 <p><code>security-bootstrapper</code> service also uses Consul's bootstrap token to generate Vault's role based from
 Consul Secrets Engine API <code>/consul/role/&lt;role_name&gt;</code> for all internal default EdgeX services
-and add-on services via environment variable <code>ADD_REGISTRY_ACL_ROLES</code>. Please see more details
+and add-on services via environment variable <code>EDGEX_ADD_REGISTRY_ACL_ROLES</code>. Please see more details
 and some examples in <a href="../Ch-Configuring-Add-On-Services/">Configuring Add-on Service documentation section</a>
 for how to configure add-on services' ACL roles.</p>
 <p><code>security-bootstrapper</code> then automatically associated with Consul's ACL policy rules

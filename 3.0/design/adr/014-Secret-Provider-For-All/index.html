@@ -1413,8 +1413,8 @@
 <p>Application Service (instance) are examples of these services. </p>
 </li>
 <li>
-<p>Service exclusive <code>SecretStore</code> can be created for these services by adding the services' unique name , i.e. appservice-http-export, to the <code>ADD_SECRETSTORE_TOKENS</code> environment variable for security-secretstore-setup</p>
-<div class="highlight"><pre><span></span><code>ADD_SECRETSTORE_TOKENS: "appservice-http-export, appservice-mqtt-export"
+<p>Service exclusive <code>SecretStore</code> can be created for these services by adding the services' unique name , i.e. appservice-http-export, to the <code>EDGEX_ADD_SECRETSTORE_TOKENS</code> environment variable for security-secretstore-setup</p>
+<div class="highlight"><pre><span></span><code>EDGEX_ADD_SECRETSTORE_TOKENS: "appservice-http-export, appservice-mqtt-export"
 </code></pre></div>
 <p>This creates an exclusive secret store token for each service listed. The name provided for each service must be used in the service's <code>SecretStore</code> configuration and Docker volume mount  (if applicable). Typically the configuration is set via environment overrides or is already in an existing configuration profile (<strong><em>http-export</em></strong> profile for app-service-configurable). </p>
 <p>Example docker-compose file entries:</p>
@@ -1584,8 +1584,8 @@
 <p>The new <code>SecretProvider</code> abstraction defined by this ADR is a combination of the two implementations described above in the <a href="#existing-implementations">Existing Implementations</a> section.</p>
 <h3 id="only-exclusive-secret-stores">Only Exclusive Secret Stores</h3>
 <p>To simplify the <code>SecretProvider</code> abstraction, we need to reduce to using only exclusive <code>SecretStores</code>. This allows all the APIs to deal with a single <code>SecretClient</code>, rather than the split up way we currently have in Application Services. This requires that the current Application Service shared secrets (database credentials) must be copied into each Application Service's exclusive <code>SecretStore</code> when it is created.</p>
-<p>The challenge is how do we seed static secrets for unknown services when they become known.  As described above in the <a href="#known-and-unknown-services">Known and Unknown Services</a> section above,  services currently identify themselves for exclusive <code>SecretStore</code> creation via the <code>ADD_SECRETSTORE_TOKENS</code> environment variable on security-secretstore-setup. This environment variable simply takes a comma separated list of service names.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">ADD_SECRETSTORE_TOKENS</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;service-name1&gt;,&lt;service-name2&gt;"</span>
+<p>The challenge is how do we seed static secrets for unknown services when they become known.  As described above in the <a href="#known-and-unknown-services">Known and Unknown Services</a> section above,  services currently identify themselves for exclusive <code>SecretStore</code> creation via the <code>EDGEX_ADD_SECRETSTORE_TOKENS</code> environment variable on security-secretstore-setup. This environment variable simply takes a comma separated list of service names.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">EDGEX_ADD_SECRETSTORE_TOKENS</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;service-name1&gt;,&lt;service-name2&gt;"</span>
 </code></pre></div>
 <p>If we expanded this to add an optional list of static secret identifiers for each service, i.e.  <code>appservice/redisdb</code>, the exclusive store could also be seeded with a copy of static shared secrets. In this case the Redis database credentials for the Application Services' shared database. The environment variable name will change to <code>ADD_SECRETSTORE</code> now that it is more than just tokens.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">ADD_SECRETSTORE</span><span class="p">:</span><span class="w"> </span><span class="s">"app-service-xyz[appservice/redisdb]"</span>

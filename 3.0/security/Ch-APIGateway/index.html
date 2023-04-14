@@ -1377,7 +1377,7 @@ using the assumptions above:</p>
 <span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
 <span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">environment</span><span class="p p-Indicator">:</span>
 <span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
-<span class="w">      </span><span class="nt">ADD_PROXY_ROUTE</span><span class="p">:</span><span class="w"> </span><span class="s">"myApp.http://my-app:56789"</span>
+<span class="w">      </span><span class="nt">EDGEX_ADD_PROXY_ROUTE</span><span class="p">:</span><span class="w"> </span><span class="s">"myApp.http://my-app:56789"</span>
 <span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
 
 <span class="nn">...</span>
@@ -1388,7 +1388,7 @@ using the assumptions above:</p>
 <span class="w">   </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">myApp</span>
 <span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">...</span>
 </code></pre></div>
-<p>The value of <code>ADD_PROXY_ROUTE</code> takes a comma-separated list of one or more (at least one) paired additional service name and URL for which to create proxy Kong routes.   The paired specification is given as the following:</p>
+<p>The value of <code>EDGEX_ADD_PROXY_ROUTE</code> takes a comma-separated list of one or more (at least one) paired additional service name and URL for which to create proxy Kong routes.   The paired specification is given as the following:</p>
 <div class="codehilite"><pre><span></span><code>&lt;RoutePrefix&gt;.&lt;TargetRouteURL&gt;
 </code></pre></div>
 <p>where <strong>RoutePrefix</strong> is the name of service which requests to create proxy Kong route and it is case insensitive; it is the docker network hostname of the service that want to add the proxy Kong route in the docker-compose file if running from docker-compose, for example, <code>myApp</code> in this case.</p>
@@ -1396,8 +1396,8 @@ using the assumptions above:</p>
 on which the API gateway is running.  For Docker,
 the hostname should match the hostname specified in the
 <code>docker-compose</code> file.</p>
-<p>So as an example, for a single service, the value of <code>ADD_PROXY_ROUTE</code> would be:  "<code>myApp.http://myapp:56789</code>".</p>
-<p>Once <code>ADD_PROXY_ROUTE</code> is configured and composed-up successfully, the proxy route then can be accessed the app's REST API via Kong as <code>https://localhost:8443/myApp/api/v2/...</code> in the same way you would access the EdgeX service.
+<p>So as an example, for a single service, the value of <code>EDGEX_ADD_PROXY_ROUTE</code> would be:  "<code>myApp.http://myapp:56789</code>".</p>
+<p>Once <code>EDGEX_ADD_PROXY_ROUTE</code> is configured and composed-up successfully, the proxy route then can be accessed the app's REST API via Kong as <code>https://localhost:8443/myApp/api/v2/...</code> in the same way you would access the EdgeX service.
 You will also need an access token obtained using the documentation below.</p>
 <h2 id="using-api-gateway">Using API Gateway</h2>
 <h3 id="resource-mapping-between-edgex-microservice-and-api-gateway">Resource Mapping between EdgeX Microservice and API gateway</h3>
