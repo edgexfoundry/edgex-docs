@@ -118,7 +118,7 @@ edgex-proxy:
       ...
     environment:
       ...
-      ADD_PROXY_ROUTE: "myApp.http://my-app:56789"
+      EDGEX_ADD_PROXY_ROUTE: "myApp.http://my-app:56789"
       ...
 
 ...
@@ -131,7 +131,7 @@ my-app:
   
 ```
 
-The value of `ADD_PROXY_ROUTE` takes a comma-separated list of one or more (at least one) paired additional service name and URL for which to create proxy Kong routes.   The paired specification is given as the following:
+The value of `EDGEX_ADD_PROXY_ROUTE` takes a comma-separated list of one or more (at least one) paired additional service name and URL for which to create proxy Kong routes.   The paired specification is given as the following:
 
     <RoutePrefix>.<TargetRouteURL>
 
@@ -142,9 +142,9 @@ on which the API gateway is running.  For Docker,
 the hostname should match the hostname specified in the
 `docker-compose` file.
 
-So as an example, for a single service, the value of `ADD_PROXY_ROUTE` would be:  "`myApp.http://myapp:56789`".
+So as an example, for a single service, the value of `EDGEX_ADD_PROXY_ROUTE` would be:  "`myApp.http://myapp:56789`".
 
-Once `ADD_PROXY_ROUTE` is configured and composed-up successfully, the proxy route then can be accessed the app's REST API via Kong as `https://localhost:8443/myApp/api/v2/...` in the same way you would access the EdgeX service.
+Once `EDGEX_ADD_PROXY_ROUTE` is configured and composed-up successfully, the proxy route then can be accessed the app's REST API via Kong as `https://localhost:8443/myApp/api/v2/...` in the same way you would access the EdgeX service.
 You will also need an access token obtained using the documentation below.
 
 ## Using API Gateway

@@ -86,10 +86,10 @@ Application Services currently have the ability to configure `SecretStores` for 
 
   - Application Service (instance) are examples of these services. 
 
-  - Service exclusive `SecretStore` can be created for these services by adding the services' unique name , i.e. appservice-http-export, to the `ADD_SECRETSTORE_TOKENS` environment variable for security-secretstore-setup
+  - Service exclusive `SecretStore` can be created for these services by adding the services' unique name , i.e. appservice-http-export, to the `EDGEX_ADD_SECRETSTORE_TOKENS` environment variable for security-secretstore-setup
 
     ```
-    ADD_SECRETSTORE_TOKENS: "appservice-http-export, appservice-mqtt-export"
+    EDGEX_ADD_SECRETSTORE_TOKENS: "appservice-http-export, appservice-mqtt-export"
     ```
 
     This creates an exclusive secret store token for each service listed. The name provided for each service must be used in the service's `SecretStore` configuration and Docker volume mount  (if applicable). Typically the configuration is set via environment overrides or is already in an existing configuration profile (***http-export*** profile for app-service-configurable). 
@@ -296,10 +296,10 @@ The new `SecretProvider` abstraction defined by this ADR is a combination of the
 
 To simplify the `SecretProvider` abstraction, we need to reduce to using only exclusive `SecretStores`. This allows all the APIs to deal with a single `SecretClient`, rather than the split up way we currently have in Application Services. This requires that the current Application Service shared secrets (database credentials) must be copied into each Application Service's exclusive `SecretStore` when it is created.
 
-The challenge is how do we seed static secrets for unknown services when they become known.  As described above in the [Known and Unknown Services](#known-and-unknown-services) section above,  services currently identify themselves for exclusive `SecretStore` creation via the `ADD_SECRETSTORE_TOKENS` environment variable on security-secretstore-setup. This environment variable simply takes a comma separated list of service names.
+The challenge is how do we seed static secrets for unknown services when they become known.  As described above in the [Known and Unknown Services](#known-and-unknown-services) section above,  services currently identify themselves for exclusive `SecretStore` creation via the `EDGEX_ADD_SECRETSTORE_TOKENS` environment variable on security-secretstore-setup. This environment variable simply takes a comma separated list of service names.
 
 ```yaml
-ADD_SECRETSTORE_TOKENS: "<service-name1>,<service-name2>"
+EDGEX_ADD_SECRETSTORE_TOKENS: "<service-name1>,<service-name2>"
 ```
 
 If we expanded this to add an optional list of static secret identifiers for each service, i.e.  `appservice/redisdb`, the exclusive store could also be seeded with a copy of static shared secrets. In this case the Redis database credentials for the Application Services' shared database. The environment variable name will change to `ADD_SECRETSTORE` now that it is more than just tokens.

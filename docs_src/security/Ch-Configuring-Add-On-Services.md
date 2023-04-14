@@ -88,7 +88,7 @@ when the entrypoint script is overridden.  In this case, we also override the `c
 !!! edgey "Edgex 3.0"
     For EdgeX 3.0 the **SecretStore** configuration has been removed from each service's configuration files. It has default values which can be overridden with environment variables. See the [SecretStore Overrides](../../microservices/configuration/CommonEnvironmentVariables/#secretstore-overrides) section for more details.
 
-Note that the service key , i.e.`device-onvif-camera`, must be used for the `Path` and in the `TokenFile` path to keep it consistent and easier to maintain. These are now part of the built in default values for the **SecretStore** configuration. Then the add-on service's service key must be added to the EdgeX service `secretstore-setup`'s`ADD_SECRETSTORE_TOKENS` environment variable in the `environment` section of `docker-compose`
+Note that the service key , i.e.`device-onvif-camera`, must be used for the `Path` and in the `TokenFile` path to keep it consistent and easier to maintain. These are now part of the built in default values for the **SecretStore** configuration. Then the add-on service's service key must be added to the EdgeX service `secretstore-setup`'s`EDGEX_ADD_SECRETSTORE_TOKENS` environment variable in the `environment` section of `docker-compose`
 as the example shown below:
 
 ```yaml
@@ -99,19 +99,19 @@ as the example shown below:
     - security-bootstrapper
     - vault
     environment:
-      ADD_SECRETSTORE_TOKENS: 'device-onvif-camera'
+      EDGEX_ADD_SECRETSTORE_TOKENS: 'device-onvif-camera'
 ...
 ```
 
 With that, `secretstore-setup` then will generate `Secret Store` token from `Vault` and store it in
 the `TokenFile` path specified in the **SecretStore** configuration.
 
-Also note that the value of `ADD_SECRETSTORE_TOKENS` can take more than one service in a form of
+Also note that the value of `EDGEX_ADD_SECRETSTORE_TOKENS` can take more than one service in a form of
 comma separated list like "`device-camera`, `device-modbus`" if needed.
 
 ## (Optional) Configure known secrets for add-on services
 
-The `ADD_KNOWN_SECRETS` environment variable on `secretstore-setup` allows for known secrets
+The `EDGEX_ADD_KNOWN_SECRETS` environment variable on `secretstore-setup` allows for known secrets
 to be added to an add-on service's `Secret Store`.
 
 For the Ireland release, the only `known` secret is the `Redis DB credentials` identified by
@@ -131,7 +131,7 @@ and if the add-on service is not connecting to the bus or the Redis database, th
 So given an example for service `device-virtual` to use the `Redis` message bus in secure mode,
 we need to tell `secretstore-setup` to add the `redisdb` known secret to `Secret Store` for `device-virtual`.
 This can be done through the configuration of adding `redisdb[device-virtual]` into the environment variable
-`ADD_KNOWN_SECRETS` in `secretstore-setup` service's environment section, in which `redisdb` is the name of
+`EDGEX_ADD_KNOWN_SECRETS` in `secretstore-setup` service's environment section, in which `redisdb` is the name of
 the `known secret` and `device-virtual` is the service key of the add-on service.
 
 ```yaml
@@ -142,8 +142,8 @@ the `known secret` and `device-virtual` is the service key of the add-on service
     - security-bootstrapper
     - vault
     environment:
-      ADD_SECRETSTORE_TOKENS: 'device-onvif-camera, my-service'
-      ADD_KNOWN_SECRETS: redisdb[app-rules-engine],redisdb[device-rest],redisdb[device-virtual]
+      EDGEX_ADD_SECRETSTORE_TOKENS: 'device-onvif-camera, my-service'
+      EDGEX_ADD_KNOWN_SECRETS: redisdb[app-rules-engine],redisdb[device-rest],redisdb[device-virtual]
 ...
 
 ```
@@ -152,10 +152,10 @@ In the above `docker-compose` section of `secretstore-setup`, we specify the kno
 `redisdb` to add/copy the Redis database credentials to the `Secret Store` for the `app-rules-engine`,
 `device-rest`, and `device-virtual` services.
 
-We can also use the alternative or simpler form of `ADD_KNOWN_SECRETS` environment variable's value like
+We can also use the alternative or simpler form of `EDGEX_ADD_KNOWN_SECRETS` environment variable's value like
 
 ```yaml
-    ADD_KNOWN_SECRETS: redisdb[app-rules-engine; device-rest; device-virtual]
+    EDGEX_ADD_KNOWN_SECRETS: redisdb[app-rules-engine; device-rest; device-virtual]
 ```
 
 in which all add-on services are put together in a comma separated list associated with the
@@ -166,7 +166,7 @@ known secret `redisdb`.
 This is a new step coming from `securing Consul` security features as part of EdgeX Ireland release.
 
 If the add-on service uses `Consul` as the configuration and/or registry service, then we also need to
-configure the environment variable `ADD_REGISTRY_ACL_ROLES` to tell `security-bootstrapper` to generate
+configure the environment variable `EDGEX_ADD_REGISTRY_ACL_ROLES` to tell `security-bootstrapper` to generate
 an ACL role for `Consul` to associate with its token.
 
 An example of configuring ACL roles of the registry `Consul` for the add-on services
@@ -182,12 +182,12 @@ An example of configuring ACL roles of the registry `Consul` for the add-on serv
     entrypoint:
     - /edgex-init/consul_wait_install.sh
     environment:
-      ADD_REGISTRY_ACL_ROLES: app-http-export,device-modbus
+      EDGEX_ADD_REGISTRY_ACL_ROLES: app-http-export,device-modbus
 ...
 
 ```
 
-The configuration of Edgex service `consul`'s environment variable `ADD_REGISTRY_ACL_ROLES` tells
+The configuration of Edgex service `consul`'s environment variable `EDGEX_ADD_REGISTRY_ACL_ROLES` tells
 the `security-bootstrapper` to set up `Consul` ACL role so that the ACL token is generated,
 hence the permission is granted for that service with the access to `Consul` in secure mode.
 
@@ -199,7 +199,7 @@ service registry.
 
 If it is desirable to let user or other application services outside EdgeX's Docker network access
 the endpoint of the add-on service, then we can configure and add it via `proxy-setup` service's
-`ADD_PROXY_ROUTE` environment variable.  `proxy-setup` adds those services listed in that environment
+`EDGEX_ADD_PROXY_ROUTE` environment variable.  `proxy-setup` adds those services listed in that environment
 variable into the API gateway routes so that the endpoint can be accessible via the gateway.
 
 One example of adding API gateway access routes for both `device-camera` and `device-modbus`
@@ -211,7 +211,7 @@ edgex-proxy:
       ...
     environment:
       ...
-      ADD_PROXY_ROUTE: "device-camera.http://edgex-device-onvif-camera:59984, device-modbus.http://edgex-device-modbus:59901"
+      EDGEX_ADD_PROXY_ROUTE: "device-camera.http://edgex-device-onvif-camera:59984, device-modbus.http://edgex-device-modbus:59901"
       ...
 ...
 ```
