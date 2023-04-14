@@ -128,12 +128,12 @@ where:
 
 Mapping examples:
 
-| Snap config key        | Environment Variable     | Service configuration YAML                       |
-|------------------------|--------------------------|-----------------------------------------------------|
-| service-port           | SERVICE_PORT             | Service:<br>--Port:                             |
-| clients-core-data-host  | CLIENTS_CORE_DATA_HOST  | Clients:<br>--core-data:<br>----Host:   |
-| edgex-startup-duration | [EDGEX_STARTUP_DURATION] | -                                                   |
-| add-secretstore-tokens | [EDGEX_ADD_SECRETSTORE_TOKENS] | -                                                   |
+| Snap config key              | Environment Variable     | Service configuration YAML                       |
+|------------------------------|--------------------------|-----------------------------------------------------|
+| service-port                 | SERVICE_PORT             | Service:<br>--Port:                             |
+| clients-core-data-host       | CLIENTS_CORE_DATA_HOST   | Clients:<br>--core-data:<br>----Host:   |
+| edgex-startup-duration       | [EDGEX_STARTUP_DURATION]       | -                                                   |
+| edgex-add-secretstore-tokens | [EDGEX_ADD_SECRETSTORE_TOKENS] | -                                                   |
 
 [EDGEX_STARTUP_DURATION]: ../../microservices/configuration/CommonEnvironmentVariables/#edgex_startup_duration
 [EDGEX_ADD_SECRETSTORE_TOKENS]: ../../security/Ch-Configuring-Add-On-Services/#configure-the-services-secret-store-to-use
