@@ -133,10 +133,10 @@ Mapping examples:
 | service-port           | SERVICE_PORT             | Service:<br>--Port:                             |
 | clients-core-data-host  | CLIENTS_CORE_DATA_HOST  | Clients:<br>--core-data:<br>----Host:   |
 | edgex-startup-duration | [EDGEX_STARTUP_DURATION] | -                                                   |
-| add-secretstore-tokens | [ADD_SECRETSTORE_TOKENS] | -                                                   |
+| add-secretstore-tokens | [EDGEX_ADD_SECRETSTORE_TOKENS] | -                                                   |
 
 [EDGEX_STARTUP_DURATION]: ../../microservices/configuration/CommonEnvironmentVariables/#edgex_startup_duration
-[ADD_SECRETSTORE_TOKENS]: ../../security/Ch-Configuring-Add-On-Services/#configure-the-services-secret-store-to-use
+[EDGEX_ADD_SECRETSTORE_TOKENS]: ../../security/Ch-Configuring-Add-On-Services/#configure-the-services-secret-store-to-use
 
 !!! Example 
     To change the service port of the `core-data` service on `edgexfoundry` snap to 8080:
