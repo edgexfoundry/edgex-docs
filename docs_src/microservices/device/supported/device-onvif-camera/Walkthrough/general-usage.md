@@ -53,7 +53,7 @@ This document will describe how to execute some of the most important types of c
 
 4. To shut down ffplay, use the ctrl-c command.
 
-<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/device-onvif-camera/{{dev_version}}/doc/openapi/v2/device-onvif-camera.yaml"/>
+<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/device-onvif-camera/{{dev_version}}/doc/openapi/{{api_version}}/device-onvif-camera.yaml"/>
 
 # License
 
