@@ -111,41 +111,58 @@ The TLS certificate installed in the previous step should be among the output of
 
 ### Configuration of Adding Microservices Routes for API Gateway
 
-For the current pre-existing Kong routes, they are configured and initialized statically through configuration file specified in `security-proxy-setup` application. This is not sufficient for some other new additional microservices like application services, for example.  Thus, adding new proxy Kong routes are now possibly achieved via the environment variable, `ADD_PROXY_ROUTE`, of service `edgex-proxy` in the docker-compose file.  Here is an example:
+A standard set of routes are configured statically via the `security-proxy-setup` microservice.
+Additional routes can be added via the `EDGEX_ADD_PROXY_ROUTE` environment variable.
+Here is an example:
 
 ```yaml
-edgex-proxy:
+security-proxy-setup:
       ...
     environment:
       ...
-      EDGEX_ADD_PROXY_ROUTE: "myApp.http://my-app:56789"
+      EDGEX_ADD_PROXY_ROUTE: "app-myservice.http://edgex-app-myservice:56789"
       ...
 
 ...
 
-my-app:
+app-myservice:
    ...
-   container_name: myApp
-   hostname: myApp
+   container_name: app-myservice-container
+   hostname: edgex-app-myservice
    ...
   
 ```
 
-The value of `EDGEX_ADD_PROXY_ROUTE` takes a comma-separated list of one or more (at least one) paired additional service name and URL for which to create proxy Kong routes.   The paired specification is given as the following:
+The value of `EDGEX_ADD_PROXY_ROUTE` takes a comma-separated list
+of one or more paired additional prefix and URL
+for which to create proxy routes.
+The paired specification is given as the following:
 
     <RoutePrefix>.<TargetRouteURL>
 
-where **RoutePrefix** is the name of service which requests to create proxy Kong route and it is case insensitive; it is the docker network hostname of the service that want to add the proxy Kong route in the docker-compose file if running from docker-compose, for example, `myApp` in this case.
+where **RoutePrefix** is the base path that will be created off of the root
+of the API gateway to route traffic to the target.
+This should typically be the service key that the app uses to register
+with the EdgeX secret store and configuration provider,
+as the name of the service in the docker-compose file has
+security implications when using delayed-start services.
 
-**TargetRouteURL** is the full qualified URL for the target service, like `http://myapp:56789` as it is known on on the network
-on which the API gateway is running.  For Docker,
-the hostname should match the hostname specified in the
-`docker-compose` file.
+**TargetRouteURL** is the fullly qualified URL for the target service,
+like `http://edgex-app-myservice:56789` as it is known on on the network on which the API gateway is running.
+For Docker, the hostname should match the hostname specified in the `docker-compose.yml` file.
 
-So as an example, for a single service, the value of `EDGEX_ADD_PROXY_ROUTE` would be:  "`myApp.http://myapp:56789`".
+For example, using the above `docker-compose.yml`:
 
-Once `EDGEX_ADD_PROXY_ROUTE` is configured and composed-up successfully, the proxy route then can be accessed the app's REST API via Kong as `https://localhost:8443/myApp/api/v2/...` in the same way you would access the EdgeX service.
-You will also need an access token obtained using the documentation below.
+```
+EDGEX_ADD_PROXY_ROUTE: "app-myservice.http://edgex-app-myservice:56789"
+```
+
+When a request to the API gateway is received,
+such as `GET https://localhost:8443/app-myservice/api/v2/ping`,
+the API gateway will reissue the request as
+`GET http://edgex-app-myservice:56789/api/v2/ping`.
+Note that the route prefix is stripped
+from the re-issued request.
 
 ## Using API Gateway
 
@@ -158,15 +175,14 @@ the Core Data microservice with curl command like this:
 
     curl http://<core-data-microservice-ip>:59880/api/v2/ping
 
-Once the API gateway is started and initialized successfully, and all
-the common ports for EdgeX microservices are blocked by disabling the
-exposed external ports of the EdgeX microservices through updating the
-docker compose file, the EdgeX microservice will be behind the gateway.
-At this time both the microservice host/IP Address
-(\<core-data-microservice-ip\> in the example) as well as the service
-port (59880 in the example) are not available to external access. EdgeX
-uses the gateway as a single entry point for all the REST APIs. With the
-API gateway in place, the curl command to ping the endpoint of the same
+Where `<core-data-microservice-ip>` is the Docker IP address of
+the container running the core-data microservice (if using Docker),
+or additionally `localhost` in the default configuration for snaps and Docker.
+This means that in the default configuration,
+EdgeX microservices are only accessible to local host processes.
+
+The API gateway serves as single external endpoint for all the REST APIs.
+The curl command to ping the endpoint of the same
 Core Data service, as shown above, needs to change to:
 
     curl https://<api-gateway-host>:8443/core-data/api/v2/ping
@@ -182,11 +198,7 @@ Comparing these two curl commands you may notice several differences.
     gateway becomes the single entry point for all the EdgeX micro
     services). The API gateway will eventually relay the request to
     the Core Data service if the client is authorized.
-    Note that for Kong to serve the proper TLS certificate,
-    a DNS host name must be used as SNI does not support
-    IP addresses. This is a standards-compliant behavior,
-    not a limitation of Kong.
--   The port of the request is switched from 48080 to 8443, which is the
+-   The port of the request is switched from 59880 to 8443, which is the
     default SSL/TLS port for API gateway (versus the micro service
     port). This applies to any client side request.
 -   The `/core-data/` path in the URL is used to identify which EdgeX
@@ -196,11 +208,15 @@ Comparing these two curl commands you may notice several differences.
     micro service ports. A partial listing of the map between ports and
     URL paths is shown in the table below.
 
+Note that any such request issued will be met with an
+
+    401 Not Authorized
+
+response to the lack of an authentication token on the request.
+Authentication will be explained later.
 
 The EdgeX documentation maintains an up-to-date list
 of [default service ports](../general/ServicePorts.md).
-
-
 
 
 ---
@@ -220,58 +236,44 @@ of [default service ports](../general/ServicePorts.md).
 
 ### Creating Access Token for API Gateway Authentication
 
-The API gateway is configured to require authentiation prior to
-passing a request to a back-end microservice.
+Authentication is more fully explained
+in the [authentication chapter](./Ch-Authenticating.md).
 
-It is necessary to create an API gateway user in order to
-satify the authentication requirement.  Gateway users
-are created using the proxy subcommand of the
-[secrets-config](secrets-config-proxy.md)
-utility.
+The authentication chapter goes into detail on:
 
-#### JWT authentication
+* How to create user accounts in the EdgeX secret store
+* How to authenticate to the EdgeX secret store remotely
+  and obtain a JWT token that will be accepted by the gateway.
 
-JWT authentication is based on a public/private keypair,
-where the public key is registered with the API gateway,
-and the private key is kept secret.  This method does not
-require exposing any secret to the API gateway and
-allows JWTs to be generated offline.
+The TL;DR version to get an API gateway token,
+for development and test purposes, is
 
-Before using the JWT authentiation method,
-it is necessary to create a public/private keypair.
-This example uses ECDSA keys, but RSA key can be used as well.
+    make get-token
 
-    openssl ecparam -name prime256v1 -genkey -noout -out ec256.key
-    openssl ec -out ec256.pub < ec256.key
+(in the edgex-compose repository, if using Docker).
 
-Next, generate and save a unique ID that will be used in
-any issued JWTs to look up the public key to be used for validation.
-Also we need the JWT used to authenticate to Kong--this JWT
-was written to host-based secrets area when the framework was started.
-(Note the backtick to capture the uuidegen output.)
+The `get-token` target will return a JWT in the form
 
-    ID=`uuidgen`
-    KONGJWT=`sudo cat /tmp/edgex/secrets/security-proxy-setup/kong-admin-jwt`
+    eyJ.... "." base64chars "." base64chars
 
-Register a user for that key:
 
-    docker-compose -p edgex -f docker-compose.yml run --rm -v `pwd`:/host:ro -u "$UID" --entrypoint "/edgex/secrets-config" proxy-setup -- proxy adduser --token-type jwt --id "$ID" --algorithm ES256 --public_key /host/ec256.pub --user _SOME_USERNAME_ --jwt "$KONGJWT"
+As a bearer token, it has a limited lifetime for security reasons.
+The `get-token` process should be repeated to obtain fresh tokens periodically.
+In the long form process described in the
+[authentication chapter](./Ch-Authenticating.md),
+this means re-authenticating to the EdgeX secret store and requesting a fresh JWT.
 
-Lastly, generate a valid JWT.  Any JWT library should work,
-but secrets-config provides a convenient utility:
-
-    docker-compose -p edgex -f docker-compose.yml run --rm -v `pwd`:/host:ro -u "$UID" --entrypoint "/edgex/secrets-config" proxy-setup -- proxy jwt --id "$ID" --algorithm ES256 --private_key /host/ec256.key
-
-The command will output a long alphanumeric sequence of the format
-
-    <alphanumeric> '.' <alphanumeric> '.' <alphanumeric>
-
-The access token is used in the Authorization header of the request
-(see details below).
-
-To de-authorize or delete the user:
-
-    docker-compose -p edgex -f docker-compose.yml run --rm -u "$UID" --entrypoint "/edgex/secrets-config" proxy-setup -- proxy deluser --user _SOME_USERNAME_ --jwt "$KONGJWT"
+EdgeX versions prior to 3.0 used to support
+registering a public key with the API gateway,
+and allowing clients to self-generate their JWT
+for API gateway authentication.
+Regrettably, this "raw key JWT" authentication method is no longer supported.
+As consolation, the EdgeX secret store backend, Hashicorp Vault,
+supports [many other authentication backends](https://developer.hashicorp.com/vault/docs/auth).
+EdgeX only enables the `userpass` auth engine by default,
+and only passes the `userpass` auth endpoints through the API gateway by default.
+Customizing an EdgeX implementation to use alternative authentication methods
+is left as an exercise for the adopter.
 
 
 ### Using API Gateway to Proxy Existing EdgeX Microservices
@@ -282,35 +284,24 @@ resources behind the API gateway. Again, without the API Gateway in
 place, here is the sample request to hit the ping endpoint of the EdgeX
 Core Data microservice using curl:
 
-    curl http://<host-system-ip>:59880/api/v2/ping
+    curl http://<core-data-microservice-ip>:59880/api/v2/ping
 
 With the security service and JWT authentication is enabled, the command
 changes to:
 
-    curl -k --resolve kong:8443:127.0.0.1 -H 'Authorization: Bearer <JWT>' https://kong:8443/core-data/api/v2/ping
+    curl -k -H 'Authorization: Bearer <JWT>' https://myhostname:8443/core-data/api/v2/ping
 
-(Note the above `--resolve` line forces "kong" to resolve to 127.0.0.1.
-This is just for illustrative purposes to force SNI. In practice,
-the TLS certificate would be registered under the external host name.)
 
 In summary the difference between the two commands are listed below:
 
--   --resolve tells curl to resolve https://kong:8443 to
-    the loopback address.  This will cause curl to use the
-    hostname `kong` as the SNI, but connect to the specified IP
-    address to make the connection.
-    -k tells curl to ignore certificate errors. This is for
+-   `-k` tells curl to ignore certificate errors. This is for
     demonstration purposes. In production, a known certificate that
     the client trusts be installed on the proxy and this parameter omitted.
--   --H "host: edgex" is used to indicate that the request is for
-    EdgeX domain as the API gateway could be used to take requests for
-    different domains.
 -   Use the https versus http protocol identifier for SSL/TLS secure
     communication.
 -   The service port 8443 is the default TLS service port of API gateway
--   Use the URL path "coredata" to indicate which EdgeX microservice
+-   Use the URL path "core-data" to indicate which EdgeX microservice
     the request is routed to
--   Use header of -H "Authorization: Bearer \<access-token\>" to
-    specify the access token associated with the client that was
-    generated when the client was added.
+-   Use header of `-H "Authorization: Bearer <JWT>"` to
+    pass the authentication token as part of the request.
 
