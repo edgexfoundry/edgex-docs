@@ -1161,8 +1161,13 @@
 <nav aria-label="Proposed Design" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#configuration-bootstrapping">
-    Configuration Bootstrapping
+<a class="md-nav__link" href="#common-config-bootstrapping">
+    Common Config Bootstrapping
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#service-configuration-bootstrapping">
+    Service Configuration Bootstrapping
   </a>
 </li>
 <li class="md-nav__item">
@@ -1269,7 +1274,9 @@
 </ul>
 <h2 id="change-log">Change Log</h2>
 <ul>
-<li><a href="URL of PR TBD">approved</a> (2023-01-03)</li>
+<li><a href="https://github.com/edgexfoundry/edgex-docs/pull/909">original</a> - approved (2023-01-03)</li>
+<li><a href="https://github.com/edgexfoundry/edgex-docs/pull/1025">revised</a> - approved (2023-04-17)</li>
+<li>Revised for Configuration Provider as System of Record  when used.</li>
 </ul>
 <h2 id="referenced-use-cases">Referenced Use Case(s)</h2>
 <ul>
@@ -1284,7 +1291,11 @@
 <p>The configuration settings that are common to all services will be partitioned out into a separate common configuration source. This common configuration source will be pushed into the Configuration Provider by the new <code>core-common-config-bootstrapper</code> service.</p>
 <p>During bootstrapping, each service will either load the common configuration from the Configuration Provider or via URI to some endpoint that provides the common configuration. Each service will have additional private configuration, which may override and/or extend the common configuration.  </p>
 <p>An additional common configuration setting must be present to indicate all other common settings have been pushed to the Configuration Provider. This setting is stored last and the services must wait for this setting to be present prior to pulling the common settings.</p>
-<h3 id="configuration-bootstrapping">Configuration Bootstrapping</h3>
+<p>Environment overrides are only applied when configuration is loaded from file. The overridden values are pushed into the Configuration Provider, when used.</p>
+<h3 id="common-config-bootstrapping">Common Config Bootstrapping</h3>
+<p>The following flow chart demonstrates the bootstrapping  (seeding) of the common configuration when using the Configuration Provider.</p>
+<p><img alt="" src="../common-config-images/EdgeX%203.x%20Common%20Configuration%20bootstrapping%20flowchart.png"/></p>
+<h3 id="service-configuration-bootstrapping">Service Configuration Bootstrapping</h3>
 <p>The following flow chart demonstrates the bootstrapping of each services' configuration with this new common configuration capability.</p>
 <p><img alt="" src="../common-config-images/EdgeX%203.x%20Configuration%20bootstrapping%20flowchart.png"/></p>
 <h3 id="secret-store-configuration">Secret Store Configuration</h3>
@@ -1626,7 +1637,7 @@
 <h2 id="considerations">Considerations</h2>
 <ul>
 <li>New service which owns the common configuration could be integrated into Core Metadata rather than creating a new microservice. This violates the microservice design principle of single responsibility.</li>
-<li>Environment overrides pushed into Configuration Provider rather than applying the overrides once configuration is pulled from the Configuration Provider . Consensus is that the overridden values should not be stored in the Configuration Provider. </li>
+<li>When using the Configuration Provider, environment overrides are only used to seed the values into the Configuration Provider. This makes the Configuration Provider the <strong>System of Record</strong> for configuration when it is used. i.e. Environment overrides no longer have highest precedence as they do in EdgeX 2.x. Changing/adding environment overrides after the Configuration Provider is seeded has no impact on the service's configuration.</li>
 <li>Service full configuration store in Configuration Provider rather than just private settings. Consensus is that this is redundant for the common settings and should only be the service's private settings.</li>
 <li>Separate Application Service and Device Service common configuration settings could be in their own configuration sources which are loaded separately by Application and Device Services. This would add undue complexity that is mitigated by these settings being ignored by the marshaller in those services that do not use them.</li>
 <li>The new service could provide a REST endpoint to serve the common configuration. Consensus is to have no default configuration, thus no need for an endpoint.</li>
