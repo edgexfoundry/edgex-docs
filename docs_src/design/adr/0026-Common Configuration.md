@@ -5,9 +5,8 @@
 
 ## Change Log
 - [original](https://github.com/edgexfoundry/edgex-docs/pull/909) - approved (2023-01-03)
-- [revised](https://github.com/edgexfoundry/edgex-docs/pull/1025)  - pending (2023-04-12)
+- [revised](https://github.com/edgexfoundry/edgex-docs/pull/1025) - approved (2023-04-17)
   - Revised for Configuration Provider as System of Record  when used.
-
 
 ## Referenced Use Case(s)
 - [Common Configuration UCR](URL of use case link TBD)
