@@ -4,7 +4,9 @@
 - Elizabeth Lee (Intel)
 
 ## Change Log
-- [approved](URL of PR TBD) (2023-01-03)
+- [original](https://github.com/edgexfoundry/edgex-docs/pull/909) - approved (2023-01-03)
+- [revised](https://github.com/edgexfoundry/edgex-docs/pull/1025) - approved (2023-04-17)
+  - Revised for Configuration Provider as System of Record  when used.
 
 ## Referenced Use Case(s)
 - [Common Configuration UCR](URL of use case link TBD)
@@ -25,7 +27,15 @@ During bootstrapping, each service will either load the common configuration fro
 
 An additional common configuration setting must be present to indicate all other common settings have been pushed to the Configuration Provider. This setting is stored last and the services must wait for this setting to be present prior to pulling the common settings.
 
-### Configuration Bootstrapping
+Environment overrides are only applied when configuration is loaded from file. The overridden values are pushed into the Configuration Provider, when used.
+
+### Common Config Bootstrapping
+
+The following flow chart demonstrates the bootstrapping  (seeding) of the common configuration when using the Configuration Provider.
+
+![](common-config-images/EdgeX 3.x Common Configuration bootstrapping flowchart.png)
+
+### Service Configuration Bootstrapping
 
 The following flow chart demonstrates the bootstrapping of each services' configuration with this new common configuration capability.
 
@@ -390,7 +400,7 @@ The following modules and services are impacted:
 ## Considerations
 
 - New service which owns the common configuration could be integrated into Core Metadata rather than creating a new microservice. This violates the microservice design principle of single responsibility.
-- Environment overrides pushed into Configuration Provider rather than applying the overrides once configuration is pulled from the Configuration Provider . Consensus is that the overridden values should not be stored in the Configuration Provider. 
+- When using the Configuration Provider, environment overrides are only used to seed the values into the Configuration Provider. This makes the Configuration Provider the **System of Record** for configuration when it is used. i.e. Environment overrides no longer have highest precedence as they do in EdgeX 2.x. Changing/adding environment overrides after the Configuration Provider is seeded has no impact on the service's configuration.
 - Service full configuration store in Configuration Provider rather than just private settings. Consensus is that this is redundant for the common settings and should only be the service's private settings.
 - Separate Application Service and Device Service common configuration settings could be in their own configuration sources which are loaded separately by Application and Device Services. This would add undue complexity that is mitigated by these settings being ignored by the marshaller in those services that do not use them.
 - The new service could provide a REST endpoint to serve the common configuration. Consensus is to have no default configuration, thus no need for an endpoint.
