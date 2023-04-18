@@ -64,7 +64,7 @@ so that malware that runs on the system post-boot cannot retrieve it.
 The Vault Master Key Encryption feature is embedded
 into the EdgeX `security-secretsetore-setup` utility.
 It is enabled by setting an environment variable,
-`IKM_HOOK`, containing the path to an executable
+`EDGEX_IKM_HOOK`, containing the path to an executable
 that implements the IKM interface, described below,
 when the `security-secretstore-setup` executable
 is run in early boot to initialize or unseal

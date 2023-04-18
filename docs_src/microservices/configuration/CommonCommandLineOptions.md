@@ -1,4 +1,4 @@
-# Common Command Line Options
+# Command Line Options
 
 This section describes the command line options that are common to all EdgeX services. Some services have addition command line options which are documented in the specific sections for those services.
 
