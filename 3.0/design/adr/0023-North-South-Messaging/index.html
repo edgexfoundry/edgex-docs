@@ -1460,7 +1460,7 @@
 <li>Ans (per monthly architect's meeting of 3/28/22): We will use errorCode to provide the indication of error.  The errorCode will be 0 (no error) or 1 (indicating error) as the two enums for error conditions today.  In the future, if we determine the need for additional errors, we will add more "enums" or error code numbers.  When there is an error (with errorCode set to 1), then the payload contains a message string indicating more information about the error.  When there is no error (errorCode 0) then there is no message string in the payload. </li>
 </ul>
 </li>
-<li>If we have a status code or error code, where does it belong?  In the payload or in the envelope (as it would be in the header in REST)?  As a reference, the <a href="https://docs.iotaap.io/docs-rest/">IoTAAP MQTT to REST bridge</a> provides a status code to message string translation as an example means to handle this problem.  Should we use something similar?<ul>
+<li>If we have a status code or error code, where does it belong?  In the payload or in the envelope (as it would be in the header in REST)?  As a reference, the IoTAAP MQTT to REST bridge provides a status code to message string translation as an example means to handle this problem.  Should we use something similar?<ul>
 <li>Ans (per monthly architect's meeting of 3/28/22): errorCode should be in the message envelope not the payload.  When there is an error, the payload contains a single message string.</li>
 </ul>
 </li>
@@ -1738,7 +1738,6 @@
 <h2 id="references">References</h2>
 <ul>
 <li><a href="https://app.swaggerhub.com/apis/EdgeXFoundry1/core-command/2.1.0">Core Command API</a></li>
-<li><a href="https://docs.iotaap.io/docs-rest/">IoTAAP MATT REST Bridge</a></li>
 </ul>
 </article>
 </div>
