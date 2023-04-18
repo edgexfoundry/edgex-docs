@@ -6,12 +6,13 @@
 
 ## Status
 
-- Draft
+- Approved
 
 ## Change Log
 
 - Initial draft – 3/5/23
 - Closed previous PR due to link issues.  See [PR 987](https://github.com/edgexfoundry/edgex-docs/pull/987) for original feedback.
+- Approved by TSC, 2023-4-18
 
 ## Market Segments
 
