@@ -234,7 +234,7 @@ Example response messages for a GET and PUT request are shown below.  Again, not
         - Ans (per monthly architect's meeting of 3/28/22): This should be kept in the message envelope (not the message payaload).
     - Per core WG meeting discussion of 2/24/22 - do we have status code?  If so should it mimic the REST/HTTP status code responses?  Do we really want to mimic HTTP in our message bus approach?  As suggested by @farshidtz, maybe we should just have an `error` boolean and then have the message indicate the error condition. 
         - Ans (per monthly architect's meeting of 3/28/22): We will use errorCode to provide the indication of error.  The errorCode will be 0 (no error) or 1 (indicating error) as the two enums for error conditions today.  In the future, if we determine the need for additional errors, we will add more "enums" or error code numbers.  When there is an error (with errorCode set to 1), then the payload contains a message string indicating more information about the error.  When there is no error (errorCode 0) then there is no message string in the payload. 
-    - If we have a status code or error code, where does it belong?  In the payload or in the envelope (as it would be in the header in REST)?  As a reference, the [IoTAAP MQTT to REST bridge](https://docs.iotaap.io/docs-rest/) provides a status code to message string translation as an example means to handle this problem.  Should we use something similar?
+    - If we have a status code or error code, where does it belong?  In the payload or in the envelope (as it would be in the header in REST)?  As a reference, the IoTAAP MQTT to REST bridge provides a status code to message string translation as an example means to handle this problem.  Should we use something similar?
         - Ans (per monthly architect's meeting of 3/28/22): errorCode should be in the message envelope not the payload.  When there is an error, the payload contains a single message string.
 
 #### Query Message Payload
@@ -523,4 +523,3 @@ In order to support this, the following need to be added:
 ## References
 
 - [Core Command API](https://app.swaggerhub.com/apis/EdgeXFoundry1/core-command/2.1.0)
-- [IoTAAP MATT REST Bridge](https://docs.iotaap.io/docs-rest/)
