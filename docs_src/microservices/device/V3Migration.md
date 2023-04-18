@@ -1,11 +1,14 @@
-# V2 Migration Guide
+# V3 Migration Guide
 
-!!! edgey "EdgeX 2.0"
-For the EdgeX 2.0 (Ireland) release there are many backward breaking changes. These changes require custom Device Services and custom device profiles to be migrated. This section outlines the necessary steps for this migration.
+!!! warning
+    Updates to this migration guide for V3 are still pending. Content/structure below is from V2
 
 ## Custom Device Services
 
 ### Configuration
+
+!!! warning
+    Updates to this migration guide for V3 are still pending. Content/structure below is from V2
 
 The migration of any Device Service's configuration starts with migrating configuration common to all EdgeX services. See the [V2 Migration of Common Configuration](../../configuration/V2MigrationCommonConfig) section for details. The remainder of this section focuses on configuration specific to Device Services.
 
@@ -167,6 +170,10 @@ The callback list structure has been made opaque. An instance of it to pass into
 * Reflecting changes in the device profile (see below), the `edgex_deviceresource` struct now contains an `edgex_propertyvalue` directly, rather than via an `edgex_profileproperty`. The `edgex_propertyvalue` contains a new field `char *units` which replaces the old `edgex_units` structure.
 
 ### Device Profiles
+
+!!! warning
+    Updates to this migration guide for V3 are still pending. Content/structure below is from V2
+
 See [Device Profile Reference](profile/Ch-DeviceProfileRef.md) for details, SDK now allows both YAML and JSON format.
 
 #### Device Resource
@@ -236,6 +243,9 @@ and deviceCommand is able to be called via Command Service REST API. Set `isHidd
 
 ### Devices
 
+!!! warning
+    Updates to this migration guide for V3 are still pending. Content/structure below is from V2
+
 #### State
 In V2 the values of a device's operating state are changed from `ENABLED`/`DISABLED` to `UP`/`DOWN`. The additional state value `UNKNOWN` is added for future use.
 
@@ -270,6 +280,9 @@ Notice that we renamed some fields:
 - `Resource` is renamed to `SourceName`
 
 ## Device MQTT
+
+!!! warning
+    Updates to this migration guide for V3 are still pending. Content/structure below is from V2
 
 The Device MQTT service specific `[Driver]` and `[DeviceList.Protocols.mqtt]` sections have changed for V2. The MQTT Broker connection configuration has been consolidated to just one MQTT Client and now supports SecretStore for the authentication credentials.
 
@@ -387,85 +400,4 @@ For non-secure mode the authentication credentials need to be added to the [Inse
         [Writable.InsecureSecrets.MQTT.Secrets]
         username = "mqtt-user"
         password = "mqtt-password"
-    ```
-
-## Device Camera
-
-The Device Camera service specific `[Driver]` and `[DeviceList.Protocols.HTTP]` sections have changed for V2 due to the addition of the SecretStore capability and per camera credentials. The plain text camera credentials have been replaced with settings describing where to pull them from the SecretStore for each camera device specified.
-
-### Driver
-
-!!! example "Example V1 Driver configuration section"
-    ```toml
-    [Driver]
-    User = 'service'
-    Password = 'Password!1'
-    # Assign AuthMethod to 'digest' | 'basic' | 'none'
-    # AuthMethod specifies the authentication method used when
-    # requesting still images from the URL returned by the ONVIF
-    # "GetSnapshotURI" command.  All ONVIF requests will be
-    # carried out using digest auth.
-    AuthMethod = 'basic'
-    ```
-
-!!! example "Example V2 Driver configuration section"
-    ```toml
-    [Driver]
-    CredentialsRetryTime = '120' # Seconds
-    CredentialsRetryWait = '1' # Seconds
-    ```
-
-### DeviceList.Protocols.HTTP
-
-!!! example "Example V1 DeviceList.Protocols.HTTP device configuration section"
-    ```toml
-    [DeviceList.Protocols]
-      [DeviceList.Protocols.HTTP]
-      Address = '192.168.2.105'
-    ```
-
-!!! example "Example V2 DeviceList.Protocols.HTTP device configuration section"
-    ```toml
-    [DeviceList.Protocols]
-      [DeviceList.Protocols.HTTP]
-      Address = '192.168.2.105'
-      # Assign AuthMethod to 'digest' | 'usernamepassword' | 'none'
-      # AuthMethod specifies the authentication method used when
-      # requesting still images from the URL returned by the ONVIF
-      # "GetSnapshotURI" command.  All ONVIF requests will be
-      # carried out using digest auth.
-      AuthMethod = 'usernamepassword'
-      CredentialsPath = 'credentials001'
-    ```
-
-### SecretStore
-
-#### Secure
-
-See the [Secret API reference](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.0.0#/default/post_secret) for injecting authentication credentials into a Device Service's secure SecretStore. An entry is required for each camera that is configured with `AuthMethod = 'usernamepassword'`
-
-!!! example - "Example - Authentication credentials injected via Device Camera's `Secret` endpoint"
-    ```bash
-    curl -X POST http://localhost:59985/api/v2/secret  -H 'Content-Type: application/json' -d '{ "apiVersion": "v2", "requestId": "e6e8a2f4-eb14-4649-9e2b-175247911369", "path": "credentials001", "secretData": [  {   "key": "username", "value": "camera-user"  }, {  "key": "password", "value": "camera-password" } ]}'  
-    ```
-
-!!! note
-    The service has to be running for this endpoint to be available.  The following `[Driver]` settings from above allow a window of time to inject the credentials.
-
-    ```toml
-    CredentialsRetryTime = 120 # Seconds
-    CredentialsRetryWait = 1 # Seconds
-    ```
-
-#### Non Secure
-
-For non-secure mode the authentication credentials need to be added to the [InsecureSecrets] configuration section. An entry is required for each camera that is configured with `AuthMethod = 'usernamepassword'`
-
-!!! example - "Example - Authentication credentials in Device Camera's `[InsecureSecrets]` configuration section"
-    ```toml
-    [Writable.InsecureSecrets.Camera001]
-    path = "credentials001"
-      [Writable.InsecureSecrets.Camera001.Secrets]
-      username = "camera-user"
-      password = "camera-password"
     ```
