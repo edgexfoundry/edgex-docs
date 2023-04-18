@@ -35,9 +35,20 @@ A brief video demonstration of building and using the device service:
 </iframe>
 [Get Started>](./Walkthrough/setup.md){: .md-button}
 
+## Security
+This software has numerous security features. For production environments, it is recommended to use secure mode when running the EdgeX software stack. This documentation will contain warnings about any known security vulnerabilities or risks.
+In addition to the security features, it is suggested to use best security practices. These include, but are not limited to:
+
+- Creating strong and unique passwords.
+- Controlling physical access to cameras and devices. 
+- Practicing proper user management for computer systems.
+- Updating firmware in a timely manner.
+
+For more information, please visit the [EdgeX Security documentation](../../../../security/Ch-Security.md)
+
 
 ## Resources
-[Learn more about EdgeX Core Metadata](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/2.1.0)  
+[Learn more about EdgeX Core Metadata](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/{{latest_released_version}})  
 [Learn more about EdgeX Core Command](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-command/2.1.0)
 
 

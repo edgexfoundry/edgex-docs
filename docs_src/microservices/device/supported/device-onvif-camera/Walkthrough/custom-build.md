@@ -29,6 +29,12 @@ Configuring pre-defined devices will allow the service to automatically provisio
    cp ./cmd/res/devices/camera.yaml.example ./cmd/res/devices/camera.yaml
    ```
 
+      <div class='admonition warning'>
+         <p class='admonition-title'>Warning</p>
+         <p>Be careful when storing any potentially important information, including the ip address of your ONVIF camera.</p>
+      </div>
+
+
 1. Open the `cmd/res/devices/camera.yaml` file using your preferred text editor and update the `Address` and `Port` fields to match the IP address of the Camera and port used for ONVIF services:
 
       ```yaml
@@ -58,29 +64,35 @@ Configuring pre-defined devices will allow the service to automatically provisio
 
 1. Make sure `secret name` is set to match `SecretName` in `camera.yaml`. In the sample below, it is `"credentials001"`. If you have multiple cameras, make sure the secret names match.
 
+      
 1. Under `secretName`, set `username` and `password` to your camera credentials. If you have multiple cameras copy the `Writable.InsecureSecrets` section and edit to include the new information.
 
-   ```yaml
-   Writable:
-   LogLevel: INFO
-   InsecureSecrets:
-      credentials001:
-         SecretName: credentials001
-         SecretData:
-         username: <Credentials 1 username>
-         password: <Credentials 1 password>
-         mode: usernametoken   # assign "digest" | "usernametoken" | "both" | "none"
-      credentials002:
-         SecretName: credentials002
-         SecretData:
-         username: <Credentials 2 username>
-         password: <Credentials 2 password>
-         mode: usernametoken    # assign "digest" | "usernametoken" | "both" | "none"
-   ```
+      <div class='admonition warning'>
+         <p class='admonition-title'>Warning</p>
+         <p>Be careful when storing any potentially important information. These credentials are stored in plaintext in the `configuration.yaml` file on your system.</p>
+      </div>
 
-   <p align="left">
-      <i>Sample: Snippet from configuration.yaml</i>
-   </p>
+      ```yaml
+      Writable:
+      LogLevel: INFO
+      InsecureSecrets:
+         credentials001:
+            SecretName: credentials001
+            SecretData:
+            username: <Credentials 1 username>
+            password: <Credentials 1 password>
+            mode: usernametoken   # assign "digest" | "usernametoken" | "both" | "none"
+         credentials002:
+            SecretName: credentials002
+            SecretData:
+            username: <Credentials 2 username>
+            password: <Credentials 2 password>
+            mode: usernametoken    # assign "digest" | "usernametoken" | "both" | "none"
+      ```
+
+      <p align="left">
+         <i>Sample: Snippet from configuration.yaml</i>
+      </p>
 
 ### Additional Configuration Options
 For optional configurations, see [here.](#additional-configuration)

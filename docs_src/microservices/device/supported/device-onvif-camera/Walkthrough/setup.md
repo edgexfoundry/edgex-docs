@@ -13,7 +13,9 @@ Follow this guide to set up your system to run the ONVIF Device Service.
 
 **Other Requirements**
 
-You must have administrator (sudo) privileges to execute the user guide commands.
+You must have administrator (sudo) privileges to execute the user guide commands.  
+
+Make sure that the cameras are secured and the computer system runnning this software is secure.
 
 ## Dependencies
 The software has dependencies, including Git, Docker, Docker Compose, and assorted tools. Follow the instructions below to install any dependency that is not already installed. 

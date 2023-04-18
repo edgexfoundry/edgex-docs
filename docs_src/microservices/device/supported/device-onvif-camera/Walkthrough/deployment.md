@@ -167,6 +167,11 @@ Follow these instructions to update devices.
 
 #### Add Device
 
+      <div class='admonition warning'>
+         <p class='admonition-title'>Warning</p>
+         <p>Be careful when storing any potentially important information, including the ip and mac address of your ONVIF camera.</p>
+      </div>
+
 1. Edit the information to appropriately match the camera. The fields `Address`, `MACAddress` and `Port` should match that of the camera:
 
       ```bash

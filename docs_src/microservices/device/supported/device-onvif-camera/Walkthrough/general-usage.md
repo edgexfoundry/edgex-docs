@@ -37,6 +37,10 @@ This document will describe how to execute some of the most important types of c
         ``` 
 
 3. Stream the RTSP stream. 
+        <div class='admonition warning'>
+                <p class='admonition-title'>Warning</p>
+                <p>RTSP streams are insecure, as the credentials are included in plaintext. Always keep this in mind when streaming via RTSP.</p>
+        </div>
         ffplay can be used to stream. The command follows this format: 
         ```bash
         ffplay -rtsp_transport tcp "rtsp://<user>:<password>@<IP address>:<port>/<streamname>"
