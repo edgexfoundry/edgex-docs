@@ -90,7 +90,7 @@ Phase 3 will not introduce any breaking changes on top of the Phase 2 breaking c
 - Consul will be started with Consul ACLs enabled with persistent agent tokens and a default "allow" policy.
 - Consul bootstrapper will create a bootstrap management token
   and use the provided Vault token to (re)configure the Consul secrets engine in Vault.
-- Do to a [quirk in Consul's ACL behavior](https://www.consul.io/docs/agent/options#acl_default_policy)
+- Do to a [quirk in Consul's ACL behavior](https://developer.hashicorp.com/consul/docs/agent/config/config-files#acl_default_policy)
   that inverts the meaning of an ACL in default-allow mode,
   in phase 1 the Consul bootstrapper will create an agent token
   with the global-management policy and install it into the agent.
@@ -141,10 +141,10 @@ Phase 3 will not introduce any breaking changes on top of the Phase 2 breaking c
   + secretstore-setup will delay starting until Consul has completed leader election.
   + secretstore-setup will be modified to less aggressively revoke tokens.
     Alternatives include
-    [revoke-and-orphan](https://www.vaultproject.io/api/auth/token#revoke-token-and-orphan-children)
+    [revoke-and-orphan](https://developer.hashicorp.com/vault/api-docs/auth/token#revoke-token-and-orphan-children)
     which should leave the Consul tokens intact if the secret store is restarted
     but may leave garbage tokens in the Consul database, or
-    [tidy-tokens](https://www.vaultproject.io/api/auth/token#tidy-tokens)
+    [tidy-tokens](https://developer.hashicorp.com/vault/api-docs/auth/token#tidy-tokens)
     which cleans up invalid entries in the token database, or
     simply leave Vault to its own devices and let Vault clean itself up.
     Testing will be performed and an appropriate mechanism selected.

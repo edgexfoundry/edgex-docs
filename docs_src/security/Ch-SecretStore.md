@@ -201,7 +201,7 @@ username            redis5
 ```
 
 With the root token, it is possible to modify any Vault setting.
-See the [Vault manual](https://www.vaultproject.io/docs/commands) for available commands.
+See the [Vault manual](https://developer.hashicorp.com/vault/docs/commands) for available commands.
 
 
 ### Use the Vault REST API
@@ -237,7 +237,7 @@ curl -s -H 'X-Vault-Token: s.ULr5bcjwy8S0I5g3h4xZ5uWa' http://localhost:8200/v1/
 ```
 
 See HashiCorp Vault API documentation for further details on syntax and
-usage (<https://www.vaultproject.io/api/>).
+usage (<https://developer.hashicorp.com/vault/api-docs>).
 
 ### Using the Vault Web UI
 

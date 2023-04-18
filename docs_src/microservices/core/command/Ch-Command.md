@@ -367,10 +367,10 @@ Example of making get command request via messaging:
   }
 }
 ```
-2. Receive command response message from external MQTT broker on topic `edgex/commandquery/response/#`:
+2. Receive command response message from external MQTT broker on topic `edgex/command/response/#`:
 ```json
 {
-  "ReceivedTopic":"edgex/device/command/response/device-virtual/Random-Boolean-Device/Bool/get",
+  "ReceivedTopic":"edgex/command/response/Random-Boolean-Device/Bool/get",
   "CorrelationID":"14a42ea6-c394-41c3-8bcd-a29b9f5e6835",
   "ApiVersion":"v2",
   "RequestID":"e6e8a2f4-eb14-4649-9e2b-175247911369",
@@ -432,7 +432,7 @@ The payload is the base64-encoding json struct:
 2. Receive command response message from external MQTT broker on topic `edgex/command/response/#`
 ```json
 {
-  "ReceivedTopic":"edgex/device/command/response/device-virtual/Random-Boolean-Device/Bool/set",
+  "ReceivedTopic":"edgex/command/response/Random-Boolean-Device/WriteBoolValue/set",
   "CorrelationID":"14a42ea6-c394-41c3-8bcd-a29b9f5e6835",
   "ApiVersion":"v2",
   "RequestID":"e6e8a2f4-eb14-4649-9e2b-175247911369",

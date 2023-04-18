@@ -56,7 +56,7 @@ from client and thus provides better security. It's created and stored onto the 
 
 `security-bootstrapper` service also uses Consul's bootstrap token to generate Vault's role based from
 Consul Secrets Engine API `/consul/role/<role_name>` for all internal default EdgeX services
-and add-on services via environment variable `ADD_REGISTRY_ACL_ROLES`. Please see more details
+and add-on services via environment variable `EDGEX_ADD_REGISTRY_ACL_ROLES`. Please see more details
 and some examples in [Configuring Add-on Service documentation section](Ch-Configuring-Add-On-Services.md)
 for how to configure add-on services' ACL roles.
 
