@@ -196,11 +196,12 @@ plugins:
         - template_macros.yaml
       on_error_fail: true
   - htmlproofer:
-      enabled: !ENV [ENABLED_HTMLPROOFER, False]
-      raise_error: True
+      enabled: !ENV [ENABLED_HTMLPROOFER, false]
+      raise_error: true
       raise_error_excludes:
         404: ['https://support.google.com/accounts/answer/185833?hl=en',
               'https://support.google.com/accounts/answer/6010255?hl=en']
         429: ['*']
         -1: ['https://www.rfc-editor.org/rfc/rfc7519',
-             'https://tools.ietf.org/html/rfc5869']
+             'https://tools.ietf.org/html/rfc5869','https://docs.iotaap.io/docs-rest/']
+        500: [https://packages.ubuntu.com/bionic/build-essential]
