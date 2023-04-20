@@ -18,7 +18,7 @@ This document will describe how to execute some of the most important types of c
         profileToken: profile_2
         ```
 
-2. To get the RTSP URI from the ONVIF device, execute the `GetStreamURI` command, using a profileToken found in [step 1](#step1):  
+2. To get the RTSP URI from the ONVIF device, execute the `GetStreamURI` command, using a profileToken found in step 1:  
         In this example, `profile_1` is the profileToken:  
         ```bash
         curl -s "http://0.0.0.0:59882/api/v2/device/name/Camera001/StreamUri?jsonObject=$(base64 -w 0 <<< '{
