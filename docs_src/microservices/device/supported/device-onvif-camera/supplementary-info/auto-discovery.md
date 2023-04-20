@@ -85,7 +85,7 @@ See [Credentials Guide](credentials.md) for more information.
 
 #### netscan
 `netscan` works by sending unicast UDP [WS-Discovery](./ws-discovery.md) probes to a set of 
-IP addresses on the CIDR subnet(s) configured via [`DiscoverySubnets`](#DiscoverySubnets).
+IP addresses on the CIDR subnet(s) configured via [`DiscoverySubnets`](#discoverysubnets).
 
 For example, if the provided CIDR is `10.0.0.0/24`, it will probe the all IP addresses 
 from `10.0.0.1` to `10.0.0.254`. This will result in a total of 254 probes on the network.
@@ -242,9 +242,9 @@ flowchart TD
 #### netscan discovery was called, but DiscoverySubnets are empty!
 This message occurs when you have not configured the `AppCustom.DiscoverySubnets` configuration.
 It is required in order to know which subnets to scan for Onvif Cameras.
-See [here](#DiscoverySubnets)
+See [here](#discoverysubnets)
 
 #### route ip+net: no such network interface
 This message occurs when you have multicast discovery enabled, but `AppCustom.DiscoveryEthernetInterface`
 is configured to a network interface that does not exist.
-See [here](#DiscoveryEthernetInterface)
+See [here](#discoveryethernetinterface)
