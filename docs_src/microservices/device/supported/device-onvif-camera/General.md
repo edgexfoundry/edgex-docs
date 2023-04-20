@@ -43,7 +43,7 @@ A brief video demonstration of building and using the device service:
 
 ## References
 
-- [ONVIF Website](http://www.onvif.org)  
+- [ONVIF Website](https://www.onvif.org)  
 - [EdgeX Foundry Project Wiki](https://wiki.edgexfoundry.org/)  
 - [EdgeX Source Code](https://github.com/edgexfoundry)  
 - [Edgex Developer Guide](https://docs.edgexfoundry.org/2.1/)
