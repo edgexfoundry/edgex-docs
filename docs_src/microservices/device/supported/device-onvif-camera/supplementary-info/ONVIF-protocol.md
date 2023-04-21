@@ -220,6 +220,13 @@ The following table shows the Onvif functions tested for various Onvif cameras:
 * 'ⓘ' means there is additional details available. Click it to read more.
 * Empty cells means the function has not yet been tested.
 
+### Camera Documentation
+Use these links to access maufacturer documentation
+
+| Hikvision DFI6256TE | Tapo C200 | BOSCH DINION IP starlight 6000 HD | GeoVision GV-BX8700 | Hikvision DS-2DE2A404IW-DE3 |
+|---------------------|-----------|-----------------------------------|---------------------|---------------------|
+| ❌                  | [Camera Page](https://www.tapo.com/us/product/smart-camera/tapo-c200/) | [Camera Page](https://commerce.boschsecurity.com/tw/en/DINION-IP-starlight-6000-HD/p/20827877387/)| [Camera Page](https://www.geovision.com.tw/product/GV-BX8700-FD) | [Camera Page](https://us.hikvision.com/en/products/cameras/network-ptz-camera/value-series/ir/outdoor/4-mp-4x-ir-outdoor-network-ptz-camera-ds) |
+
 ### User Authentication
 | Onvif Web Service | Onvif Function   | Hikvision DFI6256TE | Tapo C200 | BOSCH DINION IP starlight 6000 HD | GeoVision GV-BX8700 | Hikvision DS-2DE2A404IW-DE3|
 |-------------------|------------------|---------------------|-----------|-----------------------------------|---------------------|---------------------|
