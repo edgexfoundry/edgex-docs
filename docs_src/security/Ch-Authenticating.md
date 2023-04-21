@@ -63,6 +63,7 @@ using `curl` as the example HTTP client:
 3. Using the JWT to call an EdgeX API
 
 The example will be done in the Docker environment.
+For snaps, refer [here](../../getting-started/Ch-GettingStartedSnapUsers/#adding-api-gateway-users).
 The docker network architecture is illustrated below:
 
 ![Network diagram](authentication-network.jpg)
