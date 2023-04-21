@@ -19,6 +19,11 @@ Follow this guide to deploy and run the service.
       
       3. Run EdgeX with the microservice in secure mode:
 
+          <div class="admonition note">
+             <p class="admonition-title">Note</p>
+             <p>Recommended for secure and actual deployments</p>
+          </div>
+
          ```bash
          make run ds-onvif-camera
          ```
